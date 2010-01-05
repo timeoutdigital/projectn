@@ -1,0 +1,75 @@
+#Represents a venue aka Point of interest
+Poi:
+  actAs:
+    Timestampable: ~
+  columns:
+    imported_poi_id:            {type: integer, notnull: false}
+    local_language:             {type: string(10), notnull: false}
+    poi_name:                   {type: string(80), notnull: false}
+    house_no:                   {type: string(16), notnull: false}
+    street:                     {type: string(128), notnull: true}
+    city:                       {type: string(32), notnull: true}
+    district:                   {type: string(128), notnull: false}
+    country:                    {type: string(3), notnull: true}
+    additional_address_details: {type: string(128), notnull: false}
+    zips:                       {type: string(16), notnull: false}
+    country_code:               {}
+    longitude:                  {}
+    latitude:                   {}
+    email:                      {}
+    url:                        {}
+    phone:                      {}
+    phone2:                     {}
+    fax:                        {}
+    language:                   {}
+    keywords:                   {}
+    short_description:          {}
+    description:                {}
+    public_transport_links:     {}
+    price_information:          {}
+    openingtimes:               {}
+    star_rating:                {}
+    rating:                     {}
+    provider:                   {}
+
+
+#Any media that is associated to the poi
+PoiMedia:
+  actAs:
+    Timestampable: ~
+  columns:
+    media_url:                  {}
+    mime_type:                  {}
+
+#Are there more than points of contact? May be redundant
+PoiContact:
+  actAs:
+    Timestampable: ~
+  columns:
+    email:                      {}
+
+#
+PoiCategory:
+
+
+#Rating that the critic gives to the poi
+PoiCriticRating:
+  actAs:
+    Timestampable: ~
+  columns:
+    comment_subject:            {}
+    comment_body:               {}
+    user_rating:                {}
+    poi_user_id:                {}
+  relations:
+     PoiUser: {onDelete: CASCADE, local: poi_user_id, foreign: id, foreignAlias: PoiUsers}
+
+#The individual critic who is comments against a poi
+PoiCritic:
+  actAs:
+    Timestampable: ~
+  columns:
+    user_name:                  {}
+    user_reputation:            {}
+    user_infomation:            {}
+    total_comments:             {}
