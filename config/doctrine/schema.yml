@@ -2,8 +2,10 @@
 Poi:
   actAs:
     Timestampable: ~
+    I18n:
+      fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
-    imported_poi_id:            {type: integer, notnull: false}
+    vender_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false}
     house_no:                   {type: string(16), notnull: false}
@@ -13,63 +15,195 @@ Poi:
     country:                    {type: string(3), notnull: true}
     additional_address_details: {type: string(128), notnull: false}
     zips:                       {type: string(16), notnull: false}
-    country_code:               {}
-    longitude:                  {}
-    latitude:                   {}
-    email:                      {}
-    url:                        {}
-    phone:                      {}
-    phone2:                     {}
-    fax:                        {}
-    language:                   {}
-    keywords:                   {}
-    short_description:          {}
-    description:                {}
-    public_transport_links:     {}
-    price_information:          {}
-    openingtimes:               {}
-    star_rating:                {}
-    rating:                     {}
-    provider:                   {}
-
+    country_code:               {type: string(2)}, notnull: true}
+    extension:                  {type: string(128), notnull: false}
+    longitude:                  {type: decimal(4), scale:1, notnull: true}
+    latitude:                   {type: decimal(4), scale:1, notnull: true}
+    email:                      {type: string(128, notnull: false}
+    url:                        {type: string(1024), notnull: false}
+    phone:                      {type: string(32), notnull: false}
+    phone2:                     {type: string(32), notnull: false}
+    fax:                        {type: string(32), notnull: false}
+    language:                   {type: string, notnull: false}
+    vendor_category:            {type: string(128), notnull: false}
+    keywords:                   {type: string(512), notnull: false}
+    short_description:          {type: string(2048), notnull: false}
+    description:                {type: string(65535),notnull: false}
+    public_transport_links:     {type: string(1024), notnull: false}
+    price_information:          {type: string(512), notnull: false}
+    openingtimes:               {type: string(512), notnull: false}
+    star_rating:                {type: integer(1), notnull: false}
+    rating:                     {type: integer(1), notnull:false}
+    provider:                   {type: string(512), notnull: false}
+    poi_category_id:            {type: integer, notnull: true}
+  relations:
+    PoiCategory:                {local: poi_category_id, foreign: id}
 
 #Any media that is associated to the poi
 PoiMedia:
   actAs:
     Timestampable: ~
   columns:
-    media_url:                  {}
-    mime_type:                  {}
+    media_url:                  {type: string(1024), notnull: true}
+    mime_type:                  {type: string(255), notnull: true}
+    poi_id:                     {type: integer: notnull: true}
+  relations:
+    Poi:                        {local: poi_id, foreign: id}
 
 #Are there more than points of contact? May be redundant
-PoiContact:
+#PoiContact:
+#  actAs:
+#    Timestampable: ~
+#  columns:
+#    email:                      {}
+
+#Categories available for Pois
+PoiCategory:
   actAs:
     Timestampable: ~
   columns:
-    email:                      {}
-
-#
-PoiCategory:
-
+    parent_id:                  {type: integer}
+    name:                       {type: string(50), notnull: true}
+  relations: 
+    Parent:                     {onDelete: CASCADE, class: PoiCategory, local: parent_id, foreign: id, foreignAlias: SubCategories}
 
 #Rating that the critic gives to the poi
-PoiCriticRating:
+PoiUserContent:
   actAs:
     Timestampable: ~
   columns:
-    comment_subject:            {}
-    comment_body:               {}
-    user_rating:                {}
-    poi_user_id:                {}
+    vender_ucid:                {type: string(32), notnull: true}
+    comment_subject:            {type: string(512), notnull: true}
+    comment_body:               {type: string(65535), notnull: true}
+    user_rating:                {type: float, notnull: false}
+    poi_user_id:                {type: integer, notnull: true}
   relations:
-     PoiUser: {onDelete: CASCADE, local: poi_user_id, foreign: id, foreignAlias: PoiUsers}
+     PoiUser:                   {onDelete: CASCADE, local: poi_user_id, foreign: id, foreignAlias: PoiUsers}
+     Poi:                       {onDelete: CASCADE, local: poi_id, foreign: id, foreignAlias: Poi}
 
 #The individual critic who is comments against a poi
-PoiCritic:
+PoiUser:
   actAs:
     Timestampable: ~
   columns:
-    user_name:                  {}
-    user_reputation:            {}
-    user_infomation:            {}
-    total_comments:             {}
+    vender_id:                  {type: integer, notnull: true}
+    user_name:                  {type: string(32), notnull: true}
+    user_reputation:            {type: integer(1), notnull: false}
+    user_infomation:            {type: string, notnull: true}
+    comments_relevance:         {type: float, notnull: false}
+    specialty:                  {type: string(128), notnull: false}
+
+#Key value pairs for unmappable values on a Poi
+PoiProperty:
+  actAs:
+    Timestampable: ~
+  columns:
+    key:                        {type: string(50), notnull: true}
+    value:                      {type: string(50), notnull: true}
+    poi_id:                     {type: integer, notnull: true}
+  relations:
+    Poi:                        {local: poi_id, foreign: id}
+
+#Represents an event
+Event:
+  actAs:
+    Timestampable: ~
+    I18n:
+      fields: [name, vendor_category, short_description, description, booking_url]
+  columns:
+    vender_id:                    {type: integer, notnull: true}
+    name:                         {type: string(256), notnull: true}
+    category_id:                  {type: string(256), notnull: true}
+    short_description:            {type: string(1024), notnull: false}
+    description:                  {type: string(65535), notnull: false}
+    booking_url:                  {type: string(1024), notnull: false}
+    url:                          {type: string(1024), notnull: false}
+    price:                        {type: string(1024), notnull: false}
+    rating:                       {type: float, notnull: false}
+    event_category_id:            {type: integer, notnull: true}
+    poi_id:                       {type: integer, notnull: true}
+  relations:
+    EventCategory:                {local: event_category_id, foreign: id}
+    Poi:                          {local: poi_id, foreign: id}
+
+EventOccurence:
+  columns:
+    vender_id:                    {type: integer, notnull: true}
+    booking_url:                  {type: string(1024), notnull: false}
+    start_date:                   {type: date, notnull: true}
+    end_date:                     {type: date, notnull: true}
+    start_time:                   {type: time, notnull: true}
+    end_time:                     {type: time, notnull: true}
+    utc_offset:                   {type: time, notnull: true}
+    event_id:                     {type: integer, notnull: true}
+    poi_id:                       {type: integer, notnull: true}
+  relations:
+    Event:                        {local: event_id, foreign: id, foreignType: one}
+    Poi:                          {local: poi_id, foreign: id, foreignType: one}
+
+#Key value pairs for unmappable values on the Poi
+EventProperty:
+  actAs:
+    Timestampable: ~
+  columns:
+    key:                        {type: string(50), notnull: true}
+    value:                      {type: string(50), notnull: true}
+    event_id:                   {type: integer, notnull: true}
+  relations:
+    Event:                      {local: poi_id, foreign: id}
+
+#Represents a movie
+Movie:
+  columns:
+    vender_id:                  {type: integer, notnull: true}
+    name:                       {type: string(256), notnull: true}
+    genre:                      {type: string(256), notnull: true}
+    plot:                       {type: string(65535), notnull: false}
+    review:                     {type: string(65535), notnull: false}
+    url:                        {type: string(1024), notnull: false}
+    rating:                     {type: float, notnull: false}
+    age_rating:                 {type: string(32), notnull: false}
+
+#A occurrence of a movie
+MovieOccurence:
+  columns:
+    vender_id:                  {type: integer, notnull: true}
+    start_date:                 {type: date, notnull: true}
+    end_date:                   {type: date, notnull: false}
+    start_time:                 {type: time, notnull: false}
+    end_time:                   {type: time, notnull: false}
+    utf_offset:                 {type: time, notnull: true}
+    movie_id:                   {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: true}
+  relations:
+    Movie:                      {local: movie_id, foreign: id}
+    Poi:                        {local: poi_id, foreign: id, foreignType: one}
+
+#Any media that is associated to a Movie
+MovieMedia:
+  actAs:
+    Timestampable: ~
+  columns:
+    media_url:                  {type: string(1024), notnull: true}
+    mime_type:                  {type: string(255), notnull: true}
+    movie_id:                   {type: integer: notnull: true}
+  relations:
+    Movie:                      {local: movie_id, foreign: id}
+
+#Key value pairs for unmappable values on a Movie
+MovieProperty:
+  actAs:
+    Timestampable: ~
+  columns:
+    key:                        {type: string(50), notnull: true}
+    value:                      {type: string(50), notnull: true}
+    movie_id:                   {type: integer, notnull: true}
+  relations:
+    Movie:                      {local: movie_id, foreign: id}
+
+Licensee:
+  actAs:
+    Timestampable: ~
+  columns:
+    city:                       {type: string(15), notnull: true}
+    language:                   {type: string(10), notnull: true}
