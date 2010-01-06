@@ -5,3 +5,19 @@ all:
       dsn: 'sqlite:/tmp/sf_sandbox/data/sandbox.db'
       username: root
       password: null
+
+dev:
+  n_local:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=projectn'
+      username: projectn
+      password: !ntcejorp!
+
+test:
+  n_local:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=projectn_test'
+      username: projectntest
+      password: !ntcejorp!
