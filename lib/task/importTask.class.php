@@ -29,19 +29,21 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    $xml = simplexml_load_file('import/tony_leo_test_correct.xml');
+   // $xml = simplexml_load_file('import/tony_leo_test_correct.xml');
     
-    $locations = $xml->xpath("/body/address");
-    $events = $xml->xpath('/body/event');
+   // $locations = $xml->xpath("/body/address");
+   // $events = $xml->xpath('/body/event');
   
-
+     $processXmlObj = new processXml('import/tony_leo_test_correct.xml');
     /**
      * @todo Create tests
      *
      */
     //check to see if an array and > 12 is returned
       
-       echo count($events);
+       $processXmlObj->loadXml();
+       $processXmlObj->setEvents('/body/event');
+       echo count($processXmlObj->getEvents());
     /*foreach($locations as $location)
     {
         echo "{$location->identifier} \n";
