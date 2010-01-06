@@ -46,7 +46,7 @@ PoiMedia:
   columns:
     media_url:                  {type: string(1024), notnull: true}
     mime_type:                  {type: string(255), notnull: true}
-    poi_id:                     {type: integer: notnull: true}
+    poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
 
@@ -67,7 +67,7 @@ PoiCategory:
   relations: 
     Parent:                     {onDelete: CASCADE, class: PoiCategory, local: parent_id, foreign: id, foreignAlias: SubCategories}
 
-#Rating that the critic gives to the poi
+#Rating that the user gives to the poi
 PoiUserContent:
   actAs:
     Timestampable: ~
@@ -77,11 +77,12 @@ PoiUserContent:
     comment_body:               {type: string(65535), notnull: true}
     user_rating:                {type: float, notnull: false}
     poi_user_id:                {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: true}
   relations:
      PoiUser:                   {onDelete: CASCADE, local: poi_user_id, foreign: id, foreignAlias: PoiUsers}
      Poi:                       {onDelete: CASCADE, local: poi_id, foreign: id, foreignAlias: Poi}
 
-#The individual critic who is comments against a poi
+#The individual user who is comments against a poi
 PoiUser:
   actAs:
     Timestampable: ~
@@ -98,7 +99,7 @@ PoiProperty:
   actAs:
     Timestampable: ~
   columns:
-    key:                        {type: string(50), notnull: true}
+    lookup:                     {type: string(50), notnull: true}
     value:                      {type: string(50), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
@@ -146,9 +147,10 @@ EventProperty:
   actAs:
     Timestampable: ~
   columns:
-    key:                        {type: string(50), notnull: true}
+    lookup:                     {type: string(50), notnull: true}
     value:                      {type: string(50), notnull: true}
     event_id:                   {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: true}
   relations:
     Event:                      {local: poi_id, foreign: id}
 
@@ -186,7 +188,7 @@ MovieMedia:
   columns:
     media_url:                  {type: string(1024), notnull: true}
     mime_type:                  {type: string(255), notnull: true}
-    movie_id:                   {type: integer: notnull: true}
+    movie_id:                   {type: integer, notnull: true}
   relations:
     Movie:                      {local: movie_id, foreign: id}
 
@@ -195,7 +197,7 @@ MovieProperty:
   actAs:
     Timestampable: ~
   columns:
-    key:                        {type: string(50), notnull: true}
+    lookup:                     {type: string(50), notnull: true}
     value:                      {type: string(50), notnull: true}
     movie_id:                   {type: integer, notnull: true}
   relations:
