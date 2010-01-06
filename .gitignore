@@ -5,3 +5,5 @@ nbproject/
 import/
 .project
 .settings
+*.swp
+*.swo

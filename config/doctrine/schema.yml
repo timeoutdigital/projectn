@@ -36,7 +36,9 @@ Poi:
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
     poi_category_id:            {type: integer, notnull: true}
+    licensee_id:                {type: integer, notnull: true}
   relations:
+    Licensee:                   {local: licensee_id, foreign: id}
     PoiCategory:                {local: poi_category_id, foreign: id}
 
 #Any media that is associated to the poi
@@ -127,6 +129,7 @@ Event:
     EventCategory:                {local: event_category_id, foreign: id}
     Poi:                          {local: poi_id, foreign: id}
 
+#Represents an occurence of an event
 EventOccurence:
   columns:
     vender_id:                    {type: integer, notnull: true}
@@ -141,6 +144,10 @@ EventOccurence:
   relations:
     Event:                        {local: event_id, foreign: id, foreignType: one}
     Poi:                          {local: poi_id, foreign: id, foreignType: one}
+
+EventCategory:
+  columns:
+    name:                         {type: string(50), notnull: true}
 
 #Key value pairs for unmappable values on the Poi
 EventProperty:
