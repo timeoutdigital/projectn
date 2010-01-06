@@ -33,7 +33,7 @@ Poi:
     price_information:          {type: string(512), notnull: false}
     openingtimes:               {type: string(512), notnull: false}
     star_rating:                {type: integer(1), notnull: false}
-    rating:                     {type: integer(1), notnull:false}
+    rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
     poi_category_id:            {type: integer, notnull: true}
   relations:
