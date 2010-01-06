@@ -17,8 +17,8 @@ Poi:
     zips:                       {type: string(16), notnull: false}
     country_code:               {type: string(2), notnull: true}
     extension:                  {type: string(128), notnull: false}
-    longitude:                  {type: decimal(4), scale:1, notnull: true}
-    latitude:                   {type: decimal(4), scale:1, notnull: true}
+    longitude:                  {type: decimal(4), notnull: true}
+    latitude:                   {type: decimal(4), notnull: true}
     email:                      {type: string(128, notnull: false}
     url:                        {type: string(1024), notnull: false}
     phone:                      {type: string(32), notnull: false}
