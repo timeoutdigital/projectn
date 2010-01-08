@@ -36,8 +36,8 @@
  * @property integer $rating
  * @property string $provider
  * @property integer $poi_category_id
- * @property integer $licensee_id
- * @property Licensee $Licensee
+ * @property integer $vendor_id
+ * @property Vendor $Vendor
  * @property PoiCategory $PoiCategory
  * @property Doctrine_Collection $PoiMedia
  * @property Doctrine_Collection $PoiProperty
@@ -77,8 +77,8 @@
  * @method integer             getRating()                     Returns the current record's "rating" value
  * @method string              getProvider()                   Returns the current record's "provider" value
  * @method integer             getPoiCategoryId()              Returns the current record's "poi_category_id" value
- * @method integer             getLicenseeId()                 Returns the current record's "licensee_id" value
- * @method Licensee            getLicensee()                   Returns the current record's "Licensee" value
+ * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
+ * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
  * @method PoiCategory         getPoiCategory()                Returns the current record's "PoiCategory" value
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
@@ -117,8 +117,8 @@
  * @method Poi                 setRating()                     Sets the current record's "rating" value
  * @method Poi                 setProvider()                   Sets the current record's "provider" value
  * @method Poi                 setPoiCategoryId()              Sets the current record's "poi_category_id" value
- * @method Poi                 setLicenseeId()                 Sets the current record's "licensee_id" value
- * @method Poi                 setLicensee()                   Sets the current record's "Licensee" value
+ * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
+ * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
  * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" value
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
@@ -291,7 +291,7 @@ abstract class BasePoi extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('licensee_id', 'integer', null, array(
+        $this->hasColumn('vendor_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));
@@ -300,8 +300,8 @@ abstract class BasePoi extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Licensee', array(
-             'local' => 'licensee_id',
+        $this->hasOne('Vendor', array(
+             'local' => 'vendor_id',
              'foreign' => 'id'));
 
         $this->hasOne('PoiCategory', array(
