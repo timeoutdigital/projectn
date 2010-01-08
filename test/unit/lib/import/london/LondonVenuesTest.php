@@ -105,50 +105,6 @@ class LondonVenuesTest extends PHPUnit_Extensions_Database_TestCase
   }
 
   /**
-   * Checks validateStreet() returns true is a string and not empty
-   */
-  public function testValidatesStreet()
-  {
-    $this->assertFalse( $this->object->validateStreet( '' ) );
-    $this->assertFalse( $this->object->validateStreet( 34 ) );
-    $this->assertTrue(  $this->object->validateStreet( '34' ) );
-    $this->assertTrue(  $this->object->validateStreet( 'Abc ^&DEF-_-' ) );
-  }
-
-  /**
-   * Checks validateCity() returns true if is a string and not empty
-   */
-  public function testValidatesCity()
-  {
-    $this->assertFalse( $this->object->validateCity( '' ) );
-    $this->assertFalse( $this->object->validateCity( 34 ) );
-    $this->assertFalse(  $this->object->validateCity( '34' ) );
-    $this->assertFalse(  $this->object->validateCity( 'Abc ^&DEF-_-' ) );
-    $this->assertTrue(  $this->object->validateCity( 'District 9-1' ) );
-  }
-
-  /**
-   * Checks validatePublicTransportLink() is true for
-   * non-empty strings with only alphanumeric and [-_:,] characters
-   */
-  public function testValidatesPublicTransportLink()
-  {
-    $this->assertFalse( $this->object->validatePublicTransportLink( '' ) );
-    $this->assertFalse( $this->object->validatePublicTransportLink( 34 ) );
-    $this->assertFalse(  $this->object->validatePublicTransportLink( '34' ) );
-    $this->assertFalse(  $this->object->validatePublicTransportLink( 'Abc ^&DEF-_-' ) );
-    $this->assertTrue(  $this->object->validatePublicTransportLink( 'Buses: 31, 131, Tubes: Finchy Road' ) );
-  }
-
-  /**
-   * Checks validatesLongituteLatitude() returns true if meets WG584 standard
-   */
-  public function testValidatesLongituteLatitude()
-  {
-//    $this->assertFalse( '' );
-  }
-
-  /**
    * Checks all required fields all imported from the London database
    *
    */

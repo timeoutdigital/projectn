@@ -112,7 +112,7 @@ Event:
   columns:
     vendor_id:                  {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
-    category_id:                {type: string(256), notnull: true}
+    vendor_category:            {type: string(256), notnull: true}
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
@@ -131,10 +131,8 @@ EventOccurence:
   columns:
     vendor_id:                  {type: integer, notnull: true}
     booking_url:                {type: string(1024), notnull: false}
-    start_date:                 {type: date, notnull: true}
-    end_date:                   {type: date, notnull: true}
-    start_time:                 {type: time, notnull: true}
-    end_time:                   {type: time, notnull: true}
+    start:                      {type: date, notnull: true}
+    end:                        {type: date, notnull: true}
     utc_offset:                 {type: time, notnull: true}
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
@@ -186,10 +184,8 @@ Movie:
 #A occurrence of a movie
 MovieOccurence:
   columns:
-    start_date:                 {type: date, notnull: true}
-    end_date:                   {type: date, notnull: false}
-    start_time:                 {type: time, notnull: false}
-    end_time:                   {type: time, notnull: false}
+    start:                      {type: datetime, notnull: true}
+    end:                        {type: datetime, notnull: false}
     utf_offset:                 {type: time, notnull: true}
     movie_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
