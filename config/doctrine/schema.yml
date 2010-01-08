@@ -5,7 +5,7 @@ Poi:
     I18n:
       fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
-    vender_poi_id:              {type: integer, notnull: false}
+    vendor_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false}
     house_no:                   {type: string(16), notnull: false}
@@ -17,8 +17,8 @@ Poi:
     zips:                       {type: string(16), notnull: false}
     country_code:               {type: string(2), notnull: true}
     extension:                  {type: string(128), notnull: false}
-    longitude:                  {type: decimal(4), notnull: true}
-    latitude:                   {type: decimal(4), notnull: true}
+    longitude:                  {type: decimal(18), scale: 15, notnull: true}
+    latitude:                   {type: decimal(18), scale: 15, notnull: true}
     email:                      {type: string(128, notnull: false}
     url:                        {type: string(1024), notnull: false}
     phone:                      {type: string(32), notnull: false}
@@ -52,13 +52,6 @@ PoiMedia:
   relations:
     Poi:                        {local: poi_id, foreign: id}
 
-#Are there more than points of contact? May be redundant
-#PoiContact:
-#  actAs:
-#    Timestampable: ~
-#  columns:
-#    email:                      {}
-
 #Categories available for Pois
 PoiCategory:
   actAs:
@@ -68,33 +61,6 @@ PoiCategory:
     name:                       {type: string(50), notnull: true}
   relations: 
     Parent:                     {onDelete: CASCADE, class: PoiCategory, local: parent_id, foreign: id, foreignAlias: SubCategories}
-
-#Rating that the user gives to the poi
-PoiUserContent:
-  actAs:
-    Timestampable: ~
-  columns:
-    vender_ucid:                {type: string(32), notnull: true}
-    comment_subject:            {type: string(512), notnull: true}
-    comment_body:               {type: string(65535), notnull: true}
-    user_rating:                {type: float, notnull: false}
-    poi_user_id:                {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
-  relations:
-     PoiUser:                   {onDelete: CASCADE, local: poi_user_id, foreign: id, foreignAlias: PoiUsers}
-     Poi:                       {onDelete: CASCADE, local: poi_id, foreign: id, foreignAlias: Poi}
-
-#The individual user who is comments against a poi
-PoiUser:
-  actAs:
-    Timestampable: ~
-  columns:
-    vender_id:                  {type: integer, notnull: true}
-    user_name:                  {type: string(32), notnull: true}
-    user_reputation:            {type: integer(1), notnull: false}
-    user_infomation:            {type: string, notnull: true}
-    comments_relevance:         {type: float, notnull: false}
-    specialty:                  {type: string(128), notnull: false}
 
 #Key value pairs for unmappable values on a Poi
 PoiProperty:
@@ -107,6 +73,33 @@ PoiProperty:
   relations:
     Poi:                        {local: poi_id, foreign: id}
 
+#Rating that the user gives to the poi
+UserContent:
+  actAs:
+    Timestampable: ~
+  columns:
+    vendor_ucid:                {type: string(32), notnull: true}
+    comment_subject:            {type: string(512), notnull: true}
+    comment_body:               {type: string(65535), notnull: true}
+    user_rating:                {type: float, notnull: false}
+    user_id:                    {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: true}
+  relations:
+     User:                      {onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: Users}
+     Poi:                       {onDelete: CASCADE, local: poi_id, foreign: id, foreignAlias: Poi}
+
+#The individual user who is comments against a poi
+User:
+  actAs:
+    Timestampable: ~
+  columns:
+    vendor_id:                  {type: integer, notnull: true}
+    user_name:                  {type: string(32), notnull: true}
+    user_reputation:            {type: integer(1), notnull: false}
+    user_infomation:            {type: string, notnull: true}
+    comments_relevance:         {type: float, notnull: false}
+    specialty:                  {type: string(128), notnull: false}
+
 #Represents an event
 Event:
   actAs:
@@ -114,7 +107,7 @@ Event:
     I18n:
       fields: [name, vendor_category, short_description, description, booking_url]
   columns:
-    vender_id:                    {type: integer, notnull: true}
+    vendor_id:                    {type: integer, notnull: true}
     name:                         {type: string(256), notnull: true}
     category_id:                  {type: string(256), notnull: true}
     short_description:            {type: string(1024), notnull: false}
@@ -132,7 +125,7 @@ Event:
 #Represents an occurence of an event
 EventOccurence:
   columns:
-    vender_id:                    {type: integer, notnull: true}
+    vendor_id:                    {type: integer, notnull: true}
     booking_url:                  {type: string(1024), notnull: false}
     start_date:                   {type: date, notnull: true}
     end_date:                     {type: date, notnull: true}
@@ -164,7 +157,7 @@ EventProperty:
 #Represents a movie
 Movie:
   columns:
-    vender_id:                  {type: integer, notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
     genre:                      {type: string(256), notnull: true}
     plot:                       {type: string(65535), notnull: false}
@@ -176,7 +169,7 @@ Movie:
 #A occurrence of a movie
 MovieOccurence:
   columns:
-    vender_id:                  {type: integer, notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
     start_date:                 {type: date, notnull: true}
     end_date:                   {type: date, notnull: false}
     start_time:                 {type: time, notnull: false}
