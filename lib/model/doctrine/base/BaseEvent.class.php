@@ -18,7 +18,9 @@
  * @property integer $poi_id
  * @property EventCategory $EventCategory
  * @property Poi $Poi
+ * @property Vendor $Vendor
  * @property EventOccurence $EventOccurence
+ * @property Doctrine_Collection $EventMedia
  * @property Doctrine_Collection $EventProperty
  * 
  * @method integer             getVendorId()          Returns the current record's "vendor_id" value
@@ -34,7 +36,9 @@
  * @method integer             getPoiId()             Returns the current record's "poi_id" value
  * @method EventCategory       getEventCategory()     Returns the current record's "EventCategory" value
  * @method Poi                 getPoi()               Returns the current record's "Poi" value
+ * @method Vendor              getVendor()            Returns the current record's "Vendor" value
  * @method EventOccurence      getEventOccurence()    Returns the current record's "EventOccurence" value
+ * @method Doctrine_Collection getEventMedia()        Returns the current record's "EventMedia" collection
  * @method Doctrine_Collection getEventProperty()     Returns the current record's "EventProperty" collection
  * @method Event               setVendorId()          Sets the current record's "vendor_id" value
  * @method Event               setName()              Sets the current record's "name" value
@@ -49,7 +53,9 @@
  * @method Event               setPoiId()             Sets the current record's "poi_id" value
  * @method Event               setEventCategory()     Sets the current record's "EventCategory" value
  * @method Event               setPoi()               Sets the current record's "Poi" value
+ * @method Event               setVendor()            Sets the current record's "Vendor" value
  * @method Event               setEventOccurence()    Sets the current record's "EventOccurence" value
+ * @method Event               setEventMedia()        Sets the current record's "EventMedia" collection
  * @method Event               setEventProperty()     Sets the current record's "EventProperty" collection
  * 
  * @package    sf_sandbox
@@ -126,7 +132,15 @@ abstract class BaseEvent extends sfDoctrineRecord
              'local' => 'poi_id',
              'foreign' => 'id'));
 
+        $this->hasOne('Vendor', array(
+             'local' => 'vendor_id',
+             'foreign' => 'id'));
+
         $this->hasOne('EventOccurence', array(
+             'local' => 'id',
+             'foreign' => 'event_id'));
+
+        $this->hasMany('EventMedia', array(
              'local' => 'id',
              'foreign' => 'event_id'));
 

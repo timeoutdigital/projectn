@@ -13,6 +13,7 @@
  * @property string $url
  * @property float $rating
  * @property string $age_rating
+ * @property Vendor $Vendor
  * @property Doctrine_Collection $MovieOccurence
  * @property Doctrine_Collection $MovieMedia
  * @property Doctrine_Collection $MovieProperty
@@ -25,6 +26,7 @@
  * @method string              getUrl()            Returns the current record's "url" value
  * @method float               getRating()         Returns the current record's "rating" value
  * @method string              getAgeRating()      Returns the current record's "age_rating" value
+ * @method Vendor              getVendor()         Returns the current record's "Vendor" value
  * @method Doctrine_Collection getMovieOccurence() Returns the current record's "MovieOccurence" collection
  * @method Doctrine_Collection getMovieMedia()     Returns the current record's "MovieMedia" collection
  * @method Doctrine_Collection getMovieProperty()  Returns the current record's "MovieProperty" collection
@@ -36,6 +38,7 @@
  * @method Movie               setUrl()            Sets the current record's "url" value
  * @method Movie               setRating()         Sets the current record's "rating" value
  * @method Movie               setAgeRating()      Sets the current record's "age_rating" value
+ * @method Movie               setVendor()         Sets the current record's "Vendor" value
  * @method Movie               setMovieOccurence() Sets the current record's "MovieOccurence" collection
  * @method Movie               setMovieMedia()     Sets the current record's "MovieMedia" collection
  * @method Movie               setMovieProperty()  Sets the current record's "MovieProperty" collection
@@ -93,6 +96,10 @@ abstract class BaseMovie extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Vendor', array(
+             'local' => 'vendor_id',
+             'foreign' => 'id'));
+
         $this->hasMany('MovieOccurence', array(
              'local' => 'id',
              'foreign' => 'movie_id'));

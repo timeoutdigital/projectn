@@ -11,6 +11,7 @@
  * @property string $user_infomation
  * @property float $comments_relevance
  * @property string $specialty
+ * @property Vendor $Vendor
  * @property Doctrine_Collection $Users
  * 
  * @method integer             getVendorId()           Returns the current record's "vendor_id" value
@@ -19,6 +20,7 @@
  * @method string              getUserInfomation()     Returns the current record's "user_infomation" value
  * @method float               getCommentsRelevance()  Returns the current record's "comments_relevance" value
  * @method string              getSpecialty()          Returns the current record's "specialty" value
+ * @method Vendor              getVendor()             Returns the current record's "Vendor" value
  * @method Doctrine_Collection getUsers()              Returns the current record's "Users" collection
  * @method User                setVendorId()           Sets the current record's "vendor_id" value
  * @method User                setUserName()           Sets the current record's "user_name" value
@@ -26,6 +28,7 @@
  * @method User                setUserInfomation()     Sets the current record's "user_infomation" value
  * @method User                setCommentsRelevance()  Sets the current record's "comments_relevance" value
  * @method User                setSpecialty()          Sets the current record's "specialty" value
+ * @method User                setVendor()             Sets the current record's "Vendor" value
  * @method User                setUsers()              Sets the current record's "Users" collection
  * 
  * @package    sf_sandbox
@@ -70,6 +73,10 @@ abstract class BaseUser extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Vendor', array(
+             'local' => 'vendor_id',
+             'foreign' => 'id'));
+
         $this->hasMany('UserContent as Users', array(
              'local' => 'id',
              'foreign' => 'user_id'));
