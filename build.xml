@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="projectn" default="build" basedir=".">
+  <target name="build" depends="checkout, php-documentor, php-codesniffer, phpunit, php-pmd"/>
+  <target name="checkout">
+    <exec executable="git" dir="${basedir}/source">
+      <arg line="pull" />
+    </exec>
+  </target>
+  <target name="php-documentor">
+    <exec executable="phpdoc" dir="${basedir}/source" logerror="on">
+       <arg line="--title '${ant.project.name} API Documentation' -q -dn '${ant.project.name} API' -ue on -t ${basedir}/source/doc/api -d ${basedir}/source/lib/import -tb '/usr/share/php/data/phpUnderControl/data/phpdoc' -o HTML:Phpuc:phpuc"/>
+    </exec>
+  </target>
+  <target name="php-codesniffer">
+    <exec executable="phpcs" dir="${basedir}/source" output="${basedir}/build/logs/checkstyle.xml" error="/tmp/checkstyle.error.log">
+      <arg line="--report=checkstyle --standard=pear --ignore=*/templates/*,*/om/*,*/map/*,*/symfony/* --extensions=php ${basedir}/source/lib"/>
+    </exec>
+  </target>
+  <target name="phpunit">
+    <exec executable="phpunit" dir="${basedir}/source" failonerror="on">
+      <arg line=" --log-junit ${basedir}/build/logs/phpunit.xml
+                  --coverage-clover ${basedir}/build/logs/phpunit.coverage.xml 
+                  --coverage-html ${basedir}/build/coverage test/unit/lib"/>
+    </exec>
+  </target>
+  <target name="php-pmd">
+    <exec executable="phpmd" dir="${basedir}/source" failonerror="on">
+    <arg line="lib/ xml codesize
+               --reportfile ${basedir}/build/logs/phpunit.pmd.xml" />
+    </exec>
+  </target>
+
+</project>
