@@ -18,23 +18,20 @@ final class database
    *
    * @return object Database object for the connection required
    */
-  public static function factory($connectionType)
+  public static function factory($connectionType = 'dev')
   {
     if(!is_object(self::$pDB))
     {
       switch($connectionType)
       {
         case 'dev':
-          $doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@80.250.104.16/searchlight', 'searchlight' );
-
+            self::$pDB = Doctrine_Manager::connection( 'mysql://timeout:65dali32@80.250.104.16/searchlight', 'searchlight' );
           break;
 
         default:
-          $doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@80.250.104.16/searchlight', 'searchlight' );
-          break;
+            self::$pDB = Doctrine_Manager::connection( 'mysql://timeout:65dali32@80.250.104.16/searchlight', 'searchlight' );
       }
-      
-      return $doctrineConnection->getDbh();
+      return self::$pDB->getDbh();
     }
   }
 }
