@@ -9,14 +9,8 @@
  *
  * @author clarence
  */
-class LondonVenues
+class LondonPoi
 {
-
-
-  public function __construct()
-  {
-
-  }
 
   /**
    * Get all available Venues

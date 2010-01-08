@@ -9,6 +9,8 @@ require_once dirname(__FILE__).'/../../../../../lib/import/validation/POIValidat
  */
 class POIValidationSpecificationTest extends PHPUnit_Framework_TestCase
 {
+  
+  private $object;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -16,6 +18,7 @@ class POIValidationSpecificationTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
+    $this->object = new POIValidationSpecification();
   }
 
   /**
@@ -26,16 +29,15 @@ class POIValidationSpecificationTest extends PHPUnit_Framework_TestCase
   {
   }
 
-
   /**
    * Checks validatePoiName() returns true is a string and not empty
    */
   public function testValidatesPoiName()
   {
-    $this->assertFalse( POIValidationSpecification::validatePoiName( '' ) );
-    $this->assertFalse( POIValidationSpecification::validatePoiName( 34 ) );
-    $this->assertTrue(  POIValidationSpecification::validatePoiName( '34' ) );
-    $this->assertTrue(  POIValidationSpecification::validatePoiName( 'Abc ^&DEF-_-' ) );
+    $this->assertFalse( $this->object->validatePoiName( '' ) );
+    $this->assertFalse( $this->object->validatePoiName( 34 ) );
+    $this->assertTrue(  $this->object->validatePoiName( '34' ) );
+    $this->assertTrue(  $this->object->validatePoiName( 'Abc ^&DEF-_-' ) );
   }
 
   /**
@@ -43,10 +45,55 @@ class POIValidationSpecificationTest extends PHPUnit_Framework_TestCase
    */
   public function testValidatesAddress()
   {
-    $this->assertFalse( POIValidationSpecification::validateAddress( '' ) );
-    $this->assertFalse( POIValidationSpecification::validateAddress( 34 ) );
-    $this->assertFalse( POIValidationSpecification::validateAddress( '34' ) );
-    //$this->assertTrue(  POIValidationSpecification::validateAddress( 'Abc ^&DEF-_-' ) );
+    $this->assertFalse( $this->object->validateAddress( '' ) );
+    $this->assertFalse( $this->object->validateAddress( 34 ) );
+    $this->assertFalse( $this->object->validateAddress( '34' ) );
+    //$this->assertTrue(  $this->object->validateAddress( 'Abc ^&DEF-_-' ) );
+  }
+
+  /**
+   * Checks validateStreet() returns true is a string and not empty
+   */
+  public function testValidatesStreet()
+  {
+    $this->assertFalse( $this->object->validateStreet( '' ) );
+    $this->assertFalse( $this->object->validateStreet( 34 ) );
+    $this->assertTrue(  $this->object->validateStreet( '34' ) );
+    $this->assertTrue(  $this->object->validateStreet( 'Abc ^&DEF-_-' ) );
+  }
+
+  /**
+   * Checks validateCity() returns true if is a string and not empty
+   */
+  public function testValidatesCity()
+  {
+    $this->assertFalse( $this->object->validateCity( '' ) );
+    $this->assertFalse( $this->object->validateCity( 34 ) );
+    $this->assertFalse( $this->object->validateCity( '34' ) );
+    $this->assertFalse( $this->object->validateCity( 'Abc ^&DEF-_-' ) );
+    $this->assertTrue(  $this->object->validateCity( 'District 9-1' ) );
+  }
+
+  /**
+   * Checks validatePublicTransportLink() is true for
+   * non-empty strings with only alphanumeric and [-_:,] characters
+   */
+  public function testValidatesPublicTransportLink()
+  {
+    $this->assertFalse( $this->object->validatePublicTransportLink( '' ) );
+    $this->assertFalse( $this->object->validatePublicTransportLink( 34 ) );
+    $this->assertFalse( $this->object->validatePublicTransportLink( '34' ) );
+    $this->assertFalse( $this->object->validatePublicTransportLink( 'Abc ^&DEF-_-' ) );
+    $this->assertTrue(  $this->object->validatePublicTransportLink( 'Buses: 31, 131, Tubes: Finchy Road' ) );
+  }
+
+  /**
+   * Checks validatesLongituteLatitude() returns true if meets WG584 standard
+   */
+  public function testValidatesLongituteLatitude()
+  {
+    $this->assertFalse( $this->object->validateLongituteLatitude( '' ) );
+    $this->assertTrue( $this->object->validateLongituteLatitude( '0.0' ) );
   }
 }
 ?>

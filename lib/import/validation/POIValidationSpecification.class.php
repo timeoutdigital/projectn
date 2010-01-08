@@ -1,15 +1,13 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+require_once( dirname( __FILE__ ) . '/BaseValidationSpecification.class.php' );
 
 /**
  * Description of POIValidationSpecification
  *
  * @author clarence
  */
-class POIValidationSpecification
+class POIValidationSpecification extends BaseValidationSpecification
 {
 
   /**
@@ -19,55 +17,9 @@ class POIValidationSpecification
    *
    * @return boolean
    */
-  static public function validatePoiName( $value )
+  public function validatePoiName( $value )
   {
-    return POIValidationSpecification::isNonEmptyString( $value );
-  }
-
-  /**
-   * Checks that a value is a string and not empty
-   *
-   * @param string $value A value to be tested
-   *
-   * @return boolean
-   */
-  static public function isNonEmptyString( $value )
-  {
-    $isNonEmptyString = false;
-
-    $isString = is_string( $value );
-    $regexp   = (boolean) strlen( $value );
-
-    $isNonEmptyString = $regexp && $isString;
-
-    return $isNonEmptyString;
-  }
-
-  /**
-   * Checks that a value has words, not just spaces and/or numbers
-   *
-   * @param string $value A value to be tested
-   *
-   * @return boolean
-   */
-  static public function hasWords( $value )
-  {
-    return (boolean) preg_match( '/[a-zA-Z]+/i', $value );
-  }
-
-  /**
-   * Checks that a value has only the following characters:
-   * - alphanumeric chars
-   * - white space
-   * - hyphen
-   *
-   * @paraprivatem string $value A value to be tested
-   *
-   * @return boolean
-   */
-  static public function isFreeOfOddCharacters( $value, $except='' )
-  {
-    return (boolean) !preg_match( "/[^-a-zA-Z0-9 $except]/i", $value );
+    return $this->isNonEmptyString( $value );
   }
 
   /**
@@ -77,14 +29,82 @@ class POIValidationSpecification
    *POIValidationSpecification
    * @return boolean
    */
-  static public function validateAddress( $value )
+  public function validateAddress( $value )
   {
     $validates = false;
 
-    $isNonEmptyString = POIValidationSpecification::isNonEmptyString( $value );
+    $isNonEmptyString = $this->isNonEmptyString( $value );
     $hasWords = preg_match( '/[a-zA-Z]+/i', $value );
 
     $validates =  $isNonEmptyString && $hasWords;
+
+    return $validates;
+  }
+
+  /**
+   * Validates the street field
+   *
+   * @param string $value The street field
+   *
+   * @return boolean
+   */
+  public function validateStreet( $value )
+  {
+    return $this->isNonEmptyString( $value );
+  }
+
+  /**
+   * Validates the city field
+   *
+   * @param string $value The city
+   *
+   * @return boolean
+   */
+  public function validateCity( $value )
+  {
+    $validates = false;
+
+    $validates =
+      $this->isNonEmptyString( $value )
+      && $this->hasWords( $value )
+      && $this->isFreeOfOddCharacters( $value )
+      ;
+
+    return $validates;
+  }
+
+  /**
+   * Validates the public_transport_link field
+   *
+   * @param string $value The public_transport_link
+   *
+   * @return boolean
+   */
+  public function validatePublicTransportLink( $value )
+  {
+    $validates = false;
+
+    $validates =
+         $this->isNonEmptyString( $value )
+      && $this->hasWords( $value )
+      && $this->isFreeOfOddCharacters( $value, ',:' )
+      ;
+
+    return $validates;
+  }
+
+  /**
+   * Validates the longitude and latitude fields
+   *
+   * @param string $value The longitude or latitude field
+   *
+   * @return boolean
+   */
+  public function validateLongituteLatitude( $value )
+  {
+    $validates = false;
+
+    $validates = is_numeric( $value ) && preg_match( '/\./', $value );
 
     return $validates;
   }
