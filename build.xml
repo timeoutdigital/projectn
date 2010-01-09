@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, php-documentor, php-codesniffer, phpunit, php-pmd"/>
+  <target name="build" depends="checkout, php-documentor, php-codesniffer, phpunit, php-pmd, php-cpd"/>
+  <!-- Delete all the log files -->
+  <target name="init">
+    <delete>
+       <fileset dir="{basedir}/build/logs/" includes="**/*.*" />
+    </delete>
+  </target>
+
+  <!-- Pull our project out of git -->
   <target name="checkout">
     <exec executable="git" dir="${basedir}/source">
       <arg line="pull" />
     </exec>
   </target>
+
+  <!-- Run PHP Documentor on our selected classes -->
   <target name="php-documentor">
     <exec executable="phpdoc" dir="${basedir}/source" logerror="on">
-       <arg line="--title '${ant.project.name} API Documentation' -q -dn '${ant.project.name} API' -ue on -t ${basedir}/source/doc/api -d ${basedir}/source/lib/import -tb '/usr/share/php/data/phpUnderControl/data/phpdoc' -o HTML:Phpuc:phpuc"/>
+       <arg line="--title '${ant.project.name} API Documentation' 
+		-q 
+		-dn '${ant.project.name} API' 
+		-ue on 
+		-t ${basedir}/source/doc/api 
+		-d ${basedir}/source/lib/import 
+		-tb '/usr/share/php/data/phpUnderControl/data/phpdoc' 
+		-o HTML:Phpuc:phpuc"/>
     </exec>
   </target>
+
+  <!-- Run codesniffer on selected classes -->
   <target name="php-codesniffer">
     <exec executable="phpcs" dir="${basedir}/source" output="${basedir}/build/logs/checkstyle.xml" error="/tmp/checkstyle.error.log">
       <arg line="--report=checkstyle --standard=pear --ignore=*/templates/*,*/om/*,*/map/*,*/symfony/* --extensions=php ${basedir}/source/lib"/>
@@ -23,11 +42,28 @@
                    --coverage-html ${basedir}/build/coverage test/unit/lib"/>
     </exec>
   </target>
+
+  <!-- Run PHPMD on selected classes -->
   <target name="php-pmd">
-    <exec executable="phpmd" dir="${basedir}/source" failonerror="on">
+    <exec executable="phpmd" dir="${basedir}/source" failonerror="false">
     <arg line="lib/ xml codesize
                --reportfile ${basedir}/build/logs/phpunit.pmd.xml" />
     </exec>
   </target>
+  
+ <!-- Run PHP Copy Paste Detection on classes -->
+ <target name="php-cpd">
+    <exec executable="phpcpd" dir="${basedir}/source/lib/import" failonerror="false">
+    <arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml lib/import/" />
+    </exec>
+  </target>
+
+ <!-- Run PHP Depend-->
+  <target name="php-depend">
+    <exec executable="phpdp" dir="${basedir}/source/lib/import" failonerror="false">
+    <arg line="--summary-xml ${basedir}/build/logs/summary.xml --jdepend-chart=${basedir}/build/logs/phpdepend.svg --overview-pyramid=${basedir}/build/logs/phpdepend-pyramid.svg --bad-documentation ${basedir}/source/lib/import" />
+    </exec>
+  </target>
+
 
 </project>
