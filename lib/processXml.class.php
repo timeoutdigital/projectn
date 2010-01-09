@@ -42,6 +42,7 @@ class processXml
     {
       $this->events = $this->xmlObj->xpath($eventsPath);
       $this->totalEvents = count($events);
+      return $this;
     }
 
 
@@ -64,6 +65,7 @@ class processXml
     {
         $this->venues = $this->xmlObj->xpath($venuesPath);
         $this->totalVenues = count($venues);
+        return $this;
     }
 
      /**

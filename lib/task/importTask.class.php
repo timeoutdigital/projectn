@@ -10,7 +10,7 @@ class importTask extends sfBaseTask
     // ));
 
     $this->addOptions(array(
-      new sfCommandOption('file-type', null, sfCommandOption::PARAMETER_REQUIRED, 'Type of file to parse e.g. xml, csv'),
+      new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'Type of file to parse e.g. xml, csv'),
       //new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       //new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
@@ -29,21 +29,30 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-   // $xml = simplexml_load_file('import/tony_leo_test_correct.xml');
-    
-   // $locations = $xml->xpath("/body/address");
-   // $events = $xml->xpath('/body/event');
-  
-     $processXmlObj = new processXml('import/tony_leo_test_correct.xml');
-    /**
-     * @todo Create tests
-     *
-     */
-    //check to see if an array and > 12 is returned
+ 
+    switch($options['city'])
+    {
+      case 'ny':
+      case 'NY':  $processXmlObj = new processXml('import/tony_leo.xml');
+
+                  //Set the events and venues xpath
+                  $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+
+
+                  $nyImportObj = new importNy($processXmlObj);
+
+
+
+        break;
+
+
+
+
       
-       $processXmlObj->loadXml();
-       $processXmlObj->setEvents('/body/event');
-       echo count($processXmlObj->getEvents());
+    }
+
+
+     //  echo count($processXmlObj->getVenues());
     /*foreach($locations as $location)
     {
         echo "{$location->identifier} \n";
