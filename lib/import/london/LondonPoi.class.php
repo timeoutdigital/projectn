@@ -9,14 +9,8 @@
  *
  * @author clarence
  */
-class LondonVenues
+class LondonPoi
 {
-
-
-  public function __construct()
-  {
-
-  }
 
   /**
    * Get all available Venues
@@ -63,104 +57,6 @@ class LondonVenues
       $results = $statement->fetchAll();
     }
     return $results;
-  }
-
-  /**
-   * Validates the street field
-   *
-   * @param string $value The street field
-   *
-   * @return boolean
-   */
-  public function validateStreet( $value )
-  {
-    return $this->isNonEmptyString( $value );
-  }
-
-  /**
-   * Validates the city field
-   *
-   * @param string $value The city
-   *
-   * @return boolean
-   */
-  public function validateCity( $value )
-  {
-    $validates = false;
-
-    $validates = 
-      $this->isNonEmptyString( $value )
-      && $this->hasWords( $value )
-      && $this->isFreeOfOddCharacters( $value )
-      ;
-    
-    return $validates;
-  }
-
-  /**
-   * Validates the public_transport_link field
-   *
-   * @param string $value The public_transport_link
-   *
-   * @return boolean
-   */
-  public function validatePublicTransportLink( $value )
-  {
-    $validates = false;
-
-    $validates =
-         $this->isNonEmptyString( $value )
-      && $this->hasWords( $value )
-      && $this->isFreeOfOddCharacters( $value, ',:' )
-      ;
-    
-    return $validates;
-  }
-
-  /**
-   * Checks that a value is a string and not empty
-   *
-   * @param string $value A value to be tested
-   *
-   * @return boolean
-   */
-  private function isNonEmptyString( $value )
-  {
-    $isNonEmptyString = false;
-
-    $isString = is_string( $value );
-    $regexp   = (boolean) strlen( $value );
-
-    $isNonEmptyString = $regexp && $isString;
-
-    return $isNonEmptyString;
-  }
-
-  /**
-   * Checks that a value has words, not just spaces and/or numbers
-   *
-   * @param string $value A value to be tested
-   *
-   * @return boolean
-   */
-  private function hasWords( $value )
-  {
-    return (boolean) preg_match( '/[a-zA-Z]+/i', $value );
-  }
-
-  /**
-   * Checks that a value has only the following characters:
-   * - alphanumeric chars
-   * - white space
-   * - hyphen
-   *
-   * @param string $value A value to be tested
-   *
-   * @return boolean
-   */
-  private function isFreeOfOddCharacters( $value, $except='' )
-  {
-    return (boolean) !preg_match( "/[^-a-zA-Z0-9 $except]/i", $value );
   }
 
   /**

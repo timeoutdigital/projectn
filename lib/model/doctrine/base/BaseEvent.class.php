@@ -7,7 +7,7 @@
  * 
  * @property integer $vendor_id
  * @property string $name
- * @property string $category_id
+ * @property string $vendor_category
  * @property string $short_description
  * @property string $description
  * @property string $booking_url
@@ -25,7 +25,7 @@
  * 
  * @method integer             getVendorId()          Returns the current record's "vendor_id" value
  * @method string              getName()              Returns the current record's "name" value
- * @method string              getCategoryId()        Returns the current record's "category_id" value
+ * @method string              getVendorCategory()    Returns the current record's "vendor_category" value
  * @method string              getShortDescription()  Returns the current record's "short_description" value
  * @method string              getDescription()       Returns the current record's "description" value
  * @method string              getBookingUrl()        Returns the current record's "booking_url" value
@@ -42,7 +42,7 @@
  * @method Doctrine_Collection getEventProperty()     Returns the current record's "EventProperty" collection
  * @method Event               setVendorId()          Sets the current record's "vendor_id" value
  * @method Event               setName()              Sets the current record's "name" value
- * @method Event               setCategoryId()        Sets the current record's "category_id" value
+ * @method Event               setVendorCategory()    Sets the current record's "vendor_category" value
  * @method Event               setShortDescription()  Sets the current record's "short_description" value
  * @method Event               setDescription()       Sets the current record's "description" value
  * @method Event               setBookingUrl()        Sets the current record's "booking_url" value
@@ -77,7 +77,7 @@ abstract class BaseEvent extends sfDoctrineRecord
              'notnull' => true,
              'length' => '256',
              ));
-        $this->hasColumn('category_id', 'string', 256, array(
+        $this->hasColumn('vendor_category', 'string', 256, array(
              'type' => 'string',
              'notnull' => true,
              'length' => '256',

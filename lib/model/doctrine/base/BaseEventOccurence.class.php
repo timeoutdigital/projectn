@@ -7,10 +7,8 @@
  * 
  * @property integer $vendor_id
  * @property string $booking_url
- * @property date $start_date
- * @property date $end_date
- * @property time $start_time
- * @property time $end_time
+ * @property date $start
+ * @property date $end
  * @property time $utc_offset
  * @property integer $event_id
  * @property integer $poi_id
@@ -19,10 +17,8 @@
  * 
  * @method integer        getVendorId()    Returns the current record's "vendor_id" value
  * @method string         getBookingUrl()  Returns the current record's "booking_url" value
- * @method date           getStartDate()   Returns the current record's "start_date" value
- * @method date           getEndDate()     Returns the current record's "end_date" value
- * @method time           getStartTime()   Returns the current record's "start_time" value
- * @method time           getEndTime()     Returns the current record's "end_time" value
+ * @method date           getStart()       Returns the current record's "start" value
+ * @method date           getEnd()         Returns the current record's "end" value
  * @method time           getUtcOffset()   Returns the current record's "utc_offset" value
  * @method integer        getEventId()     Returns the current record's "event_id" value
  * @method integer        getPoiId()       Returns the current record's "poi_id" value
@@ -30,10 +26,8 @@
  * @method Poi            getPoi()         Returns the current record's "Poi" value
  * @method EventOccurence setVendorId()    Sets the current record's "vendor_id" value
  * @method EventOccurence setBookingUrl()  Sets the current record's "booking_url" value
- * @method EventOccurence setStartDate()   Sets the current record's "start_date" value
- * @method EventOccurence setEndDate()     Sets the current record's "end_date" value
- * @method EventOccurence setStartTime()   Sets the current record's "start_time" value
- * @method EventOccurence setEndTime()     Sets the current record's "end_time" value
+ * @method EventOccurence setStart()       Sets the current record's "start" value
+ * @method EventOccurence setEnd()         Sets the current record's "end" value
  * @method EventOccurence setUtcOffset()   Sets the current record's "utc_offset" value
  * @method EventOccurence setEventId()     Sets the current record's "event_id" value
  * @method EventOccurence setPoiId()       Sets the current record's "poi_id" value
@@ -59,20 +53,12 @@ abstract class BaseEventOccurence extends sfDoctrineRecord
              'notnull' => false,
              'length' => '1024',
              ));
-        $this->hasColumn('start_date', 'date', null, array(
+        $this->hasColumn('start', 'date', null, array(
              'type' => 'date',
              'notnull' => true,
              ));
-        $this->hasColumn('end_date', 'date', null, array(
+        $this->hasColumn('end', 'date', null, array(
              'type' => 'date',
-             'notnull' => true,
-             ));
-        $this->hasColumn('start_time', 'time', null, array(
-             'type' => 'time',
-             'notnull' => true,
-             ));
-        $this->hasColumn('end_time', 'time', null, array(
-             'type' => 'time',
              'notnull' => true,
              ));
         $this->hasColumn('utc_offset', 'time', null, array(
