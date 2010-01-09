@@ -45,7 +45,7 @@
 
   <!-- Run PHPMD on selected classes -->
   <target name="php-pmd">
-    <exec executable="phpmd" dir="${basedir}/source" failonerror="false">
+    <exec executable="phpmd" dir="${basedir}/source/lib/import" failonerror="false">
     <arg line="lib/ xml codesize
                --reportfile ${basedir}/build/logs/phpunit.pmd.xml" />
     </exec>
