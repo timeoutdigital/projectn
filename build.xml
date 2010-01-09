@@ -18,9 +18,9 @@
   </target>
   <target name="phpunit">
     <exec executable="phpunit" dir="${basedir}/source" failonerror="on">
-      <arg line=" --log-junit ${basedir}/build/logs/phpunit.xml
-                  --coverage-clover ${basedir}/build/logs/phpunit.coverage.xml 
-                  --coverage-html ${basedir}/build/coverage test/unit/lib"/>
+      <arg line="  --log-junit ${basedir}/build/logs/phpunit.xml
+                   --coverage-clover ${basedir}/build/logs/phpunit.coverage.xml 
+                   --coverage-html ${basedir}/build/coverage test/unit/lib"/>
     </exec>
   </target>
   <target name="php-pmd">
