@@ -2,13 +2,20 @@
 /**
  * Database factory to get DB connection
  *
- * @author Timmy Bowler <timbowler@timeout.com>
+ * @package lib.projectn
  *
+ * @author Timmy Bowler <timbowler@timeout.com>
+ * @version 1.0.1
  *
  */
 final class database
 {
 
+  /**
+   * Holds factory object
+   *
+   * @static
+   */
   public static $pDB;
 
 
