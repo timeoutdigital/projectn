@@ -40,6 +40,7 @@ EOF;
 
 
                   $nyImportObj = new importNy($processXmlObj);
+                  $nyImportObj->insertEventsAndVenues();
 
 
 
