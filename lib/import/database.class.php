@@ -6,6 +6,7 @@
  *
  * 
  * @author Timmy Bowler <timbowler@timeout.com>
+ * @copyright Timeout Communications Ltd.
  * @version 1.0.1
  *
  * <b>How to example: </b>
