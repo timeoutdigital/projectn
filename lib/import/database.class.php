@@ -7,6 +7,7 @@
  * @author Timmy Bowler <timbowler@timeout.com>
  * @version 1.0.1
  *
+ * <b>How to example: </b>
  * <code>
  *   $dbObj = database::factory('dev');
  *
