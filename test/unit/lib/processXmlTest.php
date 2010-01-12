@@ -19,7 +19,7 @@ class processXmlTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp()
     {
-        $this->object = new processXml('import/tony_leo_test_correct.xml');
+        $this->object = new processXml('test/unit/data/tony_leo_test_correct.xml');
     }
 
     /**

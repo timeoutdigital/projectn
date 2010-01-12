@@ -11,8 +11,8 @@ class importTask extends sfBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'Type of file to parse e.g. xml, csv'),
-      //new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      //new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
     ));
 
@@ -29,46 +29,57 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
- 
+    
+    //Connect to the database.
+    $databaseManager = new sfDatabaseManager($this->configuration);
+    $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
+
+   
+    //Select the task
     switch($options['city'])
     {
       case 'ny':
-      case 'NY':  $processXmlObj = new processXml('import/tony_leo.xml');
+      case 'NY':  $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
+
+                  $processXmlObj = new processXml('import/tony_leo.xml');
 
                   //Set the events and venues xpath
                   $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
 
-
-                  $nyImportObj = new importNy($processXmlObj);
-
-
-
+                  $nyImportObj = new importNy($processXmlObj, $vendorObjndorId);
+                  $nyImportObj->insertEventsAndVenues();
+                 
         break;
 
-
-
-
-      
     }
 
+  }
 
-     //  echo count($processXmlObj->getVenues());
-    /*foreach($locations as $location)
-    {
-        echo "{$location->identifier} \n";
+
+  
+  /**
+   * Get the Vendor by its city and language
+   *
+   * @param string $city
+   * @param string $language
+   *
+   * @return object Result
+   */
+  private function getVendorByCityAndLanguage($city, $language)
+  {
+    $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage($city, $language);
+
+    //Set the new vendor if one doens't exist
+    if(!$vendorObj){
+      $vendorObj = new Vendor();
+      $vendorObj->setCity($city);
+      $vendorObj->setLanguage($language);
+
+      $vendorObj->save();
+
     }
 
-    foreach($events as $event)
-    {
-        echo "{$event->identifier} \n";
-    }
-
-     echo "\n $eventTotal";
-*/
-    // initialize the database connection
-    //$databaseManager = new sfDatabaseManager($this->configuration);
-    //$connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
-
-    // add your code here
+    return $vendorObj;
+   
   }
 }
