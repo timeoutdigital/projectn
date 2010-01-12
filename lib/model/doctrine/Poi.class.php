@@ -12,4 +12,5 @@
  */
 class Poi extends BasePoi
 {
+  
 }

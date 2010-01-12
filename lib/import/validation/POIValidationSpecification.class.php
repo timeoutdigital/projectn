@@ -9,6 +9,32 @@ require_once( dirname( __FILE__ ) . '/BaseValidationSpecification.class.php' );
  */
 class POIValidationSpecification extends BaseValidationSpecification
 {
+  /**
+   *
+   * @var Importer
+   */
+  private $importer;
+
+  function __construct( &$importer )
+  {
+    $this->importer = $importer;
+  }
+  /**
+   * Validates all fields
+   */
+  public function validate()
+  {
+    var_dump( $this->importer );
+    return $this->importer->hasData();
+  }
+
+  /**
+   * return validation errors
+   */
+  public function getErrors()
+  {
+    return false;
+  }
 
   /**
    * Validates the poi_name field
@@ -104,7 +130,11 @@ class POIValidationSpecification extends BaseValidationSpecification
   {
     $validates = false;
 
-    $validates = is_numeric( $value ) && preg_match( '/\./', $value );
+    $validates =
+         is_numeric( $value )
+      && preg_match( '/\./', $value )
+      && $value > -180
+      && $value < 180;
 
     return $validates;
   }
