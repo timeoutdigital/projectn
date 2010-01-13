@@ -13,7 +13,7 @@ abstract class BaseMovieFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vender_id'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'vendor_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
       'name'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'genre'      => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'plot'       => new sfWidgetFormFilterInput(),
@@ -24,7 +24,7 @@ abstract class BaseMovieFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'vender_id'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'vendor_id'  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
       'name'       => new sfValidatorPass(array('required' => false)),
       'genre'      => new sfValidatorPass(array('required' => false)),
       'plot'       => new sfValidatorPass(array('required' => false)),
@@ -52,7 +52,7 @@ abstract class BaseMovieFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'         => 'Number',
-      'vender_id'  => 'Number',
+      'vendor_id'  => 'ForeignKey',
       'name'       => 'Text',
       'genre'      => 'Text',
       'plot'       => 'Text',

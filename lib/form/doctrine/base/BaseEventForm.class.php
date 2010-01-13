@@ -16,8 +16,7 @@ abstract class BaseEventForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
-      'vender_id'         => new sfWidgetFormInputText(),
-      'category_id'       => new sfWidgetFormTextarea(),
+      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
       'url'               => new sfWidgetFormTextarea(),
       'price'             => new sfWidgetFormTextarea(),
       'rating'            => new sfWidgetFormInputText(),
@@ -29,8 +28,7 @@ abstract class BaseEventForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vender_id'         => new sfValidatorInteger(),
-      'category_id'       => new sfValidatorString(array('max_length' => 256)),
+      'vendor_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
       'url'               => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'price'             => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'rating'            => new sfValidatorNumber(array('required' => false)),

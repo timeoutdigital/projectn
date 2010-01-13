@@ -16,7 +16,7 @@ abstract class BaseMovieForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'vender_id'  => new sfWidgetFormInputText(),
+      'vendor_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
       'name'       => new sfWidgetFormTextarea(),
       'genre'      => new sfWidgetFormTextarea(),
       'plot'       => new sfWidgetFormTextarea(),
@@ -28,7 +28,7 @@ abstract class BaseMovieForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vender_id'  => new sfValidatorInteger(),
+      'vendor_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
       'name'       => new sfValidatorString(array('max_length' => 256)),
       'genre'      => new sfValidatorString(array('max_length' => 256)),
       'plot'       => new sfValidatorString(array('max_length' => 65535, 'required' => false)),

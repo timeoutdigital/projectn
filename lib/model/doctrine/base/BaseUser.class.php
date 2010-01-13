@@ -68,6 +68,10 @@ abstract class BaseUser extends sfDoctrineRecord
              'notnull' => false,
              'length' => '128',
              ));
+
+        $this->option('type', 'INNODB');
+        $this->option('collate', 'utf8_unicode_ci');
+        $this->option('charset', 'utf8');
     }
 
     public function setUp()

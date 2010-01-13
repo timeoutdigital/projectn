@@ -16,6 +16,7 @@ class importNy
   private $_xmlFeed;
   private $_vendorObj;
 
+  
   /**
    * Constructor
    *
@@ -27,7 +28,6 @@ class importNy
     $this->_xmlFeed = $xmlFeed;
     $this->_venues = $xmlFeed->getVenues();
     $this->_events = $xmlFeed->getEvents();
-    //$this->dbObj = database::factory('dev');
     $this->_vendorObj = $vendorObj;
    
   }
@@ -40,15 +40,13 @@ class importNy
    */
   public function insertEventsAndVenues()
   {
-     
-    foreach($this->events as $event)
+
+
+    foreach($this->_events as $event)
     {
 
       //Get the event's venue id
       $this->insertVenues((int) $event->date->venue->address_id);
-
-      
-
 
        exit;
     }
@@ -63,11 +61,9 @@ class importNy
    */
   public function insertVenues($eventVenueId)
   {
-    //Get the venue
-      $venue = $this->xmlFeed->xmlObj->xpath('/body/address[@id='. $eventVenueId .']');
+     //Get the venue
+      $venue = $this->_xmlFeed->xmlObj->xpath('/body/address[@id='. $eventVenueId .']');
 
-
-       
 
        //insert into database
       $poiObj = new Poi();
@@ -86,6 +82,7 @@ class importNy
       $longitude =  $geoEncode->getLongitude();
       $latitude =  $geoEncode->getLatitude();
 
+      
       $poiObj->setVendorId($this->_vendorObj->getId());
 
       //save to database

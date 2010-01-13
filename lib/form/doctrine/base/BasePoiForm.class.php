@@ -16,7 +16,7 @@ abstract class BasePoiForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
-      'vender_poi_id'              => new sfWidgetFormInputText(),
+      'vendor_poi_id'              => new sfWidgetFormInputText(),
       'local_language'             => new sfWidgetFormInputText(),
       'poi_name'                   => new sfWidgetFormInputText(),
       'additional_address_details' => new sfWidgetFormInputText(),
@@ -40,13 +40,15 @@ abstract class BasePoiForm extends BaseFormDoctrine
       'rating'                     => new sfWidgetFormInputText(),
       'provider'                   => new sfWidgetFormTextarea(),
       'poi_category_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => false)),
+      'poi_parent_category_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiParentCategory'), 'add_empty' => false)),
+      'vendor_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
       'created_at'                 => new sfWidgetFormDateTime(),
       'updated_at'                 => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vender_poi_id'              => new sfValidatorInteger(array('required' => false)),
+      'vendor_poi_id'              => new sfValidatorInteger(array('required' => false)),
       'local_language'             => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'poi_name'                   => new sfValidatorString(array('max_length' => 80, 'required' => false)),
       'additional_address_details' => new sfValidatorString(array('max_length' => 128, 'required' => false)),
@@ -70,6 +72,8 @@ abstract class BasePoiForm extends BaseFormDoctrine
       'rating'                     => new sfValidatorInteger(array('required' => false)),
       'provider'                   => new sfValidatorString(array('max_length' => 512, 'required' => false)),
       'poi_category_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'))),
+      'poi_parent_category_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiParentCategory'))),
+      'vendor_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
       'created_at'                 => new sfValidatorDateTime(),
       'updated_at'                 => new sfValidatorDateTime(),
     ));

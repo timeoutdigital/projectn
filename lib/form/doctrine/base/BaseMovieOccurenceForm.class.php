@@ -16,11 +16,8 @@ abstract class BaseMovieOccurenceForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'vender_id'  => new sfWidgetFormInputText(),
-      'start_date' => new sfWidgetFormDate(),
-      'end_date'   => new sfWidgetFormDate(),
-      'start_time' => new sfWidgetFormTime(),
-      'end_time'   => new sfWidgetFormTime(),
+      'start'      => new sfWidgetFormInputText(),
+      'end'        => new sfWidgetFormInputText(),
       'utf_offset' => new sfWidgetFormTime(),
       'movie_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Movie'), 'add_empty' => false)),
       'poi_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
@@ -28,11 +25,8 @@ abstract class BaseMovieOccurenceForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vender_id'  => new sfValidatorInteger(),
-      'start_date' => new sfValidatorDate(),
-      'end_date'   => new sfValidatorDate(array('required' => false)),
-      'start_time' => new sfValidatorTime(array('required' => false)),
-      'end_time'   => new sfValidatorTime(array('required' => false)),
+      'start'      => new sfValidatorPass(),
+      'end'        => new sfValidatorPass(array('required' => false)),
       'utf_offset' => new sfValidatorTime(),
       'movie_id'   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Movie'))),
       'poi_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),

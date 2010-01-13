@@ -17,6 +17,7 @@ abstract class BaseEventTranslationForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
       'name'              => new sfWidgetFormTextarea(),
+      'vendor_category'   => new sfWidgetFormTextarea(),
       'short_description' => new sfWidgetFormTextarea(),
       'description'       => new sfWidgetFormTextarea(),
       'booking_url'       => new sfWidgetFormTextarea(),
@@ -26,6 +27,7 @@ abstract class BaseEventTranslationForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'name'              => new sfValidatorString(array('max_length' => 256)),
+      'vendor_category'   => new sfValidatorString(array('max_length' => 256)),
       'short_description' => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'description'       => new sfValidatorString(array('max_length' => 65535, 'required' => false)),
       'booking_url'       => new sfValidatorString(array('max_length' => 1024, 'required' => false)),

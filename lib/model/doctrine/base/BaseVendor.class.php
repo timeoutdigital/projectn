@@ -45,6 +45,10 @@ abstract class BaseVendor extends sfDoctrineRecord
              'notnull' => true,
              'length' => '10',
              ));
+
+        $this->option('type', 'INNODB');
+        $this->option('collate', 'utf8_unicode_ci');
+        $this->option('charset', 'utf8');
     }
 
     public function setUp()

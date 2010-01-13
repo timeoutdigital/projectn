@@ -43,6 +43,10 @@ abstract class BasePoiProperty extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
+
+        $this->option('type', 'INNODB');
+        $this->option('collate', 'utf8_unicode_ci');
+        $this->option('charset', 'utf8');
     }
 
     public function setUp()

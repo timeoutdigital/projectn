@@ -16,12 +16,10 @@ abstract class BaseEventOccurenceForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'          => new sfWidgetFormInputHidden(),
-      'vender_id'   => new sfWidgetFormInputText(),
+      'vendor_id'   => new sfWidgetFormInputText(),
       'booking_url' => new sfWidgetFormTextarea(),
-      'start_date'  => new sfWidgetFormDate(),
-      'end_date'    => new sfWidgetFormDate(),
-      'start_time'  => new sfWidgetFormTime(),
-      'end_time'    => new sfWidgetFormTime(),
+      'start'       => new sfWidgetFormDate(),
+      'end'         => new sfWidgetFormDate(),
       'utc_offset'  => new sfWidgetFormTime(),
       'event_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => false)),
       'poi_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
@@ -29,12 +27,10 @@ abstract class BaseEventOccurenceForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'          => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vender_id'   => new sfValidatorInteger(),
+      'vendor_id'   => new sfValidatorInteger(),
       'booking_url' => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
-      'start_date'  => new sfValidatorDate(),
-      'end_date'    => new sfValidatorDate(),
-      'start_time'  => new sfValidatorTime(),
-      'end_time'    => new sfValidatorTime(),
+      'start'       => new sfValidatorDate(),
+      'end'         => new sfValidatorDate(),
       'utc_offset'  => new sfValidatorTime(),
       'event_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Event'))),
       'poi_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
