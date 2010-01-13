@@ -15,3 +15,66 @@
 #     password: changeme
 #     name:     Kris Wallsmith
 #     email:    kris.wallsmith@symfony-project.com
+PoiParentCategory:
+  pc1:
+    name: eat-drink
+  pc2:
+    name: going-out
+  pc3:
+    name: sights-museums
+  pc4:
+    name: accommodation
+    
+    
+PoiCategory:
+  c1:
+    name:       restaurant
+    PoiParentCategory:  pc1
+  c2:
+    name:       bar-pub
+    PoiParentCategory:  pc1
+  c3:
+    name:       theatre-music-culture
+    PoiParentCategory:  pc2
+  c4:
+    name:       dance-night-club
+    PoiParentCategory:  pc2
+  c5:
+    name:       landmark-attraction
+    PoiParentCategory:  pc3
+  c6:
+    name:       museum
+    PoiParentCategory:   pc3
+  c7:
+    name:       hotel
+    PoiParentCategory:   pc4
+  c8:
+    name:       motel
+    PoiParentCategory:   pc4
+  c9:
+    name:       hostel
+    PoiParentCategory:   pc4
+  c10:
+    name:       camping
+    PoiParentCategory:   pc4
+
+
+Vendor:
+  v1:
+    city:                ny
+    language:            english
+  v2:
+    city:                chicago
+    language:            english
+  v3:
+    city:                singapore
+    language:            english
+  v4:
+    city:                london
+    language:            english
+  v5:
+    city:                abu dhabi
+    language:            english
+  v6:
+    city:                dubai
+    language:            english
