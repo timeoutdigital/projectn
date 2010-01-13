@@ -7,20 +7,17 @@
  * 
  * @property integer $parent_id
  * @property string $name
- * @property PoiCategory $Parent
+ * @property PoiParentCategory $PoiParentCategory
  * @property Doctrine_Collection $Poi
- * @property Doctrine_Collection $SubCategories
  * 
- * @method integer             getParentId()      Returns the current record's "parent_id" value
- * @method string              getName()          Returns the current record's "name" value
- * @method PoiCategory         getParent()        Returns the current record's "Parent" value
- * @method Doctrine_Collection getPoi()           Returns the current record's "Poi" collection
- * @method Doctrine_Collection getSubCategories() Returns the current record's "SubCategories" collection
- * @method PoiCategory         setParentId()      Sets the current record's "parent_id" value
- * @method PoiCategory         setName()          Sets the current record's "name" value
- * @method PoiCategory         setParent()        Sets the current record's "Parent" value
- * @method PoiCategory         setPoi()           Sets the current record's "Poi" collection
- * @method PoiCategory         setSubCategories() Sets the current record's "SubCategories" collection
+ * @method integer             getParentId()          Returns the current record's "parent_id" value
+ * @method string              getName()              Returns the current record's "name" value
+ * @method PoiParentCategory   getPoiParentCategory() Returns the current record's "PoiParentCategory" value
+ * @method Doctrine_Collection getPoi()               Returns the current record's "Poi" collection
+ * @method PoiCategory         setParentId()          Sets the current record's "parent_id" value
+ * @method PoiCategory         setName()              Sets the current record's "name" value
+ * @method PoiCategory         setPoiParentCategory() Sets the current record's "PoiParentCategory" value
+ * @method PoiCategory         setPoi()               Sets the current record's "Poi" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -40,12 +37,16 @@ abstract class BasePoiCategory extends sfDoctrineRecord
              'notnull' => true,
              'length' => '50',
              ));
+
+        $this->option('type', 'INNODB');
+        $this->option('collate', 'utf8_unicode_ci');
+        $this->option('charset', 'utf8');
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('PoiCategory as Parent', array(
+        $this->hasOne('PoiParentCategory', array(
              'local' => 'parent_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
@@ -53,10 +54,6 @@ abstract class BasePoiCategory extends sfDoctrineRecord
         $this->hasMany('Poi', array(
              'local' => 'id',
              'foreign' => 'poi_category_id'));
-
-        $this->hasMany('PoiCategory as SubCategories', array(
-             'local' => 'id',
-             'foreign' => 'parent_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

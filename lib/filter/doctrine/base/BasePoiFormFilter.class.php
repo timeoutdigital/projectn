@@ -13,7 +13,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vender_poi_id'              => new sfWidgetFormFilterInput(),
+      'vendor_poi_id'              => new sfWidgetFormFilterInput(),
       'local_language'             => new sfWidgetFormFilterInput(),
       'poi_name'                   => new sfWidgetFormFilterInput(),
       'additional_address_details' => new sfWidgetFormFilterInput(),
@@ -37,12 +37,14 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'rating'                     => new sfWidgetFormFilterInput(),
       'provider'                   => new sfWidgetFormFilterInput(),
       'poi_category_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => true)),
+      'poi_parent_category_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiParentCategory'), 'add_empty' => true)),
+      'vendor_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
       'created_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'vender_poi_id'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'vendor_poi_id'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'local_language'             => new sfValidatorPass(array('required' => false)),
       'poi_name'                   => new sfValidatorPass(array('required' => false)),
       'additional_address_details' => new sfValidatorPass(array('required' => false)),
@@ -66,6 +68,8 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'rating'                     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'provider'                   => new sfValidatorPass(array('required' => false)),
       'poi_category_id'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PoiCategory'), 'column' => 'id')),
+      'poi_parent_category_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PoiParentCategory'), 'column' => 'id')),
+      'vendor_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
       'created_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -88,7 +92,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                         => 'Number',
-      'vender_poi_id'              => 'Number',
+      'vendor_poi_id'              => 'Number',
       'local_language'             => 'Text',
       'poi_name'                   => 'Text',
       'additional_address_details' => 'Text',
@@ -112,6 +116,8 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'rating'                     => 'Number',
       'provider'                   => 'Text',
       'poi_category_id'            => 'ForeignKey',
+      'poi_parent_category_id'     => 'ForeignKey',
+      'vendor_id'                  => 'ForeignKey',
       'created_at'                 => 'Date',
       'updated_at'                 => 'Date',
     );

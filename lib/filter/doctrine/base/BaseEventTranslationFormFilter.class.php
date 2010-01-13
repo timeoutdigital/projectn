@@ -14,6 +14,7 @@ abstract class BaseEventTranslationFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'name'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'vendor_category'   => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'short_description' => new sfWidgetFormFilterInput(),
       'description'       => new sfWidgetFormFilterInput(),
       'booking_url'       => new sfWidgetFormFilterInput(),
@@ -21,6 +22,7 @@ abstract class BaseEventTranslationFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'name'              => new sfValidatorPass(array('required' => false)),
+      'vendor_category'   => new sfValidatorPass(array('required' => false)),
       'short_description' => new sfValidatorPass(array('required' => false)),
       'description'       => new sfValidatorPass(array('required' => false)),
       'booking_url'       => new sfValidatorPass(array('required' => false)),
@@ -45,6 +47,7 @@ abstract class BaseEventTranslationFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                => 'Number',
       'name'              => 'Text',
+      'vendor_category'   => 'Text',
       'short_description' => 'Text',
       'description'       => 'Text',
       'booking_url'       => 'Text',

@@ -13,8 +13,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vender_id'         => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'category_id'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
       'url'               => new sfWidgetFormFilterInput(),
       'price'             => new sfWidgetFormFilterInput(),
       'rating'            => new sfWidgetFormFilterInput(),
@@ -25,8 +24,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'vender_id'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'category_id'       => new sfValidatorPass(array('required' => false)),
+      'vendor_id'         => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
       'url'               => new sfValidatorPass(array('required' => false)),
       'price'             => new sfValidatorPass(array('required' => false)),
       'rating'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
@@ -54,8 +52,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                => 'Number',
-      'vender_id'         => 'Number',
-      'category_id'       => 'Text',
+      'vendor_id'         => 'ForeignKey',
       'url'               => 'Text',
       'price'             => 'Text',
       'rating'            => 'Number',

@@ -61,7 +61,7 @@ final class database
         default:
             self::$pDB = Doctrine_Manager::connection( 'mysql://timeout:65dali32@80.250.104.16/searchlight', 'searchlight' );
       }
-      return self::$pDB->getDbh();
+       return self::$pDB->getDbh();
     }
   }
 }
