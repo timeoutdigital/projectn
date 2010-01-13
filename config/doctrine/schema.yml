@@ -30,7 +30,6 @@ Poi:
     phone:                      {type: string(32), notnull: false}
     phone2:                     {type: string(32), notnull: false}
     fax:                        {type: string(32), notnull: false}
-    language:                   {type: string, notnull: false}
     vendor_category:            {type: string(128), notnull: false}
     keywords:                   {type: string(512), notnull: false}
     short_description:          {type: string(2048), notnull: false}
@@ -42,12 +41,10 @@ Poi:
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
     poi_category_id:            {type: integer, notnull: true}
-    poi_parent_category_id:     {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
     PoiCategory:                {local: poi_category_id, foreign: id}
-    PoiParentCategory:          {local: poi_parent_category_id, foreign: id}
 
 
 #Any media that is associated to the poi
@@ -76,7 +73,7 @@ PoiCategory:
     parent_id:                  {type: integer}
     name:                       {type: string(50), notnull: true}
   relations: 
-    PoiParentCategory:                     {onDelete: CASCADE, local: parent_id, foreign: id, foreignAlias: PoiParentCategory}
+    PoiParentCategory:          {onDelete: CASCADE, local: parent_id, foreign: id, foreignAlias: PoiParentCategory}
 
 #Key value pairs for unmappable values on a Poi
 PoiProperty:
@@ -139,7 +136,6 @@ Event:
     poi_id:                     {type: integer, notnull: true}
   relations:
     EventCategory:              {local: event_category_id, foreign: id}
-    Poi:                        {local: poi_id, foreign: id}
     Vendor:                     {local: vendor_id, foreign: id}
 
 #Represents an occurence of an event
