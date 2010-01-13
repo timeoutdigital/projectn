@@ -147,8 +147,8 @@ class LondonPoi
    */
   private function getSourceConnection()
   {
-    $doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@192.9.215.250/searchlight', 'source' );
-    return $doctrineConnection->getDbh();
+    //$doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@192.9.215.250/searchlight', 'source' );
+   // return $doctrineConnection->getDbh();
   }
 
   /**
@@ -158,8 +158,8 @@ class LondonPoi
    */
   private function getStoreConnection()
   {
-    $doctrineConnection = Doctrine_Manager::connection( 'mysql://projectn:!ntcejorp!@localhost/projectn', 'store' );
-    return $doctrineConnection->getDbh();
+    //$doctrineConnection = Doctrine_Manager::connection( 'mysql://projectn:!ntcejorp!@localhost/projectn', 'store' );
+   // return $doctrineConnection->getDbh();
   }
 
 }
