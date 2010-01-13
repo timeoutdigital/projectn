@@ -24,7 +24,6 @@
  * @property string $phone
  * @property string $phone2
  * @property string $fax
- * @property string $language
  * @property string $vendor_category
  * @property string $keywords
  * @property string $short_description
@@ -42,7 +41,6 @@
  * @property Doctrine_Collection $PoiMedia
  * @property Doctrine_Collection $PoiProperty
  * @property Doctrine_Collection $Poi
- * @property Doctrine_Collection $Event
  * @property EventOccurence $EventOccurence
  * @property MovieOccurence $MovieOccurence
  * 
@@ -65,7 +63,6 @@
  * @method string              getPhone()                      Returns the current record's "phone" value
  * @method string              getPhone2()                     Returns the current record's "phone2" value
  * @method string              getFax()                        Returns the current record's "fax" value
- * @method string              getLanguage()                   Returns the current record's "language" value
  * @method string              getVendorCategory()             Returns the current record's "vendor_category" value
  * @method string              getKeywords()                   Returns the current record's "keywords" value
  * @method string              getShortDescription()           Returns the current record's "short_description" value
@@ -83,7 +80,6 @@
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Doctrine_Collection getEvent()                      Returns the current record's "Event" collection
  * @method EventOccurence      getEventOccurence()             Returns the current record's "EventOccurence" value
  * @method MovieOccurence      getMovieOccurence()             Returns the current record's "MovieOccurence" value
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
@@ -105,7 +101,6 @@
  * @method Poi                 setPhone()                      Sets the current record's "phone" value
  * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
  * @method Poi                 setFax()                        Sets the current record's "fax" value
- * @method Poi                 setLanguage()                   Sets the current record's "language" value
  * @method Poi                 setVendorCategory()             Sets the current record's "vendor_category" value
  * @method Poi                 setKeywords()                   Sets the current record's "keywords" value
  * @method Poi                 setShortDescription()           Sets the current record's "short_description" value
@@ -123,7 +118,6 @@
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
- * @method Poi                 setEvent()                      Sets the current record's "Event" collection
  * @method Poi                 setEventOccurence()             Sets the current record's "EventOccurence" value
  * @method Poi                 setMovieOccurence()             Sets the current record's "MovieOccurence" value
  * 
@@ -234,10 +228,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'notnull' => false,
              'length' => '32',
              ));
-        $this->hasColumn('language', 'string', null, array(
-             'type' => 'string',
-             'notnull' => false,
-             ));
         $this->hasColumn('vendor_category', 'string', 128, array(
              'type' => 'string',
              'notnull' => false,
@@ -322,10 +312,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'foreign' => 'poi_id'));
 
         $this->hasMany('UserContent as Poi', array(
-             'local' => 'id',
-             'foreign' => 'poi_id'));
-
-        $this->hasMany('Event', array(
              'local' => 'id',
              'foreign' => 'poi_id'));
 

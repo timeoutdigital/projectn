@@ -84,9 +84,8 @@ class importNyTest extends PHPUnit_Framework_TestCase {
 
     $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('test', 'english');
 
-    var_dump($vendorObj->getLanguage());
 
-    //$this->assertTrue($this->object->insertEventsAndVenues());
+    $this->assertTrue($this->object->insertEventsAndVenues());
   }
 
   /**

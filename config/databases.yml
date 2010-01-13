@@ -2,22 +2,22 @@ all:
   doctrine:
     class: sfDoctrineDatabase
     param:
-      dsn: 'sqlite:/tmp/sf_sandbox/data/sandbox.db'
+      dsn: 'mysql:host=localhost;dbname=projectn'
       username: root
-      password: null
+      password: superpass
 
 dev:
   n_local:
     class: sfDoctrineDatabase
     param:
       dsn: 'mysql:host=localhost;dbname=projectn'
-      username: projectn
-      password: !ntcejorp!
+      username: root
+      password: superpass
 
 test:
   n_local:
     class: sfDoctrineDatabase
     param:
-      dsn: 'mysql:host=localhost;dbname=projectn_test'
-      username: projectntest
-      password: !ntcejorp!
+      dsn: 'mysql:host=localhost;dbname=projectn'
+      username: root
+      password: superpass

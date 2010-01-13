@@ -12,5 +12,20 @@
  */
 class Poi extends BasePoi
 {
-  
+   /**
+   * Get a Category by name
+   *
+   * @param string $name The Cat by name
+   *
+   * @return object
+   */
+/*  public function getByVendorPoiId( $id )
+  {
+    $q = Doctrine_Query::create()
+      ->select('p.name AS name, p.id AS id')
+      ->from('Poi p')
+      ->where('p.name=?', $id);
+
+      return $q->fetchOne();
+  }*/
 }

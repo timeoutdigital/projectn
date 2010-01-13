@@ -126,15 +126,14 @@ Event:
   columns:
     vendor_id:                  {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
-    vendor_category:            {type: string(256), notnull: true}
+    vendor_category:            {type: string(256), notnull: false}
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
     url:                        {type: string(1024), notnull: false}
     price:                      {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
-    event_category_id:          {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
+    event_category_id:          {type: integer, notnull: false}
   relations:
     EventCategory:              {local: event_category_id, foreign: id}
     Vendor:                     {local: vendor_id, foreign: id}
@@ -142,11 +141,10 @@ Event:
 #Represents an occurence of an event
 EventOccurence:
   columns:
-    vendor_id:                  {type: integer, notnull: true}
     booking_url:                {type: string(1024), notnull: false}
     start:                      {type: date, notnull: true}
-    end:                        {type: date, notnull: true}
-    utc_offset:                 {type: time, notnull: true}
+    end:                        {type: date, notnull: false}
+    utc_offset:                 {type: string(6), notnull: true}
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
