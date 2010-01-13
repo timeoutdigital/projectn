@@ -36,11 +36,9 @@
  * @property integer $rating
  * @property string $provider
  * @property integer $poi_category_id
- * @property integer $poi_parent_category_id
  * @property integer $vendor_id
  * @property Vendor $Vendor
  * @property PoiCategory $PoiCategory
- * @property PoiParentCategory $PoiParentCategory
  * @property Doctrine_Collection $PoiMedia
  * @property Doctrine_Collection $PoiProperty
  * @property Doctrine_Collection $Poi
@@ -79,11 +77,9 @@
  * @method integer             getRating()                     Returns the current record's "rating" value
  * @method string              getProvider()                   Returns the current record's "provider" value
  * @method integer             getPoiCategoryId()              Returns the current record's "poi_category_id" value
- * @method integer             getPoiParentCategoryId()        Returns the current record's "poi_parent_category_id" value
  * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
  * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
  * @method PoiCategory         getPoiCategory()                Returns the current record's "PoiCategory" value
- * @method PoiParentCategory   getPoiParentCategory()          Returns the current record's "PoiParentCategory" value
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
@@ -121,11 +117,9 @@
  * @method Poi                 setRating()                     Sets the current record's "rating" value
  * @method Poi                 setProvider()                   Sets the current record's "provider" value
  * @method Poi                 setPoiCategoryId()              Sets the current record's "poi_category_id" value
- * @method Poi                 setPoiParentCategoryId()        Sets the current record's "poi_parent_category_id" value
  * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
  * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
  * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" value
- * @method Poi                 setPoiParentCategory()          Sets the current record's "PoiParentCategory" value
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
@@ -180,6 +174,7 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->hasColumn('country', 'string', 3, array(
              'type' => 'string',
              'notnull' => true,
+             'regexp' => '/^[a-zA-Z]$/',
              'length' => '3',
              ));
         $this->hasColumn('additional_address_details', 'string', 128, array(
@@ -297,10 +292,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('poi_parent_category_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
         $this->hasColumn('vendor_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
@@ -320,10 +311,6 @@ abstract class BasePoi extends sfDoctrineRecord
 
         $this->hasOne('PoiCategory', array(
              'local' => 'poi_category_id',
-             'foreign' => 'id'));
-
-        $this->hasOne('PoiParentCategory', array(
-             'local' => 'poi_parent_category_id',
              'foreign' => 'id'));
 
         $this->hasMany('PoiMedia', array(

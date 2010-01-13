@@ -11,6 +11,7 @@ Poi:
     I18n:
       fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
+    #date:                       {type: datetime, notnull: true}
     vendor_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false}
@@ -18,7 +19,7 @@ Poi:
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
     district:                   {type: string(128), notnull: false}
-    country:                    {type: string(3), notnull: true}
+    country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]$/' }
     additional_address_details: {type: string(128), notnull: false}
     zips:                       {type: string(16), notnull: false}
     country_code:               {type: string(2), notnull: true}

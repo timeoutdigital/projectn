@@ -32,7 +32,7 @@ abstract class BasePoiTranslationForm extends BaseFormDoctrine
       'street'    => new sfValidatorString(array('max_length' => 128)),
       'city'      => new sfValidatorString(array('max_length' => 32)),
       'district'  => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'country'   => new sfValidatorString(array('max_length' => 3)),
+      'country'   => new sfValidatorRegex(array('max_length' => 3, 'pattern' => '/^[a-zA-Z]$/')),
       'zips'      => new sfValidatorString(array('max_length' => 16, 'required' => false)),
       'extension' => new sfValidatorString(array('max_length' => 128, 'required' => false)),
       'lang'      => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'lang', 'required' => false)),
