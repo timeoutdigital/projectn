@@ -12,4 +12,15 @@
  */
 class Vendor extends BaseVendor
 {
+
+  /**
+   * Returns the concatenated (city_language) vendor name
+   * 
+   * @return string vendor_name 
+   */
+  public function getName()
+  {
+    return $this->city . '_' . $this->getLanguage();
+  }
+
 }
