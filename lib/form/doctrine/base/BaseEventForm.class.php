@@ -20,8 +20,7 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'url'               => new sfWidgetFormTextarea(),
       'price'             => new sfWidgetFormTextarea(),
       'rating'            => new sfWidgetFormInputText(),
-      'event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => false)),
-      'poi_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
+      'event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => true)),
       'created_at'        => new sfWidgetFormDateTime(),
       'updated_at'        => new sfWidgetFormDateTime(),
     ));
@@ -32,8 +31,7 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'url'               => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'price'             => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'rating'            => new sfValidatorNumber(array('required' => false)),
-      'event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'))),
-      'poi_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
+      'event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'required' => false)),
       'created_at'        => new sfValidatorDateTime(),
       'updated_at'        => new sfValidatorDateTime(),
     ));

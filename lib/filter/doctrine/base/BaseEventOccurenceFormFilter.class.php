@@ -13,17 +13,15 @@ abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vendor_id'   => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'booking_url' => new sfWidgetFormFilterInput(),
       'start'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'end'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'end'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'utc_offset'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'event_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => true)),
       'poi_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
-      'vendor_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'booking_url' => new sfValidatorPass(array('required' => false)),
       'start'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'end'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
@@ -50,7 +48,6 @@ abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'          => 'Number',
-      'vendor_id'   => 'Number',
       'booking_url' => 'Text',
       'start'       => 'Date',
       'end'         => 'Date',

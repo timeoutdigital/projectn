@@ -1069,7 +1069,9 @@
 <type>Yes/No</type>
 <value>Yes</value>
 </attribute>
-</attributes><sort_string>Zebulon</sort_string></address><address id="112093"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zero + Maria Cornejo</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>33 Bleecker St</street><house_number/><cross_streets>between Bowery and Lafayette St</cross_streets><country_code>+1</country_code><telephone>
+</attributes><sort_string>Zebulon</sort_string></address>
+
+<address id="112093"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zero + Maria Cornejo</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>33 Bleecker St</street><house_number/><cross_streets>between Bowery and Lafayette St</cross_streets><country_code>+1</country_code><telephone>
 <function id="1">box office</function>
 <area_code>212</area_code>
 <number>925-3849</number>
@@ -1081,7 +1083,9 @@
 <author/>
 <released>1</released>
 </text>
-</text_system><attributes/><sort_string>Zero + Maria Cornejo</sort_string></address><address id="100020"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zinc Bar</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>82 W 3rd St</street><house_number/><cross_streets>between Sullivan and Thompson Sts</cross_streets><country_code>+1</country_code><telephone>
+</text_system><attributes/><sort_string>Zero + Maria Cornejo</sort_string></address>
+
+<address id="100020"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zinc Bar</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>82 W 3rd St</street><house_number/><cross_streets>between Sullivan and Thompson Sts</cross_streets><country_code>+1</country_code><telephone>
 <function id="0">info desk</function>
 <area_code>212</area_code>
 <number>477-8337</number>
@@ -1105,7 +1109,14 @@
 <type>Yes/No</type>
 <value>Yes</value>
 </attribute>
-</attributes><sort_string>Zinc Bar</sort_string></address><address id="107419"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zoë</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Kings</district><street>70 Washington St</street><house_number/><cross_streets>between Front and York Sts</cross_streets><country_code>+1</country_code><telephone>
+</attributes><sort_string>Zinc Bar</sort_string></address>
+
+
+
+<address id="107419">
+	<address_type>S</address_type>
+	<address_type_ext>-VEN-</address_type_ext>
+	<address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zoë</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Kings</district><street>70 Washington St</street><house_number/><cross_streets>between Front and York Sts</cross_streets><country_code>+1</country_code><telephone>
 <function id="0">info desk</function>
 <area_code>718</area_code>
 <number>237-4002</number>

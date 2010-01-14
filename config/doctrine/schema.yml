@@ -11,6 +11,7 @@ Poi:
     I18n:
       fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
+    #date:                       {type: datetime, notnull: true}
     vendor_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false}
@@ -18,7 +19,7 @@ Poi:
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
     district:                   {type: string(128), notnull: false}
-    country:                    {type: string(3), notnull: true}
+    country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]$/' }
     additional_address_details: {type: string(128), notnull: false}
     zips:                       {type: string(16), notnull: false}
     country_code:               {type: string(2), notnull: true}
@@ -30,7 +31,6 @@ Poi:
     phone:                      {type: string(32), notnull: false}
     phone2:                     {type: string(32), notnull: false}
     fax:                        {type: string(32), notnull: false}
-    language:                   {type: string, notnull: false}
     vendor_category:            {type: string(128), notnull: false}
     keywords:                   {type: string(512), notnull: false}
     short_description:          {type: string(2048), notnull: false}
@@ -42,12 +42,10 @@ Poi:
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
     poi_category_id:            {type: integer, notnull: true}
-    poi_parent_category_id:     {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
     PoiCategory:                {local: poi_category_id, foreign: id}
-    PoiParentCategory:          {local: poi_parent_category_id, foreign: id}
 
 
 #Any media that is associated to the poi
@@ -76,7 +74,7 @@ PoiCategory:
     parent_id:                  {type: integer}
     name:                       {type: string(50), notnull: true}
   relations: 
-    PoiParentCategory:                     {onDelete: CASCADE, local: parent_id, foreign: id, foreignAlias: PoiParentCategory}
+    PoiParentCategory:          {onDelete: CASCADE, local: parent_id, foreign: id, foreignAlias: PoiParentCategory}
 
 #Key value pairs for unmappable values on a Poi
 PoiProperty:
@@ -128,28 +126,25 @@ Event:
   columns:
     vendor_id:                  {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
-    vendor_category:            {type: string(256), notnull: true}
+    vendor_category:            {type: string(256), notnull: false}
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
     url:                        {type: string(1024), notnull: false}
     price:                      {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
-    event_category_id:          {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
+    event_category_id:          {type: integer, notnull: false}
   relations:
     EventCategory:              {local: event_category_id, foreign: id}
-    Poi:                        {local: poi_id, foreign: id}
     Vendor:                     {local: vendor_id, foreign: id}
 
 #Represents an occurence of an event
 EventOccurence:
   columns:
-    vendor_id:                  {type: integer, notnull: true}
     booking_url:                {type: string(1024), notnull: false}
     start:                      {type: date, notnull: true}
-    end:                        {type: date, notnull: true}
-    utc_offset:                 {type: time, notnull: true}
+    end:                        {type: date, notnull: false}
+    utc_offset:                 {type: string(6), notnull: true}
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:

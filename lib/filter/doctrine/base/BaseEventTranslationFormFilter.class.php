@@ -14,7 +14,7 @@ abstract class BaseEventTranslationFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'name'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'vendor_category'   => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'vendor_category'   => new sfWidgetFormFilterInput(),
       'short_description' => new sfWidgetFormFilterInput(),
       'description'       => new sfWidgetFormFilterInput(),
       'booking_url'       => new sfWidgetFormFilterInput(),

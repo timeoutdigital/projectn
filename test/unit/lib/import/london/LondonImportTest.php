@@ -5,7 +5,6 @@ require_once dirname( __FILE__ ).'/../../../bootstrap.php';
 
 require_once dirname(__FILE__).'/../../../../../lib/import/london/LondonImport.class.php';
 require_once dirname(__FILE__).'/../../../../../lib/import/ImportException.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/import/ImportException.class.php';
 
 /**
  * Test class for LondonVenues.
@@ -26,6 +25,7 @@ class LondonImportTest extends PHPUnit_Framework_TestCase
   {
     parent::setUp();
     $this->object = new LondonImport;
+    //Doctrine::getTable( 'Poi' )->deleteByVendorCityAndLanguage( 'london', 'english' );
   }
 
   /**
@@ -38,14 +38,33 @@ class LondonImportTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * loadFromSource( $limit, $offset ) should throws an exception if parameters
+   * are not integers
+   */
+  public function testLoadFromSourceThrowsExceptionIfParamsNotIntegers()
+  {
+    try
+    {
+      $this->object->loadFromSource( 1.2 );
+      $this->fail();
+    }catch( LondonImportException $e ){}
+
+    try
+    {
+      $this->object->loadFromSource( 1, 'foo' );
+      $this->fail();
+    }catch( LondonImportException $e ){}
+  }
+
+  /**
    * Checks that results pulled from London Venues table has all required fields
    */
-  public function testGetAllHasRequiredFields()
+  public function testLoadFromSourceHasRequiredFields()
   {
     $this->object->loadFromSource();
     $results = $this->object->getData();
 
-    $this->assertEquals( 20, count( $results ));
+    $this->assertGreaterThan( 0, count( $results ) );
 
     $this->assertArrayHasKey( 'poi_name', $results[ 0 ], 'Source has poi_name field' );
     $this->assertTrue( strlen( $results[ 0 ][ 'poi_name' ] ) > 0, 'Source poi_name is not blank' );
@@ -105,32 +124,47 @@ class LondonImportTest extends PHPUnit_Framework_TestCase
   /**
    * setData() should throw an ImportException if no data loaded
    */
-  public function testBindDataThrowsExceptionIfNoData()
+  public function testSaveThrowsExceptionIfNoData()
   {
     try
     {
-      $this->object->bindData();
+      $this->object->save();
       $this->fail();
     }
     catch( ImportException $e ){};
   }
 
   /**
-   * TODO fix sfYamlConfigHandler fail so we can run this test
-   * setData() returns true if data is set without problems
+   * save() 
    */
-  public function testBindDataOk()
+  public function testSave()
   {
-    $this->object->loadFromSource();
+    $this->object->loadFromSource( 1 );
     $this->assertTrue( is_array( $this->object->getData() ) );
-    $this->assertTrue( $this->object->bindData() );
+    $this->assertTrue( $this->object->save() );
+    $this->assertEquals( 0, count( $this->object->getValidationErrors() ) );
   }
 
   /**
-   * TODO fix sfYamlConfigHandler fail so we can run this test
+   * @todo find a way to inject error so that we can check validation errors
+   *
+   * getValidationErrors() should return an errors object
+   * after a failed save()
    */
-  public function testBindDataValidationRules()
+  public function testGetValidationErrors()
   {
+    return;
+    $this->object->loadFromSource();
+    $this->assertTrue( is_array( $this->object->getData() ) );
+    $this->assertFalse( $this->object->save() );
+    
+    $errors = $this->object->getValidationErrors();
+    $this->assertType( PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $errors );
+    $this->assertGreaterThan( 0, count( $errors ) );
+    foreach( $errors as $errorStack )
+    {
+      $this->assertEquals('Doctrine_Validator_ErrorStack', get_class( $errorStack ) );
+    }
   }
 }
 ?>

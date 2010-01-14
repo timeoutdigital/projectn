@@ -4,9 +4,10 @@
  */
 require_once 'PHPUnit/Framework.php';
 
-require_once( dirname(__FILE__).'/../../../../lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine.php');
-require_once( dirname(__FILE__).'/../../../../lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/record/doctrine/sfDoctrineRecord.class.php');
-spl_autoload_register(array('Doctrine', 'autoload'));
+require_once dirname( __FILE__ ).'/../../bootstrap.php';
+//require_once( dirname(__FILE__).'/../../../../lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine.php');
+//require_once( dirname(__FILE__).'/../../../../lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/record/doctrine/sfDoctrineRecord.class.php');
+//spl_autoload_register(array('Doctrine', 'autoload'));
 
 //require_once dirname(__FILE__).'/../../../../lib/import/database.class.php';
 

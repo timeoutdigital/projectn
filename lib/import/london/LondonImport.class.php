@@ -1,13 +1,11 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
-*/
 
 /**
- * Description of
+ * Imports data from London database
  *
- * @author clarence
+ * @package projectn.lib.import.london
+ *
+ * @author clarence <clarencelee@timeout.com>
  */
 class LondonImport
 {
@@ -17,12 +15,23 @@ class LondonImport
   private $venues = null;
 
   /**
+   * @var array
+   */
+  private $_validationErrors = array();
+
+  /**
    * Get all available Venues
    *
    * @return array All available Venues
    */
-  public function loadFromSource()
+  public function loadFromSource( $limit = 184, $offset = 0 )
   {
+    if( !is_int( $limit ) || !is_int( $offset ) )
+    {
+      $message = '';//'loadFromSource( $limit, $offset ), $limit must be an integer. Got (' . $limit . ')';
+      throw new LondonImportException( $message );
+    }
+
     $results = false;
 
     $sql = '
@@ -42,6 +51,7 @@ class LondonImport
               venue.opening_times,
               "London" as city,
               "GBR" as country,
+              "GB" as country_code,
               "en-GB" as language
             FROM
               venue,
@@ -54,11 +64,14 @@ class LondonImport
             GROUP BY
               venue.id
             LIMIT
-              20
+              :limit
+            OFFSET
+              :offset
             ;';
     
-    $statement = $this->getSourceConnection()->prepare( $sql );
-
+    $statement = $this->getLondonPdo()->prepare( $sql );
+    $statement->bindParam( 'limit', $limit, PDO::PARAM_INT );
+    $statement->bindParam( 'offset', $offset, PDO::PARAM_INT );
     if( $statement->execute() )
     {
       $results = $statement->fetchAll();
@@ -76,32 +89,73 @@ class LondonImport
   }
 
   /**
-   * set loaded data
+   * validate and save loaded data
    */
-  public function bindData()
-  {
+  public function save()
+  { 
     if( !is_array( $this->getData() ) )
     {
       throw new ImportException( 'Data must be loaded before being set.' );
     }
 
+    //Switch back to local database connection and explicitly the table to validate
+    Doctrine_Manager::connection( 'mysql://projectn:!ntcejorp!@localhost/projectn' );
+    Doctrine::getTable( 'Poi' )->setAttribute( Doctrine::ATTR_VALIDATE, true );
+
     foreach( $this->getData() as $venue )
     {
-      $poi = new Poi();
-      $poi->fromArray( $venue );
-    }
+      $success = false;
 
-    return true;
+      $poi = new Poi();
+
+      $vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'english' );
+      $poi->link( 'Vendor' , array( $vendor[ 'id' ] ) );
+
+      //TODO map this properly
+      $category = Doctrine::getTable( 'PoiCategory' )->findOneById( 1 );
+      $poi->link( 'PoiCategory', array( $category[ 'id' ] ) );
+
+      $poi[ 'street' ] = $venue[ 'street' ];
+      $poi[ 'city' ] = $venue[ 'city' ];
+      $poi[ 'country_code' ] = $venue[ 'country_code' ];
+      $poi[ 'longitude' ] = $venue[ 'longitude' ];
+      $poi[ 'latitude' ] = $venue[ 'latitude' ];
+      
+      if( $poi->isValid() )
+      {
+        $poi->save();
+        $success = true;
+      }
+      else
+      {
+        var_dump( $poi->getErrorStackAsString() );
+        array_push( $this->_validationErrors, $poi->getErrorStack() );
+        $success = false;
+      }
+
+      $poi->free( true );
+      return $success;
+    }
   }
 
   /**
-   * Get connection handler for the source database
+   * Returns validation errors from save
+   *
+   * @return array
+   */
+  public function getValidationErrors()
+  {
+    return $this->_validationErrors;
+  }
+
+  /**
+   * Get connection handler for the London Datadatabase
    *
    * @return PDO Connection handler
    */
-  private function getSourceConnection()
+  private function getLondonPdo()
   {
-    $doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@192.9.215.250/searchlight', 'source' );
+    $doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@192.9.215.250/searchlight', 'london' );
     return $doctrineConnection->getDbh();
   }
 
