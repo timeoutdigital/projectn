@@ -1,14 +1,21 @@
 <?php
 /**
- * Base class or XML feeds.
+ * Class to parse NY XML feeds
  *
+ * @package ny.import.lib.projectn
+ *
+ * @author Tim Bowler <timbowler@timeout.com>
+ *
+ * @copyright Timeout Communications Ltd
+ * @version 1.0.1
  *
  */
+
 class processNyXml extends processXml
 {
 
     /**
-     *
+     * Constructor method
      *
      */
     public function  __construct($sourceFile)

@@ -19,7 +19,7 @@ class processXmlTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp()
     {
-        $this->object = new processXml('test/unit/data/tony_leo_test_correct.xml');
+        
     }
 
     /**
@@ -27,34 +27,28 @@ class processXmlTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
+      
     }
 
 
     /**
      * Test that the xml file passed in exists and is loaded
      */
-    public function testXmlFileIsCorrect()
+    public function testXmlFileIsLoaded()
     {
-      $this->assertType('object', $this->object->xmlObj);
+      $this->object = new processXml(dirname(__FILE__).'/../data/tony_leo_test_correct.xml');
+      $this->assertType('object', $this->object->getXml());
     }
 
 
     /**
-     *  Test that the events are loaded
+     * Test that a file is handled if it doesn't exist
      */
-    public function testSetEvents()
+    public function testXmlFileNotLoaded()
     {
-      $this->object->setEvents('/body/event');
-      $this->assertType('array', $this->object->getEvents());
-    }
+      $this->object = new processXml(dirname(__FILE__).'/../data/tony_leo_test_INcorrect.xml');
 
-    /**
-     * Test that the venues are loaded
-     */
-    public function testSetVenues()
-    {
-       $this->object->setVenues('/body/address');
-       $this->assertType('array', $this->object->getVenues());
+      $this->assertFalse($this->object->getXml());
     }
 }
 ?>

@@ -2,7 +2,7 @@
 /**
  * Base class for XML feeds.
  *
- * @package lib.ny.import
+ * @package ny.import.lib.projectn
  *
  * @author Tim Bowler <timbowler@timeout.com>
  * @copyright Timeout Communications Ltd
@@ -18,7 +18,7 @@ class processXml
      * @var object Simple XML object
      *
      */
-    protected $xmlObj;
+    public $xmlObj;
     
 
     /**
@@ -32,12 +32,13 @@ class processXml
       if(file_exists($sourceFile))
       {
         $this->xmlObj = simplexml_load_file($sourceFile);
-        return true;
       }
       else
       {
-        return false;
+        $this->xmlObj = False;
       }
     }
+
+    public function getXml(){ return $this->xmlObj; }
 }
 ?>

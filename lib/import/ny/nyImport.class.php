@@ -2,7 +2,7 @@
 /**
  * Class for importing Ny's feeds.
  *
- * @package ny.import.lib
+ * @package ny.import.lib.projectn
  *
  * @author Timmy Bowler <timbowler@timeout.com>
  * 
