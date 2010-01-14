@@ -1,13 +1,17 @@
 <?php
 /**
- * Base class for importing Ny's feeds.
- * 
+ * Class for importing Ny's feeds.
+ *
+ * @package ny.import.lib.projectn
+ *
  * @author Timmy Bowler <timbowler@timeout.com>
+ * 
+ * @copyright Timeout Communications Ltd.
+ * @version 1.0.1
+ *
  *
  */
 
-//define('__DIR__', pathinfo(__FILE__, PATHINFO_DIRNAME));
-//require(__DIR__.'/../../../geoEncode.class.php');
 
 class importNy
 {

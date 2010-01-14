@@ -4,7 +4,13 @@ all:
     param:
       dsn: 'mysql:host=localhost;dbname=projectn'
       username: root
+<<<<<<< HEAD:config/databases.yml
+      password: Panties69
+
+
+=======
       password: superpass
+>>>>>>> deb7b682e705b3123945bfa40a3d596aa6a24c58:config/databases.yml
 
 dev:
   n_local:
@@ -12,12 +18,22 @@ dev:
     param:
       dsn: 'mysql:host=localhost;dbname=projectn'
       username: root
+<<<<<<< HEAD:config/databases.yml
+      password: Panties69
+=======
       password: superpass
+>>>>>>> deb7b682e705b3123945bfa40a3d596aa6a24c58:config/databases.yml
 
 test:
   n_local:
     class: sfDoctrineDatabase
     param:
+<<<<<<< HEAD:config/databases.yml
+      dsn: 'mysql:host=localhost;dbname=projectn_test'
+      username: projectntest
+      password:  Panties69
+=======
       dsn: 'mysql:host=localhost;dbname=projectn'
       username: root
       password: superpass
+>>>>>>> deb7b682e705b3123945bfa40a3d596aa6a24c58:config/databases.yml
