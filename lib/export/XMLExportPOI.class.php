@@ -12,36 +12,20 @@
 class XMLExportPOI extends XMLExport
 {
 
-  private $vendor = null;
-
-
-  public function run()
-  {
-    $this->getData();
-    
-  }
-
-  /**
+  
+ /**
    *
    * @param Vendor $vendor
    */
-  public function __construct( $vendor )
+  public function __construct( $vendor, $destination )
   {
-    $this->vendor = $vendor;    
+    parent::__construct(  $vendor, $destination, 'Poi' );
   }
 
-  /**
-   *
-   * @return Doctrine_Collection
-   */
-  public function getData( )
-  {
-    $data = Doctrine::getTable( 'Poi' )->findByVendorId( $this->vendor->getId() );
-    return $data;
-  }
 
   /**
-   *
+   * @todo PoiCateory needs to be one-to-many not one-to-one
+   * 
    * @return string XML string
    */
   public function generateXML( $data )
@@ -51,15 +35,34 @@ class XMLExportPOI extends XMLExport
 
     //poi_vendor
     $xmlElement->addAttribute( 'vendor', $this->vendor->getName() );
-    $xmlElement->addAttribute( 'modified', date( 'Y-m-d\TH:i:s' ) );
+    $xmlElement->addAttribute( 'modified', $this->modifiedTimeStamp );
 
     //entry
     foreach( $data as $poi )
     {
       $entry = $xmlElement->addChild( 'entry' );
       $entry->addAttribute( 'vpid', 'vpid_' . $poi->getVendorPoiId() );
+      $entry->addAttribute( 'lang', $poi->getLocalLanguage() );
+      $entry->addAttribute( 'modified', $this->modifiedTimeStamp );
+
+      $geoPosition = $entry->addChild( 'geo-position' );
+      $geoPosition->addChild( 'longitude', $poi->getLongitude() );
+      $geoPosition->addChild( 'latitude', $poi->getLatitude() );
+
+      $entry->addChild( 'name', htmlspecialchars( $poi->getPoiName() ) );
+
+      $entry->addChild( 'category', $poi->getPoiCategory()->getName() );
+
+      $address = $entry->addChild( 'address' );
+      $address->addChild( 'street', htmlspecialchars( $poi->getStreet() ) );
+      $address->addChild( 'houseno',htmlspecialchars( $poi->getHouseNo() ) );
+      $address->addChild( 'zip', $poi->getZips() );
+      $address->addChild( 'city', htmlspecialchars($poi->getCity() ) );
+      $address->addChild( 'district', htmlspecialchars($poi->getDistrict() ) );
+      $address->addChild( 'country', htmlspecialchars($poi->getCountry() ) );
+
     }
-    
+
     return $xmlElement;
   }
   

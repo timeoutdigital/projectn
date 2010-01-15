@@ -154,11 +154,11 @@ class ProjectN_Test_Unit_Factory
         'street' => 'test street',
         'city' => 'test town',
         'country' => 'test country',
-        'vendor_poi_id' => '0',
+        'vendor_poi_id' => '1',
         'local_language' =>'aa',
         'country_code' => 'aa',
-        'longitude' => '0.0',
-        'latitude' => '0.0',
+        'longitude' => '1.1',
+        'latitude' => '1.1',
       ),
       
     );
