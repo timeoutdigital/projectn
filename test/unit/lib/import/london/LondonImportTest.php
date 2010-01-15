@@ -1,13 +1,9 @@
 <?php
 
 require_once 'PHPUnit/Extensions/Database/TestCase.php';
-require_once dirname( __FILE__ ).'/../../../bootstrap.php';
 
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
-spl_autoload_register(array('Doctrine', 'autoload'));
-
-$configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'test', true);
-new sfDatabaseManager($configuration);
+require_once dirname( __FILE__ ).'/../../../bootstrap.php';
 
 /**
  * Test class for LondonVenues.

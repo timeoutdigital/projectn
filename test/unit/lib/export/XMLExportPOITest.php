@@ -133,8 +133,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       
       $vpid = (string) $xmlElement->entry[0]['vpid'];
       $this->assertGreaterThan( strlen( $prefix ), strlen( $vpid ) );
-
-      $this->assertEquals( $expected, $actual );
     }
 
 
