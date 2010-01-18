@@ -3,15 +3,15 @@ options:
   collate: utf8_unicode_ci
   charset: utf8
 
-
 #Represents a venue aka Point of interest
+
 Poi:
   actAs:
     Timestampable: ~
     I18n:
       fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
-    #date:                       {type: datetime, notnull: true}
+    date:                       {type: datetime, notnull: true}
     vendor_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false}
@@ -180,10 +180,12 @@ EventProperty:
 
 #Represents a movie
 Movie:
+  actAs:
+    Timestampable:              ~
   columns:
+    id:                         {type: integer, notnull: true,  autoincrement: true, primary: true }
     vendor_id:                  {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
-    genre:                      {type: string(256), notnull: true}
     plot:                       {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
     url:                        {type: string(1024), notnull: false}
@@ -191,6 +193,25 @@ Movie:
     age_rating:                 {type: string(32), notnull: false}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
+    MovieGenres:                 {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
+
+
+#Movie Genres
+LinkingMovieGenre:
+  columns:
+     movie_genre_id:          {type: integer, notnull: true}
+     movie_id:                {type: integer, notnull: true}
+
+
+#Movie Genres
+MovieGenre:
+  actAs:
+    Timestampable:              ~
+  columns:
+    genre:                      {type: string(256), notnull: true}
+  relations:
+    Movies:                      {class: Movie, refClass: LinkingMovieGenre, local: movie_genre_id, foreign: movie_id}
+
 
 #A occurrence of a movie
 MovieOccurence:
@@ -220,6 +241,7 @@ MovieProperty:
   actAs:
     Timestampable: ~
   columns:
+    id:                         {type: integer, autoincrement: true, primary: true}
     lookup:                     {type: string(50), notnull: true}
     value:                      {type: string(50), notnull: true}
     movie_id:                   {type: integer, notnull: true}
