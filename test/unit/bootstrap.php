@@ -75,33 +75,31 @@ class ProjectN_Test_Unit_Factory
    */
   static public function get( $model, $data = null, $autoCreateRelatedObjects = true )
   {
-    $prepMethod = strtolower( $model ) . 'SpecificPreparation';
-    if( ProjectN_Test_Unit_Factory::hasClassMethod( $prepMethod ) )
+    switch( strtolower( $model ) )
     {
-      ProjectN_Test_Unit_Factory::$prepMethod( $autoCreateRelatedObjects );
+      case 'poi':
+        return PoiFixture::create( $data, $autoCreateRelatedObjects );
+      case 'poicategory':
+        return PoiCategoryFixture::create( $data, $autoCreateRelatedObjects );
+      case 'vendor':
+        return VendorFixture::create( $data, $autoCreateRelatedObjects );
     }
+  }
+}
 
-    if( is_null( $data ) )
+class PoiFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = PoiFixture::getDefaults();
+    if( is_array( $data ) )
     {
-      $data = array();
-    }
-    $defaultData = ProjectN_Test_Unit_Factory::getDefaultsForModel( $model );
-    $completeData = array_merge( $defaultData, $data );
-
-    $object = new $model();
-    $object->fromArray( $completeData, true );
-
-    $finishMethod = strtolower( $model ) . 'SpecificFinish';
-    if( ProjectN_Test_Unit_Factory::hasClassMethod( $finishMethod ))
-    {
-      ProjectN_Test_Unit_Factory::$finishMethod( $object, $autoCreateRelatedObjects );
+      $defaults = array_merge( $defaults, $data );
     }
     
-    return $object;
-  }
-
-  static private function poiSpecificPreparation( $autoCreateRelatedObjects )
-  {
+    $poi = new Poi();
+    $poi->fromArray( $defaults );
+    
     if( $autoCreateRelatedObjects )
     {
       foreach( array( 'Vendor', 'PoiCategory' ) as $model )
@@ -112,44 +110,19 @@ class ProjectN_Test_Unit_Factory
         }
       }
     }
-  }
-
-  static private function poiSpecificFinish( $object, $autoCreateRelatedObjects )
-  {
+    
     if( $autoCreateRelatedObjects )
     {
-      $object->link( 'PoiCategory', array( 1 ) );
-      $object->link( 'Vendor', array( 1 ) );
+      $poi->link( 'PoiCategory', array( 1 ) );
+      $poi->link( 'Vendor', array( 1 ) );
     }
+
+    return $poi;
   }
 
-  static private function hasClassMethod( $methodName )
+  static private function getDefaults()
   {
-    $lazyReflection = new ReflectionClass( 'ProjectN_Test_Unit_Factory' );
-    $lazyMethods = $lazyReflection->getMethods();
-    foreach ( $lazyMethods as $aMethod )
-    {
-      if( $aMethod->name == $methodName )
-      {
-        return true;
-      }
-    }
-  }
-
-  static private function getDefaultsForModel( $model )
-  {
-    $defaults = array(
-      
-      'vendor' => array(
-        'city' => 'test city',
-        'language' => 'test language'
-      ),
-
-      'poicategory' => array(
-        'name' => 'test name'
-      ),
-
-      'poi' => array(
+    return array(
         'poi_name' => 'test name',
         'street' => 'test street',
         'city' => 'test town',
@@ -159,11 +132,58 @@ class ProjectN_Test_Unit_Factory
         'country_code' => 'aa',
         'longitude' => '1.1',
         'latitude' => '1.1',
-      ),
-      
     );
+  }
+}
 
-    return $defaults[ strtolower( $model ) ];
+class PoiCategoryFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = PoiCategoryFixture::getDefaults();
+    
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $poiCategory = new PoiCategory();
+    $poiCategory->fromArray( $defaults );
+
+    return $poiCategory;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name' => 'test name'
+    );
+  }
+}
+
+class VendorFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = VendorFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $vendor = new Vendor();
+    $vendor->fromArray( $defaults );
+
+    return $vendor;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'city' => 'test city',
+      'language' => 'test language'
+    );
   }
 }
 
