@@ -19,7 +19,6 @@ class importNy
   private $_venues;
   private $_xmlFeed;
   private $_vendorObj;
-
   
   /**
    * Constructor
@@ -32,7 +31,7 @@ class importNy
     $this->_xmlFeed = $xmlFeed;
     $this->_venues = $xmlFeed->getVenues();
     $this->_events = $xmlFeed->getEvents();
-    $this->_vendorObj = $vendorObj;   
+    $this->_vendorObj = $vendorObj;
   }
 
 
@@ -46,13 +45,11 @@ class importNy
 
     foreach( $this->_venues as $venue )
     {
-
       $this->insertVenue( $venue ) ;
     }
 
     foreach($this->_events as $event)
     {
-
       $this->insertEvent( $event );
     }
 
@@ -187,44 +184,6 @@ class importNy
       //Kill the object
       $eventObj->free();
 
-
-
-/*
-    vendor_id:                  {type: integer, notnull: true}
-    name:                       {type: string(256), notnull: true}
-    vendor_category:            {type: string(256), notnull: true}
-    short_description:          {type: string(1024), notnull: false}
-    description:                {type: string(65535), notnull: false}
-    booking_url:                {type: string(1024), notnull: false}
-    url:                        {type: string(1024), notnull: false}
-    price:                      {type: string(1024), notnull: false}
-    rating:                     {type: float, notnull: false}
-    event_category_id:          {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
-  relations:
-    EventCategory:              {local: event_category_id, foreign: id}
-    Poi:                        {local: poi_id, foreign: id}
-    Vendor:                     {local: vendor_id, foreign: id}
- *
- *
- * EventOccurence:
-  columns:
-    vendor_id:                  {type: integer, notnull: true}
-    booking_url:                {type: string(1024), notnull: false}
-    start:                      {type: date, notnull: true}
-    end:                        {type: date, notnull: true}
-    utc_offset:                 {type: time, notnull: true}
-    event_id:                   {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
-  relations:
-    Event:                      {local: event_id, foreign: id, foreignType: one}
-    Poi:                        {local: poi_id, foreign: id, foreignType: one}
- *
-*/
-
-
-
   }
-
 
 }
