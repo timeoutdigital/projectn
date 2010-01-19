@@ -12,72 +12,21 @@ class LondonImport
   /**
    * @var array
    */
-  private $venues = null;
+  private $_venues = null;
 
   /**
    * @var array
    */
   private $_validationErrors = array();
-
+  
   /**
    * Get all available Venues
    *
    * @return array All available Venues
    */
-  public function loadFromSource( $limit = 184, $offset = 0 )
+  public function loadFromSource( $limit = PHP_INT_MAX, $offset = 0 )
   {
-    if( !is_int( $limit ) || !is_int( $offset ) )
-    {
-      $message = '';//'loadFromSource( $limit, $offset ), $limit must be an integer. Got (' . $limit . ')';
-      throw new LondonImportException( $message );
-    }
-
-    $results = false;
-
-    $sql = '
-            SELECT
-              venue.name as poi_name,
-              venue.name as alternative_name,
-              SUBSTR( venue.address, ",", 1 ) as street,
-              venue.travel as public_transport,
-              venue.latitude,
-              venue.longitude,
-              GROUP_CONCAT(
-                DISTINCT category.name
-                SEPARATOR ", "
-              ) as vendor_category_names,
-              category.id as category_ids,
-              venue.id as vendor_poi_id,
-              venue.opening_times,
-              "London" as city,
-              "GBR" as country,
-              "GB" as country_code,
-              "en-GB" as language
-            FROM
-              venue,
-              venue_category_mapping as map,
-              category
-            WHERE
-              venue.id = map.venue_id
-              AND
-              map.category_id = category.id
-            GROUP BY
-              venue.id
-            LIMIT
-              :limit
-            OFFSET
-              :offset
-            ;';
-    
-    $statement = $this->getLondonPdo()->prepare( $sql );
-    $statement->bindParam( 'limit', $limit, PDO::PARAM_INT );
-    $statement->bindParam( 'offset', $offset, PDO::PARAM_INT );
-    if( $statement->execute() )
-    {
-      $results = $statement->fetchAll();
-    }
-
-    $this->venues = $results;
+    $this->loadVenues( $limit, $offset );
   }
 
   /**
@@ -85,7 +34,7 @@ class LondonImport
    */
   public function getData()
   {
-    return $this->venues;
+    return $this->_venues;
   }
 
   /**
@@ -98,8 +47,9 @@ class LondonImport
       throw new ImportException( 'Data must be loaded before being set.' );
     }
 
-    //Switch back to local database connection and explicitly the table to validate
-    Doctrine_Manager::connection( 'mysql://projectn:!ntcejorp!@localhost/projectn' );
+    var_dump( array_keys( Doctrine_Manager::getInstance()->getConnections() ) );
+    //Doctrine_Manager::getInstance()->setCurrentConnection('n_local');
+    Doctrine_Manager::getInstance()->setCurrentConnection('n_local');
     Doctrine::getTable( 'Poi' )->setAttribute( Doctrine::ATTR_VALIDATE, true );
 
     foreach( $this->getData() as $venue )
@@ -155,13 +105,67 @@ class LondonImport
    */
   private function getLondonPdo()
   {
-    $doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@192.9.215.250/searchlight', 'london' );
+    $doctrineConnection = Doctrine_Manager::connection( 'mysql://timeout:65dali32@192.9.215.250/searchlight', 'moose' );
     return $doctrineConnection->getDbh();
   }
 
-  private function getStoreConnection()
+  /**
+   * Load london venues to $this->venue
+   */
+  private function loadVenues( $limit = PHP_INT_MAX, $offset = 0 )
   {
-    return Doctrine_Manager::connection( 'dev' );
+    if( !is_int( $limit ) || !is_int( $offset ) )
+    {
+      $message = '';//'loadFromSource( $limit, $offset ), $limit must be an integer. Got (' . $limit . ')';
+      throw new LondonImportException( $message );
+    }
+
+    $results = false;
+
+    $sql = '
+            SELECT
+              venue.name as poi_name,
+              venue.name as alternative_name,
+              SUBSTR( venue.address, ",", 1 ) as street,
+              venue.travel as public_transport,
+              venue.latitude,
+              venue.longitude,
+              GROUP_CONCAT(
+                DISTINCT category.name
+                SEPARATOR ", "
+              ) as vendor_category_names,
+              category.id as category_ids,
+              venue.id as vendor_poi_id,
+              venue.opening_times,
+              "London" as city,
+              "GBR" as country,
+              "GB" as country_code,
+              "en-GB" as language
+            FROM
+              venue,
+              venue_category_mapping as map,
+              category
+            WHERE
+              venue.id = map.venue_id
+              AND
+              map.category_id = category.id
+            GROUP BY
+              venue.id
+            LIMIT
+              :limit
+            OFFSET
+              :offset
+            ;';
+
+    $statement = $this->getLondonPdo()->prepare( $sql );
+    $statement->bindParam( 'limit', $limit, PDO::PARAM_INT );
+    $statement->bindParam( 'offset', $offset, PDO::PARAM_INT );
+    if( $statement->execute() )
+    {
+      $results = $statement->fetchAll();
+    }
+
+    $this->_venues = $results;
   }
 
 }

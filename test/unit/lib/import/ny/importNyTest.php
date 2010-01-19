@@ -16,7 +16,8 @@ spl_autoload_register(array('Doctrine', 'autoload'));
  *
  *
  */
-class importNyTest extends PHPUnit_Framework_TestCase {
+class importNyTest extends PHPUnit_Framework_TestCase
+{
   /**
    * @var importNy
    */
