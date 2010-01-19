@@ -26,11 +26,11 @@ class importNy
    * @param object $xmlfeed
    *
    */
-  public function  __construct($xmlFeed, $vendorObj)
+  public function  __construct( $xmlFeed, $vendorObj )
   {
     $this->_xmlFeed = $xmlFeed;
-    $this->_venues = $xmlFeed->getVenues();
-    $this->_events = $xmlFeed->getEvents();
+    $this->_venues = $this->_xmlFeed->getVenues();
+    $this->_events = $this->_xmlFeed->getEvents();
     $this->_vendorObj = $vendorObj;
   }
 
@@ -43,9 +43,11 @@ class importNy
   public function insertEventsAndVenues()
   {
 
+    
+
     foreach( $this->_venues as $venue )
     {
-      $this->insertVenue( $venue ) ;
+      $this->insertPoi( $venue ) ;
     }
 
     foreach($this->_events as $event)
@@ -57,68 +59,88 @@ class importNy
 
 
   /**
-   * Insert the events venue
+   * Insert the events pois
    *
-   * @param SimpleXMLElement $venue the venue we want to insert
+   * @param SimpleXMLElement $poi the poi we want to insert
+   * @todo go through the xml with a proper source xml editor to make sure that
+   *  no information is left out
+   * @todo sort out categories
    *
    */
-  public function insertVenue( $venue )
+  public function insertPoi( $poi )
   {
-     //Get the venue
-     // $venue = $this->_xmlFeed->xmlObj->xpath('/body/address[@id='. $eventVenueId .']');
 
+      //Get the venue
+      // $venue = $this->_xmlFeed->xmlObj->xpath('/body/address[@id='. $eventVenueId .']');
 
       //Set the Poi's required values
       $poiObj = new Poi();
-      $poiObj->setPoiName($venue->identifier);
-      $poiObj->setStreet( $venue->street);
-      $poiObj->setCity($venue->town);
-      $poiObj->setCountry($venue->country);
-      $poiObj->setVendorPoiId( $venue['id'] );
-      $poiObj->setLocalLanguage('en');
-      $poiObj->setCountryCode($venue->country_symbol);
-      $poiObj->setAdditionalAddressDetails($venue->cross_street);
-      $poiObj->setUrl($venue->website);
-      $poiObj->setVendorId($this->_vendorObj->getId());
+      $poiObj[ 'poi_name' ] = $poi->identifier;
+      $poiObj[ 'street' ] = $poi->street;
+      $poiObj[ 'city' ] = $poi->town;
+      $poiObj[ 'country' ] = $poi->country;
+      $poiObj[ 'vendor_poi_id' ] = $poi['id'];
+      $poiObj[ 'local_language' ] = 'en';
+      $poiObj[ 'country_code' ] = $poi->country_symbol;
+      $poiObj[ 'additional_address_details' ] = $poi->cross_street;
+      $poiObj[ 'url' ] = $poi->website;
 
+      $poiObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
       //Form and set phone number
-      $countryCodeString = $venue->country_code;
-      $areaCodeString = $venue->telephone->area_code;
-      $phoneString = $venue->telephone->number;
+      $countryCodeString = $poi->country_code;
+      $areaCodeString = $poi->telephone->area_code;
+      $phoneString = $poi->telephone->number;
       $fullnumber = $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
-      $poiObj->setPhone($fullnumber);
+      $poiObj[ 'phone' ] = $fullnumber;
 
 
       //Full address String
-      $name = $venue->identifier;
-      $street = $venue->street;
-      $town = $venue->town;
-      $country = $venue->country_symbol;
-      $state = $venue->state;
-      $suburb = $venue->suburb;
-      $district = $venue->district;
+      $name = $poi->identifier;
+      $street = $poi->street;
+      $town = $poi->town;
+      $country = $poi->country_symbol;
+      $state = $poi->state;
+      $suburb = $poi->suburb;
+      $district = $poi->district;
       $addressString = "$name, $street, $district, $suburb, $town, $country, $state";
-
       
       //Get longitude and latitude for venue
       $geoEncode = new geoEncode();
-      $geoEncode->setAddress($addressString);
+      $geoEncode->setAddress( $addressString );
 
       //Set longitude and latitude
-      $poiObj->setLongitude($geoEncode->getLongitude());
-      $poiObj->setLatitude($geoEncode->getLatitude());
+      $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
+      $poiObj[ 'latitude' ] = $geoEncode->getLatitude();
+
+      //deal with the "text-system" nodes
+      if ( isset( $poi->{'text_system'}->text ) )              {
+        foreach( $poi->{'text_system'}->text as $text )
+        {
+          switch( $text->{'text_type'} )
+          {
+            case 'Venue Blurb':
+              $poiObj[ 'description' ] = $text->content;
+              break;
+            case 'Approach Descriptions':
+              $poiObj[ 'public_transport_links' ] = $text->content;
+              break;
+            case 'Web Keywords':
+              $poiObj[ 'keywords' ] = $text->content;
+              break;
+          }
+        }
+      }
 
       //Get and set the child category
-      $childObj =  Doctrine::getTable('PoiCategory')->getByName('theatre-music-culture');
-      $poiObj->setPoiCategoryId($childObj->getId());
+      $poiCategoryObj =  Doctrine::getTable( 'PoiCategory' )->getByName( 'theatre-music-culture' );
+      $poiObj[ 'poi_category_id' ] = $poiCategoryObj->getId();
 
       //save to database
       $poiObj->save();
 
       //Kill the object
-      $poiObj->free();
-    
+      $poiObj->free();    
   }
 
 
@@ -126,6 +148,8 @@ class importNy
    * Insert the events
    *
    * @param SimpleXMLElement $event the events we want to insert
+   * @todo sort out categories
+   * @todo sort out attributes
    *
    */
   public function insertEvent( $event )
@@ -136,9 +160,55 @@ class importNy
       //Set the Events requirred values
       $eventObj = new Event();
 
-      $eventObj->setVendorId($this->_vendorObj->getId());
+      $eventObj['vendor_id' ] = $this->_vendorObj->getId();
 
-      $eventObj->setName( $event->identifier );
+      $eventObj[ 'name' ] = $event->identifier;
+      $eventObj[ 'description' ] = $event->description;
+
+      //deal with the "text-system" nodes
+      if ( isset( $poi->{'text_system'}->text ) )              {
+        foreach( $poi->{'text_system'}->text as $text )
+        {
+          switch( $text->{'text_type'} )
+          {
+            case 'Prices':
+              // the prices tag you might wonder about belongs to the address
+              // and not the event node, therefore we use this as price
+              $eventPropertyObj = new EventProperty();
+              $eventPropertyObj[ 'lookup' ] = 'prices';
+              $eventPropertyObj[ 'value' ] = $text->content;
+              //$eventPropertyObj[ 'event_id' ] = $eventObj->getId();
+
+              //$eventObj[ 'EventProperty' ] = $eventPropertyObj;
+
+              break;
+            case 'Contact Blurb':
+              // add property with email, phone, url and stuff
+              break;
+            case 'Show End Date':
+              // create function to detect end date
+              break;
+            case 'Legend':
+              //stick it in as property
+              break;
+            case 'Chill Out End Note':
+              // stick in property
+              break;
+            case 'Venue Blurb':
+              // stick in property
+              $poiObj[ 'description' ] = $text->content;
+              break;
+            case 'Approach Descriptions':
+              // stick in property
+              $poiObj[ 'public_transport_links' ] = $text->content;
+              break;
+            case 'Web Keywords':
+              // stick in property
+              $poiObj[ 'keywords' ] = $text->content;
+              break;
+          }
+        }
+      }
 
       //save to database
       if( $eventObj->isValid() )
@@ -156,13 +226,16 @@ class importNy
           $occurrenceObj->setEventId( $eventObj->getId() );
 
           //set poi id
-          $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( $occurrence->venue[0]->address_id );
-          
+          $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
+
+
+          //var_export( $venueObj );
+
+
           $occurrenceObj->setPoiId( $venueObj->getId() );
 
           if( $occurrenceObj->isValid() )
           {
-
             //save to database
             $occurrenceObj->save();
           }

@@ -22,7 +22,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
    * @var importNy
    */
   protected $object;
-  protected $dbObj;
+
+  protected $xmlObj;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -31,30 +32,49 @@ class importNyTest extends PHPUnit_Framework_TestCase
   protected function setUp() {
 
     try {
-
       $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
-      Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine');
- 
+      Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine' );
+
+      $vendorObj = new Vendor();
+      $vendorObj->setCity('test');
+      $vendorObj->setLanguage('english');
+      $vendorObj->save();
+
+      $poiCategoryObj = new PoiCategory();
+      $poiCategoryObj[ 'name' ] = 'theatre-music-culture';
+      $poiCategoryObj->save();
+
+      /*$poiObj = new Poi();
+      $poiObj->setPoiName( 'test name' );
+      $poiObj->setStreet( 'test street' );
+      $poiObj->setHouseNo('12' );
+      $poiObj->setZips('1234' );
+      $poiObj->setCity( 'test town' );
+      $poiObj->setDistrict( 'test district' );
+      $poiObj->setCountry( 'test country' );
+      $poiObj->setVendorPoiId( '123' );
+      $poiObj->setLocalLanguage('en');
+      $poiObj->setCountryCode( 'uk' );
+      $poiObj->setLongitude( '0.1' );
+      $poiObj->setLatitude( '0.2' );
+      $poiObj->link( 'Vendor', 1 );
+      $poiObj->link('PoiCategory', 1 );
+      $poiObj->save();*/
+
+
+      $this->xmlObj = new processNyXml( dirname(__FILE__).'/../../../data/tony_leo_test_correct.xml' );
+      $this->xmlObj->setEvents('/body/event')->setVenues('/body/address');
+      
+      $this->object = new importNy( $this->xmlObj, $vendorObj );
+
     }
     catch(PDOException $e)
     {
       echo $e->getMessage();
     }
 
-    /*$processXmlObj = new processXml('test/unit/data/tony_leo_test_correct.xml');
-
-    //Set the events and venues xpath
-    $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
-    //Get a vendor
-    $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'english');
 
 
-    //Instatiate object
-    $this->object = new importNy($processXmlObj, $vendorObj);
-    $this->dbObj = database::factory('dev');
-
-*/
   }
 
   
@@ -70,32 +90,55 @@ class importNyTest extends PHPUnit_Framework_TestCase
   }
 
 
-  /**
-   * @todo finish test
-   */
-  public function testInsertEvent()
-  {
-   
-    $t = new Vendor();
-    $t->setCity('test');
-    $t->setLanguage('english');
-    $t->save();
-
-    
-
-    $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('test', 'english');
-
-
-    $this->assertTrue($this->object->insertEventsAndVenues());
-  }
-
-  /**
-   * @todo finish test
+   /**
+   * testInsertPoi
    */
   public function testInsertPoi()
   {
-   // $this->assertTrue($this->object->insertEventsAndVenues());
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $poiObj = Doctrine::getTable('Poi')->findByPoiName('Zankel Hall (at Carnegie Hall)');
+
+    $this->assertEquals( 1, count( $poiObj ) );
   }
+
+  /**
+   * testInsertEvent
+   * @todo add occurrence
+   */
+  public function testInsertEvent()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $eventObj = Doctrine::getTable('Event')->findByName('Rien Que Les Heures');
+    $this->assertEquals( 1, count( $eventObj ) );
+
+  }
+
+  /*public function testInsertEventPriceProperty()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $eventObj = Doctrine::getTable('Event')->findByName('Rien Que Les Heures');
+
+    foreach ( $eventObj[ 'EventProperty' ] as $property )
+    {
+      var_export( $property );
+    }
+
+    print_r( $eventObj[ 'EventProperty' ][ 'lookup' ] );
+
+    //$this->assertEquals( '$10', $eventObj[ 'EventProperty' ][ 'prices' ] );
+  }*/
 
 
 

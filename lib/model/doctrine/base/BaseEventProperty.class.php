@@ -8,18 +8,15 @@
  * @property string $lookup
  * @property string $value
  * @property integer $event_id
- * @property integer $poi_id
  * @property Event $Event
  * 
  * @method string        getLookup()   Returns the current record's "lookup" value
  * @method string        getValue()    Returns the current record's "value" value
  * @method integer       getEventId()  Returns the current record's "event_id" value
- * @method integer       getPoiId()    Returns the current record's "poi_id" value
  * @method Event         getEvent()    Returns the current record's "Event" value
  * @method EventProperty setLookup()   Sets the current record's "lookup" value
  * @method EventProperty setValue()    Sets the current record's "value" value
  * @method EventProperty setEventId()  Sets the current record's "event_id" value
- * @method EventProperty setPoiId()    Sets the current record's "poi_id" value
  * @method EventProperty setEvent()    Sets the current record's "Event" value
  * 
  * @package    sf_sandbox
@@ -46,10 +43,6 @@ abstract class BaseEventProperty extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('poi_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
 
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
@@ -60,7 +53,7 @@ abstract class BaseEventProperty extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasOne('Event', array(
-             'local' => 'poi_id',
+             'local' => 'event_id',
              'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
