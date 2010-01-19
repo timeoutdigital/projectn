@@ -19,21 +19,27 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     private $export;
 
+    /**
+     * @var Vendor
+     */
     private $vendor2;
-    
+
+    /**
+     *
+     * @var string
+     */
     private $destination;
 
+    /**
+     *
+     * @var string
+     */
     private $specialChars = '&<>\'"';
-
-
-
-
-
+    
     protected function setUp()
     {
       try {
-        $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
-        Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../lib/model/doctrine');
+        ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
 
         $vendor = new Vendor();
         $vendor->setCity('test');
@@ -64,9 +70,20 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setCountryCode( 'uk' );
         $poi->setLongitude( '0.1' );
         $poi->setLatitude( '0.2' );
+        $poi->setEmail( 'you@who.com' );
+        $poi->setUrl( 'http://foo.com' );
+        $poi->setPhone( '+44 0208 123 1234' );
+        $poi->setPhone2( '+44 0208 223 2234' );
+        $poi->setFax( '+44 0208 323 3234' );
+        $poi->setShortDescription( 'test short description' );
+        $poi->setDescription( 'test description' );
+        $poi->setPublicTransportLinks( 'test public transport' );
+        //$poi->setPrice( 'test price' );
+        $poi->setOpeningTimes( 'test opening times' );
+
         $poi->link( 'Vendor', 2 );
         $poi->link('PoiCategory', array( 1, 2 ) );
-        
+
         $poi->save();
         
         $poi = new Poi();
@@ -87,8 +104,11 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $poi->save();
 
-        $this->destination = dirname( __FILE__ ) . '/../../export/poi/test.xml';
+        $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
         $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
+        
+        $this->export->run();
+        $this->xml = simplexml_load_file( $this->destination );
 
       }
       catch(PDOException $e)
@@ -99,75 +119,54 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-    }
-
-
-    /**
-     * getData() should only return data from Vendor passed in constructor
-     */
-    public function testGetDataFromCorrectVendor()
-    {
-      $data = $this->export->getData();
-      $this->assertTrue( $data instanceof Doctrine_Collection );
-
-      $this->assertEquals( 2, $data[0]->getVendorId() );
+      ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
     }
 
     /**
-     * test generateXML() has vendor-poi root tag with required attributes
+     * test generated XML has vendor-poi root tag with required attributes
      */
-    public function testGenerateXMLHasVendorPoiWithRequiredAttribute()
+    public function testGeneratedXMLHasVendorPoiWithRequiredAttribute()
     {
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-      
-      $this->assertTrue( $xmlElement instanceof SimpleXMLElement );
+      $this->assertTrue( $this->xml instanceof SimpleXMLElement );
 
       //vendor-pois
-      $this->assertEquals( $this->vendor2->getName(), (string) $xmlElement['vendor'] );
-      $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $xmlElement['modified'] );
-
+      $this->assertEquals( $this->vendor2->getName(), (string) $this->xml['vendor'] );
+      $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
     }
     
     /**
-     * test generateXML() has entry tags with required attributes
+     * test generated XML has entry tags with required attributes
      */
-    public function testGenerateXMLHasEntryTagsWithRequiredAttribute()
+    public function testGeneratedXMLHasEntryTagsWithRequiredAttribute()
     {
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-
       //entry
-      $this->assertEquals( 2, count( $xmlElement->entry ) );
+      $this->assertEquals( 2, count( $this->xml->entry ) );
 
       $prefix = 'vpid_';
-      $this->assertStringStartsWith( $prefix, (string) $xmlElement->entry[0]['vpid'] );
-      
-      $vpid = (string) $xmlElement->entry[0]['vpid'];
+      $this->assertStringStartsWith( $prefix, (string) $this->xml->entry[0]['vpid'] );
+
+      $vpid = (string) $this->xml->entry[0]['vpid'];
       $this->assertGreaterThan( strlen( $prefix ), strlen( $vpid ) );
 
-      $langAttribute = (string) $xmlElement->entry[0]['lang'];
+      $langAttribute = (string) $this->xml->entry[0]['lang'];
       $this->assertEquals( 'en', $langAttribute );
 
-      $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $xmlElement->entry[0]['modified'] );
+      $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml->entry[0]['modified'] );
     }
 
     /**
-     * test generateXML() has geo-position tags with required attributes
+     * test generated XML has geo-position tags with required attributes
      */
     public function testGenerateXMLHasGeoPositionTagsWithRequiredChildren()
     {
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-
       //geo-position
 
       //make sure we got not more than one node
-      $this->assertEquals( 1, count( $xmlElement->xpath( '/vendor-pois/entry[1]/geo-position' ) ) );
-      
-      $longitude = (string) array_shift( $xmlElement->xpath( '/vendor-pois/entry[1]/geo-position/longitude' ) );
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position' ) ) );
+
+      $longitude = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' ) );
       $this->assertEquals( '0.1', $longitude );
-      $latitude = (string) array_shift( $xmlElement->xpath( '/vendor-pois/entry[1]/geo-position/latitude' ) );
+      $latitude = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' ) );
       $this->assertEquals( '0.2', $latitude );
     }
 
@@ -176,11 +175,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testGenerateXMLHasNameTag()
     {
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-
-      $this->assertEquals( 1, count( $xmlElement->xpath( '/vendor-pois/entry[1]/name' ) ) );
-      $name = (string) array_shift( $xmlElement->xpath( '/vendor-pois/entry[1]/name' ) );
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/name' ) ) );
+      $name = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/name' ) );
       $this->assertEquals( 'test name', $name );
     }
 
@@ -189,11 +185,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testGenerateXMLHasCategoryTag()
     {
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-
-      $this->assertGreaterThan( 0, count( $xmlElement->xpath( '/vendor-pois/entry[1]/category' ) ) );
-      $name = (string) array_shift( $xmlElement->xpath( '/vendor-pois/entry[1]/category' ) );
+      $this->assertGreaterThan( 0, count( $this->xml->xpath( '/vendor-pois/entry[1]/category' ) ) );
+      $name = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/category' ) );
     }
 
     /**
@@ -201,50 +194,51 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testGenerateXMLHasAddressTagsWithRequiredChildren()
     {
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-
       //make sure we got not more than one node
-      $this->assertEquals( 1, count( $xmlElement->xpath( '/vendor-pois/entry[1]/address' ) ) );
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/address' ) ) );
 
-      $address = array_shift( $xmlElement->xpath( '/vendor-pois/entry[1]/address' ) );
+      $contact = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/address' ) );
 
-      $this->assertEquals( 'test street', (string) $address->street );
-      $this->assertEquals( '12', (string) $address->houseno );
-      $this->assertEquals( '1234', (string) $address->zip );
-      $this->assertEquals( 'test town', (string) $address->city );
-      $this->assertEquals( 'test district',(string)  $address->district );
-      $this->assertEquals( 'test country', (string) $address->country );
-    }
-
-     /**
-     * test if destination passed in constructor is stored
-     */
-    public function testHasDestination()
-    {
-      $destination = $this->export->getDestination();
-      $this->assertType('string', $destination );
-      $this->assertEquals( $this->destination, $this->export->getDestination() );
+      $this->assertEquals( 'test street', (string) $contact->street );
+      $this->assertEquals( '12', (string) $contact->houseno );
+      $this->assertEquals( '1234', (string) $contact->zip );
+      $this->assertEquals( 'test town', (string) $contact->city );
+      $this->assertEquals( 'test district',(string)  $contact->district );
+      $this->assertEquals( 'test country', (string) $contact->country );
     }
 
     /**
-     * @todo should test if file is writeable and throw exception if not
-     * 
-     * test if the put file can be read
+     * test generated XML has contact tags with required attributes
      */
-    public function testWriteXML()
+    public function testGenerateXMLHasContactTagsWithRequiredChildren()
     {
-      $originalFileModTime = 0;
-      
-      if( file_exists( $this->destination ) )
-        $originalFileModTime = filemtime( $this->destination );
-      
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-      $this->export->writeXMLToFile( $xmlElement );
-      
-      $this->assertTrue( file_exists( $this->destination ) );
-      $this->assertNotEquals( $originalFileModTime, filemtime( $this->destination ) );
+      //make sure we got not more than one node
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/contact' ) ) );
+
+      $contact = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/contact' ) );
+
+      $this->assertEquals( 'you@who.com', (string) $contact->email );
+      $this->assertEquals( 'http://foo.com', (string) $contact->url );
+      $this->assertEquals( '+44 0208 123 1234', (string) $contact->phone );
+      $this->assertEquals( '+44 0208 223 2234', (string) $contact->phone2 );
+      $this->assertEquals( '+44 0208 323 3234', (string) $contact->fax );
+    }
+
+    /**
+     * test generated XML has content tags with required attributes
+     */
+    public function testGenerateXMLHasContentTagsWithRequiredChildren()
+    {
+      //make sure we got not more than one node
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/content' ) ) );
+
+      $content = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/content' ) );
+
+      $this->assertEquals( 'test short description', (string) $content->{'short-description'} );
+      $this->assertEquals( 'test description', (string) $content->description );
+      $this->assertEquals( 'test public transport', (string) $content->{'public-transport'} );
+      //$this->assertEquals( 'test price', (string) $content->price );
+      $this->assertEquals( 'test opening times', (string) $content->{'opening-times'} );
     }
 
     /**
@@ -252,22 +246,18 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testSpecialChars()
     {
-      $data = $this->export->getData();
-      $xmlElement = $this->export->generateXML( $data );
-      $xml = $xmlElement->asXML();
-      
       $escapedChars = htmlspecialchars( $this->specialChars );
-      
-      $this->assertRegExp( ':test name2' . $escaptedChars . ':', $xml );
+      $xmlString = $this->xml->asXML();
 
-      $address = array_shift( $xmlElement->xpath( '/vendor-pois/entry[2]/address' ) );
-      $this->assertRegExp( ':test name2' . $escaptedChars . ':', $xml );
-      $this->assertRegExp( ':test street2' . $escaptedChars . ':', $xml );
-      $this->assertRegExp( ':13' . $escaptedChars . ':', $xml );
-      $this->assertRegExp( ':test town2' . $escaptedChars . ':', $xml );
-      $this->assertRegExp( ':test district2' . $escaptedChars . ':', $xml );
-      $this->assertRegExp( ':test country2' . $escaptedChars . ':', $xml );
+      $this->assertRegExp( ':test name2' . $escaptedChars . ':', $xmlString );
 
+      $address = array_shift( $this->xml->xpath( '/vendor-pois/entry[2]/address' ) );
+      $this->assertRegExp( ':test name2' . $escaptedChars . ':', $xmlString );
+      $this->assertRegExp( ':test street2' . $escaptedChars . ':', $xmlString );
+      $this->assertRegExp( ':13' . $escaptedChars . ':', $xmlString );
+      $this->assertRegExp( ':test town2' . $escaptedChars . ':', $xmlString );
+      $this->assertRegExp( ':test district2' . $escaptedChars . ':', $xmlString );
+      $this->assertRegExp( ':test country2' . $escaptedChars . ':', $xmlString );
     }
 
 

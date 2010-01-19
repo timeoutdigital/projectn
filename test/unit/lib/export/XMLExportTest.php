@@ -28,9 +28,8 @@ class XMLExportTest extends PHPUnit_Framework_TestCase {
 protected function setUp()
     {
       try {
-        $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
-        Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../lib/model/doctrine');
-
+        ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+        
         $vendor = new Vendor();
         $vendor->setCity('test');
         $vendor->setLanguage('english');
@@ -78,24 +77,23 @@ protected function setUp()
         $poi->setCountryCode( 'uk' );
         $poi->setLongitude( '0.3' );
         $poi->setLatitude( '0.4' );
+
         $poi->link( 'Vendor', 2 );
         $poi->link('PoiCategory', 1);
 
         $poi->save();
 
+        $this->xml = simplexml_load_string('
+          <root>
+            <node />
+          </root>'
+        );
+
         $this->destination = dirname( __FILE__ ) . '/../../export/poi/test.xml';
+        //$this->export = new XMLExportPOI( $this->vendor2, $this->destination );
 
-
-        $this->export = $this->getMockForAbstractClass('AbstractClass');
-        $this->export->expects( $this->any() )
-             ->method('__construct');
-
-        $this->assertTrue($stub->concreteMethod());
-
-
-
-        $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
-
+        $this->export = $this->getMockForAbstractClass( 'XMLExport',
+          array($this->vendor2, $this->destination, 'Poi'));
       }
       catch(PDOException $e)
       {
@@ -107,47 +105,54 @@ protected function setUp()
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
    */
-  protected function tearDown() {
+  protected function tearDown()
+  {
+    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
   }
 
   /**
    * @todo Implement testRun().
    */
-  public function testRun() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+  public function testRunCallsAbstractMethods()
+  {
+    $this->export->expects( $this->once() )
+                 ->method( 'generateXML' )
+                 ->will( $this->returnValue( $this->xml ) );
+
+    $this->export->run();
   }
 
   /**
-   * @todo Implement testGetData().
+   * Test has correct export start date and time
    */
-  public function testGetData() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+  public function testGetStartDate()
+  {
+    $this->export->expects( $this->once() )
+                 ->method( 'generateXML' )
+                 ->will( $this->returnValue( $this->xml ) );
+    
+    $date = date( 'Y-m-d\TH:i:s' );
+    $this->export->run();
+    $this->assertEquals( $date, $this->export->getStartTime() );
   }
 
   /**
-   * @todo Implement testGetDestination().
+   * check correct xml is written
    */
-  public function testGetDestination() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
-  }
+  public function testWriteToXMLCreatesCorrectFile()
+  {
+    $this->export->expects( $this->once() )
+                 ->method( 'generateXML' )
+                 ->will( $this->returnValue( $this->xml ) );
+    
+    unlink( $this->destination );
+    $this->assertFileNotExists( $this->destination );
 
-  /**
-   * @todo Implement testWriteXMLToFile().
-   */
-  public function testWriteXMLToFile() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $this->export->run();
+    $this->assertFileExists( $this->destination );
+
+    $xmlFromFile = simplexml_load_file( $this->destination );
+    $this->assertTrue( $xmlFromFile instanceof SimpleXMLElement );
   }
 }
 ?>

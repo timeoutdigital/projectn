@@ -12,15 +12,31 @@
 abstract class XMLExport
 {
 
-  protected $vendor = null;
-  protected $modifiedTimeStamp;
-  protected $destination;
-  protected $model;
-  
-
   /**
    *
+   * @var Doctrin_Model The Vendor providing the data
+   */
+  protected $vendor = null;
+
+  /**
+   * @var date The time import started
+   */
+  protected $modifiedTimeStamp;
+
+  /**
+   * @var string Path to the file to write to
+   */
+  protected $destination;
+
+  /**
+   * @var Doctrine_Model The model to export
+   */
+  protected $model;
+
+  /**
    * @param Vendor $vendor
+   * @param string $destination Path to file to write export to
+   * @param Doctrine_Model $model The model to be exported
    */
   public function __construct( $vendor, $destination, $model )
   {
@@ -29,21 +45,33 @@ abstract class XMLExport
     $this->model = $model;
   }
 
+  /**
+   * run the export
+   */
   public function run()
   {
+    $this->modifiedTimeStamp = date( 'Y-m-d\TH:i:s' );
     $data = $this->getData();
     $xml = $this->generateXML( $data );
     $this->writeXMLToFile( $xml );
   }
 
   /**
-   *
+   * returns the start time of the import
+   * @return data
+   */
+  public function getStartTime()
+  {
+    return $this->modifiedTimeStamp;
+  }
+
+  /**
+   * Retrieve data from database for the Model filtered by Vendor
    * @return Doctrine_Collection
    */
-  public function getData( )
+  protected function getData()
   {
-    $this->modifiedTimeStamp = date( 'Y-m-d\TH:i:s' );
-    $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
+    $data = Doctrine::getTable( $this->model )->findOneByVendorId( $this->vendor->getId() );
     return $data;
   }
 
@@ -51,21 +79,12 @@ abstract class XMLExport
    *
    * @return string XML string
    */
-  public abstract function generateXML( $data );
-
-  /**
-   *
-   * @return string Path to write file
-   */
-  public function getDestination()
-  {
-    return $this->destination;
-  }
+  abstract protected function generateXML( $data );
 
   /**
    * @param SimpleXMLElement $xml
    */
-  public function writeXMLToFile( $xml )
+  protected function writeXMLToFile( $xml )
   {
     if( file_exists( $this->destination ) )
     {
