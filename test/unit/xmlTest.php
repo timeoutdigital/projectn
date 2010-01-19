@@ -9,9 +9,6 @@ class xmlTest extends PHPUnit_Framework_TestCase
         return $stack;
     }
 
-    /**
-     * @depends testEmpty
-     */
 
     /**
      * @depends testEmpty

@@ -173,7 +173,7 @@
 		<date>
 			<start dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</start>
 			<venue>
-				<address_id>101114</address_id>
+				<address_id>103532</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
@@ -181,7 +181,7 @@
 		<date_end dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</date_end>
 		<website/>
 		<transformation>
-			<address_id>101114</address_id>
+			<address_id>103532</address_id>
 			<secondary_venue_id/>
 			<dynamic>
 				<day dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</day>
@@ -199,6 +199,16 @@
 			<category3 id=""/>
 		</category_combi>
 		<edition id="16">Time Out New York</edition>
+		<text_system>
+			<text>
+				<text_type>Prices</text_type>
+				<language>english</language>
+				<content>$10</content>
+				<author/>
+				<released>1</released>
+			</text>
+		</text_system>
+		
 		<attributes>
 			<attribute>
 				<name>Critic's Picks</name>

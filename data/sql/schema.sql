@@ -3,7 +3,7 @@ CREATE TABLE event (id BIGINT AUTO_INCREMENT, vendor_id BIGINT NOT NULL, url TEX
 CREATE TABLE event_category (id BIGINT AUTO_INCREMENT, name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE event_media (id BIGINT AUTO_INCREMENT, media_url TEXT NOT NULL, mime_type VARCHAR(255) NOT NULL, event_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX event_id_idx (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE event_occurence (id BIGINT AUTO_INCREMENT, booking_url TEXT, start DATE NOT NULL, end DATE, utc_offset VARCHAR(6) NOT NULL, event_id BIGINT NOT NULL, poi_id BIGINT NOT NULL, INDEX event_id_idx (event_id), INDEX poi_id_idx (poi_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
-CREATE TABLE event_property (id BIGINT AUTO_INCREMENT, lookup VARCHAR(50) NOT NULL, value VARCHAR(50) NOT NULL, event_id BIGINT NOT NULL, poi_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX poi_id_idx (poi_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
+CREATE TABLE event_property (id BIGINT AUTO_INCREMENT, lookup VARCHAR(50) NOT NULL, value VARCHAR(50) NOT NULL, event_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX event_id_idx (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE linking_movie_genre (id BIGINT AUTO_INCREMENT, movie_genre_id BIGINT NOT NULL, movie_id BIGINT NOT NULL, INDEX movie_id_idx (movie_id), INDEX movie_genre_id_idx (movie_genre_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE movie (id BIGINT AUTO_INCREMENT, vendor_id BIGINT NOT NULL, name TEXT NOT NULL, plot TEXT, review TEXT, url TEXT, rating FLOAT(18, 2), age_rating VARCHAR(32), utf_offset TIME NOT NULL, poi_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX vendor_id_idx (vendor_id), INDEX poi_id_idx (poi_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE movie_genre (id BIGINT AUTO_INCREMENT, genre TEXT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
@@ -25,7 +25,7 @@ ALTER TABLE event ADD CONSTRAINT event_event_category_id_event_category_id FOREI
 ALTER TABLE event_media ADD CONSTRAINT event_media_event_id_event_id FOREIGN KEY (event_id) REFERENCES event(id);
 ALTER TABLE event_occurence ADD CONSTRAINT event_occurence_poi_id_poi_id FOREIGN KEY (poi_id) REFERENCES poi(id);
 ALTER TABLE event_occurence ADD CONSTRAINT event_occurence_event_id_event_id FOREIGN KEY (event_id) REFERENCES event(id);
-ALTER TABLE event_property ADD CONSTRAINT event_property_poi_id_event_id FOREIGN KEY (poi_id) REFERENCES event(id);
+ALTER TABLE event_property ADD CONSTRAINT event_property_event_id_event_id FOREIGN KEY (event_id) REFERENCES event(id);
 ALTER TABLE linking_movie_genre ADD CONSTRAINT linking_movie_genre_movie_id_movie_id FOREIGN KEY (movie_id) REFERENCES movie(id);
 ALTER TABLE linking_movie_genre ADD CONSTRAINT linking_movie_genre_movie_genre_id_movie_genre_id FOREIGN KEY (movie_genre_id) REFERENCES movie_genre(id);
 ALTER TABLE movie ADD CONSTRAINT movie_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);

@@ -136,7 +136,7 @@ abstract class BaseEvent extends sfDoctrineRecord
 
         $this->hasMany('EventProperty', array(
              'local' => 'id',
-             'foreign' => 'poi_id'));
+             'foreign' => 'event_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $i18n0 = new Doctrine_Template_I18n(array(
