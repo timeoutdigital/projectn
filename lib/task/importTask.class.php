@@ -43,6 +43,7 @@ EOF;
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
 
 
+
                  // $processXmlObj = new processNyXml('import/toc_leo.xml');
 
                 /*  if($processXmlObj !== false)
@@ -72,13 +73,21 @@ EOF;
 
         //Set the events and venues xpath
         $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
-        
-
-
         $nyImportObj = new importNy($processXmlObj, $vendorObj);
         $nyImportObj->insertEventsAndVenues();
                  
+
+        break;
+
+      case 'ny-ed':
+
+        $vendor = $this->getVendorByCityAndLanguage('ny', 'english');
+
+        $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+
+        $nyEDImport =  new importNyED( $csv, $vendor );
+
+        $nyEDImport->insertPois();
 
         break;
 
