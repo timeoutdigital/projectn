@@ -13,6 +13,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
+      'review_date'                => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'vendor_poi_id'              => new sfWidgetFormFilterInput(),
       'local_language'             => new sfWidgetFormFilterInput(),
       'poi_name'                   => new sfWidgetFormFilterInput(),
@@ -42,6 +43,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
+      'review_date'                => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'vendor_poi_id'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'local_language'             => new sfValidatorPass(array('required' => false)),
       'poi_name'                   => new sfValidatorPass(array('required' => false)),
@@ -88,6 +90,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                         => 'Number',
+      'review_date'                => 'Date',
       'vendor_poi_id'              => 'Number',
       'local_language'             => 'Text',
       'poi_name'                   => 'Text',
