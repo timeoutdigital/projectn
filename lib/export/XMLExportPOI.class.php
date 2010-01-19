@@ -22,7 +22,11 @@ class XMLExportPOI extends XMLExport
     parent::__construct(  $vendor, $destination, 'Poi' );
   }
 
-
+  protected function getData()
+  {
+    $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
+    return $data;
+  }
   /**
    * @todo PoiCateory needs to be one-to-many not one-to-one
    * 
@@ -61,6 +65,18 @@ class XMLExportPOI extends XMLExport
       $address->addChild( 'district', htmlspecialchars($poi->getDistrict() ) );
       $address->addChild( 'country', htmlspecialchars($poi->getCountry() ) );
 
+      $contact = $entry->addChild( 'contact' );
+      $contact->addChild( 'email', htmlspecialchars( $poi->getEmail() ) );
+      $contact->addChild( 'url',htmlspecialchars( $poi->getUrl() ) );
+      $contact->addChild( 'phone', $poi->getPhone() );
+      $contact->addChild( 'phone2', htmlspecialchars($poi->getPhone2() ) );
+      $contact->addChild( 'fax', htmlspecialchars($poi->getFax() ) );
+
+      $contact = $entry->addChild( 'content' );
+      $contact->addChild( 'short-description', htmlspecialchars( $poi->getShortDescription() ) );
+      $contact->addChild( 'description',htmlspecialchars( $poi->getDescription() ) );
+      $contact->addChild( 'public-transport', $poi->getPublicTransportLinks() );
+      $contact->addChild( 'opening-times', htmlspecialchars($poi->getOpeningTimes() ) );
     }
 
     return $xmlElement;
