@@ -4,7 +4,7 @@
  *
  * @package projectn
  * @subpackage ny.import.lib
- * @author Tim Bowler timbowler@timout.com
+ * @author Tim Bowler <timbowler@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.0
@@ -36,7 +36,7 @@ class importNyMovies
   /**
    * Construct
    */
-  public function  __construct($movies, $vendorObj)
+  public function  __construct( $movies, $vendorObj )
   {
     $this->_moviesObj = $movies->getMovies();
     $this->_poiObj = $movies->getPoi();
@@ -49,10 +49,10 @@ class importNyMovies
    */
   public function insertOccurances()
   {
-      //Store all movies ID to lookup
+      // Store all movies ID to lookup
       $movieFoundArray = array();
 
-     //Start by looking over all of the occurances (Theaters)
+     // Start by looking over all of the occurances (Theaters)
      foreach($this->_occurancesObj as $occurance)
      {
        $occuranceArray = new Doctrine_Collection(Doctrine::getTable('MovieOccurence'));
@@ -148,6 +148,10 @@ class importNyMovies
 
     //Get and set the child category
     $childObj =  Doctrine::getTable('PoiCategory')->getByName('theatre-music-culture');
+
+    var_dump($childObj);
+
+    exit;
     $poiObj['poi_category_id'] = $childObj['id'];
 
     $poiArray[] = $poiObj;
@@ -245,7 +249,7 @@ class importNyMovies
    * @param string $name
    * @return object The Genre object
    */
-  public function getGenre($name)
+  public function getGenre( $name )
   {
     $genreObj = Doctrine::getTable('MovieGenre')->getGenreByName($name);
 
@@ -257,5 +261,12 @@ class importNyMovies
     }
      return $genreObj;
   }
+
+
+  public function getPoi()
+  {  return $this;    }
+
+
+
 }
 ?>
