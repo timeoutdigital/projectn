@@ -3,7 +3,7 @@ options:
   collate: utf8_unicode_ci
   charset: utf8
 
-#Represents a venue aka Point of interest
+#Represents a venue aka Point of interest (Poi)
 
 Poi:
   actAs:
@@ -11,7 +11,7 @@ Poi:
     I18n:
       fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
-    date:                       {type: datetime, notnull: true}
+    review_date:                {type: datetime, notnull: false}
     vendor_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false}
@@ -191,9 +191,12 @@ Movie:
     url:                        {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
     age_rating:                 {type: string(32), notnull: false}
+    utf_offset:                 {type: time, notnull: true}
+    poi_id:                     {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
-    MovieGenres:                 {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
+    MovieGenres:                {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
+    Poi:                        {local: poi_id, foreign: id, foreignType: one}
 
 
 #Movie Genres
@@ -211,19 +214,7 @@ MovieGenre:
     genre:                      {type: string(256), notnull: true}
   relations:
     Movies:                      {class: Movie, refClass: LinkingMovieGenre, local: movie_genre_id, foreign: movie_id}
-
-
-#A occurrence of a movie
-MovieOccurence:
-  columns:
-    start:                      {type: datetime, notnull: true}
-    end:                        {type: datetime, notnull: false}
-    utf_offset:                 {type: time, notnull: true}
-    movie_id:                   {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
-  relations:
-    Movie:                      {local: movie_id, foreign: id}
-    Poi:                        {local: poi_id, foreign: id, foreignType: one}
+   
 
 #Any media that is associated to a Movie
 MovieMedia:
