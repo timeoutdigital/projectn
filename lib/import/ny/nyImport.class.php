@@ -159,7 +159,7 @@ class importNy
       //Set the Events requirred values
       $eventObj = new Event();
 
-      $eventObj['vendor_id' ] = $this->_vendorObj->getId();
+      $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
       $eventObj[ 'name' ] = (string) $event->identifier;
       $eventObj[ 'description' ] = (string) $event->description;
@@ -190,11 +190,11 @@ class importNy
                 $eventPropertyObj->save();
                 break;
               case 'Contact Blurb':
-                $url = $this->parseContactBlurbUrl( (string) $text->content );
-                if ( $url !== false ) $eventObj->url = $url;
+                $url = $this->extractContactBlurbUrl( (string) $text->content );
+                if ( $url != '' ) $eventObj->url = $url;
                 
-                $email = $this->parseContactBlurbEmail( (string) $text->content );
-                if ( $email !== false )
+                $email = $this->extractContactBlurbEmail( (string) $text->content );
+                if ( $email != ''  )
                 {
                   $eventPropertyObj = new EventProperty();
                   $eventPropertyObj[ 'lookup' ] = 'email';
@@ -203,9 +203,8 @@ class importNy
                   $eventPropertyObj->save();
                 }
 
-                /*
-                $phone = $this->parseContactBlurbPhone( (string) $text->content );
-                if ( $phone !== false )
+                $phone = $this->extractContactBlurbPhone( (string) $text->content );
+                if ( $phone != '' )
                 {
                   $eventPropertyObj = new EventProperty();
                   $eventPropertyObj[ 'lookup' ] = 'phone';
@@ -213,7 +212,6 @@ class importNy
                   $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
                   $eventPropertyObj->save();
                 }
-                 */
 
                 // add property with email, phone, url and stuff
                 break;
@@ -275,6 +273,7 @@ class importNy
 
           //set poi id
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
+
           $occurrenceObj->setPoiId( $venueObj->getId() );
 
           if( $occurrenceObj->isValid() )
@@ -302,8 +301,10 @@ class importNy
 
   }
 
-
-  private function parseContactBlurbUrl( $string )
+  /*
+   * Tries
+   */
+  private function extractContactBlurbUrl( $string )
   {
     $elements = explode( ',', $string );
     $pattern = '/^(http|https|ftp)?(:\/\/)?(www\.)?([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
@@ -321,11 +322,11 @@ class importNy
       }
     }
 
-    return false;
+    return '';
   }
 
 
-  private function parseContactBlurbEmail( $string )
+  private function extractContactBlurbEmail( $string )
   {
     $elements = explode( ',', $string );
 
@@ -339,11 +340,11 @@ class importNy
       }
     }
 
-    return false;
+    return '';
   }
 
-/*
-  private function parseContactBlurbPhone( $string )
+
+  private function extractContactBlurbPhone( $string )
   {
     $elements = explode( ',', $string );
     $pattern = '/^([0-9]?\-?[0-9]?\-?[0-9]?\-?[0-9]?\-?)/i';
@@ -352,13 +353,11 @@ class importNy
     {
       if ( preg_match( $pattern, trim( $element) , $matches ) )
       {
-        var_export($matches);
+        //var_export($matches);
       }
     }
 
-    return false;
+    return '';
   }
- * 
- */
-
+ 
 }
