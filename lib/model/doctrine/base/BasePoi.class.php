@@ -42,7 +42,6 @@
  * @property Doctrine_Collection $PoiMedia
  * @property Doctrine_Collection $PoiProperty
  * @property Doctrine_Collection $Poi
- * @property Doctrine_Collection $Event
  * @property Doctrine_Collection $EventOccurence
  * @property Movie $Movie
  * 
@@ -83,7 +82,6 @@
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Doctrine_Collection getEvent()                      Returns the current record's "Event" collection
  * @method Doctrine_Collection getEventOccurence()             Returns the current record's "EventOccurence" collection
  * @method Movie               getMovie()                      Returns the current record's "Movie" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
@@ -123,7 +121,6 @@
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
- * @method Poi                 setEvent()                      Sets the current record's "Event" collection
  * @method Poi                 setEventOccurence()             Sets the current record's "EventOccurence" collection
  * @method Poi                 setMovie()                      Sets the current record's "Movie" value
  * 
@@ -322,10 +319,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'foreign' => 'poi_id'));
 
         $this->hasMany('UserContent as Poi', array(
-             'local' => 'id',
-             'foreign' => 'poi_id'));
-
-        $this->hasMany('Event', array(
              'local' => 'id',
              'foreign' => 'poi_id'));
 

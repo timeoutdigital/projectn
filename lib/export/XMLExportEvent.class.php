@@ -78,7 +78,8 @@ class XMLExportEvent extends XMLExport
 
         //event/showtimes/place
         $placeTag = $showtimeTag->addChild('place');
-        $placeTag->addAttribute( 'place-id', $event->getPoiId() );
+
+        $placeTag->addAttribute( 'place-id', $occurrence->getPoiId() );
 
         //event/showtimes/occurrence
         $occurrenceTag = $showtimeTag->addChild('occurrence');

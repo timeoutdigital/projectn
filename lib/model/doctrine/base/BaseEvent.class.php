@@ -14,9 +14,9 @@
  * @property string $price
  * @property float $rating
  * @property integer $event_category_id
- * @property integer $poi_id
+ * @property integer $vendor_id
  * @property EventCategory $EventCategory
- * @property Poi $Poi
+ * @property Vendor $Vendor
  * @property Doctrine_Collection $EventOccurence
  * @property Doctrine_Collection $EventMedia
  * @property Doctrine_Collection $EventProperty
@@ -30,9 +30,9 @@
  * @method string              getPrice()             Returns the current record's "price" value
  * @method float               getRating()            Returns the current record's "rating" value
  * @method integer             getEventCategoryId()   Returns the current record's "event_category_id" value
- * @method integer             getPoiId()             Returns the current record's "poi_id" value
+ * @method integer             getVendorId()          Returns the current record's "vendor_id" value
  * @method EventCategory       getEventCategory()     Returns the current record's "EventCategory" value
- * @method Poi                 getPoi()               Returns the current record's "Poi" value
+ * @method Vendor              getVendor()            Returns the current record's "Vendor" value
  * @method Doctrine_Collection getEventOccurence()    Returns the current record's "EventOccurence" collection
  * @method Doctrine_Collection getEventMedia()        Returns the current record's "EventMedia" collection
  * @method Doctrine_Collection getEventProperty()     Returns the current record's "EventProperty" collection
@@ -45,9 +45,9 @@
  * @method Event               setPrice()             Sets the current record's "price" value
  * @method Event               setRating()            Sets the current record's "rating" value
  * @method Event               setEventCategoryId()   Sets the current record's "event_category_id" value
- * @method Event               setPoiId()             Sets the current record's "poi_id" value
+ * @method Event               setVendorId()          Sets the current record's "vendor_id" value
  * @method Event               setEventCategory()     Sets the current record's "EventCategory" value
- * @method Event               setPoi()               Sets the current record's "Poi" value
+ * @method Event               setVendor()            Sets the current record's "Vendor" value
  * @method Event               setEventOccurence()    Sets the current record's "EventOccurence" collection
  * @method Event               setEventMedia()        Sets the current record's "EventMedia" collection
  * @method Event               setEventProperty()     Sets the current record's "EventProperty" collection
@@ -105,7 +105,7 @@ abstract class BaseEvent extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => false,
              ));
-        $this->hasColumn('poi_id', 'integer', null, array(
+        $this->hasColumn('vendor_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));
@@ -122,8 +122,8 @@ abstract class BaseEvent extends sfDoctrineRecord
              'local' => 'event_category_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Poi', array(
-             'local' => 'poi_id',
+        $this->hasOne('Vendor', array(
+             'local' => 'vendor_id',
              'foreign' => 'id'));
 
         $this->hasMany('EventOccurence', array(

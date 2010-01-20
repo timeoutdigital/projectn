@@ -133,10 +133,10 @@ Event:
     price:                      {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
     event_category_id:          {type: integer, notnull: false}
-    poi_id:                     {type: integer, notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
   relations:
     EventCategory:              {local: event_category_id, foreign: id}
-    Poi:                        {local: poi_id, foreign: id}
+    Vendor:                     {local: vendor_id, foreign: id}
 
 #Represents an occurence of an event
 EventOccurence:

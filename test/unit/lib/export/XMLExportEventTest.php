@@ -85,13 +85,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event->setBookingUrl( 'test booking url' );
     $event->setUrl( 'test url' );
     $event->setPrice( 'test price' );
-    $event->link( 'Poi', array( 1 ) );
+    $event->link( 'Vendor', array( 1 ) );
     $event->link( 'EventCategory', array( 1 ) );
     $event->save();
 
     $event2 = new Event();
     $event2->setName( 'test event2' . $this->specialChars );
-    $event2->link( 'Poi', 1 );
+    $event2->link( 'Vendor', array( 1 ) );
     $event2->link( 'EventCategory', 1 );
     $event2->link( 'EventCategory', 2 );
     $event2->link( 'EventCategory', 3 );

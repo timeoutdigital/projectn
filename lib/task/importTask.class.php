@@ -58,14 +58,14 @@ EOF;
 */
 
 
-                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
-                $processXmlObj->setMovies('/xffd/movies/movie');
-                $processXmlObj->setPoi('/xffd/theaters/theater');
-                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
-
-
-                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
-                $nyImportMoviesObj->importMovies();
+//                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
+//                $processXmlObj->setMovies('/xffd/movies/movie');
+//                $processXmlObj->setPoi('/xffd/theaters/theater');
+//                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+//
+//
+//                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
+//                $nyImportMoviesObj->importMovies();
                // $nyImportMoviesObj->insertMovies();*/
 
         $processXmlObj = new processNyXml('import/tony_leo.xml');
