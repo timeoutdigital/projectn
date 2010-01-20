@@ -25,6 +25,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   protected $xmlObj;
 
+  protected $vendorObj;
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -35,10 +37,10 @@ class importNyTest extends PHPUnit_Framework_TestCase
       $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
       Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine' );
 
-      $vendorObj = new Vendor();
-      $vendorObj->setCity('test');
-      $vendorObj->setLanguage('english');
-      $vendorObj->save();
+      $this->vendorObj = new Vendor();
+      $this->vendorObj->setCity('test');
+      $this->vendorObj->setLanguage('english');
+      $this->vendorObj->save();
 
       $poiCategoryObj = new PoiCategory();
       $poiCategoryObj[ 'name' ] = 'theatre-music-culture';
@@ -65,7 +67,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
       $this->xmlObj = new processNyXml( dirname(__FILE__).'/../../../data/tony_leo_test_correct.xml' );
       $this->xmlObj->setEvents('/body/event')->setVenues('/body/address');
       
-      $this->object = new importNy( $this->xmlObj, $vendorObj );
+      $this->object = new importNy( $this->xmlObj, $this->vendorObj );
 
     }
     catch(PDOException $e)
@@ -120,7 +122,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   }
 
-  /*public function testInsertEventPriceProperty()
+  public function testInsertEventProperty()
   {
     $venuesArray = $this->xmlObj->getVenues();
     $this->object->insertPoi( $venuesArray[ 0 ] );
@@ -128,18 +130,53 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $eventsArray = $this->xmlObj->getEvents();
     $this->object->insertEvent( $eventsArray[ 0 ] );
 
-    $eventObj = Doctrine::getTable('Event')->findByName('Rien Que Les Heures');
+    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    foreach ( $eventObj[ 'EventProperty' ] as $property )
+    foreach( $eventObj['EventProperty'] as $eventPropertyObj )
     {
-      var_export( $property );
+      if ( $eventPropertyObj[ 'lookup' ] == 'prices' )
+      {
+        $this->assertEquals( '$10', $eventPropertyObj[ 'value' ] );
+        break;
+      }
     }
 
-    print_r( $eventObj[ 'EventProperty' ][ 'lookup' ] );
+  }
 
-    //$this->assertEquals( '$10', $eventObj[ 'EventProperty' ][ 'prices' ] );
-  }*/
+  public function testContactBlurb()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
 
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
+
+    // url
+    $this->assertEquals( 'http://theatermania.com', $eventObj[ 'url' ] );
+
+    // email
+    foreach( $eventObj['EventProperty'] as $eventPropertyObj )
+    {
+      if ( $eventPropertyObj[ 'lookup' ] == 'email' )
+      {
+        $this->assertEquals( 'steve@timeout.com', $eventPropertyObj[ 'value' ] );
+        break;
+      }
+    }
+
+    // phone
+    /*foreach( $eventObj['EventProperty'] as $eventPropertyObj )
+    {
+      if ( $eventPropertyObj[ 'lookup' ] == 'phone' )
+      {
+        $this->assertEquals( '212-352-3101', $eventPropertyObj[ 'value' ] );
+        break;
+      }
+    }*/
+
+  }
 
 
 }

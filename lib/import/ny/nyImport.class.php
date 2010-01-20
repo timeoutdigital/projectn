@@ -94,7 +94,6 @@ class importNy
       $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
       $poiObj[ 'phone' ] = $fullnumber;
 
-
       //Full address String
       $name = (string) $poi->identifier;
       $street = (string) $poi->street;
@@ -162,63 +161,112 @@ class importNy
 
       $eventObj['vendor_id' ] = $this->_vendorObj->getId();
 
-      $eventObj[ 'name' ] = $event->identifier;
-      $eventObj[ 'description' ] = $event->description;
-
-      //deal with the "text-system" nodes
-      if ( isset( $poi->{'text_system'}->text ) )              {
-        foreach( $poi->{'text_system'}->text as $text )
-        {
-          switch( $text->{'text_type'} )
-          {
-            case 'Prices':
-              // the prices tag you might wonder about belongs to the address
-              // and not the event node, therefore we use this as price
-              $eventPropertyObj = new EventProperty();
-              $eventPropertyObj[ 'lookup' ] = 'prices';
-              $eventPropertyObj[ 'value' ] = $text->content;
-              //$eventPropertyObj[ 'event_id' ] = $eventObj->getId();
-
-              //$eventObj[ 'EventProperty' ] = $eventPropertyObj;
-
-              break;
-            case 'Contact Blurb':
-              // add property with email, phone, url and stuff
-              break;
-            case 'Show End Date':
-              // create function to detect end date
-              break;
-            case 'Legend':
-              //stick it in as property
-              break;
-            case 'Chill Out End Note':
-              // stick in property
-              break;
-            case 'Venue Blurb':
-              // stick in property
-              $poiObj[ 'description' ] = $text->content;
-              break;
-            case 'Approach Descriptions':
-              // stick in property
-              $poiObj[ 'public_transport_links' ] = $text->content;
-              break;
-            case 'Web Keywords':
-              // stick in property
-              $poiObj[ 'keywords' ] = $text->content;
-              break;
-          }
-        }
-      }
+      $eventObj[ 'name' ] = (string) $event->identifier;
+      $eventObj[ 'description' ] = (string) $event->description;
 
       //save to database
       if( $eventObj->isValid() )
       {
 
         $eventObj->save();
-      
+
+        //Set Any Properties
+        //$propertyArray = new Doctrine_Collection(Doctrine::getTable('EventProperty'));
+
+        //deal with the "text-system" nodes
+        if ( isset( $event->{'text_system'}->text ) )
+        {
+          foreach( $event->{'text_system'}->text as $text )
+          {
+            switch( $text->{'text_type'} )
+            {
+              case 'Prices':
+                // the prices tag you might wonder about belongs to the address
+                // and not the event node, therefore we use this as price
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'prices';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Contact Blurb':
+                $url = $this->parseContactBlurbUrl( (string) $text->content );
+                if ( $url !== false ) $eventObj->url = $url;
+                
+                $email = $this->parseContactBlurbEmail( (string) $text->content );
+                if ( $email !== false )
+                {
+                  $eventPropertyObj = new EventProperty();
+                  $eventPropertyObj[ 'lookup' ] = 'email';
+                  $eventPropertyObj[ 'value' ] = $email;
+                  $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                  $eventPropertyObj->save();
+                }
+
+                /*
+                $phone = $this->parseContactBlurbPhone( (string) $text->content );
+                if ( $phone !== false )
+                {
+                  $eventPropertyObj = new EventProperty();
+                  $eventPropertyObj[ 'lookup' ] = 'phone';
+                  $eventPropertyObj[ 'value' ] = $phone;
+                  $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                  $eventPropertyObj->save();
+                }
+                 */
+
+                // add property with email, phone, url and stuff
+                break;
+              case 'Show End Date':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'show_end_date';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Legend':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'legend';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Chill Out End Note':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'chill_out_end_note';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Venue Blurb':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'venue_blurb';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Approach Descriptions':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'approach_description';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Web Keywords':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'web_keywords';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+            }
+          }
+        }
+
+        $eventObj->save();
+
         foreach ( $event->date as $occurrence )
         {
-
           $occurrenceObj = new EventOccurence();
           $occurrenceObj->setStart( $occurrence->start );
           $occurrenceObj->setUtcOffset( '-05:00' );
@@ -227,11 +275,6 @@ class importNy
 
           //set poi id
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
-
-
-          //var_export( $venueObj );
-
-
           $occurrenceObj->setPoiId( $venueObj->getId() );
 
           if( $occurrenceObj->isValid() )
@@ -258,5 +301,64 @@ class importNy
       $eventObj->free();
 
   }
+
+
+  private function parseContactBlurbUrl( $string )
+  {
+    $elements = explode( ',', $string );
+    $pattern = '/^(http|https|ftp)?(:\/\/)?(www\.)?([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
+
+    foreach ( $elements as $element )
+    {
+      if ( preg_match( $pattern, trim( $element) , $matches ) )
+      {
+        $url = ( $matches[ 1 ] != '' ) ? $matches[ 1 ] : 'http'; //protocol
+        $url .= '://';
+        $url .= ( $matches[ 3 ] != '' ) ? $matches[ 3 ] : ''; //www.
+        $url .= $matches[ 4 ]; //domain
+
+        return $url;
+      }
+    }
+
+    return false;
+  }
+
+
+  private function parseContactBlurbEmail( $string )
+  {
+    $elements = explode( ',', $string );
+
+    foreach ( $elements as $element )
+    {
+      $element = trim( $element );
+
+      if ( filter_var( $element, FILTER_VALIDATE_EMAIL ) )
+      {
+        return $element;
+      }
+    }
+
+    return false;
+  }
+
+/*
+  private function parseContactBlurbPhone( $string )
+  {
+    $elements = explode( ',', $string );
+    $pattern = '/^([0-9]?\-?[0-9]?\-?[0-9]?\-?[0-9]?\-?)/i';
+
+    foreach ( $elements as $element )
+    {
+      if ( preg_match( $pattern, trim( $element) , $matches ) )
+      {
+        var_export($matches);
+      }
+    }
+
+    return false;
+  }
+ * 
+ */
 
 }

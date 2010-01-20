@@ -175,7 +175,7 @@ EventProperty:
     value:                      {type: string(50), notnull: true}
     event_id:                   {type: integer, notnull: true}
   relations:
-    Event:                      {local: event_id, foreign: id}
+    Event:                      {local: event_id, foreign: id, foreignType: many}
 
 #Represents a movie
 Movie:
