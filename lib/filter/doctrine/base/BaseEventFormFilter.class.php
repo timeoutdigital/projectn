@@ -13,21 +13,21 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
       'url'               => new sfWidgetFormFilterInput(),
       'price'             => new sfWidgetFormFilterInput(),
       'rating'            => new sfWidgetFormFilterInput(),
       'event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => true)),
+      'poi_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => true)),
       'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'vendor_id'         => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
       'url'               => new sfValidatorPass(array('required' => false)),
       'price'             => new sfValidatorPass(array('required' => false)),
       'rating'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'event_category_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('EventCategory'), 'column' => 'id')),
+      'poi_id'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Poi'), 'column' => 'id')),
       'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -50,11 +50,11 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                => 'Number',
-      'vendor_id'         => 'ForeignKey',
       'url'               => 'Text',
       'price'             => 'Text',
       'rating'            => 'Number',
       'event_category_id' => 'ForeignKey',
+      'poi_id'            => 'ForeignKey',
       'created_at'        => 'Date',
       'updated_at'        => 'Date',
     );

@@ -1,11 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
-
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/nyImportMovies.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/processXml.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/processNyMoviesXml.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
-spl_autoload_register(array('Doctrine', 'autoload'));
+require_once dirname(__FILE__).'/../../../bootstrap.php';
 
 
 /**
@@ -32,8 +28,7 @@ class importNyMoviesTest extends PHPUnit_Framework_TestCase {
 
     try
     {
-      $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
-      Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine');
+      ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
       Doctrine::loadData('data/fixtures');
     }
     catch(PDOException $e)
@@ -65,7 +60,9 @@ class importNyMoviesTest extends PHPUnit_Framework_TestCase {
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
    */
-  protected function tearDown() {
+  protected function tearDown() 
+  {
+    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
   }
 
   /**
@@ -91,7 +88,6 @@ class importNyMoviesTest extends PHPUnit_Framework_TestCase {
       break;
     }
   }
-
 
   /**
    * Test the a movie is found and saved

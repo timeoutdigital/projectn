@@ -16,22 +16,22 @@ abstract class BaseEventForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
-      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
       'url'               => new sfWidgetFormTextarea(),
       'price'             => new sfWidgetFormTextarea(),
       'rating'            => new sfWidgetFormInputText(),
       'event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => true)),
+      'poi_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
       'created_at'        => new sfWidgetFormDateTime(),
       'updated_at'        => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'                => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vendor_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
       'url'               => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'price'             => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'rating'            => new sfValidatorNumber(array('required' => false)),
       'event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'required' => false)),
+      'poi_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
       'created_at'        => new sfValidatorDateTime(),
       'updated_at'        => new sfValidatorDateTime(),
     ));

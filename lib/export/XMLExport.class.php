@@ -40,8 +40,18 @@ abstract class XMLExport
    */
   public function __construct( $vendor, $destination, $model )
   {
+    if( !( $vendor instanceof Vendor ) )
+    {
+      throw new ExportException( 'Vendor provide is not an instance of Vendor. Got: ' . var_export($vendor, true) );
+    }
     $this->vendor = $vendor;
+
+    if( !is_writable( dirname( $destination ) ) )
+    {
+      throw new ExportException( 'Destination is not writeable: ' . $destination );
+    }
     $this->destination = $destination;
+    
     $this->model = $model;
   }
 

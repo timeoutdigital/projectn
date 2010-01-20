@@ -111,6 +111,28 @@ protected function setUp()
   }
 
   /**
+   * Should throw error if
+   * - first argument is not a Vendor
+   * - destination is does not exist
+   */
+  public function testConstructor()
+  {
+    try
+    {
+      $this->getMockForAbstractClass('XMLExport', array( 'foo', $this->destination, 'Poi' ) );
+      $this->fail();
+    }
+    catch( ExportException $e ){}
+    
+    try
+    {
+      $this->getMockForAbstractClass('XMLExport', array( new Vendor(), 'non/existant/file', 'Poi' ) );
+      $this->fail();
+    }
+    catch( ExportException $e ){}
+  }
+
+  /**
    * @todo Implement testRun().
    */
   public function testRunCallsAbstractMethods()
