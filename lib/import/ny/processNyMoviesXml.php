@@ -2,8 +2,8 @@
 /**
  * Class to parse NY Movie XML feeds
  *
- * @package ny.import.lib.projectn
- *
+ * @package projectn
+ * @subpackage ny.import.lib
  * @author Tim Bowler <timbowler@timeout.com>
  *
  * @copyright Timeout Communications Ltd

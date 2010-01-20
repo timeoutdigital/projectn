@@ -47,7 +47,7 @@ class importNyMovies
   /**
    * Insert the occurances
    */
-  public function insertOccurances()
+  public function importMovies()
   {
       // Store all movies ID to lookup
       $movieFoundArray = array();
@@ -55,74 +55,53 @@ class importNyMovies
      // Start by looking over all of the occurances (Theaters)
      foreach($this->_occurancesObj as $occurance)
      {
-       $occuranceArray = new Doctrine_Collection(Doctrine::getTable('MovieOccurence'));
-       $occuranceDate = (string) $occurance['date'];
-       $movieId = (string) $occurance['movieId'];
-       $poiId = (string) $occurance['theaterId'];
-       
-       if(strcmp($prevPoiId, $poiId) != 0)
-       {
-       
-        /**
-         * Loop through all the poi's. Get only ones that we havn't got before
-         */
-         foreach($this->_poiObj as $poi)
+         $occuranceDate = (string) $occurance['date'];
+         $movieId = (string) $occurance['movieId'];
+         $poiId = (string) $occurance['theaterId'];
+
+         if(strcmp($prevPoiId, $poiId) != 0)
          {
-            //Get only the POI that is matched
-           if($poiId == $poi['theaterId'] )
+
+          /**
+           * Loop through all the poi's. Get only ones that we havn't got before
+           */
+           foreach($this->_poiObj as $poi)
            {
-              $poiObj = $this->setPoi($poi);
-              break;
-           }
-         }
-
-         //Set the previous ID to the current one
-         $prevPoiId = $poiId;
-
-       }//end if
-
-       
-       /**
-        * Loop through the individual times which form the occurances's time
-        */
-         foreach($occurance->times->time as $theTime)
-         {
-              $occuranceObj = new MovieOccurence();
-              $occuranceObj['start'] =   date('Y-m-d', strtotime($occuranceDate));
-              $occuranceObj['utf_offset'] = '-05:00:00';              
-              
-
-              //Test if the movie as been found
-             if(!in_array($movieId, $movieFoundArray))
+              //Get only the POI that is matched
+             if($poiId == $poi['theaterId'] )
              {
-                $movieFoundArray[] = $movieId;
-                 
-                /**
-                 * Get the movie for each occurance
-                 */
-                foreach($this->_moviesObj as $movie)
-                {
-                  if((int) $occurance['movieId'] ==  (int) $movie['movieId'])
-                  {
-                     $movieObj = $this->insertMovies($movie);
-                     $movieArray[] = $movieObj;
-                     
-                     break;
-                  }
-                }
-              }//end if
+                $poiObj = $this->setPoi($poi);
+                break;
+             }
+           }
 
-              //Add the movie and poi to the occurance
-              $occuranceObj['Movie'] =  $movieObj;
-              $occuranceObj['Poi'] = $poiObj;
-              $occuranceArray[] = $occuranceObj;
-                       
-         }//end foreach on the inner times
+           //Set the previous ID to the current one
+           $prevPoiId = $poiId;
+         }//end if
+            
 
-        //Save the occurance
-        $occuranceArray->save();
-        
-     }//end outter occurance loop  
+        //Test if the movie as been found
+       if(!in_array($movieId, $movieFoundArray))
+       {
+          $movieFoundArray[] = $movieId;
+
+          /**
+           * Get the movie for each occurance
+           */
+          foreach($this->_moviesObj as $movie)
+          {
+            if((int) $occurance['movieId'] ==  (int) $movie['movieId'])
+            {
+               $movieObj = $this->insertMovie($movie,$poiObj );
+               $movieArray[] = $movieObj;
+
+               break;
+            }
+          }
+        }//end if        
+     }//end outter occurance loop
+
+     return true;
   }
 
 
@@ -149,9 +128,6 @@ class importNyMovies
     //Get and set the child category
     $childObj =  Doctrine::getTable('PoiCategory')->getByName('theatre-music-culture');
 
-    var_dump($childObj);
-
-    exit;
     $poiObj['poi_category_id'] = $childObj['id'];
 
     $poiArray[] = $poiObj;
@@ -170,7 +146,7 @@ class importNyMovies
    * @return Object Doctrine
    *
    */
-  public function insertMovies($movie)
+  public function insertMovie($movie, $poiObj)
   {
     $conn = Doctrine_Manager::connection();
 
@@ -184,8 +160,11 @@ class importNyMovies
       $movieObj['vendor_id'] = (int) $this->_vendorObj->getId();
       $movieObj['review'] = (string) $movie->reviews->review->reviewText;
       $movieObj['plot'] = (string) $movie->synopsis;
+      $movieObj['utf_offset'] = '-5:00';
+      $movieObj['Poi'] = $poiObj;
 
-      //Try to find a url
+
+    //Try to find a url
       if($movie->officialURL)
       {
          $movieObj['url'] = (string) $movie->officialURL;
@@ -237,8 +216,8 @@ class importNyMovies
     catch(Exception $e)
     {
         $conn->rollback(); // deletes all savepoints
-         echo ' problem add to log';
-        exit;
+         //echo ' problem add to log '. $e;
+       // exit;
     }
   }
 
@@ -262,9 +241,6 @@ class importNyMovies
      return $genreObj;
   }
 
-
-  public function getPoi()
-  {  return $this;    }
 
 
 

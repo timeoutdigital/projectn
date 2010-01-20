@@ -23,7 +23,7 @@ class importTask extends sfBaseTask
 The [import|INFO] task does things.
 Call it with:
 
-  [php ./symfony nokia:import --file-type=xml|INFO]
+  [php ./symfony projectn:import --city=ny |INFO]
 EOF;
   }
 
@@ -42,17 +42,53 @@ EOF;
       case 'NY':
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
 
+
+
+                 // $processXmlObj = new processNyXml('import/toc_leo.xml');
+
+                /*  if($processXmlObj !== false)
+                  {
+                     //Set the events and venues xpath
+                    $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+
+                    $nyImportObj = new importNy($processXmlObj, $vendorObj);
+                    $nyImportObj->insertEventsAndVenues();
+
+                    //$proce
+                  }
+*/
+
+
+                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
+                $processXmlObj->setMovies('/xffd/movies/movie');
+                $processXmlObj->setPoi('/xffd/theaters/theater');
+                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+
+
+                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
+                $nyImportMoviesObj->importMovies();
+               // $nyImportMoviesObj->insertMovies();*/
+
         $processXmlObj = new processNyXml('import/tony_leo.xml');
 
         //Set the events and venues xpath
         $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
-        
-
-
         $nyImportObj = new importNy($processXmlObj, $vendorObj);
         $nyImportObj->insertEventsAndVenues();
                  
+
+        break;
+
+      case 'ny-ed':
+
+        $vendor = $this->getVendorByCityAndLanguage('ny', 'english');
+
+        $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+
+        $nyEDImport =  new importNyED( $csv, $vendor );
+
+        $nyEDImport->insertPois();
+
         break;
 
       case 'ny-ed':

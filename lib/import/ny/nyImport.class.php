@@ -75,34 +75,34 @@ class importNy
 
       //Set the Poi's required values
       $poiObj = new Poi();
-      $poiObj[ 'poi_name' ] = $poi->identifier;
-      $poiObj[ 'street' ] = $poi->street;
-      $poiObj[ 'city' ] = $poi->town;
-      $poiObj[ 'country' ] = $poi->country;
-      $poiObj[ 'vendor_poi_id' ] = $poi['id'];
+      $poiObj[ 'poi_name' ] = (string) $poi->identifier;
+      $poiObj[ 'street' ] = (string) $poi->street;
+      $poiObj[ 'city' ] = (string) $poi->town;
+      $poiObj[ 'country' ] = (string) $poi->country;
+      $poiObj[ 'vendor_poi_id' ] = (string)  $poi['id'];
       $poiObj[ 'local_language' ] = 'en';
-      $poiObj[ 'country_code' ] = $poi->country_symbol;
-      $poiObj[ 'additional_address_details' ] = $poi->cross_street;
-      $poiObj[ 'url' ] = $poi->website;
+      $poiObj[ 'country_code' ] = (string) $poi->country_symbol;
+      $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
+      $poiObj[ 'url' ] = (string) $poi->website;
 
       $poiObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
       //Form and set phone number
-      $countryCodeString = $poi->country_code;
-      $areaCodeString = $poi->telephone->area_code;
-      $phoneString = $poi->telephone->number;
-      $fullnumber = $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
+      $countryCodeString = (string) $poi->country_code;
+      $areaCodeString = (string) $poi->telephone->area_code;
+      $phoneString = (string) $poi->telephone->number;
+      $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
       $poiObj[ 'phone' ] = $fullnumber;
 
 
       //Full address String
-      $name = $poi->identifier;
-      $street = $poi->street;
-      $town = $poi->town;
-      $country = $poi->country_symbol;
-      $state = $poi->state;
-      $suburb = $poi->suburb;
-      $district = $poi->district;
+      $name = (string) $poi->identifier;
+      $street = (string) $poi->street;
+      $town = (string) $poi->town;
+      $country = (string) $poi->country_symbol;
+      $state = (string) $poi->state;
+      $suburb = (string) $poi->suburb;
+      $district = (string) $poi->district;
       $addressString = "$name, $street, $district, $suburb, $town, $country, $state";
       
       //Get longitude and latitude for venue
@@ -120,13 +120,13 @@ class importNy
           switch( $text->{'text_type'} )
           {
             case 'Venue Blurb':
-              $poiObj[ 'description' ] = $text->content;
+              $poiObj[ 'description' ] = (string) $text->content;
               break;
             case 'Approach Descriptions':
-              $poiObj[ 'public_transport_links' ] = $text->content;
+              $poiObj[ 'public_transport_links' ] = (string) $text->content;
               break;
             case 'Web Keywords':
-              $poiObj[ 'keywords' ] = $text->content;
+              $poiObj[ 'keywords' ] = (string) $text->content;
               break;
           }
         }
