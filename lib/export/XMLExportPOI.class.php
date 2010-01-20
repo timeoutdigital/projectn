@@ -11,7 +11,6 @@
  */
 class XMLExportPOI extends XMLExport
 {
-
   
  /**
    *
@@ -60,7 +59,7 @@ class XMLExportPOI extends XMLExport
       $address = $entry->addChild( 'address' );
       $address->addChild( 'street', htmlspecialchars( $poi->getStreet() ) );
       $address->addChild( 'houseno',htmlspecialchars( $poi->getHouseNo() ) );
-      $address->addChild( 'zip', $poi->getZips() );
+      $address->addChild( 'zip', htmlspecialchars( $poi->getZips() ) );
       $address->addChild( 'city', htmlspecialchars($poi->getCity() ) );
       $address->addChild( 'district', htmlspecialchars($poi->getDistrict() ) );
       $address->addChild( 'country', htmlspecialchars($poi->getCountry() ) );
@@ -68,7 +67,7 @@ class XMLExportPOI extends XMLExport
       $contact = $entry->addChild( 'contact' );
       $contact->addChild( 'email', htmlspecialchars( $poi->getEmail() ) );
       $contact->addChild( 'url',htmlspecialchars( $poi->getUrl() ) );
-      $contact->addChild( 'phone', $poi->getPhone() );
+      $contact->addChild( 'phone', htmlspecialchars( $poi->getPhone() ) );
       $contact->addChild( 'phone2', htmlspecialchars($poi->getPhone2() ) );
       $contact->addChild( 'fax', htmlspecialchars($poi->getFax() ) );
 

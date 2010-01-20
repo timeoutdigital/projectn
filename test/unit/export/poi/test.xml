@@ -1,2 +1,4 @@
 <?xml version="1.0"?>
-<vendor-pois vendor="test_german" modified="2010-01-15T14:30:42"><entry vpid="vpid_123" lang="en" modified="2010-01-15T14:30:42"><geo-position><longitude>0.1</longitude><latitude>0.2</latitude></geo-position><name>test name</name><category>test 2</category><address><street>test street</street><houseno>12</houseno><zip>1234</zip><city>test town</city><district>test district</district><country>test country</country></address></entry><entry vpid="vpid_123" lang="en" modified="2010-01-15T14:30:42"><geo-position><longitude>0.3</longitude><latitude>0.4</latitude></geo-position><name>test name2&amp;&lt;&gt;'"</name><category>test</category><address><street>test street2&amp;&lt;&gt;'"</street><houseno>13&amp;&lt;&gt;'"</houseno><zip>4321</zip><city>test town2&amp;&lt;&gt;'"</city><district>test district2&amp;&lt;&gt;'"</district><country>test country2&amp;&lt;&gt;'"</country></address></entry></vendor-pois>
+<root>
+            <node/>
+          </root>

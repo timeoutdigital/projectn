@@ -60,6 +60,7 @@ class ProjectN_Test_Unit_Factory
   {
     $object = ProjectN_Test_Unit_Factory::get( $model, $data, $autoCreateRelatedObjects );
     $object->save();
+    return $object;
   }
   
   /**

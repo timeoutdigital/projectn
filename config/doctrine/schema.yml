@@ -124,7 +124,6 @@ Event:
     I18n:
       fields: [name, vendor_category, short_description, description, booking_url]
   columns:
-    vendor_id:                  {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
     vendor_category:            {type: string(256), notnull: false}
     short_description:          {type: string(1024), notnull: false}
@@ -134,9 +133,10 @@ Event:
     price:                      {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
     event_category_id:          {type: integer, notnull: false}
+    poi_id:                     {type: integer, notnull: true}
   relations:
     EventCategory:              {local: event_category_id, foreign: id}
-    Vendor:                     {local: vendor_id, foreign: id}
+    Poi:                        {local: poi_id, foreign: id}
 
 #Represents an occurence of an event
 EventOccurence:
@@ -148,8 +148,8 @@ EventOccurence:
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
-    Event:                      {local: event_id, foreign: id, foreignType: one}
-    Poi:                        {local: poi_id, foreign: id, foreignType: one}
+    Event:                      {local: event_id, foreign: id, foreignType: many}
+    Poi:                        {local: poi_id, foreign: id, foreignType: many}
 
 EventCategory:
   columns:

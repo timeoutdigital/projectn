@@ -71,7 +71,7 @@ abstract class XMLExport
    */
   protected function getData()
   {
-    $data = Doctrine::getTable( $this->model )->findOneByVendorId( $this->vendor->getId() );
+    $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
     return $data;
   }
 

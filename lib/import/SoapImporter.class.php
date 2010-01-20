@@ -28,7 +28,7 @@ abstract class SoapImporter extends Importer
     {
       return $this->_soapClient->__soapCall( $this->getSoapFunction(), $this->getSoapParams() );
     }
-    catch( Exception $e )
+    catch( SoapFault $e )
     {
       $this->_fault = $e;
       echo 'Need to log exception: ' . $e;
