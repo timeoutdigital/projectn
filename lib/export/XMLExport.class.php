@@ -90,7 +90,12 @@ abstract class XMLExport
     {
       unlink( $this->destination );
     }
+
+
     $xml->asXML( $this->destination );
+
+
+
   }
 
 }
