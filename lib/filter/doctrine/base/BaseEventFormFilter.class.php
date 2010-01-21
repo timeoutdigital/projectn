@@ -13,7 +13,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-<<<<<<< HEAD:lib/filter/doctrine/base/BaseEventFormFilter.class.php
       'name'                         => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'short_description'            => new sfWidgetFormFilterInput(),
       'description'                  => new sfWidgetFormFilterInput(),
@@ -45,25 +44,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'vendor_event_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
       'vendor_event_category_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
       'event_category_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
-=======
-      'url'               => new sfWidgetFormFilterInput(),
-      'price'             => new sfWidgetFormFilterInput(),
-      'rating'            => new sfWidgetFormFilterInput(),
-      'event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => true)),
-      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
-      'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'updated_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-    ));
-
-    $this->setValidators(array(
-      'url'               => new sfValidatorPass(array('required' => false)),
-      'price'             => new sfValidatorPass(array('required' => false)),
-      'rating'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'event_category_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('EventCategory'), 'column' => 'id')),
-      'vendor_id'         => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
-      'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'updated_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
->>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:lib/filter/doctrine/base/BaseEventFormFilter.class.php
     ));
 
     $this->widgetSchema->setNameFormat('event_filters[%s]');
@@ -147,7 +127,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-<<<<<<< HEAD:lib/filter/doctrine/base/BaseEventFormFilter.class.php
       'id'                           => 'Number',
       'name'                         => 'Text',
       'short_description'            => 'Text',
@@ -163,16 +142,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'vendor_event_categories_list' => 'ManyKey',
       'vendor_event_category_list'   => 'ManyKey',
       'event_category_list'          => 'ManyKey',
-=======
-      'id'                => 'Number',
-      'url'               => 'Text',
-      'price'             => 'Text',
-      'rating'            => 'Number',
-      'event_category_id' => 'ForeignKey',
-      'vendor_id'         => 'ForeignKey',
-      'created_at'        => 'Date',
-      'updated_at'        => 'Date',
->>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:lib/filter/doctrine/base/BaseEventFormFilter.class.php
     );
   }
 }

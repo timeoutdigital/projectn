@@ -15,7 +15,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-<<<<<<< HEAD:lib/form/doctrine/base/BaseEventForm.class.php
       'id'                           => new sfWidgetFormInputHidden(),
       'name'                         => new sfWidgetFormTextarea(),
       'short_description'            => new sfWidgetFormTextarea(),
@@ -49,27 +48,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'vendor_event_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
       'vendor_event_category_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
       'event_category_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
-=======
-      'id'                => new sfWidgetFormInputHidden(),
-      'url'               => new sfWidgetFormTextarea(),
-      'price'             => new sfWidgetFormTextarea(),
-      'rating'            => new sfWidgetFormInputText(),
-      'event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => true)),
-      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
-      'created_at'        => new sfWidgetFormDateTime(),
-      'updated_at'        => new sfWidgetFormDateTime(),
-    ));
-
-    $this->setValidators(array(
-      'id'                => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'url'               => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
-      'price'             => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
-      'rating'            => new sfValidatorNumber(array('required' => false)),
-      'event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'required' => false)),
-      'vendor_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
-      'created_at'        => new sfValidatorDateTime(),
-      'updated_at'        => new sfValidatorDateTime(),
->>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:lib/form/doctrine/base/BaseEventForm.class.php
     ));
 
     $this->widgetSchema->setNameFormat('event[%s]');

@@ -207,31 +207,20 @@ class importNyTest extends PHPUnit_Framework_TestCase
     }
   }
 
-//  /*
-//   * Test if the categories get mapped correctly
-//   */
-//  public function testCategoryIsCorrectlyMapped()
-//  {
-//    $this->assertEquals( 'movies', $this->object->mapCategories( 'Film' ) );
-//  }
-//
-//  /*
-//   * Test if an unknown category maps to other
-//   */
-//  public function testIfUnknownCategoryMapsToOther()
-//  {
-//    $this->assertEquals( 'other', $this->object->mapCategories( 'Art-house &amp; indie cinema' ) );
-//  }
-//
-//  /*
-//   * Test if an unknown category maps to other
-//   */
-//  public function testIfPassedEmptyStringReturnsEmptyString()
-//  {
-//    $this->assertEquals( '', $this->object->mapCategories( '' ) );
-//  }
+  /*
+   * Test if the categories get mapped correctly
+   */
+  /*public function testCategoryMapMovies()
+  {
+    $categoryArray = array( 'Some invalid category', 'Film' );
 
+    $mappedCategoriesObject = $this->object->mapCategories( $categoryArray );
 
+    $this->assertTrue( $mappedCategoriesObject[0] instanceof Doctrine_Collection );
 
+    $this->assertEquals( 1, count( $mappedCategoriesObject ) );
+  }*/
+
+  
 }
 ?>

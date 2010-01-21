@@ -188,23 +188,7 @@ class importNy
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          $categoryArray = new Doctrine_Collection(Doctrine::getTable('EventCategory'));
-
-          foreach( $event->category_combi->children() as $category )
-          {
-            $cat = (string) $category;
-
-            if ( $cat != '')
-            {
-              //$mappedCategoryString = $this->mapCategories( $cat );
-
-              //Get and set the child category
-              $eventCategoryObj =  Doctrine::getTable( 'EventCategory' )->findOneByName( 'movies' );
-              $categoryArray[] = $eventCategoryObj;
-            }
-          }
-
-          $eventObj['EventCategory'] = $categoryArray;
+          $eventObj['EventCategory'] = $this->mapCategories( $event->category_combi->children() );
           $eventObj->save();
         }
 
@@ -337,14 +321,14 @@ class importNy
   }
 
   /*
-   * Tries
+   * Extracts and fixes up a URL out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string url
    */
-  private function extractContactBlurbUrl( $string )
+  private function extractContactBlurbUrl( $contactBlurb )
   {
-
-
-
-    $elements = explode( ',', $string );
+    $elements = explode( ',', $contactBlurb );
     $pattern = '/^(http|https|ftp)?(:\/\/)?(www\.)?([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
 
     foreach ( $elements as $element )
@@ -358,15 +342,18 @@ class importNy
 
         return $url;
       }
-    }
-
-    
+    }    
   }
 
-
-  private function extractContactBlurbEmail( $string )
+  /*
+   * Extracts and fixes up an email address out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string email address
+   */
+  private function extractContactBlurbEmail( $contactBlurb  )
   {
-    $elements = explode( ',', $string );
+    $elements = explode( ',', $contactBlurb );
 
     foreach ( $elements as $element )
     {
@@ -381,35 +368,49 @@ class importNy
     return '';
   }
 
-
-  private function extractContactBlurbPhone( $string )
+  /*
+   * Extracts and fixes up a phone number out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string
+   *
+   * @todo implement it
+   */
+  private function extractContactBlurbPhone( $contactBlurb  )
   {
-    $elements = explode( ',', $string );
-    $pattern = '/^([0-9]?\-?[0-9]?\-?[0-9]?\-?[0-9]?\-?)/i';
-
-    foreach ( $elements as $element )
-    {
-      if ( preg_match( $pattern, trim( $element) , $matches ) )
-      {
-        //var_export($matches);
-      }
-    }
-
     return '';
   }
 
-  /*public function mapCategories( $CategoryString )
+  /*
+   * Maps categories and returns the mapped categories as Doctrine Collecion
+   * out of EventCategories
+   *
+   * @param Object $categoryXml
+   * @return array of EventCategories
+   *
+   * @todo finish implementation
+   *
+   */
+  public function mapCategories( $categoryXml )
   {
-    if ( $CategoryString == '' )
-      return '';
+    $eventCategoryMappingArray = Doctrine::getTable( 'EventCategoryMapping' )->find( $this->_vendorObj[ 'id' ] );
 
-    switch( $CategoryString )
+    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'EventCategory' ) );
+
+    foreach( $categoryXml as $category )
     {
-      case '':
-        return
+
+      /*
+       * map (string) $category to $eventCategoryMappingArray,
+       * create EventCategory Object and append it to $mappedCategoriesArray
+      */
+
+      //$mappedCategoriesArray[] = ;
     }
 
-  }*/
+    return $mappedCategoriesArray;
+
+  }
 
 
  
