@@ -8,8 +8,6 @@ options:
 Poi:
   actAs:
     Timestampable: ~
-    I18n:
-      fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
     review_date:                {type: datetime, notnull: false}
     vendor_poi_id:              {type: integer, notnull: false}
@@ -121,22 +119,19 @@ User:
 Event:
   actAs:
     Timestampable: ~
-    I18n:
-      fields: [name, vendor_category, short_description, description, booking_url]
   columns:
     name:                       {type: string(256), notnull: true}
-    vendor_category:            {type: string(256), notnull: false}
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
     url:                        {type: string(1024), notnull: false}
     price:                      {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
-    event_category_id:          {type: integer, notnull: false}
     vendor_id:                  {type: integer, notnull: true}
   relations:
-    EventCategory:              {local: event_category_id, foreign: id}
     Vendor:                     {local: vendor_id, foreign: id}
+    EventCategories:            {class: EventCategory, refClass: LinkingEventCategory, local: id, foreign: event_category_id }
+    VendorEventCategories:      {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: id, foreign: vendor_event_category_id }
 
 #Represents an occurence of an event
 EventOccurence:
@@ -151,9 +146,40 @@ EventOccurence:
     Event:                      {local: event_id, foreign: id, foreignType: many}
     Poi:                        {local: poi_id, foreign: id, foreignType: many}
 
+#Vendor Event Category (linking)
+LinkingVendorEventCategory:
+  columns:
+     vendor_event_category_id:  {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
+
+#Event Category
+VendorEventCategory:
+  columns:
+    name:                       {type: string(256), notnull: true}
+  relations:
+    Events:                     {class: Event, refClass: LinkingVendorEventCategory, local: vendor_event_category_id, foreign: event_id}
+
+#Event Category (linking)
+LinkingEventCategory:
+  columns:
+     event_category_id:         {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
+
+#Event Category
 EventCategory:
   columns:
     name:                       {type: string(50), notnull: true}
+  relations:
+    Events:                     {class: Event, refClass: LinkingEventCategory, local: event_category_id, foreign: event_id}
+
+#Event CategoryMapping
+EventCategoryMapping:
+  columns:
+    map_from:                   {type: string(50), notnull: true}
+    map_to:                     {type: string(50), notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
 
 #Any media that is associated to a Event
 EventMedia:

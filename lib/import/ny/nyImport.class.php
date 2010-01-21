@@ -42,9 +42,6 @@ class importNy
    */
   public function insertEventsAndVenues()
   {
-
-    
-
     foreach( $this->_venues as $venue )
     {
       $this->insertPoi( $venue ) ;
@@ -67,7 +64,7 @@ class importNy
    * @todo sort out categories
    *
    */
-  public function insertPoi( $poi )
+  public function insertPoi( SimpleXMLElement $poi )
   {
 
       //Get the venue
@@ -138,6 +135,24 @@ class importNy
       //save to database
       $poiObj->save();
 
+      //store categories as properties
+      if ( isset( $poi->category_combi ) )
+      {
+        foreach( $poi->category_combi->children() as $category )
+        {
+          $cat = (string) $category;
+
+          if ( $cat != '')
+          {
+            $poiPropertyObj = new PoiProperty();
+            $poiPropertyObj[ 'lookup' ] = 'category';
+            $poiPropertyObj[ 'value' ] = $cat;
+            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+            $poiPropertyObj->save();
+          }
+        }
+      }
+
       //Kill the object
       $poiObj->free();    
   }
@@ -170,8 +185,12 @@ class importNy
 
         $eventObj->save();
 
-        //Set Any Properties
-        //$propertyArray = new Doctrine_Collection(Doctrine::getTable('EventProperty'));
+        //store categories
+        if ( isset( $event->category_combi ) )
+        {
+          $eventObj['EventCategory'] = $this->mapCategories( $event->category_combi->children() );
+          $eventObj->save();
+        }
 
         //deal with the "text-system" nodes
         if ( isset( $event->{'text_system'}->text ) )
@@ -302,11 +321,14 @@ class importNy
   }
 
   /*
-   * Tries
+   * Extracts and fixes up a URL out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string url
    */
-  private function extractContactBlurbUrl( $string )
+  private function extractContactBlurbUrl( $contactBlurb )
   {
-    $elements = explode( ',', $string );
+    $elements = explode( ',', $contactBlurb );
     $pattern = '/^(http|https|ftp)?(:\/\/)?(www\.)?([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
 
     foreach ( $elements as $element )
@@ -320,15 +342,18 @@ class importNy
 
         return $url;
       }
-    }
-
-    return '';
+    }    
   }
 
-
-  private function extractContactBlurbEmail( $string )
+  /*
+   * Extracts and fixes up an email address out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string email address
+   */
+  private function extractContactBlurbEmail( $contactBlurb  )
   {
-    $elements = explode( ',', $string );
+    $elements = explode( ',', $contactBlurb );
 
     foreach ( $elements as $element )
     {
@@ -343,21 +368,50 @@ class importNy
     return '';
   }
 
-
-  private function extractContactBlurbPhone( $string )
+  /*
+   * Extracts and fixes up a phone number out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string
+   *
+   * @todo implement it
+   */
+  private function extractContactBlurbPhone( $contactBlurb  )
   {
-    $elements = explode( ',', $string );
-    $pattern = '/^([0-9]?\-?[0-9]?\-?[0-9]?\-?[0-9]?\-?)/i';
-
-    foreach ( $elements as $element )
-    {
-      if ( preg_match( $pattern, trim( $element) , $matches ) )
-      {
-        //var_export($matches);
-      }
-    }
-
     return '';
   }
+
+  /*
+   * Maps categories and returns the mapped categories as Doctrine Collecion
+   * out of EventCategories
+   *
+   * @param Object $categoryXml
+   * @return array of EventCategories
+   *
+   * @todo finish implementation
+   *
+   */
+  public function mapCategories( $categoryXml )
+  {
+    $eventCategoryMappingArray = Doctrine::getTable( 'EventCategoryMapping' )->find( $this->_vendorObj[ 'id' ] );
+
+    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'EventCategory' ) );
+
+    foreach( $categoryXml as $category )
+    {
+
+      /*
+       * map (string) $category to $eventCategoryMappingArray,
+       * create EventCategory Object and append it to $mappedCategoriesArray
+      */
+
+      //$mappedCategoriesArray[] = ;
+    }
+
+    return $mappedCategoriesArray;
+
+  }
+
+
  
 }

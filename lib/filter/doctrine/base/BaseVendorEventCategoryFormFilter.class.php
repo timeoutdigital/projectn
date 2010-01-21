@@ -1,14 +1,14 @@
 <?php
 
 /**
- * EventCategory filter form base class.
+ * VendorEventCategory filter form base class.
  *
  * @package    sf_sandbox
  * @subpackage filter
  * @author     Your name here
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
-abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
+abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
@@ -24,7 +24,7 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
       'event_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('event_category_filters[%s]');
+    $this->widgetSchema->setNameFormat('vendor_event_category_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -45,8 +45,8 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
       return;
     }
 
-    $query->leftJoin('r.LinkingEventCategory LinkingEventCategory')
-          ->andWhereIn('LinkingEventCategory.event_id', $values);
+    $query->leftJoin('r.LinkingVendorEventCategory LinkingVendorEventCategory')
+          ->andWhereIn('LinkingVendorEventCategory.event_id', $values);
   }
 
   public function addEventListColumnQuery(Doctrine_Query $query, $field, $values)
@@ -61,13 +61,13 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
       return;
     }
 
-    $query->leftJoin('r.LinkingEventCategory LinkingEventCategory')
-          ->andWhereIn('LinkingEventCategory.id', $values);
+    $query->leftJoin('r.LinkingVendorEventCategory LinkingVendorEventCategory')
+          ->andWhereIn('LinkingVendorEventCategory.id', $values);
   }
 
   public function getModelName()
   {
-    return 'EventCategory';
+    return 'VendorEventCategory';
   }
 
   public function getFields()

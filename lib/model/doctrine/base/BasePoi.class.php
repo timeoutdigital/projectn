@@ -331,21 +331,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'foreign' => 'poi_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
-        $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' => 
-             array(
-              0 => 'name',
-              1 => 'alternative_name',
-              2 => 'street',
-              3 => 'house_no',
-              4 => 'zips',
-              5 => 'city',
-              6 => 'district',
-              7 => 'country',
-              8 => 'extension',
-             ),
-             ));
         $this->actAs($timestampable0);
-        $this->actAs($i18n0);
     }
 }

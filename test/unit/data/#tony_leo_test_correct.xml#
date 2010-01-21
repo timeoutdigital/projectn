@@ -193,11 +193,13 @@
 		<main_event/>
 		<identifier>Rien Que Les Heures</identifier>
 		<description>One of the best “symphony films” of the ’20s and ’30s, this avant-garde travelogue explores the cobblestone streets and broken boulevards of anything-goes Paris. It screens with Viking Eggeling’s “Symphonie Diagonale” (1924), the last abstract short the filmmaker made before his untimely death.</description>
+		
 		<category_combi id="400">
 			<category1 id="279">Film</category1>
 			<category2 id="344">Art-house &amp; indie cinema</category2>
 			<category3 id=""/>
 		</category_combi>
+		
 		<edition id="16">Time Out New York</edition>
 		<text_system>
 			<text>
