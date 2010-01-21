@@ -35,26 +35,26 @@ class XMLExportMovie extends XMLExport
       $movieTag->addAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
-      $movieTag->addChild( 'name', $movie['name'] );
+      $movieTag->addChild( 'name', htmlspecialchars( $movie['name'] ) );
 
       //movie/version
       $versionTag = $movieTag->addChild( 'version' );
       $versionTag->addAttribute( 'lang', 'en' );
 
       //movie/version/name
-      $versionTag->addChild( 'name', $movie['name'] );
+      $versionTag->addChild( 'name', htmlspecialchars( $movie['name'] ) );
 
       //movie/version/genre
       foreach( $movie['MovieGenres'] as $genre )
       {
-        $versionTag->addChild( 'genre', $genre['genre'] );
+        $versionTag->addChild( 'genre', htmlspecialchars( $genre['genre'] ) );
       }
 
       //movie/version/plot
-      $versionTag->addChild( 'plot', $movie['plot'] );
+      $versionTag->addChild( 'plot', htmlspecialchars( $movie['plot'] ) );
 
       //movie/version/review
-      $versionTag->addChild( 'review', $movie['review'] );
+      $versionTag->addChild( 'review', htmlspecialchars( $movie['review'] ) );
 
       //movie/version/url
       $versionTag->addChild( 'url', $movie['url'] );

@@ -12,16 +12,24 @@
  * @property string $url
  * @property string $price
  * @property float $rating
+<<<<<<< HEAD:lib/model/doctrine/base/BaseEvent.class.php
  * @property integer $vendor_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $EventCategories
  * @property Doctrine_Collection $VendorEventCategories
+=======
+ * @property integer $event_category_id
+ * @property integer $vendor_id
+ * @property EventCategory $EventCategory
+ * @property Vendor $Vendor
+>>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:lib/model/doctrine/base/BaseEvent.class.php
  * @property Doctrine_Collection $EventOccurence
  * @property Doctrine_Collection $VendorEventCategory
  * @property Doctrine_Collection $EventCategory
  * @property Doctrine_Collection $EventMedia
  * @property Doctrine_Collection $EventProperty
  * 
+<<<<<<< HEAD:lib/model/doctrine/base/BaseEvent.class.php
  * @method string              getName()                  Returns the current record's "name" value
  * @method string              getShortDescription()      Returns the current record's "short_description" value
  * @method string              getDescription()           Returns the current record's "description" value
@@ -54,6 +62,38 @@
  * @method Event               setEventCategory()         Sets the current record's "EventCategory" collection
  * @method Event               setEventMedia()            Sets the current record's "EventMedia" collection
  * @method Event               setEventProperty()         Sets the current record's "EventProperty" collection
+=======
+ * @method string              getName()              Returns the current record's "name" value
+ * @method string              getVendorCategory()    Returns the current record's "vendor_category" value
+ * @method string              getShortDescription()  Returns the current record's "short_description" value
+ * @method string              getDescription()       Returns the current record's "description" value
+ * @method string              getBookingUrl()        Returns the current record's "booking_url" value
+ * @method string              getUrl()               Returns the current record's "url" value
+ * @method string              getPrice()             Returns the current record's "price" value
+ * @method float               getRating()            Returns the current record's "rating" value
+ * @method integer             getEventCategoryId()   Returns the current record's "event_category_id" value
+ * @method integer             getVendorId()          Returns the current record's "vendor_id" value
+ * @method EventCategory       getEventCategory()     Returns the current record's "EventCategory" value
+ * @method Vendor              getVendor()            Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getEventOccurence()    Returns the current record's "EventOccurence" collection
+ * @method Doctrine_Collection getEventMedia()        Returns the current record's "EventMedia" collection
+ * @method Doctrine_Collection getEventProperty()     Returns the current record's "EventProperty" collection
+ * @method Event               setName()              Sets the current record's "name" value
+ * @method Event               setVendorCategory()    Sets the current record's "vendor_category" value
+ * @method Event               setShortDescription()  Sets the current record's "short_description" value
+ * @method Event               setDescription()       Sets the current record's "description" value
+ * @method Event               setBookingUrl()        Sets the current record's "booking_url" value
+ * @method Event               setUrl()               Sets the current record's "url" value
+ * @method Event               setPrice()             Sets the current record's "price" value
+ * @method Event               setRating()            Sets the current record's "rating" value
+ * @method Event               setEventCategoryId()   Sets the current record's "event_category_id" value
+ * @method Event               setVendorId()          Sets the current record's "vendor_id" value
+ * @method Event               setEventCategory()     Sets the current record's "EventCategory" value
+ * @method Event               setVendor()            Sets the current record's "Vendor" value
+ * @method Event               setEventOccurence()    Sets the current record's "EventOccurence" collection
+ * @method Event               setEventMedia()        Sets the current record's "EventMedia" collection
+ * @method Event               setEventProperty()     Sets the current record's "EventProperty" collection
+>>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:lib/model/doctrine/base/BaseEvent.class.php
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -99,6 +139,13 @@ abstract class BaseEvent extends sfDoctrineRecord
              'type' => 'float',
              'notnull' => false,
              ));
+<<<<<<< HEAD:lib/model/doctrine/base/BaseEvent.class.php
+=======
+        $this->hasColumn('event_category_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => false,
+             ));
+>>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:lib/model/doctrine/base/BaseEvent.class.php
         $this->hasColumn('vendor_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
@@ -116,6 +163,7 @@ abstract class BaseEvent extends sfDoctrineRecord
              'local' => 'vendor_id',
              'foreign' => 'id'));
 
+<<<<<<< HEAD:lib/model/doctrine/base/BaseEvent.class.php
         $this->hasMany('EventCategory as EventCategories', array(
              'refClass' => 'LinkingEventCategory',
              'local' => 'id',
@@ -125,6 +173,11 @@ abstract class BaseEvent extends sfDoctrineRecord
              'refClass' => 'LinkingVendorEventCategory',
              'local' => 'id',
              'foreign' => 'vendor_event_category_id'));
+=======
+        $this->hasOne('Vendor', array(
+             'local' => 'vendor_id',
+             'foreign' => 'id'));
+>>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:lib/model/doctrine/base/BaseEvent.class.php
 
         $this->hasMany('EventOccurence', array(
              'local' => 'id',

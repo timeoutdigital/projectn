@@ -1,4 +1,9 @@
+<<<<<<< HEAD:data/sql/schema.sql
 CREATE TABLE event (id BIGINT AUTO_INCREMENT, name TEXT NOT NULL, short_description TEXT, description TEXT, booking_url TEXT, url TEXT, price TEXT, rating FLOAT(18, 2), vendor_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX vendor_id_idx (vendor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
+=======
+CREATE TABLE event_translation (id BIGINT, name TEXT NOT NULL, vendor_category TEXT, short_description TEXT, description TEXT, booking_url TEXT, lang CHAR(2), PRIMARY KEY(id, lang)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
+CREATE TABLE event (id BIGINT AUTO_INCREMENT, url TEXT, price TEXT, rating FLOAT(18, 2), event_category_id BIGINT, vendor_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX event_category_id_idx (event_category_id), INDEX vendor_id_idx (vendor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
+>>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:data/sql/schema.sql
 CREATE TABLE event_category (id BIGINT AUTO_INCREMENT, name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE event_category_mapping (id BIGINT AUTO_INCREMENT, map_from VARCHAR(50) NOT NULL, map_to VARCHAR(50) NOT NULL, vendor_id BIGINT NOT NULL, INDEX vendor_id_idx (vendor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE event_media (id BIGINT AUTO_INCREMENT, media_url TEXT NOT NULL, mime_type VARCHAR(255) NOT NULL, event_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX event_id_idx (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
@@ -20,9 +25,15 @@ CREATE TABLE poi_property (id BIGINT AUTO_INCREMENT, lookup VARCHAR(50) NOT NULL
 CREATE TABLE user (id BIGINT AUTO_INCREMENT, vendor_id BIGINT NOT NULL, user_name VARCHAR(32) NOT NULL, user_reputation TINYINT, user_infomation TEXT NOT NULL, comments_relevance FLOAT(18, 2), specialty VARCHAR(128), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX vendor_id_idx (vendor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE user_content (id BIGINT AUTO_INCREMENT, vendor_ucid VARCHAR(32) NOT NULL, comment_subject TEXT NOT NULL, comment_body TEXT NOT NULL, user_rating FLOAT(18, 2), user_id BIGINT NOT NULL, poi_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX user_id_idx (user_id), INDEX poi_id_idx (poi_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE vendor (id BIGINT AUTO_INCREMENT, city VARCHAR(15) NOT NULL, language VARCHAR(10) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
+<<<<<<< HEAD:data/sql/schema.sql
 CREATE TABLE vendor_event_category (id BIGINT AUTO_INCREMENT, name TEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 ALTER TABLE event ADD CONSTRAINT event_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);
 ALTER TABLE event_category_mapping ADD CONSTRAINT event_category_mapping_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);
+=======
+ALTER TABLE event_translation ADD CONSTRAINT event_translation_id_event_id FOREIGN KEY (id) REFERENCES event(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE event ADD CONSTRAINT event_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);
+ALTER TABLE event ADD CONSTRAINT event_event_category_id_event_category_id FOREIGN KEY (event_category_id) REFERENCES event_category(id);
+>>>>>>> 727941d371a3d6774a32c72dbba8fa6963178c1b:data/sql/schema.sql
 ALTER TABLE event_media ADD CONSTRAINT event_media_event_id_event_id FOREIGN KEY (event_id) REFERENCES event(id);
 ALTER TABLE event_occurence ADD CONSTRAINT event_occurence_poi_id_poi_id FOREIGN KEY (poi_id) REFERENCES poi(id);
 ALTER TABLE event_occurence ADD CONSTRAINT event_occurence_event_id_event_id FOREIGN KEY (event_id) REFERENCES event(id);
