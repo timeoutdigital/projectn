@@ -1,5 +1,9 @@
 <?php
 
+define( TO_TEST_ROOT_PATH, dirname( __FILE__ ) );
+define( TO_TEST_DATA_PATH, TO_TEST_ROOT_PATH . '/data' );
+
+
 class ProjectN_Test_Unit_Factory
 { 
   /**

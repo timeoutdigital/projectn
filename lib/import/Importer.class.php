@@ -6,66 +6,23 @@
  */
 abstract class Importer
 {
-  /**
-   * @var mixed
-   */
-  protected $_data;
 
   /**
-   * @var ImportSaver
+   * Takes an array of strings implodes only values that are not blank using $glue
+   * 
+   * @param array $stringArray
+   * @param string $glue
    */
-  protected $_importSaver;
-
-  /**
-   * retrieve and save data
-   */
-  final public function loadData()
+  static public function concatNonBlankStrings( $glue, $stringArray )
   {
-    $this->_data = $this->load();
-    $this->save();
+    $nonEmptyStrings = array_filter($stringArray, 'Importer::concatNonBlankStringsCallBack' );
+    return implode($glue, $nonEmptyStrings );
   }
 
-  /**
-   * load the data to be saved
-   */
-  abstract protected function load();
-
-  /**
-   * @returns boolean
-   */
-  final public function hasData()
+  static private function concatNonBlankStringsCallBack( $string )
   {
-    return !is_null( $this->_data );
+    return preg_match( '/\S/', $string );
   }
 
-  /**
-   * set an ImportSaver to save data with
-   */
-  final public function setSaver( $saver )
-  {
-    if( $saver instanceof ImportSaver )
-    {
-      $this->_importSaver = $saver;
-    }
-    else
-    {
-      throw new ImportException( 'Tried to set saver using ' . $saver );
-    }
-  }
-
-  /**
-   * use the ImportSaver to save data
-   */
-  final protected function save()
-  {
-    if( !is_null( $this->_importSaver ) )
-    {
-      $this->_importSaver->save();
-    }
-    else
-    {
-      throw new ImportException( 'Importer requires a saver.' );
-    }
-  }
+  abstract public function run();
 }
-?>

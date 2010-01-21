@@ -37,22 +37,22 @@ class EventTableTest extends PHPUnit_Framework_TestCase
     
     $event = new Event();
     $event->setName( 'test event1' );
-    $event->link( 'Poi', array( $poi1->getId() ) );
+    $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
     $event = new Event();
     $event->setName( 'test event2' );
-    $event->link( 'Poi', array( $poi1->getId() ) );
+    $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
     $event = new Event();
     $event->setName( 'test event2' );
-    $event->link( 'Poi', array( $poi1->getId() ) );
+    $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
     $event = new Event();
     $event->setName( 'test event3' );
-    $event->link( 'Poi', array( $poi2->getId() ) );
+    $event->link( 'Vendor', array( 2 ) );
     $event->save();
 
     $this->object = Doctrine::getTable('Event');

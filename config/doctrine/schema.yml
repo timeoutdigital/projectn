@@ -14,7 +14,7 @@ Poi:
     review_date:                {type: datetime, notnull: false}
     vendor_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
-    poi_name:                   {type: string(80), notnull: false}
+    poi_name:                   {type: string(80), notnull: false} # @todo should be 'name'
     house_no:                   {type: string(16), notnull: false}
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
@@ -37,7 +37,7 @@ Poi:
     description:                {type: string(65535),notnull: false}
     public_transport_links:     {type: string(1024), notnull: false}
     price_information:          {type: string(512), notnull: false}
-    openingtimes:               {type: string(512), notnull: false}
+    openingtimes:               {type: string(512), notnull: false} # @todo should be 'opening_times'
     star_rating:                {type: integer(1), notnull: false}
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
@@ -243,4 +243,4 @@ Vendor:
     Timestampable: ~
   columns:
     city:                       {type: string(15), notnull: true}
-    language:                   {type: string(10), notnull: true}
+    language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)
