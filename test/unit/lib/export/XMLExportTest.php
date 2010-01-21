@@ -176,5 +176,17 @@ protected function setUp()
     $xmlFromFile = simplexml_load_file( $this->destination );
     $this->assertTrue( $xmlFromFile instanceof SimpleXMLElement );
   }
+
+  /**
+   * check specialChars() takes care of special character, utf-8
+   */
+  public function testSpecialChars()
+  {
+    $this->assertEquals(
+      htmlspecialchars( $this->specialChars, ENT_NOQUOTES, 'UTF-8' ),
+      XMLExport::escapeSpecialChars( $this->specialChars )
+    );
+  }
+
 }
 ?>

@@ -92,18 +92,32 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie->link( 'MovieGenres', array( 1, 2 ) );
     $movie->save();
 
-    $movie = new Movie();
-    $movie[ 'Vendor' ] = $vendor;
-    $movie[ 'Poi' ] = $poi2;
-    $movie[ 'name' ] = 'test movie name';
-    $movie[ 'plot' ] = 'test movie plot';
-    $movie[ 'review' ] = 'test movie review';
-    $movie[ 'url' ] = 'http://movies.co.uk';
-    $movie[ 'rating' ] = '0.1';
-    $movie[ 'age_rating' ] = 'oap';
-    $movie[ 'utf_offset' ] = '-01:00:00';
-    $movie->link( 'MovieGenres', array( 1, 2 ) );
-    $movie->save();
+    $property = new MovieProperty();
+    $property[ 'lookup' ] = 'movie key 1';
+    $property[ 'value' ] = 'movie value 1';
+    $property->link( 'Movie', array( 1 ) );
+    $property->save();
+
+    $property2 = new MovieProperty();
+    $property2[ 'lookup' ] = 'movie key 2';
+    $property2[ 'value' ] = 'movie value 2';
+    $property2->link( 'Movie', array( 1 ) );
+    $property2->save();
+
+    $movie2 = new Movie();
+    $movie2[ 'Vendor' ] = $vendor;
+    $movie2[ 'Poi' ] = $poi2;
+    $movie2[ 'name' ] = 'test movie name';
+    $movie2[ 'plot' ] = 'test movie plot';
+    $movie2[ 'review' ] = 'test movie review';
+    $movie2[ 'url' ] = 'http://movies.co.uk';
+    $movie2[ 'rating' ] = '0.1';
+    $movie2[ 'age_rating' ] = 'oap';
+    $movie2[ 'utf_offset' ] = '-01:00:00';
+    $movie2->link( 'MovieGenres', array( 1, 2 ) );
+    $movie2->save();
+
+    var_dump( '___'.count($movie[ 'MovieProperty' ]) );
 
     $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
     $this->export = new XMLExportMovie( $this->vendor, $this->destination );
@@ -128,6 +142,9 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
    */
   public function testMovieTag()
   {
+    $this->assertEquals( $this->vendor->getName(), (string) $this->xml['vendor'] );
+    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
+    
     $movieTag = $this->xml->movie[0];
     //movie@attributes
     $this->assertEquals( '187', (string) $movieTag['id'] );
@@ -163,6 +180,19 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '1', (string) $versionTag->place['place-id'] );
     //test the second movie as well
     $this->assertEquals('2', (string) $this->xml->movie[1]->version->place['place-id']);
+  }
+
+  /**
+   * check properties tags
+   */
+  public function testPropertyTags()
+  {
+    $properties = $this->xml->movie[0]->version->property;
+    var_dump( $this->xml->movie[0]->version );
+    $this->assertEquals( 'movie key 1', (string) $properties[0]['key'] );
+    $this->assertEquals( 'movie value 1', (string) $properties[0] );
+    $this->assertEquals( 'movie key 2', (string) $properties[1]['key'] );
+    $this->assertEquals( 'movie value 2', (string) $properties[1] );
   }
 }
 ?>

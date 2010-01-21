@@ -71,8 +71,15 @@ class XMLExportEvent extends XMLExport
       //event/version/booking-url
       $versionTag->addChild('price', htmlspecialchars( $event->getPrice() ));
 
+      //event/version/property
+      foreach( $event[ 'EventProperty' ] as $property )
+      {
+        $propertyTag = $versionTag->addChild( 'property', htmlspecialchars( $property['value'] ) );
+        $propertyTag->addAttribute( 'key', htmlspecialchars( $property[ 'lookup' ] ) );
+      }
+
       //event/showtimes
-      foreach( $event['EventOccurence'] as $occurrence )
+      foreach( $event[ 'EventOccurence' ] as $occurrence )
       {
         $showtimeTag = $eventTag->addChild( 'showtimes' );
 

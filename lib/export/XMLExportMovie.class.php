@@ -28,6 +28,9 @@ class XMLExportMovie extends XMLExport
   {
     $rootTag =  simplexml_load_string('<vendor-movies/>');
 
+    $rootTag->addAttribute( 'modified', $this->modifiedTimeStamp );
+    $rootTag->addAttribute( 'vendor', $this->vendor->getName() );
+
     foreach( $movieCollection as $movie )
     {
       $movieTag = $rootTag->addChild( 'movie' );
@@ -66,6 +69,11 @@ class XMLExportMovie extends XMLExport
       $placeTag = $versionTag->addChild( 'place' );
       $placeTag->addAttribute( 'place-id', $movie['Poi']['id'] );
       
+      foreach( $movie['MovieProperty'] as $property )
+      {
+        $propertyTag = $versionTag->addChild( 'property', htmlspecialchars($property[ 'value' ]) );
+        $propertyTag->addAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
+      }
     }
 
     return $rootTag;

@@ -76,6 +76,12 @@ class XMLExportPOI extends XMLExport
       $contact->addChild( 'description',htmlspecialchars( $poi->getDescription() ) );
       $contact->addChild( 'public-transport', $poi->getPublicTransportLinks() );
       $contact->addChild( 'opening-times', htmlspecialchars($poi->getOpeningTimes() ) );
+
+      foreach( $poi[ 'PoiProperty' ] as $property )
+      {
+        $propertyTag = $entry->addChild( 'property', htmlspecialchars( $property['value'] ) );
+        $propertyTag->addAttribute( 'key', htmlspecialchars( $property['lookup'] ) );
+      }
     }
 
     return $xmlElement;

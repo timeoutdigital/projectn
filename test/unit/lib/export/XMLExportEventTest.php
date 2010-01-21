@@ -89,6 +89,18 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event->link( 'EventCategory', array( 1 ) );
     $event->save();
 
+    $property = new EventProperty();
+    $property['lookup'] = 'test key 1';
+    $property['value'] = 'test value 1';
+    $property->link( 'Event', array( 1 ) );
+    $property->save();
+
+    $property2 = new EventProperty();
+    $property2['lookup'] = 'test key 2';
+    $property2['value'] = 'test value 2';
+    $property2->link( 'Event', array( 1 ) );
+    $property2->save();
+
     $event2 = new Event();
     $event2->setName( 'test event2' . $this->specialChars );
     $event2->link( 'Vendor', array( 1 ) );
@@ -191,6 +203,18 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '2010-01-31 21:00:20', (string) $this->xml->event[0]->showtimes[0]->occurrence->time->{'start-date'}  );
     $this->assertEquals( '2010-01-31 22:30:00', (string) $this->xml->event[0]->showtimes[0]->occurrence->time->{'end-date'}  );
     $this->assertEquals( '-05:00:00', (string) $this->xml->event[0]->showtimes[0]->occurrence->time->{'utc-offset'} );
+  }
+  
+  /**
+   * check properties tags
+   */
+  public function testPropertyTags()
+  {
+    $properties = $this->xml->event[0]->version->property;
+    $this->assertEquals( 'test key 1', (string) $properties[0]['key'] );
+    $this->assertEquals( 'test value 1', (string) $properties[0] );
+    $this->assertEquals( 'test key 2', (string) $properties[1]['key'] );
+    $this->assertEquals( 'test value 2', (string) $properties[1] );
   }
 
 }

@@ -34,6 +34,17 @@ abstract class XMLExport
   protected $model;
 
   /**
+   * A string to escape for xml
+   *
+   * @param string $string
+   * @return string Escaped string
+   */
+  static public function escapeSpecialChars( $string )
+  {
+    return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
+  }
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
