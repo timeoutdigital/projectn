@@ -78,3 +78,34 @@ Vendor:
   v6:
     city:                dubai
     language:            english
+
+
+EventCategory:
+  c1:
+    name:                movies
+  c2:
+    name:                concerts
+  c3:
+    name:                theater
+  c4:
+    name:                festivals-fairs
+  c5:
+    name:                clubbing-nightlife
+  c6:
+    name:                business-tech
+  c7:
+    name:                sport
+  c8:
+    name:                family
+  c9:
+    name:                tours
+  c10:
+    name:                community
+  c11:
+    name:                educational
+  c12:
+    name:                dance
+  c13:
+    name:                arts-museums
+  c14:
+    name:                other

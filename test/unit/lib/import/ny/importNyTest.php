@@ -36,33 +36,12 @@ class importNyTest extends PHPUnit_Framework_TestCase
     try {
       $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
       Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine' );
-
-      $this->vendorObj = new Vendor();
-      $this->vendorObj->setCity('test');
-      $this->vendorObj->setLanguage('english');
-      $this->vendorObj->save();
+      Doctrine::loadData('data/fixtures');
+      $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'english');
 
       $poiCategoryObj = new PoiCategory();
       $poiCategoryObj[ 'name' ] = 'theatre-music-culture';
       $poiCategoryObj->save();
-
-      /*$poiObj = new Poi();
-      $poiObj->setPoiName( 'test name' );
-      $poiObj->setStreet( 'test street' );
-      $poiObj->setHouseNo('12' );
-      $poiObj->setZips('1234' );
-      $poiObj->setCity( 'test town' );
-      $poiObj->setDistrict( 'test district' );
-      $poiObj->setCountry( 'test country' );
-      $poiObj->setVendorPoiId( '123' );
-      $poiObj->setLocalLanguage('en');
-      $poiObj->setCountryCode( 'uk' );
-      $poiObj->setLongitude( '0.1' );
-      $poiObj->setLatitude( '0.2' );
-      $poiObj->link( 'Vendor', 1 );
-      $poiObj->link('PoiCategory', 1 );
-      $poiObj->save();*/
-
 
       $this->xmlObj = new processNyXml( dirname(__FILE__).'/../../../data/tony_leo_test_correct.xml' );
       $this->xmlObj->setEvents('/body/event')->setVenues('/body/address');
@@ -70,12 +49,10 @@ class importNyTest extends PHPUnit_Framework_TestCase
       $this->object = new importNy( $this->xmlObj, $this->vendorObj );
 
     }
-    catch(PDOException $e)
+    catch( Exception $e )
     {
       echo $e->getMessage();
     }
-
-
 
   }
 
@@ -94,6 +71,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
    /**
    * testInsertPoi
+    *
+    * @todo Create Regreshion test
    */
   public function testInsertPoi()
   {
@@ -106,7 +85,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * testInsertEvent
+   * Tests that testInsertEvent
+   *
    * @todo add occurrence
    */
   public function testInsertEvent()
@@ -119,6 +99,37 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $eventObj = Doctrine::getTable('Event')->findByName('Rien Que Les Heures');
     $this->assertEquals( 1, count( $eventObj ) );
+
+  }
+
+  /*
+   * Test catgegory property for poi
+   *
+   * <category_combi id="329">
+   *   <category1 id="279">Film</category1>
+   *   <category2 id=""/>
+   *   <category3 id=""/>
+   * </category_combi>
+   *
+  */
+  public function testPoiCategoryProperty()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
+
+    foreach( $poiObj['PoiProperty'] as $eventPropertyObj )
+    {
+      if ( $eventPropertyObj[ 'lookup' ] == 'category' )
+      {
+        $this->assertEquals( 'Film', $eventPropertyObj[ 'value' ] );
+        break;
+      }
+    }
 
   }
 
@@ -140,7 +151,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
         break;
       }
     }
-
   }
 
   public function testContactBlurb()
@@ -167,16 +177,60 @@ class importNyTest extends PHPUnit_Framework_TestCase
     }
 
     // phone
-    /*foreach( $eventObj['EventProperty'] as $eventPropertyObj )
+    foreach( $eventObj['EventProperty'] as $eventPropertyObj )
     {
       if ( $eventPropertyObj[ 'lookup' ] == 'phone' )
       {
         $this->assertEquals( '212-352-3101', $eventPropertyObj[ 'value' ] );
         break;
       }
-    }*/
+    }
 
   }
+
+  /*
+   * Test if event category is appended
+   */
+  public function testCategoryIfEventCategoryIsSuccessfullyAppended()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
+
+    foreach( $eventObj['EventCategory'] as $eventCategoryObj )
+    {
+      $this->assertEquals( 'movies', $eventCategoryObj[ 'name' ] );
+    }
+  }
+
+//  /*
+//   * Test if the categories get mapped correctly
+//   */
+//  public function testCategoryIsCorrectlyMapped()
+//  {
+//    $this->assertEquals( 'movies', $this->object->mapCategories( 'Film' ) );
+//  }
+//
+//  /*
+//   * Test if an unknown category maps to other
+//   */
+//  public function testIfUnknownCategoryMapsToOther()
+//  {
+//    $this->assertEquals( 'other', $this->object->mapCategories( 'Art-house &amp; indie cinema' ) );
+//  }
+//
+//  /*
+//   * Test if an unknown category maps to other
+//   */
+//  public function testIfPassedEmptyStringReturnsEmptyString()
+//  {
+//    $this->assertEquals( '', $this->object->mapCategories( '' ) );
+//  }
+
 
 
 }

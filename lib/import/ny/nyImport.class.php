@@ -42,9 +42,6 @@ class importNy
    */
   public function insertEventsAndVenues()
   {
-
-    
-
     foreach( $this->_venues as $venue )
     {
       $this->insertPoi( $venue ) ;
@@ -67,7 +64,7 @@ class importNy
    * @todo sort out categories
    *
    */
-  public function insertPoi( $poi )
+  public function insertPoi( SimpleXMLElement $poi )
   {
 
       //Get the venue
@@ -138,6 +135,24 @@ class importNy
       //save to database
       $poiObj->save();
 
+      //store categories as properties
+      if ( isset( $poi->category_combi ) )
+      {
+        foreach( $poi->category_combi->children() as $category )
+        {
+          $cat = (string) $category;
+
+          if ( $cat != '')
+          {
+            $poiPropertyObj = new PoiProperty();
+            $poiPropertyObj[ 'lookup' ] = 'category';
+            $poiPropertyObj[ 'value' ] = $cat;
+            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+            $poiPropertyObj->save();
+          }
+        }
+      }
+
       //Kill the object
       $poiObj->free();    
   }
@@ -170,8 +185,28 @@ class importNy
 
         $eventObj->save();
 
-        //Set Any Properties
-        //$propertyArray = new Doctrine_Collection(Doctrine::getTable('EventProperty'));
+        //store categories
+        if ( isset( $event->category_combi ) )
+        {
+          $categoryArray = new Doctrine_Collection(Doctrine::getTable('EventCategory'));
+
+          foreach( $event->category_combi->children() as $category )
+          {
+            $cat = (string) $category;
+
+            if ( $cat != '')
+            {
+              //$mappedCategoryString = $this->mapCategories( $cat );
+
+              //Get and set the child category
+              $eventCategoryObj =  Doctrine::getTable( 'EventCategory' )->findOneByName( 'movies' );
+              $categoryArray[] = $eventCategoryObj;
+            }
+          }
+
+          $eventObj['EventCategory'] = $categoryArray;
+          $eventObj->save();
+        }
 
         //deal with the "text-system" nodes
         if ( isset( $event->{'text_system'}->text ) )
@@ -306,6 +341,9 @@ class importNy
    */
   private function extractContactBlurbUrl( $string )
   {
+
+
+
     $elements = explode( ',', $string );
     $pattern = '/^(http|https|ftp)?(:\/\/)?(www\.)?([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
 
@@ -322,7 +360,7 @@ class importNy
       }
     }
 
-    return '';
+    
   }
 
 
@@ -359,5 +397,20 @@ class importNy
 
     return '';
   }
+
+  /*public function mapCategories( $CategoryString )
+  {
+    if ( $CategoryString == '' )
+      return '';
+
+    switch( $CategoryString )
+    {
+      case '':
+        return
+    }
+
+  }*/
+
+
  
 }

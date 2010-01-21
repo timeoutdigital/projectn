@@ -1,34 +1,34 @@
 <?php
 
 /**
- * EventCategory form base class.
+ * VendorEventCategory form base class.
  *
- * @method EventCategory getObject() Returns the current form's model object
+ * @method VendorEventCategory getObject() Returns the current form's model object
  *
  * @package    sf_sandbox
  * @subpackage form
  * @author     Your name here
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
-abstract class BaseEventCategoryForm extends BaseFormDoctrine
+abstract class BaseVendorEventCategoryForm extends BaseFormDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
       'id'          => new sfWidgetFormInputHidden(),
-      'name'        => new sfWidgetFormInputText(),
+      'name'        => new sfWidgetFormTextarea(),
       'events_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
       'event_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
     ));
 
     $this->setValidators(array(
       'id'          => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'name'        => new sfValidatorString(array('max_length' => 50)),
+      'name'        => new sfValidatorString(array('max_length' => 256)),
       'events_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
       'event_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('event_category[%s]');
+    $this->widgetSchema->setNameFormat('vendor_event_category[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -39,7 +39,7 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'EventCategory';
+    return 'VendorEventCategory';
   }
 
   public function updateDefaultsFromObject()

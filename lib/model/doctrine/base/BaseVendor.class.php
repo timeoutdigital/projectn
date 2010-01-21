@@ -9,18 +9,24 @@
  * @property string $language
  * @property Doctrine_Collection $Poi
  * @property Doctrine_Collection $User
+ * @property Doctrine_Collection $Event
+ * @property Doctrine_Collection $EventCategoryMapping
  * @property Doctrine_Collection $Movie
  * 
- * @method string              getCity()     Returns the current record's "city" value
- * @method string              getLanguage() Returns the current record's "language" value
- * @method Doctrine_Collection getPoi()      Returns the current record's "Poi" collection
- * @method Doctrine_Collection getUser()     Returns the current record's "User" collection
- * @method Doctrine_Collection getMovie()    Returns the current record's "Movie" collection
- * @method Vendor              setCity()     Sets the current record's "city" value
- * @method Vendor              setLanguage() Sets the current record's "language" value
- * @method Vendor              setPoi()      Sets the current record's "Poi" collection
- * @method Vendor              setUser()     Sets the current record's "User" collection
- * @method Vendor              setMovie()    Sets the current record's "Movie" collection
+ * @method string              getCity()                 Returns the current record's "city" value
+ * @method string              getLanguage()             Returns the current record's "language" value
+ * @method Doctrine_Collection getPoi()                  Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getUser()                 Returns the current record's "User" collection
+ * @method Doctrine_Collection getEvent()                Returns the current record's "Event" collection
+ * @method Doctrine_Collection getEventCategoryMapping() Returns the current record's "EventCategoryMapping" collection
+ * @method Doctrine_Collection getMovie()                Returns the current record's "Movie" collection
+ * @method Vendor              setCity()                 Sets the current record's "city" value
+ * @method Vendor              setLanguage()             Sets the current record's "language" value
+ * @method Vendor              setPoi()                  Sets the current record's "Poi" collection
+ * @method Vendor              setUser()                 Sets the current record's "User" collection
+ * @method Vendor              setEvent()                Sets the current record's "Event" collection
+ * @method Vendor              setEventCategoryMapping() Sets the current record's "EventCategoryMapping" collection
+ * @method Vendor              setMovie()                Sets the current record's "Movie" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -56,6 +62,14 @@ abstract class BaseVendor extends sfDoctrineRecord
              'foreign' => 'vendor_id'));
 
         $this->hasMany('User', array(
+             'local' => 'id',
+             'foreign' => 'vendor_id'));
+
+        $this->hasMany('Event', array(
+             'local' => 'id',
+             'foreign' => 'vendor_id'));
+
+        $this->hasMany('EventCategoryMapping', array(
              'local' => 'id',
              'foreign' => 'vendor_id'));
 
