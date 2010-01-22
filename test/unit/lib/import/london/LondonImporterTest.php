@@ -23,7 +23,17 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
   /**
    * @var SimpleXmlElement
    */
+  private $_testVenueCategoryInformationXml;
+
+  /**
+   * @var SimpleXmlElement
+   */
   private $_testEventXml;
+
+  /**
+   * @var PoiCategory
+   */
+  private $_defaultCategory;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -38,11 +48,19 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
     $vendor->setLanguage('en-GB');
     $vendor->save();
 
-    $this->object = new LondonImporter( );
+    $category = new PoiCategory();
+    $category['name'] = 'other';
+    $category->save();
+
+    $this->_defaultCategory = $category;
+
+    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getGeoCode', 'getLongitude', 'getLatitude' ) );
+
+    $this->object = new LondonImporter( $category, $geoEncoder );
 
     $this->_testVenueXml = simplexml_load_file( TO_TEST_DATA_PATH . '/london_listings_venues.xml' );
 
-    //$this->_testEventXml = simplexml_load_file( TO_TEST_DATA_PATH . '/london_listings_events.xml' );
+    $this->_testVenueCategoryInformationXml = simplexml_load_file( TO_TEST_DATA_PATH . '/london_listings_venue_category_information.xml' );
   }
 
   /**
@@ -59,7 +77,6 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
    */
   public function testRun()
   {
-    
   }
 
   /**
@@ -67,7 +84,27 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessVenues()
   {
+    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getGeoCode', 'getLongitude', 'getLatitude' ) );
+
+    $geoEncoder->expects( $this->atLeastOnce() )
+               ->method( 'setAddress' );
+
+    $geoEncoder->expects( $this->atLeastOnce() )
+               ->method( 'getGeoCode' )
+               ->will( $this->returnValue( $geoEncoder ) );
+
+    $geoEncoder->expects( $this->atLeastOnce() )
+               ->method( 'getLatitude' )
+               ->will( $this->returnValue( '-0.123' ) );
+
+    $geoEncoder->expects( $this->atLeastOnce() )
+               ->method( 'getLongitude' )
+               ->will( $this->returnValue( '54.321') );
+
+    $this->object = new LondonImporter( $this->_defaultCategory, $geoEncoder );
+    
     $this->object->setVenueData( $this->_testVenueXml );
+    $this->object->setVenueCategoryInformationData( $this->_testVenueCategoryInformationXml );
 
     $this->object->run( );
 
@@ -81,11 +118,11 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $poi[ 'district' ] );
     $this->assertEquals( 'GBR', $poi[ 'country' ] );
     $this->assertEquals( 'Dummy Address1, Dummy Address2, Dummy Address3, Dummy Address4', $poi[ 'additional_address_details' ] );
-    $this->assertEquals( 'Dummy PostCode', $poi[ 'zips' ] );
+    $this->assertEquals( 'w1t 7ab', $poi[ 'zips' ] );
     $this->assertEquals( 'GB', $poi[ 'country_code' ] );
     $this->assertEquals( '', $poi[ 'extension' ] );
-    $this->assertEquals( '-0.1', $poi[ 'longitude' ] );
-    $this->assertEquals( '51.0000000', $poi[ 'latitude' ] );
+    $this->assertEquals( '54.321', $poi[ 'longitude' ] );
+    $this->assertEquals( '-0.123', $poi[ 'latitude' ] );
     $this->assertEquals( 'Dummy GenEmail', $poi[ 'email' ] );
     $this->assertEquals( 'Dummy URL', $poi[ 'url' ] );
     $this->assertEquals( 'Dummy Phone', $poi[ 'phone' ] );
@@ -97,11 +134,10 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $poi[ 'description' ] );
     $this->assertEquals( 'Dummy BusInfo, Dummy TubeInfo, Dummy TubeStationID, Dummy RailInfo', $poi[ 'public_transport_links' ] );
     $this->assertEquals( 'Dummy CinemaPriceInfo, Dummy MusicPriceInfo', $poi[ 'price_information' ] );
-    $this->assertEquals( '', $poi[ 'openingtimes' ] );
+    $this->assertEquals( '7pm', $poi[ 'openingtimes' ] );
     $this->assertEquals( '', $poi[ 'star_rating' ] );
     $this->assertEquals( '', $poi[ 'rating' ] );
     $this->assertEquals( '', $poi[ 'provider' ] );
-
   }
 
   /**

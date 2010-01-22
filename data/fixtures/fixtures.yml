@@ -62,22 +62,22 @@ PoiCategory:
 Vendor:
   v1:
     city:                ny
-    language:            english
+    language:            en-GB
   v2:
     city:                chicago
-    language:            english
+    language:            en-GB
   v3:
     city:                singapore
-    language:            english
+    language:            en-GB
   v4:
     city:                london
-    language:            english
+    language:            en-GB
   v5:
     city:                abu dhabi
-    language:            english
+    language:            en-GB
   v6:
     city:                dubai
-    language:            english
+    language:            en-GB
 
 
 EventCategory:

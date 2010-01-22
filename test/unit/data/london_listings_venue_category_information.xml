@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Exchange>
+<VenueSectionLinks>
+
+  <VenueSectionLink>
+    <SectionVenueName></SectionVenueName>
+    <VenueSectionLinkID>171</VenueSectionLinkID>
+    <PlaceID>1234</PlaceID>
+    <SectionID>1</SectionID>
+    <FoodServed>True</FoodServed>
+    <FreeVenue>True</FreeVenue>
+    <IncludeInVenueList>False</IncludeInVenueList>
+    <LateNight>True</LateNight>
+    <Annotation></Annotation>
+    <PriceExport></PriceExport>
+    <TelephoneExport></TelephoneExport>
+    <TimesExport>7pm</TimesExport>
+    <URLExport></URLExport>
+  </VenueSectionLink>
+
+  <VenueSectionLink>
+    <SectionVenueName></SectionVenueName>
+    <VenueSectionLinkID>171</VenueSectionLinkID>
+    <PlaceID>2345</PlaceID>
+    <SectionID>1</SectionID>
+    <FoodServed>False</FoodServed>
+    <FreeVenue>False</FreeVenue>
+    <IncludeInVenueList>False</IncludeInVenueList>
+    <LateNight>False</LateNight>
+    <Annotation></Annotation>
+    <PriceExport></PriceExport>
+    <TelephoneExport></TelephoneExport>
+    <TimesExport></TimesExport>
+    <URLExport></URLExport>
+  </VenueSectionLink>
+
+</VenueSectionLinks>
+</Exchange>

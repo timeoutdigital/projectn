@@ -28,9 +28,9 @@
       <Name>Dummy Name</Name>
       <OnlineAnnotation>Dummy OnlineAnnotation</OnlineAnnotation>
       <Phone>Dummy Phone</Phone>
-      <PlaceID>Dummy PlaceID</PlaceID>
+      <PlaceID>1234</PlaceID>
       <PlaceList>Dummy PlaceList</PlaceList>
-      <PostCode>Dummy PostCode</PostCode>
+      <PostCode>w1t 7ab</PostCode>
       <RailInfo>Dummy RailInfo</RailInfo>
       <SortField>Dummy SortField</SortField>
       <TelNoForWeb>Dummy TelNoForWeb</TelNoForWeb>

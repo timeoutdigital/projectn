@@ -5,135 +5,173 @@
  *
  * @package projectn.lib.import.london
  *
- * @author clarence <clarencelee@timeout.com>
+ * @author Clarence Lee <clarencelee@timeout.com>
+ *
+ * @todo confirm address mapping
+ * @todo enquire category mapping
+ * @todo fax?
+ * @todo confirm url for web
+ * @todo confirm description
+ * @todo confirm TubeExportName
+ * @todo confirm TubeStationID
+ * @todo enquire opening times
+ * @todo enquire ratings
+ * @todo enquire provider
  */
 class LondonImporter
 {
-
+  /**
+   * @var SimpleXMLElement
+   */
   private $_venueData;
 
+  /**
+   * @var SimpleXMLElement
+   */
   private $_eventData;
+  
+  /**
+   * @var SimpleXMLElement
+   */
+  private $_venueCategoryInformationData;
 
+  /**
+   * @var Vendor
+   */
   private $_vendor;
 
+  /**
+   * @var PoiCategory
+   */
+  private $_defaultPoiCategory;
+
+  /**
+   * var geoEncode
+   */
+  private $_geoEncode;
   
   /**
    * @param string Path to Yaml config file
    */
-  public function  __construct( )
+  public function  __construct( PoiCategory $defaultCategory, geoEncode $geoEncode )
   {
     $this->_vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'en-GB' );
+    $this->_defaultPoiCategory = $defaultCategory;
+    $this->_geoEncode = $geoEncode;
   }
-
   
   /**
    * Runs venue & event processes
-   *
    */
   public function run( )
   {
     $this->processVenues( );
   }
 
-
   /**
    * Processes the data that has been loadedGB-en
    *
    * @param array $data
-   *
-   * @todo get real latitude longitude
-   * @todo confirm address mapping
-   * @todo enquire category mapping
-   * @todo fax?
-   * @todo confirm url for web
-   * @todo confirm description
-   * @todo confirm TubeExportName
-   * @todo confirm TubeStationID
-   * @todo enquire opening times
-   * @todo enquire ratings
-   * @todo enquire provider
    * 
    */
   private function processVenues( )
   {
-    $poi = new Poi( );
+    if( !$this->getVenueData() )
+    {
+      throw new ImportException('No venue data set.');
+    }
 
-    $poi[ 'review_date' ] = $this->_venueData->Venues->Venue[ 0 ]->ModifiedDate;
+    if( !$this->getVenueCategoryInformationData() )
+    {
+      throw new ImportException('No venue category information data set.');
+    }
 
-    $poi[ 'vendor_poi_id' ] = 1;
-    $poi[ 'local_language' ] = 'en-GB';
+    foreach( $this->_venueData->Venues->Venue as $venue )
+    {
+      $poi = new Poi( );
 
-    $poi[ 'poi_name' ] = (string) $this->_venueData->Venues->Venue[ 0 ]->Name;
-    $poi[ 'house_no' ] = $this->_venueData->Venues->Venue[ 0 ]->BuildingNo;
-    $poi[ 'street' ] = (string) $this->_venueData->Venues->Venue[ 0 ]->Address;
-    $poi[ 'city' ] = (string) $this->_venueData->Venues->Venue[ 0 ]->City;
-    $poi[ 'district' ] = '';
+      $poi[ 'review_date' ] = $venue->ModifiedDate;
 
-    $poi[ 'country' ] = 'GBR';
+      $poi[ 'vendor_poi_id' ] = 1;
+      $poi[ 'local_language' ] = 'en-GB';
 
-    $poi[ 'additional_address_details' ] = Importer::concatNonBlankStrings(', ', array(
-      $this->_venueData->Venues->Venue[ 0 ]->Address1,
-      $this->_venueData->Venues->Venue[ 0 ]->Address2,
-      $this->_venueData->Venues->Venue[ 0 ]->Address3,
-      $this->_venueData->Venues->Venue[ 0 ]->Address4 
-    ));
+      $poi[ 'poi_name' ] = (string) $venue->Name;
+      $poi[ 'house_no' ] = $venue->BuildingNo;
+      $poi[ 'street' ] = (string) $venue->Address;
+      $poi[ 'city' ] = (string) $venue->City;
+      $poi[ 'district' ] = '';
 
-    $poi[ 'zips' ] = $this->_venueData->Venues->Venue[ 0 ]->PostCode;
+      $poi[ 'country' ] = 'GBR';
 
-    $poi[ 'country_code' ] = (string) 'GB';
-    $poi[ 'extension' ] = '';
+      $poi[ 'additional_address_details' ] = Importer::concatNonBlankStrings(', ', array(
+        $venue->Address1,
+        $venue->Address2,
+        $venue->Address3,
+        $venue->Address4
+      ));
 
-    $poi[ 'longitude' ] = (string) '-0.1000000';
-    $poi[ 'latitude' ] = (string) '51.000000';
+      $postCode = $venue->PostCode;
+      $poi[ 'zips' ] = $postCode;
 
-    $poi[ 'email' ] = $this->_venueData->Venues->Venue[ 0 ]->GenEmail;
-    $poi[ 'url' ] = $this->_venueData->Venues->Venue[ 0 ]->URL; //or URLForWeb?
+      $poi[ 'country_code' ] = (string) 'GB';
+      $poi[ 'extension' ] = '';
 
-    $poi[ 'phone' ] = $this->_venueData->Venues->Venue[ 0 ]->Phone;
+      $this->_geoEncode->setAddress( $postCode );
+      $this->_geoEncode->getGeoCode( );
+      $poi[ 'latitude' ] = $this->_geoEncode->getLatitude();
+      $poi[ 'longitude' ] = $this->_geoEncode->getLongitude();
 
-    $poi[ 'phone2' ] = '';
+      $poi[ 'email' ] = $venue->GenEmail;
 
-    $poi[ 'fax' ] = ''; //?
+      $poi[ 'url' ] = $venue->URL; //or URLForWeb?
 
-    $poi[ 'vendor_category' ] = '';//?
+      $poi[ 'phone' ] = $venue->Phone;
 
-    $poi[ 'keywords' ] = '';
+      $poi[ 'phone2' ] = '';
 
-    $poi[ 'short_description' ] = '';//?
-    $poi[ 'description' ] = '';//?
+      $poi[ 'fax' ] = ''; //?
 
-    $poi[ 'public_transport_links' ] = Importer::concatNonBlankStrings(', ', array(
-      $this->_venueData->Venues->Venue[ 0 ]->BusInfo,
-      $this->_venueData->Venues->Venue[ 0 ]->TubeInfo,
-      $this->_venueData->Venues->Venue[ 0 ]->TubeStationID,
-      $this->_venueData->Venues->Venue[ 0 ]->RailInfo
-    ));
-      
+      $poi[ 'vendor_category' ] = '';//?
 
-    $cinemaPriceInfo = $this->_venueData->Venues->Venue[ 0 ]->CinemaPriceInfo;
-    $musicPriceInfo = $this->_venueData->Venues->Venue[ 0 ]->MusicPriceInfo;
+      $poi[ 'keywords' ] = '';
 
-    $poi[ 'price_information' ] = Importer::concatNonBlankStrings(', ', array(
-      $this->_venueData->Venues->Venue[ 0 ]->CinemaPriceInfo,
-      $this->_venueData->Venues->Venue[ 0 ]->MusicPriceInfo
-    ));
+      $poi[ 'short_description' ] = '';//?
+      $poi[ 'description' ] = '';//?
 
-    $poi[ 'openingtimes' ] = '';//?
-    $poi[ 'star_rating' ] = '';//?
-    $poi[ 'rating' ] = '';//?
+      $poi[ 'public_transport_links' ] = Importer::concatNonBlankStrings(', ', array(
+        $venue->BusInfo,
+        $venue->TubeInfo,
+        $venue->TubeStationID,
+        $venue->RailInfo
+      ));
 
-    $poi[ 'provider' ] = '';
+      $cinemaPriceInfo = $venue->CinemaPriceInfo;
+      $musicPriceInfo = $venue->MusicPriceInfo;
 
-    $poiCategory = new PoiCategory( );
-    $poiCategory[ 'name' ] = 'Non-Category Category';
+      $poi[ 'price_information' ] = Importer::concatNonBlankStrings( ', ', array(
+        $venue->CinemaPriceInfo,
+        $venue->MusicPriceInfo
+      ));
 
-    $poi[ 'PoiCategory' ] = $poiCategory;
+      $placeId = (string) $venue->PlaceID;
 
-    $poi[ 'Vendor' ] = $this->_vendor;
+      $relatedCatInfo = $this->_venueCategoryInformationData
+        ->xpath( '/Exchange/VenueSectionLinks/VenueSectionLink[PlaceID=' . $placeId . ']' );
+      $relatedCatInfo = $relatedCatInfo[ 0 ];
 
-    $poi->save( );
+      $poi[ 'openingtimes' ] = (string) $relatedCatInfo->TimesExport;
+      $poi[ 'star_rating' ] = '';//?
+      $poi[ 'rating' ] = '';//?
+
+      $poi[ 'provider' ] = '';
+
+      $poi[ 'PoiCategory' ] = $this->_defaultPoiCategory;
+
+      $poi[ 'Vendor' ] = $this->_vendor;
+
+      $poi->save( );
+    }
   }
-
 
   /**
    * Processes the data that has been loaded
@@ -142,9 +180,17 @@ class LondonImporter
    */
   private function processEvents( )
   {
-    
   }
 
+  public function setVenueCategoryInformationData( SimpleXMLElement $venueCategoryData )
+  {
+    $this->_venueCategoryInformationData = $venueCategoryData;
+  }
+
+  public function getVenueCategoryInformationData( )
+  {
+    return $this->_venueCategoryInformationData;
+  }
 
   public function getVenueData(  )
   {
