@@ -37,7 +37,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
       $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
       Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine' );
       Doctrine::loadData('data/fixtures');
-      $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'english');
+      $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-GB');
 
       $poiCategoryObj = new PoiCategory();
       $poiCategoryObj[ 'name' ] = 'theatre-music-culture';
