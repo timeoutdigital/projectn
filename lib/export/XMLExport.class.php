@@ -53,7 +53,7 @@ abstract class XMLExport
   {
     if( !( $vendor instanceof Vendor ) )
     {
-      throw new ExportException( 'Vendor provide is not an instance of Vendor. Got: ' . var_export($vendor, true) );
+      throw new ExportException( 'Vendor provided is not an instance of Vendor. Got: ' . var_export($vendor, true) );
     }
     $this->vendor = $vendor;
 
