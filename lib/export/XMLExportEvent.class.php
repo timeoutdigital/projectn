@@ -41,7 +41,8 @@ class XMLExportEvent extends XMLExport
       $eventTag->addChild( 'name', htmlspecialchars( $event->getName() ) );
 
       //event/category
-      foreach( $event->getEventCategory() as $category )
+      //var_dump( $event['EventCategories']->toArray() );
+      foreach( $event['EventCategories'] as $category )
       {
         $eventTag->addChild( 'category', $category );
       }
@@ -54,7 +55,10 @@ class XMLExportEvent extends XMLExport
       $versionTag->addChild( 'name', htmlspecialchars( $event->getName() ) );
 
       //event/version/vendor-category
-      $versionTag->addChild( 'vendor-category', htmlspecialchars( $event->getVendorCategory() ) );
+      foreach( $event['VendorEventCategories'] as $vendorEventCategory )
+      {
+        $versionTag->addChild( 'vendor-category', htmlspecialchars( $vendorEventCategory['name'] ) );
+      }
 
       //event/version/short-description
       $versionTag->addChild('short-description', htmlspecialchars( $event->getShortDescription() ));

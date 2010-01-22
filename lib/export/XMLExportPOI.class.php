@@ -54,8 +54,10 @@ class XMLExportPOI extends XMLExport
 
       $entry->addChild( 'name', htmlspecialchars( $poi->getPoiName() ) );
 
-      $entry->addChild( 'category', $poi->getPoiCategory()->getName() );
-
+      foreach( $poi[ 'PoiCategories' ] as $category )
+      {
+        $entry->addChild( 'category', htmlspecialchars( $category['name'] ) );
+      }
       $address = $entry->addChild( 'address' );
       $address->addChild( 'street', htmlspecialchars( $poi->getStreet() ) );
       $address->addChild( 'houseno',htmlspecialchars( $poi->getHouseNo() ) );

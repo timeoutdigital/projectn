@@ -62,31 +62,45 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $poi->setLongitude( '0.1' );
     $poi->setLatitude( '0.2' );
     $poi->link( 'Vendor', array( 1 ) );
-    $poi->link('PoiCategory', array( 1 ) );
+    $poi->link('PoiCategories', array( 1 ) );
     $poi->save();
 
+    $vendorEventCategory = new VendorEventCategory();
+    $vendorEventCategory['name'] = 'test vendor category';
+    $vendorEventCategory['Vendor'] = $vendor;
+    $vendorEventCategory->save();
+
+    $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
+    $vendorEventCategories[] = $vendorEventCategory;
+
+    $eventCategories = new Doctrine_Collection(Doctrine::getTable('EventCategory'));
+
     $eventCat = new EventCategory();
-    $eventCat->setName( 'test' );
+    $eventCat->setName( 'test1' );
     $eventCat->save();
+    $eventCategories[] = $eventCat;
 
     $eventCat = new EventCategory();
     $eventCat->setName( 'test2' );
     $eventCat->save();
+    $eventCategories[] = $eventCat;
 
     $eventCat = new EventCategory();
     $eventCat->setName( 'test3' );
     $eventCat->save();
+    $eventCategories[] = $eventCat;
 
     $event = new Event();
     $event->setName( 'test event' );
-    $event->setVendorCategory( 'test vendor category' );
+    $event['VendorEventCategories'] = $vendorEventCategories;
+    $event['EventCategories'] = $eventCategories;
     $event->setShortDescription( 'test vendor short description' );
     $event->setDescription( 'test vendor description' );
     $event->setBookingUrl( 'test booking url' );
     $event->setUrl( 'test url' );
     $event->setPrice( 'test price' );
     $event->link( 'Vendor', array( 1 ) );
-    $event->link( 'EventCategory', array( 1 ) );
+    $event->link( 'EventCategories', array( 1 ) );
     $event->save();
 
     $property = new EventProperty();
@@ -102,11 +116,10 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $property2->save();
 
     $event2 = new Event();
+    $event2['VendorEventCategories'] = $vendorEventCategories;
+    $event2['EventCategories'] = $eventCategories;
     $event2->setName( 'test event2' . $this->specialChars );
     $event2->link( 'Vendor', array( 1 ) );
-    $event2->link( 'EventCategory', 1 );
-    $event2->link( 'EventCategory', 2 );
-    $event2->link( 'EventCategory', 3 );
     $event2->save();
 
     $occurrence = new EventOccurence();
@@ -154,8 +167,10 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   public function testGeneratedXMLEventDirectChildTags()
   {
     $this->assertEquals( 'test event', (string) $this->xml->event[0]->name );
-    $this->assertEquals( 1, (int) $this->xml->event[0]->category );
-    $this->assertEquals( 3, (int) $this->xml->event[1]->category );
+    $this->assertEquals( 'test1', (string) $this->xml->event[0]->category[0] );
+    $this->assertEquals( 'test2', (string) $this->xml->event[0]->category[1] );
+    $this->assertEquals( 'test3', (string) $this->xml->event[0]->category[2] );
+    $this->assertEquals( 'test1', (string) $this->xml->event[1]->category[0] );
   }
 
   /**
