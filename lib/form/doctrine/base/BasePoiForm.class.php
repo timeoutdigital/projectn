@@ -46,10 +46,11 @@ abstract class BasePoiForm extends BaseFormDoctrine
       'star_rating'                => new sfWidgetFormInputText(),
       'rating'                     => new sfWidgetFormInputText(),
       'provider'                   => new sfWidgetFormTextarea(),
-      'poi_category_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => false)),
       'vendor_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
       'created_at'                 => new sfWidgetFormDateTime(),
       'updated_at'                 => new sfWidgetFormDateTime(),
+      'poi_categories_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'vendor_poi_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory')),
     ));
 
     $this->setValidators(array(
@@ -84,10 +85,11 @@ abstract class BasePoiForm extends BaseFormDoctrine
       'star_rating'                => new sfValidatorInteger(array('required' => false)),
       'rating'                     => new sfValidatorInteger(array('required' => false)),
       'provider'                   => new sfValidatorString(array('max_length' => 512, 'required' => false)),
-      'poi_category_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'))),
       'vendor_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
       'created_at'                 => new sfValidatorDateTime(),
       'updated_at'                 => new sfValidatorDateTime(),
+      'poi_categories_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'vendor_poi_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('poi[%s]');
@@ -102,6 +104,106 @@ abstract class BasePoiForm extends BaseFormDoctrine
   public function getModelName()
   {
     return 'Poi';
+  }
+
+  public function updateDefaultsFromObject()
+  {
+    parent::updateDefaultsFromObject();
+
+    if (isset($this->widgetSchema['poi_categories_list']))
+    {
+      $this->setDefault('poi_categories_list', $this->object->PoiCategories->getPrimaryKeys());
+    }
+
+    if (isset($this->widgetSchema['vendor_poi_categories_list']))
+    {
+      $this->setDefault('vendor_poi_categories_list', $this->object->VendorPoiCategories->getPrimaryKeys());
+    }
+
+  }
+
+  protected function doSave($con = null)
+  {
+    $this->savePoiCategoriesList($con);
+    $this->saveVendorPoiCategoriesList($con);
+
+    parent::doSave($con);
+  }
+
+  public function savePoiCategoriesList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['poi_categories_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->PoiCategories->getPrimaryKeys();
+    $values = $this->getValue('poi_categories_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('PoiCategories', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('PoiCategories', array_values($link));
+    }
+  }
+
+  public function saveVendorPoiCategoriesList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['vendor_poi_categories_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->VendorPoiCategories->getPrimaryKeys();
+    $values = $this->getValue('vendor_poi_categories_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('VendorPoiCategories', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('VendorPoiCategories', array_values($link));
+    }
   }
 
 }

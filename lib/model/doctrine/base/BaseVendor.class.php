@@ -8,6 +8,7 @@
  * @property string $city
  * @property string $language
  * @property Doctrine_Collection $Poi
+ * @property Doctrine_Collection $VendorPoiCategory
  * @property Doctrine_Collection $User
  * @property Doctrine_Collection $Event
  * @property Doctrine_Collection $VendorEventCategory
@@ -16,6 +17,7 @@
  * @method string              getCity()                Returns the current record's "city" value
  * @method string              getLanguage()            Returns the current record's "language" value
  * @method Doctrine_Collection getPoi()                 Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getVendorPoiCategory()   Returns the current record's "VendorPoiCategory" collection
  * @method Doctrine_Collection getUser()                Returns the current record's "User" collection
  * @method Doctrine_Collection getEvent()               Returns the current record's "Event" collection
  * @method Doctrine_Collection getVendorEventCategory() Returns the current record's "VendorEventCategory" collection
@@ -23,6 +25,7 @@
  * @method Vendor              setCity()                Sets the current record's "city" value
  * @method Vendor              setLanguage()            Sets the current record's "language" value
  * @method Vendor              setPoi()                 Sets the current record's "Poi" collection
+ * @method Vendor              setVendorPoiCategory()   Sets the current record's "VendorPoiCategory" collection
  * @method Vendor              setUser()                Sets the current record's "User" collection
  * @method Vendor              setEvent()               Sets the current record's "Event" collection
  * @method Vendor              setVendorEventCategory() Sets the current record's "VendorEventCategory" collection
@@ -58,6 +61,10 @@ abstract class BaseVendor extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Poi', array(
+             'local' => 'id',
+             'foreign' => 'vendor_id'));
+
+        $this->hasMany('VendorPoiCategory', array(
              'local' => 'id',
              'foreign' => 'vendor_id'));
 

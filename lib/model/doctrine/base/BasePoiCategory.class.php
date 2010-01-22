@@ -52,8 +52,9 @@ abstract class BasePoiCategory extends sfDoctrineRecord
              'onDelete' => 'CASCADE'));
 
         $this->hasMany('Poi', array(
-             'local' => 'id',
-             'foreign' => 'poi_category_id'));
+             'refClass' => 'LinkingPoiCategory',
+             'local' => 'poi_category_id',
+             'foreign' => 'poi_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
