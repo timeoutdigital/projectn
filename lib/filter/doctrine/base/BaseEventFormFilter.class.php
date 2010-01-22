@@ -25,8 +25,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'updated_at'                   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'event_categories_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
       'vendor_event_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
-      'vendor_event_category_list'   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
-      'event_category_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
     ));
 
     $this->setValidators(array(
@@ -42,8 +40,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'updated_at'                   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'event_categories_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
       'vendor_event_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
-      'vendor_event_category_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
-      'event_category_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event_filters[%s]');
@@ -87,38 +83,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('LinkingVendorEventCategory.vendor_event_category_id', $values);
   }
 
-  public function addVendorEventCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query->leftJoin('r.LinkingVendorEventCategory LinkingVendorEventCategory')
-          ->andWhereIn('LinkingVendorEventCategory.vendor_event_category_id', $values);
-  }
-
-  public function addEventCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query->leftJoin('r.LinkingEventCategory LinkingEventCategory')
-          ->andWhereIn('LinkingEventCategory.event_category_id', $values);
-  }
-
   public function getModelName()
   {
     return 'Event';
@@ -140,8 +104,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'updated_at'                   => 'Date',
       'event_categories_list'        => 'ManyKey',
       'vendor_event_categories_list' => 'ManyKey',
-      'vendor_event_category_list'   => 'ManyKey',
-      'event_category_list'          => 'ManyKey',
     );
   }
 }

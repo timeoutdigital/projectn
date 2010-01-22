@@ -15,13 +15,11 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'name'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'events_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
-      'event_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
     ));
 
     $this->setValidators(array(
       'name'        => new sfValidatorPass(array('required' => false)),
       'events_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
-      'event_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event_category_filters[%s]');
@@ -49,22 +47,6 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('LinkingEventCategory.event_id', $values);
   }
 
-  public function addEventListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query->leftJoin('r.LinkingEventCategory LinkingEventCategory')
-          ->andWhereIn('LinkingEventCategory.id', $values);
-  }
-
   public function getModelName()
   {
     return 'EventCategory';
@@ -76,7 +58,6 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
       'id'          => 'Number',
       'name'        => 'Text',
       'events_list' => 'ManyKey',
-      'event_list'  => 'ManyKey',
     );
   }
 }

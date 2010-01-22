@@ -114,158 +114,235 @@ EventCategory:
 VendorEventCategory:
   c1:
     name:                Film
+    Vendor:              v1
   c2:
     name:                Clubs
+    Vendor:              v1
   c3:
     name:                Music
+    Vendor:              v1
   c3:
     name:                Own This City
+    Vendor:              v1
   c4:
     name:                Theater
+    Vendor:              v1
   c6:
     name:                Dance
+    Vendor:              v1
   c7:
     name:                Holidays
+    Vendor:              v1
   c8:
     name:                Art
+    Vendor:              v1
   c9:
     name:                Comedy
+    Vendor:              v1
   c10:
     name:                'FE: Shops'
+    Vendor:              v1
   c11:
     name:                Mind and Body
+    Vendor:              v1
   c12:
     name:                Kids
+    Vendor:              v1
   c13:
     name:                Chill Out
+    Vendor:              v1
   c14:
     name:                Around Town
+    Vendor:              v1
   c15:
     name:                Gay &amp Lesbian
+    Vendor:              v1
   c16:
     name:                Shopping
+    Vendor:              v1
   c17:
     name:                Books
+    Vendor:              v1
   c18:
     name:                Sports
+    Vendor:              v1
   c19:
     name:                Dating
+    Vendor:              v1
   c20:
     name:                Eat Out
+    Vendor:              v1
   c21:
     name:                Check Out
+    Vendor:              v1
   c22:
     name:                Halloween
+    Vendor:              v1
   c23:
     name:                Art-house &amp indie cinema
+    Vendor:              v1
   c24:
     name:                Hip-hop funk R&ampB
+    Vendor:              v1
   c25:
     name:                Rock pop &amp soul
+    Vendor:              v1
   c26:
     name:                Museums
+    Vendor:              v1
   c27:
     name:                Reggae world &amp Latin
+    Vendor:              v1
   c28:
     name:                Off^Off^Broadway
+    Vendor:              v1
   c29:
     name:                Jazz &amp experimental
+    Vendor:              v1
   c30:
     name:                Performances
+    Vendor:              v1
   c31:
     name:                Off^Broadway
+    Vendor:              v1
   c32:
     name:                Events
+    Vendor:              v1
   c33:
     name:                Stand-up
+    Vendor:              v1
   c34:
     name:                Classical &amp Opera
+    Vendor:              v1
   c35:
     name:                Galleries
+    Vendor:              v1
   c36:
     name:                Broadway
+    Vendor:              v1
   c37:
     name:                Spas
+    Vendor:              v1
   c38:
     name:                Cabaret &amp standards
+    Vendor:              v1
   c39:
     name:                City Picks
+    Vendor:              v1
   c40:
     name:                Classes &amp Workshops
+    Vendor:              v1
   c41:
     name:                Museums &amp Institutions
+    Vendor:              v1
   c42:
     name:                Bars &amp clubs
+    Vendor:              v1
   c43:
     name:                House techno &amp electro
+    Vendor:              v1
   c44:
     name:                Blues folk &amp country
+    Vendor:              v1
   c45:
     name:                Variety
+    Vendor:              v1
   c46:
     name:                Burlesque &amp variety
+    Vendor:              v1
   c47:
     name:                Other
+    Vendor:              v1
   c48:
     name:                Improv
+    Vendor:              v1
   c49:
     name:                'FE: Shops'
+    Vendor:              v1
   c50:
     name:                Zoos &amp Gardens
+    Vendor:              v1
   c51:
     name:                Sketch
+    Vendor:              v1
   c52:
     name:                Rock
+    Vendor:              v1
   c53:
     name:                Heights &amp Sights
+    Vendor:              v1
   c54:
     name:                Sales and sample sales
+    Vendor:              v1
   c55:
     name:                Stores
+    Vendor:              v1
   c56:
     name:                Events &amp meetings
+    Vendor:              v1
   c57:
     name:                Things to Do
+    Vendor:              v1
   c58:
     name:                Walking tours
+    Vendor:              v1
   c59:
     name:                Drum n' bass &amp dubstep
+    Vendor:              v1
   c60:
     name:                It's Here It's Queer
+    Vendor:              v1
   c61:
     name:                Holiday
+    Vendor:              v1
   c62:
     name:                Drink up
+    Vendor:              v1
   c63:
     name:                Exhibitions
+    Vendor:              v1
   c64:
     name:                Festivals
+    Vendor:              v1
   c65:
     name:                Alternative
+    Vendor:              v1
   c66:
     name:                Discussion
+    Vendor:              v1
   c67:
     name:                Recently opened
+    Vendor:              v1
   c68:
     name:                'FE: Salons/Barber Shops'
+    Vendor:              v1
   c69:
     name:                Films
+    Vendor:              v1
   c70:
     name:                Installation
+    Vendor:              v1
   c71:
     name:                Recently opened
+    Vendor:              v1
   c72:
     name:                Coda
+    Vendor:              v1
   c73:
     name:                Opera and Musical Theater
+    Vendor:              v1
 
 
 EventCategoryMapping:
-  vc1:
-    map_from:             Film
-    map_to:               movies
-    Vendor:    v1
-
+  ecm1:
+    VendorEventCategory:  c1    # Film
+    EventCategory:        c1    # movies
+  ecm2:
+    VendorEventCategory:  c26   # Museums
+    EventCategory:        c13   # arts-museums
+  ecm3:
+    VendorEventCategory:  c6    # Dance
+    EventCategory:        c12   # dance
 
 
 

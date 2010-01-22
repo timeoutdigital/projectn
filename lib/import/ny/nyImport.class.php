@@ -188,8 +188,7 @@ class importNy
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          $eventObj['EventCategory'] = $this->mapCategories( $event->category_combi->children() );
-          $eventObj->save();
+          $eventObj['EventCategories'] = $this->mapCategories( $event->category_combi->children() );
         }
 
         //deal with the "text-system" nodes
@@ -386,30 +385,38 @@ class importNy
    * out of EventCategories
    *
    * @param Object $categoryXml
-   * @return array of EventCategories
-   *
-   * @todo finish implementation
+   * @param string $otherCategoryNameString defaults to 'other'
+   * @return array of EventCategories Doctrine_Collection
    *
    */
-  public function mapCategories( $categoryXml )
+  public function mapCategories( $categoryXml, $otherCategoryNameString = 'other' )
   {
-    $eventCategoryMappingArray = Doctrine::getTable( 'EventCategoryMapping' )->find( $this->_vendorObj[ 'id' ] );
+    $otherEventCategory = Doctrine::getTable( 'EventCategory' )->findOneByName( $otherCategoryNameString );
+
+    $eventCategoriesMappingArray = Doctrine::getTable( 'EventCategoryMapping' )->findByVendorId( $this->_vendorObj[ 'id' ] );
 
     $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'EventCategory' ) );
 
     foreach( $categoryXml as $category )
     {
+      $match = false;
 
-      /*
-       * map (string) $category to $eventCategoryMappingArray,
-       * create EventCategory Object and append it to $mappedCategoriesArray
-      */
+      foreach ( $eventCategoriesMappingArray as $eventCategoryMappingArray )
+      {
+        if (  $eventCategoryMappingArray[ 'VendorEventCategory' ][ 'name' ] == (string) $category )
+        {
+          $mappedCategoriesArray[] = $eventCategoryMappingArray[ 'EventCategory' ];
+          $match = true;
+        }
+      }
 
-      //$mappedCategoriesArray[] = ;
-    }
+      if ( $match === false && is_object( $otherEventCategory ) )
+      {
+        $mappedCategoriesArray[] = $otherEventCategory;
+      }
+    }  
 
     return $mappedCategoriesArray;
-
   }
 
 

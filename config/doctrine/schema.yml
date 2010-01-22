@@ -130,8 +130,8 @@ Event:
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
-    EventCategories:            {class: EventCategory, refClass: LinkingEventCategory, local: id, foreign: event_category_id }
-    VendorEventCategories:      {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: id, foreign: vendor_event_category_id }
+    EventCategories:            {class: EventCategory, refClass: LinkingEventCategory, local: event_id, foreign: event_category_id }
+    VendorEventCategories:      {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: event_id, foreign: vendor_event_category_id }
 
 #Represents an occurence of an event
 EventOccurence:
@@ -156,7 +156,9 @@ LinkingVendorEventCategory:
 VendorEventCategory:
   columns:
     name:                       {type: string(256), notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
   relations:
+    Vendor:                     {local: vendor_id, foreign: id}
     Events:                     {class: Event, refClass: LinkingVendorEventCategory, local: vendor_event_category_id, foreign: event_id}
 
 #Event Category (linking)
@@ -175,11 +177,11 @@ EventCategory:
 #Event CategoryMapping
 EventCategoryMapping:
   columns:
-    map_from:                   {type: string(50), notnull: true}
-    map_to:                     {type: string(50), notnull: true}
-    vendor_id:                  {type: integer, notnull: true}
+    map_from_id:                {type: integer, notnull: true}
+    map_to_id:                  {type: integer, notnull: true}
   relations:
-    Vendor:                     {local: vendor_id, foreign: id}
+    VendorEventCategory:        {local: map_from_id, foreign: id}
+    EventCategory:              {local: map_to_id, foreign: id}
 
 #Any media that is associated to a Event
 EventMedia:

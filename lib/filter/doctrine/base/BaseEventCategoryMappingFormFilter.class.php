@@ -13,15 +13,13 @@ abstract class BaseEventCategoryMappingFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'map_from'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'map_to'    => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'vendor_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
+      'map_from_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'), 'add_empty' => true)),
+      'map_to_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
-      'map_from'  => new sfValidatorPass(array('required' => false)),
-      'map_to'    => new sfValidatorPass(array('required' => false)),
-      'vendor_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
+      'map_from_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('VendorEventCategory'), 'column' => 'id')),
+      'map_to_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('EventCategory'), 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('event_category_mapping_filters[%s]');
@@ -41,10 +39,9 @@ abstract class BaseEventCategoryMappingFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'        => 'Number',
-      'map_from'  => 'Text',
-      'map_to'    => 'Text',
-      'vendor_id' => 'ForeignKey',
+      'id'          => 'Number',
+      'map_from_id' => 'ForeignKey',
+      'map_to_id'   => 'ForeignKey',
     );
   }
 }
