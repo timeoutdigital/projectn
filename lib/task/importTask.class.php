@@ -40,7 +40,7 @@ EOF;
     {
       case 'ny':
       case 'NY':
-                 $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'english');
+                 $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
 
                   /*
 
@@ -63,16 +63,13 @@ EOF;
 
 
 
-                //$processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
-                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml');
-
-                $processXmlObj->setMovies('/xffd/movies/movie');
-                $processXmlObj->setPoi('/xffd/theaters/theater');
-                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+                $processXmlObj = new processNyXml('import/tony_leo.xml');
+                $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
 
 
-                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
-                $nyImportMoviesObj->importMovies();
+
+                $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+                $nyImportMoviesObj->insertEventsAndVenues();
 //                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
 //                $processXmlObj->setMovies('/xffd/movies/movie');
 //                $processXmlObj->setPoi('/xffd/theaters/theater');
