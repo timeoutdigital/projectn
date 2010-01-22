@@ -28,8 +28,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'updated_at'                   => new sfWidgetFormDateTime(),
       'event_categories_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
       'vendor_event_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
-      'vendor_event_category_list'   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
-      'event_category_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
     ));
 
     $this->setValidators(array(
@@ -46,8 +44,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'updated_at'                   => new sfValidatorDateTime(),
       'event_categories_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
       'vendor_event_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
-      'vendor_event_category_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
-      'event_category_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event[%s]');
@@ -78,24 +74,12 @@ abstract class BaseEventForm extends BaseFormDoctrine
       $this->setDefault('vendor_event_categories_list', $this->object->VendorEventCategories->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['vendor_event_category_list']))
-    {
-      $this->setDefault('vendor_event_category_list', $this->object->VendorEventCategory->getPrimaryKeys());
-    }
-
-    if (isset($this->widgetSchema['event_category_list']))
-    {
-      $this->setDefault('event_category_list', $this->object->EventCategory->getPrimaryKeys());
-    }
-
   }
 
   protected function doSave($con = null)
   {
     $this->saveEventCategoriesList($con);
     $this->saveVendorEventCategoriesList($con);
-    $this->saveVendorEventCategoryList($con);
-    $this->saveEventCategoryList($con);
 
     parent::doSave($con);
   }
@@ -173,82 +157,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('VendorEventCategories', array_values($link));
-    }
-  }
-
-  public function saveVendorEventCategoryList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['vendor_event_category_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->VendorEventCategory->getPrimaryKeys();
-    $values = $this->getValue('vendor_event_category_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('VendorEventCategory', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('VendorEventCategory', array_values($link));
-    }
-  }
-
-  public function saveEventCategoryList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['event_category_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->EventCategory->getPrimaryKeys();
-    $values = $this->getValue('event_category_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('EventCategory', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('EventCategory', array_values($link));
     }
   }
 

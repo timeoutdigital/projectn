@@ -14,14 +14,14 @@ abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'name'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'vendor_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
       'events_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
-      'event_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
     ));
 
     $this->setValidators(array(
       'name'        => new sfValidatorPass(array('required' => false)),
+      'vendor_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
       'events_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
-      'event_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('vendor_event_category_filters[%s]');
@@ -49,22 +49,6 @@ abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('LinkingVendorEventCategory.event_id', $values);
   }
 
-  public function addEventListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query->leftJoin('r.LinkingVendorEventCategory LinkingVendorEventCategory')
-          ->andWhereIn('LinkingVendorEventCategory.id', $values);
-  }
-
   public function getModelName()
   {
     return 'VendorEventCategory';
@@ -75,8 +59,8 @@ abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'          => 'Number',
       'name'        => 'Text',
+      'vendor_id'   => 'ForeignKey',
       'events_list' => 'ManyKey',
-      'event_list'  => 'ManyKey',
     );
   }
 }

@@ -62,8 +62,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
    * This method is called after a test is executed.
    */
   protected function tearDown() {
-
-
     //Close DB connection
     Doctrine_Manager::getInstance()->closeConnection(Doctrine_Manager::connection());
   }
@@ -201,26 +199,24 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    foreach( $eventObj['EventCategory'] as $eventCategoryObj )
-    {
-      $this->assertEquals( 'movies', $eventCategoryObj[ 'name' ] );
-    }
+    $this->assertEquals( 'movies', $eventObj['EventCategories'][ 0 ][ 'name' ] );
+
+    $this->assertEquals( 'other', $eventObj['EventCategories'][ 1 ][ 'name' ] );
   }
 
   /*
    * Test if the categories get mapped correctly
    */
-  /*public function testCategoryMapMovies()
+  public function testCategoryMapMovies()
   {
-    $categoryArray = array( 'Some invalid category', 'Film' );
+    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Film' );
 
     $mappedCategoriesObject = $this->object->mapCategories( $categoryArray );
 
-    $this->assertTrue( $mappedCategoriesObject[0] instanceof Doctrine_Collection );
+    $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
-    $this->assertEquals( 1, count( $mappedCategoriesObject ) );
-  }*/
-
+    $this->assertEquals( 2, count( $mappedCategoriesObject ) );
+  }
   
 }
 ?>

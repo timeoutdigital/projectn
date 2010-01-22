@@ -14,12 +14,12 @@ abstract class BaseLinkingVendorEventCategoryFormFilter extends BaseFormFilterDo
   {
     $this->setWidgets(array(
       'vendor_event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'), 'add_empty' => true)),
-      'event_id'                 => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'event_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'vendor_event_category_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('VendorEventCategory'), 'column' => 'id')),
-      'event_id'                 => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'event_id'                 => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Event'), 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('linking_vendor_event_category_filters[%s]');
@@ -41,7 +41,7 @@ abstract class BaseLinkingVendorEventCategoryFormFilter extends BaseFormFilterDo
     return array(
       'id'                       => 'Number',
       'vendor_event_category_id' => 'ForeignKey',
-      'event_id'                 => 'Number',
+      'event_id'                 => 'ForeignKey',
     );
   }
 }
