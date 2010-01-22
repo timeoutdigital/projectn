@@ -43,10 +43,11 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'star_rating'                => new sfWidgetFormFilterInput(),
       'rating'                     => new sfWidgetFormFilterInput(),
       'provider'                   => new sfWidgetFormFilterInput(),
-      'poi_category_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => true)),
       'vendor_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
       'created_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'poi_categories_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'vendor_poi_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory')),
     ));
 
     $this->setValidators(array(
@@ -80,10 +81,11 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'star_rating'                => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'rating'                     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'provider'                   => new sfValidatorPass(array('required' => false)),
-      'poi_category_id'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PoiCategory'), 'column' => 'id')),
       'vendor_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
       'created_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'poi_categories_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'vendor_poi_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('poi_filters[%s]');
@@ -93,6 +95,38 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
     $this->setupInheritance();
 
     parent::setup();
+  }
+
+  public function addPoiCategoriesListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query->leftJoin('r.LinkingPoiCategory LinkingPoiCategory')
+          ->andWhereIn('LinkingPoiCategory.poi_category_id', $values);
+  }
+
+  public function addVendorPoiCategoriesListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query->leftJoin('r.LinkingVendorPoiCategory LinkingVendorPoiCategory')
+          ->andWhereIn('LinkingVendorPoiCategory.vendor_poi_category_id', $values);
   }
 
   public function getModelName()
@@ -134,10 +168,11 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'star_rating'                => 'Number',
       'rating'                     => 'Number',
       'provider'                   => 'Text',
-      'poi_category_id'            => 'ForeignKey',
       'vendor_id'                  => 'ForeignKey',
       'created_at'                 => 'Date',
       'updated_at'                 => 'Date',
+      'poi_categories_list'        => 'ManyKey',
+      'vendor_poi_categories_list' => 'ManyKey',
     );
   }
 }

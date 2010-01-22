@@ -1,38 +1,34 @@
 <?php
 
 /**
- * PoiCategory form base class.
+ * VendorPoiCategory form base class.
  *
- * @method PoiCategory getObject() Returns the current form's model object
+ * @method VendorPoiCategory getObject() Returns the current form's model object
  *
  * @package    sf_sandbox
  * @subpackage form
  * @author     Your name here
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
-abstract class BasePoiCategoryForm extends BaseFormDoctrine
+abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
-      'id'         => new sfWidgetFormInputHidden(),
-      'parent_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiParentCategory'), 'add_empty' => true)),
-      'name'       => new sfWidgetFormInputText(),
-      'created_at' => new sfWidgetFormDateTime(),
-      'updated_at' => new sfWidgetFormDateTime(),
-      'poi_list'   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
+      'id'        => new sfWidgetFormInputHidden(),
+      'name'      => new sfWidgetFormTextarea(),
+      'vendor_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
+      'poi_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
     ));
 
     $this->setValidators(array(
-      'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'parent_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiParentCategory'), 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 50)),
-      'created_at' => new sfValidatorDateTime(),
-      'updated_at' => new sfValidatorDateTime(),
-      'poi_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
+      'id'        => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'name'      => new sfValidatorString(array('max_length' => 256)),
+      'vendor_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
+      'poi_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('poi_category[%s]');
+    $this->widgetSchema->setNameFormat('vendor_poi_category[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -43,7 +39,7 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'PoiCategory';
+    return 'VendorPoiCategory';
   }
 
   public function updateDefaultsFromObject()

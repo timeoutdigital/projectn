@@ -39,11 +39,11 @@ Poi:
     star_rating:                {type: integer(1), notnull: false}
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
-    poi_category_id:            {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
-    PoiCategory:                {local: poi_category_id, foreign: id}
+    PoiCategories:              {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
+    VendorPoiCategories:        {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
 
 
 #Any media that is associated to the poi
@@ -63,7 +63,6 @@ PoiParentCategory:
   columns:
     name:                       {type: string(50), notnull: true}
 
-
 #Categories available for Pois
 PoiCategory:
   actAs:
@@ -73,6 +72,44 @@ PoiCategory:
     name:                       {type: string(50), notnull: true}
   relations: 
     PoiParentCategory:          {onDelete: CASCADE, local: parent_id, foreign: id, foreignAlias: PoiParentCategory}
+    Poi:                        {class: Poi, refClass: LinkingPoiCategory, local: poi_category_id, foreign: poi_id}
+
+#Poi Category (linking)
+LinkingPoiCategory:
+  columns:
+     poi_category_id:         {type: integer, notnull: true}
+     poi_id:                  {type: integer, notnull: true}
+
+#VendorPoiCategory
+VendorPoiCategory:
+  columns:
+    name:                     {type: string(256), notnull: true}
+    vendor_id:                {type: integer, notnull: true}
+  relations:
+    Vendor:                   {local: vendor_id, foreign: id}
+    Poi:                      {class: Poi, refClass: LinkingVendorPoiCategory, local: vendor_poi_category_id, foreign: poi_id}
+
+#Vendor Poi Category (linking)
+LinkingVendorPoiCategory:
+  columns:
+     vendor_poi_category_id:  {type: integer, notnull: true}
+     poi_id:                  {type: integer, notnull: true}
+
+#Event CategoryMapping
+EventCategoryMapping:
+  columns:
+    map_from_id:                {type: integer, notnull: true}
+    map_to_id:                  {type: integer, notnull: true}
+  relations:
+    VendorEventCategory:        {local: map_from_id, foreign: id}
+    EventCategory:              {local: map_to_id, foreign: id}
+
+
+
+
+
+
+
 
 #Key value pairs for unmappable values on a Poi
 PoiProperty:
@@ -152,7 +189,7 @@ LinkingVendorEventCategory:
      vendor_event_category_id:  {type: integer, notnull: true}
      event_id:                  {type: integer, notnull: true}
 
-#Event Category
+#VendorEvent Category
 VendorEventCategory:
   columns:
     name:                       {type: string(256), notnull: true}
