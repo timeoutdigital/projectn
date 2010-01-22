@@ -132,6 +132,7 @@ class importNy
       $poiCategoryObj =  Doctrine::getTable( 'PoiCategory' )->getByName( 'theatre-music-culture' );
       $poiObj[ 'poi_category_id' ] = $poiCategoryObj->getId();
 
+
       //save to database
       $poiObj->save();
 
