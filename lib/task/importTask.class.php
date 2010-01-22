@@ -69,7 +69,7 @@ EOF;
 
 
                 $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-                $nyImportMoviesObj->insertEventsAndVenues();
+                $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
 //                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
 //                $processXmlObj->setMovies('/xffd/movies/movie');
 //                $processXmlObj->setPoi('/xffd/theaters/theater');

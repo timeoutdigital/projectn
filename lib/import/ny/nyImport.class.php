@@ -40,17 +40,17 @@ class importNy
    *
    *
    */
-  public function insertEventsAndVenues()
+  public function insertEventCategoriesAndEventsAndVenues()
   {
     foreach( $this->_venues as $venue )
     {
       $this->insertPoi( $venue ) ;
     }
 
-    /*foreach($this->_events as $event)
+    foreach($this->_events as $event)
     {
       $this->insertVendorCategories( $event );
-    }*/
+    }
 
     foreach($this->_events as $event)
     {
