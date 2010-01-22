@@ -40,13 +40,13 @@ EOF;
     {
       case 'ny':
       case 'NY':
-        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
+                 $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'english');
 
+                  /*
 
+                  $processXmlObj = new processNyXml('import/toc_leo.xml');
 
-                 // $processXmlObj = new processNyXml('import/toc_leo.xml');
-
-                /*  if($processXmlObj !== false)
+                  if($processXmlObj !== false)
                   {
                      //Set the events and venues xpath
                     $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
@@ -59,7 +59,9 @@ EOF;
 */
 
 
-                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
+                //$processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
+                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml');
+
                 $processXmlObj->setMovies('/xffd/movies/movie');
                 $processXmlObj->setPoi('/xffd/theaters/theater');
                 $processXmlObj->setOccurances('/xffd/showTimes/showTime');
@@ -68,14 +70,7 @@ EOF;
                 $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
                 $nyImportMoviesObj->importMovies();
                // $nyImportMoviesObj->insertMovies();*/
-
-        $processXmlObj = new processNyXml('import/tony_leo.xml');
-
-        //Set the events and venues xpath
-        $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-        $nyImportObj = new importNy($processXmlObj, $vendorObj);
-        $nyImportObj->insertEventsAndVenues();
-                 
+                
 
         break;
 
@@ -102,6 +97,17 @@ EOF;
         $nyEDImport->insertPois();
 
         break;
+
+
+      case 'lisbon':
+
+        $processXmlObj = new curlImporter();
+        $parameters = array('from' => '2010-01-01', 'to' => '2010-01-30');
+        $processXmlObj->pullXml('http://www.timeout.pt/', 'xmllist.asp', $parameters);
+
+        print_r($processXmlObj->getXml());
+        break;
+
 
     }
 
