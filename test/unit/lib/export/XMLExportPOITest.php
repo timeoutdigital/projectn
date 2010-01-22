@@ -1,8 +1,6 @@
 <?php
 
 require_once 'PHPUnit/Framework.php';
-require_once dirname(__FILE__) . '/../../../../lib/export/XMLExport.class.php';
-require_once dirname(__FILE__) . '/../../../../lib/export/XMLExportPOI.class.php';
 require_once dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ).'/../../bootstrap.php';
 spl_autoload_register(array('Doctrine', 'autoload'));
@@ -25,16 +23,19 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     private $vendor2;
 
     /**
-     *
      * @var string
      */
     private $destination;
 
     /**
-     *
      * @var string
      */
     private $specialChars = '&<>\'"';
+
+    /**
+     * @var string
+     */
+    private $escapedSpecialChars;
     
     protected function setUp()
     {
@@ -80,11 +81,21 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setPublicTransportLinks( 'test public transport' );
         //$poi->setPrice( 'test price' );
         $poi->setOpeningTimes( 'test opening times' );
-
         $poi->link( 'Vendor', 2 );
         $poi->link('PoiCategory', array( 1, 2 ) );
-
         $poi->save();
+
+        $property = new PoiProperty();
+        $property[ 'lookup' ] = 'poi key 1';
+        $property[ 'value' ] = 'poi value 1';
+        $property->link( 'Poi', array( $poi['id'] ) );
+        $property->save();
+
+        $property2 = new PoiProperty();
+        $property2[ 'lookup' ] = 'poi key 2';
+        $property2[ 'value' ] = 'poi value 2';
+        $property2->link( 'Poi', array( $poi['id'] ) );
+        $property2->save();
         
         $poi = new Poi();
         $poi->setPoiName( 'test name2' . $this->specialChars );
@@ -101,8 +112,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setLatitude( '0.4' );
         $poi->link( 'Vendor', 2 );
         $poi->link('PoiCategory', 1);
-
         $poi->save();
+
+        $property3 = new PoiProperty();
+        $property3[ 'lookup' ] = 'poi key special' . $this->specialChars;
+        $property3[ 'value' ] = 'poi value special' . $this->specialChars;
+        $property3->link( 'Poi', array( $poi['id'] ) );
+        $property3->save();
 
         $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
         $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
@@ -246,20 +262,32 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testSpecialChars()
     {
-      $escapedChars = htmlspecialchars( $this->specialChars );
       $xmlString = $this->xml->asXML();
 
-      $this->assertRegExp( ':test name2' . $escaptedChars . ':', $xmlString );
+      $this->assertRegExp( ':test name2' . $this->escapedSpecialChars . ':', $xmlString );
 
       $address = array_shift( $this->xml->xpath( '/vendor-pois/entry[2]/address' ) );
-      $this->assertRegExp( ':test name2' . $escaptedChars . ':', $xmlString );
-      $this->assertRegExp( ':test street2' . $escaptedChars . ':', $xmlString );
-      $this->assertRegExp( ':13' . $escaptedChars . ':', $xmlString );
-      $this->assertRegExp( ':test town2' . $escaptedChars . ':', $xmlString );
-      $this->assertRegExp( ':test district2' . $escaptedChars . ':', $xmlString );
-      $this->assertRegExp( ':test country2' . $escaptedChars . ':', $xmlString );
+      $this->assertRegExp( ':test name2' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':test street2' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':13' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':test town2' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':test district2' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':test country2' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':poi key special' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':poi value special' . $this->escapedSpecialChars . ':', $xmlString );
     }
 
-
+    /**
+     * check properties tags
+     */
+    public function testPropertyTags()
+    {
+      $properties = $this->xml->entry[0]->property;
+      var_dump( $this->xml->entry[0]->property );
+      $this->assertEquals( 'poi key 1', (string) $properties[0]['key'] );
+      $this->assertEquals( 'poi value 1', (string) $properties[0] );
+      $this->assertEquals( 'poi key 2', (string) $properties[1]['key'] );
+      $this->assertEquals( 'poi value 2', (string) $properties[1] );
+    }
 }
 ?>

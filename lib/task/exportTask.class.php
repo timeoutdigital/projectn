@@ -36,28 +36,33 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
+    $this->getExporter( $options )->run();
+  }
 
-
-
-    //Select the city
-    switch( $options['type'] )
+  /**
+   *
+   * @param string $type poi|event|movie
+   */
+  protected function getExporter( $options )
+  {
+    
+    switch( strtolower($options['type']) )
     {
       case 'poi':
-                  $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
-                  $export = new XMLExportPOI( $vendor, $options['destination'] );
-                  $export->run();
-                  break;
+        $exportClass = XMLExportPOI;
+        break;
       case 'event':
-                  $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
-                  $export = new XMLExportEvent( $vendor, $options['destination'] );
-                  $export->run();
-                  break;
-
+        $exportClass = XMLExportEvent;
+        break;
+      case 'movie':
+        $exportClass = XMLExportMovie;
+        break;
+      default:
+        throw new Exception( 'No exporter available for type: "' . $options['type'] . '"' );
+        break;
     }
-
-
-
-
-
+    
+    $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
+    return new $exportClass( $vendor, $options['destination'] );
   }
 }

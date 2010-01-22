@@ -207,6 +207,20 @@
 				<author/>
 				<released>1</released>
 			</text>
+			<text>
+			<text_type>Legend</text_type>
+				<language>english</language>
+				<content>50mins. No intermission.</content>
+				<author/>
+				<released>1</released>
+			</text>
+			<text>
+			<text_type>Contact Blurb</text_type>
+				<language>english</language>
+				<content>212-352-3101, steve@timeout.com, theatermania.com</content>
+				<author/>
+				<released>1</released>
+			</text>
 		</text_system>
 		
 		<attributes>
@@ -1050,6 +1064,10 @@
 				<released>1</released>
 			</text>
 		</text_system>
+		<category_combi id="329">
+			<category1 id="279">Film</category1>
+			<category2 id=""/><category3 id=""/>
+		</category_combi>
 		<attributes/>
 		<sort_string>Zankel Hall (at Carnegie Hall)</sort_string>
 	</address>

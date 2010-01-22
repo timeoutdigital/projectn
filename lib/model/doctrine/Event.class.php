@@ -12,4 +12,16 @@
  */
 class Event extends BaseEvent
 {
+
+  public function addProperty( $key, $value )
+  {
+
+    $eventPropertyObj = new EventProperty();
+    $eventPropertyObj[ 'lookup' ] = $key;
+    $eventPropertyObj[ 'value' ] = $value;
+    $eventPropertyObj[ 'event_id' ] = $this[ 'id' ];
+    $eventPropertyObj->save();
+    
+  }
+
 }

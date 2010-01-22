@@ -47,6 +47,9 @@ EOF;
                   $processXmlObj = new processNyXml('import/toc_leo.xml');
 
                   if($processXmlObj !== false)
+                 // $processXmlObj = new processNyXml('import/toc_leo.xml');
+
+                /*  if($processXmlObj !== false)
                   {
                      //Set the events and venues xpath
                     $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
@@ -59,6 +62,7 @@ EOF;
 */
 
 
+
                 //$processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
                 $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml');
 
@@ -69,6 +73,14 @@ EOF;
 
                 $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
                 $nyImportMoviesObj->importMovies();
+//                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
+//                $processXmlObj->setMovies('/xffd/movies/movie');
+//                $processXmlObj->setPoi('/xffd/theaters/theater');
+//                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+//
+//
+//                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
+//                $nyImportMoviesObj->importMovies();
                // $nyImportMoviesObj->insertMovies();*/
                 
 

@@ -3,6 +3,7 @@
 class MovieGenreTable extends Doctrine_Table
 {
 
+
    /**
    * Get a Genre By Name
    *

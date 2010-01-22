@@ -8,13 +8,11 @@ options:
 Poi:
   actAs:
     Timestampable: ~
-    I18n:
-      fields: [name, alternative_name, street, house_no, zips, city, district, country, extension] #address?
   columns:
     review_date:                {type: datetime, notnull: false}
     vendor_poi_id:              {type: integer, notnull: false}
     local_language:             {type: string(10), notnull: false}
-    poi_name:                   {type: string(80), notnull: false}
+    poi_name:                   {type: string(80), notnull: false} # @todo should be 'name'
     house_no:                   {type: string(16), notnull: false}
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
@@ -37,7 +35,7 @@ Poi:
     description:                {type: string(65535),notnull: false}
     public_transport_links:     {type: string(1024), notnull: false}
     price_information:          {type: string(512), notnull: false}
-    openingtimes:               {type: string(512), notnull: false}
+    openingtimes:               {type: string(512), notnull: false} # @todo should be 'opening_times'
     star_rating:                {type: integer(1), notnull: false}
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
@@ -121,22 +119,19 @@ User:
 Event:
   actAs:
     Timestampable: ~
-    I18n:
-      fields: [name, vendor_category, short_description, description, booking_url]
   columns:
-    vendor_id:                  {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
-    vendor_category:            {type: string(256), notnull: false}
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
     url:                        {type: string(1024), notnull: false}
     price:                      {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
-    event_category_id:          {type: integer, notnull: false}
+    vendor_id:                  {type: integer, notnull: true}
   relations:
-    EventCategory:              {local: event_category_id, foreign: id}
     Vendor:                     {local: vendor_id, foreign: id}
+    EventCategories:            {class: EventCategory, refClass: LinkingEventCategory, local: id, foreign: event_category_id }
+    VendorEventCategories:      {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: id, foreign: vendor_event_category_id }
 
 #Represents an occurence of an event
 EventOccurence:
@@ -148,12 +143,43 @@ EventOccurence:
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
-    Event:                      {local: event_id, foreign: id, foreignType: one}
-    Poi:                        {local: poi_id, foreign: id, foreignType: one}
+    Event:                      {local: event_id, foreign: id, foreignType: many}
+    Poi:                        {local: poi_id, foreign: id, foreignType: many}
 
+#Vendor Event Category (linking)
+LinkingVendorEventCategory:
+  columns:
+     vendor_event_category_id:  {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
+
+#Event Category
+VendorEventCategory:
+  columns:
+    name:                       {type: string(256), notnull: true}
+  relations:
+    Events:                     {class: Event, refClass: LinkingVendorEventCategory, local: vendor_event_category_id, foreign: event_id}
+
+#Event Category (linking)
+LinkingEventCategory:
+  columns:
+     event_category_id:         {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
+
+#Event Category
 EventCategory:
   columns:
     name:                       {type: string(50), notnull: true}
+  relations:
+    Events:                     {class: Event, refClass: LinkingEventCategory, local: event_category_id, foreign: event_id}
+
+#Event CategoryMapping
+EventCategoryMapping:
+  columns:
+    map_from:                   {type: string(50), notnull: true}
+    map_to:                     {type: string(50), notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
 
 #Any media that is associated to a Event
 EventMedia:
@@ -175,7 +201,7 @@ EventProperty:
     value:                      {type: string(50), notnull: true}
     event_id:                   {type: integer, notnull: true}
   relations:
-    Event:                      {local: event_id, foreign: id}
+    Event:                      {local: event_id, foreign: id, foreignType: many}
 
 #Represents a movie
 Movie:
@@ -236,11 +262,11 @@ MovieProperty:
     value:                      {type: string(50), notnull: true}
     movie_id:                   {type: integer, notnull: true}
   relations:
-    Movie:                      {local: movie_id, foreign: id}
+    Movie:                      {local: movie_id, foreign: id, foreignType: many}
 
 Vendor:
   actAs:
     Timestampable: ~
   columns:
     city:                       {type: string(15), notnull: true}
-    language:                   {type: string(10), notnull: true}
+    language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)

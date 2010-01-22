@@ -111,6 +111,28 @@ protected function setUp()
   }
 
   /**
+   * Should throw error if
+   * - first argument is not a Vendor
+   * - destination is does not exist
+   */
+  public function testConstructor()
+  {
+    try
+    {
+      $this->getMockForAbstractClass('XMLExport', array( 'foo', $this->destination, 'Poi' ) );
+      $this->fail();
+    }
+    catch( ExportException $e ){}
+    
+    try
+    {
+      $this->getMockForAbstractClass('XMLExport', array( new Vendor(), 'non/existant/file', 'Poi' ) );
+      $this->fail();
+    }
+    catch( ExportException $e ){}
+  }
+
+  /**
    * @todo Implement testRun().
    */
   public function testRunCallsAbstractMethods()
@@ -154,5 +176,17 @@ protected function setUp()
     $xmlFromFile = simplexml_load_file( $this->destination );
     $this->assertTrue( $xmlFromFile instanceof SimpleXMLElement );
   }
+
+  /**
+   * check specialChars() takes care of special character, utf-8
+   */
+  public function testSpecialChars()
+  {
+    $this->assertEquals(
+      htmlspecialchars( $this->specialChars, ENT_NOQUOTES, 'UTF-8' ),
+      XMLExport::escapeSpecialChars( $this->specialChars )
+    );
+  }
+
 }
 ?>

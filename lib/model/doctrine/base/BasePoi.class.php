@@ -42,7 +42,7 @@
  * @property Doctrine_Collection $PoiMedia
  * @property Doctrine_Collection $PoiProperty
  * @property Doctrine_Collection $Poi
- * @property EventOccurence $EventOccurence
+ * @property Doctrine_Collection $EventOccurence
  * @property Movie $Movie
  * 
  * @method datetime            getReviewDate()                 Returns the current record's "review_date" value
@@ -82,7 +82,7 @@
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method EventOccurence      getEventOccurence()             Returns the current record's "EventOccurence" value
+ * @method Doctrine_Collection getEventOccurence()             Returns the current record's "EventOccurence" collection
  * @method Movie               getMovie()                      Returns the current record's "Movie" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
@@ -121,7 +121,7 @@
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
- * @method Poi                 setEventOccurence()             Sets the current record's "EventOccurence" value
+ * @method Poi                 setEventOccurence()             Sets the current record's "EventOccurence" collection
  * @method Poi                 setMovie()                      Sets the current record's "Movie" value
  * 
  * @package    sf_sandbox
@@ -322,7 +322,7 @@ abstract class BasePoi extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'poi_id'));
 
-        $this->hasOne('EventOccurence', array(
+        $this->hasMany('EventOccurence', array(
              'local' => 'id',
              'foreign' => 'poi_id'));
 
@@ -331,21 +331,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'foreign' => 'poi_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
-        $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' => 
-             array(
-              0 => 'name',
-              1 => 'alternative_name',
-              2 => 'street',
-              3 => 'house_no',
-              4 => 'zips',
-              5 => 'city',
-              6 => 'district',
-              7 => 'country',
-              8 => 'extension',
-             ),
-             ));
         $this->actAs($timestampable0);
-        $this->actAs($i18n0);
     }
 }

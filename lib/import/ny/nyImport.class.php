@@ -42,9 +42,6 @@ class importNy
    */
   public function insertEventsAndVenues()
   {
-
-    
-
     foreach( $this->_venues as $venue )
     {
       $this->insertPoi( $venue ) ;
@@ -67,7 +64,7 @@ class importNy
    * @todo sort out categories
    *
    */
-  public function insertPoi( $poi )
+  public function insertPoi( SimpleXMLElement $poi )
   {
 
       //Get the venue
@@ -93,7 +90,6 @@ class importNy
       $phoneString = (string) $poi->telephone->number;
       $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
       $poiObj[ 'phone' ] = $fullnumber;
-
 
       //Full address String
       $name = (string) $poi->identifier;
@@ -140,6 +136,24 @@ class importNy
       //save to database
       $poiObj->save();
 
+      //store categories as properties
+      if ( isset( $poi->category_combi ) )
+      {
+        foreach( $poi->category_combi->children() as $category )
+        {
+          $cat = (string) $category;
+
+          if ( $cat != '')
+          {
+            $poiPropertyObj = new PoiProperty();
+            $poiPropertyObj[ 'lookup' ] = 'category';
+            $poiPropertyObj[ 'value' ] = $cat;
+            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+            $poiPropertyObj->save();
+          }
+        }
+      }
+
       //Kill the object
       $poiObj->free();    
   }
@@ -161,65 +175,116 @@ class importNy
       //Set the Events requirred values
       $eventObj = new Event();
 
-      $eventObj['vendor_id' ] = $this->_vendorObj->getId();
+      $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
-      $eventObj[ 'name' ] = $event->identifier;
-      $eventObj[ 'description' ] = $event->description;
-
-      //deal with the "text-system" nodes
-      if ( isset( $poi->{'text_system'}->text ) )              {
-        foreach( $poi->{'text_system'}->text as $text )
-        {
-          switch( $text->{'text_type'} )
-          {
-            case 'Prices':
-              // the prices tag you might wonder about belongs to the address
-              // and not the event node, therefore we use this as price
-              $eventPropertyObj = new EventProperty();
-              $eventPropertyObj[ 'lookup' ] = 'prices';
-              $eventPropertyObj[ 'value' ] = $text->content;
-              //$eventPropertyObj[ 'event_id' ] = $eventObj->getId();
-
-              //$eventObj[ 'EventProperty' ] = $eventPropertyObj;
-
-              break;
-            case 'Contact Blurb':
-              // add property with email, phone, url and stuff
-              break;
-            case 'Show End Date':
-              // create function to detect end date
-              break;
-            case 'Legend':
-              //stick it in as property
-              break;
-            case 'Chill Out End Note':
-              // stick in property
-              break;
-            case 'Venue Blurb':
-              // stick in property
-              $poiObj[ 'description' ] = $text->content;
-              break;
-            case 'Approach Descriptions':
-              // stick in property
-              $poiObj[ 'public_transport_links' ] = $text->content;
-              break;
-            case 'Web Keywords':
-              // stick in property
-              $poiObj[ 'keywords' ] = $text->content;
-              break;
-          }
-        }
-      }
+      $eventObj[ 'name' ] = (string) $event->identifier;
+      $eventObj[ 'description' ] = (string) $event->description;
 
       //save to database
       if( $eventObj->isValid() )
       {
 
         $eventObj->save();
-      
+
+        //store categories
+        if ( isset( $event->category_combi ) )
+        {
+          $eventObj['EventCategory'] = $this->mapCategories( $event->category_combi->children() );
+          $eventObj->save();
+        }
+
+        //deal with the "text-system" nodes
+        if ( isset( $event->{'text_system'}->text ) )
+        {
+          foreach( $event->{'text_system'}->text as $text )
+          {
+            switch( $text->{'text_type'} )
+            {
+              case 'Prices':
+                // the prices tag you might wonder about belongs to the address
+                // and not the event node, therefore we use this as price
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'prices';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Contact Blurb':
+                $url = $this->extractContactBlurbUrl( (string) $text->content );
+                if ( $url != '' ) $eventObj->url = $url;
+                
+                $email = $this->extractContactBlurbEmail( (string) $text->content );
+                if ( $email != ''  )
+                {
+                  $eventPropertyObj = new EventProperty();
+                  $eventPropertyObj[ 'lookup' ] = 'email';
+                  $eventPropertyObj[ 'value' ] = $email;
+                  $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                  $eventPropertyObj->save();
+                }
+
+                $phone = $this->extractContactBlurbPhone( (string) $text->content );
+                if ( $phone != '' )
+                {
+                  $eventPropertyObj = new EventProperty();
+                  $eventPropertyObj[ 'lookup' ] = 'phone';
+                  $eventPropertyObj[ 'value' ] = $phone;
+                  $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                  $eventPropertyObj->save();
+                }
+
+                // add property with email, phone, url and stuff
+                break;
+              case 'Show End Date':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'show_end_date';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Legend':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'legend';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Chill Out End Note':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'chill_out_end_note';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Venue Blurb':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'venue_blurb';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Approach Descriptions':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'approach_description';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+              case 'Web Keywords':
+                $eventPropertyObj = new EventProperty();
+                $eventPropertyObj[ 'lookup' ] = 'web_keywords';
+                $eventPropertyObj[ 'value' ] = (string) $text->content;
+                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+                $eventPropertyObj->save();
+                break;
+            }
+          }
+        }
+
+        $eventObj->save();
+
         foreach ( $event->date as $occurrence )
         {
-
           $occurrenceObj = new EventOccurence();
           $occurrenceObj->setStart( $occurrence->start );
           $occurrenceObj->setUtcOffset( '-05:00' );
@@ -228,10 +293,6 @@ class importNy
 
           //set poi id
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
-
-
-          //var_export( $venueObj );
-
 
           $occurrenceObj->setPoiId( $venueObj->getId() );
 
@@ -260,4 +321,98 @@ class importNy
 
   }
 
+  /*
+   * Extracts and fixes up a URL out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string url
+   */
+  private function extractContactBlurbUrl( $contactBlurb )
+  {
+    $elements = explode( ',', $contactBlurb );
+    $pattern = '/^(http|https|ftp)?(:\/\/)?(www\.)?([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
+
+    foreach ( $elements as $element )
+    {
+      if ( preg_match( $pattern, trim( $element) , $matches ) )
+      {
+        $url = ( $matches[ 1 ] != '' ) ? $matches[ 1 ] : 'http'; //protocol
+        $url .= '://';
+        $url .= ( $matches[ 3 ] != '' ) ? $matches[ 3 ] : ''; //www.
+        $url .= $matches[ 4 ]; //domain
+
+        return $url;
+      }
+    }    
+  }
+
+  /*
+   * Extracts and fixes up an email address out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string email address
+   */
+  private function extractContactBlurbEmail( $contactBlurb  )
+  {
+    $elements = explode( ',', $contactBlurb );
+
+    foreach ( $elements as $element )
+    {
+      $element = trim( $element );
+
+      if ( filter_var( $element, FILTER_VALIDATE_EMAIL ) )
+      {
+        return $element;
+      }
+    }
+
+    return '';
+  }
+
+  /*
+   * Extracts and fixes up a phone number out of the contact blurb in the xml
+   *
+   * @param string $contactBlurb
+   * @return string
+   *
+   * @todo implement it
+   */
+  private function extractContactBlurbPhone( $contactBlurb  )
+  {
+    return '';
+  }
+
+  /*
+   * Maps categories and returns the mapped categories as Doctrine Collecion
+   * out of EventCategories
+   *
+   * @param Object $categoryXml
+   * @return array of EventCategories
+   *
+   * @todo finish implementation
+   *
+   */
+  public function mapCategories( $categoryXml )
+  {
+    $eventCategoryMappingArray = Doctrine::getTable( 'EventCategoryMapping' )->find( $this->_vendorObj[ 'id' ] );
+
+    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'EventCategory' ) );
+
+    foreach( $categoryXml as $category )
+    {
+
+      /*
+       * map (string) $category to $eventCategoryMappingArray,
+       * create EventCategory Object and append it to $mappedCategoriesArray
+      */
+
+      //$mappedCategoriesArray[] = ;
+    }
+
+    return $mappedCategoriesArray;
+
+  }
+
+
+ 
 }

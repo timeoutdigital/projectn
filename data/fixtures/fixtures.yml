@@ -78,3 +78,196 @@ Vendor:
   v6:
     city:                dubai
     language:            english
+
+
+EventCategory:
+  c1:
+    name:                movies
+  c2:
+    name:                concerts
+  c3:
+    name:                theater
+  c4:
+    name:                festivals-fairs
+  c5:
+    name:                clubbing-nightlife
+  c6:
+    name:                business-tech
+  c7:
+    name:                sport
+  c8:
+    name:                family
+  c9:
+    name:                tours
+  c10:
+    name:                community
+  c11:
+    name:                educational
+  c12:
+    name:                dance
+  c13:
+    name:                arts-museums
+  c14:
+    name:                other
+
+
+VendorEventCategory:
+  c1:
+    name:                Film
+  c2:
+    name:                Clubs
+  c3:
+    name:                Music
+  c3:
+    name:                Own This City
+  c4:
+    name:                Theater
+  c6:
+    name:                Dance
+  c7:
+    name:                Holidays
+  c8:
+    name:                Art
+  c9:
+    name:                Comedy
+  c10:
+    name:                'FE: Shops'
+  c11:
+    name:                Mind and Body
+  c12:
+    name:                Kids
+  c13:
+    name:                Chill Out
+  c14:
+    name:                Around Town
+  c15:
+    name:                Gay &amp Lesbian
+  c16:
+    name:                Shopping
+  c17:
+    name:                Books
+  c18:
+    name:                Sports
+  c19:
+    name:                Dating
+  c20:
+    name:                Eat Out
+  c21:
+    name:                Check Out
+  c22:
+    name:                Halloween
+  c23:
+    name:                Art-house &amp indie cinema
+  c24:
+    name:                Hip-hop funk R&ampB
+  c25:
+    name:                Rock pop &amp soul
+  c26:
+    name:                Museums
+  c27:
+    name:                Reggae world &amp Latin
+  c28:
+    name:                Off^Off^Broadway
+  c29:
+    name:                Jazz &amp experimental
+  c30:
+    name:                Performances
+  c31:
+    name:                Off^Broadway
+  c32:
+    name:                Events
+  c33:
+    name:                Stand-up
+  c34:
+    name:                Classical &amp Opera
+  c35:
+    name:                Galleries
+  c36:
+    name:                Broadway
+  c37:
+    name:                Spas
+  c38:
+    name:                Cabaret &amp standards
+  c39:
+    name:                City Picks
+  c40:
+    name:                Classes &amp Workshops
+  c41:
+    name:                Museums &amp Institutions
+  c42:
+    name:                Bars &amp clubs
+  c43:
+    name:                House techno &amp electro
+  c44:
+    name:                Blues folk &amp country
+  c45:
+    name:                Variety
+  c46:
+    name:                Burlesque &amp variety
+  c47:
+    name:                Other
+  c48:
+    name:                Improv
+  c49:
+    name:                'FE: Shops'
+  c50:
+    name:                Zoos &amp Gardens
+  c51:
+    name:                Sketch
+  c52:
+    name:                Rock
+  c53:
+    name:                Heights &amp Sights
+  c54:
+    name:                Sales and sample sales
+  c55:
+    name:                Stores
+  c56:
+    name:                Events &amp meetings
+  c57:
+    name:                Things to Do
+  c58:
+    name:                Walking tours
+  c59:
+    name:                Drum n' bass &amp dubstep
+  c60:
+    name:                It's Here It's Queer
+  c61:
+    name:                Holiday
+  c62:
+    name:                Drink up
+  c63:
+    name:                Exhibitions
+  c64:
+    name:                Festivals
+  c65:
+    name:                Alternative
+  c66:
+    name:                Discussion
+  c67:
+    name:                Recently opened
+  c68:
+    name:                'FE: Salons/Barber Shops'
+  c69:
+    name:                Films
+  c70:
+    name:                Installation
+  c71:
+    name:                Recently opened
+  c72:
+    name:                Coda
+  c73:
+    name:                Opera and Musical Theater
+
+
+EventCategoryMapping:
+  vc1:
+    map_from:             Film
+    map_to:               movies
+    Vendor:    v1
+
+
+
+
+
+

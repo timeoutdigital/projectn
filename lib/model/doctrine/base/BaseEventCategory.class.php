@@ -8,10 +8,20 @@
  * @property string $name
  * @property Doctrine_Collection $Event
  * 
- * @method string              getName()  Returns the current record's "name" value
- * @method Doctrine_Collection getEvent() Returns the current record's "Event" collection
- * @method EventCategory       setName()  Sets the current record's "name" value
- * @method EventCategory       setEvent() Sets the current record's "Event" collection
+ * @method string              getName()   Returns the current record's "name" value
+ * @method Doctrine_Collection getEvents() Returns the current record's "Events" collection
+ * @method Doctrine_Collection getEvent()  Returns the current record's "Event" collection
+ * @method EventCategory       setName()   Sets the current record's "name" value
+ * @method EventCategory       setEvents() Sets the current record's "Events" collection
+ * @method EventCategory       setEvent()  Sets the current record's "Event" collections
+ * @property Doctrine_Collection $Event
+ * 
+ * @method string              getName()   Returns the current record's "name" value
+ * @method Doctrine_Collection getEvents() Returns the current record's "Events" collection
+ * @method Doctrine_Collection getEvent()  Returns the current record's "Event" collection
+ * @method EventCategory       setName()   Sets the current record's "name" value
+ * @method EventCategory       setEvents() Sets the current record's "Events" collection
+ * @method EventCategory       setEvent()  Sets the current record's "Event" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -37,8 +47,14 @@ abstract class BaseEventCategory extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Event as Events', array(
+             'refClass' => 'LinkingEventCategory',
+             'local' => 'event_category_id',
+             'foreign' => 'event_id'));
+
         $this->hasMany('Event', array(
-             'local' => 'id',
-             'foreign' => 'event_category_id'));
+             'refClass' => 'LinkingEventCategory',
+             'local' => 'event_category_id',
+             'foreign' => 'id'));
     }
 }
