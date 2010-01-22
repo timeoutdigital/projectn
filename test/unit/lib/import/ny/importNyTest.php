@@ -187,6 +187,19 @@ class importNyTest extends PHPUnit_Framework_TestCase
   }
 
   /*
+   * test insertVendorEventCategories
+   */
+  public function testInsertVendorEventCategories()
+  {
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertVendorCategories( $eventsArray[ 0 ] );
+
+    $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findAll();
+
+    $this->assertGreaterThan( 0, count( $vendorEventCategory)  );
+  }
+
+  /*
    * Test if event category is appended
    */
   public function testCategoryIfEventCategoryIsSuccessfullyAppended()

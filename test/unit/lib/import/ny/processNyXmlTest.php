@@ -38,7 +38,6 @@ class processNyXmlTest extends PHPUnit_Framework_TestCase {
     $this->assertType('array', $this->object->getEvents());
   }
 
-
   /**
   * Test that the venues are loaded
   */
