@@ -94,9 +94,9 @@ class importNyED
     $poi->setLatitude( $geoEncode->getLatitude() );
 
     //Get and set the child category
-    $category =  Doctrine::getTable('PoiCategory')->findOneByName( 'restaurant' );
-
-    $poi->setPoiCategoryId( $category->getId() );
+    $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
+    $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName( 'restaurant' );
+    $poi['PoiCategories'] =  $categoriesArray;
 
     //save to database
     $poi->save();

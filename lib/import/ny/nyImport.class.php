@@ -47,13 +47,17 @@ class importNy
       $this->insertPoi( $venue ) ;
     }
 
+    /*foreach($this->_events as $event)
+    {
+      $this->insertVendorCategories( $event );
+    }*/
+
     foreach($this->_events as $event)
     {
       $this->insertEvent( $event );
     }
-
   }
-
+  
 
   /**
    * Insert the events pois
@@ -129,10 +133,10 @@ class importNy
       }
 
       //Get and set the child category
-      $poiCategoryObj =  Doctrine::getTable( 'PoiCategory' )->getByName( 'theatre-music-culture' );
-      $poiObj[ 'poi_category_id' ] = $poiCategoryObj->getId();
-
-
+      $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
+      $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
+      $poiObj['PoiCategories'] =  $categoriesArray;
+      
       //save to database
       $poiObj->save();
 
@@ -158,6 +162,29 @@ class importNy
       $poiObj->free();    
   }
 
+
+  /**
+   * Insert the vendor categories
+   *
+   * @param SimpleXMLElement $event the events we want to insert
+   * the categories for
+   *
+   */
+  public function insertVendorCategories( $event )
+  {
+    foreach( $event->category_combi->children() as $category )
+    {
+      $vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )->findOneByName( (string) $category );
+
+      if ( is_object( $vendorEventCategory) === false )
+      {
+        $newVendorEventCategory = new VendorEventCategory();
+        $newVendorEventCategory[ 'name' ] = (string) $category;
+        $newVendorEventCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
+        $newVendorEventCategory->save();
+      }
+    }
+  }
 
   /**
    * Insert the events
@@ -285,15 +312,15 @@ class importNy
         foreach ( $event->date as $occurrence )
         {
           $occurrenceObj = new EventOccurence();
-          $occurrenceObj->setStart( $occurrence->start );
-          $occurrenceObj->setUtcOffset( '-05:00' );
+          $occurrenceObj[ 'start' ] = (string) $occurrence->start;
+          $occurrenceObj[ 'utc_offset' ] = '-05:00';
 
-          $occurrenceObj->setEventId( $eventObj->getId() );
+          $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
 
           //set poi id
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
 
-          $occurrenceObj->setPoiId( $venueObj->getId() );
+          $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
           if( $occurrenceObj->isValid() )
           {

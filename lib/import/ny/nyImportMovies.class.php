@@ -126,9 +126,9 @@ class importNyMovies
     $poiObj['vendor_id'] = $this->_vendorObj['id'];
 
     //Get and set the child category
-    $childObj =  Doctrine::getTable('PoiCategory')->getByName('theatre-music-culture');
-
-    $poiObj['poi_category_id'] = $childObj['id'];
+    $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
+    $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
+    $poiObj['PoiCategories'] =  $categoriesArray;
 
     $poiArray[] = $poiObj;
 
