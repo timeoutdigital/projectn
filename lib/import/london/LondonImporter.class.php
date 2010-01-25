@@ -165,7 +165,7 @@ class LondonImporter
 
       $poi[ 'provider' ] = '';
 
-      $poi[ 'PoiCategory' ] = $this->_defaultPoiCategory;
+      $poi[ 'PoiCategories' ] = $this->_defaultPoiCategory;
 
       $poi[ 'Vendor' ] = $this->_vendor;
 
