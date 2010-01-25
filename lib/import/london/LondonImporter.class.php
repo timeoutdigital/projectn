@@ -165,7 +165,9 @@ class LondonImporter
 
       $poi[ 'provider' ] = '';
 
-      $poi[ 'PoiCategories' ] = $this->_defaultPoiCategory;
+      $poiCategories = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' )  );
+      $poiCategories[] = $this->_defaultPoiCategory;
+      $poi[ 'PoiCategories' ] = $poiCategories;
 
       $poi[ 'Vendor' ] = $this->_vendor;
 
