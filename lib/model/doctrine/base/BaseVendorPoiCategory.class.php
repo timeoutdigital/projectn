@@ -9,15 +9,18 @@
  * @property integer $vendor_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $Poi
+ * @property Doctrine_Collection $PoiCategoryMapping
  * 
- * @method string              getName()      Returns the current record's "name" value
- * @method integer             getVendorId()  Returns the current record's "vendor_id" value
- * @method Vendor              getVendor()    Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoi()       Returns the current record's "Poi" collection
- * @method VendorPoiCategory   setName()      Sets the current record's "name" value
- * @method VendorPoiCategory   setVendorId()  Sets the current record's "vendor_id" value
- * @method VendorPoiCategory   setVendor()    Sets the current record's "Vendor" value
- * @method VendorPoiCategory   setPoi()       Sets the current record's "Poi" collection
+ * @method string              getName()               Returns the current record's "name" value
+ * @method integer             getVendorId()           Returns the current record's "vendor_id" value
+ * @method Vendor              getVendor()             Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getPoi()                Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getPoiCategoryMapping() Returns the current record's "PoiCategoryMapping" collection
+ * @method VendorPoiCategory   setName()               Sets the current record's "name" value
+ * @method VendorPoiCategory   setVendorId()           Sets the current record's "vendor_id" value
+ * @method VendorPoiCategory   setVendor()             Sets the current record's "Vendor" value
+ * @method VendorPoiCategory   setPoi()                Sets the current record's "Poi" collection
+ * @method VendorPoiCategory   setPoiCategoryMapping() Sets the current record's "PoiCategoryMapping" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -55,5 +58,9 @@ abstract class BaseVendorPoiCategory extends sfDoctrineRecord
              'refClass' => 'LinkingVendorPoiCategory',
              'local' => 'vendor_poi_category_id',
              'foreign' => 'poi_id'));
+
+        $this->hasMany('PoiCategoryMapping', array(
+             'local' => 'id',
+             'foreign' => 'map_from_id'));
     }
 }

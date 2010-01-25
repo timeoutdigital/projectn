@@ -82,6 +82,43 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, count( $poiObj ) );
   }
 
+  /*
+   * test if price information is appended
+   */
+  public function testInsertPriceInformationProperty()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
+
+    $passed = false;
+
+    foreach( $poiObj['PoiProperty'] as $poiPropertyObj )
+    {
+      if ( $poiPropertyObj[ 'lookup' ] == 'price_general_remark' && 'children under 5 not admitted.' == $poiPropertyObj[ 'value' ] )
+      {
+        $passed = true;
+        break;
+      }
+    }
+
+    $this->assertTrue( $passed );
+
+    $passed = false;
+
+    foreach( $poiObj['PoiProperty'] as $poiPropertyObj )
+    {
+      if ( $poiPropertyObj[ 'lookup' ] == 'price' && 'USD 12.50' == $poiPropertyObj[ 'value' ] )
+      {
+        $passed = true;
+        break;
+      }
+    }
+    
+    $this->assertTrue( $passed );
+  }
+
   /**
    * Tests that testInsertEvent
    *
@@ -187,12 +224,42 @@ class importNyTest extends PHPUnit_Framework_TestCase
   }
 
   /*
+   * test if attribute is appended
+   */
+  public function testCriticsPicksPropertyOnEvent()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
+
+    //Critic\'s Picks
+    $this->assertEquals( 'Critic\'s Picks', $eventObj[ 'EventProperty' ][ 3 ][ 'lookup' ]);
+  }
+
+  /*
+   * test insertVendorPoiCategories
+   */
+  public function testInsertVendorPoiCategories()
+  {
+    $poisArray = $this->xmlObj->getVenues();
+    $this->object->insertVendorPoiCategories( $poisArray[ 0 ] );
+
+    $vendorPoiCategory = Doctrine::getTable('VendorPoiCategory')->findAll();
+
+    $this->assertGreaterThan( 0, count( $vendorPoiCategory)  );
+  }
+
+  /*
    * test insertVendorEventCategories
    */
   public function testInsertVendorEventCategories()
   {
     $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertVendorCategories( $eventsArray[ 0 ] );
+    $this->object->insertVendorEventCategories( $eventsArray[ 0 ] );
 
     $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findAll();
 
@@ -217,19 +284,50 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'other', $eventObj['EventCategories'][ 1 ][ 'name' ] );
   }
 
-  /*
-   * Test if the categories get mapped correctly
+    /*
+   * Test if poi category is appended
    */
-  public function testCategoryMapMovies()
+  public function testCategoryIfPoiCategoryIsSuccessfullyAppended()
   {
-    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Film' );
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
 
-    $mappedCategoriesObject = $this->object->mapCategories( $categoryArray );
+    $venueObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
+
+    $this->assertEquals( 'shop', $venueObj['PoiCategories'][ 0 ][ 'name' ] );
+  }
+
+  /*
+   * Test if the poi categories get mapped correctly
+   */
+  public function testPoiCategoryMapShops()
+  {
+    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Shops' );
+
+    $mappedCategoriesObject = $this->object->mapCategories( $categoryArray, 'PoiCategory', 'theatre-music-culture' );
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
+    $this->assertEquals( 'shop', $mappedCategoriesObject[ 1 ][ 'name' ] );
+
     $this->assertEquals( 2, count( $mappedCategoriesObject ) );
   }
-  
+
+  /*
+   * Test if the event categories get mapped correctly
+   */
+  public function testEventCategoryMapMovies()
+  {
+    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Film' );
+
+    $mappedCategoriesObject = $this->object->mapCategories( $categoryArray, 'EventCategory' );
+
+    $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
+
+    $this->assertEquals( 'movies', $mappedCategoriesObject[ 1 ][ 'name' ] );
+
+    $this->assertEquals( 2, count( $mappedCategoriesObject ) );
+  }
+
 }
 ?>

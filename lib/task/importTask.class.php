@@ -4,41 +4,30 @@ class importTask extends sfBaseTask
 {
   protected function configure()
   {
-    // // add your own arguments here
-    // $this->addArguments(array(
-    //   new sfCommandArgument('my_arg', sfCommandArgument::REQUIRED, 'My argument'),
-    // ));
-
     $this->addOptions(array(
-      new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'Type of file to parse e.g. xml, csv'),
+      new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'The city to import'),
+      new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'The type to import', 'poi-event'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
-      // add your own options here
     ));
 
     $this->namespace        = 'projectn';
     $this->name             = 'import';
     $this->briefDescription = 'Import data files from vendors';
-    $this->detailedDescription = <<<EOF
-The [import|INFO] task does things.
-Call it with:
-
-  [php ./symfony projectn:import --city=ny |INFO]
-EOF;
+    $this->detailedDescription = '';
   }
 
   protected function execute($arguments = array(), $options = array())
   {
-    
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
-
    
     //Select the task
-    switch($options['city'])
+    switch( $options['city'] )
     {
       case 'ny':
+
       case 'NY':
                  $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
 
@@ -100,34 +89,81 @@ EOF;
 
         break;
 
-      case 'ny-ed':
+         
+        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
+        
+        switch( $options['type'] )
+        {
+          case 'poi-event':
+          
+            $processXmlObj = new processNyXml('import/tony_leo.xml');
+            $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
 
-        $vendor = $this->getVendorByCityAndLanguage('ny', 'english');
+            $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+            $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+            
+            break;
+          
+          case 'film':          
+            break;
+          
+          case 'eating-drinking':
+            
+            $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+            $nyEDImport =  new importNyED( $csv, $vendor );
 
-        $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+            $nyEDImport->insertPois();
 
-        $nyEDImport =  new importNyED( $csv, $vendor );
+            break;
+        }        
+        break; // end ny
 
-        $nyEDImport->insertPois();
+      case 'chicago':
 
-        break;
+        $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'english');
+
+        switch( $options['type'] )
+        {
+          case 'poi-event':
+
+            $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml');
+
+            $processXmlObj->setMovies('/xffd/movies/movie');
+            $processXmlObj->setPoi('/xffd/theaters/theater');
+            $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+
+            $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
+            $nyImportMoviesObj->importMovies();
+
+            break;
+
+          case 'film':
+          break;
+
+          case 'eating-drinking':
+          break;
+        }
+        break; //end chicago
 
 
       case 'lisbon':
+        switch( $options['type'] )
+        {
+          case 'poi-event':
+            $processXmlObj = new curlImporter();
+            $parameters = array('from' => '2010-01-01', 'to' => '2010-01-30');
+            $processXmlObj->pullXml('http://www.timeout.pt/', 'xmllist.asp', $parameters);
+            break;
 
-        $processXmlObj = new curlImporter();
-        $parameters = array('from' => '2010-01-01', 'to' => '2010-01-30');
-        $processXmlObj->pullXml('http://www.timeout.pt/', 'xmllist.asp', $parameters);
+          case 'film':
+          break;
 
-        print_r($processXmlObj->getXml());
-        break;
-
-
+          case 'eating-drinking':
+          break;
+        }
+        break; //end lisbon
     }
-
   }
-
-
   
   /**
    * Get the Vendor by its city and language
@@ -151,7 +187,6 @@ EOF;
 
     }
 
-    return $vendorObj;
-   
+    return $vendorObj;   
   }
 }
