@@ -22,9 +22,15 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   protected $vendor;
 
   /**
-   * @var SimpleXMLElement
+   * @var DOMDocument
    */
-  protected $xml;
+  protected $domDocument;
+
+  /**
+   *
+   * @var DOMXPath
+   */
+  protected $xpath;
 
   protected $specialChars = '&<>\'"';
 
@@ -100,7 +106,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event->setUrl( 'test url' );
     $event->setPrice( 'test price' );
     $event->link( 'Vendor', array( 1 ) );
-    $event->link( 'EventCategories', array( 1 ) );
     $event->save();
 
     $property = new EventProperty();
@@ -135,7 +140,9 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->export = new XMLExportEvent( $this->vendor, $this->destination );
 
     $this->export->run();
-    $this->xml = simplexml_load_file( $this->destination );
+    $this->domDocument = new DOMDocument();
+    $this->domDocument->load( $this->destination );
+    $this->xpath = new DOMXPath( $this->domDocument );
 
     $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
   }
@@ -152,39 +159,44 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   /**
    * test generateXML() has vendor-events root tag with required attributes
    */
-  public function testGenerateXMLHasEventWithRequiredAttribute()
+  public function testGeneratedXMLHasEventWithRequiredAttribute()
   {
-    $this->assertTrue( $this->xml instanceof SimpleXMLElement );
+    $this->assertTrue( $this->domDocument instanceof DOMDocument );
 
     //vendor-event
-    $this->assertEquals( $this->vendor->getName(), (string) $this->xml['vendor'] );
-    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
+    $rootElement = $this->domDocument->firstChild;
+    $this->assertEquals( $this->vendor->getName(), $rootElement->getAttribute('name') );
+    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $rootElement->getAttribute('modified') );
   }
 
   /**
    * Each event should have a name
    */
-  public function testGeneratedXMLEventDirectChildTags()
+  public function testGeneratedXMLEventTags()
   {
-    $this->assertEquals( 'test event', (string) $this->xml->event[0]->name );
-    $this->assertEquals( 'test1', (string) $this->xml->event[0]->category[0] );
-    $this->assertEquals( 'test2', (string) $this->xml->event[0]->category[1] );
-    $this->assertEquals( 'test3', (string) $this->xml->event[0]->category[2] );
-    $this->assertEquals( 'test1', (string) $this->xml->event[1]->category[0] );
+    $eventElement = $this->domDocument->firstChild->firstChild;
+    $this->assertTrue( $eventElement instanceof DOMElement );
+    $this->assertEquals( 'veid_1234', $eventElement->getAttribute('veid') );
+    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $eventElement->getAttribute('modified') );
+
+    $this->assertEquals('test event', $eventElement->getElementsByTagName('name')->item(0)->nodeValue );
   }
 
   /**
    * test geneate if xml has at least one event with its required children
    */
-  public function testGeneratedXMLEvent()
+  public function testGeneratedXMLCategory()
   {
-    $events = $this->xml->xpath( '/vendor-events/event' );
-    $this->assertGreaterThan( 0, count( $events ) );
+    $categoryElements1 = $this->xpath->query( '/vendor-events/event[1]/category' );
 
-    $firstEvent = $events[0];
-    $this->assertStringStartsWith( 'veid_', (string) $firstEvent['veid'] );
-    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $firstEvent['modified'] );
- 
+    $this->assertEquals(3, $categoryElements1->length);
+    
+    $this->assertEquals( 'test1', $categoryElements1->item(0)->nodeValue );
+    $this->assertEquals( 'test2', $categoryElements1->item(1)->nodeValue );
+    $this->assertEquals( 'test3', $categoryElements1->item(2)->nodeValue );
+
+    $categoryElements2 = $this->xpath->query( '/vendor-events/event[2]/category' );
+    $this->assertEquals( 'test1', $categoryElements2->item(0)->nodeValue );
   }
 
   /**
@@ -192,20 +204,41 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testGeneratedXMLEventVersionTag()
   {
-    $this->assertEquals( 'en', (string) $this->xml->event[0]->version['lang'] );
+    $langAttributes = $this->xpath->query( '/vendor-events/event[1]/version' );
+    $this->assertEquals(1, $langAttributes->length);
+    $this->assertEquals( 'en', $langAttributes->item(0)->getAttribute( 'lang' ) );
   }
 
   /**
    * Check the version tag's children
    */
-  public function testGeneratedXMLEventVersionDirectChildrenTags()
+  public function testGeneratedXMLEventVersionChildrenTags()
   {
-    $this->assertEquals( 'test vendor category', (string) $this->xml->event[0]->version->{'vendor-category'} );
-    $this->assertEquals( 'test vendor short description', (string) $this->xml->event[0]->version->{'short-description'} );
-    $this->assertEquals( 'test vendor description', (string) $this->xml->event[0]->version->{'description'} );
-    $this->assertEquals( 'test booking url', (string) $this->xml->event[0]->version->{'booking-url'} );
-    $this->assertEquals( 'test url', (string) $this->xml->event[0]->version->{'url'} );
-    $this->assertEquals( 'test price', (string) $this->xml->event[0]->version->{'price'} );
+    $versionTag = $this->xpath->query( '/vendor-events/event[1]/version' )->item(0);
+    
+    $vendorCategoryElements = $versionTag->getElementsByTagName( 'vendor-category' );
+    $this->assertEquals( 1, $vendorCategoryElements->length );
+    $this->assertEquals( 'test vendor category', $vendorCategoryElements->item(0)->nodeValue );
+    
+    $shortDescriptions = $versionTag->getElementsByTagName( 'short-description' );
+    $this->assertEquals(1, $shortDescriptions->length );
+    $this->assertEquals( 'test vendor short description', $shortDescriptions->item(0)->nodeValue );
+
+    $descriptions = $versionTag->getElementsByTagName( 'description' );
+    $this->assertEquals(1, $descriptions->length );
+    $this->assertEquals( 'test vendor description', $descriptions->item(0)->nodeValue );
+
+    $bookingUrl = $versionTag->getElementsByTagName( 'booking-url' );
+    $this->assertEquals(1, $bookingUrl->length );
+    $this->assertEquals( 'test booking url', $bookingUrl->item(0)->nodeValue );
+
+    $url = $versionTag->getElementsByTagName( 'url' );
+    $this->assertEquals(1, $url->length );
+    $this->assertEquals( 'test url', $url->item(0)->nodeValue );
+
+    $price = $versionTag->getElementsByTagName( 'price' );
+    $this->assertEquals(1, $price->length );
+    $this->assertEquals( 'test price', $price->item(0)->nodeValue );
   }
 
   /**
@@ -213,11 +246,17 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testGeneratedXMLEventShowtimesDirectChildrenTags()
   {
-    $this->assertEquals( '1', (string) $this->xml->event[0]->showtimes[0]->place['place-id'] );
-    $this->assertEquals( 'test booking url', (string) $this->xml->event[0]->showtimes[0]->occurrence->{'booking-url'} );
-    $this->assertEquals( '2010-01-31 21:00:20', (string) $this->xml->event[0]->showtimes[0]->occurrence->time->{'start-date'}  );
-    $this->assertEquals( '2010-01-31 22:30:00', (string) $this->xml->event[0]->showtimes[0]->occurrence->time->{'end-date'}  );
-    $this->assertEquals( '-05:00:00', (string) $this->xml->event[0]->showtimes[0]->occurrence->time->{'utc-offset'} );
+    $showtimes = $this->xpath->query( '/vendor-events/event[1]/showtimes' );
+    $this->assertEquals( 1, $showtimes->length );
+
+    $showtimes1 = $showtimes->item(0);
+   
+    $this->assertEquals( '1', $showtimes1->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
+    $this->assertEquals( 'test booking url', $showtimes1->getElementsByTagName( 'booking-url' )->item(0)->nodeValue) ;
+    $this->assertEquals( 1, $showtimes1->getElementsByTagName( 'time' )->length );
+    $this->assertEquals( '2010-01-31 21:00:20', $showtimes1->getElementsByTagName( 'start-date' )->item(0)->nodeValue );
+    $this->assertEquals( '2010-01-31 22:30:00', $showtimes1->getElementsByTagName( 'end-date' )->item(0)->nodeValue );
+    $this->assertEquals( '-05:00:00', $showtimes1->getElementsByTagName( 'utc-offset' )->item(0)->nodeValue );
   }
   
   /**
@@ -225,11 +264,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testPropertyTags()
   {
-    $properties = $this->xml->event[0]->version->property;
-    $this->assertEquals( 'test key 1', (string) $properties[0]['key'] );
-    $this->assertEquals( 'test value 1', (string) $properties[0] );
-    $this->assertEquals( 'test key 2', (string) $properties[1]['key'] );
-    $this->assertEquals( 'test value 2', (string) $properties[1] );
+    $propertyElements1 = $this->xpath->query( '/vendor-events/event[1]/version/property' );
+    $this->assertEquals(2, $propertyElements1->length);
+
+    $this->assertEquals( 'test key 1', $propertyElements1->item(0)->getAttribute( 'key' ) );
+    $this->assertEquals( 'test value 1', $propertyElements1->item(0)->nodeValue );
+    $this->assertEquals( 'test key 2', $propertyElements1->item(1)->getAttribute( 'key' ) );
+    $this->assertEquals( 'test value 2', $propertyElements1->item(1)->nodeValue );
   }
 
 }
