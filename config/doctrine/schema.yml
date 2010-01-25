@@ -95,20 +95,14 @@ LinkingVendorPoiCategory:
      vendor_poi_category_id:  {type: integer, notnull: true}
      poi_id:                  {type: integer, notnull: true}
 
-#Event CategoryMapping
-EventCategoryMapping:
+#Poi CategoryMapping
+PoiCategoryMapping:
   columns:
     map_from_id:                {type: integer, notnull: true}
     map_to_id:                  {type: integer, notnull: true}
   relations:
-    VendorEventCategory:        {local: map_from_id, foreign: id}
-    EventCategory:              {local: map_to_id, foreign: id}
-
-
-
-
-
-
+    VendorPoiCategory:        {local: map_from_id, foreign: id}
+    PoiCategory:              {local: map_to_id, foreign: id}
 
 
 #Key value pairs for unmappable values on a Poi

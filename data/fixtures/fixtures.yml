@@ -24,6 +24,8 @@ PoiParentCategory:
     name: sights-museums
   pc4:
     name: accommodation
+  pc5:
+    name: shopping
     
     
 PoiCategory:
@@ -57,6 +59,54 @@ PoiCategory:
   c10:
     name:       camping
     PoiParentCategory:   pc4
+  c11:
+    name:       shop
+    PoiParentCategory:   pc5
+
+
+VendorPoiCategory:
+  c1:
+    name:                Music
+    Vendor:              v1
+  c2:
+    name:                Shops
+    Vendor:              v1
+  c3:
+    name:                'Comedy: Stand-up Club'
+    Vendor:              v1
+  c4:
+    name:                Hotels
+    Vendor:              v1
+  c5:
+    name:                Clubs
+    Vendor:              v1
+  c6:
+    name:                Nigthlife
+    Vendor:              v1
+  c7:
+    name:                'Comedy: Improv Theater'
+    Vendor:              v1
+
+
+PoiCategoryMapping:
+  pcm2:
+    VendorPoiCategory:  c2    # Shops
+    PoiCategory:        c11    # shop
+  pcm3:
+    VendorPoiCategory:  c3    # 'Comedy: Stand-up Club'
+    PoiCategory:        c3    # theatre-music-culture
+  pcm4:
+    VendorPoiCategory:  c4    # Hotels
+    PoiCategory:        c7    # hotel
+  pcm5:
+    VendorPoiCategory:  c5    # Clubs
+    PoiCategory:        c4    # dance-night-club
+  pcm6:
+    VendorPoiCategory:  c6    # Nigthlife
+    PoiCategory:        c4    # dance-night-club
+  pcm7:
+    VendorPoiCategory:  c7    # 'Comedy: Improv Theater'
+    PoiCategory:        c3    # theatre-music-culture
 
 
 Vendor:

@@ -42,6 +42,11 @@ class importNy
    */
   public function insertEventCategoriesAndEventsAndVenues()
   {
+    foreach($this->_venues as $venue)
+    {
+      $this->insertVendorPoiCategories( $venue );
+    }
+
     foreach( $this->_venues as $venue )
     {
       $this->insertPoi( $venue ) ;
@@ -49,7 +54,7 @@ class importNy
 
     foreach($this->_events as $event)
     {
-      $this->insertVendorCategories( $event );
+      $this->insertVendorEventCategories( $event );
     }
 
     foreach($this->_events as $event)
@@ -60,12 +65,42 @@ class importNy
   
 
   /**
+   * Insert the vendor poi categories
+   *
+   * @param SimpleXMLElement $poi the pois we want to insert
+   * the categories for
+   *
+   */
+  public function insertVendorPoiCategories( $poi )
+  {
+    foreach ( $poi->attributes->children() as $attribute )
+    {
+      $attributeNameString = (string) $attribute->name;
+
+      if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
+      {
+        $categoryString = substr( $attributeNameString, 12 );
+
+        $vendorPoiCategory = Doctrine::getTable( 'VendorPoiCategory' )->findOneByName( $categoryString );
+
+        if ( is_object( $vendorPoiCategory) === false )
+        {
+          $newVendorPoiCategory = new VendorPoiCategory();
+          $newVendorPoiCategory[ 'name' ] = $categoryString;
+          $newVendorPoiCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
+          $newVendorPoiCategory->save();
+        }
+      }
+    }    
+  }
+  
+
+  /**
    * Insert the events pois
    *
    * @param SimpleXMLElement $poi the poi we want to insert
    * @todo go through the xml with a proper source xml editor to make sure that
    *  no information is left out
-   * @todo sort out categories
    *
    */
   public function insertPoi( SimpleXMLElement $poi )
@@ -132,31 +167,41 @@ class importNy
         }
       }
 
-      //Get and set the child category
-      $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
-      $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
-      $poiObj['PoiCategories'] =  $categoriesArray;
-      
       //save to database
       $poiObj->save();
 
-      //store categories as properties
-      if ( isset( $poi->category_combi ) )
+      $categoryArray = array();
+      
+      // deal with the attributes
+      foreach ( $poi->attributes->children() as $attribute )
       {
-        foreach( $poi->category_combi->children() as $category )
-        {
-          $cat = (string) $category;
+        $attributeNameString = (string) $attribute->name;
 
-          if ( $cat != '')
+        if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
+        {
+          $categoryString = substr( $attributeNameString, 12 );
+
+          if ( ! in_array( $categoryString, $categoryArray) )
           {
-            $poiPropertyObj = new PoiProperty();
-            $poiPropertyObj[ 'lookup' ] = 'category';
-            $poiPropertyObj[ 'value' ] = $cat;
-            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-            $poiPropertyObj->save();
+            $categoryArray[] = $categoryString;
           }
         }
+        
+        $poiPropertyObj = new PoiProperty();
+        $poiPropertyObj[ 'lookup' ] = $attributeNameString;
+        $poiPropertyObj[ 'value' ] = $attribute->value;
+        $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+        $poiPropertyObj->save();
       }
+
+      //store categories
+      if ( 0 < count( $categoryArray ) )
+      {
+        $poiObj['PoiCategories'] = $this->mapCategories( $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+      }
+
+      //save to database
+      $poiObj->save();
 
       //Kill the object
       $poiObj->free();    
@@ -164,13 +209,13 @@ class importNy
 
 
   /**
-   * Insert the vendor categories
+   * Insert the vendor event categories
    *
    * @param SimpleXMLElement $event the events we want to insert
    * the categories for
    *
    */
-  public function insertVendorCategories( $event )
+  public function insertVendorEventCategories( $event )
   {
     foreach( $event->category_combi->children() as $category )
     {
@@ -190,7 +235,6 @@ class importNy
    * Insert the events
    *
    * @param SimpleXMLElement $event the events we want to insert
-   * @todo sort out categories
    * @todo sort out attributes
    *
    */
@@ -210,13 +254,12 @@ class importNy
       //save to database
       if( $eventObj->isValid() )
       {
-
         $eventObj->save();
 
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          $eventObj['EventCategories'] = $this->mapCategories( $event->category_combi->children() );
+          $eventObj['EventCategories'] = $this->mapCategories( $event->category_combi->children(), 'EventCategory' );
         }
 
         //deal with the "text-system" nodes
@@ -410,43 +453,46 @@ class importNy
 
   /*
    * Maps categories and returns the mapped categories as Doctrine Collecion
-   * out of EventCategories
    *
-   * @param Object $categoryXml
+   * @param mixed $sourceCategory (can be SimpleXMLElement or Array
+   * @param string $mapClass ('PoiCategory' or 'EventCategory' supported)
    * @param string $otherCategoryNameString defaults to 'other'
-   * @return array of EventCategories Doctrine_Collection
+   * @return array of Doctrine_Collection
    *
    */
-  public function mapCategories( $categoryXml, $otherCategoryNameString = 'other' )
+  public function mapCategories( $sourceCategory, $mapClass, $noMatchCategoryNameString = 'other' )
   {
-    $otherEventCategory = Doctrine::getTable( 'EventCategory' )->findOneByName( $otherCategoryNameString );
 
-    $eventCategoriesMappingArray = Doctrine::getTable( 'EventCategoryMapping' )->findByVendorId( $this->_vendorObj[ 'id' ] );
+    if ( ! in_array( $mapClass, array( 'PoiCategory', 'EventCategory' ) ) )
+    {
+      Throw new Exception("mapping class not supported");
+    }
+    
+    $noMatchCategory = Doctrine::getTable( $mapClass )->findOneByName( $noMatchCategoryNameString );
+    
+    $categoriesMappingArray = Doctrine::getTable( $mapClass . 'Mapping' )->findByVendorId( $this->_vendorObj[ 'id' ] );
 
-    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'EventCategory' ) );
+    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( $mapClass ) );
 
-    foreach( $categoryXml as $category )
+    foreach( $sourceCategory as $category )
     {
       $match = false;
 
-      foreach ( $eventCategoriesMappingArray as $eventCategoryMappingArray )
+      foreach ( $categoriesMappingArray as $categoryMappingArray )
       {
-        if (  $eventCategoryMappingArray[ 'VendorEventCategory' ][ 'name' ] == (string) $category )
+        if (  $categoryMappingArray[ 'Vendor' . $mapClass ][ 'name' ] == (string) $category )
         {
-          $mappedCategoriesArray[] = $eventCategoryMappingArray[ 'EventCategory' ];
+          $mappedCategoriesArray[] = $categoryMappingArray[ $mapClass ];
           $match = true;
         }
       }
 
-      if ( $match === false && is_object( $otherEventCategory ) )
+      if ( $match === false && is_object( $noMatchCategory ) )
       {
-        $mappedCategoriesArray[] = $otherEventCategory;
+        $mappedCategoriesArray[] = $noMatchCategory;
       }
     }  
 
     return $mappedCategoriesArray;
-  }
-
-
- 
+  } 
 }
