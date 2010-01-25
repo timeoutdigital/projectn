@@ -222,7 +222,7 @@
 				<released>1</released>
 			</text>
 		</text_system>
-		
+
 		<attributes>
 			<attribute>
 				<name>Critic's Picks</name>
@@ -235,6 +235,7 @@
 				<value>Yes</value>
 			</attribute>
 		</attributes>
+
 		<sort_string>Rien Que Les Heures</sort_string>
 	</event>
 
@@ -1064,11 +1065,41 @@
 				<released>1</released>
 			</text>
 		</text_system>
-		<category_combi id="329">
-			<category1 id="279">Film</category1>
-			<category2 id=""/><category3 id=""/>
-		</category_combi>
-		<attributes/>
+		<prices>
+			<price_id id="125294">
+				<general_remark>children under 5 not admitted.</general_remark>
+				<price>
+					<price_type/>
+					<currency>USD</currency>
+					<value integer="12" decimal_places="50">12.50</value>
+					<value_to integer="0" decimal_places="00">0.00</value_to>
+				</price>
+				<price>
+					<price_type>seniors and students</price_type>
+					<currency>USD</currency>
+					<value integer="8" decimal_places="00">8.00</value>
+					<value_to integer="0" decimal_places="00">0.00</value_to>
+				</price>
+				<price>
+					<price_type>children 5–14</price_type>
+					<currency>USD</currency>
+					<value integer="6" decimal_places="50">6.50</value>
+					<value_to integer="0" decimal_places="00">0.00</value_to>
+				</price>
+			</price_id>
+		</prices>
+		<attributes>
+			<attribute>
+				<name>NYCVisit: Trendsetter</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+			<attribute>
+				<name>Venue type: Shops</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
 		<sort_string>Zankel Hall (at Carnegie Hall)</sort_string>
 	</address>
 	<!--end Formatted address Element-->

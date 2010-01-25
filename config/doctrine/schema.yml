@@ -7,10 +7,10 @@ options:
 
 Poi:
   actAs:
-    Timestampable: ~
+    Timestampable:  ~
   columns:
     review_date:                {type: datetime, notnull: false}
-    vendor_poi_id:              {type: integer, notnull: false}
+    vendor_poi_id:              {type: string(10), notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false} # @todo should be 'name'
     house_no:                   {type: string(16), notnull: false}
@@ -44,6 +44,29 @@ Poi:
     Vendor:                     {local: vendor_id, foreign: id}
     PoiCategories:              {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
     VendorPoiCategories:        {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
+
+#Import stats
+ImportStats:
+  actAs:
+    Timestampable:              ~
+  columns:
+    total_inserts:              {type: integer, notnull: true}
+    total_updates:              {type: integer, notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+
+
+
+#Store a log of changes
+PoiChangesLog:
+  actAs:
+    Timestampable:                ~
+  columns:
+    log:                        {type: string(500), notnull: true}
+    poi_id:                     {type: integer, notnull: true}
+  relations:
+     Poi:                       {local: poi_id, foreign: id}
 
 
 #Any media that is associated to the poi
@@ -95,20 +118,14 @@ LinkingVendorPoiCategory:
      vendor_poi_category_id:  {type: integer, notnull: true}
      poi_id:                  {type: integer, notnull: true}
 
-#Event CategoryMapping
-EventCategoryMapping:
+#Poi CategoryMapping
+PoiCategoryMapping:
   columns:
     map_from_id:                {type: integer, notnull: true}
     map_to_id:                  {type: integer, notnull: true}
   relations:
-    VendorEventCategory:        {local: map_from_id, foreign: id}
-    EventCategory:              {local: map_to_id, foreign: id}
-
-
-
-
-
-
+    VendorPoiCategory:        {local: map_from_id, foreign: id}
+    PoiCategory:              {local: map_to_id, foreign: id}
 
 
 #Key value pairs for unmappable values on a Poi

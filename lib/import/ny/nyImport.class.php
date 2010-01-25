@@ -13,7 +13,7 @@
  */
 
 
-class importNy
+class importNy implements logger
 {
   private $_events;
   private $_venues;
@@ -42,6 +42,11 @@ class importNy
    */
   public function insertEventCategoriesAndEventsAndVenues()
   {
+    foreach($this->_venues as $venue)
+    {
+      $this->insertVendorPoiCategories( $venue );
+    }
+
     foreach( $this->_venues as $venue )
     {
       $this->insertPoi( $venue ) ;
@@ -49,7 +54,7 @@ class importNy
 
     foreach($this->_events as $event)
     {
-      $this->insertVendorCategories( $event );
+      $this->insertVendorEventCategories( $event );
     }
 
     foreach($this->_events as $event)
@@ -60,12 +65,42 @@ class importNy
   
 
   /**
+   * Insert the vendor poi categories
+   *
+   * @param SimpleXMLElement $poi the pois we want to insert
+   * the categories for
+   *
+   */
+  public function insertVendorPoiCategories( $poi )
+  {
+    foreach ( $poi->attributes->children() as $attribute )
+    {
+      $attributeNameString = (string) $attribute->name;
+
+      if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
+      {
+        $categoryString = substr( $attributeNameString, 12 );
+
+        $vendorPoiCategory = Doctrine::getTable( 'VendorPoiCategory' )->findOneByName( $categoryString );
+
+        if ( is_object( $vendorPoiCategory) === false )
+        {
+          $newVendorPoiCategory = new VendorPoiCategory();
+          $newVendorPoiCategory[ 'name' ] = $categoryString;
+          $newVendorPoiCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
+          $newVendorPoiCategory->save();
+        }
+      }
+    }    
+  }
+  
+
+  /**
    * Insert the events pois
    *
    * @param SimpleXMLElement $poi the poi we want to insert
    * @todo go through the xml with a proper source xml editor to make sure that
    *  no information is left out
-   * @todo sort out categories
    *
    */
   public function insertPoi( SimpleXMLElement $poi )
@@ -76,6 +111,7 @@ class importNy
 
       //Set the Poi's required values
       $poiObj = new Poi();
+      $poiObj['vendor_poi_id'] = $poi['vendor_poi_id'];
       $poiObj[ 'poi_name' ] = (string) $poi->identifier;
       $poiObj[ 'street' ] = (string) $poi->street;
       $poiObj[ 'city' ] = (string) $poi->town;
@@ -114,7 +150,8 @@ class importNy
       $poiObj[ 'latitude' ] = $geoEncode->getLatitude();
 
       //deal with the "text-system" nodes
-      if ( isset( $poi->{'text_system'}->text ) )              {
+      if ( isset( $poi->{'text_system'}->text ) )
+      {
         foreach( $poi->{'text_system'}->text as $text )
         {
           switch( $text->{'text_type'} )
@@ -132,31 +169,76 @@ class importNy
         }
       }
 
-      //Get and set the child category
-      $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
-      $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
-      $poiObj['PoiCategories'] =  $categoriesArray;
-      
       //save to database
       $poiObj->save();
 
-      //store categories as properties
-      if ( isset( $poi->category_combi ) )
+      //deal prices node
+      if ( isset( $poi->prices ) )
       {
-        foreach( $poi->category_combi->children() as $category )
+        foreach( $poi->prices->children() as $priceId )
         {
-          $cat = (string) $category;
-
-          if ( $cat != '')
+         foreach( $priceId->children() as $price )
           {
-            $poiPropertyObj = new PoiProperty();
-            $poiPropertyObj[ 'lookup' ] = 'category';
-            $poiPropertyObj[ 'value' ] = $cat;
-            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-            $poiPropertyObj->save();
+            if ( $price->getName() == 'general_remark')
+            {
+              $poiPropertyObj = new PoiProperty();
+              $poiPropertyObj[ 'lookup' ] = 'price_general_remark';
+              $poiPropertyObj[ 'value' ] = (string) $price;
+              $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+              $poiPropertyObj->save();
+            }
+            else
+            {
+              $priceInfoString = ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
+              $priceInfoString .= ( (string) $price->currency != '' ) ? (string) $price->currency . ' ' : '';
+              $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
+              $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
+
+              $poiPropertyObj = new PoiProperty();
+              $poiPropertyObj[ 'lookup' ] = 'price';
+              $poiPropertyObj[ 'value' ] = trim( $priceInfoString );
+              $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+              $poiPropertyObj->save();
+            }
           }
         }
       }
+
+      $categoryArray = array();
+      
+      // deal with the attributes
+      if ( isset( $poi->attributes ) )
+      {
+        foreach ( $poi->attributes->children() as $attribute )
+        {
+          $attributeNameString = (string) $attribute->name;
+
+          if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
+          {
+            $categoryString = substr( $attributeNameString, 12 );
+
+            if ( ! in_array( $categoryString, $categoryArray) )
+            {
+              $categoryArray[] = $categoryString;
+            }
+          }
+
+          $poiPropertyObj = new PoiProperty();
+          $poiPropertyObj[ 'lookup' ] = $attributeNameString;
+          $poiPropertyObj[ 'value' ] = $attribute->value;
+          $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+          $poiPropertyObj->save();
+        }
+      }
+
+      //store categories
+      if ( 0 < count( $categoryArray ) )
+      {
+        $poiObj['PoiCategories'] = $this->mapCategories( $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+      }
+
+      //save to database
+      $poiObj->save();
 
       //Kill the object
       $poiObj->free();    
@@ -164,13 +246,13 @@ class importNy
 
 
   /**
-   * Insert the vendor categories
+   * Insert the vendor event categories
    *
    * @param SimpleXMLElement $event the events we want to insert
    * the categories for
    *
    */
-  public function insertVendorCategories( $event )
+  public function insertVendorEventCategories( $event )
   {
     foreach( $event->category_combi->children() as $category )
     {
@@ -190,7 +272,6 @@ class importNy
    * Insert the events
    *
    * @param SimpleXMLElement $event the events we want to insert
-   * @todo sort out categories
    * @todo sort out attributes
    *
    */
@@ -210,13 +291,12 @@ class importNy
       //save to database
       if( $eventObj->isValid() )
       {
-
         $eventObj->save();
 
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          $eventObj['EventCategories'] = $this->mapCategories( $event->category_combi->children() );
+          $eventObj['EventCategories'] = $this->mapCategories( $event->category_combi->children(), 'EventCategory' );
         }
 
         //deal with the "text-system" nodes
@@ -304,6 +384,19 @@ class importNy
                 $eventPropertyObj->save();
                 break;
             }
+          }
+        }
+
+        //deal with attributes node
+        foreach( $event->attributes->children() as $attribute )
+        {
+          if ( is_object( $attribute->name ) && is_object( $attribute->value ) )
+          {
+            $eventPropertyObj = new EventProperty();
+            $eventPropertyObj[ 'lookup' ] = (string) $attribute->name;
+            $eventPropertyObj[ 'value' ] = (string) $attribute->value;
+            $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+            $eventPropertyObj->save();
           }
         }
 
@@ -410,43 +503,46 @@ class importNy
 
   /*
    * Maps categories and returns the mapped categories as Doctrine Collecion
-   * out of EventCategories
    *
-   * @param Object $categoryXml
+   * @param mixed $sourceCategory (can be SimpleXMLElement or Array
+   * @param string $mapClass ('PoiCategory' or 'EventCategory' supported)
    * @param string $otherCategoryNameString defaults to 'other'
-   * @return array of EventCategories Doctrine_Collection
+   * @return array of Doctrine_Collection
    *
    */
-  public function mapCategories( $categoryXml, $otherCategoryNameString = 'other' )
+  public function mapCategories( $sourceCategory, $mapClass, $noMatchCategoryNameString = 'other' )
   {
-    $otherEventCategory = Doctrine::getTable( 'EventCategory' )->findOneByName( $otherCategoryNameString );
 
-    $eventCategoriesMappingArray = Doctrine::getTable( 'EventCategoryMapping' )->findByVendorId( $this->_vendorObj[ 'id' ] );
+    if ( ! in_array( $mapClass, array( 'PoiCategory', 'EventCategory' ) ) )
+    {
+      Throw new Exception("mapping class not supported");
+    }
+    
+    $noMatchCategory = Doctrine::getTable( $mapClass )->findOneByName( $noMatchCategoryNameString );
+    
+    $categoriesMappingArray = Doctrine::getTable( $mapClass . 'Mapping' )->findByVendorId( $this->_vendorObj[ 'id' ] );
 
-    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'EventCategory' ) );
+    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( $mapClass ) );
 
-    foreach( $categoryXml as $category )
+    foreach( $sourceCategory as $category )
     {
       $match = false;
 
-      foreach ( $eventCategoriesMappingArray as $eventCategoryMappingArray )
+      foreach ( $categoriesMappingArray as $categoryMappingArray )
       {
-        if (  $eventCategoryMappingArray[ 'VendorEventCategory' ][ 'name' ] == (string) $category )
+        if (  $categoryMappingArray[ 'Vendor' . $mapClass ][ 'name' ] == (string) $category )
         {
-          $mappedCategoriesArray[] = $eventCategoryMappingArray[ 'EventCategory' ];
+          $mappedCategoriesArray[] = $categoryMappingArray[ $mapClass ];
           $match = true;
         }
       }
 
-      if ( $match === false && is_object( $otherEventCategory ) )
+      if ( $match === false && is_object( $noMatchCategory ) )
       {
-        $mappedCategoriesArray[] = $otherEventCategory;
+        $mappedCategoriesArray[] = $noMatchCategory;
       }
     }  
 
     return $mappedCategoriesArray;
-  }
-
-
- 
+  } 
 }
