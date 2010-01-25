@@ -63,22 +63,27 @@ EOF;
 
 
 
-                $processXmlObj = new processNyXml('import/tony_leo.xml');
-                $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+                //$processXmlObj = new processNyXml('import/tony_leo.xml');
+                //$processXmlObj->setEvents('/body/event')->setVenues('/body/address');
 
 
 
-                $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-                $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-//                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
-//                $processXmlObj->setMovies('/xffd/movies/movie');
-//                $processXmlObj->setPoi('/xffd/theaters/theater');
-//                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+                //$nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+               // $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+                //$processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
+                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/tms.xml');
+                $processXmlObj->setMovies('/xffd/movies/movie');
+                $processXmlObj->setPoi('/xffd/theaters/theater');
+                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
 //
 //
-//                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
-//                $nyImportMoviesObj->importMovies();
-               // $nyImportMoviesObj->insertMovies();*/
+                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
+                $nyImportMoviesObj->importMovies();
+
+                //e//cho $nyImportMoviesObj->getTotalMovieInserts();
+                 echo $nyImportMoviesObj->getTotalMovieUpdates();
+
+                //$nyImportMoviesObj->insertMovie();
                 
 
         break;
