@@ -1,6 +1,6 @@
 <?php
 /**
- * Import NY's Movies XML feed
+ * Import Movies XML feed from Leo
  *
  * @package projectn
  * @subpackage ny.import.lib
@@ -11,7 +11,7 @@
  *
  *
  */
-class importNyMovies
+class importNyMovies implements logger
 {
   /**
    * @var SimpleXML object
@@ -34,6 +34,32 @@ class importNyMovies
   private $_occurancesObj;
 
   /**
+   * @var integer
+   */
+  private $_totalPoiInsertsInt = 0;
+
+  /**
+   * @var integer
+   */
+  private $_totalPoiUpdatesInt = 0;
+
+   /**
+   * @var integer
+   */
+  private $_totalMovieInsertsInt = 0;
+
+  /**
+   * @var integer
+   */
+  private $_totalMovieUpdatesInt = 0;
+
+  /**
+   *
+   * @var <type> 
+   */
+  private $_currentPois;
+
+  /**
    * Construct
    */
   public function  __construct( $movies, $vendorObj )
@@ -42,6 +68,7 @@ class importNyMovies
     $this->_poiObj = $movies->getPoi();
     $this->_occurancesObj = $movies->getOccurances();
     $this->_vendorObj = $vendorObj;
+    $this->_currentPois = Doctrine::getTable('Poi')->getPoiByVendor($vendorObj['city']);
   }
 
   /**
@@ -55,6 +82,7 @@ class importNyMovies
      // Start by looking over all of the occurances (Theaters)
      foreach($this->_occurancesObj as $occurance)
      {
+
          $occuranceDate = (string) $occurance['date'];
          $movieId = (string) $occurance['movieId'];
          $poiId = (string) $occurance['theaterId'];
@@ -109,30 +137,121 @@ class importNyMovies
    *
    * @param object Simple XML object
    * @return Object Doctrine Object
+   *
+   * @todo Refactor validation
    */
   public function setPoi($poi)
   {
-    //Get the poi Details
-    $poiObj = new Poi();
-    $poiObj['poi_name'] = (string) $poi->name;
-    $poiObj['street'] = (string) $poi->address->streetAddress->street;
-    $poiObj['city'] = (string) $poi->address->city;
-    $poiObj['country'] = (string) $poi->address->country;
-    $poiObj['phone'] = (string) '+1'. $poi->telephone;
-    $poiObj['longitude'] = (float) $poi->longitude;
-    $poiObj['latitude'] = (float) $poi->latitude;
-    $poiObj['vendor_poi_id'] = (string) $poi['theaterId'];
-    $poiObj['country_code'] = 'US';
-    $poiObj['vendor_id'] = $this->_vendorObj['id'];
+    $poiChanged = false;
+    $poiLog;
 
-    //Get and set the child category
-    $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
-    $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
-    $poiObj['PoiCategories'] =  $categoriesArray;
+    //Check the current POIs to see if the details are the same
+    foreach($this->_currentPois as $excistingPio)
+    {
+        if($excistingPio['vendor_poi_id'] === (string) $poi['theaterId'])
+        {
+            //Test the main base fields for a change
+            if( $excistingPio['poi_name'] != (string) $poi->name)
+            {
+                $excistingPio['poi_name'] = (string) $poi->name;
+                $poiLog .= "Name changed \n";
+                $poiChanged = true;
+            }
 
-    $poiArray[] = $poiObj;
+            if($excistingPio['street'] != (string) $poi->address->streetAddress->street)
+            {
+                $excistingPio['street'] = (string) $poi->address->streetAddress->street;
+                $poiLog .= "Street changed \n";
+                $poiChanged = true;
+            }
 
-    $poiObj->save();
+            if($excistingPio['city'] != (string) $poi->address->city)
+            {
+               $excistingPio['city'] = (string) $poi->address->city;
+               $poiLog .= "Address changed \n";
+               $poiChanged = true;
+            }
+
+            if($excistingPio['country'] != (string) $poi->address->country)
+            {
+                $excistingPio['country'] = (string) $poi->address->country;
+                $poiLog .= "Country changed \n";
+                $poiChanged = true;
+            }
+
+            if($excistingPio['phone'] != (string) '+1'. $poi->telephone)
+            {
+                $excistingPio['phone'] = (string) '+1'. $poi->telephone;
+                $poiLog .= "Phone changed \n";
+                $poiChanged = true;
+            }
+
+            
+            //Add the rest of data
+            $excistingPio['vendor_poi_id'] = (string) $poi['theaterId'];
+            $excistingPio['country_code'] = 'US';
+            $excistingPio['local_language'] = 'english';
+            $excistingPio['vendor_id'] = $this->_vendorObj['id'];
+            $excistingPio['longitude'] = (float) $poi->longitude;
+            $excistingPio['latitude'] = (float) $poi->latitude;
+            $excistingPio['zips'] = (string) $poi->address->postalCode;
+
+            
+            //Get and set the child category
+            $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
+            $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
+            $excistingPio['PoiCategories'] =  $categoriesArray;
+
+            $poiArray[] = $excistingPio;
+
+            //If the record has changed, then re-save the object
+            if($poiChanged)
+            {
+                $excistingPio->save();
+                $poiChangeObj = new PoiChangesLog();
+                $poiChangeObj['log'] = $poiLog;
+                $poiChangeObj['poi_id'] = $excistingPio['id'];
+                $poiChangeObj->save();
+
+                //Count the update
+                $this->countUpdate('poi');
+            }
+
+            return $excistingPio;
+        }//end if
+    }
+
+    //Create the POI
+    if(!$poiExists)
+    {
+        //Get the poi Details
+        $poiObj = new Poi();
+        $poiObj['poi_name'] = (string) $poi->name;
+        $poiObj['vendor_poi_id'] = $poi['vendor_poi_id'];
+        $poiObj['street'] = (string) $poi->address->streetAddress->street;
+        $poiObj['city'] = (string) $poi->address->city;
+        $poiObj['country'] = (string) $poi->address->country;
+        $poiObj['phone'] = (string) '+1'. $poi->telephone;
+        $poiObj['longitude'] = (float) $poi->longitude;
+        $poiObj['latitude'] = (float) $poi->latitude;
+        $poiObj['vendor_poi_id'] = (string) $poi['theaterId'];
+        $poiObj['country_code'] = 'US';
+        $poiObj['zips'] = (string) $poi->address->postalCode;
+        $poiObj['vendor_id'] = $this->_vendorObj['id'];
+        $poiObj['local_language'] = 'english';
+
+        //Get and set the child category
+        $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
+        $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
+        $poiObj['PoiCategories'] =  $categoriesArray;
+
+        $poiArray[] = $poiObj;
+
+        $poiObj->save();
+        
+        //Count the new insert
+        $this->countNewInsert('poi');
+    }
 
     return $poiObj;
   }
@@ -241,8 +360,70 @@ class importNyMovies
      return $genreObj;
   }
 
+  /**
+   *
+   * Implement interface functions
+   *
+   *
+   */
+ 
+
+  /**
+   * Add insert to the counter
+   */
+   public function countNewInsert($type)
+   {
+        ($type == 'movies')? $this->_totalMoviesInsertsInt++ : $this->_totalPoiInsertsInt++;
+   }
+
+   /**
+    * Add update to the counter
+    */
+   public function countUpdate($type)
+   {
+        ($type == 'movies')? $this->_totalMoviesInsertsInt++ : $this->_totalPoiUpdatesInt++;
+   }
 
 
+   /**
+    * Get the total number of new movie inserts
+    *
+    * @return integer
+    */
+   public function getTotalMovieInserts()
+   {
+        return $this->_totalMovieInsertsInt;
+   }
+
+   /**
+    * Get the total number of updates
+    *
+    * @return integer
+    */
+   public function getTotalMovieUpdates()
+   {
+        return  $this->_totalMovieUpdatesInt;
+   }
+
+   /**
+    * Get the total number of new inserts
+    *
+    * @return integer
+    */
+   public function getTotalPoiInserts()
+   {
+        return $this->_totalMoviesInsertsInt;
+   }
+
+   /**
+    * Get the total number of updates
+    *
+    * @return integer
+    */
+   public function getTotalPoiUpdates()
+   {
+        return  $this->_totalPoiUpdatesInt;
+   }
 
 }
 ?>

@@ -13,7 +13,7 @@
  */
 
 
-class importNy
+class importNy implements logger
 {
   private $_events;
   private $_venues;
@@ -76,6 +76,7 @@ class importNy
 
       //Set the Poi's required values
       $poiObj = new Poi();
+      $poiObj['vendor_poi_id'] = $poi['vendor_poi_id'];
       $poiObj[ 'poi_name' ] = (string) $poi->identifier;
       $poiObj[ 'street' ] = (string) $poi->street;
       $poiObj[ 'city' ] = (string) $poi->town;
