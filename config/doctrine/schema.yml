@@ -10,7 +10,7 @@ Poi:
     Timestampable: ~
   columns:
     review_date:                {type: datetime, notnull: false}
-    vendor_poi_id:              {type: integer, notnull: false}
+    vendor_poi_id:              {type: string(10), notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false} # @todo should be 'name'
     house_no:                   {type: string(16), notnull: false}
