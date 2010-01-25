@@ -350,6 +350,19 @@ class importNy
           }
         }
 
+        //deal with attributes node
+        foreach( $event->attributes->children() as $attribute )
+        {
+          if ( is_object( $attribute->name ) && is_object( $attribute->value ) )
+          {
+            $eventPropertyObj = new EventProperty();
+            $eventPropertyObj[ 'lookup' ] = (string) $attribute->name;
+            $eventPropertyObj[ 'value' ] = (string) $attribute->value;
+            $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
+            $eventPropertyObj->save();
+          }
+        }
+
         $eventObj->save();
 
         foreach ( $event->date as $occurrence )
