@@ -170,6 +170,35 @@ class importNy
       //save to database
       $poiObj->save();
 
+      //deal prices node
+      foreach( $poi->prices->children() as $priceId )
+      {
+       foreach( $priceId->children() as $price )
+        {
+          if ( $price->getName() == 'general_remark')
+          {
+            $poiPropertyObj = new PoiProperty();
+            $poiPropertyObj[ 'lookup' ] = 'price_general_remark';
+            $poiPropertyObj[ 'value' ] = (string) $price;
+            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+            $poiPropertyObj->save();
+          }
+          else
+          {
+            $priceInfoString = ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
+            $priceInfoString .= ( (string) $price->currency != '' ) ? (string) $price->currency . ' ' : '';
+            $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
+            $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
+            
+            $poiPropertyObj = new PoiProperty();
+            $poiPropertyObj[ 'lookup' ] = 'price';
+            $poiPropertyObj[ 'value' ] = trim( $priceInfoString );
+            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+            $poiPropertyObj->save();
+          }
+        }
+      }
+
       $categoryArray = array();
       
       // deal with the attributes

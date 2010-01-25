@@ -82,6 +82,43 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, count( $poiObj ) );
   }
 
+    /*
+   * test if price information is appended
+   */
+  public function testInsertPriceInformationProperty()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
+
+    $passed = false;
+
+    foreach( $poiObj['PoiProperty'] as $poiPropertyObj )
+    {
+      if ( $poiPropertyObj[ 'lookup' ] == 'price_general_remark' && 'children under 5 not admitted.' == $poiPropertyObj[ 'value' ] )
+      {
+        $passed = true;
+        break;
+      }
+    }
+
+    $this->assertTrue( $passed );
+
+    $passed = false;
+
+    foreach( $poiObj['PoiProperty'] as $poiPropertyObj )
+    {
+      if ( $poiPropertyObj[ 'lookup' ] == 'price' && 'USD 12.50' == $poiPropertyObj[ 'value' ] )
+      {
+        $passed = true;
+        break;
+      }
+    }
+    
+    $this->assertTrue( $passed );
+  }
+
   /**
    * Tests that testInsertEvent
    *
@@ -189,7 +226,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
   /*
    * test if attribute is appended
    */
-  public function testCriticsPicks()
+  public function testCriticsPicksPropertyOnEvent()
   {
     $venuesArray = $this->xmlObj->getVenues();
     $this->object->insertPoi( $venuesArray[ 0 ] );
@@ -200,15 +237,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
     //Critic\'s Picks
-
-    foreach( $eventObj['EventProperty'] as $eventPropertyObj )
-    {
-      var_dump( $eventPropertyObj[ 'value' ] );
-              
-      
-    }
-
-    //$this->assertEquals( 'Critic\'s Picks', $eventObj[ 'EventProperty' ][ 4 ][ 'lookup' ]);
+    $this->assertEquals( 'Critic\'s Picks', $eventObj[ 'EventProperty' ][ 3 ][ 'lookup' ]);
   }
 
   /*
