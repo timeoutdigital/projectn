@@ -149,7 +149,8 @@ class importNy
       $poiObj[ 'latitude' ] = $geoEncode->getLatitude();
 
       //deal with the "text-system" nodes
-      if ( isset( $poi->{'text_system'}->text ) )              {
+      if ( isset( $poi->{'text_system'}->text ) )
+      {
         foreach( $poi->{'text_system'}->text as $text )
         {
           switch( $text->{'text_type'} )
@@ -171,30 +172,33 @@ class importNy
       $poiObj->save();
 
       //deal prices node
-      foreach( $poi->prices->children() as $priceId )
+      if ( isset( $poi->prices ) )
       {
-       foreach( $priceId->children() as $price )
+        foreach( $poi->prices->children() as $priceId )
         {
-          if ( $price->getName() == 'general_remark')
+         foreach( $priceId->children() as $price )
           {
-            $poiPropertyObj = new PoiProperty();
-            $poiPropertyObj[ 'lookup' ] = 'price_general_remark';
-            $poiPropertyObj[ 'value' ] = (string) $price;
-            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-            $poiPropertyObj->save();
-          }
-          else
-          {
-            $priceInfoString = ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
-            $priceInfoString .= ( (string) $price->currency != '' ) ? (string) $price->currency . ' ' : '';
-            $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
-            $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
-            
-            $poiPropertyObj = new PoiProperty();
-            $poiPropertyObj[ 'lookup' ] = 'price';
-            $poiPropertyObj[ 'value' ] = trim( $priceInfoString );
-            $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-            $poiPropertyObj->save();
+            if ( $price->getName() == 'general_remark')
+            {
+              $poiPropertyObj = new PoiProperty();
+              $poiPropertyObj[ 'lookup' ] = 'price_general_remark';
+              $poiPropertyObj[ 'value' ] = (string) $price;
+              $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+              $poiPropertyObj->save();
+            }
+            else
+            {
+              $priceInfoString = ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
+              $priceInfoString .= ( (string) $price->currency != '' ) ? (string) $price->currency . ' ' : '';
+              $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
+              $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
+
+              $poiPropertyObj = new PoiProperty();
+              $poiPropertyObj[ 'lookup' ] = 'price';
+              $poiPropertyObj[ 'value' ] = trim( $priceInfoString );
+              $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+              $poiPropertyObj->save();
+            }
           }
         }
       }
@@ -202,25 +206,28 @@ class importNy
       $categoryArray = array();
       
       // deal with the attributes
-      foreach ( $poi->attributes->children() as $attribute )
+      if ( isset( $poi->attributes ) )
       {
-        $attributeNameString = (string) $attribute->name;
-
-        if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
+        foreach ( $poi->attributes->children() as $attribute )
         {
-          $categoryString = substr( $attributeNameString, 12 );
+          $attributeNameString = (string) $attribute->name;
 
-          if ( ! in_array( $categoryString, $categoryArray) )
+          if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
           {
-            $categoryArray[] = $categoryString;
+            $categoryString = substr( $attributeNameString, 12 );
+
+            if ( ! in_array( $categoryString, $categoryArray) )
+            {
+              $categoryArray[] = $categoryString;
+            }
           }
+
+          $poiPropertyObj = new PoiProperty();
+          $poiPropertyObj[ 'lookup' ] = $attributeNameString;
+          $poiPropertyObj[ 'value' ] = $attribute->value;
+          $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
+          $poiPropertyObj->save();
         }
-        
-        $poiPropertyObj = new PoiProperty();
-        $poiPropertyObj[ 'lookup' ] = $attributeNameString;
-        $poiPropertyObj[ 'value' ] = $attribute->value;
-        $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-        $poiPropertyObj->save();
       }
 
       //store categories
