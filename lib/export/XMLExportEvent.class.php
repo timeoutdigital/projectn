@@ -100,31 +100,34 @@ class XMLExportEvent extends XMLExport
       }
 
       //event/showtimes
-      foreach( $event[ 'EventOccurrence' ] as $occurrence )
+      $showtimeElement = $eventElement->appendChild( new DOMElement( 'showtimes' ) );
+
+      //event/showtimes/place
+      foreach( $event['Pois'] as $place)
       {
-        $showtimeElement = $eventElement->appendChild( new DOMElement( 'showtimes' ) );
-
-        //event/showtimes/place
         $placeElement = $showtimeElement->appendChild( new DOMElement('place') );
-        $placeElement->setAttribute( 'place-id', $occurrence->getPoiId() );
+        $placeElement->setAttribute( 'place-id', $place['id'] );
 
-        //event/showtimes/place/occurrence
-        $occurrenceElement = $placeElement->appendChild( new DOMElement( 'occurrence' ) );
-
-        //event/showtimes/occurrence/booking-url
-        if( !empty( $event['booking_url'] ) )
+        foreach( $place['EventOccurrence'] as $eventOccurrence )
         {
-          $occurrenceBookingUrl = $occurrenceElement->appendChild( new DOMElement( 'booking_url' ) );
-          $occurrenceBookingUrl->appendChild( $this->domDocument->createCDATASection( $event['booking_url'] ) );
-        }
+          //event/showtimes/place/occurrence
+          $occurrenceElement = $placeElement->appendChild( new DOMElement( 'occurrence' ) );
 
-        //event/showtimes/occurrence/time
-        $timeElement = $occurrenceElement->appendChild( new DOMElement('time') );
-        
-        //event/showtimes/occurrence/time/start-date
-        $timeElement->appendChild( new DOMElement( 'start_date', $occurrence->getStart() ) );
-        $timeElement->appendChild( new DOMElement( 'end_date', $occurrence->getEnd() ) );
-        $timeElement->appendChild( new DOMElement( 'utc_offset', $occurrence->getUtcOffset() ) );
+          //event/showtimes/occurrence/booking-url
+          if( !empty( $event['booking_url'] ) )
+          {
+            $occurrenceBookingUrl = $occurrenceElement->appendChild( new DOMElement( 'booking_url' ) );
+            $occurrenceBookingUrl->appendChild( $this->domDocument->createCDATASection( $event['booking_url'] ) );
+          }
+
+          //event/showtimes/occurrence/time
+          $timeElement = $occurrenceElement->appendChild( new DOMElement('time') );
+
+          //event/showtimes/occurrence/time/start-date
+          $timeElement->appendChild( new DOMElement( 'start_date', $eventOccurrence->getStart() ) );
+          $timeElement->appendChild( new DOMElement( 'end_date', $eventOccurrence->getEnd() ) );
+          $timeElement->appendChild( new DOMElement( 'utc_offset', $eventOccurrence->getUtcOffset() ) );
+        }
       }
     }
 
