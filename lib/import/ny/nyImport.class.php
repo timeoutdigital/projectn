@@ -13,12 +13,14 @@
  */
 
 
-class importNy implements logger
+class importNy
 {
   private $_events;
   private $_venues;
   private $_xmlFeed;
   private $_vendorObj;
+  private $_movieLogger;
+  private $_poiLogger;
   
   /**
    * Constructor
