@@ -69,6 +69,7 @@ class XMLExportMovie extends XMLExport
       $urlElement = $versionElement->appendChild( new DOMElement( 'url' ) );
       $urlElement->appendChild( $domDocument->createCDATASection( $movie['url'] ) );
 
+
       //movie/version/rating
       $versionElement->appendChild( new DOMElement( 'rating', $movie['rating'] ) );
 
