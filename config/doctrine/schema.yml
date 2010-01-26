@@ -268,6 +268,7 @@ Movie:
   columns:
     id:                         {type: integer, notnull: true,  autoincrement: true, primary: true }
     vendor_id:                  {type: integer, notnull: true}
+    vendor_movie_id:            {type: integer, notnull: true}
     name:                       {type: string(256), notnull: true}
     plot:                       {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
