@@ -253,14 +253,37 @@ class importNy
    */
   public function insertVendorEventCategories( $event )
   {
-    foreach( $event->category_combi->children() as $category )
+    $category1Object = $event->category_combi->xpath( 'category1/.' );
+    $category2Object = $event->category_combi->xpath( 'category2/.' );
+    $category3Object = $event->category_combi->xpath( 'category3/.' );
+
+    $delimiter = ' | ';
+
+    $categoryArray = array();
+
+    if ( count($category1Object) == 1 &&  trim( (string) $category1Object[0] ) != '' )
     {
-      $vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )->findOneByName( (string) $category );
+      $categoryArray[0] = (string) $category1Object[0];
+
+      if ( count($category2Object) == 1 && trim( (string) $category2Object[0] ) != '' )
+      {
+        $categoryArray[1] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0];
+
+        if ( count($category3Object) == 1 && trim( (string) $category3Object[0] )  != '' )
+        {
+          $categoryArray[1] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0] . $delimiter . (string) $category3Object[0];
+        }
+      }
+    }
+  
+    foreach( $categoryArray as $categoryString )
+    {
+      $vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )->findOneByName( $categoryString );
 
       if ( is_object( $vendorEventCategory) === false )
       {
         $newVendorEventCategory = new VendorEventCategory();
-        $newVendorEventCategory[ 'name' ] = (string) $category;
+        $newVendorEventCategory[ 'name' ] = $categoryString;
         $newVendorEventCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
         $newVendorEventCategory->save();
       }
@@ -297,7 +320,30 @@ class importNy
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          $eventObj['EventCategories'] = $this->mapCategories( $event->category_combi->children(), 'EventCategory' );
+          $category1Object = $event->category_combi->xpath( 'category1/.' );
+          $category2Object = $event->category_combi->xpath( 'category2/.' );
+          $category3Object = $event->category_combi->xpath( 'category3/.' );
+
+          $delimiter = ' | ';
+
+          $categoryArray = array();
+
+          if ( count($category1Object) == 1 &&  trim( (string) $category1Object[0] ) != '' )
+          {
+            $categoryArray[0] = (string) $category1Object[0];
+
+            if ( count($category2Object) == 1 && trim( (string) $category2Object[0] ) != '' )
+            {
+              $categoryArray[0] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0];
+
+              if ( count($category3Object) == 1 && trim( (string) $category3Object[0] )  != '' )
+              {
+                $categoryArray[0] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0] . $delimiter . (string) $category3Object[0];
+              }
+            }
+          }
+
+          $eventObj['EventCategories'] = $this->mapCategories( $categoryArray, 'EventCategory' );
         }
 
         //deal with the "text-system" nodes
@@ -507,6 +553,8 @@ class importNy
    * @return string
    *
    * @todo implement it
+   * @todo move to general toolbox class
+   *
    */
   private function _extractContactBlurbPhone( $contactBlurb  )
   {
@@ -521,6 +569,8 @@ class importNy
    * @param string $otherCategoryNameString defaults to 'other'
    * @return array of Doctrine_Collection
    *
+   * @todo move to general toolbox class
+   *
    */
   public function mapCategories( $sourceCategory, $mapClass, $noMatchCategoryNameString = 'other' )
   {
@@ -529,7 +579,7 @@ class importNy
     {
       Throw new Exception("mapping class not supported");
     }
-    
+
     $noMatchCategory = Doctrine::getTable( $mapClass )->findOneByName( $noMatchCategoryNameString );
     
     $categoriesMappingArray = Doctrine::getTable( $mapClass . 'Mapping' )->findByVendorId( $this->_vendorObj[ 'id' ] );
@@ -549,11 +599,12 @@ class importNy
         }
       }
 
-      if ( $match === false && is_object( $noMatchCategory ) )
-      {
-        $mappedCategoriesArray[] = $noMatchCategory;
-      }
-    }  
+    }
+
+    if ( $match === false && is_object( $noMatchCategory ) )
+    {
+      $mappedCategoriesArray[] = $noMatchCategory;
+    }
 
     return $mappedCategoriesArray;
   } 
