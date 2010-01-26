@@ -13,7 +13,7 @@
  */
 
 
-class importNy implements logger
+class importNy
 {
   private $_events;
   private $_venues;
@@ -111,12 +111,11 @@ class importNy implements logger
 
       //Set the Poi's required values
       $poiObj = new Poi();
-      $poiObj['vendor_poi_id'] = $poi['vendor_poi_id'];
+      $poiObj[ 'vendor_poi_id' ] = (string)  $poi['id'];
       $poiObj[ 'poi_name' ] = (string) $poi->identifier;
       $poiObj[ 'street' ] = (string) $poi->street;
       $poiObj[ 'city' ] = (string) $poi->town;
-      $poiObj[ 'country' ] = (string) $poi->country;
-      $poiObj[ 'vendor_poi_id' ] = (string)  $poi['id'];
+      $poiObj[ 'country' ] = (string) $poi->country;      
       $poiObj[ 'local_language' ] = 'en';
       $poiObj[ 'country_code' ] = (string) $poi->country_symbol;
       $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
@@ -285,6 +284,8 @@ class importNy implements logger
 
       $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
+      $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
+
       $eventObj[ 'name' ] = (string) $event->identifier;
       $eventObj[ 'description' ] = (string) $event->description;
 
@@ -316,10 +317,10 @@ class importNy implements logger
                 $eventPropertyObj->save();
                 break;
               case 'Contact Blurb':
-                $url = $this->extractContactBlurbUrl( (string) $text->content );
+                $url = $this->_extractContactBlurbUrl( (string) $text->content );
                 if ( $url != '' ) $eventObj->url = $url;
                 
-                $email = $this->extractContactBlurbEmail( (string) $text->content );
+                $email = $this->_extractContactBlurbEmail( (string) $text->content );
                 if ( $email != ''  )
                 {
                   $eventPropertyObj = new EventProperty();
@@ -329,7 +330,7 @@ class importNy implements logger
                   $eventPropertyObj->save();
                 }
 
-                $phone = $this->extractContactBlurbPhone( (string) $text->content );
+                $phone = $this->_extractContactBlurbPhone( (string) $text->content );
                 if ( $phone != '' )
                 {
                   $eventPropertyObj = new EventProperty();
@@ -407,12 +408,11 @@ class importNy implements logger
           $occurrenceObj = new EventOccurence();
           $occurrenceObj[ 'start' ] = (string) $occurrence->start;
           $occurrenceObj[ 'utc_offset' ] = '-05:00';
-
           $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
+          $occurrenceObj[ 'vendor_event_occurence_id' ] = $this->_createOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
 
           //set poi id
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
-
           $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
           if( $occurrenceObj->isValid() )
@@ -441,12 +441,24 @@ class importNy implements logger
   }
 
   /*
+   * Creates an occurrence id out of the occurence object
+   *
+   * @param SimpleXMLElement $occurrence
+   * @return string
+   *
+   */
+  private function _createOccurrenceId( $eventId, $poiId, $occurrenceStartDate  )
+  {
+    return $eventId . '_' . $poiId . '_' . date( 'YmdHis', strtotime( $occurrenceStartDate ) );
+  }
+
+  /*
    * Extracts and fixes up a URL out of the contact blurb in the xml
    *
    * @param string $contactBlurb
    * @return string url
    */
-  private function extractContactBlurbUrl( $contactBlurb )
+  private function _extractContactBlurbUrl( $contactBlurb )
   {
     $elements = explode( ',', $contactBlurb );
     $pattern = '/^(http|https|ftp)?(:\/\/)?(www\.)?([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
@@ -471,7 +483,7 @@ class importNy implements logger
    * @param string $contactBlurb
    * @return string email address
    */
-  private function extractContactBlurbEmail( $contactBlurb  )
+  private function _extractContactBlurbEmail( $contactBlurb  )
   {
     $elements = explode( ',', $contactBlurb );
 
@@ -491,12 +503,12 @@ class importNy implements logger
   /*
    * Extracts and fixes up a phone number out of the contact blurb in the xml
    *
-   * @param string $contactBlurb
+   * @param string $contactBluGITrb
    * @return string
    *
    * @todo implement it
    */
-  private function extractContactBlurbPhone( $contactBlurb  )
+  private function _extractContactBlurbPhone( $contactBlurb  )
   {
     return '';
   }
