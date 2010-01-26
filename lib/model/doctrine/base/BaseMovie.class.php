@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property integer $vendor_id
+ * @property integer $vendor_movie_id
  * @property string $name
  * @property string $plot
  * @property string $review
@@ -21,36 +22,38 @@
  * @property Doctrine_Collection $MovieMedia
  * @property Doctrine_Collection $MovieProperty
  * 
- * @method integer             getId()            Returns the current record's "id" value
- * @method integer             getVendorId()      Returns the current record's "vendor_id" value
- * @method string              getName()          Returns the current record's "name" value
- * @method string              getPlot()          Returns the current record's "plot" value
- * @method string              getReview()        Returns the current record's "review" value
- * @method string              getUrl()           Returns the current record's "url" value
- * @method float               getRating()        Returns the current record's "rating" value
- * @method string              getAgeRating()     Returns the current record's "age_rating" value
- * @method time                getUtfOffset()     Returns the current record's "utf_offset" value
- * @method integer             getPoiId()         Returns the current record's "poi_id" value
- * @method Vendor              getVendor()        Returns the current record's "Vendor" value
- * @method Doctrine_Collection getMovieGenres()   Returns the current record's "MovieGenres" collection
- * @method Poi                 getPoi()           Returns the current record's "Poi" value
- * @method Doctrine_Collection getMovieMedia()    Returns the current record's "MovieMedia" collection
- * @method Doctrine_Collection getMovieProperty() Returns the current record's "MovieProperty" collection
- * @method Movie               setId()            Sets the current record's "id" value
- * @method Movie               setVendorId()      Sets the current record's "vendor_id" value
- * @method Movie               setName()          Sets the current record's "name" value
- * @method Movie               setPlot()          Sets the current record's "plot" value
- * @method Movie               setReview()        Sets the current record's "review" value
- * @method Movie               setUrl()           Sets the current record's "url" value
- * @method Movie               setRating()        Sets the current record's "rating" value
- * @method Movie               setAgeRating()     Sets the current record's "age_rating" value
- * @method Movie               setUtfOffset()     Sets the current record's "utf_offset" value
- * @method Movie               setPoiId()         Sets the current record's "poi_id" value
- * @method Movie               setVendor()        Sets the current record's "Vendor" value
- * @method Movie               setMovieGenres()   Sets the current record's "MovieGenres" collection
- * @method Movie               setPoi()           Sets the current record's "Poi" value
- * @method Movie               setMovieMedia()    Sets the current record's "MovieMedia" collection
- * @method Movie               setMovieProperty() Sets the current record's "MovieProperty" collection
+ * @method integer             getId()              Returns the current record's "id" value
+ * @method integer             getVendorId()        Returns the current record's "vendor_id" value
+ * @method integer             getVendorMovieId()   Returns the current record's "vendor_movie_id" value
+ * @method string              getName()            Returns the current record's "name" value
+ * @method string              getPlot()            Returns the current record's "plot" value
+ * @method string              getReview()          Returns the current record's "review" value
+ * @method string              getUrl()             Returns the current record's "url" value
+ * @method float               getRating()          Returns the current record's "rating" value
+ * @method string              getAgeRating()       Returns the current record's "age_rating" value
+ * @method time                getUtfOffset()       Returns the current record's "utf_offset" value
+ * @method integer             getPoiId()           Returns the current record's "poi_id" value
+ * @method Vendor              getVendor()          Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getMovieGenres()     Returns the current record's "MovieGenres" collection
+ * @method Poi                 getPoi()             Returns the current record's "Poi" value
+ * @method Doctrine_Collection getMovieMedia()      Returns the current record's "MovieMedia" collection
+ * @method Doctrine_Collection getMovieProperty()   Returns the current record's "MovieProperty" collection
+ * @method Movie               setId()              Sets the current record's "id" value
+ * @method Movie               setVendorId()        Sets the current record's "vendor_id" value
+ * @method Movie               setVendorMovieId()   Sets the current record's "vendor_movie_id" value
+ * @method Movie               setName()            Sets the current record's "name" value
+ * @method Movie               setPlot()            Sets the current record's "plot" value
+ * @method Movie               setReview()          Sets the current record's "review" value
+ * @method Movie               setUrl()             Sets the current record's "url" value
+ * @method Movie               setRating()          Sets the current record's "rating" value
+ * @method Movie               setAgeRating()       Sets the current record's "age_rating" value
+ * @method Movie               setUtfOffset()       Sets the current record's "utf_offset" value
+ * @method Movie               setPoiId()           Sets the current record's "poi_id" value
+ * @method Movie               setVendor()          Sets the current record's "Vendor" value
+ * @method Movie               setMovieGenres()     Sets the current record's "MovieGenres" collection
+ * @method Movie               setPoi()             Sets the current record's "Poi" value
+ * @method Movie               setMovieMedia()      Sets the current record's "MovieMedia" collection
+ * @method Movie               setMovieProperty()   Sets the current record's "MovieProperty" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -68,6 +71,10 @@ abstract class BaseMovie extends sfDoctrineRecord
              'primary' => true,
              ));
         $this->hasColumn('vendor_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
+        $this->hasColumn('vendor_movie_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));

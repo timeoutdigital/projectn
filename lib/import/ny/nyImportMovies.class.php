@@ -11,7 +11,7 @@
  *
  *
  */
-class importNyMovies implements logger
+class importNyMovies
 {
   /**
    * @var SimpleXML object
@@ -34,30 +34,30 @@ class importNyMovies implements logger
   private $_occurancesObj;
 
   /**
-   * @var integer
+   * Store a movie logger
+   *
+   * @var object
    */
-  private $_totalPoiInsertsInt = 0;
+  private $_movieLoggerObj;
+
 
   /**
-   * @var integer
+   * Store a poi logger
+   *
+   * @var object
    */
-  private $_totalPoiUpdatesInt = 0;
-
-   /**
-   * @var integer
-   */
-  private $_totalMovieInsertsInt = 0;
-
-  /**
-   * @var integer
-   */
-  private $_totalMovieUpdatesInt = 0;
+  private $_poiLoggerObj;
 
   /**
    *
    * @var <type> 
    */
   private $_currentPois;
+
+  /**
+   * @var <type>
+   */
+  private $_currentMovies;
 
   /**
    * Construct
@@ -69,6 +69,10 @@ class importNyMovies implements logger
     $this->_occurancesObj = $movies->getOccurances();
     $this->_vendorObj = $vendorObj;
     $this->_currentPois = Doctrine::getTable('Poi')->getPoiByVendor($vendorObj['city']);
+    $this->_movieLoggerObj = new logger($vendorObj, 'movie');
+    $this->_poiLoggerObj = new logger($vendorObj, 'poi');
+    $this->_currentMovies = Doctrine::getTable('Movie')->getMovieByVendor($vendorObj['city']);
+ 
   }
 
   /**
@@ -214,44 +218,42 @@ class importNyMovies implements logger
                 $poiChangeObj->save();
 
                 //Count the update
-                $this->countUpdate('poi');
+                $this->_poiLoggerObj->countUpdate();
             }
 
             return $excistingPio;
         }//end if
-    }
+     }//end foreach
 
+
+     
     //Create the POI
-    if(!$poiExists)
-    {
-        //Get the poi Details
-        $poiObj = new Poi();
-        $poiObj['poi_name'] = (string) $poi->name;
-        $poiObj['vendor_poi_id'] = $poi['vendor_poi_id'];
-        $poiObj['street'] = (string) $poi->address->streetAddress->street;
-        $poiObj['city'] = (string) $poi->address->city;
-        $poiObj['country'] = (string) $poi->address->country;
-        $poiObj['phone'] = (string) '+1'. $poi->telephone;
-        $poiObj['longitude'] = (float) $poi->longitude;
-        $poiObj['latitude'] = (float) $poi->latitude;
-        $poiObj['vendor_poi_id'] = (string) $poi['theaterId'];
-        $poiObj['country_code'] = 'US';
-        $poiObj['zips'] = (string) $poi->address->postalCode;
-        $poiObj['vendor_id'] = $this->_vendorObj['id'];
-        $poiObj['local_language'] = 'english';
+    $poiObj = new Poi();
+    $poiObj['poi_name'] = (string) $poi->name;
+    $poiObj['vendor_poi_id'] = $poi['vendor_poi_id'];
+    $poiObj['street'] = (string) $poi->address->streetAddress->street;
+    $poiObj['city'] = (string) $poi->address->city;
+    $poiObj['country'] = (string) $poi->address->country;
+    $poiObj['phone'] = (string) '+1'. $poi->telephone;
+    $poiObj['longitude'] = (float) $poi->longitude;
+    $poiObj['latitude'] = (float) $poi->latitude;
+    $poiObj['vendor_poi_id'] = (string) $poi['theaterId'];
+    $poiObj['country_code'] = 'US';
+    $poiObj['zips'] = (string) $poi->address->postalCode;
+    $poiObj['vendor_id'] = $this->_vendorObj['id'];
+    $poiObj['local_language'] = 'english';
 
-        //Get and set the child category
-        $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
-        $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
-        $poiObj['PoiCategories'] =  $categoriesArray;
+    //Get and set the child category
+    $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
+    $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName('theatre-music-culture');
+    $poiObj['PoiCategories'] =  $categoriesArray;
 
-        $poiArray[] = $poiObj;
+    $poiArray[] = $poiObj;
 
-        $poiObj->save();
-        
-        //Count the new insert
-        $this->countNewInsert('poi');
-    }
+    $poiObj->save();
+
+    //Count the new insert
+    $this->_poiLoggerObj->countNewInsert();
 
     return $poiObj;
   }
@@ -267,77 +269,92 @@ class importNyMovies implements logger
    */
   public function insertMovie($movie, $poiObj)
   {
-    $conn = Doctrine_Manager::connection();
-
-    //start transaction
-    try {
-      $conn->beginTransaction();
-
-      $movieObj = new Movie();
-      
-      $movieObj['name'] = (string) $movie->officialTitle;
-      $movieObj['vendor_id'] = (int) $this->_vendorObj->getId();
-      $movieObj['review'] = (string) $movie->reviews->review->reviewText;
-      $movieObj['plot'] = (string) $movie->synopsis;
-      $movieObj['utf_offset'] = '-5:00';
-      $movieObj['Poi'] = $poiObj;
 
 
-    //Try to find a url
-      if($movie->officialURL)
-      {
-         $movieObj['url'] = (string) $movie->officialURL;
-      }
-      elseif ($movie->trailers->trailer->trailerURL)
-      {
-         $movieObj['url'] = (string) $movie->trailers->trailer->trailerURL;
-      }
-
-      //Save movie object to get PK
-      $movieObj->save();
-
-      //Get Genres
-      $genreArray = new Doctrine_Collection(Doctrine::getTable('MovieGenre'));
-
-      if($movie->genres)
-      {
-        foreach($movie->genres->genre as $genre)
+        //Check the current POIs to see if the details are the same
+        foreach($this->_currentMovies as $excistingMovie)
         {
-          $genreObj = $this->getGenre($genre);
-          $genreArray[] = $genreObj;
+            if($excistingMovie['vendor_movie_id'] === (string) $movie['movieId'])
+            {
+                return $excistingMovie;
+            }
 
+        }//end foreach
+
+
+        //start transaction
+        $conn = Doctrine_Manager::connection();
+
+        try {
+          $conn->beginTransaction();
+
+          $movieObj = new Movie();
+
+          $movieObj['name'] = (string) $movie->officialTitle;
+          $movieObj['vendor_id'] = (int) $this->_vendorObj->getId();
+          $movieObj['review'] = (string) $movie->reviews->review->reviewText;
+          $movieObj['plot'] = (string) $movie->synopsis;
+          $movieObj['utf_offset'] = '-5:00';
+          $movieObj['Poi'] = $poiObj;
+          $movieObj['vendor_movie_id'] = (string) $movie['movieId'];
+
+        //Try to find a url
+          if($movie->officialURL)
+          {
+             $movieObj['url'] = (string) $movie->officialURL;
+          }
+          elseif ($movie->trailers->trailer->trailerURL)
+          {
+             $movieObj['url'] = (string) $movie->trailers->trailer->trailerURL;
+          }
+
+          //Save movie object to get PK
+          $movieObj->save();
+
+          //Get Genres
+          $genreArray = new Doctrine_Collection(Doctrine::getTable('MovieGenre'));
+
+          if($movie->genres)
+          {
+            foreach($movie->genres->genre as $genre)
+            {
+              $genreObj = $this->getGenre($genre);
+              $genreArray[] = $genreObj;
+
+            }
+          }
+
+          //Set the genres
+          $movieObj->MovieGenres= $genreArray;
+
+          //Set Any Properties
+          $propertyArray = new Doctrine_Collection(Doctrine::getTable('MovieProperty'));
+
+          for($i=0; $i< 1; $i++)
+          {
+            $moviePropertyObj = new MovieProperty();
+            $moviePropertyObj['lookup'] = "movie-length";
+            $moviePropertyObj['value'] = "$movie->runningTime";
+            $moviePropertyObj['movie_id'] = $movieObj['id'];
+            $propertyArray[] = $moviePropertyObj;
+          }
+
+           $movieObj['MovieProperty'] = $propertyArray;
+           $movieObj->save();
+
+           //Commit transaction
+           $conn->commit();
+
+           $this->_movieLoggerObj->countNewInsert();
+
+           return $movieObj;
         }
-      }
-      
-      //Set the genres
-      $movieObj->MovieGenres= $genreArray;
-      
-      //Set Any Properties
-      $propertyArray = new Doctrine_Collection(Doctrine::getTable('MovieProperty'));
-
-      for($i=0; $i< 1; $i++)
-      {
-        $moviePropertyObj = new MovieProperty();
-        $moviePropertyObj['lookup'] = "movie-length";
-        $moviePropertyObj['value'] = "$movie->runningTime";
-        $moviePropertyObj['movie_id'] = $movieObj['id'];
-        $propertyArray[] = $moviePropertyObj;
-      }
-
-       $movieObj['MovieProperty'] = $propertyArray;
-       $movieObj->save();
-
-       //Commit transaction
-       $conn->commit();
-
-       return $movieObj;
-    }
-    catch(Exception $e)
-    {
-        $conn->rollback(); // deletes all savepoints
-         //echo ' problem add to log '. $e;
-       // exit;
-    }
+        catch(Exception $e)
+        {
+            $conn->rollback(); // deletes all savepoints
+             //echo ' problem add to log '. $e;
+           // exit;
+        }
   }
 
   
@@ -360,70 +377,14 @@ class importNyMovies implements logger
      return $genreObj;
   }
 
-  /**
-   *
-   * Implement interface functions
-   *
-   *
-   */
- 
 
   /**
-   * Add insert to the counter
+   * Delete Object
    */
-   public function countNewInsert($type)
-   {
-        ($type == 'movies')? $this->_totalMoviesInsertsInt++ : $this->_totalPoiInsertsInt++;
-   }
-
-   /**
-    * Add update to the counter
-    */
-   public function countUpdate($type)
-   {
-        ($type == 'movies')? $this->_totalMoviesInsertsInt++ : $this->_totalPoiUpdatesInt++;
-   }
-
-
-   /**
-    * Get the total number of new movie inserts
-    *
-    * @return integer
-    */
-   public function getTotalMovieInserts()
-   {
-        return $this->_totalMovieInsertsInt;
-   }
-
-   /**
-    * Get the total number of updates
-    *
-    * @return integer
-    */
-   public function getTotalMovieUpdates()
-   {
-        return  $this->_totalMovieUpdatesInt;
-   }
-
-   /**
-    * Get the total number of new inserts
-    *
-    * @return integer
-    */
-   public function getTotalPoiInserts()
-   {
-        return $this->_totalMoviesInsertsInt;
-   }
-
-   /**
-    * Get the total number of updates
-    *
-    * @return integer
-    */
-   public function getTotalPoiUpdates()
-   {
-        return  $this->_totalPoiUpdatesInt;
-   }
-
+  public function  __destruct()
+  {
+      $this->_movieLoggerObj->saveStats();
+      $this->_poiLoggerObj->saveStats();
+  }
 }
 ?>
