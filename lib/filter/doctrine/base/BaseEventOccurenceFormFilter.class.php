@@ -13,7 +13,7 @@ abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vendor_event_occurence_id' => new sfWidgetFormFilterInput(),
+      'vendor_event_occurence_id' => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'booking_url'               => new sfWidgetFormFilterInput(),
       'start'                     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'end'                       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),

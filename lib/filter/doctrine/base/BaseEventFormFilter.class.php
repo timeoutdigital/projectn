@@ -13,7 +13,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vendor_event_id'              => new sfWidgetFormFilterInput(),
+      'vendor_event_id'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'name'                         => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'short_description'            => new sfWidgetFormFilterInput(),
       'description'                  => new sfWidgetFormFilterInput(),

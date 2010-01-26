@@ -139,7 +139,7 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->setTableName('poi');
         $this->hasColumn('vendor_poi_id', 'string', 10, array(
              'type' => 'string',
-             'notnull' => false,
+             'notnull' => true,
              'length' => '10',
              ));
         $this->hasColumn('review_date', 'datetime', null, array(

@@ -13,7 +13,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'vendor_poi_id'              => new sfWidgetFormFilterInput(),
+      'vendor_poi_id'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'review_date'                => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'local_language'             => new sfWidgetFormFilterInput(),
       'poi_name'                   => new sfWidgetFormFilterInput(),

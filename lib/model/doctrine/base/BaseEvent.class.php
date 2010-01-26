@@ -64,7 +64,7 @@ abstract class BaseEvent extends sfDoctrineRecord
         $this->setTableName('event');
         $this->hasColumn('vendor_event_id', 'string', 10, array(
              'type' => 'string',
-             'notnull' => false,
+             'notnull' => true,
              'length' => '10',
              ));
         $this->hasColumn('name', 'string', 256, array(

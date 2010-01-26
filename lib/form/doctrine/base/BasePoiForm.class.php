@@ -55,7 +55,7 @@ abstract class BasePoiForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vendor_poi_id'              => new sfValidatorString(array('max_length' => 10, 'required' => false)),
+      'vendor_poi_id'              => new sfValidatorString(array('max_length' => 10)),
       'review_date'                => new sfValidatorPass(array('required' => false)),
       'local_language'             => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'poi_name'                   => new sfValidatorString(array('max_length' => 80, 'required' => false)),
