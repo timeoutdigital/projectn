@@ -71,6 +71,23 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $poi->link('PoiCategories', array( 1 ) );
     $poi->save();
 
+    $poi2 = new Poi();
+    $poi2->setPoiName( 'test name2' );
+    $poi2->setStreet( 'test street' );
+    $poi2->setHouseNo('12' );
+    $poi2->setZips('1234' );
+    $poi2->setCity( 'test town' );
+    $poi2->setDistrict( 'test district' );
+    $poi2->setCountry( 'test country' );
+    $poi2->setVendorPoiId( '123' );
+    $poi2->setLocalLanguage('en');
+    $poi2->setCountryCode( 'uk' );
+    $poi2->setLongitude( '0.1' );
+    $poi2->setLatitude( '0.2' );
+    $poi2->link( 'Vendor', array( 1 ) );
+    $poi2->link('PoiCategories', array( 1 ) );
+    $poi2->save();
+
     $vendorEventCategory = new VendorEventCategory();
     $vendorEventCategory['name'] = 'test vendor category';
     $vendorEventCategory['Vendor'] = $vendor;
@@ -82,17 +99,17 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $eventCategories = new Doctrine_Collection(Doctrine::getTable('EventCategory'));
 
     $eventCat = new EventCategory();
-    $eventCat->setName( 'test1' );
+    $eventCat->setName( 'concerts' );
     $eventCat->save();
     $eventCategories[] = $eventCat;
 
     $eventCat = new EventCategory();
-    $eventCat->setName( 'test2' );
+    $eventCat->setName( 'theater' );
     $eventCat->save();
     $eventCategories[] = $eventCat;
 
     $eventCat = new EventCategory();
-    $eventCat->setName( 'test3' );
+    $eventCat->setName( 'sport' );
     $eventCat->save();
     $eventCategories[] = $eventCat;
 
@@ -100,13 +117,23 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event->setName( 'test event' );
     $event['VendorEventCategories'] = $vendorEventCategories;
     $event['EventCategories'] = $eventCategories;
+    $event['vendor_event_id'] = 1111;
     $event->setShortDescription( 'test vendor short description' );
     $event->setDescription( 'test vendor description' );
-    $event->setBookingUrl( 'test booking url' );
-    $event->setUrl( 'test url' );
+    $event->setBookingUrl( 'http://test-booking.url' );
+    $event->setUrl( 'http://test.url' );
     $event->setPrice( 'test price' );
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
+
+    $occurrence = new EventOccurrence();
+    $occurrence['vendor_event_occurrence_id'] = 1110;
+    $occurrence->setStart( '2010-01-31' );
+    $occurrence->setEnd( '2010-01-31' );
+    $occurrence->setUtcOffset( '-05:00:00' );
+    $occurrence->link( 'Event', array( 1 ) );
+    $occurrence->link( 'Poi', array( 1 ) );
+    $occurrence->save();
 
     $property = new EventProperty();
     $property['lookup'] = 'test key 1';
@@ -123,17 +150,19 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event2 = new Event();
     $event2['VendorEventCategories'] = $vendorEventCategories;
     $event2['EventCategories'] = $eventCategories;
+    $event2['vendor_event_id'] = 1112;
     $event2->setName( 'test event2' . $this->specialChars );
     $event2->link( 'Vendor', array( 1 ) );
     $event2->save();
 
-    $occurrence = new EventOccurence();
-    $occurrence->setStart( '2010-01-31 21:00:20' );
-    $occurrence->setEnd( '2010-01-31 22:30:00' );
-    $occurrence->setUtcOffset( '-05:00:00' );
-    $occurrence->link( 'Event', array( 1 ) );
-    $occurrence->link( 'Poi', array( 1 ) );
-    $occurrence->save();
+    $occurrence2 = new EventOccurrence();
+    $occurrence2['vendor_event_occurrence_id'] = 1110;
+    $occurrence2->setStart( '2010-01-31' );
+    $occurrence2->setEnd( '2010-01-31' );
+    $occurrence2->setUtcOffset( '-05:00:00' );
+    $occurrence2->link( 'Event', array( 2 ) );
+    $occurrence2->link( 'Poi', array( 1 ) );
+    $occurrence2->save();
 
 
     $this->destination = dirname( __FILE__ ) . '/../../export/event/test.xml';
@@ -165,8 +194,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     //vendor-event
     $rootElement = $this->domDocument->firstChild;
-    $this->assertEquals( $this->vendor->getName(), $rootElement->getAttribute('name') );
-    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $rootElement->getAttribute('modified') );
+    $this->assertEquals( $this->vendor->getName(), $rootElement->getAttribute('vendor') );
+    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $rootElement->getAttribute('modified') );
   }
 
   /**
@@ -176,7 +205,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   {
     $eventElement = $this->domDocument->firstChild->firstChild;
     $this->assertTrue( $eventElement instanceof DOMElement );
-    $this->assertEquals( 'veid_1234', $eventElement->getAttribute('veid') );
+    $this->assertEquals( '1111', $eventElement->getAttribute('id') );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $eventElement->getAttribute('modified') );
 
     $this->assertEquals('test event', $eventElement->getElementsByTagName('name')->item(0)->nodeValue );
@@ -191,12 +220,12 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals(3, $categoryElements1->length);
     
-    $this->assertEquals( 'test1', $categoryElements1->item(0)->nodeValue );
-    $this->assertEquals( 'test2', $categoryElements1->item(1)->nodeValue );
-    $this->assertEquals( 'test3', $categoryElements1->item(2)->nodeValue );
+    $this->assertEquals( 'concerts', $categoryElements1->item(0)->nodeValue );
+    $this->assertEquals( 'theater', $categoryElements1->item(1)->nodeValue );
+    $this->assertEquals( 'sport', $categoryElements1->item(2)->nodeValue );
 
     $categoryElements2 = $this->xpath->query( '/vendor-events/event[2]/category' );
-    $this->assertEquals( 'test1', $categoryElements2->item(0)->nodeValue );
+    $this->assertEquals( 'concerts', $categoryElements2->item(0)->nodeValue );
   }
 
   /**
@@ -228,13 +257,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(1, $descriptions->length );
     $this->assertEquals( 'test vendor description', $descriptions->item(0)->nodeValue );
 
-    $bookingUrl = $versionTag->getElementsByTagName( 'booking-url' );
+    $bookingUrl = $versionTag->getElementsByTagName( 'booking_url' );
     $this->assertEquals(1, $bookingUrl->length );
-    $this->assertEquals( 'test booking url', $bookingUrl->item(0)->nodeValue );
+    $this->assertEquals( 'http://test-booking.url', $bookingUrl->item(0)->nodeValue );
 
     $url = $versionTag->getElementsByTagName( 'url' );
     $this->assertEquals(1, $url->length );
-    $this->assertEquals( 'test url', $url->item(0)->nodeValue );
+    $this->assertEquals( 'http://test.url', $url->item(0)->nodeValue );
 
     $price = $versionTag->getElementsByTagName( 'price' );
     $this->assertEquals(1, $price->length );
@@ -252,11 +281,11 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $showtimes1 = $showtimes->item(0);
    
     $this->assertEquals( '1', $showtimes1->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
-    $this->assertEquals( 'test booking url', $showtimes1->getElementsByTagName( 'booking-url' )->item(0)->nodeValue) ;
+    $this->assertEquals( 'http://test-booking.url', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
     $this->assertEquals( 1, $showtimes1->getElementsByTagName( 'time' )->length );
-    $this->assertEquals( '2010-01-31 21:00:20', $showtimes1->getElementsByTagName( 'start-date' )->item(0)->nodeValue );
-    $this->assertEquals( '2010-01-31 22:30:00', $showtimes1->getElementsByTagName( 'end-date' )->item(0)->nodeValue );
-    $this->assertEquals( '-05:00:00', $showtimes1->getElementsByTagName( 'utc-offset' )->item(0)->nodeValue );
+    $this->assertEquals( '2010-01-31', $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue );
+    $this->assertEquals( '2010-01-31', $showtimes1->getElementsByTagName( 'end_date' )->item(0)->nodeValue );
+    $this->assertEquals( '-05:00:00', $showtimes1->getElementsByTagName( 'utc_offset' )->item(0)->nodeValue );
   }
   
   /**
@@ -271,6 +300,14 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'test value 1', $propertyElements1->item(0)->nodeValue );
     $this->assertEquals( 'test key 2', $propertyElements1->item(1)->getAttribute( 'key' ) );
     $this->assertEquals( 'test value 2', $propertyElements1->item(1)->nodeValue );
+  }
+
+  /**
+   * check xml against customer's schema
+   */
+  public function testAgainstSchema()
+  {
+    $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'events.xsd' ) );
   }
 
 }

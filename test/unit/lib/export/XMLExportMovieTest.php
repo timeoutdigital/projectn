@@ -90,6 +90,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $genre->save();
 
     $movie = new Movie();
+    $movie[ 'vendor_movie_id' ] = 1111;
     $movie[ 'Vendor' ] = $vendor;
     $movie[ 'Poi' ] = $poi;
     $movie[ 'name' ] = 'test movie name';
@@ -115,6 +116,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $property2->save();
 
     $movie2 = new Movie();
+    $movie2[ 'vendor_movie_id' ] = 1111;
     $movie2[ 'Vendor' ] = $vendor;
     $movie2[ 'Poi' ] = $poi2;
     $movie2[ 'name' ] = 'test movie name';
@@ -198,7 +200,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     //test the second movie as well
     $placeId = $this->xpath->query( '/vendor-movies/movie[2]/version/place' )->item(0);
     $this->assertEquals('2', $placeId->getAttribute( 'place-id' ) );
-    return;
   }
 
   /**

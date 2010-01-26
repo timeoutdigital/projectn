@@ -36,21 +36,25 @@ class EventTableTest extends PHPUnit_Framework_TestCase
     $eventCategory->save();
     
     $event = new Event();
+    $event['vendor_event_id'] = 1111;
     $event->setName( 'test event1' );
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
     $event = new Event();
+    $event['vendor_event_id'] = 1111;
     $event->setName( 'test event2' );
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
     $event = new Event();
+    $event['vendor_event_id'] = 1111;
     $event->setName( 'test event2' );
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
     $event = new Event();
+    $event['vendor_event_id'] = 1111;
     $event->setName( 'test event3' );
     $event->link( 'Vendor', array( 2 ) );
     $event->save();
