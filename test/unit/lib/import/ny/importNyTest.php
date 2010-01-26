@@ -280,8 +280,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
     $this->assertEquals( 'movies', $eventObj['EventCategories'][ 0 ][ 'name' ] );
-
-    $this->assertEquals( 'other', $eventObj['EventCategories'][ 1 ][ 'name' ] );
   }
 
     /*
@@ -308,9 +306,9 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
-    $this->assertEquals( 'shop', $mappedCategoriesObject[ 1 ][ 'name' ] );
+    $this->assertEquals( 'shop', $mappedCategoriesObject[ 0 ][ 'name' ] );
 
-    $this->assertEquals( 2, count( $mappedCategoriesObject ) );
+    $this->assertEquals( 1, count( $mappedCategoriesObject ) );
   }
 
   /*
@@ -324,9 +322,9 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
-    $this->assertEquals( 'movies', $mappedCategoriesObject[ 1 ][ 'name' ] );
+    $this->assertEquals( 'movies', $mappedCategoriesObject[ 0 ][ 'name' ] );
 
-    $this->assertEquals( 2, count( $mappedCategoriesObject ) );
+    $this->assertEquals( 1, count( $mappedCategoriesObject ) );
   }
 
 }

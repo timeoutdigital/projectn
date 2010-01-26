@@ -53,10 +53,10 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->vendor2->save();
 
         $category = new PoiCategory();
-        $category->setName( 'test' );
+        $category->setName( 'restaurant' );
         $category->save();
 
-        ProjectN_Test_Unit_Factory::add( 'PoiCategory', array( 'name' => 'test 2' ) );
+        ProjectN_Test_Unit_Factory::add( 'PoiCategory', array( 'name' => 'cinema' ) );
 
         $poi = new Poi();
         $poi->setPoiName( 'test name' );
@@ -65,7 +65,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setZips('1234' );
         $poi->setCity( 'test town' );
         $poi->setDistrict( 'test district' );
-        $poi->setCountry( 'test country' );
+        $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
         $poi->setCountryCode( 'uk' );
@@ -104,7 +104,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setZips('4321' );
         $poi->setCity( 'test town2' . $this->specialChars );
         $poi->setDistrict( 'test district2' . $this->specialChars );
-        $poi->setCountry( 'test country2' . $this->specialChars );
+        $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
         $poi->setCountryCode( 'uk' );
@@ -220,7 +220,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '1234', (string) $contact->zip );
       $this->assertEquals( 'test town', (string) $contact->city );
       $this->assertEquals( 'test district',(string)  $contact->district );
-      $this->assertEquals( 'test country', (string) $contact->country );
+      $this->assertEquals( 'GBR', (string) $contact->country );
     }
 
     /**
@@ -246,15 +246,15 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testGenerateXMLHasContentTagsWithRequiredChildren()
     {
       //make sure we got not more than one node
-      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/content' ) ) );
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/version/content' ) ) );
 
-      $content = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/content' ) );
+      $content = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/version/content' ) );
 
       $this->assertEquals( 'test short description', (string) $content->{'short-description'} );
       $this->assertEquals( 'test description', (string) $content->description );
       $this->assertEquals( 'test public transport', (string) $content->{'public-transport'} );
       //$this->assertEquals( 'test price', (string) $content->price );
-      $this->assertEquals( 'test opening times', (string) $content->{'opening-times'} );
+      $this->assertEquals( 'test opening times', (string) $content->{'openingtimes'} );
     }
 
     /**
@@ -272,7 +272,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertRegExp( ':13' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':test town2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':test district2' . $this->escapedSpecialChars . ':', $xmlString );
-      $this->assertRegExp( ':test country2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi key special' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi value special' . $this->escapedSpecialChars . ':', $xmlString );
     }
@@ -282,12 +281,21 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testPropertyTags()
     {
-      $properties = $this->xml->entry[0]->property;
-      var_dump( $this->xml->entry[0]->property );
+      $properties = $this->xml->entry[0]->version->content->property;
       $this->assertEquals( 'poi key 1', (string) $properties[0]['key'] );
       $this->assertEquals( 'poi value 1', (string) $properties[0] );
       $this->assertEquals( 'poi key 2', (string) $properties[1]['key'] );
       $this->assertEquals( 'poi value 2', (string) $properties[1] );
+    }
+
+    /**
+     *
+     */
+    public function testValidatesAgainSchema()
+    {
+      $this->domDocument = new DOMDocument();
+      $this->domDocument->load( $this->destination );
+      $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'poi.xsd' ) );
     }
 }
 ?>
