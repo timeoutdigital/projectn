@@ -34,15 +34,9 @@ abstract class XMLExport
   protected $model;
 
   /**
-   * A string to escape for xml
-   *
-   * @param string $string
-   * @return string Escaped string
+   * @var DOMDocument
    */
-  static public function escapeSpecialChars( $string )
-  {
-    return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
-  }
+  protected $domDocument;
 
   /**
    * @param Vendor $vendor
@@ -73,7 +67,7 @@ abstract class XMLExport
   {
     $this->modifiedTimeStamp = date( 'Y-m-d\TH:i:s' );
     $data = $this->getData();
-    $xml = $this->generateXML( $data );
+    $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
   }
 
@@ -97,26 +91,37 @@ abstract class XMLExport
   }
 
   /**
+   * Returns the current DOMDocument. If none available, a new instance is
+   * created.
    *
-   * @return string XML string
+   * @return DOMDocument
    */
-  abstract protected function generateXML( $data );
+  protected function getDomDocument()
+  {
+    if( !$this->domDocument )
+    {
+      $this->domDocument = new DOMDocument('1.0', 'UTF-8');
+    }
+    return $this->domDocument;
+  }
 
   /**
-   * @param SimpleXMLElement $xml
+   *
+   * @return DOMDocument
    */
-  protected function writeXMLToFile( $xml )
+  abstract protected function mapDataToDOMDocument( $data, $domDocument );
+
+  /**
+   * @param DOMDocument $domDocument
+   */
+  protected function writeXMLToFile( DOMDocument $domDocument )
   {
     if( file_exists( $this->destination ) )
     {
       unlink( $this->destination );
     }
 
-
-    $xml->asXML( $this->destination );
-
-
-
+    $domDocument->save($this->destination);
   }
 
 }

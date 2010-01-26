@@ -222,7 +222,6 @@
 				<released>1</released>
 			</text>
 		</text_system>
-
 		<attributes>
 			<attribute>
 				<name>Critic's Picks</name>
@@ -235,7 +234,6 @@
 				<value>Yes</value>
 			</attribute>
 		</attributes>
-
 		<sort_string>Rien Que Les Heures</sort_string>
 	</event>
 

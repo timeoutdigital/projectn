@@ -13,6 +13,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
+      'vendor_event_id'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'name'                         => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'short_description'            => new sfWidgetFormFilterInput(),
       'description'                  => new sfWidgetFormFilterInput(),
@@ -28,6 +29,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
+      'vendor_event_id'              => new sfValidatorPass(array('required' => false)),
       'name'                         => new sfValidatorPass(array('required' => false)),
       'short_description'            => new sfValidatorPass(array('required' => false)),
       'description'                  => new sfValidatorPass(array('required' => false)),
@@ -92,6 +94,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                           => 'Number',
+      'vendor_event_id'              => 'Text',
       'name'                         => 'Text',
       'short_description'            => 'Text',
       'description'                  => 'Text',

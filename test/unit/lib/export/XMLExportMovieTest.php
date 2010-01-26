@@ -19,6 +19,16 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
   protected $escapedSpecialChars;
 
+  /*
+   * @var DOMDocument
+   */
+  protected $domDocument;
+
+  /*
+   * @var DOMXPath
+   */
+  protected $xpath;
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -117,13 +127,13 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2->link( 'MovieGenres', array( 1, 2 ) );
     $movie2->save();
 
-    var_dump( '___'.count($movie[ 'MovieProperty' ]) );
-
     $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
     $this->export = new XMLExportMovie( $this->vendor, $this->destination );
 
     $this->export->run();
-    $this->xml = simplexml_load_file( $this->destination );
+    $this->domDocument = new DOMDocument();
+    $this->domDocument->load( $this->destination );
+    $this->xpath = new DOMXPath($this->domDocument);
 
     $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
   }
@@ -142,44 +152,53 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
    */
   public function testMovieTag()
   {
-    $this->assertEquals( $this->vendor->getName(), (string) $this->xml['vendor'] );
-    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
+    $rootElement = $this->domDocument->firstChild;
+    $this->assertEquals('vendor-movies', $rootElement->nodeName);
+
+    $this->assertEquals( $this->vendor->getName(), $rootElement->getAttribute('vendor') );
+    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $rootElement->getAttribute('modified') );
     
-    $movieTag = $this->xml->movie[0];
+    $movieElement = $this->xpath->query( '/vendor-movies/movie' )->item(0);
+    
     //movie@attributes
-    $this->assertEquals( '187', (string) $movieTag['id'] );
-    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $movieTag['modified'] );
+    $this->assertEquals( '187', $movieElement->getAttribute( 'id' ) );
+    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
   
     //movie/name
-    $this->assertEquals( 'test movie name', (string) $movieTag->name );
+    $this->assertEquals( 'test movie name', $movieElement->getElementsByTagName( 'name' )->item(0)->nodeValue );
 
-    $versionTag = $this->xml->movie[0]->version;
+    $versionElement = $movieElement->getElementsByTagName( 'version' )->item(0);//$this->domDocument->movie[0]->version;
+    
     //movie/version
-    $this->assertEquals( 'en', (string) $versionTag['lang'] );
+    $this->assertEquals( 'en', $versionElement->getAttribute( 'lang' ) );
     
     //movie/version/name
-    $this->assertEquals( 'test movie name', (string) $versionTag->name );
+    $this->assertEquals( 'test movie name', $versionElement->getElementsByTagName( 'name' )->item(0)->nodeValue );//(string) $versionTag->name );
 
     //movie/version/genre
-    $this->assertEquals( 'comedy', (string) $versionTag->genre[0] );
-    $this->assertEquals( 'horror', (string) $versionTag->genre[1] );
+    $genreElements = $versionElement->getElementsByTagName( 'genre' );
+    $this->assertEquals( 'comedy', $genreElements->item(0)->nodeValue );
+    $this->assertEquals( 'horror', $genreElements->item(1)->nodeValue );
 
     //movie/version/plot
-    $this->assertEquals( 'test movie plot', (string) $versionTag->plot );
+    $this->assertEquals( 'test movie plot', $versionElement->getElementsByTagName( 'plot' )->item(0)->nodeValue );
 
     //movie/version/review
-    $this->assertEquals( 'test movie review', (string) $versionTag->review );
+    $this->assertEquals( 'test movie review', $versionElement->getElementsByTagName( 'review' )->item(0)->nodeValue );
 
     //movie/version/url
-    $this->assertEquals( 'http://movies.co.uk', (string) $versionTag->url );
+    $this->assertEquals( 'http://movies.co.uk', $versionElement->getElementsByTagName( 'url' )->item(0)->nodeValue );
 
     //movie/version/rating
-    $this->assertEquals( '0.1', (string) $versionTag->rating );
+    $this->assertEquals( '0.1', $versionElement->getElementsByTagName( 'rating' )->item(0)->nodeValue );
 
     //movie/version/place
-    $this->assertEquals( '1', (string) $versionTag->place['place-id'] );
+    $this->assertEquals( '1', $versionElement->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
+
     //test the second movie as well
-    $this->assertEquals('2', (string) $this->xml->movie[1]->version->place['place-id']);
+    $placeId = $this->xpath->query( '/vendor-movies/movie[2]/version/place' )->item(0);
+    $this->assertEquals('2', $placeId->getAttribute( 'place-id' ) );
+    return;
   }
 
   /**
@@ -187,12 +206,12 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
    */
   public function testPropertyTags()
   {
-    $properties = $this->xml->movie[0]->version->property;
-    var_dump( $this->xml->movie[0]->version );
-    $this->assertEquals( 'movie key 1', (string) $properties[0]['key'] );
-    $this->assertEquals( 'movie value 1', (string) $properties[0] );
-    $this->assertEquals( 'movie key 2', (string) $properties[1]['key'] );
-    $this->assertEquals( 'movie value 2', (string) $properties[1] );
+    //$properties = $this->domDocument->movie[0]->version->property;
+    $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/property' );
+    $this->assertEquals( 'movie key 1', $propertyElements->item(0)->getAttribute( 'key' ) );
+    $this->assertEquals( 'movie value 1', $propertyElements->item(0)->nodeValue );
+    $this->assertEquals( 'movie key 2', $propertyElements->item(1)->getAttribute( 'key' ) );
+    $this->assertEquals( 'movie value 2', $propertyElements->item(1)->nodeValue );
   }
 }
 ?>

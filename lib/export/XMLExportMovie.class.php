@@ -16,6 +16,7 @@ class XMLExportMovie extends XMLExport
   /**
    * Translates a Doctrine collection of movies to xml.
    *
+   * @param DOMDocument $domDocument
    * @param Doctrine_Collection $movieCollection
    * @return SimpleXMLElement
    * 
@@ -24,59 +25,67 @@ class XMLExportMovie extends XMLExport
    * @todo correct movie/version/name to use real value
    * @todo confirm where the place tag belongs
    */
-  protected function generateXML( $movieCollection )
+  protected function mapDataToDOMDocument($movieCollection, $domDocument)
   {
-    $rootTag =  simplexml_load_string('<vendor-movies/>');
+    $rootTag =  $domDocument->appendChild( new DOMElement( 'vendor-movies' ));
 
-    $rootTag->addAttribute( 'modified', $this->modifiedTimeStamp );
-    $rootTag->addAttribute( 'vendor', $this->vendor->getName() );
+    $rootTag->setAttribute( 'modified', $this->modifiedTimeStamp );
+    $rootTag->setAttribute( 'vendor', $this->vendor->getName() );
 
     foreach( $movieCollection as $movie )
     {
-      $movieTag = $rootTag->addChild( 'movie' );
-      $movieTag->addAttribute( 'id', '187' );
-      $movieTag->addAttribute( 'modified', $this->modifiedTimeStamp );
+      $movieElement = $rootTag->appendChild( new DOMElement( 'movie' ) );
+      $movieElement->setAttribute( 'id', '187' );
+      $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
-      $movieTag->addChild( 'name', htmlspecialchars( $movie['name'] ) );
+      $nameElement = $movieElement->appendChild( new DOMElement( 'name' ) );
+      $nameElement->appendChild( $domDocument->createCDATASection( $movie['name'] ) );
 
       //movie/version
-      $versionTag = $movieTag->addChild( 'version' );
-      $versionTag->addAttribute( 'lang', 'en' );
+      $versionElement = $movieElement->appendChild( new DOMElement( 'version' ) );
+      $versionElement->setAttribute( 'lang', 'en' );
 
       //movie/version/name
-      $versionTag->addChild( 'name', htmlspecialchars( $movie['name'] ) );
+      $nameElement = $versionElement->appendChild( new DOMElement( 'name' ) );
+      $nameElement->appendChild( $domDocument->createCDATASection( $movie['name'] ) );
 
       //movie/version/genre
       foreach( $movie['MovieGenres'] as $genre )
       {
-        $versionTag->addChild( 'genre', htmlspecialchars( $genre['genre'] ) );
+        $genreElement = $versionElement->appendChild( new DOMElement( 'genre' ) );
+        $genreElement->appendChild( $domDocument->createCDATASection( $genre['genre'] ) );
       }
 
       //movie/version/plot
-      $versionTag->addChild( 'plot', htmlspecialchars( $movie['plot'] ) );
+      $plotElement = $versionElement->appendChild( new DOMElement( 'plot' ) );
+      $plotElement->appendChild( $domDocument->createCDATASection( $movie['plot'] ) );
 
       //movie/version/review
-      $versionTag->addChild( 'review', htmlspecialchars( $movie['review'] ) );
+      $reviewElement = $versionElement->appendChild( new DOMElement( 'review' ));
+      $reviewElement->appendChild( $domDocument->createCDATASection( $movie['review'] ) );
 
       //movie/version/url
-      $versionTag->addChild( 'url', $movie['url'] );
+      $urlElement = $versionElement->appendChild( new DOMElement( 'url' ) );
+      $urlElement->appendChild( $domDocument->createCDATASection( $movie['url'] ) );
+
 
       //movie/version/rating
-      $versionTag->addChild( 'rating', $movie['rating'] );
+      $versionElement->appendChild( new DOMElement( 'rating', $movie['rating'] ) );
 
       //movie/version/place
-      $placeTag = $versionTag->addChild( 'place' );
-      $placeTag->addAttribute( 'place-id', $movie['Poi']['id'] );
+      $placeTag = $versionElement->appendChild( new DOMElement( 'place' ) );
+      $placeTag->setAttribute( 'place-id', $movie['Poi']['id'] );
       
       foreach( $movie['MovieProperty'] as $property )
       {
-        $propertyTag = $versionTag->addChild( 'property', htmlspecialchars($property[ 'value' ]) );
-        $propertyTag->addAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
+        $propertyTag = $versionElement->appendChild( new DOMElement( 'property' ) );//, htmlspecialchars($property[ 'value' ]) );
+        $propertyTag->appendChild( $domDocument->createCDATASection( $property['value'] ) );
+        $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
       }
     }
 
-    return $rootTag;
+    return $domDocument;
   }
 }
 ?>

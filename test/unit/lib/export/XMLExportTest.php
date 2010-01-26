@@ -21,6 +21,12 @@ class XMLExportTest extends PHPUnit_Framework_TestCase {
 
     private $specialChars = '&<>\'"';
 
+    /**
+     *
+     * @var DOMDocument
+     */
+    private $domDocument;
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -83,13 +89,12 @@ protected function setUp()
 
         $poi->save();
 
-        $this->xml = simplexml_load_string('
-          <root>
-            <node />
-          </root>'
-        );
+        $domDocument = new DOMDocument('1.0', 'UTF-8');
+        $rootElement = $domDocument->appendChild(new DOMElement('root'));
+        $rootElement->appendChild(new DOMElement('node'));
+        $this->domDocument = $domDocument;
 
-        $this->destination = dirname( __FILE__ ) . '/../../export/poi/test.xml';
+        $this->destination = dirname( __FILE__ ) . '/../../export/poi/XMLExport.xml';
         //$this->export = new XMLExportPOI( $this->vendor2, $this->destination );
 
         $this->export = $this->getMockForAbstractClass( 'XMLExport',
@@ -138,8 +143,8 @@ protected function setUp()
   public function testRunCallsAbstractMethods()
   {
     $this->export->expects( $this->once() )
-                 ->method( 'generateXML' )
-                 ->will( $this->returnValue( $this->xml ) );
+                 ->method( 'mapDataToDOMDocument' )
+                 ->will( $this->returnValue( $this->domDocument ) );
 
     $this->export->run();
   }
@@ -150,8 +155,8 @@ protected function setUp()
   public function testGetStartDate()
   {
     $this->export->expects( $this->once() )
-                 ->method( 'generateXML' )
-                 ->will( $this->returnValue( $this->xml ) );
+                 ->method( 'mapDataToDOMDocument' )
+                 ->will( $this->returnValue( $this->domDocument ) );
     
     $date = date( 'Y-m-d\TH:i:s' );
     $this->export->run();
@@ -164,8 +169,8 @@ protected function setUp()
   public function testWriteToXMLCreatesCorrectFile()
   {
     $this->export->expects( $this->once() )
-                 ->method( 'generateXML' )
-                 ->will( $this->returnValue( $this->xml ) );
+                 ->method( 'mapDataToDOMDocument' )
+                 ->will( $this->returnValue( $this->domDocument ) );
     
     unlink( $this->destination );
     $this->assertFileNotExists( $this->destination );
@@ -173,19 +178,11 @@ protected function setUp()
     $this->export->run();
     $this->assertFileExists( $this->destination );
 
-    $xmlFromFile = simplexml_load_file( $this->destination );
-    $this->assertTrue( $xmlFromFile instanceof SimpleXMLElement );
-  }
-
-  /**
-   * check specialChars() takes care of special character, utf-8
-   */
-  public function testSpecialChars()
-  {
-    $this->assertEquals(
-      htmlspecialchars( $this->specialChars, ENT_NOQUOTES, 'UTF-8' ),
-      XMLExport::escapeSpecialChars( $this->specialChars )
-    );
+    $domDocument = new DOMDocument();
+    $domDocument->load( $this->destination );
+    $rootNodeList = $domDocument->getElementsByTagName('root');
+    $this->assertEquals( 1, $rootNodeList->length );
+    $this->assertEquals('root', $rootNodeList->item(0)->nodeName);
   }
 
 }

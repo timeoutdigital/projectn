@@ -16,8 +16,8 @@ abstract class BasePoiForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
-      'review_date'                => new sfWidgetFormInputText(),
       'vendor_poi_id'              => new sfWidgetFormInputText(),
+      'review_date'                => new sfWidgetFormInputText(),
       'local_language'             => new sfWidgetFormInputText(),
       'poi_name'                   => new sfWidgetFormInputText(),
       'house_no'                   => new sfWidgetFormInputText(),
@@ -55,8 +55,8 @@ abstract class BasePoiForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'vendor_poi_id'              => new sfValidatorString(array('max_length' => 10)),
       'review_date'                => new sfValidatorPass(array('required' => false)),
-      'vendor_poi_id'              => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'local_language'             => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'poi_name'                   => new sfValidatorString(array('max_length' => 80, 'required' => false)),
       'house_no'                   => new sfValidatorString(array('max_length' => 16, 'required' => false)),
