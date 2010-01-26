@@ -1,16 +1,16 @@
 <?php
 
 /**
- * EventOccurence form base class.
+ * EventOccurrence form base class.
  *
- * @method EventOccurence getObject() Returns the current form's model object
+ * @method EventOccurrence getObject() Returns the current form's model object
  *
  * @package    sf_sandbox
  * @subpackage form
  * @author     Your name here
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
-abstract class BaseEventOccurenceForm extends BaseFormDoctrine
+abstract class BaseEventOccurrenceForm extends BaseFormDoctrine
 {
   public function setup()
   {
@@ -36,7 +36,7 @@ abstract class BaseEventOccurenceForm extends BaseFormDoctrine
       'poi_id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
     ));
 
-    $this->widgetSchema->setNameFormat('event_occurence[%s]');
+    $this->widgetSchema->setNameFormat('event_occurrence[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -47,7 +47,7 @@ abstract class BaseEventOccurenceForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'EventOccurence';
+    return 'EventOccurrence';
   }
 
 }

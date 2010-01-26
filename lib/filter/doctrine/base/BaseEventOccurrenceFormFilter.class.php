@@ -1,14 +1,14 @@
 <?php
 
 /**
- * EventOccurence filter form base class.
+ * EventOccurrence filter form base class.
  *
  * @package    sf_sandbox
  * @subpackage filter
  * @author     Your name here
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
-abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
+abstract class BaseEventOccurrenceFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
@@ -32,7 +32,7 @@ abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
       'poi_id'                     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Poi'), 'column' => 'id')),
     ));
 
-    $this->widgetSchema->setNameFormat('event_occurence_filters[%s]');
+    $this->widgetSchema->setNameFormat('event_occurrence_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -43,7 +43,7 @@ abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
 
   public function getModelName()
   {
-    return 'EventOccurence';
+    return 'EventOccurrence';
   }
 
   public function getFields()

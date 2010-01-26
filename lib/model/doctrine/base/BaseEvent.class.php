@@ -17,7 +17,7 @@
  * @property Vendor $Vendor
  * @property Doctrine_Collection $EventCategories
  * @property Doctrine_Collection $VendorEventCategories
- * @property Doctrine_Collection $EventOccurence
+ * @property Doctrine_Collection $EventOccurrence
  * @property Doctrine_Collection $EventMedia
  * @property Doctrine_Collection $EventProperty
  * 
@@ -33,7 +33,7 @@
  * @method Vendor              getVendor()                Returns the current record's "Vendor" value
  * @method Doctrine_Collection getEventCategories()       Returns the current record's "EventCategories" collection
  * @method Doctrine_Collection getVendorEventCategories() Returns the current record's "VendorEventCategories" collection
- * @method Doctrine_Collection getEventOccurence()        Returns the current record's "EventOccurence" collection
+ * @method Doctrine_Collection getEventOccurrence()       Returns the current record's "EventOccurrence" collection
  * @method Doctrine_Collection getEventMedia()            Returns the current record's "EventMedia" collection
  * @method Doctrine_Collection getEventProperty()         Returns the current record's "EventProperty" collection
  * @method Event               setVendorEventId()         Sets the current record's "vendor_event_id" value
@@ -48,7 +48,7 @@
  * @method Event               setVendor()                Sets the current record's "Vendor" value
  * @method Event               setEventCategories()       Sets the current record's "EventCategories" collection
  * @method Event               setVendorEventCategories() Sets the current record's "VendorEventCategories" collection
- * @method Event               setEventOccurence()        Sets the current record's "EventOccurence" collection
+ * @method Event               setEventOccurrence()       Sets the current record's "EventOccurrence" collection
  * @method Event               setEventMedia()            Sets the current record's "EventMedia" collection
  * @method Event               setEventProperty()         Sets the current record's "EventProperty" collection
  * 
@@ -128,7 +128,7 @@ abstract class BaseEvent extends sfDoctrineRecord
              'local' => 'event_id',
              'foreign' => 'vendor_event_category_id'));
 
-        $this->hasMany('EventOccurence', array(
+        $this->hasMany('EventOccurrence', array(
              'local' => 'id',
              'foreign' => 'event_id'));
 

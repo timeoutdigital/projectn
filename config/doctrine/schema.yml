@@ -188,8 +188,8 @@ Event:
     EventCategories:            {class: EventCategory, refClass: LinkingEventCategory, local: event_id, foreign: event_category_id }
     VendorEventCategories:      {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: event_id, foreign: vendor_event_category_id }
 
-#Represents an occurence of an event
-EventOccurence:
+#Represents an occurrence of an event
+EventOccurrence:
   columns:
     vendor_event_occurrence_id: {type: string(10), notnull: true}
     booking_url:                {type: string(1024), notnull: false}
