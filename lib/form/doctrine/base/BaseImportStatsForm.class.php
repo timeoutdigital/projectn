@@ -19,6 +19,7 @@ abstract class BaseImportStatsForm extends BaseFormDoctrine
       'total_inserts' => new sfWidgetFormInputText(),
       'total_updates' => new sfWidgetFormInputText(),
       'vendor_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
+      'type'          => new sfWidgetFormInputText(),
       'created_at'    => new sfWidgetFormDateTime(),
       'updated_at'    => new sfWidgetFormDateTime(),
     ));
@@ -28,6 +29,7 @@ abstract class BaseImportStatsForm extends BaseFormDoctrine
       'total_inserts' => new sfValidatorInteger(),
       'total_updates' => new sfValidatorInteger(),
       'vendor_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
+      'type'          => new sfValidatorString(array('max_length' => 5)),
       'created_at'    => new sfValidatorDateTime(),
       'updated_at'    => new sfValidatorDateTime(),
     ));

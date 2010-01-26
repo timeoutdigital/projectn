@@ -15,6 +15,22 @@
  *
  * @version 1.0.0
  *
+ * <b>Example</b>
+ * <code>
+ *
+ * //Instaniate
+ * $movieLoggerObj = new logger($vendorObj, 'movie');
+ * $poiLoggerObj = new logger($vendorObj, 'poi');
+ *
+ *
+ * //user
+ * $movieLoggerObj->countNewInsert()
+ *
+ * //Save the log
+ * $movieLoggerObj->saveStats();
+ *
+ * </code>
+ *
  */
 class logger {
 
@@ -34,7 +50,10 @@ class logger {
      */
     public $vendorObj;
 
-
+    /**
+     *
+     * @var string
+     */
     public $type;
 
     /**
@@ -47,7 +66,6 @@ class logger {
     {
         $this->vendorObj = $vendorObj;
         $this->checkType($type);
-
     }
 
     /**
@@ -55,7 +73,6 @@ class logger {
      */
     public function countNewInsert()
     {
-        
         $this->totalInserts++;
     }
 
@@ -67,6 +84,9 @@ class logger {
         $this->totalUpdates++;
     }
 
+    /**
+     * Save the stats
+     */
     public function saveStats()
     {
         $statsObj = new ImportStats;
@@ -77,12 +97,10 @@ class logger {
         $statsObj->save();
     }
 
-
     /**
      * Check the type going in
      *
-     * @param <type> $type
-     * @return <type>
+     * @param <string> $type
      */
     public function checkType($type)
     {
