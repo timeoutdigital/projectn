@@ -28,14 +28,14 @@ class XMLExportEvent extends XMLExport
     $rootElement = $domDocument->appendChild(new DOMElement('vendor-events'));
 
     //vendor_event
-    $rootElement->setAttribute( 'name', $this->vendor['name'] );
+    $rootElement->setAttribute( 'vendor', $this->vendor['name'] );
     $rootElement->setAttribute( 'modified', $this->modifiedTimeStamp );
     
     foreach( $data as $event )
     {
       //event
       $eventElement = $rootElement->appendChild( new DOMElement('event') );
-      $eventElement->setAttribute( 'veid', 'veid_' . '1234' );
+      $eventElement->setAttribute( 'id', $event['vendor_event_id'] );
       $eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //event/name
@@ -46,7 +46,8 @@ class XMLExportEvent extends XMLExport
       //event/category
       foreach( $event['EventCategories'] as $category )
       {
-        $eventElement->appendChild( new DOMElement( 'category', $category ) );
+        $categoryElement = $eventElement->appendChild( new DOMElement( 'category' ) );
+        $categoryElement->appendChild( $this->domDocument->createCDATASection( $category ) );
       }
 
       //event/version
@@ -73,12 +74,18 @@ class XMLExportEvent extends XMLExport
       $shortDescription->appendChild( $this->domDocument->createCDATASection( $event->getDescription() ) );
 
       //event/version/booking-url
-      $bookingUrl = $versionElement->appendChild( new DOMElement( 'booking-url' ) );
-      $bookingUrl->appendChild( $this->domDocument->createCDATASection( $event->getBookingUrl() ) );
+      if( !empty( $event['booking_url'] ) )
+      {
+        $bookingUrl = $versionElement->appendChild( new DOMElement( 'booking_url' ) );
+        $bookingUrl->appendChild( $this->domDocument->createCDATASection( $event['booking_url'] ) );
+      }
 
       //event/version/url
-      $url = $versionElement->appendChild( new DOMElement( 'url' ) );
-      $url->appendChild( $this->domDocument->createCDATASection( $event->getUrl() ) );
+      if( !empty( $event['url'] ) )
+      {
+        $url = $versionElement->appendChild( new DOMElement( 'url' ) );
+        $url->appendChild( $this->domDocument->createCDATASection( $event->getUrl() ) );
+      }
 
       //event/version/price
       $price = $versionElement->appendChild( new DOMElement( 'price' ) );
@@ -93,43 +100,38 @@ class XMLExportEvent extends XMLExport
       }
 
       //event/showtimes
-      foreach( $event[ 'EventOccurence' ] as $occurrence )
+      $showtimeElement = $eventElement->appendChild( new DOMElement( 'showtimes' ) );
+
+      //event/showtimes/place
+      foreach( $event['Pois'] as $place)
       {
-        $showtimeElement = $eventElement->appendChild( new DOMElement( 'showtimes' ) );
-
-        //event/showtimes/place
         $placeElement = $showtimeElement->appendChild( new DOMElement('place') );
-        $placeElement->setAttribute( 'place-id', $occurrence->getPoiId() );
+        $placeElement->setAttribute( 'place-id', $place['id'] );
 
-        //event/showtimes/occurrence
-        $occurrenceElement = $showtimeElement->appendChild( new DOMElement( 'occurrence' ) );
+        foreach( $place['EventOccurrence'] as $eventOccurrence )
+        {
+          //event/showtimes/place/occurrence
+          $occurrenceElement = $placeElement->appendChild( new DOMElement( 'occurrence' ) );
 
-        //event/showtimes/occurrence/booking-url
-        $occurrenceBookingUrl = $occurrenceElement->appendChild( new DOMElement( 'booking-url' ) );
-        $occurrenceBookingUrl->appendChild( $this->domDocument->createCDATASection( $event->getBookingUrl() ) );
+          //event/showtimes/occurrence/booking-url
+          if( !empty( $event['booking_url'] ) )
+          {
+            $occurrenceBookingUrl = $occurrenceElement->appendChild( new DOMElement( 'booking_url' ) );
+            $occurrenceBookingUrl->appendChild( $this->domDocument->createCDATASection( $event['booking_url'] ) );
+          }
 
-        //event/showtimes/occurrence/time
-        $timeElement = $occurrenceElement->appendChild( new DOMElement('time') );
-        
-        //event/showtimes/occurrence/time/start-date
-        $timeElement->appendChild( new DOMElement( 'start-date', $occurrence->getStart() ) );
-        $timeElement->appendChild( new DOMElement( 'end-date', $occurrence->getEnd() ) );
-        $timeElement->appendChild( new DOMElement( 'utc-offset', $occurrence->getUtcOffset() ) );
+          //event/showtimes/occurrence/time
+          $timeElement = $occurrenceElement->appendChild( new DOMElement('time') );
+
+          //event/showtimes/occurrence/time/start-date
+          $timeElement->appendChild( new DOMElement( 'start_date', $eventOccurrence->getStart() ) );
+          $timeElement->appendChild( new DOMElement( 'end_date', $eventOccurrence->getEnd() ) );
+          $timeElement->appendChild( new DOMElement( 'utc_offset', $eventOccurrence->getUtcOffset() ) );
+        }
       }
     }
 
     return $domDocument;
-    
-    foreach( $data as $event )
-    {
-
-      //event/showtimes
-      foreach( $event[ 'EventOccurence' ] as $occurrence )
-      {
-      }
-    }
-
-    return $xmlElement;
   }
 
 }
