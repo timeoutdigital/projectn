@@ -1,0 +1,333 @@
+---
+options:
+  charset: utf8
+  collate: utf8_general_ci
+
+
+
+SLLCategory:
+  connection: searchlight_london
+  tableName: searchlight_london.category
+  actAs: [NestedSet]
+  columns:
+    id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+      autoincrement: true
+    parent_category_id:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    name:
+      type: string(255)
+      notnull: true
+    status:
+      type: integer(1)
+      unsigned: 1
+      default: '0'
+      notnull: true
+    name_url:
+      type: string(255)
+      default: ''
+      notnull: true
+    tagline:
+      type: string(2147483647)
+    last_listing_date:
+      type: date
+
+
+
+SLLVenueCategoryInformation:
+  connection: searchlight_london
+  tableName: searchlight_london.venue_category_information
+  columns:
+    category_id:
+      type: integer(4)
+      primary: true
+    venue_id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+    annotation: string(2147483647)
+    price_export: string(2147483647)
+    telephone_export: string(2147483647)
+    times_export: string(2147483647)
+    url_export: string(255)
+    food_served: integer(1)
+    free_venue: integer(1)
+    late_night: integer(1)
+  relations:
+    SLLVenue:
+      class: SLLVenue
+      local: venue_id
+      foreign: id
+    SLLCategory:
+      local: category_id
+      foreign: id
+
+
+
+SLLOccurrence:
+  connection: searchlight_london
+  tableName: searchlight_london.occurrence
+  columns:
+    id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+      autoincrement: true
+    event_id:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    venue_id:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    date_start:
+      type: date
+      notnull: true
+    time_start:
+      type: time(25)
+      notnull: true
+    date_end:
+      type: date
+      notnull: true
+    time_end:
+      type: time(25)
+      notnull: true
+    annotation_behaviour:
+      type: integer(1)
+      unsigned: 1
+    new:
+      type: integer(1)
+      notnull: true
+    last_chance:
+      type: integer(1)
+      notnull: true
+    recommended:
+      type: integer(1)
+      unsigned: 1
+      notnull: true
+    source:
+      type: string(15)
+      notnull: true
+    source_id:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    search_grouping_id:
+      type: integer(4)
+      unsigned: 1
+      default: '0'
+      notnull: true
+    seo_synopsis:
+      type: string(2147483647)
+    title: string(2147483647)
+    annotation: string(2147483647)
+    price: string(2147483647)
+    notable_title: string(30)
+    image_id: integer(4)
+  relations:
+    SLLEvent:
+      local: event_id
+      foreign: id
+    SLLVenue:
+      local: venue_id
+      foreign: id
+
+
+
+SLLEventImage:
+  connection: searchlight_london
+  tableName: searchlight_london.event_image
+  columns:
+    item_id:
+      type: integer(4)
+      unsigned: 1
+      autoincrement: true
+      primary: true
+    item_type:
+      type: string(255)
+      primary: true
+    image_id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+    sort_index:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+
+
+
+SLLEvent:
+  connection: searchlight_london
+  tableName: searchlight_london.event
+  columns:
+    id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+      autoincrement: true
+    master_category_id:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    default_venue_id:
+      type: integer(4)
+      unsigned: 1
+    title:
+      type: string(2147483647)
+      notnull: true
+    title_sort:
+      type: string(2147483647)
+      notnull: true
+    free:
+      type: integer(1)
+      default: '0'
+    image_id:
+      type: integer(4)
+      unsigned: 1
+    status:
+      type: integer(4)
+      unsigned: 1
+    recommended:
+      type: integer(1)
+      unsigned: 1
+      default: '0'
+      notnull: true
+    distinct_occurrences:
+      type: integer(1)
+      default: '0'
+      notnull: true
+    travel:
+      type: string(2147483647)
+      notnull: true
+    venue_prefix:
+      type: string(2147483647)
+      notnull: true
+    search_priority:
+      type: integer(4)
+      unsigned: 1
+    source:
+      type: string(15)
+      default: '0'
+    source_id:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    source_event_id:
+      type: integer(4)
+      notnull: true
+    date_start:
+      type: date
+      notnull: true
+    type:
+      type: integer(1)
+      unsigned: 1
+      default: '0'
+      notnull: true
+    title_url:
+      type: string(255)
+      default: ''
+      notnull: true
+    suitable_for_kids:
+      type: integer(1)
+      unsigned: 1
+    seo_synopsis:
+      type: string(2147483647)
+    annotation: string(2147483647)
+    phone: string(2147483647)
+    url: string(2147483647)
+    price: string(2147483647)
+    price_cheapest: decimal(10)
+    discount: integer(1)
+    keywords: string(2147483647)
+    tags: string(2147483647)
+    date_end: date
+    opening_times: string(2147483647)
+  relations:
+    SLLCategory:
+      local: master_category_id
+      foreign: id
+
+
+
+SLLEventCategoryMapping:
+  connection: searchlight_london
+  tableName: searchlight_london.event_category_mapping
+  columns:
+    category_id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+    event_id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+    annotation_behavior:
+      type: integer(1)
+      unsigned: 1
+      default: '1'
+    annotation: string(2147483647)
+    master_category_id: integer(4)
+  relations:
+    SLLCategory:
+      local: category_id
+      foreign: id
+    SLLEvent:
+      local: event_id
+      foreign: id
+
+
+
+SLLVenue:
+  connection: searchlight_london
+  tableName: searchlight_london.venue
+  columns:
+    id:
+      type: integer(4)
+      unsigned: 1
+      primary: true
+      autoincrement: true
+    neighbourhood_id:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    name:
+      type: string(255)
+    address:
+      type: string(2147483647)
+    postcode:
+      type: string(20)
+    latitude:
+      type: decimal(9)
+      notnull: true
+      scale: false
+    longitude:
+      type: decimal(9)
+      notnull: true
+      scale: false
+    status:
+      type: integer(4)
+      unsigned: 1
+      notnull: true
+    source_id:
+      type: integer(4)
+      unsigned: 1
+    event_count:
+      type: integer(4)
+      default: '0'
+      notnull: true
+    alt_name: string(255)
+    building_name: string(255)
+    travel: string(2147483647)
+    opening_times: string(255)
+    url: string(255)
+    phone: string(255)
+    email: string(255)
+    image_id: integer(4)
+    source: string(15)
+    annotation: string(2147483647)
