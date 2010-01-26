@@ -83,34 +83,69 @@ class XMLExportPOI extends XMLExport
       $countryElement->appendChild( $domDocument->createCDATASection( $poi['country'] ) );
 
       $contactElement = $entryElement->appendChild( new DOMElement( 'contact' ) );
+
+      $contactElement->appendChild( new DOMElement( 'phone',  $poi->getPhone() ) );
+      $contactElement->appendChild( new DOMElement( 'fax',    $poi->getFax() ) );
+      $contactElement->appendChild( new DOMElement( 'phone2', $poi->getPhone2() ) );
       
       $emailElement = $contactElement->appendChild( new DOMElement( 'email' ) );
       $emailElement->appendChild( $domDocument->createCDATASection( $poi['email'] ) );
 
-      $urlElement = $contactElement->appendChild( new DOMElement( 'url' ) );
-      $urlElement->appendChild( $domDocument->createCDATASection( $poi['url'] ) );
+      if( !empty( $poi['url'] ) )
+      {
+        $urlElement = $contactElement->appendChild( new DOMElement( 'url' ) );
+        $urlElement->appendChild( $domDocument->createCDATASection( $poi['url'] ) );
+      }
 
-      $contactElement->appendChild( new DOMElement( 'phone',  $poi->getPhone() ) );
-      $contactElement->appendChild( new DOMElement( 'phone2', $poi->getPhone2() ) );
-      $contactElement->appendChild( new DOMElement( 'fax',    $poi->getFax() ) );
+      //version
+      $versionElement = $entryElement->appendChild( new DOMElement( 'version' ) );
+      $versionElement->setAttribute( 'lang', 'en' );
 
-      $contactElement = $entryElement->appendChild( new DOMElement( 'content' ) );
+      $nameElement = $versionElement->appendChild( new DOMElement( 'name' ) );
+      $nameElement->appendChild( $domDocument->createCDATASection( $poi['poi_name'] ) );
 
-      $shortDescriptionElement = $contactElement->appendChild( new DOMElement( 'short-description' ) );
+      $alternativeNameElement = $versionElement->appendChild( new DOMElement( 'alternative-name' ) );
+      $alternativeNameElement->appendChild( $domDocument->createCDATASection( $poi['poi_name'] ) );
+      
+      $addressElement = $versionElement->appendChild( new DOMElement( 'address' ) );
+
+      $streetElement = $addressElement->appendChild( new DOMElement( 'street' ) );
+      $streetElement->appendChild( $domDocument->createCDATASection( $poi['street'] ) );
+
+      $houseElement = $addressElement->appendChild( new DOMElement( 'houseno' ) );
+      $houseElement->appendChild( $domDocument->createCDATASection( $poi['house_no'] ) );
+
+      $zipsElement = $addressElement->appendChild( new DOMElement( 'zip' ) );
+      $zipsElement->appendChild( $domDocument->createCDATASection( $poi['zips'] ) );
+
+      $cityElement = $addressElement->appendChild( new DOMElement( 'city' ) );
+      $cityElement->appendChild( $domDocument->createCDATASection( $poi['city'] ) );
+
+      $districtElement = $addressElement->appendChild( new DOMElement( 'district' ) );
+      $districtElement->appendChild( $domDocument->createCDATASection( $poi['district'] ) );
+
+      $countryElement = $addressElement->appendChild( new DOMElement( 'country' ) );
+      $countryElement->appendChild( $domDocument->createCDATASection( $poi['country'] ) );
+
+      //content
+
+      $contentElement = $versionElement->appendChild( new DOMElement( 'content' ) );
+
+      $shortDescriptionElement = $contentElement->appendChild( new DOMElement( 'short-description' ) );
       $shortDescriptionElement->appendChild( $domDocument->createCDATASection( $poi['short_description'] ) );
       
-      $descriptionElement = $contactElement->appendChild( new DOMElement( 'description' ) );
+      $descriptionElement = $contentElement->appendChild( new DOMElement( 'description' ) );
       $descriptionElement->appendChild( $domDocument->createCDATASection( $poi['description'] ) );
 
-      $publicTransportElement = $contactElement->appendChild( new DOMElement( 'public-transport' ) );
+      $publicTransportElement = $contentElement->appendChild( new DOMElement( 'public-transport' ) );
       $publicTransportElement->appendChild( $domDocument->createCDATASection( $poi['public_transport_links'] ) );
 
-      $openingtimesElement = $contactElement->appendChild( new DOMElement( 'opening-times' ) );
+      $openingtimesElement = $contentElement->appendChild( new DOMElement( 'openingtimes' ) );
       $openingtimesElement->appendChild( $domDocument->createCDATASection( $poi['openingtimes'] ) );
 
       foreach( $poi[ 'PoiProperty' ] as $property )
       {
-        $propertyElement = $entryElement->appendChild( new DOMElement( 'property' ) );
+        $propertyElement = $contentElement->appendChild( new DOMElement( 'property' ) );
         $propertyElement->appendChild( $domDocument->createCDATASection( $property['value'] ) );
         $propertyElement->setAttribute( 'key', $property['lookup'] );
       }
