@@ -26,7 +26,6 @@ CREATE TABLE poi_updates_log (id BIGINT AUTO_INCREMENT, PRIMARY KEY(id)) DEFAULT
 CREATE TABLE user (id BIGINT AUTO_INCREMENT, vendor_id BIGINT NOT NULL, user_name VARCHAR(32) NOT NULL, user_reputation TINYINT, user_infomation TEXT NOT NULL, comments_relevance FLOAT(18, 2), specialty VARCHAR(128), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX vendor_id_idx (vendor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE user_content (id BIGINT AUTO_INCREMENT, vendor_ucid VARCHAR(32) NOT NULL, comment_subject TEXT NOT NULL, comment_body TEXT NOT NULL, user_rating FLOAT(18, 2), user_id BIGINT NOT NULL, poi_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX user_id_idx (user_id), INDEX poi_id_idx (poi_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE vendor (id BIGINT AUTO_INCREMENT, city VARCHAR(15) NOT NULL, language VARCHAR(10) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
-CREATE TABLE vendor_category_mapping (id BIGINT AUTO_INCREMENT, map_from_id BIGINT NOT NULL, map_to_id BIGINT NOT NULL, INDEX map_from_id_idx (map_from_id), INDEX map_to_id_idx (map_to_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE vendor_event_category (id BIGINT AUTO_INCREMENT, name TEXT NOT NULL, vendor_id BIGINT NOT NULL, INDEX vendor_id_idx (vendor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 CREATE TABLE vendor_poi_category (id BIGINT AUTO_INCREMENT, name TEXT NOT NULL, vendor_id BIGINT NOT NULL, INDEX vendor_id_idx (vendor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
 ALTER TABLE event ADD CONSTRAINT event_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);
@@ -63,7 +62,5 @@ ALTER TABLE poi_property ADD CONSTRAINT poi_property_poi_id_poi_id FOREIGN KEY (
 ALTER TABLE user ADD CONSTRAINT user_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);
 ALTER TABLE user_content ADD CONSTRAINT user_content_user_id_user_id FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE;
 ALTER TABLE user_content ADD CONSTRAINT user_content_poi_id_poi_id FOREIGN KEY (poi_id) REFERENCES poi(id) ON DELETE CASCADE;
-ALTER TABLE vendor_category_mapping ADD CONSTRAINT vendor_category_mapping_map_to_id_poi_category_id FOREIGN KEY (map_to_id) REFERENCES poi_category(id);
-ALTER TABLE vendor_category_mapping ADD CONSTRAINT vendor_category_mapping_map_from_id_vendor_poi_category_id FOREIGN KEY (map_from_id) REFERENCES vendor_poi_category(id);
 ALTER TABLE vendor_event_category ADD CONSTRAINT vendor_event_category_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);
 ALTER TABLE vendor_poi_category ADD CONSTRAINT vendor_poi_category_vendor_id_vendor_id FOREIGN KEY (vendor_id) REFERENCES vendor(id);
