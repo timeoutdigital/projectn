@@ -17,13 +17,13 @@ abstract class BaseLinkingVendorPoiCategoryForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                     => new sfWidgetFormInputHidden(),
       'vendor_poi_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'), 'add_empty' => false)),
-      'poi_id'                 => new sfWidgetFormInputText(),
+      'poi_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'vendor_poi_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'))),
-      'poi_id'                 => new sfValidatorInteger(),
+      'poi_id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
     ));
 
     $this->widgetSchema->setNameFormat('linking_vendor_poi_category[%s]');

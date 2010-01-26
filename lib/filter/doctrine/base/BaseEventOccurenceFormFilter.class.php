@@ -13,21 +13,23 @@ abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'booking_url' => new sfWidgetFormFilterInput(),
-      'start'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'end'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
-      'utc_offset'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'event_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => true)),
-      'poi_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => true)),
+      'vendor_event_occurence_id' => new sfWidgetFormFilterInput(),
+      'booking_url'               => new sfWidgetFormFilterInput(),
+      'start'                     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'end'                       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'utc_offset'                => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'event_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => true)),
+      'poi_id'                    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
-      'booking_url' => new sfValidatorPass(array('required' => false)),
-      'start'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
-      'end'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
-      'utc_offset'  => new sfValidatorPass(array('required' => false)),
-      'event_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Event'), 'column' => 'id')),
-      'poi_id'      => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Poi'), 'column' => 'id')),
+      'vendor_event_occurence_id' => new sfValidatorPass(array('required' => false)),
+      'booking_url'               => new sfValidatorPass(array('required' => false)),
+      'start'                     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
+      'end'                       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
+      'utc_offset'                => new sfValidatorPass(array('required' => false)),
+      'event_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Event'), 'column' => 'id')),
+      'poi_id'                    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Poi'), 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('event_occurence_filters[%s]');
@@ -47,13 +49,14 @@ abstract class BaseEventOccurenceFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'          => 'Number',
-      'booking_url' => 'Text',
-      'start'       => 'Date',
-      'end'         => 'Date',
-      'utc_offset'  => 'Text',
-      'event_id'    => 'ForeignKey',
-      'poi_id'      => 'ForeignKey',
+      'id'                        => 'Number',
+      'vendor_event_occurence_id' => 'Text',
+      'booking_url'               => 'Text',
+      'start'                     => 'Date',
+      'end'                       => 'Date',
+      'utc_offset'                => 'Text',
+      'event_id'                  => 'ForeignKey',
+      'poi_id'                    => 'ForeignKey',
     );
   }
 }
