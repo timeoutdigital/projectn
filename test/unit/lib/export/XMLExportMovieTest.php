@@ -97,7 +97,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie[ 'plot' ] = 'test movie plot';
     $movie[ 'review' ] = 'test movie review';
     $movie[ 'url' ] = 'http://movies.co.uk';
-    $movie[ 'rating' ] = '0.1';
+    $movie[ 'rating' ] = '1.1';
     $movie[ 'age_rating' ] = 'oap';
     $movie[ 'utf_offset' ] = '-01:00:00';
     $movie->link( 'MovieGenres', array( 1, 2 ) );
@@ -123,7 +123,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2[ 'plot' ] = 'test movie plot';
     $movie2[ 'review' ] = 'test movie review';
     $movie2[ 'url' ] = 'http://movies.co.uk';
-    $movie2[ 'rating' ] = '0.1';
+    $movie2[ 'rating' ] = '1.2';
     $movie2[ 'age_rating' ] = 'oap';
     $movie2[ 'utf_offset' ] = '-01:00:00';
     $movie2->link( 'MovieGenres', array( 1, 2 ) );
@@ -192,14 +192,21 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'http://movies.co.uk', $versionElement->getElementsByTagName( 'url' )->item(0)->nodeValue );
 
     //movie/version/rating
-    $this->assertEquals( '0.1', $versionElement->getElementsByTagName( 'rating' )->item(0)->nodeValue );
+    $this->assertEquals( '1.1', $versionElement->getElementsByTagName( 'rating' )->item(0)->nodeValue );
 
-    //movie/version/place
-    $this->assertEquals( '1', $versionElement->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
+    //movie/showtimes
+    $showtimesElement = $movieElement->getElementsByTagName( 'showtimes' )->item(0);
+    
+    //movie/showtimes/place
+    $place = $showtimesElement->getElementsByTagName( 'place' )->item(0);
+    $this->assertEquals( '1', $place->getAttribute( 'place-id' ) );
 
     //test the second movie as well
-    $placeId = $this->xpath->query( '/vendor-movies/movie[2]/version/place' )->item(0);
+    $placeId = $this->xpath->query( '/vendor-movies/movie[2]/showtimes/place' )->item(0);
     $this->assertEquals('2', $placeId->getAttribute( 'place-id' ) );
+    
+    //movie/showtimes/place
+    $this->assertEquals( 'oap', $place->getElementsByTagName( 'age_rating' )->item(0)->nodeValue );
   }
 
   /**
@@ -213,6 +220,14 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'movie value 1', $propertyElements->item(0)->nodeValue );
     $this->assertEquals( 'movie key 2', $propertyElements->item(1)->getAttribute( 'key' ) );
     $this->assertEquals( 'movie value 2', $propertyElements->item(1)->nodeValue );
+  }
+
+  /**
+   *
+   */
+  public function testValidatesAgainstSchema()
+  {
+    $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'movies.xsd' ) );
   }
 }
 ?>

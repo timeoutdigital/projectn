@@ -42,9 +42,10 @@
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element ref="name"/>
-				<xsd:element name="genre" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="genre" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/><!-- minOccurs was 0, maxOccurs was non-existent -->
 				<xsd:element name="plot" type="xsd:string" minOccurs="0"/>
 				<xsd:element name="review" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="url" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/><!-- url element was non-existent -->
 				<xsd:element name="rating" type="RatingValueType" minOccurs="0"/>
 				<xsd:element ref="media" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
@@ -65,7 +66,7 @@
 			<xsd:sequence>
 				<xsd:element name="age_rating" type="xsd:normalizedString" minOccurs="0"/>
 				<!-- is the age rating that applies for this movie in the country where the place/venue is located -->
-				<xsd:element ref="time" maxOccurs="unbounded"/>
+				<!-- <xsd:element ref="time" maxOccurs="unbounded"/> implementation on hold-->
 			</xsd:sequence>
 			<xsd:attribute name="place-id" type="xsd:normalizedString" use="required"/>
 			<!-- vendor place/venue id -->
@@ -86,7 +87,7 @@
 	<xsd:element name="time">
 		<xsd:complexType>
 			<xsd:sequence>
-				<!--date and time in ISO 8601 -->
+				<!-- date and time in ISO 8601 -->
 				<xsd:element name="start_date" type="xsd:date"/>
 				<xsd:element name="end_date" type="xsd:date" minOccurs="0"/>
 				<xsd:element name="event_time" type="xsd:time" minOccurs="0"/>
