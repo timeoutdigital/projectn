@@ -73,9 +73,18 @@ class XMLExportMovie extends XMLExport
       //movie/version/rating
       $versionElement->appendChild( new DOMElement( 'rating', $movie['rating'] ) );
 
-      //movie/version/place
-      $placeTag = $versionElement->appendChild( new DOMElement( 'place' ) );
-      $placeTag->setAttribute( 'place-id', $movie['Poi']['id'] );
+      //movie/showtimes
+      $showTimesElement = $movieElement->appendChild( new DOMElement( 'showtimes' ) );
+
+      //movie/showtimes/place
+      $placeElement = $showTimesElement->appendChild( new DOMElement( 'place' ) );
+      $placeElement->setAttribute( 'place-id', $movie['Poi']['id'] );
+
+      //movie/showtimes/place/age_rating
+      $placeElement->appendChild( new DOMElement( 'age_rating', $movie['age_rating'] ) );
+
+      //movie/showtimes/place/time
+      //implementation on hold
       
       foreach( $movie['MovieProperty'] as $property )
       {

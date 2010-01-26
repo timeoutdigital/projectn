@@ -164,6 +164,15 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $occurrence2->link( 'Poi', array( 1 ) );
     $occurrence2->save();
 
+    $occurrence2 = new EventOccurrence();
+    $occurrence2['vendor_event_occurrence_id'] = 1111;
+    $occurrence2->setStart( '2010-01-31' );
+    $occurrence2->setEnd( '2010-01-31' );
+    $occurrence2->setUtcOffset( '-05:00:00' );
+    $occurrence2->link( 'Event', array( 2 ) );
+    $occurrence2->link( 'Poi', array( 2 ) );
+    $occurrence2->save();
+
 
     $this->destination = dirname( __FILE__ ) . '/../../export/event/test.xml';
     $this->export = new XMLExportEvent( $this->vendor, $this->destination );
@@ -282,10 +291,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    
     $this->assertEquals( '1', $showtimes1->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
     $this->assertEquals( 'http://test-booking.url', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
-    $this->assertEquals( 1, $showtimes1->getElementsByTagName( 'time' )->length );
+    $this->assertEquals( 2, $showtimes1->getElementsByTagName( 'time' )->length );
     $this->assertEquals( '2010-01-31', $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue );
     $this->assertEquals( '2010-01-31', $showtimes1->getElementsByTagName( 'end_date' )->item(0)->nodeValue );
     $this->assertEquals( '-05:00:00', $showtimes1->getElementsByTagName( 'utc_offset' )->item(0)->nodeValue );
+
+    $numPlacesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' )->length;
+    $this->assertEquals( 2, $numPlacesForEvent2 );
   }
   
   /**
