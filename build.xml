@@ -23,7 +23,8 @@
 		-dn '${ant.project.name} API' 
 		-ue on 
 		-t ${basedir}/source/doc/api 
-		-d ${basedir}/source/lib/import 
+		-d ${basedir}/source/lib/
+                -i filter/, form/, base/, task/, vendor/
 		-tb '/usr/share/php/data/phpUnderControl/data/phpdoc' 
 		-o HTML:Phpuc:phpuc"/>
     </exec>
@@ -46,7 +47,7 @@
   <!-- Run PHPMD on selected classes -->
   <target name="php-pmd">
     <exec executable="phpmd" dir="${basedir}/source" failonerror="false">
-    <arg line="lib/ xml codesize
+    <arg line="lib/import xml codesize
                --reportfile ${basedir}/build/logs/phpunit.pmd.xml" />
     </exec>
   </target>
