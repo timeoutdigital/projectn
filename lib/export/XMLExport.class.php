@@ -11,6 +11,7 @@
  */
 abstract class XMLExport
 {
+  const USE_CDATA = true;
 
   /**
    *
@@ -110,6 +111,51 @@ abstract class XMLExport
    * @return DOMDocument
    */
   abstract protected function mapDataToDOMDocument( $data, $domDocument );
+
+  /**
+   * Append and return an element named $elementName to $node if $element is not
+   * empty
+   *
+   * @params DOMNode $node
+   * @params string $elementName
+   * @params string $elementContent
+   *
+   * @return DOMElement
+   */
+  public function appendNonRequiredElement( DOMNode $node, $elementName, $elementContent=null, $useCDATA = false )
+  {
+    if( !empty( $elementContent ) )
+    {
+      return $this->appendRequiredElement($node, $elementName, $elementContent, $useCDATA);
+    }
+    return null;
+  }
+
+  /**
+   *
+   */
+  public function appendRequiredElement( DOMNode $node, $elementName, $elementContent=null, $useCDATA = false )
+  {
+    if( $useCDATA )
+    {
+      return $this->appendCDATAElement( $node, $elementName, $elementContent );
+    }
+    else
+    {
+      return $node->appendChild( new DOMElement( $elementName, $elementContent ) );
+    }
+    return null;
+  }
+  
+  /**
+   *
+   */
+  protected function appendCDATAElement( DOMNode $node, $elementName, $elementContent=null )
+  {
+    $element = $node->appendChild( new DOMElement( $elementName ) );
+    $element->appendChild( $node->ownerDocument->createCDATASection( $elementContent ) );
+    return $element;
+  }
 
   /**
    * @param DOMDocument $domDocument

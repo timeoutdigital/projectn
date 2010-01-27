@@ -44,109 +44,69 @@ class XMLExportPOI extends XMLExport
     //entry
     foreach( $data as $poi )
     {
-      $entryElement = $rootElement->appendChild( new DOMElement( 'entry' ) );
+      $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', 'vpid_' . $poi->getVendorPoiId() );
       $entryElement->setAttribute( 'lang', $poi->getLocalLanguage() );
       $entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       $geoPositionElement = $entryElement->appendChild( new DOMElement( 'geo-position' ) );
-      $geoPositionElement->appendChild( new DOMElement( 'longitude', $poi->getLongitude() ) );
-      $geoPositionElement->appendChild( new DOMElement( 'latitude', $poi->getLatitude() ) );
+      $this->appendRequiredElement( $geoPositionElement, 'longitude', $poi['longitude'] );
+      $this->appendRequiredElement( $geoPositionElement, 'latitude', $poi['latitude'] );
 
-      $nameElement = $entryElement->appendChild( new DOMElement( 'name' ) );
-      $nameElement->appendChild( $domDocument->createCDATASection( $poi->getPoiName() ) );
+      $this->appendRequiredElement( $entryElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA );
 
       foreach( $poi[ 'PoiCategories' ] as $category )
       {
-        $categoryElement = $entryElement->appendChild( new DOMElement( 'category' ) );
-        $categoryElement->appendChild( $domDocument->createCDATASection( $category['name'] ) );
+        $this->appendRequiredElement( $entryElement, 'category', $category['name'], XMLExport::USE_CDATA);
       }
       
       $addressElement = $entryElement->appendChild( new DOMElement( 'address' ) );
 
-      $streetElement = $addressElement->appendChild( new DOMElement( 'street' ) );
-      $streetElement->appendChild( $domDocument->createCDATASection( $poi['street'] ) );
+      $this->appendRequiredElement(    $addressElement, 'street',   $poi['street'],   XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $addressElement, 'houseno',  $poi['house_no'], XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $addressElement, 'zip',      $poi['zips'],     XMLExport::USE_CDATA);
+      $this->appendRequiredElement(    $addressElement, 'city',     $poi['city'],     XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $addressElement, 'district', $poi['district'], XMLExport::USE_CDATA);
+      $this->appendRequiredElement(    $addressElement, 'country',  $poi['country'] );
+
+      $contactElement = $this->appendRequiredElement( $entryElement, 'contact' );
+
+      $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
+      $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
+      $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
       
-      $houseElement = $addressElement->appendChild( new DOMElement( 'houseno' ) );
-      $houseElement->appendChild( $domDocument->createCDATASection( $poi['house_no'] ) );
+      $this->appendNonRequiredElement( $contactElement, 'email', $poi['email'], XMLExport::USE_CDATA );
 
-      $zipsElement = $addressElement->appendChild( new DOMElement( 'zip' ) );
-      $zipsElement->appendChild( $domDocument->createCDATASection( $poi['zips'] ) );
-
-      $cityElement = $addressElement->appendChild( new DOMElement( 'city' ) );
-      $cityElement->appendChild( $domDocument->createCDATASection( $poi['city'] ) );
-
-      $districtElement = $addressElement->appendChild( new DOMElement( 'district' ) );
-      $districtElement->appendChild( $domDocument->createCDATASection( $poi['district'] ) );
-
-      $countryElement = $addressElement->appendChild( new DOMElement( 'country' ) );
-      $countryElement->appendChild( $domDocument->createCDATASection( $poi['country'] ) );
-
-      $contactElement = $entryElement->appendChild( new DOMElement( 'contact' ) );
-
-      $contactElement->appendChild( new DOMElement( 'phone',  $poi->getPhone() ) );
-      $contactElement->appendChild( new DOMElement( 'fax',    $poi->getFax() ) );
-      $contactElement->appendChild( new DOMElement( 'phone2', $poi->getPhone2() ) );
-      
-      $emailElement = $contactElement->appendChild( new DOMElement( 'email' ) );
-      $emailElement->appendChild( $domDocument->createCDATASection( $poi['email'] ) );
-
-      if( !empty( $poi['url'] ) )
-      {
-        $urlElement = $contactElement->appendChild( new DOMElement( 'url' ) );
-        $urlElement->appendChild( $domDocument->createCDATASection( $poi['url'] ) );
-      }
+      $this->appendNonRequiredElement( $contactElement, 'url', $poi['url']);
 
       //version
-      $versionElement = $entryElement->appendChild( new DOMElement( 'version' ) );
+      $versionElement = $this->appendRequiredElement( $entryElement , 'version');
       $versionElement->setAttribute( 'lang', 'en' );
 
-      $nameElement = $versionElement->appendChild( new DOMElement( 'name' ) );
-      $nameElement->appendChild( $domDocument->createCDATASection( $poi['poi_name'] ) );
+      $this->appendRequiredElement($versionElement, 'name');
 
-      $alternativeNameElement = $versionElement->appendChild( new DOMElement( 'alternative-name' ) );
-      $alternativeNameElement->appendChild( $domDocument->createCDATASection( $poi['poi_name'] ) );
+      $this->appendNonRequiredElement($versionElement, 'alternative-name', $poi['poi_name'], XMLExport::USE_CDATA);
       
-      $addressElement = $versionElement->appendChild( new DOMElement( 'address' ) );
+      $addressElement = $this->appendRequiredElement($versionElement, 'address');
 
-      $streetElement = $addressElement->appendChild( new DOMElement( 'street' ) );
-      $streetElement->appendChild( $domDocument->createCDATASection( $poi['street'] ) );
-
-      $houseElement = $addressElement->appendChild( new DOMElement( 'houseno' ) );
-      $houseElement->appendChild( $domDocument->createCDATASection( $poi['house_no'] ) );
-
-      $zipsElement = $addressElement->appendChild( new DOMElement( 'zip' ) );
-      $zipsElement->appendChild( $domDocument->createCDATASection( $poi['zips'] ) );
-
-      $cityElement = $addressElement->appendChild( new DOMElement( 'city' ) );
-      $cityElement->appendChild( $domDocument->createCDATASection( $poi['city'] ) );
-
-      $districtElement = $addressElement->appendChild( new DOMElement( 'district' ) );
-      $districtElement->appendChild( $domDocument->createCDATASection( $poi['district'] ) );
-
-      $countryElement = $addressElement->appendChild( new DOMElement( 'country' ) );
-      $countryElement->appendChild( $domDocument->createCDATASection( $poi['country'] ) );
+      $this->appendRequiredElement(    $addressElement, 'street',   $poi['street'],   XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $addressElement, 'houseno',  $poi['house_no'], XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $addressElement, 'zip',      $poi['zips'],     XMLExport::USE_CDATA);
+      $this->appendRequiredElement(    $addressElement, 'city',     $poi['city'],     XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $addressElement, 'district', $poi['district'], XMLExport::USE_CDATA);
+      $this->appendRequiredElement(    $addressElement, 'country',  $poi['country'] );
 
       //content
+      $contentElement = $this->appendRequiredElement( $versionElement, 'content' );
 
-      $contentElement = $versionElement->appendChild( new DOMElement( 'content' ) );
-
-      $shortDescriptionElement = $contentElement->appendChild( new DOMElement( 'short-description' ) );
-      $shortDescriptionElement->appendChild( $domDocument->createCDATASection( $poi['short_description'] ) );
-      
-      $descriptionElement = $contentElement->appendChild( new DOMElement( 'description' ) );
-      $descriptionElement->appendChild( $domDocument->createCDATASection( $poi['description'] ) );
-
-      $publicTransportElement = $contentElement->appendChild( new DOMElement( 'public-transport' ) );
-      $publicTransportElement->appendChild( $domDocument->createCDATASection( $poi['public_transport_links'] ) );
-
-      $openingtimesElement = $contentElement->appendChild( new DOMElement( 'openingtimes' ) );
-      $openingtimesElement->appendChild( $domDocument->createCDATASection( $poi['openingtimes'] ) );
+      $this->appendNonRequiredElement( $contentElement, 'short-description', $poi['short_description'], XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $contentElement, 'description', $poi['description'], XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $contentElement, 'public-transport', $poi['public_transport_links'], XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       foreach( $poi[ 'PoiProperty' ] as $property )
       {
-        $propertyElement = $contentElement->appendChild( new DOMElement( 'property' ) );
-        $propertyElement->appendChild( $domDocument->createCDATASection( $property['value'] ) );
+        $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $property['value'], XMLExport::USE_CDATA);
         $propertyElement->setAttribute( 'key', $property['lookup'] );
       }
     }
