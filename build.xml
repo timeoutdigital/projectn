@@ -75,7 +75,7 @@
  <!-- Git Commit -->
  <target name="git-commit">
     <exec executable="git" dir="${basedir}/source" failonerror="false">
-     <arg line="commit -m 'API Documentation Built'" />
+     <arg line="--no-verify commit -m 'API Documentation Built'" />
     </exec>
  </target>
 
