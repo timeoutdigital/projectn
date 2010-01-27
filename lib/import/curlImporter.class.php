@@ -98,14 +98,24 @@ class curlImporter
     * @param array $parameters   the parameters
     *
     */
-   public function pullXml($url, $request, $parameters) {
-       $this->_url = $url;
-       $this->_xmlRequest = $request;
-       $this->_curlParameters = $parameters;
-       $this->getFeed();
+   public function pullXml($url, $request, $parameters)
+   {
+     $this->_url = $url;
+     $this->_xmlRequest = $request;
+     $this->_curlParameters = $parameters;
+     $this->getFeed();
 
-       $this->_simpleXml = simplexml_load_string($this->_xmlResponseRaw);
-    
+     libxml_use_internal_errors(true);
+
+     $this->_simpleXml = simplexml_load_string($this->_xmlResponseRaw);
+
+     $errors = libxml_get_errors();
+     libxml_use_internal_errors(false);
+
+     if( count( $errors ) )
+     {
+       throw new Exception( 'XML errors: ' . implode( ',', $errors ) );
+       }
    }
 
 
