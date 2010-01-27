@@ -237,7 +237,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
     //Critic\'s Picks
-    $this->assertEquals( 'Critic\'s Picks', $eventObj[ 'EventProperty' ][ 3 ][ 'lookup' ]);
+    $this->assertEquals( 'Critic\'s Picks', $eventObj[ 'EventProperty' ][ 2 ][ 'lookup' ]);
   }
 
   /*
@@ -269,7 +269,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
   /*
    * Test if event category is appended
    */
-  public function testCategoryIfEventCategoryIsSuccessfullyAppended()
+  public function testCategoryIfEventCategorIsSuccessfullyAppended()
   {
     $venuesArray = $this->xmlObj->getVenues();
     $this->object->insertPoi( $venuesArray[ 0 ] );
@@ -282,7 +282,24 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'movies', $eventObj['EventCategories'][ 0 ][ 'name' ] );
   }
 
-    /*
+  /*
+  * test testCategoryIfVendorEventCategorIsSuccessfullyAppended
+  */
+  public function testCategoryIfVendorEventCategorIsSuccessfullyAppended()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
+
+    $this->assertEquals( 'Film', $eventObj['VendorEventCategories'][ 0 ][ 'name' ] );
+    $this->assertEquals( 'Film | Art-house & indie cinema', $eventObj['VendorEventCategories'][ 1 ][ 'name' ] );
+  }
+
+  /*
    * Test if poi category is appended
    */
   public function testCategoryIfPoiCategoryIsSuccessfullyAppended()
@@ -293,6 +310,19 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $venueObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
 
     $this->assertEquals( 'shop', $venueObj['PoiCategories'][ 0 ][ 'name' ] );
+  }
+
+  /*
+   * Test if vendor poi category is appended
+   */
+  public function testCategoryIfVendorPoiCategoryIsSuccessfullyAppended()
+  {
+    $poisArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $poisArray[ 0 ] );
+
+    $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
+
+    $this->assertEquals( 'Shops', $poiObj['VendorPoiCategories'][ 0 ][ 'name' ] );
   }
 
   /*
@@ -316,7 +346,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testEventCategoryMapMovies()
   {
-    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Film' );
+    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Film | Art-house & indie cinema' );
 
     $mappedCategoriesObject = $this->object->mapCategories( $categoryArray, 'EventCategory' );
 
@@ -326,6 +356,5 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 1, count( $mappedCategoriesObject ) );
   }
-
 }
 ?>

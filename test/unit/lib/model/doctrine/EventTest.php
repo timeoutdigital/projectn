@@ -77,6 +77,25 @@ class EventTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
   }
 
+  /*
+   * test if the add property adds a property successfuly added and properties
+   * dont get overwritten
+   */
+  public function testAddProperty()
+  {
+    $this->object->addProperty( 'test prop lookup', 'test prop value' );
+    $this->object->addProperty( 'test prop lookup 2', 'test prop value 2' );
+    $this->object->save();
+
+    $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
+    
+    $this->assertEquals( 'test prop lookup', $this->object[ 'EventProperty' ][ 0 ][ 'lookup' ] );
+    $this->assertEquals( 'test prop value', $this->object[ 'EventProperty' ][ 0 ][ 'value' ] );
+
+    $this->assertEquals( 'test prop lookup 2', $this->object[ 'EventProperty' ][ 1 ][ 'lookup' ] );
+    $this->assertEquals( 'test prop value 2', $this->object[ 'EventProperty' ][ 1 ][ 'value' ] );
+  }
+
   /**
    *
    */
