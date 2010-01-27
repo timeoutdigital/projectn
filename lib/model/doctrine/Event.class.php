@@ -13,16 +13,15 @@
 class Event extends BaseEvent
 {
 
-//  public function addProperty( $key, $value )
-//  {
-//
-//    $eventPropertyObj = new EventProperty();
-//    $eventPropertyObj[ 'lookup' ] = $key;
-//    $eventPropertyObj[ 'value' ] = $value;
-//    $eventPropertyObj[ 'event_id' ] = $this[ 'id' ];
-//    $eventPropertyObj->save();
-//
-//  }
+  public function addProperty( $lookup, $value )
+  {
+    $eventPropertyObj = new EventProperty();
+    $eventPropertyObj[ 'lookup' ] = $lookup;
+    $eventPropertyObj[ 'value' ] = $value;
+    
+    $this[ 'EventProperty' ][] = $eventPropertyObj;
+  }
+
   public function getPois()
   {
     $pois = new Doctrine_Collection(Doctrine::getTable('Poi'));

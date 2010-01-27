@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Docs For Class processNyXml</title>
+    <link rel="stylesheet" type="text/css" href="../media/style.css" />
+    <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  </head>
+  <body>
+  
+    <h1>projectn API Documentation :: Docs For Class processNyXml</h1>
+
+    <table width="100%">
+      <tr valign="top">
+        <td class="menu">
+                                <div class="package">
+              <div id="todolist">
+                <p><a href="../todolist.html">Todo List</a></p>
+              </div>
+            </div>
+                    <h2>Packages:</h2>
+          <div class="package">
+            <ul>
+                              <li>
+                  <a href="../classtrees_projectn API.html">projectn API</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_import-lib.html">import-lib</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_lib-projectn.html">lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_london-import-lib.html">london-import-lib</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_projectn.html">projectn</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_projectn-lib-import-london.html">projectn-lib-import-london</a>
+                </li>
+                          </ul>
+          </div>
+                                                                    <h2>Classes:</h2>
+                <ul>
+		    		<li><a href="../ny-import-lib-projectn/importNy.html">importNy</a></li>    	    		<li><a href="../ny-import-lib-projectn/importNyED.html">importNyED</a></li>    	    		<li><a href="../ny-import-lib-projectn/processNyXml.html">processNyXml</a></li>    	  </ul>
+                              </td>
+        <td>
+          <table style="width:750px;" cellpadding="10" cellspacing="10px">
+            <tr>
+              <td valign="top">
+                                                                  <h2>ny-import-lib-projectn::processNyXml</h2>
+                                <div class="menu">
+          
+                                                                                                                            
+                                                                            [ <a href="../index.html">Index</a> ]
+                      [ <a href="../classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn classes</a> ]
+            [ <a href="../elementindex_ny-import-lib-projectn.html">ny-import-lib-projectn elements</a> ]
+                    [ <a href="../elementindex.html">All elements</a> ]
+          [ <a href="../errors.html">Errors</a> ]
+                </div>
+<a name="sec-description"></a>
+<h2>Class processNyXml</h2>
+
+<p>Class to parse NY XML feeds</p>		
+
+
+<pre>processXml
+   |
+   --processNyXml</pre>
+
+
+  <strong>Author(s):</strong>
+  <ul>
+                  <li>Tim Bowler &lt;<a href="mailto:timbowler@timeout.com">timbowler@timeout.com</a>&gt;</li>
+                                </ul>
+
+  <table>
+    	      	  		<tr>
+		  <td>
+		    <strong>Version:</strong>&nbsp;&nbsp;
+		  </td>
+		  <td>1.0.1</td>
+		</tr>
+	      	  		<tr>
+		  <td>
+		    <strong>Copyright:</strong>&nbsp;&nbsp;
+		  </td>
+		  <td>Timeout Communications Ltd</td>
+		</tr>
+	        </table>
+
+
+
+
+
+
+
+  <a name="sec-method-summary"></a>
+  <h2>Method Summary</h2>
+  <table class="summary">
+                                                                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>processNyXml</em>          </td>
+          <td>
+            <code>
+              <a href="#__construct"><b>__construct</b></a>(
+                                                                                    $sourceFile
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Constructor method</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>array</em>          </td>
+          <td>
+            <code>
+              <a href="#getEvents"><b>getEvents</b></a>(
+               )
+            </code>
+            <br /><div style="margin-left: 20px">Get the events</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>array</em>          </td>
+          <td>
+            <code>
+              <a href="#getVenues"><b>getVenues</b></a>(
+               )
+            </code>
+            <br /><div style="margin-left: 20px">Get the venues</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#setEvents"><b>setEvents</b></a>(
+                                                                                    $eventsPath
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Sets the xpath to the events and the total amount</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#setVenues"><b>setVenues</b></a>(
+                                                                                    $venuesPath
+                                                    ,                                     $venues
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Set the xpath to venues and counts the total</div>          </td>
+        </tr>
+            </table>
+
+
+  <a name="sec-methods"></a>
+  <h2>Methods</h2>
+  <a name='method_detail'></a>
+          
+      <a name="method__construct" id="__construct"><!-- --></a>
+
+    <h3>__construct</h3>
+
+    <div class="method-signature">
+      processNyXml
+      __construct(
+                                  
+          $sourceFile
+                        )
+    </div>
+
+    <p>Constructor method</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$sourceFile</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodgetEvents" id="getEvents"><!-- --></a>
+
+    <h3>getEvents</h3>
+
+    <div class="method-signature">
+      array
+      getEvents(
+      )
+    </div>
+
+    <p>Get the events</p>
+    
+        
+
+    
+    
+    
+        <a name="methodgetVenues" id="getVenues"><!-- --></a>
+
+    <h3>getVenues</h3>
+
+    <div class="method-signature">
+      array
+      getVenues(
+      )
+    </div>
+
+    <p>Get the venues</p>
+    
+        
+
+    
+    
+    
+        <a name="methodsetEvents" id="setEvents"><!-- --></a>
+
+    <h3>setEvents</h3>
+
+    <div class="method-signature">
+      void
+      setEvents(
+                                  string
+          $eventsPath
+                        )
+    </div>
+
+    <p>Sets the xpath to the events and the total amount</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$eventsPath</code></td>
+              <td><em>string</em></td>
+              <td>
+                                  The xpath to events
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodsetVenues" id="setVenues"><!-- --></a>
+
+    <h3>setVenues</h3>
+
+    <div class="method-signature">
+      void
+      setVenues(
+                                  
+          $venuesPath
+                            ,           array
+          $venues
+                        )
+    </div>
+
+    <p>Set the xpath to venues and counts the total</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$venues</code></td>
+              <td><em>array</em></td>
+              <td>
+                                  The xpath to venues
+                              </td>
+            </tr>
+                      <tr>
+              <td><code>$venuesPath</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+  
+<p class="notes">
+  Located in <a class="field" href="_ny---processNyXml.php.html">/ny/processNyXml.php</a> 
+  [<span class="field">line 14</span>]
+</p>
+
+                <div class="credit">
+                  Documentation generated on Wed, 27 Jan 2010 12:48:44 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
