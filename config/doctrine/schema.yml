@@ -53,6 +53,7 @@ ImportStats:
     total_inserts:              {type: integer, notnull: true}
     total_updates:              {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
+    type:                       {type: string(5), notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
 
