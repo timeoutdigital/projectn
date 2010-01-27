@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Docs For Class importNy</title>
+    <link rel="stylesheet" type="text/css" href="../media/style.css" />
+    <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  </head>
+  <body>
+  
+    <h1>projectn API Documentation :: Docs For Class importNy</h1>
+
+    <table width="100%">
+      <tr valign="top">
+        <td class="menu">
+                                <div class="package">
+              <div id="todolist">
+                <p><a href="../todolist.html">Todo List</a></p>
+              </div>
+            </div>
+                    <h2>Packages:</h2>
+          <div class="package">
+            <ul>
+                              <li>
+                  <a href="../classtrees_projectn API.html">projectn API</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_import-lib.html">import-lib</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_lib-projectn.html">lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_london-import-lib.html">london-import-lib</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_projectn.html">projectn</a>
+                </li>
+                              <li>
+                  <a href="../classtrees_projectn-lib-import-london.html">projectn-lib-import-london</a>
+                </li>
+                          </ul>
+          </div>
+                                                                    <h2>Classes:</h2>
+                <ul>
+		    		<li><a href="../ny-import-lib-projectn/importNy.html">importNy</a></li>    	    		<li><a href="../ny-import-lib-projectn/importNyED.html">importNyED</a></li>    	    		<li><a href="../ny-import-lib-projectn/processNyXml.html">processNyXml</a></li>    	  </ul>
+                              </td>
+        <td>
+          <table style="width:750px;" cellpadding="10" cellspacing="10px">
+            <tr>
+              <td valign="top">
+                                                                  <h2>ny-import-lib-projectn::importNy</h2>
+                                <div class="menu">
+          
+                                                                                                                            
+                                                                            [ <a href="../index.html">Index</a> ]
+                      [ <a href="../classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn classes</a> ]
+            [ <a href="../elementindex_ny-import-lib-projectn.html">ny-import-lib-projectn elements</a> ]
+                    [ <a href="../elementindex.html">All elements</a> ]
+          [ <a href="../errors.html">Errors</a> ]
+                </div>
+<a name="sec-description"></a>
+<h2>Class importNy</h2>
+
+<p>Class for importing Ny's feeds.</p>		
+
+
+
+
+  <strong>Author(s):</strong>
+  <ul>
+                  <li>Timmy Bowler &lt;<a href="mailto:timbowler@timeout.com">timbowler@timeout.com</a>&gt;</li>
+                                </ul>
+
+  <table>
+    	      	  		<tr>
+		  <td>
+		    <strong>Version:</strong>&nbsp;&nbsp;
+		  </td>
+		  <td>1.0.1</td>
+		</tr>
+	      	  		<tr>
+		  <td>
+		    <strong>Copyright:</strong>&nbsp;&nbsp;
+		  </td>
+		  <td>Timeout Communications Ltd.</td>
+		</tr>
+	        </table>
+
+
+
+
+
+
+
+  <a name="sec-method-summary"></a>
+  <h2>Method Summary</h2>
+  <table class="summary">
+                                                                                            <tr>
+          <td class="right">
+            <em>public</em>                        <em>importNy</em>          </td>
+          <td>
+            <code>
+              <a href="#__construct"><b>__construct</b></a>(
+                                                                                    $xmlFeed
+                                                    ,                                     $vendorObj
+                                                    ,                                     $xmlfeed
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Constructor</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#insertEvent"><b>insertEvent</b></a>(
+                                                                                    $event
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Insert the events</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#insertEventCategoriesAndEventsAndVenues"><b>insertEventCategoriesAndEventsAndVenues</b></a>(
+               )
+            </code>
+            <br /><div style="margin-left: 20px">Insert the Events and Venues data into the database</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#insertPoi"><b>insertPoi</b></a>(
+                                                                                    $poi
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Insert the events pois</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#insertVendorEventCategories"><b>insertVendorEventCategories</b></a>(
+                                                                                    $event
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Insert the vendor event categories</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#insertVendorPoiCategories"><b>insertVendorPoiCategories</b></a>(
+                                                                                    $poi
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Insert the vendor poi categories</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#mapCategories"><b>mapCategories</b></a>(
+                                                                                    $sourceCategory
+                                                    ,                                     $mapClass
+                                                    ,                   [                  $noMatchCategoryNameString
+                   = 'other']                               )
+            </code>
+                      </td>
+        </tr>
+            </table>
+
+
+  <a name="sec-methods"></a>
+  <h2>Methods</h2>
+  <a name='method_detail'></a>
+              
+      <a name="method__construct" id="__construct"><!-- --></a>
+
+    <h3>__construct</h3>
+
+    <div class="method-signature">
+      importNy
+      __construct(
+                                  
+          $xmlFeed
+                            ,           
+          $vendorObj
+                            ,           object
+          $xmlfeed
+                        )
+    </div>
+
+    <p>Constructor</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$xmlfeed</code></td>
+              <td><em>object</em></td>
+              <td>
+                              </td>
+            </tr>
+                      <tr>
+              <td><code>$xmlFeed</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                      <tr>
+              <td><code>$vendorObj</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodinsertEvent" id="insertEvent"><!-- --></a>
+
+    <h3>insertEvent</h3>
+
+    <div class="method-signature">
+      void
+      insertEvent(
+                                  SimpleXMLElement
+          $event
+                        )
+    </div>
+
+    <p>Insert the events</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$event</code></td>
+              <td><em>SimpleXMLElement</em></td>
+              <td>
+                                  the events we want to insert
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodinsertEventCategoriesAndEventsAndVenues" id="insertEventCategoriesAndEventsAndVenues"><!-- --></a>
+
+    <h3>insertEventCategoriesAndEventsAndVenues</h3>
+
+    <div class="method-signature">
+      void
+      insertEventCategoriesAndEventsAndVenues(
+      )
+    </div>
+
+    <p>Insert the Events and Venues data into the database</p>
+    
+        
+
+    
+    
+    
+        <a name="methodinsertPoi" id="insertPoi"><!-- --></a>
+
+    <h3>insertPoi</h3>
+
+    <div class="method-signature">
+      void
+      insertPoi(
+                                  
+          $poi
+                        )
+    </div>
+
+    <p>Insert the events pois</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$poi</code></td>
+              <td><em>SimpleXMLElement</em></td>
+              <td>
+                                  the poi we want to insert
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodinsertVendorEventCategories" id="insertVendorEventCategories"><!-- --></a>
+
+    <h3>insertVendorEventCategories</h3>
+
+    <div class="method-signature">
+      void
+      insertVendorEventCategories(
+                                  SimpleXMLElement
+          $event
+                        )
+    </div>
+
+    <p>Insert the vendor event categories</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$event</code></td>
+              <td><em>SimpleXMLElement</em></td>
+              <td>
+                                  the events we want to insert  the categories for
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodinsertVendorPoiCategories" id="insertVendorPoiCategories"><!-- --></a>
+
+    <h3>insertVendorPoiCategories</h3>
+
+    <div class="method-signature">
+      void
+      insertVendorPoiCategories(
+                                  SimpleXMLElement
+          $poi
+                        )
+    </div>
+
+    <p>Insert the vendor poi categories</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$poi</code></td>
+              <td><em>SimpleXMLElement</em></td>
+              <td>
+                                  the pois we want to insert  the categories for
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodmapCategories" id="mapCategories"><!-- --></a>
+
+    <h3>mapCategories</h3>
+
+    <div class="method-signature">
+      void
+      mapCategories(
+                                  
+          $sourceCategory
+                            ,           
+          $mapClass
+                            ,           [
+          $noMatchCategoryNameString
+           = 'other']              )
+    </div>
+
+    
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$sourceCategory</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                      <tr>
+              <td><code>$mapClass</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                      <tr>
+              <td><code>$noMatchCategoryNameString</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+  
+<p class="notes">
+  Located in <a class="field" href="_ny---nyImport.class.php.html">/ny/nyImport.class.php</a> 
+  [<span class="field">line 16</span>]
+</p>
+
+                <div class="credit">
+                  Documentation generated on Wed, 27 Jan 2010 12:43:37 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
