@@ -7,7 +7,7 @@ options:
 
 SLLCategory:
   connection: searchlight_london
-  tableName: searchlight_london.category
+  tableName: category
   actAs: [NestedSet]
   columns:
     id:
@@ -40,7 +40,7 @@ SLLCategory:
 
 SLLVenueCategoryInformation:
   connection: searchlight_london
-  tableName: searchlight_london.venue_category_information
+  tableName: venue_category_information
   columns:
     category_id:
       type: integer(4)
@@ -70,7 +70,7 @@ SLLVenueCategoryInformation:
 
 SLLOccurrence:
   connection: searchlight_london
-  tableName: searchlight_london.occurrence
+  tableName: occurrence
   columns:
     id:
       type: integer(4)
@@ -123,12 +123,17 @@ SLLOccurrence:
       default: '0'
       notnull: true
     seo_synopsis:
-      type: string(2147483647)
+      type: string(255)
     title: string(2147483647)
     annotation: string(2147483647)
     price: string(2147483647)
     notable_title: string(30)
     image_id: integer(4)
+    page_views: int(11)
+    flickr_tag: string(255)
+    advanced_text: string(2147483647)
+    date_created: date
+    date_modified: date
   relations:
     SLLEvent:
       local: event_id
@@ -141,7 +146,7 @@ SLLOccurrence:
 
 SLLEventImage:
   connection: searchlight_london
-  tableName: searchlight_london.event_image
+  tableName: event_image
   columns:
     item_id:
       type: integer(4)
@@ -164,7 +169,7 @@ SLLEventImage:
 
 SLLEvent:
   connection: searchlight_london
-  tableName: searchlight_london.event
+  tableName: event
   columns:
     id:
       type: integer(4)
@@ -248,6 +253,15 @@ SLLEvent:
     tags: string(2147483647)
     date_end: date
     opening_times: string(2147483647)
+    booking_ahead: integer(1)
+    rescheduled: integer(1)
+    extra: integer(1)
+    cancelled: integer(1)
+    flickr_tag: string(255)
+    advanced_text: string(2147483647)
+    date_created: date
+    date_modified: date
+    source_field: string(25)
   relations:
     SLLCategory:
       local: master_category_id
@@ -257,7 +271,7 @@ SLLEvent:
 
 SLLEventCategoryMapping:
   connection: searchlight_london
-  tableName: searchlight_london.event_category_mapping
+  tableName: event_category_mapping
   columns:
     category_id:
       type: integer(4)
@@ -285,7 +299,7 @@ SLLEventCategoryMapping:
 
 SLLVenue:
   connection: searchlight_london
-  tableName: searchlight_london.venue
+  tableName: venue
   columns:
     id:
       type: integer(4)
