@@ -27,7 +27,7 @@ abstract class BaseEventOccurrenceForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vendor_event_occurrence_id' => new sfValidatorString(array('max_length' => 10)),
+      'vendor_event_occurrence_id' => new sfValidatorString(array('max_length' => 50)),
       'booking_url'                => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'start'                      => new sfValidatorDate(),
       'end'                        => new sfValidatorDate(array('required' => false)),
