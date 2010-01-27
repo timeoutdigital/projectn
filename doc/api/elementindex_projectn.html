@@ -31,9 +31,6 @@
                   <a href="classtrees_london-import-lib.html">london-import-lib</a>
                 </li>
                               <li>
-                  <a href="classtrees_projectn-lib-import-london.html">projectn-lib-import-london</a>
-                </li>
-                              <li>
                   <a href="classtrees_projectn.html">projectn</a>
                 </li>
                               <li>
@@ -48,7 +45,7 @@
                 <ul>
 	<li>import-lib	    <ul>		<li><a href="projectn/import-lib/curlImporter.html">curlImporter</a></li>    </ul></li>	  </ul>
   <ul>
-	<li>ny-import-lib	    <ul>		<li><a href="projectn/ny-import-lib/importNyMovies.html">importNyMovies</a></li>    </ul></li>	    <ul>		<li><a href="projectn/ny-import-lib/processNyMoviesXml.html">processNyMoviesXml</a></li>    </ul></li>	  </ul>
+	<li>ny-import-lib	    <ul>		<li><a href="projectn/ny-import-lib/importNy.html">importNy</a></li>    </ul></li>	    <ul>		<li><a href="projectn/ny-import-lib/importNyMovies.html">importNyMovies</a></li>    </ul></li>	    <ul>		<li><a href="projectn/ny-import-lib/processNyMoviesXml.html">processNyMoviesXml</a></li>    </ul></li>	  </ul>
                               </td>
         <td>
           <table style="width:750px;" cellpadding="10" cellspacing="10px">
@@ -56,7 +53,7 @@
               <td valign="top">
                                                                 <div class="menu">
           
-                                                                                                                            
+                                                                                                      
                                                                             [ <a href="index.html">Index</a> ]
                       [ <a href="classtrees_projectn.html">projectn classes</a> ]
             [ <a href="elementindex_projectn.html">projectn elements</a> ]
@@ -69,13 +66,13 @@
 				<li><a href="elementindex_projectn API.html">projectn API</a></li>
 					<li><a href="elementindex_lib-projectn.html">lib-projectn</a></li>
 					<li><a href="elementindex_london-import-lib.html">london-import-lib</a></li>
-					<li><a href="elementindex_projectn-lib-import-london.html">projectn-lib-import-london</a></li>
 							<li><a href="elementindex_import-lib.html">import-lib</a></li>
 					<li><a href="elementindex_ny-import-lib-projectn.html">ny-import-lib-projectn</a></li>
 			</ul>
   [ <a href="elementindex_projectn.html#c">c</a> ]
   [ <a href="elementindex_projectn.html#g">g</a> ]
   [ <a href="elementindex_projectn.html#i">i</a> ]
+  [ <a href="elementindex_projectn.html#m">m</a> ]
   [ <a href="elementindex_projectn.html#n">n</a> ]
   [ <a href="elementindex_projectn.html#p">p</a> ]
   [ <a href="elementindex_projectn.html#s">s</a> ]
@@ -87,9 +84,11 @@
           <dt><b>__construct</b></dt>
       <dd>in file curlImporter.class.php, method <a href="projectn/import-lib/curlImporter.html#method__construct">curlImporter::__construct()</a></dd>
           <dt><b>__construct</b></dt>
+      <dd>in file processNyMoviesXml.php, method <a href="projectn/ny-import-lib/processNyMoviesXml.html#method__construct">processNyMoviesXml::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Constructor method</dd>
+          <dt><b>__construct</b></dt>
       <dd>in file nyImportMovies.class.php, method <a href="projectn/ny-import-lib/importNyMovies.html#method__construct">importNyMovies::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Construct</dd>
           <dt><b>__construct</b></dt>
-      <dd>in file processNyMoviesXml.php, method <a href="projectn/ny-import-lib/processNyMoviesXml.html#method__construct">processNyMoviesXml::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Constructor method</dd>
+      <dd>in file nyImport.class.php, method <a href="projectn/ny-import-lib/importNy.html#method__construct">importNy::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Constructor</dd>
           <dt><b>__destruct</b></dt>
       <dd>in file nyImportMovies.class.php, method <a href="projectn/ny-import-lib/importNyMovies.html#method__destruct">importNyMovies::__destruct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Delete Object</dd>
       </dl>
@@ -120,14 +119,34 @@
   <dl>
           <dt><b>importMovies</b></dt>
       <dd>in file nyImportMovies.class.php, method <a href="projectn/ny-import-lib/importNyMovies.html#methodimportMovies">importNyMovies::importMovies()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Insert the occurances</dd>
+          <dt><b>importNy</b></dt>
+      <dd>in file nyImport.class.php, class <a href="projectn/ny-import-lib/importNy.html">importNy</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Class for importing Ny's feeds.</dd>
           <dt><b>importNyMovies</b></dt>
       <dd>in file nyImportMovies.class.php, class <a href="projectn/ny-import-lib/importNyMovies.html">importNyMovies</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Import Movies XML feed from Leo</dd>
+          <dt><b>insertEvent</b></dt>
+      <dd>in file nyImport.class.php, method <a href="projectn/ny-import-lib/importNy.html#methodinsertEvent">importNy::insertEvent()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Insert the events</dd>
+          <dt><b>insertEventCategoriesAndEventsAndVenues</b></dt>
+      <dd>in file nyImport.class.php, method <a href="projectn/ny-import-lib/importNy.html#methodinsertEventCategoriesAndEventsAndVenues">importNy::insertEventCategoriesAndEventsAndVenues()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Insert the Events and Venues data into the database</dd>
           <dt><b>insertMovie</b></dt>
       <dd>in file nyImportMovies.class.php, method <a href="projectn/ny-import-lib/importNyMovies.html#methodinsertMovie">importNyMovies::insertMovie()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Insert Movies</dd>
+          <dt><b>insertPoi</b></dt>
+      <dd>in file nyImport.class.php, method <a href="projectn/ny-import-lib/importNy.html#methodinsertPoi">importNy::insertPoi()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Insert the events pois</dd>
+          <dt><b>insertVendorEventCategories</b></dt>
+      <dd>in file nyImport.class.php, method <a href="projectn/ny-import-lib/importNy.html#methodinsertVendorEventCategories">importNy::insertVendorEventCategories()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Insert the vendor event categories</dd>
+          <dt><b>insertVendorPoiCategories</b></dt>
+      <dd>in file nyImport.class.php, method <a href="projectn/ny-import-lib/importNy.html#methodinsertVendorPoiCategories">importNy::insertVendorPoiCategories()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Insert the vendor poi categories</dd>
+      </dl>
+  <a name="m"></a>
+  <h2>Letter 'm'</h2>
+  <dl>
+          <dt><b>mapCategories</b></dt>
+      <dd>in file nyImport.class.php, method <a href="projectn/ny-import-lib/importNy.html#methodmapCategories">importNy::mapCategories()</a></dd>
       </dl>
   <a name="n"></a>
   <h2>Letter 'n'</h2>
   <dl>
+          <dt><b>nyImport.class.php</b></dt>
+      <dd>procedural page <a href="projectn/ny-import-lib/_ny---nyImport.class.php.html">nyImport.class.php</a></dd>
           <dt><b>nyImportMovies.class.php</b></dt>
       <dd>procedural page <a href="projectn/ny-import-lib/_ny---nyImportMovies.class.php.html">nyImportMovies.class.php</a></dd>
       </dl>
@@ -154,7 +173,7 @@
       <dd>in file nyImportMovies.class.php, method <a href="projectn/ny-import-lib/importNyMovies.html#methodsetPoi">importNyMovies::setPoi()</a></dd>
       </dl>
                 <div class="credit">
-                  Documentation generated on Wed, 27 Jan 2010 12:48:42 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Wed, 27 Jan 2010 16:20:20 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>
