@@ -61,6 +61,33 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
         $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 1 );
 
         $this->assertTrue( $poi instanceof Doctrine_Record );
+
+		$this->assertEquals( 'Dummy Building Name 1', $poi[ 'house_no' ]  );
+	    $this->assertEquals( 'Dummy Address 1',       $poi[ 'street' ] );
+		$this->assertEquals( 'London',                $poi[ 'city' ] );
+		$this->assertEquals( '',                      $poi[ 'district' ] );
+	    $this->assertEquals( 'GBR',                   $poi[ 'country' ] );
+		$this->assertEquals( '',                      $poi[ 'additional_address_details' ] );
+		$this->assertEquals( 'Dummy Postcode 1',      $poi[ 'zips' ] );
+		$this->assertEquals( 'GB',                    $poi[ 'country_code' ] );
+		$this->assertEquals( '',                      $poi[ 'extension' ] );
+		$this->assertEquals( '51.0000000',            $poi[ 'latitude' ] );
+		$this->assertEquals( '-0.10000000',           $poi[ 'longitude' ] );
+		$this->assertEquals( 'Dummy Email 1',         $poi[ 'email' ] );
+		$this->assertEquals( 'Dummy Url 1',           $poi[ 'url' ] );
+		$this->assertEquals( 'Dummy Phone 1',         $poi[ 'phone' ] );
+		$this->assertEquals( '',                      $poi[ 'phone2' ] );
+		$this->assertEquals( '',                      $poi[ 'fax' ] );
+		$this->assertEquals( '',                      $poi[ 'vendor_category' ] );
+		$this->assertEquals( '',                      $poi[ 'keywords' ] );
+		$this->assertEquals( '',                      $poi[ 'short_description' ] );
+		$this->assertEquals( '',                      $poi[ 'description' ] );
+		$this->assertEquals( 'Dummy Travel 1',        $poi[ 'public_transport_links' ] );
+		$this->assertEquals( '',                      $poi[ 'price_information' ] );
+		$this->assertEquals( 'Dummy Opening Times 1', $poi[ 'openingtimes' ] );
+		$this->assertEquals( '',                      $poi[ 'star_rating' ] );
+		$this->assertEquals( '',                      $poi[ 'rating' ] );
+		$this->assertEquals( '',                      $poi[ 'provider' ] );
     }
 
     /**
@@ -76,6 +103,8 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
         $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 1 );
 
         $this->assertTrue( $event instanceof Doctrine_Record );
+
+        $this->assertEquals( 'Dummy Title 1', $event[ 'name' ]  );
     }
 
     /**
@@ -91,67 +120,9 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
         $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( 1 );
 
         $this->assertTrue( $occurrence instanceof Doctrine_Record );
-    }
 
-    /**
-     *
-     */
-    public function testProcessVenues()
-    {
-        /*    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getGeoCode', 'getLongitude', 'getLatitude' ) );
-
-    $geoEncoder->expects( $this->atLeastOnce() )
-               ->method( 'setAddress' );
-
-    $geoEncoder->expects( $this->atLeastOnce() )
-               ->method( 'getGeoCode' )
-               ->will( $this->returnValue( $geoEncoder ) );
-
-    $geoEncoder->expects( $this->atLeastOnce() )
-               ->method( 'getLatitude' )
-               ->will( $this->returnValue( '-0.123' ) );
-
-    $geoEncoder->expects( $this->atLeastOnce() )
-               ->method( 'getLongitude' )
-               ->will( $this->returnValue( '54.321') );
-
-    $this->object = new LondonImporter( $this->_defaultCategory, $geoEncoder );
-
-    $this->object->setVenueData( $this->_testVenueXml );
-    $this->object->setVenueCategoryInformationData( $this->_testVenueCategoryInformationXml );
-
-    $this->object->run( );
-
-    $poi = Doctrine::getTable( 'Poi' )->findOneByPoiName( 'Dummy Name' );
-
-    $this->assertTrue( $poi instanceof Doctrine_Record );
-
-    $this->assertEquals( 'Dummy BuildingNo', $poi[ 'house_no' ]  );
-    $this->assertEquals( 'Dummy Address', $poi[ 'street' ] );
-    $this->assertEquals( 'Dummy City', $poi[ 'city' ] );
-    $this->assertEquals( '', $poi[ 'district' ] );
-    $this->assertEquals( 'GBR', $poi[ 'country' ] );
-    $this->assertEquals( 'Dummy Address1, Dummy Address2, Dummy Address3, Dummy Address4', $poi[ 'additional_address_details' ] );
-    $this->assertEquals( 'w1t 7ab', $poi[ 'zips' ] );
-    $this->assertEquals( 'GB', $poi[ 'country_code' ] );
-    $this->assertEquals( '', $poi[ 'extension' ] );
-    $this->assertEquals( '54.321', $poi[ 'longitude' ] );
-    $this->assertEquals( '-0.123', $poi[ 'latitude' ] );
-    $this->assertEquals( 'Dummy GenEmail', $poi[ 'email' ] );
-    $this->assertEquals( 'Dummy URL', $poi[ 'url' ] );
-    $this->assertEquals( 'Dummy Phone', $poi[ 'phone' ] );
-    $this->assertEquals( '', $poi[ 'phone2' ] );
-    $this->assertEquals( '', $poi[ 'fax' ] );
-    $this->assertEquals( '', $poi[ 'vendor_category' ] );
-    $this->assertEquals( '', $poi[ 'keywords' ] );
-    $this->assertEquals( '', $poi[ 'short_description' ] );
-    $this->assertEquals( '', $poi[ 'description' ] );
-    $this->assertEquals( 'Dummy BusInfo, Dummy TubeInfo, Dummy TubeStationID, Dummy RailInfo', $poi[ 'public_transport_links' ] );
-    $this->assertEquals( 'Dummy CinemaPriceInfo, Dummy MusicPriceInfo', $poi[ 'price_information' ] );
-    $this->assertEquals( '7pm', $poi[ 'openingtimes' ] );
-    $this->assertEquals( '', $poi[ 'star_rating' ] );
-    $this->assertEquals( '', $poi[ 'rating' ] );
-    $this->assertEquals( '', $poi[ 'provider' ] );*/
+        $this->assertEquals( '2010-10-01', $occurrence[ 'start' ]  );
+        $this->assertEquals( '1', $occurrence[ 'utc_offset' ]  );
     }
 
 }
