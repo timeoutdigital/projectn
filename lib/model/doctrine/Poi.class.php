@@ -28,4 +28,15 @@ class Poi extends BasePoi
 
       return $q->fetchOne();
   }*/
+
+
+  public function addProperty( $lookup, $value )
+  {
+    $poiPropertyObj = new PoiProperty();
+    $poiPropertyObj[ 'lookup' ] = $lookup;
+    $poiPropertyObj[ 'value' ] = $value;
+
+    $this[ 'PoiProperty' ][] = $poiPropertyObj;
+  }
+
 }
