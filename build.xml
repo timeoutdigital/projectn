@@ -45,7 +45,7 @@
 
   <!-- Run PHPMD on selected classes -->
   <target name="php-pmd">
-    <exec executable="phpmd" dir="${basedir}/source/lib/import" failonerror="false">
+    <exec executable="phpmd" dir="${basedir}/source" failonerror="false">
     <arg line="lib/ xml codesize
                --reportfile ${basedir}/build/logs/phpunit.pmd.xml" />
     </exec>
@@ -53,14 +53,14 @@
   
  <!-- Run PHP Copy Paste Detection on classes -->
  <target name="php-cpd">
-    <exec executable="phpcpd" dir="${basedir}/source/lib/import" failonerror="false">
+    <exec executable="phpcpd" dir="${basedir}/source" failonerror="false">
     <arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml lib/import/" />
     </exec>
   </target>
 
  <!-- Run PHP Depend-->
   <target name="php-depend">
-    <exec executable="phpdp" dir="${basedir}/source/lib/import" failonerror="false">
+    <exec executable="phpdp" dir="${basedir}/source" failonerror="false">
     <arg line="--summary-xml ${basedir}/build/logs/summary.xml --jdepend-chart=${basedir}/build/logs/phpdepend.svg --overview-pyramid=${basedir}/build/logs/phpdepend-pyramid.svg --bad-documentation ${basedir}/source/lib/import" />
     </exec>
   </target>
