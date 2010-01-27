@@ -13,7 +13,7 @@ class XMLExportTest extends PHPUnit_Framework_TestCase {
   /**
    * @var XMLExport
    */
-    private $export;
+    private $object;
 
     private $vendor2;
 
@@ -97,7 +97,7 @@ protected function setUp()
         $this->destination = dirname( __FILE__ ) . '/../../export/poi/XMLExport.xml';
         //$this->export = new XMLExportPOI( $this->vendor2, $this->destination );
 
-        $this->export = $this->getMockForAbstractClass( 'XMLExport',
+        $this->object = $this->getMockForAbstractClass( 'XMLExport',
           array($this->vendor2, $this->destination, 'Poi'));
       }
       catch(PDOException $e)
@@ -142,11 +142,11 @@ protected function setUp()
    */
   public function testRunCallsAbstractMethods()
   {
-    $this->export->expects( $this->once() )
+    $this->object->expects( $this->once() )
                  ->method( 'mapDataToDOMDocument' )
                  ->will( $this->returnValue( $this->domDocument ) );
 
-    $this->export->run();
+    $this->object->run();
   }
 
   /**
@@ -154,13 +154,13 @@ protected function setUp()
    */
   public function testGetStartDate()
   {
-    $this->export->expects( $this->once() )
+    $this->object->expects( $this->once() )
                  ->method( 'mapDataToDOMDocument' )
                  ->will( $this->returnValue( $this->domDocument ) );
     
     $date = date( 'Y-m-d\TH:i:s' );
-    $this->export->run();
-    $this->assertEquals( $date, $this->export->getStartTime() );
+    $this->object->run();
+    $this->assertEquals( $date, $this->object->getStartTime() );
   }
 
   /**
@@ -168,14 +168,14 @@ protected function setUp()
    */
   public function testWriteToXMLCreatesCorrectFile()
   {
-    $this->export->expects( $this->once() )
+    $this->object->expects( $this->once() )
                  ->method( 'mapDataToDOMDocument' )
                  ->will( $this->returnValue( $this->domDocument ) );
     
     unlink( $this->destination );
     $this->assertFileNotExists( $this->destination );
 
-    $this->export->run();
+    $this->object->run();
     $this->assertFileExists( $this->destination );
 
     $domDocument = new DOMDocument();
@@ -183,6 +183,64 @@ protected function setUp()
     $rootNodeList = $domDocument->getElementsByTagName('root');
     $this->assertEquals( 1, $rootNodeList->length );
     $this->assertEquals('root', $rootNodeList->item(0)->nodeName);
+  }
+
+  /**
+   *
+   */
+  public function testAppendNonRequiredElement()
+  {
+    $expected = new DOMDocument('1.0', 'utf-8');
+    $expected->loadXML('
+      <root>
+        <test>test content</test>
+      </root>
+    ');
+    $domDocument = new DOMDocument('1.0', 'utf-8');
+    $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );   
+    $testElement = $this->object->appendNonRequiredElement( $rootElement, 'test', 'some content' );
+    $this->assertEqualXMLStructure( $expected, $domDocument );
+    $this->assertEquals( 'test', $testElement->nodeName );
+
+    $expected = new DOMDocument('1.0', 'utf-8');
+    $expected->loadXML('
+      <root>
+      </root>
+    ');
+    $domDocument = new DOMDocument('1.0', 'utf-8');
+    $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
+    $testElement = $this->object->appendNonRequiredElement( $rootElement, 'test', '' );
+    $this->assertEqualXMLStructure( $expected, $domDocument );
+
+    $expected = new DOMDocument('1.0', 'utf-8');
+    $expected->loadXML('
+      <root>
+        <test><![CDATA[test content]]></test>
+      </root>
+    ');
+    $domDocument = new DOMDocument('1.0', 'utf-8');
+    $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
+
+    $testElement = $this->object->appendNonRequiredElement( 
+      $rootElement, 'test', 'some content', XMLExport::USE_CDATA );
+    
+    $this->assertEqualXMLStructure( $expected, $domDocument );
+    $this->assertEquals( 'test', $testElement->nodeName );
+
+  }
+  
+  public function testAppendCDATAElement()
+  {
+    $expected = new DOMDocument('1.0', 'utf-8');
+    $expected->loadXML('
+      <root>
+        <test><![CDATA[test content]]></test>
+      </root>
+    ');
+    $domDocument = new DOMDocument('1.0', 'utf-8');
+    $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
+    $testElement = $this->object->appendCDATAElement( $rootElement, 'test', 'some content' );
+    $this->assertEqualXMLStructure( $expected, $domDocument );
   }
 
 }
