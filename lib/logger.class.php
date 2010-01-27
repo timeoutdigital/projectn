@@ -15,8 +15,24 @@
  *
  * @version 1.0.0
  *
+ * <b>Example</b>
+ * <code>
+ *
+ * //Instaniate
+ * $movieLoggerObj = new logger($vendorObj, 'movie');
+ * $poiLoggerObj = new logger($vendorObj, 'poi');
+ *
+ *
+ * //user
+ * $movieLoggerObj->countNewInsert()
+ *
+ * //Save the log
+ * $movieLoggerObj->saveStats();
+ *
+ * </code>
+ *
  */
-class loggerclass {
+class logger {
 
     /**
      * @var integer
@@ -28,9 +44,28 @@ class loggerclass {
      */
     public $totalUpdates = 0;
 
+    /**
+     *
+     * @var Object
+     */
+    public $vendorObj;
 
-    public function __constructor()
-    {   
+    /**
+     *
+     * @var string
+     */
+    public $type;
+
+    /**
+     * Constructor
+     *
+     * @param int $vendorId
+     * @param string Type of logger e.g. movie, poi, event
+     */
+    public function  __construct($vendorObj, $type)
+    {
+        $this->vendorObj = $vendorObj;
+        $this->checkType($type);
     }
 
     /**
@@ -38,7 +73,7 @@ class loggerclass {
      */
     public function countNewInsert()
     {
-        $this->totalUpdates++;
+        $this->totalInserts++;
     }
 
     /**
@@ -46,7 +81,37 @@ class loggerclass {
      */
     public function countUpdate()
     {
-        $this->totalInserts++;
+        $this->totalUpdates++;
+    }
+
+    /**
+     * Save the stats
+     */
+    public function saveStats()
+    {
+        $statsObj = new ImportStats;
+        $statsObj['total_inserts'] = $this->totalInserts;
+        $statsObj['total_updates'] = $this->totalUpdates;
+        $statsObj['type'] = $this->type;
+        $statsObj['Vendor'] = $this->vendorObj;
+        $statsObj->save();
+    }
+
+    /**
+     * Check the type going in
+     *
+     * @param <string> $type
+     */
+    public function checkType($type)
+    {
+
+        if($type != 'movie' && $type != 'poi' && $type != 'event')
+        {
+            throw new Exception('Incorrect Type. Must be on of: "movie" "poi" "event"');
+        }
+
+        $this->type = $type;
+
     }
 }
 ?>

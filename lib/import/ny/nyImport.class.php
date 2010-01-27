@@ -19,6 +19,8 @@ class importNy
   private $_venues;
   private $_xmlFeed;
   private $_vendorObj;
+  private $_movieLogger;
+  private $_poiLogger;
   
   /**
    * Constructor

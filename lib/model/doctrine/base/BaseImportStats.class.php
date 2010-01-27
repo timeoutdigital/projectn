@@ -8,15 +8,18 @@
  * @property integer $total_inserts
  * @property integer $total_updates
  * @property integer $vendor_id
+ * @property string $type
  * @property Vendor $Vendor
  * 
  * @method integer     getTotalInserts()  Returns the current record's "total_inserts" value
  * @method integer     getTotalUpdates()  Returns the current record's "total_updates" value
  * @method integer     getVendorId()      Returns the current record's "vendor_id" value
+ * @method string      getType()          Returns the current record's "type" value
  * @method Vendor      getVendor()        Returns the current record's "Vendor" value
  * @method ImportStats setTotalInserts()  Sets the current record's "total_inserts" value
  * @method ImportStats setTotalUpdates()  Sets the current record's "total_updates" value
  * @method ImportStats setVendorId()      Sets the current record's "vendor_id" value
+ * @method ImportStats setType()          Sets the current record's "type" value
  * @method ImportStats setVendor()        Sets the current record's "Vendor" value
  * 
  * @package    sf_sandbox
@@ -40,6 +43,11 @@ abstract class BaseImportStats extends sfDoctrineRecord
         $this->hasColumn('vendor_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
+             ));
+        $this->hasColumn('type', 'string', 5, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '5',
              ));
 
         $this->option('type', 'INNODB');

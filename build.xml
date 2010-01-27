@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, php-documentor, php-codesniffer, php-pmd, php-cpd, php-depend, phpunit"/>
+  <target name="build" depends="checkout, php-documentor, git-add, git-commit, git-push"/>
   <!-- Delete all the log files -->
   <target name="init">
     <delete>
@@ -65,5 +65,25 @@
     </exec>
   </target>
 
+  <!-- Git Add -->
+ <target name="git-add">
+    <exec executable="git" dir="${basedir}/source" failonerror="false">
+     <arg line="add doc/api" />
+    </exec>
+ </target>
+
+ <!-- Git Commit -->
+ <target name="git-commit">
+    <exec executable="git" dir="${basedir}/source" failonerror="false">
+     <arg line="--no-verify commit -m 'API Documentation Built'" />
+    </exec>
+ </target>
+
+ <!-- Git Push -->
+ <target name="git-push">
+    <exec executable="git" dir="${basedir}/source" failonerror="false">
+     <arg line="push" />
+    </exec>
+ </target>
 
 </project>

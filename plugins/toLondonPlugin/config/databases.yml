@@ -1,0 +1,17 @@
+      
+test:
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                sqlite::memory:/searchlight_london
+      attributes:
+        use_native_enum:  true
+        
+      
+dev:
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                sqlite::memory:/searchlight_london
+      attributes:
+        use_native_enum:  true
