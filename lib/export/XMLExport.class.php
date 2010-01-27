@@ -122,18 +122,11 @@ abstract class XMLExport
    *
    * @return DOMElement
    */
-  public function appendNonRequiredElement( DOMNode $node, $elementName, $elementContent, $useCDATA = false )
+  public function appendNonRequiredElement( DOMNode $node, $elementName, $elementContent=null, $useCDATA = false )
   {
     if( !empty( $elementContent ) )
     {
-      if( $useCDATA )
-      {
-        return $this->appendCDATAElement( $node, $elementName, $elementContent );
-      }
-      else
-      {
-        return $node->appendChild( new DOMElement( $elementName, $elementContent ) );
-      }
+      return $this->appendRequiredElement($node, $elementName, $elementContent, $useCDATA);
     }
     return null;
   }
@@ -141,7 +134,23 @@ abstract class XMLExport
   /**
    *
    */
-  public function appendCDATAElement( DOMNode $node, $elementName, $elementContent )
+  public function appendRequiredElement( DOMNode $node, $elementName, $elementContent=null, $useCDATA = false )
+  {
+    if( $useCDATA )
+    {
+      return $this->appendCDATAElement( $node, $elementName, $elementContent );
+    }
+    else
+    {
+      return $node->appendChild( new DOMElement( $elementName, $elementContent ) );
+    }
+    return null;
+  }
+  
+  /**
+   *
+   */
+  protected function appendCDATAElement( DOMNode $node, $elementName, $elementContent=null )
   {
     $element = $node->appendChild( new DOMElement( $elementName ) );
     $element->appendChild( $node->ownerDocument->createCDATASection( $elementContent ) );

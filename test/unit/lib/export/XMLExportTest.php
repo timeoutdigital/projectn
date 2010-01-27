@@ -193,44 +193,47 @@ protected function setUp()
     $expected = new DOMDocument('1.0', 'utf-8');
     $expected->loadXML('
       <root>
-        <test>test content</test>
-      </root>
-    ');
-    $domDocument = new DOMDocument('1.0', 'utf-8');
-    $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );   
-    $testElement = $this->object->appendNonRequiredElement( $rootElement, 'test', 'some content' );
-    $this->assertEqualXMLStructure( $expected, $domDocument );
-    $this->assertEquals( 'test', $testElement->nodeName );
-
-    $expected = new DOMDocument('1.0', 'utf-8');
-    $expected->loadXML('
-      <root>
       </root>
     ');
     $domDocument = new DOMDocument('1.0', 'utf-8');
     $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
     $testElement = $this->object->appendNonRequiredElement( $rootElement, 'test', '' );
     $this->assertEqualXMLStructure( $expected, $domDocument );
-
-    $expected = new DOMDocument('1.0', 'utf-8');
-    $expected->loadXML('
-      <root>
-        <test><![CDATA[test content]]></test>
-      </root>
-    ');
-    $domDocument = new DOMDocument('1.0', 'utf-8');
-    $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
-
-    $testElement = $this->object->appendNonRequiredElement( 
-      $rootElement, 'test', 'some content', XMLExport::USE_CDATA );
-    
-    $this->assertEqualXMLStructure( $expected, $domDocument );
-    $this->assertEquals( 'test', $testElement->nodeName );
-
   }
-  
-  public function testAppendCDATAElement()
+
+  public function testAppendRequiredElement()
   {
+    $expected2 = new DOMDocument('1.0', 'utf-8');
+    $expected2->loadXML('
+      <root>
+        <test>test content</test>
+      </root>
+    ');
+
+    $domDocument2 = new DOMDocument('1.0', 'utf-8');
+    $rootElement2 = $domDocument2->appendChild( new DOMElement( 'root' ) );
+    
+    $testElement2 = $this->object->appendRequiredElement( $rootElement2, 'test', 'test content' ); 
+    
+    $this->assertEquals( 'test', $testElement2->nodeName );
+    $this->assertEquals( 'test content', $testElement2->nodeValue );
+    $this->assertEqualXMLStructure( $expected2, $domDocument2 );
+    
+    $expected = new DOMDocument('1.0', 'utf-8');
+    $expected->loadXML('
+      <root>
+        <test></test>
+      </root>
+    ');
+    
+    $domDocument = new DOMDocument('1.0', 'utf-8');
+    $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
+    $testElement = $this->object->appendRequiredElement( $rootElement, 'test', null );
+    
+    $this->assertEquals( 'test', $testElement->nodeName );
+    $this->assertEquals( '', $testElement->nodeValue );
+    $this->assertEqualXMLStructure( $expected, $domDocument );
+
     $expected = new DOMDocument('1.0', 'utf-8');
     $expected->loadXML('
       <root>
@@ -239,9 +242,13 @@ protected function setUp()
     ');
     $domDocument = new DOMDocument('1.0', 'utf-8');
     $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
-    $testElement = $this->object->appendCDATAElement( $rootElement, 'test', 'some content' );
-    $this->assertEqualXMLStructure( $expected, $domDocument );
-  }
 
+    $testElement = $this->object->appendRequiredElement(
+      $rootElement, 'test', 'some content', XMLExport::USE_CDATA );
+
+    $this->assertEquals( 'test', $testElement->nodeName );
+    $this->assertEqualXMLStructure( $expected, $domDocument );
+
+  }
 }
 ?>
