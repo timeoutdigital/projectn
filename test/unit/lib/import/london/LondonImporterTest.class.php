@@ -1,8 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
-require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
-require_once dirname( __FILE__ ).'/../../../bootstrap.php';
-
+require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 
 /**
  * Test class for LondonImporter.
@@ -10,81 +9,96 @@ require_once dirname( __FILE__ ).'/../../../bootstrap.php';
  */
 class LondonImporterTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var LondonImporter
-   */
-  protected $object;
+    /**
+     * @var LondonImporter
+     */
+    protected $object;
 
-  /**
-   * @var SimpleXmlElement
-   */
-  private $_testVenueXml;
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+    	// create london connection
+    	Doctrine_Manager::connection( new PDO( 'sqlite::memory:' ), 'searchlight_london' );
 
-  /**
-   * @var SimpleXmlElement
-   */
-  private $_testVenueCategoryInformationXml;
+    	// load project n
+        ProjectN_Test_Unit_Factory::createSqliteMemoryDb( 'project_n' );
+        Doctrine::loadData( 'data/fixtures' );
 
-  /**
-   * @var SimpleXmlElement
-   */
-  private $_testEventXml;
+        // load london data
+        Doctrine::loadData( dirname( __FILE__ ) . '/../../../../../plugins/toLondonPlugin/data/fixtures/fixtures.yml' );
+    }
 
-  /**
-   * @var PoiCategory
-   */
-  private $_defaultCategory;
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
+        ProjectN_Test_Unit_Factory::destroySqliteMemoryDb( 'searchlight_london' );
+        ProjectN_Test_Unit_Factory::destroySqliteMemoryDb( 'project_n' );
+    }
 
-  /**
-   * Sets up the fixture, for example, opens a network connection.
-   * This method is called before a test is executed.
-   */
-  protected function setUp()
-  {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    /**
+     * @todo Implement testRun().
+     */
+    public function testRun()
+    {
+    }
 
-    $vendor = new Vendor();
-    $vendor->setCity('london');
-    $vendor->setLanguage('en-GB');
-    $vendor->save();
+    /**
+     *
+     * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
+     */
+    public function testProcessImportedVenue()
+    {
+        $this->object = new LondonImporter( );
 
-    $category = new PoiCategory();
-    $category['name'] = 'other';
-    $category->save();
+        $this->object->run( );
 
-    $this->_defaultCategory = $category;
+        $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 1 );
 
-    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getGeoCode', 'getLongitude', 'getLatitude' ) );
+        $this->assertTrue( $poi instanceof Doctrine_Record );
+    }
 
-    $this->object = new LondonImporter( $category, $geoEncoder );
+    /**
+     *
+     * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
+     */
+    public function testProcessImportedEvent()
+    {
+        $this->object = new LondonImporter( );
 
-    $this->_testVenueXml = simplexml_load_file( TO_TEST_DATA_PATH . '/london_listings_venues.xml' );
+        $this->object->run( );
 
-    $this->_testVenueCategoryInformationXml = simplexml_load_file( TO_TEST_DATA_PATH . '/london_listings_venue_category_information.xml' );
-  }
+        $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 1 );
 
-  /**
-   * Tears down the fixture, for example, closes a network connection.
-   * This method is called after a test is executed.
-   */
-  protected function tearDown()
-  {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
-  }
+        $this->assertTrue( $event instanceof Doctrine_Record );
+    }
 
-  /**
-   * @todo Implement testRun().
-   */
-  public function testRun()
-  {
-  }
+    /**
+     *
+     * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
+     */
+    public function testProcessImportedOccurrence()
+    {
+        $this->object = new LondonImporter( );
 
-  /**
-   *
-   */
-  public function testProcessVenues()
-  {
-    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getGeoCode', 'getLongitude', 'getLatitude' ) );
+        $this->object->run( );
+
+        $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( 1 );
+
+        $this->assertTrue( $occurrence instanceof Doctrine_Record );
+    }
+
+    /**
+     *
+     */
+    public function testProcessVenues()
+    {
+        /*    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getGeoCode', 'getLongitude', 'getLatitude' ) );
 
     $geoEncoder->expects( $this->atLeastOnce() )
                ->method( 'setAddress' );
@@ -102,7 +116,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
                ->will( $this->returnValue( '54.321') );
 
     $this->object = new LondonImporter( $this->_defaultCategory, $geoEncoder );
-    
+
     $this->object->setVenueData( $this->_testVenueXml );
     $this->object->setVenueCategoryInformationData( $this->_testVenueCategoryInformationXml );
 
@@ -137,32 +151,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '7pm', $poi[ 'openingtimes' ] );
     $this->assertEquals( '', $poi[ 'star_rating' ] );
     $this->assertEquals( '', $poi[ 'rating' ] );
-    $this->assertEquals( '', $poi[ 'provider' ] );
-  }
-
-  /**
-   * 
-   */
-  public function testVenueDataAccess()
-  {
-    $testXml = new SimpleXMLElement( '<rooty />' );
-
-    $this->object->setVenueData( $testXml );
-
-    $this->assertEquals( $testXml->getName( ), $this->object->getVenueData( )->getName( ) );
-  }
-
-  /**
-   * 
-   */
-  public function testEventDataAccess()
-  {
-    $testXml = new SimpleXMLElement( '<rooty />' );
-
-    $this->object->setEventData( $testXml );
-
-    $this->assertEquals( $testXml->getName( ), $this->object->getEventData( )->getName( ));
-  }
+    $this->assertEquals( '', $poi[ 'provider' ] );*/
+    }
 
 }
-?>

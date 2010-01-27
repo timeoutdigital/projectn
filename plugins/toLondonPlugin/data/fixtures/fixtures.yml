@@ -139,8 +139,8 @@ SLLEvent:
     id: 1
     master_category_id: 1
     default_venue_id: 1
-    title: Dummy Event 1
-    title_sort: Dummy Event 1
+    title: Dummy Title 1
+    title_sort: Dummy Title 1
     annotation: Dummy Annotation 1
     phone: Dummy Phone 1
     url: Dummy Url 1
@@ -181,8 +181,8 @@ SLLEvent:
     id: 2
     master_category_id: 2
     default_venue_id: 2
-    title: Dummy Event 2
-    title_sort: Dummy Event 2
+    title: Dummy Title 2
+    title_sort: Dummy Title 2
     annotation: Dummy Annotation 2
     phone: Dummy Phone 2
     url: Dummy Url 2
@@ -223,8 +223,8 @@ SLLEvent:
     id: 3
     master_category_id: 3
     default_venue_id: 3
-    title: Dummy Event 3
-    title_sort: Dummy Event 3
+    title: Dummy Title 3
+    title_sort: Dummy Title 3
     annotation: Dummy Annotation 3
     phone: Dummy Phone 3
     url: Dummy Url 3
@@ -267,7 +267,7 @@ SLLVenue:
   venue_1:
     id: 1
     neighbourhood_id: 1
-    name: Dummy Venue 1
+    name: Dummy Name 1
     alt_name: Dummy Alt Name 1
     building_name: Dummy Building Name 1
     address: Dummy Address 1
@@ -288,7 +288,7 @@ SLLVenue:
   venue_2:
     id: 2
     neighbourhood_id: 2
-    name: Dummy Venue 2
+    name: Dummy Name 2
     alt_name: Dummy Alt Name 2
     building_name: Dummy Building Name 2
     address: Dummy Address 2
@@ -309,7 +309,7 @@ SLLVenue:
   venue_3:
     id: 3
     neighbourhood_id: 3
-    name: Dummy Venue 3
+    name: Dummy Name 3
     alt_name: Dummy Alt Name 3
     building_name: Dummy Building Name 3
     address: Dummy Address 3

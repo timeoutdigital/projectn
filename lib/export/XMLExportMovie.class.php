@@ -27,69 +27,62 @@ class XMLExportMovie extends XMLExport
    */
   protected function mapDataToDOMDocument($movieCollection, $domDocument)
   {
-    $rootTag =  $domDocument->appendChild( new DOMElement( 'vendor-movies' ));
+    $rootTag = $this->appendRequiredElement($domDocument, 'vendor-movies');
 
     $rootTag->setAttribute( 'modified', $this->modifiedTimeStamp );
     $rootTag->setAttribute( 'vendor', $this->vendor->getName() );
 
     foreach( $movieCollection as $movie )
     {
-      $movieElement = $rootTag->appendChild( new DOMElement( 'movie' ) );
+      $movieElement = $this->appendRequiredElement($rootTag, 'movie');
       $movieElement->setAttribute( 'id', '187' );
       $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
-      $nameElement = $movieElement->appendChild( new DOMElement( 'name' ) );
-      $nameElement->appendChild( $domDocument->createCDATASection( $movie['name'] ) );
+      $nameElement = $this->appendRequiredElement($movieElement, 'name', $movie['name']);
 
       //movie/version
-      $versionElement = $movieElement->appendChild( new DOMElement( 'version' ) );
+      $versionElement = $this->appendRequiredElement($movieElement, 'version');
       $versionElement->setAttribute( 'lang', 'en' );
 
       //movie/version/name
-      $nameElement = $versionElement->appendChild( new DOMElement( 'name' ) );
-      $nameElement->appendChild( $domDocument->createCDATASection( $movie['name'] ) );
+      $this->appendRequiredElement($versionElement, 'name',  $movie['name'], XMLExport::USE_CDATA);
 
       //movie/version/genre
       foreach( $movie['MovieGenres'] as $genre )
       {
-        $genreElement = $versionElement->appendChild( new DOMElement( 'genre' ) );
-        $genreElement->appendChild( $domDocument->createCDATASection( $genre['genre'] ) );
+        $this->appendRequiredElement($versionElement, 'genre', $genre['genre'], XMLExport::USE_CDATA);
       }
 
       //movie/version/plot
-      $plotElement = $versionElement->appendChild( new DOMElement( 'plot' ) );
-      $plotElement->appendChild( $domDocument->createCDATASection( $movie['plot'] ) );
+      $this->appendNonRequiredElement($versionElement, 'plot', $movie['plot'], XMLExport::USE_CDATA);
 
       //movie/version/review
-      $reviewElement = $versionElement->appendChild( new DOMElement( 'review' ));
-      $reviewElement->appendChild( $domDocument->createCDATASection( $movie['review'] ) );
+      $this->appendNonRequiredElement($versionElement, 'review', $movie['review'], XMLExport::USE_CDATA);
 
       //movie/version/url
-      $urlElement = $versionElement->appendChild( new DOMElement( 'url' ) );
-      $urlElement->appendChild( $domDocument->createCDATASection( $movie['url'] ) );
+      $this->appendNonRequiredElement($versionElement, 'url', $movie['url'], XMLExport::USE_CDATA);
 
 
       //movie/version/rating
-      $versionElement->appendChild( new DOMElement( 'rating', $movie['rating'] ) );
+      $this->appendNonRequiredElement($versionElement, 'rating', $movie['rating'] );
 
       //movie/showtimes
-      $showTimesElement = $movieElement->appendChild( new DOMElement( 'showtimes' ) );
+      $showTimesElement = $this->appendRequiredElement($movieElement, 'showtimes' );
 
       //movie/showtimes/place
-      $placeElement = $showTimesElement->appendChild( new DOMElement( 'place' ) );
+      $placeElement = $this->appendRequiredElement($showTimesElement, 'place' );
       $placeElement->setAttribute( 'place-id', $movie['Poi']['id'] );
 
       //movie/showtimes/place/age_rating
-      $placeElement->appendChild( new DOMElement( 'age_rating', $movie['age_rating'] ) );
+      $this->appendNonRequiredElement($placeElement, 'age_rating', $movie['age_rating'] );
 
       //movie/showtimes/place/time
       //implementation on hold
       
       foreach( $movie['MovieProperty'] as $property )
       {
-        $propertyTag = $versionElement->appendChild( new DOMElement( 'property' ) );//, htmlspecialchars($property[ 'value' ]) );
-        $propertyTag->appendChild( $domDocument->createCDATASection( $property['value'] ) );
+        $propertyTag = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
         $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
       }
     }

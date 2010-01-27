@@ -2,8 +2,8 @@
 /**
  * Class for importing Ny's feeds.
  *
- * @package ny.import.lib.projectn
- *
+ * @package projectn
+ * @subpackage ny.import.lib
  * @author Timmy Bowler <timbowler@timeout.com>
  * 
  * @copyright Timeout Communications Ltd.
@@ -15,17 +15,63 @@
 
 class importNy
 {
+  /**
+   * simpleXmlElement object
+   *
+   * @var object
+   */
   private $_events;
+  
+  /**
+   * simpleXmlElement object
+   *
+   * @var object
+   */
   private $_venues;
+
+  /**
+   * processNyXml object
+   *
+   * @var object
+   */
   private $_xmlFeed;
+
+  /**
+   * Store a vendor
+   *
+   * @var object
+   */
   private $_vendorObj;
-  private $_movieLogger;
-  private $_poiLogger;
+  
+  /**
+   * Store a poi logger
+   *
+   * @var object
+   */
+  private $_poiLoggerObj;
+
+  /**
+   * Store a event logger
+   *
+   * @var object
+   */
+  private $_eventLoggerObj;
+
+  /**
+   * The database connection used for our transactions
+   *
+   * @var Doctrine_Manager::connection()
+   */
+  private $_conn;
   
   /**
    * Constructor
    *
    * @param object $xmlfeed
+   *
+   * @todo add logging and enable validation (commented out at the moment below)
+   * @todo add logging enable validation (commented out at the moment below)
+   * @todo possibly add transactions
    *
    */
   public function  __construct( $xmlFeed, $vendorObj )
@@ -34,6 +80,14 @@ class importNy
     $this->_venues = $this->_xmlFeed->getVenues();
     $this->_events = $this->_xmlFeed->getEvents();
     $this->_vendorObj = $vendorObj;
+
+    /*Doctrine::getTable('Poi')->setAttribute( Doctrine::ATTR_VALIDATE, true );
+    Doctrine::getTable('Event')->setAttribute( Doctrine::ATTR_VALIDATE, true );
+    Doctrine::getTable('EventOccurrence')->setAttribute( Doctrine::ATTR_VALIDATE, true );
+    Doctrine::getTable('VendorPoiCategory')->setAttribute( Doctrine::ATTR_VALIDATE, true );
+    Doctrine::getTable('VendorEventCategory')->setAttribute( Doctrine::ATTR_VALIDATE, true );
+
+    $this->_conn = Doctrine_Manager::connection();*/
   }
 
 
@@ -84,16 +138,25 @@ class importNy
         $categoryString = substr( $attributeNameString, 12 );
 
         $vendorPoiCategory = Doctrine::getTable( 'VendorPoiCategory' )->findOneByName( $categoryString );
-
-        if ( is_object( $vendorPoiCategory) === false )
+        if ( !is_object( $vendorPoiCategory) )
         {
           $newVendorPoiCategory = new VendorPoiCategory();
           $newVendorPoiCategory[ 'name' ] = $categoryString;
           $newVendorPoiCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
-          $newVendorPoiCategory->save();
+
+          if( $newVendorPoiCategory->isValid() )
+          {
+            $newVendorPoiCategory->save();
+          }
+          else
+          {
+            Throw new Exception( $newVendorPoiCategory->getErrorStackAsString() );
+          }
+
+          $newVendorPoiCategory->free();
         }
       }
-    }    
+    }
   }  
 
   /**
@@ -106,9 +169,7 @@ class importNy
    */
   public function insertPoi( SimpleXMLElement $poi )
   {
-
-      //Get the venue
-      // $venue = $this->_xmlFeed->xmlObj->xpath('/body/address[@id='. $eventVenueId .']');
+      
 
       //Set the Poi's required values
       $poiObj = new Poi();
@@ -121,7 +182,6 @@ class importNy
       $poiObj[ 'country_code' ] = (string) $poi->country_symbol;
       $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
       $poiObj[ 'url' ] = (string) $poi->website;
-
       $poiObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
       //Form and set phone number
@@ -170,7 +230,14 @@ class importNy
       }
 
       //save to database
-      $poiObj->save();
+      if( $poiObj->isValid() )
+      {
+        $poiObj->save();
+      }
+      else
+      {
+        Throw new Exception( $poiObj->getErrorStackAsString() );
+      }
 
       //deal prices node
       if ( isset( $poi->prices ) )
@@ -181,11 +248,7 @@ class importNy
           {
             if ( $price->getName() == 'general_remark')
             {
-              $poiPropertyObj = new PoiProperty();
-              $poiPropertyObj[ 'lookup' ] = 'price_general_remark';
-              $poiPropertyObj[ 'value' ] = (string) $price;
-              $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-              $poiPropertyObj->save();
+              $poiObj->addProperty( 'price_general_remark', (string) $price );
             }
             else
             {
@@ -194,11 +257,7 @@ class importNy
               $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
               $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
 
-              $poiPropertyObj = new PoiProperty();
-              $poiPropertyObj[ 'lookup' ] = 'price';
-              $poiPropertyObj[ 'value' ] = trim( $priceInfoString );
-              $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-              $poiPropertyObj->save();
+              $poiObj->addProperty( 'price', trim( $priceInfoString ) );
             }
           }
         }
@@ -223,11 +282,7 @@ class importNy
             }
           }
 
-          $poiPropertyObj = new PoiProperty();
-          $poiPropertyObj[ 'lookup' ] = $attributeNameString;
-          $poiPropertyObj[ 'value' ] = $attribute->value;
-          $poiPropertyObj[ 'poi_id' ] = $poiObj[ 'id' ];
-          $poiPropertyObj->save();
+          $poiObj->addProperty( $attributeNameString, trim( $attribute->value ) );
         }
       }
 
@@ -254,7 +309,14 @@ class importNy
       }
 
       //save to database
-      $poiObj->save();
+      if( $poiObj->isValid() )
+      {
+        $poiObj->save();
+      }
+      else
+      {
+        Throw new Exception( $poiObj->getErrorStackAsString() );
+      }
 
       //Kill the object
       $poiObj->free();    
@@ -270,6 +332,8 @@ class importNy
    */
   public function insertVendorEventCategories( $event )
   {
+    
+
     if ( isset($event->category_combi) )
     {
       $categoryArray = $this->_concatVendorEventCategories( $event->category_combi );
@@ -283,7 +347,18 @@ class importNy
           $newVendorEventCategory = new VendorEventCategory();
           $newVendorEventCategory[ 'name' ] = $categoryString;
           $newVendorEventCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
-          $newVendorEventCategory->save();
+
+          //save to database
+          if( $newVendorEventCategory->isValid() )
+          {
+            $newVendorEventCategory->save();
+          }
+          else
+          {
+            Throw new Exception( $newVendorEventCategory->getErrorStackAsString() );
+          }
+
+          $newVendorEventCategory->free();
         }
       }
     }
@@ -298,8 +373,6 @@ class importNy
    */
   public function insertEvent( $event )
   {
-      Doctrine::getTable('Event')->setAttribute( Doctrine::ATTR_VALIDATE, true );
-      Doctrine::getTable('EventOccurrence')->setAttribute( Doctrine::ATTR_VALIDATE, true );
 
       //Set the Events requirred values
       $eventObj = new Event();
@@ -360,66 +433,34 @@ class importNy
                 $email = $this->_extractContactBlurbEmail( (string) $text->content );
                 if ( $email != ''  )
                 {
-                  $eventPropertyObj = new EventProperty();
-                  $eventPropertyObj[ 'lookup' ] = 'email';
-                  $eventPropertyObj[ 'value' ] = $email;
-                  $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                  $eventPropertyObj->save();
+                  $eventObj->addProperty( 'email', $email );
                 }
 
                 $phone = $this->_extractContactBlurbPhone( (string) $text->content );
                 if ( $phone != '' )
                 {
-                  $eventPropertyObj = new EventProperty();
-                  $eventPropertyObj[ 'lookup' ] = 'phone';
-                  $eventPropertyObj[ 'value' ] = $phone;
-                  $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                  $eventPropertyObj->save();
+                  $eventObj->addProperty( 'phone', $phone );
                 }
 
                 // add property with email, phone, url and stuff
                 break;
               case 'Show End Date':
-                $eventPropertyObj = new EventProperty();
-                $eventPropertyObj[ 'lookup' ] = 'show_end_date';
-                $eventPropertyObj[ 'value' ] = (string) $text->content;
-                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                $eventPropertyObj->save();
+                $eventObj->addProperty( 'show_end_date', (string) $text->content );
                 break;
               case 'Legend':
-                $eventPropertyObj = new EventProperty();
-                $eventPropertyObj[ 'lookup' ] = 'legend';
-                $eventPropertyObj[ 'value' ] = (string) $text->content;
-                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                $eventPropertyObj->save();
+                $eventObj->addProperty( 'legend', (string) $text->content );
                 break;
               case 'Chill Out End Note':
-                $eventPropertyObj = new EventProperty();
-                $eventPropertyObj[ 'lookup' ] = 'chill_out_end_note';
-                $eventPropertyObj[ 'value' ] = (string) $text->content;
-                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                $eventPropertyObj->save();
+                $eventObj->addProperty( 'chill_out_end_note', (string) $text->content );
                 break;
               case 'Venue Blurb':
-                $eventPropertyObj = new EventProperty();
-                $eventPropertyObj[ 'lookup' ] = 'venue_blurb';
-                $eventPropertyObj[ 'value' ] = (string) $text->content;
-                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                $eventPropertyObj->save();
+                $eventObj->addProperty( 'venue_blurb', (string) $text->content );
                 break;
               case 'Approach Descriptions':
-                $eventPropertyObj = new EventProperty();
-                $eventPropertyObj[ 'lookup' ] = 'approach_description';
-                $eventPropertyObj[ 'value' ] = (string) $text->content;
-                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                $eventPropertyObj->save();
+                $eventObj->addProperty( 'approach_description', (string) $text->content );
                 break;
               case 'Web Keywords':
-                $eventPropertyObj = new EventProperty();
-                $eventPropertyObj[ 'lookup' ] = 'web_keywords';
-                $eventPropertyObj[ 'value' ] = (string) $text->content;
-                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                $eventPropertyObj->save();
+                $eventObj->addProperty( 'web_keywords', (string) $text->content );
                 break;
             }
           }
@@ -430,15 +471,19 @@ class importNy
         {
           if ( is_object( $attribute->name ) && is_object( $attribute->value ) )
           {
-            $eventPropertyObj = new EventProperty();
-            $eventPropertyObj[ 'lookup' ] = (string) $attribute->name;
-            $eventPropertyObj[ 'value' ] = (string) $attribute->value;
-            $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-            $eventPropertyObj->save();
+            $eventObj->addProperty( (string) $attribute->name, (string) $attribute->value );
           }
         }
 
-        $eventObj->save();
+        //save to database
+        if( $eventObj->isValid() )
+        {
+          $eventObj->save();
+        }
+        else
+        {
+          Throw new Exception( $eventObj->getErrorStackAsString() );
+        }
 
         foreach ( $event->date as $occurrence )
         {
@@ -452,14 +497,14 @@ class importNy
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
           $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
+          //save to database
           if( $occurrenceObj->isValid() )
-          {
-            //save to database
+          {            
             $occurrenceObj->save();
           }
           else
           {
-            echo $occurrenceObj->getErrorStackAsString();
+            Throw new Exception( $occurrenceObj->getErrorStackAsString() );
           }
           
           //Kill the object
@@ -474,7 +519,6 @@ class importNy
 
       //Kill the object
       $eventObj->free();
-
   }
 
   /*
@@ -600,7 +644,6 @@ class importNy
     return $mappedCategoriesArray;
   }
 
-
   /*
    * _concatVendorEventCategories helper function to concatenate the vendor event
    * categories
@@ -638,5 +681,4 @@ class importNy
 
     return $categoryArray;
   }
-
 }
