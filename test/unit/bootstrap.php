@@ -4,9 +4,10 @@ define( TO_PROJECT_ROOT_PATH, dirname( __FILE__ ) . '/../..' );
 define( TO_TEST_ROOT_PATH, dirname( __FILE__ ) );
 define( TO_TEST_DATA_PATH, TO_TEST_ROOT_PATH . '/data' );
 
+ini_set( 'date.timezone', 'Europe/London' );
 
 class ProjectN_Test_Unit_Factory
-{ 
+{
   /**
    * creates a new Sqlite db in Memory with a $connection name
    * The connection name provides a handle to get back to this
@@ -16,9 +17,9 @@ class ProjectN_Test_Unit_Factory
    * <code>
    * //switch to external database
    * Doctrine_Manager::connection( 'mysql://user:password@123.4.567.89/db' );
-   * 
+   *
    * //collect data, do tests
-   * 
+   *
    * //switch back to test database
    * Doctrine_manager::setCurrentConnection( 'test' );
    * </code>
@@ -67,7 +68,7 @@ class ProjectN_Test_Unit_Factory
     $object->save();
     return $object;
   }
-  
+
   /**
    * Creates a new $model object to the Sqlite database with minimum required
    * fields. You can pass an array of data to override default values.
@@ -102,10 +103,10 @@ class PoiFixture
     {
       $defaults = array_merge( $defaults, $data );
     }
-    
+
     $poi = new Poi();
     $poi->fromArray( $defaults );
-    
+
     if( $autoCreateRelatedObjects )
     {
       foreach( array( 'Vendor', 'PoiCategory' ) as $model )
@@ -116,7 +117,7 @@ class PoiFixture
         }
       }
     }
-    
+
     if( $autoCreateRelatedObjects )
     {
       $poi->link( 'PoiCategories', array( 1 ) );
@@ -147,7 +148,7 @@ class PoiCategoryFixture
   static public function create( $data=null, $autoCreateRelatedObjects=true )
   {
     $defaults = PoiCategoryFixture::getDefaults();
-    
+
     if( is_array( $data ) )
     {
       $defaults = array_merge( $defaults, $data );
