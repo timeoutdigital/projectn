@@ -3,7 +3,7 @@ test:
   searchlight_london:
     class:                sfDoctrineDatabase
     param:
-      dsn:                sqlite::memory:test
+      dsn:                sqlite::memory:/searchlight_london
       attributes:
         use_native_enum:  true
         
@@ -12,15 +12,6 @@ dev:
   searchlight_london:
     class:                sfDoctrineDatabase
     param:
-      dsn:                sqlite::memory:test
-      attributes:
-        use_native_enum:  true
-        
-        
-prod:
-  searchlight_london:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                mysql://timeout:65dali32@vpn-d01/searchlight_london
+      dsn:                sqlite::memory:/searchlight_london
       attributes:
         use_native_enum:  true
