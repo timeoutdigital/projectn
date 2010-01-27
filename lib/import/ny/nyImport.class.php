@@ -94,8 +94,7 @@ class importNy
         }
       }
     }    
-  }
-  
+  }  
 
   /**
    * Insert the events pois
@@ -236,6 +235,22 @@ class importNy
       if ( 0 < count( $categoryArray ) )
       {
         $poiObj['PoiCategories'] = $this->mapCategories( $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+
+        $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
+        foreach( $categoryArray as $category )
+        {
+          $vendorPoiCategory = Doctrine::getTable('VendorPoiCategory')->findOneByName( $category );
+        
+          if ( is_object( $vendorPoiCategory ) )
+          {
+            $vendorCategoriesArray[] = $vendorPoiCategory;
+          }
+          else
+          {
+            Throw new Exception("Invalid Vendor Poi Category");
+          }
+        }
+        $poiObj['VendorPoiCategories'] = $vendorCategoriesArray;
       }
 
       //save to database
@@ -255,39 +270,21 @@ class importNy
    */
   public function insertVendorEventCategories( $event )
   {
-    $category1Object = $event->category_combi->xpath( 'category1/.' );
-    $category2Object = $event->category_combi->xpath( 'category2/.' );
-    $category3Object = $event->category_combi->xpath( 'category3/.' );
-
-    $delimiter = ' | ';
-
-    $categoryArray = array();
-
-    if ( count($category1Object) == 1 &&  trim( (string) $category1Object[0] ) != '' )
+    if ( isset($event->category_combi) )
     {
-      $categoryArray[0] = (string) $category1Object[0];
+      $categoryArray = $this->_concatVendorEventCategories( $event->category_combi );
 
-      if ( count($category2Object) == 1 && trim( (string) $category2Object[0] ) != '' )
+      foreach( $categoryArray as $categoryString )
       {
-        $categoryArray[1] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0];
+        $vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )->findOneByName( $categoryString );
 
-        if ( count($category3Object) == 1 && trim( (string) $category3Object[0] )  != '' )
+        if ( is_object( $vendorEventCategory) === false )
         {
-          $categoryArray[1] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0] . $delimiter . (string) $category3Object[0];
+          $newVendorEventCategory = new VendorEventCategory();
+          $newVendorEventCategory[ 'name' ] = $categoryString;
+          $newVendorEventCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
+          $newVendorEventCategory->save();
         }
-      }
-    }
-  
-    foreach( $categoryArray as $categoryString )
-    {
-      $vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )->findOneByName( $categoryString );
-
-      if ( is_object( $vendorEventCategory) === false )
-      {
-        $newVendorEventCategory = new VendorEventCategory();
-        $newVendorEventCategory[ 'name' ] = $categoryString;
-        $newVendorEventCategory[ 'vendor_id' ] = $this->_vendorObj->getId();
-        $newVendorEventCategory->save();
       }
     }
   }
@@ -302,7 +299,7 @@ class importNy
   public function insertEvent( $event )
   {
       Doctrine::getTable('Event')->setAttribute( Doctrine::ATTR_VALIDATE, true );
-      Doctrine::getTable('EventOccurence')->setAttribute( Doctrine::ATTR_VALIDATE, true );
+      Doctrine::getTable('EventOccurrence')->setAttribute( Doctrine::ATTR_VALIDATE, true );
 
       //Set the Events requirred values
       $eventObj = new Event();
@@ -322,32 +319,30 @@ class importNy
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          $category1Object = $event->category_combi->xpath( 'category1/.' );
-          $category2Object = $event->category_combi->xpath( 'category2/.' );
-          $category3Object = $event->category_combi->xpath( 'category3/.' );
+          //Event Categories
+          $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
+          $eventObj['EventCategories'] = $this->mapCategories( $categoryArray, 'EventCategory' );
 
-          $delimiter = ' | ';
+          //Vendor Event Categories
+          $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
+          $categoryArray = $this->_concatVendorEventCategories( $event->category_combi );
 
-          $categoryArray = array();
-
-          if ( count($category1Object) == 1 &&  trim( (string) $category1Object[0] ) != '' )
+          foreach( $categoryArray as $categoryString )
           {
-            $categoryArray[0] = (string) $category1Object[0];
+            $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findOneByName( (string) $categoryString );
 
-            if ( count($category2Object) == 1 && trim( (string) $category2Object[0] ) != '' )
+            if ( is_object( $vendorEventCategory ) )
             {
-              $categoryArray[0] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0];
-
-              if ( count($category3Object) == 1 && trim( (string) $category3Object[0] )  != '' )
-              {
-                $categoryArray[0] = (string) $category1Object[0] . $delimiter . (string) $category2Object[0] . $delimiter . (string) $category3Object[0];
-              }
+              $vendorCategoriesArray[] = $vendorEventCategory;
+            }
+            else
+            {
+              Throw new Exception("Invalid Vendor Event Category");
             }
           }
-
-          $eventObj['EventCategories'] = $this->mapCategories( $categoryArray, 'EventCategory' );
+          $eventObj['VendorEventCategories'] = $vendorCategoriesArray;
         }
-
+         
         //deal with the "text-system" nodes
         if ( isset( $event->{'text_system'}->text ) )
         {
@@ -356,13 +351,7 @@ class importNy
             switch( $text->{'text_type'} )
             {
               case 'Prices':
-                // the prices tag you might wonder about belongs to the address
-                // and not the event node, therefore we use this as price
-                $eventPropertyObj = new EventProperty();
-                $eventPropertyObj[ 'lookup' ] = 'prices';
-                $eventPropertyObj[ 'value' ] = (string) $text->content;
-                $eventPropertyObj[ 'event_id' ] = $eventObj[ 'id' ];
-                $eventPropertyObj->save();
+                $eventObj[ 'price' ] = (string) $text->content;
                 break;
               case 'Contact Blurb':
                 $url = $this->_extractContactBlurbUrl( (string) $text->content );
@@ -453,11 +442,11 @@ class importNy
 
         foreach ( $event->date as $occurrence )
         {
-          $occurrenceObj = new EventOccurence();
+          $occurrenceObj = new EventOccurrence();
           $occurrenceObj[ 'start' ] = (string) $occurrence->start;
           $occurrenceObj[ 'utc_offset' ] = '-05:00';
           $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-          $occurrenceObj[ 'vendor_event_occurence_id' ] = $this->_createOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
+          $occurrenceObj[ 'vendor_event_occurrence_id' ] = $this->_createOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
 
           //set poi id
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
@@ -489,7 +478,7 @@ class importNy
   }
 
   /*
-   * Creates an occurrence id out of the occurence object
+   * Creates an occurrence id out of the occurrence object
    *
    * @param SimpleXMLElement $occurrence
    * @return string
@@ -609,5 +598,45 @@ class importNy
     }
 
     return $mappedCategoriesArray;
-  } 
+  }
+
+
+  /*
+   * _concatVendorEventCategories helper function to concatenate the vendor event
+   * categories
+   *
+   * @param SimpleXMLElement $categoryCombiNodeObject
+   * @param boolean $returnOneElementOnly flag if only one element should be
+   *                 returned (the deepest nested that would be)
+   * @return array of concatenated category names
+   *
+   */
+  private function _concatVendorEventCategories( $categoryCombiNodeObject, $returnOneElementOnly = false )
+  {
+    $category1Object = $categoryCombiNodeObject->xpath( 'category1/.' );
+    $category2Object = $categoryCombiNodeObject->xpath( 'category2/.' );
+    $category3Object = $categoryCombiNodeObject->xpath( 'category3/.' );
+
+    $delimiter = ' | ';
+
+    $categoryArray = array();
+
+    if ( count($category1Object) == 1 &&  trim( (string) $category1Object[ 0 ] ) != '' )
+    {
+      $categoryArray[ 0 ] = (string) $category1Object[ 0] ;
+
+      if ( count($category2Object) == 1 && trim( (string) $category2Object[ 0 ] ) != '' )
+      {
+        $categoryArray[ ($returnOneElementOnly) ? 0 : 1 ] = (string) $category1Object[ 0 ] . $delimiter . (string) $category2Object[ 0 ];
+
+        if ( count($category3Object) == 1 && trim( (string) $category3Object[ 0 ] )  != '' )
+        {
+          $categoryArray[ ($returnOneElementOnly) ? 0 : 1 ] = (string) $category1Object[ 0 ] . $delimiter . (string) $category2Object[ 0 ] . $delimiter . (string) $category3Object[ 0 ];
+        }
+      }
+    }
+
+    return $categoryArray;
+  }
+
 }

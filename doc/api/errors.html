@@ -13,14 +13,34 @@
     <table width="100%">
       <tr valign="top">
         <td class="menu">
-                              <h2>Packages:</h2>
+                                <div class="package">
+              <div id="todolist">
+                <p><a href="todolist.html">Todo List</a></p>
+              </div>
+            </div>
+                    <h2>Packages:</h2>
           <div class="package">
             <ul>
                               <li>
                   <a href="classtrees_projectn API.html">projectn API</a>
                 </li>
                               <li>
+                  <a href="classtrees_import-lib.html">import-lib</a>
+                </li>
+                              <li>
                   <a href="classtrees_lib-projectn.html">lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="classtrees_london-import-lib.html">london-import-lib</a>
+                </li>
+                              <li>
+                  <a href="classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="classtrees_projectn.html">projectn</a>
+                </li>
+                              <li>
+                  <a href="classtrees_projectn-lib-import-london.html">projectn-lib-import-london</a>
                 </li>
                           </ul>
           </div>
@@ -31,43 +51,125 @@
               <td valign="top">
                                                                 <div class="menu">
           
-                                    
-                                                      [ <a href="index.html">Index</a> ]
-                      [ <a href="classtrees_projectn API.html">projectn API classes</a> ]
-            [ <a href="elementindex_projectn API.html">projectn API elements</a> ]
+                                                                                                                            
+                                                                            [ <a href="index.html">Index</a> ]
+                      [ <a href="classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn classes</a> ]
+            [ <a href="elementindex_ny-import-lib-projectn.html">ny-import-lib-projectn elements</a> ]
                     [ <a href="elementindex.html">All elements</a> ]
           [ <a href="errors.html">Errors</a> ]
                 </div><a href="#Post-parsing">Post-parsing</a><br>
 <a href="#database.class.php">database.class.php</a><br>
-<a href="#LondonPoi.class.php">LondonPoi.class.php</a><br>
+<a href="#Importer.class.php">Importer.class.php</a><br>
+<a href="#ImportException.class.php">ImportException.class.php</a><br>
+<a href="#ImportSaver.class.php">ImportSaver.class.php</a><br>
+<a href="#lisbonImport.class.php">lisbonImport.class.php</a><br>
+<a href="#LondonImporter.class.php">LondonImporter.class.php</a><br>
+<a href="#LondonImportException.class.php">LondonImportException.class.php</a><br>
+<a href="#LondonVenueSoapImporter.class.php">LondonVenueSoapImporter.class.php</a><br>
+<a href="#nyEDImport.php">nyEDImport.php</a><br>
 <a href="#nyImport.class.php">nyImport.class.php</a><br>
-<a href="#POIValidationSpecification.class.php">POIValidationSpecification.class.php</a><br>
-<a name="BaseValidationSpecification.class.php"></a>
-<h1>BaseValidationSpecification.class.php</h1>
+<a href="#nyImportMovies.class.php">nyImportMovies.class.php</a><br>
+<a href="#processNyMoviesXml.php">processNyMoviesXml.php</a><br>
+<a href="#processNyXml.php">processNyXml.php</a><br>
+<a name="Post-parsing"></a>
+<h1>Post-parsing</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class BaseValidationSpecification<br>
-<b>Warning on line 56</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/validation/BaseValidationSpecification.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning</b> - Class processNyMoviesXml parent processXml not found<br>
+<b>Warning</b> - Class LondonVenueSoapImporter parent SoapImporter not found<br>
+<b>Warning</b> - Class processNyXml parent processXml not found<br>
+<b>Warning</b> - class LondonVenueSoapImporter in package london-import-lib parent not found in @see parent::getSoapFunction()<br>
+<b>Warning</b> - class LondonVenueSoapImporter in package london-import-lib parent not found in @see parent::getSoapFunction()<br>
+<b>Warning</b> - class LondonVenueSoapImporter in package london-import-lib parent not found in @see parent::getSoapFunction()<br>
+<b>Warning</b> - class LondonVenueSoapImporter in package london-import-lib parent not found in @see parent::getSoapFunction()<br>
+<a name="curlImporter.class.php"></a>
+<h1>curlImporter.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - DocBlock would be page-level, but precedes class "curlImporter", use another DocBlock to document the file<br>
+<b>Warning on line 35</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 89</b> - Method "getFeed" has no method-level DocBlock.<br>
 <a name="database.class.php"></a>
 <h1>database.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 32</b> - DocBlock would be page-level, but precedes class "database", use another DocBlock to document the file<br>
-<a name="LondonPoi.class.php"></a>
-<h1>LondonPoi.class.php</h1>
+<b>Warning on line 33</b> - DocBlock would be page-level, but precedes class "database", use another DocBlock to document the file<br>
+<a name="Importer.class.php"></a>
+<h1>Importer.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 12</b> - no @package tag was used in a DocBlock for class LondonPoi<br>
-<b>Warning on line 165</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/london/LondonPoi.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "Importer", use another DocBlock to document the file<br>
+<b>Warning on line 24</b> - Method "concatNonBlankStringsCallBack" has no method-level DocBlock.<br>
+<b>Warning on line 26</b> - Method "run" has no method-level DocBlock.<br>
+<a name="ImportException.class.php"></a>
+<h1>ImportException.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - no @package tag was used in a DocBlock for class ImportException<br>
+<b>Warning on line 16</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 18</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/ImportException.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ImportSaver.class.php"></a>
+<h1>ImportSaver.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - no @package tag was used in a DocBlock for class ImportSaver<br>
+<b>Warning on line 13</b> - Method "save" has no method-level DocBlock.<br>
+<b>Warning on line 15</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/ImportSaver.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="lisbonImport.class.php"></a>
+<h1>lisbonImport.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 4</b> - no @package tag was used in a DocBlock for class lisbonImport<br>
+<b>Warning on line 4</b> - Class "lisbonImport" has no Class-level DocBlock.<br>
+<b>Warning on line 9</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 15</b> - Method "getFeed" has no method-level DocBlock.<br>
+<b>Warning on line 25</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/lisbon/lisbonImport.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="LondonImporter.class.php"></a>
+<h1>LondonImporter.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - DocBlock would be page-level, but precedes class "LondonImporter", use another DocBlock to document the file<br>
+<b>Warning on line 189</b> - Method "setVenueCategoryInformationData" has no method-level DocBlock.<br>
+<b>Warning on line 194</b> - Method "getVenueCategoryInformationData" has no method-level DocBlock.<br>
+<b>Warning on line 199</b> - Method "getVenueData" has no method-level DocBlock.<br>
+<b>Warning on line 204</b> - Method "setVenueData" has no method-level DocBlock.<br>
+<b>Warning on line 209</b> - Method "getEventData" has no method-level DocBlock.<br>
+<b>Warning on line 214</b> - Method "setEventData" has no method-level DocBlock.<br>
+<a name="LondonImportException.class.php"></a>
+<h1>LondonImportException.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - no @package tag was used in a DocBlock for class LondonImportException<br>
+<b>Warning on line 16</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 18</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/london/LondonImportException.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="LondonVenueSoapImporter.class.php"></a>
+<h1>LondonVenueSoapImporter.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "LondonVenueSoapImporter", use another DocBlock to document the file<br>
+<a name="nyEDImport.php"></a>
+<h1>nyEDImport.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - DocBlock would be page-level, but precedes class "importNyED", use another DocBlock to document the file<br>
+<b>Warning on line 106</b> - Method "insertPoi" has no method-level DocBlock.<br>
 <a name="nyImport.class.php"></a>
 <h1>nyImport.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 12</b> - no @package tag was used in a DocBlock for class importNy<br>
-<b>Warning on line 94</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/ny/nyImport.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
-<a name="POIValidationSpecification.class.php"></a>
-<h1>POIValidationSpecification.class.php</h1>
+<b>Warning on line 16</b> - DocBlock would be page-level, but precedes class "importNy", use another DocBlock to document the file<br>
+<b>Warning on line 489</b> - Method "_createOccurrenceId" has no method-level DocBlock.<br>
+<b>Warning on line 514</b> - Method "_extractContactBlurbUrl" has no method-level DocBlock.<br>
+<b>Warning on line 537</b> - Method "_extractContactBlurbEmail" has no method-level DocBlock.<br>
+<b>Warning on line 552</b> - Method "_extractContactBlurbPhone" has no method-level DocBlock.<br>
+<b>Warning on line 600</b> - Method "mapCategories" has no method-level DocBlock.<br>
+<b>Warning on line 639</b> - Method "_concatVendorEventCategories" has no method-level DocBlock.<br>
+<a name="nyImportMovies.class.php"></a>
+<h1>nyImportMovies.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 10</b> - no @package tag was used in a DocBlock for class POIValidationSpecification<br>
-<b>Warning on line 111</b> - File "/opt/cruisecontrol/projects/projectn/source/lib/import/validation/POIValidationSpecification.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "importNyMovies", use another DocBlock to document the file<br>
+<a name="processNyMoviesXml.php"></a>
+<h1>processNyMoviesXml.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "processNyMoviesXml", use another DocBlock to document the file<br>
+<b>Warning on line 48</b> - Method "setPoi" has no method-level DocBlock.<br>
+<b>Warning on line 54</b> - Method "setOccurances" has no method-level DocBlock.<br>
+<b>Warning on line 70</b> - Method "getPoi" has no method-level DocBlock.<br>
+<b>Warning on line 75</b> - Method "getOccurances" has no method-level DocBlock.<br>
+<a name="processNyXml.php"></a>
+<h1>processNyXml.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "processNyXml", use another DocBlock to document the file<br>
                 <div class="credit">
-                  Documentation generated on Mon, 11 Jan 2010 11:39:15 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Wed, 27 Jan 2010 12:47:29 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>

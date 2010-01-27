@@ -44,10 +44,10 @@ abstract class BaseEventOccurrence extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('event_occurrence');
-        $this->hasColumn('vendor_event_occurrence_id', 'string', 10, array(
+        $this->hasColumn('vendor_event_occurrence_id', 'string', 50, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '10',
+             'length' => '50',
              ));
         $this->hasColumn('booking_url', 'string', 1024, array(
              'type' => 'string',

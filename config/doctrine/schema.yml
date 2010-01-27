@@ -192,7 +192,7 @@ Event:
 #Represents an occurrence of an event
 EventOccurrence:
   columns:
-    vendor_event_occurrence_id: {type: string(10), notnull: true}
+    vendor_event_occurrence_id: {type: string(50), notnull: true}
     booking_url:                {type: string(1024), notnull: false}
     start:                      {type: date, notnull: true}
     end:                        {type: date, notnull: false}
