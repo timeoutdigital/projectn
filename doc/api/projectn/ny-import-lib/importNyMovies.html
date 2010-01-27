@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Docs For Class importNyMovies</title>
+    <link rel="stylesheet" type="text/css" href="../../media/style.css" />
+    <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  </head>
+  <body>
+  
+    <h1>projectn API Documentation :: Docs For Class importNyMovies</h1>
+
+    <table width="100%">
+      <tr valign="top">
+        <td class="menu">
+                                <div class="package">
+              <div id="todolist">
+                <p><a href="../../todolist.html">Todo List</a></p>
+              </div>
+            </div>
+                    <h2>Packages:</h2>
+          <div class="package">
+            <ul>
+                              <li>
+                  <a href="../../classtrees_projectn API.html">projectn API</a>
+                </li>
+                              <li>
+                  <a href="../../classtrees_import-lib.html">import-lib</a>
+                </li>
+                              <li>
+                  <a href="../../classtrees_lib-projectn.html">lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="../../classtrees_london-import-lib.html">london-import-lib</a>
+                </li>
+                              <li>
+                  <a href="../../classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn</a>
+                </li>
+                              <li>
+                  <a href="../../classtrees_projectn.html">projectn</a>
+                </li>
+                              <li>
+                  <a href="../../classtrees_projectn-lib-import-london.html">projectn-lib-import-london</a>
+                </li>
+                          </ul>
+          </div>
+                                                                    <h2>Classes:</h2>
+                <ul>
+	<li>import-lib	    <ul>		<li><a href="../../projectn/import-lib/curlImporter.html">curlImporter</a></li>    </ul></li>	  </ul>
+  <ul>
+	<li>ny-import-lib	    <ul>		<li><a href="../../projectn/ny-import-lib/importNyMovies.html">importNyMovies</a></li>    </ul></li>	    <ul>		<li><a href="../../projectn/ny-import-lib/processNyMoviesXml.html">processNyMoviesXml</a></li>    </ul></li>	  </ul>
+                              </td>
+        <td>
+          <table style="width:750px;" cellpadding="10" cellspacing="10px">
+            <tr>
+              <td valign="top">
+                                                                  <h2>projectn::ny-import-lib::importNyMovies</h2>
+                                <div class="menu">
+          
+                                                                                                                                                  
+                                                      [ <a href="../../index.html">Index</a> ]
+                      [ <a href="../../classtrees_projectn.html">projectn classes</a> ]
+            [ <a href="../../elementindex_projectn.html">projectn elements</a> ]
+                    [ <a href="../../elementindex.html">All elements</a> ]
+          [ <a href="../../errors.html">Errors</a> ]
+                </div>
+<a name="sec-description"></a>
+<h2>Class importNyMovies</h2>
+
+<p>Import Movies XML feed from Leo</p>		
+
+
+
+
+  <strong>Author(s):</strong>
+  <ul>
+                  <li>Tim Bowler &lt;<a href="mailto:timbowler@timout.com">timbowler@timout.com</a>&gt;</li>
+                                </ul>
+
+  <table>
+    	      	  		<tr>
+		  <td>
+		    <strong>Version:</strong>&nbsp;&nbsp;
+		  </td>
+		  <td>1.0.0</td>
+		</tr>
+	      	  		<tr>
+		  <td>
+		    <strong>Copyright:</strong>&nbsp;&nbsp;
+		  </td>
+		  <td>Timeout Communications Ltd</td>
+		</tr>
+	        </table>
+
+
+
+
+
+
+
+  <a name="sec-method-summary"></a>
+  <h2>Method Summary</h2>
+  <table class="summary">
+                                                                                  <tr>
+          <td class="right">
+            <em>public</em>                        <em>importNyMovies</em>          </td>
+          <td>
+            <code>
+              <a href="#__construct"><b>__construct</b></a>(
+                                                                                    $movies
+                                                    ,                                     $vendorObj
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Construct</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#__destruct"><b>__destruct</b></a>(
+               )
+            </code>
+            <br /><div style="margin-left: 20px">Delete Object</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>object The</em>          </td>
+          <td>
+            <code>
+              <a href="#getGenre"><b>getGenre</b></a>(
+                                                                                    $name
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Get the movie genre</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#importMovies"><b>importMovies</b></a>(
+               )
+            </code>
+            <br /><div style="margin-left: 20px">Insert the occurances</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>Object</em>          </td>
+          <td>
+            <code>
+              <a href="#insertMovie"><b>insertMovie</b></a>(
+                                                                                    $movie
+                                                    ,                                     $poiObj
+                                                 )
+            </code>
+            <br /><div style="margin-left: 20px">Insert Movies</div>          </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>Object</em>          </td>
+          <td>
+            <code>
+              <a href="#setPoi"><b>setPoi</b></a>(
+                                                                                    $poi
+                                                 )
+            </code>
+                      </td>
+        </tr>
+            </table>
+
+
+  <a name="sec-methods"></a>
+  <h2>Methods</h2>
+  <a name='method_detail'></a>
+            
+      <a name="method__construct" id="__construct"><!-- --></a>
+
+    <h3>__construct</h3>
+
+    <div class="method-signature">
+      importNyMovies
+      __construct(
+                                  
+          $movies
+                            ,           
+          $vendorObj
+                        )
+    </div>
+
+    <p>Construct</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$movies</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                      <tr>
+              <td><code>$vendorObj</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="method__destruct" id="__destruct"><!-- --></a>
+
+    <h3>__destruct</h3>
+
+    <div class="method-signature">
+      void
+      __destruct(
+      )
+    </div>
+
+    <p>Delete Object</p>
+    
+        
+
+    
+    
+    
+        <a name="methodgetGenre" id="getGenre"><!-- --></a>
+
+    <h3>getGenre</h3>
+
+    <div class="method-signature">
+      object The
+      getGenre(
+                                  string
+          $name
+                        )
+    </div>
+
+    <p>Get the movie genre</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$name</code></td>
+              <td><em>string</em></td>
+              <td>
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodimportMovies" id="importMovies"><!-- --></a>
+
+    <h3>importMovies</h3>
+
+    <div class="method-signature">
+      void
+      importMovies(
+      )
+    </div>
+
+    <p>Insert the occurances</p>
+    
+        
+
+    
+    
+    
+        <a name="methodinsertMovie" id="insertMovie"><!-- --></a>
+
+    <h3>insertMovie</h3>
+
+    <div class="method-signature">
+      Object
+      insertMovie(
+                                  Object
+          $movie
+                            ,           
+          $poiObj
+                        )
+    </div>
+
+    <p>Insert Movies</p>
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$movie</code></td>
+              <td><em>Object</em></td>
+              <td>
+                                  Simple XML object
+                              </td>
+            </tr>
+                      <tr>
+              <td><code>$poiObj</code></td>
+              <td><em></em></td>
+              <td>
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+        <a name="methodsetPoi" id="setPoi"><!-- --></a>
+
+    <h3>setPoi</h3>
+
+    <div class="method-signature">
+      Object
+      setPoi(
+                                  object Simple
+          $poi
+                        )
+    </div>
+
+    
+          <h4>Parameters:</h4>
+      <table class="detail">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="desc">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td><code>$poi</code></td>
+              <td><em>object Simple</em></td>
+              <td>
+                                  XML object
+                              </td>
+            </tr>
+                  </tbody>
+      </table>
+    
+        
+
+    
+    
+    
+  
+<p class="notes">
+  Located in <a class="field" href="_ny---nyImportMovies.class.php.html">/ny/nyImportMovies.class.php</a> 
+  [<span class="field">line 14</span>]
+</p>
+
+                <div class="credit">
+                  Documentation generated on Wed, 27 Jan 2010 12:42:20 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
