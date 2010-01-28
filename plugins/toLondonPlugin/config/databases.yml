@@ -1,14 +1,12 @@
-      
-test:
+dev:
   searchlight_london:
     class:                sfDoctrineDatabase
     param:
-      dsn:                sqlite::memory:/searchlight_london
+      dsn:                mysql://timeout:65dali32@192.9.215.250/searchlight_london
       attributes:
         use_native_enum:  true
-        
-      
-dev:
+              
+test:
   searchlight_london:
     class:                sfDoctrineDatabase
     param:
