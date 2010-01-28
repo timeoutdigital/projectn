@@ -180,12 +180,21 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //make sure we got not more than one node
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position' ) ) );
 
-      $longitude = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' );
-      $longitude = (string) array_shift( $longitude );
+//<<<<<<< HEAD:test/unit/lib/export/XMLExportPOITest.php
+      $xpathResult = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' );
+      $longitude = (string) array_shift( $xpathResult );
       $this->assertEquals( '0.1', $longitude );
-
-      $latitude = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
-      $latitude = (string) array_shift( $latitude );
+      
+      $xpathResult2 = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
+      $latitude = (string) array_shift( $xpathResult2 );
+//=======
+//      $longitude = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' );
+//      $longitude = (string) array_shift( $longitude );
+//      $this->assertEquals( '0.1', $longitude );
+//
+//      $latitude = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
+//      $latitude = (string) array_shift( $latitude );
+//>>>>>>> 086459b6c73098faeb05e21527f2865d89f9d118:test/unit/lib/export/XMLExportPOITest.php
       $this->assertEquals( '0.2', $latitude );
     }
 

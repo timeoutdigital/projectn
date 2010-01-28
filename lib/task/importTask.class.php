@@ -122,6 +122,24 @@ class importTask extends sfBaseTask
           break;
         }
         break; //end lisbon
+
+      case 'london':
+      	$connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
+
+        switch( $options['type'] )
+        {
+          case 'poi-event':
+            $london = new LondonImporter( );
+            $london->run( );
+            break;
+
+          case 'film':
+          break;
+
+          case 'eating-drinking':
+          break;
+        }
+        break; //end lisbon
     }
   }
 

@@ -83,5 +83,9 @@ class loggerTest extends PHPUnit_Framework_TestCase
         $this->object = new logger($this->vendorObj, 'moviey');
     }
 
+    public function testGetType()
+    {
+      $this->assertEquals( logger::MOVIE, $this->object->getType() );
+    }
 }
 ?>

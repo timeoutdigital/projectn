@@ -69,7 +69,7 @@ class curlImporterTest extends PHPUnit_Framework_TestCase {
     }
     catch( Exception $e )
     {
-      trigger_error( $e->getMessage(), E_USER_NOTICE );
+      echo 'LibXMLError ' . __FILE__ . " on line:" . __LINE__;
     }
 
   }
