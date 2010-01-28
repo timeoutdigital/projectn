@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, php-documentor"/>
+  <target name="build" depends="checkout, php-documentor, php-codesniffer, php-pmd, "/>
   <!-- Delete all the log files -->
   <target name="init">
     <delete>
@@ -61,7 +61,7 @@
 
  <!-- Run PHP Depend-->
   <target name="php-depend">
-    <exec executable="phpdp" dir="${basedir}/source" failonerror="false">
+    <exec executable="phpdepend" dir="${basedir}/source" failonerror="false">
     <arg line="--summary-xml ${basedir}/build/logs/summary.xml --jdepend-chart=${basedir}/build/logs/phpdepend.svg --overview-pyramid=${basedir}/build/logs/phpdepend-pyramid.svg --bad-documentation ${basedir}/source/lib/import" />
     </exec>
   </target>
