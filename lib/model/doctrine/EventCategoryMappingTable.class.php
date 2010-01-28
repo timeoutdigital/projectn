@@ -1,5 +1,16 @@
 <?php
-
+/**
+ * Business logic for Event Category Mappings
+ *
+ *
+ * @package projectn
+ * @subpackage model
+ *
+ * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @copyright Timeout Communications Ltd 2009
+ *
+ *
+ */
 class EventCategoryMappingTable extends Doctrine_Table
 {
 
