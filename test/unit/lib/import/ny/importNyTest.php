@@ -34,8 +34,9 @@ class importNyTest extends PHPUnit_Framework_TestCase
   protected function setUp() {
 
     try {
-      $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
-      Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine' );
+
+      ProjectN_Test_Unit_Factory::createDatabases();
+
       Doctrine::loadData('data/fixtures');
       $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-GB');
 
@@ -45,7 +46,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
       $this->xmlObj = new processNyXml( dirname(__FILE__).'/../../../data/tony_leo_test_correct.xml' );
       $this->xmlObj->setEvents('/body/event')->setVenues('/body/address');
-      
+
       $this->object = new importNy( $this->xmlObj, $this->vendorObj );
 
     }
@@ -56,14 +57,14 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   }
 
-  
+
   /**
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
    */
   protected function tearDown() {
     //Close DB connection
-    Doctrine_Manager::getInstance()->closeConnection(Doctrine_Manager::connection());
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
 
@@ -115,7 +116,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
         break;
       }
     }
-    
+
     $this->assertTrue( $passed );
   }
 
