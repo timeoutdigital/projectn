@@ -59,7 +59,7 @@ protected function setUp()
         $poi->setZips('1234' );
         $poi->setCity( 'test town' );
         $poi->setDistrict( 'test district' );
-        $poi->setCountry( 'test country' );
+        $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
         $poi->setCountryCode( 'uk' );
@@ -77,7 +77,7 @@ protected function setUp()
         $poi->setZips('4321' );
         $poi->setCity( 'test town2' . $this->specialChars );
         $poi->setDistrict( 'test district2' . $this->specialChars );
-        $poi->setCountry( 'test country2' . $this->specialChars );
+        $poi->setCountry( 'ABC' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
         $poi->setCountryCode( 'uk' );

@@ -28,7 +28,8 @@ class ProjectN_Test_Unit_Factory
    */
   static public function createSqliteMemoryDb( $connectionName = 'test' )
   {
-    Doctrine_Manager::connection( new PDO('sqlite::memory:'), $connectionName );
+    $connection = Doctrine_Manager::connection( new PDO('sqlite::memory:'), $connectionName );
+    $connection->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
     Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine');
   }
 
@@ -133,9 +134,9 @@ class PoiFixture
         'poi_name' => 'test name',
         'street' => 'test street',
         'city' => 'test town',
-        'country' => 'test country',
+        'country' => 'GBR',
         'vendor_poi_id' => '1',
-        'local_language' =>'aa',
+        'local_language' =>'aaa',
         'country_code' => 'aa',
         'longitude' => '1.1',
         'latitude' => '1.1',
@@ -189,7 +190,7 @@ class VendorFixture
   {
     return array(
       'city' => 'test city',
-      'language' => 'test language'
+      'language' => 'test lang'
     );
   }
 }

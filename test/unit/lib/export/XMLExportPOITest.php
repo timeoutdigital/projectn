@@ -180,9 +180,12 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //make sure we got not more than one node
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position' ) ) );
 
-      $longitude = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' ) );
+      $xpathResult = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' );
+      $longitude = (string) array_shift( $xpathResult );
       $this->assertEquals( '0.1', $longitude );
-      $latitude = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' ) );
+      
+      $xpathResult2 = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
+      $latitude = (string) array_shift( $xpathResult2 );
       $this->assertEquals( '0.2', $latitude );
     }
 

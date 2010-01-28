@@ -115,7 +115,7 @@ class curlImporter
      if( count( $errors ) )
      {
        throw new Exception( 'XML errors: ' . implode( ',', $errors ) );
-       }
+     }
    }
 
 

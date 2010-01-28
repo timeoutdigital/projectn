@@ -61,7 +61,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $poi->setZips('1234' );
     $poi->setCity( 'test town' );
     $poi->setDistrict( 'test district' );
-    $poi->setCountry( 'test country' );
+    $poi->setCountry( 'GBR' );
     $poi->setVendorPoiId( '123' );
     $poi->setLocalLanguage('en');
     $poi->setCountryCode( 'uk' );
@@ -78,7 +78,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $poi2->setZips('1234' );
     $poi2->setCity( 'test town' );
     $poi2->setDistrict( 'test district' );
-    $poi2->setCountry( 'test country' );
+    $poi2->setCountry( 'GBR' );
     $poi2->setVendorPoiId( '123' );
     $poi2->setLocalLanguage('en');
     $poi2->setCountryCode( 'uk' );
