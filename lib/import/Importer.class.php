@@ -9,6 +9,14 @@ abstract class Importer
 
   /**
    * Takes an array of strings implodes only values that are not blank using $glue
+   *
+   * <code>
+   *   $input = array( 'one', '', 'two', '', three' );
+   *   echo Importer::concatNonBlankStrings( ',', $input );
+   *
+   *   //outputs:
+   *   //one, two, three
+   * </code>
    * 
    * @param array $stringArray
    * @param string $glue
