@@ -4,9 +4,13 @@
  *
  * @author Clarence Lee <clarencelee@timeout.com>
  */
-abstract class Importer
+class Importer
 {
-
+  /**
+   * @var array
+   */
+  private $loggers;
+  
   /**
    * Takes an array of strings implodes only values that are not blank using $glue
    *
@@ -32,5 +36,57 @@ abstract class Importer
     return preg_match( '/\S/', $string );
   }
 
-  abstract public function run();
+  /**
+   * Adds a logger
+   * 
+   * @param logger $logger
+   */
+  public function registerLogger( logger $logger )
+  {
+    if( !$this->loggers )
+    {
+      $this->loggers = array();
+    }
+
+    if( !isset( $this->loggers[ $logger->getType() ] ) )
+    {
+      $this->loggers[ $logger->getType() ] = array();
+    }
+
+    $this->loggers[ $logger->getType() ][] = $logger;
+  }
+
+  /**
+   * Retrieves all registered loggers
+   */
+  public function getLoggers()
+  {
+    return $this->loggers;
+  }
+
+  /**
+   * Adds an ImportData to be saved
+   */
+  public function addImportData( ImportData $importData )
+  {
+    if( !$this->importData )
+    {
+      $this->importData = array();
+    }
+
+    
+  }
+
+  /**
+   * gets all added ImportData
+   */
+  public function getImportData()
+  {
+
+  }
+
+  public function run()
+  {
+    
+  }
 }
