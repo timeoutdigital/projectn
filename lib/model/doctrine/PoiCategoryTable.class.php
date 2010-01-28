@@ -1,8 +1,14 @@
 <?php
 
 /**
+ * Business logi for Poi Categorgies
  *
- * @package doctrine.model.lib
+ *
+ * @package projectn
+ * @subpackage model
+ *
+ * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @copyright Timeout Communications Ltd 2009
  *
  *
  */
