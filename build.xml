@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, php-documentor, php-pmd, php-cpd, php-depend, phpunit, git-add, git-commit, git-push"/>
+  <target name="build" depends="checkout, php-documentor, php-codesniffer, php-pmd, "/>
   <!-- Delete all the log files -->
   <target name="init">
     <delete>
@@ -24,7 +24,7 @@
 		-ue on 
 		-t ${basedir}/source/doc/api 
 		-d ${basedir}/source/lib/
-                -i *filter*,*form*,*base*,*task*,*vendor*
+                --ignore *filter*,*form*,*base*,*task*,*vendor*,*symfony*
 		-tb '/usr/share/php/data/phpUnderControl/data/phpdoc' 
 		-o HTML:Phpuc:phpuc"/>
     </exec>
@@ -61,7 +61,7 @@
 
  <!-- Run PHP Depend-->
   <target name="php-depend">
-    <exec executable="phpdp" dir="${basedir}/source" failonerror="false">
+    <exec executable="phpdepend" dir="${basedir}/source" failonerror="false">
     <arg line="--summary-xml ${basedir}/build/logs/summary.xml --jdepend-chart=${basedir}/build/logs/phpdepend.svg --overview-pyramid=${basedir}/build/logs/phpdepend-pyramid.svg --bad-documentation ${basedir}/source/lib/import" />
     </exec>
   </target>

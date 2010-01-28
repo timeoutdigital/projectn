@@ -7,7 +7,7 @@
  * Description of loggerclass
  *
  * @package projectn
- * @subpackage lib
+ * @subpackage import.lib
  *
  * @author Tim bowler <timbowler@timeout.com>
  * @copyright Timeout Communications Ltd

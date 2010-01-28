@@ -18,7 +18,7 @@ class NullDoctrineRecord extends Doctrine_Record
    *
    * @return boolean
    */
-  public function isValid()
+  public function isValid($deep = false, $hooks = true)
   {
     throw new Exception( 'Called isValid() on a NullDoctrineRecord' );
   }
@@ -26,7 +26,7 @@ class NullDoctrineRecord extends Doctrine_Record
   /**
    * Null record can not be saved
    */
-  public function save()
+  public function save(Doctrine_Connection $conn = null)
   {
     throw new Exception( 'Called save() on a NullDoctrineRecord' );
   }

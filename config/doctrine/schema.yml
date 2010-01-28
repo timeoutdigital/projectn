@@ -6,6 +6,7 @@ options:
 #Represents a venue aka Point of interest (Poi)
 
 Poi:
+  connection: project_n
   actAs:
     Timestampable:  ~
   columns:
@@ -47,6 +48,7 @@ Poi:
 
 #Import stats
 ImportStats:
+  connection: project_n
   actAs:
     Timestampable:              ~
   columns:
@@ -61,6 +63,7 @@ ImportStats:
 
 #Store a log of changes
 PoiChangesLog:
+  connection: project_n
   actAs:
     Timestampable:                ~
   columns:
@@ -72,6 +75,7 @@ PoiChangesLog:
 
 #Any media that is associated to the poi
 PoiMedia:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -82,6 +86,7 @@ PoiMedia:
     Poi:                        {local: poi_id, foreign: id}
 
 PoiParentCategory:
+  connection: project_n
   actAs:
     Timestampable:              ~
   columns:
@@ -89,6 +94,7 @@ PoiParentCategory:
 
 #Categories available for Pois
 PoiCategory:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -100,12 +106,14 @@ PoiCategory:
 
 #Poi Category (linking)
 LinkingPoiCategory:
+  connection: project_n
   columns:
      poi_category_id:         {type: integer, notnull: true}
      poi_id:                  {type: integer, notnull: true}
 
 #VendorPoiCategory
 VendorPoiCategory:
+  connection: project_n
   columns:
     name:                     {type: string(256), notnull: true}
     vendor_id:                {type: integer, notnull: true}
@@ -115,12 +123,14 @@ VendorPoiCategory:
 
 #Vendor Poi Category (linking)
 LinkingVendorPoiCategory:
+  connection: project_n
   columns:
      vendor_poi_category_id:  {type: integer, notnull: true}
      poi_id:                  {type: integer, notnull: true}
 
 #Poi CategoryMapping
 PoiCategoryMapping:
+  connection: project_n
   columns:
     map_from_id:                {type: integer, notnull: true}
     map_to_id:                  {type: integer, notnull: true}
@@ -131,6 +141,7 @@ PoiCategoryMapping:
 
 #Key value pairs for unmappable values on a Poi
 PoiProperty:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -142,6 +153,7 @@ PoiProperty:
 
 #Rating that the user gives to the poi
 UserContent:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -157,6 +169,7 @@ UserContent:
 
 #The individual user who is comments against a poi
 User:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -172,6 +185,7 @@ User:
 
 #Represents an event
 Event:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -191,6 +205,7 @@ Event:
 
 #Represents an occurrence of an event
 EventOccurrence:
+  connection: project_n
   columns:
     vendor_event_occurrence_id: {type: string(50), notnull: true}
     booking_url:                {type: string(1024), notnull: false}
@@ -205,12 +220,14 @@ EventOccurrence:
 
 #Vendor Event Category (linking)
 LinkingVendorEventCategory:
+  connection: project_n
   columns:
      vendor_event_category_id:  {type: integer, notnull: true}
      event_id:                  {type: integer, notnull: true}
 
 #VendorEvent Category
 VendorEventCategory:
+  connection: project_n
   columns:
     name:                       {type: string(256), notnull: true}
     vendor_id:                  {type: integer, notnull: true}
@@ -220,12 +237,14 @@ VendorEventCategory:
 
 #Event Category (linking)
 LinkingEventCategory:
+  connection: project_n
   columns:
      event_category_id:         {type: integer, notnull: true}
      event_id:                  {type: integer, notnull: true}
 
 #Event Category
 EventCategory:
+  connection: project_n
   columns:
     name:                       {type: string(50), notnull: true}
   relations:
@@ -233,6 +252,7 @@ EventCategory:
 
 #Event CategoryMapping
 EventCategoryMapping:
+  connection: project_n
   columns:
     map_from_id:                {type: integer, notnull: true}
     map_to_id:                  {type: integer, notnull: true}
@@ -242,6 +262,7 @@ EventCategoryMapping:
 
 #Any media that is associated to a Event
 EventMedia:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -253,6 +274,7 @@ EventMedia:
 
 #Key value pairs for unmappable values on the Poi
 EventProperty:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -264,6 +286,7 @@ EventProperty:
 
 #Represents a movie
 Movie:
+  connection: project_n
   actAs:
     Timestampable:              ~
   columns:
@@ -286,6 +309,7 @@ Movie:
 
 #Movie Genres
 LinkingMovieGenre:
+  connection: project_n
   columns:
      movie_genre_id:          {type: integer, notnull: true}
      movie_id:                {type: integer, notnull: true}
@@ -293,6 +317,7 @@ LinkingMovieGenre:
 
 #Movie Genres
 MovieGenre:
+  connection: project_n
   actAs:
     Timestampable:              ~
   columns:
@@ -303,6 +328,7 @@ MovieGenre:
 
 #Any media that is associated to a Movie
 MovieMedia:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -314,6 +340,7 @@ MovieMedia:
 
 #Key value pairs for unmappable values on a Movie
 MovieProperty:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:
@@ -325,6 +352,7 @@ MovieProperty:
     Movie:                      {local: movie_id, foreign: id, foreignType: many}
 
 Vendor:
+  connection: project_n
   actAs:
     Timestampable: ~
   columns:

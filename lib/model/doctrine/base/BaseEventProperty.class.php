@@ -1,4 +1,6 @@
 <?php
+// Connection Component Binding
+Doctrine_Manager::getInstance()->bindComponent('EventProperty', 'project_n');
 
 /**
  * BaseEventProperty

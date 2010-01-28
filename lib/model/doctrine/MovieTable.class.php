@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Business Logic for Movie table
+ *
+ * @package projectn
+ * @subpackage model
+ *
+ * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @copyright Timeout Communications Ltd 2009
+ *
+ *
+ */
 class MovieTable extends Doctrine_Table
 {
 

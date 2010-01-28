@@ -2,7 +2,8 @@
 /**
  * Class to parse NY XML feeds
  *
- * @package ny.import.lib.projectn
+ * @package projectn
+ * @subpackage ny.import.lib
  *
  * @author Tim Bowler <timbowler@timeout.com>
  *

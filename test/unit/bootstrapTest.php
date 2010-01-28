@@ -12,12 +12,12 @@ class bootstrapTest extends PHPUnit_Framework_TestCase
 {
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
   }
 
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
@@ -27,7 +27,7 @@ class bootstrapTest extends PHPUnit_Framework_TestCase
   public function testAddPoiCreatesVendorAndCategoryIfNecessary()
   {
     ProjectN_Test_Unit_Factory::add( 'poi', array( 'name' => 'Episode IV: A New Poi' ) );
-    
+
     $pois = Doctrine::getTable( 'Poi' )->findAll();
     $this->assertEquals( 1, count( $pois ) );
 
@@ -67,7 +67,7 @@ class bootstrapTest extends PHPUnit_Framework_TestCase
       $this->fail();
     }
     catch ( Exception $e ){}
-    
+
     $vendors = Doctrine::getTable( 'Vendor' )->findAll();
     $this->assertEquals( 0, count( $vendors ) );
 
@@ -88,7 +88,7 @@ class bootstrapTest extends PHPUnit_Framework_TestCase
     ) );
 
     $poi = Doctrine::getTable( 'Poi' )->findOneById( 1 );
-    
+
     $this->assertEquals( $name, $poi[ 'poi_name' ] );
     $this->assertEquals( $country_code, $poi[ 'country_code' ] );
   }

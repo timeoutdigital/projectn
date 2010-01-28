@@ -30,7 +30,7 @@ class ImporterTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
     $this->vendor = ProjectN_Test_Unit_Factory::get('vendor');
     $this->poiLogger = new logger( $this->vendor, logger::POI );
     $this->object  = new Importer();
@@ -42,7 +42,7 @@ class ImporterTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**

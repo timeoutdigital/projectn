@@ -1,4 +1,6 @@
 <?php
+// Connection Component Binding
+Doctrine_Manager::getInstance()->bindComponent('LinkingVendorPoiCategory', 'project_n');
 
 /**
  * BaseLinkingVendorPoiCategory

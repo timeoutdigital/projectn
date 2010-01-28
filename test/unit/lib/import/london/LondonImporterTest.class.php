@@ -24,7 +24,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
     	Doctrine_Manager::connection( new PDO( 'sqlite::memory:' ), 'searchlight_london' );
 
     	// load project n
-        ProjectN_Test_Unit_Factory::createSqliteMemoryDb( 'project_n' );
+        ProjectN_Test_Unit_Factory::createDatabases( 'project_n' );
         Doctrine::loadData( 'data/fixtures' );
 
         // load london data
@@ -37,8 +37,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        ProjectN_Test_Unit_Factory::destroySqliteMemoryDb( 'searchlight_london' );
-        ProjectN_Test_Unit_Factory::destroySqliteMemoryDb( 'project_n' );
+        ProjectN_Test_Unit_Factory::destroyDatabases( );
     }
 
     /**

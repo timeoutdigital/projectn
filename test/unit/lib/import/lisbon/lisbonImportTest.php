@@ -20,7 +20,7 @@ class lisbonImportTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
     $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 'city' => 'Lisbon', 'language' => 'xx-xx' ) );
     $this->object = new lisbonImport();
   }
@@ -31,7 +31,7 @@ class lisbonImportTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   public function testRuns()

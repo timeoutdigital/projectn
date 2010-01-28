@@ -9,41 +9,41 @@ ini_set( 'date.timezone', 'Europe/London' );
 class ProjectN_Test_Unit_Factory
 {
   /**
-   * creates a new Sqlite db in Memory with a $connection name
-   * The connection name provides a handle to get back to this
-   * connection if we need to switch to another connection for
-   * any reason, for example:
+   * creates database connections from databases.yml
    *
-   * <code>
-   * //switch to external database
-   * Doctrine_Manager::connection( 'mysql://user:password@123.4.567.89/db' );
-   *
-   * //collect data, do tests
-   *
-   * //switch back to test database
-   * Doctrine_manager::setCurrentConnection( 'test' );
-   * </code>
-   *
-   * @param string $connectionName Defaults to 'test'
    */
-  static public function createSqliteMemoryDb( $connectionName = 'test' )
+  static public function createDatabases( )
   {
-    $connection = Doctrine_Manager::connection( new PDO('sqlite::memory:'), $connectionName );
-    $connection->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
-    Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine');
+//<<<<<<< HEAD:test/unit/bootstrap.php
+//    $connection = Doctrine_Manager::connection( new PDO('sqlite::memory:'), $connectionName );
+//    $connection->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
+//    Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine');
+//=======
+  	$config = new ProjectConfiguration( );
+  	$config = $config->getApplicationConfiguration( 'frontend', 'test', true );
+
+  	$manager = new sfDatabaseManager( $config );
+
+    Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine' );
+//>>>>>>> 086459b6c73098faeb05e21527f2865d89f9d118:test/unit/bootstrap.php
   }
 
   /**
    * Destroy a connection
    * A connection name can be used to identify the connection to close
    *
-   * @param string $connectionName
    */
-  static public function destroySqliteMemoryDb( $connectionName = 'test' )
+  static public function destroyDatabases( )
   {
-    $instance = Doctrine_Manager::getInstance();
-    $connection = $instance->getConnection( $connectionName );
-    $instance->closeConnection( $connection );
+    $instance = Doctrine_Manager::getInstance( );
+
+    $connections = $instance->getConnections();
+
+    foreach ( $connections as $connection )
+    {
+      var_dump( $connection instanceof Doctrine_Connection  );
+    	//$connection->close( );
+    }
   }
 
   /**

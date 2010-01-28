@@ -3,7 +3,7 @@
  * String Transformer class providing static functions
  *
  * @package projectn
- * @subpackage lib
+ * @subpackage import.lib
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @copyright Timeout Communications Ltd
