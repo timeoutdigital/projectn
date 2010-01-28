@@ -104,9 +104,10 @@ class curlImporter
    /**
     * Pull the XML from a site
     *
-    * @param string $url         the URL 
-    * @param string $request     the Script
-    * @param array $parameters   the parameters
+    * @param string $url            the URL
+    * @param string $request        the Script
+    * @param array  $parameters     the parameters
+    * @param string $requestMethod  the request method, 'GET' (default ) or 'POST'
     *
     */
    public function pullXml($url, $request, $parameters, $requestMethod = 'GET')
