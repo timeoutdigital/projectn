@@ -36,11 +36,11 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      * @var string
      */
     private $escapedSpecialChars;
-    
+
     protected function setUp()
     {
       try {
-        ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+        ProjectN_Test_Unit_Factory::createDatabases();
 
         $vendor = new Vendor();
         $vendor->setCity('test');
@@ -96,7 +96,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property2[ 'value' ] = 'poi value 2';
         $property2->link( 'Poi', array( $poi['id'] ) );
         $property2->save();
-        
+
         $poi = new Poi();
         $poi->setPoiName( 'test name2' . $this->specialChars );
         $poi->setStreet( 'test street2' . $this->specialChars );
@@ -122,7 +122,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
         $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
-        
+
         $this->export->run();
         $this->xml = simplexml_load_file( $this->destination );
 
@@ -135,7 +135,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-      ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+      ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
     /**
@@ -149,7 +149,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( $this->vendor2->getName(), (string) $this->xml['vendor'] );
       $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
     }
-    
+
     /**
      * test generated XML has entry tags with required attributes
      */
@@ -180,9 +180,12 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //make sure we got not more than one node
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position' ) ) );
 
-      $longitude = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' ) );
+      $longitude = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' );
+      $longitude = (string) array_shift( $longitude );
       $this->assertEquals( '0.1', $longitude );
-      $latitude = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' ) );
+
+      $latitude = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
+      $latitude = (string) array_shift( $latitude );
       $this->assertEquals( '0.2', $latitude );
     }
 
@@ -192,7 +195,9 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testGenerateXMLHasNameTag()
     {
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/name' ) ) );
-      $name = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/name' ) );
+
+      $name = $this->xml->xpath( '/vendor-pois/entry[1]/name' );
+      $name = (string) array_shift( $name );
       $this->assertEquals( 'test name', $name );
     }
 
@@ -202,7 +207,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testGenerateXMLHasCategoryTag()
     {
       $this->assertGreaterThan( 0, count( $this->xml->xpath( '/vendor-pois/entry[1]/category' ) ) );
-      $name = (string) array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/category' ) );
     }
 
     /**
@@ -213,7 +217,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //make sure we got not more than one node
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/address' ) ) );
 
-      $contact = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/address' ) );
+      $contact = $this->xml->xpath( '/vendor-pois/entry[1]/address' );
+      $contact = array_shift( $contact );
 
       $this->assertEquals( 'test street', (string) $contact->street );
       $this->assertEquals( '12', (string) $contact->houseno );
@@ -231,7 +236,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //make sure we got not more than one node
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/contact' ) ) );
 
-      $contact = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/contact' ) );
+      $contact = $this->xml->xpath( '/vendor-pois/entry[1]/contact' );
+      $contact = array_shift( $contact );
 
       $this->assertEquals( 'you@who.com', (string) $contact->email );
       $this->assertEquals( 'http://foo.com', (string) $contact->url );
@@ -248,7 +254,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //make sure we got not more than one node
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry[1]/version/content' ) ) );
 
-      $content = array_shift( $this->xml->xpath( '/vendor-pois/entry[1]/version/content' ) );
+      $content = $this->xml->xpath( '/vendor-pois/entry[1]/version/content' );
+      $content = array_shift( $content );
 
       $this->assertEquals( 'test short description', (string) $content->{'short-description'} );
       $this->assertEquals( 'test description', (string) $content->description );
@@ -266,7 +273,10 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $this->assertRegExp( ':test name2' . $this->escapedSpecialChars . ':', $xmlString );
 
-      $address = array_shift( $this->xml->xpath( '/vendor-pois/entry[2]/address' ) );
+      $address = $this->xml->xpath( '/vendor-pois/entry[2]/address' );
+      $address = array_shift( $address );
+
+
       $this->assertRegExp( ':test name2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':test street2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':13' . $this->escapedSpecialChars . ':', $xmlString );

@@ -24,8 +24,8 @@ class loggerTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-       
-        ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+
+        ProjectN_Test_Unit_Factory::createDatabases();
         $this->vendorObj = ProjectN_Test_Unit_Factory::get('vendor');
         $this->object = new logger($this->vendorObj, logger::MOVIE);
 
@@ -37,11 +37,11 @@ class loggerTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+        ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
     /**
-     * 
+     *
      */
     public function testCountNewInsert()
     {
@@ -69,7 +69,8 @@ class loggerTest extends PHPUnit_Framework_TestCase
        $this->object->saveStats();
 
        $results = Doctrine::getTable('ImportStats')->findAll();
-       $result = array_pop($results->toArray());
+       $results = $results->toArray();
+       $result = array_pop($results);
 
        $this->assertEquals('1', $result['total_inserts'], 'The insert was incremented');
        $this->assertEquals('1', $result['total_updates'], 'The update was incremented');
@@ -81,6 +82,6 @@ class loggerTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('Exception');
         $this->object = new logger($this->vendorObj, 'moviey');
     }
-        
+
 }
 ?>

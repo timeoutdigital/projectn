@@ -20,7 +20,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
 
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->object = new singaporeImport;
   }
@@ -35,7 +35,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   public function insertCategoriesPoisEvents()
   {
-    
+
   }
 
 }

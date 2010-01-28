@@ -8,7 +8,7 @@ class importTask extends sfBaseTask
       new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'The city to import'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'The type to import', 'poi-event'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
     ));
 
     $this->namespace        = 'projectn';
@@ -22,22 +22,22 @@ class importTask extends sfBaseTask
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
-   
+
     //Select the task
     switch( $options['city'] )
     {
       case 'ny':
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-GB');
-        
+
         switch( $options['type'] )
         {
-          case 'poi-event':          
+          case 'poi-event':
             $processXmlObj = new processNyXml('import/tony_leo.xml');
             $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
             $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-            $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();            
+            $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
             break;
-          
+
           case 'film':
             $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/tms.xml');
             $processXmlObj->setMovies('/xffd/movies/movie');
@@ -47,15 +47,15 @@ class importTask extends sfBaseTask
             $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
             $nyImportMoviesObj->importMovies();
             break;
-          
-          case 'eating-drinking':            
+
+          case 'eating-drinking':
             $vendor = $this->getVendorByCityAndLanguage('ny', 'english');
             $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
             $nyEDImport =  new importNyED( $csv, $vendor );
             $nyEDImport->insertPois();
 
             break;
-        }        
+        }
         break; // end ny
 
       case 'chicago':
@@ -124,7 +124,7 @@ class importTask extends sfBaseTask
         break; //end lisbon
     }
   }
-  
+
   /**
    * Get the Vendor by its city and language
    *
@@ -147,6 +147,6 @@ class importTask extends sfBaseTask
 
     }
 
-    return $vendorObj;   
+    return $vendorObj;
   }
 }

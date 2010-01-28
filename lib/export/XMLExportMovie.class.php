@@ -2,9 +2,14 @@
 
 /**
  * Creates the Movie XML for a specified vendor. The XML is written to a file.
+
+ * @package projectn
+ * @subpackage export.lib
  *
- * @author clarence
- * 
+ * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @copyright Timeout Communications Ltd 2009
+ *
+ *
  */
 class XMLExportMovie extends XMLExport
 {

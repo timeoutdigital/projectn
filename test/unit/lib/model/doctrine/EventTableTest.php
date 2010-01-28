@@ -21,12 +21,12 @@ class EventTableTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
 
     $poi1 = ProjectN_Test_Unit_Factory::add( 'poi' );
 
     $vendor2 = ProjectN_Test_Unit_Factory::add( 'vendor' );
-    
+
     $poi2 = ProjectN_Test_Unit_Factory::get( 'poi' );
     $poi2->link( 'Vendor', array( $vendor2->getId() ) );
     $poi2->save();
@@ -34,7 +34,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
     $eventCategory = new EventCategory();
     $eventCategory->setName( 'event category 1' );
     $eventCategory->save();
-    
+
     $event = new Event();
     $event['vendor_event_id'] = 1111;
     $event->setName( 'test event1' );
@@ -68,7 +68,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**

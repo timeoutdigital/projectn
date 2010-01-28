@@ -1,4 +1,6 @@
 <?php
+// Connection Component Binding
+Doctrine_Manager::getInstance()->bindComponent('ImportStats', 'project_n');
 
 /**
  * BaseImportStats

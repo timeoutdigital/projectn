@@ -34,8 +34,8 @@ class XMLExportTest extends PHPUnit_Framework_TestCase {
 protected function setUp()
     {
       try {
-        ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
-        
+        ProjectN_Test_Unit_Factory::createDatabases();
+
         $vendor = new Vendor();
         $vendor->setCity('test');
         $vendor->setLanguage('english');
@@ -112,7 +112,7 @@ protected function setUp()
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
@@ -128,7 +128,7 @@ protected function setUp()
       $this->fail();
     }
     catch( ExportException $e ){}
-    
+
     try
     {
       $this->getMockForAbstractClass('XMLExport', array( new Vendor(), 'non/existant/file', 'Poi' ) );
@@ -157,7 +157,7 @@ protected function setUp()
     $this->object->expects( $this->once() )
                  ->method( 'mapDataToDOMDocument' )
                  ->will( $this->returnValue( $this->domDocument ) );
-    
+
     $date = date( 'Y-m-d\TH:i:s' );
     $this->object->run();
     $this->assertEquals( $date, $this->object->getStartTime() );
@@ -171,7 +171,7 @@ protected function setUp()
     $this->object->expects( $this->once() )
                  ->method( 'mapDataToDOMDocument' )
                  ->will( $this->returnValue( $this->domDocument ) );
-    
+
     unlink( $this->destination );
     $this->assertFileNotExists( $this->destination );
 
@@ -212,24 +212,24 @@ protected function setUp()
 
     $domDocument2 = new DOMDocument('1.0', 'utf-8');
     $rootElement2 = $domDocument2->appendChild( new DOMElement( 'root' ) );
-    
-    $testElement2 = $this->object->appendRequiredElement( $rootElement2, 'test', 'test content' ); 
-    
+
+    $testElement2 = $this->object->appendRequiredElement( $rootElement2, 'test', 'test content' );
+
     $this->assertEquals( 'test', $testElement2->nodeName );
     $this->assertEquals( 'test content', $testElement2->nodeValue );
     $this->assertEqualXMLStructure( $expected2, $domDocument2 );
-    
+
     $expected = new DOMDocument('1.0', 'utf-8');
     $expected->loadXML('
       <root>
         <test></test>
       </root>
     ');
-    
+
     $domDocument = new DOMDocument('1.0', 'utf-8');
     $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
     $testElement = $this->object->appendRequiredElement( $rootElement, 'test', null );
-    
+
     $this->assertEquals( 'test', $testElement->nodeName );
     $this->assertEquals( '', $testElement->nodeValue );
     $this->assertEqualXMLStructure( $expected, $domDocument );
