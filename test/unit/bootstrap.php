@@ -20,8 +20,6 @@ class ProjectN_Test_Unit_Factory
   	$manager = new sfDatabaseManager( $config );
 
     Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine' );
-
-    Doctrine::loadData( 'data/fixtures/fixtures.yml' );
   }
 
   /**

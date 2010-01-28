@@ -69,7 +69,7 @@ class loggerTest extends PHPUnit_Framework_TestCase
        $this->object->saveStats();
 
        $results = Doctrine::getTable('ImportStats')->findAll();
-       $results->toArray();
+       $results = $results->toArray();
        $result = array_pop($results);
 
        $this->assertEquals('1', $result['total_inserts'], 'The insert was incremented');
