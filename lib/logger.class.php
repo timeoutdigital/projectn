@@ -7,7 +7,7 @@
  * Description of loggerclass
  *
  * @package projectn
- * @subpackage lib
+ * @subpackage import.lib
  *
  * @author Tim bowler <timbowler@timeout.com>
  * @copyright Timeout Communications Ltd
@@ -33,6 +33,11 @@
  *
  */
 class logger {
+
+    const POI = 'poi';
+    const EVENT = 'event';
+    const EVENT_OCCURRENCE = 'event_occurrence';
+    const MOVIE = 'movie';
 
     /**
      * @var integer
@@ -104,10 +109,11 @@ class logger {
      */
     public function checkType($type)
     {
+        $availableTypes = array( logger::POI, logger::EVENT, logger::MOVIE );
 
-        if($type != 'movie' && $type != 'poi' && $type != 'event')
+        if( !in_array( $type, $availableTypes ) )
         {
-            throw new Exception('Incorrect Type. Must be on of: "movie" "poi" "event"');
+            throw new Exception('Incorrect Type. Must be on of: ' . implode( ',', $availableTypes ) );
         }
 
         $this->type = $type;

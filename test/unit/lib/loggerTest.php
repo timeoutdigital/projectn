@@ -27,7 +27,7 @@ class loggerTest extends PHPUnit_Framework_TestCase
 
         ProjectN_Test_Unit_Factory::createDatabases();
         $this->vendorObj = ProjectN_Test_Unit_Factory::get('vendor');
-        $this->object = new logger($this->vendorObj, 'movie');
+        $this->object = new logger($this->vendorObj, logger::MOVIE);
 
     }
 

@@ -27,91 +27,31 @@ class importTask extends sfBaseTask
     switch( $options['city'] )
     {
       case 'ny':
-
-      case 'NY':
-                 $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
-
-                  /*
-
-                  $processXmlObj = new processNyXml('import/toc_leo.xml');
-
-                  if($processXmlObj !== false)
-                 // $processXmlObj = new processNyXml('import/toc_leo.xml');
-
-                /*  if($processXmlObj !== false)
-                  {
-                     //Set the events and venues xpath
-                    $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
-                    $nyImportObj = new importNy($processXmlObj, $vendorObj);
-                    $nyImportObj->insertEventsAndVenues();
-
-                    //$proce
-                  }
-*/
-
-
-
-                //$processXmlObj = new processNyXml('import/tony_leo.xml');
-                //$processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
-
-
-                //$nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-               // $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-                //$processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../import/tms.xml');
-                $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/tms.xml');
-                $processXmlObj->setMovies('/xffd/movies/movie');
-                $processXmlObj->setPoi('/xffd/theaters/theater');
-                $processXmlObj->setOccurances('/xffd/showTimes/showTime');
-//
-//
-                $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
-                $nyImportMoviesObj->importMovies();
-
-                //e//cho $nyImportMoviesObj->getTotalMovieInserts();
-                 echo $nyImportMoviesObj->getTotalMovieUpdates();
-
-                //$nyImportMoviesObj->insertMovie();
-                
-
-        break;
-
-      case 'ny-ed':
-
-        $vendor = $this->getVendorByCityAndLanguage('ny', 'english');
-
-        $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
-
-        $nyEDImport =  new importNyED( $csv, $vendor );
-
-        $nyEDImport->insertPois();
-
-        break;
-
-         
-        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'english');
+        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-GB');
         
         switch( $options['type'] )
         {
-          case 'poi-event':
-          
+          case 'poi-event':          
             $processXmlObj = new processNyXml('import/tony_leo.xml');
             $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
             $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-            $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-            
+            $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();            
             break;
           
-          case 'film':          
+          case 'film':
+            $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/tms.xml');
+            $processXmlObj->setMovies('/xffd/movies/movie');
+            $processXmlObj->setPoi('/xffd/theaters/theater');
+            $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+
+            $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
+            $nyImportMoviesObj->importMovies();
             break;
           
-          case 'eating-drinking':
-            
+          case 'eating-drinking':            
+            $vendor = $this->getVendorByCityAndLanguage('ny', 'english');
             $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
             $nyEDImport =  new importNyED( $csv, $vendor );
-
             $nyEDImport->insertPois();
 
             break;
@@ -119,25 +59,22 @@ class importTask extends sfBaseTask
         break; // end ny
 
       case 'chicago':
-
-        $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'english');
+        $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-GB');
 
         switch( $options['type'] )
         {
           case 'poi-event':
-
-            $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml');
-
-            $processXmlObj->setMovies('/xffd/movies/movie');
-            $processXmlObj->setPoi('/xffd/theaters/theater');
-            $processXmlObj->setOccurances('/xffd/showTimes/showTime');
-
-            $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
-            $nyImportMoviesObj->importMovies();
-
             break;
 
           case 'film':
+            $processXmlObj = new processNyMoviesXml( dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml' );
+
+            $processXmlObj->setMovies( '/xffd/movies/movie' );
+            $processXmlObj->setPoi( '/xffd/theaters/theater' );
+            $processXmlObj->setOccurances( '/xffd/showTimes/showTime' );
+
+            $nyImportMoviesObj = new importNyMovies( $processXmlObj, $vendorObj) ;
+            $nyImportMoviesObj->importMovies();
           break;
 
           case 'eating-drinking':
@@ -145,14 +82,13 @@ class importTask extends sfBaseTask
         }
         break; //end chicago
 
-
       case 'lisbon':
         switch( $options['type'] )
         {
           case 'poi-event':
             $processXmlObj = new curlImporter();
-            $parameters = array('from' => '2010-01-01', 'to' => '2010-01-30');
-            $processXmlObj->pullXml('http://www.timeout.pt/', 'xmllist.asp', $parameters);
+            $parameters = array( 'from' => '2010-01-01', 'to' => '2010-01-30' );
+            $processXmlObj->pullXml ('http://www.timeout.pt/', 'xmllist.asp', $parameters );
             break;
 
           case 'film':

@@ -2,12 +2,15 @@
 /**
  * Class for importing Ny Eating and Drinking feeds.
  *
- * @package ny.import.lib.projectn
- *
+ * @package projectn
+ * @subpackage ny.import.lib
+ * 
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * 
- * @copyright Timeout Communications Ltd.
+ * @copyright Timeout Communications Ltd.  &copyright; 2009
  * @version 1.0.0
+ *
+ * @todo finish class - currently awaiting verification as to whether its now needed.
  *
  *
  */
