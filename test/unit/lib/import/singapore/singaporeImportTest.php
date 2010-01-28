@@ -1,8 +1,9 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ).'/../../../bootstrap.php';
+require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
+spl_autoload_register(array('Doctrine', 'autoload'));
 
 /**
  * Test class for singaporeImport.
@@ -20,9 +21,20 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
 
-    ProjectN_Test_Unit_Factory::createDatabases();
+   ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->object = new singaporeImport;
+   Doctrine::loadData('data/fixtures');
+   
+   $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-GB');
+
+   $dataXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_weekly_events.xml' );
+
+   /*$stubCurlImporter = $this->getMock( 'curlImporter' );
+    * $stubCurlImporter->expects( $this->any() )
+                      ->method( 'getXML' )
+                      ->will( $this->returnValue( $dataXMLObject ) );*/
+    
+   $this->object = new singaporeImport( $dataXml, $vendorObj );
   }
 
   /**
@@ -33,9 +45,9 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
   }
 
 
-  public function insertCategoriesPoisEvents()
+  public function testInsertCategoriesPoisEvents()
   {
-
+    $this->assertTrue( $this->object->insertCategoriesPoisEvents() );
   }
 
 }
