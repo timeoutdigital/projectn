@@ -1,8 +1,15 @@
 <?php
 /**
- * @package import.lib
+ * @package projectn
+ * @subpackage lib
+ *
  *
  * @author Clarence Lee <clarencelee@timeout.com>
+ * @copyright Timeout Communications Ltd &copyright; 2009
+ *
+ * @version 1.0.0
+ *
+ *
  */
 abstract class Importer
 {

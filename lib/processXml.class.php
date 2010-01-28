@@ -2,7 +2,8 @@
 /**
  * Base class for XML feeds.
  *
- * @package ny.import.lib.projectn
+ * @package projectn
+ * @subpackage import.lib
  *
  * @author Tim Bowler <timbowler@timeout.com>
  * @copyright Timeout Communications Ltd

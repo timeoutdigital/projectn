@@ -70,7 +70,7 @@ class importTask extends sfBaseTask
                 $nyImportMoviesObj->importMovies();
 
                 //e//cho $nyImportMoviesObj->getTotalMovieInserts();
-                 echo $nyImportMoviesObj->getTotalMovieUpdates();
+                
 
                 //$nyImportMoviesObj->insertMovie();
                 
