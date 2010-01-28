@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
-
-require_once dirname(__FILE__).'/../../../../lib/import/Importer.class.php';
+require_once dirname( __FILE__ ) . '/../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../../bootstrap.php';
 
 /**
  * Test class for Importer.
@@ -13,6 +13,16 @@ class ImporterTest extends PHPUnit_Framework_TestCase
    * @var Importer
    */
   protected $object;
+  
+  /**
+   * @var Vendor
+   */
+  protected $vendor;
+
+  /**
+   * @var Vendor
+   */
+  protected $poiLogger;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -20,7 +30,10 @@ class ImporterTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    //$this->object = new Importer;
+    ProjectN_Test_Unit_Factory::createDatabases();
+    $this->vendor = ProjectN_Test_Unit_Factory::get('vendor');
+    $this->poiLogger = new logger( $this->vendor, logger::POI );
+    $this->object  = new Importer();
   }
 
   /**
@@ -29,15 +42,67 @@ class ImporterTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
-   * @todo Implement testConcatNonEmptyStrings().
+   * Test concatNonBlankStrings
    */
-  public function testConcatNonBlankStrings()
+//  public function testConcatNonBlankStrings()
+//  {
+//    $values = array( 'one', '', 'two', ' ', 'three' );
+//    $this->assertEquals( 'one, two, three', Importer::concatNonBlankStrings( ', ', $values ) );
+//  }
+
+  /**
+   * Test loggers get registered
+   */
+  public function testRegisteringLogger()
   {
-    $values = array( 'one', '', 'two', ' ', 'three' );
-    $this->assertEquals( 'one, two, three', Importer::concatNonBlankStrings( ', ', $values ) );
+    $returnedLoggers = $this->object->getLoggers();
+    $this->assertNull( $returnedLoggers['poi'][0] );
+    
+    $this->object->registerLogger( $this->poiLogger );
+    
+    $returnedLoggers = $this->object->getLoggers();
+    $this->assertType('array', $returnedLoggers);
+
+    $returnedLogger  = $returnedLoggers['poi'][0];
+
+    $this->assertNotNull( $returnedLogger );
+    $this->assertEquals( $this->poiLogger, $returnedLogger );
+  }
+
+  /**
+   * Test ImportData gets added
+   */
+  public function testAddImportData()
+  {
+    $importData = new UnitTestImporterImportData( $this->importer );
+    $this->object->addImportData( $importData );
+
+    $returnedImportData = $this->object->getImportData();
+    $returnedImportData = $returnedImportData[0];
+  }
+}
+
+class UnitTestImporterImportData extends ImportData
+{
+  public function mapPois()
+  {
+    $this->notifyImporter( new NullDoctrineRecord() );
+  }
+  public function mapEvents()
+  {
+    $this->notifyImporter( new NullDoctrineRecord() );
+  }
+  public function mapEventOccurrences()
+  {
+    $this->notifyImporter( new NullDoctrineRecord() );
+  }
+  public function mapMovies()
+  {
+    $this->notifyImporter( new NullDoctrineRecord() );
   }
 }
 ?>

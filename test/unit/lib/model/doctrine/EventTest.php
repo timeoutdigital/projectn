@@ -52,7 +52,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     $eventOccurrence2 = new EventOccurrence();
     $eventOccurrence2['vendor_event_occurrence_id'] = 2;
     $eventOccurrence2['start'] = '2009-01-01';
-    $eventOccurrence2['utc_offset'] = '-05:00:00';
+    $eventOccurrence2['utc_offset'] = '-05:00';
     $eventOccurrence2->link( 'Event', array( $event['id'] ) );
     $eventOccurrence2->link( 'Poi', array( 1 ) );
     $eventOccurrence2->save();

@@ -128,9 +128,9 @@ class PoiFixture
         'poi_name' => 'test name',
         'street' => 'test street',
         'city' => 'test town',
-        'country' => 'test country',
+        'country' => 'GBR',
         'vendor_poi_id' => '1',
-        'local_language' =>'aa',
+        'local_language' =>'aaa',
         'country_code' => 'aa',
         'longitude' => '1.1',
         'latitude' => '1.1',
@@ -184,7 +184,7 @@ class VendorFixture
   {
     return array(
       'city' => 'test city',
-      'language' => 'test language'
+      'language' => 'test lang'
     );
   }
 }

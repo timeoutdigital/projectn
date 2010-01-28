@@ -18,7 +18,7 @@ Poi:
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
     district:                   {type: string(128), notnull: false}
-    country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]$/' }
+    country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
     additional_address_details: {type: string(128), notnull: false}
     zips:                       {type: string(16), notnull: false}
     country_code:               {type: string(2), notnull: true}
@@ -211,7 +211,7 @@ EventOccurrence:
     booking_url:                {type: string(1024), notnull: false}
     start:                      {type: date, notnull: true}
     end:                        {type: date, notnull: false}
-    utc_offset:                 {type: string(6), notnull: true}
+    utc_offset:                 {type: string(9), notnull: true}
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
@@ -299,7 +299,7 @@ Movie:
     url:                        {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
     age_rating:                 {type: string(32), notnull: false}
-    utf_offset:                 {type: time, notnull: true}
+    utf_offset:                 {type: string(9), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}

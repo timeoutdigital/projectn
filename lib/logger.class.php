@@ -32,7 +32,8 @@
  * </code>
  *
  */
-class logger {
+class logger
+{
 
     const POI = 'poi';
     const EVENT = 'event';
@@ -59,7 +60,7 @@ class logger {
      *
      * @var string
      */
-    public $type;
+    private $type;
 
     /**
      * Constructor
@@ -71,6 +72,16 @@ class logger {
     {
         $this->vendorObj = $vendorObj;
         $this->checkType($type);
+    }
+
+    /**
+     * Returns the logger type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+      return $this->type;
     }
 
     /**
