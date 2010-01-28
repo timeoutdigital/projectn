@@ -108,5 +108,14 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   public function testFormatUrl()
   {
   }
+
+  /**
+   * Test concatNonBlankStrings
+   */
+  public function testConcatNonBlankStrings()
+  {
+    $values = array( 'one', '', 'two', ' ', 'three' );
+    $this->assertEquals( 'one, two, three', stringTransform::concatNonBlankStrings( ', ', $values ) );
+  }
 }
 ?>

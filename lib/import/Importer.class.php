@@ -16,32 +16,12 @@ class Importer
   /**
    * @var array
    */
-  private $loggers;
-  
-  /**
-   * Takes an array of strings implodes only values that are not blank using $glue
-   *
-   * <code>
-   *   $input = array( 'one', '', 'two', '', three' );
-   *   echo Importer::concatNonBlankStrings( ',', $input );
-   *
-   *   //outputs:
-   *   //one, two, three
-   * </code>
-   * 
-   * @param array $stringArray
-   * @param string $glue
-   */
-  static public function concatNonBlankStrings( $glue, $stringArray )
-  {
-    $nonEmptyStrings = array_filter($stringArray, 'Importer::concatNonBlankStringsCallBack' );
-    return implode($glue, $nonEmptyStrings );
-  }
+  private $loggers = array();
 
-  static private function concatNonBlankStringsCallBack( $string )
-  {
-    return preg_match( '/\S/', $string );
-  }
+  /**
+   * @var array
+   */
+  private $importData = array();
 
   /**
    * Adds a logger
@@ -50,11 +30,6 @@ class Importer
    */
   public function registerLogger( logger $logger )
   {
-    if( !$this->loggers )
-    {
-      $this->loggers = array();
-    }
-
     if( !isset( $this->loggers[ $logger->getType() ] ) )
     {
       $this->loggers[ $logger->getType() ] = array();
@@ -75,13 +50,8 @@ class Importer
    * Adds an ImportData to be saved
    */
   public function addImportData( ImportData $importData )
-  {
-    if( !$this->importData )
-    {
-      $this->importData = array();
-    }
-
-    
+  {    
+    $this->importData[] = $importData;
   }
 
   /**
@@ -89,11 +59,10 @@ class Importer
    */
   public function getImportData()
   {
-
+    return $this->importData;
   }
 
   public function run()
   {
-    
   }
 }

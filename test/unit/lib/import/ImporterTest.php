@@ -46,21 +46,12 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * Test concatNonBlankStrings
-   */
-//  public function testConcatNonBlankStrings()
-//  {
-//    $values = array( 'one', '', 'two', ' ', 'three' );
-//    $this->assertEquals( 'one, two, three', Importer::concatNonBlankStrings( ', ', $values ) );
-//  }
-
-  /**
    * Test loggers get registered
    */
   public function testRegisteringLogger()
   {
     $returnedLoggers = $this->object->getLoggers();
-    $this->assertNull( $returnedLoggers['poi'][0] );
+    $this->assertEquals( array(), $returnedLoggers );
     
     $this->object->registerLogger( $this->poiLogger );
     
@@ -79,10 +70,16 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   public function testAddImportData()
   {
     $importData = new UnitTestImporterImportData( $this->importer );
+
+    $returnedImportData = $this->object->getImportData();
+    $this->assertEquals(array(), $returnedImportData);
+
     $this->object->addImportData( $importData );
 
     $returnedImportData = $this->object->getImportData();
     $returnedImportData = $returnedImportData[0];
+
+    $this->assertEquals($importData, $returnedImportData);
   }
 }
 
