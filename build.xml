@@ -24,7 +24,7 @@
 		-ue on 
 		-t ${basedir}/source/doc/api 
 		-d ${basedir}/source/lib/
-                -i filter/, form/, base/, task/, vendor/
+                -i *filter*,*form*,*base*,*task*,*vendor*
 		-tb '/usr/share/php/data/phpUnderControl/data/phpdoc' 
 		-o HTML:Phpuc:phpuc"/>
     </exec>
