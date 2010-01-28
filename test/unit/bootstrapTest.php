@@ -13,7 +13,6 @@ class bootstrapTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    Doctrine::loadData( 'data/fixtures/fixtures.yml' );
   }
 
   protected function tearDown()
