@@ -1,0 +1,2034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<body xmlns:fo="http://www.w3.org/1999/XSL/Format"><params><!--Hochzeichen-Zeichenersetzung-->
+<replacechar str="’" to="’"/>
+<replacechar str="{dbcomma}" to="“"/>
+<replacechar str="{ldquo}" to="”"/>
+<replacechar str="&amp;#8211;" to="–"/>
+<replacechar str="“" to="“"/>
+<replacechar str="”" to="”"/></params><header>
+<generated_at dd="17" mm="12" yyyy="2009" hh="1" nn="02" ss="05" dw="Thu" dwnum="4" hh12="1" ampm="am">2009-12-17 01:02:05</generated_at>
+<timeframe><from dd="17" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2009-12-17 00:00:00</from>
+<to dd="18" mm="05" yyyy="2010" hh="5" nn="00" ss="00" dw="Tue" dwnum="2" hh12="5" ampm="am">2010-05-18 05:00:00</to>
+<day dd="17" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2009-12-17 00:00:00</day>
+<day dd="18" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2009-12-18 00:00:00</day>
+<day dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</day>
+<day dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</day>
+<day dd="21" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2009-12-21 00:00:00</day>
+<day dd="22" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2009-12-22 00:00:00</day>
+<day dd="23" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2009-12-23 00:00:00</day>
+<day dd="24" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2009-12-24 00:00:00</day>
+<day dd="25" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2009-12-25 00:00:00</day>
+<day dd="26" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-26 00:00:00</day>
+<day dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</day>
+<day dd="28" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2009-12-28 00:00:00</day>
+<day dd="29" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2009-12-29 00:00:00</day>
+<day dd="30" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2009-12-30 00:00:00</day>
+<day dd="31" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2009-12-31 00:00:00</day>
+<day dd="1" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-01-01 00:00:00</day>
+<day dd="2" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-01-02 00:00:00</day>
+<day dd="3" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-01-03 00:00:00</day>
+<day dd="4" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-01-04 00:00:00</day>
+<day dd="5" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-01-05 00:00:00</day>
+<day dd="6" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-01-06 00:00:00</day>
+<day dd="7" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-01-07 00:00:00</day>
+<day dd="8" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-01-08 00:00:00</day>
+<day dd="9" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-01-09 00:00:00</day>
+<day dd="10" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-01-10 00:00:00</day>
+<day dd="11" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-01-11 00:00:00</day>
+<day dd="12" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-01-12 00:00:00</day>
+<day dd="13" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-01-13 00:00:00</day>
+<day dd="14" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-01-14 00:00:00</day>
+<day dd="15" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-01-15 00:00:00</day>
+<day dd="16" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-01-16 00:00:00</day>
+<day dd="17" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-01-17 00:00:00</day>
+<day dd="18" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-01-18 00:00:00</day>
+<day dd="19" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-01-19 00:00:00</day>
+<day dd="20" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-01-20 00:00:00</day>
+<day dd="21" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-01-21 00:00:00</day>
+<day dd="22" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-01-22 00:00:00</day>
+<day dd="23" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-01-23 00:00:00</day>
+<day dd="24" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-01-24 00:00:00</day>
+<day dd="25" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-01-25 00:00:00</day>
+<day dd="26" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-01-26 00:00:00</day>
+<day dd="27" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-01-27 00:00:00</day>
+<day dd="28" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-01-28 00:00:00</day>
+<day dd="29" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-01-29 00:00:00</day>
+<day dd="30" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-01-30 00:00:00</day>
+<day dd="31" mm="01" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-01-31 00:00:00</day>
+<day dd="1" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-02-01 00:00:00</day>
+<day dd="2" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-02-02 00:00:00</day>
+<day dd="3" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-02-03 00:00:00</day>
+<day dd="4" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-02-04 00:00:00</day>
+<day dd="5" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-02-05 00:00:00</day>
+<day dd="6" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-02-06 00:00:00</day>
+<day dd="7" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-02-07 00:00:00</day>
+<day dd="8" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-02-08 00:00:00</day>
+<day dd="9" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-02-09 00:00:00</day>
+<day dd="10" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-02-10 00:00:00</day>
+<day dd="11" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-02-11 00:00:00</day>
+<day dd="12" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-02-12 00:00:00</day>
+<day dd="13" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-02-13 00:00:00</day>
+<day dd="14" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-02-14 00:00:00</day>
+<day dd="15" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-02-15 00:00:00</day>
+<day dd="16" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-02-16 00:00:00</day>
+<day dd="17" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-02-17 00:00:00</day>
+<day dd="18" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-02-18 00:00:00</day>
+<day dd="19" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-02-19 00:00:00</day>
+<day dd="20" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-02-20 00:00:00</day>
+<day dd="21" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-02-21 00:00:00</day>
+<day dd="22" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-02-22 00:00:00</day>
+<day dd="23" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-02-23 00:00:00</day>
+<day dd="24" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-02-24 00:00:00</day>
+<day dd="25" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-02-25 00:00:00</day>
+<day dd="26" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-02-26 00:00:00</day>
+<day dd="27" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-02-27 00:00:00</day>
+<day dd="28" mm="02" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-02-28 00:00:00</day>
+<day dd="1" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-03-01 00:00:00</day>
+<day dd="2" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-03-02 00:00:00</day>
+<day dd="3" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-03-03 00:00:00</day>
+<day dd="4" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-03-04 00:00:00</day>
+<day dd="5" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-03-05 00:00:00</day>
+<day dd="6" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-03-06 00:00:00</day>
+<day dd="7" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-03-07 00:00:00</day>
+<day dd="8" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-03-08 00:00:00</day>
+<day dd="9" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-03-09 00:00:00</day>
+<day dd="10" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-03-10 00:00:00</day>
+<day dd="11" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-03-11 00:00:00</day>
+<day dd="12" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-03-12 00:00:00</day>
+<day dd="13" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-03-13 00:00:00</day>
+<day dd="14" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-03-14 00:00:00</day>
+<day dd="15" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-03-15 00:00:00</day>
+<day dd="16" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-03-16 00:00:00</day>
+<day dd="17" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-03-17 00:00:00</day>
+<day dd="18" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-03-18 00:00:00</day>
+<day dd="19" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-03-19 00:00:00</day>
+<day dd="20" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-03-20 00:00:00</day>
+<day dd="21" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-03-21 00:00:00</day>
+<day dd="22" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-03-22 00:00:00</day>
+<day dd="23" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-03-23 00:00:00</day>
+<day dd="24" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-03-24 00:00:00</day>
+<day dd="25" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-03-25 00:00:00</day>
+<day dd="26" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-03-26 00:00:00</day>
+<day dd="27" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-03-27 00:00:00</day>
+<day dd="28" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-03-28 00:00:00</day>
+<day dd="29" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-03-29 00:00:00</day>
+<day dd="30" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-03-30 00:00:00</day>
+<day dd="31" mm="03" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-03-31 00:00:00</day>
+<day dd="1" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-04-01 00:00:00</day>
+<day dd="2" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-04-02 00:00:00</day>
+<day dd="3" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-04-03 00:00:00</day>
+<day dd="4" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-04-04 00:00:00</day>
+<day dd="5" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-04-05 00:00:00</day>
+<day dd="6" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-04-06 00:00:00</day>
+<day dd="7" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-04-07 00:00:00</day>
+<day dd="8" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-04-08 00:00:00</day>
+<day dd="9" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-04-09 00:00:00</day>
+<day dd="10" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-04-10 00:00:00</day>
+<day dd="11" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-04-11 00:00:00</day>
+<day dd="12" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-04-12 00:00:00</day>
+<day dd="13" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-04-13 00:00:00</day>
+<day dd="14" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-04-14 00:00:00</day>
+<day dd="15" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-04-15 00:00:00</day>
+<day dd="16" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-04-16 00:00:00</day>
+<day dd="17" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-04-17 00:00:00</day>
+<day dd="18" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-04-18 00:00:00</day>
+<day dd="19" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-04-19 00:00:00</day>
+<day dd="20" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-04-20 00:00:00</day>
+<day dd="21" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-04-21 00:00:00</day>
+<day dd="22" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-04-22 00:00:00</day>
+<day dd="23" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-04-23 00:00:00</day>
+<day dd="24" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-04-24 00:00:00</day>
+<day dd="25" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-04-25 00:00:00</day>
+<day dd="26" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-04-26 00:00:00</day>
+<day dd="27" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-04-27 00:00:00</day>
+<day dd="28" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-04-28 00:00:00</day>
+<day dd="29" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-04-29 00:00:00</day>
+<day dd="30" mm="04" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-04-30 00:00:00</day>
+<day dd="1" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-05-01 00:00:00</day>
+<day dd="2" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-05-02 00:00:00</day>
+<day dd="3" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-05-03 00:00:00</day>
+<day dd="4" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-05-04 00:00:00</day>
+<day dd="5" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-05-05 00:00:00</day>
+<day dd="6" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-05-06 00:00:00</day>
+<day dd="7" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-05-07 00:00:00</day>
+<day dd="8" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-05-08 00:00:00</day>
+<day dd="9" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-05-09 00:00:00</day>
+<day dd="10" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-05-10 00:00:00</day>
+<day dd="11" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-05-11 00:00:00</day>
+<day dd="12" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2010-05-12 00:00:00</day>
+<day dd="13" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2010-05-13 00:00:00</day>
+<day dd="14" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2010-05-14 00:00:00</day>
+<day dd="15" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-05-15 00:00:00</day>
+<day dd="16" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2010-05-16 00:00:00</day>
+<day dd="17" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2010-05-17 00:00:00</day>
+<day dd="18" mm="05" yyyy="2010" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2010-05-18 00:00:00</day>
+</timeframe><basefile path="/Users/leoevent/export/onex/" body="tony_leo" suffix="xml">/Users/leoevent/export/onex/tony_leo.xml</basefile>
+<status_file path="/Users/leoevent/export/onex/" body="tony_leo_temp" suffix="xml">/Users/leoevent/export/onex/tony_leo_temp.xml</status_file>
+</header>
+
+	<!--Formatted Event Element-->
+	<event id="311131">
+		<type>2</type>
+		<released>1</released>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</start>
+			<venue>
+				<address_id>101114</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date_start dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</date_start>
+		<date_end dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</date_end>
+		<website/>
+		<transformation>
+			<address_id>101114</address_id>
+			<secondary_venue_id/>
+			<dynamic>
+				<day dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</day>
+				<time>
+					<from hh="18" nn="00" ss="00" hh12="6" ampm="pm">18:00:00</from>
+				</time>
+			</dynamic>
+		</transformation>
+		<main_event/>
+		<identifier>Rien Que Les Heures</identifier>
+		<description>One of the best “symphony films” of the ’20s and ’30s, this avant-garde travelogue explores the cobblestone streets and broken boulevards of anything-goes Paris. It screens with Viking Eggeling’s “Symphonie Diagonale” (1924), the last abstract short the filmmaker made before his untimely death.</description>
+		<category_combi id="400">
+			<category1 id="279">Film</category1>
+			<category2 id="344">Art-house &amp; indie cinema</category2>
+			<category3 id=""/>
+		</category_combi>
+		<edition id="16">Time Out New York</edition>
+		<attributes>
+			<attribute>
+				<name>Critic's Picks</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+			<attribute>
+				<name>WebReady</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
+		<sort_string>Rien Que Les Heures</sort_string>
+	</event>
+
+	<!--End Formatted Event Element-->
+
+
+
+	<event id="311062">
+		<type>2</type>
+		<released>1</released><date>
+<start dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</start>
+<venue>
+<address_id>105368</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</start>
+<venue>
+<address_id>105368</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</date_start><date_end dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</date_end><website/><transformation>
+<address_id>105368</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</day>
+<day dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</day>
+<time>
+<from hh="0" nn="00" ss="00" hh12="12" ampm="am">00:00:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>Black Dynamite</identifier><description>He’s a complicated man, and nobody understands him but his lady. We’re not talking about John Shaft, but rather, Michael Jai White’s karate-kickin’ blaxploitation hero who’s out to avenge his brother’s death by getting even with—who else?—the Man. Trust us, a feature-length parody of guys mugging in Afros is not as funny as it might sound.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Black Dynamite</sort_string></event><event id="311036"><type>2</type><released>1</released><date>
+<start dd="18" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Fri" dwnum="5" hh12="1" ampm="pm">2009-12-18 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="18" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Fri" dwnum="5" hh12="3" ampm="pm">2009-12-18 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="18" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Fri" dwnum="5" hh12="5" ampm="pm">2009-12-18 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="18" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Fri" dwnum="5" hh12="7" ampm="pm">2009-12-18 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="18" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Fri" dwnum="5" hh12="9" ampm="pm">2009-12-18 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="19" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sat" dwnum="6" hh12="1" ampm="pm">2009-12-19 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="19" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sat" dwnum="6" hh12="3" ampm="pm">2009-12-19 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="19" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sat" dwnum="6" hh12="5" ampm="pm">2009-12-19 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="19" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sat" dwnum="6" hh12="7" ampm="pm">2009-12-19 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="19" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2009-12-19 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="20" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sun" dwnum="7" hh12="1" ampm="pm">2009-12-20 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="20" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sun" dwnum="7" hh12="3" ampm="pm">2009-12-20 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="20" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sun" dwnum="7" hh12="5" ampm="pm">2009-12-20 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="20" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-20 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="20" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Sun" dwnum="7" hh12="9" ampm="pm">2009-12-20 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="21" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Mon" dwnum="1" hh12="1" ampm="pm">2009-12-21 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="21" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Mon" dwnum="1" hh12="3" ampm="pm">2009-12-21 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="21" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Mon" dwnum="1" hh12="5" ampm="pm">2009-12-21 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="21" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Mon" dwnum="1" hh12="7" ampm="pm">2009-12-21 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="21" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Mon" dwnum="1" hh12="9" ampm="pm">2009-12-21 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="22" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Tue" dwnum="2" hh12="1" ampm="pm">2009-12-22 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="22" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Tue" dwnum="2" hh12="3" ampm="pm">2009-12-22 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="22" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Tue" dwnum="2" hh12="5" ampm="pm">2009-12-22 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="22" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Tue" dwnum="2" hh12="7" ampm="pm">2009-12-22 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="22" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Tue" dwnum="2" hh12="9" ampm="pm">2009-12-22 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="23" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-23 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="23" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Wed" dwnum="3" hh12="3" ampm="pm">2009-12-23 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="23" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Wed" dwnum="3" hh12="5" ampm="pm">2009-12-23 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="23" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Wed" dwnum="3" hh12="7" ampm="pm">2009-12-23 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="23" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Wed" dwnum="3" hh12="9" ampm="pm">2009-12-23 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="24" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Thu" dwnum="4" hh12="1" ampm="pm">2009-12-24 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="24" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Thu" dwnum="4" hh12="3" ampm="pm">2009-12-24 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="24" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Thu" dwnum="4" hh12="5" ampm="pm">2009-12-24 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="24" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Thu" dwnum="4" hh12="7" ampm="pm">2009-12-24 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="24" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Thu" dwnum="4" hh12="9" ampm="pm">2009-12-24 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="25" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Fri" dwnum="5" hh12="1" ampm="pm">2009-12-25 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="25" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Fri" dwnum="5" hh12="3" ampm="pm">2009-12-25 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="25" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Fri" dwnum="5" hh12="5" ampm="pm">2009-12-25 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="25" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Fri" dwnum="5" hh12="7" ampm="pm">2009-12-25 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="25" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Fri" dwnum="5" hh12="9" ampm="pm">2009-12-25 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="26" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sat" dwnum="6" hh12="1" ampm="pm">2009-12-26 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="26" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sat" dwnum="6" hh12="3" ampm="pm">2009-12-26 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="26" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sat" dwnum="6" hh12="5" ampm="pm">2009-12-26 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="26" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sat" dwnum="6" hh12="7" ampm="pm">2009-12-26 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="26" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2009-12-26 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sun" dwnum="7" hh12="1" ampm="pm">2009-12-27 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sun" dwnum="7" hh12="3" ampm="pm">2009-12-27 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sun" dwnum="7" hh12="5" ampm="pm">2009-12-27 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-27 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Sun" dwnum="7" hh12="9" ampm="pm">2009-12-27 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="28" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Mon" dwnum="1" hh12="1" ampm="pm">2009-12-28 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="28" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Mon" dwnum="1" hh12="3" ampm="pm">2009-12-28 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="28" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Mon" dwnum="1" hh12="5" ampm="pm">2009-12-28 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="28" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Mon" dwnum="1" hh12="7" ampm="pm">2009-12-28 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="28" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Mon" dwnum="1" hh12="9" ampm="pm">2009-12-28 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="29" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Tue" dwnum="2" hh12="1" ampm="pm">2009-12-29 13:10:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="29" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Tue" dwnum="2" hh12="3" ampm="pm">2009-12-29 15:20:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="29" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Tue" dwnum="2" hh12="5" ampm="pm">2009-12-29 17:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="29" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Tue" dwnum="2" hh12="7" ampm="pm">2009-12-29 19:40:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="29" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Tue" dwnum="2" hh12="9" ampm="pm">2009-12-29 21:50:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="18" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Fri" dwnum="5" hh12="1" ampm="pm">2009-12-18 13:10:00</date_start><date_end dd="29" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Tue" dwnum="2" hh12="9" ampm="pm">2009-12-29 21:50:00</date_end><website/><transformation>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+<range days="12">
+<from dd="18" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2009-12-18 00:00:00</from>
+<to dd="29" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2009-12-29 00:00:00</to>
+<time>
+<from hh="19" nn="40" ss="00" hh12="7" ampm="pm">19:40:00</from>
+</time>
+<time>
+<from hh="21" nn="50" ss="00" hh12="9" ampm="pm">21:50:00</from>
+</time>
+<time>
+<from hh="17" nn="30" ss="00" hh12="5" ampm="pm">17:30:00</from>
+</time>
+<time>
+<from hh="15" nn="20" ss="00" hh12="3" ampm="pm">15:20:00</from>
+</time>
+<time>
+<from hh="13" nn="10" ss="00" hh12="1" ampm="pm">13:10:00</from>
+</time>
+</range>
+</transformation><main_event/><identifier>The Third Man</identifier><description>Seriously, is there a better screen entrance than the first appearance of Harry Lime, the black-market mover and shaker? And what about the “cuckoo clock” speech? Plus, that zither-heavy soundtrack!</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>Critic's Picks</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Third Man</sort_string></event><event id="311333"><type>2</type><released>1</released><date>
+<start dd="23" mm="12" yyyy="2009" hh="13" nn="30" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-23 13:30:00</start>
+<venue>
+<address_id>101401</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="24" mm="12" yyyy="2009" hh="13" nn="30" ss="00" dw="Thu" dwnum="4" hh12="1" ampm="pm">2009-12-24 13:30:00</start>
+<venue>
+<address_id>101401</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="23" mm="12" yyyy="2009" hh="13" nn="30" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-23 13:30:00</date_start><date_end dd="24" mm="12" yyyy="2009" hh="13" nn="30" ss="00" dw="Thu" dwnum="4" hh12="1" ampm="pm">2009-12-24 13:30:00</date_end><website/><transformation>
+<address_id>101401</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="24" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2009-12-24 00:00:00</day>
+<day dd="23" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2009-12-23 00:00:00</day>
+<time>
+<from hh="13" nn="30" ss="00" hh12="1" ampm="pm">13:30:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>Send in the Clowns</identifier><description>And in those funny men march: Fatty Arbuckle (“The Rounders”), Charlie Chaplin (“The Knockout,” “A Night Out”), Buster Keaton (“The Butcher Boy”) and Max Linder (“Max et son chien Dick”), among others.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Send in the Clowns</sort_string></event><event id="311063"><type>2</type><released>1</released><date>
+<start dd="26" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-26 00:00:00</start>
+<venue>
+<address_id>105368</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</start>
+<venue>
+<address_id>105368</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="26" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-26 00:00:00</date_start><date_end dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</date_end><website/><transformation>
+<address_id>105368</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="26" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-26 00:00:00</day>
+<day dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</day>
+<time>
+<from hh="0" nn="00" ss="00" hh12="12" ampm="am">00:00:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>Back to the Future</identifier><description>Two-hit wonder Corey Hart must be wishing he had the keys to that DeLorean right now; he reportedly turned down the part of Marty McFly (which went to Michael J. Fox), thus missing out on this Spielberg-produced smash. Still, he’s got his sunglasses at night. And he will never surrender.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Back to the Future</sort_string></event><event id="311661"><type>2</type><released>1</released><date>
+<start dd="26" mm="12" yyyy="2009" hh="11" nn="00" ss="00" dw="Sat" dwnum="6" hh12="11" ampm="am">2009-12-26 11:00:00</start>
+<venue>
+<address_id>101399</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="26" mm="12" yyyy="2009" hh="14" nn="00" ss="00" dw="Sat" dwnum="6" hh12="2" ampm="pm">2009-12-26 14:00:00</start>
+<venue>
+<address_id>101399</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="13" nn="00" ss="00" dw="Sun" dwnum="7" hh12="1" ampm="pm">2009-12-27 13:00:00</start>
+<venue>
+<address_id>101399</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="26" mm="12" yyyy="2009" hh="11" nn="00" ss="00" dw="Sat" dwnum="6" hh12="11" ampm="am">2009-12-26 11:00:00</date_start><date_end dd="27" mm="12" yyyy="2009" hh="13" nn="00" ss="00" dw="Sun" dwnum="7" hh12="1" ampm="pm">2009-12-27 13:00:00</date_end><website/><transformation>
+<address_id>101399</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="26" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-26 00:00:00</day>
+<time>
+<from hh="14" nn="00" ss="00" hh12="2" ampm="pm">14:00:00</from>
+</time>
+<time>
+<from hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from>
+</time>
+</dynamic>
+<dynamic>
+<day dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</day>
+<time>
+<from hh="13" nn="00" ss="00" hh12="1" ampm="pm">13:00:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>The Muppet Movie</identifier><description>Kermit travels from his home swamp to Hollywood, meeting pals like Fozzie, Miss Piggy and Gonzo along the way. Gratuitous star cameos and running gags abound (“Have you tried Hare Krishna?”), and the fourth wall is summarily demolished.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>Critic's Picks</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Muppet Movie</sort_string></event><event id="311071"><type>2</type><released>1</released><date>
+<start dd="17" mm="12" yyyy="2009" hh="19" nn="00" ss="00" dw="Thu" dwnum="4" hh12="7" ampm="pm">2009-12-17 19:00:00</start>
+<venue>
+<address_id>101114</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="17" mm="12" yyyy="2009" hh="19" nn="00" ss="00" dw="Thu" dwnum="4" hh12="7" ampm="pm">2009-12-17 19:00:00</date_start><date_end dd="17" mm="12" yyyy="2009" hh="19" nn="00" ss="00" dw="Thu" dwnum="4" hh12="7" ampm="pm">2009-12-17 19:00:00</date_end><website/><transformation>
+<address_id>101114</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="17" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2009-12-17 00:00:00</day>
+<time>
+<from hh="19" nn="00" ss="00" hh12="7" ampm="pm">19:00:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>The Chelsea Girls</identifier><description>Warhol’s most commercially successful film (relatively speaking) actually features seven hours of footage; it runs only three and a half hours because two separate images are projected side by side. Music by the Velvet Underground sweetens the deal; if you’re an obsessive of all things Warhol- and Factory-related, you know you’re blocking the evening off for this.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>Critic's Picks</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Chelsea Girls</sort_string></event><event id="311324"><type>2</type><released>1</released><date>
+<start dd="21" mm="12" yyyy="2009" hh="16" nn="00" ss="00" dw="Mon" dwnum="1" hh12="4" ampm="pm">2009-12-21 16:00:00</start>
+<venue>
+<address_id>101401</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="21" mm="12" yyyy="2009" hh="16" nn="00" ss="00" dw="Mon" dwnum="1" hh12="4" ampm="pm">2009-12-21 16:00:00</date_start><date_end dd="21" mm="12" yyyy="2009" hh="16" nn="00" ss="00" dw="Mon" dwnum="1" hh12="4" ampm="pm">2009-12-21 16:00:00</date_end><website/><transformation>
+<address_id>101401</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="21" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2009-12-21 00:00:00</day>
+<time>
+<from hh="16" nn="00" ss="00" hh12="4" ampm="pm">16:00:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>Short Films by Artur Zmijewski</identifier><description>There’s no descriptive information about the works by Polish director Zmijewski that are screening. (Titles include “Patricia,” “Yolanda” and “Them.”) But why not go for a blind buy? How often do you get the chance? </description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Short Films by Artur Zmijewski</sort_string></event><event id="311669"><type>2</type><released>1</released><date>
+<start dd="20" mm="12" yyyy="2009" hh="19" nn="30" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-20 19:30:00</start>
+<venue>
+<address_id>110858</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="19" nn="30" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-27 19:30:00</start>
+<venue>
+<address_id>110858</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="20" mm="12" yyyy="2009" hh="19" nn="30" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-20 19:30:00</date_start><date_end dd="27" mm="12" yyyy="2009" hh="19" nn="30" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-27 19:30:00</date_end><website/><transformation>
+<address_id>110858</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</day>
+<day dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</day>
+<time>
+<from hh="19" nn="30" ss="00" hh12="7" ampm="pm">19:30:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>Rocksteady: The Roots of Reggae</identifier><description>Before reggae became synonymous with the slow-and-low-end sound popularized by ’70s musicians in the Caribbean, the genre was characterized by quicker rhythms and tempos. They called it “rocksteady”; check out how this subtrend briefly dominated the island music scene.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Rocksteady: The Roots of Reggae</sort_string></event><event id="311642"><type>2</type><released>1</released><date>
+<start dd="25" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2009-12-25 00:00:00</start>
+<venue>
+<address_id>105369</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="26" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-26 00:00:00</start>
+<venue>
+<address_id>105369</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</start>
+<venue>
+<address_id>105369</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="25" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2009-12-25 00:00:00</date_start><date_end dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</date_end><website/><transformation>
+<address_id>105369</address_id>
+<secondary_venue_id/>
+<range days="3">
+<from dd="25" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2009-12-25 00:00:00</from>
+<to dd="27" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-27 00:00:00</to>
+<time>
+<from hh="0" nn="00" ss="00" hh12="12" ampm="am">00:00:00</from>
+</time>
+</range>
+</transformation><main_event/><identifier>Donnie Darko</identifier><description>The fact that a cult has sprung up around this rather derivative slab of Lynch-lite cinema is vexing enough. But getting a longer version of Richard Kelly’s little tale of apocalyptic dreams and awesome ’80s tunes is enough to tie our brains into knots. Still, for fans of the film, those 20 extra minutes must seem like a gift from the gods.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Donnie Darko</sort_string></event><event id="311520"><type>2</type><released>1</released><date>
+<start dd="30" mm="12" yyyy="2009" hh="13" nn="30" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-30 13:30:00</start>
+<venue>
+<address_id>101401</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="30" mm="12" yyyy="2009" hh="13" nn="30" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-30 13:30:00</date_start><date_end dd="30" mm="12" yyyy="2009" hh="13" nn="30" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-30 13:30:00</date_end><website/><transformation>
+<address_id>101401</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="30" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2009-12-30 00:00:00</day>
+<time>
+<from hh="13" nn="30" ss="00" hh12="1" ampm="pm">13:30:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>Anthology of Italian Cinema, Part 1 (1895-1926)</identifier><description>Prepare to gorge on early “Cinema Italiano!,” as Kate Hudson would say, with this impressive survey of the country’s celluloid output during the medium’s infancy. Silent comedies, historical epics, “diva films,” docs and oh so much more await you, paisan.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Anthology of Italian Cinema, Part 1 (1895-1926)</sort_string></event><event id="311034"><type>2</type><released>1</released><date>
+<start dd="30" mm="12" yyyy="2009" hh="13" nn="15" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-30 13:15:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="30" mm="12" yyyy="2009" hh="15" nn="00" ss="00" dw="Wed" dwnum="3" hh12="3" ampm="pm">2009-12-30 15:00:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="30" mm="12" yyyy="2009" hh="16" nn="45" ss="00" dw="Wed" dwnum="3" hh12="4" ampm="pm">2009-12-30 16:45:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="30" mm="12" yyyy="2009" hh="18" nn="30" ss="00" dw="Wed" dwnum="3" hh12="6" ampm="pm">2009-12-30 18:30:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="30" mm="12" yyyy="2009" hh="20" nn="15" ss="00" dw="Wed" dwnum="3" hh12="8" ampm="pm">2009-12-30 20:15:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="30" mm="12" yyyy="2009" hh="22" nn="00" ss="00" dw="Wed" dwnum="3" hh12="10" ampm="pm">2009-12-30 22:00:00</start>
+<venue>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="30" mm="12" yyyy="2009" hh="13" nn="15" ss="00" dw="Wed" dwnum="3" hh12="1" ampm="pm">2009-12-30 13:15:00</date_start><date_end dd="30" mm="12" yyyy="2009" hh="22" nn="00" ss="00" dw="Wed" dwnum="3" hh12="10" ampm="pm">2009-12-30 22:00:00</date_end><website/><transformation>
+<address_id>101392</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="30" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2009-12-30 00:00:00</day>
+<time>
+<from hh="18" nn="30" ss="00" hh12="6" ampm="pm">18:30:00</from>
+</time>
+<time>
+<from hh="22" nn="00" ss="00" hh12="10" ampm="pm">22:00:00</from>
+</time>
+<time>
+<from hh="20" nn="15" ss="00" hh12="8" ampm="pm">20:15:00</from>
+</time>
+<time>
+<from hh="15" nn="00" ss="00" hh12="3" ampm="pm">15:00:00</from>
+</time>
+<time>
+<from hh="13" nn="15" ss="00" hh12="1" ampm="pm">13:15:00</from>
+</time>
+<time>
+<from hh="16" nn="45" ss="00" hh12="4" ampm="pm">16:45:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>Old Partner</identifier><description>See Reviews.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Old Partner</sort_string></event><event id="311629"><type>2</type><released>1</released><date>
+<start dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</start>
+<venue>
+<address_id>105369</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date>
+<start dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</start>
+<venue>
+<address_id>105369</address_id>
+<secondary_venue_id/>
+</venue>
+</date><date_start dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</date_start><date_end dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</date_end><website/><transformation>
+<address_id>105369</address_id>
+<secondary_venue_id/>
+<dynamic>
+<day dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</day>
+<day dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</day>
+<time>
+<from hh="0" nn="00" ss="00" hh12="12" ampm="am">00:00:00</from>
+</time>
+</dynamic>
+</transformation><main_event/><identifier>The Shining</identifier><description>From a certain perspective, all of Kubrick’s movies—even 2001 and Dr. Strangelove—seem like horror films. When the director actually got around to making a proper thriller, he paradoxically produced the ultimate comic satire on the American family. With blood in elevators. Essential.</description><category_combi id="400">
+<category1 id="279">Film</category1>
+<category2 id="344">Art-house &amp; indie cinema</category2>
+<category3 id=""/></category_combi><edition id="16">Time Out New York</edition><attributes><attribute>
+<name>Critic's Picks</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>WebReady</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Shining</sort_string>
+</event>
+
+
+
+
+
+
+
+	<!--Formatted address Element-->
+	<address id="103532">
+		<address_type>S</address_type>
+		<address_type_ext>-VEN-</address_type_ext>
+		<address_group id="1">New York</address_group>
+		<released>1</released>
+		<name/>
+		<first_name/>
+		<identifier>Zankel Hall (at Carnegie Hall)</identifier>
+		<country_symbol>USA</country_symbol>
+		<country>United States of America</country>
+		<state>NY</state>
+		<district>Manhattan</district>
+		<street>154 W 57th St</street>
+		<house_number/>
+		<cross_streets>at Seventh Ave</cross_streets>
+		<country_code>+1</country_code>
+		<telephone>
+			<function id="0">info desk</function>
+			<area_code>212</area_code>
+			<number>247-7800</number>
+		</telephone>
+		<postcode>0</postcode>
+		<town>New York</town>
+		<suburb>Midtown West</suburb>
+		<text_system>
+			<text>
+				<text_type>Approach Descriptions</text_type>
+				<language>english</language>
+				<content>Subway: B, D, E to Seventh Ave; N, Q, R, W to 57th St</content>
+				<author/>
+				<released>1</released>
+			</text>
+		</text_system>
+		<attributes/>
+		<sort_string>Zankel Hall (at Carnegie Hall)</sort_string>
+	</address>
+	<!--end Formatted address Element-->
+
+
+
+
+
+
+
+
+<address id="101130"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zebulon</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Kings</district><street>258 Wythe Ave</street><house_number/><cross_streets>between Metropolitan Ave and North 3rd St</cross_streets><country_code>+1</country_code><telephone>
+<function id="0">info desk</function>
+<area_code>718</area_code>
+<number>218-6934</number>
+</telephone><postcode>0</postcode><town>Brooklyn</town><suburb>Williamsburg</suburb><text_system>
+<text>
+<text_type>Approach Descriptions</text_type>
+<language>english</language>
+<content>Subway: L to Bedford Ave</content>
+<author/>
+<released>1</released>
+</text>
+</text_system><attributes><attribute>
+<name>Venue type: Music</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Zebulon</sort_string></address><address id="112093"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zero + Maria Cornejo</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>33 Bleecker St</street><house_number/><cross_streets>between Bowery and Lafayette St</cross_streets><country_code>+1</country_code><telephone>
+<function id="1">box office</function>
+<area_code>212</area_code>
+<number>925-3849</number>
+</telephone><postcode>0</postcode><town>New York</town><suburb>Lower East Side</suburb><text_system>
+<text>
+<text_type>Approach Descriptions</text_type>
+<language>english</language>
+<content>Subway: 6 to Bleecker St</content>
+<author/>
+<released>1</released>
+</text>
+</text_system><attributes/><sort_string>Zero + Maria Cornejo</sort_string></address><address id="100020"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zinc Bar</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>82 W 3rd St</street><house_number/><cross_streets>between Sullivan and Thompson Sts</cross_streets><country_code>+1</country_code><telephone>
+<function id="0">info desk</function>
+<area_code>212</area_code>
+<number>477-8337</number>
+</telephone><postcode>0</postcode><town>New York</town><website>zincbar.com</website><suburb>West Village</suburb><text_system>
+<text>
+<text_type>Approach Descriptions</text_type>
+<language>english</language>
+<content>Subway: A, C, E, B, D, F, V to W 4th St</content>
+<author/>
+<released>1</released>
+</text>
+<text>
+<text_type>Venue Blurb</text_type>
+<language>english</language>
+<content>Located where Noho meets Soho, Zinc Bar is the place to hoot and holler with die-hard night owls. The after-hours atmosphere is enhanced by the cool mix of African, jazz and Latin bands.</content>
+<author/>
+<released>1</released>
+</text>
+</text_system><attributes><attribute>
+<name>Venue type: Music</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>Zinc Bar</sort_string></address><address id="107419"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>Zoë</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Kings</district><street>70 Washington St</street><house_number/><cross_streets>between Front and York Sts</cross_streets><country_code>+1</country_code><telephone>
+<function id="0">info desk</function>
+<area_code>718</area_code>
+<number>237-4002</number>
+</telephone><postcode>0</postcode><town>Brooklyn</town><website>shopzoeonline.com</website><suburb>Dumbo</suburb><opening_hours>
+<remark/>
+<general_remark/>
+<day dw="Mon" dwnum="1"><from1 hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from1>
+<to1 hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to1>
+</day>
+<day dw="Tue" dwnum="2"><from1 hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from1>
+<to1 hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to1>
+</day>
+<day dw="Wed" dwnum="3"><from1 hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from1>
+<to1 hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to1>
+</day>
+<day dw="Thu" dwnum="4"><from1 hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from1>
+<to1 hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to1>
+</day>
+<day dw="Fri" dwnum="5"><from1 hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from1>
+<to1 hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to1>
+</day>
+<day dw="Sat" dwnum="6"><from1 hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from1>
+<to1 hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to1>
+</day>
+<day dw="Sun" dwnum="7"><from1 hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from1>
+<to1 hh="18" nn="00" ss="00" hh12="6" ampm="pm">18:00:00</to1>
+</day>
+<day dw="Phd" dwnum="-1"/>
+<transformation>
+<secondary_venue_id/>
+<range days="6">
+<from dd="5" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">1970-01-05 00:00:00</from>
+<to dd="10" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">1970-01-10 00:00:00</to>
+<time>
+<from hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from>
+<to hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to>
+</time>
+</range>
+<dynamic>
+<day dd="11" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">1970-01-11 00:00:00</day>
+<time>
+<from hh="12" nn="00" ss="00" hh12="12" ampm="pm">12:00:00</from>
+<to hh="18" nn="00" ss="00" hh12="6" ampm="pm">18:00:00</to>
+</time>
+</dynamic>
+</transformation>
+</opening_hours><text_system>
+<text>
+<text_type>Approach Descriptions</text_type>
+<language>english</language>
+<content>Subway: F to York St.</content>
+<author/>
+<released>1</released>
+</text>
+<text>
+<text_type>Venue Blurb</text_type>
+<language>english</language>
+<content>Intimate NYC boutiques are to corner delis as Zoë is to a full-fledged supermarket. This Dumbo outpost for high-end garb, located in a cavernous former box factory, organizes a dizzying array of designers—among them Miu Miu, Zac Posen and Pucci—in its cement-floored space. Highlights at the satellite store (its flagship is in Princeton, NJ) include a Mayle sweaterdress , a cocktail number by 3.1 Phillip Lim and more than 18 denim lines. It’s a shame there aren’t discount coupons for this megamart.</content>
+<author/>
+<released>1</released>
+</text>
+</text_system><attributes/><sort_string>Zoë</sort_string></address><address id="112950"><address_type>SK</address_type><address_type_ext>-VEN--TA-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>email</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>speakeasyparties@aol.com</street><house_number/><cross_streets>for details</cross_streets><country_code>+1</country_code><postcode>0</postcode><town>New York</town><suburb/><attributes/><sort_string>email</sort_string></address><address id="112918"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>skinnyskinny</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Kings</district><street>129B Roebling St</street><house_number/><cross_streets>between North 4th and 5th Sts</cross_streets><country_code>+1</country_code><telephone>
+<function id="1">box office</function>
+<area_code>718</area_code>
+<number>366-2201</number>
+</telephone><postcode>0</postcode><town>Brooklyn</town><website>skinnyskinny.com</website><suburb>Williamsburg</suburb><opening_hours>
+<remark/>
+<general_remark/>
+<day dw="Mon" dwnum="1"/>
+<day dw="Tue" dwnum="2"/>
+<day dw="Wed" dwnum="3"><from1 hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from1>
+<to1 hh="19" nn="00" ss="00" hh12="7" ampm="pm">19:00:00</to1>
+</day>
+<day dw="Thu" dwnum="4"><from1 hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from1>
+<to1 hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to1>
+</day>
+<day dw="Fri" dwnum="5"><from1 hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from1>
+<to1 hh="19" nn="00" ss="00" hh12="7" ampm="pm">19:00:00</to1>
+</day>
+<day dw="Sat" dwnum="6"><from1 hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from1>
+<to1 hh="19" nn="00" ss="00" hh12="7" ampm="pm">19:00:00</to1>
+</day>
+<day dw="Sun" dwnum="7"><from1 hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from1>
+<to1 hh="19" nn="00" ss="00" hh12="7" ampm="pm">19:00:00</to1>
+</day>
+<day dw="Phd" dwnum="-1"/>
+<transformation>
+<secondary_venue_id/>
+<dynamic>
+<day dd="10" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">1970-01-10 00:00:00</day>
+<day dd="7" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">1970-01-07 00:00:00</day>
+<day dd="11" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">1970-01-11 00:00:00</day>
+<day dd="9" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">1970-01-09 00:00:00</day>
+<time>
+<from hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from>
+<to hh="19" nn="00" ss="00" hh12="7" ampm="pm">19:00:00</to>
+</time>
+</dynamic>
+<dynamic>
+<day dd="8" mm="01" yyyy="1970" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">1970-01-08 00:00:00</day>
+<time>
+<from hh="11" nn="00" ss="00" hh12="11" ampm="am">11:00:00</from>
+<to hh="20" nn="00" ss="00" hh12="8" ampm="pm">20:00:00</to>
+</time>
+</dynamic>
+</transformation>
+</opening_hours><text_system>
+<text>
+<text_type>Venue Blurb</text_type>
+<language>english</language>
+<content>Owner Clara Williams did what any eco-savvy girl would do after failing to find an organic soap she actually liked: She made her own. This cozy new shop offers an array of naturally scented oils ($20 each), soaps ($8 each), organic lip balms ($6 each), as well as toys for your animal friends ($8–$14). Shoppers can even peer into her studio and see where the handcrafted toiletries are made. Mention TONY to receive 20% off through December 10. </content>
+<author/>
+<released>1</released>
+</text>
+</text_system><attributes><attribute>
+<name>Venue type: Shops</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>skinnyskinny</sort_string></address><address id="109023"><address_type>S</address_type><address_type_ext>-VEN-</address_type_ext><address_group id="1">New York</address_group><released>1</released><name/><first_name/><identifier>subMercer</identifier><country_symbol>USA</country_symbol><country>United States of America</country><state>NY</state><district>Manhattan</district><street>147 1/2 Mercer St</street><house_number/><cross_streets>at Prince St</cross_streets><country_code>+1</country_code><telephone>
+<function id="0">info desk</function>
+<area_code>212</area_code>
+<number>966-6060</number>
+</telephone><postcode>0</postcode><town>New York</town><website>mercerhotel.com</website><suburb>Soho</suburb><text_system>
+<text>
+<text_type>Approach Descriptions</text_type>
+<language>english</language>
+<content>Subway: N, R, W to Prince St. </content>
+<author/>
+<released>1</released>
+</text>
+<text>
+<text_type>Venue Blurb</text_type>
+<language>english</language>
+<content>Opened in 2001 by red-hot hotelier André Balazs, Soho’s first luxury boutique hotel still has ample flourishes to keep it a notch above nearby competitors, which may be why celebs like Marc Jacobs and Mischa Barton favor it. The lobby, appointed with oversize white couches and chairs, and shelves lined with colorful books, acts as a bar, library and lounge—exclusive to hotel guests. The loft-like rooms are large by New York standards and feature furniture by Christian Liagre, enormous washrooms and Face Stockholm products. The restaurant, Mercer Kitchen, serves Jean-Georges Vongerichten’s stylish version of casual American cuisine. Secreted two levels down, the Submercer lounge recently reopened after five years. Rooms 75. Credit AmEx, DC, Disc, MC, V.
+</content>
+<author/>
+<released>1</released>
+</text>
+</text_system><prices>
+<price_id id="124988">
+<general_remark>AmEx, DC, Disc, MC, V</general_remark>
+<price>
+<price_type>Double</price_type>
+<currency>USD</currency>
+<value integer="495" decimal_places="00">495.00</value>
+<value_to integer="895" decimal_places="00">895.00</value_to>
+</price>
+</price_id>
+</prices><attributes><attribute>
+<name>Hotel Amenity: Bar</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>Hotel Amenity: Restaurant(s)</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>Hotel Amenity: Wi-fi</name>
+<type>Value list</type>
+<value>Free</value>
+</attribute>
+<attribute>
+<name>Hotel Price: Expensive</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>Hotel Style: Hot bar scene</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>Hotel Style: Trendy/Boutique</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>NYCVisit: Culture buff</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>NYCVisit: Glamour hound</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+<attribute>
+<name>NYCVisit: Trendsetter</name>
+<type>Yes/No</type>
+<value>Yes</value>
+</attribute>
+</attributes><sort_string>subMercer</sort_string></address>
+
+
+
+
+
+
+	<!--Formatted artist Element-->
+	<artist id="10048">
+		<name>Mavrothi Kontanis</name>
+		<sort_string>kontanis</sort_string>
+	</artist>
+	<!-- End Formatted Artists Element-->
+
+
+
+
+
+
+
+
+<artist id="10780">
+<name>Georgiana Starlington</name>
+<sort_string>georgiana</sort_string>
+</artist><artist id="3909">
+<name>Regina Belle and Her Band</name>
+<sort_string>Regina Belle and Her Band</sort_string>
+<review_date dd="7" mm="02" yyyy="2003" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2003-02-07 00:00:00</review_date>
+</artist><artist id="7183">
+<name>Gov't Mule</name>
+</artist><artist id="2272">
+<name>Goapele</name>
+<sort_string>Goapele</sort_string>
+<review_date dd="7" mm="07" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-07-07 00:00:00</review_date>
+</artist><artist id="8931">
+<name>Li’l Mo and the Monicats</name>
+<sort_string>lil mo</sort_string>
+</artist><artist id="5932">
+<name>Feathers</name>
+<sort_string>Feathers</sort_string>
+</artist><artist id="8956">
+<name>Joe McGinty's Piano Parlour</name>
+<sort_string>mcginty's piano</sort_string>
+</artist><artist id="659">
+<name>Bardo Pond</name>
+<sort_string>Bardo Pond</sort_string>
+<review_date dd="12" mm="06" yyyy="2006" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2006-06-12 00:00:00</review_date>
+</artist><artist id="6575">
+<name>Mighty Sparrow</name>
+<sort_string>Mighty Sparrow</sort_string>
+</artist><artist id="10325">
+<name>Greg Holden</name>
+</artist><artist id="9135">
+<name>Anamanaguchi</name>
+<sort_string>anamanaguchi</sort_string>
+</artist><artist id="8668">
+<name>Jim White</name>
+</artist><artist id="9278">
+<name>Melanie Moser</name>
+<sort_string>moser</sort_string>
+</artist><artist id="2755">
+<name>Jonathan Kreisberg Trio</name>
+<sort_string>Jonathan Kreisberg Trio</sort_string>
+<review_date dd="9" mm="05" yyyy="2003" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2003-05-09 00:00:00</review_date>
+</artist><artist id="9254">
+<name>La Cumbiamba eNeYe</name>
+<sort_string>lacumbiamba</sort_string>
+</artist><artist id="9063">
+<name>The Canon Logic</name>
+<sort_string>canon logic</sort_string>
+</artist><artist id="8293">
+<name>Hugh Pool</name>
+<sort_string>pool</sort_string>
+</artist><artist id="9622">
+<name>The Mandingo Ambassadors</name>
+<sort_string>mandingo</sort_string>
+</artist><artist id="7073">
+<name>Greyboy Allstars</name>
+<sort_string>greyboy</sort_string>
+</artist><artist id="10356">
+<name>Gary War</name>
+<sort_string>war</sort_string>
+</artist><artist id="9845">
+<name>Meta and the Cornerstones</name>
+<sort_string>meta and the cornerstones</sort_string>
+</artist><artist id="7149">
+<name>Charanga Soleil</name>
+<sort_string>charanga soleil</sort_string>
+</artist><artist id="3397">
+<name>Mike LeDonne and Friends featuring Ron Carter</name>
+<sort_string>Mike LeDonne and Friends featuring Ron Carter</sort_string>
+<review_date dd="7" mm="10" yyyy="2004" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2004-10-07 00:00:00</review_date>
+</artist><artist id="174">
+<name>Donny McCaslin Trio</name>
+<sort_string>McCaslin</sort_string>
+</artist><artist id="5793">
+<name>Christina Courtin</name>
+<sort_string>Courtin</sort_string>
+<review_date dd="22" mm="12" yyyy="2008" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2008-12-22 00:00:00</review_date>
+</artist><artist id="4147">
+<name>The Secret Machines</name>
+<sort_string>Secret Machines</sort_string>
+</artist><artist id="10466">
+<name>Pink Noise</name>
+<sort_string>pink noise</sort_string>
+</artist><artist id="5534">
+<name>Ben Holmes Trio</name>
+<sort_string>holmes</sort_string>
+</artist><artist id="1003">
+<name>Cedar Walton Trio</name>
+<sort_string>Cedar Walton Trio</sort_string>
+<review_date dd="28" mm="02" yyyy="2003" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2003-02-28 00:00:00</review_date>
+</artist><artist id="5965">
+<name>Flutterbox</name>
+<sort_string>flutterbox</sort_string>
+</artist><artist id="8505">
+<name>Weird Owl</name>
+<sort_string>weird owl</sort_string>
+</artist><artist id="3260">
+<name>Martin Bisi and the End Credits</name>
+<sort_string>Bisi and the End Credits</sort_string>
+</artist><artist id="7392">
+<name>My Teenage Stride</name>
+<sort_string>my teenage stride</sort_string>
+</artist><artist id="5860">
+<name>Main Squeeze Orchestra</name>
+<sort_string>main squeeze orchestra</sort_string>
+</artist><artist id="7145">
+<name>Brian Bonz</name>
+<sort_string>bonz</sort_string>
+</artist><artist id="10237">
+<name>Alec Gross</name>
+</artist><artist id="6611">
+<name>Preservation Hall Jazz Band</name>
+<sort_string>preservation hall jazz band</sort_string>
+</artist><artist id="215">
+<name>Garage a Trois</name>
+<sort_string>Garage</sort_string>
+</artist><artist id="7168">
+<name>Extra Life</name>
+<sort_string>extra life</sort_string>
+</artist><artist id="4471">
+<name>Talib Kweli</name>
+<sort_string>Talib Kweli</sort_string>
+<review_date dd="10" mm="12" yyyy="2007" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2007-12-10 00:00:00</review_date>
+</artist><artist id="2612">
+<name>Jean Grae</name>
+<sort_string>Jean Grae</sort_string>
+</artist><artist id="7968">
+<name>Vital Remains</name>
+<sort_string>vital remains</sort_string>
+</artist><artist id="8586">
+<name>Larkin Grimm</name>
+<review_date dd="26" mm="06" yyyy="2008" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2008-06-26 00:00:00</review_date>
+</artist><artist id="4583">
+<name>The Black Hollies</name>
+<sort_string>Black Hollies</sort_string>
+</artist><artist id="63">
+<name>Grupo Latin Vibe</name>
+<sort_string>Grupo Latin Vibe</sort_string>
+</artist><artist id="6848">
+<name>Stephan Crump</name>
+<sort_string>crump</sort_string>
+</artist><artist id="2060">
+<name>Eric Alexander Quartet</name>
+<sort_string>Eric Alexander Quartet</sort_string>
+<review_date dd="3" mm="02" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-02-03 00:00:00</review_date>
+</artist><artist id="3371">
+<name>Michael Powers</name>
+<sort_string>Powers</sort_string>
+<reviewer>cblack</reviewer>
+</artist><artist id="4160">
+<name>Services</name>
+<sort_string>Services</sort_string>
+</artist><artist id="10170">
+<name>The Gabriel Alegria Afro-Peruvian Sextet</name>
+<sort_string>alegria</sort_string>
+</artist><artist id="10804">
+<name>Hank and Cupcakes</name>
+<sort_string>hank</sort_string>
+</artist><artist id="11119">
+<name>Red Hook Ramblers</name>
+</artist><artist id="11144">
+<name>Javelin</name>
+<sort_string>javelin</sort_string>
+</artist><artist id="7420">
+<name>Lucy Wainwright Roche</name>
+<sort_string>roche</sort_string>
+</artist><artist id="7033">
+<name>The Roches</name>
+<sort_string>roches</sort_string>
+<reviewer>ss</reviewer>
+<review_date dd="2" mm="11" yyyy="2006" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2006-11-02 00:00:00</review_date>
+</artist><artist id="8564">
+<name>Asiko</name>
+<sort_string>asiko</sort_string>
+</artist><artist id="4017">
+<name>Ron Affif Trio</name>
+<sort_string>Ron Affif Trio</sort_string>
+<review_date dd="13" mm="02" yyyy="2004" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2004-02-13 00:00:00</review_date>
+</artist><artist id="11088">
+<name>Sebastien Schuller</name>
+</artist><artist id="9042">
+<name>Hype of the States</name>
+<sort_string>hype of the states</sort_string>
+</artist><artist id="3465">
+<name>Mos Def</name>
+<sort_string>Mos Def</sort_string>
+</artist><artist id="8402">
+<name>Ingrid Michaelson</name>
+</artist><artist id="6509">
+<name>Greg Laswell</name>
+<sort_string>laswell</sort_string>
+</artist><artist id="8026">
+<name>Paul Green School of Rock All-Stars</name>
+<sort_string>paul</sort_string>
+</artist><artist id="8618">
+<name>Clarence Spady</name>
+<sort_string>spady</sort_string>
+</artist><artist id="8163">
+<name>Losers Lounge Tribute to Bond</name>
+</artist><artist id="2542">
+<name>Jack Grace Band</name>
+<sort_string>Grace</sort_string>
+<review_date dd="17" mm="02" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-02-17 00:00:00</review_date>
+</artist><artist id="7475">
+<name>D. Charles Speer and the Helix</name>
+<sort_string>speer</sort_string>
+</artist><artist id="10554">
+<name>Rebecca Pidgeon</name>
+</artist><artist id="10669">
+<name>Louis Hayes Cannonball Adderley Legacy Quintet</name>
+<sort_string>Hayes Cannonball Adderley Legacy Quintet</sort_string>
+</artist><artist id="3722">
+<name>Patti Smith and Her Band</name>
+<sort_string>Patti Smith and Her Band</sort_string>
+<review_date dd="9" mm="12" yyyy="2004" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2004-12-09 00:00:00</review_date>
+</artist><artist id="3366">
+<name>Michael Leonhart</name>
+<sort_string>Leonhart</sort_string>
+</artist><artist id="10058">
+<name>Ronnie Spector</name>
+</artist><artist id="7154">
+<name>Gerald Cleaver: Violet Hour</name>
+<sort_string>Cleaver</sort_string>
+</artist><artist id="10431">
+<name>Senator</name>
+</artist><artist id="10059">
+<name>Naturally 7</name>
+<sort_string>naturally seven</sort_string>
+</artist><artist id="3093">
+<name>Loston Harris</name>
+<sort_string>Loston Harris</sort_string>
+<review_date dd="29" mm="05" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-05-29 00:00:00</review_date>
+</artist><artist id="6296">
+<name>David Garland</name>
+<sort_string>garland</sort_string>
+</artist><artist id="2890">
+<name>Kevin Devine</name>
+<sort_string>Kevin Devine</sort_string>
+</artist><artist id="10981">
+<name>French Horn Rebellion</name>
+</artist><artist id="5106">
+<name>The Willowz</name>
+<sort_string>The Willowz</sort_string>
+</artist><artist id="4093">
+<name>Sandra Bernhard</name>
+<sort_string>Sandra Bernhard</sort_string>
+<review_date dd="8" mm="05" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-05-08 00:00:00</review_date>
+</artist><artist id="1622">
+<name>Las Rubias del Norte</name>
+<sort_string>Las Rubias del Norte</sort_string>
+<review_date dd="31" mm="08" yyyy="2005" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2005-08-31 00:00:00</review_date>
+</artist><artist id="10390">
+<name>Blank Dogs</name>
+<sort_string>Blank Dogs</sort_string>
+</artist><artist id="347">
+<name>Aaron Neville</name>
+<sort_string>Aaron Neville</sort_string>
+<review_date dd="2" mm="10" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-10-02 00:00:00</review_date>
+</artist><artist id="2308">
+<name>Grant Hart</name>
+<sort_string>Hart</sort_string>
+</artist><artist id="9208">
+<name>Smokey's Roundup</name>
+<sort_string>smokey</sort_string>
+</artist><artist id="3395">
+<name>Mike Errico</name>
+<sort_string>Mike Errico</sort_string>
+<review_date dd="9" mm="12" yyyy="2004" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2004-12-09 00:00:00</review_date>
+</artist><artist id="8099">
+<name>Bill Sims Jr. and Chaney Sims</name>
+<sort_string>sims</sort_string>
+</artist><artist id="8648">
+<name>The Slackers</name>
+<sort_string>slackers</sort_string>
+</artist><artist id="9407">
+<name>Red Baraat</name>
+<sort_string>Red Baraat</sort_string>
+</artist><artist id="4435">
+<name>The Sun Ra Arkestra</name>
+<sort_string>Sun Ra Arkestra</sort_string>
+</artist><artist id="9846">
+<name>Diwon</name>
+<sort_string>diwon</sort_string>
+</artist><artist id="3206">
+<name>Marcus Roberts Trio</name>
+<sort_string>Marcus Roberts Trio</sort_string>
+<review_date dd="16" mm="10" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-10-16 00:00:00</review_date>
+</artist><artist id="7004">
+<name>Ron Anderson and PAK</name>
+<sort_string>anderson</sort_string>
+</artist><artist id="7348">
+<name>Cage</name>
+<sort_string>Cage</sort_string>
+</artist><artist id="10022">
+<name>New York Gypsy All Stars</name>
+<sort_string>new york gypsy all stars</sort_string>
+</artist><artist id="2740">
+<name>Johnny Winter</name>
+<sort_string>Johnny Winter</sort_string>
+</artist><artist id="6287">
+<name>Popa Chubby</name>
+<sort_string>popa chubby</sort_string>
+</artist><artist id="10482">
+<name>Annie and the Beekeepers</name>
+<sort_string>annie</sort_string>
+</artist><artist id="11138">
+<name>Spirit Family Reunion</name>
+</artist><artist id="6753">
+<name>Eric Bachmann</name>
+</artist><artist id="8751">
+<name>Sharon Van Etten</name>
+<sort_string>van etten</sort_string>
+</artist><artist id="638">
+<name>Badfish</name>
+<sort_string>Badfish</sort_string>
+<review_date dd="28" mm="07" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-07-28 00:00:00</review_date>
+</artist><artist id="11152">
+<name>Becca Stevens Band</name>
+<sort_string>Stevens Band</sort_string>
+</artist><artist id="69">
+<name>Mariani</name>
+<sort_string>Mariani</sort_string>
+<review_date dd="19" mm="01" yyyy="2005" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2005-01-19 00:00:00</review_date>
+</artist><artist id="7132">
+<name>Jen Shyu and Jade Tongue</name>
+<sort_string>shyu</sort_string>
+</artist><artist id="7139">
+<name>Milton</name>
+<sort_string>milton</sort_string>
+</artist><artist id="9955">
+<name>Judy Barnett and Jazz-a-teria</name>
+<sort_string>Barnett and Jazz-a-teria</sort_string>
+</artist><artist id="5564">
+<name>Pterodactyl</name>
+<sort_string>Pterodactyl</sort_string>
+</artist><artist id="10921">
+<name>Dinosaur Feathers</name>
+<sort_string>dinosaur</sort_string>
+</artist><artist id="10663">
+<name>Julianna Barwick</name>
+<sort_string>barwick</sort_string>
+</artist><artist id="363">
+<name>Adam Levy</name>
+<sort_string>Levy</sort_string>
+</artist><artist id="8710">
+<name>Bill Sims Jr.</name>
+<sort_string>sims jr</sort_string>
+</artist><artist id="4452">
+<name>Susquehanna Industrial Tool &amp; Die Co.</name>
+<sort_string>Susquehanna Industrial Tool &amp; Die Co.</sort_string>
+<review_date dd="24" mm="02" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-02-24 00:00:00</review_date>
+</artist><artist id="3122">
+<name>Ludacris</name>
+<sort_string>Ludacris</sort_string>
+</artist><artist id="170">
+<name>Mike Stern</name>
+<sort_string>Stern</sort_string>
+</artist><artist id="8373">
+<name>Chico Mann</name>
+<sort_string>chico mann</sort_string>
+</artist><artist id="875">
+<name>Brazooca Band</name>
+<sort_string>Brazooca Band</sort_string>
+<review_date dd="7" mm="07" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-07-07 00:00:00</review_date>
+</artist><artist id="4573">
+<name>The Believers</name>
+<sort_string>The Believers</sort_string>
+<review_date dd="6" mm="01" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-01-06 00:00:00</review_date>
+</artist><artist id="7759">
+<name>Amel Larrieux</name>
+<sort_string>larrieux</sort_string>
+</artist><artist id="2394">
+<name>Hell or High Water</name>
+<sort_string>Hell or High water</sort_string>
+<review_date dd="25" mm="09" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-09-25 00:00:00</review_date>
+</artist><artist id="10551">
+<name>Chris Botti</name>
+<sort_string>botti</sort_string>
+</artist><artist id="3687">
+<name>Palomar</name>
+<sort_string>Palomar</sort_string>
+</artist><artist id="5270">
+<name>Tris McCall</name>
+<sort_string>McCall</sort_string>
+</artist><artist id="4485">
+<name>Tasty Morsels: Pete Galub, Greta Gertler and Deidre Rodman</name>
+<sort_string>Tasty Morsels: Pete Galub, Greta Gertler and Deidre Rodman</sort_string>
+<review_date dd="10" mm="09" yyyy="2004" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2004-09-10 00:00:00</review_date>
+</artist><artist id="10146">
+<name>Hundred in the Hands</name>
+<review_date dd="22" mm="01" yyyy="2009" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2009-01-22 00:00:00</review_date>
+</artist><artist id="9964">
+<name>Scrambler/Seequill</name>
+<sort_string>Scrambler</sort_string>
+</artist><artist id="5700">
+<name>Eri Yamamoto Trio</name>
+<sort_string>Yamamoto</sort_string>
+</artist><artist id="3596">
+<name>Norah Jones</name>
+<sort_string>Norah Jones</sort_string>
+<review_date dd="1" mm="05" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-05-01 00:00:00</review_date>
+</artist><artist id="3151">
+<name>Madeleine Peyroux</name>
+<sort_string>Peyroux</sort_string>
+<review_date dd="20" mm="10" yyyy="2006" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2006-10-20 00:00:00</review_date>
+</artist><artist id="10229">
+<name>Holding Back Entirely</name>
+</artist><artist id="6417">
+<name>Jes Hudak</name>
+<sort_string>hudak</sort_string>
+</artist><artist id="8734">
+<name>Dandelion Wine</name>
+<sort_string>dandelion Wine</sort_string>
+</artist><artist id="8674">
+<name>Rebecca Hart</name>
+<sort_string>hart</sort_string>
+</artist><artist id="10268">
+<name>Jadakiss</name>
+<sort_string>jadakiss</sort_string>
+</artist><artist id="10377">
+<name>Lauren Smith</name>
+<sort_string>smith</sort_string>
+</artist><artist id="2375">
+<name>Hatebreed</name>
+<sort_string>Hatebreed</sort_string>
+</artist><artist id="1700">
+<name>Unearth</name>
+<sort_string>Unearth</sort_string>
+</artist><artist id="8984">
+<name>Terry Waldo</name>
+<sort_string>waldo</sort_string>
+</artist><artist id="4014">
+<name>Roger Miret and the Disasters</name>
+<sort_string>Miret and the Disasters</sort_string>
+</artist><artist id="10288">
+<name>Mary Bragg</name>
+</artist><artist id="10421">
+<name>Pal Shazar</name>
+</artist><artist id="8097">
+<name>Coalesce</name>
+<sort_string>coalesce</sort_string>
+</artist><artist id="1471">
+<name>Dr. John</name>
+<sort_string>Dr. John</sort_string>
+</artist><artist id="9124">
+<name>Trio Da Paz</name>
+<sort_string>Trio Da Paz</sort_string>
+</artist><artist id="500">
+<name>Andy Statman</name>
+<sort_string>Statman</sort_string>
+</artist><artist id="5335">
+<name>Vince Giordano and the Nighthawks</name>
+<sort_string>Vince Giordano and the Nighthawks</sort_string>
+<review_date dd="26" mm="01" yyyy="2005" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2005-01-26 00:00:00</review_date>
+</artist><artist id="10326">
+<name>Dan Lubell</name>
+</artist><artist id="7043">
+<name>The Defibulators</name>
+<sort_string>defibulators</sort_string>
+</artist><artist id="5920">
+<name>Pamela Means</name>
+<sort_string>Means</sort_string>
+</artist><artist id="5571">
+<name>Marit Bergman</name>
+<sort_string>Bergman</sort_string>
+</artist><artist id="3988">
+<name>Robert Gordon</name>
+<sort_string>Robert Gordon</sort_string>
+</artist><artist id="735">
+<name>Bill Carney and the Jug Addicts</name>
+<sort_string>Carney and the Jug Addicts</sort_string>
+</artist><artist id="3630">
+<name>Oliver Lake Big Band</name>
+<sort_string>lake</sort_string>
+</artist><artist id="4558">
+<name>The Bad Plus</name>
+<sort_string>Bad Plus</sort_string>
+</artist><artist id="1046">
+<name>Chico O'Farrill Afro-Cuban Jazz Orchestra</name>
+<sort_string>chico</sort_string>
+</artist><artist id="6392">
+<name>Sasha Dobson</name>
+<sort_string>dobson</sort_string>
+</artist><artist id="7198">
+<name>The Billy Mintz Two Bass Band</name>
+<sort_string>mintz</sort_string>
+</artist><artist id="6535">
+<name>Pnuma Trio</name>
+<sort_string>pnuma trio</sort_string>
+</artist><artist id="5050">
+<name>The Telephones</name>
+<sort_string>Telephones</sort_string>
+</artist><artist id="333">
+<name>A Brief View of the Hudson</name>
+<sort_string>brief</sort_string>
+</artist><artist id="11077">
+<name>The Holy Experiment</name>
+<sort_string>holy experiment</sort_string>
+</artist><artist id="2981">
+<name>Lake Trout</name>
+<sort_string>Lake Trout</sort_string>
+<review_date dd="16" mm="09" yyyy="2003" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2003-09-16 00:00:00</review_date>
+</artist><artist id="4393">
+<name>Steve Shiffman and the Land of No</name>
+<sort_string>Shiffman and The Land of No</sort_string>
+</artist><artist id="10251">
+<name>Charlene Kaye</name>
+</artist><artist id="167">
+<name>Slavic Soul Party!</name>
+<sort_string>Slavic Soul</sort_string>
+</artist><artist id="130">
+<name>Lach</name>
+</artist><artist id="722">
+<name>Big Bad Voodoo Daddy</name>
+<sort_string>Big Bad Voodoo Daddy</sort_string>
+<review_date dd="22" mm="12" yyyy="2003" hh="0" nn="00" ss="00" dw="Mon" dwnum="1" hh12="12" ampm="am">2003-12-22 00:00:00</review_date>
+</artist><artist id="143">
+<name>Chicha Libre</name>
+<sort_string>Chicha Libre</sort_string>
+</artist><artist id="7756">
+<name>Disco Biscuits</name>
+<sort_string>disco biscuits</sort_string>
+</artist><artist id="3297">
+<name>Matt Munisteri</name>
+<sort_string>Matt Munisteri</sort_string>
+<review_date dd="6" mm="02" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-02-06 00:00:00</review_date>
+</artist><artist id="10014">
+<name>4 Generations of Miles</name>
+<sort_string>fourGenerations of Miles</sort_string>
+</artist><artist id="7825">
+<name>Tony Malaby TKTK all purpose blurb TKTK</name>
+<sort_string>malaby</sort_string>
+</artist><artist id="5230">
+<name>Tony Scherr</name>
+<sort_string>Scherr</sort_string>
+<review_date dd="30" mm="08" yyyy="2005" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2005-08-30 00:00:00</review_date>
+</artist><artist id="3428">
+<name>Misty Roses</name>
+<sort_string>Misty Roses</sort_string>
+</artist><artist id="3417">
+<name>Mingus Big Band</name>
+<sort_string>Mingus Big Band</sort_string>
+</artist><artist id="2659">
+<name>Jimmy Nations Combo</name>
+<sort_string>Nations Combo</sort_string>
+<review_date dd="16" mm="07" yyyy="2003" hh="0" nn="00" ss="00" dw="Wed" dwnum="3" hh12="12" ampm="am">2003-07-16 00:00:00</review_date>
+</artist><artist id="5468">
+<name>Zombi</name>
+<sort_string>Zombi</sort_string>
+<review_date dd="18" mm="08" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-08-18 00:00:00</review_date>
+</artist><artist id="560">
+<name>Ari Hest</name>
+<sort_string>Ari Hest</sort_string>
+</artist><artist id="9957">
+<name>Peter Bernstein</name>
+<sort_string>bernstein</sort_string>
+</artist><artist id="9897">
+<name>Zebra</name>
+<sort_string>zebra</sort_string>
+</artist><artist id="8675">
+<name>Positive Catastrophe</name>
+<sort_string>positive catastrophe</sort_string>
+</artist><artist id="10252">
+<name>Soulfarm</name>
+<sort_string>soulfarm</sort_string>
+</artist><artist id="3466">
+<name>Moshav Band</name>
+<sort_string>Moshav Band</sort_string>
+<review_date dd="31" mm="07" yyyy="2003" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2003-07-31 00:00:00</review_date>
+</artist><artist id="10724">
+<name>Your 33 Black Angels</name>
+<sort_string>your thirty</sort_string>
+</artist><artist id="178">
+<name>Stephane Wrembel</name>
+<sort_string>Wrembel</sort_string>
+</artist><artist id="10458">
+<name>Roy Nathanson</name>
+</artist><artist id="2270">
+<name>Gnu Vox: David Devoe</name>
+<sort_string>Gnu Vox: David Devoe</sort_string>
+<review_date dd="3" mm="03" yyyy="2005" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2005-03-03 00:00:00</review_date>
+</artist><artist id="10467">
+<name>Rice</name>
+<sort_string>Rice</sort_string>
+</artist><artist id="7833">
+<name>Chris Washburne and SYOTOS</name>
+<sort_string>Washburne and SYOTOS</sort_string>
+</artist><artist id="4464">
+<name>T.K. Blue</name>
+<sort_string>T.K. Blue</sort_string>
+</artist><artist id="8481">
+<name>Edom</name>
+<sort_string>Edom</sort_string>
+</artist><artist id="11115">
+<name>Apollo Run</name>
+<sort_string>apollo run</sort_string>
+</artist><artist id="1517">
+<name>East Village Opera Company</name>
+<sort_string>East Village Opera Company</sort_string>
+</artist><artist id="9693">
+<name>Paquito D’Rivera</name>
+<sort_string>DRivera</sort_string>
+</artist><artist id="7075">
+<name>The Klezmatics</name>
+<sort_string>klezmatics</sort_string>
+</artist><artist id="5685">
+<name>Amayo's Fu Arkist-Ra</name>
+<sort_string>Amayo's Fu Arkist-Ra</sort_string>
+</artist><artist id="2184">
+<name>Freddy Cole</name>
+<sort_string>Freddy Cole</sort_string>
+<review_date dd="1" mm="08" yyyy="2003" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2003-08-01 00:00:00</review_date>
+</artist><artist id="6005">
+<name>Leena Conquest</name>
+<sort_string>Conquest</sort_string>
+</artist><artist id="2339">
+<name>Guillermo E. Brown</name>
+<sort_string>brown</sort_string>
+</artist><artist id="10566">
+<name>Irv Irving</name>
+</artist><artist id="11082">
+<name>Tanlines</name>
+<sort_string>tanlines</sort_string>
+</artist><artist id="5460">
+<name>Zambri</name>
+<sort_string>Zambri</sort_string>
+</artist><artist id="4384">
+<name>Steve Earle</name>
+<sort_string>Steve Earle</sort_string>
+</artist><artist id="7467">
+<name>David Broza</name>
+<sort_string>broza</sort_string>
+</artist><artist id="7476">
+<name>The Woes</name>
+<sort_string>woes</sort_string>
+</artist><artist id="5195">
+<name>Toby Lightman</name>
+<sort_string>Lightman</sort_string>
+</artist><artist id="6139">
+<name>Ethan Lipton</name>
+<sort_string>Lipton</sort_string>
+</artist><artist id="4837">
+<name>The Machine</name>
+<sort_string>The Machine</sort_string>
+<review_date dd="17" mm="06" yyyy="2004" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2004-06-17 00:00:00</review_date>
+</artist><artist id="5852">
+<name>The Harlem Gospel Choir</name>
+<sort_string>Harlem gospel</sort_string>
+</artist><artist id="9948">
+<name>Straight No Chaser</name>
+<sort_string>straight no chaser</sort_string>
+</artist><artist id="4362">
+<name>Steel Train</name>
+<sort_string>Steel Train</sort_string>
+</artist><artist id="4346">
+<name>Stalkers</name>
+<sort_string>Stalkers</sort_string>
+</artist><artist id="8890">
+<name>Michael Daves</name>
+<sort_string>daves</sort_string>
+</artist><artist id="5990">
+<name>Ezekiel Healy</name>
+<sort_string>Healy</sort_string>
+</artist><artist id="8525">
+<name>The Cangelosi Cards</name>
+<sort_string>Cangelosi Cards</sort_string>
+</artist><artist id="129">
+<name>Jill Sobule</name>
+<sort_string>Sobule</sort_string>
+</artist><artist id="5589">
+<name>The Art of Shooting</name>
+<sort_string>Art of shooting</sort_string>
+</artist><artist id="10275">
+<name>Rustic Overtones</name>
+<sort_string>rustic overtones</sort_string>
+</artist><artist id="11110">
+<name>Free Energy</name>
+<sort_string>free</sort_string>
+</artist><artist id="4770">
+<name>The Holy Ghost</name>
+<sort_string>The Holy Ghost</sort_string>
+</artist><artist id="9349">
+<name>Roy Haynes and Fountain of Youth</name>
+<sort_string>Haynes and Fountain of Youth</sort_string>
+</artist><artist id="2277">
+<name>Goes Cube</name>
+<sort_string>Goes Cube</sort_string>
+</artist><artist id="6914">
+<name>Takka Takka</name>
+</artist><artist id="4134">
+<name>Scrapomatic</name>
+<sort_string>Scrapomatic</sort_string>
+<review_date dd="29" mm="04" yyyy="2004" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2004-04-29 00:00:00</review_date>
+</artist><artist id="399">
+<name>Albita</name>
+<sort_string>Albita</sort_string>
+<review_date dd="28" mm="03" yyyy="2003" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2003-03-28 00:00:00</review_date>
+</artist><artist id="1037">
+<name>Cheikh Tarou M'Baye and Sing Sing Rhythms</name>
+<sort_string>Cheikh Tarou M'Baye and Sing Sing Rhythms</sort_string>
+<review_date dd="29" mm="07" yyyy="2004" hh="0" nn="00" ss="00" dw="Thu" dwnum="4" hh12="12" ampm="am">2004-07-29 00:00:00</review_date>
+</artist><artist id="8602">
+<name>Earegulars</name>
+<sort_string>earegulars</sort_string>
+</artist><artist id="2617">
+<name>Jeff “Tain” Watts Quintet</name>
+<sort_string>Watts Quintet</sort_string>
+<review_date dd="14" mm="02" yyyy="2003" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2003-02-14 00:00:00</review_date>
+</artist>
+</body>

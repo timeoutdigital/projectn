@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, php-documentor, php-pmd, php-cpd, php-depend, phpunit, git-add, git-commit, git-push"/>
+  <target name="build" depends="checkout, php-documentor"/>
   <!-- Delete all the log files -->
   <target name="init">
     <delete>
@@ -24,7 +24,7 @@
 		-ue on 
 		-t ${basedir}/source/doc/api 
 		-d ${basedir}/source/lib/
-                -i *filter*,*form*,*base*,*task*,*vendor*
+                --ignore *filter*,*form*,*base*,*task*,*vendor*,*symfony*
 		-tb '/usr/share/php/data/phpUnderControl/data/phpdoc' 
 		-o HTML:Phpuc:phpuc"/>
     </exec>
