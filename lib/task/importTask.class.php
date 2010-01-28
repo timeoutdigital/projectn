@@ -88,7 +88,31 @@ class importTask extends sfBaseTask
           case 'poi-event':
             $processXmlObj = new curlImporter();
             $parameters = array( 'from' => '2010-01-01', 'to' => '2010-01-30' );
-            $processXmlObj->pullXml ('http://www.timeout.pt/', 'xmllist.asp', $parameters );
+            $processXmlObj->pullXml ('http://www.timeout.pt/', 'xmllist.asp', $parameters, 'POST' );
+            break;
+
+          case 'film':
+          break;
+
+          case 'eating-drinking':
+          break;
+        }
+        break; //end lisbon
+
+      case 'singapore':
+        $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-GB');
+
+        switch( $options['type'] )
+        {
+          case 'poi-event':
+
+            $curlImporterObj = new curlImporter();
+            $parametersArray = array( 'section' => 'index', 'thisweek' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
+            $xmlObj = $curlImporterObj->getXml();
+            
+            $nyImportMoviesObj = new singaporeImport( $xmlObj, $vendorObj );
+            $nyImportMoviesObj->insertCategoriesPoisEvents();
             break;
 
           case 'film':
