@@ -16,98 +16,120 @@ class LondonImporter
 	public function __construct( )
 	{
 		$this->_vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'en-GB' );
+
+		if (! $this->_vendor instanceof Vendor)
+			throw new Exception( 'Cannot load Vendor' );
 	}
 
-	public function run()
+	public function run( )
 	{
-        $this->process( );
+		$this->process( );
 	}
 
-
-
-	private function process()
+	private function process( )
 	{
 		$currentPage = 1;
 		$resultsPerPage = 1000;
 
-        $query = Doctrine_Query::create()
-	                           ->select( 'o.*, v.*, e.*' )
-	                           ->from( 'SLLOccurrence o' )
-	                           ->leftJoin( 'o.SLLVenue v' )
-	                           ->leftJoin( 'o.SLLEvent e' );
+		$query = Doctrine_Query::create( )->select( 'o.*, v.*, e.*' )->from( 'SLLOccurrence o' )->leftJoin( 'o.SLLVenue v' )->leftJoin( 'o.SLLEvent e' );
 
-        $zone = new DateTimeZone( 'Europe/London' );
+		$zone = new DateTimeZone( 'Europe/London' );
 
-        do
-        {
-            $pager = new Doctrine_Pager( $query, $currentPage, $resultsPerPage );
+		do
+		{
+			$pager = new Doctrine_Pager( $query, $currentPage, $resultsPerPage );
 
-            $items = $pager->execute( );
+			$items = $pager->execute( );
 
-            foreach ( $items as $item )
-            {
-	            // insert venue
-	            $poi = new Poi( );
+			foreach ( $items as $item )
+			{
+				$poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $item[ 'venue_id' ] );
 
-	            $poi[ 'Vendor' ] = $this->_vendor;
+				if ( $poi === false )
+				{
+					// insert venue
+					$poi = new Poi( );
 
-	            $poi[ 'vendor_poi_id' ] = $item[ 'venue_id' ];
+					$poi[ 'Vendor' ] = $this->_vendor;
 
-				$poi[ 'poi_name' ] = $item[ 'SLLVenue' ][ 'name' ];
-				$poi[ 'house_no' ] = $item[ 'SLLVenue' ][ 'building_name' ];
-				$poi[ 'street' ]   = $item[ 'SLLVenue' ][ 'address' ];
-				$poi[ 'city' ]     = 'London';
-				$poi[ 'zips' ]     = $item[ 'SLLVenue' ][ 'postcode' ];
+					$poi[ 'vendor_poi_id' ] = $item[ 'venue_id' ];
 
-				$poi[ 'country' ] = 'GBR';
-                $poi[ 'country_code' ] = (string) 'GB';
-                $poi[ 'local_language' ] = 'en-GB';
+					$poi[ 'poi_name' ] = $item[ 'SLLVenue' ][ 'name' ];
+					$poi[ 'house_no' ] = $item[ 'SLLVenue' ][ 'building_name' ];
+					$poi[ 'street' ] = $item[ 'SLLVenue' ][ 'address' ];
+					$poi[ 'city' ] = 'London';
+					$poi[ 'zips' ] = $item[ 'SLLVenue' ][ 'postcode' ];
 
-                $poi[ 'latitude' ]  = $item[ 'SLLVenue' ][ 'latitude' ];
-                $poi[ 'longitude' ] = $item[ 'SLLVenue' ][ 'longitude' ];
+					$poi[ 'country' ] = 'GBR';
+					$poi[ 'country_code' ] = ( string ) 'GB';
+					$poi[ 'local_language' ] = 'en-GB';
 
-                $poi[ 'email' ] = $item[ 'SLLVenue' ][ 'email' ];
-                $poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
-                $poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ];
-                $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
-                $poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
+					$poi[ 'latitude' ] = $item[ 'SLLVenue' ][ 'latitude' ];
+					$poi[ 'longitude' ] = $item[ 'SLLVenue' ][ 'longitude' ];
 
+					$poi[ 'email' ] = $item[ 'SLLVenue' ][ 'email' ];
+					$poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
+					$poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ];
+					$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
+					$poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
 
-	            $poi->save( );
-
-
-                // insert event
-	            $event = new Event( );
-
-	            $event[ 'Vendor' ] = $this->_vendor;
-
-	            $event[ 'vendor_event_id' ] = $item[ 'event_id' ];
-
-	            $event[ 'name' ] = $item[ 'SLLEvent' ][ 'title' ];
-
-                $event->save( );
+					$poi->save( );
+				}
 
 
-                // insert occurrence
-                $occurrence = new EventOccurrence( );
+				// insert event
+				$event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( $item[ 'event_id' ] );
 
-                $occurrence[ 'vendor_event_occurrence_id' ] = $item[ 'id' ];
+				if ( $event === false )
+				{
+					$event = new Event( );
 
-                $occurrence[ 'Event' ] = $event;
-                $occurrence[ 'Poi' ] = $poi;
+					$event[ 'Vendor' ] = $this->_vendor;
 
-                $occurrence[ 'start' ] = $item[ 'date_start' ];
+					$event[ 'vendor_event_id' ] = $item[ 'event_id' ];
 
-                // calc offset
-                $timeOffset = $zone->getOffset( new DateTime( $item[ 'date_start' ], $zone ) );
-                $occurrence[ 'utc_offset' ] = $timeOffset / 3600;
+					$event[ 'name' ] = $item[ 'SLLEvent' ][ 'title' ];
 
-                $occurrence->save( );
-            }
+					$event->save( );
+				}
 
-            $currentPage++;
 
-        } while ( $pager->getLastPage( ) >= $currentPage );
+
+				// insert occurrence
+				$occurrence = Doctrine::getTable( 'EventOccurrence' )->find( $item[ 'id' ] );
+
+				if ( $occurrence === false )
+				{
+					$occurrence = new EventOccurrence( );
+
+					$occurrence[ 'vendor_event_occurrence_id' ] = $item[ 'id' ];
+
+					$occurrence[ 'Event' ] = $event;
+					$occurrence[ 'Poi' ] = $poi;
+
+					$occurrence[ 'start' ] = $item[ 'date_start' ];
+
+					// calc offset
+					$timeOffset = $zone->getOffset( new DateTime( $item[ 'date_start' ], $zone ) );
+					$occurrence[ 'utc_offset' ] = $timeOffset / 3600;
+
+					$occurrence->save( );
+				}
+
+				// free memory
+				$poi->free();
+				$event->free();
+				$occurrence->free();
+
+				unset( $poi );
+				unset( $event );
+				unset( $occurrence );
+			}
+
+			$currentPage ++;
+
+		}
+		while ( $pager->getLastPage( ) >= $currentPage );
 
 	}
 
