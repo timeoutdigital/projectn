@@ -34,9 +34,9 @@ class lisbonImportTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-  public function testRuns()
+  public function testNada()
   {
-    $this->object->run();
+    $this->markTestIncomplete();
   }
 }
 ?>

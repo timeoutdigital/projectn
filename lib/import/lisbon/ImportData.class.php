@@ -11,7 +11,7 @@
  * @version 1.0.1
  *
  */
-abstract class ImportData
+abstract class DataSource
 {
 
   /**
@@ -20,6 +20,20 @@ abstract class ImportData
    * @var Importer
    */
   private $importer;
+
+  public function getMapMethods()
+  {
+    $reflection = new ReflectionObject( $this );
+    $publicMethods = $reflection->getMethods( ReflectionMethod::IS_PUBLIC );
+
+    $mapMethods = array_filter( $publicMethods,
+      create_function(
+        '$method',
+        'return preg_match( "/^map[A-Z]*/", $method->name );'
+      ) );
+    
+    return $mapMethods;
+  }
 
   /**
    * @var Importer $importer
@@ -51,7 +65,7 @@ abstract class ImportData
 
   protected function notifyImporter( Doctrine_Record $record )
   {
-    $this->importer->onMap( $record );
+    $this->importer->onRecordMapped( $record );
   }
 }
 ?>

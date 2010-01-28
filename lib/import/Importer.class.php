@@ -21,7 +21,7 @@ class Importer
   /**
    * @var array
    */
-  private $importData = array();
+  private $dataSource = array();
 
   /**
    * Adds a logger
@@ -33,6 +33,10 @@ class Importer
     if( !isset( $this->loggers[ $logger->getType() ] ) )
     {
       $this->loggers[ $logger->getType() ] = array();
+    }
+    else if( in_array( $logger, $this->loggers[ $logger->getType() ] ) )
+    {
+      return;
     }
 
     $this->loggers[ $logger->getType() ][] = $logger;
@@ -47,22 +51,44 @@ class Importer
   }
 
   /**
-   * Adds an ImportData to be saved
+   * Adds an DataSource to be saved
    */
-  public function addImportData( ImportData $importData )
+  public function addDataSource( DataSource $importData )
   {    
-    $this->importData[] = $importData;
+    $this->dataSource[] = $importData;
   }
 
   /**
-   * gets all added ImportData
+   * gets all added DataSource
    */
-  public function getImportData()
+  public function getDataSources()
   {
-    return $this->importData;
+    return $this->dataSource;
   }
 
   public function run()
   {
+    foreach( $this->getDataSources() as $dataSource )
+    {
+      foreach( $dataSource->getMapMethods() as $mapMethod )
+      {
+         $mapMethod->invoke( $dataSource );
+      }
+    }
+  }
+
+  /**
+   * Listens to datasource notifications
+   * 
+   * @param Doctrine_Record $record
+   */
+  public function onRecordMapped( Doctrine_Record $record )
+  {
+    //record exists?
+    //transform( $records )
+//    if( $record->isValid( true ) )
+//    {
+//      $record->save();
+//    }
   }
 }
