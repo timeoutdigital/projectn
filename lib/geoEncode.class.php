@@ -2,9 +2,13 @@
 /**
  * Gets geo data using Google.
  *
- * @package projectn.lib
+ * @package projectn
+ * @subpackage lib
  *
  * @author Tim Bowler <timbowler@timeout.com>
+ * @copyright Timeout Communication Ltd &copyright; 2009
+ *
+ * @version 1.0.0
  *
  */
 class geoEncode
