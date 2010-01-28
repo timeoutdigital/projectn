@@ -35,6 +35,9 @@ class LondonImporter
 	                           ->from( 'SLLOccurrence o' )
 	                           ->leftJoin( 'o.SLLVenue v' )
 	                           ->leftJoin( 'o.SLLEvent e' );
+
+        $zone = new DateTimeZone( 'Europe/London' );
+
         do
         {
             $pager = new Doctrine_Pager( $query, $currentPage, $resultsPerPage );
@@ -63,6 +66,13 @@ class LondonImporter
                 $poi[ 'latitude' ]  = $item[ 'SLLVenue' ][ 'latitude' ];
                 $poi[ 'longitude' ] = $item[ 'SLLVenue' ][ 'longitude' ];
 
+                $poi[ 'email' ] = $item[ 'SLLVenue' ][ 'email' ];
+                $poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
+                $poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ];
+                $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
+                $poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
+
+
 	            $poi->save( );
 
 
@@ -87,7 +97,10 @@ class LondonImporter
                 $occurrence[ 'Poi' ] = $poi;
 
                 $occurrence[ 'start' ] = $item[ 'date_start' ];
-                $occurrence[ 'utc_offset' ] = -1;
+
+                // calc offset
+                $timeOffset = $zone->getOffset( new DateTime( $item[ 'date_start' ], $zone ) );
+                $occurrence[ 'utc_offset' ] = $timeOffset / 3600;
 
                 $occurrence->save( );
             }
