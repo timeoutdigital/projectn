@@ -538,6 +538,8 @@ class importNy
    *
    * @param string $contactBlurb
    * @return string url
+   *
+   * @todo remove this function and replace its occurrencis with the stringTransform equivalent
    */
   private function _extractContactBlurbUrl( $contactBlurb )
   {
@@ -563,6 +565,8 @@ class importNy
    *
    * @param string $contactBlurb
    * @return string email address
+   *
+   * @todo remove this function and replace its occurrencis with the stringTransform equivalent
    */
   private function _extractContactBlurbEmail( $contactBlurb  )
   {
@@ -587,8 +591,7 @@ class importNy
    * @param string $contactBluGITrb
    * @return string
    *
-   * @todo implement it
-   * @todo move to general toolbox class
+   * @todo remove this function and replace its occurrencis with the stringTransform equivalent
    *
    */
   private function _extractContactBlurbPhone( $contactBlurb  )
@@ -604,7 +607,7 @@ class importNy
    * @param string $otherCategoryNameString defaults to 'other'
    * @return array of Doctrine_Collection
    *
-   * @todo move to general toolbox class
+   * @todo create CategoryMapping model and move this function
    *
    */
   public function mapCategories( $sourceCategory, $mapClass, $noMatchCategoryNameString = 'other' )

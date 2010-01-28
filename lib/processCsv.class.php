@@ -2,12 +2,15 @@
 /**
  * Base class for CSV feeds.
  *
- * @package import.lib.projectn
+ * @package projectn
+ * @subpackage lib
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.0
+ *
+ * @todo finish implementation
  *
  *
  */
