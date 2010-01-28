@@ -14,18 +14,12 @@ class ProjectN_Test_Unit_Factory
    */
   static public function createDatabases( )
   {
-//<<<<<<< HEAD:test/unit/bootstrap.php
-//    $connection = Doctrine_Manager::connection( new PDO('sqlite::memory:'), $connectionName );
-//    $connection->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
-//    Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine');
-//=======
   	$config = new ProjectConfiguration( );
   	$config = $config->getApplicationConfiguration( 'frontend', 'test', true );
 
   	$manager = new sfDatabaseManager( $config );
 
     Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine' );
-//>>>>>>> 086459b6c73098faeb05e21527f2865d89f9d118:test/unit/bootstrap.php
   }
 
   /**
@@ -41,8 +35,7 @@ class ProjectN_Test_Unit_Factory
 
     foreach ( $connections as $connection )
     {
-      var_dump( $connection instanceof Doctrine_Connection  );
-    	//$connection->close( );
+    	$connection->close( );
     }
   }
 
