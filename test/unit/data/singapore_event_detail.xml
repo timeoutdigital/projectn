@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE event [
+  <!ELEMENT event (id,issue,section,category,venue,name,thumb,image,critic_choice,hot_seat,website,date_start,date_end,alternative_dates,opentime,excerpt,min_price,max_price,views,data_add,data_change,link,feature)>
+  
+  <!ELEMENT venue (id,issue,section,category,name,thumb,image,critic_choice,hot_seat,website,opentime,excerpt,min_price,max_price,views,data_add,data_change,link,addresses,feature)>
+  <!ELEMENT feature (id,issue,type,local,link,rating,excerpt,review,author,data_add,data_change,title,image,thumb,views)>
+  <!ELEMENT addresses (address_slot)>
+  <!ELEMENT address_slot (location,address,postcode,phone,near_station,buses)>
+  
+  <!ELEMENT id (CDATA)>
+  <!ELEMENT issue (CDATA)>
+  <!ELEMENT section (CDATA)>
+  <!ELEMENT category (CDATA)>
+  <!ELEMENT name (CDATA)>
+  <!ELEMENT thumb (CDATA)>
+  <!ELEMENT image (CDATA)>
+  <!ELEMENT size1 (CDATA)>
+  <!ELEMENT critic_choice (CDATA)>
+  <!ELEMENT hot_seat (CDATA)>
+  <!ELEMENT website (CDATA)>
+  <!ELEMENT opentime (CDATA)>
+  <!ELEMENT excerpt (CDATA)>
+  <!ELEMENT min_price (CDATA)>
+  <!ELEMENT max_price (CDATA)>
+  <!ELEMENT views (CDATA)>
+  <!ELEMENT data_add (CDATA)>
+  <!ELEMENT data_change (CDATA)>
+  <!ELEMENT link (CDATA)>
+  <!ELEMENT date_start (CDATA)>
+  <!ELEMENT date_end (CDATA)>
+  <!ELEMENT alternative_dates (CDATA)>
+  
+  <!ELEMENT type (CDATA)>
+  <!ELEMENT local (CDATA)>
+  <!ELEMENT rating (CDATA)>
+  <!ELEMENT review (CDATA)>
+  <!ELEMENT author (CDATA)>
+  <!ELEMENT title (CDATA)>
+  
+  <!ELEMENT location (CDATA)>
+  <!ELEMENT address (CDATA)>
+  <!ELEMENT postcode (CDATA)>
+  <!ELEMENT phone (CDATA)>
+  <!ELEMENT near_station (CDATA)>
+  <!ELEMENT buses (CDATA)>
+]>
+<event>
+	<id>7766</id>
+	<issue>33</issue>
+	<section>Around Town</section>
+	<category>Zoos and gardens</category>
+	<venue>	<id>801</id>
+	<issue>7</issue>
+	<section>Around Town</section>
+	<category>Zoos and gardens</category>
+	<name>Singapore Botanic Gardens</name>
+	<thumb>http://www.timeoutsingapore.com/contentFiles/image/venues/attractions/botanicgdn65.jpg</thumb>
+	<image>http://www.timeoutsingapore.com/contentFiles/image/venues/attractions/botanicgdn200.jpg</image>
+	<critic_choice>N</critic_choice>
+	<hot_seat>N</hot_seat>
+	<website>www.sbg.org.sg</website>
+	<opentime>5 am to 12 midnight Daily</opentime>
+	<excerpt>Established in 1852, the Gardens are a tranquil respite from the city buzz. Highlights include the National Orchid Garden with the world&#146;s largest collection of orchids &#150; some 1,000 species and 2,000 hybrids, including the national flower, Vanda Miss Joaquim. There is also a swan lake where visitors can feed the black Australian swans, and the Evolution Garden Walk, a well-landscaped plot containing the fossilised remains of ancient trees. During weekends, tours to its rainforest patch are available, while outdoor concerts are often held at Symphony Lake.
+Botanic Gardens were included in our recent <a href="http://www.timeoutsingapore.com/aroundtown/feature/one-night-stand">One Night Stand</a> feature.
+
+&#160;
+<strong>Things to Do</strong>
+&#160;
+<strong>Edible and Medicinal Plants Tour</strong><em> <br />
+Every first Sat; 9am &#38; 10am</em><br />
+Let volunteer guides lead you to exquisite plants that you can place on your dinner table. Register 15 minutes before the tour at the Visitor Centre.<br />
+&#160;
+<strong>Rainforest Tour </strong><br />
+<em>Every second Sat; 9am, 10am, 11am &#38; 4pm</em><br />
+This guided tour will expose you to the island&#146;s expanses of luscious tropical rainforest. Register 15 minutes before the tour at the Visitor Centre.<br />
+&#160;
+<strong>National Orchid Garden Tour</strong><em><br />
+Every third Sat; 9am, 10am, 11am &#38; 4pm (in Mandarin)</em><br />
+Find out facts that are every bit as colourful as the petals themselves on this guided walk through the garden. Register 15 minutes before the tour at the Visitor Centre.<br />
+&#160;
+<strong>Evolution Garden Tour </strong><em><br />
+Every fourth Sat; 9am</em><br />
+This tour tells the story of how plants evolve into the myriad and complex life forms we see today. Register 15 minutes before the tour at the Visitor Centre.
+<em>Photo courtesy of the Singapore Tourism Board</em></excerpt>
+	<min_price>-1.00</min_price>
+	<max_price>0.00</max_price>
+	<views>218</views>
+	<data_add>Fri, 27 Feb 2009 03:46:14 +0000</data_add>
+	<data_change>Fri, 27 Feb 2009 03:46:14 +0000</data_change>
+	<redirect></redirect>
+	<highres></highres>
+	<thumbnail></thumbnail>
+	<large_image></large_image>
+	<standfirst></standfirst>
+	<gallery>0</gallery>
+	<top_start></top_start>
+	<top_end></top_end>
+	<top_premium></top_premium>
+	<top_platinum></top_platinum>
+	<has_top>N</has_top>
+	<top_logo></top_logo>
+	<top_excerpt></top_excerpt>
+	<link>http://www.timeoutsingapore.com/aroundtown/venues/zoos-and-gardens/singapore-botanic-gardens</link>
+	<addresses>
+		<address_slot>
+			<location></location>
+			<address>1 Cluny Road</address>
+			<postcode>259569</postcode>
+			<phone>6471 7361</phone>
+			<near_station></near_station>
+			<buses>Bus 7, 75, 77, 105, 123, 174</buses>
+			<mm_lat>1.308090</mm_lat>
+			<mm_lon>103.818660</mm_lon>
+		</address_slot>
+	</addresses>
+	<related_venues>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=1751&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=1270&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=1598&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=1859&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+	</related_venues>
+</venue>
+	<name>Orchid for Sale</name>
+	<critic_choice>N</critic_choice>
+	<hot_seat>N</hot_seat>
+	<website></website>
+	<date_start>Sat, 31 Oct 2009 16:00:00 +0000</date_start>
+	<date_end>Sun, 31 Jan 2010 16:00:00 +0000</date_end>
+	<alternative_dates></alternative_dates>
+	<opentime>8am-6pm</opentime>
+	<excerpt>A wide variety of orchids will be displayed for all orchid lovers to admire and purchase.
+<strong>Where: </strong>Library Courtyard, Botany Centre, Tanglin Core
+<em><strong>When: </strong>Every first Sun</em></excerpt>
+	<min_price>0.00</min_price>
+	<max_price>0.00</max_price>
+	<views>466</views>
+	<data_add>Wed, 28 Oct 2009 14:29:57 +0000</data_add>
+	<data_change>Thu, 29 Oct 2009 02:32:34 +0000</data_change>
+	<redirect></redirect>
+	<size1>http://www.timeoutsingapore.com/contentFiles/image/2009/33-nov/orchid-for-sale-482x402.jpg</size1>
+	<highres>/contentFiles/image/2009/33-nov/orchid-for-sale.jpg</highres>
+	<thumbnail>/contentFiles/image/2009/33-nov/orchid-for-sale-152x110.jpg</thumbnail>
+	<large_image>/contentFiles/image/2009/33-nov/orchid-for-sale-482x298.jpg</large_image>
+	<standfirst></standfirst>
+	<gallery>0</gallery>
+	<top_start></top_start>
+	<top_end></top_end>
+	<top_premium></top_premium>
+	<top_platinum></top_platinum>
+	<has_top>N</has_top>
+	<top_logo></top_logo>
+	<link>http://www.timeoutsingapore.com/aroundtown/zoos-and-gardens/orchid-for-sale</link>
+</event>
