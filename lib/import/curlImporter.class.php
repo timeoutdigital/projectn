@@ -26,6 +26,7 @@ class curlImporter
 
   private $_curlParameters;
   private $_url;
+  private $_requestMethod;
   private $_xmlRequest;
   private $_xmlResponseRaw;
   private $_simpleXml;
@@ -69,12 +70,22 @@ class curlImporter
        }
 
        $ch=curl_init();
-       curl_setopt($ch, CURLOPT_URL, $this->_url.$this->_xmlRequest);
+       
+       if ( $this->_requestMethod == 'POST' )
+       {
+         curl_setopt($ch, CURLOPT_URL, $this->_url.$this->_xmlRequest);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $urlstring);
+       }
+       else
+       {
+         curl_setopt($ch, CURLOPT_URL, $this->_url.$this->_xmlRequest.'?'.$urlstring);
+       }
+
        curl_setopt($ch, CURLOPT_TIMEOUT, 200);
        curl_setopt($ch, CURLOPT_HEADER, 0);
        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
        curl_setopt($ch, CURLOPT_POST, 1);
-       curl_setopt($ch, CURLOPT_POSTFIELDS, $urlstring);
+       
        $data=curl_exec($ch);
        curl_close($ch);
 
@@ -98,11 +109,12 @@ class curlImporter
     * @param array $parameters   the parameters
     *
     */
-   public function pullXml($url, $request, $parameters)
+   public function pullXml($url, $request, $parameters, $requestMethod = 'GET')
    {
      $this->_url = $url;
      $this->_xmlRequest = $request;
      $this->_curlParameters = $parameters;
+     $this->_requestMethod = $requestMethod;
      $this->getFeed();
 
      libxml_use_internal_errors(true);
@@ -115,7 +127,7 @@ class curlImporter
      if( count( $errors ) )
      {
        throw new Exception( 'XML errors: ' . implode( ',', $errors ) );
-       }
+     }
    }
 
 
