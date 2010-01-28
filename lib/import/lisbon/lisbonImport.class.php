@@ -25,32 +25,6 @@ class lisbonImport extends Importer
   }
 
   /**
-   * Set a logger for the import
-   *
-   * @param logger $logger
-   */
-  public function setLogger( logger $logger )
-  {
-    $this->loggers[ $logger->type ] = $logger;
-  }
-
-  /**
-   * Return a logger by type (poi|event|movie)
-   *
-   * @param string $type
-   * @returns logger
-   */
-  public function getLogger( $type )
-  {
-    $loggerTypeAvailable = count( array_keys( $this->loggers, $type ) );
-
-    if( $loggerTypeAvailable )
-    {
-      return $this->loggers[ $type ];
-    }
-  }
-
-  /**
    * Runs the import
    */
   public function run()

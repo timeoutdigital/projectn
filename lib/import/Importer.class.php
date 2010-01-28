@@ -16,32 +16,12 @@ class Importer
   /**
    * @var array
    */
-  private $loggers;
-  
-  /**
-   * Takes an array of strings implodes only values that are not blank using $glue
-   *
-   * <code>
-   *   $input = array( 'one', '', 'two', '', three' );
-   *   echo Importer::concatNonBlankStrings( ',', $input );
-   *
-   *   //outputs:
-   *   //one, two, three
-   * </code>
-   * 
-   * @param array $stringArray
-   * @param string $glue
-   */
-  static public function concatNonBlankStrings( $glue, $stringArray )
-  {
-    $nonEmptyStrings = array_filter($stringArray, 'Importer::concatNonBlankStringsCallBack' );
-    return implode($glue, $nonEmptyStrings );
-  }
+  private $loggers = array();
 
-  static private function concatNonBlankStringsCallBack( $string )
-  {
-    return preg_match( '/\S/', $string );
-  }
+  /**
+   * @var array
+   */
+  private $dataMapper = array();
 
   /**
    * Adds a logger
@@ -50,14 +30,13 @@ class Importer
    */
   public function registerLogger( logger $logger )
   {
-    if( !$this->loggers )
-    {
-      $this->loggers = array();
-    }
-
     if( !isset( $this->loggers[ $logger->getType() ] ) )
     {
       $this->loggers[ $logger->getType() ] = array();
+    }
+    else if( in_array( $logger, $this->loggers[ $logger->getType() ] ) )
+    {
+      return;
     }
 
     $this->loggers[ $logger->getType() ][] = $logger;
@@ -72,28 +51,44 @@ class Importer
   }
 
   /**
-   * Adds an ImportData to be saved
+   * Adds an DataMapper to be saved
    */
-  public function addImportData( ImportData $importData )
-  {
-    if( !$this->importData )
-    {
-      $this->importData = array();
-    }
-
-    
+  public function addDataMapper( DataMapper $importData )
+  {    
+    $this->dataMapper[] = $importData;
   }
 
   /**
-   * gets all added ImportData
+   * gets all added DataMapper
    */
-  public function getImportData()
+  public function getDataMappers()
   {
-
+    return $this->dataMapper;
   }
 
   public function run()
   {
-    
+    foreach( $this->getDataMappers() as $dataSource )
+    {
+      foreach( $dataSource->getMapMethods() as $mapMethod )
+      {
+         $mapMethod->invoke( $dataSource );
+      }
+    }
+  }
+
+  /**
+   * Listens to DataMapper notifications
+   * 
+   * @param Doctrine_Record $record
+   */
+  public function onRecordMapped( Doctrine_Record $record )
+  {
+    //record exists?
+    //transform( $records )
+//    if( $record->isValid( true ) )
+//    {
+//      $record->save();
+//    }
   }
 }

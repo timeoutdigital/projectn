@@ -33,7 +33,7 @@
   <!-- Run codesniffer on selected classes -->
   <target name="php-codesniffer">
     <exec executable="phpcs" dir="${basedir}/source" output="${basedir}/build/logs/checkstyle.xml" error="/tmp/checkstyle.error.log">
-      <arg line="--report=checkstyle --standard=pear --ignore=*/om/*,*/map/*,*/vendor/*,*/filter/*,*/form/*,*/base/* --extensions=php ${basedir}/source/lib"/>
+      <arg line="--ignore=*/vendor/*,*/filter/*,*/form/*,*/base/* --report=checkstyle --standard=pear --extensions=php ${basedir}/source/lib"/>
     </exec>
   </target>
   <target name="phpunit">

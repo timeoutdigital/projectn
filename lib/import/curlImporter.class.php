@@ -129,6 +129,8 @@ class curlImporter
      {
        throw new Exception( 'XML errors: ' . implode( ',', $errors ) );
      }
+
+     return $this;
    }
 
 

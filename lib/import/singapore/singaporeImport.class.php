@@ -42,7 +42,7 @@ class singaporeImport {
   public function insertCategoriesPoisEvents()
   {
 
-
+    return true;
   }
   
 
