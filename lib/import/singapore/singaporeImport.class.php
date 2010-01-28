@@ -17,6 +17,36 @@
  *
  */
 class singaporeImport {
-    //put your code here
+
+  /*
+   * @var SimpleXMLElement
+   */
+  private $_dataXml;
+
+
+  /**
+   * Construct
+   *
+   * @param $dataXml SimpleXMLElement
+   * @param $vendorObj Vendor
+   *
+   */
+  public function  __construct( $dataXml, $vendorObj )
+  {
+  }
+
+
+  /*
+   * insertCategoriesPoisEvents
+   */
+  public function insertCategoriesPoisEvents()
+  {
+
+
+  }
+  
+
+
+
 }
 ?>

@@ -1,13 +1,13 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of XMLExportPOIclass
  *
- * @author ralph
+ * @package projectn
+ * @subpackage export.lib
+ *
+ * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @copyright Timeout Communications Ltd 2009
+ *
+ *
  */
 class XMLExportPOI extends XMLExport
 {

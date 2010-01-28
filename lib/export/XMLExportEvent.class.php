@@ -1,8 +1,13 @@
 <?php
 /**
- * Creates the Event XML for a specified vendor. The XML is written to a file.
  *
- * @author ralph
+ * @package projectn
+ * @subpackage export.lib
+ *
+ * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @copyright Timeout Communications Ltd 2009
+ *
+ *
  */
 class XMLExportEvent extends XMLExport
 {
