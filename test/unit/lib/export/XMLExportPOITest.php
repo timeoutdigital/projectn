@@ -40,7 +40,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
       try {
-        ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+        ProjectN_Test_Unit_Factory::createDatabases();
 
         $vendor = new Vendor();
         $vendor->setCity('test');
@@ -135,7 +135,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-      ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+      ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
     /**

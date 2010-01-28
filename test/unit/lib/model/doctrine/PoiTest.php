@@ -21,7 +21,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->object = ProjectN_Test_Unit_Factory::add( 'poi' );
   }
@@ -32,7 +32,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /*
@@ -46,7 +46,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->object->save();
 
     $this->object = Doctrine::getTable('Poi')->findOneById( $this->object['id'] );
-    
+
     $this->assertEquals( 'test prop lookup', $this->object[ 'PoiProperty' ][ 0 ][ 'lookup' ] );
     $this->assertEquals( 'test prop value', $this->object[ 'PoiProperty' ][ 0 ][ 'value' ] );
 

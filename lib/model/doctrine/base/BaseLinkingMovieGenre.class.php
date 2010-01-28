@@ -1,4 +1,6 @@
 <?php
+// Connection Component Binding
+Doctrine_Manager::getInstance()->bindComponent('LinkingMovieGenre', 'project_n');
 
 /**
  * BaseLinkingMovieGenre

@@ -28,7 +28,7 @@ class importNyMoviesTest extends PHPUnit_Framework_TestCase {
 
     try
     {
-      ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+      ProjectN_Test_Unit_Factory::createDatabases();
       Doctrine::loadData('data/fixtures');
     }
     catch(PDOException $e)
@@ -60,9 +60,9 @@ class importNyMoviesTest extends PHPUnit_Framework_TestCase {
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
    */
-  protected function tearDown() 
+  protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
@@ -75,7 +75,7 @@ class importNyMoviesTest extends PHPUnit_Framework_TestCase {
 
 
   /**
-   * 
+   *
    */
   public function testPoi()
   {

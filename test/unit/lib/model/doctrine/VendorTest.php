@@ -27,8 +27,7 @@ class VendorTest extends PHPUnit_Framework_TestCase
   {
     try
     {
-      $pDB = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
-      Doctrine::createTablesFromModels( dirname(__FILE__).'/../../../../../lib/model/doctrine');
+      ProjectN_Test_Unit_Factory::createDatabases();
 
       $this->vendor = new Vendor();
       $this->vendor->setCity('test');
@@ -50,7 +49,7 @@ class VendorTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     //Close DB connection
-    Doctrine_Manager::getInstance()->closeConnection(Doctrine_Manager::connection());
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**

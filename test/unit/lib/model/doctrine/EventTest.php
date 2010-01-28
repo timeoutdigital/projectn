@@ -21,7 +21,7 @@ class EventTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
 
     $poi1 = ProjectN_Test_Unit_Factory::add( 'poi' );
 
@@ -64,7 +64,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     $eventOccurrence3->link( 'Event', array( $event['id'] ) );
     $eventOccurrence3->link( 'Poi', array( 2 ) );
     $eventOccurrence3->save();
-    
+
     $this->object = Doctrine::getTable('Event')->findOneById( $event['id'] );
   }
 
@@ -74,7 +74,7 @@ class EventTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /*
@@ -88,7 +88,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->object->save();
 
     $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
-    
+
     $this->assertEquals( 'test prop lookup', $this->object[ 'EventProperty' ][ 0 ][ 'lookup' ] );
     $this->assertEquals( 'test prop value', $this->object[ 'EventProperty' ][ 0 ][ 'value' ] );
 
@@ -102,7 +102,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   public function testGetPois()
   {
     $pois = $this->object['pois'];
-    
+
     $this->assertEquals( 2, count( $pois ) );
     $this->assertTrue( $pois instanceof Doctrine_Collection );
     $this->assertEquals( 1, $pois[0]['id'] );

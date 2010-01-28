@@ -35,7 +35,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::createDatabases();
 
     $vendor = new Vendor();
     $vendor->setCity('test');
@@ -146,7 +146,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
@@ -159,21 +159,21 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( $this->vendor->getName(), $rootElement->getAttribute('vendor') );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $rootElement->getAttribute('modified') );
-    
+
     $movieElement = $this->xpath->query( '/vendor-movies/movie' )->item(0);
-    
+
     //movie@attributes
     $this->assertEquals( '187', $movieElement->getAttribute( 'id' ) );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
-  
+
     //movie/name
     $this->assertEquals( 'test movie name', $movieElement->getElementsByTagName( 'name' )->item(0)->nodeValue );
 
     $versionElement = $movieElement->getElementsByTagName( 'version' )->item(0);//$this->domDocument->movie[0]->version;
-    
+
     //movie/version
     $this->assertEquals( 'en', $versionElement->getAttribute( 'lang' ) );
-    
+
     //movie/version/name
     $this->assertEquals( 'test movie name', $versionElement->getElementsByTagName( 'name' )->item(0)->nodeValue );//(string) $versionTag->name );
 
@@ -196,7 +196,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     //movie/showtimes
     $showtimesElement = $movieElement->getElementsByTagName( 'showtimes' )->item(0);
-    
+
     //movie/showtimes/place
     $place = $showtimesElement->getElementsByTagName( 'place' )->item(0);
     $this->assertEquals( '1', $place->getAttribute( 'place-id' ) );
@@ -204,7 +204,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     //test the second movie as well
     $placeId = $this->xpath->query( '/vendor-movies/movie[2]/showtimes/place' )->item(0);
     $this->assertEquals('2', $placeId->getAttribute( 'place-id' ) );
-    
+
     //movie/showtimes/place
     $this->assertEquals( 'oap', $place->getElementsByTagName( 'age_rating' )->item(0)->nodeValue );
   }

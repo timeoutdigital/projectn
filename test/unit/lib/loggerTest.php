@@ -24,8 +24,8 @@ class loggerTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-       
-        ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
+
+        ProjectN_Test_Unit_Factory::createDatabases();
         $this->vendorObj = ProjectN_Test_Unit_Factory::get('vendor');
         $this->object = new logger($this->vendorObj, 'movie');
 
@@ -37,11 +37,11 @@ class loggerTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+        ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
     /**
-     * 
+     *
      */
     public function testCountNewInsert()
     {
@@ -81,6 +81,6 @@ class loggerTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('Exception');
         $this->object = new logger($this->vendorObj, 'moviey');
     }
-        
+
 }
 ?>

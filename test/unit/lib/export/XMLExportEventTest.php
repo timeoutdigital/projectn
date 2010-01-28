@@ -42,8 +42,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    ProjectN_Test_Unit_Factory::createSqliteMemoryDb();
-    
+    ProjectN_Test_Unit_Factory::createDatabases();
+
     $vendor = new Vendor();
     $vendor->setCity('test');
     $vendor->setLanguage('english');
@@ -191,7 +191,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroySqliteMemoryDb();
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
@@ -228,7 +228,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $categoryElements1 = $this->xpath->query( '/vendor-events/event[1]/category' );
 
     $this->assertEquals(3, $categoryElements1->length);
-    
+
     $this->assertEquals( 'concerts', $categoryElements1->item(0)->nodeValue );
     $this->assertEquals( 'theater', $categoryElements1->item(1)->nodeValue );
     $this->assertEquals( 'sport', $categoryElements1->item(2)->nodeValue );
@@ -253,11 +253,11 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   public function testGeneratedXMLEventVersionChildrenTags()
   {
     $versionTag = $this->xpath->query( '/vendor-events/event[1]/version' )->item(0);
-    
+
     $vendorCategoryElements = $versionTag->getElementsByTagName( 'vendor-category' );
     $this->assertEquals( 1, $vendorCategoryElements->length );
     $this->assertEquals( 'test vendor category', $vendorCategoryElements->item(0)->nodeValue );
-    
+
     $shortDescriptions = $versionTag->getElementsByTagName( 'short-description' );
     $this->assertEquals(1, $shortDescriptions->length );
     $this->assertEquals( 'test vendor short description', $shortDescriptions->item(0)->nodeValue );
@@ -288,7 +288,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, $showtimes->length );
 
     $showtimes1 = $showtimes->item(0);
-   
+
     $this->assertEquals( '1', $showtimes1->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
     $this->assertEquals( 'http://test-booking.url', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
     $this->assertEquals( 2, $showtimes1->getElementsByTagName( 'time' )->length );
@@ -299,7 +299,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $numPlacesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' )->length;
     $this->assertEquals( 2, $numPlacesForEvent2 );
   }
-  
+
   /**
    * check properties tags
    */
