@@ -2,7 +2,7 @@
 /**
  * Read the contents of a file from an ftp area
  *
- * @package projectm
+ * @package projectn
  * @subpackage import.lib
  *
  * @author timmy Bowler <timbowler@timeout.com>
