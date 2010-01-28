@@ -276,7 +276,7 @@ Movie:
     url:                        {type: string(1024), notnull: false}
     rating:                     {type: float, notnull: false}
     age_rating:                 {type: string(32), notnull: false}
-    utf_offset:                 {type: time, notnull: true}
+    utf_offset:                 {type: string(9), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
