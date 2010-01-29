@@ -21,7 +21,7 @@ class Importer
   /**
    * @var array
    */
-  private $dataSource = array();
+  private $dataMapper = array();
 
   /**
    * Adds a logger
@@ -51,24 +51,24 @@ class Importer
   }
 
   /**
-   * Adds an DataSource to be saved
+   * Adds an DataMapper to be saved
    */
-  public function addDataSource( DataSource $importData )
+  public function addDataMapper( DataMapper $importData )
   {    
-    $this->dataSource[] = $importData;
+    $this->dataMapper[] = $importData;
   }
 
   /**
-   * gets all added DataSource
+   * gets all added DataMapper
    */
-  public function getDataSources()
+  public function getDataMappers()
   {
-    return $this->dataSource;
+    return $this->dataMapper;
   }
 
   public function run()
   {
-    foreach( $this->getDataSources() as $dataSource )
+    foreach( $this->getDataMappers() as $dataSource )
     {
       foreach( $dataSource->getMapMethods() as $mapMethod )
       {
@@ -78,7 +78,7 @@ class Importer
   }
 
   /**
-   * Listens to datasource notifications
+   * Listens to DataMapper notifications
    * 
    * @param Doctrine_Record $record
    */
