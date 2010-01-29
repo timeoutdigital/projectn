@@ -106,7 +106,7 @@ class curlImporter
        $rawData=$this->curlRequest();
 
        if ($rawData!=-1) {
-           $this->_xmlResponseRaw=$rawData;
+           $this->_xmlResponseRaw=str_replace('&', '&amp;', $rawData);
        }
    }
 
@@ -128,23 +128,13 @@ class curlImporter
      $this->_requestMethod = $requestMethod;
      $this->getFeed();
 
-<<<<<<< HEAD:lib/import/curlImporter.class.php
-     libxml_use_internal_errors(true);
-     
-     $this->_simpleXml = simplexml_load_string($this->_xmlResponseRaw);
-     
-     $errors = libxml_get_errors();
-     libxml_use_internal_errors(false);
-
-     if( count( $errors ) )
-     {
-       throw new Exception( 'XML errors: ' . implode( ',', $errors ) );
-     }
-=======
+     /**
+      * @todo refactor line 109 into this - simple xml breaks due to html & in tags that are not surrounded by cdata
+      */
      $xmlString = stringTransform::stripEmptyLines( $this->_xmlResponseRaw );
      $this->_simpleXml = simplexml_load_string( $xmlString );
->>>>>>> 9ad3ec6fbecbf6d93b2bb898959c768c9e37f933:lib/import/curlImporter.class.php
-
+     
+    
      return $this;
    }
 
