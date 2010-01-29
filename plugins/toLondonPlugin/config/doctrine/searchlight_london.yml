@@ -44,6 +44,7 @@ SLLVenueCategoryInformation:
   columns:
     category_id:
       type: integer(4)
+      unsigned: 1
       primary: true
     venue_id:
       type: integer(4)
@@ -63,6 +64,7 @@ SLLVenueCategoryInformation:
       local: venue_id
       foreign: id
     SLLCategory:
+      class: SLLCategory
       local: category_id
       foreign: id
 
