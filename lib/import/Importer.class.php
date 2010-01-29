@@ -78,6 +78,8 @@ class Importer
   }
 
   /**
+   * @todo implement logger
+   * 
    * Listens to DataMapper notifications
    * 
    * @param Doctrine_Record $record
@@ -86,9 +88,10 @@ class Importer
   {
     //record exists?
     //transform( $records )
-//    if( $record->isValid( true ) )
-//    {
-//      $record->save();
-//    }
+    if( $record->isValid( true ) )
+    {
+      $record->save();
+      //log save|update
+    }
   }
 }
