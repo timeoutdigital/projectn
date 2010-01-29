@@ -18,7 +18,9 @@ class LondonImporter
 		$this->_vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'en-GB' );
 
 		if (! $this->_vendor instanceof Vendor)
+		{
 			throw new Exception( 'Cannot load Vendor' );
+		}
 	}
 
 	public function run( )
@@ -31,9 +33,16 @@ class LondonImporter
 		$currentPage = 1;
 		$resultsPerPage = 1000;
 
-		$query = Doctrine_Query::create( )->select( 'o.*, v.*, e.*' )->from( 'SLLOccurrence o' )->leftJoin( 'o.SLLVenue v' )->leftJoin( 'o.SLLEvent e' );
-
 		$zone = new DateTimeZone( 'Europe/London' );
+		$from = date( 'Y-m-d' );
+		$to   = date_add( new DateTime( ), new DateInterval( 'P2M' ) )->format( 'Y-m-d' );
+
+		$query = Doctrine_Query::create( )->select( 'o.*, v.*, e.*' )
+		                                  ->from( 'SLLOccurrence o' )
+		                                  ->leftJoin( 'o.SLLVenue v' )
+		                                  ->leftJoin( 'o.SLLEvent e' )
+		                                  ->where( 'o.date_start >= ?', $from )
+		                                  ->andWhere( 'o.date_start <= ?', $to );
 
 		do
 		{
@@ -117,17 +126,15 @@ class LondonImporter
 				}
 
 				// free memory
-				$poi->free();
-				$event->free();
-				$occurrence->free();
-
-				unset( $poi );
-				unset( $event );
-				unset( $occurrence );
+				$poi->free( );
+				$event->free( );
+				$occurrence->free( );
 			}
 
-			$currentPage ++;
+			$currentPage++;
 
+			// free memory
+			$items->free( true );
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 

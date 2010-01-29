@@ -63,6 +63,13 @@ class importNy
    * @var Doctrine_Manager::connection()
    */
   private $_conn;
+
+  /**
+   * Store cageory mapper
+   *
+   * @var CategoryMap
+   */
+  private $_categoryMap;
   
   /**
    * Constructor
@@ -80,6 +87,7 @@ class importNy
     $this->_venues = $this->_xmlFeed->getVenues();
     $this->_events = $this->_xmlFeed->getEvents();
     $this->_vendorObj = $vendorObj;
+    $this->_categoryMap = new CategoryMap();
 
     /*Doctrine::getTable('Poi')->setAttribute( Doctrine::ATTR_VALIDATE, true );
     Doctrine::getTable('Event')->setAttribute( Doctrine::ATTR_VALIDATE, true );
@@ -169,8 +177,6 @@ class importNy
    */
   public function insertPoi( SimpleXMLElement $poi )
   {
-      
-
       //Set the Poi's required values
       $poiObj = new Poi();
       $poiObj[ 'vendor_poi_id' ] = (string)  $poi['id'];
@@ -289,7 +295,7 @@ class importNy
       //store categories
       if ( 0 < count( $categoryArray ) )
       {
-        $poiObj['PoiCategories'] = $this->mapCategories( $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'PoiCategory', 'theatre-music-culture' );
 
         $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
         foreach( $categoryArray as $category )
@@ -392,14 +398,15 @@ class importNy
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          //Event Categories
+          //Categories
           $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
-          $eventObj['EventCategories'] = $this->mapCategories( $categoryArray, 'EventCategory' );
+
+          //Event Categories
+          $eventObj['EventCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'EventCategory' );
 
           //Vendor Event Categories
           $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
-          $categoryArray = $this->_concatVendorEventCategories( $event->category_combi );
-
+          
           foreach( $categoryArray as $categoryString )
           {
             $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findOneByName( (string) $categoryString );
@@ -467,9 +474,10 @@ class importNy
         }
 
         //deal with attributes node
+        $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
         foreach( $event->attributes->children() as $attribute )
         {
-          if ( is_object( $attribute->name ) && is_object( $attribute->value ) )
+          if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
           {
             $eventObj->addProperty( (string) $attribute->name, (string) $attribute->value );
           }
@@ -599,53 +607,7 @@ class importNy
     return '';
   }
 
-  /*
-   * Maps categories and returns the mapped categories as Doctrine Collecion
-   *
-   * @param mixed $sourceCategory (can be SimpleXMLElement or Array
-   * @param string $mapClass ('PoiCategory' or 'EventCategory' supported)
-   * @param string $otherCategoryNameString defaults to 'other'
-   * @return array of Doctrine_Collection
-   *
-   * @todo create CategoryMapping model and move this function
-   *
-   */
-  public function mapCategories( $sourceCategory, $mapClass, $noMatchCategoryNameString = 'other' )
-  {
-
-    if ( ! in_array( $mapClass, array( 'PoiCategory', 'EventCategory' ) ) )
-    {
-      Throw new Exception("mapping class not supported");
-    }
-
-    $noMatchCategory = Doctrine::getTable( $mapClass )->findOneByName( $noMatchCategoryNameString );
-    
-    $categoriesMappingArray = Doctrine::getTable( $mapClass . 'Mapping' )->findByVendorId( $this->_vendorObj[ 'id' ] );
-
-    $mappedCategoriesArray = new Doctrine_Collection( Doctrine::getTable( $mapClass ) );
-
-    foreach( $sourceCategory as $category )
-    {
-      $match = false;
-
-      foreach ( $categoriesMappingArray as $categoryMappingArray )
-      {
-        if (  $categoryMappingArray[ 'Vendor' . $mapClass ][ 'name' ] == (string) $category )
-        {
-          $mappedCategoriesArray[] = $categoryMappingArray[ $mapClass ];
-          $match = true;
-        }
-      }
-
-    }
-
-    if ( $match === false && is_object( $noMatchCategory ) )
-    {
-      $mappedCategoriesArray[] = $noMatchCategory;
-    }
-
-    return $mappedCategoriesArray;
-  }
+  
 
   /*
    * _concatVendorEventCategories helper function to concatenate the vendor event
