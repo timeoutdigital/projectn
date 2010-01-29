@@ -25,10 +25,39 @@ class LondonImporter
 
 	public function run( )
 	{
-		$this->process( );
+		$this->processCategories( );
+		$this->processEvents( );
 	}
 
-	private function process( )
+
+	/**
+	 * @todo only import categories that have occurrences
+	 */
+	private function processCategories( )
+	{
+        $items = Doctrine_Query::create( )->select( 'c.*' )
+                                          ->from( 'SLLCategory c' )
+                                          ->execute( );
+
+        foreach ( $items as $item )
+        {
+        	$category = new VendorEventCategory( );
+
+        	$category[ 'Vendor' ] = $this->_vendor;
+        	$category[ 'name' ]   = $item[ 'name' ];
+
+        	$category->save( );
+        	$category->free( );
+        }
+
+        $items->free( true );
+	}
+
+
+    /**
+     *
+     */
+	private function processEvents( )
 	{
 		$currentPage = 1;
 		$resultsPerPage = 1000;
@@ -52,6 +81,7 @@ class LondonImporter
 
 			foreach ( $items as $item )
 			{
+				// insert/update poi
 				$poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $item[ 'venue_id' ] );
 
 				if ( $poi === false ) $poi = new Poi( );
@@ -83,7 +113,7 @@ class LondonImporter
 				$poi->save( );
 
 
-				// insert event
+				// insert/update event
 				$event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( $item[ 'event_id' ] );
 
 				if ( $event === false ) $event = new Event( );
@@ -99,7 +129,7 @@ class LondonImporter
 
 
 
-				// insert occurrence
+				// insert/update occurrence
 				$occurrence = Doctrine::getTable( 'EventOccurrence' )->find( $item[ 'id' ] );
 
 				if ( $occurrence === false ) $occurrence = new EventOccurrence( );
@@ -125,6 +155,7 @@ class LondonImporter
 				$poi->free( );
 				$event->free( );
 				$occurrence->free( );
+
 			}
 
 			$currentPage++;
