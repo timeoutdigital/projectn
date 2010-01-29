@@ -28,6 +28,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   protected $vendorObj;
 
+  protected $categoryMap;
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -56,6 +58,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
       echo $e->getMessage();
     }
 
+    $this->categoryMap = new CategoryMap();
   }
 
 
@@ -334,7 +337,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
   {
     $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Shops' );
 
-    $mappedCategoriesObject = $this->object->mapCategories( $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+    $mappedCategoriesObject = $this->categoryMap->mapCategories(  $this->vendorObj, $categoryArray, 'PoiCategory', 'theatre-music-culture' );
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
@@ -350,7 +353,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
   {
     $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Film | Art-house & indie cinema' );
 
-    $mappedCategoriesObject = $this->object->mapCategories( $categoryArray, 'EventCategory' );
+    $mappedCategoriesObject = $this->categoryMap->mapCategories( $this->vendorObj, $categoryArray, 'EventCategory' );
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
