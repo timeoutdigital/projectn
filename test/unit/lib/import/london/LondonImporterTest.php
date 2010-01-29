@@ -20,15 +20,13 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-    	// create london connection
-    	Doctrine_Manager::connection( new PDO( 'sqlite::memory:' ), 'searchlight_london' );
+    	ProjectN_Test_Unit_Factory::createDatabases( );
 
-    	// load project n
-        ProjectN_Test_Unit_Factory::createDatabases( 'project_n' );
-        Doctrine::loadData( 'data/fixtures' );
+        // load projectn data
+        Doctrine::loadData( 'data/fixtures/fixtures.yml' );
 
         // load london data
-        Doctrine::loadData( dirname( __FILE__ ) . '/../../../../../plugins/toLondonPlugin/data/fixtures/fixtures.yml' );
+        Doctrine::loadData( dirname( __FILE__ ) . '/../../../../../plugins/toLondonPlugin/data/fixtures/searchlight_london.yml' );
     }
 
     /**
@@ -51,7 +49,24 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
      *
      * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
      */
-    public function testProcessImportedVenue()
+    public function testProcessCategoryImportedCategory()
+    {
+        $this->object = new LondonImporter( );
+
+        $this->object->run( );
+
+        $category = Doctrine::getTable( 'VendorEventCategory' )->findOneByName( 'Root' );
+
+        $this->assertTrue( $category instanceof Doctrine_Record );
+
+        $this->assertEquals( 'Root', $category[ 'name' ]  );
+    }
+
+    /**
+     *
+     * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
+     */
+    public function testProcessEventsImportedVenue()
     {
         $this->object = new LondonImporter( );
 
@@ -93,7 +108,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
      *
      * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
      */
-    public function testProcessImportedEvent()
+    public function testProcessEventsImportedEvent()
     {
         $this->object = new LondonImporter( );
 
@@ -110,7 +125,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
      *
      * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
      */
-    public function testProcessImportedOccurrence()
+    public function testProcessEventsImportedOccurrence()
     {
         $this->object = new LondonImporter( );
 
@@ -120,8 +135,8 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue( $occurrence instanceof Doctrine_Record );
 
-        $this->assertEquals( '2010-10-01', $occurrence[ 'start' ]  );
-        $this->assertEquals( '1', $occurrence[ 'utc_offset' ]  );
+        $this->assertEquals( '2010-02-01', $occurrence[ 'start' ]  );
+        $this->assertEquals( '0', $occurrence[ 'utc_offset' ]  );
     }
 
 }

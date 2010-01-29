@@ -45,23 +45,23 @@ EOF;
    */
   protected function getExporter( $options )
   {
-    
+
     switch( strtolower($options['type']) )
     {
       case 'poi':
-        $exportClass = XMLExportPOI;
+        $exportClass = 'XMLExportPOI';
         break;
       case 'event':
-        $exportClass = XMLExportEvent;
+        $exportClass = 'XMLExportEvent';
         break;
       case 'movie':
-        $exportClass = XMLExportMovie;
+        $exportClass = 'XMLExportMovie';
         break;
       default:
         throw new Exception( 'No exporter available for type: "' . $options['type'] . '"' );
         break;
     }
-    
+
     $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
     return new $exportClass( $vendor, $options['destination'] );
   }
