@@ -16,7 +16,7 @@ class exportTask extends sfBaseTask
       new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'The city which we want to export'),
       new sfCommandOption('language', null, sfCommandOption::PARAMETER_REQUIRED, 'The language of the city we want to export', 'en-GB'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       // add your own options here
     ));
 
@@ -45,23 +45,23 @@ EOF;
    */
   protected function getExporter( $options )
   {
-    
+
     switch( strtolower($options['type']) )
     {
       case 'poi':
-        $exportClass = XMLExportPOI;
+        $exportClass = 'XMLExportPOI';
         break;
       case 'event':
-        $exportClass = XMLExportEvent;
+        $exportClass = 'XMLExportEvent';
         break;
       case 'movie':
-        $exportClass = XMLExportMovie;
+        $exportClass = 'XMLExportMovie';
         break;
       default:
         throw new Exception( 'No exporter available for type: "' . $options['type'] . '"' );
         break;
     }
-    
+
     $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
     return new $exportClass( $vendor, $options['destination'] );
   }
