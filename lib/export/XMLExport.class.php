@@ -142,7 +142,7 @@ abstract class XMLExport
     }
     else
     {
-      return $node->appendChild( new DOMElement( $elementName, $elementContent ) );
+      return $node->appendChild( new DOMElement( $elementName, htmlentities( $elementContent ) ) );
     }
     return null;
   }

@@ -88,7 +88,12 @@ class XMLExportMovie extends XMLExport
       foreach( $movie['MovieProperty'] as $property )
       {
         $propertyTag = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
+        
+        if ( $propertyElement instanceof DOMElement )
+        {
+          $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
+        }
+
       }
     }
 

@@ -89,7 +89,10 @@ class XMLExportEvent extends XMLExport
       foreach( $event[ 'EventProperty' ] as $property )
       {
         $propertyElement = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        $propertyElement->setAttribute( 'key', $property[ 'lookup' ] );
+        if ( $propertyElement instanceof DOMElement )
+        {
+          $propertyElement->setAttribute( 'key', $property[ 'lookup' ] );
+        }
       }
 
       //event/showtimes
