@@ -11,7 +11,7 @@
  * @version 1.0.1
  *
  */
-abstract class DataSource
+abstract class DataMapper
 {
 
   /**
@@ -42,26 +42,6 @@ abstract class DataSource
   {
     $this->importer = $importer;
   }
-
-  /**
-   * Retrieves and maps POI data
-   */
-  abstract public function mapPois();
-
-  /**
-   * Retrieves and maps Event data
-   */
-  abstract public function mapEvents();
-
-  /**
-   * Retrieves and maps EventOccurrence data
-   */
-  abstract public function mapEventOccurrences();
-
-  /**
-   * Retrieves and maps Movie data
-   */
-  abstract public function mapMovies();
 
   protected function notifyImporter( Doctrine_Record $record )
   {

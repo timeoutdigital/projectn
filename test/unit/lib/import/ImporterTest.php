@@ -86,18 +86,18 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * Test DataSource gets added
+   * Test DataMapper gets added
    */
-  public function testAddDataSource()
+  public function testAddDataMapper()
   {
-    $dataSource = new UnitTestImporterDataSource( $this->importer );
+    $dataSource = new UnitTestImporterDataMapper( $this->importer );
 
-    $returnedImportData = $this->object->getDataSources();
+    $returnedImportData = $this->object->getDataMappers();
     $this->assertEquals(array(), $returnedImportData);
 
-    $this->object->addDataSource( $dataSource );
+    $this->object->addDataMapper( $dataSource );
 
-    $returnedImportData = $this->object->getDataSources();
+    $returnedImportData = $this->object->getDataMappers();
     $returnedImportData = $returnedImportData[0];
 
     $this->assertEquals($dataSource, $returnedImportData);
@@ -106,13 +106,13 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   /**
    *
    */
-  public function testDataSourcesAreRun()
+  public function testDataMappersAreRun()
   {
     
     $importer = $this->getMock('Importer', array('onRecordMapped'));
     
-    $importer->addDataSource( new UnitTestImporterDataSource( $importer ) );
-    $importer->addDataSource( new UnitTestImporterDataSource( $importer ) );
+    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
+    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
     
     $importer->expects( $this->exactly( 8 ) )
              ->method( 'onRecordMapped' );
@@ -121,7 +121,7 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   }
 }
 
-class UnitTestImporterDataSource extends DataSource
+class UnitTestImporterDataMapper extends DataMapper
 {
   public function mapPois()
   {
