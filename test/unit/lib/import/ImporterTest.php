@@ -114,10 +114,27 @@ class ImporterTest extends PHPUnit_Framework_TestCase
     $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
     $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
     
-    $importer->expects( $this->exactly( 8 ) )
+    $importer->expects( $this->exactly( 2 ) )
              ->method( 'onRecordMapped' );
     
     $importer->run();
+  }
+
+
+  /**
+   *
+   */
+  public function testMappedDataIsSaved()
+  {
+
+    $importer = new Importer();
+
+    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
+    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
+
+    $importer->run();
+
+    $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
   }
 }
 
@@ -125,19 +142,7 @@ class UnitTestImporterDataMapper extends DataMapper
 {
   public function mapPois()
   {
-    $this->notifyImporter( new NullDoctrineRecord() );
-  }
-  public function mapEvents()
-  {
-    $this->notifyImporter( new NullDoctrineRecord() );
-  }
-  public function mapEventOccurrences()
-  {
-    $this->notifyImporter( new NullDoctrineRecord() );
-  }
-  public function mapMovies()
-  {
-    $this->notifyImporter( new NullDoctrineRecord() );
+    $this->notifyImporter( ProjectN_Test_Unit_Factory::get( 'poi' ) );
   }
 }
 ?>
