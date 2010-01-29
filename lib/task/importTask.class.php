@@ -39,7 +39,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'film':
-            $processXmlObj = new processNyMoviesXml(dirname(__FILE__).'/../../test/unit/data/tms.xml');
+            $processXmlObj = new processNyMoviesXml( 'import/tms.xml' );
             $processXmlObj->setMovies('/xffd/movies/movie');
             $processXmlObj->setPoi('/xffd/theaters/theater');
             $processXmlObj->setOccurances('/xffd/showTimes/showTime');
