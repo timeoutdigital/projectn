@@ -34,7 +34,7 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
 
   public function testGetMapMethods()
   {
-    $this->object = new UnitTestImportData( new Importer() );
+    $this->object = new UnitTestDataMapper();
     $this->assertEquals(4, count( $this->object->getMapMethods() ) );
   }
 
@@ -47,7 +47,8 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
     $importer->expects( $this->exactly( 4 ) )
              ->method( 'onRecordMapped' );
 
-    $this->object = new UnitTestImportData( $importer );
+    $this->object = new UnitTestDataMapper( );
+    $this->object->setImporter( $importer );
 
     $this->object->mapPois();
     $this->object->mapEvents();
@@ -56,7 +57,7 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
   }
 }
 
-class UnitTestImportData extends DataMapper
+class UnitTestDataMapper extends DataMapper
 {
   public function mapPois()
   {

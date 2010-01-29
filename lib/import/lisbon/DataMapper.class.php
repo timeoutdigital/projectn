@@ -34,11 +34,8 @@ abstract class DataMapper
     
     return $mapMethods;
   }
-
-  /**
-   * @var Importer $importer
-   */
-  public function __construct( $importer )
+  
+  public function setImporter( $importer )
   {
     $this->importer = $importer;
   }

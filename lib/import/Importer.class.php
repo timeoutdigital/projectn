@@ -53,9 +53,10 @@ class Importer
   /**
    * Adds an DataMapper to be saved
    */
-  public function addDataMapper( DataMapper $importData )
-  {    
-    $this->dataMapper[] = $importData;
+  public function addDataMapper( DataMapper $dataMapper )
+  {
+    $dataMapper->setImporter( $this );
+    $this->dataMapper[] = $dataMapper;
   }
 
   /**
