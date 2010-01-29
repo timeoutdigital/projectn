@@ -23,7 +23,7 @@
 		-dn '${ant.project.name} API' 
 		-ue on 
 		-t ${basedir}/source/doc/api 
-		-d ${basedir}/source/lib/
+		-d ${basedir}/source/lib/, ${basedir}/source/test/unit
                 --ignore *filter*,*form*,*base*,*task*,*vendor*,*symfony*
 		-tb '/usr/share/php/data/phpUnderControl/data/phpdoc' 
 		-o HTML:Phpuc:phpuc"/>
