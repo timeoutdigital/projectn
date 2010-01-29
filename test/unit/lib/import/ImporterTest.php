@@ -20,9 +20,19 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   protected $vendor;
 
   /**
-   * @var Vendor
+   * @var Logger
    */
   protected $poiLogger;
+
+  /**
+   * @var Logger
+   */
+  protected $eventLogger;
+
+  /**
+   * @var Logger
+   */
+  protected $movieLogger;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -33,6 +43,8 @@ class ImporterTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     $this->vendor = ProjectN_Test_Unit_Factory::get('vendor');
     $this->poiLogger = new logger( $this->vendor, logger::POI );
+    $this->eventLogger = new logger( $this->vendor, logger::EVENT );
+    $this->movieLogger = new logger( $this->vendor, logger::MOVIE );
     $this->object  = new Importer();
   }
 
@@ -46,47 +58,70 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * Test concatNonBlankStrings
-   */
-//  public function testConcatNonBlankStrings()
-//  {
-//    $values = array( 'one', '', 'two', ' ', 'three' );
-//    $this->assertEquals( 'one, two, three', Importer::concatNonBlankStrings( ', ', $values ) );
-//  }
-
-  /**
    * Test loggers get registered
    */
   public function testRegisteringLogger()
   {
     $returnedLoggers = $this->object->getLoggers();
-    $this->assertNull( $returnedLoggers['poi'][0] );
+    $this->assertEquals( array(), $returnedLoggers );
     
     $this->object->registerLogger( $this->poiLogger );
     
     $returnedLoggers = $this->object->getLoggers();
     $this->assertType('array', $returnedLoggers);
 
-    $returnedLogger  = $returnedLoggers['poi'][0];
+    $this->assertEquals( 1, count( $returnedLoggers['poi'] ) );
+    $this->assertTrue( $returnedLoggers['poi'][0] instanceof logger );
+    $this->assertEquals( logger::POI, $returnedLoggers['poi'][0]->getType() );
+    
+    $this->object->registerLogger( $this->poiLogger );
+    $returnedLogger = $this->object->getLoggers();
+    $this->assertEquals( 1, count( $returnedLogger['poi'] ) );
 
-    $this->assertNotNull( $returnedLogger );
-    $this->assertEquals( $this->poiLogger, $returnedLogger );
+    $this->object->registerLogger( $this->eventLogger );
+    $returnedLoggers = $this->object->getLoggers();
+    $this->assertEquals( 1, count( $returnedLoggers['event'] ) );
+    $this->assertEquals( logger::EVENT, $returnedLoggers['event'][0]->getType() );
+    $this->assertEquals( 1, count( $returnedLoggers['poi'] ) );
   }
 
   /**
-   * Test ImportData gets added
+   * Test DataMapper gets added
    */
-  public function testAddImportData()
+  public function testAddDataMapper()
   {
-    $importData = new UnitTestImporterImportData( $this->importer );
-    $this->object->addImportData( $importData );
+    $dataSource = new UnitTestImporterDataMapper( $this->importer );
 
-    $returnedImportData = $this->object->getImportData();
+    $returnedImportData = $this->object->getDataMappers();
+    $this->assertEquals(array(), $returnedImportData);
+
+    $this->object->addDataMapper( $dataSource );
+
+    $returnedImportData = $this->object->getDataMappers();
     $returnedImportData = $returnedImportData[0];
+
+    $this->assertEquals($dataSource, $returnedImportData);
+  }
+
+  /**
+   *
+   */
+  public function testDataMappersAreRun()
+  {
+    
+    $importer = $this->getMock('Importer', array('onRecordMapped'));
+    
+    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
+    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
+    
+    $importer->expects( $this->exactly( 8 ) )
+             ->method( 'onRecordMapped' );
+    
+    $importer->run();
   }
 }
 
-class UnitTestImporterImportData extends ImportData
+class UnitTestImporterDataMapper extends DataMapper
 {
   public function mapPois()
   {
