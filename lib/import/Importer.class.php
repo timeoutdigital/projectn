@@ -14,6 +14,11 @@
 class Importer
 {
   /**
+   * @var boolean
+   */
+  private $printProgress = false;
+
+  /**
    * @var array
    */
   private $loggers = array();
@@ -22,6 +27,12 @@ class Importer
    * @var array
    */
   private $dataMapper = array();
+  
+  public function __construct( $printProgress = false )
+  {
+    $this->printProgress = $printProgress;
+    $this->output( 'awaiting data ' );
+  }
 
   /**
    * Adds a logger
@@ -69,6 +80,7 @@ class Importer
 
   public function run()
   {
+    $this->output( 'run ' );
     foreach( $this->getDataMappers() as $dataSource )
     {
       foreach( $dataSource->getMapMethods() as $mapMethod )
@@ -92,7 +104,25 @@ class Importer
     if( $record->isValid( true ) )
     {
       $record->save();
+      $this->output( '.' );
       //log save|update
+    }
+    else
+    {
+      //echo $record->getErrorStackAsString();
+      $this->output( 'x' );
+    }
+  }
+
+  /**
+   * print some output
+   * @param string $output
+   */
+  private function output( $output )
+  {
+    if( $this->printProgress )
+    {
+      echo $output;
     }
   }
 }

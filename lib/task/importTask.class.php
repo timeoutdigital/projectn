@@ -85,10 +85,13 @@ class importTask extends sfBaseTask
       case 'lisbon':
         switch( $options['type'] )
         {
-          case 'poi-event':
-            $processXmlObj = new curlImporter();
+          case 'poi':
+            $importer = new Importer( true );
+            $feedObj = new curlImporter();
             $parameters = array( 'from' => '2010-01-01', 'to' => '2010-01-30' );
-            $processXmlObj->pullXml ('http://www.timeout.pt/', 'xmllist.asp', $parameters, 'POST' );
+            $feedObj->pullXml ('http://www.timeout.pt/', 'xmlvenues.asp', $parameters, 'POST' );
+            $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
+            $importer->run();
             break;
 
           case 'film':
