@@ -35,7 +35,8 @@ class ProjectN_Test_Unit_Factory
 
     foreach ( $connections as $connection )
     {
-    	$connection->close( );
+
+    	if ( $connection instanceof Doctrine_Connection ) $connection->close( );
     }
   }
 
