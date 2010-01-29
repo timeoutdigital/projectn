@@ -33,8 +33,9 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
     * $stubCurlImporter->expects( $this->any() )
                       ->method( 'getXML' )
                       ->will( $this->returnValue( $dataXMLObject ) );*/
+
     
-   $this->object = new singaporeImport( $dataXml, $vendorObj );
+   $this->object = new singaporeImport( $dataXMLObject, $vendorObj );
   }
 
   /**
@@ -48,6 +49,17 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
   public function testInsertCategoriesPoisEvents()
   {
     $this->assertTrue( $this->object->insertCategoriesPoisEvents() );
+  }
+
+  public function testFetchPoiAndPoiCategory()
+  {
+    $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_event_detail.xml' );
+    $stubCurlImporter = $this->getMock( 'curlImporter' );
+    $stubCurlImporter->expects( $this->any() )
+                      ->method( 'getXML' )
+                      ->will( $this->returnValue( $stubReturnXMLObject ) );
+
+    $this->assertTrue( $this->object->fetchPoiAndPoiCategory( 7766 ) );
   }
 
 }
