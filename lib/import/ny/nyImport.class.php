@@ -477,9 +477,6 @@ class importNy
         $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
         foreach( $event->attributes->children() as $attribute )
         {
-          
-          var_export( (string) $attribute->name);
-
           if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
           {
             $eventObj->addProperty( (string) $attribute->name, (string) $attribute->value );
