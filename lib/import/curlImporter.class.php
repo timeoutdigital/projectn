@@ -42,18 +42,22 @@ class curlImporter
    * @return string The array converted to the params
    */
   private function buildCurlParamString() {
-       $urlstring = '';
+       
+      if($this->_curlParameters != '')
+      {
+          $urlstring = '';
 
-       foreach ($this->_curlParameters as $key => $value) {
-           $urlstring .= urlencode($key).'='.urlencode($value).'&';
-       }
+           foreach ($this->_curlParameters as $key => $value) {
+               $urlstring .= urlencode($key).'='.urlencode($value).'&';
+           }
 
-       if (trim($urlstring) != '') {
-           $urlstring = preg_replace("/&$/", "", $urlstring);
-           return ($urlstring);
-       } else {
-           return (-1);
-       }
+           if (trim($urlstring) != '') {
+               $urlstring = preg_replace("/&$/", "", $urlstring);
+               return ($urlstring);
+           } else {
+               return (-1);
+           }
+      }
   }
 
   /**
@@ -78,7 +82,13 @@ class curlImporter
        }
        else
        {
-         curl_setopt($ch, CURLOPT_URL, $this->_url.$this->_xmlRequest.'?'.$urlstring);
+            if($this->_curlParameters != ''){
+                curl_setopt($ch, CURLOPT_URL, $this->_url.$this->_xmlRequest.'?'.$urlstring);
+            }
+            else
+            {
+                curl_setopt($ch, CURLOPT_URL, $this->_url.$this->_xmlRequest);
+            }
        }
 
        curl_setopt($ch, CURLOPT_TIMEOUT, 200);
@@ -88,7 +98,7 @@ class curlImporter
        
        $data=curl_exec($ch);
        curl_close($ch);
-
+       
        return($data);
    }
 
@@ -96,7 +106,7 @@ class curlImporter
        $rawData=$this->curlRequest();
 
        if ($rawData!=-1) {
-           $this->_xmlResponseRaw=$rawData;
+           $this->_xmlResponseRaw=str_replace('&', '&amp;', $rawData);
        }
    }
 
@@ -110,7 +120,7 @@ class curlImporter
     * @param string $requestMethod  the request method, 'GET' (default ) or 'POST'
     *
     */
-   public function pullXml($url, $request, $parameters, $requestMethod = 'GET')
+   public function pullXml($url, $request, $parameters='', $requestMethod = 'GET')
    {
      $this->_url = $url;
      $this->_xmlRequest = $request;
@@ -118,9 +128,13 @@ class curlImporter
      $this->_requestMethod = $requestMethod;
      $this->getFeed();
 
+     /**
+      * @todo refactor line 109 into this - simple xml breaks due to html & in tags that are not surrounded by cdata
+      */
      $xmlString = stringTransform::stripEmptyLines( $this->_xmlResponseRaw );
      $this->_simpleXml = simplexml_load_string( $xmlString );
-
+     
+    
      return $this;
    }
 
