@@ -1,8 +1,8 @@
 <?php
 
-define( TO_PROJECT_ROOT_PATH, dirname( __FILE__ ) . '/../..' );
-define( TO_TEST_ROOT_PATH, dirname( __FILE__ ) );
-define( TO_TEST_DATA_PATH, TO_TEST_ROOT_PATH . '/data' );
+define( 'TO_PROJECT_ROOT_PATH', dirname( __FILE__ ) . '/../..' );
+define( 'TO_TEST_ROOT_PATH', dirname( __FILE__ ) );
+define( 'TO_TEST_DATA_PATH', TO_TEST_ROOT_PATH . '/data' );
 
 ini_set( 'date.timezone', 'Europe/London' );
 

@@ -53,9 +53,10 @@ class Importer
   /**
    * Adds an DataMapper to be saved
    */
-  public function addDataMapper( DataMapper $importData )
-  {    
-    $this->dataMapper[] = $importData;
+  public function addDataMapper( DataMapper $dataMapper )
+  {
+    $dataMapper->setImporter( $this );
+    $this->dataMapper[] = $dataMapper;
   }
 
   /**
@@ -78,6 +79,8 @@ class Importer
   }
 
   /**
+   * @todo implement logger
+   * 
    * Listens to DataMapper notifications
    * 
    * @param Doctrine_Record $record
@@ -86,9 +89,10 @@ class Importer
   {
     //record exists?
     //transform( $records )
-//    if( $record->isValid( true ) )
-//    {
-//      $record->save();
-//    }
+    if( $record->isValid( true ) )
+    {
+      $record->save();
+      //log save|update
+    }
   }
 }

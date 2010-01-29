@@ -128,6 +128,7 @@ class curlImporter
      $this->_requestMethod = $requestMethod;
      $this->getFeed();
 
+<<<<<<< HEAD:lib/import/curlImporter.class.php
      libxml_use_internal_errors(true);
      
      $this->_simpleXml = simplexml_load_string($this->_xmlResponseRaw);
@@ -139,6 +140,10 @@ class curlImporter
      {
        throw new Exception( 'XML errors: ' . implode( ',', $errors ) );
      }
+=======
+     $xmlString = stringTransform::stripEmptyLines( $this->_xmlResponseRaw );
+     $this->_simpleXml = simplexml_load_string( $xmlString );
+>>>>>>> 9ad3ec6fbecbf6d93b2bb898959c768c9e37f933:lib/import/curlImporter.class.php
 
      return $this;
    }
@@ -155,7 +160,4 @@ class curlImporter
    }
 
 }
-
-
-
 ?>
