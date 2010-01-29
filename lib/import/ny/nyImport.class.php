@@ -398,14 +398,15 @@ class importNy
         //store categories
         if ( isset( $event->category_combi ) )
         {
-          //Event Categories
+          //Categories
           $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
+
+          //Event Categories
           $eventObj['EventCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'EventCategory' );
 
           //Vendor Event Categories
           $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
-          $categoryArray = $this->_concatVendorEventCategories( $event->category_combi );
-
+          
           foreach( $categoryArray as $categoryString )
           {
             $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findOneByName( (string) $categoryString );
@@ -473,9 +474,13 @@ class importNy
         }
 
         //deal with attributes node
+        $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
         foreach( $event->attributes->children() as $attribute )
         {
-          if ( is_object( $attribute->name ) && is_object( $attribute->value ) )
+          
+          var_export( (string) $attribute->name);
+
+          if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
           {
             $eventObj->addProperty( (string) $attribute->name, (string) $attribute->value );
           }
