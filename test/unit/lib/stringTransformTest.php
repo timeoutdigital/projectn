@@ -117,5 +117,22 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
     $values = array( 'one', '', 'two', ' ', 'three' );
     $this->assertEquals( 'one, two, three', stringTransform::concatNonBlankStrings( ', ', $values ) );
   }
+  
+  /**
+   * Test xml fixing
+   */
+  public function testCleanXML( )
+  {
+   $string = '
+one
+
+two
+
+three
+';
+   $expected = 'onetwothree';
+   
+   $this->assertEquals( $expected, stringTransform::stripEmptyLines( $string ) );
+  }
 }
 ?>

@@ -81,5 +81,10 @@ class stringTransform {
     return preg_match( '/\S/', $string );
   }
 
+  static public function stripEmptyLines( $string )
+  {
+    return preg_replace( '/\r*\n*/', '', $string );
+  }
+
 }
 ?>
