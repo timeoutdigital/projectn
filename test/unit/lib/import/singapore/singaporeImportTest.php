@@ -36,7 +36,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
    Doctrine::loadData('data/fixtures');
    
-   $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-GB');
+   $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
    $this->dataXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_weekly_events.xml' );
 
@@ -67,7 +67,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   public function testFetchPoiAndPoiCategory()
   {
-    //$this->assertTrue( $this->object->fetchPoiAndPoiCategory( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=8355&key=ffab6a24c60f562ecf705130a36c1d1e' ) instanceof SimpleXMLElement );
+    $this->assertTrue( $this->object->fetchPoiAndPoiCategory( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=8355&key=ffab6a24c60f562ecf705130a36c1d1e' ) instanceof SimpleXMLElement );
   }
 
 }
