@@ -224,15 +224,16 @@
 		</text_system>
 		<attributes>
 			<attribute>
-				<name>Critic's Picks</name>
-				<type>Yes/No</type>
-				<value>Yes</value>
-			</attribute>
-			<attribute>
 				<name>WebReady</name>
 				<type>Yes/No</type>
 				<value>Yes</value>
 			</attribute>
+			<attribute>
+				<name>Critic's Picks</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+
 		</attributes>
 		<sort_string>Rien Que Les Heures</sort_string>
 	</event>
