@@ -1,0 +1,47 @@
+all:
+  project_n:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://root:outtime99@localhost/project_n
+      attributes:
+        use_native_enum:  true
+
+
+prod:
+  project_n:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://root:outtime99@localhost/project_n_prod
+      attributes:
+        use_native_enum:  true
+
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://timeout:65dali32@192.9.215.2502/searchlight_london
+      attributes:
+        use_native_enum:  true
+
+dev:
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://root:outtime99@localhost/searchlight_london
+      attributes:
+        use_native_enum:  true
+    
+
+test:
+  project_n:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                sqlite::memory:
+      attributes:
+        use_native_enum:  true
+
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                sqlite::memory:/searchlight_london
+      attributes:
+        use_native_enum:  true
