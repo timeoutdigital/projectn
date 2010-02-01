@@ -3,7 +3,7 @@
  * Description of singaporeImport
  *
  * @package projectn
- * @subpackage lib
+ * @subpackage singapore.import.lib
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @copyright Timeout Communications Ltd
@@ -41,7 +41,11 @@ class singaporeImport {
    * @param $curlImporterObj curlImporter
    *
    */
+<<<<<<< HEAD:lib/import/singapore/singaporeImport.class.php
   public function  __construct( $dataXml, $vendorObj, $curlImporterObj )
+=======
+  public function  __construct( SimpleXMLElement $dataXml, Vendor $vendorObj )
+>>>>>>> 9a9b75773eef7f225e36cc19cdfd0f24cabb27a2:lib/import/singapore/singaporeImport.class.php
   {
     $this->_dataXml = $dataXml;
     $this->_vendor = $vendorObj;

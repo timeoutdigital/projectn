@@ -32,7 +32,12 @@ class processXml
     {
       if(file_exists($sourceFile))
       {
-        $this->xmlObj = simplexml_load_file($sourceFile);
+        $contents = file_get_contents($sourceFile);
+     
+        
+        $contents = str_replace('&', '&amp;',$contents );
+        //echo $contents;
+        $this->xmlObj = simplexml_load_file($contents);
       }
       else
       {
