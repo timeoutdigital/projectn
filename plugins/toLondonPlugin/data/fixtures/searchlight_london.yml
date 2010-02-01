@@ -48,84 +48,86 @@ SLLCategory:
 
 
 
-SLLOccurrence:
-  occurrence_1:
+
+
+SLLVenue:
+  venue_1:
     id: 1
-    event_id: 1
-    venue_id: 1
-    date_start: '2010-02-01'
-    time_start: 00:00:00
-    date_end: '2010-02-01'
-    time_end: 00:00:00
-    title: Dummy Title 1
-    annotation: Dummy Annotation 1
-    annotation_behaviour: 0
-    price: Dummy Price 1
-    new: 0 
-    last_chance: 0
+    neighbourhood_id: 1
+    name: Dummy Name 1
+    alt_name: Dummy Alt Name 1
+    building_name: Dummy Building Name 1
+    address: Dummy Address 1
+    postcode: Dummy Postcode 1
+    travel: Dummy Travel 1
+    opening_times: Dummy Opening Times 1
+    url: Dummy Url 1
+    latitude: 51.0000000
+    longitude: -0.10000000
+    phone: Dummy Phone 1
+    email: Dummy Email 1
     image_id: 11111111
-    recommended: 0
+    status: 10
     source: Dummy Source 1
     source_id: 1
-    search_grouping_id: 1
-    seo_synopsis: 0
-    flickr_tag: Dummy Flickr Tag 1
-    advanced_text: Dummy Advanced Text 1
-    date_created: '2010-01-01 00:00:00'
-    date_modified: '2010-01-01 00:00:00'
-    
-  occurrence_2:
+    event_count: 1
+   
+  venue_2:
     id: 2
-    event_id: 2
-    venue_id: 2
-    date_start: '2010-02-02'
-    time_start: 00:00:00
-    date_end: '2010-02-02'
-    time_end: 00:00:00
-    title: Dummy Title 2
-    annotation: Dummy Annotation 2
-    annotation_behaviour: 0
-    price: Dummy Price 2
-    new: 0 
-    last_chance: 0
+    neighbourhood_id: 2
+    name: Dummy Name 2
+    alt_name: Dummy Alt Name 2
+    building_name: Dummy Building Name 2
+    address: Dummy Address 2
+    postcode: Dummy Postcode 2
+    travel: Dummy Travel 2
+    opening_times: Dummy Opening Times 2
+    url: Dummy Url 2
+    latitude: 52.0000000
+    longitude: -0.20000000
+    phone: Dummy Phone 2
+    email: Dummy Email 2
     image_id: 22222222
-    recommended: 0
+    status: 10
     source: Dummy Source 2
     source_id: 2
-    search_grouping_id: 2
-    seo_synopsis: 0
-    flickr_tag: Dummy Flickr Tag 2
-    advanced_text: Dummy Advanced Text 2
-    date_created: '2010-01-02 00:00:00'
-    date_modified: '2010-01-02 00:00:00' 
+    event_count: 2
 
-  occurrence_3:
+  venue_3:
     id: 3
-    event_id: 3
-    venue_id: 3
-    date_start: '2010-02-03'
-    time_start: 00:00:00
-    date_end: '2010-02-03'
-    time_end: 00:00:00
-    title: Dummy Title 3
-    annotation: Dummy Annotation 3
-    annotation_behaviour: 0
-    price: Dummy Price 3
-    new: 0 
-    last_chance: 0
+    neighbourhood_id: 3
+    name: Dummy Name 3
+    alt_name: Dummy Alt Name 3
+    building_name: Dummy Building Name 3
+    address: Dummy Address 3
+    postcode: Dummy Postcode 3
+    travel: Dummy Travel 3
+    opening_times: Dummy Opening Times 3
+    url: Dummy Url 3
+    latitude: 53.0000000
+    longitude: -0.30000000
+    phone: Dummy Phone 3
+    email: Dummy Email 3
     image_id: 33333333
-    recommended: 0
+    status: 10
     source: Dummy Source 3
     source_id: 3
-    search_grouping_id: 3
-    seo_synopsis: 0
-    flickr_tag: Dummy Flickr Tag 3
-    advanced_text: Dummy Advanced Text 3
-    date_created: '2010-01-03 00:00:00'
-    date_modified: '2010-01-03 00:00:00'
+    event_count: 3
 
 
 
+SLLVenueCategoryInformation:
+  vci_1:
+    category_id: 1
+    venue_id: 1
+    
+  vci_2:
+    category_id: 2
+    venue_id: 2
+
+  vci_3:
+    category_id: 3
+    venue_id: 3
 
 
 SLLEvent:
@@ -257,70 +259,98 @@ SLLEvent:
 
 
 
-SLLVenue:
-  venue_1:
+SLLEventCategoryMapping:
+  ecm_1:
+    category_id: 1
+    event_id: 1
+
+  ecm_3:
+    category_id: 2
+    event_id: 2
+
+  ecm_3:
+    category_id: 3
+    event_id: 3
+
+
+    
+
+SLLOccurrence:
+  occurrence_1:
     id: 1
-    neighbourhood_id: 1
-    name: Dummy Name 1
-    alt_name: Dummy Alt Name 1
-    building_name: Dummy Building Name 1
-    address: Dummy Address 1
-    postcode: Dummy Postcode 1
-    travel: Dummy Travel 1
-    opening_times: Dummy Opening Times 1
-    url: Dummy Url 1
-    latitude: 51.0000000
-    longitude: -0.10000000
-    phone: Dummy Phone 1
-    email: Dummy Email 1
+    event_id: 1
+    venue_id: 1
+    date_start: '2010-02-01'
+    time_start: 00:00:00
+    date_end: '2010-02-01'
+    time_end: 00:00:00
+    title: Dummy Title 1
+    annotation: Dummy Annotation 1
+    annotation_behaviour: 0
+    price: Dummy Price 1
+    new: 0 
+    last_chance: 0
     image_id: 11111111
-    status: 10
+    recommended: 0
     source: Dummy Source 1
     source_id: 1
-    event_count: 1
-   
-  venue_2:
+    search_grouping_id: 1
+    seo_synopsis: 0
+    flickr_tag: Dummy Flickr Tag 1
+    advanced_text: Dummy Advanced Text 1
+    date_created: '2010-01-01 00:00:00'
+    date_modified: '2010-01-01 00:00:00'
+    
+  occurrence_2:
     id: 2
-    neighbourhood_id: 2
-    name: Dummy Name 2
-    alt_name: Dummy Alt Name 2
-    building_name: Dummy Building Name 2
-    address: Dummy Address 2
-    postcode: Dummy Postcode 2
-    travel: Dummy Travel 2
-    opening_times: Dummy Opening Times 2
-    url: Dummy Url 2
-    latitude: 52.0000000
-    longitude: -0.20000000
-    phone: Dummy Phone 2
-    email: Dummy Email 2
+    event_id: 2
+    venue_id: 2
+    date_start: '2010-02-02'
+    time_start: 00:00:00
+    date_end: '2010-02-02'
+    time_end: 00:00:00
+    title: Dummy Title 2
+    annotation: Dummy Annotation 2
+    annotation_behaviour: 0
+    price: Dummy Price 2
+    new: 0 
+    last_chance: 0
     image_id: 22222222
-    status: 10
+    recommended: 0
     source: Dummy Source 2
     source_id: 2
-    event_count: 2
+    search_grouping_id: 2
+    seo_synopsis: 0
+    flickr_tag: Dummy Flickr Tag 2
+    advanced_text: Dummy Advanced Text 2
+    date_created: '2010-01-02 00:00:00'
+    date_modified: '2010-01-02 00:00:00' 
 
-  venue_3:
+  occurrence_3:
     id: 3
-    neighbourhood_id: 3
-    name: Dummy Name 3
-    alt_name: Dummy Alt Name 3
-    building_name: Dummy Building Name 3
-    address: Dummy Address 3
-    postcode: Dummy Postcode 3
-    travel: Dummy Travel 3
-    opening_times: Dummy Opening Times 3
-    url: Dummy Url 3
-    latitude: 53.0000000
-    longitude: -0.30000000
-    phone: Dummy Phone 3
-    email: Dummy Email 3
+    event_id: 3
+    venue_id: 3
+    date_start: '2010-02-03'
+    time_start: 00:00:00
+    date_end: '2010-02-03'
+    time_end: 00:00:00
+    title: Dummy Title 3
+    annotation: Dummy Annotation 3
+    annotation_behaviour: 0
+    price: Dummy Price 3
+    new: 0 
+    last_chance: 0
     image_id: 33333333
-    status: 10
+    recommended: 0
     source: Dummy Source 3
     source_id: 3
-    event_count: 3
-    
+    search_grouping_id: 3
+    seo_synopsis: 0
+    flickr_tag: Dummy Flickr Tag 3
+    advanced_text: Dummy Advanced Text 3
+    date_created: '2010-01-03 00:00:00'
+    date_modified: '2010-01-03 00:00:00'
+
     
     
     
@@ -331,61 +361,6 @@ SLLVenue:
     
     
 ########################################################################################
-#
-#SLLEventCategoryMapping:
-#  connection: searchlight_london
-#  tableName: searchlight_london.event_category_mapping
-#  columns:
-#    category_id:
-#      type: integer(4)
-#      unsigned: 1
-#      primary: true
-#    event_id:
-#      type: integer(4)
-#      unsigned: 1
-#      primary: true
-#    annotation_behavior:
-#      type: integer(1)
-#      unsigned: 1
-#      default: '1'
-#    annotation: string(2147483647)
-#    master_category_id: integer(4)
-#  relations:
-#    SLLCategory:
-#      local: category_id
-#      foreign: id
-#    SLLEvent:
-#      local: event_id
-#      foreign: id
-#
-#
-#
-#SLLVenueCategoryInformation:
-#  columns:
-#    category_id:
-#      type: integer(4)
-#      primary: true
-#    venue_id:
-#      type: integer(4)
-#      unsigned: 1
-#      primary: true
-#    annotation: string(2147483647)
-#    price_export: string(2147483647)
-#    telephone_export: string(2147483647)
-#    times_export: string(2147483647)
-#    url_export: string(255)
-#    food_served: integer(1)
-#    free_venue: integer(1)
-#    late_night: integer(1)
-#  relations:
-#    SLLVenue:
-#      class: SLLVenue
-#      local: venue_id
-#      foreign: id
-#    SLLCategory:
-#      local: category_id
-#      foreign: id
-#
 #
 #
 #SLLEventImage:
