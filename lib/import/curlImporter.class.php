@@ -127,7 +127,7 @@ class curlImporter
      $this->_curlParameters = $parameters;
      $this->_requestMethod = $requestMethod;
      $this->getFeed();
-
+   
      /**
       * @todo refactor line 109 into this - simple xml breaks due to html & in tags that are not surrounded by cdata
       */

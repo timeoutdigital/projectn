@@ -16,7 +16,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property string $url
  * @property float $rating
  * @property string $age_rating
- * @property time $utf_offset
+ * @property string $utf_offset
  * @property integer $poi_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $MovieGenres
@@ -33,7 +33,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method string              getUrl()             Returns the current record's "url" value
  * @method float               getRating()          Returns the current record's "rating" value
  * @method string              getAgeRating()       Returns the current record's "age_rating" value
- * @method time                getUtfOffset()       Returns the current record's "utf_offset" value
+ * @method string              getUtfOffset()       Returns the current record's "utf_offset" value
  * @method integer             getPoiId()           Returns the current record's "poi_id" value
  * @method Vendor              getVendor()          Returns the current record's "Vendor" value
  * @method Doctrine_Collection getMovieGenres()     Returns the current record's "MovieGenres" collection
@@ -109,9 +109,10 @@ abstract class BaseMovie extends sfDoctrineRecord
              'notnull' => false,
              'length' => '32',
              ));
-        $this->hasColumn('utf_offset', 'time', null, array(
-             'type' => 'time',
+        $this->hasColumn('utf_offset', 'string', 9, array(
+             'type' => 'string',
              'notnull' => true,
+             'length' => '9',
              ));
         $this->hasColumn('poi_id', 'integer', null, array(
              'type' => 'integer',

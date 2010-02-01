@@ -143,6 +143,40 @@ class importTask extends sfBaseTask
           break;
         }
         break; //end lisbon
+
+
+    case 'dubai':
+        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
+
+        switch( $options['type'] )
+        {
+          case 'restaurants':
+           // $processXmlObj = new processNyXml('import/tony_leo.xml');
+           // $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+           // $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+           // $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+              $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+         
+                //Regression tests
+              $curlObj = new curlImporter();
+              //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
+               $restaurantXmlObj =  $curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/restaurants')->getXml();
+
+              //$this->barObject = new dubaiImportBars( $this->barXmlObj, $this->vendorObj, 'bar' );
+              $restaurantObj =  new dubaiImportBars( $restaurantXmlObj, $vendorObj, 'restaurant' );
+              $restaurantObj->importPoi();
+
+            break;
+
+          
+
+            break;
+        }
+        break; // end ny
+
+
+
+
     }
   }
 
