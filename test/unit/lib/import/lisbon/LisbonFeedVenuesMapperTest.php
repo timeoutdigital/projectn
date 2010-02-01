@@ -24,7 +24,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
       'city' => 'Lisbon',
-      'language' => 'en-GB'
+      'language' => 'pt'
       )
     );
     $vendor->save();
@@ -58,7 +58,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 0,  $poi['vendor_poi_id'] );
     $this->assertEquals( '', $poi['review_date'] );
-    $this->assertEquals( 'pt', $poi['local_language'] );
+    $this->assertEquals( 'PTR', $poi['local_language'] );
     $this->assertEquals( 'Igreja da Memória', $poi['poi_name'] );
     $this->assertEquals( '', $poi['house_no'] );
     $this->assertEquals( 'Lg da Memória, ', $poi['street'] );
