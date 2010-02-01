@@ -113,7 +113,7 @@ class singaporeImport {
     $poi[ 'vendor_poi_id' ]              = (string) $venueObj->id;
     $poi[ 'review_date' ]                = (string) $venueObj->data_change;
     $poi[ 'local_language' ]             = substr( $this->_vendor[ 'language' ], 0, 1 );
-    $poi[ 'poi_name' ]                   = (string) $venueObj->id;
+    $poi[ 'poi_name' ]                   = (string) $venueObj->name;
     $poi[ 'country' ]                    = 'SGP';
     $poi[ 'email' ]                      = '';
     $poi[ 'url' ]                        = stringTransform::formatUrl( (string) $venueObj->website );
@@ -155,6 +155,9 @@ class singaporeImport {
     $poi->addProperty( 'min_price', (string) $venueObj->min_price );
     $poi->addProperty( 'max_price', (string) $venueObj->max_price );
     $poi->addProperty( 'standfirst', (string) $venueObj->standfirst );
+
+    $poi->save();
+    $poi->free();
 
     //section
     //category

@@ -59,12 +59,21 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-
+  /*
+   *
+   */
   public function testInsertCategoriesPoisEvents()
-  {
+  {    
     $this->assertTrue( $this->object->insertCategoriesPoisEvents() );
+
+    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 801 );
+
+    $this->assertEquals( 'Singapore Botanic Gardens', $poi[ 'poi_name' ] );
   }
 
+  /*
+   *
+   */
   public function testFetchPoiAndPoiCategory()
   {
     $this->assertTrue( $this->object->fetchPoiAndPoiCategory( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=8355&key=ffab6a24c60f562ecf705130a36c1d1e' ) instanceof SimpleXMLElement );
