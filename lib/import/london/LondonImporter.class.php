@@ -123,7 +123,10 @@ class LondonImporter
 
 				$event[ 'vendor_event_id' ] = $item[ 'event_id' ];
 
-				$event[ 'name' ] = $item[ 'SLLEvent' ][ 'title' ];
+				$event[ 'name' ]        = $item[ 'SLLEvent' ][ 'title' ];
+				$event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
+				$event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
+				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
 
 				$event->save( );
 
