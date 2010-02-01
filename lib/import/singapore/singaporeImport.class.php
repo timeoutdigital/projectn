@@ -3,7 +3,7 @@
  * Description of singaporeImport
  *
  * @package projectn
- * @subpackage lib
+ * @subpackage singapore.import.lib
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @copyright Timeout Communications Ltd
@@ -36,7 +36,7 @@ class singaporeImport {
    * @param $vendorObj Vendor
    *
    */
-  public function  __construct( $dataXml, $vendorObj )
+  public function  __construct( SimpleXMLElement $dataXml, Vendor $vendorObj )
   {
     $this->_dataXml = $dataXml;
     $this->_vendor = $vendorObj;

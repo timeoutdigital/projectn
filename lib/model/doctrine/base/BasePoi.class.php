@@ -181,7 +181,7 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->hasColumn('country', 'string', 3, array(
              'type' => 'string',
              'notnull' => true,
-             'regexp' => '/^[a-zA-Z]$/',
+             'regexp' => '/^[a-zA-Z]{3}$/',
              'length' => '3',
              ));
         $this->hasColumn('additional_address_details', 'string', 128, array(
