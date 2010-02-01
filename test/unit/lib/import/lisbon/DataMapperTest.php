@@ -61,19 +61,19 @@ class UnitTestDataMapper extends DataMapper
 {
   public function mapPois()
   {
-    $this->notifyImporter( new NullDoctrineRecord() );
+    $this->notifyImporter( new RecordData('Poi') );
   }
   public function mapEvents()
   {
-    $this->notifyImporter( new NullDoctrineRecord() );
+    $this->notifyImporter( new RecordData('Poi') );
   }
   public function mapEventOccurrences()
   {
-    $this->notifyImporter( new NullDoctrineRecord() );
+    $this->notifyImporter( new RecordData('Poi') );
   }
   public function mapMovies()
   {
-    $this->notifyImporter( new NullDoctrineRecord() );
+    $this->notifyImporter( new RecordData('Poi') );
   }
 }
 ?>

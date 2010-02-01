@@ -95,11 +95,12 @@ class Importer
    * 
    * Listens to DataMapper notifications
    * 
-   * @param Doctrine_Record $record
+   * @param RecordData $recordData
    */
-  public function onRecordMapped( Doctrine_Record $record )
+  public function onRecordMapped( RecordData $recordData )
   {
-    //record exists?
+    $record = $this->getRecordUsingData( $recordData );
+    
     //transform( $records )
     if( $record->isValid( true ) )
     {
@@ -112,6 +113,39 @@ class Importer
       //echo $record->getErrorStackAsString();
       $this->output( 'x' );
     }
+  }
+
+  /**
+   * @param RecordData $data
+   * @returns Doctrine_Record
+   */
+  protected function getRecordUsingData( RecordData $recordData )
+  {
+    $data = $recordData->getData();
+
+    $recordClass = $recordData->getClass();
+
+    if( !is_null( $data[ 'id' ] ) )
+    {
+      $record = Doctrine::getTable( $recordClass )->findOneById( $data[ 'id' ] );
+    }
+    else
+    {
+      $record = new $recordClass();
+    }
+
+    $record->fromArray( $data );
+
+    /* START workaround: http://www.doctrine-project.org/jira/browse/DC-242 ?*/
+    $relations = $record->getReferences();
+    foreach( $relations as $relation => $related )
+    {
+      $record[ $relation ] = $related;
+    }
+    $record->clearRelated();
+    /* END work around*/
+
+    return $record;
   }
 
   /**

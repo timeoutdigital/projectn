@@ -104,7 +104,7 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   *
+   * test DataMappers as run
    */
   public function testDataMappersAreRun()
   {
@@ -122,7 +122,7 @@ class ImporterTest extends PHPUnit_Framework_TestCase
 
 
   /**
-   *
+   * test mapped data is saved
    */
   public function testMappedDataIsSaved()
   {
@@ -133,8 +133,25 @@ class ImporterTest extends PHPUnit_Framework_TestCase
     $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
 
     $importer->run();
+    
+    $poiTable = Doctrine::getTable( 'Poi' );
+    $this->assertEquals( 2, $poiTable->count() );
 
-    $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+    $poiCategoryTable = Doctrine::getTable( 'PoiCategory' );
+    $this->assertEquals( 1, $poiCategoryTable->count() );
+
+    $poiCategory2 = ProjectN_Test_Unit_Factory::get('PoiCategory');
+    $poiCategory2->save();
+    
+    $poi = $poiTable->findOneById( 1 );
+    
+    $poiCategory = $poiCategoryTable->findOneById( 1 );
+    $poiCatFromDb = $poiCategory->getId();
+    $poiCatFromObject = $poi->getPoiCategories()->getFirst()->getId();
+    $this->assertEquals( $poiCatFromDb, $poiCatFromObject );
+
+    $this->assertEquals( 1, $poi->getPoiCategories()->count() );
+    $this->assertNotEquals( $poiCategory2['id'], $poi->getPoiCategories()->getFirst()->getId() );
   }
 }
 
@@ -142,7 +159,9 @@ class UnitTestImporterDataMapper extends DataMapper
 {
   public function mapPois()
   {
-    $this->notifyImporter( ProjectN_Test_Unit_Factory::get( 'poi' ) );
+    $poi = ProjectN_Test_Unit_Factory::get('Poi');
+    $poi->save();
+    $this->notifyImporter( new RecordData( 'Poi', $poi->toArray() ) );
   }
 }
 ?>
