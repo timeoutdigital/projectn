@@ -38,7 +38,6 @@ class ftpImporter {
         $data = $this->ftpRequest();
 
         $simpleXml = simplexml_load_string($data);
-        print_r($simpleXml);
         
     }
 
@@ -47,7 +46,7 @@ class ftpImporter {
     {
         
       $fullUrl = 'ftp://'.$this->_username.':'.$this->_password.'@'. $this->_url.'/'. $this->_file;
-        echo $fullUrl;
+     
        $ch=curl_init();
        curl_setopt($ch, CURLOPT_URL, $fullUrl);
        curl_setopt($ch, CURLOPT_TIMEOUT, 200);

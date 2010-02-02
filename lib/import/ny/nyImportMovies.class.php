@@ -193,7 +193,6 @@ class importNyMovies
             
             //Add the rest of data
             $excistingPio['vendor_poi_id'] = (string) $poi['theaterId'];
-            $excistingPio['country_code'] = 'US';
             $excistingPio['local_language'] = 'english';
             $excistingPio['vendor_id'] = $this->_vendorObj['id'];
             $excistingPio['longitude'] = (float) $poi->longitude;
@@ -238,7 +237,6 @@ class importNyMovies
     $poiObj['longitude'] = (float) $poi->longitude;
     $poiObj['latitude'] = (float) $poi->latitude;
     $poiObj['vendor_poi_id'] = (string) $poi['theaterId'];
-    $poiObj['country_code'] = 'US';
     $poiObj['zips'] = (string) $poi->address->postalCode;
     $poiObj['vendor_id'] = $this->_vendorObj['id'];
     $poiObj['local_language'] = 'english';

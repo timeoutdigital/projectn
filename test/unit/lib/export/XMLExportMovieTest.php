@@ -57,7 +57,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $poi->setCountry( 'GRB' );
     $poi->setVendorPoiId( '123' );
     $poi->setLocalLanguage('en');
-    $poi->setCountryCode( 'uk' );
     $poi->setLongitude( '0.1' );
     $poi->setLatitude( '0.2' );
     $poi->link( 'Vendor', array( 1 ) );
@@ -74,7 +73,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $poi2->setCountry( 'GRB' );
     $poi2->setVendorPoiId( '123' );
     $poi2->setLocalLanguage('en');
-    $poi2->setCountryCode( 'uk' );
     $poi2->setLongitude( '0.1' );
     $poi2->setLatitude( '0.2' );
     $poi2->link( 'Vendor', array( 1 ) );

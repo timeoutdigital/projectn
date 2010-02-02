@@ -45,7 +45,6 @@ class LisbonFeedVenuesMapper extends DataMapper
       $poi['country'] = 'Portugal';
       $poi['additional_address_details'] = '';
       $poi['zips'] = $venueElement['postcode'];
-      $poi['country_code'] = '';
       $poi['extension'] = '';
       $poi['longitude'] = 0;
       $poi['latitude'] = 0;
