@@ -105,6 +105,9 @@ class importTask extends sfBaseTask
       case 'singapore':
         $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-US');
 
+        //must be set for price range function
+        setlocale(LC_MONETARY, 'en_US.UTF-8');
+
         switch( $options['type'] )
         {
           case 'poi-event':
