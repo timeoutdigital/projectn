@@ -36,10 +36,11 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
   public function mapListings()
   {
+    return;
     foreach( $this->xml->listings as $listingElement )
     {
       $event = array();
-      $this->mapAvailableData( $event, $listingElement );
+      //$this->mapAvailableData( $event, $listingElement );
 
       $event['booking_url'] = 'NA';
       $event['url'] = 'NA';

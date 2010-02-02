@@ -66,10 +66,6 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Portugal', $poi['country'] );
     $this->assertEquals( '', $poi['additional_address_details'] );
     $this->assertEquals( '', $poi['zips'] );
-<<<<<<< Updated upstream:test/unit/lib/import/lisbon/LisbonFeedVenuesMapperTest.php
-    $this->assertEquals( '', $poi['country'] );
-=======
->>>>>>> Stashed changes:test/unit/lib/import/lisbon/LisbonFeedVenuesMapperTest.php
     $this->assertEquals( 0, $poi['longitude'] );
     $this->assertEquals( 0, $poi['latitude'] );
     $this->assertEquals( '', $poi['email'] );

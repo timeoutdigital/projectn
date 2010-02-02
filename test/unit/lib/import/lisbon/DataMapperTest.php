@@ -77,19 +77,19 @@ class UnitTestDataMapper extends DataMapper
 {
   public function mapPois()
   {
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
   public function mapEvents()
   {
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
   public function mapEventOccurrences()
   {
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
   public function mapMovies()
   {
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
 }
 
@@ -100,22 +100,22 @@ class UnitTestOrderDataMapper extends DataMapper
   public function mapOne()
   {
     $this->calls[] = 'one';
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
   public function mapTwo()
   {
     $this->calls[] = 'two';
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
   public function mapThree()
   {
     $this->calls[] = 'three';
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
   public function mapFour()
   {
     $this->calls[] = 'four';
-    $this->notifyImporter( new RecordData('Poi') );
+    $this->notifyImporter( new Poi() );
   }
 }
 ?>

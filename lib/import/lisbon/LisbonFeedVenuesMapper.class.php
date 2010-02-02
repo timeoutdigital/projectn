@@ -11,7 +11,7 @@
  * @version 1.0.1
  *
  */
-class LisbonFeedVenuesMapper extends DataMapper
+class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
 {
   /**
    * @var SimpleXMLElement
@@ -33,23 +33,18 @@ class LisbonFeedVenuesMapper extends DataMapper
   {
     foreach( $this->xml->venues as $venueElement )
     {
-
       $poi = new Poi();
-      $poi['vendor_poi_id'] = $venueElement['placeid'];
+      $this->mapAvailableData($poi, $venueElement, $propertiesKey);
+      
       $poi['review_date'] = '';
       $poi['local_language'] = 'PTR';
-      $poi['poi_name'] = $venueElement['name'];
-      $poi['house_no'] = '';
-      $poi['street'] = $venueElement['address'];
+      $poi['house_no'] = $this->extractAddress( $venueElement );
       $poi['city'] = 'Lisbon';
       $poi['district'] = '';
       $poi['country'] = 'Portugal';
       $poi['additional_address_details'] = '';
-      $poi['zips'] = $venueElement['postcode'];
       $poi['longitude'] = 0;
       $poi['latitude'] = 0;
-      $poi['email'] = $venueElement['genemail'];
-      $poi['url'] = $venueElement['url'];
       $poi['phone'] = '';
       $poi['phone2'] = '';
       $poi['fax'] = '';
@@ -57,7 +52,7 @@ class LisbonFeedVenuesMapper extends DataMapper
       $poi['keywords'] = '';
       $poi['short_description'] = '';
       $poi['description'] = '';
-      $poi['public_transport_links'] = $this->extractTransportLinkInfo($venueElement);
+      $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
       $poi['price_information'] = '';
       $poi['openingtimes'] = '';
       $poi['star_rating'] = '';
@@ -67,6 +62,37 @@ class LisbonFeedVenuesMapper extends DataMapper
       
       $this->notifyImporter( $poi );
     }
+  }
+
+  /**
+   * Return an array of mappings from xml attributes to record fields
+   *
+   * @return array
+   */
+  protected function getMap()
+  {
+    return array(
+      'placeid'  => 'vendor_poi_id',
+      'name'     => 'poi_name',
+      'address'  => 'street',
+      'postcode' => 'zips',
+      'genemail' => 'email',
+      'url'      => 'url',
+    );
+  }
+
+  /**
+   * Return an array of attributes to ignore when mapping
+   *
+   * @return array
+   */
+  protected function getIgnoreMap()
+  {
+    return array(
+      'tubeinfo',
+      'businfo',
+      'railinfo',
+    );
   }
 
   private function extractTransportLinkInfo( SimpleXMLElement $venueElement )
@@ -86,6 +112,28 @@ class LisbonFeedVenuesMapper extends DataMapper
     if( !empty( $venueElement['railinfo'] ) )
     {
       $infoArray[] = 'Rail: ' . $venueElement['railinfo'];
+    }
+
+    return implode( ', ', $infoArray );
+  }
+
+  private function extractAddress()
+  {
+    $addressArray = array();
+
+    if( !empty( $venueElement['tubeinfo'] ) )
+    {
+      $infoArray[] = $venueElement['tubeinfo'];
+    }
+
+    if( !empty( $venueElement['businfo'] ) )
+    {
+      $infoArray[] = $venueElement['businfo'];
+    }
+
+    if( !empty( $venueElement['railinfo'] ) )
+    {
+      $infoArray[] = $venueElement['railinfo'];
     }
 
     return implode( ', ', $infoArray );
