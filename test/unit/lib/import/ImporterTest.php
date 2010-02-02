@@ -161,7 +161,7 @@ class UnitTestImporterDataMapper extends DataMapper
   {
     $poi = ProjectN_Test_Unit_Factory::get('Poi');
     $poi->save();
-    $this->notifyImporter( new RecordData( 'Poi', $poi->toArray() ) );
+    $this->notifyImporter( $poi );
   }
 }
 ?>
