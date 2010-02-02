@@ -49,7 +49,7 @@ class XMLExportEvent extends XMLExport
       foreach( $event['EventCategories'] as $category )
       {
         $this->appendRequiredElement($eventElement, 'category', $category);
-        $category->free( );
+        //$category->free( );
       }
 
 
@@ -63,8 +63,9 @@ class XMLExportEvent extends XMLExport
       //event/version/vendor-category
       foreach( $event['VendorEventCategories'] as $vendorEventCategory )
       {
+        var_dump( !$vendorEventCategory->hasAccessor( 'name' ) );
         $this->appendRequiredElement($versionElement, 'vendor-category', $vendorEventCategory['name'], XMLExport::USE_CDATA);
-        $vendorEventCategory->free();
+        //$vendorEventCategory->free();
       }
 
       //event/version/short-description
@@ -97,7 +98,7 @@ class XMLExportEvent extends XMLExport
           $propertyElement->setAttribute( 'key', $property[ 'lookup' ] );
         }
 
-        $property->free();
+        //$property->free();
       }
 
       //event/showtimes
@@ -128,13 +129,13 @@ class XMLExportEvent extends XMLExport
           $this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end']);
           $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
 
-          $eventOccurrence->free();
+          //$eventOccurrence->free();
         }
 
-        $place->free();
+        //$place->free();
       }
 
-      $event->free();
+      //$event->free();
     }
 
     return $domDocument;
