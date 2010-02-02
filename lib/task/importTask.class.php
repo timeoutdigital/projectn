@@ -27,7 +27,7 @@ class importTask extends sfBaseTask
     switch( $options['city'] )
     {
       case 'ny':
-        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-GB');
+        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
 
         switch( $options['type'] )
         {
@@ -49,7 +49,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'eating-drinking':
-            $vendor = $this->getVendorByCityAndLanguage('ny', 'english');
+            $vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
             $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
             $nyEDImport =  new importNyED( $csv, $vendor );
             $nyEDImport->insertPois();
@@ -59,7 +59,7 @@ class importTask extends sfBaseTask
         break; // end ny
 
       case 'chicago':
-        $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-GB');
+        $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-US');
 
         switch( $options['type'] )
         {
@@ -103,7 +103,7 @@ class importTask extends sfBaseTask
         break; //end lisbon
 
       case 'singapore':
-        $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-GB');
+        $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-US');
 
         switch( $options['type'] )
         {

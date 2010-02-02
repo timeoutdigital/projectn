@@ -25,7 +25,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
    Doctrine::loadData('data/fixtures');
    
-   $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-GB');
+   $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
    $dataXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_weekly_events.xml' );
 
