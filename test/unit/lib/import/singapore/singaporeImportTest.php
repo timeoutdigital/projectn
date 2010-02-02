@@ -15,6 +15,8 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected $object;
 
+  protected $xmlObj;
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -34,8 +36,10 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
                       ->method( 'getXML' )
                       ->will( $this->returnValue( $dataXMLObject ) );*/
 
-    
-   $this->object = new singaporeImport( $dataXMLObject, $vendorObj );
+   $curlObj = new curlImporter();
+   $this->xmlObj =  $curlObj->pullXml('http://www.timeoutsingapore.com/', 'xmlapi/rss', array('key' => 'ffab6a24c60f562ecf705130a36c1d1e'))->getXml();
+
+  // $this->object = new singaporeImport( $dataXMLObject, $vendorObj );
   }
 
   /**
@@ -48,18 +52,18 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   public function testInsertCategoriesPoisEvents()
   {
-    $this->assertTrue( $this->object->insertCategoriesPoisEvents() );
+   // $this->assertTrue( $this->object->insertCategoriesPoisEvents() );
   }
 
   public function testFetchPoiAndPoiCategory()
   {
-    $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_event_detail.xml' );
+    /*$stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_event_detail.xml' );
     $stubCurlImporter = $this->getMock( 'curlImporter' );
     $stubCurlImporter->expects( $this->any() )
                       ->method( 'getXML' )
                       ->will( $this->returnValue( $stubReturnXMLObject ) );
 
-    $this->assertTrue( $this->object->fetchPoiAndPoiCategory( 7766 ) );
+    $this->assertTrue( $this->object->fetchPoiAndPoiCategory( 7766 ) );*/
   }
 
 }
