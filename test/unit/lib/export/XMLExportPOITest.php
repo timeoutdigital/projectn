@@ -68,7 +68,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
-        $poi->setCountryCode( 'uk' );
         $poi->setLongitude( '0.1' );
         $poi->setLatitude( '0.2' );
         $poi->setEmail( 'you@who.com' );
@@ -107,7 +106,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
-        $poi->setCountryCode( 'uk' );
         $poi->setLongitude( '0.3' );
         $poi->setLatitude( '0.4' );
         $poi->link( 'Vendor', 2 );

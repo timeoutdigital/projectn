@@ -83,10 +83,10 @@ class dubaiImportBarsTest extends PHPUnit_Framework_TestCase
 
     public function testAddRestaurantPoi()
     {
-        foreach($this->restaurantXmlObj as $poi)
+        /**foreach($this->restaurantXmlObj as $poi)
         {
 
-            var_dump($poi);
+            //var_dump($poi);
            // $this->restaurantObj->addRestaurantPoi($poi);
 
            // $this->assertTrue($this->restaurantObj->addRestaurantPoi($poi), 'Poi added') ;
@@ -94,7 +94,7 @@ class dubaiImportBarsTest extends PHPUnit_Framework_TestCase
             break;
         }
 
-        
+        */
         
     }
 }

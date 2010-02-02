@@ -63,9 +63,7 @@ class XMLExportEvent extends XMLExport
       //event/version/vendor-category
       foreach( $event['VendorEventCategories'] as $vendorEventCategory )
       {
-        var_dump( !$vendorEventCategory->hasAccessor( 'name' ) );
-        $this->appendRequiredElement($versionElement, 'vendor-category', $vendorEventCategory['name'], XMLExport::USE_CDATA);
-        //$vendorEventCategory->free();
+          $this->appendRequiredElement($versionElement, 'vendor-category', $vendorEventCategory['name'], XMLExport::USE_CDATA);
       }
 
       //event/version/short-description

@@ -33,6 +33,7 @@ class LisbonFeedVenuesMapper extends DataMapper
   {
     foreach( $this->xml->venues as $venueElement )
     {
+
       $data = array();
       $data['vendor_poi_id'] = $venueElement['placeid'];
       $data['review_date'] = '';
@@ -45,7 +46,6 @@ class LisbonFeedVenuesMapper extends DataMapper
       $data['country'] = 'Portugal';
       $data['additional_address_details'] = '';
       $data['zips'] = $venueElement['postcode'];
-      $data['country_code'] = '';
       $data['extension'] = '';
       $data['longitude'] = 0;
       $data['latitude'] = 0;

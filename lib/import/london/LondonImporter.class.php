@@ -98,7 +98,6 @@ class LondonImporter
 				$poi[ 'zips' ] = $item[ 'SLLVenue' ][ 'postcode' ];
 
 				$poi[ 'country' ] = 'GBR';
-				$poi[ 'country_code' ] = ( string ) 'GB';
 				$poi[ 'local_language' ] = 'en-GB';
 
 				$poi[ 'latitude' ] = $item[ 'SLLVenue' ][ 'latitude' ];

@@ -62,7 +62,6 @@ protected function setUp()
         $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
-        $poi->setCountryCode( 'uk' );
         $poi->setLongitude( '0.1' );
         $poi->setLatitude( '0.2' );
         $poi->link( 'Vendor', 2 );
@@ -80,7 +79,6 @@ protected function setUp()
         $poi->setCountry( 'ABC' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
-        $poi->setCountryCode( 'uk' );
         $poi->setLongitude( '0.3' );
         $poi->setLatitude( '0.4' );
 

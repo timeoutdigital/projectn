@@ -131,7 +131,6 @@ class PoiFixture
         'country' => 'GBR',
         'vendor_poi_id' => '1',
         'local_language' =>'aaa',
-        'country_code' => 'aa',
         'longitude' => '1.1',
         'latitude' => '1.1',
     );
