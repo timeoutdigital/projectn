@@ -18,8 +18,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @property string $country
  * @property string $additional_address_details
  * @property string $zips
- * @property string $country_code
- * @property string $extension
  * @property decimal $longitude
  * @property decimal $latitude
  * @property string $email
@@ -59,8 +57,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getCountry()                    Returns the current record's "country" value
  * @method string              getAdditionalAddressDetails()   Returns the current record's "additional_address_details" value
  * @method string              getZips()                       Returns the current record's "zips" value
- * @method string              getCountryCode()                Returns the current record's "country_code" value
- * @method string              getExtension()                  Returns the current record's "extension" value
  * @method decimal             getLongitude()                  Returns the current record's "longitude" value
  * @method decimal             getLatitude()                   Returns the current record's "latitude" value
  * @method string              getEmail()                      Returns the current record's "email" value
@@ -99,8 +95,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setCountry()                    Sets the current record's "country" value
  * @method Poi                 setAdditionalAddressDetails()   Sets the current record's "additional_address_details" value
  * @method Poi                 setZips()                       Sets the current record's "zips" value
- * @method Poi                 setCountryCode()                Sets the current record's "country_code" value
- * @method Poi                 setExtension()                  Sets the current record's "extension" value
  * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
  * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
  * @method Poi                 setEmail()                      Sets the current record's "email" value
@@ -193,16 +187,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => false,
              'length' => '16',
-             ));
-        $this->hasColumn('country_code', 'string', 2, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '2',
-             ));
-        $this->hasColumn('extension', 'string', 128, array(
-             'type' => 'string',
-             'notnull' => false,
-             'length' => '128',
              ));
         $this->hasColumn('longitude', 'decimal', 18, array(
              'type' => 'decimal',
