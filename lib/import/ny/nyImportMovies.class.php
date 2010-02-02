@@ -133,6 +133,9 @@ class importNyMovies
         }//end if        
      }//end outter occurance loop
 
+     $this->_movieLoggerObj->saveStats();
+     $this->_poiLoggerObj->saveStats();
+
      return true;
   }
 
@@ -357,7 +360,8 @@ class importNyMovies
 
   
   /**
-   * Get the movie genre
+   * Get the movie genre$this->_movieLoggerObj->saveStats();
+//      $thi
    *
    * @param string $name
    * @return object The Genre object
@@ -381,8 +385,8 @@ class importNyMovies
    */
   public function  __destruct()
   {
-      $this->_movieLoggerObj->saveStats();
-      $this->_poiLoggerObj->saveStats();
+//      $this->_movieLoggerObj->saveStats();
+//      $this->_poiLoggerObj->saveStats();
   }
 }
 ?>

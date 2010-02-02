@@ -110,6 +110,24 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
+   * testFormatPriceRange
+   */
+  public function testFormatPriceRange()
+  {
+    setlocale(LC_MONETARY, 'en_GB.UTF-8');
+
+    $this->assertEquals( '', stringTransform::formatPriceRange( '0', '0.00' ) );
+    $this->assertEquals( '£ 1.00', stringTransform::formatPriceRange( '1', '0.00' ) );
+    $this->assertEquals( 'between £ 1.00 and £ 5.00', stringTransform::formatPriceRange( '1', '5' ) );
+    $this->assertEquals( 'between £ 1.50 and £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00' ) );
+    $this->assertEquals( '£ 1.50 - £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
+
+    setlocale(LC_MONETARY, 'en_US.UTF-8');
+
+    $this->assertEquals( '$1.50 - $3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
+  }
+
+  /**
    * Test concatNonBlankStrings
    */
   public function testConcatNonBlankStrings()

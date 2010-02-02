@@ -56,6 +56,51 @@ class stringTransform {
 
   }
 
+  /*
+   * formatPriceRange formats a from to price range, make sure the locale
+   * is set correctly
+   *
+   * @param mixed $minPrice
+   * @param mixed $maxPrice
+   * @param string $format optional switch to choose between the formats
+   *        supported 'short' and 'long' (default)
+   *
+   * @return string the price range string
+   *
+   */
+  public static function formatPriceRange( $minPrice, $maxPrice, $format='long' )
+  {
+    $returnString = '';
+
+    if ( is_numeric( $minPrice ) && is_numeric( $maxPrice ) && 0 < (int) $minPrice &&  0 <= (int) $maxPrice )
+    {
+      $moneyFormatString = '%.2n';
+
+      if ( (int) $maxPrice == 0 )
+      {
+        $returnString = money_format( $moneyFormatString, $minPrice );
+      }
+      else
+      {
+        switch( $format )
+        {
+          case 'short':
+            $returnString = money_format( $moneyFormatString, $minPrice ) . ' - ' . money_format( $moneyFormatString, $maxPrice ) ;
+            break;
+          case 'long':
+          default:
+            $returnString = 'between ' . money_format( $moneyFormatString, $minPrice ) . ' and ' . money_format( $moneyFormatString, $maxPrice ) ;
+            break;
+        }
+      }
+    }
+
+    //fix the issue with the missing space in front of £
+    $returnString = str_replace( '£', '£ ', $returnString );
+
+    return $returnString;
+  }
+
   /**
    * Takes an array of strings implodes only values that are not blank using $glue
    *

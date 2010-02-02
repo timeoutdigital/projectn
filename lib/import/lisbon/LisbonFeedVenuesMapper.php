@@ -33,39 +33,40 @@ class LisbonFeedVenuesMapper extends DataMapper
   {
     foreach( $this->xml->venues as $venueElement )
     {
-      $poi = new Poi();
-      $poi['vendor_poi_id'] = $venueElement['placeid'];
-      $poi['review_date'] = '';
-      $poi['local_language'] = 'PTR';
-      $poi['poi_name'] = $venueElement['name'];
-      $poi['house_no'] = '';
-      $poi['street'] = $venueElement['address'];
-      $poi['city'] = 'Lisbon';
-      $poi['district'] = '';
-      $poi['country'] = 'Portugal';
-      $poi['additional_address_details'] = '';
-      $poi['zips'] = $venueElement['postcode'];
-      $poi['extension'] = '';
-      $poi['longitude'] = 0;
-      $poi['latitude'] = 0;
-      $poi['email'] = $venueElement['genemail'];
-      $poi['url'] = $venueElement['url'];
-      $poi['phone'] = '';
-      $poi['phone2'] = '';
-      $poi['fax'] = '';
-      $poi['vendor_category'] = '';
-      $poi['keywords'] = '';
-      $poi['short_description'] = '';
-      $poi['description'] = '';
-      $poi['public_transport_links'] = $this->extractTransportLinkInfo($venueElement);
-      $poi['price_information'] = '';
-      $poi['openingtimes'] = '';
-      $poi['star_rating'] = '';
-      $poi['rating'] = '';
-      $poi['provider'] = '';
-      $poi['vendor_id'] = $this->vendor['id'];
-      $this->notifyImporter($poi);
-      $poi->free(true);
+
+      $data = array();
+      $data['vendor_poi_id'] = $venueElement['placeid'];
+      $data['review_date'] = '';
+      $data['local_language'] = 'PTR';
+      $data['poi_name'] = $venueElement['name'];
+      $data['house_no'] = '';
+      $data['street'] = $venueElement['address'];
+      $data['city'] = 'Lisbon';
+      $data['district'] = '';
+      $data['country'] = 'Portugal';
+      $data['additional_address_details'] = '';
+      $data['zips'] = $venueElement['postcode'];
+      $data['extension'] = '';
+      $data['longitude'] = 0;
+      $data['latitude'] = 0;
+      $data['email'] = $venueElement['genemail'];
+      $data['url'] = $venueElement['url'];
+      $data['phone'] = '';
+      $data['phone2'] = '';
+      $data['fax'] = '';
+      $data['vendor_category'] = '';
+      $data['keywords'] = '';
+      $data['short_description'] = '';
+      $data['description'] = '';
+      $data['public_transport_links'] = $this->extractTransportLinkInfo($venueElement);
+      $data['price_information'] = '';
+      $data['openingtimes'] = '';
+      $data['star_rating'] = '';
+      $data['rating'] = '';
+      $data['provider'] = '';
+      $data['vendor_id'] = $this->vendor['id'];
+      
+      $this->notifyImporter( new RecordData( 'Poi', $data ) );
     }
   }
 
