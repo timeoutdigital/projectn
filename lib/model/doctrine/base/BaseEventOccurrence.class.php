@@ -64,10 +64,10 @@ abstract class BaseEventOccurrence extends sfDoctrineRecord
              'type' => 'date',
              'notnull' => false,
              ));
-        $this->hasColumn('utc_offset', 'string', 6, array(
+        $this->hasColumn('utc_offset', 'string', 9, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '6',
+             'length' => '9',
              ));
         $this->hasColumn('event_id', 'integer', null, array(
              'type' => 'integer',

@@ -25,22 +25,13 @@
                   <a href="classtrees_projectn API.html">projectn API</a>
                 </li>
                               <li>
-                  <a href="classtrees_doctrine-model-lib.html">doctrine-model-lib</a>
-                </li>
-                              <li>
-                  <a href="classtrees_import-lib.html">import-lib</a>
-                </li>
-                              <li>
-                  <a href="classtrees_london-import-lib.html">london-import-lib</a>
-                </li>
-                              <li>
-                  <a href="classtrees_ny-import-lib-projectn.html">ny-import-lib-projectn</a>
-                </li>
-                              <li>
                   <a href="classtrees_projectn.html">projectn</a>
                 </li>
                               <li>
                   <a href="classtrees_sf_sandbox.html">sf_sandbox</a>
+                </li>
+                              <li>
+                  <a href="classtrees_test.html">test</a>
                 </li>
                           </ul>
           </div>
@@ -52,13 +43,62 @@
                                                                 <div class="menu">
           
                                     
-                                                                                                                                                                    [ <a href="index.html">Index</a> ]
+                                                                                                  [ <a href="index.html">Index</a> ]
                       [ <a href="classtrees_projectn API.html">projectn API classes</a> ]
             [ <a href="elementindex_projectn API.html">projectn API elements</a> ]
                     [ <a href="elementindex.html">All elements</a> ]
           [ <a href="errors.html">Errors</a> ]
                 </div><h2>Todo List</h2>
+<h2>projectn API</h2>
+<h3><a href="projectn API/curlImporterTest.html#methodtestBuildCurlParamString">curlImporterTest::testBuildCurlParamString()</a></h3>
+<ul>
+    <li>Implement testBuildCurlParamString().</li>
+</ul>
+<h3><a href="projectn API/curlImporterTest.html#methodtestCurlRequest">curlImporterTest::testCurlRequest()</a></h3>
+<ul>
+    <li>Implement testCurlRequest().</li>
+</ul>
+<h3><a href="projectn API/EventTableTest.html#methodtestFindByVendorId">EventTableTest::testFindByVendorId()</a></h3>
+<ul>
+    <li>Implement testFindByVendorId().</li>
+</ul>
+<h3><a href="projectn API/curlImporterTest.html#methodtestGetFeed">curlImporterTest::testGetFeed()</a></h3>
+<ul>
+    <li>Implement testGetFeed().</li>
+</ul>
+<h3><a href="projectn API/geoEncodeTest.html#methodtestGetGeoCodeData">geoEncodeTest::testGetGeoCodeData()</a></h3>
+<ul>
+    <li>mock/stub the function</li>
+</ul>
+<h3><a href="projectn API/importNyTest.html#methodtestInsertEvent">importNyTest::testInsertEvent()</a></h3>
+<ul>
+    <li>add occurrence</li>
+</ul>
+<h3><a href="projectn API/importNyTest.html#methodtestInsertPoi">importNyTest::testInsertPoi()</a></h3>
+<ul>
+    <li>Create Regreshion test</li>
+</ul>
+<h3><a href="projectn API/DataMapperTest.html#methodtestMapFunctionsNotifyImporter">DataMapperTest::testMapFunctionsNotifyImporter()</a></h3>
+<ul>
+    <li>Implement testMapPois().</li>
+</ul>
+<h3><a href="projectn API/LondonImporterTest.html#methodtestRun">LondonImporterTest::testRun()</a></h3>
+<ul>
+    <li>Implement testRun().</li>
+</ul>
+<h3><a href="projectn API/XMLExportTest.html#methodtestRunCallsAbstractMethods">XMLExportTest::testRunCallsAbstractMethods()</a></h3>
+<ul>
+    <li>Implement testRun().</li>
+</ul>
+<h3><a href="projectn API/dubaiImportBars.html#method__construct">dubaiImportBars::__construct()</a></h3>
+<ul>
+    <li>get by Vendo and type</li>
+</ul>
 <h2>projectn</h2>
+<h3><a href="projectn/ny-import-lib/importNyED.html">importNyED</a></h3>
+<ul>
+    <li>finish class - currently awaiting verification as to whether its now needed.</li>
+</ul>
 <h3><a href="projectn/ny-import-lib/importNy.html#methodinsertEvent">importNy::insertEvent()</a></h3>
 <ul>
     <li>sort out attributes</li>
@@ -66,6 +106,21 @@
 <h3><a href="projectn/ny-import-lib/importNy.html#methodinsertPoi">importNy::insertPoi()</a></h3>
 <ul>
     <li>go through the xml with a proper source xml editor to make sure that   no information is left out</li>
+</ul>
+<h3><a href="projectn/export-lib/XMLExportMovie.html#methodmapDataToDOMDocument">XMLExportMovie::mapDataToDOMDocument()</a></h3>
+<ul>
+    <li>confirm where the place tag belongs</li>
+    <li>correct movie/version/name to use real value</li>
+    <li>correct movie@id to use real value</li>
+    <li>correct version@lang use real value</li>
+</ul>
+<h3><a href="projectn/export-lib/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
+<ul>
+    <li>PoiCateory needs to be one-to-many not one-to-one</li>
+</ul>
+<h3><a href="projectn/lib/Importer.html#methodonRecordMapped">Importer::onRecordMapped()</a></h3>
+<ul>
+    <li><p>implement logger</p><p>Listens to DataMapper notifications</p></li>
 </ul>
 <h3><a href="projectn/lib/processCsv.html">processCsv</a></h3>
 <ul>
@@ -81,20 +136,13 @@
     <li>add logging enable validation (commented out at the moment below)</li>
     <li>possibly add transactions</li>
 </ul>
-<h2>projectn API</h2>
-<h3><a href="projectn API/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
+<h2>test</h2>
+<h3><a href="test/lib-unit/loggerTest.html#methodtestSaveStats">loggerTest::testSaveStats()</a></h3>
 <ul>
-    <li>PoiCateory needs to be one-to-many not one-to-one</li>
-</ul>
-<h3><a href="projectn API/XMLExportMovie.html#methodmapDataToDOMDocument">XMLExportMovie::mapDataToDOMDocument()</a></h3>
-<ul>
-    <li>confirm where the place tag belongs</li>
-    <li>correct movie/version/name to use real value</li>
-    <li>correct movie@id to use real value</li>
-    <li>correct version@lang use real value</li>
+    <li>Implement testSaveStats().</li>
 </ul>
                 <div class="credit">
-                  Documentation generated on Thu, 28 Jan 2010 11:51:24 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Mon, 01 Feb 2010 17:51:58 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>
