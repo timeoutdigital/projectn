@@ -97,9 +97,9 @@ class Importer
    * 
    * @param RecordData $recordData
    */
-  public function onRecordMapped( RecordData $recordData )
+  public function onRecordMapped( Doctrine_Record $record )
   {
-    $record = $this->getRecordUsingData( $recordData );
+    //$record = $this->getRecordUsingData( $recordData );
     
     //transform( $records )
     if( $record->isValid( true ) )
@@ -135,6 +135,7 @@ class Importer
     }
 
     $record->fromArray( $data );
+
 
     /* START workaround: http://www.doctrine-project.org/jira/browse/DC-242 ?*/
     $relations = $record->getReferences();

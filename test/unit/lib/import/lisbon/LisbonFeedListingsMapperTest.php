@@ -47,14 +47,26 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   /**
    * @todo Implement testMapVenues().
    */
-  public function testMapVenues()
+  public function testMapListings()
   {
-//    $importer = new Importer();
-//    $importer->addDataMapper( $this->object );
-//    $importer->run();
-//
-//    $events = Doctrine::getTable('Event')->findAll();
-//    $this->assertEquals( 3, $events->count() );
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $events = Doctrine::getTable( 'Event' )->findAll();
+    $this->assertEquals( 3, $events->count() );
+
+    $event = $events[0];
+
+    $this->assertEquals( '168032', $event['vendor_event_id'] );
+    $this->assertEquals( 'Arquitecto José Santa-Rita, arquitecto: Obra, marcas e identidade(s) de um percu', $event['name'] );
+    $this->assertEquals( 'Constituindo, pela primeira vez, uma homenagem póstuma, esta edição do Prémio Mu', $event['short_description'] );
+    $this->assertRegExp( '/^Constituindo,.*Exposições.$/', $event['description'] );
+    $this->assertEquals( 'NA', $event['booking_url'] );
+    $this->assertEquals( 'NA', $event['url'] );
+    $this->assertEquals( '', $event['price'] );
+    $this->assertEquals( 'NA', $event['rating'] );
+    $this->assertEquals( '1', $event['vendor_id'] );
   }
 }
 ?>

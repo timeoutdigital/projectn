@@ -55,6 +55,22 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
     $this->object->mapEventOccurrences();
     $this->object->mapMovies();
   }
+
+  /**
+   * test that the map functions are called in the order they are declared
+   */
+  public function testMapFunctionsOrder()
+  {
+    $importer = $this->getMock( 'Importer', array( 'onRecordMapped' ) );
+    $importer->expects( $this->exactly( 4 ) )
+             ->method( 'onRecordMapped' );
+
+    $dataMapper = new UnitTestOrderDataMapper();
+    $importer->addDataMapper($dataMapper);
+
+    $importer->run();
+    $this->assertEquals( array( 'one', 'two', 'three', 'four' ), $dataMapper->calls );
+  }
 }
 
 class UnitTestDataMapper extends DataMapper
@@ -73,6 +89,32 @@ class UnitTestDataMapper extends DataMapper
   }
   public function mapMovies()
   {
+    $this->notifyImporter( new RecordData('Poi') );
+  }
+}
+
+class UnitTestOrderDataMapper extends DataMapper
+{
+  public $calls = array();
+
+  public function mapOne()
+  {
+    $this->calls[] = 'one';
+    $this->notifyImporter( new RecordData('Poi') );
+  }
+  public function mapTwo()
+  {
+    $this->calls[] = 'two';
+    $this->notifyImporter( new RecordData('Poi') );
+  }
+  public function mapThree()
+  {
+    $this->calls[] = 'three';
+    $this->notifyImporter( new RecordData('Poi') );
+  }
+  public function mapFour()
+  {
+    $this->calls[] = 'four';
     $this->notifyImporter( new RecordData('Poi') );
   }
 }
