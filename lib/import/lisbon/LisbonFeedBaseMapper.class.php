@@ -42,7 +42,7 @@ class LisbonFeedBaseMapper extends DataMapper
       }
       else
       {
-        echo $key . '->' . (string) $value . PHP_EOL;
+        //echo $key . '->' . (string) $value . PHP_EOL;
         $record->addProperty( $key, (string) $value );
       }
     }

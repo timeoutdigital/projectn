@@ -38,11 +38,10 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       
       $poi['review_date'] = '';
       $poi['local_language'] = 'PTR';
-      $poi['house_no'] = $this->extractAddress( $venueElement );
       $poi['city'] = 'Lisbon';
       $poi['district'] = '';
       $poi['country'] = 'Portugal';
-      $poi['additional_address_details'] = '';
+      $poi['additional_address_details'] = $this->extractAddress( $venueElement );;
       $poi['longitude'] = 0;
       $poi['latitude'] = 0;
       $poi['phone'] = '';
@@ -72,12 +71,13 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   protected function getMap()
   {
     return array(
-      'placeid'  => 'vendor_poi_id',
-      'name'     => 'poi_name',
-      'address'  => 'street',
-      'postcode' => 'zips',
-      'genemail' => 'email',
-      'url'      => 'url',
+      'placeid'    => 'vendor_poi_id',
+      'name'       => 'poi_name',
+      'address'    => 'street',
+      'postcode'   => 'zips',
+      'genemail'   => 'email',
+      'url'        => 'url',
+      'buildingno' => 'house_no',
     );
   }
 
@@ -92,6 +92,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'tubeinfo',
       'businfo',
       'railinfo',
+      'additional_address_details',
     );
   }
 
@@ -117,26 +118,36 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
     return implode( ', ', $infoArray );
   }
 
-  private function extractAddress()
+  private function extractAddress( $venueElement )
   {
     $addressArray = array();
 
-    if( !empty( $venueElement['tubeinfo'] ) )
+    if( !empty( $venueElement['address'] ) )
     {
-      $infoArray[] = $venueElement['tubeinfo'];
+      $addressArray[] = $venueElement['address'];
     }
 
-    if( !empty( $venueElement['businfo'] ) )
+    if( !empty( $venueElement['address1'] ) )
     {
-      $infoArray[] = $venueElement['businfo'];
+      $addressArray[] = $venueElement['address1'];
     }
 
-    if( !empty( $venueElement['railinfo'] ) )
+    if( !empty( $venueElement['address2'] ) )
     {
-      $infoArray[] = $venueElement['railinfo'];
+      $addressArray[] = $venueElement['address2'];
     }
 
-    return implode( ', ', $infoArray );
+    if( !empty( $venueElement['address3'] ) )
+    {
+      $addressArray[] = $venueElement['address3'];
+    }
+
+    if( !empty( $venueElement['address4'] ) )
+    {
+      $addressArray[] = $venueElement['address4'];
+    }
+
+    return implode( ', ', $addressArray );
   }
 }
 ?>
