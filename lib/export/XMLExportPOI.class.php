@@ -107,11 +107,7 @@ class XMLExportPOI extends XMLExport
       foreach( $poi[ 'PoiProperty' ] as $property )
       {
         $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $property['value'], XMLExport::USE_CDATA);
-
-        if ( $propertyElement instanceof DOMElement )
-        {
-          $propertyElement->setAttribute( 'key', $property['lookup'] );
-        }
+        $propertyElement->setAttribute( 'key', $property['lookup'] );
       }
     }
 

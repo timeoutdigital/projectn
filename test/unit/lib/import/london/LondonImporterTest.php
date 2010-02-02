@@ -83,7 +83,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals( 'GBR',                   $poi[ 'country' ] );
 		$this->assertEquals( '',                      $poi[ 'additional_address_details' ] );
 		$this->assertEquals( 'Dummy Postcode 1',      $poi[ 'zips' ] );
-		$this->assertEquals( 'GB',                    $poi[ 'country_code' ] );
+		$this->assertEquals( 'GB',                    $poi[ 'country' ] );
 		$this->assertEquals( '',                      $poi[ 'extension' ] );
 		$this->assertEquals( '51.0000000',            $poi[ 'latitude' ] );
 		$this->assertEquals( '-0.10000000',           $poi[ 'longitude' ] );

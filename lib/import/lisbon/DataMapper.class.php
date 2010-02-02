@@ -40,7 +40,7 @@ abstract class DataMapper
     $this->importer = $importer;
   }
 
-  protected function notifyImporter( RecordData $record )
+  protected function notifyImporter( Doctrine_Record $record )
   {
     $this->importer->onRecordMapped( $record );
   }

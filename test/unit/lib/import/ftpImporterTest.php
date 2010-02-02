@@ -36,7 +36,7 @@ class ftpImporterTest extends PHPUnit_Framework_TestCase
      */
     public function testPullXml()
     {
-        $this->object->pullXml('ftp.timeoutchicago.com', 'timeout', 'y6fv2LS8', 'toc_ed.xml');
+        //$this->object->pullXml('ftp.timeoutchicago.com', 'timeout', 'y6fv2LS8', 'toc_ed.xml');
         
     }
 }

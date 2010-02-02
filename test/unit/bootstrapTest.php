@@ -5,8 +5,21 @@ require_once dirname(__FILE__).'/../bootstrap/unit.php';
 require_once dirname(__FILE__).'/bootstrap.php';
 
 /**
+ * Test class the bootstrap
  *
- * @author Clarence Lee
+ * @package test
+ * @subpackage lib.unit
+ *
+ * @author Clarence Lee <clarencelee@timeout.com>
+ * @copyright Timeout Communications Ltd
+ *
+ * @version 1.0.0
+ *
+ * <b>Example</b>
+ * <code>
+ *
+ * </code>
+ *
  */
 class bootstrapTest extends PHPUnit_Framework_TestCase
 {
@@ -81,15 +94,15 @@ class bootstrapTest extends PHPUnit_Framework_TestCase
   public function testAddPoiWithDataOverride()
   {
     $name = 'Episode V: The Vendor Strikes Back';
-    $country_code = 'GB';
+    $country = 'GB';
     ProjectN_Test_Unit_Factory::add( 'poi', array(
       'poi_name' => $name,
-      'country_code' => $country_code,
+      'country' => $country,
     ) );
 
     $poi = Doctrine::getTable( 'Poi' )->findOneById( 1 );
 
     $this->assertEquals( $name, $poi[ 'poi_name' ] );
-    $this->assertEquals( $country_code, $poi[ 'country_code' ] );
+    $this->assertEquals( $country, $poi[ 'country' ] );
   }
 }

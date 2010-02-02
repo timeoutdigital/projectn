@@ -55,20 +55,17 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $poi = $pois[0];
 
-
     $this->assertEquals( 0,  $poi['vendor_poi_id'] );
     $this->assertEquals( '', $poi['review_date'] );
     $this->assertEquals( 'PTR', $poi['local_language'] );
     $this->assertEquals( 'Igreja da Memória', $poi['poi_name'] );
-    $this->assertEquals( '', $poi['house_no'] );
+    $this->assertEquals( '5', $poi['house_no'] );
     $this->assertEquals( 'Lg da Memória, ', $poi['street'] );
     $this->assertEquals( 'Lisbon', $poi['city'] );
     $this->assertEquals( '', $poi['district'] );
     $this->assertEquals( 'Portugal', $poi['country'] );
-    $this->assertEquals( '', $poi['additional_address_details'] );
+    $this->assertEquals( 'Lg da Memória, , Lg da Memória', $poi['additional_address_details'] );
     $this->assertEquals( '', $poi['zips'] );
-    $this->assertEquals( '', $poi['country_code'] );
-    $this->assertEquals( '', $poi['extension'] );
     $this->assertEquals( 0, $poi['longitude'] );
     $this->assertEquals( 0, $poi['latitude'] );
     $this->assertEquals( '', $poi['email'] );

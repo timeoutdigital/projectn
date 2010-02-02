@@ -185,13 +185,11 @@ class importNy
       $poiObj[ 'city' ] = (string) $poi->town;
       $poiObj[ 'country' ] = (string) $poi->country;      
       $poiObj[ 'local_language' ] = 'en';
-      $poiObj[ 'country_code' ] = (string) $poi->country_symbol;
       $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
       $poiObj[ 'url' ] = (string) $poi->website;
       $poiObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
       //Form and set phone number
-      $countryCodeString = (string) $poi->country_code;
       $areaCodeString = (string) $poi->telephone->area_code;
       $phoneString = (string) $poi->telephone->number;
       $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;

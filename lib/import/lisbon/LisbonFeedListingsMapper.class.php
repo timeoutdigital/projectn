@@ -11,8 +11,13 @@
  * @version 1.0.1
  *
  */
-class LisbonFeedListingsMapper extends DataMapper
+class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 {
+  /**
+   * @var Vendor
+   */
+  private $vendor;
+
   /**
    * @var SimpleXMLElement
    */
@@ -29,23 +34,37 @@ class LisbonFeedListingsMapper extends DataMapper
     $this->xml = $xml;
   }
 
-  public function mapVenues()
+  public function mapListings()
   {
+    return;
     foreach( $this->xml->listings as $listingElement )
     {
-      $event = new Event();
-      $event['vendor_event_id'] = $listingElement[''];
-      $event['name'] = '';
-      $event['short_description'] = '';
-      $event['description'] = '';
-      $event['booking_url'] = '';
-      $event['url'] = '';
-      $event['price'] = '';
-      $event['rating'] = '';
-      $event['vendor_id'] = '';
-      $this->notifyImporter($event);
-      $event->free();
+      $event = array();
+      //$this->mapAvailableData( $event, $listingElement );
+
+      $event['booking_url'] = 'NA';
+      $event['url'] = 'NA';
+      $event['rating'] = 'NA';
+      $event['vendor_id'] = $this->vendor['id'];
+
+      $this->notifyImporter( new RecordData( 'Event', $event ) );
     }
+  }
+
+  /**
+   * Return an array of mappings from xml attributes to event fields
+   *
+   * @return array
+   */
+  protected function getListingsMap()
+  {
+    return array(
+      'musicid' => 'vendor_event_id',
+      'gigKey' => 'name',
+      'Notesline1' => 'short_description',
+      'AnnotationForWeb' => 'description',
+      'priceinfo' => 'price',
+    );
   }
 }
 ?>
