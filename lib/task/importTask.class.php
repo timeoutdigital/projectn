@@ -117,8 +117,8 @@ class importTask extends sfBaseTask
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
             
-            $nyImportMoviesObj = new singaporeImport( $xmlObj, $vendorObj );
-            $nyImportMoviesObj->insertCategoriesPoisEvents();
+            $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
+            $singaporeImportObj->insertCategoriesPoisEvents();
             break;
 
           case 'film':

@@ -70,7 +70,7 @@ class singaporeImport {
       $poiId = NULL;
       if ( $eventDetailObj->venue instanceof SimpleXMLElement )
       {
-        $poiId = $this->_insertVenue( $eventDetailObj->venue );
+        $poiId = $this->_insertPoi( $eventDetailObj->venue );
       }
 
       if ( $poiId === NULL )
@@ -104,7 +104,7 @@ class singaporeImport {
   {
     $urlPartsArray = array();
     
-    preg_match ( '/^(http:\/\/.*)\?event=(.*)&key=(.*)$/', $url, $urlPartsArray );
+    preg_match ( '/^(http:\/\/.*)\?event=(.*)&(?:amp;)?key=(.*)$/', $url, $urlPartsArray );
 
     if ( count( $urlPartsArray ) == 4 )
     {
@@ -120,14 +120,14 @@ class singaporeImport {
   }
 
   /*
-   * _insertVenue
+   * _insertPoi
    *
    * @param SimpleXMLElement $venueObj
    *
    * @return int $poiId
    *
    */
-  private function _insertVenue( $venueObj )
+  private function _insertPoi( $venueObj )
   {
     
     $q = Doctrine_Query::create()
@@ -137,14 +137,7 @@ class singaporeImport {
                        ->andWhere( 'vendor_poi_id = ?',  (string) $venueObj->id )
                        ->execute();
 
-    if ( count( $q ) == 0 )
-    {
-      $poi = new Poi();
-    }
-    else
-    {
-      $poi = $q[ 0 ];
-    }
+    ( count( $q ) == 0 ) ? $poi = new Poi() : $poi = $q[ 0 ];
     
     $poi[ 'vendor_poi_id' ]              = (string) $venueObj->id;
     $poi[ 'review_date' ]                = (string) $venueObj->data_change;
@@ -166,7 +159,7 @@ class singaporeImport {
 
     $addressArray = $venueObj->xpath( 'addresses[1]/address_slot' );
 
-    if ( 0 < count($addressArray) )
+    if ( $addressArray !== false )
     {
       $poi[ 'longitude' ]                  = (string) $addressArray[0]->mm_lon;
       $poi[ 'latitude' ]                   = (string) $addressArray[0]->mm_lat;
@@ -188,8 +181,6 @@ class singaporeImport {
 
     $poi->addProperty( 'issue', (string) $venueObj->issue );
     $poi->addProperty( 'critic_choice', (string) $venueObj->critic_choice );
-    $poi->addProperty( 'min_price', (string) $venueObj->min_price );
-    $poi->addProperty( 'max_price', (string) $venueObj->max_price );
     $poi->addProperty( 'standfirst', (string) $venueObj->standfirst );
 
     $poi->save();
@@ -240,30 +231,28 @@ class singaporeImport {
                        ->andWhere( 'vendor_event_id = ?',  (string) $eventObj->id )
                        ->execute();
 
-    if ( count( $q ) == 0 )
-    {
-      $event = new Event();
-    }
-    else
-    {
-      $event = $q[ 0 ];
-    }
+    ( count( $q ) == 0 ) ? $event = new Event() : $event = $q[ 0 ];
 
     $event[ 'vendor_event_id' ] = (string) $eventObj->id;
     $event[ 'name' ] = (string) $eventObj->name;
-    $event[ 'short_description' ] = '';
+    //$event[ 'short_description' ] = '';
     $event[ 'description' ] = $eventObj->excerpt;
-    $event[ 'booking_url' ] = '';
+    //$event[ 'booking_url' ] = '';
     $event[ 'url' ] = $eventObj->website;
     $event[ 'price' ] = stringTransform::formatPriceRange( $eventObj->min_price, $eventObj->max_price );
-    $event[ 'rating' ] = '';
-    $event[ 'vendor_id' ] = '';
+    //$event[ 'rating' ] = '';
+    $event[ 'vendor_id' ] = $this->_vendor[ 'id' ];
 
     $event->addProperty( 'critic_choice', $eventObj->critic_choice );
     $event->addProperty( 'opentime', $eventObj->opentime );
-    
-    //$event[ 'EventOccurrence' ] =
-    //$this->_getEventOccurrences( $eventObj->date_start, $eventObj->date_end, $eventObj->alternative_dates );
+
+    //save to populate the id
+    $event->save();
+
+    $event[ 'EventProperty' ] = $this->_getEventOccurrences( $poiId, $event[ 'id' ],  $eventObj->date_start, $eventObj->date_end, $eventObj->alternative_dates );
+
+    $event->save();
+    $event->free();
 
     //issue
     //section
@@ -289,45 +278,62 @@ class singaporeImport {
   /*
    *
    */
-  /*private function _getEventOccurrences( $date_start, $date_end, $alternative_dates )
+  private function _getEventOccurrences( $poiId, $eventId, $dateStart, $dateEnd, $alternativeDates )
   {
 
     $datesArray = array();
-    $datesArray[] = array( 'start' => $date_start, 'end' => $date_end );
-
-    foreach( $alternative_dates as $alternative_date )
+    
+    if ( (string) $dateStart != '' )
     {
-      $datesArray[] = array( 'start' => $alternative_date->date_start, 'end' => $alternative_date->date_end );
+      if ( (string) $dateEnd != '' )
+      {
+        $datesArray[] = array( 'start' => (string) $dateStart, 'end' => (string) $dateEnd );
+      }
+      else
+      {
+        $datesArray[] = array( 'start' => (string) $dateStart );
+      }
+    }
+
+    foreach( $alternativeDates as $alternativeDate )
+    {
+      if ( (string) $alternativeDate->date_start != '' )
+      {
+        if ( (string) $alternativeDate->date_end != '' )
+        {
+          $datesArray[] = array( 'start' => (string) $alternativeDate->date_start, 'end' => (string) $alternativeDate->date_end );
+        }
+        else
+        {
+          $datesArray[] = array( 'start' => (string) $alternativeDate->date_start );
+        }
+      }
     }
 
     $eventOccurrencesArray = new Doctrine_Collection( Doctrine::getTable( 'EventOccurrence' ) );
 
     foreach( $datesArray as $date )
     {
-      
-      
-      var_export( $date['start']);
-
       $eventOccurrence = new EventOccurrence();
-      $eventOccurrence[ 'vendor_event_occurrence_id' ] ='';
-      $eventOccurrence[ 'booking_url' ] ='';
-      $eventOccurrence[ 'start' ] ='';
-      $eventOccurrence[ 'end' ] ='';
-      $eventOccurrence[ 'utc_offset' ] ='';
-      $eventOccurrence[ 'event_id' ] ='';
-      $eventOccurrence[ 'poi_id' ] ='';
+      $eventOccurrence->generateVendorOccurrenceId( $eventId, $poiId, (string) $date['start'] );
+      //$eventOccurrence[ 'booking_url' ] ='';
+      $eventOccurrence[ 'utc_offset' ] = '0';
 
-      $eventOccurrencesArray[] =
+      $eventOccurrence[ 'start' ] = date( 'Y-m-d H:i:s', strtotime( $date['start'] ) );
+      if ( isset( $date['end'] ) )
+      {
+        $eventOccurrence[ 'end' ] = $date['end'];
+      }
 
+      $eventOccurrence->link( 'Poi' , $poiId);
+      $eventOccurrence->link( 'Event' , $eventId);
 
+      $eventOccurrence->save();
+      $eventOccurrencesArray[] = $eventOccurrence;
+      $eventOccurrence->free();
+    }
 
-    }*/
-
-    
-    
-    
-
-
-
+    return $eventOccurrencesArray;
+  }
 }
 ?>
