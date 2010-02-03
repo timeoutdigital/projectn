@@ -84,6 +84,8 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $poi['rating'] );
     $this->assertEquals( '', $poi['provider'] );
     $this->assertEquals( $this->vendor['id'], $poi['vendor_id'] );
+
+    $this->assertGreaterThan( 0, $poi[ 'PoiProperty' ]->count() );
   }
 }
 ?>
