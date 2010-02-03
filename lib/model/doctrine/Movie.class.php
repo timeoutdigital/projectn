@@ -12,4 +12,12 @@
  */
 class Movie extends BaseMovie
 {
+  public function addProperty( $lookup, $value )
+  {
+    $moviePropertyObj = new MovieProperty();
+    $moviePropertyObj[ 'lookup' ] = $lookup;
+    $moviePropertyObj[ 'value' ] = $value;
+
+    $this[ 'MovieProperty' ][] = $moviePropertyObj;
+  }
 }
