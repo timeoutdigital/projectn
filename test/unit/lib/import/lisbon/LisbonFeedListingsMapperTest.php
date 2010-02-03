@@ -30,9 +30,8 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $vendor->save();
     $this->vendor = $vendor;
 
-    $this->object = new LisbonFeedListingsMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' )
-    );
+    $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' );
+    $this->object = new LisbonFeedListingsMapper( $xml );
   }
 
   /**
@@ -45,11 +44,10 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * @todo Implement testMapVenues().
+   * test mapListings has required fields and properties
    */
   public function testMapListings()
   {
-    return;
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();
@@ -68,6 +66,9 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $event['price'] );
     $this->assertEquals( 'NA', $event['rating'] );
     $this->assertEquals( '1', $event['vendor_id'] );
+
+    $properties = $event['EventProperty'];
+    $this->assertGreaterThan( 0, $properties->count() );
   }
 }
 ?>

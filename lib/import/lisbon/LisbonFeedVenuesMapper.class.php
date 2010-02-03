@@ -13,21 +13,6 @@
  */
 class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $xml;
-
-  public function __construct( SimpleXMLElement $xml )
-  {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
-    if( !$vendor )
-    {
-      throw new Exception( 'Vendor not found.' );
-    }
-    $this->vendor = $vendor;
-    $this->xml = $xml;
-  }
   
   public function mapVenues()
   {
