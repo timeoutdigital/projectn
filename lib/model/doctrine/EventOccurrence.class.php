@@ -13,37 +13,6 @@
 class EventOccurrence extends BaseEventOccurrence
 {
 
-//  public function preSave( $event )
-//  {
-//
-//    echo "xxx";
-//
-//
-//
-//
-//    if ( ! isset( $this[ 'vendor_event_id' ] ) )
-//    {
-//      echo "yyy";
-//
-//      $this->_generateVendorOccurrenceId();
-//    }
-//    else
-//    {
-//      echo "zzz";
-//
-//    }
-//  }
-//
-//  public function preValidate( $event )
-//  {
-//    if ( ! isset( $this[ 'vendor_event_id' ] ) )
-//    {
-//
-//
-//      $this->_generateVendorOccurrenceId();
-//    }
-//  }
-
   /*
    * generates a vendor occurrence id
    *

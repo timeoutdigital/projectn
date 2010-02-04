@@ -21,6 +21,9 @@ class importTask extends sfBaseTask
   {
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
+    
+    Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
+
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     //Select the task
