@@ -211,7 +211,7 @@ EventOccurrence:
     end:                        {type: date, notnull: false}
     utc_offset:                 {type: string(9), notnull: true}
     event_id:                   {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: false} #this should possibly be not null (which would imply the introduction of none venue venues)
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
     Poi:                        {local: poi_id, foreign: id, foreignType: many}

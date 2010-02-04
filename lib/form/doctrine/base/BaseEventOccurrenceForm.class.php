@@ -22,7 +22,7 @@ abstract class BaseEventOccurrenceForm extends BaseFormDoctrine
       'end'                        => new sfWidgetFormDate(),
       'utc_offset'                 => new sfWidgetFormInputText(),
       'event_id'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => false)),
-      'poi_id'                     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
+      'poi_id'                     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -33,7 +33,7 @@ abstract class BaseEventOccurrenceForm extends BaseFormDoctrine
       'end'                        => new sfValidatorDate(array('required' => false)),
       'utc_offset'                 => new sfValidatorString(array('max_length' => 9)),
       'event_id'                   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Event'))),
-      'poi_id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
+      'poi_id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event_occurrence[%s]');
