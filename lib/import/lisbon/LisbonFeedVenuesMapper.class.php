@@ -19,7 +19,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
     foreach( $this->xml->venues as $venueElement )
     {
       $poi = new Poi();
-      $this->mapAvailableData($poi, $venueElement, $propertiesKey);
+      $this->mapAvailableData($poi, $venueElement );
       
       $poi['review_date'] = '';
       $poi['local_language'] = 'PTR';
@@ -62,7 +62,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'name'       => 'poi_name',
       'address'    => 'street',
       'postcode'   => 'zips',
-      'genemail'   => 'email',
+      'genmail'    => 'email',
       'url'        => 'url',
       'buildingno' => 'house_no',
     );
@@ -80,6 +80,10 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'businfo',
       'railinfo',
       'additional_address_details',
+      'address1',
+      'address2',
+      'address3',
+      'address4',
     );
   }
 
