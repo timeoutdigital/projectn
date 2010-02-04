@@ -15,6 +15,11 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
   protected $object;
 
   /**
+   * @var int
+   */
+  private $numVenuesInFixture = 6;
+
+  /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
    */
@@ -29,9 +34,22 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     );
     $vendor->save();
     $this->vendor = $vendor;
+    
+    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
+    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
+               ->method( 'setAddress' );
+
+    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
+               ->method( 'getLongitude' )
+               ->will( $this->returnValue( 1.1 ) );
+
+    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
+               ->method( 'getLatitude' )
+               ->will( $this->returnValue( 2.2 ) );
 
     $this->object = new LisbonFeedVenuesMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_venues.short.xml' )
+      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_venues.short.xml' ),
+      $geoEncoder
     );
   }
 
@@ -51,7 +69,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
     
     $pois = Doctrine::getTable('Poi')->findAll();
-    $this->assertEquals( 6, $pois->count() );
+    $this->assertEquals(  $this->numVenuesInFixture , $pois->count() );
 
     $poi = $pois[0];
 
@@ -66,8 +84,8 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Portugal', $poi['country'] );
     $this->assertEquals( 'Lg da Memória, , Lg da Memória', $poi['additional_address_details'] );
     $this->assertEquals( '', $poi['zips'] );
-    $this->assertEquals( 0, $poi['longitude'] );
-    $this->assertEquals( 0, $poi['latitude'] );
+    $this->assertEquals( '1.1', $poi['longitude'] );
+    $this->assertEquals( '2.2', $poi['latitude'] );
     $this->assertEquals( '', $poi['email'] );
     $this->assertEquals( '', $poi['url'] );
     $this->assertEquals( '', $poi['phone'] );

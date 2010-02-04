@@ -26,9 +26,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['city'] = 'Lisbon';
       $poi['district'] = '';
       $poi['country'] = 'Portugal';
-      $poi['additional_address_details'] = $this->extractAddress( $venueElement );;
-      $poi['longitude'] = 0;
-      $poi['latitude'] = 0;
+      $poi['additional_address_details'] = $this->extractAddress( $venueElement );
       $poi['phone'] = '';
       $poi['phone2'] = '';
       $poi['fax'] = '';
@@ -43,6 +41,10 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['rating'] = '';
       $poi['provider'] = '';
       $poi['vendor_id'] = $this->vendor['id'];
+
+      $this->geoEncoder->setAddress( $this->getGeoEncodeData( $poi ) );
+      $poi['longitude'] = $this->geoEncoder->getLongitude();
+      $poi['latitude'] = $this->geoEncoder->getLatitude();
       
       $this->notifyImporter( $poi );
     }
@@ -84,7 +86,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   private function extractTransportLinkInfo( SimpleXMLElement $venueElement )
   {
     $infoArray = array();
-    
+
     if( !empty( $venueElement['tubeinfo'] ) )
     {
       $infoArray[] = 'Tube: ' . $venueElement['tubeinfo'];
@@ -133,6 +135,21 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
     }
 
     return implode( ', ', $addressArray );
+  }
+
+  /**
+   * return address for geoEncoder
+   */
+  private function getGeoEncodeData( $poi )
+  {
+    $addressData = array
+    (
+      $poi['house_no'],
+      $poi['street'],
+      $poi['zips'],
+      $poi['additional_address_details'],
+    );
+    return stringTransform::concatNonBlankStrings(', ', $addressData );
   }
 }
 ?>
