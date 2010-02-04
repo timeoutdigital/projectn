@@ -29,21 +29,34 @@ class LisbonFeedBaseMapper extends DataMapper
   protected $vendor;
 
   /**
+   * @var geoEncode
+   */
+  protected $geoEncoder;
+
+  /**
    * @var SimpleXMLElement
    */
   protected $xml;
 
-  public function __construct( SimpleXMLElement $xml )
+  public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
   {
     $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
+    
     if( !$vendor )
     {
       throw new Exception( 'Vendor not found.' );
     }
     $this->vendor = $vendor;
     $this->xml = $xml;
+
     $this->dateTimeZoneLondon = new DateTimeZone( 'Europe/London' );
     $this->dateTimeZoneLisbon = new DateTimeZone( 'Europe/Lisbon' );
+
+    if( is_null( $geoEncoder ) )
+    {
+      $geoEncoder = new geoEncode();
+    }
+    $this->geoEncoder = $geoEncoder;
   }
 
   /**
@@ -68,7 +81,7 @@ class LisbonFeedBaseMapper extends DataMapper
    * @param SimpleXMLElement $element
    * $param string $propertiesKey
    */
-  protected function mapAvailableData( $record, SimpleXMLElement $element, $propertiesKey )
+  protected function mapAvailableData( $record, SimpleXMLElement $element )
   {
     $map = $this->getMap();
     $ignoreMap = $this->getIgnoreMap();
@@ -85,14 +98,8 @@ class LisbonFeedBaseMapper extends DataMapper
       }
       else
       {
-        if( $record instanceof Event )
-        {
-          $eventPropertyObj = new EventProperty();
-          $eventPropertyObj[ 'lookup' ] = $key;
-          $eventPropertyObj[ 'value' ] = $value;
-          $record[ 'EventProperty' ][] = $eventPropertyObj;
-        }
-        $record->addProperty( $key, '(string) $value' );
+        //this seems to cause elements to be looped twice
+        $record->addProperty( $key, $value );
       }
     }
   }
