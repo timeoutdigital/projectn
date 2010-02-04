@@ -47,6 +47,8 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
    ProjectN_Test_Unit_Factory::createDatabases();
 
+   Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
+
    Doctrine::loadData('data/fixtures');
    
    $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
@@ -61,7 +63,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
                      ->method( 'getXml' )
                      ->will( $this->returnValue( $stubReturnXMLObject ) );
 
-   $this->object = new singaporeImport( $this->dataXMLObject, $this->vendorObj, $stubCurlImporter );
+   $this->object = new singaporeImport( $this->dataXMLObject, $this->vendorObj, $stubCurlImporter );   
   }
 
   /**
@@ -82,16 +84,14 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 801 );
 
     $this->assertEquals( 'Singapore Botanic Gardens', $poi[ 'poi_name' ] );
-
   }
 
   /*
    *
    */
-  public function testFetchPoiAndPoiCategory()
+  public function testFetchEventDetails()
   {
-   $this->assertTrue( $this->object->fetchPoiAndPoiCategory( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=8355&key=ffab6a24c60f562ecf705130a36c1d1e' ) instanceof SimpleXMLElement );
-
+   $this->assertTrue( $this->object->fetchEventDetails( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=8355&key=ffab6a24c60f562ecf705130a36c1d1e' ) instanceof SimpleXMLElement );
   }
 
 }
