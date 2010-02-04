@@ -21,9 +21,9 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $event = new Event();
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
 
-      $event['booking_url'] = 'NA';
-      $event['url'] = 'NA';
-      $event['rating'] = 'NA';
+      $event['booking_url'] = '';
+      $event['url'] = '';
+      $event['rating'] = '';
       $event['vendor_id'] = $this->vendor['id'];
 
       $this->notifyImporter( $event );
