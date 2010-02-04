@@ -81,7 +81,7 @@ class LisbonFeedBaseMapper extends DataMapper
    * @param SimpleXMLElement $element
    * $param string $propertiesKey
    */
-  protected function mapAvailableData( $record, SimpleXMLElement $element, $propertiesKey )
+  protected function mapAvailableData( $record, SimpleXMLElement $element )
   {
     $map = $this->getMap();
     $ignoreMap = $this->getIgnoreMap();
@@ -98,14 +98,8 @@ class LisbonFeedBaseMapper extends DataMapper
       }
       else
       {
-        if( $record instanceof Event )
-        {
-          $eventPropertyObj = new EventProperty();
-          $eventPropertyObj[ 'lookup' ] = $key;
-          $eventPropertyObj[ 'value' ] = $value;
-          $record[ 'EventProperty' ][] = $eventPropertyObj;
-        }
-        $record->addProperty( $key, '(string) $value' );
+        //this seems to cause elements to be looped twice
+        $record->addProperty( $key, $value );
       }
     }
   }
