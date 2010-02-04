@@ -29,10 +29,10 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
       
       $this->mapAvailableData($movie, $filmElement, 'MovieProperty' );
 
-      $movie['vendor_id'] = $this->vendor[ 'id' ];
+      $movie['vendor_id']  = $this->vendor[ 'id' ];
       $movie['utf_offset'] = $this->getUtcOffset( date( 'Y-m-d' ) );
-      $movie['poi_id'] = $filmElement->cinemaplacelink[ 'placeid' ];
-      $movie['rating'] = $this->extractRating( $filmElement );
+      $movie['poi_id']     = $this->getPoiId( $filmElement );
+      $movie['rating']     = $this->extractRating( $filmElement );
       $movie['age_rating'] = '';
 
       $this->notifyImporter( $movie );
@@ -67,6 +67,16 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
   protected function getIgnoreMap()
   {
     return array();
+  }
+
+  /**
+   * find the Poi id for the placeid field in xml
+   */
+  private function getPoiId( $filmElement )
+  {
+    $vendorPoiId = (string) $filmElement->cinemaplacelink[ 'placeid' ];
+    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $vendorPoiId );
+    return $poi['id'];
   }
 }
 ?>

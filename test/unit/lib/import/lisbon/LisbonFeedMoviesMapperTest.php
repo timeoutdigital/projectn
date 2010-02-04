@@ -30,6 +30,11 @@ class LisbonFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $vendor->save();
     $this->vendor = $vendor;
 
+    ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1153' ) );
+    ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1170' ) );
+    ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1140' ) );
+    ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1175' ) );
+
     $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_films.short.xml' );
     $this->object = new LisbonFeedMoviesMapper( $xml );
   }
@@ -59,7 +64,7 @@ class LisbonFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( '11316', $movie['vendor_movie_id'] );
     $this->assertEquals( 'O Exército do Crime', $movie['name'] );
-    $this->assertEquals( '1153', $movie['poi_id'] );
+    $this->assertEquals( '1', $movie['poi_id'] );
     $this->assertEquals( '2.2', $movie['rating'] );
     $this->assertEquals( '', $movie['age_rating'] );
 
