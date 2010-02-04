@@ -10,9 +10,11 @@
  *
  *
  * @version 1.0.0
+ * @todo go through the file after all the questions are answered
  *
  * <b>Example</b>
  * <code>
+ *  $this->object = new singaporeImport( $this->dataXMLObject, $this->vendorObj, $curlImporter );
  * </code>
  *
  */
@@ -100,9 +102,9 @@ class singaporeImport {
   }
 
   /*
-   *fetchPoiAndPoiCategory
+   *fetchEventDetails
    *
-   * 
+   * @param string $url
    *
    */
   public function fetchEventDetails( $url )
@@ -120,7 +122,7 @@ class singaporeImport {
     }
     else
     {
-      throw new Exception( "invalid poi url" );
+      throw new Exception( "invalid event detail url" );
     }
   }
 
