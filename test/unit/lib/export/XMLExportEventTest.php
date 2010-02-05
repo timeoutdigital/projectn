@@ -162,14 +162,23 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $occurrence2->link( 'Poi', array( 1 ) );
     $occurrence2->save();
 
-    $occurrence2 = new EventOccurrence();
-    $occurrence2['vendor_event_occurrence_id'] = 1111;
-    $occurrence2->setStart( '2010-01-31' );
-    $occurrence2->setEnd( '2010-01-31' );
-    $occurrence2->setUtcOffset( '-05:00:00' );
-    $occurrence2->link( 'Event', array( 2 ) );
-    $occurrence2->link( 'Poi', array( 2 ) );
-    $occurrence2->save();
+    $occurrence3 = new EventOccurrence();
+    $occurrence3['vendor_event_occurrence_id'] = 1111;
+    $occurrence3->setStart( '2010-01-31' );
+    $occurrence3->setEnd( '2010-01-31' );
+    $occurrence3->setUtcOffset( '-05:00:00' );
+    $occurrence3->link( 'Event', array( 2 ) );
+    $occurrence3->link( 'Poi', array( 2 ) );
+    $occurrence3->save();
+
+    $occurrence4 = new EventOccurrence();
+    $occurrence4['vendor_event_occurrence_id'] = 1111;
+    $occurrence4->setStart( '2010-01-31' );
+    $occurrence4->setEnd( '2010-01-31' );
+    $occurrence4->setUtcOffset( '-05:00:00' );
+    $occurrence4->link( 'Event', array( 2 ) );
+    $occurrence4->link( 'Poi', array( 2 ) );
+    $occurrence4->save();
 
 
     $this->destination = dirname( __FILE__ ) . '/../../export/event/test.xml';
@@ -289,7 +298,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( '1', $showtimes1->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
     $this->assertEquals( 'http://test-booking.url', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
-    $this->assertEquals( 2, $showtimes1->getElementsByTagName( 'time' )->length );
     $this->assertEquals( '2010-01-31', $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue );
     $this->assertEquals( '2010-01-31', $showtimes1->getElementsByTagName( 'end_date' )->item(0)->nodeValue );
     $this->assertEquals( '-05:00:00', $showtimes1->getElementsByTagName( 'utc_offset' )->item(0)->nodeValue );
@@ -319,6 +327,19 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   {
     $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'events.xsd' ) );
   }
+
+  /**
+   *
+   */
+  public function testCorrectNumberPlaceAndOccurrenceTags()
+  {
+    $placesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' );
+
+    $this->assertEquals( 2, $placesForEvent2->length );
+    $this->assertEquals( 1, $placesForEvent2->item(0)->getElementsByTagName( 'occurrence' )->length );
+    $this->assertEquals( 2, $placesForEvent2->item(1)->getElementsByTagName( 'occurrence' )->length );
+}
+
 
 }
 ?>

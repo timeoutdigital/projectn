@@ -59,14 +59,23 @@ class XMLExportPOI extends XMLExport
       {
         $this->appendRequiredElement( $entryElement, 'category', $category['name'], XMLExport::USE_CDATA);
       }
+
+      
+      // @todo this block adds a default others category. as it is not allowed as of the schema this will
+      // need to be removed as soon as the category (mapping) is properly in place
+      if ( count( $poi[ 'PoiCategories' ]) < 1 )
+      {
+        $this->appendRequiredElement( $entryElement, 'category', 'others', XMLExport::USE_CDATA);
+      }
+      
       
       $addressElement = $entryElement->appendChild( new DOMElement( 'address' ) );
 
       $this->appendRequiredElement(    $addressElement, 'street',   $poi['street'],   XMLExport::USE_CDATA);
       $this->appendNonRequiredElement( $addressElement, 'houseno',  $poi['house_no'], XMLExport::USE_CDATA);
-      $this->appendNonRequiredElement( $addressElement, 'zip',      $poi['zips'],     XMLExport::USE_CDATA);
-      $this->appendRequiredElement(    $addressElement, 'city',     $poi['city'],     XMLExport::USE_CDATA);
-      $this->appendNonRequiredElement( $addressElement, 'district', $poi['district'], XMLExport::USE_CDATA);
+      $this->appendNonRequiredElement( $addressElement, 'zip',      $poi['zips'] );
+      $this->appendRequiredElement(    $addressElement, 'city',     $poi['city'], XMLExport::USE_CDATA );
+      $this->appendNonRequiredElement( $addressElement, 'district', $poi['district'], XMLExport::USE_CDATA );
       $this->appendRequiredElement(    $addressElement, 'country',  $poi['country'] );
 
       $contactElement = $this->appendRequiredElement( $entryElement, 'contact' );
@@ -107,7 +116,8 @@ class XMLExportPOI extends XMLExport
       foreach( $poi[ 'PoiProperty' ] as $property )
       {
         $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        $propertyElement->setAttribute( 'key', $property['lookup'] );
+        if( $propertyElement )
+          $propertyElement->setAttribute( 'key', $property['lookup'] );
       }
     }
 

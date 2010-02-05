@@ -10,12 +10,9 @@
  *
  *
  * @version 1.0.0
- * @todo go through the file after all the questions are answered
  *
  * <b>Example</b>
  * <code>
- *  $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
-    $singaporeImportObj->insertCategoriesPoisEvents();
  * </code>
  *
  */
@@ -68,28 +65,20 @@ class singaporeImport {
 
     foreach( $eventsObj as $eventObj )
     {
-      $eventDetailObj = $this->fetchEventDetails( (string) $eventObj->link );
+      $eventDetailObj = $this->fetchPoiAndPoiCategory( (string) $eventObj->link );
 
-      $poiId = null;
-      if ( $eventDetailObj->venue->children()->asXml() !== false )
+      $poiId = NULL;
+      if ( $eventDetailObj->venue instanceof SimpleXMLElement )
       {
-        if ( $eventDetailObj->venue->children()->asXml() !== false )
-        {
-          $poiId = $this->_insertPoi( $eventDetailObj->venue );
-        }
+        $poiId = $this->_insertVenue( $eventDetailObj->venue );
       }
 
-      /*
-       * @todo look at this issue here
-       * commented out since poi currently is not a must field
-       * possibly replace with none venue venue
-       *
-      if ( $poiId === null )
+      if ( $poiId === NULL )
       {
         throw new Exception( 'Poi is missing' );
-      }*/
+      }
 
-      if ( $eventDetailObj->children()->asXml() !== false )
+      if ( $eventDetailObj instanceof SimpleXMLElement )
       {
         $this->_insertEvent( $eventDetailObj, $poiId );
       }
@@ -97,22 +86,25 @@ class singaporeImport {
       {
         throw new Exception( 'Event details are missing' );
       }
-    }    
+
+    }
+
+    
 
     return true;
   }
 
   /*
-   *fetchEventDetails
+   *fetchPoiAndPoiCategory
    *
-   * @param string $url
+   * 
    *
    */
-  public function fetchEventDetails( $url )
+  public function fetchPoiAndPoiCategory( $url )
   {
     $urlPartsArray = array();
     
-    preg_match ( '/^(http:\/\/.*)\?event=(.*)&(?:amp;)?key=(.*)$/', $url, $urlPartsArray );
+    preg_match ( '/^(http:\/\/.*)\?event=(.*)&key=(.*)$/', $url, $urlPartsArray );
 
     if ( count( $urlPartsArray ) == 4 )
     {
@@ -123,79 +115,88 @@ class singaporeImport {
     }
     else
     {
-      throw new Exception( "invalid event detail url" );
+      throw new Exception( "invalid poi url" );
     }
   }
 
   /*
-   * _insertPoi
+   * _insertVenue
    *
    * @param SimpleXMLElement $venueObj
    *
    * @return int $poiId
    *
    */
-  private function _insertPoi( $poiObj )
+  private function _insertVenue( $venueObj )
   {
     
     $q = Doctrine_Query::create()
                        ->select( '*' )
                        ->from( 'Poi' )
                        ->where( 'vendor_id = ?', $this->_vendor[ 'id' ] )
-                       ->andWhere( 'vendor_poi_id = ?',  (string) $poiObj->id )
+                       ->andWhere( 'vendor_poi_id = ?',  (string) $venueObj->id )
                        ->execute();
 
-    try
+    if ( count( $q ) == 0 )
     {
-      ( count( $q ) == 0 ) ? $poi = new Poi() : $poi = $q[ 0 ];
+      $poi = new Poi();
+    }
+    else
+    {
+      $poi = $q[ 0 ];
+    }
+    
+    $poi[ 'vendor_poi_id' ]              = (string) $venueObj->id;
+    $poi[ 'review_date' ]                = (string) $venueObj->data_change;
+    $poi[ 'local_language' ]             = substr( $this->_vendor[ 'language' ], 0, 1 );
+    $poi[ 'poi_name' ]                   = (string) $venueObj->name;
+    $poi[ 'country' ]                    = 'SGP';
+    $poi[ 'email' ]                      = '';
+    $poi[ 'url' ]                        = (string) $venueObj->website;
+    $poi[ 'vendor_category' ]            = '';
+    $poi[ 'keywords' ]                   = '';
+    $poi[ 'short_description' ]          = '';
+    $poi[ 'description' ]                = (string) $venueObj->excerpt;
+    $poi[ 'price_information' ]          = stringTransform::formatPriceRange( $venueObj->min_price, $venueObj->max_price );
+    $poi[ 'openingtimes' ]               = (string) $venueObj->opentime;
+    $poi[ 'star_rating' ]                = '';
+    $poi[ 'rating' ]                     = '';
+    $poi[ 'provider' ]                   = '';
+    $poi[ 'vendor_id' ]                  = $this->_vendor[ 'id' ];
 
-      $poi[ 'vendor_poi_id' ]              = (string) $poiObj->id;
-      $poi[ 'review_date' ]                = (string) $poiObj->data_change;
-      $poi[ 'local_language' ]             = substr( $this->_vendor[ 'language' ], 0, 2 );
-      $poi[ 'poi_name' ]                   = (string) $poiObj->name;
-      $poi[ 'country' ]                    = 'SGP';
-      //$poi[ 'email' ]                      = '';
-      $poi[ 'url' ]                        = (string) $poiObj->website;
-      //$poi[ 'vendor_category' ]            = '';
-      //$poi[ 'keywords' ]                   = '';
-      //$poi[ 'short_description' ]          = '';
-      $poi[ 'description' ]                = (string) $poiObj->excerpt;
-      $poi[ 'price_information' ]          = stringTransform::formatPriceRange( $poiObj->min_price, $poiObj->max_price );
-      $poi[ 'openingtimes' ]               = (string) $poiObj->opentime;
-      //$poi[ 'star_rating' ]                = '';
-      //$poi[ 'rating' ]                     = '';
-      //$poi[ 'provider' ]                   = '';
-      $poi[ 'vendor_id' ]                  = $this->_vendor[ 'id' ];
+    $addressArray = $venueObj->xpath( 'addresses[1]/address_slot' );
 
-      $addressArray = $poiObj->xpath( 'addresses[1]/address_slot' );
+    if ( 0 < count($addressArray) )
+    {
+      $poi[ 'longitude' ]                  = (string) $addressArray[0]->mm_lon;
+      $poi[ 'latitude' ]                   = (string) $addressArray[0]->mm_lat;
 
-      if ( $addressArray !== false )
-      {
-        $poi[ 'longitude' ]                  = (string) $addressArray[0]->mm_lon;
-        $poi[ 'latitude' ]                   = (string) $addressArray[0]->mm_lat;
+      $publicTransportString = ( (string) $addressArray[0]->near_station != '' ) ? 'Near station: ' . (string) $addressArray[0]->near_station: '';
+      $publicTransportString = ( (string) $addressArray[0]->buses != '' ) ? ' | ' . (string) $addressArray[0]->buses: '';
+      $poi[ 'public_transport_links' ]     = $publicTransportString;
 
-        $publicTransportString = ( (string) $addressArray[0]->near_station != '' ) ? 'Near station: ' . (string) $addressArray[0]->near_station: '';
-        $publicTransportString = ( (string) $addressArray[0]->buses != '' ) ? ' | ' . (string) $addressArray[0]->buses: '';
-        $poi[ 'public_transport_links' ]     = $publicTransportString;
+      $poi[ 'phone' ]                      = '+65 ' .  (string) $addressArray[0]->phone;
+      //$poi[ 'phone2' ]                     = '';
+      //$poi[ 'fax' ]                        = '';
+      $poi[ 'additional_address_details' ] = (string) $addressArray[0]->location;
+      $poi[ 'zips' ]                       = (string) $addressArray[0]->postcode;
+      //$poi[ 'house_no' ]                   = '';
+      $poi[ 'street' ]                     = (string) $addressArray[0]->address;
+      $poi[ 'city' ]                       = 'Singapore';
+      //$poi[ 'district' ]                   = '';
+    }
 
-        $poi[ 'phone' ]                      = '+65 ' .  (string) $addressArray[0]->phone;
-        //$poi[ 'phone2' ]                     = '';
-        //$poi[ 'fax' ]                        = '';
-        $poi[ 'additional_address_details' ] = (string) $addressArray[0]->location;
-        $poi[ 'zips' ]                       = (string) $addressArray[0]->postcode;
-        //$poi[ 'house_no' ]                   = '';
-        $poi[ 'street' ]                     = (string) $addressArray[0]->address;
-        $poi[ 'city' ]                       = 'Singapore';
-        //$poi[ 'district' ]                   = '';
-      }
+    $poi->addProperty( 'issue', (string) $venueObj->issue );
+    $poi->addProperty( 'critic_choice', (string) $venueObj->critic_choice );
+    $poi->addProperty( 'min_price', (string) $venueObj->min_price );
+    $poi->addProperty( 'max_price', (string) $venueObj->max_price );
+    $poi->addProperty( 'standfirst', (string) $venueObj->standfirst );
 
-      $poi->addProperty( 'issue', (string) $poiObj->issue );
-      $poi->addProperty( 'critic_choice', (string) $poiObj->critic_choice );
-      $poi->addProperty( 'standfirst', (string) $poiObj->standfirst );
+    $poi->save();
+    $poiId = $poi[ 'id' ];
+    $poi->free();
 
-      $poi->save();
-      $poiId = $poi[ 'id' ];
-      $poi->free();
+    return $poiId;
 
     //section
     //category
@@ -219,14 +220,6 @@ class singaporeImport {
     //link (to singapore website)
     //related venues
 
-      return $poiId;
-    }
-    catch(Exception $e)
-    {
-      echo 'failed to insert/update poi: ' . (string) $poiObj->name . ' (id: ' . (string) $poiObj->id . ')' . PHP_EOL;
-    }
-
-    return null;
   }
 
   /*
@@ -247,36 +240,30 @@ class singaporeImport {
                        ->andWhere( 'vendor_event_id = ?',  (string) $eventObj->id )
                        ->execute();
 
-    $conn = Doctrine_Manager::connection();
-    try
+    if ( count( $q ) == 0 )
     {
-      $conn->beginTransaction();
+      $event = new Event();
+    }
+    else
+    {
+      $event = $q[ 0 ];
+    }
 
-      ( count( $q ) == 0 ) ? $event = new Event() : $event = $q[ 0 ];
+    $event[ 'vendor_event_id' ] = (string) $eventObj->id;
+    $event[ 'name' ] = (string) $eventObj->name;
+    $event[ 'short_description' ] = '';
+    $event[ 'description' ] = $eventObj->excerpt;
+    $event[ 'booking_url' ] = '';
+    $event[ 'url' ] = $eventObj->website;
+    $event[ 'price' ] = stringTransform::formatPriceRange( $eventObj->min_price, $eventObj->max_price );
+    $event[ 'rating' ] = '';
+    $event[ 'vendor_id' ] = '';
 
-      $event[ 'vendor_event_id' ] = (string) $eventObj->id;
-      $event[ 'name' ] = (string) $eventObj->name;
-      //$event[ 'short_description' ] = '';
-      $event[ 'description' ] = (string)  $eventObj->excerpt;
-      //$event[ 'booking_url' ] = '';
-      $event[ 'url' ] = (string) $eventObj->website;
-      $event[ 'price' ] = stringTransform::formatPriceRange( (string)  $eventObj->min_price, (string)  $eventObj->max_price );
-      //$event[ 'rating' ] = '';
-      $event[ 'vendor_id' ] = $this->_vendor[ 'id' ];
-
-      $event->addProperty( 'critic_choice', (string)  $eventObj->critic_choice );
-      $event->addProperty( 'opentime', (string)  $eventObj->opentime );
-
-      //save to populate the id
-      $event->save();
-
-      if ( $poiId !== null && (string) $eventObj->date_start != '' )
-      {
-        $event[ 'EventProperty' ] = $this->_createEventOccurrences( $poiId, $event[ 'id' ], $eventObj->date_start, $eventObj->date_end, $eventObj->alternative_dates );
-        $event->save();
-      }
-
-      $event->free();
+    $event->addProperty( 'critic_choice', $eventObj->critic_choice );
+    $event->addProperty( 'opentime', $eventObj->opentime );
+    
+    //$event[ 'EventOccurrence' ] =
+    //$this->_getEventOccurrences( $eventObj->date_start, $eventObj->date_end, $eventObj->alternative_dates );
 
     //issue
     //section
@@ -297,84 +284,59 @@ class singaporeImport {
     //has_top
     //top_logo
     //link
-
-    }
-    catch(Exception $e)
-    {
-      $conn->rollback();
-      echo 'failed to insert/update event / occurrence: ' . (string) $eventObj->name . ' (id: ' . (string) $eventObj->id . ')' . PHP_EOL;
-    }
   }
 
   /*
-   * creates and saves the event occurences
    *
-   * @param integer $poiId
-   * @param integer $eventId
-   * @param SimpleXmlElement $dataStart (the node containing the start date)
-   * @param SimpleXmlElement $dataEnd (the node containing the end date)
-   * @param SimpleXmlElement  $alternativeDates (the node containing alternative dates)
-   *
-   * @todo finish implementation of the alernative dates as soon as we have an example node
-   *
-   *  $poiId, $event[ 'id' ], $eventObj->date_start, $eventObj->date_end, $eventObj->alternative_dates
    */
-  private function _createEventOccurrences( $poiId, $eventId, $dateStart, $dateEnd, $alternativeDates )
+  /*private function _getEventOccurrences( $date_start, $date_end, $alternative_dates )
   {
 
     $datesArray = array();
-    
-    if ( (string) $dateStart != '' )
-    {
-      if ( (string) $dateEnd != '' )
-      {
-        $datesArray[] = array( 'start' => (string) $dateStart, 'end' => (string) $dateEnd );
-      }
-      else
-      {
-        $datesArray[] = array( 'start' => (string) $dateStart );
-      }
-    }
+    $datesArray[] = array( 'start' => $date_start, 'end' => $date_end );
 
-    /*foreach( $alternativeDates as $alternativeDate )
+    foreach( $alternative_dates as $alternative_date )
     {
-      if ( (string) $alternativeDate->date_start != '' )
-      {
-        if ( (string) $alternativeDate->date_end != '' )
-        {
-          $datesArray[] = array( 'start' => (string) $alternativeDate->date_start, 'end' => (string) $alternativeDate->date_end );
-        }
-        else
-        {
-          $datesArray[] = array( 'start' => (string) $alternativeDate->date_start );
-        }
-      }
-    }*/
+      $datesArray[] = array( 'start' => $alternative_date->date_start, 'end' => $alternative_date->date_end );
+    }
 
     $eventOccurrencesArray = new Doctrine_Collection( Doctrine::getTable( 'EventOccurrence' ) );
 
     foreach( $datesArray as $date )
     {
-      $eventOccurrence = new EventOccurrence();
-      $eventOccurrence->generateVendorOccurrenceId( $eventId, $poiId, (string) $date[ 'start' ] );
-      //$eventOccurrence[ 'booking_url' ] ='';
-      $eventOccurrence[ 'utc_offset' ] = '0';
+      
+      
+      var_export( $date['start']);
 
-      $eventOccurrence[ 'start' ] = date( 'Y-m-d H:i:s', strtotime( $date[ 'start' ] ) );
+      $eventOccurrence = new EventOccurrence();
+      $eventOccurrence[ 'vendor_event_occurrence_id' ] ='';
+      $eventOccurrence[ 'booking_url' ] ='';
+      $eventOccurrence[ 'start' ] ='';
+      $eventOccurrence[ 'end' ] ='';
+      $eventOccurrence[ 'utc_offset' ] ='';
+      $eventOccurrence[ 'event_id' ] ='';
+      $eventOccurrence[ 'poi_id' ] ='';
+
+<<<<<<< HEAD:lib/import/singapore/singaporeImport.class.php
+      $eventOccurrencesArray[] =
+
+
+
+    }*/
+
+    
+    
+    
+=======
+      //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
+      $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
       if ( isset( $date['end'] ) )
       {
-        $eventOccurrence[ 'end' ] = date( 'Y-m-d H:i:s', strtotime( $date[ 'end' ] ) );
+        $eventOccurrence[ 'end' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
       }
+>>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/import/singapore/singaporeImport.class.php
 
-      $eventOccurrence->link( 'Poi' , $poiId);
-      $eventOccurrence->link( 'Event' , $eventId);
 
-      $eventOccurrence->save();
-      $eventOccurrencesArray[] = $eventOccurrence;
-      $eventOccurrence->free();
-    }
 
-    return $eventOccurrencesArray;
-  }
 }
 ?>
