@@ -163,7 +163,7 @@ class importTask extends sfBaseTask
                 //Regression tests
               $curlObj = new curlImporter();
               //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
-               $restaurantXmlObj =  $curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/restaurants')->getXml();
+               $restaurantXmlObj =  $curlObj->pullXml('http://www.timeoutdubai.com/', 'nokia/restaurants')->getXml();
 
               //$this->barObject = new dubaiImportBars( $this->barXmlObj, $this->vendorObj, 'bar' );
               $restaurantObj =  new dubaiImportBars( $restaurantXmlObj, $vendorObj, 'restaurant' );
