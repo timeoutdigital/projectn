@@ -23,13 +23,8 @@ class EventTableTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $poi1 = ProjectN_Test_Unit_Factory::add( 'poi' );
-
-    $vendor2 = ProjectN_Test_Unit_Factory::add( 'vendor' );
-
-    $poi2 = ProjectN_Test_Unit_Factory::get( 'poi' );
-    $poi2->link( 'Vendor', array( $vendor2->getId() ) );
-    $poi2->save();
+    $poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+    $poi2 = ProjectN_Test_Unit_Factory::add( 'poi' );
 
     $eventCategory = new EventCategory();
     $eventCategory->setName( 'event category 1' );
@@ -41,23 +36,43 @@ class EventTableTest extends PHPUnit_Framework_TestCase
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
-    $event = new Event();
-    $event['vendor_event_id'] = 1111;
-    $event->setName( 'test event2' );
-    $event->link( 'Vendor', array( 1 ) );
-    $event->save();
+    $event2 = new Event();
+    $event2['vendor_event_id'] = 1111;
+    $event2->setName( 'test event1' );
+    $event2->link( 'Vendor', array( 1 ) );
+    $event2->save();
 
-    $event = new Event();
-    $event['vendor_event_id'] = 1111;
-    $event->setName( 'test event2' );
-    $event->link( 'Vendor', array( 1 ) );
-    $event->save();
+    $occurrence = new EventOccurrence();
+    $occurrence[ 'vendor_event_occurrence_id' ] = 1;
+    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'utc_offset' ] = '0';
+    $occurrence[ 'event_id' ] = $event[ 'id' ];
+    $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
+    $occurrence->save();
 
-    $event = new Event();
-    $event['vendor_event_id'] = 1111;
-    $event->setName( 'test event3' );
-    $event->link( 'Vendor', array( 2 ) );
-    $event->save();
+    $occurrence = new EventOccurrence();
+    $occurrence[ 'vendor_event_occurrence_id' ] = 2;
+    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'utc_offset' ] = '0';
+    $occurrence[ 'event_id' ] = $event[ 'id' ];
+    $occurrence[ 'poi_id' ] = $poi[ 'id' ];
+    $occurrence->save();
+
+    $occurrence = new EventOccurrence();
+    $occurrence[ 'vendor_event_occurrence_id' ] = 3;
+    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'utc_offset' ] = '0';
+    $occurrence[ 'event_id' ] = $event[ 'id' ];
+    $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
+    $occurrence->save();
+
+    $occurrence = new EventOccurrence();
+    $occurrence[ 'vendor_event_occurrence_id' ] = 4;
+    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'utc_offset' ] = '0';
+    $occurrence[ 'event_id' ] = $event2[ 'id' ];
+    $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
+    $occurrence->save();
 
     $this->object = Doctrine::getTable('Event');
   }
@@ -72,12 +87,13 @@ class EventTableTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * @todo Implement testFindByVendorId().
+   * testFindWithOccurrencesOrderedByPois
    */
-  public function testFindByVendorId()
+  public function testFindWithOccurrencesOrderedByPois()
   {
-    $this->assertEquals( 3, count( $this->object->findByVendorId( 1 ) ) );
-    $this->assertEquals( 1, count( $this->object->findByVendorId( 2 ) ) );
+    $events = $this->object->findWithOccurrencesOrderedByPois();
+
+    $this->assertEquals( 3, count( $events[ 0 ][ 'EventOccurrence' ] ) );
   }
 }
 ?>
