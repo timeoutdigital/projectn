@@ -59,6 +59,15 @@ class XMLExportPOI extends XMLExport
       {
         $this->appendRequiredElement( $entryElement, 'category', $category['name'], XMLExport::USE_CDATA);
       }
+
+      
+      // @todo this block adds a default others category. as it is not allowed as of the schema this will
+      // need to be removed as soon as the category (mapping) is properly in place
+      if ( count( $poi[ 'PoiCategories' ]) < 1 )
+      {
+        $this->appendRequiredElement( $entryElement, 'category', 'others', XMLExport::USE_CDATA);
+      }
+      
       
       $addressElement = $entryElement->appendChild( new DOMElement( 'address' ) );
 

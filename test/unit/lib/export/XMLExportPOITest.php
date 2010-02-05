@@ -109,7 +109,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setLongitude( '0.3' );
         $poi->setLatitude( '0.4' );
         $poi->link( 'Vendor', 2 );
-        $poi->link('PoiCategories', 1);
         $poi->save();
 
         $property3 = new PoiProperty();
