@@ -317,6 +317,7 @@ class singaporeImport {
       $eventOccurrence[ 'event_id' ] ='';
       $eventOccurrence[ 'poi_id' ] ='';
 
+<<<<<<< HEAD:lib/import/singapore/singaporeImport.class.php
       $eventOccurrencesArray[] =
 
 
@@ -326,6 +327,14 @@ class singaporeImport {
     
     
     
+=======
+      //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
+      $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
+      if ( isset( $date['end'] ) )
+      {
+        $eventOccurrence[ 'end' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
+      }
+>>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/import/singapore/singaporeImport.class.php
 
 
 

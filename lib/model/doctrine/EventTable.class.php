@@ -2,14 +2,23 @@
 
 class EventTable extends Doctrine_Table
 {
-//  public function findByVendorId( $vendorId )
-//  {
-//    $query = $this->createQuery( 'event' )
-//      ->select( '*' )
-//      ->leftJoin( 'event.Poi poi')
-//      ->where( 'poi.vendor_id = ?', $vendorId )
-//    ;
-//
-//    return $query->execute();
-//  }
+
+  /*
+   * @todo debug this function and possibly remove the 
+   * following line in XmlExportEvent
+   * 
+   * if ( $eventOccurrence[ 'Event' ] != $event ) continue;
+   * 
+   * and use this function instead
+   */
+  public function findWithOccurrencesOrderedByPois()
+  {
+    $query = $this->createQuery()
+                  ->select( '*' )
+                  ->leftJoin( 'event.EventOccurrence eo')
+                  ->orderBy( 'eo.poi_id' );
+
+    return $query->execute();
+  }
+
 }

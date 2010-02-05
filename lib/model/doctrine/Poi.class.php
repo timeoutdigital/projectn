@@ -33,8 +33,8 @@ class Poi extends BasePoi
   public function addProperty( $lookup, $value )
   {
     $poiPropertyObj = new PoiProperty();
-    $poiPropertyObj[ 'lookup' ] = $lookup;
-    $poiPropertyObj[ 'value' ] = $value;
+    $poiPropertyObj[ 'lookup' ] = (string) $lookup;
+    $poiPropertyObj[ 'value' ] = (string) $value;
 
     $this[ 'PoiProperty' ][] = $poiPropertyObj;
   }

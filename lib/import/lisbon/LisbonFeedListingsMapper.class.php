@@ -42,9 +42,15 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $event = array();
       //$this->mapAvailableData( $event, $listingElement );
 
+<<<<<<< HEAD:lib/import/lisbon/LisbonFeedListingsMapper.class.php
       $event['booking_url'] = 'NA';
       $event['url'] = 'NA';
       $event['rating'] = 'NA';
+=======
+      $event['booking_url'] = '';
+      $event['url'] = '';
+      //$event['rating'] = '';
+>>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/import/lisbon/LisbonFeedListingsMapper.class.php
       $event['vendor_id'] = $this->vendor['id'];
 
       $this->notifyImporter( new RecordData( 'Event', $event ) );
