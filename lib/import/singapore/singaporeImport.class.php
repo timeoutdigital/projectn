@@ -14,7 +14,8 @@
  *
  * <b>Example</b>
  * <code>
- *  $this->object = new singaporeImport( $this->dataXMLObject, $this->vendorObj, $curlImporter );
+ *  $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
+    $singaporeImportObj->insertCategoriesPoisEvents();
  * </code>
  *
  */
