@@ -74,12 +74,20 @@ class FTPClient
   }
 
   /**
+   * GETS a file $srcFile and puts it into $targetDir
+   */
+  public function fetchFile( $srcFile, $targetFile )
+  {
+    ftp_get( $this->connection, $targetFile, $srcFile, FTP_BINARY );
+  }
+
+  /**
    * Download all files from $srcPath to $targetPath which are newer
    *
    * @param string $srcPath
    * @param string $targetPath
    */
-  public function fetchNewer( $srcPath, $targetPath )
+  public function fetchDirContents( $srcPath, $targetPath )
   {
     ftp_chdir($this->connection, $srcPath);
     $dirArray = ftp_nlist( $this->connection, '.' );
@@ -99,7 +107,7 @@ class FTPClient
    */
   public function close()
   {
-    ftp_close();
+    ftp_close( $this->connection );
   }
 
   public function  __destruct()
