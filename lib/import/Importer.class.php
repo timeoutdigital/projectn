@@ -100,17 +100,15 @@ class Importer
   public function onRecordMapped( Doctrine_Record $record )
   {
     //$record = $this->getRecordUsingData( $recordData );
-    
     //transform( $records )
-    if( $record->isValid( true ) )
+    try
     {
       $record->save();
       $this->output( '.' );
-      //log save|update
     }
-    else
+    catch( Exception $e)
     {
-      $this->output( 'x' );
+      echo $e->getMessage();
     }
   }
 
