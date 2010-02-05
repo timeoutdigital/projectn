@@ -33,11 +33,19 @@ class FTPClientTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   *
+   * @todo use a mock?
    */
-  public function testFetchNewer()
+  public function testFetchAll()
   {
-    $this->object->fetchNewer( '/NOKIA', TO_TEST_DATA_PATH . '/downloaded_feeds/ny' );
+    //$this->object->fetchDirContents( '/NOKIA', TO_TEST_DATA_PATH . '/downloaded_feeds/ny' );
+  }
+
+  /**
+   * @todo use a mock?
+   */
+  public function testFetchFile()
+  {
+    //$this->object->fetchFile( '/NOKIA/tony_bc.xml', TO_TEST_DATA_PATH . '/downloaded_feeds/ny/test.file' );
   }
 }
 ?>
