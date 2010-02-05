@@ -72,7 +72,8 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
 
         $this->object->run( );
 
-        $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 1 );
+        $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
+        //$poi = Doctrine::getTable( 'Poi' )->findAll();
 
         $this->assertTrue( $poi instanceof Doctrine_Record );
 
