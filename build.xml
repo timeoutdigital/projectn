@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, php-documentor, php-codesniffer, php-pmd, php-cpd,phpunit "/>
+  <target name="build" depends="checkout, clear-cache, php-documentor, php-codesniffer, php-pmd, php-cpd,phpunit "/>
   <!-- Delete all the log files -->
   <target name="init">
     <delete>
@@ -13,6 +13,12 @@
     <exec executable="git" dir="${basedir}/source">
       <arg line="pull" />
     </exec>
+  </target>
+
+  <target name="clear-cache">
+      <exec executable="rm" dir="${basedir}/source">
+          <arg line="-fr cache/*" />
+      </exec>
   </target>
 
   <!-- Run PHP Documentor on our selected classes -->
