@@ -360,10 +360,11 @@ class singaporeImport {
       //$eventOccurrence[ 'booking_url' ] ='';
       $eventOccurrence[ 'utc_offset' ] = '0';
 
-      $eventOccurrence[ 'start' ] = date( 'Y-m-d H:i:s', strtotime( $date[ 'start' ] ) );
+      //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
+      $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
       if ( isset( $date['end'] ) )
       {
-        $eventOccurrence[ 'end' ] = date( 'Y-m-d H:i:s', strtotime( $date[ 'end' ] ) );
+        $eventOccurrence[ 'end' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
       }
 
       $eventOccurrence->link( 'Poi' , $poiId);

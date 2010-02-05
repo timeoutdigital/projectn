@@ -60,7 +60,6 @@ class geoEncode
      $ch = curl_init();
      curl_setopt($ch, CURLOPT_URL, $geoCode);
      curl_setopt($ch, CURLOPT_HEADER,0); //Change this to a 1 to return headers
-     curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
