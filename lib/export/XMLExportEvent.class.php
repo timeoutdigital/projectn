@@ -105,11 +105,15 @@ class XMLExportEvent extends XMLExport
       //event/showtimes/place
       foreach( $event['Pois'] as $place)
       {
+
         $placeElement = $this->appendRequiredElement($showtimeElement, 'place');
         $placeElement->setAttribute( 'place-id', $place['id'] );
 
         foreach( $place['EventOccurrence'] as $eventOccurrence )
         {
+          
+          if ( $eventOccurrence[ 'Event' ] != $event ) continue;
+
           //event/showtimes/place/occurrence
           $occurrenceElement = $this->appendRequiredElement($placeElement, 'occurrence');
 
