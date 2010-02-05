@@ -13,41 +13,20 @@
  */
 class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 {
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @var SimpleXMLElement
-   */
-  private $xml;
-
-  public function __construct( SimpleXMLElement $xml )
-  {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
-    if( !$vendor )
-    {
-      throw new Exception( 'Vendor not found.' );
-    }
-    $this->vendor = $vendor;
-    $this->xml = $xml;
-  }
 
   public function mapListings()
   {
-    return;
     foreach( $this->xml->listings as $listingElement )
     {
-      $event = array();
-      //$this->mapAvailableData( $event, $listingElement );
+      $event = new Event();
+      $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
 
-      $event['booking_url'] = 'NA';
-      $event['url'] = 'NA';
-      $event['rating'] = 'NA';
+      $event['booking_url'] = '';
+      $event['url'] = '';
+      $event['rating'] = '';
       $event['vendor_id'] = $this->vendor['id'];
 
-      $this->notifyImporter( new RecordData( 'Event', $event ) );
+      $this->notifyImporter( $event );
     }
   }
 
@@ -56,7 +35,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
    *
    * @return array
    */
-  protected function getListingsMap()
+  protected function getMap()
   {
     return array(
       'musicid' => 'vendor_event_id',
