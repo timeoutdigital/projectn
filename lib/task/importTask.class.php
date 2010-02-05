@@ -90,7 +90,7 @@ class importTask extends sfBaseTask
         $importer    = new Importer();
         $feedObj     = new curlImporter();
         $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-01-01', 'to' => '2010-01-30' );
+        $parameters  = array( 'from' => '2010-02-01', 'to' => '2010-03-01' );
         $method      = 'POST';
 
         switch( $options['type'] )
