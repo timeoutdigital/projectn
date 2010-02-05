@@ -21,16 +21,16 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi = new Poi();
       $this->mapAvailableData($poi, $venueElement );
       
-      $poi['review_date'] = '';
-      $poi['local_language'] = 'PTR';
+      //$poi['district'] = '';
+      //$poi['fax'] = '';
+      //$poi['keywords'] = '';
+      //$poi['star_rating'] = null;
+      //$poi['rating'] = '';
+      //$poi['provider'] = '';
+      //$poi['review_date'] = '';
+      $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
-      $poi['district'] = '';
-      $poi['country'] = 'Portugal';
-      $poi['fax'] = '';
-      $poi['keywords'] = '';
-      $poi['star_rating'] = '';
-      $poi['rating'] = '';
-      $poi['provider'] = '';
+      $poi['country'] = 'PTR';
       $poi['vendor_id'] = $this->vendor['id'];
 
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );

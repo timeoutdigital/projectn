@@ -23,7 +23,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
       $event['booking_url'] = '';
       $event['url'] = '';
-      $event['rating'] = '';
+      //$event['rating'] = '';
       $event['vendor_id'] = $this->vendor['id'];
 
       $this->notifyImporter( $event );
