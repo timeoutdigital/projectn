@@ -75,7 +75,7 @@ abstract class BaseEventOccurrence extends sfDoctrineRecord
              ));
         $this->hasColumn('poi_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => false,
+             'notnull' => true,
              ));
 
         $this->option('type', 'INNODB');

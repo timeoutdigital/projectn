@@ -21,9 +21,6 @@ class importTask extends sfBaseTask
   {
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
-    
-    Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
-
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     //Select the task
@@ -86,6 +83,8 @@ class importTask extends sfBaseTask
         break; //end chicago
 
       case 'lisbon':
+<<<<<<< HEAD:lib/task/importTask.class.php
+=======
 
         $importer    = new Importer();
         $feedObj     = new curlImporter();
@@ -93,29 +92,24 @@ class importTask extends sfBaseTask
         $parameters  = array( 'from' => '2010-02-01', 'to' => '2010-03-01' );
         $method      = 'POST';
 
+>>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/task/importTask.class.php
         switch( $options['type'] )
         {
           case 'poi':
-            $request = 'xmlvenues.asp';
-            $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $importer = new Importer( true );
+            $feedObj = new curlImporter();
+            $parameters = array( 'from' => '2010-01-01', 'to' => '2010-01-30' );
+            $feedObj->pullXml ('http://www.timeout.pt/', 'xmlvenues.asp', $parameters, 'POST' );
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
+            $importer->run();
             break;
 
-          case 'event':
-            $request = 'xmllist.asp';
-            $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
+          case 'film':
           break;
 
-          case 'movie':
-            $request = 'xmlfilms.asp';
-            $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
+          case 'eating-drinking':
           break;
         }
-
-        $importer->run();
-        
         break; //end lisbon
 
       case 'singapore':
@@ -133,8 +127,8 @@ class importTask extends sfBaseTask
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
             
-            $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
-            $singaporeImportObj->insertCategoriesPoisEvents();
+            $nyImportMoviesObj = new singaporeImport( $xmlObj, $vendorObj );
+            $nyImportMoviesObj->insertCategoriesPoisEvents();
             break;
 
           case 'film':
@@ -179,7 +173,7 @@ class importTask extends sfBaseTask
                 //Regression tests
               $curlObj = new curlImporter();
               //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
-               $restaurantXmlObj =  $curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/restaurants')->getXml();
+               $restaurantXmlObj =  $curlObj->pullXml('http://www.timeoutdubai.com/', 'nokia/restaurants')->getXml();
 
               //$this->barObject = new dubaiImportBars( $this->barXmlObj, $this->vendorObj, 'bar' );
               $restaurantObj =  new dubaiImportBars( $restaurantXmlObj, $vendorObj, 'restaurant' );

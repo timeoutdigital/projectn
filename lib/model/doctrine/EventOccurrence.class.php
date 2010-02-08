@@ -12,21 +12,4 @@
  */
 class EventOccurrence extends BaseEventOccurrence
 {
-
-  /*
-   * generates a vendor occurrence id
-   *
-   */
-  public function generateVendorOccurrenceId( $eventId, $poiId, $startDate )
-  {
-    if ( !empty( $eventId ) && !empty( $poiId ) && !empty( $startDate ) )
-    {
-      $this[ 'vendor_event_occurrence_id' ] = $eventId . '_' . $poiId . '_' . date( 'YmdHis', strtotime( $startDate ) );
-    }
-    else
-    {
-      throw new Exception( 'one or more of the passed parameters($eventId, $poiId, $startDate) is empty' );
-    }
-  }
-
 }

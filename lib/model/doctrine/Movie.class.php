@@ -12,6 +12,8 @@
  */
 class Movie extends BaseMovie
 {
+<<<<<<< HEAD:lib/model/doctrine/Movie.class.php
+=======
   public function addProperty( $lookup, $value )
   {
     $moviePropertyObj = new MovieProperty();
@@ -20,4 +22,5 @@ class Movie extends BaseMovie
 
     $this[ 'MovieProperty' ][] = $moviePropertyObj;
   }
+>>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/model/doctrine/Movie.class.php
 }

@@ -144,7 +144,7 @@ PoiProperty:
     Timestampable: ~
   columns:
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(1024), notnull: true}
+    value:                      {type: string(50), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
@@ -211,7 +211,7 @@ EventOccurrence:
     end:                        {type: date, notnull: false}
     utc_offset:                 {type: string(9), notnull: true}
     event_id:                   {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: false} #this should possibly be not null (which would imply the introduction of none venue venues)
+    poi_id:                     {type: integer, notnull: true}
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
     Poi:                        {local: poi_id, foreign: id, foreignType: many}
@@ -277,7 +277,7 @@ EventProperty:
     Timestampable: ~
   columns:
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(1024), notnull: true}
+    value:                      {type: string(50), notnull: true}
     event_id:                   {type: integer, notnull: true}
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
@@ -344,7 +344,7 @@ MovieProperty:
   columns:
     id:                         {type: integer, autoincrement: true, primary: true}
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(1024), notnull: true}
+    value:                      {type: string(50), notnull: true}
     movie_id:                   {type: integer, notnull: true}
   relations:
     Movie:                      {local: movie_id, foreign: id, foreignType: many}

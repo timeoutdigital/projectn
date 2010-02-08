@@ -128,9 +128,6 @@ Vendor:
   v6:
     city:                dubai
     language:            en-US
-  v7:
-    city:                lisbon
-    language:            pt
 
 
 EventCategory:
