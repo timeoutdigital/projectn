@@ -31,7 +31,24 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['review_date'] = '';
       $poi['local_language'] = 'PTR';
       $poi['city'] = 'Lisbon';
-      $poi['country'] = 'Portugal';
+      $poi['district'] = '';
+      $poi['country'] = 'PTR';
+      $poi['additional_address_details'] = $this->extractAddress( $venueElement );;
+      $poi['longitude'] = 0;
+      $poi['latitude'] = 0;
+      $poi['phone'] = '';
+      $poi['phone2'] = '';
+      $poi['fax'] = '';
+      $poi['vendor_category'] = '';
+      $poi['keywords'] = '';
+      $poi['short_description'] = '';
+      $poi['description'] = '';
+      $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
+      $poi['price_information'] = '';
+      $poi['openingtimes'] = '';
+      $poi['star_rating'] = '';
+      $poi['rating'] = '';
+      $poi['provider'] = '';
       $poi['vendor_id'] = $this->vendor['id'];
 
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );

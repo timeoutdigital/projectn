@@ -108,7 +108,8 @@ class Importer
     }
     catch( Exception $e)
     {
-      echo $e->getMessage();
+      //echo $record->getErrorStackAsString();
+      $this->output( 'x' );
     }
   }
 
