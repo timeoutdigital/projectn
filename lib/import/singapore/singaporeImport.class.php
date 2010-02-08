@@ -289,7 +289,7 @@ class singaporeImport {
   /*
    *
    */
-  /*private function _getEventOccurrences( $date_start, $date_end, $alternative_dates )
+  private function _getEventOccurrences( $date_start, $date_end, $alternative_dates )
   {
 
     $datesArray = array();
@@ -306,7 +306,7 @@ class singaporeImport {
     {
       
       
-      var_export( $date['start']);
+     
 
       $eventOccurrence = new EventOccurrence();
       $eventOccurrence[ 'vendor_event_occurrence_id' ] ='';
@@ -317,26 +317,10 @@ class singaporeImport {
       $eventOccurrence[ 'event_id' ] ='';
       $eventOccurrence[ 'poi_id' ] ='';
 
-<<<<<<< HEAD:lib/import/singapore/singaporeImport.class.php
-      $eventOccurrencesArray[] =
 
 
+    }
 
-    }*/
-
-    
-    
-    
-=======
-      //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
-      $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
-      if ( isset( $date['end'] ) )
-      {
-        $eventOccurrence[ 'end' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
-      }
->>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/import/singapore/singaporeImport.class.php
-
-
-
+  }
 }
 ?>
