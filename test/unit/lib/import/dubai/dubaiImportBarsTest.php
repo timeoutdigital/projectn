@@ -95,7 +95,7 @@ class dubaiImportBarsTest extends PHPUnit_Framework_TestCase
 
     public function testAddRestaurantPoi()
     {
-        foreach($this->restaurantXmlObj as $poi)
+        /*foreach($this->restaurantXmlObj as $poi)
         {
              if($poi->title != '')
             {
@@ -104,7 +104,7 @@ class dubaiImportBarsTest extends PHPUnit_Framework_TestCase
            
                 break;
             }
-        }
+        }*/
 
         
         
