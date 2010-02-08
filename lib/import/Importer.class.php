@@ -108,12 +108,9 @@ class Importer
     }
     catch( Exception $e)
     {
-<<<<<<< HEAD:lib/import/Importer.class.php
       //echo $record->getErrorStackAsString();
       $this->output( 'x' );
-=======
       echo $e->getMessage();
->>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/import/Importer.class.php
     }
   }
 
