@@ -162,7 +162,6 @@ class dubaiImportBars{
 
           //Commit transaction
            $conn->commit();
-print_r($poiObj->toArray());
            //Count the new insert
           $this->poiLoggerObj->countNewInsert();
 
