@@ -4,6 +4,13 @@ log/*
 nbproject/
 .project
 .settings
+.chanels
+.depdb
+.depdblock
+.filemap
+.lock
+.registry
+.sf
 *.swp
 *.swo
 
