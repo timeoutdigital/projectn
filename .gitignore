@@ -9,3 +9,6 @@ nbproject/
 lib/model/doctrine/base/Base*
 lib/form/doctrine/base/Base*
 lib/filter/doctrine/base/Base*
+test/unit/export/event/*
+test/unit/export/poi/*
+test/unit/export/movie/*
