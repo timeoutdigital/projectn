@@ -42,7 +42,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'film':
-            $processXmlObj = new processNyMoviesXml( 'import/tms.xml' );
+            $processXmlObj = new processNyMoviesXml( 'import/xffd_TONewYork_20100205.xml' );
             $processXmlObj->setMovies('/xffd/movies/movie');
             $processXmlObj->setPoi('/xffd/theaters/theater');
             $processXmlObj->setOccurances('/xffd/showTimes/showTime');
@@ -67,10 +67,14 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi-event':
+            $processXmlObj = new processNyXml('import/toc_leo.xml');
+            $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+            $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+            $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
             break;
 
           case 'film':
-            $processXmlObj = new processNyMoviesXml( dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml' );
+            $processXmlObj = new processNyMoviesXml( 'import/xffd_TOChicago_20100201.xml' );
 
             $processXmlObj->setMovies( '/xffd/movies/movie' );
             $processXmlObj->setPoi( '/xffd/theaters/theater' );
