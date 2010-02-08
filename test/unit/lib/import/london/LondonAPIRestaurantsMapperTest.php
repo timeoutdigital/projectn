@@ -17,7 +17,7 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   /**
    * @var
    */
-  protected $numVenuesInFixture = 10;
+  protected $numVenuesInFixture = 20;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -59,11 +59,13 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapPoi()
   {
     $importer = new Importer();
+    $this->object->setPageLimit( 2 );
     $importer->addDataMapper( $this->object );
     $importer->run();
     
     $poiResults = Doctrine::getTable('Poi')->findAll();
-    $this->assertEquals(10, $poiResults->count() );
+
+    $this->assertEquals( 20, $poiResults->count() );
 
     $poi = $poiResults[0];
 
