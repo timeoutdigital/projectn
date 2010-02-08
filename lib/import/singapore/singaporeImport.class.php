@@ -356,7 +356,7 @@ class singaporeImport {
     foreach( $datesArray as $date )
     {
       $eventOccurrence = new EventOccurrence();
-      $eventOccurrence->generateVendorOccurrenceId( $eventId, $poiId, (string) $date[ 'start' ] );
+      $eventOccurrence->generateVendorEventOccurrenceId( $eventId, $poiId, (string) $date[ 'start' ] );
       //$eventOccurrence[ 'booking_url' ] ='';
       $eventOccurrence[ 'utc_offset' ] = '0';
 

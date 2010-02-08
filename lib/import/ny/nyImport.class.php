@@ -88,14 +88,6 @@ class importNy
     $this->_events = $this->_xmlFeed->getEvents();
     $this->_vendorObj = $vendorObj;
     $this->_categoryMap = new CategoryMap();
-
-    /*Doctrine::getTable('Poi')->setAttribute( Doctrine::ATTR_VALIDATE, true );
-    Doctrine::getTable('Event')->setAttribute( Doctrine::ATTR_VALIDATE, true );
-    Doctrine::getTable('EventOccurrence')->setAttribute( Doctrine::ATTR_VALIDATE, true );
-    Doctrine::getTable('VendorPoiCategory')->setAttribute( Doctrine::ATTR_VALIDATE, true );
-    Doctrine::getTable('VendorEventCategory')->setAttribute( Doctrine::ATTR_VALIDATE, true );
-
-    $this->_conn = Doctrine_Manager::connection();*/
   }
 
 
@@ -183,13 +175,14 @@ class importNy
       $poiObj[ 'poi_name' ] = (string) $poi->identifier;
       $poiObj[ 'street' ] = (string) $poi->street;
       $poiObj[ 'city' ] = (string) $poi->town;
-      $poiObj[ 'country' ] = (string) $poi->country;      
-      $poiObj[ 'local_language' ] = 'en';
+      $poiObj[ 'country' ] = 'USA';
+      $poiObj[ 'local_language' ] = substr( $this->_vendorObj[ 'language' ], 0, 2 );
       $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
       $poiObj[ 'url' ] = (string) $poi->website;
       $poiObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
       //Form and set phone number
+      $countryCodeString = (string) $poi->telephone->country_code;
       $areaCodeString = (string) $poi->telephone->area_code;
       $phoneString = (string) $poi->telephone->number;
       $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
@@ -497,7 +490,7 @@ class importNy
           $occurrenceObj[ 'start' ] = (string) $occurrence->start;
           $occurrenceObj[ 'utc_offset' ] = '-05:00';
           $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-          $occurrenceObj[ 'vendor_event_occurrence_id' ] = $this->_createOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
+          $occurrenceObj->generateVendorEventOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
 
           //set poi id
           $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
@@ -525,18 +518,6 @@ class importNy
 
       //Kill the object
       $eventObj->free();
-  }
-
-  /*
-   * Creates an occurrence id out of the occurrence object
-   *
-   * @param SimpleXMLElement $occurrence
-   * @return string
-   *
-   */
-  private function _createOccurrenceId( $eventId, $poiId, $occurrenceStartDate  )
-  {
-    return $eventId . '_' . $poiId . '_' . date( 'YmdHis', strtotime( $occurrenceStartDate ) );
   }
 
   /*

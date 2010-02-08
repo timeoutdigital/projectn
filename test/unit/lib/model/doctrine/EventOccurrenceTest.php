@@ -10,15 +10,6 @@ require_once dirname(__FILE__).'/../../../bootstrap.php';
  */
 class EventOccurrenceTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var Poi
-   */
-  protected $poi;
-
-  /**
-   * @var Event
-   */
-  protected $event;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -27,9 +18,6 @@ class EventOccurrenceTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-
-    //$this->poi = ProjectN_Test_Unit_Factory::add( 'poi' );
-    //$this->event = ProjectN_Test_Unit_Factory::add( 'event' );
   }
 
   /**
@@ -42,17 +30,14 @@ class EventOccurrenceTest extends PHPUnit_Framework_TestCase
   }
 
   /*
-   * testIfAutomaticIdGenerationWorks
-   *
-   * @todo create proper test
+   * testIfAutomaticVendorEventOccurrenceIdGenerationWorks
    */
-  public function testIfAutomaticIdGenerationWorks()
+  public function testIfAutomaticVendorEventOccurrenceIdGenerationWorks()
   {
-
-    //$eventOccurrenceObj = new EventOccurrence();
-
-
-
+    $eventOccurrenceObj = new EventOccurrence();
+    $eventOccurrenceObj->generateVendorEventOccurrenceId( 1, 1, '08.02.2010 04:20' );
+    
+    $this->assertEquals('1_1_20100208042000', $eventOccurrenceObj[ 'vendor_event_occurrence_id' ] );
   }
 
 }
