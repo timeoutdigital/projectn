@@ -54,12 +54,13 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
     $poi['star_rating']       = (int) $cinemaXml->starRating;
     $poi['description']       = (string) $cinemaXml->description;
 
-    $poi['longitude'] = $cinemaXml->lng;
-    $poi['latitude'] = $cinemaXml->lat;
+    $poi['longitude'] = (float) $cinemaXml->lng;
+    $poi['latitude'] = (float) $cinemaXml->lat;
 
     //@todo add userRating
 
     $this->notifyImporter( $poi );
+    $poi->free(true);
   }
 }
 ?>
