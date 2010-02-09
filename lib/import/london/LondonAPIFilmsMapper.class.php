@@ -47,9 +47,8 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
     $movie['plot']              = (string) $movieXml->description;
     $movie['age_rating']        = (string) $movieXml->cert;
 
-    //@todo resolve below two fields
+    //@todo resolve below field
     $movie['utf_offset']        = 0;
-    $movie['poi_id']            = 0;
 
     $movie->addProperty( 'genre',    (string) $movieXml->genre );
     $movie->addProperty( 'release',  (string) $movieXml->released );
