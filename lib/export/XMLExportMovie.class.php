@@ -44,7 +44,7 @@ class XMLExportMovie extends XMLExport
       $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
-      $nameElement = $this->appendRequiredElement($movieElement, 'name', $movie['name']);
+      $nameElement = $this->appendRequiredElement($movieElement, 'name', $movie['name'], XMLExport::USE_CDATA);
 
       //movie/version
       $versionElement = $this->appendRequiredElement($movieElement, 'version');

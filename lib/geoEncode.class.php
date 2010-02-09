@@ -83,9 +83,9 @@ class geoEncode
    */
   public function setCoOrdinates($dataArray)
   {
-    $this->longitude = (float) $dataArray[3];
-    $this->latitude  = (float) $dataArray[2];
-    $this->accuracy  = (float) $dataArray[1];
+    $this->longitude = (float) ( isset( $dataArray[3] ) ? $dataArray[3]: 0.0 );
+    $this->latitude  = (float) ( isset( $dataArray[2] ) ? $dataArray[2]: 0.0 );
+    $this->accuracy  = (float) ( isset( $dataArray[1] ) ? $dataArray[1]: 0.0 );
   }
 
   /**
