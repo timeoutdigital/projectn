@@ -3,6 +3,7 @@
 define( 'TO_PROJECT_ROOT_PATH', dirname( __FILE__ ) . '/../..' );
 define( 'TO_TEST_ROOT_PATH', dirname( __FILE__ ) );
 define( 'TO_TEST_DATA_PATH', TO_TEST_ROOT_PATH . '/data' );
+define( 'TO_TEST_IMPORT_PATH', TO_TEST_ROOT_PATH . '/import' );
 
 ini_set( 'date.timezone', 'Europe/London' );
 

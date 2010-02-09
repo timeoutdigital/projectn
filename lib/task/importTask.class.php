@@ -21,6 +21,9 @@ class importTask extends sfBaseTask
   {
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
+    
+    Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
+
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     //Select the task
@@ -29,31 +32,103 @@ class importTask extends sfBaseTask
       case 'ny':
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
 
+        $ftpClient = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+        $ftpClient->setSourcePath( '/NOKIA/' );
+
         switch( $options['type'] )
         {
+          case 'poi-event-kids':
+            try
+            {
+              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_kids_leo.xml' );
+
+              $processXmlObj = new processNyXml( $fileNameString );
+              $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+              $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+              $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
+            break;
+
           case 'poi-event':
-            $processXmlObj = new processNyXml('import/tony_leo.xml');
-            $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-            $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-            $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+            try
+            {
+              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_leo.xml' );
+
+              $processXmlObj = new processNyXml( $fileNameString );
+              $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+              $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+              $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
             break;
 
           case 'film':
-            $processXmlObj = new processNyMoviesXml( 'import/tms.xml' );
-            $processXmlObj->setMovies('/xffd/movies/movie');
-            $processXmlObj->setPoi('/xffd/theaters/theater');
-            $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+            try
+            {
+              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'xffd_TONewYork_[0-9]+.xml' );
 
-            $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
-            $nyImportMoviesObj->importMovies();
+              $processXmlObj = new processNyMoviesXml( $fileNameString );
+              $processXmlObj->setMovies('/xffd/movies/movie');
+              $processXmlObj->setPoi('/xffd/theaters/theater');
+              $processXmlObj->setOccurances('/xffd/showTimes/showTime');
+
+              $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
+              $nyImportMoviesObj->importMovies();
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
             break;
 
           case 'eating-drinking':
-            $vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
-            $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
-            $nyEDImport =  new importNyED( $csv, $vendor );
-            $nyEDImport->insertPois();
+            try
+            {
+              $fileNameString = $ftpClient->fetchFile( 'tony_ed.xml' );
 
+              /*$vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
+              $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+              $nyEDImport =  new importNyED( $csv, $vendor );
+              $nyEDImport->insertPois();*/
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
+            break;
+
+          case 'eating-drinking-kids':
+            try
+            {
+              $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
+
+              /*$vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
+              $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+              $nyEDImport =  new importNyED( $csv, $vendor );
+              $nyEDImport->insertPois();*/
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
+            break;
+
+          case 'bars-clubs':
+            try
+            {
+              $fileNameString = $ftpClient->fetchFile( 'tony_bc.xml' );
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
             break;
         }
         break; // end ny
@@ -61,46 +136,100 @@ class importTask extends sfBaseTask
       case 'chicago':
         $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-US');
 
+        $ftpClient = new FTPClient( 'ftp.timeoutchicago.com', 'timeout', 'y6fv2LS8', $vendorObj[ 'city' ] );
+
         switch( $options['type'] )
         {
           case 'poi-event':
+            try
+            {
+              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'toc_leo.xml' );
+
+              $processXmlObj = new processNyXml( $fileNameString );
+              $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+              $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
+              $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
             break;
 
           case 'film':
-            $processXmlObj = new processNyMoviesXml( dirname(__FILE__).'/../../test/unit/data/chicago_movies.xml' );
+            try
+            {
+              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'xffd_TOChicago_[0-9]+.xml' );
 
-            $processXmlObj->setMovies( '/xffd/movies/movie' );
-            $processXmlObj->setPoi( '/xffd/theaters/theater' );
-            $processXmlObj->setOccurances( '/xffd/showTimes/showTime' );
+              $processXmlObj = new processNyMoviesXml( $fileNameString );
+              $processXmlObj->setMovies( '/xffd/movies/movie' );
+              $processXmlObj->setPoi( '/xffd/theaters/theater' );
+              $processXmlObj->setOccurances( '/xffd/showTimes/showTime' );
 
-            $nyImportMoviesObj = new importNyMovies( $processXmlObj, $vendorObj) ;
-            $nyImportMoviesObj->importMovies();
+              $nyImportMoviesObj = new importNyMovies( $processXmlObj, $vendorObj) ;
+              $nyImportMoviesObj->importMovies();
+
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
           break;
 
           case 'eating-drinking':
-          break;
+            try
+            {
+              $fileNameString = $ftpClient->fetchFile( 'toc_ed.xml' );
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
+           break;
+          case 'bars-clubs':
+            try
+            {
+              $fileNameString = $ftpClient->fetchFile( 'toc_bc.xml' );
+            }
+            catch ( Exception $e )
+            {
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+            }
+           break;
         }
         break; //end chicago
 
       case 'lisbon':
 
+
+        $importer    = new Importer();
+        $feedObj     = new curlImporter();
+        $url         = 'http://www.timeout.pt/';
+        $parameters  = array( 'from' => '2010-01-01', 'to' => '2010-01-30' );
+        $method      = 'POST';
+
         switch( $options['type'] )
         {
           case 'poi':
-            $importer = new Importer( true );
-            $feedObj = new curlImporter();
-            $parameters = array( 'from' => '2010-01-01', 'to' => '2010-01-30' );
-            $feedObj->pullXml ('http://www.timeout.pt/', 'xmlvenues.asp', $parameters, 'POST' );
+            $request = 'xmlvenues.asp';
+            $feedObj->pullXml ( $url, $request, $parameters, $method );
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
-            $importer->run();
             break;
 
-          case 'film':
+          case 'event':
+            $request = 'xmllist.asp';
+            $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
           break;
 
-          case 'eating-drinking':
+          case 'movie':
+            $request = 'xmlfilms.asp';
+            $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
           break;
         }
+
+        $importer->run();
+        
         break; //end lisbon
 
       case 'singapore':
@@ -118,8 +247,8 @@ class importTask extends sfBaseTask
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
             
-            $nyImportMoviesObj = new singaporeImport( $xmlObj, $vendorObj );
-            $nyImportMoviesObj->insertCategoriesPoisEvents();
+            $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
+            $singaporeImportObj->insertCategoriesPoisEvents();
             break;
 
           case 'film':
@@ -164,7 +293,7 @@ class importTask extends sfBaseTask
                 //Regression tests
               $curlObj = new curlImporter();
               //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
-               $restaurantXmlObj =  $curlObj->pullXml('http://www.timeoutdubai.com/', 'nokia/restaurants')->getXml();
+               $restaurantXmlObj =  $curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/restaurants')->getXml();
 
               //$this->barObject = new dubaiImportBars( $this->barXmlObj, $this->vendorObj, 'bar' );
               $restaurantObj =  new dubaiImportBars( $restaurantXmlObj, $vendorObj, 'restaurant' );
