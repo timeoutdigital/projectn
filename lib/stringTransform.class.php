@@ -46,9 +46,21 @@ class stringTransform {
 
   }
 
-  public static function formatPhoneNumber()
+  /**
+   *
+   * 
+   * <b>Standards for internatioanl numbers: http://en.wikipedia.org/wiki/E.123</b>
+   *
+   * E.g. +31 42 123 4567
+   *
+   * @param string $subject The telephone number to be tested/transformed
+   *
+   */
+  public static function formatPhoneNumber($subject)
   {
+    $subject = preg_replace("/[^0-9]/", "", $subject);
 
+    return $subject;
   }
 
   public static function formatUrl()

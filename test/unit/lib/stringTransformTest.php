@@ -101,6 +101,9 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatPhoneNumber()
   {
+      $test = stringTransform::formatPhoneNumber('04 409 5999');
+
+      var_dump($test);
   }
 
   /**
