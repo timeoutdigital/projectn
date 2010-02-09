@@ -9,14 +9,14 @@ Doctrine_Manager::getInstance()->bindComponent('EventCategory', 'project_n');
  * 
  * @property string $name
  * @property Doctrine_Collection $Events
- * @property Doctrine_Collection $EventCategoryMapping
+ * @property Doctrine_Collection $LinkingEventCategoryMapping
  * 
- * @method string              getName()                 Returns the current record's "name" value
- * @method Doctrine_Collection getEvents()               Returns the current record's "Events" collection
- * @method Doctrine_Collection getEventCategoryMapping() Returns the current record's "EventCategoryMapping" collection
- * @method EventCategory       setName()                 Sets the current record's "name" value
- * @method EventCategory       setEvents()               Sets the current record's "Events" collection
- * @method EventCategory       setEventCategoryMapping() Sets the current record's "EventCategoryMapping" collection
+ * @method string              getName()                        Returns the current record's "name" value
+ * @method Doctrine_Collection getEvents()                      Returns the current record's "Events" collection
+ * @method Doctrine_Collection getLinkingEventCategoryMapping() Returns the current record's "LinkingEventCategoryMapping" collection
+ * @method EventCategory       setName()                        Sets the current record's "name" value
+ * @method EventCategory       setEvents()                      Sets the current record's "Events" collection
+ * @method EventCategory       setLinkingEventCategoryMapping() Sets the current record's "LinkingEventCategoryMapping" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -47,7 +47,7 @@ abstract class BaseEventCategory extends sfDoctrineRecord
              'local' => 'event_category_id',
              'foreign' => 'event_id'));
 
-        $this->hasMany('EventCategoryMapping', array(
+        $this->hasMany('LinkingEventCategoryMapping', array(
              'local' => 'id',
              'foreign' => 'map_to_id'));
     }

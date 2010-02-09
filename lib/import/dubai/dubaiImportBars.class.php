@@ -63,7 +63,7 @@ class dubaiImportBars{
 
             }
 
-            if($count > 3){
+            if($count > 10){
                 exit;
             }
             $count++;
@@ -159,7 +159,7 @@ class dubaiImportBars{
 
           //Save poi and all relations
           $poiObj->save();
-
+          print_r($poiPropObj->toArray());
           //Commit transaction
            $conn->commit();
            //Count the new insert
