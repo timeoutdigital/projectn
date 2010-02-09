@@ -9,16 +9,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var LondonAPIRestaurantsMapper
-   */
-  protected $object;
-
-  /**
-   * @var
-   */
-  protected $numVenuesInFixture = 20;
-
+  
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -26,25 +17,12 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    Doctrine_Manager::connection()->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
 
     $vendor = new Vendor();
     $vendor['city'] = 'london';
     $vendor['language'] = 'en-GB';
     $vendor->save();
-
-    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
-    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
-               ->method( 'setAddress' );
-
-    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
-               ->method( 'getLongitude' )
-               ->will( $this->returnValue( 1.1 ) );
-
-    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
-               ->method( 'getLatitude' )
-               ->will( $this->returnValue( 2.2 ) );
-
-    $this->object = new LondonAPIRestaurantsMapper( $geoEncoder );
   }
 
   /**
@@ -56,16 +34,36 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * test restaurants are mapped to pois
+   */
   public function testMapPoi()
   {
+    $limit = 11;
+
+    $mockGeoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
+
+    $mockGeoEncoder->expects( $this->exactly( $limit ) )
+               ->method( 'setAddress' );
+
+    $mockGeoEncoder->expects( $this->exactly( $limit ) )
+               ->method( 'getLongitude' )
+               ->will( $this->returnValue( 1.1 ) );
+
+    $mockGeoEncoder->expects( $this->exactly( $limit ) )
+               ->method( 'getLatitude' )
+               ->will( $this->returnValue( 2.2 ) );
+
+    $mapper = new LondonAPIRestaurantsMapper( $mockGeoEncoder );
+
     $importer = new Importer();
-    $this->object->setPageLimit( 2 );
-    $importer->addDataMapper( $this->object );
+    $mapper->setLimit( $limit );
+    $importer->addDataMapper( $mapper );
     $importer->run();
     
     $poiResults = Doctrine::getTable('Poi')->findAll();
 
-    $this->assertEquals( 20, $poiResults->count() );
+    $this->assertEquals( $limit, $poiResults->count() );
 
     $poi = $poiResults[0];
 
@@ -86,6 +84,14 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertFalse( empty( $poi[ 'description' ] ),       'description should not be empty' );
 
     $this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) );
+  }
+
+  /**
+   * @todo test grabs all restaurants if no limit set
+   */
+  public function testNoLimit()
+  {
+    $this->markTestIncomplete();
   }
 }
 ?>

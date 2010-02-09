@@ -11,12 +11,8 @@
  * @version 1.0.1
  *
  */
-class LondonAPIRestaurantsMapper extends DataMapper
+class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
 {
-  /**
-   * @var string
-   */
-  private $searchUrl = 'http://api.timeout.com/v1/search.xml';
 
   /**
    * @var string
@@ -24,98 +20,58 @@ class LondonAPIRestaurantsMapper extends DataMapper
   private $singleRestaurantUrl = 'http://api.timeout.com/v1/getRestaurant.xml';
 
   /**
-   * @var geoEncode
+   * Map restaurant data to Poi and notify the Importer as each Poi is mapped
    */
-  private $geoEncoder;
-
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @var int
-   */
-  private $pageLimit;
-
-  /**
-   * @var curlImporter
-   */
-  private $curl;
-
-  /**
-   * @param string $url
-   * @param geoEncode $geoEncoder
-   */
-  public function  __construct( geoEncode $geoEncoder = null )
-  {
-    $this->vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'london', 'en-GB' );
-    $this->geoEncoder = $geoEncoder;
-    $this->curl = new curlImporter();
-
-    if( is_null( $geoEncoder ) )
-    {
-      $this->geoEncoder = new geoEncode();
-    }
-  }
-
-  public function setPageLimit( $limit )
-  {
-    $this->pageLimit = $limit;
-  }
-
   public function mapPoi()
   {
-    $searchXml = $this->searchApi();
+    $searchXml = $this->callApiSearch( array( 'type' => 'Restaurants', 'offset' => 0 ) );
 
     $numPerPage = $searchXml->responseHeader->rows;
     $numResults = $searchXml->responseHeader->numFound;
 
-    if( $this->pageLimit )
-      $numResults = $this->pageLimit * $numPerPage;
+    $numResultsMapped = 0;
 
     for( $offset = 0; $offset < $numResults; $offset += $numPerPage )
     {
-      $searchPageXml = $this->searchApi( $offset );
+      $searchPageXml = $this->callApiSearch( array( 'type' => 'Restaurants', 'offset' => $offset ) );
 
       foreach( $searchPageXml->response->block->row as $row )
       {
-        $xml = $this->getRestaurant( $row->uid );
+        $xml = $this->callApiGetDetails( $row->uid );
         $this->doMapping( $xml->response->row );
+        
+        if( !$this->inLimit( ++$numResultsMapped ) ) return;
       }
     }
   }
   
-  private function searchApi( $offset = 0 )
+  protected function getDetailsUrl()
   {
-    $this->curl->pullXml( $this->searchUrl, '', array( 'type' => 'Restaurants', 'offset' => $offset ) );
-    $xml = $this->curl->getXml();
-    return $xml;
+    return $this->singleRestaurantUrl;
   }
 
-  private function getRestaurant( $uid )
-  {
-    $this->curl->pullXml( $this->singleRestaurantUrl, '', array( 'uid' => $uid ) );
-    return $this->curl->getXML();
-  }
-
+  /**
+   * Map $restaurantXml into a Poi object and pass to Importer
+   *
+   * @param SimpleXMLElement $restaurantXml
+   */
   private function doMapping( $restaurantXml )
   {
     $poi = new Poi();
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $restaurantXml->uid;
-    $poi['street']            = $restaurantXml->address;
+    $poi['street']            = (string) $restaurantXml->address;
     $poi['city']              = 'London';
     $poi['country']           = 'GBR';
-    $poi['poi_name']          = $restaurantXml->name;
-    $poi['url']               = $restaurantXml->webUrl;
-    $poi['phone']             = $restaurantXml->phone;
-    $poi['zips']              = $restaurantXml->postcode;
-    $poi['price_information'] = $restaurantXml->price;
-    $poi['openingtimes']      = $restaurantXml->openingTimes;
-    $poi['public_transport_links'] = $restaurantXml->travelInfo;
-    $poi['star_rating']       = $restaurantXml->starRating;
-    $poi['description']       = $restaurantXml->description;
+    $poi['poi_name']          = (string) $restaurantXml->name;
+    $poi['url']               = (string) $restaurantXml->webUrl;
+    $poi['phone']             = (string) $restaurantXml->phone;
+    $poi['zips']              = (string) $restaurantXml->postcode;
+    $poi['price_information'] = (string) $restaurantXml->price;
+    $poi['openingtimes']      = (string) $restaurantXml->openingTimes;
+    $poi['public_transport_links'] = (string) $restaurantXml->travelInfo;
+    $poi['star_rating']       = (int) $restaurantXml->starRating;
+    $poi['description']       = (string) $restaurantXml->description;
 
     $this->geoEncoder->setAddress( $restaurantXml->venueAddress );
 
