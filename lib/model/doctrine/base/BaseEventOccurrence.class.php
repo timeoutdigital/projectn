@@ -9,8 +9,8 @@ Doctrine_Manager::getInstance()->bindComponent('EventOccurrence', 'project_n');
  * 
  * @property string $vendor_event_occurrence_id
  * @property string $booking_url
- * @property date $start
- * @property date $end
+ * @property datetime $start
+ * @property datetime $end
  * @property string $utc_offset
  * @property integer $event_id
  * @property integer $poi_id
@@ -19,8 +19,8 @@ Doctrine_Manager::getInstance()->bindComponent('EventOccurrence', 'project_n');
  * 
  * @method string          getVendorEventOccurrenceId()    Returns the current record's "vendor_event_occurrence_id" value
  * @method string          getBookingUrl()                 Returns the current record's "booking_url" value
- * @method date            getStart()                      Returns the current record's "start" value
- * @method date            getEnd()                        Returns the current record's "end" value
+ * @method datetime        getStart()                      Returns the current record's "start" value
+ * @method datetime        getEnd()                        Returns the current record's "end" value
  * @method string          getUtcOffset()                  Returns the current record's "utc_offset" value
  * @method integer         getEventId()                    Returns the current record's "event_id" value
  * @method integer         getPoiId()                      Returns the current record's "poi_id" value
@@ -56,12 +56,12 @@ abstract class BaseEventOccurrence extends sfDoctrineRecord
              'notnull' => false,
              'length' => '1024',
              ));
-        $this->hasColumn('start', 'date', null, array(
-             'type' => 'date',
+        $this->hasColumn('start', 'datetime', null, array(
+             'type' => 'datetime',
              'notnull' => true,
              ));
-        $this->hasColumn('end', 'date', null, array(
-             'type' => 'date',
+        $this->hasColumn('end', 'datetime', null, array(
+             'type' => 'datetime',
              'notnull' => false,
              ));
         $this->hasColumn('utc_offset', 'string', 9, array(

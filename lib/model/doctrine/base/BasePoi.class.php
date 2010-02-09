@@ -133,10 +133,10 @@ abstract class BasePoi extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('poi');
-        $this->hasColumn('vendor_poi_id', 'string', 10, array(
+        $this->hasColumn('vendor_poi_id', 'string', 25, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '10',
+             'length' => '25',
              ));
         $this->hasColumn('review_date', 'datetime', null, array(
              'type' => 'datetime',
@@ -150,6 +150,7 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->hasColumn('poi_name', 'string', 80, array(
              'type' => 'string',
              'notnull' => false,
+             'minlength' => 1,
              'length' => '80',
              ));
         $this->hasColumn('house_no', 'string', 16, array(

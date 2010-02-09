@@ -131,7 +131,14 @@ class XMLExportEvent extends XMLExport
           $timeElement = $this->appendRequiredElement($occurrenceElement, 'time');
 
           //event/showtimes/occurrence/time/start-date
-          $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start']);
+          
+          $timeStamp = strtotime($eventOccurrence['start']);
+
+          $theTime = date('H:i:s', $timeStamp);
+          $theDate = date('Y-m-d', $timeStamp);
+        
+          $this->appendRequiredElement($timeElement, 'start_date', $theDate);
+          $this->appendRequiredElement($timeElement, 'event_time', $theTime);
           $this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end']);
           $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
 

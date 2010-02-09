@@ -9,7 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * 
  * @property integer $id
  * @property integer $vendor_id
- * @property integer $vendor_movie_id
+ * @property string $vendor_movie_id
  * @property string $name
  * @property string $plot
  * @property string $review
@@ -26,7 +26,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * 
  * @method integer             getId()              Returns the current record's "id" value
  * @method integer             getVendorId()        Returns the current record's "vendor_id" value
- * @method integer             getVendorMovieId()   Returns the current record's "vendor_movie_id" value
+ * @method string              getVendorMovieId()   Returns the current record's "vendor_movie_id" value
  * @method string              getName()            Returns the current record's "name" value
  * @method string              getPlot()            Returns the current record's "plot" value
  * @method string              getReview()          Returns the current record's "review" value
@@ -76,9 +76,10 @@ abstract class BaseMovie extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('vendor_movie_id', 'integer', null, array(
-             'type' => 'integer',
+        $this->hasColumn('vendor_movie_id', 'string', 25, array(
+             'type' => 'string',
              'notnull' => true,
+             'length' => '25',
              ));
         $this->hasColumn('name', 'string', 256, array(
              'type' => 'string',
@@ -116,7 +117,7 @@ abstract class BaseMovie extends sfDoctrineRecord
              ));
         $this->hasColumn('poi_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
+             'notnull' => false,
              ));
 
         $this->option('type', 'INNODB');

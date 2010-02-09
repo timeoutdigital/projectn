@@ -10,10 +10,10 @@ Poi:
   actAs:
     Timestampable:  ~
   columns:
-    vendor_poi_id:              {type: string(10), notnull: true}
+    vendor_poi_id:              {type: string(25), notnull: true}
     review_date:                {type: datetime, notnull: false}
     local_language:             {type: string(10), notnull: false}
-    poi_name:                   {type: string(80), notnull: false} # @todo should be 'name'
+    poi_name:                   {type: string(80), notnull: false, minlength: 1 } # @todo should be 'name'
     house_no:                   {type: string(16), notnull: false}
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
@@ -145,8 +145,8 @@ PoiProperty:
   actAs:
     Timestampable: ~
   columns:
-    lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(50), notnull: true}
+    lookup:                     {type: string(100), notnull: true}
+    value:                      {type: string(100), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
@@ -209,8 +209,8 @@ EventOccurrence:
   columns:
     vendor_event_occurrence_id: {type: string(50), notnull: true}
     booking_url:                {type: string(1024), notnull: false}
-    start:                      {type: date, notnull: true}
-    end:                        {type: date, notnull: false}
+    start:                      {type: datetime, notnull: true}
+    end:                        {type: datetime, notnull: false}
     utc_offset:                 {type: string(9), notnull: true}
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
@@ -292,7 +292,7 @@ Movie:
   columns:
     id:                         {type: integer, notnull: true,  autoincrement: true, primary: true }
     vendor_id:                  {type: integer, notnull: true}
-    vendor_movie_id:            {type: integer, notnull: true}
+    vendor_movie_id:            {type: string(25), notnull: true}
     name:                       {type: string(256), notnull: true}
     plot:                       {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
@@ -300,7 +300,7 @@ Movie:
     rating:                     {type: float, notnull: false}
     age_rating:                 {type: string(32), notnull: false}
     utf_offset:                 {type: string(9), notnull: true}
-    poi_id:                     {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: false}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
     MovieGenres:                {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }

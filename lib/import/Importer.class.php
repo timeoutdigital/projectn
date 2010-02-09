@@ -110,7 +110,6 @@ class Importer
     {
       //echo $record->getErrorStackAsString();
       $this->output( 'x' );
-      echo $e->getMessage();
     }
   }
 

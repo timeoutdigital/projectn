@@ -20,9 +20,9 @@ class importTask extends sfBaseTask
   protected function execute($arguments = array(), $options = array())
   {
     //Connect to the database.
-    $databaseManager = new sfDatabaseManager($this->configuration);
     
-    Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
+    //Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
+
 
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
@@ -229,7 +229,6 @@ class importTask extends sfBaseTask
         }
 
         $importer->run();
-        
         break; //end lisbon
 
       case 'singapore':
@@ -246,7 +245,7 @@ class importTask extends sfBaseTask
             $parametersArray = array( 'section' => 'index', 'thisweek' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
-            
+
             $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
             $singaporeImportObj->insertCategoriesPoisEvents();
             break;
@@ -289,7 +288,7 @@ class importTask extends sfBaseTask
            // $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
            // $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
               $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
-         
+
                 //Regression tests
               $curlObj = new curlImporter();
               //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
@@ -301,7 +300,7 @@ class importTask extends sfBaseTask
 
             break;
 
-          
+
 
             break;
         }
