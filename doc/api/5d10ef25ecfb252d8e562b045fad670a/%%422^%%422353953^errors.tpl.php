@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.0, created on 2010-01-28 10:06:02
+<?php /* Smarty version 2.6.0, created on 2010-02-08 10:55:42
          compiled from errors.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.tpl", 'smarty_include_vars' => array('noleftindex' => true)));

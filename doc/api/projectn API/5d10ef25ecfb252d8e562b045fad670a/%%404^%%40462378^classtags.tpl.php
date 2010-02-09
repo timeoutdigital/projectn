@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.0, created on 2010-01-27 17:42:23
+<?php /* Smarty version 2.6.0, created on 2010-02-08 10:55:22
          compiled from classtags.tpl */ ?>
 <?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'capitalize', 'classtags.tpl', 7, false),)), $this); ?>

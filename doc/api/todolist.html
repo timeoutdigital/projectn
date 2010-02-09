@@ -28,6 +28,9 @@
                   <a href="classtrees_projectn.html">projectn</a>
                 </li>
                               <li>
+                  <a href="classtrees_sfFeed2.html">sfFeed2</a>
+                </li>
+                              <li>
                   <a href="classtrees_sf_sandbox.html">sf_sandbox</a>
                 </li>
                               <li>
@@ -43,7 +46,7 @@
                                                                 <div class="menu">
           
                                     
-                                                                                                  [ <a href="index.html">Index</a> ]
+                                                                                                                        [ <a href="index.html">Index</a> ]
                       [ <a href="classtrees_projectn API.html">projectn API classes</a> ]
             [ <a href="elementindex_projectn API.html">projectn API elements</a> ]
                     [ <a href="elementindex.html">All elements</a> ]
@@ -54,13 +57,17 @@
 <ul>
     <li>Implement testBuildCurlParamString().</li>
 </ul>
+<h3><a href="projectn API/loggerclassTest.html#methodtestCountNewInsert">loggerclassTest::testCountNewInsert()</a></h3>
+<ul>
+    <li>Implement testCountNewInsert().</li>
+</ul>
+<h3><a href="projectn API/loggerclassTest.html#methodtestCountUpdate">loggerclassTest::testCountUpdate()</a></h3>
+<ul>
+    <li>Implement testCountUpdate().</li>
+</ul>
 <h3><a href="projectn API/curlImporterTest.html#methodtestCurlRequest">curlImporterTest::testCurlRequest()</a></h3>
 <ul>
     <li>Implement testCurlRequest().</li>
-</ul>
-<h3><a href="projectn API/EventTableTest.html#methodtestFindByVendorId">EventTableTest::testFindByVendorId()</a></h3>
-<ul>
-    <li>Implement testFindByVendorId().</li>
 </ul>
 <h3><a href="projectn API/curlImporterTest.html#methodtestGetFeed">curlImporterTest::testGetFeed()</a></h3>
 <ul>
@@ -82,6 +89,14 @@
 <ul>
     <li>Implement testMapPois().</li>
 </ul>
+<h3><a href="projectn API/LisbonFeedListingsMapperTest.html#methodtestMapListings">LisbonFeedListingsMapperTest::testMapListings()</a></h3>
+<ul>
+    <li>Implement testMapVenues().</li>
+</ul>
+<h3><a href="projectn API/LisbonFeedMoviesMapperTest.html#methodtestMapMovies">LisbonFeedMoviesMapperTest::testMapMovies()</a></h3>
+<ul>
+    <li><p>fix weird loop bug, the commented out count below should  work but some items appear to be looped over twice</p><p>test mapMovies has required fields and properties</p></li>
+</ul>
 <h3><a href="projectn API/LondonImporterTest.html#methodtestRun">LondonImporterTest::testRun()</a></h3>
 <ul>
     <li>Implement testRun().</li>
@@ -94,7 +109,38 @@
 <ul>
     <li>get by Vendo and type</li>
 </ul>
+<h2>test</h2>
+<h3><a href="test/import-lib-unit/dubaiImportBarsTest.html">dubaiImportBarsTest</a></h3>
+<ul>
+    <li>Finish as the feeds are not working from Dubai</li>
+</ul>
+<h3><a href="test/lib-unit/loggerTest.html#methodtestSaveStats">loggerTest::testSaveStats()</a></h3>
+<ul>
+    <li>Implement testSaveStats().</li>
+</ul>
 <h2>projectn</h2>
+<h3><a href="projectn/lib/FTPClient.html#methodaddExcludePattern">FTPClient::addExcludePattern()</a></h3>
+<ul>
+    <li>implement this method</li>
+</ul>
+<h3><a href="projectn/lib/FTPClient.html">FTPClient</a></h3>
+<ul>
+    <li><p>possibly implement skip download functionality if file was not changed        since last download</p><p><strong>Example</strong>  <ol><li><div class="src-line">&nbsp;<span class="src-var">$ftpClient&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="projectn/lib/FTPClient.html">FTPClient</a></span><span class="src-sym">(&nbsp;</span><span class="src-str">'ftp.timeoutny.com'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'london'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'timeout'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$vendorObj</span><span class="src-sym">[&nbsp;</span><span class="src-str">'city'&nbsp;</span><span class="src-sym">]&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;if&nbsp;the&nbsp;files&nbsp;are&nbsp;not&nbsp;in&nbsp;the&nbsp;root&nbsp;node&nbsp;(default)&nbsp;the&nbsp;path&nbsp;can&nbsp;be&nbsp;specified&nbsp;(incl.&nbsp;leading&nbsp;and&nbsp;trailing&nbsp;slash</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$ftpClient</span><span class="src-sym">-&gt;</span><a href="projectn/lib/FTPClient.html#methodsetSourcePath">setSourcePath</a><span class="src-sym">(&nbsp;</span><span class="src-str">'/NOKIA/'&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;if&nbsp;the&nbsp;file&nbsp;name&nbsp;is&nbsp;know,&nbsp;this&nbsp;is&nbsp;how&nbsp;to&nbsp;retrieve&nbsp;it.&nbsp;if&nbsp;the&nbsp;target&nbsp;file&nbsp;name&nbsp;should&nbsp;have&nbsp;a&nbsp;particular&nbsp;name</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;this&nbsp;can&nbsp;be&nbsp;passed&nbsp;as&nbsp;second&nbsp;argument</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$fileNameString&nbsp;</span>=&nbsp;<span class="src-var">$ftpClient</span><span class="src-sym">-&gt;</span><a href="projectn/lib/FTPClient.html#methodfetchFile">fetchFile</a><span class="src-sym">(&nbsp;</span><span class="src-str">'tony_ed.xml'&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;if&nbsp;a&nbsp;file&nbsp;name&nbsp;is&nbsp;changing&nbsp;a&nbsp;pattern&nbsp;can&nbsp;be&nbsp;specified&nbsp;and&nbsp;the&nbsp;latest&nbsp;(lastmod&nbsp;date&nbsp;of&nbsp;server)&nbsp;file&nbsp;matching</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;against&nbsp;this&nbsp;pattern&nbsp;will&nbsp;be&nbsp;retrieved</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$fileNameString&nbsp;</span>=&nbsp;<span class="src-var">$ftpClient</span><span class="src-sym">-&gt;</span><a href="projectn/lib/FTPClient.html#methodfetchLatestFileByPattern">fetchLatestFileByPattern</a><span class="src-sym">(&nbsp;</span><span class="src-str">'toc_[0-9]+.xml'&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//there&nbsp;are&nbsp;some&nbsp;more&nbsp;options&nbsp;available&nbsp;(include,&nbsp;exclude&nbsp;patterns,&nbsp;etc,&nbsp;see&nbsp;method&nbsp;descriptions)</span></div></li>
+</ol></p></li>
+</ul>
 <h3><a href="projectn/ny-import-lib/importNyED.html">importNyED</a></h3>
 <ul>
     <li>finish class - currently awaiting verification as to whether its now needed.</li>
@@ -126,9 +172,18 @@
 <ul>
     <li>finish implementation</li>
 </ul>
+<h3><a href="projectn/lib/FTPClient.html#methodremoveExcludePattern">FTPClient::removeExcludePattern()</a></h3>
+<ul>
+    <li>implement this method</li>
+</ul>
 <h3><a href="projectn/ny-import-lib/importNyMovies.html#methodsetPoi">importNyMovies::setPoi()</a></h3>
 <ul>
     <li>Refactor validation</li>
+</ul>
+<h3><a href="projectn/singapore-import-lib/singaporeImport.html">singaporeImport</a></h3>
+<ul>
+    <li><p>go through the file after all the questions are answered</p><p><strong>Example</strong>  <ol><li><div class="src-line">&nbsp;&nbsp;<span class="src-var">$singaporeImportObj&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="projectn/singapore-import-lib/singaporeImport.html">singaporeImport</a></span><span class="src-sym">(&nbsp;</span><span class="src-var">$xmlObj</span><span class="src-sym">,&nbsp;</span><span class="src-var">$vendorObj</span><span class="src-sym">,&nbsp;</span><span class="src-var">$curlImporterObj&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></p></li>
 </ul>
 <h3><a href="projectn/ny-import-lib/importNy.html#method__construct">importNy::__construct()</a></h3>
 <ul>
@@ -136,13 +191,8 @@
     <li>add logging enable validation (commented out at the moment below)</li>
     <li>possibly add transactions</li>
 </ul>
-<h2>test</h2>
-<h3><a href="test/lib-unit/loggerTest.html#methodtestSaveStats">loggerTest::testSaveStats()</a></h3>
-<ul>
-    <li>Implement testSaveStats().</li>
-</ul>
                 <div class="credit">
-                  Documentation generated on Mon, 01 Feb 2010 17:51:58 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Tue, 09 Feb 2010 15:22:42 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>

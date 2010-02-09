@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.0, created on 2010-02-02 12:32:06
+<?php /* Smarty version 2.6.0, created on 2010-02-08 10:55:23
          compiled from page.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.tpl", 'smarty_include_vars' => array('eltype' => 'Procedural file','class_name' => $this->_tpl_vars['name'],'hasel' => true,'contents' => $this->_tpl_vars['pagecontents'])));

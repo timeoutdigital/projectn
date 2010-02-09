@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.0, created on 2010-01-27 17:42:10
+<?php /* Smarty version 2.6.0, created on 2010-02-08 10:55:07
          compiled from footer.tpl */ ?>
                 <div class="credit">
                   Documentation generated on <?php echo $this->_tpl_vars['date']; ?>
