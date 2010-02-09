@@ -11,7 +11,7 @@
  * @version 1.0.1
  *
  */
-class LondonAPIMoviesMapper extends LondonAPIBaseMapper
+class LondonAPIFilmsMapper extends LondonAPIBaseMapper
 {
 
   /**
