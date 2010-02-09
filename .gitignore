@@ -3,7 +3,9 @@ cache/*
 log/*
 nbproject/
 import/*
+test/unit/import/*
 export/*
+test/unit/export/*
 .project
 .settings
 .chanels
