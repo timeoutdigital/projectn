@@ -15,39 +15,21 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
 {
 
   /**
-   * @var string
-   */
-  private $singleRestaurantUrl = 'http://api.timeout.com/v1/getRestaurant.xml';
-
-  /**
    * Map restaurant data to Poi and notify the Importer as each Poi is mapped
    */
   public function mapPoi()
   {
-    $searchXml = $this->callApiSearch( array( 'type' => 'Restaurants', 'offset' => 0 ) );
-
-    $numPerPage = $searchXml->responseHeader->rows;
-    $numResults = $searchXml->responseHeader->numFound;
-
-    $numResultsMapped = 0;
-
-    for( $offset = 0; $offset < $numResults; $offset += $numPerPage )
-    {
-      $searchPageXml = $this->callApiSearch( array( 'type' => 'Restaurants', 'offset' => $offset ) );
-
-      foreach( $searchPageXml->response->block->row as $row )
-      {
-        $xml = $this->callApiGetDetails( $row->uid );
-        $this->doMapping( $xml->response->row );
-        
-        if( !$this->inLimit( ++$numResultsMapped ) ) return;
-      }
-    }
+    $this->crawlApiForType( 'Restaurants' );
   }
   
+  /**
+   * Returns the London API URL
+   * 
+   * @return string
+   */
   protected function getDetailsUrl()
   {
-    return $this->singleRestaurantUrl;
+    return 'http://api.timeout.com/v1/getRestaurant.xml';
   }
 
   /**
@@ -55,14 +37,14 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    *
    * @param SimpleXMLElement $restaurantXml
    */
-  private function doMapping( $restaurantXml )
+  protected function doMapping( SimpleXMLElement $restaurantXml )
   {
     $poi = new Poi();
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $restaurantXml->uid;
     $poi['street']            = (string) $restaurantXml->address;
-    $poi['city']              = 'London';
-    $poi['country']           = 'GBR';
+    $poi['city']              = $this->city;
+    $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $restaurantXml->name;
     $poi['url']               = (string) $restaurantXml->webUrl;
     $poi['phone']             = (string) $restaurantXml->phone;

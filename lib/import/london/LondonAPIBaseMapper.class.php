@@ -25,6 +25,16 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected $searchUrl = 'http://api.timeout.com/v1/search.xml';
 
   /**
+   * @var string
+   */
+  protected $city = 'London';
+
+  /**
+   * @var string
+   */
+  protected $country = 'GBR';
+
+  /**
    * @var curlImporter
    */
   protected $curl;
@@ -93,6 +103,32 @@ abstract class LondonAPIBaseMapper extends DataMapper
   }
 
   /**
+   * @param string $type
+   */
+  protected function crawlApiForType( $type )
+  {
+    $searchXml = $this->callApiSearch( array( 'type' => $type, 'offset' => 0 ) );
+
+    $numPerPage = $searchXml->responseHeader->rows;
+    $numResults = $searchXml->responseHeader->numFound;
+
+    $numResultsMapped = 0;
+
+    for( $offset = 0; $offset < $numResults; $offset += $numPerPage )
+    {
+      $searchPageXml = $this->callApiSearch( array( 'type' => $type, 'offset' => $offset ) );
+
+      foreach( $searchPageXml->response->block->row as $row )
+      {
+        $xml = $this->callApiGetDetails( $row->uid );
+        $this->doMapping( $xml->response->row );
+
+        if( !$this->inLimit( ++$numResultsMapped ) ) return;
+      }
+    }
+  }
+
+  /**
    * Calls the London API. Pass in params using an array:
    * See London API document written by Rhodri Davis (Word file)
    *
@@ -138,5 +174,10 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @returns string
    */
   abstract protected function getDetailsUrl();
+
+  /**
+   * Do mapping of xml to poi and notify Importer here
+   */
+  abstract protected function doMapping( SimpleXMLElement $xml );
 }
 ?>
