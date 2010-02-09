@@ -83,16 +83,7 @@ class importTask extends sfBaseTask
         break; //end chicago
 
       case 'lisbon':
-<<<<<<< HEAD:lib/task/importTask.class.php
-=======
 
-        $importer    = new Importer();
-        $feedObj     = new curlImporter();
-        $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-02-01', 'to' => '2010-03-01' );
-        $method      = 'POST';
-
->>>>>>> 2b3feb9d06c5adfd514a6394175d5b67ab5ffbf8:lib/task/importTask.class.php
         switch( $options['type'] )
         {
           case 'poi':
