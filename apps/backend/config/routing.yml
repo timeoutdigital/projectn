@@ -1,0 +1,34 @@
+linking_poi_category_mapping:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                LinkingPoiCategoryMapping
+    module:               linking_poi_category_mapping
+    prefix_path:          /linking_poi_category_mapping
+    column:               id
+    with_wildcard_routes: true
+
+poi_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                PoiCategory
+    module:               poi_category
+    prefix_path:          /poi_category
+    column:               id
+    with_wildcard_routes: true
+
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+homepage:
+  url:   /
+  param: { module: default, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

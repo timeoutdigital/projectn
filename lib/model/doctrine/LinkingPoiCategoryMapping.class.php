@@ -12,4 +12,19 @@
  */
 class LinkingPoiCategoryMapping extends BaseLinkingPoiCategoryMapping
 {
+  public function getPoiCategoryName()
+  {
+    return $this[ 'PoiCategory' ][ 'name' ];
+  }
+
+  public function getVendorPoiCategoryName()
+  {
+    return $this[ 'VendorPoiCategory' ][ 'name' ];
+  }
+
+  public function getVendorName()
+  {
+    return $this[ 'VendorPoiCategory' ][ 'Vendor' ][ 'city' ];
+  }
+
 }

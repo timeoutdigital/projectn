@@ -32,7 +32,7 @@ PoiCategory:
     name:    restaurant
     Parent:  [c1]
   c7:
-    name:    bar-p`ub
+    name:    bar-pub
     Parent:  [c1]
   c8:
     name:    theatre-music-culture
@@ -87,7 +87,7 @@ VendorPoiCategory:
     Vendor:              v1
 
 
-PoiCategoryMapping:
+LinkingPoiCategoryMapping:
   pcm2:
     VendorPoiCategory:  c2    # Shops
     PoiCategory:        c16    # shop
