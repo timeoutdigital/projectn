@@ -200,6 +200,7 @@ class importTask extends sfBaseTask
 
       case 'lisbon':
 
+
         $importer    = new Importer();
         $feedObj     = new curlImporter();
         $url         = 'http://www.timeout.pt/';

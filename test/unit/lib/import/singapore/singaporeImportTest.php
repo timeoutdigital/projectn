@@ -9,7 +9,7 @@ spl_autoload_register(array('Doctrine', 'autoload'));
  * Test singapore import.
  *
  * @package test
- * @subpackage lib.unit.import.singapore
+ * @subpackage singapore.import.lib
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @copyright Timeout Communications Ltd
