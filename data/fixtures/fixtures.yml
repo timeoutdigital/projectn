@@ -15,53 +15,52 @@
 #     password: changeme
 #     name:     Kris Wallsmith
 #     email:    kris.wallsmith@symfony-project.com
-PoiParentCategory:
-  pc1:
-    name: eat-drink
-  pc2:
-    name: going-out
-  pc3:
-    name: sights-museums
-  pc4:
-    name: accommodation
-  pc5:
-    name: shopping
-    
+   
     
 PoiCategory:
   c1:
-    name:       restaurant
-    PoiParentCategory:  pc1
+    name:    eat-drink
   c2:
-    name:       bar-pub
-    PoiParentCategory:  pc1
+    name:    going-out
   c3:
-    name:       theatre-music-culture
-    PoiParentCategory:  pc2
+    name:    sights-museums
   c4:
-    name:       dance-night-club
-    PoiParentCategory:  pc2
+    name:    accommodation
   c5:
-    name:       landmark-attraction
-    PoiParentCategory:  pc3
+    name:    shopping
   c6:
-    name:       museum
-    PoiParentCategory:   pc3
+    name:    restaurant
+    Parent:  [c1]
   c7:
-    name:       hotel
-    PoiParentCategory:   pc4
+    name:    bar-p`ub
+    Parent:  [c1]
   c8:
-    name:       motel
-    PoiParentCategory:   pc4
+    name:    theatre-music-culture
+    Parent:  [c2]
   c9:
-    name:       hostel
-    PoiParentCategory:   pc4
+    name:    dance-night-club
+    Parent:  [c2]
   c10:
-    name:       camping
-    PoiParentCategory:   pc4
+    name:    landmark-attraction
+    Parent:  [c3]
   c11:
-    name:       shop
-    PoiParentCategory:   pc5
+    name:    museum
+    Parent:  [c3]
+  c12:
+    name:    hotel
+    Parent:  [c4]
+  c13:
+    name:    motel
+    Parent:  [c4]
+  c14:
+    name:    hostel
+    Parent:  [c4]
+  c15:
+    name:    camping
+    Parent:  [c4]
+  c16:
+    name:    shop
+    Parent:  [c5]
 
 
 VendorPoiCategory:
@@ -91,22 +90,22 @@ VendorPoiCategory:
 PoiCategoryMapping:
   pcm2:
     VendorPoiCategory:  c2    # Shops
-    PoiCategory:        c11    # shop
+    PoiCategory:        c16    # shop
   pcm3:
     VendorPoiCategory:  c3    # 'Comedy: Stand-up Club'
-    PoiCategory:        c3    # theatre-music-culture
+    PoiCategory:        c8    # theatre-music-culture
   pcm4:
     VendorPoiCategory:  c4    # Hotels
-    PoiCategory:        c7    # hotel
+    PoiCategory:        c12    # hotel
   pcm5:
     VendorPoiCategory:  c5    # Clubs
-    PoiCategory:        c4    # dance-night-club
+    PoiCategory:        c9    # dance-night-club
   pcm6:
     VendorPoiCategory:  c6    # Nigthlife
-    PoiCategory:        c4    # dance-night-club
+    PoiCategory:        c9    # dance-night-club
   pcm7:
     VendorPoiCategory:  c7    # 'Comedy: Improv Theater'
-    PoiCategory:        c3    # theatre-music-culture
+    PoiCategory:        c8    # theatre-music-culture
 
 
 Vendor:

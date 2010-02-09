@@ -15,21 +15,23 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'         => new sfWidgetFormInputHidden(),
-      'parent_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiParentCategory'), 'add_empty' => true)),
-      'name'       => new sfWidgetFormInputText(),
-      'created_at' => new sfWidgetFormDateTime(),
-      'updated_at' => new sfWidgetFormDateTime(),
-      'poi_list'   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
+      'id'            => new sfWidgetFormInputHidden(),
+      'name'          => new sfWidgetFormInputText(),
+      'created_at'    => new sfWidgetFormDateTime(),
+      'updated_at'    => new sfWidgetFormDateTime(),
+      'poi_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
+      'parent_list'   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'children_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
     ));
 
     $this->setValidators(array(
-      'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'parent_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiParentCategory'), 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 50)),
-      'created_at' => new sfValidatorDateTime(),
-      'updated_at' => new sfValidatorDateTime(),
-      'poi_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
+      'id'            => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'name'          => new sfValidatorString(array('max_length' => 50)),
+      'created_at'    => new sfValidatorDateTime(),
+      'updated_at'    => new sfValidatorDateTime(),
+      'poi_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
+      'parent_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'children_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('poi_category[%s]');
@@ -55,11 +57,23 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
       $this->setDefault('poi_list', $this->object->Poi->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['parent_list']))
+    {
+      $this->setDefault('parent_list', $this->object->Parent->getPrimaryKeys());
+    }
+
+    if (isset($this->widgetSchema['children_list']))
+    {
+      $this->setDefault('children_list', $this->object->Children->getPrimaryKeys());
+    }
+
   }
 
   protected function doSave($con = null)
   {
     $this->savePoiList($con);
+    $this->saveParentList($con);
+    $this->saveChildrenList($con);
 
     parent::doSave($con);
   }
@@ -99,6 +113,82 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('Poi', array_values($link));
+    }
+  }
+
+  public function saveParentList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['parent_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Parent->getPrimaryKeys();
+    $values = $this->getValue('parent_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Parent', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Parent', array_values($link));
+    }
+  }
+
+  public function saveChildrenList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['children_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Children->getPrimaryKeys();
+    $values = $this->getValue('children_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Children', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Children', array_values($link));
     }
   }
 
