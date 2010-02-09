@@ -83,24 +83,26 @@ PoiMedia:
   relations:
     Poi:                        {local: poi_id, foreign: id}
 
-PoiParentCategory:
-  connection: project_n
-  actAs:
-    Timestampable:              ~
-  columns:
-    name:                       {type: string(50), notnull: true}
-
 #Categories available for Pois
 PoiCategory:
   connection: project_n
   actAs:
     Timestampable: ~
   columns:
-    parent_id:                  {type: integer}
     name:                       {type: string(50), notnull: true}
-  relations: 
-    PoiParentCategory:          {onDelete: CASCADE, local: parent_id, foreign: id, foreignAlias: PoiParentCategory}
+  relations:
     Poi:                        {class: Poi, refClass: LinkingPoiCategory, local: poi_category_id, foreign: poi_id}
+    Parent:                     {class: PoiCategory, local: child_id, foreign: parent_id, refClass: PoiCategoryReference, foreignAlias: Children}
+
+PoiCategoryReference:
+  connection: project_n
+  columns:
+    parent_id:
+      type: integer
+      primary: true
+    child_id:
+      type: integer
+      primary: true
 
 #Poi Category (linking)
 LinkingPoiCategory:
