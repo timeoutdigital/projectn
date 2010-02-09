@@ -17,7 +17,7 @@ class EventOccurrence extends BaseEventOccurrence
    * generates a vendor occurrence id
    *
    */
-  public function generateVendorOccurrenceId( $eventId, $poiId, $startDate )
+  public function generateVendorEventOccurrenceId( $eventId, $poiId, $startDate )
   {
     if ( !empty( $eventId ) && !empty( $poiId ) && !empty( $startDate ) )
     {

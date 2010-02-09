@@ -127,7 +127,7 @@ LinkingVendorPoiCategory:
      poi_id:                  {type: integer, notnull: true}
 
 #Poi CategoryMapping
-PoiCategoryMapping:
+LinkingPoiCategoryMapping:
   connection: project_n
   columns:
     map_from_id:                {type: integer, notnull: true}
@@ -248,8 +248,8 @@ EventCategory:
   relations:
     Events:                     {class: Event, refClass: LinkingEventCategory, local: event_category_id, foreign: event_id}
 
-#Event CategoryMapping
-EventCategoryMapping:
+#LinkingEvent CategoryMapping
+LinkingEventCategoryMapping:
   connection: project_n
   columns:
     map_from_id:                {type: integer, notnull: true}
