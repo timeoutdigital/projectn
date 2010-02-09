@@ -2,6 +2,8 @@
 cache/*
 log/*
 nbproject/
+import/*
+export/*
 .project
 .settings
 .chanels
@@ -13,6 +15,7 @@ nbproject/
 .sf
 *.swp
 *.swo
+
 
 
 
