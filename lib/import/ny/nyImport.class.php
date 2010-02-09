@@ -486,6 +486,10 @@ class importNy
 
         foreach ( $event->date as $occurrence )
         {
+
+
+
+       
           $occurrenceObj = new EventOccurrence();
           $occurrenceObj[ 'start' ] = (string) $occurrence->start;
           $occurrenceObj[ 'utc_offset' ] = '-05:00';

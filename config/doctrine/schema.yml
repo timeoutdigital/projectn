@@ -145,8 +145,8 @@ PoiProperty:
   actAs:
     Timestampable: ~
   columns:
-    lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(50), notnull: true}
+    lookup:                     {type: string(100), notnull: true}
+    value:                      {type: string(100), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
