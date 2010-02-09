@@ -298,7 +298,7 @@ Movie:
     rating:                     {type: float, notnull: false}
     age_rating:                 {type: string(32), notnull: false}
     utf_offset:                 {type: string(9), notnull: true}
-    poi_id:                     {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: false}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
     MovieGenres:                {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
