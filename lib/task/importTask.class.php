@@ -37,10 +37,10 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-          case 'poi-event':
+          case 'poi-event-kids':
             try
             {
-              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_leo.xml' );
+              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_kids_leo.xml' );
 
               $processXmlObj = new processNyXml( $fileNameString );
               $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
@@ -52,11 +52,11 @@ class importTask extends sfBaseTask
               echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
             }
             break;
-          
-          case 'poi-event-kids':
+
+          case 'poi-event':
             try
             {
-              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_kids_leo.xml' );
+              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_leo.xml' );
 
               $processXmlObj = new processNyXml( $fileNameString );
               $processXmlObj->setEvents('/body/event')->setVenues('/body/address');

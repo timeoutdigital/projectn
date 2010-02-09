@@ -30,7 +30,7 @@ class NullDoctrineRecordTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
   }
 
   /**

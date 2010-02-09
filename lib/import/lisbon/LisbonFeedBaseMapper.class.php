@@ -14,63 +14,6 @@
 class LisbonFeedBaseMapper extends DataMapper
 {
   /**
-   * @var DateTimeZone
-   */
-  private $dateTimeZoneLondon;
-  
-  /**
-   * @var DateTimeZone
-   */
-  private $dateTimeZoneLisbon;
-
-  /**
-   * @var Vendor
-   */
-  protected $vendor;
-
-  /**
-   * @var geoEncode
-   */
-  protected $geoEncoder;
-
-  /**
-   * @var SimpleXMLElement
-   */
-  protected $xml;
-
-  public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
-  {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
-    
-    if( !$vendor )
-    {
-      throw new Exception( 'Vendor not found.' );
-    }
-    $this->vendor = $vendor;
-    $this->xml = $xml;
-
-    $this->dateTimeZoneLondon = new DateTimeZone( 'Europe/London' );
-    $this->dateTimeZoneLisbon = new DateTimeZone( 'Europe/Lisbon' );
-
-    if( is_null( $geoEncoder ) )
-    {
-      $geoEncoder = new geoEncode();
-    }
-    $this->geoEncoder = $geoEncoder;
-  }
-
-  /**
-   * Gets the utc offset for a Lisbon date
-   */
-  protected function getUtcOffset( $time )
-  {
-    $offsetSeconds = $this->dateTimeZoneLondon->getOffset(
-      new DateTime( $time, $this->dateTimeZoneLisbon )
-    );
-    return $offsetSeconds / 3600;
-  }
-  
-  /**
    * Maps all the attributes to the Event's properties unless stated otherwise
    * in getListingsMap() and / or getListingsIgnoreMap();
    *
@@ -81,10 +24,11 @@ class LisbonFeedBaseMapper extends DataMapper
    * @param SimpleXMLElement $element
    * $param string $propertiesKey
    */
-  protected function mapAvailableData( $record, SimpleXMLElement $element )
+  protected function mapAvailableData( &$record, SimpleXMLElement $element, $propertiesKey )
   {
     $map = $this->getMap();
     $ignoreMap = $this->getIgnoreMap();
+
     foreach( $element->attributes() as $key => $value )
     {
       if( in_array( $key, $ignoreMap ) )
@@ -98,8 +42,8 @@ class LisbonFeedBaseMapper extends DataMapper
       }
       else
       {
-        //this seems to cause elements to be looped twice
-        $record->addProperty( $key, $value );
+        //echo $key . '->' . (string) $value . PHP_EOL;
+        $record->addProperty( $key, (string) $value );
       }
     }
   }

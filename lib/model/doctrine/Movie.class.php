@@ -15,8 +15,8 @@ class Movie extends BaseMovie
   public function addProperty( $lookup, $value )
   {
     $moviePropertyObj = new MovieProperty();
-    $moviePropertyObj[ 'lookup' ] = $lookup;
-    $moviePropertyObj[ 'value' ] = $value;
+    $moviePropertyObj[ 'lookup' ] = (string) $lookup;
+    $moviePropertyObj[ 'value' ] = (string) $value;
 
     $this[ 'MovieProperty' ][] = $moviePropertyObj;
   }

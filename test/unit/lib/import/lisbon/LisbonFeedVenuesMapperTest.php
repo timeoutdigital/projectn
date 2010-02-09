@@ -15,11 +15,6 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
   protected $object;
 
   /**
-   * @var int
-   */
-  private $numVenuesInFixture = 6;
-
-  /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
    */
@@ -34,22 +29,9 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     );
     $vendor->save();
     $this->vendor = $vendor;
-    
-    $geoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
-    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
-               ->method( 'setAddress' );
-
-    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
-               ->method( 'getLongitude' )
-               ->will( $this->returnValue( 1.1 ) );
-
-    $geoEncoder->expects( $this->exactly( $this->numVenuesInFixture ) )
-               ->method( 'getLatitude' )
-               ->will( $this->returnValue( 2.2 ) );
 
     $this->object = new LisbonFeedVenuesMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_venues.short.xml' ),
-      $geoEncoder
+      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_venues.short.xml' )
     );
   }
 
@@ -69,35 +51,35 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
     
     $pois = Doctrine::getTable('Poi')->findAll();
-    $this->assertEquals(  $this->numVenuesInFixture , $pois->count() );
+    $this->assertEquals( 6, $pois->count() );
 
     $poi = $pois[0];
 
     $this->assertEquals( 0,  $poi['vendor_poi_id'] );
+    $this->assertEquals( '', $poi['review_date'] );
     $this->assertEquals( 'PTR', $poi['local_language'] );
     $this->assertEquals( 'Igreja da Memória', $poi['poi_name'] );
-    $this->assertEquals( '5 building name', $poi['house_no'] );
+    $this->assertEquals( '5', $poi['house_no'] );
     $this->assertEquals( 'Lg da Memória, ', $poi['street'] );
     $this->assertEquals( 'Lisbon', $poi['city'] );
+    $this->assertEquals( '', $poi['district'] );
     $this->assertEquals( 'Portugal', $poi['country'] );
     $this->assertEquals( 'Lg da Memória, , Lg da Memória', $poi['additional_address_details'] );
-    $this->assertEquals( '1.1', $poi['longitude'] );
-    $this->assertEquals( '2.2', $poi['latitude'] );
-    $this->assertEquals( 'test@test.com', $poi['email'] );
-    $this->assertEquals( '07745674321', $poi['phone'] );
-    $this->assertEquals( '07745671234', $poi['phone2'] );
-    $this->assertEquals( 'Some category', $poi['vendor_category'] );
-    $this->assertEquals( 'Tube: Saldanha, Bus: some bus, Rail: some rail', $poi['public_transport_links'] );
-    $this->assertEquals( 'comedy price', $poi['price_information'] );
-    $this->assertEquals( 'w23 fe', $poi['zips'] );
-    $this->assertEquals( 'www.foo.com', $poi['url'] );
-    $this->assertEquals( 'gay annonation, nightlife annotation', $poi['description'] );
-    $this->assertEquals( 'abbreviation text', $poi['short_description'] );
-    $this->assertEquals( '9:00', $poi['openingtimes'] );
-    $this->assertEquals( '', $poi['review_date'] );
-    $this->assertEquals( '', $poi['district'] );
+    $this->assertEquals( '', $poi['zips'] );
+    $this->assertEquals( 0, $poi['longitude'] );
+    $this->assertEquals( 0, $poi['latitude'] );
+    $this->assertEquals( '', $poi['email'] );
+    $this->assertEquals( '', $poi['url'] );
+    $this->assertEquals( '', $poi['phone'] );
+    $this->assertEquals( '', $poi['phone2'] );
     $this->assertEquals( '', $poi['fax'] );
+    $this->assertEquals( '', $poi['vendor_category'] );
     $this->assertEquals( '', $poi['keywords'] );
+    $this->assertEquals( '', $poi['short_description'] );
+    $this->assertEquals( '', $poi['description'] );
+    $this->assertEquals( 'Tube: Saldanha, Bus: some bus, Rail: some rail', $poi['public_transport_links'] );
+    $this->assertEquals( '', $poi['price_information'] );
+    $this->assertEquals( '', $poi['openingtimes'] );
     $this->assertEquals( '', $poi['star_rating'] );
     $this->assertEquals( '', $poi['rating'] );
     $this->assertEquals( '', $poi['provider'] );

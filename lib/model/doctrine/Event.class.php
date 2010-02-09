@@ -16,8 +16,8 @@ class Event extends BaseEvent
   public function addProperty( $lookup, $value )
   {
     $eventPropertyObj = new EventProperty();
-    $eventPropertyObj[ 'lookup' ] = $lookup;
-    $eventPropertyObj[ 'value' ] = $value;
+    $eventPropertyObj[ 'lookup' ] = (string) $lookup;
+    $eventPropertyObj[ 'value' ] = (string) $value;
     
     $this[ 'EventProperty' ][] = $eventPropertyObj;
   }

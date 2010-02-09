@@ -42,7 +42,7 @@ class dubaiImportBars{
         foreach($this->xmlObj as $poi)
         {
             $found = false;
-
+            
             if($poi->title != '')
             {
                 
@@ -162,19 +162,16 @@ class dubaiImportBars{
 
           //Commit transaction
            $conn->commit();
-
            //Count the new insert
           $this->poiLoggerObj->countNewInsert();
-          
-          return true;
 
         }
         catch(Exception $e)
         {
             $conn->rollback(); // deletes all savepoints
-           
-            return false;
         }
+
+        return $poiObj;
     }
 }
 ?>

@@ -52,10 +52,14 @@ class XMLExportEvent extends XMLExport
         //$category->free( );
       }
 
+      if( $event[ 'EventCategories' ]->count() < 1 )
+      {
+        $this->appendRequiredElement($eventElement, 'category', 'other');
+      }
 
       //event/version
       $versionElement = $this->appendRequiredElement( $eventElement, 'version' );
-      $versionElement->setAttribute( 'lang', 'en' );
+      $versionElement->setAttribute( 'lang', 'pt' );
 
       //event/version/name
       $this->appendRequiredElement($versionElement, 'name', $event['name'], XMLExport::USE_CDATA);

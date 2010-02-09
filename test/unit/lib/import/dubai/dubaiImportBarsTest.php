@@ -48,19 +48,19 @@ class dubaiImportBarsTest extends PHPUnit_Framework_TestCase
           Doctrine::loadData('data/fixtures');
           $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
 
-/*
-          $poiCategoryObj = new PoiCategory();
-          $poiCategoryObj[ 'name' ] = 'bar-pub';
-          $poiCategoryObj->save();
+
+ //         $poiCategoryObj = new PoiCategory();
+ //         $poiCategoryObj[ 'name' ] = 'bar-pub';
+ //         $poiCategoryObj->save();
 
           //Regression tests
           $this->curlObj = new curlImporter();
-          //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
-           $this->restaurantXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/restaurants')->getXml();
+          //$this->barXmlObj =  $this->curlObj->pullXml('http://www.timeoutdubai.com/', 'nokia/bars')->getXml();
+           $this->restaurantXmlObj =  $this->curlObj->pullXml('http://www.timeoutdubai.com/', 'nokia/restaurants')->getXml();
           
           //$this->barObject = new dubaiImportBars( $this->barXmlObj, $this->vendorObj, 'bar' );
           $this->restaurantObj =  new dubaiImportBars( $this->restaurantXmlObj, $this->vendorObj, 'restaurant' );
-*/
+
         }
         catch( Exception $e )
         {
@@ -95,18 +95,18 @@ class dubaiImportBarsTest extends PHPUnit_Framework_TestCase
 
     public function testAddRestaurantPoi()
     {
-        /**foreach($this->restaurantXmlObj as $poi)
+        /*foreach($this->restaurantXmlObj as $poi)
         {
+             if($poi->title != '')
+            {
+                $poiReturned = $this->restaurantObj->addRestaurantPoi($poi);
+                $this->assertType('array', $poiReturned, 'Poi added') ;
+           
+                break;
+            }
+        }*/
 
-            //var_dump($poi);
-           // $this->restaurantObj->addRestaurantPoi($poi);
-
-           // $this->assertTrue($this->restaurantObj->addRestaurantPoi($poi), 'Poi added') ;
-            
-            break;
-        }
-
-        */
+        
         
     }
 }
