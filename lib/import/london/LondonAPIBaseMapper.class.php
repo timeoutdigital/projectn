@@ -3,7 +3,7 @@
  * 
  *
  * @package projectn
- * @subpackage
+ * @subpackage london.import.lib
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
@@ -123,11 +123,6 @@ abstract class LondonAPIBaseMapper extends DataMapper
       foreach( $searchPageXml->response->block->row as $row )
       {
         $xml = $this->callApiGetDetails( $row->uid );
-        
-        if( is_null( $xml ) )
-        {
-          throw new Exception( 'API call for a ' . $this->getApiType() . ' returned null' );
-        }
 
         $this->doMapping( $xml );
         if( !$this->inLimit( ++$numResultsMapped ) ) return;
@@ -158,6 +153,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * node contains the information we are interested in
    * 
    * See London API document written by Rhodri Davis (Word file)
+   * 
+   * @todo need to create fixtures to test for Exception when API returns
+   * xml without a <rpw> node.
    *
    * @param string $uid
    * @return SimpleXMLElement
@@ -166,7 +164,12 @@ abstract class LondonAPIBaseMapper extends DataMapper
   {
     $this->curl->pullXml( $this->getDetailsUrl(), '', array( 'uid' => $uid ) );
     $xml = $this->curl->getXML();
-    
+
+    if( !$xml )
+    {
+      throw new Exception( 'API call "'. $this->getDetailsUrl() .'?uid="' . $uid . '" returned nothing.' );
+    }
+
     $nodeContainingDetails = $xml->response->row;
     return $nodeContainingDetails;
   }
