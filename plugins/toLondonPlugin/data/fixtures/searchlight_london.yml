@@ -1,9 +1,9 @@
 # # Populate this file with data to be loaded by your ORM's *:data-load task.
 # # You can create multiple files in this directory (i.e. 010_users.yml,
 # # 020_articles.yml, etc) which will be loaded in alphabetical order.
-# # 
+# #
 # # See documentation for your ORM's *:data-load task for more information.
-# 
+#
 # User:
 #   fabien:
 #     username: fabien
@@ -71,7 +71,7 @@ SLLVenue:
     source: Dummy Source 1
     source_id: 1
     event_count: 1
-   
+
   venue_2:
     id: 2
     neighbourhood_id: 2
@@ -120,7 +120,7 @@ SLLVenueCategoryInformation:
   vci_1:
     category_id: 1
     venue_id: 1
-    
+
   vci_2:
     category_id: 2
     venue_id: 2
@@ -159,7 +159,7 @@ SLLEvent:
     source_event_id: 1
     date_start: '2010-02-11'
     date_end: '2010-02-11'
-    opening_times: Dummy Opening Times 1    
+    opening_times: Dummy Opening Times 1
     type: 4
     title_url: Dummy-Title-Url-1
     suitable_for_kids: 0
@@ -172,7 +172,7 @@ SLLEvent:
     advanced_text: Dummy Advanced Text 1
     date_created: '2010-01-01 00:00:00'
     date_modified: '2010-01-01 00:00:00'
-    
+
   event_2:
     id: 2
     master_category_id: 2
@@ -201,7 +201,7 @@ SLLEvent:
     source_event_id: 2
     date_start: '2010-02-02'
     date_end: '2010-02-12'
-    opening_times: Dummy Opening Times 2    
+    opening_times: Dummy Opening Times 2
     type: 4
     title_url: Dummy-Title-Url-2
     suitable_for_kids: 0
@@ -214,7 +214,7 @@ SLLEvent:
     advanced_text: Dummy Advanced Text 2
     date_created: '2010-01-02 00:00:00'
     date_modified: '2010-01-02 00:00:00'
-    
+
   event_3:
     id: 3
     master_category_id: 3
@@ -243,7 +243,7 @@ SLLEvent:
     source_event_id: 3
     date_start: '2010-02-03'
     date_end: '2010-02-13'
-    opening_times: Dummy Opening Times 3    
+    opening_times: Dummy Opening Times 3
     type: 4
     title_url: Dummy-Title-Url-3
     suitable_for_kids: 0
@@ -255,7 +255,7 @@ SLLEvent:
     flickr_tag: Dummy Flickr Tag 3
     advanced_text: Dummy Advanced Text 3
     date_created: '2010-01-03 00:00:00'
-    date_modified: '2010-01-03 00:00:00'   
+    date_modified: '2010-01-03 00:00:00'
 
 
 
@@ -273,22 +273,22 @@ SLLEventCategoryMapping:
     event_id: 3
 
 
-    
+
 
 SLLOccurrence:
   occurrence_1:
     id: 1
     event_id: 1
     venue_id: 1
-    date_start: '2010-02-01'
+    date_start: <?php echo "'" . date( 'Y-m-d', mktime( 0, 0, 0, date('n'), date('j'), date('Y') ) ) . "'" . PHP_EOL ?>
     time_start: 00:00:00
-    date_end: '2010-02-01'
+    date_end: <?php echo "'" . date( 'Y-m-d', mktime( 0, 0, 0, date('n'), date('j')+5, date('Y') ) ) . "'" . PHP_EOL ?>
     time_end: 00:00:00
     title: Dummy Title 1
     annotation: Dummy Annotation 1
     annotation_behaviour: 0
     price: Dummy Price 1
-    new: 0 
+    new: 0
     last_chance: 0
     image_id: 11111111
     recommended: 0
@@ -300,7 +300,7 @@ SLLOccurrence:
     advanced_text: Dummy Advanced Text 1
     date_created: '2010-01-01 00:00:00'
     date_modified: '2010-01-01 00:00:00'
-    
+
   occurrence_2:
     id: 2
     event_id: 2
@@ -313,7 +313,7 @@ SLLOccurrence:
     annotation: Dummy Annotation 2
     annotation_behaviour: 0
     price: Dummy Price 2
-    new: 0 
+    new: 0
     last_chance: 0
     image_id: 22222222
     recommended: 0
@@ -324,7 +324,7 @@ SLLOccurrence:
     flickr_tag: Dummy Flickr Tag 2
     advanced_text: Dummy Advanced Text 2
     date_created: '2010-01-02 00:00:00'
-    date_modified: '2010-01-02 00:00:00' 
+    date_modified: '2010-01-02 00:00:00'
 
   occurrence_3:
     id: 3
@@ -338,7 +338,7 @@ SLLOccurrence:
     annotation: Dummy Annotation 3
     annotation_behaviour: 0
     price: Dummy Price 3
-    new: 0 
+    new: 0
     last_chance: 0
     image_id: 33333333
     recommended: 0
@@ -351,15 +351,15 @@ SLLOccurrence:
     date_created: '2010-01-03 00:00:00'
     date_modified: '2010-01-03 00:00:00'
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 ########################################################################################
 #
 #
@@ -382,7 +382,7 @@ SLLOccurrence:
 #    sort_index:
 #      type: integer(4)
 #      unsigned: 1
-#      primary: true    
+#      primary: true
 #
-########################################################################################    
-    
+########################################################################################
+
