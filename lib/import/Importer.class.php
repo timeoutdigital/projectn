@@ -109,16 +109,8 @@ class Importer
   {
     //$record = $this->getRecordUsingData( $recordData );
     //transform( $records )
-    try
-    {
-      $record->save();
-      $this->output( '.' );
-    }
-    catch( Exception $e)
-    {
-      //echo $record->getErrorStackAsString();
-      $this->output( 'x' );
-    }
+    $record->save();
+    $this->output( '.' );
   }
 
   /**
