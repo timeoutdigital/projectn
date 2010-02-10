@@ -48,11 +48,11 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
 
     $mockGeoEncoder->expects( $this->exactly( $limit ) )
                ->method( 'getLongitude' )
-               ->will( $this->returnValue( 1.1 ) );
+               ->will( $this->returnValue( -0.13732 ) );
 
     $mockGeoEncoder->expects( $this->exactly( $limit ) )
                ->method( 'getLatitude' )
-               ->will( $this->returnValue( 2.2 ) );
+               ->will( $this->returnValue( 51.55958 ) );
 
     $mapper = new LondonAPIBarsAndPubsMapper( $mockGeoEncoder );
 

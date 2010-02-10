@@ -51,6 +51,14 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
   protected function doMapping( SimpleXMLElement $barsXml )
   {
     $poi = new Poi();
+    
+    $this->geoEncoder->setAddress( $barsXml->venueAddress );
+
+    $poi['longitude'] = $this->geoEncoder->getLongitude();
+    $poi['latitude'] = $this->geoEncoder->getLatitude();
+
+    $address = $this->getAddressUsingGeocode( $poi['latitude'], $poi['longitude'] );
+    
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $barsXml->uid;
     $poi['street']            = (string) $barsXml->address;
@@ -66,17 +74,30 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
     $poi['star_rating']       = (int) $barsXml->starRating;
     $poi['description']       = (string) $barsXml->description;
 
-    $this->geoEncoder->setAddress( $barsXml->venueAddress );
-
-    $poi['longitude'] = $this->geoEncoder->getLongitude();
-    $poi['latitude'] = $this->geoEncoder->getLatitude();
-
     foreach( $barsXml->details as $detail )
     {
       $poi->addProperty( (string) $detail['name'], (string) $detail );
     }
 
     $this->notifyImporter( $poi );
+  }
+
+  /**
+   * Look up an address using latitude and longitude
+   *
+   * @return array
+   */
+  protected function getAddressUsingGeocode( $latitude, $longitude )
+  {
+    $reverseGeocoder = new reverseGeocode($latitude, $longitude);
+    $addressesXml = $reverseGeocoder->getAddressesXml();
+    //registerNamespace
+    $firstAddressDetails = $addressesXml->xpath( '/root' );
+    
+    return array
+    (
+      'AdministrativeArea' => $firstAddressDetails
+    );
   }
 }
 ?>
