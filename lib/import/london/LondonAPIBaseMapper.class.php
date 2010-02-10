@@ -121,7 +121,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
       foreach( $searchPageXml->response->block->row as $row )
       {
         $xml = $this->callApiGetDetails( $row->uid );
-        $this->doMapping( $xml->response->row );
+        if
+        $this->doMapping( $xml );
 
         if( !$this->inLimit( ++$numResultsMapped ) ) return;
       }
@@ -147,7 +148,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
   }
 
   /**
-   * Calls London API's getRestaurant using $uid
+   * Calls London API's get<type> using $uid and returns the <row> node. This
+   * node contains the information we are interested in
+   * 
    * See London API document written by Rhodri Davis (Word file)
    *
    * @param string $uid
@@ -156,7 +159,10 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected function callApiGetDetails( $uid )
   {
     $this->curl->pullXml( $this->getDetailsUrl(), '', array( 'uid' => $uid ) );
-    return $this->curl->getXML();
+    $xml = $this->curl->getXML();
+    
+    $nodeContainingDetails = $xml->response->row;
+    return $nodeContainingDetails;
   }
 
   /**
