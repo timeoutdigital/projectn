@@ -135,7 +135,7 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue( $occurrence instanceof Doctrine_Record );
 
-    $this->assertEquals( '2010-02-01', $occurrence[ 'start' ]  );
+    $this->assertEquals( date( 'Y-m-d' ), $occurrence[ 'start' ]  );
     $this->assertEquals( '0', $occurrence[ 'utc_offset' ]  );
   }
 
