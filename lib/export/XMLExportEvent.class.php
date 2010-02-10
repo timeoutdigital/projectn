@@ -136,7 +136,17 @@ class XMLExportEvent extends XMLExport
 
           $theTime = date('H:i:s', $timeStamp);
           $theDate = date('Y-m-d', $timeStamp);
-        
+
+          if(strtotime($theDate) > strtotime("-1 day", date('Y-m-d')))
+          {
+            /**
+             * @todo Log
+             */
+             echo 'check the date';
+          }
+          
+
+
           $this->appendRequiredElement($timeElement, 'start_date', $theDate);
           $this->appendRequiredElement($timeElement, 'event_time', $theTime);
           $this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end']);
