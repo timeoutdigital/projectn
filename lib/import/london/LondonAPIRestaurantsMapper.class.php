@@ -19,7 +19,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    */
   public function mapPoi()
   {
-    $this->crawlApiForType( 'Restaurants' );
+    $this->crawlApi();
   }
   
   /**
@@ -30,6 +30,18 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
   protected function getDetailsUrl()
   {
     return 'http://api.timeout.com/v1/getRestaurant.xml';
+  }
+
+  /**
+   * Returns the API type
+   *
+   * See London's API Word doc by Rhodri Davis
+   *
+   * @return string
+   */
+  protected function getApiType()
+  {
+    return 'Restaurants';
   }
 
   /**

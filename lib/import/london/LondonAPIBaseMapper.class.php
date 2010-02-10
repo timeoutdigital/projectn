@@ -105,8 +105,10 @@ abstract class LondonAPIBaseMapper extends DataMapper
   /**
    * @param string $type
    */
-  protected function crawlApiForType( $type )
+  protected function crawlApi()
   {
+    $type = $this->getApiType();
+
     $searchXml = $this->callApiSearch( array( 'type' => $type, 'offset' => 0 ) );
 
     $numPerPage = $searchXml->responseHeader->rows;
@@ -121,9 +123,13 @@ abstract class LondonAPIBaseMapper extends DataMapper
       foreach( $searchPageXml->response->block->row as $row )
       {
         $xml = $this->callApiGetDetails( $row->uid );
-        if
-        $this->doMapping( $xml );
+        
+        if( is_null( $xml ) )
+        {
+          throw new Exception( 'API call for a ' . $this->getApiType() . ' returned null' );
+        }
 
+        $this->doMapping( $xml );
         if( !$this->inLimit( ++$numResultsMapped ) ) return;
       }
     }
@@ -180,6 +186,16 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @returns string
    */
   abstract protected function getDetailsUrl();
+
+  /**
+   * Return the API type
+   * e.g. Restaurants, Bar & Pubs, Cinemas ...
+   *
+   * See London's API Word doc by Rhodri Davis
+   *
+   * @return string
+   */
+  abstract protected function getApiType();
 
   /**
    * Do mapping of xml to poi and notify Importer here

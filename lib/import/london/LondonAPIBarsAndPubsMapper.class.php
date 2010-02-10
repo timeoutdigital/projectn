@@ -18,7 +18,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    */
   public function mapPoi()
   {
-    $this->crawlApiForType( 'Bars & Pubs' );
+    $this->crawlApi();
   }
 
   /**
@@ -29,6 +29,18 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
   protected function getDetailsUrl()
   {
     return 'http://api.timeout.com/v1/getBar.xml';
+  }
+
+  /**
+   * Returns the API type
+   *
+   * See London's API Word doc by Rhodri Davis
+   *
+   * @return string
+   */
+  protected function getApiType()
+  {
+    return 'Bars & Pubs';
   }
 
   /**
