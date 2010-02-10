@@ -20,7 +20,7 @@ class importTask extends sfBaseTask
   protected function execute($arguments = array(), $options = array())
   {
     //Connect to the database.
-    
+    $timer = sfTimerManager::getTimer('importTimer');
     //Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
 
 
@@ -309,7 +309,12 @@ class importTask extends sfBaseTask
 
 
 
-    }
+    }//end switch
+
+    $timer->addTime();
+    $totalTime = $timer->getElapsedTime();
+
+    echo "Total time: ". round($totalTime/60,2) . "\n";
   }
 
   /**
