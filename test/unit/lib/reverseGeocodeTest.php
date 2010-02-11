@@ -21,7 +21,7 @@ class reverseGeocodeTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    $this->object = new reverseGeocode( 501.52059, -0.13479 );
+    $this->object = new reverseGeocode( 56.0076, -4.53186 );
   }
 
   /**
