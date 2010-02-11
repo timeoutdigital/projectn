@@ -27,7 +27,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    * 
    * @return string
    */
-  protected function getDetailsUrl()
+  public function getDetailsUrl()
   {
     return 'http://api.timeout.com/v1/getRestaurant.xml';
   }
@@ -39,7 +39,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    *
    * @return string
    */
-  protected function getApiType()
+  public function getApiType()
   {
     return 'Restaurants';
   }
@@ -49,7 +49,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    *
    * @param SimpleXMLElement $restaurantXml
    */
-  protected function doMapping( SimpleXMLElement $restaurantXml )
+  public function doMapping( SimpleXMLElement $restaurantXml )
   {
     $poi = new Poi();
     $poi['vendor_id']         = $this->vendor['id'];

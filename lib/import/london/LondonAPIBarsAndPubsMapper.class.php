@@ -18,7 +18,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    */
   public function mapPoi()
   {
-    $this->crawlApi();
+    $this->apiCrawler->crawlApi();
   }
 
   /**
@@ -26,7 +26,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    *
    * @return string
    */
-  protected function getDetailsUrl()
+  public function getDetailsUrl()
   {
     return 'http://api.timeout.com/v1/getBar.xml';
   }
@@ -38,7 +38,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    *
    * @return string
    */
-  protected function getApiType()
+  public function getApiType()
   {
     return 'Bars & Pubs';
   }
@@ -48,7 +48,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    *
    * @param SimpleXMLElement $barsXml
    */
-  protected function doMapping( SimpleXMLElement $barsXml )
+  public function doMapping( SimpleXMLElement $barsXml )
   {
     $poi = new Poi();
 
@@ -151,14 +151,14 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
     return $firstAddressDetails;
   }
 
-  private function extractAdministrativeAreaName( $firstAddressXml )
+  protected function extractAdministrativeAreaName( $firstAddressXml )
   {
     return (string) $firstAddressXml->Country
       ->AdministrativeArea
       ->AdministrativeAreaName;
   }
 
-  private function extractSubAdministrativeAreaName( $firstAddressXml )
+  protected function extractSubAdministrativeAreaName( $firstAddressXml )
   {
     return (string) $firstAddressXml->Country
       ->AdministrativeArea

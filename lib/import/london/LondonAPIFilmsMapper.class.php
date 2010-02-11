@@ -27,7 +27,7 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
    *
    * @return string
    */
-  protected function getDetailsUrl()
+  public function getDetailsUrl()
   {
     return 'http://api.timeout.com/v1/getFilm.xml';
   }
@@ -39,7 +39,7 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
    *
    * @return string
    */
-  protected function getApiType()
+  public function getApiType()
   {
     return 'Films';
   }
@@ -49,7 +49,7 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
    *
    * @param SimpleXMLElement $movieXml
    */
-  protected function doMapping( SimpleXMLElement $movieXml )
+  public function doMapping( SimpleXMLElement $movieXml )
   {
     $movie = new Movie();
     $movie['vendor_id']         = $this->vendor['id'];

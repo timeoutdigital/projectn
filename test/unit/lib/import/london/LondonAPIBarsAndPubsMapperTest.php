@@ -54,7 +54,9 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
                ->method( 'getLatitude' )
                ->will( $this->returnValue( 51.35736 ) );
 
-    $mapper = new LondonAPIBarsAndPubsMapper( $mockGeoEncoder );
+    $crawler = new LondonAPICrawler();
+    $crawler->setLimit($limit);
+    $mapper = new LondonAPIBarsAndPubsMapper( $crawler, $mockGeoEncoder );
 
     $importer = new Importer();
     $mapper->setLimit( $limit );
