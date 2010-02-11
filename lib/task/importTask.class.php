@@ -20,10 +20,12 @@ class importTask extends sfBaseTask
   protected function execute($arguments = array(), $options = array())
   {
     //Connect to the database.
-    $timer = sfTimerManager::getTimer('importTimer');
+    $databaseManager = new sfDatabaseManager($this->configuration);
+
     //Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
 
-
+    $timer = sfTimerManager::getTimer('importTimer');
+    
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     //Select the task
@@ -235,6 +237,7 @@ class importTask extends sfBaseTask
         $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-US');
 
         //must be set for price range function
+        //@todo get get this info out of vendor?!
         setlocale(LC_MONETARY, 'en_US.UTF-8');
 
         switch( $options['type'] )

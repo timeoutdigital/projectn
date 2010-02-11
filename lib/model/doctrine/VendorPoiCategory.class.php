@@ -12,4 +12,25 @@
  */
 class VendorPoiCategory extends BaseVendorPoiCategory
 {
+
+  public function getVendorName()
+  {
+    return $this[ 'Vendor' ][ 'city' ];
+  }
+
+  public function postSave( $obj )
+  {
+    
+    foreach ( $this['Poi'] as $poi )
+    {
+
+      foreach( $this['PoiCategories'] as $category )
+      {
+        $poi['PoiCategories'][] = $category;
+      }
+
+      $poi->save();
+    }
+  }
+
 }

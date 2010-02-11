@@ -60,42 +60,47 @@ class CategoryMap {
    * @return array of Doctrine_Collection
    *
    */
-  public function mapCategories( $vendorObj, $sourceCategory, $mapClass, $noMatchCategoryNameString = 'other' )
+  public function mapCategories( $vendorObj, $sourceCategory, $mapCategoriesFor, $noMatchCategoryNameString = 'other' )
   {
 
-    if ( ! in_array( $mapClass, array( 'PoiCategory', 'EventCategory' ) ) )
+    if ( ! in_array( $mapCategoriesFor, array( 'Poi', 'Event' ) ) )
     {
       Throw new Exception("mapping class not supported");
     }
 
     //if ( ! $this->_queryCache || $this->_noMatchCategory != $noMatchCategoryNameString )
     //{
-      $this->_noMatchCategory = Doctrine::getTable( $mapClass )->findOneByName( $noMatchCategoryNameString );
+      $this->_noMatchCategory = Doctrine::getTable( $mapCategoriesFor . 'Category' )->findOneByName( $noMatchCategoryNameString );
     //}
 
     //if ( ! $this->_queryCache || $this->_vendorId != $vendorObj[ 'id' ] ||  )
     //{
-      
+
       $this->_vendorId = $vendorObj[ 'id' ];
-      
-      $this->_categoriesMappingLookupCol = Doctrine::getTable( $mapClass . 'Mapping' )->findByVendorId( $this->_vendorId );
+
+      $this->_categoriesMappingLookupCol = Doctrine::getTable( 'Vendor' . $mapCategoriesFor . 'Category' )->findMappingsByVendorId( $this->_vendorId );
+
     //}
 
-    $mappedCategoriesCol = new Doctrine_Collection( Doctrine::getTable( $mapClass ) );
+    $mappedCategoriesCol = new Doctrine_Collection( Doctrine::getTable( $mapCategoriesFor . 'Category' ) );
 
     foreach( $sourceCategory as $category )
     {
       $match = false;
 
-      foreach ( $this->_categoriesMappingLookupCol as $categoriesMappingLookup )
+      foreach ( $this->_categoriesMappingLookupCol as $ourCategoryObj )
       {
-        if (  $categoriesMappingLookup[ 'Vendor' . $mapClass ][ 'name' ] == (string) $category )
+
+        foreach( $ourCategoryObj[ 'Vendor' . $mapCategoriesFor . 'Categories' ] as $vendorPoiCategory )
         {
-          $mappedCategoriesCol[] = $categoriesMappingLookup[ $mapClass ];
-          $match = true;
+
+          if (  $vendorPoiCategory[ 'name' ] == (string) $category )
+          {
+            $mappedCategoriesCol[] = $ourCategoryObj;
+            $match = true;
+          }
         }
       }
-
     }
 
     if ( $match === false && is_object( $this->_noMatchCategory ) )

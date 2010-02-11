@@ -128,28 +128,27 @@ class importNyTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * Tests that testInsertEvent
+   * Tests that an event that is categorised as a File or Picture House is not added
    *
-   * @todo add occurrence
    */
-  public function testInsertEvent()
+  public function testMovieEventNoInsert()
   {
     $venuesArray = $this->xmlObj->getVenues();
     $this->object->insertPoi( $venuesArray[ 0 ] );
 
     $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 0 ] );
+    $this->object->insertEvent( $eventsArray[ 1 ] );
 
-    $eventObj = Doctrine::getTable('Event')->findByName('Rien Que Les Heures');
+    $eventObj = Doctrine::getTable('Event')->findByName('Black Dynamite');
 
-    $this->assertEquals( 1, count( $eventObj ) );
-
+    //There should be no records returned as its a movie/picture house
+    $this->assertEquals( 0, count( $eventObj ) );
 
     $occurance = Doctrine::getTable('EventOccurrence')->findOneByEventId(1);
-
-    print_r($occurance->toArray());
-
   }
+
+
+
 
   /*
    * Test catgegory property for poi
@@ -211,7 +210,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->object->insertEvent( $eventsArray[ 0 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
-
+  
     // url
     $this->assertEquals( 'http://theatermania.com', $eventObj[ 'url' ] );
 
@@ -291,9 +290,11 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $eventsArray = $this->xmlObj->getEvents();
     $this->object->insertEvent( $eventsArray[ 0 ] );
 
-    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
+    $this->object->insertVendorEventCategories($eventsArray[ 2 ] );
 
-    $this->assertEquals( 'movies', $eventObj['EventCategories'][ 0 ][ 'name' ] );
+    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
+ 
+    $this->assertEquals( 'theater', $eventObj['EventCategories'][ 0 ][ 'name' ] );
   }
 
   /*
@@ -309,7 +310,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    $this->assertEquals( 'Film | Art-house & indie cinema', $eventObj['VendorEventCategories'][ 0 ][ 'name' ] );
+    $this->assertEquals( 'Comedy', $eventObj['VendorEventCategories'][ 0 ][ 'name' ] );
   }
 
   /*
@@ -340,18 +341,21 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   /*
    * Test if the poi categories get mapped correctly
+   *
+   * @todo re-implement
    */
   public function testPoiCategoryMapShops()
   {
     $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Shops' );
 
-    $mappedCategoriesObject = $this->categoryMap->mapCategories(  $this->vendorObj, $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+    $mappedCategoriesObject = $this->categoryMap->mapCategories(  $this->vendorObj, $categoryArray, 'Poi', 'theatre-music-culture' );
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
     $this->assertEquals( 'shop', $mappedCategoriesObject[ 0 ][ 'name' ] );
 
     $this->assertEquals( 1, count( $mappedCategoriesObject ) );
+
   }
 
   /*
@@ -359,13 +363,13 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testEventCategoryMapMovies()
   {
-    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Film | Art-house & indie cinema' );
+    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Comedy' );
 
-    $mappedCategoriesObject = $this->categoryMap->mapCategories( $this->vendorObj, $categoryArray, 'EventCategory' );
+    $mappedCategoriesObject = $this->categoryMap->mapCategories( $this->vendorObj, $categoryArray, 'Event' );
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
-    $this->assertEquals( 'movies', $mappedCategoriesObject[ 0 ][ 'name' ] );
+    $this->assertEquals( 'theater', $mappedCategoriesObject[ 0 ][ 'name' ] );
 
     $this->assertEquals( 1, count( $mappedCategoriesObject ) );
   }

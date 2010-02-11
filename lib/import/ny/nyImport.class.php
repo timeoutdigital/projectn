@@ -191,6 +191,8 @@ class importNy
       $areaCodeString = (string) $poi->telephone->area_code;
       $phoneString = (string) $poi->telephone->number;
       $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
+      $fullnumber = stringTransform::formatPhoneNumber($fullnumber , '+1');
+
       $poiObj[ 'phone' ] = $fullnumber;
 
       //Full address String
@@ -292,7 +294,7 @@ class importNy
       //store categories
       if ( 0 < count( $categoryArray ) )
       {
-        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Poi', 'theatre-music-culture' );
 
         $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
         foreach( $categoryArray as $category )
@@ -377,7 +379,6 @@ class importNy
   {
         $movieFound = false;
 
-
      /*
       * Category_combi is a node in the xml that contains all the categories which is then used for mapping.
       * in NY's case we must not add any event's or their occurances for <b>Film or Art-house &amp; indie cinema</b>
@@ -388,14 +389,18 @@ class importNy
           $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
 
           //Get the Event Categories and their mappings
-          $eventCategoriesCollection = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'EventCategory' );
+          $eventCategoriesCollection = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Event' );
 
           //Get all the Vendor Event Categories that were inserted during the first loop
           $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
 
+      
+
           //Loop through  the vendor categories
           foreach( $categoryArray as $categoryString )
           {
+
+
             $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findOneByName( (string) $categoryString );
 
             //If a match is found (Which should happen as the cats are inserted already)
@@ -405,7 +410,10 @@ class importNy
             }
             else
             {
-              Throw new Exception("Invalid Vendor Event Category");
+               /**
+                * @todo log error
+                */
+              //Throw new Exception("Invalid Vendor Event Category");
             }
           }
 
@@ -514,11 +522,13 @@ class importNy
 
                       $occurrenceObj = new EventOccurrence();
                       $occurrenceObj[ 'utc_offset' ] = '-05:00';
+                      $occurrenceObj[ 'start' ] = (string) $occurrence->start;
                       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
                       $occurrenceObj->generateVendorEventOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
 
                       //set poi id
                       $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
+                     
                       $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
                       //save to database

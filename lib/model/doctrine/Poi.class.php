@@ -39,4 +39,9 @@ class Poi extends BasePoi
     $this[ 'PoiProperty' ][] = $poiPropertyObj;
   }
 
+  public function getName()
+  {
+    return $this[ 'poi_name' ];
+  }
+
 }

@@ -35,6 +35,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
                       http://google.com#this
                       http://google.com/#this';
 
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -101,9 +102,36 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatPhoneNumber()
   {
-      $test = stringTransform::formatPhoneNumber('04 409 5999');
 
-      var_dump($test);
+      $transform = stringTransform::formatPhoneNumber('630 420-6010' , '+1');
+      $this->assertEquals('+1 630 420 6010', $transform, 'Testing American number type 1');
+
+      $transform = stringTransform::formatPhoneNumber('212 633-2229, ext 2' , '+1');
+      //$this->assertEquals('+1 212 633 2229', $transform, 'Testing American number type 2');
+      
+      $transform = stringTransform::formatPhoneNumber('718 499-YOGA' , '+1');
+      $this->assertEquals('+1 718 499 9642', $transform, 'Testing American number type 3');
+      
+      $transform = stringTransform::formatPhoneNumber('212 777- 6800' , '+1');
+      $this->assertEquals('+1 212 777 6800', $transform, 'Testing American number type 4');
+      
+      $transform = stringTransform::formatPhoneNumber('212 582-6050,ext207' , '+1');
+      $this->assertEquals('+1 212 582 6050', $transform, 'Testing American number type 5');
+
+      $transform = stringTransform::formatPhoneNumber('212 3608163' , '+1');
+      $this->assertEquals('+1 212 360 8163', $transform, 'Testing American number type 6');
+
+
+      $transform = stringTransform::formatPhoneNumber('0207 3577173', '+44');
+      $this->assertEquals('+44 207 357 7173', $transform, 'UK number type 1');
+
+      $transform = stringTransform::formatPhoneNumber('207 3577173', '+44');
+      $this->assertEquals('+44 207 357 7173', $transform, 'UK number type 2');
+
+      $transform = stringTransform::formatPhoneNumber('+44 207 3577173', '+44');
+      $this->assertEquals('+44 207 357 7173', $transform, 'UK number type 3');
+
+
   }
 
   /**
