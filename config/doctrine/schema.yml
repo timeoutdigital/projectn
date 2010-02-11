@@ -350,7 +350,7 @@ Vendor:
   columns:
     city:                       {type: string(15), notnull: true}
     language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)
-    inertnational_dial_code:    {type: string(3)}
+    inernational_dial_code:    {type: string(3)}
 
 #Import stats
 ImportStats:

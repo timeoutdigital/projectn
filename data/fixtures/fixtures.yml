@@ -112,27 +112,27 @@ Vendor:
   v1:
     city:                     ny
     language:                 en-US
-    inertnational_dial_code:  1
+    inernational_dial_code:  1
   v2:
     city:                     chicago
     language:                 en-US
-    inertnational_dial_code:  1
+    inernational_dial_code:  1
   v3:
     city:                     singapore
     language:                 en-US
-    inertnational_dial_code:  65
+    inernational_dial_code:  65
   v4:
     city:                     london
     language:                 en-GB
-    inertnational_dial_code:  44
+    inernational_dial_code:  44
   v5:
     city:                     abu dhabi
     language:                 en-US
-    inertnational_dial_code:  971
+    inernational_dial_code:  971
   v6:
     city:                     dubai
     language:                 en-US
-    inertnational_dial_code:  971
+    inernational_dial_code:  971
 
 
 EventCategory:
