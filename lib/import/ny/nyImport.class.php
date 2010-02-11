@@ -292,7 +292,7 @@ class importNy
       //store categories
       if ( 0 < count( $categoryArray ) )
       {
-        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Poi', 'theatre-music-culture' );
 
         $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
         foreach( $categoryArray as $category )
@@ -388,7 +388,7 @@ class importNy
           $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
 
           //Get the Event Categories and their mappings
-          $eventCategoriesCollection = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'EventCategory' );
+          $eventCategoriesCollection = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Event' );
 
           //Get all the Vendor Event Categories that were inserted during the first loop
           $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
