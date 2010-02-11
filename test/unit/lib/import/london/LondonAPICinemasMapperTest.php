@@ -41,7 +41,9 @@ class LondonAPICinemasMapperTest extends PHPUnit_Framework_TestCase
   {
     $limit = 11;
 
-    $mapper = new LondonAPICinemasMapper();
+    $crawler = new LondonAPICrawler();
+    $crawler->setLimit( $limit );
+    $mapper = new LondonAPICinemasMapper($crawler);
 
     $importer = new Importer();
     $mapper->setLimit( $limit );

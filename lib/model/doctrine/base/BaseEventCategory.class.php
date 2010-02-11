@@ -9,14 +9,17 @@ Doctrine_Manager::getInstance()->bindComponent('EventCategory', 'project_n');
  * 
  * @property string $name
  * @property Doctrine_Collection $Events
- * @property Doctrine_Collection $LinkingEventCategoryMapping
+ * @property Doctrine_Collection $VendorEventCategories
+ * @property Doctrine_Collection $LinkingEventCategoryMappings
  * 
- * @method string              getName()                        Returns the current record's "name" value
- * @method Doctrine_Collection getEvents()                      Returns the current record's "Events" collection
- * @method Doctrine_Collection getLinkingEventCategoryMapping() Returns the current record's "LinkingEventCategoryMapping" collection
- * @method EventCategory       setName()                        Sets the current record's "name" value
- * @method EventCategory       setEvents()                      Sets the current record's "Events" collection
- * @method EventCategory       setLinkingEventCategoryMapping() Sets the current record's "LinkingEventCategoryMapping" collection
+ * @method string              getName()                         Returns the current record's "name" value
+ * @method Doctrine_Collection getEvents()                       Returns the current record's "Events" collection
+ * @method Doctrine_Collection getVendorEventCategories()        Returns the current record's "VendorEventCategories" collection
+ * @method Doctrine_Collection getLinkingEventCategoryMappings() Returns the current record's "LinkingEventCategoryMappings" collection
+ * @method EventCategory       setName()                         Sets the current record's "name" value
+ * @method EventCategory       setEvents()                       Sets the current record's "Events" collection
+ * @method EventCategory       setVendorEventCategories()        Sets the current record's "VendorEventCategories" collection
+ * @method EventCategory       setLinkingEventCategoryMappings() Sets the current record's "LinkingEventCategoryMappings" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -47,8 +50,13 @@ abstract class BaseEventCategory extends sfDoctrineRecord
              'local' => 'event_category_id',
              'foreign' => 'event_id'));
 
-        $this->hasMany('LinkingEventCategoryMapping', array(
+        $this->hasMany('VendorEventCategory as VendorEventCategories', array(
+             'refClass' => 'LinkingEventCategoryMapping',
+             'local' => 'event_category_id',
+             'foreign' => 'vendor_event_category_id'));
+
+        $this->hasMany('LinkingEventCategoryMapping as LinkingEventCategoryMappings', array(
              'local' => 'id',
-             'foreign' => 'map_to_id'));
+             'foreign' => 'event_category_id'));
     }
 }

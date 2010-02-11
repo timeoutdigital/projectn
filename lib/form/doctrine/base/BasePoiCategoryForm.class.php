@@ -15,23 +15,25 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'            => new sfWidgetFormInputHidden(),
-      'name'          => new sfWidgetFormInputText(),
-      'created_at'    => new sfWidgetFormDateTime(),
-      'updated_at'    => new sfWidgetFormDateTime(),
-      'poi_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
-      'parent_list'   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
-      'children_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'id'                         => new sfWidgetFormInputHidden(),
+      'name'                       => new sfWidgetFormInputText(),
+      'created_at'                 => new sfWidgetFormDateTime(),
+      'updated_at'                 => new sfWidgetFormDateTime(),
+      'poi_list'                   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
+      'parent_list'                => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'vendor_poi_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory')),
+      'children_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
     ));
 
     $this->setValidators(array(
-      'id'            => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'name'          => new sfValidatorString(array('max_length' => 50)),
-      'created_at'    => new sfValidatorDateTime(),
-      'updated_at'    => new sfValidatorDateTime(),
-      'poi_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
-      'parent_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
-      'children_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'name'                       => new sfValidatorString(array('max_length' => 50)),
+      'created_at'                 => new sfValidatorDateTime(),
+      'updated_at'                 => new sfValidatorDateTime(),
+      'poi_list'                   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
+      'parent_list'                => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'vendor_poi_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory', 'required' => false)),
+      'children_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('poi_category[%s]');
@@ -62,6 +64,11 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
       $this->setDefault('parent_list', $this->object->Parent->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['vendor_poi_categories_list']))
+    {
+      $this->setDefault('vendor_poi_categories_list', $this->object->VendorPoiCategories->getPrimaryKeys());
+    }
+
     if (isset($this->widgetSchema['children_list']))
     {
       $this->setDefault('children_list', $this->object->Children->getPrimaryKeys());
@@ -73,6 +80,7 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
   {
     $this->savePoiList($con);
     $this->saveParentList($con);
+    $this->saveVendorPoiCategoriesList($con);
     $this->saveChildrenList($con);
 
     parent::doSave($con);
@@ -151,6 +159,44 @@ abstract class BasePoiCategoryForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('Parent', array_values($link));
+    }
+  }
+
+  public function saveVendorPoiCategoriesList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['vendor_poi_categories_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->VendorPoiCategories->getPrimaryKeys();
+    $values = $this->getValue('vendor_poi_categories_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('VendorPoiCategories', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('VendorPoiCategories', array_values($link));
     }
   }
 

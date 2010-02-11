@@ -13,13 +13,13 @@ abstract class BaseLinkingPoiCategoryMappingFormFilter extends BaseFormFilterDoc
   public function setup()
   {
     $this->setWidgets(array(
-      'map_from_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'), 'add_empty' => true)),
-      'map_to_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => true)),
+      'poi_category_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => true)),
+      'vendor_poi_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'), 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
-      'map_from_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('VendorPoiCategory'), 'column' => 'id')),
-      'map_to_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PoiCategory'), 'column' => 'id')),
+      'poi_category_id'        => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PoiCategory'), 'column' => 'id')),
+      'vendor_poi_category_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('VendorPoiCategory'), 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('linking_poi_category_mapping_filters[%s]');
@@ -39,9 +39,9 @@ abstract class BaseLinkingPoiCategoryMappingFormFilter extends BaseFormFilterDoc
   public function getFields()
   {
     return array(
-      'id'          => 'Number',
-      'map_from_id' => 'ForeignKey',
-      'map_to_id'   => 'ForeignKey',
+      'id'                     => 'Number',
+      'poi_category_id'        => 'ForeignKey',
+      'vendor_poi_category_id' => 'ForeignKey',
     );
   }
 }

@@ -346,7 +346,7 @@ VendorEventCategory:
     Vendor:              v1
 
 
-EventCategoryMapping:
+LinkingEventCategoryMapping:
   ecm1:
     VendorEventCategory:  c1
     EventCategory:        c1
