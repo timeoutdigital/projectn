@@ -3,7 +3,7 @@
  * Description
  *
  * @package projectn
- * @subpackage
+ * @subpackage london.import.lib
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
@@ -19,7 +19,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    */
   public function mapPoi()
   {
-    $this->crawlApiForType( 'Restaurants' );
+    $this->crawlApi();
   }
   
   /**
@@ -27,9 +27,21 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    * 
    * @return string
    */
-  protected function getDetailsUrl()
+  public function getDetailsUrl()
   {
     return 'http://api.timeout.com/v1/getRestaurant.xml';
+  }
+
+  /**
+   * Returns the API type
+   *
+   * See London's API Word doc by Rhodri Davis
+   *
+   * @return string
+   */
+  public function getApiType()
+  {
+    return 'Restaurants';
   }
 
   /**
@@ -37,7 +49,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    *
    * @param SimpleXMLElement $restaurantXml
    */
-  protected function doMapping( SimpleXMLElement $restaurantXml )
+  public function doMapping( SimpleXMLElement $restaurantXml )
   {
     $poi = new Poi();
     $poi['vendor_id']         = $this->vendor['id'];

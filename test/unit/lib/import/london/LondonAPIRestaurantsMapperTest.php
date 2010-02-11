@@ -53,11 +53,12 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
     $mockGeoEncoder->expects( $this->exactly( $limit ) )
                ->method( 'getLatitude' )
                ->will( $this->returnValue( 2.2 ) );
-
-    $mapper = new LondonAPIRestaurantsMapper( $mockGeoEncoder );
+    
+    $crawler = new LondonAPICrawler();
+    $crawler->setLimit( $limit );
+    $mapper = new LondonAPIRestaurantsMapper( $crawler, $mockGeoEncoder );
 
     $importer = new Importer();
-    $mapper->setLimit( $limit );
     $importer->addDataMapper( $mapper );
     $importer->run();
     

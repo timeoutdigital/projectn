@@ -24,6 +24,8 @@ class importTask extends sfBaseTask
 
     //Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
 
+    $timer = sfTimerManager::getTimer('importTimer');
+    
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     //Select the task
@@ -310,7 +312,12 @@ class importTask extends sfBaseTask
 
 
 
-    }
+    }//end switch
+
+    $timer->addTime();
+    $totalTime = $timer->getElapsedTime();
+
+    echo "Total time: ". round($totalTime/60,2) . "\n";
   }
 
   /**
