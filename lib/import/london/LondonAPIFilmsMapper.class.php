@@ -3,7 +3,7 @@
  * Description
  *
  * @package projectn
- * @subpackage
+ * @subpackage london.import.lib
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
@@ -19,7 +19,7 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
    */
   public function mapMovie()
   {
-    $this->crawlApiForType( 'Films' );
+    $this->crawlApi();
   }
 
   /**
@@ -30,6 +30,18 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
   protected function getDetailsUrl()
   {
     return 'http://api.timeout.com/v1/getFilm.xml';
+  }
+
+  /**
+   * Returns the API type
+   *
+   * See London's API Word doc by Rhodri Davis
+   *
+   * @return string
+   */
+  protected function getApiType()
+  {
+    return 'Films';
   }
 
   /**

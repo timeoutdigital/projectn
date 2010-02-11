@@ -3,7 +3,7 @@
  * 
  *
  * @package projectn
- * @subpackage
+ * @subpackage london.import.lib
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
@@ -105,8 +105,10 @@ abstract class LondonAPIBaseMapper extends DataMapper
   /**
    * @param string $type
    */
-  protected function crawlApiForType( $type )
+  protected function crawlApi()
   {
+    $type = $this->getApiType();
+
     $searchXml = $this->callApiSearch( array( 'type' => $type, 'offset' => 0 ) );
 
     $numPerPage = $searchXml->responseHeader->rows;
@@ -121,8 +123,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
       foreach( $searchPageXml->response->block->row as $row )
       {
         $xml = $this->callApiGetDetails( $row->uid );
-        $this->doMapping( $xml->response->row );
 
+        $this->doMapping( $xml );
         if( !$this->inLimit( ++$numResultsMapped ) ) return;
       }
     }
@@ -147,8 +149,13 @@ abstract class LondonAPIBaseMapper extends DataMapper
   }
 
   /**
-   * Calls London API's getRestaurant using $uid
+   * Calls London API's get<type> using $uid and returns the <row> node. This
+   * node contains the information we are interested in
+   * 
    * See London API document written by Rhodri Davis (Word file)
+   * 
+   * @todo need to create fixtures to test for Exception when API returns
+   * xml without a <rpw> node.
    *
    * @param string $uid
    * @return SimpleXMLElement
@@ -156,7 +163,15 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected function callApiGetDetails( $uid )
   {
     $this->curl->pullXml( $this->getDetailsUrl(), '', array( 'uid' => $uid ) );
-    return $this->curl->getXML();
+    $xml = $this->curl->getXML();
+
+    if( !$xml )
+    {
+      throw new Exception( 'API call "'. $this->getDetailsUrl() .'?uid="' . $uid . '" returned nothing.' );
+    }
+
+    $nodeContainingDetails = $xml->response->row;
+    return $nodeContainingDetails;
   }
 
   /**
@@ -174,6 +189,16 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @returns string
    */
   abstract protected function getDetailsUrl();
+
+  /**
+   * Return the API type
+   * e.g. Restaurants, Bar & Pubs, Cinemas ...
+   *
+   * See London's API Word doc by Rhodri Davis
+   *
+   * @return string
+   */
+  abstract protected function getApiType();
 
   /**
    * Do mapping of xml to poi and notify Importer here
