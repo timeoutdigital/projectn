@@ -52,25 +52,9 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
   public function doMapping( SimpleXMLElement $restaurantXml )
   {
     $poi = new Poi();
-    $poi['vendor_id']         = $this->vendor['id'];
-    $poi['vendor_poi_id']     = (string) $restaurantXml->uid;
-    $poi['street']            = (string) $restaurantXml->address;
-    $poi['city']              = $this->city;
-    $poi['country']           = $this->country;
-    $poi['poi_name']          = (string) $restaurantXml->name;
-    $poi['url']               = (string) $restaurantXml->webUrl;
-    $poi['phone']             = (string) $restaurantXml->phone;
-    $poi['zips']              = (string) $restaurantXml->postcode;
-    $poi['price_information'] = (string) $restaurantXml->price;
-    $poi['openingtimes']      = (string) $restaurantXml->openingTimes;
-    $poi['public_transport_links'] = (string) $restaurantXml->travelInfo;
-    $poi['star_rating']       = (int) $restaurantXml->starRating;
-    $poi['description']       = (string) $restaurantXml->description;
-
-    $this->geoEncoder->setAddress( $restaurantXml->venueAddress );
-
-    $poi['longitude'] = $this->geoEncoder->getLongitude();
-    $poi['latitude'] = $this->geoEncoder->getLatitude();
+    $this->mapCommonPoiMappings($poi, $restaurantXml);
+    
+    $poi['star_rating'] = (int) $restaurantXml->starRating;
 
     foreach( $restaurantXml->details as $detail )
     {

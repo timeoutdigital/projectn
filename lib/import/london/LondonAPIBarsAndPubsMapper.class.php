@@ -52,25 +52,9 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
   {
     $poi = new Poi();
 
-    $latLong = $this->deriveLatitudeLongitude( $barsXml );
+    $this->mapCommonPoiMappings( $poi, $barsXml );
 
-    $poi['longitude']         = $latLong['latitude'];
-    $poi['latitude']          = $latLong['longitude'];
-    $poi['zips']              = (string) $barsXml->postcode;
-    $poi['city']              = $this->deriveCity( $barsXml, $latLong['latitude'], $latLong['longitude'] );
-
-    $poi['vendor_id']         = $this->vendor['id'];
-    $poi['vendor_poi_id']     = (string) $barsXml->uid;
-    $poi['street']            = (string) $barsXml->address;
-    $poi['country']           = $this->country;
-    $poi['poi_name']          = (string) $barsXml->name;
-    $poi['url']               = (string) $barsXml->webUrl;
-    $poi['phone']             = (string) $barsXml->phone;
-    $poi['price_information'] = (string) $barsXml->price;
-    $poi['openingtimes']      = (string) $barsXml->openingTimes;
-    $poi['public_transport_links'] = (string) $barsXml->travelInfo;
     $poi['star_rating']       = (int) $barsXml->starRating;
-    $poi['description']       = (string) $barsXml->description;
 
     foreach( $barsXml->details as $detail )
     {

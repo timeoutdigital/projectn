@@ -40,23 +40,10 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapPoi()
   {
     $limit = 11;
-
-    $mockGeoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
-
-    $mockGeoEncoder->expects( $this->exactly( $limit ) )
-               ->method( 'setAddress' );
-
-    $mockGeoEncoder->expects( $this->exactly( $limit ) )
-               ->method( 'getLongitude' )
-               ->will( $this->returnValue( 1.1 ) );
-
-    $mockGeoEncoder->expects( $this->exactly( $limit ) )
-               ->method( 'getLatitude' )
-               ->will( $this->returnValue( 2.2 ) );
     
     $crawler = new LondonAPICrawler();
     $crawler->setLimit( $limit );
-    $mapper = new LondonAPIRestaurantsMapper( $crawler, $mockGeoEncoder );
+    $mapper = new LondonAPIRestaurantsMapper( $crawler );
 
     $importer = new Importer();
     $importer->addDataMapper( $mapper );

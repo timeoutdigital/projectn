@@ -100,6 +100,31 @@ abstract class LondonAPIBaseMapper extends DataMapper
   }
 
   /**
+   * do common API-POI mappings
+   */
+  protected function mapCommonPoiMappings(Poi $poi, SimpleXMLElement $xml )
+  {
+    $latLong = $this->deriveLatitudeLongitude( $xml );
+
+    $poi['longitude']         = $latLong['latitude'];
+    $poi['latitude']          = $latLong['longitude'];
+    $poi['zips']              = (string) $xml->postcode;
+    $poi['city']              = $this->deriveCity( $xml, $latLong['latitude'], $latLong['longitude'] );
+  
+    $poi['vendor_id']         = $this->vendor['id'];
+    $poi['vendor_poi_id']     = (string) $xml->uid;
+    $poi['street']            = (string) $xml->address;
+    $poi['country']           = $this->country;
+    $poi['poi_name']          = (string) $xml->name;
+    $poi['url']               = (string) $xml->webUrl;
+    $poi['phone']             = (string) $xml->phone;
+    $poi['price_information'] = (string) $xml->price;
+    $poi['openingtimes']      = (string) $xml->openingTimes;
+    $poi['public_transport_links'] = (string) $xml->travelInfo;
+    $poi['description']       = (string) $xml->description;
+  }
+
+  /**
    * Use data from xml to derive the longitude and latitude
    *
    * @returns array
