@@ -92,10 +92,9 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
 
     if( empty( $latitude ) || empty( $longitude ) )
     {
-      $geoEncoder = new geoEncode();
-      $geoEncoder->setAddress( $detailsXml->postcode );
-      $latitude  = $geoEncoder->getLatitude();
-      $longitude = $geoEncoder->getLongitude();
+      $this->geoEncoder->setAddress( $detailsXml->postcode );
+      $latitude  = $this->geoEncoder->getLatitude();
+      $longitude = $this->geoEncoder->getLongitude();
     }
 
     $latLong = array(
