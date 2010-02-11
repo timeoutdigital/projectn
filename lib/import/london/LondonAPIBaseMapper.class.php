@@ -18,11 +18,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @var Vendor
    */
   protected $vendor;
-//
-//  /**
-//   * @var string
-//   */
-//  protected $searchUrl = 'http://api.timeout.com/v1/search.xml';
+
+  /**
+   * @var string
+   */
+  protected $searchUrl = 'http://api.timeout.com/v1/search.xml';
 
   /**
    * @var string
@@ -109,10 +109,12 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['longitude']         = $latLong['latitude'];
     $poi['latitude']          = $latLong['longitude'];
     $poi['zips']              = (string) $xml->postcode;
-    $poi['city']              = $this->deriveCity( $xml, $latLong['latitude'], $latLong['longitude'] );
+    $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml );
   
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $xml->uid;
+    //$poi['vendor_category']    = $this->getApiType();
+
     $poi['street']            = (string) $xml->address;
     $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $xml->name;
@@ -125,18 +127,59 @@ abstract class LondonAPIBaseMapper extends DataMapper
   }
 
   /**
+   * Uses data from xml to derive the value for city
+   *
+   * @return string
+   */
+  protected function deriveCity( $latitude, $longitude, $xml )
+  {
+    $city = 'London';
+
+    if( !$this->validateLondon( $xml->postcode, $latitude, $longitude ) )
+    {
+      $city = $this->extractCityFromAddress( $xml->address );
+
+      if( empty( $city ) )
+      {
+        $address = $this->getAddressUsingGeocode( $latitude, $longitude );
+        $city = $address['AdministrativeArea'];
+      }
+    }
+
+    return $city;
+  }
+  
+  /**
+   * attempt to get city from address string
+   * 
+   * @return string
+   */
+  protected function extractCityFromAddress( $addressString )
+  {
+    $city = '';
+    $addressPieces = explode( ',', $addressString );
+
+    if( count( $addressPieces ) > 1 )
+    {
+      $city = array_pop( $addressPieces );
+    }
+    
+    return $city;
+  }
+
+  /**
    * Use data from xml to derive the longitude and latitude
    *
    * @returns array
    */
   protected function deriveLatitudeLongitude( $detailsXml )
   {
-    $latitude  = $detailsXml[ 'latitude' ];
-    $longitude = $detailsXml[ 'longitude' ];
+    $latitude  = $detailsXml->latitude;
+    $longitude = $detailsXml->longitude;
 
     if( empty( $latitude ) || empty( $longitude ) )
     {
-      $this->geoEncoder->setAddress( $detailsXml->postcode );
+      $this->geoEncoder->setAddress( $detailsXml->postcode. ', United Kingdom' );
       $latitude  = $this->geoEncoder->getLatitude();
       $longitude = $this->geoEncoder->getLongitude();
     }
@@ -150,31 +193,16 @@ abstract class LondonAPIBaseMapper extends DataMapper
   }
 
   /**
-   * Uses data from xml to derive the value for city
-   *
-   * @return string
-   */
-  protected function deriveCity( $postcode, $latitude, $longitude )
-  {
-    $city = 'London';
-
-    if( !$this->validateLondon( $postcode, $latitude, $longitude ) )
-    {
-      $address = $this->getAddressUsingGeocode($latitude, $longitude);
-      $city = $address['AdministrativeArea'];
-    }
-
-    return $city;
-  }
-
-  /**
    * Look up an address using latitude and longitude
-   *$latitude
-   * @return arrayAdministrativeArea
+   *
+   * @param float $latitude
+   * @param float $longitude
+   *
+   * @return array AdministrativeArea
    */
   protected function getAddressUsingGeocode( $latitude, $longitude )
   {
-    $reverseGeocoder = new reverseGeocode($latitude, $longitude);
+    $reverseGeocoder = new reverseGeocode($latitude, $longitude, 'uk');
     $addressesXml = $reverseGeocoder->getAddressesXml();
 
     $addressesXml->registerXPathNamespace( 'g', 'http://earth.google.com/kml/2.0' );
@@ -183,14 +211,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $firstAddressXml = $addressesXml->xpath( '/g:kml/g:Response/g:Placemark[1]/o:AddressDetails' );
     $firstAddressXml = $firstAddressXml[0];
 
-    //var_dump( $firstAddressXml ); exit();
-
     $firstAddressDetails =  array
-      (
+    (
       'AdministrativeArea'    => $this->extractAdministrativeAreaName( $firstAddressXml ),
       'SubAdministrativeArea' => $this->extractSubAdministrativeAreaName( $firstAddressXml ),
     );
-    //var_dump( $latitude . ', ' . $longitude );// exit();
 
     return $firstAddressDetails;
   }
@@ -219,12 +244,13 @@ abstract class LondonAPIBaseMapper extends DataMapper
    */
   protected function validateLondon( $postcode, $latitude, $longitude )
   {
-    if ( preg_match( '/^[NESW]{0,2}[0-9]+.*/', $postcode ) )
+    if ( preg_match( '/^[NESW][A-Z]?[0-9]+.*/', $postcode ) )
     {
       return true;
     }
     else
     {
+      return false;
       //distance in miles from center point
       $centerPoint = round( sqrt( pow( (69.1 * ( $latitude - 51.515927 ) ), 2) + pow((53 * ( $longitude - -0.129917 ) ), 2 ) ), 1);
 
