@@ -35,11 +35,6 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected $country = 'GBR';
 
   /**
-   * @var curlImporter
-   */
-  protected $curl;
-
-  /**
    * @var geoEncode
    */
   protected $geoEncoder;
@@ -71,7 +66,6 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $apiCrawler->setMapper( $this );
     $this->apiCrawler = $apiCrawler;
     $this->geoEncoder = $geoEncoder;
-    $this->curl = new curlImporter();
 
     if( is_null( $geoEncoder ) )
     {
