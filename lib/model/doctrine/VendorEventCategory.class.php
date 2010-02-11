@@ -12,4 +12,25 @@
  */
 class VendorEventCategory extends BaseVendorEventCategory
 {
+
+  public function getVendorName()
+  {
+    return $this[ 'Vendor' ][ 'city' ];
+  }
+
+  public function postSave( $obj )
+  {
+
+    foreach ( $this['Events'] as $poi )
+    {
+
+      foreach( $this['EventCategories'] as $category )
+      {
+        $poi['EventCategories'][] = $category;
+      }
+
+      $poi->save();
+    }
+  }
+
 }

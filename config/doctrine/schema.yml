@@ -44,21 +44,6 @@ Poi:
     PoiCategories:              {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
     VendorPoiCategories:        {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
 
-#Import stats
-ImportStats:
-  connection: project_n
-  actAs:
-    Timestampable:              ~
-  columns:
-    total_inserts:              {type: integer, notnull: true}
-    total_updates:              {type: integer, notnull: true}
-    vendor_id:                  {type: integer, notnull: true}
-    type:                       {type: string(5), notnull: true}
-  relations:
-    Vendor:                     {local: vendor_id, foreign: id}
-
-
-
 #Store a log of changes
 PoiChangesLog:
   connection: project_n
@@ -70,7 +55,6 @@ PoiChangesLog:
   relations:
      Poi:                       {local: poi_id, foreign: id}
 
-
 #Any media that is associated to the poi
 PoiMedia:
   connection: project_n
@@ -79,6 +63,18 @@ PoiMedia:
   columns:
     media_url:                  {type: string(1024), notnull: true}
     mime_type:                  {type: string(255), notnull: true}
+    poi_id:                     {type: integer, notnull: true}
+  relations:
+    Poi:                        {local: poi_id, foreign: id}
+
+#Key value pairs for unmappable values on a Poi
+PoiProperty:
+  connection: project_n
+  actAs:
+    Timestampable: ~
+  columns:
+    lookup:                     {type: string(100), notnull: true}
+    value:                      {type: string(100), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
@@ -93,7 +89,9 @@ PoiCategory:
   relations:
     Poi:                        {class: Poi, refClass: LinkingPoiCategory, local: poi_category_id, foreign: poi_id}
     Parent:                     {class: PoiCategory, local: child_id, foreign: parent_id, refClass: PoiCategoryReference, foreignAlias: Children}
+    VendorPoiCategories:        {foreignAlias: PoiCategories, class: VendorPoiCategory, refClass: LinkingPoiCategoryMapping }
 
+#Self referencing table for PoiCategory to enable a tree
 PoiCategoryReference:
   connection: project_n
   columns:
@@ -132,56 +130,13 @@ LinkingVendorPoiCategory:
 LinkingPoiCategoryMapping:
   connection: project_n
   columns:
-    map_from_id:                {type: integer, notnull: true}
-    map_to_id:                  {type: integer, notnull: true}
+    poi_category_id:                {type: integer, notnull: true}
+    vendor_poi_category_id:         {type: integer, notnull: true}
   relations:
-    VendorPoiCategory:        {local: map_from_id, foreign: id}
-    PoiCategory:              {local: map_to_id, foreign: id}
+    PoiCategory:                    {foreignAlias: LinkingPoiCategoryMappings}
+    VendorPoiCategory:              {foreignAlias: LinkingPoiCategoryMappings}
 
 
-#Key value pairs for unmappable values on a Poi
-PoiProperty:
-  connection: project_n
-  actAs:
-    Timestampable: ~
-  columns:
-    lookup:                     {type: string(100), notnull: true}
-    value:                      {type: string(100), notnull: true}
-    poi_id:                     {type: integer, notnull: true}
-  relations:
-    Poi:                        {local: poi_id, foreign: id}
-
-#Rating that the user gives to the poi
-UserContent:
-  connection: project_n
-  actAs:
-    Timestampable: ~
-  columns:
-    vendor_ucid:                {type: string(32), notnull: true}
-    comment_subject:            {type: string(512), notnull: true}
-    comment_body:               {type: string(65535), notnull: true}
-    user_rating:                {type: float, notnull: false}
-    user_id:                    {type: integer, notnull: true}
-    poi_id:                     {type: integer, notnull: true}
-  relations:
-     User:                      {onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: Users}
-     Poi:                       {onDelete: CASCADE, local: poi_id, foreign: id, foreignAlias: Poi}
-
-#The individual user who is comments against a poi
-User:
-  connection: project_n
-  actAs:
-    Timestampable: ~
-  columns:
-    vendor_id:                  {type: integer, notnull: true}
-    user_name:                  {type: string(32), notnull: true}
-    user_reputation:            {type: integer(1), notnull: false}
-    user_infomation:            {type: string, notnull: true}
-    comments_relevance:         {type: float, notnull: false}
-    specialty:                  {type: string(128), notnull: false}
-  relations:
-    Vendor:                     {local: vendor_id, foreign: id}
-    
 
 #Represents an event
 Event:
@@ -218,48 +173,6 @@ EventOccurrence:
     Event:                      {local: event_id, foreign: id, foreignType: many}
     Poi:                        {local: poi_id, foreign: id, foreignType: many}
 
-#Vendor Event Category (linking)
-LinkingVendorEventCategory:
-  connection: project_n
-  columns:
-     vendor_event_category_id:  {type: integer, notnull: true}
-     event_id:                  {type: integer, notnull: true}
-
-#VendorEvent Category
-VendorEventCategory:
-  connection: project_n
-  columns:
-    name:                       {type: string(256), notnull: true}
-    vendor_id:                  {type: integer, notnull: true}
-  relations:
-    Vendor:                     {local: vendor_id, foreign: id}
-    Events:                     {class: Event, refClass: LinkingVendorEventCategory, local: vendor_event_category_id, foreign: event_id}
-
-#Event Category (linking)
-LinkingEventCategory:
-  connection: project_n
-  columns:
-     event_category_id:         {type: integer, notnull: true}
-     event_id:                  {type: integer, notnull: true}
-
-#Event Category
-EventCategory:
-  connection: project_n
-  columns:
-    name:                       {type: string(50), notnull: true}
-  relations:
-    Events:                     {class: Event, refClass: LinkingEventCategory, local: event_category_id, foreign: event_id}
-
-#LinkingEvent CategoryMapping
-LinkingEventCategoryMapping:
-  connection: project_n
-  columns:
-    map_from_id:                {type: integer, notnull: true}
-    map_to_id:                  {type: integer, notnull: true}
-  relations:
-    VendorEventCategory:        {local: map_from_id, foreign: id}
-    EventCategory:              {local: map_to_id, foreign: id}
-
 #Any media that is associated to a Event
 EventMedia:
   connection: project_n
@@ -284,6 +197,51 @@ EventProperty:
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
 
+#Event Category
+EventCategory:
+  connection: project_n
+  columns:
+    name:                       {type: string(50), notnull: true}
+  relations:
+    Events:                     {class: Event, refClass: LinkingEventCategory, local: event_category_id, foreign: event_id}
+    VendorEventCategories:      {foreignAlias: EventCategories, class: VendorEventCategory, refClass: LinkingEventCategoryMapping }
+
+#Event Category (linking)
+LinkingEventCategory:
+  connection: project_n
+  columns:
+     event_category_id:         {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
+
+#VendorEvent Category
+VendorEventCategory:
+  connection: project_n
+  columns:
+    name:                       {type: string(256), notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+    Events:                     {class: Event, refClass: LinkingVendorEventCategory, local: vendor_event_category_id, foreign: event_id}
+
+#Vendor Event Category (linking)
+LinkingVendorEventCategory:
+  connection: project_n
+  columns:
+     vendor_event_category_id:  {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
+
+#LinkingEvent CategoryMapping
+LinkingEventCategoryMapping:
+  connection: project_n
+  columns:
+    event_category_id:          {type: integer, notnull: true}
+    vendor_event_category_id:   {type: integer, notnull: true}
+  relations:
+    VendorEventCategory:        {foreignAlias: LinkingEventCategoryMappings}
+    EventCategory:              {foreignAlias: LinkingEventCategoryMappings}
+
+
+
 #Represents a movie
 Movie:
   connection: project_n
@@ -306,14 +264,12 @@ Movie:
     MovieGenres:                {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
     Poi:                        {local: poi_id, foreign: id, foreignType: one}
 
-
 #Movie Genres
 LinkingMovieGenre:
   connection: project_n
   columns:
      movie_genre_id:          {type: integer, notnull: true}
      movie_id:                {type: integer, notnull: true}
-
 
 #Movie Genres
 MovieGenre:
@@ -324,7 +280,6 @@ MovieGenre:
     genre:                      {type: string(256), notnull: true}
   relations:
     Movies:                      {class: Movie, refClass: LinkingMovieGenre, local: movie_genre_id, foreign: movie_id}
-   
 
 #Any media that is associated to a Movie
 MovieMedia:
@@ -351,6 +306,41 @@ MovieProperty:
   relations:
     Movie:                      {local: movie_id, foreign: id, foreignType: many}
 
+
+
+
+#Rating that the user gives to the poi
+UserContent:
+  connection: project_n
+  actAs:
+    Timestampable: ~
+  columns:
+    vendor_ucid:                {type: string(32), notnull: true}
+    comment_subject:            {type: string(512), notnull: true}
+    comment_body:               {type: string(65535), notnull: true}
+    user_rating:                {type: float, notnull: false}
+    user_id:                    {type: integer, notnull: true}
+    poi_id:                     {type: integer, notnull: true}
+  relations:
+     User:                      {onDelete: CASCADE, local: user_id, foreign: id, foreignAlias: Users}
+     Poi:                       {onDelete: CASCADE, local: poi_id, foreign: id, foreignAlias: Poi}
+
+#The individual user who is comments against a poi
+User:
+  connection: project_n
+  actAs:
+    Timestampable: ~
+  columns:
+    vendor_id:                  {type: integer, notnull: true}
+    user_name:                  {type: string(32), notnull: true}
+    user_reputation:            {type: integer(1), notnull: false}
+    user_infomation:            {type: string, notnull: true}
+    comments_relevance:         {type: float, notnull: false}
+    specialty:                  {type: string(128), notnull: false}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+
+#Vendor
 Vendor:
   connection: project_n
   actAs:
@@ -358,3 +348,16 @@ Vendor:
   columns:
     city:                       {type: string(15), notnull: true}
     language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)
+
+#Import stats
+ImportStats:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    total_inserts:              {type: integer, notnull: true}
+    total_updates:              {type: integer, notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+    type:                       {type: string(5), notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}

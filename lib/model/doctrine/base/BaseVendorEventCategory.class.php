@@ -11,18 +11,21 @@ Doctrine_Manager::getInstance()->bindComponent('VendorEventCategory', 'project_n
  * @property integer $vendor_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $Events
- * @property Doctrine_Collection $LinkingEventCategoryMapping
+ * @property Doctrine_Collection $EventCategories
+ * @property Doctrine_Collection $LinkingEventCategoryMappings
  * 
- * @method string              getName()                        Returns the current record's "name" value
- * @method integer             getVendorId()                    Returns the current record's "vendor_id" value
- * @method Vendor              getVendor()                      Returns the current record's "Vendor" value
- * @method Doctrine_Collection getEvents()                      Returns the current record's "Events" collection
- * @method Doctrine_Collection getLinkingEventCategoryMapping() Returns the current record's "LinkingEventCategoryMapping" collection
- * @method VendorEventCategory setName()                        Sets the current record's "name" value
- * @method VendorEventCategory setVendorId()                    Sets the current record's "vendor_id" value
- * @method VendorEventCategory setVendor()                      Sets the current record's "Vendor" value
- * @method VendorEventCategory setEvents()                      Sets the current record's "Events" collection
- * @method VendorEventCategory setLinkingEventCategoryMapping() Sets the current record's "LinkingEventCategoryMapping" collection
+ * @method string              getName()                         Returns the current record's "name" value
+ * @method integer             getVendorId()                     Returns the current record's "vendor_id" value
+ * @method Vendor              getVendor()                       Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getEvents()                       Returns the current record's "Events" collection
+ * @method Doctrine_Collection getEventCategories()              Returns the current record's "EventCategories" collection
+ * @method Doctrine_Collection getLinkingEventCategoryMappings() Returns the current record's "LinkingEventCategoryMappings" collection
+ * @method VendorEventCategory setName()                         Sets the current record's "name" value
+ * @method VendorEventCategory setVendorId()                     Sets the current record's "vendor_id" value
+ * @method VendorEventCategory setVendor()                       Sets the current record's "Vendor" value
+ * @method VendorEventCategory setEvents()                       Sets the current record's "Events" collection
+ * @method VendorEventCategory setEventCategories()              Sets the current record's "EventCategories" collection
+ * @method VendorEventCategory setLinkingEventCategoryMappings() Sets the current record's "LinkingEventCategoryMappings" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -61,8 +64,13 @@ abstract class BaseVendorEventCategory extends sfDoctrineRecord
              'local' => 'vendor_event_category_id',
              'foreign' => 'event_id'));
 
-        $this->hasMany('LinkingEventCategoryMapping', array(
+        $this->hasMany('EventCategory as EventCategories', array(
+             'refClass' => 'LinkingEventCategoryMapping',
+             'local' => 'vendor_event_category_id',
+             'foreign' => 'event_category_id'));
+
+        $this->hasMany('LinkingEventCategoryMapping as LinkingEventCategoryMappings', array(
              'local' => 'id',
-             'foreign' => 'map_from_id'));
+             'foreign' => 'vendor_event_category_id'));
     }
 }
