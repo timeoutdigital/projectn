@@ -1,3 +1,21 @@
+vendor_event_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                VendorEventCategory
+    module:               vendor_event_category
+    prefix_path:          /vendor_event_category
+    column:               id
+    with_wildcard_routes: true
+
+vendor_poi_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                VendorPoiCategory
+    module:               vendor_poi_category
+    prefix_path:          /vendor_poi_category
+    column:               id
+    with_wildcard_routes: true
+
 linking_poi_category_mapping:
   class: sfDoctrineRouteCollection
   options:
