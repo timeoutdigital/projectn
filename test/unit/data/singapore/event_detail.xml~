@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE event [
+  <!ELEMENT event (id,issue,section,category,venue,name,thumb,image,critic_choice,hot_seat,website,date_start,date_end,alternative_dates,opentime,excerpt,min_price,max_price,views,data_add,data_change,link,feature)>
+  
+  <!ELEMENT venue (id,issue,section,category,name,thumb,image,critic_choice,hot_seat,website,opentime,excerpt,min_price,max_price,views,data_add,data_change,link,addresses,feature)>
+  <!ELEMENT feature (id,issue,type,local,link,rating,excerpt,review,author,data_add,data_change,title,image,thumb,views)>
+  <!ELEMENT addresses (address_slot)>
+  <!ELEMENT address_slot (location,address,postcode,phone,near_station,buses)>
+  
+  <!ELEMENT id (CDATA)>
+  <!ELEMENT issue (CDATA)>
+  <!ELEMENT section (CDATA)>
+  <!ELEMENT category (CDATA)>
+  <!ELEMENT name (CDATA)>
+  <!ELEMENT thumb (CDATA)>
+  <!ELEMENT image (CDATA)>
+  <!ELEMENT size1 (CDATA)>
+  <!ELEMENT critic_choice (CDATA)>
+  <!ELEMENT hot_seat (CDATA)>
+  <!ELEMENT website (CDATA)>
+  <!ELEMENT opentime (CDATA)>
+  <!ELEMENT excerpt (CDATA)>
+  <!ELEMENT min_price (CDATA)>
+  <!ELEMENT max_price (CDATA)>
+  <!ELEMENT views (CDATA)>
+  <!ELEMENT data_add (CDATA)>
+  <!ELEMENT data_change (CDATA)>
+  <!ELEMENT link (CDATA)>
+  <!ELEMENT date_start (CDATA)>
+  <!ELEMENT date_end (CDATA)>
+  <!ELEMENT alternative_dates (CDATA)>
+  
+  <!ELEMENT type (CDATA)>
+  <!ELEMENT local (CDATA)>
+  <!ELEMENT rating (CDATA)>
+  <!ELEMENT review (CDATA)>
+  <!ELEMENT author (CDATA)>
+  <!ELEMENT title (CDATA)>
+  
+  <!ELEMENT location (CDATA)>
+  <!ELEMENT address (CDATA)>
+  <!ELEMENT postcode (CDATA)>
+  <!ELEMENT phone (CDATA)>
+  <!ELEMENT near_station (CDATA)>
+  <!ELEMENT buses (CDATA)>
+]>
+<event>
+	<id>8529</id>
+	<issue>35</issue>
+	<section>Performance</section>
+	<category>Theatre</category>
+	<venue>	<id>470</id>
+	<issue>1</issue>
+	<section>Arts</section>
+	<category>Other spaces</category>
+	<name>The Arts House</name>
+	<critic_choice>N</critic_choice>
+	<hot_seat>N</hot_seat>
+	<website>http://www.theartshouse.com.sg</website>
+	<opentime>Daily 10am-8pm.</opentime>
+	<excerpt>Singapore&#146;s old Parliament House is converted into a home for the arts and has been bustling ever since its inception in March 2004. The 180-year-old building now plays host to many multidisciplinary art exhibitions, performances and showcases.</excerpt>
+	<min_price>0.00</min_price>
+	<max_price>0.00</max_price>
+	<views>181</views>
+	<data_add>Wed, 23 Sep 2009 11:49:37 +0000</data_add>
+	<data_change>Wed, 23 Sep 2009 11:49:37 +0000</data_change>
+	<redirect></redirect>
+	<size1>http://www.timeoutsingapore.com/contentFiles/image/venues/the-arts-house-482x402.jpg</size1>
+	<highres>http://www.timeoutsingapore.com/contentFiles/image/venues/the-arts-house.jpg</highres>
+	<thumbnail>http://www.timeoutsingapore.com/contentFiles/image/venues/the-arts-house-152x110.jpg</thumbnail>
+	<large_image>http://www.timeoutsingapore.com/contentFiles/image/venues/the-arts-house-482x298.jpg</large_image>
+	<standfirst></standfirst>
+	<gallery>0</gallery>
+	<top_start></top_start>
+	<top_end></top_end>
+	<top_premium></top_premium>
+	<top_platinum></top_platinum>
+	<has_top>N</has_top>
+	<top_logo></top_logo>
+	<top_excerpt></top_excerpt>
+	<link>http://www.timeoutsingapore.com/art/venues/other-spaces/the-arts-house</link>
+<tags>
+	<tag>Art</tag>
+</tags>
+	<addresses>
+		<address_slot>
+			<location>Level 2 Annex Building</location>
+			<address>1 Old Parliament Lane</address>
+			<postcode>179429</postcode>
+			<phone>6332 6900</phone>
+			<near_station>City Hall or Raffles Place</near_station>
+			<buses></buses>
+			<mm_lat>1.304800</mm_lat>
+			<mm_lon>103.832380</mm_lon>
+		</address_slot>
+	</addresses>
+	<related_venues>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=2152&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=874&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=1325&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=1106&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>restaurant</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=831&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>bar</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=110&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>bar</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=103&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>bar</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=1693&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>bar</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=950&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+		<related_link>
+			<kind>bar</kind>
+			<link>http://www.timeoutsingapore.com/xmlapi/xml_detail?venue=268&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+		</related_link>
+	</related_venues>
+</venue>
+	<name>Re:Kindle Love</name>
+	<critic_choice>N</critic_choice>
+	<hot_seat>N</hot_seat>
+	<website>www.bytes.sg</website>
+	<date_start></date_start>
+	<date_end></date_end>
+	<alternative_dates></alternative_dates>
+	<opentime></opentime>
+	<excerpt><em>In Mandarin with English surtitles.</em> Dinner and a musical combine in this package for the Valentine weekend. The production stars Emma Yong, a veteran performer who has appeared in more than 60 lead roles in Singapore, and chronicles the plight of a young man and his relationships with three women from different generations.
+5-7 &#38; 9-11 Feb; 7.30pm. $48; 12-14 Feb; 7pm (dinner package). $150 per person or<br />
+$250 per couple, inclusive of festive dinner and door gift.</excerpt>
+	<min_price>0.00</min_price>
+	<max_price>0.00</max_price>
+	<views>44</views>
+	<data_add>Fri, 29 Jan 2010 09:31:02 +0000</data_add>
+	<data_change>Fri, 29 Jan 2010 09:31:50 +0000</data_change>
+	<redirect></redirect>
+	<standfirst></standfirst>
+	<gallery>0</gallery>
+	<top_start>0000-00-00</top_start>
+	<top_end>0000-00-00</top_end>
+	<top_premium></top_premium>
+	<top_platinum></top_platinum>
+	<has_top>N</has_top>
+	<top_logo></top_logo>
+	<link>http://www.timeoutsingapore.com/performance/theatre/rekindle-love</link>
+<tags>
+	<tag>Performance</tag>
+	<tag>Theatre</tag>
+</tags>
+</event>

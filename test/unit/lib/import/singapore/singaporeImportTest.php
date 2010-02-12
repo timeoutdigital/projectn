@@ -36,6 +36,11 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected $dataXMLObject;
 
+  /**
+   * @var curlImporter
+   */
+  protected $stubCurlImporter;
+
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -51,17 +56,11 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    
    $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
-   $this->dataXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_weekly_events.xml' );
+   $this->stubCurlImporter = $this->getMock( 'curlImporter' );
+   $this->stubCurlImporter->expects( $this->any() )->method( 'pullXML' );
 
-   $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore_event_detail.xml' );   
-   $stubCurlImporter = $this->getMock( 'curlImporter' );
-   $stubCurlImporter->expects( $this->any() )
-                     ->method( 'pullXML' );
-   $stubCurlImporter->expects( $this->any() )
-                     ->method( 'getXml' )
-                     ->will( $this->returnValue( $stubReturnXMLObject ) );
+   $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter );
 
-   $this->object = new singaporeImport( $this->dataXMLObject, $this->vendorObj, $stubCurlImporter );
   }
 
   /**
@@ -75,24 +74,88 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
   /*
    *
    */
-  public function testInsertCategoriesPoisEvents()
-  {    
-    $this->assertTrue( $this->object->insertCategoriesPoisEvents() );
+  public function testInsertPoisAndInsertPoi()
+  {
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_venues_list.xml' );
+     $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $this->stubCurlImporter->getXml();
 
-    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 801 );
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
 
-    $this->assertEquals( 'Singapore Botanic Gardens', $poi[ 'poi_name' ] );
+     // this is needed just for testing
+     $this->object->setCurlImporter( $stubCurlImporterDetail );
 
+     $this->object->insertPois( $xmlObj );
+
+     $poisCol = Doctrine::getTable( 'Poi' )->findAll();
+
+     $this->assertEquals( 1, $poisCol->count() );
   }
+  
+  /*
+   *
+   */
+  public function testInsertEventsAndInsertEvent()
+  {
+
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $stubCurlImporterDetail->getXml();
+
+     $this->object->insertPoi( $xmlObj );
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_events_list.xml' );
+     $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $this->stubCurlImporter->getXml();
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/event_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+
+     // this is needed just for testing
+     $this->object->setCurlImporter( $stubCurlImporterDetail );
+
+     $this->object->insertEvents( $xmlObj );
+
+     $eventsCol = Doctrine::getTable( 'Event' )->findAll();
+
+     $this->assertEquals( 1, $eventsCol->count() );
+
+     $this->assertEquals( 1, count( $eventsCol[ 0 ][ 'EventOccurrence' ] ) );
+  }
+
+
 
   /*
    *
    */
-  public function testFetchPoiAndPoiCategory()
-  {
-  // $this->assertTrue( $this->object->fetchPoiAndPoiCategory( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=8355&key=ffab6a24c60f562ecf705130a36c1d1e' ) instanceof SimpleXMLElement );
+   public function testFetchDetailUrl()
+   {
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
+     $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $this->stubCurlImporter->getXml();
 
-  }
+     $returnXml = $this->object->fetchDetailUrl( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue=2154&key=ffab6a24c60f562ecf705130a36c1d1e' );
+
+     $this->assertEquals( $stubReturnXMLObject, $returnXml );
+   }
 
 }
+
+
+class singaporeImportTestVersion extends singaporeImport
+{
+  public function setCurlImporter( $curlImporter )
+  {
+    $this->_curlImporter = $curlImporter;
+  }
+}
+
 ?>
