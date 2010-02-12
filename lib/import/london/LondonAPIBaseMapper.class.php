@@ -119,7 +119,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $xml->name;
     $poi['url']               = (string) $xml->webUrl;
-    $poi['phone']             = (string) $xml->phone;
+    $poi['phone']             = stringTransform::formatPhoneNumber( (string) $xml->phone, '+44' );
     $poi['price_information'] = (string) $xml->price;
     $poi['openingtimes']      = (string) $xml->openingTimes;
     $poi['public_transport_links'] = (string) $xml->travelInfo;
