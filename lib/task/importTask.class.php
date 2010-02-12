@@ -244,13 +244,36 @@ class importTask extends sfBaseTask
         {
           case 'poi-event':
 
-            $curlImporterObj = new curlImporter();
+            /*$curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'thisweek' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
 
             $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
-            $singaporeImportObj->insertCategoriesPoisEvents();
+            $singaporeImportObj->insertCategoriesPoisEvents();*/
+
+            //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
+
+            //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
+
+            //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
+
+            $curlImporterObj = new curlImporter();
+            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/venues/', '', $parametersArray );
+            $xmlObj = $curlImporterObj->getXml();
+
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
+            $this->object->insertPois( $xmlObj );
+
+            $curlImporterObj = new curlImporter();
+            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
+            $xmlObj = $curlImporterObj->getXml();
+
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
+            $this->object->insertEvents( $xmlObj );
+
             break;
 
           case 'film':
