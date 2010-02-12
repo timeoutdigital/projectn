@@ -66,9 +66,17 @@ class reverseGeocode
       $params['gl'] = $countryBiasccTLD;
     }
 
-    $curl = new Curl( $this->url, $params );
-    
-    $this->addressesXml = simplexml_load_string( $curl->getResponse() );
+    $this->params = $params;
+  }
+
+  /**
+   * set a different Google maps API key
+   * 
+   * @param string $apiKey
+   */
+  public function setApiKey( $apiKey )
+  {
+    $this->apiKey = $apiKey;
   }
 
   /**
@@ -78,7 +86,57 @@ class reverseGeocode
    */
   public function getAddressesXml()
   {
+    if( is_null( $this->addressesXml ) )
+    {
+      $this->callApi();
+    }
     return $this->addressesXml;
+  }
+
+  protected function callApi()
+  {
+    $curl = new Curl( $this->url, $this->params );
+    
+    $responseXml = simplexml_load_string( $curl->getResponse() );
+
+    $this->registerNameSpaces( $responseXml );
+    $this->ensureSuccessStatus( $responseXml );
+    $this->addressesXml = $responseXml;
+    
+  }
+
+  protected function ensureSuccessStatus( $responseXml )
+  {
+    $statusCodeTags = $responseXml->xpath('/g:kml/g:Response/g:Status/g:code');
+    $statusCode = (int) $statusCodeTags[0];
+
+    $codeNames = array(
+      200 =>	'G_GEO_SUCCESS',
+      500 =>	'G_GEO_SERVER_ERROR',
+      601 =>	'G_GEO_MISSING_QUERY',
+      602 =>	'G_GEO_UNKNOWN_ADDRESS',
+      603 =>	'G_GEO_UNAVAILABLE_ADDRESS',
+      610 =>	'G_GEO_BAD_KEY',
+      620 =>	'G_GEO_TOO_MANY_QUERIES',
+    );
+
+    if( $statusCode != 200 )
+    {
+      throw new Exception( 
+        'Google Maps failed with code: ' .
+        $statusCode .
+        ' ( '. $codeNames[ $statusCode ] .' )'
+      );
+    }
+  }
+
+  /**
+   * Register namespaces in response xml
+   */
+  protected function registerNameSpaces( $responseXml )
+  {
+    $responseXml->registerXPathNamespace( 'g', 'http://earth.google.com/kml/2.0' );
+    $responseXml->registerXPathNamespace( 'o', 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' );
   }
 }
 ?>
