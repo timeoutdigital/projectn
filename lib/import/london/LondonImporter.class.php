@@ -1,8 +1,14 @@
 <?php
-
 /**
+ * Description
  *
- * @author rhodri
+ * @package projectn
+ * @subpackage london.import.lib
+ *
+ * @author Rhodri Davies <rhodridavies@timout.com>
+ * @copyright Timeout Communications Ltd
+ *
+ * @version 1.0.1
  *
  */
 class LondonImporter
