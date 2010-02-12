@@ -70,13 +70,13 @@ class Curl
    * @param boolean $locationFollow Curl::LOCATION_FOLLOW | Curl::LOCATION_DONT_FOLLOW
    */
   public function __construct( $url,
-                                $parameters     = array(),
-                                $requestMethod  = Curl::REQUEST_USING_GET,
-                                $returnHeaders  = Curl::RETURN_WITHOUT_HEADERS,
-                                $locationFollow = Curl::LOCATION_FOLLOW )
+                               $parameters     = array(),
+                               $requestMethod  = Curl::REQUEST_USING_GET,
+                               $returnHeaders  = Curl::RETURN_WITHOUT_HEADERS,
+                               $locationFollow = Curl::LOCATION_FOLLOW )
   {
-    $this->url = $url;
-    $this->parameters = $parameters;
+    $this->url           = $url;
+    $this->parameters    = $parameters;
     $this->requestMethod = $requestMethod;
     $this->returnHeaders = $returnHeaders;
     
