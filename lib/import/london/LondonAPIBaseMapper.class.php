@@ -205,11 +205,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $reverseGeocoder = new reverseGeocode($latitude, $longitude, 'uk');
     $addressesXml = $reverseGeocoder->getAddressesXml();
 
-    $addressesXml->registerXPathNamespace( 'g', 'http://earth.google.com/kml/2.0' );
-    $addressesXml->registerXPathNamespace( 'o', 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' );
-
-    $firstAddressXml = $addressesXml->xpath( '/g:kml/g:Response/g:Placemark[1]/o:AddressDetails' );
-    $firstAddressXml = $firstAddressXml[0];
+    $firstAddressXml = $this->extractFirstAddress( $addressesXml );
 
     $firstAddressDetails =  array
     (
@@ -218,6 +214,14 @@ abstract class LondonAPIBaseMapper extends DataMapper
     );
 
     return $firstAddressDetails;
+  }
+
+  protected function extractFirstAddress( $xml )
+  {
+    $firstAddressXml = $xml->xpath( '/g:kml/g:Response/g:Placemark[1]/o:AddressDetails' );
+    $firstAddressXml = $firstAddressXml[0];
+
+    return $firstAddressXml;
   }
 
   protected function extractAdministrativeAreaName( $firstAddressXml )
