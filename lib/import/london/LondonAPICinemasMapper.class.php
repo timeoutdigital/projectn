@@ -70,7 +70,7 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
     $poi = new Poi();
     $this->mapCommonPoiMappings($poi, $cinemaXml);
 
-    $poi['PoiCategories'][]   = $this->poiCategory;
+    //$poi['PoiCategories'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $cinemaXml->starRating;
 
     //@todo add userRating
