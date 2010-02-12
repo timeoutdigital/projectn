@@ -18,11 +18,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @var Vendor
    */
   protected $vendor;
-//
-//  /**
-//   * @var string
-//   */
-//  protected $searchUrl = 'http://api.timeout.com/v1/search.xml';
+
+  /**
+   * @var string
+   */
+  protected $searchUrl = 'http://api.timeout.com/v1/search.xml';
 
   /**
    * @var string
@@ -97,6 +97,172 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected function crawlApi()
   {
     $this->apiCrawler->crawlApi();
+  }
+
+  /**
+   * do common API-POI mappings
+   */
+  protected function mapCommonPoiMappings(Poi $poi, SimpleXMLElement $xml )
+  {
+    $latLong = $this->deriveLatitudeLongitude( $xml );
+
+    $poi['longitude']         = $latLong['latitude'];
+    $poi['latitude']          = $latLong['longitude'];
+    $poi['zips']              = (string) $xml->postcode;
+    $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml );
+  
+    $poi['vendor_id']         = $this->vendor['id'];
+    $poi['vendor_poi_id']     = (string) $xml->uid;
+    $poi['vendor_category']    = $this->getApiType();
+
+    $poi['street']            = (string) $xml->address;
+    $poi['country']           = $this->country;
+    $poi['poi_name']          = (string) $xml->name;
+    $poi['url']               = (string) $xml->webUrl;
+    $poi['phone']             = (string) $xml->phone;
+    $poi['price_information'] = (string) $xml->price;
+    $poi['openingtimes']      = (string) $xml->openingTimes;
+    $poi['public_transport_links'] = (string) $xml->travelInfo;
+    $poi['description']       = (string) $xml->description;
+  }
+
+  /**
+   * Uses data from xml to derive the value for city
+   *
+   * @return string
+   */
+  protected function deriveCity( $latitude, $longitude, $xml )
+  {
+    $city = 'London';
+
+    if( !$this->validateLondon( $xml->postcode, $latitude, $longitude ) )
+    {
+      $city = $this->extractCityFromAddress( $xml->address );
+
+      if( empty( $city ) )
+      {
+        $address = $this->getAddressUsingGeocode( $latitude, $longitude );
+        $city = $address['AdministrativeArea'];
+      }
+    }
+
+    return $city;
+  }
+  
+  /**
+   * attempt to get city from address string
+   * 
+   * @return string
+   */
+  protected function extractCityFromAddress( $addressString )
+  {
+    $city = '';
+    $addressPieces = explode( ',', $addressString );
+
+    if( count( $addressPieces ) > 1 )
+    {
+      $city = array_pop( $addressPieces );
+    }
+    
+    return $city;
+  }
+
+  /**
+   * Use data from xml to derive the longitude and latitude
+   *
+   * @returns array
+   */
+  protected function deriveLatitudeLongitude( $detailsXml )
+  {
+    $latitude  = $detailsXml->latitude;
+    $longitude = $detailsXml->longitude;
+
+    if( empty( $latitude ) || empty( $longitude ) )
+    {
+      $this->geoEncoder->setAddress( $detailsXml->postcode. ', United Kingdom' );
+      $latitude  = $this->geoEncoder->getLatitude();
+      $longitude = $this->geoEncoder->getLongitude();
+    }
+
+    $latLong = array(
+      'latitude'  => $latitude,
+      'longitude' => $longitude,
+    );
+
+    return $latLong;
+  }
+
+  /**
+   * Look up an address using latitude and longitude
+   *
+   * @param float $latitude
+   * @param float $longitude
+   *
+   * @return array AdministrativeArea
+   */
+  protected function getAddressUsingGeocode( $latitude, $longitude )
+  {
+    $reverseGeocoder = new reverseGeocode($latitude, $longitude, 'uk');
+    $addressesXml = $reverseGeocoder->getAddressesXml();
+
+    $addressesXml->registerXPathNamespace( 'g', 'http://earth.google.com/kml/2.0' );
+    $addressesXml->registerXPathNamespace( 'o', 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' );
+
+    $firstAddressXml = $addressesXml->xpath( '/g:kml/g:Response/g:Placemark[1]/o:AddressDetails' );
+    $firstAddressXml = $firstAddressXml[0];
+
+    $firstAddressDetails =  array
+    (
+      'AdministrativeArea'    => $this->extractAdministrativeAreaName( $firstAddressXml ),
+      'SubAdministrativeArea' => $this->extractSubAdministrativeAreaName( $firstAddressXml ),
+    );
+
+    return $firstAddressDetails;
+  }
+
+  protected function extractAdministrativeAreaName( $firstAddressXml )
+  {
+    return (string) $firstAddressXml->Country
+      ->AdministrativeArea
+      ->AdministrativeAreaName;
+  }
+
+  protected function extractSubAdministrativeAreaName( $firstAddressXml )
+  {
+    return (string) $firstAddressXml->Country
+      ->AdministrativeArea
+      ->SubAdministrativeArea
+      ->SubAdministrativeAreaName;
+  }
+
+  /**
+   * Checks location is in London using postcode, latitude, longitude
+   *
+   * Function taken from london
+   *
+   * @return boolean
+   */
+  protected function validateLondon( $postcode, $latitude, $longitude )
+  {
+    if ( preg_match( '/^[NESW][A-Z]?[0-9]+.*/', $postcode ) )
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+      //distance in miles from center point
+      $centerPoint = round( sqrt( pow( (69.1 * ( $latitude - 51.515927 ) ), 2) + pow((53 * ( $longitude - -0.129917 ) ), 2 ) ), 1);
+
+      if ( $centerPoint < 50 )
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
   }
 
   /**

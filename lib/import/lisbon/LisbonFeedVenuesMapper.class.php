@@ -29,7 +29,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       //$poi['provider'] = '';
 
       $poi['review_date'] = '';
-      $poi['local_language'] = 'PTR';
+      $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
       $poi['district'] = '';
       $poi['country'] = 'PTR';

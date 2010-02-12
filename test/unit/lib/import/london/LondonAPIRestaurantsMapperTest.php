@@ -40,23 +40,10 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapPoi()
   {
     $limit = 11;
-
-    $mockGeoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
-
-    $mockGeoEncoder->expects( $this->exactly( $limit ) )
-               ->method( 'setAddress' );
-
-    $mockGeoEncoder->expects( $this->exactly( $limit ) )
-               ->method( 'getLongitude' )
-               ->will( $this->returnValue( 1.1 ) );
-
-    $mockGeoEncoder->expects( $this->exactly( $limit ) )
-               ->method( 'getLatitude' )
-               ->will( $this->returnValue( 2.2 ) );
     
     $crawler = new LondonAPICrawler();
     $crawler->setLimit( $limit );
-    $mapper = new LondonAPIRestaurantsMapper( $crawler, $mockGeoEncoder );
+    $mapper = new LondonAPIRestaurantsMapper( $crawler );
 
     $importer = new Importer();
     $importer->addDataMapper( $mapper );
@@ -68,21 +55,21 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
 
     $poi = $poiResults[0];
 
-    $this->assertFalse( empty( $poi[ 'vendor_id' ] ) );
-    $this->assertFalse( empty( $poi[ 'vendor_poi_id' ] ),     'vendor_poi_id should not be empty' );
-    $this->assertFalse( empty( $poi[ 'street' ] ),            'street should not be empty' );
-    $this->assertFalse( empty( $poi[ 'city' ] ),              'city should not be empty' );
-    $this->assertFalse( empty( $poi[ 'country' ] ),           'city should not be empty' );
-    $this->assertFalse( empty( $poi[ 'longitude' ] ) );
-    $this->assertFalse( empty( $poi[ 'latitude' ] ) );
-    $this->assertFalse( empty( $poi[ 'poi_name' ] ),          'poi_name should not be empty' );
-    $this->assertFalse( empty( $poi[ 'url' ] ),               'url should not be empty' );
-    $this->assertFalse( empty( $poi[ 'phone' ] ),             'phone should not be empty' );
-    $this->assertFalse( empty( $poi[ 'zips' ] ),              'zips should not be empty' );
-    $this->assertFalse( empty( $poi[ 'price_information' ] ), 'price_information should not be empty' );
-    $this->assertFalse( empty( $poi[ 'openingtimes' ] ),      'openingtimes should not be empty' );
-    $this->assertFalse( empty( $poi[ 'star_rating' ] ),       'star_rating should not be empty' );
-    $this->assertFalse( empty( $poi[ 'description' ] ),       'description should not be empty' );
+    $this->assertFalse( empty( $poi[ 'vendor_id' ] ),         'vendor_id should not be empty: '     . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'vendor_poi_id' ] ),     'vendor_poi_id should not be empty: ' . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'street' ] ),            'street should not be empty: '        . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'city' ] ),              'city should not be empty: '          . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'country' ] ),           'city should not be empty: '          . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'longitude' ] ),         'longitude should not be empty: '     . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'latitude' ] ),          'latitude should not be empty: '      . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'poi_name' ] ),          'poi_name should not be empty: '      . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'url' ] ),               'url should not be empty: '           . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'phone' ] ),             'phone should not be empty: '         . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'zips' ] ),              'zips should not be empty: '          . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'price_information' ] ), 'price_information should not be empty: ' . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'openingtimes' ] ),      'openingtimes should not be empty: '  . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'star_rating' ] ),       'star_rating should not be empty: '   . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'description' ] ),       'description should not be empty: '   . $poi[ 'url' ] );
 
     $this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) );
   }

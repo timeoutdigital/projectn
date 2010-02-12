@@ -51,23 +51,9 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
   public function doMapping( SimpleXMLElement $cinemaXml )
   {
     $poi = new Poi();
-    $poi['vendor_id']         = $this->vendor['id'];
-    $poi['vendor_poi_id']     = (string) $cinemaXml->uid;
-    $poi['street']            = (string) $cinemaXml->address;
-    $poi['city']              = $this->city;
-    $poi['country']           = $this->country;
-    $poi['poi_name']          = (string) $cinemaXml->name;
-    $poi['url']               = (string) $cinemaXml->webUrl;
-    $poi['phone']             = (string) $cinemaXml->phone;
-    $poi['zips']              = (string) $cinemaXml->postcode;
-    $poi['price_information'] = (string) $cinemaXml->price;
-    $poi['openingtimes']      = (string) $cinemaXml->openingTimes;
-    $poi['public_transport_links'] = (string) $cinemaXml->travelInfo;
-    $poi['star_rating']       = (int) $cinemaXml->starRating;
-    $poi['description']       = (string) $cinemaXml->description;
+    $this->mapCommonPoiMappings($poi, $cinemaXml);
 
-    $poi['longitude'] = (float) $cinemaXml->lng;
-    $poi['latitude'] = (float) $cinemaXml->lat;
+    $poi['star_rating']       = (int) $cinemaXml->starRating;
 
     //@todo add userRating
 

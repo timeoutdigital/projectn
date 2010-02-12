@@ -47,21 +47,26 @@ class reverseGeocode
    * 
    * @param float $longitude
    * @param float $latitude
+   * @param string $countryBiasccTLD a ccTLD string
    */
-  public function __construct( $latitude, $longitude )
+  public function __construct( $latitude, $longitude, $countryBiasccTLD = null )
   {
     $this->longitude = $longitude;
     $this->latitude = $latitude;
-
-    $curl = new Curl(
-      $this->url,
-      array(
+    
+    $params = array(
         'q' => $latitude . ',' . $longitude,
         'output' => 'xml',
         'sensor' => 'false',
         'key' => $this->apiKey,
-      )
-    );
+      );
+
+    if( $countryBiasccTLD )
+    {
+      $params['gl'] = $countryBiasccTLD;
+    }
+
+    $curl = new Curl( $this->url, $params );
     
     $this->addressesXml = simplexml_load_string( $curl->getResponse() );
   }
