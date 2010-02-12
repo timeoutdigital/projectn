@@ -13,36 +13,22 @@
  */
 class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $xml;
 
-  public function __construct( SimpleXMLElement $xml )
-  {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
-    if( !$vendor )
-    {
-      throw new Exception( 'Vendor not found.' );
-    }
-    $this->vendor = $vendor;
-    $this->xml = $xml;
-  }
-  
   public function mapVenues()
   {
     foreach( $this->xml->venues as $venueElement )
     {
       $poi = new Poi();
-      $this->mapAvailableData($poi, $venueElement, $propertiesKey);
-      
+      $this->mapAvailableData($poi, $venueElement );
+
       //$poi['district'] = '';
       //$poi['fax'] = '';
       //$poi['keywords'] = '';
       //$poi['star_rating'] = null;
       //$poi['rating'] = '';
       //$poi['provider'] = '';
-      //$poi['review_date'] = '';
+
+      $poi['review_date'] = '';
       $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
       $poi['district'] = '';
@@ -64,7 +50,19 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['rating'] = '';
       $poi['provider'] = '';
       $poi['vendor_id'] = $this->vendor['id'];
-      
+
+      $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
+      $poi['description']                = $this->extractAnnotation( $venueElement );
+      $poi['additional_address_details'] = $this->extractAddress( $venueElement );
+      $poi['phone2']                     = $this->extractPhoneNumbers( $venueElement );
+      $poi['public_transport_links']     = $this->extractTransportLinkInfo( $venueElement );
+      $poi['price_information']          = $this->extractPriceInfo( $venueElement );
+      $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
+
+      $this->geoEncoder->setAddress( $this->getGeoEncodeData( $poi ) );
+      $poi['longitude'] = $this->geoEncoder->getLongitude();
+      $poi['latitude'] = $this->geoEncoder->getLatitude();
+
       $this->notifyImporter( $poi );
     }
   }
@@ -77,13 +75,15 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   protected function getMap()
   {
     return array(
-      'placeid'    => 'vendor_poi_id',
-      'name'       => 'poi_name',
-      'address'    => 'street',
-      'postcode'   => 'zips',
-      'genemail'   => 'email',
-      'url'        => 'url',
-      'buildingno' => 'house_no',
+      'placeid'      => 'vendor_poi_id',
+      'name'         => 'poi_name',
+      'address'      => 'street',
+      'postcode'     => 'zips',
+      'genmail'      => 'email',
+      'url'          => 'url',
+      'tipo'         => 'vendor_category',
+      'abbreviation' => 'short_description',
+      'phone'        => 'phone',
     );
   }
 
@@ -99,13 +99,101 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'businfo',
       'railinfo',
       'additional_address_details',
+      'address1',
+      'address2',
+      'address3',
+      'address4',
+      'cinemapriceinfo',
+      'MusicpriceInfo',
+      'dancepriceexport',
+      'comedypriceexport',
+      'nightlifepriceexport',
+      'gaypriceexport',
+      'comedytimesexport',
+      'dancetimesexport',
+      'nightlifetimesexport',
+      'gaytimesexport',
+      'gayannotation',
+      'danceannotation',
+      'nightlifeannotation',
+      'comedyannotation',
+      'comedytelexport',
+      'dancetelexport',
+      'nightlifetelexport',
+      'gaytelexport',
+      'buildingno',
+      'buildingName',
+      'area',
+      'city',
     );
   }
 
+  /**
+   * Extract annotation from xml
+   *
+   * @param SimpleXMLElement $venueElement
+   * @return string
+   */
+  private function extractAnnotation( $venueElement )
+  {
+    $annotationArray= array
+    (
+      $venueElement['gayannotation'],
+      $venueElement['danceannotation'],
+      $venueElement['nightlifeannotation'],
+      $venueElement['comedyannotation'],
+    );
+    return stringTransform::concatNonBlankStrings(', ', $annotationArray );
+  }
+
+  /**
+   * Extract price info from xml
+   *
+   * @param SimpleXMLElement $venueElement
+   * @return string
+   */
+  private function extractPriceInfo( SimpleXMLElement $venueElement )
+  {
+    $priceArray = array
+    (
+      $venueElement['cinemapriceinfo'],
+      $venueElement['MusicpriceInfo'],
+      $venueElement['dancepriceexport'],
+      $venueElement['comedypriceexport'],
+      $venueElement['nightlifepriceexport'],
+      $venueElement['gaypriceexport'],
+    );
+    return stringTransform::concatNonBlankStrings(', ', $priceArray );
+  }
+
+  /**
+   * Extract time info from xml
+   *
+   * @param SimpleXMLElement $venueElement
+   * @return string
+   */
+  private function extractTimeInfo( SimpleXMLElement $venueElement )
+  {
+    $timeArray = array
+    (
+      $venueElement['comedytimesexport'],
+      $venueElement['dancetimesexport'],
+      $venueElement['nightlifetimesexport'],
+      $venueElement['gaytimesexport'],
+    );
+    return stringTransform::concatNonBlankStrings(', ', $timeArray );
+  }
+
+  /**
+   * Extract transport info from xml
+   *
+   * @param SimpleXMLElement $venueElement
+   * @return string
+   */
   private function extractTransportLinkInfo( SimpleXMLElement $venueElement )
   {
     $infoArray = array();
-    
+
     if( !empty( $venueElement['tubeinfo'] ) )
     {
       $infoArray[] = 'Tube: ' . $venueElement['tubeinfo'];
@@ -124,36 +212,79 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
     return implode( ', ', $infoArray );
   }
 
+  /**
+   * Extract house number and building name from xml
+   *
+   * @param SimpleXMLElement $venueElement
+   * @return string
+   */
+  private function extractHouseNumberAndName( $venueElement )
+  {
+    $houseArray = array
+    (
+      $venueElement['buildingno'],
+      $venueElement['buildingName'],
+    );
+
+    return stringTransform::concatNonBlankStrings(' ', $houseArray );
+  }
+
+  /**
+   * Extract address from xml
+   *
+   * @param SimpleXMLElement $venueElement
+   * @return string
+   */
   private function extractAddress( $venueElement )
   {
-    $addressArray = array();
+    $addressArray = array
+    (
+      $venueElement['address'],
+      $venueElement['address1'],
+      $venueElement['address2'],
+      $venueElement['address3'],
+      $venueElement['address4'],
+      $venueElement['area'],
+    );
 
-    if( !empty( $venueElement['address'] ) )
-    {
-      $addressArray[] = $venueElement['address'];
-    }
+    return stringTransform::concatNonBlankStrings(', ', $addressArray );
+  }
 
-    if( !empty( $venueElement['address1'] ) )
-    {
-      $addressArray[] = $venueElement['address1'];
-    }
+  /**
+   * Extract phone numbers from xml
+   *
+   * @param SimpleXMLElement $venueElement
+   * @return string
+   */
+  private function extractPhoneNumbers( $venueElement )
+  {
+    $phoneArray = array
+    (
+      $venueElement['comedytelexport'],
+      $venueElement['dancetelexport'],
+      $venueElement['nightlifetelexport'],
+      $venueElement['gaytelexport'],
+    );
 
-    if( !empty( $venueElement['address2'] ) )
-    {
-      $addressArray[] = $venueElement['address2'];
-    }
+    return stringTransform::concatNonBlankStrings(', ', $phoneArray );
+  }
 
-    if( !empty( $venueElement['address3'] ) )
-    {
-      $addressArray[] = $venueElement['address3'];
-    }
-
-    if( !empty( $venueElement['address4'] ) )
-    {
-      $addressArray[] = $venueElement['address4'];
-    }
-
-    return implode( ', ', $addressArray );
+  /**
+   * return address for geoEncoder
+   *
+   * @param Poi $poi
+   * @return string
+   */
+  private function getGeoEncodeData( $poi )
+  {
+    $addressData = array
+    (
+      $poi['house_no'],
+      $poi['street'],
+      $poi['zips'],
+      $poi['additional_address_details'],
+    );
+    return stringTransform::concatNonBlankStrings(', ', $addressData );
   }
 }
 ?>

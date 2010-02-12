@@ -33,6 +33,8 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+     $timer = sfTimerManager::getTimer('importTimer');
+
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
@@ -40,6 +42,11 @@ EOF;
     ini_set( 'memory_limit', '512M' );
 
     $this->getExporter( $options )->run();
+
+    $timer->addTime();
+    $totalTime = $timer->getElapsedTime();
+
+    echo "Total time: ". round($totalTime/60,2) . "\n";
   }
 
   /**

@@ -5,6 +5,8 @@
  * @subpackage export.lib
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @author Tim Bowler <timbowler@timeout.com>
+ * 
  * @copyright Timeout Communications Ltd 2009
  *
  *
@@ -59,7 +61,10 @@ class XMLExportEvent extends XMLExport
 
       //event/version
       $versionElement = $this->appendRequiredElement( $eventElement, 'version' );
-      $versionElement->setAttribute( 'lang', 'pt' );
+
+      //Set theh language
+      $langArray = explode('-',$this->vendor['language']);
+      $versionElement->setAttribute( 'lang', $langArray[0] );
 
       //event/version/name
       $this->appendRequiredElement($versionElement, 'name', $event['name'], XMLExport::USE_CDATA);
@@ -131,8 +136,19 @@ class XMLExportEvent extends XMLExport
           $timeElement = $this->appendRequiredElement($occurrenceElement, 'time');
 
           //event/showtimes/occurrence/time/start-date
-          $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start']);
-          $this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end']);
+          
+          $startTimeStamp = strtotime($eventOccurrence['start']);
+          $endTimeStamp = strtotime($eventOccurrence['end']);
+
+
+          $startTime = date('H:i:s', $startTimeStamp);
+          $startDate = date('Y-m-d', $startTimeStamp);
+          $endTime = date('H:i:s', $endTimeStamp);
+          $endDate = date('Y-m-d', $endTimeStamp);
+
+          $this->appendRequiredElement($timeElement, 'start_date', $startDate);
+          $this->appendRequiredElement($timeElement, 'event_time', $startTime);
+          $this->appendNonRequiredElement($timeElement, 'end_time', $endTime);
           $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
 
           //$eventOccurrence->free();

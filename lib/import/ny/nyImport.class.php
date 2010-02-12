@@ -98,21 +98,26 @@ class importNy
    */
   public function insertEventCategoriesAndEventsAndVenues()
   {
+
+    //Loop through each venue to add the cvendor categories
     foreach($this->_venues as $venue)
     {
       $this->insertVendorPoiCategories( $venue );
     }
 
+    //Add each venue to the database
     foreach( $this->_venues as $venue )
     {
       $this->insertPoi( $venue ) ;
     }
 
+    //Loop through each event to add to the category mappings
     foreach($this->_events as $event)
     {
       $this->insertVendorEventCategories( $event );
     }
 
+    //Loop through all the events to add them and occurances to database
     foreach($this->_events as $event)
     {
       $this->insertEvent( $event );
@@ -186,6 +191,8 @@ class importNy
       $areaCodeString = (string) $poi->telephone->area_code;
       $phoneString = (string) $poi->telephone->number;
       $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
+      $fullnumber = stringTransform::formatPhoneNumber($fullnumber , '+1');
+
       $poiObj[ 'phone' ] = $fullnumber;
 
       //Full address String
@@ -236,7 +243,7 @@ class importNy
         Throw new Exception( $poiObj->getErrorStackAsString() );
       }
 
-      //deal prices node
+      //Loop throught the prices node
       if ( isset( $poi->prices ) )
       {
         foreach( $poi->prices->children() as $priceId )
@@ -257,12 +264,13 @@ class importNy
               $poiObj->addProperty( 'price', trim( $priceInfoString ) );
             }
           }
-        }
-      }
+        }//end foreach
+      }//end if
 
+      
       $categoryArray = array();
       
-      // deal with the attributes
+      //Loop throught the attributes node
       if ( isset( $poi->attributes ) )
       {
         foreach ( $poi->attributes->children() as $attribute )
@@ -286,7 +294,7 @@ class importNy
       //store categories
       if ( 0 < count( $categoryArray ) )
       {
-        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'PoiCategory', 'theatre-music-culture' );
+        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Poi', 'theatre-music-culture' );
 
         $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
         foreach( $categoryArray as $category )
@@ -365,161 +373,189 @@ class importNy
    * Insert the events
    *
    * @param SimpleXMLElement $event the events we want to insert
-   * @todo sort out attributes
    *
    */
   public function insertEvent( $event )
   {
+        $movieFound = false;
 
-      //Set the Events requirred values
-      $eventObj = new Event();
-
-      $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
-
-      $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
-
-      $eventObj[ 'name' ] = (string) $event->identifier;
-      $eventObj[ 'description' ] = (string) $event->description;
-
-      //save to database
-      if( $eventObj->isValid() )
+     /*
+      * Category_combi is a node in the xml that contains all the categories which is then used for mapping.
+      * in NY's case we must not add any event's or their occurances for <b>Film or Art-house &amp; indie cinema</b>
+      */
+      if ( isset( $event->category_combi ) )
       {
-        $eventObj->save();
-
-        //store categories
-        if ( isset( $event->category_combi ) )
-        {
-          //Categories
+         //Concatinate the categories Categories
           $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
 
-          //Event Categories
-          $eventObj['EventCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'EventCategory' );
+          //Get the Event Categories and their mappings
+          $eventCategoriesCollection = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Event' );
 
-          //Vendor Event Categories
+          //Get all the Vendor Event Categories that were inserted during the first loop
           $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
-          
+
+      
+
+          //Loop through  the vendor categories
           foreach( $categoryArray as $categoryString )
           {
+
+
             $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findOneByName( (string) $categoryString );
 
+            //If a match is found (Which should happen as the cats are inserted already)
             if ( is_object( $vendorEventCategory ) )
             {
               $vendorCategoriesArray[] = $vendorEventCategory;
             }
             else
             {
-              Throw new Exception("Invalid Vendor Event Category");
+               /**
+                * @todo log error
+                */
+              //Throw new Exception("Invalid Vendor Event Category");
             }
           }
-          $eventObj['VendorEventCategories'] = $vendorCategoriesArray;
-        }
-         
-        //deal with the "text-system" nodes
-        if ( isset( $event->{'text_system'}->text ) )
-        {
-          foreach( $event->{'text_system'}->text as $text )
+
+          //Loop through and check to see if any vendor mapped catagories are 'movies'
+          foreach($eventCategoriesCollection as $eventCat)
           {
-            switch( $text->{'text_type'} )
-            {
-              case 'Prices':
-                $eventObj[ 'price' ] = (string) $text->content;
-                break;
-              case 'Contact Blurb':
-                $url = $this->_extractContactBlurbUrl( (string) $text->content );
-                if ( $url != '' ) $eventObj->url = $url;
-                
-                $email = $this->_extractContactBlurbEmail( (string) $text->content );
-                if ( $email != ''  )
+              if($eventCat['name'] == 'movies')
+              {
+                  $movieFound = true;
+                  break;
+              }
+          }
+       }//end if loop through categories
+
+
+       //Only add the event if its not movie
+       if(!$movieFound)
+       {
+           //Set the Events requirred values
+          $eventObj = new Event();
+          $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
+          $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
+          $eventObj[ 'name' ] = (string) $event->identifier;
+          $eventObj[ 'description' ] = (string) $event->description;
+
+
+           //save to database
+          if( $eventObj->isValid() )
+          {
+              $eventObj->save();
+
+
+              //Event Categories
+              $eventObj['EventCategories'] = $eventCategoriesCollection;
+              $eventObj['VendorEventCategories'] = $vendorCategoriesArray;
+
+
+                //deal with the "text-system" nodes
+                if ( isset( $event->{'text_system'}->text ) )
                 {
-                  $eventObj->addProperty( 'email', $email );
+                  foreach( $event->{'text_system'}->text as $text )
+                  {
+                    switch( $text->{'text_type'} )
+                    {
+                      case 'Prices':
+                        $eventObj[ 'price' ] = (string) $text->content;
+                        break;
+                      case 'Contact Blurb':
+                        $url = $this->_extractContactBlurbUrl( (string) $text->content );
+                        if ( $url != '' ) $eventObj->url = $url;
+
+                        $email = $this->_extractContactBlurbEmail( (string) $text->content );
+                        if ( $email != ''  )
+                        {
+                          $eventObj->addProperty( 'email', $email );
+                        }
+
+                        $phone = $this->_extractContactBlurbPhone( (string) $text->content );
+                        if ( $phone != '' )
+                        {
+                          $eventObj->addProperty( 'phone', $phone );
+                        }
+
+                        // add property with email, phone, url and stuff
+                        break;
+                      case 'Show End Date':
+                        $eventObj->addProperty( 'show_end_date', (string) $text->content );
+                        break;
+                      case 'Legend':
+                        $eventObj->addProperty( 'legend', (string) $text->content );
+                        break;
+                      case 'Chill Out End Note':
+                        $eventObj->addProperty( 'chill_out_end_note', (string) $text->content );
+                        break;
+                      case 'Venue Blurb':
+                        $eventObj->addProperty( 'venue_blurb', (string) $text->content );
+                        break;
+                      case 'Approach Descriptions':
+                        $eventObj->addProperty( 'approach_description', (string) $text->content );
+                        break;
+                      case 'Web Keywords':
+                        $eventObj->addProperty( 'web_keywords', (string) $text->content );
+                        break;
+                    }
+                  }
                 }
 
-                $phone = $this->_extractContactBlurbPhone( (string) $text->content );
-                if ( $phone != '' )
-                {
-                  $eventObj->addProperty( 'phone', $phone );
-                }
+                  //deal with attributes node
+                    $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
+                    foreach( $event->attributes->children() as $attribute )
+                    {
+                        
+                          if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
+                          {
+                            $eventObj->addProperty( (string) $attribute->name, (string) $attribute->value );
+                          }
+                    }
 
-                // add property with email, phone, url and stuff
-                break;
-              case 'Show End Date':
-                $eventObj->addProperty( 'show_end_date', (string) $text->content );
-                break;
-              case 'Legend':
-                $eventObj->addProperty( 'legend', (string) $text->content );
-                break;
-              case 'Chill Out End Note':
-                $eventObj->addProperty( 'chill_out_end_note', (string) $text->content );
-                break;
-              case 'Venue Blurb':
-                $eventObj->addProperty( 'venue_blurb', (string) $text->content );
-                break;
-              case 'Approach Descriptions':
-                $eventObj->addProperty( 'approach_description', (string) $text->content );
-                break;
-              case 'Web Keywords':
-                $eventObj->addProperty( 'web_keywords', (string) $text->content );
-                break;
-            }
-          }
-        }
 
-        //deal with attributes node
-        $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
-        foreach( $event->attributes->children() as $attribute )
-        {
-          if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
-          {
-            $eventObj->addProperty( (string) $attribute->name, (string) $attribute->value );
-          }
-        }
+                    //save to database
+                    $eventObj->save();
+                    
+                    //Loop throught the actual occurances now
+                    foreach ( $event->date as $occurrence )
+                    {
 
-        //save to database
-        if( $eventObj->isValid() )
-        {
-          $eventObj->save();
+                      $occurrenceObj = new EventOccurrence();
+                      $occurrenceObj[ 'utc_offset' ] = '-05:00';
+                      $occurrenceObj[ 'start' ] = (string) $occurrence->start;
+                      $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
+                      $occurrenceObj->generateVendorEventOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
+
+                      //set poi id
+                      $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
+                     
+                      $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
+
+                      //save to database
+                      if( $occurrenceObj->isValid() )
+                      {
+                        $occurrenceObj->save();
+                      }
+                      else
+                      {
+                        Throw new Exception( $occurrenceObj->getErrorStackAsString() );
+                      }
+
+                      //Kill the object
+                      $occurrenceObj->free();
+                    }//end foreach
         }
         else
         {
-          Throw new Exception( $eventObj->getErrorStackAsString() );
-        }
+            echo $eventObj->getErrorStackAsString();
+        }//end if event obj is valid
 
-        foreach ( $event->date as $occurrence )
-        {
-          $occurrenceObj = new EventOccurrence();
-          $occurrenceObj[ 'start' ] = (string) $occurrence->start;
-          $occurrenceObj[ 'utc_offset' ] = '-05:00';
-          $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-          $occurrenceObj->generateVendorEventOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
-
-          //set poi id
-          $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
-          $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
-
-          //save to database
-          if( $occurrenceObj->isValid() )
-          {            
-            $occurrenceObj->save();
-          }
-          else
-          {
-            Throw new Exception( $occurrenceObj->getErrorStackAsString() );
-          }
-          
-          //Kill the object
-          $occurrenceObj->free();
-        }
-
-      }
-      else
-      {
-        echo $eventObj->getErrorStackAsString();
-      }
-
-      //Kill the object
-      $eventObj->free();
+        //Kill the object
+            $eventObj->free();
+       }//end if movie found
   }
 
+  
   /*
    * Extracts and fixes up a URL out of the contact blurb in the xml
    *
@@ -591,6 +627,18 @@ class importNy
   /*
    * _concatVendorEventCategories helper function to concatenate the vendor event
    * categories
+   *
+   * The reason is that there are some instances where the vendors categories map to
+   * several nokia events and the only way is to concatinate this 
+   *
+   *
+   * E.G
+   *
+   * Nokia: Concerts
+   * NY's concatinate to: Music | Reggie, World, Latin
+   *
+   * Nokia: Clubs
+   * NY's concatinate to: Clubs | Reggie, World, Latin
    *
    * @param SimpleXMLElement $categoryCombiNodeObject
    * @param boolean $returnOneElementOnly flag if only one element should be

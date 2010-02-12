@@ -15,15 +15,15 @@ abstract class BaseLinkingEventCategoryMappingForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'          => new sfWidgetFormInputHidden(),
-      'map_from_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'), 'add_empty' => false)),
-      'map_to_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => false)),
+      'id'                       => new sfWidgetFormInputHidden(),
+      'event_category_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => false)),
+      'vendor_event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'), 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'id'          => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'map_from_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'))),
-      'map_to_id'   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'))),
+      'id'                       => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'event_category_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'))),
+      'vendor_event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'))),
     ));
 
     $this->widgetSchema->setNameFormat('linking_event_category_mapping[%s]');

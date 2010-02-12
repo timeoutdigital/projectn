@@ -21,9 +21,11 @@ class importTask extends sfBaseTask
   {
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
-    
-    Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
 
+    //Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
+
+    $timer = sfTimerManager::getTimer('importTimer');
+    
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     //Select the task
@@ -229,13 +231,13 @@ class importTask extends sfBaseTask
         }
 
         $importer->run();
-        
         break; //end lisbon
 
       case 'singapore':
         $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-US');
 
         //must be set for price range function
+        //@todo get get this info out of vendor?!
         setlocale(LC_MONETARY, 'en_US.UTF-8');
 
         switch( $options['type'] )
@@ -246,7 +248,7 @@ class importTask extends sfBaseTask
             $parametersArray = array( 'section' => 'index', 'thisweek' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
-            
+
             $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
             $singaporeImportObj->insertCategoriesPoisEvents();
             break;
@@ -289,7 +291,7 @@ class importTask extends sfBaseTask
            // $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
            // $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
               $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
-         
+
                 //Regression tests
               $curlObj = new curlImporter();
               //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
@@ -301,7 +303,7 @@ class importTask extends sfBaseTask
 
             break;
 
-          
+
 
             break;
         }
@@ -310,7 +312,12 @@ class importTask extends sfBaseTask
 
 
 
-    }
+    }//end switch
+
+    $timer->addTime();
+    $totalTime = $timer->getElapsedTime();
+
+    echo "Total time: ". round($totalTime/60,2) . "\n";
   }
 
   /**

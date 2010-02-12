@@ -30,7 +30,7 @@ abstract class BaseMovieFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'vendor_id'         => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
-      'vendor_movie_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'vendor_movie_id'   => new sfValidatorPass(array('required' => false)),
       'name'              => new sfValidatorPass(array('required' => false)),
       'plot'              => new sfValidatorPass(array('required' => false)),
       'review'            => new sfValidatorPass(array('required' => false)),
@@ -79,7 +79,7 @@ abstract class BaseMovieFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                => 'Number',
       'vendor_id'         => 'ForeignKey',
-      'vendor_movie_id'   => 'Number',
+      'vendor_movie_id'   => 'Text',
       'name'              => 'Text',
       'plot'              => 'Text',
       'review'            => 'Text',

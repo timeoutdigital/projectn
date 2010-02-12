@@ -32,7 +32,7 @@ PoiCategory:
     name:    restaurant
     Parent:  [c1]
   c7:
-    name:    bar-p`ub
+    name:    bar-pub
     Parent:  [c1]
   c8:
     name:    theatre-music-culture
@@ -87,7 +87,7 @@ VendorPoiCategory:
     Vendor:              v1
 
 
-PoiCategoryMapping:
+LinkingPoiCategoryMapping:
   pcm2:
     VendorPoiCategory:  c2    # Shops
     PoiCategory:        c16    # shop
@@ -110,23 +110,29 @@ PoiCategoryMapping:
 
 Vendor:
   v1:
-    city:                ny
-    language:            en-US
+    city:                     ny
+    language:                 en-US
+    #international_dial_code:  1
   v2:
-    city:                chicago
-    language:            en-US
+    city:                     chicago
+    language:                 en-US
+    #international_dial_code:  1
   v3:
-    city:                singapore
-    language:            en-US
+    city:                     singapore
+    language:                 en-US
+    #international_dial_code:  65
   v4:
-    city:                london
-    language:            en-GB
+    city:                     london
+    language:                 en-GB
+    #international_dial_code:  44
   v5:
-    city:                abu dhabi
-    language:            en-US
+    city:                     abu dhabi
+    language:                 en-US
+    #international_dial_code:  971
   v6:
-    city:                dubai
-    language:            en-US
+    city:                     dubai
+    language:                 en-US
+    #international_dial_code:  971
 
 
 EventCategory:
@@ -340,7 +346,7 @@ VendorEventCategory:
     Vendor:              v1
 
 
-EventCategoryMapping:
+LinkingEventCategoryMapping:
   ecm1:
     VendorEventCategory:  c1
     EventCategory:        c1

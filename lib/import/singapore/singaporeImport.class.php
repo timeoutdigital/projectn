@@ -248,8 +248,8 @@ class singaporeImport {
                        ->execute();
 
     $conn = Doctrine_Manager::connection();
-    try
-    {
+    //try
+    //{
       $conn->beginTransaction();
 
       ( count( $q ) == 0 ) ? $event = new Event() : $event = $q[ 0 ];
@@ -298,12 +298,12 @@ class singaporeImport {
     //top_logo
     //link
 
-    }
+    /*}
     catch(Exception $e)
     {
       $conn->rollback();
       echo 'failed to insert/update event / occurrence: ' . (string) $eventObj->name . ' (id: ' . (string) $eventObj->id . ')' . PHP_EOL;
-    }
+    }*/
   }
 
   /*
@@ -356,7 +356,7 @@ class singaporeImport {
     foreach( $datesArray as $date )
     {
       $eventOccurrence = new EventOccurrence();
-      $eventOccurrence->generateVendorOccurrenceId( $eventId, $poiId, (string) $date[ 'start' ] );
+      $eventOccurrence->generateVendorEventOccurrenceId( $eventId, $poiId, (string) $date[ 'start' ] );
       //$eventOccurrence[ 'booking_url' ] ='';
       $eventOccurrence[ 'utc_offset' ] = '0';
 

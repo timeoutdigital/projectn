@@ -81,12 +81,20 @@ class Importer
   public function run()
   {
     $this->output( 'run ' );
-    foreach( $this->getDataMappers() as $dataSource )
+
+    try
     {
-      foreach( $dataSource->getMapMethods() as $mapMethod )
+      foreach( $this->getDataMappers() as $dataSource )
       {
-         $mapMethod->invoke( $dataSource );
+        foreach( $dataSource->getMapMethods() as $mapMethod )
+        {
+           $mapMethod->invoke( $dataSource );
+        }
       }
+    }
+    catch( Exception $e )
+    {
+      echo $e;
     }
   }
 
@@ -101,17 +109,8 @@ class Importer
   {
     //$record = $this->getRecordUsingData( $recordData );
     //transform( $records )
-    try
-    {
-      $record->save();
-      $this->output( '.' );
-    }
-    catch( Exception $e)
-    {
-      //echo $record->getErrorStackAsString();
-      $this->output( 'x' );
-      echo $e->getMessage();
-    }
+    $record->save();
+    $this->output( '.' );
   }
 
   /**

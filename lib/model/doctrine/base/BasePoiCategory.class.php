@@ -10,19 +10,22 @@ Doctrine_Manager::getInstance()->bindComponent('PoiCategory', 'project_n');
  * @property string $name
  * @property Doctrine_Collection $Poi
  * @property Doctrine_Collection $Parent
+ * @property Doctrine_Collection $VendorPoiCategories
  * @property Doctrine_Collection $Children
- * @property Doctrine_Collection $LinkingPoiCategoryMapping
+ * @property Doctrine_Collection $LinkingPoiCategoryMappings
  * 
- * @method string              getName()                      Returns the current record's "name" value
- * @method Doctrine_Collection getPoi()                       Returns the current record's "Poi" collection
- * @method Doctrine_Collection getParent()                    Returns the current record's "Parent" collection
- * @method Doctrine_Collection getChildren()                  Returns the current record's "Children" collection
- * @method Doctrine_Collection getLinkingPoiCategoryMapping() Returns the current record's "LinkingPoiCategoryMapping" collection
- * @method PoiCategory         setName()                      Sets the current record's "name" value
- * @method PoiCategory         setPoi()                       Sets the current record's "Poi" collection
- * @method PoiCategory         setParent()                    Sets the current record's "Parent" collection
- * @method PoiCategory         setChildren()                  Sets the current record's "Children" collection
- * @method PoiCategory         setLinkingPoiCategoryMapping() Sets the current record's "LinkingPoiCategoryMapping" collection
+ * @method string              getName()                       Returns the current record's "name" value
+ * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getParent()                     Returns the current record's "Parent" collection
+ * @method Doctrine_Collection getVendorPoiCategories()        Returns the current record's "VendorPoiCategories" collection
+ * @method Doctrine_Collection getChildren()                   Returns the current record's "Children" collection
+ * @method Doctrine_Collection getLinkingPoiCategoryMappings() Returns the current record's "LinkingPoiCategoryMappings" collection
+ * @method PoiCategory         setName()                       Sets the current record's "name" value
+ * @method PoiCategory         setPoi()                        Sets the current record's "Poi" collection
+ * @method PoiCategory         setParent()                     Sets the current record's "Parent" collection
+ * @method PoiCategory         setVendorPoiCategories()        Sets the current record's "VendorPoiCategories" collection
+ * @method PoiCategory         setChildren()                   Sets the current record's "Children" collection
+ * @method PoiCategory         setLinkingPoiCategoryMappings() Sets the current record's "LinkingPoiCategoryMappings" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -58,14 +61,19 @@ abstract class BasePoiCategory extends sfDoctrineRecord
              'local' => 'child_id',
              'foreign' => 'parent_id'));
 
+        $this->hasMany('VendorPoiCategory as VendorPoiCategories', array(
+             'refClass' => 'LinkingPoiCategoryMapping',
+             'local' => 'poi_category_id',
+             'foreign' => 'vendor_poi_category_id'));
+
         $this->hasMany('PoiCategory as Children', array(
              'refClass' => 'PoiCategoryReference',
              'local' => 'parent_id',
              'foreign' => 'child_id'));
 
-        $this->hasMany('LinkingPoiCategoryMapping', array(
+        $this->hasMany('LinkingPoiCategoryMapping as LinkingPoiCategoryMappings', array(
              'local' => 'id',
-             'foreign' => 'map_to_id'));
+             'foreign' => 'poi_category_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
