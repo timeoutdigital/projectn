@@ -93,6 +93,9 @@ class reverseGeocode
     return $this->addressesXml;
   }
 
+  /**
+   * Call the Google Maps API for data
+   */
   protected function callApi()
   {
     $curl = new Curl( $this->url, $this->params );
@@ -105,7 +108,23 @@ class reverseGeocode
     
   }
 
-  protected function ensureSuccessStatus( $responseXml )
+  /**
+   * Register namespaces in response xml
+   *
+   * @param SimpleXMLElement $responseXml
+   */
+  protected function registerNameSpaces( SimpleXMLElement $responseXml )
+  {
+    $responseXml->registerXPathNamespace( 'g', 'http://earth.google.com/kml/2.0' );
+    $responseXml->registerXPathNamespace( 'o', 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' );
+  }
+
+  /**
+   * Check the status code and throw an Exception if status code is not 200 (ok)
+   *
+   * @param SimpleXMLElement $responseXml
+   */
+  protected function ensureSuccessStatus( SimpleXMLElement $responseXml )
   {
     $statusCodeTags = $responseXml->xpath('/g:kml/g:Response/g:Status/g:code');
     $statusCode = (int) $statusCodeTags[0];
@@ -128,15 +147,6 @@ class reverseGeocode
         ' ( '. $codeNames[ $statusCode ] .' )'
       );
     }
-  }
-
-  /**
-   * Register namespaces in response xml
-   */
-  protected function registerNameSpaces( $responseXml )
-  {
-    $responseXml->registerXPathNamespace( 'g', 'http://earth.google.com/kml/2.0' );
-    $responseXml->registerXPathNamespace( 'o', 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' );
   }
 }
 ?>
