@@ -142,7 +142,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
       if( empty( $city ) )
       {
         $address = $this->getAddressUsingGeocode( $latitude, $longitude );
-        $city = $address['AdministrativeArea'];
+        $city = $address['SubAdministrativeArea'];
       }
     }
 
@@ -164,7 +164,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
       $city = array_pop( $addressPieces );
     }
     
-    return $city;
+    return trim( $city );
   }
 
   /**
