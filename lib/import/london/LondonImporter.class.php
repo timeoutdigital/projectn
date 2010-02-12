@@ -121,7 +121,8 @@ class LondonImporter
 
 				$poi[ 'email' ] = $item[ 'SLLVenue' ][ 'email' ];
 				$poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
-				$poi[ 'phone' ] = stringTransform::formatPhoneNumber($item[ 'SLLVenue' ][ 'phone' ], '+44'); //@todo use dial code from vendor
+				//$poi[ 'phone' ] = stringTransform::formatPhoneNumber($item[ 'SLLVenue' ][ 'phone' ], '+44'); //@todo use dial code from vendor
+				$poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ]; //@todo use dial code from vendor
 				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
 				$poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
 
