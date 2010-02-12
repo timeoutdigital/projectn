@@ -19,6 +19,11 @@ class LondonImporter
 	 */
 	private $_vendor;
 
+  /**
+   * @var PoiCategory
+   */
+  private $defaultPoiCategory;
+
 	public function __construct( )
 	{
 		$this->_vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'en-GB' );
@@ -27,6 +32,10 @@ class LondonImporter
 		{
 			throw new Exception( 'Cannot load Vendor' );
 		}
+    
+    
+    
+    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
 	}
 
 	public function run( )
@@ -92,6 +101,7 @@ class LondonImporter
 
 				if ( $poi === false ) $poi = new Poi( );
 
+        $poi['PoiCategories'][] = $this->defaultPoiCategory;
 
 				$poi[ 'Vendor' ] = $this->_vendor;
 

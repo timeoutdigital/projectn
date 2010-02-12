@@ -13,6 +13,19 @@
  */
 class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
 {
+  /**
+   * @var PoiCategory
+   */
+  private $poiCategory;
+
+  /**
+   *
+   */
+  public function  __construct( LondonAPICrawler $apiCrawler, geoEncode $encoder=null  )
+  {
+    parent::__construct( $apiCrawler, $geoEncoder );
+    $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'restaurant' );
+  }
 
   /**
    * Map restaurant data to Poi and notify the Importer as each Poi is mapped
@@ -54,7 +67,8 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
     $poi = new Poi();
     $this->mapCommonPoiMappings($poi, $restaurantXml);
     
-    $poi['star_rating'] = (int) $restaurantXml->starRating;
+    $poi[ 'star_rating' ] = (int) $restaurantXml->starRating;
+    $poi[ 'PoiCategories' ][] = $this->poiCategory;
 
     foreach( $restaurantXml->details as $detail )
     {
