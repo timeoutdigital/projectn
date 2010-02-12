@@ -102,6 +102,8 @@ class LondonImporterTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '',                      $poi[ 'star_rating' ] );
     $this->assertEquals( '',                      $poi[ 'rating' ] );
     $this->assertEquals( '',                      $poi[ 'provider' ] );
+
+    $this->assertEquals( 'theatre-music-culture', $poi[ 'PoiCategories' ][ 0 ][ 'name' ] );
   }
 
   /**

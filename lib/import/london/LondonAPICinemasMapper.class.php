@@ -13,6 +13,23 @@
  */
 class LondonAPICinemasMapper extends LondonAPIBaseMapper
 {
+
+  /**
+   * @var PoiCategory
+   */
+  private $poiCategory;
+
+  /**
+   *
+   * @param LondonAPICrawler $apiCrawler
+   * @param geoEncode $geoEncoder
+   */
+  public function __construct( LondonAPICrawler $apiCrawler=null, geoEncode $geoEncoder=null )
+  {
+    parent::__construct($apiCrawler, $geoEncoder);
+    $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'cinema' );
+  }
+
   /**
    * Map cinemas data to Poi and notify the Importer as each Poi is mapped
    */
@@ -53,12 +70,12 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
     $poi = new Poi();
     $this->mapCommonPoiMappings($poi, $cinemaXml);
 
+    $poi['PoiCategories'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $cinemaXml->starRating;
 
     //@todo add userRating
 
     $this->notifyImporter( $poi );
-    $poi->free(true);
   }
 }
 ?>

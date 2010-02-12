@@ -119,7 +119,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $xml->name;
     $poi['url']               = (string) $xml->webUrl;
-    $poi['phone']             = (string) $xml->phone;
+    $poi['phone']             = stringTransform::formatPhoneNumber( (string) $xml->phone, '+44' );
     $poi['price_information'] = (string) $xml->price;
     $poi['openingtimes']      = (string) $xml->openingTimes;
     $poi['public_transport_links'] = (string) $xml->travelInfo;
@@ -142,7 +142,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
       if( empty( $city ) )
       {
         $address = $this->getAddressUsingGeocode( $latitude, $longitude );
-        $city = $address['AdministrativeArea'];
+        $city = $address['SubAdministrativeArea'];
       }
     }
 
@@ -164,7 +164,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
       $city = array_pop( $addressPieces );
     }
     
-    return $city;
+    return trim( $city );
   }
 
   /**
@@ -205,11 +205,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $reverseGeocoder = new reverseGeocode($latitude, $longitude, 'uk');
     $addressesXml = $reverseGeocoder->getAddressesXml();
 
-    $addressesXml->registerXPathNamespace( 'g', 'http://earth.google.com/kml/2.0' );
-    $addressesXml->registerXPathNamespace( 'o', 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' );
-
-    $firstAddressXml = $addressesXml->xpath( '/g:kml/g:Response/g:Placemark[1]/o:AddressDetails' );
-    $firstAddressXml = $firstAddressXml[0];
+    $firstAddressXml = $this->extractFirstAddress( $addressesXml );
 
     $firstAddressDetails =  array
     (
@@ -218,6 +214,14 @@ abstract class LondonAPIBaseMapper extends DataMapper
     );
 
     return $firstAddressDetails;
+  }
+
+  protected function extractFirstAddress( $xml )
+  {
+    $firstAddressXml = $xml->xpath( '/g:kml/g:Response/g:Placemark[1]/o:AddressDetails' );
+    $firstAddressXml = $firstAddressXml[0];
+
+    return $firstAddressXml;
   }
 
   protected function extractAdministrativeAreaName( $firstAddressXml )
