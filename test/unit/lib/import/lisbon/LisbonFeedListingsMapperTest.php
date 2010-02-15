@@ -53,10 +53,10 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $importer->addDataMapper( $this->object );
     $importer->run();
 
-    $events = Doctrine::getTable( 'Event' )->findAll();
-    $this->assertEquals( 3, $events->count() );
+    $eventOccurrence = Doctrine::getTable( 'Event' )->findAll();
+    $this->assertEquals( 3, $eventOccurrence->count() );
 
-    $event = $events[0];
+    $event = $eventOccurrence[0];
 
     $this->assertEquals( '168032', $event['vendor_event_id'] );
     $this->assertEquals( 'Arquitecto José Santa-Rita, arquitecto: Obra, marcas e identidade(s) de um percu', $event['name'] );
@@ -67,6 +67,9 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $event['price'] );
     $this->assertEquals( '', $event['rating'] );
     $this->assertEquals( '1', $event['vendor_id'] );
+
+    $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findAll();
+    $this->assertEquals( 3, $eventOccurrence->count() );
   }
 }
 ?>

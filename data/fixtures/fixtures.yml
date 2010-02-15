@@ -133,6 +133,10 @@ Vendor:
     city:                     dubai
     language:                 en-US
     #inernational_dial_code:  +971
+  v7:
+    city:                     lisbon
+    language:                 pt
+    #inernational_dial_code:  +971
 
 
 EventCategory:
