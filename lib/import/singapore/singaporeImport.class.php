@@ -66,7 +66,15 @@ class singaporeImport {
     
     foreach( $poisXmlObj as $poiXmlObj )
     {
-      $venueDetailObj = $this->fetchDetailUrl( $poiXmlObj->link  );
+      try
+      {
+        $venueDetailObj = $this->fetchDetailUrl( $poiXmlObj->link );
+      }
+      catch( Exception $e )
+      {
+        echo (string) $e;
+      }
+
       $this->insertPoi( $venueDetailObj );
     }
 
@@ -83,15 +91,19 @@ class singaporeImport {
 
     foreach( $eventsXmlObj as $eventXmlObj )
     {
-      $eventDetailObj = $this->fetchDetailUrl( $eventXmlObj->link  );
+      try
+      {
+        $eventDetailObj = $this->fetchDetailUrl( $eventXmlObj->link  );
+      }
+      catch( Exception $e )
+      {
+        echo (string) $e;
+      }
+
       $this->insertEvent( $eventDetailObj );
     }
 
   }
-
-
-
-
 
   /*
    * insertCategoriesPoisEvents
@@ -203,7 +215,7 @@ class singaporeImport {
 
       $addressArray = $poiObj->xpath( 'addresses[1]/address_slot' );
 
-      if ( $addressArray !== false )
+      if ( 0 < count( $addressArray ) )
       {
         $poi[ 'longitude' ]                  = (string) $addressArray[0]->mm_lon;
         $poi[ 'latitude' ]                   = (string) $addressArray[0]->mm_lat;
@@ -278,7 +290,7 @@ class singaporeImport {
 
       return $poiId;
     }
-    catch(Exception $e)
+    catch( Exception $e )
     {
       echo 'failed to insert/update poi: ' . (string) $poiObj->name . ' (id: ' . (string) $poiObj->id . ')' . PHP_EOL;
     }
