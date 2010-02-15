@@ -49,7 +49,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapListings()
   {
-    return;
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();
@@ -63,10 +62,10 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Arquitecto José Santa-Rita, arquitecto: Obra, marcas e identidade(s) de um percu', $event['name'] );
     $this->assertEquals( 'Constituindo, pela primeira vez, uma homenagem póstuma, esta edição do Prémio Mu', $event['short_description'] );
     $this->assertRegExp( '/^Constituindo,.*Exposições.$/', $event['description'] );
-    $this->assertEquals( 'NA', $event['booking_url'] );
-    $this->assertEquals( 'NA', $event['url'] );
+    $this->assertEquals( '', $event['booking_url'] );
+    $this->assertEquals( '', $event['url'] );
     $this->assertEquals( '', $event['price'] );
-    $this->assertEquals( 'NA', $event['rating'] );
+    $this->assertEquals( '', $event['rating'] );
     $this->assertEquals( '1', $event['vendor_id'] );
   }
 }
