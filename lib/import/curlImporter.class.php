@@ -41,7 +41,8 @@ class curlImporter
    *
    * @return string The array converted to the params
    */
-  private function buildCurlParamString() {
+  private function buildCurlParamString()
+  {
        
       if($this->_curlParameters != '')
       {
@@ -51,11 +52,14 @@ class curlImporter
                $urlstring .= urlencode($key).'='.urlencode($value).'&';
            }
 
-           if (trim($urlstring) != '') {
+           if (trim($urlstring) != '')
+           {
                $urlstring = preg_replace("/&$/", "", $urlstring);
                return ($urlstring);
-           } else {
-               return (-1);
+           }
+           else
+           {
+               throw new Exception( 'Couldn\'t Build Parameter String' );
            }
       }
   }
@@ -66,12 +70,8 @@ class curlImporter
    * @return string Raw data from the page
    */
   private function curlRequest() {
-       $urlstring=$this->buildCurlParamString();
 
-       if ($urlstring==-1) {
-           echo "Couldn't Build Parameter String<br>"."n";
-           return(-1);
-       }
+       $urlstring=$this->buildCurlParamString();
 
        $ch=curl_init();
        
@@ -102,12 +102,10 @@ class curlImporter
        return($data);
    }
 
-   private function getFeed() {
+   private function getFeed()
+   {
        $rawData=$this->curlRequest();
-
-       if ($rawData!=-1) {
-           $this->_xmlResponseRaw=str_replace('&', '&amp;', $rawData);
-       }
+       $this->_xmlResponseRaw = str_replace('&', '&amp;', $rawData);
    }
 
 
@@ -131,10 +129,29 @@ class curlImporter
      /**
       * @todo refactor line 109 into this - simple xml breaks due to html & in tags that are not surrounded by cdata
       */
+     libxml_use_internal_errors(true);
      $xmlString = stringTransform::stripEmptyLines( $this->_xmlResponseRaw );
+
      $this->_simpleXml = simplexml_load_string( $xmlString );
-     
-    
+
+     if ( !$this->_simpleXml )
+     {
+       $errorString = 'Failed loading XML from url:' . $url . ' file: '. $request .' method:' . $requestMethod;
+
+       $errorString .= 'parameters:';
+       foreach( $parameters as $key => $value)
+       {
+         $errorString .= ' parameters:' . $key . '=' . $value;
+       }
+
+       $errorString .= PHP_EOL . PHP_EOL . 'XML Errors:' . PHP_EOL;
+       foreach( libxml_get_errors() as $error ) {
+         $errorString .= $error->message . PHP_EOL;
+       }
+
+       throw new Exception( $errorString );
+     }    
+
      return $this;
    }
 
