@@ -37,10 +37,10 @@ abstract class BaseVendorPoiCategory extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('vendor_poi_category');
-        $this->hasColumn('name', 'string', 256, array(
+        $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '256',
+             'length' => '255',
              ));
         $this->hasColumn('vendor_id', 'integer', null, array(
              'type' => 'integer',

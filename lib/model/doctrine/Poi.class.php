@@ -42,7 +42,6 @@ class Poi extends BasePoi
 
   public function addVendorCategory( $name, $vendorId )
   {
-
     if ( is_array( $name ) )
     {
       $name = implode( ' | ', $name );
