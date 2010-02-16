@@ -107,10 +107,7 @@ class Importer
    */
   public function onRecordMapped( Doctrine_Record $record )
   {
-    //$record = $this->getRecordUsingData( $recordData );
-    //transform( $records )
-    $record->save();
-    $this->output( '.' );
+     $record->save();       
   }
 
   /**
