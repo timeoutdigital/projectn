@@ -68,7 +68,7 @@ class stringTransform {
       //return if not valid number is is passed in
       if($subject == '' || $subject < 6)
       {
-          return;
+           throw new Exception('No Phone Number entered');
       }
 
       //Remove any extensions
