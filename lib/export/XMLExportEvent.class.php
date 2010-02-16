@@ -20,7 +20,7 @@ class XMLExportEvent extends XMLExport
    */
   public function __construct( $vendor, $destination )
   {
-    parent::__construct(  $vendor, $destination, 'Event' );
+    parent::__construct(  $vendor, $destination, 'Event', 'events.xsd' );
   }
 
   /**

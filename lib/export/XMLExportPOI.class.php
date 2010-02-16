@@ -18,7 +18,7 @@ class XMLExportPOI extends XMLExport
    */
   public function __construct( $vendor, $destination )
   {
-    parent::__construct(  $vendor, $destination, 'Poi' );
+    parent::__construct(  $vendor, $destination, 'Poi', 'poi.xsd' );
   }
 
   protected function getData()

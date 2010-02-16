@@ -40,11 +40,16 @@ abstract class XMLExport
   protected $domDocument;
 
   /**
+   * @var string
+   */
+  protected $xsdPath;
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
    */
-  public function __construct( $vendor, $destination, $model )
+  public function __construct( $vendor, $destination, $model, $xsdFilename=null )
   {
     if( !( $vendor instanceof Vendor ) )
     {
@@ -59,6 +64,11 @@ abstract class XMLExport
     $this->destination = $destination;
     
     $this->model = $model;
+
+    if( !is_null( $xsdFilename ) )
+    {
+      $this->xsdPath = sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . $xsdFilename;
+    }
   }
 
   /**
@@ -66,10 +76,12 @@ abstract class XMLExport
    */
   public function run()
   {
+
     $this->modifiedTimeStamp = date( 'Y-m-d\TH:i:s' );
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
+    $this->isValidAgainstXSD( $xml );
   }
 
   /**
@@ -79,6 +91,18 @@ abstract class XMLExport
   public function getStartTime()
   {
     return $this->modifiedTimeStamp;
+  }
+
+  /**
+   * check the export against its XSD
+   * @todo should enforce an XSD
+   */
+  public function isValidAgainstXSD( DOMDocument $xml )
+  {
+    if( !is_null( $this->xsdPath ) )
+    {
+      $xml->schemaValidate( $this->xsdPath );
+    }
   }
 
   /**

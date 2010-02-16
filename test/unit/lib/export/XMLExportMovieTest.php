@@ -223,9 +223,24 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   /**
    *
    */
-  public function testValidatesAgainstSchema()
+  public function testValidatesAgainstSchemaIfNoGenresInDatabase()
   {
-    $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'movies.xsd' ) );
+    $movieWithNoGenre = new Movie();
+    $movieWithNoGenre[ 'vendor_movie_id' ] = 1111;
+    $movieWithNoGenre[ 'Vendor' ] = $this->vendor;
+    $movieWithNoGenre[ 'Poi' ] = $poi2;
+    $movieWithNoGenre[ 'name' ] = 'test movie name';
+    $movieWithNoGenre[ 'plot' ] = 'test movie plot';
+    $movieWithNoGenre[ 'review' ] = 'test movie review';
+    $movieWithNoGenre[ 'url' ] = 'http://movies.co.uk';
+    $movieWithNoGenre[ 'rating' ] = '1.2';
+    $movieWithNoGenre[ 'age_rating' ] = 'oap';
+    $movieWithNoGenre[ 'utf_offset' ] = '-01:00:00';
+    $movieWithNoGenre->save();
+
+    $this->setExpectedException( 'Exception' );
+    $this->export = new XMLExportMovie( $this->vendor, $this->destination );
+    $this->export->run();
   }
 }
 ?>
