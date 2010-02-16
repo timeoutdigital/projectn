@@ -12,6 +12,7 @@
  */
 class Movie extends BaseMovie
 {
+
   public function addProperty( $lookup, $value )
   {
     $moviePropertyObj = new MovieProperty();
@@ -20,4 +21,31 @@ class Movie extends BaseMovie
 
     $this[ 'MovieProperty' ][] = $moviePropertyObj;
   }
+
+  /**
+   * add genre reference to movie and add the actual genre itself too, if
+   * none existent
+   *
+   * @param string $genre
+   */
+  public function addGenre( $genre )
+  {
+
+    $movieGenreObj = Doctrine::getTable( 'MovieGenre' )->findOneByGenre( $genre );
+
+    if ( $movieGenreObj === false )
+    {
+      $movieGenreObj = new MovieGenre();
+      $movieGenreObj[ 'genre' ] = $genre;
+      
+      // set key column to value to avoid duplicat adds
+      // this line makes it unique alredy, no need for manual check with contains()
+      $this[ 'MovieGenres' ]->setKeyColumn( 'genre' );
+    }
+
+    $this[ 'MovieGenres' ][] = $movieGenreObj;            
+  }
+
+
+
 }
