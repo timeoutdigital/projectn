@@ -87,10 +87,6 @@ class logImport
      */
     public $timer;
 
-
-   
-
-
     /**
      *
      * Constructor
