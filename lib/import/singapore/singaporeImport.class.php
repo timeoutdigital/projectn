@@ -105,10 +105,35 @@ class singaporeImport {
 
   }
 
+  /**
+   *
+   * @param SimpleXMLElement $xmlObj
+   */
+  public function insertMovies( SimpleXMLElement $xmlObj )
+  {
+
+    $moviesXmlObj = $xmlObj->xpath( '/rss/channel/item' );
+
+    foreach( $moviesXmlObj as $movieXmlObj )
+    {
+      try
+      {
+        $movieDetailObj = $this->fetchDetailUrl( $movieXmlObj->link  );
+      }
+      catch( Exception $e )
+      {
+        echo (string) $e;
+      }
+
+      $this->insertMovie( $movieDetailObj );
+    }
+
+  }
+
   /*
    * insertCategoriesPoisEvents
    */
-  public function insertCategoriesPoisEvents()
+  /*public function insertCategoriesPoisEvents()
   {
     $eventsObj = $this->_dataXml->xpath( '/rss/channel/item' );
 
@@ -125,7 +150,7 @@ class singaporeImport {
         }
       }
 
-      /*
+      
        * @todo look at this issue here
        * commented out since poi currently is not a must field
        * possibly replace with none venue venue
@@ -133,7 +158,7 @@ class singaporeImport {
       if ( $poiId === null )
       {
         throw new Exception( 'Poi is missing' );
-      }*/
+      }
 
       if ( $eventDetailObj->children()->asXml() !== false )
       {
@@ -146,7 +171,7 @@ class singaporeImport {
     }    
 
     return true;
-  }
+  }*/
 
   /*
    *fetchEventDetails
@@ -298,6 +323,7 @@ class singaporeImport {
     return null;
   }
 
+
   /*
    * insertEvent
    *
@@ -385,6 +411,81 @@ class singaporeImport {
       echo 'failed to insert/update event / occurrence: ' . (string) $eventObj->name . ' (id: ' . (string) $eventObj->id . ')' . PHP_EOL;
     }
   }
+
+
+  /*
+   * insertMovie
+   *
+   * @param SimpleXMLElement $venueObj
+   *
+   * @return int $poiId
+   *
+   */
+  public function insertMovie( $movieXml )
+  {
+
+    $movieObj = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->_vendor[ 'id' ], (string) $movieXml->id );
+
+    try
+    {
+      if ( $movieObj === false ) $movieObj = new Movie();
+
+      $movieObj[ 'vendor_id' ] = $this->_vendor[ 'id' ];
+      $movieObj[ 'vendor_movie_id' ] = (string) $movieXml->id;
+      $movieObj[ 'name' ] = (string) $movieXml->title;
+      $movieObj[ 'plot' ] = (string) $movieXml->synopsis;
+      //$movieObj[ 'review' ] = ;
+      $movieObj[ 'url' ] = (string) $movieXml->link;
+      //$movieObj[ 'rating' ] = ;
+
+      // @todo add localised age_rating function
+      $movieObj[ 'age_rating' ] = (string) $movieXml->certificate;
+
+      $movieObj[ 'utf_offset' ] = '0';
+      //$movieObj[ 'poi_id' ] = ;
+
+      //properties
+      if ( (string) $movieXml->director != '' ) $movieObj->addProperty( 'director', (string) $movieXml->director );
+      if ( (string) $movieXml->cast != '' ) $movieObj->addProperty( 'cast', (string) $movieXml->cast );
+      if ( (string) $movieXml->length != '' ) $movieObj->addProperty( 'length', (string) $movieXml->length );
+      if ( (string) $movieXml->origin != '' ) $movieObj->addProperty( 'origin', (string) $movieXml->origin );
+      if ( (string) $movieXml->year_production != '' ) $movieObj->addProperty( 'year_production', (string) $movieXml->year_production );
+      if ( (string) $movieXml->trailer_url != '' ) $movieObj->addProperty( 'trailer_url', (string) $movieXml->trailer_url );
+      if ( (string) $movieXml->website != '' ) $movieObj->addProperty( 'website', (string) $movieXml->website );
+      if ( (string) $movieXml->critic_choice != '' ) $movieObj->addProperty( 'critic_choice', (string) $movieXml->critic_choice );
+      if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'certificate', (string) $movieXml->certificate );
+      if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
+
+      //genres
+      if ( (string) $movieXml->category != '' ) $movieObj->addGenre( (string) $movieXml->category );
+
+      //issue
+      //data_add
+      //data_change
+      //local
+      //image
+      //thumb
+      //highres
+      //thumbnail
+      //large_image
+      //views
+      //feature (and all its children)
+      //tags (and its children)
+
+      $movieObj->save();
+      $movieId = $movieObj[ 'id' ];
+      $movieObj->free();
+
+      return $movieId;
+    }
+    catch( Exception $e )
+    {
+      echo 'failed to insert/update movie: ' . (string) $movieXml->name . ' (id: ' . (string) $movieXml->id . ')' . PHP_EOL;
+    }
+
+    return null;
+  }
+
 
   /*
    * creates and saves the event occurences

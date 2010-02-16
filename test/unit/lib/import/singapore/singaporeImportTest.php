@@ -100,8 +100,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   public function testInsertEventsAndInsertEvent()
   {
-
-
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
      $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
      $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
@@ -131,6 +129,29 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
      $this->assertEquals( 1, count( $eventsCol[ 0 ][ 'EventOccurrence' ] ) );
   }
 
+  /*
+   *
+   */
+  public function testInsertMoviesAndInsertMovie()
+  {
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_movies_list.xml' );
+     $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $this->stubCurlImporter->getXml();
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/movie_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+
+     // this is needed just for testing
+     $this->object->setCurlImporter( $stubCurlImporterDetail );
+
+     $this->object->insertMovies( $xmlObj );
+
+     $moviesCol = Doctrine::getTable( 'Movie' )->findAll();
+
+     $this->assertEquals( 1, $moviesCol->count() );
+  }
 
 
   /*
