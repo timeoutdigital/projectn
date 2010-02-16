@@ -50,6 +50,13 @@ class logImport
      */
     public $totalUpdates = 0;
 
+
+    /**
+     *
+     * @var integer
+     */
+    public $totalErrors = 0;
+
     /**
      *
      * @var Object
@@ -74,8 +81,14 @@ class logImport
      */
     public $changesCollection;
 
-
+    /**
+     *
+     * @var string
+     */
     public $timer;
+
+
+   
 
 
     /**
@@ -120,6 +133,7 @@ class logImport
         $importObj['total_inserts'] = $this->totalInserts;
         $importObj['total_updates'] = $this->totalUpdates;
         $importObj['type']          = $this->type;
+        $importObj['total_errors']  = $this->totalErrors;
         $importObj['Vendor']        = $this->vendorObj;
 
         //Convertt he time to mysql format
@@ -163,6 +177,9 @@ class logImport
         $errorObj['type']       = get_class($error);
         $errorObj['message']    = $error->getMessage();
         $this->errorsCollection[]    = $errorObj;
+
+        //Increment the error count
+        $this->totalErrors++;
 
     }
 

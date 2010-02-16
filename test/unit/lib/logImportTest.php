@@ -120,12 +120,16 @@ class logImportTest extends PHPUnit_Framework_TestCase
         $results = $results->toArray();
         $this->assertEquals(2, count($results), 'Testing errors are in DB');
 
-        //Test errrors
+        $this->assertEquals(2, $this->object->totalErrors, 'Fetching total errors');
+
+
+
+        //Test changes
         $results = Doctrine::getTable('ImportLoggerChange')->findAll();
         $results = $results->toArray();
         $this->assertEquals(1, count($results), 'Testing changes are in DB');
 
-
+        //Test the logger
         $results = Doctrine::getTable('ImportLogger')->findAll();
         $results = $results->toArray();
         $this->assertEquals(1, count($results), 'Testing logger is in DB');
