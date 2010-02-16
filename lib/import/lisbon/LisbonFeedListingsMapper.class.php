@@ -18,7 +18,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->listings as $listingElement )
     {
-      $event = new Event();
+      $event = $this->getRecord('Event', 'vendor_event_id', (int) $listingElement['musicid'] );
+
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
 
       $event['booking_url'] = '';
@@ -27,6 +28,16 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $event['vendor_id'] = $this->vendor['id'];
 
       $this->notifyImporter( $event );
+
+      $occurrence = $this->getRecord('EventOccurrence', 'vendor_event_occurrence_id', (int) $listingElement['RecurringListingID']);
+      $occurrence['vendor_event_occurrence_id'] = '';
+      $occurrence['start'] = '';
+      $occurrence['utc_offset'] = 0; 
+      $occurrence['event_id'] = $event['id'];
+      $occurrence['poi_id'] = 1;//$listingElement->placeid;
+
+      $this->notifyImporter($occurrence);
+     
     }
   }
 
