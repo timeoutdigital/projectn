@@ -88,7 +88,7 @@ LinkingVendorPoiCategory:
 VendorPoiCategory:
   connection: project_n
   columns:
-    name:                     {type: string(256), notnull: true}
+    name:                     {type: string(255), notnull: true}
     vendor_id:                {type: integer, notnull: true}
   relations:
     Vendor:                   {local: vendor_id, foreign: id}
@@ -135,7 +135,7 @@ Event:
     Timestampable: ~
   columns:
     vendor_event_id:            {type: string(10), notnull: true}
-    name:                       {type: string(256), notnull: true}
+    name:                       {type: string(255), notnull: true}
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
@@ -167,7 +167,7 @@ EventOccurrence:
 VendorEventCategory:
   connection: project_n
   columns:
-    name:                       {type: string(256), notnull: true}
+    name:                       {type: string(255), notnull: true}
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
@@ -241,7 +241,7 @@ Movie:
     id:                         {type: integer, notnull: true,  autoincrement: true, primary: true }
     vendor_id:                  {type: integer, notnull: true}
     vendor_movie_id:            {type: string(25), notnull: true}
-    name:                       {type: string(256), notnull: true}
+    name:                       {type: string(255), notnull: true}
     plot:                       {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
     url:                        {type: string(1024), notnull: false}
@@ -269,7 +269,7 @@ MovieGenre:
   actAs:
     Timestampable:              ~
   columns:
-    genre:                      {type: string(256), notnull: true}
+    genre:                      {type: string(255), notnull: true}
   relations:
     Movies:                      {class: Movie, refClass: LinkingMovieGenre, local: movie_genre_id, foreign: movie_id}
    

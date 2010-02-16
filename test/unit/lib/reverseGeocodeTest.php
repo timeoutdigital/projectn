@@ -31,5 +31,17 @@ class reverseGeocodeTest extends PHPUnit_Framework_TestCase
   {
     $this->assertTrue( $this->object->getAddressesXml() instanceof SimpleXMLElement );
   }
+
+  /**
+   * @todo test for google maps fail status code
+   */
+  public function testFailedStatusCodes()
+  {
+    $this->setExpectedException( 'Exception' );
+
+    $this->object = new reverseGeocode( 560.0076, -4.53186 );
+    $this->object->setApiKey( 'foo' );
+    $this->object->getAddressesXml();
+  }
 }
 ?>

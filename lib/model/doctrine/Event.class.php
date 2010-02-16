@@ -22,6 +22,25 @@ class Event extends BaseEvent
     $this[ 'EventProperty' ][] = $eventPropertyObj;
   }
 
+  public function addVendorCategory( $name, $vendorId )
+  {
+    if ( is_array( $name ) )
+    {
+      $name = implode( ' | ', $name );
+    }
+
+    $vendorEventCategoryObj = Doctrine::getTable( 'VendorEventCategory' )->findOneByNameAndVendorId( $name, $vendorId );
+
+    if ( $vendorEventCategoryObj === false )
+    {
+      $vendorEventCategoryObj = new VendorEventCategory();
+      $vendorEventCategoryObj[ 'name' ] = $name;
+      $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
+    }
+
+    $this[ 'VendorEventCategories' ][] = $vendorEventCategoryObj;
+  }
+
   public function getPois()
   {
     $pois = new Doctrine_Collection(Doctrine::getTable('Poi'));

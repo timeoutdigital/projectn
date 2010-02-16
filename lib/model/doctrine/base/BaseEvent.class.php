@@ -69,10 +69,10 @@ abstract class BaseEvent extends sfDoctrineRecord
              'notnull' => true,
              'length' => '10',
              ));
-        $this->hasColumn('name', 'string', 256, array(
+        $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '256',
+             'length' => '255',
              ));
         $this->hasColumn('short_description', 'string', 1024, array(
              'type' => 'string',

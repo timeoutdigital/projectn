@@ -78,8 +78,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   }
 
   /*
-   * test if the add property adds a property successfuly added and properties
-   * dont get overwritten
+   * test if the add property adds the properties
    */
   public function testAddProperty()
   {
@@ -94,6 +93,25 @@ class EventTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'test prop lookup 2', $this->object[ 'EventProperty' ][ 1 ][ 'lookup' ] );
     $this->assertEquals( 'test prop value 2', $this->object[ 'EventProperty' ][ 1 ][ 'value' ] );
+  }
+
+  /*
+   * test if the add vendor category are added correctly
+   */
+  public function testAddVendorCategory()
+  {
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
+    $this->object->addVendorCategory( array( 'test parent cat', 'test cat' ), $vendor[ 'id' ] );
+    $this->object->save();
+
+    $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
+
+    $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategories' ][ 0 ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategories' ][ 0 ][ 'vendor_id' ] );
+    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategories' ][ 1 ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategories' ][ 1 ][ 'vendor_id' ] );
   }
 
   /**

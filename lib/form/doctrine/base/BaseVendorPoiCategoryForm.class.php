@@ -16,7 +16,7 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                  => new sfWidgetFormInputHidden(),
-      'name'                => new sfWidgetFormTextarea(),
+      'name'                => new sfWidgetFormInputText(),
       'vendor_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
       'poi_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
       'poi_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
@@ -24,7 +24,7 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'name'                => new sfValidatorString(array('max_length' => 256)),
+      'name'                => new sfValidatorString(array('max_length' => 255)),
       'vendor_id'           => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
       'poi_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
       'poi_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),

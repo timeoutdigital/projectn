@@ -54,7 +54,7 @@ class CategoryMap {
    * Maps categories and returns the mapped categories as Doctrine Collecion
    *
    * @param vendorObj Vendor
-   * @param mixed $sourceCategory (can be SimpleXMLElement or Array
+   * @param mixed $sourceCategory (can be SimpleXMLElement or Array)
    * @param string $type ('poi' or 'event' supported)
    * @param string $otherCategoryNameString defaults to 'other'
    * @return array of Doctrine_Collection

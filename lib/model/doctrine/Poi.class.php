@@ -39,6 +39,27 @@ class Poi extends BasePoi
     $this[ 'PoiProperty' ][] = $poiPropertyObj;
   }
 
+
+  public function addVendorCategory( $name, $vendorId )
+  {
+    if ( is_array( $name ) )
+    {
+      $name = implode( ' | ', $name );
+    }
+
+    $vendorPoiCategoryObj = Doctrine::getTable( 'VendorPoiCategory' )->findOneByNameAndVendorId( $name, $vendorId );
+
+    if ( $vendorPoiCategoryObj === false )
+    {
+      $vendorPoiCategoryObj = new VendorPoiCategory();
+      $vendorPoiCategoryObj[ 'name' ] = $name;
+      $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
+    }
+
+    $this[ 'VendorPoiCategories' ][] = $vendorPoiCategoryObj;
+  }
+
+
   public function getName()
   {
     return $this[ 'poi_name' ];

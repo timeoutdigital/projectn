@@ -1,8 +1,14 @@
 <?php
-
 /**
+ * Description
  *
- * @author rhodri
+ * @package projectn
+ * @subpackage london.import.lib
+ *
+ * @author Rhodri Davies <rhodridavies@timout.com>
+ * @copyright Timeout Communications Ltd
+ *
+ * @version 1.0.1
  *
  */
 class LondonImporter
@@ -13,6 +19,11 @@ class LondonImporter
 	 */
 	private $_vendor;
 
+  /**
+   * @var PoiCategory
+   */
+  private $defaultPoiCategory;
+
 	public function __construct( )
 	{
 		$this->_vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'en-GB' );
@@ -21,6 +32,10 @@ class LondonImporter
 		{
 			throw new Exception( 'Cannot load Vendor' );
 		}
+    
+    
+    
+    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
 	}
 
 	public function run( )
@@ -86,6 +101,7 @@ class LondonImporter
 
 				if ( $poi === false ) $poi = new Poi( );
 
+        $poi['PoiCategories'][] = $this->defaultPoiCategory;
 
 				$poi[ 'Vendor' ] = $this->_vendor;
 
@@ -105,7 +121,8 @@ class LondonImporter
 
 				$poi[ 'email' ] = $item[ 'SLLVenue' ][ 'email' ];
 				$poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
-				$poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ];
+				//$poi[ 'phone' ] = stringTransform::formatPhoneNumber($item[ 'SLLVenue' ][ 'phone' ], '+44'); //@todo use dial code from vendor
+				$poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ]; //@todo use dial code from vendor
 				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
 				$poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
 
