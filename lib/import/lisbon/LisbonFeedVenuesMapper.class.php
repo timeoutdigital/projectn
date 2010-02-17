@@ -59,22 +59,30 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['price_information']          = $this->extractPriceInfo( $venueElement );
       $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
+      
       try
       {
         $this->geoEncoder->setAddress( $this->getGeoEncodeData( $poi ) );
-        if( $this->geoEncoder->getAccuracy() < 5 )
-        {
-          throw new Exception('Geo encode accuracy below 5' );
-        }
+        
         $poi['longitude'] = $this->geoEncoder->getLongitude();
         $poi['latitude'] = $this->geoEncoder->getLatitude();
-         
+
+        if( $this->geoEncoder->getAccuracy() < 5 )
+        {
+          $poi['longitude'] = 0;
+          $poi['latitude'] = 0;
+          throw new Exception('Geo encode accuracy below 5' );
+        }
+
+
+       
       }
       catch( Exception $e)
-      {  
+      { 
         $this->notifyImporterOfFailure( $e );
       }
-      $this->notifyImporter( $poi );
+     
+       $this->notifyImporter( $poi );
     }
   }
 
