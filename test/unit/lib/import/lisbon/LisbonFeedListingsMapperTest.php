@@ -20,6 +20,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
