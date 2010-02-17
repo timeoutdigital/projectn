@@ -18,25 +18,24 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->listings as $listingElement )
     {
-      $event = $this->getRecord('Event', 'vendor_event_id', (int) $listingElement['musicid'] );
-
+      $event = $this->getRecord('Event', 'vendor_event_id',  (int) $listingElement['RecurringListingID'] );
+        
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
 
-      $event['booking_url'] = '';
       $event['url'] = '';
       //$event['rating'] = '';
       $event['vendor_id'] = $this->vendor['id'];
-
-      $this->notifyImporter( $event );
-
-      $occurrence = $this->getRecord('EventOccurrence', 'vendor_event_occurrence_id', (int) $listingElement['RecurringListingID']);
-      $occurrence['vendor_event_occurrence_id'] = '';
-      $occurrence['start'] = '';
+      $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
+ 
+      $occurrence = $this->getRecord('EventOccurrence', 'vendor_event_occurrence_id', (int) $listingElement['musicid']);
+      $occurrence['vendor_event_occurrence_id'] = (int) $listingElement['musicid'];
+      $occurrence['start'] = str_replace('T', ' ', (string) $listingElement['ListingDate'] );
       $occurrence['utc_offset'] = 0; 
       $occurrence['event_id'] = $event['id'];
-      $occurrence['poi_id'] = 1;//$listingElement->placeid;
+      $occurrence['poi_id'] = 1;
 
-      $this->notifyImporter($occurrence);
+      $event['EventOccurrence'][] = $occurrence;
+      $this->notifyImporter( $event );
      
     }
   }
