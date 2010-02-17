@@ -16,7 +16,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @property Doctrine_Collection $VendorEventCategory
  * @property Doctrine_Collection $Movie
  * @property Doctrine_Collection $User
- * @property Doctrine_Collection $ImportStats
+ * @property Doctrine_Collection $ImportLogger
  * 
  * @method string              getCity()                   Returns the current record's "city" value
  * @method string              getLanguage()               Returns the current record's "language" value
@@ -27,7 +27,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method Doctrine_Collection getVendorEventCategory()    Returns the current record's "VendorEventCategory" collection
  * @method Doctrine_Collection getMovie()                  Returns the current record's "Movie" collection
  * @method Doctrine_Collection getUser()                   Returns the current record's "User" collection
- * @method Doctrine_Collection getImportStats()            Returns the current record's "ImportStats" collection
+ * @method Doctrine_Collection getImportLogger()           Returns the current record's "ImportLogger" collection
  * @method Vendor              setCity()                   Sets the current record's "city" value
  * @method Vendor              setLanguage()               Sets the current record's "language" value
  * @method Vendor              setInernationalDialCode()   Sets the current record's "inernational_dial_code" value
@@ -37,7 +37,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method Vendor              setVendorEventCategory()    Sets the current record's "VendorEventCategory" collection
  * @method Vendor              setMovie()                  Sets the current record's "Movie" collection
  * @method Vendor              setUser()                   Sets the current record's "User" collection
- * @method Vendor              setImportStats()            Sets the current record's "ImportStats" collection
+ * @method Vendor              setImportLogger()           Sets the current record's "ImportLogger" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -96,7 +96,7 @@ abstract class BaseVendor extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'vendor_id'));
 
-        $this->hasMany('ImportStats', array(
+        $this->hasMany('ImportLogger', array(
              'local' => 'id',
              'foreign' => 'vendor_id'));
 

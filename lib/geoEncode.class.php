@@ -10,6 +10,21 @@
  *
  * @version 1.0.0
  *
+ * <b>Example of usage:</b>
+ *
+ * The addressString must contain as much address info as possible
+ *  <code>
+ *
+ *  $geoEncode = new geoEncode();
+ *  $geoEncode->setAddress( $addressString );
+ *
+ *  //Set longitude and latitude
+ *  $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
+ *  $poiObj[ 'latitude' ]  = $geoEncode->getLatitude();
+ * </code>
+ *
+ * If a geocode cannot be found then an Exception is thrown
+ * 
  */
 class geoEncode
 {
@@ -68,7 +83,12 @@ class geoEncode
 
      //Create an array containing the data
      $dataArray = explode(',', $data);
-     
+
+     if($dataArray[1]==0 ||$dataArray[2]==0 ||$dataArray[3]==0 )
+     {
+         throw new Exception('No Geocode available');
+     }
+
      //Set invidual co-ords
      $this->setCoOrdinates($dataArray);
 
@@ -83,9 +103,11 @@ class geoEncode
    */
   public function setCoOrdinates($dataArray)
   {
+
     $this->longitude = (float) ( isset( $dataArray[3] ) ? $dataArray[3]: 0.0 );
     $this->latitude  = (float) ( isset( $dataArray[2] ) ? $dataArray[2]: 0.0 );
     $this->accuracy  = (float) ( isset( $dataArray[1] ) ? $dataArray[1]: 0.0 );
+
   }
 
   /**

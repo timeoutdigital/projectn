@@ -58,9 +58,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
    $this->stubCurlImporter = $this->getMock( 'curlImporter' );
    $this->stubCurlImporter->expects( $this->any() )->method( 'pullXML' );
-
-   $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter );
-
   }
 
   /**
@@ -76,6 +73,10 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   public function testInsertPoisAndInsertPoi()
   {
+     $logger = new logImport($this->vendorObj, 'poi');
+    
+     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
+
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_venues_list.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
      $xmlObj = $this->stubCurlImporter->getXml();
@@ -90,6 +91,8 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
      $this->object->insertPois( $xmlObj );
 
+     $logger->save();
+
      $poisCol = Doctrine::getTable( 'Poi' )->findAll();
 
      $this->assertEquals( 1, $poisCol->count() );
@@ -101,6 +104,9 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
   public function testInsertEventsAndInsertEvent()
   {
 
+     $logger = new logImport($this->vendorObj, 'event');
+
+     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
      $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
@@ -124,6 +130,8 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
      $this->object->insertEvents( $xmlObj );
 
+     $logger->save();
+
      $eventsCol = Doctrine::getTable( 'Event' )->findAll();
 
      $this->assertEquals( 1, $eventsCol->count() );
@@ -131,6 +139,35 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
      $this->assertEquals( 1, count( $eventsCol[ 0 ][ 'EventOccurrence' ] ) );
   }
 
+  /*
+   *
+   */
+  public function testInsertMoviesAndInsertMovie()
+  {
+     $logger = new logImport($this->vendorObj, 'movie');
+    
+     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_movies_list.xml' );
+     $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $this->stubCurlImporter->getXml();
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/movie_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+
+     // this is needed just for testing
+     $this->object->setCurlImporter( $stubCurlImporterDetail );
+
+     $this->object->insertMovies( $xmlObj );
+
+     $logger->save();
+
+     $moviesCol = Doctrine::getTable( 'Movie' )->findAll();
+
+     $this->assertEquals( 1, $moviesCol->count() );
+  }
 
 
   /*
@@ -138,11 +175,17 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
    public function testFetchDetailUrl()
    {
+     $logger = new logImport($this->vendorObj, 'poi');
+     
+     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
+
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
      $xmlObj = $this->stubCurlImporter->getXml();
 
      $returnXml = $this->object->fetchDetailUrl( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue=2154&key=ffab6a24c60f562ecf705130a36c1d1e' );
+
+     $logger->save();
 
      $this->assertEquals( $stubReturnXMLObject, $returnXml );
    }

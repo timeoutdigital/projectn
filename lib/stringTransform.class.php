@@ -66,11 +66,12 @@ class stringTransform
    */
   public static function formatPhoneNumber($subject, $internationalCode)
   {
-    //return if not valid number is is passed in
-    if($subject == '' || $subject < 6)
-    {
-      return;
-    }
+      
+      //return if not valid number is is passed in
+      if($subject == '' || strlen($subject) < 6)
+      {
+           throw new Exception('No Phone Number entered');
+      }
 
     //Remove any extensions
     $subjectArray = explode(',', $subject);
@@ -105,26 +106,38 @@ class stringTransform
       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2", $subject);
 
       //Test numbers 10 digits long
-    } elseif (strlen($subject) == 10)
+    }
+    elseif (strlen($subject) == 10)
     {
 
       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
 
-    } elseif (strlen($subject) == 11)
+    }
+    elseif (strlen($subject) == 11)
     {
 
       //If the first digit is a 0 remove it
       if(substr($subject, 0, 1) == 0)
       {
         $subject = substr($subject, 1, 11);
+        $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3 $4", $subject);
       }
 
-      $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3 $4", $subject);
+      elseif (preg_match("/^1800/", $subject))
+      {
+        $transformedSubject = preg_replace("/([0-9a-zA-Z]{1})([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3 $4", $subject);
+      }
+      else
+      {
+           $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3 $4", $subject);
+      }
 
 
-    } elseif (strlen($subject) == 12)
+   
+
+    }
+    elseif (strlen($subject) == 12)
     {
-
       $subject = substr($subject, 2, 12);
       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
 
