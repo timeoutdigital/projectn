@@ -1,8 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/nyImportBc.class.php';
 require_once dirname(__FILE__).'/../../../../../lib/processXml.class.php';
+require_once dirname(__FILE__).'/../../../../../lib/import/ny/processNyBcXml.class.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 spl_autoload_register(array('Doctrine', 'autoload'));
@@ -40,7 +40,7 @@ class nyImportBcXmlTest extends PHPUnit_Framework_TestCase
           echo $e->getMessage();
         }
 
-        $this->object = new nyImportBccXml($this->xmlObj, $this->vendorObj );
+        $this->object = new processNyBcXml($this->xmlObj, $this->vendorObj );
     }
 
     /**
