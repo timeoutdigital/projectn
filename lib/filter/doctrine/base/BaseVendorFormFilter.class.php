@@ -15,6 +15,7 @@ abstract class BaseVendorFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'city'                   => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'language'               => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'time_zone'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'inernational_dial_code' => new sfWidgetFormFilterInput(),
       'created_at'             => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'             => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
@@ -23,6 +24,7 @@ abstract class BaseVendorFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'city'                   => new sfValidatorPass(array('required' => false)),
       'language'               => new sfValidatorPass(array('required' => false)),
+      'time_zone'              => new sfValidatorPass(array('required' => false)),
       'inernational_dial_code' => new sfValidatorPass(array('required' => false)),
       'created_at'             => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'             => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
@@ -48,6 +50,7 @@ abstract class BaseVendorFormFilter extends BaseFormFilterDoctrine
       'id'                     => 'Number',
       'city'                   => 'Text',
       'language'               => 'Text',
+      'time_zone'              => 'Text',
       'inernational_dial_code' => 'Text',
       'created_at'             => 'Date',
       'updated_at'             => 'Date',
