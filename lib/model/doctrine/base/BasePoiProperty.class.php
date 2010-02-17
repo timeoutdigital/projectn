@@ -36,10 +36,10 @@ abstract class BasePoiProperty extends sfDoctrineRecord
              'notnull' => true,
              'length' => '100',
              ));
-        $this->hasColumn('value', 'string', 100, array(
+        $this->hasColumn('value', 'string', 1024, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '100',
+             'length' => '1024',
              ));
         $this->hasColumn('poi_id', 'integer', null, array(
              'type' => 'integer',
