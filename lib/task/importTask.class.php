@@ -2,6 +2,7 @@
 
 class importTask extends sfBaseTask
 {
+
   protected function configure()
   {
     $this->addOptions(array(
@@ -21,21 +22,24 @@ class importTask extends sfBaseTask
   {
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
-
-    //Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
-
-    $timer = sfTimerManager::getTimer('importTimer');
-    
+    Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
+
+
 
     //Select the task
     switch( $options['city'] )
     {
       case 'ny':
-        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
 
+        //Set vendor and logger
+        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
+        $loggerObj = new logImport($vendorObj);
+
+        //Setup NY FTP
         $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
         $ftpClientObj->setSourcePath( '/NOKIA/' );
+
 
         switch( $options['type'] )
         {
@@ -98,7 +102,7 @@ class importTask extends sfBaseTask
           case 'bars-clubs':
             try
             {
-              $this->importNyBc($vendorObj, $ftpClientObj, new logImport($vendorObj, 'poi'));
+              $this->importNyBc($vendorObj, $ftpClientObj, $loggerObj);
             }
             catch ( Exception $e )
             {
@@ -143,7 +147,7 @@ class importTask extends sfBaseTask
           case 'bars-clubs':
             try
             {
-              $fileNameString = $ftpClient->fetchFile( 'toc_bc.xml' );
+              $importObj = $this->importChicagoBc($vendorObj, $ftpClientObj, new logImport($vendorObj, 'poi'));
             }
             catch ( Exception $e )
             {
@@ -315,10 +319,13 @@ class importTask extends sfBaseTask
 
     }//end switch
 
-    $timer->addTime();
-    $totalTime = $timer->getElapsedTime();
 
-    echo "Total time: ". round($totalTime/60,2) . "\n";
+
+     //Save the logger
+     $loggerObj->save();
+
+     //Get the total import time
+     echo "Total time: ". $loggerObj->timer . "\n";
   }
 
 
@@ -388,7 +395,31 @@ class importTask extends sfBaseTask
     }
   }
 
+ /**
+  * Import the Chicago Bars and clubs
+  *
+  * @return importBc Object
+  */
+  public function importChicagoBc()
+  {
+        try
+        {
+            $fileNameString = $ftpClientObj->fetchFile( 'toc_bc.xml' );
+            $processXmlObj = new processNyBcXml( $fileNameString );
 
+
+            $importBcObj = new nyImportBc($processXmlObj, $vendorObj,  $loggerObj);
+            $importBc->import();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in NY import: ' . $e->getMessage();
+        }
+
+
+        return $importBcObj;
+
+  }
   
 
   /***************************************************************************
@@ -452,10 +483,14 @@ class importTask extends sfBaseTask
      {
         try
         {
+            //Set the logger type
+            $loggerObj->setType('poi');
+
+            //Download and process XML
             $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
             $processXmlObj = new processNyBcXml( $fileNameString );
 
-
+            //Import the bars
             $importBc = new nyImportBc($processXmlObj, $vendorObj,  $loggerObj);
             $importBc->import();
         }

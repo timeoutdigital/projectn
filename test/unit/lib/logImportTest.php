@@ -39,7 +39,8 @@ class logImportTest extends PHPUnit_Framework_TestCase
 
 
 
-        $this->object = new logImport($this->vendorObj, logImport::MOVIE);
+        $this->object = new logImport($this->vendorObj);
+        $this->object->setType(logImport::MOVIE);
     }
 
     /**
@@ -70,20 +71,33 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testCountUpdate()
     {
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->assertEquals('5', $this->object->totalUpdates, 'Increment the total updates by one');
+       //The item is modified therefore log as an update
+        $log = "Description: this is changed text \n";
+        $log.= "Name: this is a changed name \n";
+
+        $this->object->addChange('update', $log);
+
+       $this->assertEquals('1', $this->object->totalUpdates, 'Increment the total updates by one');
+    }
+
+
+    /**
+     * Test that existing entries that don't need updating are counted
+     */
+    public function testCountExists()
+    {
+        $this->object->countExisting();
+        $this->object->countExisting();
+        $this->object->countExisting();
+
+        $this->assertEquals('3', $this->object->totalExisting, 'Increment the total existing by one');
     }
 
     /**
-     * @todo Implement testSaveStats().
+     * Tests the save functionality
      */
     public function testSave()
     {
-        $this->object->countUpdate();
         $this->object->countNewInsert();
         $this->object->countNewInsert();
         $this->object->countNewInsert();
@@ -120,12 +134,16 @@ class logImportTest extends PHPUnit_Framework_TestCase
         $results = $results->toArray();
         $this->assertEquals(2, count($results), 'Testing errors are in DB');
 
-        //Test errrors
+        $this->assertEquals(2, $this->object->totalErrors, 'Fetching total errors');
+
+
+
+        //Test changes
         $results = Doctrine::getTable('ImportLoggerChange')->findAll();
         $results = $results->toArray();
         $this->assertEquals(1, count($results), 'Testing changes are in DB');
 
-
+        //Test the logger
         $results = Doctrine::getTable('ImportLogger')->findAll();
         $results = $results->toArray();
         $this->assertEquals(1, count($results), 'Testing logger is in DB');
@@ -163,12 +181,21 @@ class logImportTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that the type is set
+     */
+    public function testSetType()
+    {
+        $this->object->setType(logImport::MOVIE);
+        $this->assertEquals('movie', $this->object->type ,'Test that movie is set');
+    }
+
+    /**
      * Test that an invalid type is not accepted
      */
     public function testCheckType()
     {
         $this->setExpectedException('Exception');
-        $this->object = new logImport($this->vendorObj, 'moviey');
+        $this->object->setType('movies');
     }
 }
 ?>

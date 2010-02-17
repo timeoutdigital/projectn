@@ -14,6 +14,11 @@ spl_autoload_register(array('Doctrine', 'autoload'));
  *
  * @package test
  * @subpackage ny.import.lib.unit
+ *
+ * @author Timmy Bowler <timbowler@timeout.com>
+ *
+ * @copyright Timeout Communications Ltd;
+ * 
  * 
  */
 class nyImportBcTest extends PHPUnit_Framework_TestCase

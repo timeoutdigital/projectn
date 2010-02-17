@@ -107,8 +107,9 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   {
   }
 
+  
   /**
-   * @todo Implement testFormatPhoneNumber().
+   * Test that a valid E.123 number is returned
    */
   public function testFormatPhoneNumber()
   {
@@ -117,7 +118,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
       $this->assertEquals('+1 630 420 6010', $transform, 'Testing American number type 1');
 
       $transform = stringTransform::formatPhoneNumber('212 633-2229, ext 2' , '+1');
-      //$this->assertEquals('+1 212 633 2229', $transform, 'Testing American number type 2');
+      $this->assertEquals('+1 212 633 2229', $transform, 'Testing American number type 2');
       
       $transform = stringTransform::formatPhoneNumber('718 499-YOGA' , '+1');
       $this->assertEquals('+1 718 499 9642', $transform, 'Testing American number type 3');
@@ -131,6 +132,8 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
       $transform = stringTransform::formatPhoneNumber('212 3608163' , '+1');
       $this->assertEquals('+1 212 360 8163', $transform, 'Testing American number type 6');
 
+      $transform = stringTransform::formatPhoneNumber('1-800-MY-CIGAR' , '+1');
+      $this->assertEquals('+1 1 800 692 4427', $transform, 'Testing American number type 7');
 
       $transform = stringTransform::formatPhoneNumber('0207 3577173', '+44');
       $this->assertEquals('+44 207 357 7173', $transform, 'UK number type 1');
@@ -140,8 +143,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
 
       $transform = stringTransform::formatPhoneNumber('+44 207 3577173', '+44');
       $this->assertEquals('+44 207 357 7173', $transform, 'UK number type 3');
-
-
+     
   }
 
   /**

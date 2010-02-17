@@ -349,6 +349,8 @@ ImportLogger:
   columns:
     total_inserts:              {type: integer, notnull: true}
     total_updates:              {type: integer, notnull: true}
+    total_errors:               {type: integer, notnull: true}
+    total_existing:             {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
     type:                       {type: enum, values: [movie, poi, event], notnull: true}
     total_time:                 {type: time, notnull: true}
@@ -379,6 +381,7 @@ ImportLoggerError:
     type:                       {type: string, notnull: true}
     message:                    {type: string, notnull: true}
     import_logger_id:           {type: integer, notnull: true}
+    resolved:                   {type: boolean, notnull: true, default: 0}
   relations:
     ImportLogger:                {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerErrors}
     

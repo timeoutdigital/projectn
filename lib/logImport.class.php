@@ -50,6 +50,21 @@ class logImport
      */
     public $totalUpdates = 0;
 
+
+    /**
+     *
+     * @var integer
+     */
+    public $totalErrors = 0;
+
+    /**
+     *
+     * @var integer
+     */
+    public $totalExisting = 0;
+
+
+
     /**
      *
      * @var Object
@@ -74,7 +89,10 @@ class logImport
      */
     public $changesCollection;
 
-
+    /**
+     *
+     * @var string
+     */
     public $timer;
 
 
@@ -83,12 +101,10 @@ class logImport
      * Constructor
      *
      * @param int $vendorId
-     * @param string Type of logger e.g. movie, poi, event
      */
-    public function  __construct(Vendor $vendorObj, $type)
+    public function  __construct(Vendor $vendorObj)
     {
         $this->vendorObj = $vendorObj;
-        $this->checkType($type);
         $this->errorsCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerError'));
         $this->changesCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerChange'));
         $this->timer = sfTimerManager::getTimer('importTimer');
@@ -103,12 +119,13 @@ class logImport
         $this->totalInserts++;
     }
 
+
     /**
-     * count each updated record
+     * count each record that already exists
      */
-    public function countUpdate()
+    public function countExisting()
     {
-        $this->totalUpdates++;
+        $this->totalExisting++;
     }
 
     /**
@@ -120,7 +137,9 @@ class logImport
         $importObj['total_inserts'] = $this->totalInserts;
         $importObj['total_updates'] = $this->totalUpdates;
         $importObj['type']          = $this->type;
+        $importObj['total_errors']  = $this->totalErrors;
         $importObj['Vendor']        = $this->vendorObj;
+        $importObj['total_existing'] = $this->totalExisting;
 
         //Convertt he time to mysql format
         $totalTime = $this->timer->addTime();
@@ -143,6 +162,9 @@ class logImport
             $change['ImportLogger'] = $importObj;
             $change->save();
         }
+
+        //Set the timer with the correct time
+        $this->timer = $timeStamp;
        
     }
 
@@ -164,6 +186,9 @@ class logImport
         $errorObj['message']    = $error->getMessage();
         $this->errorsCollection[]    = $errorObj;
 
+        //Increment the error count
+        $this->totalErrors++;
+
     }
 
     /**
@@ -180,6 +205,14 @@ class logImport
 
         $this->changesCollection[] = $changeObj;
 
+         //count the change
+         $this->totalUpdates++;
+
+    }
+
+    public function setType($type)
+    {
+        $this->checkType($type);
     }
 
 
@@ -191,7 +224,7 @@ class logImport
     public function checkType($type)
     {
         $availableTypes = array( logImport::POI, logImport::EVENT, logImport::MOVIE );
-
+     
         if( !in_array( $type, $availableTypes ) )
         {
             throw new Exception('Incorrect Type. Must be on of: ' . implode( ',', $availableTypes ) );
@@ -201,7 +234,12 @@ class logImport
 
     }
 
-
+    /**
+     * Convert the sfTimer to mysql format
+     *
+     * @param string $time
+     * @return string MySql formatted string
+     */
     public function convertTime($time)
     {
       $time = round($time, 0);
@@ -211,28 +249,38 @@ class logImport
           "years" => 0, "days" => 0, "hours" => 0,
           "minutes" => 0, "seconds" => 0,
         );
+
+        //Years
         if($time >= 31556926){
           $value["years"] = floor($time/31556926);
           $time = ($time%31556926);
         }
+
+        //Days
         if($time >= 86400){
           $value["days"] = floor($time/86400);
           $time = ($time%86400);
         }
+
+        //Hours
         if($time >= 3600){
           $value["hours"] = floor($time/3600);
           $time = ($time%3600);
         }
+
+        //Minutes
         if($time >= 60){
           $value["minutes"] = floor($time/60);
           $time = ($time%60);
         }
+
+        //Seconds
         $value["seconds"] = floor($time);
 
+
+        //Make the time stamp
         $convertedTime =  (array) $value;
-
         $timeStamp = mktime($convertedTime['hours'], $convertedTime['minutes'], $convertedTime['seconds'], date('d'), date('m'), date('Y'));
-
         $timeStamp = date('H:i:s', $timeStamp);
 
         return $timeStamp;
