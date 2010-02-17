@@ -75,7 +75,8 @@ class importTask extends sfBaseTask
               $fileNameString = $ftpClient->fetchFile( 'tony_ed.xml' );
 
               /*$vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
-              $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+              $csv = new processCsv( 'import/tony_ed_made_up
+_headers.csv' );
               $nyEDImport =  new importNyED( $csv, $vendor );
               $nyEDImport->insertPois();*/
             }
@@ -108,7 +109,8 @@ class importTask extends sfBaseTask
             }
             catch ( Exception $e )
             {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+              echo 'Exception caught in chicago' . $options[
+'city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
             }
             break;
 
