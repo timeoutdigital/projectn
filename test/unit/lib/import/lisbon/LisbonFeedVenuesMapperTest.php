@@ -61,7 +61,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
     
     $pois = Doctrine::getTable('Poi')->findAll();
-    $this->assertEquals( 4, $pois->count() );
+    $this->assertEquals( 6, $pois->count() );
 
     $poi = $pois[0];
 

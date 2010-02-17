@@ -46,19 +46,19 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
       $poi['price_information'] = '';
       $poi['openingtimes'] = '';
-      $poi['star_rating'] = '';
-      $poi['rating'] = '';
+      $poi['star_rating'] = NULL;
+      $poi['rating'] = NULL;
       $poi['provider'] = '';
       $poi['vendor_id'] = $this->vendor['id'];
 
-      $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
+      
       $poi['description']                = $this->extractAnnotation( $venueElement );
       $poi['additional_address_details'] = $this->extractAddress( $venueElement );
       $poi['phone2']                     = $this->extractPhoneNumbers( $venueElement );
       $poi['public_transport_links']     = $this->extractTransportLinkInfo( $venueElement );
       $poi['price_information']          = $this->extractPriceInfo( $venueElement );
       $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
-
+      $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
       try
       {
         $this->geoEncoder->setAddress( $this->getGeoEncodeData( $poi ) );
@@ -68,12 +68,13 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
         }
         $poi['longitude'] = $this->geoEncoder->getLongitude();
         $poi['latitude'] = $this->geoEncoder->getLatitude();
-        $this->notifyImporter( $poi );
+         
       }
       catch( Exception $e)
-      {
+      {  
         $this->notifyImporterOfFailure( $e );
       }
+      $this->notifyImporter( $poi );
     }
   }
 
