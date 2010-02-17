@@ -119,14 +119,6 @@ class logImport
         $this->totalInserts++;
     }
 
-    /**
-     * count each updated record
-     */
-    public function countUpdate()
-    {
-        $this->totalUpdates++;
-    }
-
 
     /**
      * count each record that already exists
@@ -213,6 +205,9 @@ class logImport
 
         $this->changesCollection[] = $changeObj;
 
+         //count the change
+         $this->totalUpdates++;
+
     }
 
     public function setType($type)
@@ -229,7 +224,7 @@ class logImport
     public function checkType($type)
     {
         $availableTypes = array( logImport::POI, logImport::EVENT, logImport::MOVIE );
-
+     
         if( !in_array( $type, $availableTypes ) )
         {
             throw new Exception('Incorrect Type. Must be on of: ' . implode( ',', $availableTypes ) );

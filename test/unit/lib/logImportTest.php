@@ -71,12 +71,13 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testCountUpdate()
     {
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->object->countUpdate();
-      $this->assertEquals('5', $this->object->totalUpdates, 'Increment the total updates by one');
+       //The item is modified therefore log as an update
+        $log = "Description: this is changed text \n";
+        $log.= "Name: this is a changed name \n";
+
+        $this->object->addChange('update', $log);
+
+       $this->assertEquals('1', $this->object->totalUpdates, 'Increment the total updates by one');
     }
 
 
@@ -97,7 +98,6 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testSave()
     {
-        $this->object->countUpdate();
         $this->object->countNewInsert();
         $this->object->countNewInsert();
         $this->object->countNewInsert();
@@ -195,7 +195,7 @@ class logImportTest extends PHPUnit_Framework_TestCase
     public function testCheckType()
     {
         $this->setExpectedException('Exception');
-        $this->object = new logImport($this->vendorObj, 'moviey');
+        $this->object->setType('movies');
     }
 }
 ?>
