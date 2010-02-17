@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 require_once dirname(__FILE__).'/../../../../../lib/processXml.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/nyImportBc.class.php';
+require_once dirname(__FILE__).'/../../../../../lib/import/ny/nyImportBcEd.class.php';
 require_once dirname(__FILE__).'/../../../../../lib/import/ny/processNyBcXml.class.php';
 require_once dirname(__FILE__).'/../../../../../lib/logImport.class.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
@@ -134,8 +134,8 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
     private function createObject()
     {
         
-        $this->object = new nyImportBc($this->xmlObj, $this->vendorObj,  $this->loggerObj);
-        $this->object->importBars($this->getXMLString());
+        $this->object = new nyImportBcEd($this->xmlObj, $this->vendorObj,  $this->loggerObj);
+        $this->object->importPoi($this->getXMLString());
     }
 
 
@@ -152,7 +152,7 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['poi_name'] = 'Milanos Bar';
            $this->existingPoiObj['street'] = '51 E Houston St between Mott and Mulberry Sts';
            $this->existingPoiObj['city'] = 'NY';
-           $this->existingPoiObj['vendor_poi_id'] = 2936;
+           $this->existingPoiObj['vendor_poi_id'] = 20191;
            $this->existingPoiObj['Vendor'] = $this->vendorObj;
            $this->existingPoiObj['country'] = 'USA';
            $this->existingPoiObj['longitude'] = '-122.805568';
@@ -179,7 +179,7 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['poi_name'] = 'Milanos Bar';
            $this->existingPoiObj['street'] = '51 E Houston St between Mott and Mulberry Sts';
            $this->existingPoiObj['city'] = 'NY';
-           $this->existingPoiObj['vendor_poi_id'] = 2936;
+           $this->existingPoiObj['vendor_poi_id'] = 20191;
            $this->existingPoiObj['Vendor'] = $this->vendorObj;
            $this->existingPoiObj['country'] = 'USA';
            $this->existingPoiObj['longitude'] = '-122.805568';
@@ -207,7 +207,7 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['poi_name'] = 'Milanos Bar';
            $this->existingPoiObj['street'] = '51 E Houston St between Mott and Mulberry Sts';
            $this->existingPoiObj['city'] = 'NY';
-           $this->existingPoiObj['vendor_poi_id'] = 29366;
+           $this->existingPoiObj['vendor_poi_id'] = 201911;
            $this->existingPoiObj['Vendor'] = $this->vendorObj;
            $this->existingPoiObj['country'] = 'USA';
            $this->existingPoiObj['longitude'] = '-122.805568';

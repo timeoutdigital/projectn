@@ -72,13 +72,7 @@ class importTask extends sfBaseTask
           case 'eating-drinking':
             try
             {
-              $fileNameString = $ftpClient->fetchFile( 'tony_ed.xml' );
-
-              /*$vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
-              $csv = new processCsv( 'import/tony_ed_made_up
-_headers.csv' );
-              $nyEDImport =  new importNyED( $csv, $vendor );
-              $nyEDImport->insertPois();*/
+              $this->importNyEd($vendorObj, $ftpClientObj, $loggerObj);
             }
             catch ( Exception $e )
             {
@@ -127,6 +121,7 @@ _headers.csv' );
 
         $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-US');
         $ftpClientObj = new FTPClient( 'ftp.timeoutchicago.com', 'timeout', 'y6fv2LS8', $vendorObj[ 'city' ] );
+        $loggerObj = new logImport($vendorObj);
 
         switch( $options['type'] )
         {
@@ -143,7 +138,7 @@ _headers.csv' );
           case 'eating-drinking':
             try
             {
-              $fileNameString = $ftpClient->fetchFile( 'toc_ed.xml' );
+              $importObj = $this->importChicagoEd($vendorObj, $ftpClientObj, $loggerObj);
             }
             catch ( Exception $e )
             {
@@ -153,7 +148,7 @@ _headers.csv' );
           case 'bars-clubs':
             try
             {
-              $importObj = $this->importChicagoBc($vendorObj, $ftpClientObj, new logImport($vendorObj, 'poi'));
+              $importObj = $this->importChicagoBc($vendorObj, $ftpClientObj, $loggerObj);
             }
             catch ( Exception $e )
             {
@@ -406,7 +401,7 @@ _headers.csv' );
   *
   * @return importBc Object
   */
-  public function importChicagoBc()
+  public function importChicagoBc($vendorObj, $ftpClientObj, $loggerObj)
   {
         try
         {
@@ -417,40 +412,48 @@ _headers.csv' );
             $processXmlObj = new processNyBcXml( $fileNameString );
 
 
-            $importBcObj = new nyImportBc($processXmlObj, $vendorObj,  $loggerObj);
-            $importBc->import();
-            
-            
-            
-            
-            
-            
-            
-            
-           
-
-            //Download and process XML
-            $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
-            $processXmlObj = new processNyBcXml( $fileNameString );
-
-            //Import the bars
-            $importBc = new nyImportBc($processXmlObj, $vendorObj,  $loggerObj);
-            $importBc->import();
-            
-            
-            
-            
-            
-            
-            
+            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importObj->import();
+                     
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in NY import: ' . $e->getMessage();
+          echo 'Exception caught in Chicago import: ' . $e->getMessage();
         }
 
 
-        return $importBcObj;
+        return $importObj;
+
+  }
+
+
+  /**
+  * Import the Chicago Bars and clubs
+  *
+  * @return importBc Object
+  */
+  public function importChicagoEd($vendorObj, $ftpClientObj, $loggerObj)
+  {
+        try
+        {
+             //Set the logger type
+            $loggerObj->setType('poi');
+
+            //$fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
+           // $processXmlObj = new processNyBcXml( $fileNameString );
+            $processXmlObj = new processNyBcXml( '/var/workspace/projectn/import/chicago/toc_ed.xml' );
+
+            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importObj->import();
+
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Chicago import: ' . $e->getMessage();
+        }
+
+
+        return $importObj;
 
   }
   
@@ -524,14 +527,37 @@ _headers.csv' );
             $processXmlObj = new processNyBcXml( $fileNameString );
 
             //Import the bars
-            $importBc = new nyImportBc($processXmlObj, $vendorObj,  $loggerObj);
-            $importBc->import();
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importBcEd->import();
         }
         catch ( Exception $e )
         {
           echo 'Exception caught in NY import: ' . $e->getMessage();
         }
          
+     }
+
+
+     private function importNyEd($vendorObj, $ftpClientObj, $loggerObj)
+     {
+        try
+        {
+            //Set the logger type
+            $loggerObj->setType('poi');
+
+            //Download and process XML
+            $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
+            $processXmlObj = new processNyBcXml( $fileNameString );
+
+            //Import the bars
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importBcEd->import();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in NY import: ' . $e->getMessage();
+        }
+
      }
 
 

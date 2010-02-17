@@ -15,7 +15,7 @@
  *
  *
  */
-class nyImportBc {
+class nyImportBcEd {
 
     /**
      * Process simple XML for B/C
@@ -58,7 +58,7 @@ class nyImportBc {
             //Only process if there is a record id and its not closed
             if($poi->xpath('@RECORDID') && $poi->{'closed.0'} != 'yes')
             {
-                $this->importBars($poi);
+                $this->importPoi($poi);
             }
         }
 
@@ -78,7 +78,7 @@ class nyImportBc {
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiId($poi['RECORDID']);
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiId($poi->{'ID'});
 
         if($currentPoi)
         {
@@ -98,7 +98,7 @@ class nyImportBc {
      *
      * @param SimpleXMLElement Poi node of the XML
      */
-    public function importBars(SimpleXMLElement $poi)
+    public function importPoi(SimpleXMLElement $poi)
     {
 
         //Get the POI object
@@ -108,13 +108,26 @@ class nyImportBc {
 
         try {
             //Add the main details that should not change
-            $poiObj[ 'vendor_poi_id' ]           = (string) $poi['RECORDID'];
+            $poiObj[ 'vendor_poi_id' ]           = (string) $poi->{'ID'};
             $poiObj[ 'street' ]                  = (string) $poi->{'location.0'};
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name.0'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
             $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
             $poiObj[ 'zips' ]                    = (string) $poi->{'zip.0'};
-            $poiObj[ 'description' ]             = (string) $poi->{'BAR.body'};
+
+
+            //The B/C and E/D have different column names for the description
+            if((string) $poi->{'BAR.body'})
+            {
+                $poiObj[ 'description' ]             = (string) $poi->{'BAR.body'};
+            }
+            else
+            {
+                $poiObj[ 'description' ]             = (string) $poi->{'body'};
+            }
+
+
+
             $poiObj[ 'price_information' ]       = (string) $poi->{'prices.0'};
             $poiObj[ 'openingtimes' ]            = (string) $poi->{'hours.0'};
 
@@ -130,7 +143,17 @@ class nyImportBc {
               
             }
 
-            $poiObj['district']               = (string) $poi->{'hood.shortcalc.0'};
+
+            if($poi->{'hood.shortcalc.0'})
+            {
+                $poiObj['district']               = (string) $poi->{'hood.shortcalc.0'};
+            }
+            else
+            {
+                $poiObj['district']               = (string) $poi->{'hood.0'};
+            }
+
+
             $poiObj[ 'country' ]                 = 'USA';
             $poiObj[ 'Vendor' ]                  = $this->vendorObj;
 
@@ -157,13 +180,11 @@ class nyImportBc {
             }
             catch(Exception $e)
             {
-                echo "caught lan/lat problem \n \n";
-
                 //Force a Long/Lat or validation will fail
                 $poiObj[ 'longitude' ] = 0.00;
                 $poiObj[ 'latitude' ]  = 0.00;
 
-                $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+                $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
                 $this->logger->addError($e, $log);
             }
 
@@ -182,8 +203,7 @@ class nyImportBc {
             }
             catch(Exception $e)
             {
-                echo "caught phone number problem \n \n";
-                $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+                $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
                 $this->logger->addError($e, $log);
             }
 
@@ -191,6 +211,8 @@ class nyImportBc {
              //Check the modified fields for an existing fiel
             if($poiObj->isModified(true) && !$poiObj->isNew())
             {
+                $log = "Updated Fields: \n";
+                
                 //The item is modified therefore log as an update
                 foreach($poiObj->getModified() as $k => $v)
                 {
@@ -204,11 +226,22 @@ class nyImportBc {
 
            //Save the object
            $poiObj->save();
+
+
+
+           //Add the properties
+           $poiPropertyObj = new PoiProperty();
+           $poiPropertyObj['lookup'] = "cuisine";
+           $poiPropertyObj['value'] =  (string) $poi->{'PrimaryCuisine'};
+           $poiPropertyObj['Poi'] = $poiObj;
+
+           $poiPropertyObj->save();
+
         }
 
         catch(Doctrine_Validator_Exception $error)
         {           
-           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
            $this->logger->addError($error, $log);
             
             return $poiObj;
@@ -216,9 +249,7 @@ class nyImportBc {
 
         catch(Exception $e)
         {
-            echo 'Loggin general exception';
-          
-           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
            $this->logger->addError($e, $log);
 
            return $poiObj;
@@ -230,10 +261,7 @@ class nyImportBc {
         {
             $this->logger->countNewInsert();
         }
-        else
-        {
-            $this->logger->countUpdate();
-        }
+
 
         //Return Poi for testing
         return $poiObj;
