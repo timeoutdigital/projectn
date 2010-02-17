@@ -59,11 +59,21 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['price_information']          = $this->extractPriceInfo( $venueElement );
       $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
 
-      $this->geoEncoder->setAddress( $this->getGeoEncodeData( $poi ) );
-      $poi['longitude'] = $this->geoEncoder->getLongitude();
-      $poi['latitude'] = $this->geoEncoder->getLatitude();
-
-      $this->notifyImporter( $poi );
+      try
+      {
+        $this->geoEncoder->setAddress( $this->getGeoEncodeData( $poi ) );
+        if( $this->geoEncoder->getAccuracy() < 5 )
+        {
+          throw new Exception('Geo encode accuracy below 5' );
+        }
+        $poi['longitude'] = $this->geoEncoder->getLongitude();
+        $poi['latitude'] = $this->geoEncoder->getLatitude();
+        $this->notifyImporter( $poi );
+      }
+      catch( Exception $e)
+      {
+        $this->notifyImporterOfFailure( $e );
+      }
     }
   }
 
@@ -78,7 +88,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'placeid'      => 'vendor_poi_id',
       'name'         => 'poi_name',
       'address'      => 'street',
-      'postcode'     => 'zips',
+      'postcode'     => 'zips',  
       'genmail'      => 'email',
       'url'          => 'url',
       'tipo'         => 'vendor_category',
@@ -124,7 +134,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'buildingno',
       'buildingName',
       'area',
-      'city',
+      'city', 
     );
   }
 
@@ -206,7 +216,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
 
     if( !empty( $venueElement['railinfo'] ) )
     {
-      $infoArray[] = 'Rail: ' . $venueElement['railinfo'];
+      $infoArray[] = 'Rail: ' . $venueElement['railinfo']; 
     }
 
     return implode( ', ', $infoArray );
@@ -280,11 +290,10 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
     $addressData = array
     (
       $poi['house_no'],
-      $poi['street'],
-      $poi['zips'],
-      $poi['additional_address_details'],
+      $poi['street'],      
     );
-    return stringTransform::concatNonBlankStrings(', ', $addressData );
+
+    return stringTransform::concatNonBlankStrings(', ', $addressData  ) . ', lisbon portugal';
   }
 }
 ?>

@@ -110,6 +110,12 @@ class Importer
      $record->save();       
   }
 
+  public function onRecordMappingException( Exception $exception )
+  {
+    /** @todo add logger */
+     echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
+  }
+
   /**
    * @param RecordData $data
    * @returns Doctrine_Record
