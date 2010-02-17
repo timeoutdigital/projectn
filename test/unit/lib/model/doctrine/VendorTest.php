@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
+require_once dirname(__FILE__).'/../../../bootstrap.php';
 
 /**
  * Test class for Vendor model.
@@ -30,8 +31,10 @@ class VendorTest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::createDatabases();
 
       $this->vendor = new Vendor();
-      $this->vendor->setCity('test');
-      $this->vendor->setLanguage('english');
+      $this->vendor['city'] = 'test';
+      $this->vendor['language'] = 'en-US';
+      $this->vendor['time_zone'] = 'Asia/Singapore';
+      $this->vendor['inernational_dial_code'] = '+65';
       $this->vendor->save();
 
     }
@@ -58,6 +61,14 @@ class VendorTest extends PHPUnit_Framework_TestCase
    */
   public function testGetName()
   {
-    $this->assertEquals( 'test_english', $this->vendor->getName() );
+    $this->assertEquals( 'test_en-US', $this->vendor->getName() );
+  }
+
+  /**
+   * Test if testGetUtcOffset() returns the correct utc offset string
+   */
+  public function testGetUtcOffset()
+  {
+    $this->assertEquals( '+08:00', $this->vendor->getUtcOffset( date( 'Y-m-d' ) ) );
   }
 }
