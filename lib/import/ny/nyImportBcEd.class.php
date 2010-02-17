@@ -108,7 +108,7 @@ class nyImportBcEd {
 
         try {
             //Add the main details that should not change
-            $poiObj[ 'vendor_poi_id' ]           = (string) $poi['RECORDID'];
+            $poiObj[ 'vendor_poi_id' ]           = (string) $poi['ID'];
             $poiObj[ 'street' ]                  = (string) $poi->{'location.0'};
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name.0'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
