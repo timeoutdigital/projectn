@@ -43,13 +43,17 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::createDatabases();
 
         $vendor = new Vendor();
-        $vendor->setCity('test');
-        $vendor->setLanguage('english');
+        $vendor['city'] = 'test';
+        $vendor['language'] = 'en-GB';
+        $vendor['time_zone'] = 'Europe/London';
+        $vendor['inernational_dial_code'] = 'Europe/London';
         $vendor->save();
 
         $this->vendor2 = new Vendor();
-        $this->vendor2->setCity('test');
-        $this->vendor2->setLanguage('german');
+        $this->vendor2['city'] = 'test';
+        $this->vendor2['language'] = 'en-GB';
+        $this->vendor2['time_zone'] = 'Europe/London';
+        $this->vendor2['inernational_dial_code'] = 'Europe/London';
         $this->vendor2->save();
 
         $category = new PoiCategory();

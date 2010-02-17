@@ -23,4 +23,20 @@ class Vendor extends BaseVendor
     return $this->city . '_' . $this->getLanguage();
   }
 
+  /**
+   * returns the utc offset in the following format +00:00
+   * for a given date or for 'now' by default if no date
+   * passed
+   *
+   * @param string $dateTimeString
+   * @return string
+   */
+  public function getUtcOffset( $dateTimeString = 'now' )
+  {
+    $zoneObj = new DateTimeZone( $this[ 'time_zone' ] );
+    $dateTimeObj = new DateTime( $dateTimeString, $zoneObj ) ;
+
+    return $dateTimeObj->format( 'P' );
+  }
+
 }

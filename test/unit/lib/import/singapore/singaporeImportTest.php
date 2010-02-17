@@ -24,7 +24,8 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected $object;
 
-  protected $xmlObj;
+
+  //protected $xmlObj;
 
   /**
    * @var Vendor
@@ -41,6 +42,12 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected $stubCurlImporter;
 
+  /**
+   *
+   * @var logImport
+   */
+  protected $logger;
+
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -48,16 +55,21 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
 
-   setlocale(LC_MONETARY, 'en_US.UTF-8');
+    setlocale(LC_MONETARY, 'en_US.UTF-8');
 
-   ProjectN_Test_Unit_Factory::createDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
 
-   Doctrine::loadData('data/fixtures');
+    Doctrine::loadData('data/fixtures');
    
-   $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
+    $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
-   $this->stubCurlImporter = $this->getMock( 'curlImporter' );
-   $this->stubCurlImporter->expects( $this->any() )->method( 'pullXML' );
+    $this->stubCurlImporter = $this->getMock( 'curlImporter' );
+    $this->stubCurlImporter->expects( $this->any() )->method( 'pullXML' );
+
+    $this->logger = new logImport( $this->vendorObj );
+    $this->logger->setType('poi');
+
+    $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $this->logger );
   }
 
   /**
@@ -65,6 +77,9 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * This method is called after a test is executed.
    */
   protected function tearDown() {
+
+    $this->logger->save();
+
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
@@ -73,10 +88,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   public function testInsertPoisAndInsertPoi()
   {
-     $logger = new logImport($this->vendorObj, 'poi');
-    
-     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
-
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_venues_list.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
      $xmlObj = $this->stubCurlImporter->getXml();
@@ -91,8 +102,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
      $this->object->insertPois( $xmlObj );
 
-     $logger->save();
-
      $poisCol = Doctrine::getTable( 'Poi' )->findAll();
 
      $this->assertEquals( 1, $poisCol->count() );
@@ -103,10 +112,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   public function testInsertEventsAndInsertEvent()
   {
-
-     $logger = new logImport($this->vendorObj, 'event');
-
-     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
+     $this->logger->setType('event');
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
      $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
@@ -130,8 +136,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
      $this->object->insertEvents( $xmlObj );
 
-     $logger->save();
-
      $eventsCol = Doctrine::getTable( 'Event' )->findAll();
 
      $this->assertEquals( 1, $eventsCol->count() );
@@ -144,9 +148,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   public function testInsertMoviesAndInsertMovie()
   {
-     $logger = new logImport($this->vendorObj, 'movie');
-    
-     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
+     $this->logger->setType('movie');
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_movies_list.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
@@ -162,32 +164,32 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
      $this->object->insertMovies( $xmlObj );
 
-     $logger->save();
-
      $moviesCol = Doctrine::getTable( 'Movie' )->findAll();
 
      $this->assertEquals( 1, $moviesCol->count() );
   }
 
-
   /*
    *
    */
    public function testFetchDetailUrl()
-   {
-     $logger = new logImport($this->vendorObj, 'poi');
-     
-     $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $logger );
-
+   {     
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
      $xmlObj = $this->stubCurlImporter->getXml();
 
      $returnXml = $this->object->fetchDetailUrl( 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue=2154&key=ffab6a24c60f562ecf705130a36c1d1e' );
 
-     $logger->save();
-
      $this->assertEquals( $stubReturnXMLObject, $returnXml );
+   }
+
+   /*
+    * testExtractSingaporeAgeRatingCode
+    */
+   public function testExtractSingaporeAgeRatingCode()
+   {
+     $ageRatingCode = $this->object->extractSingaporeAgeRatingCode( 'NC16 - No children under the age of 16' );
+     $this->assertEquals( 'NC16', $ageRatingCode );    
    }
 
 }
