@@ -404,12 +404,39 @@ class importTask extends sfBaseTask
   {
         try
         {
+             //Set the logger type
+            $loggerObj->setType('poi');
+            
             $fileNameString = $ftpClientObj->fetchFile( 'toc_bc.xml' );
             $processXmlObj = new processNyBcXml( $fileNameString );
 
 
             $importBcObj = new nyImportBc($processXmlObj, $vendorObj,  $loggerObj);
             $importBc->import();
+            
+            
+            
+            
+            
+            
+            
+            
+           
+
+            //Download and process XML
+            $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
+            $processXmlObj = new processNyBcXml( $fileNameString );
+
+            //Import the bars
+            $importBc = new nyImportBc($processXmlObj, $vendorObj,  $loggerObj);
+            $importBc->import();
+            
+            
+            
+            
+            
+            
+            
         }
         catch ( Exception $e )
         {
