@@ -78,7 +78,7 @@ class nyImportBcEd {
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiId($poi['RECORDID']);
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiId($poi->{'ID'});
 
         if($currentPoi)
         {
@@ -108,7 +108,7 @@ class nyImportBcEd {
 
         try {
             //Add the main details that should not change
-            $poiObj[ 'vendor_poi_id' ]           = (string) $poi['ID'];
+            $poiObj[ 'vendor_poi_id' ]           = (string) $poi->{'ID'};
             $poiObj[ 'street' ]                  = (string) $poi->{'location.0'};
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name.0'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
@@ -180,13 +180,11 @@ class nyImportBcEd {
             }
             catch(Exception $e)
             {
-                echo "caught lan/lat problem \n \n";
-
                 //Force a Long/Lat or validation will fail
                 $poiObj[ 'longitude' ] = 0.00;
                 $poiObj[ 'latitude' ]  = 0.00;
 
-                $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+                $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
                 $this->logger->addError($e, $log);
             }
 
@@ -205,8 +203,7 @@ class nyImportBcEd {
             }
             catch(Exception $e)
             {
-                echo "caught phone number problem \n \n";
-                $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+                $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
                 $this->logger->addError($e, $log);
             }
 
@@ -244,7 +241,7 @@ class nyImportBcEd {
 
         catch(Doctrine_Validator_Exception $error)
         {           
-           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
            $this->logger->addError($error, $log);
             
             return $poiObj;
@@ -252,9 +249,7 @@ class nyImportBcEd {
 
         catch(Exception $e)
         {
-            echo 'Loggin general exception';
-          
-           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi['RECORDID']. " \n";
+           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
            $this->logger->addError($e, $log);
 
            return $poiObj;
