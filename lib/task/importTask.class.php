@@ -63,8 +63,10 @@ class importTask extends sfBaseTask
                 $this->importNyEvents($vendoObj, $ftpClientObj);
             break;
 
-          case 'film':
-                $this->importNyMovies($vendoObj, $ftpClientObj);
+          case 'movie':
+                $importer = new Importer();
+                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+                $importer->run();
             break;
 
           case 'eating-drinking':
@@ -126,8 +128,10 @@ class importTask extends sfBaseTask
               $this->importChicagoEvents($vendorObj, $ftpClientObj);
             break;
 
-          case 'film':
-               $this->importChicagoMovies($vendoObj, $ftpClientObj);
+          case 'movie':
+               $importer = new Importer();
+               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+               $importer->run();
           break;
 
           case 'eating-drinking':
@@ -308,7 +312,7 @@ class importTask extends sfBaseTask
 
             break;
         }
-        break; // end ny
+        break; // end dubai
 
 
 
@@ -318,10 +322,10 @@ class importTask extends sfBaseTask
 
 
      //Save the logger
-     $loggerObj->save();
+     //$loggerObj->save();
 
      //Get the total import time
-     echo "Total time: ". $loggerObj->timer . "\n";
+     //echo "Total time: ". $loggerObj->timer . "\n";
   }
 
 

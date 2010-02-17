@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * 
  * @property string $city
  * @property string $language
+ * @property string $time_zone
  * @property string $inernational_dial_code
  * @property Doctrine_Collection $Poi
  * @property Doctrine_Collection $VendorPoiCategory
@@ -20,6 +21,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * 
  * @method string              getCity()                   Returns the current record's "city" value
  * @method string              getLanguage()               Returns the current record's "language" value
+ * @method string              getTimeZone()               Returns the current record's "time_zone" value
  * @method string              getInernationalDialCode()   Returns the current record's "inernational_dial_code" value
  * @method Doctrine_Collection getPoi()                    Returns the current record's "Poi" collection
  * @method Doctrine_Collection getVendorPoiCategory()      Returns the current record's "VendorPoiCategory" collection
@@ -30,6 +32,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method Doctrine_Collection getImportLogger()           Returns the current record's "ImportLogger" collection
  * @method Vendor              setCity()                   Sets the current record's "city" value
  * @method Vendor              setLanguage()               Sets the current record's "language" value
+ * @method Vendor              setTimeZone()               Sets the current record's "time_zone" value
  * @method Vendor              setInernationalDialCode()   Sets the current record's "inernational_dial_code" value
  * @method Vendor              setPoi()                    Sets the current record's "Poi" collection
  * @method Vendor              setVendorPoiCategory()      Sets the current record's "VendorPoiCategory" collection
@@ -58,6 +61,11 @@ abstract class BaseVendor extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => '10',
+             ));
+        $this->hasColumn('time_zone', 'string', 50, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '50',
              ));
         $this->hasColumn('inernational_dial_code', 'string', 3, array(
              'type' => 'string',
