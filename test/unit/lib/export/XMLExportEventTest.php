@@ -54,8 +54,10 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $vendor = new Vendor();
-    $vendor->setCity('test');
-    $vendor->setLanguage('en-GB');
+    $vendor['city'] = 'test';
+    $vendor['language'] = 'en-GB';
+    $vendor['time_zone'] = 'Europe/London';
+    $vendor['inernational_dial_code'] = '+44';
     $vendor->save();
     $this->vendor = $vendor;
 

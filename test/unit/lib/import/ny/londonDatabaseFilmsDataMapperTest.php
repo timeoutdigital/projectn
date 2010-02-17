@@ -30,6 +30,8 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
     $vendor = new Vendor();
     $vendor['city'] = 'ny';
     $vendor['language'] = 'en-US';
+    $vendor['time_zone'] = 'America/New_York';
+    $vendor['inernational_dial_code'] = '+1';
     $vendor->save();
     $this->vendor = $vendor;
   }

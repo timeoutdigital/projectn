@@ -22,6 +22,8 @@ class LondonAPIFilmsMapperTest extends PHPUnit_Framework_TestCase
     $vendor = new Vendor();
     $vendor['city'] = 'london';
     $vendor['language'] = 'en-GB';
+    $vendor['time_zone'] = 'Europe/London';
+    $vendor['inernational_dial_code'] = '+44';
     $vendor->save();
   }
 

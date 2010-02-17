@@ -184,7 +184,9 @@ class VendorFixture
   {
     return array(
       'city' => 'test city',
-      'language' => 'test lang'
+      'language' => 'test lang',
+      'time_zone' => 'Europe/London',
+      'inernational_dial_code' => '+44'
     );
   }
 }
