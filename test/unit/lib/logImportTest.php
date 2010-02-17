@@ -39,7 +39,8 @@ class logImportTest extends PHPUnit_Framework_TestCase
 
 
 
-        $this->object = new logImport($this->vendorObj, logImport::MOVIE);
+        $this->object = new logImport($this->vendorObj);
+        $this->object->setType(logImport::MOVIE);
     }
 
     /**
@@ -78,8 +79,21 @@ class logImportTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('5', $this->object->totalUpdates, 'Increment the total updates by one');
     }
 
+
     /**
-     * @todo Implement testSaveStats().
+     * Test that existing entries that don't need updating are counted
+     */
+    public function testCountExists()
+    {
+        $this->object->countExisting();
+        $this->object->countExisting();
+        $this->object->countExisting();
+
+        $this->assertEquals('3', $this->object->totalExisting, 'Increment the total existing by one');
+    }
+
+    /**
+     * Tests the save functionality
      */
     public function testSave()
     {
@@ -164,6 +178,15 @@ class logImportTest extends PHPUnit_Framework_TestCase
          $this->object->addChange('update', $log);
 
          $this->assertEquals(1, count($this->object->changesCollection->toArray()), 'Testing the error collection');
+    }
+
+    /**
+     * Test that the type is set
+     */
+    public function testSetType()
+    {
+        $this->object->setType(logImport::MOVIE);
+        $this->assertEquals('movie', $this->object->type ,'Test that movie is set');
     }
 
     /**

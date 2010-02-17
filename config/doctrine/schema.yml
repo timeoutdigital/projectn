@@ -350,6 +350,7 @@ ImportLogger:
     total_inserts:              {type: integer, notnull: true}
     total_updates:              {type: integer, notnull: true}
     total_errors:               {type: integer, notnull: true}
+    total_existing:             {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
     type:                       {type: enum, values: [movie, poi, event], notnull: true}
     total_time:                 {type: time, notnull: true}
