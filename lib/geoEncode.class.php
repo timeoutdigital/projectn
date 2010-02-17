@@ -24,6 +24,11 @@
  * </code>
  *
  * If a geocode cannot be found then an Exception is thrown
+ *
+ *
+ * Google Documentation
+ * @link http://code.google.com/apis/maps/documentation/services.html#Geocoding
+ * @link http://code.google.com/apis/maps/documentation/reference.html#GGeoStatusCode.G_GEO_SUCCESS
  * 
  */
 class geoEncode
@@ -84,9 +89,22 @@ class geoEncode
      //Create an array containing the data
      $dataArray = explode(',', $data);
 
-     if($dataArray[1]==0 ||$dataArray[2]==0 ||$dataArray[3]==0 )
+     switch($dataArray[0])
      {
-         throw new Exception('No Geocode available');
+         case '602': throw new Exception('G_GEO_UNKNOWN_ADDRESS');
+             break;
+
+         case '603': throw new Exception('G_GEO_UNAVAILABLE_ADDRESS');
+             break;
+
+         case '620': throw new Exception('G_GEO_TOO_MANY_QUERIES');
+             break;
+
+     }
+
+     if($dataArray[0] != '200')
+     {
+         throw new Exception('No Geocode available: Code = '.$dataArray[0]);
      }
 
      //Set invidual co-ords
