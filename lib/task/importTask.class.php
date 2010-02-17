@@ -227,25 +227,38 @@ class importTask extends sfBaseTask
 
             //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
+            $logger = new logImport($vendorObj, 'poi');
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/venues/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
 
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
             $this->object->insertPois( $xmlObj );
+            $logger->save();
 
+            $logger = new logImport($vendorObj, 'event');
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
 
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
             $this->object->insertEvents( $xmlObj );
-
+            $logger->save();
+            
             break;
 
           case 'film':
+            $logger = new logImport($vendorObj, 'movie');
+            $curlImporterObj = new curlImporter();
+            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/movies/', '', $parametersArray );
+            $xmlObj = $curlImporterObj->getXml();
+
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
+            $this->object->insertMovies( $xmlObj );
+            $logger->save();
           break;
 
           case 'eating-drinking':

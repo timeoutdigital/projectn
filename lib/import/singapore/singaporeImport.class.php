@@ -32,6 +32,11 @@ class singaporeImport {
   private $_vendor;
 
   /*
+   * @var Vendor
+   */
+  private $_logger;
+
+  /*
    * @var curlImporter
    */
   protected $_curlImporter;
@@ -41,18 +46,21 @@ class singaporeImport {
    *
    * @param $vendorObj Vendor
    * @param $curlImporterObj curlImporter
+   * @param $curlImporterObj logImport
    *
    */
-  public function  __construct( $vendorObj, $curlImporterObj )
+  public function  __construct( Vendor $vendorObj, curlImporter $curlImporterObj, logImport $loggerObj )
   {
-
     $this->_vendor = $vendorObj;
     $this->_curlImporter = $curlImporterObj;
+    $this->_logger = $loggerObj;
 
     if ( ! $this->_vendor instanceof Vendor )
       throw new Exception( 'Invalid Vendor' );
     if ( ! $this->_curlImporter instanceof curlImporter )
       throw new Exception( 'Invalid curlImporter' );
+    if ( ! $this->_logger instanceof logImport )
+      throw new Exception( 'Invalid logger' );
   }
 
   /**
@@ -72,7 +80,7 @@ class singaporeImport {
       }
       catch( Exception $e )
       {
-        echo (string) $e;
+        $this->logger->addError( $e );
       }
 
       $this->insertPoi( $venueDetailObj );
@@ -97,7 +105,7 @@ class singaporeImport {
       }
       catch( Exception $e )
       {
-        echo (string) $e;
+        $this->logger->addError( $e );
       }
 
       $this->insertEvent( $eventDetailObj );
@@ -122,7 +130,7 @@ class singaporeImport {
       }
       catch( Exception $e )
       {
-        echo (string) $e;
+        $this->logger->addError( $e );
       }
 
       $this->insertMovie( $movieDetailObj );
@@ -315,9 +323,15 @@ class singaporeImport {
 
       return $poiId;
     }
+    catch(Doctrine_Validator_Exception $error)
+    {
+      $log =  'Error processing Poi: \n Vendor = '. $this->vendorObj['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
+      $this->logger->addError($e, $log);
+    }
     catch( Exception $e )
     {
-      echo 'failed to insert/update poi: ' . (string) $poiObj->name . ' (id: ' . (string) $poiObj->id . ')' . PHP_EOL;
+      $log =  'Error processing Poi: \n Vendor = '. $this->vendorObj['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
+      $this->logger->addError($e, $log);
     }
 
     return null;
@@ -406,9 +420,15 @@ class singaporeImport {
 
 
     }
+    catch(Doctrine_Validator_Exception $error)
+    {
+      $log =  'Error processing Event: \n Vendor = '. $this->vendorObj['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
+      $this->logger->addError($e, $log);
+    }
     catch(Exception $e)
     {
-      echo 'failed to insert/update event / occurrence: ' . (string) $eventObj->name . ' (id: ' . (string) $eventObj->id . ')' . PHP_EOL;
+      $log =  'Error processing Event: \n Vendor = '. $this->vendorObj['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
+      $this->logger->addError($e, $log);
     }
   }
 
@@ -478,9 +498,15 @@ class singaporeImport {
 
       return $movieId;
     }
+    catch(Doctrine_Validator_Exception $error)
+    {
+      $log =  'Error processing Movie: \n Vendor = '. $this->vendorObj['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
+      $this->logger->addError($e, $log);
+    }
     catch( Exception $e )
     {
-      echo 'failed to insert/update movie: ' . (string) $movieXml->name . ' (id: ' . (string) $movieXml->id . ')' . PHP_EOL;
+      $log =  'Error processing Movie: \n Vendor = '. $this->vendorObj['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
+      $this->logger->addError($e, $log);
     }
 
     return null;
