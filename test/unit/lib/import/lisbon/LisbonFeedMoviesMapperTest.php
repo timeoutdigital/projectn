@@ -24,7 +24,8 @@ class LisbonFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
       'city' => 'Lisbon',
-      'language' => 'pt'
+      'language' => 'pt',
+      'time_zone' => 'Europe/Lisbon',
       )
     );
     $vendor->save();
