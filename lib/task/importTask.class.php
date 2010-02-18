@@ -283,12 +283,17 @@ class importTask extends sfBaseTask
           case 'poi-event':
             $london = new LondonImporter( );
             $london->run( );
+            $importer = new Importer();
+            $importer->addDataMapper( new LondonAPICinemasMapper() );
+            $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
+            $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
+            $importer->run();
             break;
 
-          case 'film':
-          break;
-
-          case 'eating-drinking':
+          case 'movie':
+            $importer = new Importer();
+            $importer->addDataMapper( new LondonAPIFilmsMapper() );
+            $importer->run();
           break;
         }
         break; //end lisbon
