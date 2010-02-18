@@ -16,6 +16,10 @@ class dubaiImportBars{
     public $vendorsObj;
     public $poiType;
 
+    /**
+     *
+     * @var logImport
+     */
     public $poiLoggerObj;
 
     /**
