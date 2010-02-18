@@ -204,6 +204,7 @@ class importTask extends sfBaseTask
 
       case 'singapore':
         $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-US');
+        $logger = new logImport($vendorObj );
 
         //must be set for price range function
         //@todo get get this info out of vendor?!
@@ -227,17 +228,21 @@ class importTask extends sfBaseTask
 
             //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
-            $logger = new logImport($vendorObj, 'poi');
+
+
+            $logger->setType( 'poi');
+
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/venues/', '', $parametersArray );
             $xmlObj = $curlImporterObj->getXml();
 
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
-            $this->object->insertPois( $xmlObj );
-            $logger->save();
 
-            $logger = new logImport($vendorObj, 'event');
+            $this->object->insertPois( $xmlObj );
+
+            $logger->setType( 'event');
+
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
@@ -245,12 +250,12 @@ class importTask extends sfBaseTask
 
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
             $this->object->insertEvents( $xmlObj );
-            $logger->save();
             
             break;
 
           case 'film':
-            $logger = new logImport($vendorObj, 'movie');
+            $logger->setType( 'movie');
+
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/movies/', '', $parametersArray );
@@ -258,12 +263,15 @@ class importTask extends sfBaseTask
 
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
             $this->object->insertMovies( $xmlObj );
-            $logger->save();
+            
           break;
 
           case 'eating-drinking':
           break;
         }
+
+        $logger->save();
+
         break; //end lisbon
 
       case 'london':
