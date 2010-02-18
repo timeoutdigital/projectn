@@ -66,18 +66,18 @@ class stringTransform
    */
   public static function formatPhoneNumber($subject, $internationalCode)
   {
-      
+
+      if( empty( $subject ) ) return NULL;
+
       //return if not valid number is is passed in
-      if($subject == '' || strlen($subject) < 6)
+      if(strlen($subject) < 6)
       {
-           throw new Exception('No Phone Number entered');
+           throw new Exception('Phone number is incorrect - Less then 6 digits');
       }
 
     //Remove any extensions
     $subjectArray = explode(',', $subject);
     $subject = $subjectArray[0];
-
-
 
     $replace = array('2'=>array('a','b','c'),
                      '3'=>array('d','e','f'),
