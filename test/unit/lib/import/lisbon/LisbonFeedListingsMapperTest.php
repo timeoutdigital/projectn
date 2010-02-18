@@ -56,7 +56,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
 
     $events = Doctrine::getTable( 'Event' )->findAll();
-    $this->assertEquals( 3, $events->count() );
+    $this->assertEquals( 4, $events->count() );
 
     $event = $events[0];
 
@@ -71,7 +71,11 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '1', $event['vendor_id'] );
 
     $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findAll();
-    $this->assertEquals( 3, $eventOccurrence->count() );
+    $this->assertEquals( 6, $eventOccurrence->count() );
+    
+    $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 50797 );
+     
+    $this->assertEquals( 2 ,count( $event['EventOccurrence'] )  );
   }
 }
 ?>
