@@ -331,10 +331,10 @@ class importTask extends sfBaseTask
 
 
      //Save the logger
-     //$loggerObj->save();
+     $loggerObj->save();
 
      //Get the total import time
-     //echo "Total time: ". $loggerObj->timer . "\n";
+     echo "Total time: ". $loggerObj->timer . "\n";
   }
 
 
