@@ -26,7 +26,7 @@ abstract class BaseEventPropertyForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'lookup'     => new sfValidatorString(array('max_length' => 50)),
-      'value'      => new sfValidatorString(array('max_length' => 50)),
+      'value'      => new sfValidatorString(array('max_length' => 255)),
       'event_id'   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Event'))),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),

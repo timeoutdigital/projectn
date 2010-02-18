@@ -26,7 +26,7 @@ abstract class BaseMoviePropertyForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'lookup'     => new sfValidatorString(array('max_length' => 50)),
-      'value'      => new sfValidatorString(array('max_length' => 50)),
+      'value'      => new sfValidatorString(array('max_length' => 255)),
       'movie_id'   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Movie'))),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),
