@@ -56,5 +56,10 @@ abstract class DataMapper
   {
     $this->importer->onRecordMapped( $record );
   }
+  
+  protected function notifyImporterOfFailure( Exception $exception )
+  {
+    $this->importer->onRecordMappingException( $exception );
+  }
 }
 ?>

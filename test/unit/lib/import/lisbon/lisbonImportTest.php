@@ -21,7 +21,7 @@ class lisbonImportTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 'city' => 'Lisbon', 'language' => 'xx-xx' ) );
+    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 'city' => 'Lisbon', 'language' => 'xx-xx', 'time_zone' => 'Europe/Lisbon' ) );
     $this->object = new lisbonImport();
   }
 

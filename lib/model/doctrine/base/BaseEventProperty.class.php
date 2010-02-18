@@ -36,10 +36,10 @@ abstract class BaseEventProperty extends sfDoctrineRecord
              'notnull' => true,
              'length' => '50',
              ));
-        $this->hasColumn('value', 'string', 255, array(
+        $this->hasColumn('value', 'string', 1024, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '255',
+             'length' => '1024',
              ));
         $this->hasColumn('event_id', 'integer', null, array(
              'type' => 'integer',

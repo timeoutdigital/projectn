@@ -375,10 +375,10 @@ abstract class BasePoi extends sfDoctrineRecord
              'minlength' => 1,
              'length' => '80',
              ));
-        $this->hasColumn('house_no', 'string', 16, array(
+        $this->hasColumn('house_no', 'string', 32, array(
              'type' => 'string',
              'notnull' => false,
-             'length' => '16',
+             'length' => '32',
              ));
         $this->hasColumn('street', 'string', 128, array(
              'type' => 'string',

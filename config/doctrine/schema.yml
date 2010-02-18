@@ -14,7 +14,7 @@ Poi:
     review_date:                {type: datetime, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false, minlength: 1 } # @todo should be 'name'
-    house_no:                   {type: string(16), notnull: false}
+    house_no:                   {type: string(32), notnull: false}
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
     district:                   {type: string(128), notnull: false}
@@ -123,7 +123,7 @@ PoiProperty:
     Timestampable: ~
   columns:
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(255), notnull: true}
+    value:                      {type: string(1024), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
@@ -227,7 +227,7 @@ EventProperty:
     Timestampable: ~
   columns:
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(255), notnull: true}
+    value:                      {type: string(1024), notnull: true}
     event_id:                   {type: integer, notnull: true}
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
@@ -294,7 +294,7 @@ MovieProperty:
   columns:
     id:                         {type: integer, autoincrement: true, primary: true}
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(255), notnull: true}
+    value:                      {type: string(1024), notnull: true}
     movie_id:                   {type: integer, notnull: true}
   relations:
     Movie:                      {local: movie_id, foreign: id, foreignType: many}
