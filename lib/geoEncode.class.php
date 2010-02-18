@@ -76,6 +76,7 @@ class geoEncode
   {
      $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $this->apiKey;
 
+
      //Setup curl
      $ch = curl_init();
      curl_setopt($ch, CURLOPT_URL, $geoCode);
@@ -122,9 +123,9 @@ class geoEncode
   public function setCoOrdinates($dataArray)
   {
 
-    $this->longitude = (float) ( isset( $dataArray[3] ) ? $dataArray[3]: 0.0 );
-    $this->latitude  = (float) ( isset( $dataArray[2] ) ? $dataArray[2]: 0.0 );
-    $this->accuracy  = (float) ( isset( $dataArray[1] ) ? $dataArray[1]: 0.0 );
+    $this->longitude =  ( isset( $dataArray[3] ) ? (float) $dataArray[3]: null );
+    $this->latitude  =  ( isset( $dataArray[2] ) ? (float) $dataArray[2]: null );
+    $this->accuracy  =  ( isset( $dataArray[1] ) ? (int) $dataArray[1]: 0 );
 
   }
 

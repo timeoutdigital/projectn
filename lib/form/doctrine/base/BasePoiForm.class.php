@@ -57,7 +57,7 @@ abstract class BasePoiForm extends BaseFormDoctrine
       'review_date'                => new sfValidatorPass(array('required' => false)),
       'local_language'             => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'poi_name'                   => new sfValidatorString(array('max_length' => 80, 'min_length' => 1, 'required' => false)),
-      'house_no'                   => new sfValidatorString(array('max_length' => 16, 'required' => false)),
+      'house_no'                   => new sfValidatorString(array('max_length' => 32, 'required' => false)),
       'street'                     => new sfValidatorString(array('max_length' => 128)),
       'city'                       => new sfValidatorString(array('max_length' => 32)),
       'district'                   => new sfValidatorString(array('max_length' => 128, 'required' => false)),

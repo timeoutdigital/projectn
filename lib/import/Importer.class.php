@@ -82,19 +82,12 @@ class Importer
   {
     $this->output( 'run ' );
 
-    try
+    foreach( $this->getDataMappers() as $dataSource )
     {
-      foreach( $this->getDataMappers() as $dataSource )
+      foreach( $dataSource->getMapMethods() as $mapMethod )
       {
-        foreach( $dataSource->getMapMethods() as $mapMethod )
-        {
-           $mapMethod->invoke( $dataSource );
-        }
+         $mapMethod->invoke( $dataSource );
       }
-    }
-    catch( Exception $e )
-    {
-      echo $e;
     }
   }
 
@@ -107,7 +100,20 @@ class Importer
    */
   public function onRecordMapped( Doctrine_Record $record )
   {
-     $record->save();       
+     try
+     {
+         $record->save();
+     }
+     catch( Exception $e )
+     {
+         $this->onRecordMappingException( $e );
+     }
+  }
+
+  public function onRecordMappingException( Exception $exception )
+  {
+    /** @todo add logger */
+     echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
   }
 
   /**
