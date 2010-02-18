@@ -65,4 +65,12 @@ class Poi extends BasePoi
     return $this[ 'poi_name' ];
   }
 
+  /**
+   * Attempts to fix and / or format fields, e.g. finds a lat long if none provided
+   */
+  public function preSave( $event )
+  {
+     $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
+  }
+
 }
