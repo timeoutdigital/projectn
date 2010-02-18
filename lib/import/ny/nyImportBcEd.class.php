@@ -206,20 +206,27 @@ class nyImportBcEd {
                 $this->logger->addError($e, $log);
             }
 
-            //Add the propertie
-            $poiObj->addProperty( 'cuisine', (string) $poi->{'PrimaryCuisine'} );
+           //Add category
+           if((string) $poi->{'Category'})
+           {
+               $poiObj->addVendorCategory((string) $poi->{'Category'}, $this->vendorObj['id']);
+           }
 
-            //Save the object and log the changes
-            //pre-save
-            $logIsNew = $poiObj->isNew();
-            $logChangedFields = $poiObj->getModified();
-            //save
-            $poiObj->save();
-            //post-save
-            ( $logIsNew ) ? $this->logger->countNewInsert() : $this->logger->addChange( 'update', $logChangedFields );
+           //Add the cuisine property
+           $poiObj->addProperty('cuisine',  (string) $poi->{'PrimaryCuisine'});
 
-            //Return Poi for testing
-            return $poiObj;
+
+           //Save the object and log the changes
+           //pre-save
+           $logIsNew = $poiObj->isNew();
+           $logChangedFields = $poiObj->getModified();
+           //save
+           $poiObj->save();
+           //post-save
+           ( $logIsNew ) ? $this->logger->countNewInsert() : $this->logger->addChange( 'update', $logChangedFields );
+
+           //Return Poi for testing
+           return $poiObj;
 
         }
 

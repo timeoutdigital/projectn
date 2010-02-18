@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.0, created on 2010-02-02 12:32:11
+<?php /* Smarty version 2.6.0, created on 2010-02-08 10:55:32
          compiled from fileleft.tpl */ ?>
 <?php if (count($_from = (array)$this->_tpl_vars['fileleftindex'])):
     foreach ($_from as $this->_tpl_vars['subpackage'] => $this->_tpl_vars['files']):

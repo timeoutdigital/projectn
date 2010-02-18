@@ -31,24 +31,13 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['review_date'] = '';
       $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
-      $poi['district'] = '';
       $poi['country'] = 'PTR';
       $poi['additional_address_details'] = $this->extractAddress( $venueElement );;
       $poi['longitude'] = 0;
       $poi['latitude'] = 0;
-      $poi['phone'] = '';
-      $poi['phone2'] = '';
-      $poi['fax'] = '';
-      $poi['vendor_category'] = '';
-      $poi['keywords'] = '';
-      $poi['short_description'] = '';
-      $poi['description'] = '';
+      $poi['phone'] =  (string) $venueElement[ 'phone' ];
+      $poi['vendor_category'] = (string) $venueElement[ 'tipo' ];
       $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
-      $poi['price_information'] = '';
-      $poi['openingtimes'] = '';
-      $poi['star_rating'] = NULL;
-      $poi['rating'] = NULL;
-      $poi['provider'] = '';
       $poi['vendor_id'] = $this->vendor['id'];
 
       
@@ -59,29 +48,9 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['price_information']          = $this->extractPriceInfo( $venueElement );
       $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
-      
-      try
-      {
-        $this->geoEncoder->setAddress( $this->getGeoEncodeData( $poi ) );
-        
-        $poi['longitude'] = $this->geoEncoder->getLongitude();
-        $poi['latitude'] = $this->geoEncoder->getLatitude();
 
-        if( $this->geoEncoder->getAccuracy() < 5 )
-        {
-          $poi['longitude'] = 0;
-          $poi['latitude'] = 0;
-          throw new Exception('Geo encode accuracy below 5' );
-        }
-
-
-       
-      }
-      catch( Exception $e)
-      { 
-        $this->notifyImporterOfFailure( $e );
-      }
-     
+      $poi->setGeoEncodeLookUpString ( $this->getGeoEncodeData( $poi ) );
+ 
        $this->notifyImporter( $poi );
     }
   }

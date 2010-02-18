@@ -37,7 +37,6 @@ class logImport
 
     const POI = 'poi';
     const EVENT = 'event';
-    const EVENT_OCCURRENCE = 'event_occurrence';
     const MOVIE = 'movie';
 
     /**
@@ -218,7 +217,10 @@ class logImport
       $this->totalUpdates++;
     }
 
-
+    /**
+     *
+     * @param string $type
+     */
     public function setType($type)
     {
         $this->checkType($type);
