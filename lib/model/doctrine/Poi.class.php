@@ -28,8 +28,16 @@ class Poi extends BasePoi
 
       return $q->fetchOne();
   }*/
+  /**
+   *
+   */
+  private $geoEncodeLookUpString;
 
-
+  public function setGeoEncodeLookUpString( $geoEncodeLookUpString )
+  {
+    $this->geoEncodeLookUpString = $geoEncodeLookUpString;
+  }
+  
   public function addProperty( $lookup, $value )
   {
     $poiPropertyObj = new PoiProperty();
@@ -63,6 +71,29 @@ class Poi extends BasePoi
   public function getName()
   {
     return $this[ 'poi_name' ];
+  }
+
+  /**
+   * Attempts to fix and / or format fields, e.g. finds a lat long if none provided
+   */
+  public function preSave( $event )
+  {
+     $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
+
+     //get the longitute and latitude
+     $geoEncoder = new geoEncode();
+    
+     $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
+
+     $this['longitude'] = $geoEncoder->getLongitude();
+     $this['latitude'] = $geoEncoder->getLatitude();
+
+     if( $geoEncoder->getAccuracy() < 5 )
+     {
+       $this['longitude'] = 0;
+       $this['latitude'] = 0;
+       throw new Exception('Geo encode accuracy below 5' );
+     }
   }
 
 }
