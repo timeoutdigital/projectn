@@ -52,7 +52,7 @@ class nyImportBcXmlTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function TestImportBars()
+    public function testImportBars()
     {
 
         $this->object->importBars();

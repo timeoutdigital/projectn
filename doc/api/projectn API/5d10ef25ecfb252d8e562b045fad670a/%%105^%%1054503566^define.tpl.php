@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.0, created on 2010-01-29 11:35:05
+<?php /* Smarty version 2.6.0, created on 2010-02-08 10:55:22
          compiled from define.tpl */ ?>
 <?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'cycle', 'define.tpl', 4, false),)), $this); ?>
