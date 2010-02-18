@@ -80,7 +80,7 @@ class singaporeImport {
       }
       catch( Exception $e )
       {
-        $this->logger->addError( $e );
+        $this->_logger->addError( $e );
       }
 
       $this->insertPoi( $venueDetailObj );
@@ -105,7 +105,7 @@ class singaporeImport {
       }
       catch( Exception $e )
       {
-        $this->logger->addError( $e );
+        $this->_logger->addError( $e );
       }
 
       $this->insertEvent( $eventDetailObj );
@@ -130,56 +130,13 @@ class singaporeImport {
       }
       catch( Exception $e )
       {
-        $this->logger->addError( $e );
+        $this->_logger->addError( $e );
       }
 
       $this->insertMovie( $movieDetailObj );
     }
 
   }
-
-  /*
-   * insertCategoriesPoisEvents
-   */
-  /*public function insertCategoriesPoisEvents()
-  {
-    $eventsObj = $this->_dataXml->xpath( '/rss/channel/item' );
-
-    foreach( $eventsObj as $eventObj )
-    {
-      $eventDetailObj = $this->fetchEventDetails( (string) $eventObj->link );
-
-      $poiId = null;
-      if ( $eventDetailObj->venue->children()->asXml() !== false )
-      {
-        if ( $eventDetailObj->venue->children()->asXml() !== false )
-        {
-          $poiId = $this->_insertPoi( $eventDetailObj->venue );
-        }
-      }
-
-      
-       * @todo look at this issue here
-       * commented out since poi currently is not a must field
-       * possibly replace with none venue venue
-       *
-      if ( $poiId === null )
-      {
-        throw new Exception( 'Poi is missing' );
-      }
-
-      if ( $eventDetailObj->children()->asXml() !== false )
-      {
-        $this->_insertEvent( $eventDetailObj, $poiId );
-      }
-      else
-      {
-        throw new Exception( 'Event details are missing' );
-      }
-    }    
-
-    return true;
-  }*/
 
   /*
    *fetchEventDetails
@@ -224,8 +181,8 @@ class singaporeImport {
 
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->_vendor[ 'id' ], (string) $poiObj->id );
 
-    try
-    {
+//    try
+//    {
       if ( $poi === false ) $poi = new Poi();
 
       $poi[ 'vendor_poi_id' ]              = (string) $poiObj->id;
@@ -290,14 +247,13 @@ class singaporeImport {
       }
 
       $poi->save();
+
       $poiId = $poi[ 'id' ];
       $poi->free();
 
 
 
 
-    //section
-    //category
     //thumb
     //image
     //hot_seat
@@ -322,17 +278,17 @@ class singaporeImport {
 
 
       return $poiId;
-    }
-    catch(Doctrine_Validator_Exception $error)
-    {
-      $log =  'Error processing Poi: \n Vendor = '. $this->vendorObj['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
-      $this->logger->addError($e, $log);
-    }
-    catch( Exception $e )
-    {
-      $log =  'Error processing Poi: \n Vendor = '. $this->vendorObj['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
-      $this->logger->addError($e, $log);
-    }
+//    }
+//    catch(Doctrine_Validator_Exception $e)
+//    {
+//      $log =  'Error processing Poi: \n Vendor = '. $this->_vendor['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
+//      $this->_logger->addError($e, $log);
+//    }
+//    catch( Exception $e )
+//    {
+//      $log =  'Error processing Poi: \n Vendor = '. $this->_vendor['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
+//      $this->_logger->addError($e, $log);
+//    }
 
     return null;
   }
@@ -420,15 +376,15 @@ class singaporeImport {
 
 
     }
-    catch(Doctrine_Validator_Exception $error)
+    catch(Doctrine_Validator_Exception $e)
     {
-      $log =  'Error processing Event: \n Vendor = '. $this->vendorObj['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
-      $this->logger->addError($e, $log);
+      $log =  'Error processing Event: \n Vendor = '. $this->_vendor['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
+      $this->_logger->addError($e, $log);
     }
     catch(Exception $e)
     {
-      $log =  'Error processing Event: \n Vendor = '. $this->vendorObj['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
-      $this->logger->addError($e, $log);
+      $log =  'Error processing Event: \n Vendor = '. $this->_vendor['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
+      $this->_logger->addError($e, $log);
     }
   }
 
@@ -443,7 +399,6 @@ class singaporeImport {
    */
   public function insertMovie( $movieXml )
   {
-
     $movieObj = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->_vendor[ 'id' ], (string) $movieXml->id );
 
     try
@@ -453,15 +408,16 @@ class singaporeImport {
       $movieObj[ 'vendor_id' ] = $this->_vendor[ 'id' ];
       $movieObj[ 'vendor_movie_id' ] = (string) $movieXml->id;
       $movieObj[ 'name' ] = (string) $movieXml->title;
-      $movieObj[ 'plot' ] = (string) $movieXml->synopsis;
-      //$movieObj[ 'review' ] = ;
+      //$movieObj[ 'plot' ] = (string) $movieXml->synopsis;
+      $movieObj[ 'review' ] = (string) $movieXml->synopsis;
       $movieObj[ 'url' ] = (string) $movieXml->link;
       //$movieObj[ 'rating' ] = ;
 
       // @todo add localised age_rating function
-      $movieObj[ 'age_rating' ] = (string) $movieXml->certificate;
+      $movieObj[ 'age_rating' ] = $this->extractSingaporeAgeRatingCode( (string) $movieXml->certificate );
 
-      $movieObj[ 'utf_offset' ] = '0';
+
+      $movieObj[ 'utf_offset' ] = $this->_vendor->getUtcOffset();
       //$movieObj[ 'poi_id' ] = ;
 
       //properties
@@ -498,15 +454,15 @@ class singaporeImport {
 
       return $movieId;
     }
-    catch(Doctrine_Validator_Exception $error)
+    catch(Doctrine_Validator_Exception $e)
     {
-      $log =  'Error processing Movie: \n Vendor = '. $this->vendorObj['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
-      $this->logger->addError($e, $log);
+      $log =  'Error processing Movie: \n Vendor = '. $this->_vendor['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
+      $this->_logger->addError($e, $log);
     }
     catch( Exception $e )
     {
-      $log =  'Error processing Movie: \n Vendor = '. $this->vendorObj['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
-      $this->logger->addError($e, $log);
+      $log =  'Error processing Movie: \n Vendor = '. $this->_vendor['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
+      $this->_logger->addError($e, $log);
     }
 
     return null;
@@ -565,7 +521,7 @@ class singaporeImport {
       $eventOccurrence = new EventOccurrence();
       $eventOccurrence->generateVendorEventOccurrenceId( $eventId, $poiId, $date[ 'start' ] );
       //$eventOccurrence[ 'booking_url' ] ='';
-      $eventOccurrence[ 'utc_offset' ] = '0';
+      $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( $date[ 'start' ] );
 
       //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
       $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
@@ -584,5 +540,27 @@ class singaporeImport {
 
     return $eventOccurrencesArray;
   }
+
+
+  /**
+   * extracts the age rating codes for Singapore out of an
+   * arbitrary string
+   *
+   * @param string $ageratingString
+   * @return string
+   */
+  public function extractSingaporeAgeRatingCode( $ageratingString )
+  {
+    $ageratingArray = explode( '-',  $ageratingString );
+    $ageratingCodeString = trim( $ageratingArray[ 0 ] );
+
+    if ( in_array( $ageratingCodeString, array( 'G', 'PG', 'NC16', 'M18', 'R18', 'R21' ) ) )
+    {
+      return $ageratingCodeString;
+    }
+
+    return '';
+  }
+
 }
 ?>
