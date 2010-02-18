@@ -113,7 +113,7 @@ class Importer
   public function onRecordMappingException( Exception $exception )
   {
     /** @todo add logger */
-     echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
+     //echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
   }
 
   /**
