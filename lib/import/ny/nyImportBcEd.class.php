@@ -224,18 +224,20 @@ class nyImportBcEd {
 
             }
 
+
+           //Add category
+           if((string) $poi->{'Category'})
+           {
+               $poiObj->addVendorCategory((string) $poi->{'Category'}, $this->vendorObj['id']);
+           }
+
+
+           //Add the cuisine property
+           $poiObj->addProperty('cuisine',  (string) $poi->{'PrimaryCuisine'});
+
+
            //Save the object
            $poiObj->save();
-
-
-
-           //Add the properties
-           $poiPropertyObj = new PoiProperty();
-           $poiPropertyObj['lookup'] = "cuisine";
-           $poiPropertyObj['value'] =  (string) $poi->{'PrimaryCuisine'};
-           $poiPropertyObj['Poi'] = $poiObj;
-
-           $poiPropertyObj->save();
 
         }
 
