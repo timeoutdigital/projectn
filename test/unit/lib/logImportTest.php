@@ -72,10 +72,8 @@ class logImportTest extends PHPUnit_Framework_TestCase
     public function testCountUpdate()
     {
        //The item is modified therefore log as an update
-        $log = "Description: this is changed text \n";
-        $log.= "Name: this is a changed name \n";
-
-        $this->object->addChange('update', $log);
+       $modifiedFieldsArray = array( 'openingtimes' => '8am4am', 'district' => 'ChinatownLittle Italy' );
+       $this->object->addChange('update', $modifiedFieldsArray);
 
        $this->assertEquals('1', $this->object->totalUpdates, 'Increment the total updates by one');
     }
@@ -120,11 +118,8 @@ class logImportTest extends PHPUnit_Framework_TestCase
         }
 
         //The item is modified therefore log as an update
-        $log = "Description: this is changed text \n";
-        $log.= "Name: this is a changed name \n";
-
-        $this->object->addChange('update', $log);
-
+        $modifiedFieldsArray = array( 'openingtimes' => '8am4am', 'district' => 'ChinatownLittle Italy' );
+        $this->object->addChange('update', $modifiedFieldsArray);
 
         //save to DB
         $this->object->save();
@@ -172,12 +167,10 @@ class logImportTest extends PHPUnit_Framework_TestCase
     public function testAddChange()
     {
         //The item is modified therefore log as an update
-         $log = "Description: this is changed text \n";
-         $log.= "Name: this is a changed name \n";
+        $modifiedFieldsArray = array( 'openingtimes' => '8am4am', 'district' => 'ChinatownLittle Italy' );
+        $this->object->addChange('update', $modifiedFieldsArray);
 
-         $this->object->addChange('update', $log);
-
-         $this->assertEquals(1, count($this->object->changesCollection->toArray()), 'Testing the error collection');
+        $this->assertEquals(1, count($this->object->changesCollection->toArray()), 'Testing the error collection');
     }
 
     /**

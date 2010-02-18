@@ -103,7 +103,6 @@ class nyImportBcEd {
 
         //Get the POI object
         $poiObj = $this->getPoi($poi);
-        $isNew = true;
   
 
         try {
@@ -207,35 +206,20 @@ class nyImportBcEd {
                 $this->logger->addError($e, $log);
             }
 
+            //Add the propertie
+            $poiObj->addProperty( 'cuisine', (string) $poi->{'PrimaryCuisine'} );
 
-             //Check the modified fields for an existing fiel
-            if($poiObj->isModified(true) && !$poiObj->isNew())
-            {
-                $log = "Updated Fields: \n";
-                
-                //The item is modified therefore log as an update
-                foreach($poiObj->getModified() as $k => $v)
-                {
-                    $log.= "$k: $v \n";
-                }
+            //Save the object and log the changes
+            //pre-save
+            $logIsNew = $poiObj->isNew();
+            $logChangedFields = $poiObj->getModified();
+            //save
+            $poiObj->save();
+            //post-save
+            ( $logIsNew ) ? $this->logger->countNewInsert() : $this->logger->addChange( 'update', $logChangedFields );
 
-                $this->logger->addChange('update', $log);
-                $isNew = false;
-
-            }
-
-           //Save the object
-           $poiObj->save();
-
-
-
-           //Add the properties
-           $poiPropertyObj = new PoiProperty();
-           $poiPropertyObj['lookup'] = "cuisine";
-           $poiPropertyObj['value'] =  (string) $poi->{'PrimaryCuisine'};
-           $poiPropertyObj['Poi'] = $poiObj;
-
-           $poiPropertyObj->save();
+            //Return Poi for testing
+            return $poiObj;
 
         }
 
@@ -254,17 +238,6 @@ class nyImportBcEd {
 
            return $poiObj;
         }
-
-
-        //Update the logger
-        if($isNew)
-        {
-            $this->logger->countNewInsert();
-        }
-
-
-        //Return Poi for testing
-        return $poiObj;
     }
 }
 ?>

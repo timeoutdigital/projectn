@@ -189,7 +189,7 @@ class logImport
         //Increment the error count
         $this->totalErrors++;
 
-    }
+    }    
 
     /**
      * Log a change
@@ -197,18 +197,27 @@ class logImport
      * @param string $type
      * @param string $log Log of all updates
      */
-    public function addChange($type, $log)
+    public function addChange( $type, $modifiedFieldsArray )
     {
-        $changeObj = new ImportLoggerChange();
-        $changeObj['log'] = $log;
-        $changeObj['type'] = $type;
 
-        $this->changesCollection[] = $changeObj;
+      $log = "Updated Fields: \n";
 
-         //count the change
-         $this->totalUpdates++;
+      //The item is modified therefore log as an update
+      foreach( $modifiedFieldsArray as $k => $v )
+      {
+          $log .= "$k: $v \n";
+      }
 
+      $changeObj = new ImportLoggerChange();
+      $changeObj['log'] = $log;
+      $changeObj['type'] = $type;
+
+      $this->changesCollection[] = $changeObj;
+
+      //count the change
+      $this->totalUpdates++;
     }
+
 
     public function setType($type)
     {
