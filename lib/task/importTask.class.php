@@ -447,9 +447,9 @@ class importTask extends sfBaseTask
              //Set the logger type
             $loggerObj->setType('poi');
 
-            //$fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
-           // $processXmlObj = new processNyBcXml( $fileNameString );
-            $processXmlObj = new processNyBcXml( '/var/workspace/projectn/import/chicago/toc_ed.xml' );
+            $fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
+            $processXmlObj = new processNyBcXml( $fileNameString );
+            //$processXmlObj = new processNyBcXml( '/var/workspace/projectn/import/chicago/toc_ed.xml' );
 
             $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
             $importObj->import();
