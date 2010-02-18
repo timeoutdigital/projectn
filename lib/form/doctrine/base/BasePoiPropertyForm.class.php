@@ -17,7 +17,7 @@ abstract class BasePoiPropertyForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'lookup'     => new sfWidgetFormInputText(),
-      'value'      => new sfWidgetFormInputText(),
+      'value'      => new sfWidgetFormTextarea(),
       'poi_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
@@ -25,8 +25,8 @@ abstract class BasePoiPropertyForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'lookup'     => new sfValidatorString(array('max_length' => 100)),
-      'value'      => new sfValidatorString(array('max_length' => 100)),
+      'lookup'     => new sfValidatorString(array('max_length' => 50)),
+      'value'      => new sfValidatorString(array('max_length' => 1024)),
       'poi_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),

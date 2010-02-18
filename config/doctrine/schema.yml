@@ -14,7 +14,7 @@ Poi:
     review_date:                {type: datetime, notnull: false}
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false, minlength: 1 } # @todo should be 'name'
-    house_no:                   {type: string(16), notnull: false}
+    house_no:                   {type: string(32), notnull: false}
     street:                     {type: string(128), notnull: true}
     city:                       {type: string(32), notnull: true}
     district:                   {type: string(128), notnull: false}
@@ -44,18 +44,6 @@ Poi:
     PoiCategories:              {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
     VendorPoiCategories:        {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
 
-
-
-#Store a log of changes
-PoiChangesLog:
-  connection: project_n
-  actAs:
-    Timestampable:                ~
-  columns:
-    log:                        {type: string(500), notnull: true}
-    poi_id:                     {type: integer, notnull: true}
-  relations:
-     Poi:                       {local: poi_id, foreign: id}
 
 
 #Any media that is associated to the poi
@@ -100,7 +88,7 @@ LinkingVendorPoiCategory:
 VendorPoiCategory:
   connection: project_n
   columns:
-    name:                     {type: string(256), notnull: true}
+    name:                     {type: string(255), notnull: true}
     vendor_id:                {type: integer, notnull: true}
   relations:
     Vendor:                   {local: vendor_id, foreign: id}
@@ -134,8 +122,8 @@ PoiProperty:
   actAs:
     Timestampable: ~
   columns:
-    lookup:                     {type: string(100), notnull: true}
-    value:                      {type: string(100), notnull: true}
+    lookup:                     {type: string(50), notnull: true}
+    value:                      {type: string(1024), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
@@ -147,7 +135,7 @@ Event:
     Timestampable: ~
   columns:
     vendor_event_id:            {type: string(10), notnull: true}
-    name:                       {type: string(256), notnull: true}
+    name:                       {type: string(255), notnull: true}
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
@@ -179,7 +167,7 @@ EventOccurrence:
 VendorEventCategory:
   connection: project_n
   columns:
-    name:                       {type: string(256), notnull: true}
+    name:                       {type: string(255), notnull: true}
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
@@ -239,7 +227,7 @@ EventProperty:
     Timestampable: ~
   columns:
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(50), notnull: true}
+    value:                      {type: string(1024), notnull: true}
     event_id:                   {type: integer, notnull: true}
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
@@ -253,7 +241,7 @@ Movie:
     id:                         {type: integer, notnull: true,  autoincrement: true, primary: true }
     vendor_id:                  {type: integer, notnull: true}
     vendor_movie_id:            {type: string(25), notnull: true}
-    name:                       {type: string(256), notnull: true}
+    name:                       {type: string(255), notnull: true}
     plot:                       {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
     url:                        {type: string(1024), notnull: false}
@@ -281,7 +269,7 @@ MovieGenre:
   actAs:
     Timestampable:              ~
   columns:
-    genre:                      {type: string(256), notnull: true}
+    genre:                      {type: string(255), notnull: true}
   relations:
     Movies:                      {class: Movie, refClass: LinkingMovieGenre, local: movie_genre_id, foreign: movie_id}
    
@@ -306,7 +294,7 @@ MovieProperty:
   columns:
     id:                         {type: integer, autoincrement: true, primary: true}
     lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(50), notnull: true}
+    value:                      {type: string(1024), notnull: true}
     movie_id:                   {type: integer, notnull: true}
   relations:
     Movie:                      {local: movie_id, foreign: id, foreignType: many}
@@ -350,17 +338,51 @@ Vendor:
   columns:
     city:                       {type: string(15), notnull: true}
     language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)
-    inernational_dial_code:    {type: string(3)}
+    time_zone:                  {type: string(50), notnull: true}
+    inernational_dial_code:     {type: string(3)}
+
 
 #Import stats
-ImportStats:
+ImportLogger:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
     total_inserts:              {type: integer, notnull: true}
     total_updates:              {type: integer, notnull: true}
+    total_errors:               {type: integer, notnull: true}
+    total_existing:             {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
-    type:                       {type: string(5), notnull: true}
+    type:                       {type: enum, values: [movie, poi, event], notnull: true}
+    total_time:                 {type: time, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
+
+
+#Log all changes during an import i.e. updated poi content
+ImportLoggerChange:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    type:                       {type: enum, values: [update, delete], notnull: true}
+    log:                        {type: string, notnull: true}
+    import_logger_id:           {type: integer, notnull: true}
+  relations:
+    ImportLogger:                {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerChanges}
+
+ #Logg All import issues
+ImportLoggerError:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    trace:                      {type: string, notnull: true}
+    log:                        {type: string, notnull: true}
+    type:                       {type: string, notnull: true}
+    message:                    {type: string, notnull: true}
+    import_logger_id:           {type: integer, notnull: true}
+    resolved:                   {type: boolean, notnull: true, default: 0}
+  relations:
+    ImportLogger:                {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerErrors}
+    

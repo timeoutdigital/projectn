@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE movie [
+  <!ELEMENT movie (id,issue,title,director,cast,length,origin,year_production,synopsis,data_add,data_change,category,trailer_url,website,image,thumb,views,link)>
+  <!ELEMENT feature (id,issue,type,local,link,rating,excerpt,review,author,data_add,data_change,title,image,thumb,views)>
+  <!ELEMENT id (CDATA)>
+  <!ELEMENT issue (CDATA)>
+  <!ELEMENT title (CDATA)>
+  <!ELEMENT director (CDATA)>
+  <!ELEMENT cast (CDATA)>
+  <!ELEMENT length (CDATA)>
+  <!ELEMENT origin (CDATA)>
+  <!ELEMENT year_production (CDATA)>
+  <!ELEMENT synopsis (CDATA)>
+  <!ELEMENT data_add (CDATA)>
+  <!ELEMENT data_change (CDATA)>
+  <!ELEMENT category (CDATA)>
+  <!ELEMENT trailer_url (CDATA)>
+  <!ELEMENT website (CDATA)>
+  <!ELEMENT image (CDATA)>
+  <!ELEMENT thumb (CDATA)>
+  <!ELEMENT views (CDATA)>
+  
+  <!ELEMENT type (CDATA)>
+  <!ELEMENT local (CDATA)>
+  <!ELEMENT rating (CDATA)>
+  <!ELEMENT review (CDATA)>
+  <!ELEMENT author (CDATA)>
+  
+]>
+<movie>
+	<id>758</id>
+	<issue>36</issue>
+	<title>Percy Jackson and the Lightning Thief</title>
+	<director>Chris Columbus</director>
+	<cast>Logan Lerman, Uma Thurman, Pierce Brosnan, Catherine Keener</cast>
+	<length>119</length>
+	<origin>USA</origin>
+	<year_production>2009</year_production>
+	<synopsis>Following a disastrous incursion into bubblegum high-school romance territory (&#145;I Love You, Beth Cooper&#146;), Chris Columbus, director of the first two &#145;Harry Potters&#146;, returns to his comfort zone for this episodic and mirthless fantasy saga based on the first of a series of fantasy books by US writer Rick Riordan. 
+
+Mulching together the angsty teen intrigue of &#145;Harry Potter&#146; and the frigid-and-proud flagwaving of &#145;Twilight&#146;, the film sees Zac Efron lookalike Logan Lerman (&#145;Gamer&#146;) playing an underachiever who turns out to be a sword-swinging demigod when he discovers his birth was the result of the god Poseidon (Kevin McKidd) having a quick fling with dowdy New York housewife Catherine Keener. When his mother is kidnapped by Hades (Steve Coogan in full &#145;Saxondale&#146; mode) as a bargaining chip for Zeus&#146;s lost lightning bolt, Percy is charged with finding a number of trinkets dotted across North America in order to avert a crisis on Mount Olympus (located just above the New York cloud cover, who knew?) and save mom from eternal damnation.  
+
+That Percy risks life and limb to preserve the family unit is typical Columbus, and the film works best when playing on the idea that no amount of bravado is enough to mask our desire for parental love. Yet it&#146;s not enough to compensate for the computer-game-style plotting, which is largely based on us picking up narrative nuggets that mechanically slot into place later on. Problematic, too, is the product placement: witness the scene in which Percy battles Medusa (Uma Thurman) and avoids her deathly gaze by craftily using the shiny back of his iPod as a mirror. David Jenkins</synopsis>
+	<critic_choice>N</critic_choice>
+	<certificate>NC16 - No children under the age of 16</certificate>
+	<opens>2010-02-11</opens>
+	<data_add>Fri, 12 Feb 2010 02:53:22 +0000</data_add>
+	<data_change>Fri, 12 Feb 2010 02:53:22 +0000</data_change>
+	<local></local>
+	<category>Thriller</category>
+	<views>5</views>
+	<trailer_url></trailer_url>
+	<website></website>
+	<highres>http://www.timeoutsingapore.com/contentFiles/image/percy-jack.jpg</highres>
+	<thumbnail>http://www.timeoutsingapore.com/contentFiles/image/percy-jack-152x110.jpg</thumbnail>
+	<large_image>http://www.timeoutsingapore.com/contentFiles/image/percy-jack-482x298.jpg</large_image>
+	<link>http://www.timeoutsingapore.com/film/database/thriller/percy-jackson-and-the-lightning-thief</link>
+<tags>
+	<tag></tag>
+	<tag></tag>
+	<tag>Around Town</tag>
+</tags>
+</movie>

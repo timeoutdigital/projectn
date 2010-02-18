@@ -112,27 +112,38 @@ Vendor:
   v1:
     city:                     ny
     language:                 en-US
-    #international_dial_code:  1
+    time_zone:                America/New_York
+    inernational_dial_code:   '+1'
   v2:
     city:                     chicago
     language:                 en-US
-    #international_dial_code:  1
+    time_zone:                America/Chicago
+    inernational_dial_code:   '+1'
   v3:
     city:                     singapore
     language:                 en-US
-    #international_dial_code:  65
+    time_zone:                Asia/Singapore
+    inernational_dial_code:   '+65'
   v4:
     city:                     london
     language:                 en-GB
-    #international_dial_code:  44
+    time_zone:                Europe/London
+    inernational_dial_code:   '+44'
   v5:
     city:                     abu dhabi
     language:                 en-US
-    #international_dial_code:  971
+    time_zone:                Asia/Muscat
+    inernational_dial_code:   '+971'
   v6:
     city:                     dubai
     language:                 en-US
-    #international_dial_code:  971
+    time_zone:                Asia/Dubai
+    inernational_dial_code:   +971
+  v7:
+    city:                     lisbon
+    language:                 pt
+    time_zone:                Europe/Lisbon
+    inernational_dial_code:   +971
 
 
 EventCategory:

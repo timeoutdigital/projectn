@@ -5,7 +5,7 @@ nbproject/
 import/*
 test/unit/import/*
 export/*
-test/unit/export/*
+test/unit/export/*.xml
 .project
 .settings
 .chanels

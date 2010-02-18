@@ -31,15 +31,15 @@ abstract class BasePoiProperty extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('poi_property');
-        $this->hasColumn('lookup', 'string', 100, array(
+        $this->hasColumn('lookup', 'string', 50, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '100',
+             'length' => '50',
              ));
-        $this->hasColumn('value', 'string', 100, array(
+        $this->hasColumn('value', 'string', 1024, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '100',
+             'length' => '1024',
              ));
         $this->hasColumn('poi_id', 'integer', null, array(
              'type' => 'integer',

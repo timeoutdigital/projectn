@@ -18,7 +18,7 @@ class XMLExportPOI extends XMLExport
    */
   public function __construct( $vendor, $destination )
   {
-    parent::__construct(  $vendor, $destination, 'Poi' );
+    parent::__construct(  $vendor, $destination, 'Poi', 'poi.xsd' );
   }
 
   protected function getData()
@@ -92,7 +92,7 @@ class XMLExportPOI extends XMLExport
       $versionElement = $this->appendRequiredElement( $entryElement , 'version');
       $versionElement->setAttribute( 'lang', 'en' );
 
-      $this->appendRequiredElement($versionElement, 'name');
+      $this->appendRequiredElement($versionElement, 'name', $poi['poi_name']);
 
       $this->appendNonRequiredElement($versionElement, 'alternative-name', $poi['poi_name'], XMLExport::USE_CDATA);
       

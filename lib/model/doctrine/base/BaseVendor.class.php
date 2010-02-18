@@ -9,35 +9,38 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * 
  * @property string $city
  * @property string $language
- * @property string $inertnational_dial_code
+ * @property string $time_zone
+ * @property string $inernational_dial_code
  * @property Doctrine_Collection $Poi
  * @property Doctrine_Collection $VendorPoiCategory
  * @property Doctrine_Collection $Event
  * @property Doctrine_Collection $VendorEventCategory
  * @property Doctrine_Collection $Movie
  * @property Doctrine_Collection $User
- * @property Doctrine_Collection $ImportStats
+ * @property Doctrine_Collection $ImportLogger
  * 
- * @method string              getCity()                    Returns the current record's "city" value
- * @method string              getLanguage()                Returns the current record's "language" value
- * @method string              getInertnationalDialCode()   Returns the current record's "inertnational_dial_code" value
- * @method Doctrine_Collection getPoi()                     Returns the current record's "Poi" collection
- * @method Doctrine_Collection getVendorPoiCategory()       Returns the current record's "VendorPoiCategory" collection
- * @method Doctrine_Collection getEvent()                   Returns the current record's "Event" collection
- * @method Doctrine_Collection getVendorEventCategory()     Returns the current record's "VendorEventCategory" collection
- * @method Doctrine_Collection getMovie()                   Returns the current record's "Movie" collection
- * @method Doctrine_Collection getUser()                    Returns the current record's "User" collection
- * @method Doctrine_Collection getImportStats()             Returns the current record's "ImportStats" collection
- * @method Vendor              setCity()                    Sets the current record's "city" value
- * @method Vendor              setLanguage()                Sets the current record's "language" value
- * @method Vendor              setInertnationalDialCode()   Sets the current record's "inertnational_dial_code" value
- * @method Vendor              setPoi()                     Sets the current record's "Poi" collection
- * @method Vendor              setVendorPoiCategory()       Sets the current record's "VendorPoiCategory" collection
- * @method Vendor              setEvent()                   Sets the current record's "Event" collection
- * @method Vendor              setVendorEventCategory()     Sets the current record's "VendorEventCategory" collection
- * @method Vendor              setMovie()                   Sets the current record's "Movie" collection
- * @method Vendor              setUser()                    Sets the current record's "User" collection
- * @method Vendor              setImportStats()             Sets the current record's "ImportStats" collection
+ * @method string              getCity()                   Returns the current record's "city" value
+ * @method string              getLanguage()               Returns the current record's "language" value
+ * @method string              getTimeZone()               Returns the current record's "time_zone" value
+ * @method string              getInernationalDialCode()   Returns the current record's "inernational_dial_code" value
+ * @method Doctrine_Collection getPoi()                    Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getVendorPoiCategory()      Returns the current record's "VendorPoiCategory" collection
+ * @method Doctrine_Collection getEvent()                  Returns the current record's "Event" collection
+ * @method Doctrine_Collection getVendorEventCategory()    Returns the current record's "VendorEventCategory" collection
+ * @method Doctrine_Collection getMovie()                  Returns the current record's "Movie" collection
+ * @method Doctrine_Collection getUser()                   Returns the current record's "User" collection
+ * @method Doctrine_Collection getImportLogger()           Returns the current record's "ImportLogger" collection
+ * @method Vendor              setCity()                   Sets the current record's "city" value
+ * @method Vendor              setLanguage()               Sets the current record's "language" value
+ * @method Vendor              setTimeZone()               Sets the current record's "time_zone" value
+ * @method Vendor              setInernationalDialCode()   Sets the current record's "inernational_dial_code" value
+ * @method Vendor              setPoi()                    Sets the current record's "Poi" collection
+ * @method Vendor              setVendorPoiCategory()      Sets the current record's "VendorPoiCategory" collection
+ * @method Vendor              setEvent()                  Sets the current record's "Event" collection
+ * @method Vendor              setVendorEventCategory()    Sets the current record's "VendorEventCategory" collection
+ * @method Vendor              setMovie()                  Sets the current record's "Movie" collection
+ * @method Vendor              setUser()                   Sets the current record's "User" collection
+ * @method Vendor              setImportLogger()           Sets the current record's "ImportLogger" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -59,7 +62,12 @@ abstract class BaseVendor extends sfDoctrineRecord
              'notnull' => true,
              'length' => '10',
              ));
-        $this->hasColumn('inertnational_dial_code', 'string', 3, array(
+        $this->hasColumn('time_zone', 'string', 50, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '50',
+             ));
+        $this->hasColumn('inernational_dial_code', 'string', 3, array(
              'type' => 'string',
              'length' => '3',
              ));
@@ -96,7 +104,7 @@ abstract class BaseVendor extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'vendor_id'));
 
-        $this->hasMany('ImportStats', array(
+        $this->hasMany('ImportLogger', array(
              'local' => 'id',
              'foreign' => 'vendor_id'));
 

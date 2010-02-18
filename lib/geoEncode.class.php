@@ -10,6 +10,26 @@
  *
  * @version 1.0.0
  *
+ * <b>Example of usage:</b>
+ *
+ * The addressString must contain as much address info as possible
+ *  <code>
+ *
+ *  $geoEncode = new geoEncode();
+ *  $geoEncode->setAddress( $addressString );
+ *
+ *  //Set longitude and latitude
+ *  $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
+ *  $poiObj[ 'latitude' ]  = $geoEncode->getLatitude();
+ * </code>
+ *
+ * If a geocode cannot be found then an Exception is thrown
+ *
+ *
+ * Google Documentation
+ * @link http://code.google.com/apis/maps/documentation/services.html#Geocoding
+ * @link http://code.google.com/apis/maps/documentation/reference.html#GGeoStatusCode.G_GEO_SUCCESS
+ * 
  */
 class geoEncode
 {
@@ -56,6 +76,7 @@ class geoEncode
   {
      $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $this->apiKey;
 
+
      //Setup curl
      $ch = curl_init();
      curl_setopt($ch, CURLOPT_URL, $geoCode);
@@ -68,7 +89,25 @@ class geoEncode
 
      //Create an array containing the data
      $dataArray = explode(',', $data);
-     
+
+     switch($dataArray[0])
+     {
+         case '602': throw new Exception('G_GEO_UNKNOWN_ADDRESS');
+             break;
+
+         case '603': throw new Exception('G_GEO_UNAVAILABLE_ADDRESS');
+             break;
+
+         case '620': throw new Exception('G_GEO_TOO_MANY_QUERIES');
+             break;
+
+     }
+
+     if($dataArray[0] != '200')
+     {
+         throw new Exception('No Geocode available: Code = '.$dataArray[0]);
+     }
+
      //Set invidual co-ords
      $this->setCoOrdinates($dataArray);
 
@@ -83,9 +122,11 @@ class geoEncode
    */
   public function setCoOrdinates($dataArray)
   {
-    $this->longitude = (float) ( isset( $dataArray[3] ) ? $dataArray[3]: 0.0 );
-    $this->latitude  = (float) ( isset( $dataArray[2] ) ? $dataArray[2]: 0.0 );
-    $this->accuracy  = (float) ( isset( $dataArray[1] ) ? $dataArray[1]: 0.0 );
+
+    $this->longitude =  ( isset( $dataArray[3] ) ? (float) $dataArray[3]: null );
+    $this->latitude  =  ( isset( $dataArray[2] ) ? (float) $dataArray[2]: null );
+    $this->accuracy  =  ( isset( $dataArray[1] ) ? (int) $dataArray[1]: 0 );
+
   }
 
   /**

@@ -119,7 +119,7 @@ class FTPClient
 
     if( ! file_exists( $this->vendorImportPath ) )
     {
-      mkdir( $this->vendorImportPath );
+      mkdir( $this->vendorImportPath, 0777, true );
     }
   }  
 

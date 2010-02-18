@@ -81,10 +81,10 @@ abstract class BaseMovie extends sfDoctrineRecord
              'notnull' => true,
              'length' => '25',
              ));
-        $this->hasColumn('name', 'string', 256, array(
+        $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '256',
+             'length' => '255',
              ));
         $this->hasColumn('plot', 'string', 65535, array(
              'type' => 'string',

@@ -32,98 +32,139 @@ class singaporeImport {
   private $_vendor;
 
   /*
+   * @var Vendor
+   */
+  private $_logger;
+
+  /*
    * @var curlImporter
    */
-  private $_curlImporter;
+  protected $_curlImporter;
 
   /**
    * Construct
    *
-   * @param $dataXml SimpleXMLElement
    * @param $vendorObj Vendor
    * @param $curlImporterObj curlImporter
+   * @param $curlImporterObj logImport
    *
    */
-  public function  __construct( $dataXml, $vendorObj, $curlImporterObj )
+  public function  __construct( Vendor $vendorObj, curlImporter $curlImporterObj, logImport $loggerObj )
   {
-    $this->_dataXml = $dataXml;
     $this->_vendor = $vendorObj;
     $this->_curlImporter = $curlImporterObj;
+    $this->_logger = $loggerObj;
 
     if ( ! $this->_vendor instanceof Vendor )
       throw new Exception( 'Invalid Vendor' );
-    if ( ! $this->_dataXml instanceof SimpleXMLElement )
-      throw new Exception( 'Invalid SimpleXmlElement' );
     if ( ! $this->_curlImporter instanceof curlImporter )
       throw new Exception( 'Invalid curlImporter' );
+    if ( ! $this->_logger instanceof logImport )
+      throw new Exception( 'Invalid logger' );
   }
 
-
-  /*
-   * insertCategoriesPoisEvents
+  /**
+   *
+   * @param SimpleXMLElement $xmlObj
    */
-  public function insertCategoriesPoisEvents()
+  public function insertPois( SimpleXMLElement $xmlObj )
   {
-    $eventsObj = $this->_dataXml->xpath( '/rss/channel/item' );
-
-    foreach( $eventsObj as $eventObj )
+    
+    $poisXmlObj = $xmlObj->xpath( '/rss/channel/item' );
+    
+    foreach( $poisXmlObj as $poiXmlObj )
     {
-      $eventDetailObj = $this->fetchEventDetails( (string) $eventObj->link );
-
-      $poiId = null;
-      if ( $eventDetailObj->venue->children()->asXml() !== false )
+      try
       {
-        if ( $eventDetailObj->venue->children()->asXml() !== false )
-        {
-          $poiId = $this->_insertPoi( $eventDetailObj->venue );
-        }
+        $venueDetailObj = $this->fetchDetailUrl( $poiXmlObj->link );
+      }
+      catch( Exception $e )
+      {
+        $this->_logger->addError( $e );
       }
 
-      /*
-       * @todo look at this issue here
-       * commented out since poi currently is not a must field
-       * possibly replace with none venue venue
-       *
-      if ( $poiId === null )
-      {
-        throw new Exception( 'Poi is missing' );
-      }*/
+      $this->insertPoi( $venueDetailObj );
+    }
 
-      if ( $eventDetailObj->children()->asXml() !== false )
-      {
-        $this->_insertEvent( $eventDetailObj, $poiId );
-      }
-      else
-      {
-        throw new Exception( 'Event details are missing' );
-      }
-    }    
+  }
 
-    return true;
+  /**
+   *
+   * @param SimpleXMLElement $xmlObj
+   */
+  public function insertEvents( SimpleXMLElement $xmlObj )
+  {
+
+    $eventsXmlObj = $xmlObj->xpath( '/rss/channel/item' );
+
+    foreach( $eventsXmlObj as $eventXmlObj )
+    {
+      try
+      {
+        $eventDetailObj = $this->fetchDetailUrl( $eventXmlObj->link  );
+      }
+      catch( Exception $e )
+      {
+        $this->_logger->addError( $e );
+      }
+
+      $this->insertEvent( $eventDetailObj );
+    }
+
+  }
+
+  /**
+   *
+   * @param SimpleXMLElement $xmlObj
+   */
+  public function insertMovies( SimpleXMLElement $xmlObj )
+  {
+
+    $moviesXmlObj = $xmlObj->xpath( '/rss/channel/item' );
+
+    foreach( $moviesXmlObj as $movieXmlObj )
+    {
+      try
+      {
+        $movieDetailObj = $this->fetchDetailUrl( $movieXmlObj->link  );
+      }
+      catch( Exception $e )
+      {
+        $this->_logger->addError( $e );
+      }
+
+      $this->insertMovie( $movieDetailObj );
+    }
+
   }
 
   /*
    *fetchEventDetails
    *
+   * valid url format:
+   * http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=8514&key=ffab6a24c60f562ecf705130a36c1d1e
+   * http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue=2154&key=ffab6a24c60f562ecf705130a36c1d1e
+   * http://www.timeoutsingapore.com/xmlapi/xml_detail/?movie=758&key=ffab6a24c60f562ecf705130a36c1d1e
+   *
    * @param string $url
    *
    */
-  public function fetchEventDetails( $url )
+  public function fetchDetailUrl( $url )
   {
     $urlPartsArray = array();
-    
-    preg_match ( '/^(http:\/\/.*)\?event=(.*)&(?:amp;)?key=(.*)$/', $url, $urlPartsArray );
 
-    if ( count( $urlPartsArray ) == 4 )
+    preg_match ( '/^(http:\/\/.*)\?(event|venue|movie)=(.*)&(?:amp;)?key=(.*)$/', $url, $urlPartsArray );
+
+    if ( count( $urlPartsArray ) == 5 )
     {
-      $parametersArray = array( 'event' => $urlPartsArray[ 2 ], 'key' => $urlPartsArray[ 3 ] );
+      $parametersArray = array( $urlPartsArray[ 2 ] => $urlPartsArray[ 3 ], 'key' => $urlPartsArray[ 4 ] );
       $this->_curlImporter->pullXml ( $urlPartsArray[ 1 ], '', $parametersArray );
 
       return $this->_curlImporter->getXml();
     }
     else
     {
-      throw new Exception( "invalid event detail url" );
+      throw new Exception( "invalid detail url" );
     }
   }
 
@@ -135,19 +176,14 @@ class singaporeImport {
    * @return int $poiId
    *
    */
-  private function _insertPoi( $poiObj )
+  public function insertPoi( $poiObj )
   {
-    
-    $q = Doctrine_Query::create()
-                       ->select( '*' )
-                       ->from( 'Poi' )
-                       ->where( 'vendor_id = ?', $this->_vendor[ 'id' ] )
-                       ->andWhere( 'vendor_poi_id = ?',  (string) $poiObj->id )
-                       ->execute();
 
-    try
-    {
-      ( count( $q ) == 0 ) ? $poi = new Poi() : $poi = $q[ 0 ];
+    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->_vendor[ 'id' ], (string) $poiObj->id );
+
+//    try
+//    {
+      if ( $poi === false ) $poi = new Poi();
 
       $poi[ 'vendor_poi_id' ]              = (string) $poiObj->id;
       $poi[ 'review_date' ]                = (string) $poiObj->data_change;
@@ -169,7 +205,7 @@ class singaporeImport {
 
       $addressArray = $poiObj->xpath( 'addresses[1]/address_slot' );
 
-      if ( $addressArray !== false )
+      if ( 0 < count( $addressArray ) )
       {
         $poi[ 'longitude' ]                  = (string) $addressArray[0]->mm_lon;
         $poi[ 'latitude' ]                   = (string) $addressArray[0]->mm_lat;
@@ -193,12 +229,31 @@ class singaporeImport {
       $poi->addProperty( 'critic_choice', (string) $poiObj->critic_choice );
       $poi->addProperty( 'standfirst', (string) $poiObj->standfirst );
 
+      if ( count( $poiObj->tags ) == 1 )
+      {
+        foreach( $poiObj->tags->children() as $tag)
+        {
+          $poi->addProperty( 'tag', (string) $tag );
+        }
+      }
+
+      //add vendor categories
+      $categoriesArray = array();
+      if ( (string) $poiObj->section != '' ) $categoriesArray[] = (string) $poiObj->section;
+      if ( (string) $poiObj->category != '' ) $categoriesArray[] = (string) $poiObj->category;
+      if ( 0 < count( $categoriesArray ) )
+      {
+        $poi->addVendorCategory( $categoriesArray,  $this->_vendor[ 'id' ]);
+      }
+
       $poi->save();
+
       $poiId = $poi[ 'id' ];
       $poi->free();
 
-    //section
-    //category
+
+
+
     //thumb
     //image
     //hot_seat
@@ -208,6 +263,7 @@ class singaporeImport {
     //highres
     //thumbnail
     //large_image
+    //standfirst
     //gallery
     //top_start
     //top_end
@@ -217,20 +273,29 @@ class singaporeImport {
     //top_logo
     //top_excerpt
     //link (to singapore website)
-    //related venues
+    //related venues (and children)
+    //feature and subnodes (incl. rating, etc)
+
 
       return $poiId;
-    }
-    catch(Exception $e)
-    {
-      echo 'failed to insert/update poi: ' . (string) $poiObj->name . ' (id: ' . (string) $poiObj->id . ')' . PHP_EOL;
-    }
+//    }
+//    catch(Doctrine_Validator_Exception $e)
+//    {
+//      $log =  'Error processing Poi: \n Vendor = '. $this->_vendor['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
+//      $this->_logger->addError($e, $log);
+//    }
+//    catch( Exception $e )
+//    {
+//      $log =  'Error processing Poi: \n Vendor = '. $this->_vendor['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
+//      $this->_logger->addError($e, $log);
+//    }
 
     return null;
   }
 
+
   /*
-   * _insertEvent
+   * insertEvent
    *
    * @param SimpleXMLElement $eventObj
    * @param integer $poiId
@@ -238,21 +303,15 @@ class singaporeImport {
    * @return
    *
    */
-  private function _insertEvent( $eventObj, $poiId )
+  public function insertEvent( $eventObj )
   {
-    $q = Doctrine_Query::create()
-                       ->select( '*' )
-                       ->from( 'Event' )
-                       ->where( 'vendor_id = ?', $this->_vendor[ 'id' ] )
-                       ->andWhere( 'vendor_event_id = ?',  (string) $eventObj->id )
-                       ->execute();
 
-    $conn = Doctrine_Manager::connection();
-    //try
-    //{
-      $conn->beginTransaction();
+    $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->_vendor[ 'id' ], (string) $eventObj->id );
 
-      ( count( $q ) == 0 ) ? $event = new Event() : $event = $q[ 0 ];
+    try
+    {
+
+      if ( $event === false ) $event = new Event();
 
       $event[ 'vendor_event_id' ] = (string) $eventObj->id;
       $event[ 'name' ] = (string) $eventObj->name;
@@ -260,27 +319,42 @@ class singaporeImport {
       $event[ 'description' ] = (string)  $eventObj->excerpt;
       //$event[ 'booking_url' ] = '';
       $event[ 'url' ] = (string) $eventObj->website;
-      $event[ 'price' ] = stringTransform::formatPriceRange( (string)  $eventObj->min_price, (string)  $eventObj->max_price );
+      $event[ 'price' ] = stringTransform::formatPriceRange( (string) $eventObj->min_price, (string) $eventObj->max_price );
       //$event[ 'rating' ] = '';
       $event[ 'vendor_id' ] = $this->_vendor[ 'id' ];
 
       $event->addProperty( 'critic_choice', (string)  $eventObj->critic_choice );
       $event->addProperty( 'opentime', (string)  $eventObj->opentime );
 
+      if ( count( $eventObj->tags ) == 1 )
+      {
+        foreach( $eventObj->tags->children() as $tag)
+        {
+          $event->addProperty( 'tag', (string) $tag );
+        }
+      }
+
+      //add vendor categories
+      $categoriesArray = array();
+      if ( (string) $eventObj->section != '' ) $categoriesArray[] = (string) $eventObj->section;
+      if ( (string) $eventObj->category != '' ) $categoriesArray[] = (string) $eventObj->category;
+      if ( 0 < count( $categoriesArray ) )
+      {
+        $event->addVendorCategory( $categoriesArray,  $this->_vendor[ 'id' ]);
+      }
+
       //save to populate the id
       $event->save();
 
-      if ( $poiId !== null && (string) $eventObj->date_start != '' )
+      if ( count( $eventObj->venue->id ) == 1 && (string) $eventObj->date_start != '' )
       {
-        $event[ 'EventProperty' ] = $this->_createEventOccurrences( $poiId, $event[ 'id' ], $eventObj->date_start, $eventObj->date_end, $eventObj->alternative_dates );
+        $event[ 'EventOccurrence' ] = $this->_createEventOccurrences( (string) $eventObj->venue->id, $event[ 'id' ], (string) $eventObj->date_start, (string) $eventObj->date_end, $eventObj->alternative_dates );
         $event->save();
       }
 
       $event->free();
 
     //issue
-    //section
-    //category
     //hot seat
     //views
     //data_add
@@ -294,25 +368,114 @@ class singaporeImport {
     //top_start
     //top_end
     //top_premium
+    //top_platinum
     //has_top
     //top_logo
     //link
+    //feature
 
-    /*}
+
+    }
+    catch(Doctrine_Validator_Exception $e)
+    {
+      $log =  'Error processing Event: \n Vendor = '. $this->_vendor['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
+      $this->_logger->addError($e, $log);
+    }
     catch(Exception $e)
     {
-      $conn->rollback();
-      echo 'failed to insert/update event / occurrence: ' . (string) $eventObj->name . ' (id: ' . (string) $eventObj->id . ')' . PHP_EOL;
-    }*/
+      $log =  'Error processing Event: \n Vendor = '. $this->_vendor['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
+      $this->_logger->addError($e, $log);
+    }
   }
+
+
+  /*
+   * insertMovie
+   *
+   * @param SimpleXMLElement $venueObj
+   *
+   * @return int $poiId
+   *
+   */
+  public function insertMovie( $movieXml )
+  {
+    $movieObj = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->_vendor[ 'id' ], (string) $movieXml->id );
+
+    try
+    {
+      if ( $movieObj === false ) $movieObj = new Movie();
+
+      $movieObj[ 'vendor_id' ] = $this->_vendor[ 'id' ];
+      $movieObj[ 'vendor_movie_id' ] = (string) $movieXml->id;
+      $movieObj[ 'name' ] = (string) $movieXml->title;
+      //$movieObj[ 'plot' ] = (string) $movieXml->synopsis;
+      $movieObj[ 'review' ] = (string) $movieXml->synopsis;
+      $movieObj[ 'url' ] = (string) $movieXml->link;
+      //$movieObj[ 'rating' ] = ;
+
+      // @todo add localised age_rating function
+      $movieObj[ 'age_rating' ] = $this->extractSingaporeAgeRatingCode( (string) $movieXml->certificate );
+
+
+      $movieObj[ 'utf_offset' ] = $this->_vendor->getUtcOffset();
+      //$movieObj[ 'poi_id' ] = ;
+
+      //properties
+      if ( (string) $movieXml->director != '' ) $movieObj->addProperty( 'director', (string) $movieXml->director );
+      if ( (string) $movieXml->cast != '' ) $movieObj->addProperty( 'cast', (string) $movieXml->cast );
+      if ( (string) $movieXml->length != '' ) $movieObj->addProperty( 'length', (string) $movieXml->length );
+      if ( (string) $movieXml->origin != '' ) $movieObj->addProperty( 'origin', (string) $movieXml->origin );
+      if ( (string) $movieXml->year_production != '' ) $movieObj->addProperty( 'year_production', (string) $movieXml->year_production );
+      if ( (string) $movieXml->trailer_url != '' ) $movieObj->addProperty( 'trailer_url', (string) $movieXml->trailer_url );
+      if ( (string) $movieXml->website != '' ) $movieObj->addProperty( 'website', (string) $movieXml->website );
+      if ( (string) $movieXml->critic_choice != '' ) $movieObj->addProperty( 'critic_choice', (string) $movieXml->critic_choice );
+      if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'certificate', (string) $movieXml->certificate );
+      if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
+
+      //genres
+      if ( (string) $movieXml->category != '' ) $movieObj->addGenre( (string) $movieXml->category );
+
+      //issue
+      //data_add
+      //data_change
+      //local
+      //image
+      //thumb
+      //highres
+      //thumbnail
+      //large_image
+      //views
+      //feature (and all its children)
+      //tags (and its children)
+
+      $movieObj->save();
+      $movieId = $movieObj[ 'id' ];
+      $movieObj->free();
+
+      return $movieId;
+    }
+    catch(Doctrine_Validator_Exception $e)
+    {
+      $log =  'Error processing Movie: \n Vendor = '. $this->_vendor['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
+      $this->_logger->addError($e, $log);
+    }
+    catch( Exception $e )
+    {
+      $log =  'Error processing Movie: \n Vendor = '. $this->_vendor['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
+      $this->_logger->addError($e, $log);
+    }
+
+    return null;
+  }
+
 
   /*
    * creates and saves the event occurences
    *
    * @param integer $poiId
    * @param integer $eventId
-   * @param SimpleXmlElement $dataStart (the node containing the start date)
-   * @param SimpleXmlElement $dataEnd (the node containing the end date)
+   * @param string $dataStart (the node containing the start date)
+   * @param string $dataEnd (the node containing the end date)
    * @param SimpleXmlElement  $alternativeDates (the node containing alternative dates)
    *
    * @todo finish implementation of the alernative dates as soon as we have an example node
@@ -324,15 +487,15 @@ class singaporeImport {
 
     $datesArray = array();
     
-    if ( (string) $dateStart != '' )
+    if ( $dateStart != '' )
     {
-      if ( (string) $dateEnd != '' )
+      if ( $dateEnd != '' )
       {
-        $datesArray[] = array( 'start' => (string) $dateStart, 'end' => (string) $dateEnd );
+        $datesArray[] = array( 'start' => $dateStart, 'end' => $dateEnd );
       }
       else
       {
-        $datesArray[] = array( 'start' => (string) $dateStart );
+        $datesArray[] = array( 'start' => $dateStart );
       }
     }
 
@@ -356,9 +519,9 @@ class singaporeImport {
     foreach( $datesArray as $date )
     {
       $eventOccurrence = new EventOccurrence();
-      $eventOccurrence->generateVendorEventOccurrenceId( $eventId, $poiId, (string) $date[ 'start' ] );
+      $eventOccurrence->generateVendorEventOccurrenceId( $eventId, $poiId, $date[ 'start' ] );
       //$eventOccurrence[ 'booking_url' ] ='';
-      $eventOccurrence[ 'utc_offset' ] = '0';
+      $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( $date[ 'start' ] );
 
       //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
       $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
@@ -367,8 +530,8 @@ class singaporeImport {
         $eventOccurrence[ 'end' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
       }
 
-      $eventOccurrence->link( 'Poi' , $poiId);
-      $eventOccurrence->link( 'Event' , $eventId);
+      $eventOccurrence[ 'poi_id' ] = $poiId;
+      $eventOccurrence[ 'event_id' ] = $eventId;
 
       $eventOccurrence->save();
       $eventOccurrencesArray[] = $eventOccurrence;
@@ -377,5 +540,27 @@ class singaporeImport {
 
     return $eventOccurrencesArray;
   }
+
+
+  /**
+   * extracts the age rating codes for Singapore out of an
+   * arbitrary string
+   *
+   * @param string $ageratingString
+   * @return string
+   */
+  public function extractSingaporeAgeRatingCode( $ageratingString )
+  {
+    $ageratingArray = explode( '-',  $ageratingString );
+    $ageratingCodeString = trim( $ageratingArray[ 0 ] );
+
+    if ( in_array( $ageratingCodeString, array( 'G', 'PG', 'NC16', 'M18', 'R18', 'R21' ) ) )
+    {
+      return $ageratingCodeString;
+    }
+
+    return '';
+  }
+
 }
 ?>

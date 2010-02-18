@@ -25,10 +25,10 @@ abstract class BaseMovieGenre extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('movie_genre');
-        $this->hasColumn('genre', 'string', 256, array(
+        $this->hasColumn('genre', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '256',
+             'length' => '255',
              ));
 
         $this->option('type', 'INNODB');

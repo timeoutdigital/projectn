@@ -15,7 +15,7 @@ class XMLExportMovie extends XMLExport
 {
   public function __construct( $vendor, $destination )
   {
-    parent::__construct($vendor, $destination, 'Movie' );
+    parent::__construct($vendor, $destination, 'Movie',  'movies.xsd' );
   }
 
   /**
