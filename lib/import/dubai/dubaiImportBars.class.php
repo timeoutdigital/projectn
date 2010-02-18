@@ -31,7 +31,7 @@ class dubaiImportBars{
         $this->vendorsObj = $vendorObj;
         $this->currentPois = Doctrine::getTable('Poi')->getPoiByVendor($vendorObj['city']);
         $poiType = $poiType;
-        $this->poiLoggerObj = new logger($vendorObj, 'poi');
+       // $this->poiLoggerObj = new logger($vendorObj, 'poi');
        
     }
 
