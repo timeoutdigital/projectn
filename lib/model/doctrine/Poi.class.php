@@ -80,6 +80,11 @@ class Poi extends BasePoi
   {
      $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
 
+     if( $this['url'] != '')
+     {
+        $this['url'] = stringTransform::formatUrl($this['url']);
+     }
+     
      //get the longitute and latitude
      $geoEncoder = new geoEncode();
      
