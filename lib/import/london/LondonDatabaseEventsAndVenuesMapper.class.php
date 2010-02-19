@@ -3,50 +3,43 @@
  * Description
  *
  * @package projectn
- * @subpackage london.import.lib
+ * @subpackage
  *
- * @author Rhodri Davies <rhodridavies@timout.com>
+ * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1
  *
  */
-class LondonImporter
+class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 {
 
-	/**
-	 * @var Vendor
-	 */
-	private $_vendor;
+  public function __construct( )
+  {
+    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'london', 'en-GB' );
+
+    if( !$vendor )
+    {
+      throw new Exception( 'Vendor not found.' );
+    }
+    $this->vendor = $vendor;
+       
+  }
 
   /**
-   * @var PoiCategory
+   * 
    */
-  private $defaultPoiCategory;
-
-	public function __construct( )
-	{
-		$this->_vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'en-GB' );
-
-		if (! $this->_vendor instanceof Vendor)
-		{
-			throw new Exception( 'Cannot load Vendor' );
-		}
-    
-    
-    
-    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
-	}
-
-	public function run( )
-	{
-		$this->processCategories( );
+  public function mapAll()
+  {
+    $this->processCategories( );
 		$this->processEvents( );
-	}
+  }
 
+    
 
 	/**
 	 * @todo only import categories that have occurrences
+
 	 */
 	private function processCategories( )
 	{
@@ -61,7 +54,7 @@ class LondonImporter
         	$category[ 'Vendor' ] = $this->_vendor;
         	$category[ 'name' ]   = $item[ 'name' ];
 
-        	$category->save( );
+          $this->notifyImporter( $category );
         	$category->free( );
         }
 
@@ -126,7 +119,8 @@ class LondonImporter
 				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
 				$poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
 
-				$poi->save( );
+				//$poi->save( );
+        $this->notifyImporter( $poi );
 
 
 				// insert/update event
@@ -144,7 +138,8 @@ class LondonImporter
 				$event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
 				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
 
-				$event->save( );
+				//$event->save( );
+        $this->notifyImporter( $event );
 
 
 
@@ -166,7 +161,8 @@ class LondonImporter
 				$timeOffset = $zone->getOffset( new DateTime( $item[ 'date_start' ], $zone ) );
 				$occurrence[ 'utc_offset' ] = $timeOffset / 3600;
 
-				$occurrence->save( );
+				//occurrence->save( );
+        $this->notifyImporter( $occurrence );
 
 
 
@@ -187,3 +183,5 @@ class LondonImporter
 	}
 
 }
+ 
+ 
