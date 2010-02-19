@@ -40,13 +40,19 @@
           </div>
                                                                     <h2>Classes:</h2>
                 <ul>
-	<li>lib-unit	    <ul>		<li><a href="../../test/lib-unit/bootstrapTest.html">bootstrapTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/lib-unit/loggerTest.html">loggerTest</a></li>    </ul></li>	  </ul>
+	<li>lib-unit	    <ul>		<li><a href="../../test/lib-unit/bootstrapTest.html">bootstrapTest</a></li>    </ul></li>	  </ul>
   <ul>
 	<li>import-lib-unit	    <ul>		<li><a href="../../test/import-lib-unit/dubaiImportBarsTest.html">dubaiImportBarsTest</a></li>    </ul></li>	  </ul>
   <ul>
+	<li>ny-import-lib	    <ul>		<li><a href="../../test/ny-import-lib/importNyTest.html">importNyTest</a></li>    </ul></li>	  </ul>
+  <ul>
 	<li>lisbon-import-lib	    <ul>		<li><a href="../../test/lisbon-import-lib/LisbonFeedVenuesMapperTest.html">LisbonFeedVenuesMapperTest</a></li>    </ul></li>	  </ul>
   <ul>
-	<li>singapore-import-lib	    <ul>		<li><a href="../../test/singapore-import-lib/singaporeImportTest.html">singaporeImportTest</a></li>    </ul></li>	  </ul>
+	<li>ny-import-lib-unit	    <ul>		<li><a href="../../test/ny-import-lib-unit/nyImportBcTest.html">nyImportBcTest</a></li>    </ul></li>	  </ul>
+  <ul>
+	<li>singapore-import-lib	    <ul>		<li><a href="../../test/singapore-import-lib/singaporeImportTest.html">singaporeImportTest</a></li>    </ul></li>	  </ul>
+  <ul>
+	<li>export-lib-unit	    <ul>		<li><a href="../../test/export-lib-unit/XMLExportEventTest.html">XMLExportEventTest</a></li>    </ul></li>	  </ul>
                               </td>
         <td>
           <table style="width:750px;" cellpadding="10" cellspacing="10px">
@@ -100,12 +106,21 @@
   <a name="sec-var-summary"></a>
   <h2>Member Variables</h2>
   <table class="summary">
-                                                              <tr>
+                                                                        <tr>
           <td class="right">
             <em>protected</em>            <em>SimpleXmlElement</em>          </td>
           <td>
             <code>
               $dataXMLObject
+                          </code>
+                                  </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>protected</em>            <em><a href="../../projectn/import-lib/logImport.html">logImport</a></em>          </td>
+          <td>
+            <code>
+              $logger
                           </code>
                                   </td>
         </tr>
@@ -120,19 +135,19 @@
         </tr>
                         <tr>
           <td class="right">
-            <em>protected</em>            <em>Vendor</em>          </td>
+            <em>protected</em>            <em><a href="../../projectn/import-lib/curlImporter.html">curlImporter</a></em>          </td>
           <td>
             <code>
-              $vendor
+              $stubCurlImporter
                           </code>
                                   </td>
         </tr>
                         <tr>
           <td class="right">
-            <em>protected</em>            <em>mixed</em>          </td>
+            <em>protected</em>            <em>Vendor</em>          </td>
           <td>
             <code>
-              $xmlObj
+              $vendor
                           </code>
                                   </td>
         </tr>
@@ -142,7 +157,7 @@
   <a name="sec-method-summary"></a>
   <h2>Method Summary</h2>
   <table class="summary">
-                                                              <tr>
+                                                                                            <tr>
           <td class="right">
             <em>protected</em>                        <em>void</em>          </td>
           <td>
@@ -167,7 +182,7 @@
             <em>public</em>                        <em>void</em>          </td>
           <td>
             <code>
-              <a href="#testFetchPoiAndPoiCategory"><b>testFetchPoiAndPoiCategory</b></a>(
+              <a href="#testExtractSingaporeAgeRatingCode"><b>testExtractSingaporeAgeRatingCode</b></a>(
                )
             </code>
                       </td>
@@ -177,7 +192,37 @@
             <em>public</em>                        <em>void</em>          </td>
           <td>
             <code>
-              <a href="#testInsertCategoriesPoisEvents"><b>testInsertCategoriesPoisEvents</b></a>(
+              <a href="#testFetchDetailUrl"><b>testFetchDetailUrl</b></a>(
+               )
+            </code>
+                      </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#testInsertEventsAndInsertEvent"><b>testInsertEventsAndInsertEvent</b></a>(
+               )
+            </code>
+                      </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#testInsertMoviesAndInsertMovie"><b>testInsertMoviesAndInsertMovie</b></a>(
+               )
+            </code>
+                      </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#testInsertPoisAndInsertPoi"><b>testInsertPoisAndInsertPoi</b></a>(
                )
             </code>
                       </td>
@@ -188,7 +233,7 @@
   <a name="sec-methods"></a>
   <h2>Methods</h2>
   <a name='method_detail'></a>
-        
+              
       <a name="methodsetUp" id="setUp"><!-- --></a>
 
     <h3>setUp</h3>
@@ -223,13 +268,13 @@
     
     
     
-        <a name="methodtestFetchPoiAndPoiCategory" id="testFetchPoiAndPoiCategory"><!-- --></a>
+        <a name="methodtestExtractSingaporeAgeRatingCode" id="testExtractSingaporeAgeRatingCode"><!-- --></a>
 
-    <h3>testFetchPoiAndPoiCategory</h3>
+    <h3>testExtractSingaporeAgeRatingCode</h3>
 
     <div class="method-signature">
       void
-      testFetchPoiAndPoiCategory(
+      testExtractSingaporeAgeRatingCode(
       )
     </div>
 
@@ -240,13 +285,64 @@
     
     
     
-        <a name="methodtestInsertCategoriesPoisEvents" id="testInsertCategoriesPoisEvents"><!-- --></a>
+        <a name="methodtestFetchDetailUrl" id="testFetchDetailUrl"><!-- --></a>
 
-    <h3>testInsertCategoriesPoisEvents</h3>
+    <h3>testFetchDetailUrl</h3>
 
     <div class="method-signature">
       void
-      testInsertCategoriesPoisEvents(
+      testFetchDetailUrl(
+      )
+    </div>
+
+    
+    
+        
+
+    
+    
+    
+        <a name="methodtestInsertEventsAndInsertEvent" id="testInsertEventsAndInsertEvent"><!-- --></a>
+
+    <h3>testInsertEventsAndInsertEvent</h3>
+
+    <div class="method-signature">
+      void
+      testInsertEventsAndInsertEvent(
+      )
+    </div>
+
+    
+    
+        
+
+    
+    
+    
+        <a name="methodtestInsertMoviesAndInsertMovie" id="testInsertMoviesAndInsertMovie"><!-- --></a>
+
+    <h3>testInsertMoviesAndInsertMovie</h3>
+
+    <div class="method-signature">
+      void
+      testInsertMoviesAndInsertMovie(
+      )
+    </div>
+
+    
+    
+        
+
+    
+    
+    
+        <a name="methodtestInsertPoisAndInsertPoi" id="testInsertPoisAndInsertPoi"><!-- --></a>
+
+    <h3>testInsertPoisAndInsertPoi</h3>
+
+    <div class="method-signature">
+      void
+      testInsertPoisAndInsertPoi(
       )
     </div>
 
@@ -264,7 +360,7 @@
 </p>
 
                 <div class="credit">
-                  Documentation generated on Tue, 09 Feb 2010 18:18:01 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Fri, 19 Feb 2010 14:16:41 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>
