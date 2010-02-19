@@ -113,6 +113,7 @@ class stringTransform
       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
 
     }
+
     elseif (strlen($subject) == 11)
     {
 
@@ -132,17 +133,17 @@ class stringTransform
            $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3 $4", $subject);
       }
 
-
-   
-
     }
+
     elseif (strlen($subject) == 12)
     {
       $subject = substr($subject, 2, 12);
       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
 
 
-    } elseif (strlen($subject) == 13)
+    }
+
+    elseif (strlen($subject) == 13)
     {
       $subject = substr($subject, 2, 13);
       $transformedSubject = $subject;
@@ -153,10 +154,27 @@ class stringTransform
 
 
 
-
-  public static function formatUrl()
+  /**
+   * Return a well formed url
+   *
+   * @param string $subject The URL
+   * @return string The formatted URL
+   *
+   * <b>Example</b>
+   * <code>
+   * stringTransform::formatUrl('myurl.com');
+   * </code>
+   */
+  public static function formatUrl($subject)
   {
 
+      if(preg_match('/^http/', $subject)){
+          return $subject;
+      }
+      else
+      {
+          'http://'.$subject;
+      }
   }
 
   /*

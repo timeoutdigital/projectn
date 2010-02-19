@@ -61,7 +61,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @todo Implement testExtractEmailAddressesFromText().
+   * Test to extract and email address from a field
    */
   public function testExtractEmailAddressesFromText() {
     
@@ -75,7 +75,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @todo Implement testExtractUrlsFromText().
+   * Test to extract urls from text
    */
   public function testExtractUrlsFromText() {
 
@@ -147,14 +147,16 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @todo Implement testFormatUrl().
+   * Test that a url has a http at the start
    */
   public function testFormatUrl()
   {
+      $this->assertEquals('http://www.google.com', stringTransform::formatUrl('http://www.google.com'), 'Test that http is in string');
+
   }
 
   /**
-   * testFormatPriceRange
+   * Test price ranges
    */
   public function testFormatPriceRange()
   {
@@ -177,6 +179,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
     $values = array( 'one', '', 'two', ' ', 'three' );
     $this->assertEquals( 'one, two, three', stringTransform::concatNonBlankStrings( ', ', $values ) );
   }
+
   
   /**
    * Test xml fixing

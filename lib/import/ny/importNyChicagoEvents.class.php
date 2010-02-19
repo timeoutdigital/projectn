@@ -1,6 +1,6 @@
 <?php
 /**
- * Class for importing Ny's feeds.
+ * Class for importing NY and Chicago Event feeds.
  *
  * @package projectn
  * @subpackage ny.import.lib
@@ -11,58 +11,50 @@
  *
  *
  */
-
-
-class importNy
+class importNyChicagoEvents
 {
   /**
    * simpleXmlElement object
    *
-   * @var object
+   * @var simpleXmlElement
    */
   private $_events;
   
   /**
    * simpleXmlElement object
    *
-   * @var object
+   * @var simpleXmlElement
    */
   private $_venues;
 
   /**
    * processNyXml object
    *
-   * @var object
+   * @var processNyXml
    */
   private $_xmlFeed;
 
   /**
    * Store a vendor
    *
-   * @var object
+   * @var Vendor
    */
   private $_vendorObj;
   
   /**
    * Store a poi logger
    *
-   * @var object
+   * @var logImport
    */
   private $_poiLoggerObj;
 
   /**
    * Store a event logger
    *
-   * @var object
+   * @var logImport
    */
   private $_eventLoggerObj;
 
-  /**
-   * The database connection used for our transactions
-   *
-   * @var Doctrine_Manager::connection()
-   */
-  private $_conn;
 
   /**
    * Store cageory mapper
@@ -70,14 +62,13 @@ class importNy
    * @var CategoryMap
    */
   private $_categoryMap;
-  
+
+
   /**
    * Constructor
    *
-   * @param object $xmlfeed
-   *
-   * @todo add logging and enable validation (commented out at the moment below)
-   * @todo add logging enable validation (commented out at the moment below)
+   * @param simpleXmlElement Xmlfeed
+   * @param Vendor Vendor object
    * @todo possibly add transactions
    *
    */
@@ -88,6 +79,10 @@ class importNy
     $this->_events = $this->_xmlFeed->getEvents();
     $this->_vendorObj = $vendorObj;
     $this->_categoryMap = new CategoryMap();
+    $this->_poiLoggerObj = new logImport($vendorObj);
+    $this->_eventLoggerObj = new logImport($vendorObj);
+    $this->_poiLoggerObj->setType('poi');
+    $this->_eventLoggerObj->setType('event');
   }
 
 
@@ -110,6 +105,9 @@ class importNy
     {
       $this->insertPoi( $venue ) ;
     }
+
+    //Save the logger
+    $this->_poiLoggerObj->save();
 
     //Loop through each event to add to the category mappings
     foreach($this->_events as $event)
@@ -164,6 +162,34 @@ class importNy
     }
   }  
 
+
+   /**
+     *
+     * Test if the poi already exists
+     *
+     * @param <simpleXml> $poi
+     * @return <boolean> Whether the poi has been found
+     *
+     */
+    public function getPoi(SimpleXMLElement $poi)
+    {
+
+        //Check database for existing Poi by vendor id
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId((string)  $poi['id'], $this->_vendorObj['id']);
+
+        if($currentPoi)
+        {
+            //Count thisi as existing
+            $this->_poiLoggerObj->countExisting();
+            return $currentPoi;
+        }
+        else
+        {
+            return new Poi();
+        }
+    }
+
+
   /**
    * Insert the events pois
    *
@@ -174,8 +200,12 @@ class importNy
    */
   public function insertPoi( SimpleXMLElement $poi )
   {
-      //Set the Poi's required values
-      $poiObj = new Poi();
+
+
+    try{
+      $poiObj = $this->getPoi($poi);
+
+
       $poiObj[ 'vendor_poi_id' ] = (string)  $poi['id'];
       $poiObj[ 'poi_name' ] = (string) $poi->identifier;
       $poiObj[ 'street' ] = (string) $poi->street;
@@ -183,7 +213,7 @@ class importNy
       $poiObj[ 'country' ] = 'USA';
       $poiObj[ 'local_language' ] = substr( $this->_vendorObj[ 'language' ], 0, 2 );
       $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
-      $poiObj[ 'url' ] = (string) $poi->website;
+      $poiObj[ 'url' ] = stringTransform::formatUrl((string) $poi->website);
       $poiObj[ 'vendor_id' ] = $this->_vendorObj->getId();
 
       //Form and set phone number
@@ -203,16 +233,17 @@ class importNy
       $state = (string) $poi->state;
       $suburb = (string) $poi->suburb;
       $district = (string) $poi->district;
+
       $addressString = "$name, $street, $district, $suburb, $town, $country, $state";
       
-      //Get longitude and latitude for venue
+      //gett longitude and latitude for venue
       $geoEncode = new geoEncode();
       $geoEncode->setAddress( $addressString );
 
       //Set longitude and latitude
       $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
       $poiObj[ 'latitude' ] = $geoEncode->getLatitude();
-
+      
       //deal with the "text-system" nodes
       if ( isset( $poi->{'text_system'}->text ) )
       {
@@ -233,15 +264,37 @@ class importNy
         }
       }
 
-      //save to database
-      if( $poiObj->isValid() )
-      {
+
+         //Check before save if Poi is new one
+        $logIsNew = $poiObj->isNew();
+
+        //Get all changed fields
+        $logChangedFields = $poiObj->getModified();
+
+        //save the object
         $poiObj->save();
+
+        ( $logIsNew ) ? $this->_poiLoggerObj->countNewInsert() : $this->_poiLoggerObj->addChange( 'update', $logChangedFields );
+        
       }
-      else
+
+      catch(Doctrine_Validator_Exception $error)
       {
-        Throw new Exception( $poiObj->getErrorStackAsString() );
+          $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
+          $this->_poiLoggerObj->addError($error, $poiObj, $log);
+
+          return $poiObj;
       }
+
+      catch(Exception $e)
+      {
+          $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
+          $this->_poiLoggerObj->addError($e, $poiObj, $log);
+
+          return $poiObj;
+      }
+
+
 
       //Loop throught the prices node
       if ( isset( $poi->prices ) )
@@ -313,15 +366,27 @@ class importNy
         $poiObj['VendorPoiCategories'] = $vendorCategoriesArray;
       }
 
-      //save to database
-      if( $poiObj->isValid() )
-      {
+
+      try{
+        //save to database
         $poiObj->save();
       }
-      else
+      catch(Doctrine_Validator_Exception $error)
       {
-        Throw new Exception( $poiObj->getErrorStackAsString() );
+          $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
+          $this->_poiLoggerObj->addError($error, $poiObj, $log);
+
+          return $poiObj;
       }
+
+      catch(Exception $e)
+      {
+          $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
+          $this->_poiLoggerObj->addError($e, $poiObj, $log);
+
+          return $poiObj;
+      }
+
 
       //Kill the object
       $poiObj->free();    

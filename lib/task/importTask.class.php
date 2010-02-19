@@ -60,7 +60,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'poi-event':
-                $this->importNyEvents($vendoObj, $ftpClientObj);
+                $this->importNyEvents($vendorObj, $ftpClientObj);
             break;
 
           case 'movie':
@@ -103,8 +103,7 @@ class importTask extends sfBaseTask
             }
             catch ( Exception $e )
             {
-              echo 'Exception caught in chicago' . $options[
-'city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
             }
             break;
 
@@ -158,11 +157,11 @@ class importTask extends sfBaseTask
 
 
            case 'all':
-               //import events
+             
                $this->importChicagoEvents($vendorObj, $ftpClientObj);
-
-               //import movies
                $this->importChicagoMovies($vendorObj, $ftpClientObj);
+               $this->importChicagoBc($vendorObj, $ftpClientObj, $loggerObj);
+               $this->importChicagoEd($vendorObj, $ftpClientObj, $loggerObj);
                
            break;
 

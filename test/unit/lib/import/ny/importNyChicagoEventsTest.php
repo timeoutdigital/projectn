@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/nyImport.class.php';
+require_once dirname(__FILE__).'/../../../../../lib/import/ny/importNyChicagoEvents.class.php';
 require_once dirname(__FILE__).'/../../../../../lib/processXml.class.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
@@ -53,7 +53,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
       $this->xmlObj = new processNyXml( dirname(__FILE__).'/../../../data/tony_leo_test_correct.xml' );
       $this->xmlObj->setEvents('/body/event')->setVenues('/body/address');
 
-      $this->object = new importNy( $this->xmlObj, $this->vendorObj );
+      $this->object = new importNyChicagoEvents( $this->xmlObj, $this->vendorObj );
 
     }
     catch( Exception $e )
