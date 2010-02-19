@@ -23,7 +23,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    */
   public function  __construct( LondonAPICrawler $apiCrawler=null, geoEncode $encoder=null  )
   {
-    parent::__construct( $apiCrawler, $geoEncoder );
+    parent::__construct( $apiCrawler, $encoder );
     $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'restaurant' );
   }
 
