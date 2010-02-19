@@ -144,7 +144,7 @@ class logImport
         $importObj['Vendor']        = $this->vendorObj;
         $importObj['total_existing'] = $this->totalExisting;
 
-        //Convert the time to mysql format
+        //Convert he time to mysql format
         $totalTime = $this->timer->addTime();
         $timeStamp = $this->convertTime($totalTime);
   
@@ -173,10 +173,11 @@ class logImport
 
     /**
      *
-     * Log the error
-     *
-     * @param Object $error
-     * @param string $log
+     * Add an error to be logged.
+     * 
+     * @param Exception $error The exception thrown by the error
+     * @param Doctrine_Record $record The record causeing the error
+     * @param string $log Any extra details that can help someone solve this error
      *
      */
     public function addError(Exception $error, Doctrine_Record $record, $log = '')
