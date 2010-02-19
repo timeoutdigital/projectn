@@ -82,17 +82,25 @@ class Poi extends BasePoi
 
      //get the longitute and latitude
      $geoEncoder = new geoEncode();
-    
-     $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
-
-     $this['longitude'] = $geoEncoder->getLongitude();
-     $this['latitude'] = $geoEncoder->getLatitude();
-
-     if( $geoEncoder->getAccuracy() < 5 )
+     
+     if( is_null( $this['longitude'] ) || is_null( $this['latitude'] ) )
      {
-       $this['longitude'] = 0;
-       $this['latitude'] = 0;
-       throw new Exception('Geo encode accuracy below 5' );
+       if( empty( $this->geoEncodeLookUpString ) )
+       {
+         throw new Exception( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
+       }
+       
+       $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
+
+       $this['longitude'] = $geoEncoder->getLongitude();
+       $this['latitude'] = $geoEncoder->getLatitude();
+
+       if( $geoEncoder->getAccuracy() < 5 )
+       {
+         $this['longitude'] = 0;
+         $this['latitude'] = 0;
+         throw new Exception('Geo encode accuracy below 5' );
+       }
      }
   }
 

@@ -381,6 +381,7 @@ ImportLoggerError:
     log:                        {type: string, notnull: true}
     type:                       {type: string, notnull: true}
     message:                    {type: string, notnull: true}
+    serialized_object:          {type: string, notnull: true}
     import_logger_id:           {type: integer, notnull: true}
     resolved:                   {type: boolean, notnull: true, default: 0}
   relations:

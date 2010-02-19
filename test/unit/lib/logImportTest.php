@@ -103,18 +103,21 @@ class logImportTest extends PHPUnit_Framework_TestCase
         $this->object->countNewInsert();
 
         //Add an exception
-        try{
-            throw new Exception('Testing Exception');
+        $poi = null;
+        try
+        {
+            //a poi with phone number less than six digits will throw an Exception
+            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'phone' => 9999 ) );
+            $poi->save();
         }
         catch(Exception $error)
         {
-
             //Add two for testing
             $log = "Test exception";
-            $this->object->addError($error, $log);
+            $this->object->addError($error, $poi, $log);
 
             $log = "Test exception";
-            $this->object->addError($error, $log);
+            $this->object->addError($error, $poi, $log);
         }
 
         //The item is modified therefore log as an update
@@ -149,16 +152,27 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testAddError()
     {
-        try{
-            throw new Exception('Testing Exception');
+        try
+        {
+            //a poi with phone number less than six digits will throw an Exception
+            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'phone' => 9999 ) );
+            $poi->save();
         }
         catch(Exception $error)
         {
             $log = "Test exception";
-            $this->object->addError($error, $log);
+            $this->object->addError($error, $poi, $log);
         }
 
         $this->assertEquals(1, count($this->object->errorsCollection->toArray()), 'Testing the error collection');
+        $this->object->save();
+        $this->assertEquals(1, Doctrine::getTable('ImportLoggerError')->count() );
+
+        $importLoggerError = Doctrine::getTable('ImportLoggerError')->findOneById( 1 );
+        $this->assertEquals( serialize( $poi )  , $importLoggerError[ 'serialized_object' ]);
+
+        $this->assertNotEquals( serialize( ProjectN_Test_Unit_Factory::get( 'Poi' ) ), $importLoggerError[ 'serialized_object' ] );
+
     }
 
     /**

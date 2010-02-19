@@ -37,20 +37,14 @@ class Importer
   /**
    * Adds a logger
    * 
-   * @param logger $logger
+   * @param logImport $logger
    */
-  public function registerLogger( logger $logger )
+  public function addLogger( logImport $logger )
   {
-    if( !isset( $this->loggers[ $logger->getType() ] ) )
+    if( !in_array( $logger, $this->loggers ) )
     {
-      $this->loggers[ $logger->getType() ] = array();
+      $this->loggers[] = $logger;
     }
-    else if( in_array( $logger, $this->loggers[ $logger->getType() ] ) )
-    {
-      return;
-    }
-
-    $this->loggers[ $logger->getType() ][] = $logger;
   }
 
   /**
@@ -89,6 +83,7 @@ class Importer
          $mapMethod->invoke( $dataSource );
       }
     }
+      
   }
 
   /**
@@ -102,18 +97,42 @@ class Importer
   {
      try
      {
-         $record->save();
+        //Save the object and log the changes
+        //pre-save
+       // $logIsNew = $record->isNew();
+       // $logChangedFields = $record->getModified();
+        //save
+        $record->save();
+        //post-save
+        if( $record->isNew() )
+        {
+          
+          foreach( $this->loggers as $logger )
+          {
+            $logger->countNewInsert() ;
+          }
+        }
+        else
+        {
+          foreach( $this->loggers as $logger )
+          {
+            $logger->addChange( 'update', $record->getModified() );
+          }
+        }
+       // ( $logIsNew ) ? $this->logger->countNewInsert() : $this->logger->addChange( 'update', $logChangedFields );
      }
      catch( Exception $e )
      {
-         $this->onRecordMappingException( $e );
+         $this->onRecordMappingException( $e ,$record  );
      }
   }
 
-  public function onRecordMappingException( Exception $exception )
+  public function onRecordMappingException( Exception $exception, Doctrine_Record $record ,$message = '' )
   {
-    /** @todo add logger */
-     //echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
+     foreach( $this->loggers as $logger )
+     {
+       $logger->addError( $exception ,$record , $message );
+     }
   }
 
   /**
@@ -128,7 +147,7 @@ class Importer
 
     if( !is_null( $data[ 'id' ] ) )
     {
-      $record = Doctrine::getTable( $recordClass )->findOneById( $data[ 'id' ] );
+      $record = Doctrine::getTable( $recordClass )->findOneById( $data[ 'id' ] ); 
     }
     else
     {
@@ -161,4 +180,5 @@ class Importer
       echo $output;
     }
   }
+ 
 }
