@@ -284,10 +284,13 @@ class importTask extends sfBaseTask
       	$connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
 
         $importer = new Importer();
+        $vendor = $this->getVendorByCityAndLanguage( 'london', 'en-GB' );
+        $loggerObj = new logImport( $vendor );
         switch( $options['type'] )
         {
           case 'poi-event':
-            $importer->addLogger( new logImport( 'poi' ) );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
             $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
             $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
@@ -295,7 +298,8 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-            $importer->addLogger( new logImport( 'movie' ) );
+            $loggerObj->setType( 'movie' );
+            $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LondonAPIFilmsMapper() );
           break;
         }
