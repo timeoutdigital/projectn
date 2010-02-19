@@ -65,7 +65,16 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
   public function doMapping( SimpleXMLElement $restaurantXml )
   {
     $poi = new Poi();
-    $this->mapCommonPoiMappings($poi, $restaurantXml);
+
+    try
+    {
+      $this->mapCommonPoiMappings($poi, $restaurantXml);
+    }
+    catch( Exception $exception )
+    {
+      $this->notifyImporterOfFailure($exception, $poi);
+      return;
+    }
     
     $poi[ 'star_rating' ] = (int) $restaurantXml->starRating;
     $poi[ 'PoiCategories' ][] = $this->poiCategory;

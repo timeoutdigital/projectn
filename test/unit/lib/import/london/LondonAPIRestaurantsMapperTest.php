@@ -51,7 +51,7 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
     $importer = new Importer();
     $importer->addDataMapper( $mapper );
 
-    $this->setExpectedException( Exception );
+    $this->setExpectedException( 'Exception' );
     $importer->run();
     
     $poiResults = Doctrine::getTable('Poi')->findAll();

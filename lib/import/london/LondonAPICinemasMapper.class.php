@@ -68,8 +68,16 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
   public function doMapping( SimpleXMLElement $cinemaXml )
   {
     $poi = new Poi();
-    $this->mapCommonPoiMappings($poi, $cinemaXml);
 
+    try
+    {
+      $this->mapCommonPoiMappings($poi, $cinemaXml);
+    }
+    catch( Exception $exception )
+    {
+      $this->notifyImporterOfFailure($exception, $poi);
+      return;
+    }
     //$poi['PoiCategories'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $cinemaXml->starRating;
 
