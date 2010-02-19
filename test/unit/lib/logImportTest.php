@@ -165,6 +165,14 @@ class logImportTest extends PHPUnit_Framework_TestCase
         }
 
         $this->assertEquals(1, count($this->object->errorsCollection->toArray()), 'Testing the error collection');
+        $this->object->save();
+        $this->assertEquals(1, Doctrine::getTable('ImportLoggerError')->count() );
+
+        $importLoggerError = Doctrine::getTable('ImportLoggerError')->findOneById( 1 );
+        $this->assertEquals( serialize( $poi )  , $importLoggerError[ 'serialized_object' ]);
+
+        $this->assertNotEquals( serialize( ProjectN_Test_Unit_Factory::get( 'Poi' ) ), $importLoggerError[ 'serialized_object' ] );
+
     }
 
     /**
