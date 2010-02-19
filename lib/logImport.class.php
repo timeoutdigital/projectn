@@ -95,6 +95,9 @@ class logImport
     public $timer;
 
 
+    public $finalTime;
+
+
     /**
      *
      * Constructor
@@ -107,6 +110,7 @@ class logImport
         $this->errorsCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerError'));
         $this->changesCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerChange'));
         $this->timer = sfTimerManager::getTimer('importTimer');
+     
     }
 
  
@@ -131,7 +135,7 @@ class logImport
      * Save the stats
      */
     public function save()
-    {
+    {   
         $importObj = new ImportLogger;
         $importObj['total_inserts'] = $this->totalInserts;
         $importObj['total_updates'] = $this->totalUpdates;
@@ -140,7 +144,7 @@ class logImport
         $importObj['Vendor']        = $this->vendorObj;
         $importObj['total_existing'] = $this->totalExisting;
 
-        //Convertt he time to mysql format
+        //Convert the time to mysql format
         $totalTime = $this->timer->addTime();
         $timeStamp = $this->convertTime($totalTime);
   
@@ -163,7 +167,7 @@ class logImport
         }
 
         //Set the timer with the correct time
-        $this->timer = $timeStamp;
+        $this->finalTime = $timeStamp;
        
     }
 
@@ -175,7 +179,7 @@ class logImport
      * @param string $log
      *
      */
-    public function addError(Exception $error, $log = '')
+    public function addError(Exception $error, Doctrine_Record $record, $log = '')
     {
 
         $errorObj               = new ImportLoggerError();
@@ -183,6 +187,7 @@ class logImport
         $errorObj['log']        = $log;
         $errorObj['type']       = get_class($error);
         $errorObj['message']    = $error->getMessage();
+        $errorObj['serialized_object']    = serialize( $record );
         $this->errorsCollection[]    = $errorObj;
 
         //Increment the error count
