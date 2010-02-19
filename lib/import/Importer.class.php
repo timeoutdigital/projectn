@@ -83,10 +83,7 @@ class Importer
          $mapMethod->invoke( $dataSource );
       }
     }
-    foreach( $this->loggers as $logger )
-    {
-      $logger->save() ;
-    }
+      
   }
 
   /**
@@ -136,9 +133,9 @@ class Importer
 
      foreach( $this->loggers as $logger )
      {
-       $logger->addError( $exception ,$message );
+       $logger->addError( $exception ,$record , $message );
      }
-     echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
+   // echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
   }
 
   /**
