@@ -32,6 +32,11 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $vendor->save();
     $this->vendor = $vendor;
 
+    foreach( array( 833, 2844/*, 4109*/ ) as $placeid )
+    {
+      ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => $placeid ) );
+    }
+
     $this->object = new LisbonFeedListingsMapper(
       simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' )
     );
@@ -71,7 +76,12 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '1', $event['vendor_id'] );
 
     $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findAll();
-    $this->assertEquals( 3, $eventOccurrence->count() );
+    $this->assertEquals( 5, $eventOccurrence->count() );
+    
+    $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 50797 );
+     
+    $this->assertEquals( 2 ,count( $event['EventOccurrence'] )  );
+ 
   }
 }
 ?>
