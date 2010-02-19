@@ -30,8 +30,16 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $occurrence['start'] = str_replace('T', ' ', (string) $listingElement['ListingDate'] );
       $occurrence['utc_offset'] = 0;
       $occurrence['event_id'] = $event['id'];
-      $occurrence['Poi'] =  Doctrine::getTable('Event')->findOneByVendorPoiId( (int) $listingElement['placeid'] );
-
+      try
+      {
+        $placeid = (int) $listingElement['placeid'];
+        $occurrence['Poi'] =  Doctrine::getTable('Poi')->findOneByVendorPoiId( $placeid );
+      }
+      catch( Exception $e )
+      {
+        $this->notifyImporterOfFailure($e, $occurrence, 'Could not find Lisbon Poi with vendor_poi_id of '. $placeid );
+        continue;
+      }
       $event['EventOccurrence'][] = $occurrence;
 
        //we will try to find the event with name
