@@ -23,7 +23,8 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
       throw new Exception( 'Vendor not found.' );
     }
     $this->vendor = $vendor;
-       
+
+    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
   }
 
   /**
@@ -51,11 +52,11 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         {
         	$category = new VendorEventCategory( );
 
-        	$category[ 'Vendor' ] = $this->_vendor;
+        	$category[ 'Vendor' ] = $this->vendor;
         	$category[ 'name' ]   = $item[ 'name' ];
-
+ 
           $this->notifyImporter( $category );
-        	$category->free( );
+        	//$category->free( );
         }
 
         $items->free( true );
@@ -96,7 +97,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
         $poi['PoiCategories'][] = $this->defaultPoiCategory;
 
-				$poi[ 'Vendor' ] = $this->_vendor;
+				$poi[ 'Vendor' ] = $this->vendor;
 
 				$poi[ 'vendor_poi_id' ] = $item[ 'venue_id' ];
 
@@ -129,7 +130,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				if ( $event === false ) $event = new Event( );
 
 
-				$event[ 'Vendor' ] = $this->_vendor;
+				$event[ 'Vendor' ] = $this->vendor;
 
 				$event[ 'vendor_event_id' ] = $item[ 'event_id' ];
 

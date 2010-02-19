@@ -69,13 +69,10 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedVenue()
   {
-    $this->object = new LondonImporter( );
-
-    $this->object->run( );
-
+   
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
     //$poi = Doctrine::getTable( 'Poi' )->findAll();
-
+    
     $this->assertTrue( $poi instanceof Doctrine_Record );
 
     $this->assertEquals( 'Dummy Building Name 1', $poi[ 'house_no' ]  );
@@ -113,10 +110,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedEvent()
   {
-    $this->object = new LondonImporter( );
-
-    $this->object->run( );
-
+    
     $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 1 );
 
     $this->assertTrue( $event instanceof Doctrine_Record );
@@ -130,10 +124,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedOccurrence()
   {
-    $this->object = new LondonImporter( );
-
-    $this->object->run( );
-
+     
     $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( 1 );
 
     $this->assertTrue( $occurrence instanceof Doctrine_Record );
