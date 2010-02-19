@@ -159,6 +159,11 @@ class stringTransform
    *
    * @param string $subject The URL
    * @return string The formatted URL
+   *
+   * <b>Example</b>
+   * <code>
+   * stringTransform::formatUrl('myurl.com');
+   * </code>
    */
   public static function formatUrl($subject)
   {
