@@ -284,24 +284,23 @@ class importTask extends sfBaseTask
       case 'london':
       	$connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
 
+        $importer = new Importer();
         switch( $options['type'] )
         {
           case 'poi-event':
-            $london = new LondonImporter( );
-            $london->run( );
-            $importer = new Importer();
-            $importer->addDataMapper( new LondonAPICinemasMapper() );
+            $importer->addLogger( new logImport( 'poi' ) );
+            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
             $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
             $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
-            $importer->run();
+            $importer->addDataMapper( new LondonAPICinemasMapper() );
             break;
 
           case 'movie':
-            $importer = new Importer();
+            $importer->addLogger( new logImport( 'movie' ) );
             $importer->addDataMapper( new LondonAPIFilmsMapper() );
-            $importer->run();
           break;
         }
+        $importer->run();
         break; //end lisbon
 
 
