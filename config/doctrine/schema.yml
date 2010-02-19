@@ -4,7 +4,6 @@ options:
   charset: utf8
 
 #Represents a venue aka Point of interest (Poi)
-
 Poi:
   connection: project_n
   actAs:
@@ -46,17 +45,16 @@ Poi:
 
 
 
-#Any media that is associated to the poi
+#Any media that is associated to a Poi
 PoiMedia:
   connection: project_n
-  actAs:
-    Timestampable: ~
+  inheritance:
+    extends: Media
   columns:
-    media_url:                  {type: string(1024), notnull: true}
-    mime_type:                  {type: string(255), notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
+
 
 #Self referencing table for PoiCategory to enable a tree
 PoiCategoryReference:
@@ -211,11 +209,9 @@ LinkingEventCategory:
 #Any media that is associated to a Event
 EventMedia:
   connection: project_n
-  actAs:
-    Timestampable: ~
+  inheritance:
+    extends: Media
   columns:
-    media_url:                  {type: string(1024), notnull: true}
-    mime_type:                  {type: string(255), notnull: true}
     event_id:                   {type: integer, notnull: true}
   relations:
     Event:                      {local: event_id, foreign: id}
@@ -277,11 +273,9 @@ MovieGenre:
 #Any media that is associated to a Movie
 MovieMedia:
   connection: project_n
-  actAs:
-    Timestampable: ~
+  inheritance:
+    extends: Media
   columns:
-    media_url:                  {type: string(1024), notnull: true}
-    mime_type:                  {type: string(255), notnull: true}
     movie_id:                   {type: integer, notnull: true}
   relations:
     Movie:                      {local: movie_id, foreign: id}
@@ -386,4 +380,12 @@ ImportLoggerError:
     resolved:                   {type: boolean, notnull: true, default: 0}
   relations:
     ImportLogger:                {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerErrors}
-    
+
+#Master Media table, extended by PoiMedia, EventMedia and MovieMedia
+Media:
+  connection: project_n
+  actAs:
+    Timestampable: ~
+  columns:
+    media_url:                  {type: string(1024), notnull: true}
+    mime_type:                  {type: string(255), notnull: true}

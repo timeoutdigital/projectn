@@ -6,35 +6,18 @@
  * @package    sf_sandbox
  * @subpackage filter
  * @author     Your name here
- * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
+ * @version    SVN: $Id: sfDoctrineFormFilterGeneratedInheritanceTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
-abstract class BaseEventMediaFormFilter extends BaseFormFilterDoctrine
+abstract class BaseEventMediaFormFilter extends MediaFormFilter
 {
-  public function setup()
+  protected function setupInheritance()
   {
-    $this->setWidgets(array(
-      'media_url'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'mime_type'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'event_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => true)),
-      'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'updated_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-    ));
+    parent::setupInheritance();
 
-    $this->setValidators(array(
-      'media_url'  => new sfValidatorPass(array('required' => false)),
-      'mime_type'  => new sfValidatorPass(array('required' => false)),
-      'event_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Event'), 'column' => 'id')),
-      'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'updated_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-    ));
+    $this->widgetSchema   ['event_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => true));
+    $this->validatorSchema['event_id'] = new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Event'), 'column' => 'id'));
 
     $this->widgetSchema->setNameFormat('event_media_filters[%s]');
-
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
-
-    $this->setupInheritance();
-
-    parent::setup();
   }
 
   public function getModelName()
@@ -44,13 +27,8 @@ abstract class BaseEventMediaFormFilter extends BaseFormFilterDoctrine
 
   public function getFields()
   {
-    return array(
-      'id'         => 'Number',
-      'media_url'  => 'Text',
-      'mime_type'  => 'Text',
-      'event_id'   => 'ForeignKey',
-      'created_at' => 'Date',
-      'updated_at' => 'Date',
-    );
+    return array_merge(parent::getFields(), array(
+      'event_id' => 'ForeignKey',
+    ));
   }
 }
