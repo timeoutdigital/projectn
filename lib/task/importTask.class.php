@@ -172,30 +172,36 @@ class importTask extends sfBaseTask
 
       case 'lisbon':
 
-
+        $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
         $importer    = new Importer();
         $feedObj     = new curlImporter();
         $url         = 'http://www.timeout.pt/';
         $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-02-23' );
         $method      = 'POST';
-
+        $loggerObj =   new logImport( $vendorObj );
         switch( $options['type'] )
         {
           case 'poi':
             $request = 'xmlvenues.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
             break;
 
           case 'event':
             $request = 'xmllist.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $loggerObj->setType( 'event' );
+            $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
           break;
 
           case 'movie':
             $request = 'xmlfilms.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $loggerObj->setType( 'movie' );
+            $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
           break;
         }
@@ -339,7 +345,7 @@ class importTask extends sfBaseTask
      $loggerObj->save();
 
      //Get the total import time
-     echo "Total time: ". $loggerObj->timer . "\n";
+     echo "Total time: ". $loggerObj->finalTime . "\n";
   }
 
 
