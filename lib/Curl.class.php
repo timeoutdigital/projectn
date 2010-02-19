@@ -89,9 +89,17 @@ class Curl
 
     $this->setCurlOptions($curlHandle);
 
+
     $this->response = curl_exec($curlHandle);
-    
+
+    $curlinfo = curl_getinfo( $curlHandle );
+
     curl_close($curlHandle);
+
+    if ( !isset( $curlinfo[ 'http_code' ] ) ||  $curlinfo[ 'http_code' ] != 200 )
+    {
+        throw new Exception( 'Curl Error, failed to fetch content (no http_code 200 received)' );
+    }
   }
   
   private function setCurlOptions( $curlHandle )

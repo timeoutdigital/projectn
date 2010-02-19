@@ -89,5 +89,14 @@ class CurlTest extends PHPUnit_Framework_TestCase
       $this->assertFileExists( $testFullPath );
   }
 
+  /**
+   * test if exception is trown on a request with an invalid url
+   */
+  public function testIfErrorMessageIsReturnedIfNoHTTP200IsReceived()
+  {
+      $this->setExpectedException( 'Exception' );
+      $this->object = new Curl( 'http://somewrongurl' );
+  }
+
 }
 ?>
