@@ -151,6 +151,8 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatUrl()
   {
+      $this->assertEquals('http://www.google.com', stringTransform::formatUrl('http://www.google.com'), 'Test that http is in string');
+
   }
 
   /**
