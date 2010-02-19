@@ -11,24 +11,27 @@ Doctrine_Manager::getInstance()->bindComponent('ImportLoggerError', 'project_n')
  * @property string $log
  * @property string $type
  * @property string $message
+ * @property string $serialized_object
  * @property integer $import_logger_id
  * @property boolean $resolved
  * @property ImportLogger $ImportLogger
  * 
- * @method string            getTrace()            Returns the current record's "trace" value
- * @method string            getLog()              Returns the current record's "log" value
- * @method string            getType()             Returns the current record's "type" value
- * @method string            getMessage()          Returns the current record's "message" value
- * @method integer           getImportLoggerId()   Returns the current record's "import_logger_id" value
- * @method boolean           getResolved()         Returns the current record's "resolved" value
- * @method ImportLogger      getImportLogger()     Returns the current record's "ImportLogger" value
- * @method ImportLoggerError setTrace()            Sets the current record's "trace" value
- * @method ImportLoggerError setLog()              Sets the current record's "log" value
- * @method ImportLoggerError setType()             Sets the current record's "type" value
- * @method ImportLoggerError setMessage()          Sets the current record's "message" value
- * @method ImportLoggerError setImportLoggerId()   Sets the current record's "import_logger_id" value
- * @method ImportLoggerError setResolved()         Sets the current record's "resolved" value
- * @method ImportLoggerError setImportLogger()     Sets the current record's "ImportLogger" value
+ * @method string            getTrace()             Returns the current record's "trace" value
+ * @method string            getLog()               Returns the current record's "log" value
+ * @method string            getType()              Returns the current record's "type" value
+ * @method string            getMessage()           Returns the current record's "message" value
+ * @method string            getSerializedObject()  Returns the current record's "serialized_object" value
+ * @method integer           getImportLoggerId()    Returns the current record's "import_logger_id" value
+ * @method boolean           getResolved()          Returns the current record's "resolved" value
+ * @method ImportLogger      getImportLogger()      Returns the current record's "ImportLogger" value
+ * @method ImportLoggerError setTrace()             Sets the current record's "trace" value
+ * @method ImportLoggerError setLog()               Sets the current record's "log" value
+ * @method ImportLoggerError setType()              Sets the current record's "type" value
+ * @method ImportLoggerError setMessage()           Sets the current record's "message" value
+ * @method ImportLoggerError setSerializedObject()  Sets the current record's "serialized_object" value
+ * @method ImportLoggerError setImportLoggerId()    Sets the current record's "import_logger_id" value
+ * @method ImportLoggerError setResolved()          Sets the current record's "resolved" value
+ * @method ImportLoggerError setImportLogger()      Sets the current record's "ImportLogger" value
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -53,6 +56,10 @@ abstract class BaseImportLoggerError extends sfDoctrineRecord
              'notnull' => true,
              ));
         $this->hasColumn('message', 'string', null, array(
+             'type' => 'string',
+             'notnull' => true,
+             ));
+        $this->hasColumn('serialized_object', 'string', null, array(
              'type' => 'string',
              'notnull' => true,
              ));

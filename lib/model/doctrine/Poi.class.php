@@ -80,28 +80,27 @@ class Poi extends BasePoi
   {
      $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
 
-     $hasLongitudeLatitude = is_null( $this['longitude'] ) || is_null( $this['longitude'] );
-
-     if( $hasLongitudeLatitude && $this->geoEncodeLookUpString )
+     //get the longitute and latitude
+     $geoEncoder = new geoEncode();
+     
+     if( is_null( $this['longitude'] ) || is_null( $this['latitude'] ) )
      {
-         //get the longitute and latitude
-         $geoEncoder = new geoEncode();
+       if( empty( $this->geoEncodeLookUpString ) )
+       {
+         throw new Exception( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
+       }
+       
+       $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
 
-         $geoEncoder->setAddress( $this->geoEncodeLookUpString );
+       $this['longitude'] = $geoEncoder->getLongitude();
+       $this['latitude'] = $geoEncoder->getLatitude();
 
-         $this['longitude'] = $geoEncoder->getLongitude();
-         $this['latitude'] = $geoEncoder->getLatitude();
-
-         if( $geoEncoder->getAccuracy() < 5 )
-         {
-           $this['longitude'] = 0;
-           $this['latitude'] = 0;
-           throw new Exception('Geo encode accuracy below 5' );
-         }
-     }
-     else
-     {
-         throw new Exception( 'Please set the geoEncodeLookUpString.' );
+       if( $geoEncoder->getAccuracy() < 5 )
+       {
+         $this['longitude'] = 0;
+         $this['latitude'] = 0;
+         throw new Exception('Geo encode accuracy below 5' );
+       }
      }
   }
 
