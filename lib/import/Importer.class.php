@@ -129,13 +129,10 @@ class Importer
 
   public function onRecordMappingException( Exception $exception, Doctrine_Record $record ,$message = '' )
   {
-    /** @todo add logger */
-
      foreach( $this->loggers as $logger )
      {
        $logger->addError( $exception ,$record , $message );
      }
-   // echo 'Notice need to log :' .$exception->getMessage().PHP_EOL;
   }
 
   /**
