@@ -1,7 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../lib/Curl.class.php';
+require_once dirname(__FILE__).'/../../bootstrap/unit.php';
+require_once dirname(__FILE__).'/../bootstrap.php';
 
 /**
  * Test class for Curl.
@@ -46,5 +47,47 @@ class CurlTest extends PHPUnit_Framework_TestCase
   {
     $this->assertEquals('q=wave&foo=bar', $this->object->getParametersString() );
   }
+
+
+  /**
+   * test if a path is successfully created and set
+   */
+  public function testSetStorePath()
+  {
+    $testPath = TO_TEST_ROOT_PATH . '/import/ny/images';
+
+    $this->object->setStorePath( $testPath );
+
+    $this->assertFileExists( $testPath );
+    $this->assertEquals( $testPath, $this->object->getStorePath() );
+  }
+
+  /**
+   * tests if the store response is saved successfully as file
+   */
+  public function testStoreResponse()
+  {
+      $testFile = TO_TEST_ROOT_PATH . '/import/ny/images/test.txt';
+
+      //clean out the already existing files first
+      if ( file_exists( $testFile ) )  unlink( $testFile );
+
+      $this->object->storeResponse( $testFile );
+
+      $this->assertFileExists( $testFile );
+
+      $testFile = 'test2.txt';
+      $testPath = TO_TEST_ROOT_PATH . '/import/ny/images';
+      $testFullPath = $testPath . '/' . $testFile;
+
+      //clean out the already existing files first
+      if ( file_exists( $testFullPath ) )  unlink( $testFullPath );
+
+      $this->object->setStorePath( $testPath );
+      $this->object->storeResponse( $testFile );
+
+      $this->assertFileExists( $testFullPath );
+  }
+
 }
 ?>
