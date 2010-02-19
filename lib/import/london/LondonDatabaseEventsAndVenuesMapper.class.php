@@ -32,7 +32,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
    */
   public function mapAll()
   {
-    $this->processCategories( );
+    //$this->processCategories( );
 		$this->processEvents( );
   }
 
@@ -59,7 +59,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         	//$category->free( );
         }
 
-        $items->free( true );
+        //$items->free( true );
 	}
 
 
@@ -120,9 +120,12 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
 				$poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
 
-				//$poi->save( );
         $this->notifyImporter( $poi );
-
+        
+        if( !$poi->exists() )
+        {
+          continue;
+        }
 
 				// insert/update event
 				$event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( $item[ 'event_id' ] );
@@ -139,9 +142,11 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
 				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
 
-				//$event->save( );
         $this->notifyImporter( $event );
-
+        if( !$event->exists() )
+        {
+          continue;
+        }
 
 
 				// insert/update occurrence
@@ -162,22 +167,19 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$timeOffset = $zone->getOffset( new DateTime( $item[ 'date_start' ], $zone ) );
 				$occurrence[ 'utc_offset' ] = $timeOffset / 3600;
 
-				//occurrence->save( );
         $this->notifyImporter( $occurrence );
 
-
-
 				// free memory
-				$poi->free( );
-				$event->free( );
-				$occurrence->free( );
+//				$poi->free( );
+//				$event->free( );
+//				$occurrence->free( );
 
 			}
 
 			$currentPage++;
 
 			// free memory
-			$items->free( true );
+			//$items->free( true );
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 
