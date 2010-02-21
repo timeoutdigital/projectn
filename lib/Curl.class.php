@@ -108,7 +108,11 @@ class Curl
 
     if( $this->requestMethod == Curl::REQUEST_USING_GET )
     {
-      $url .= '?' . $this->getParametersString();
+      if($this->getParametersString())
+      {
+        $url .= '?' . $this->getParametersString();
+      }
+      
       curl_setopt( $curlHandle, CURLOPT_HTTPGET, true );
     }
     else
