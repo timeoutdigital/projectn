@@ -72,7 +72,7 @@ class stringTransform
       //return if not valid number is is passed in
       if(strlen($subject) < 6)
       {
-           throw new Exception('Phone number is incorrect - Less then 6 digits');
+           //throw new PhoneNumberException('Phone number is incorrect - Less then 6 digits');
       }
 
     //Remove any extensions
