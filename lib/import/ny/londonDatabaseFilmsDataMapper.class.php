@@ -152,7 +152,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
   {
     
     $query = "
-      SELECT review_type_id , text , rating
+      SELECT review_type_id , text , rating ,
       (
         CASE
          WHEN review_type_id = 3 THEN 10

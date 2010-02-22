@@ -226,17 +226,33 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
   protected function extractAdministrativeAreaName( $firstAddressXml )
   {
-    return (string) $firstAddressXml->Country
-      ->AdministrativeArea
-      ->AdministrativeAreaName;
+    $administrativeAreaName = '';
+    
+    try
+    {
+      $administrativeAreaName = (string) $firstAddressXml->Country
+        ->AdministrativeArea
+        ->AdministrativeAreaName;
+    }
+    catch( Exception $exception ){}
+
+    return $administrativeAreaName;
   }
 
   protected function extractSubAdministrativeAreaName( $firstAddressXml )
   {
-    return (string) $firstAddressXml->Country
-      ->AdministrativeArea
-      ->SubAdministrativeArea
-      ->SubAdministrativeAreaName;
+    $subAdministrativeAreaName = '';
+
+    try
+    {
+      $subAdministrativeAreaName = (string) $firstAddressXml->Country
+        ->AdministrativeArea
+        ->SubAdministrativeArea
+        ->SubAdministrativeAreaName;
+    }
+    catch( Exception $exception ){}
+    
+    return $subAdministrativeAreaName;
   }
 
   /**
