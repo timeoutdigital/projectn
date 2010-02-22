@@ -5,25 +5,14 @@
  */
 
 /**
- * Description of processNyBcclass
+ * Description of processUaeXmlclass
  *
  * @author timmy
  */
-class processNyBcXml extends processXml
+class processUaeXmlclass  extends processXml
 {
-
-    public $poiObj;
-
-    public $totalPoi;
-
-    /**
-     * Constructor method
-     *
-     */
-    public function  __construct($sourceFile)
+   public function  __construct($sourceFile)
     {
-
-
       $handle = fopen($sourceFile, "r");
       $contents = fread($handle, filesize($sourceFile));
 
@@ -43,27 +32,11 @@ class processNyBcXml extends processXml
 
       //$contents = str_replace('barkey.1', '', $contents);
 
-     // $contents = preg_replace("/&/", "&amp;", $contents);
-      /*$contents = preg_replace("/<type>/", "<type><![CDATA[", $contents);
-      $contents = preg_replace("/<\/type>/", "]]></type>", $contents);
-      $contents = preg_replace("/<title>/", "<title><![CDATA[", $contents);
-      $contents = preg_replace("/<\/title>/", "]]></title>", $contents);
-      $contents = preg_replace("/<email>/", "<email><![CDATA[", $contents);
-      $contents = preg_replace("/<\/email>/", "]]></email>", $contents);
-      $contents = preg_replace("/<description>/", "<description><![CDATA[", $contents);
-      $contents = preg_replace("/<\/description>/", "]]></description>", $contents);
-      $contents = preg_replace("/<location>/", "<location><![CDATA[", $contents);
-      $contents = preg_replace("/<\/location>/", "]]></location>", $contents);
-      $contents = preg_replace("/<link>/", "<link><![CDATA[", $contents);
-      $contents = preg_replace("/<\/link>/", "]]></link>", $contents);
-      
-
-      $contents = trim($contents);
-*/
-     // echo $contents;
-
-     //Remove crazy weird chars
+      $contents = preg_replace("/&/", "&amp;", $contents);
       $contents = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $contents);
+      $contents = trim($contents);
+
+      //echo $contents;
 
       fclose($handle);
 
@@ -77,6 +50,5 @@ class processNyBcXml extends processXml
 
       parent::__construct($sourceFile);
     }
-
 }
 ?>

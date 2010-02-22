@@ -46,14 +46,14 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $vendor['city'] = 'test';
         $vendor['language'] = 'en-GB';
         $vendor['time_zone'] = 'Europe/London';
-        $vendor['inernational_dial_code'] = 'Europe/London';
+        $vendor['inernational_dial_code'] = '+44';
         $vendor->save();
 
         $this->vendor2 = new Vendor();
         $this->vendor2['city'] = 'test';
         $this->vendor2['language'] = 'en-GB';
         $this->vendor2['time_zone'] = 'Europe/London';
-        $this->vendor2['inernational_dial_code'] = 'Europe/London';
+        $this->vendor2['inernational_dial_code'] = '+44';
         $this->vendor2->save();
 
         $category = new PoiCategory();
@@ -76,9 +76,9 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setLatitude( '0.2' );
         $poi->setEmail( 'you@who.com' );
         $poi->setUrl( 'http://foo.com' );
-        $poi->setPhone( '+44 0208 123 1234' );
-        $poi->setPhone2( '+44 0208 223 2234' );
-        $poi->setFax( '+44 0208 323 3234' );
+        $poi->setPhone( '+44 208 123 1234' );
+        $poi->setPhone2( '+44 208 223 2234' );
+        $poi->setFax( '+44 208 323 3234' );
         $poi->setShortDescription( 'test short description' );
         $poi->setDescription( 'test description' );
         $poi->setPublicTransportLinks( 'test public transport' );
@@ -242,9 +242,9 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals( 'you@who.com', (string) $contact->email );
       $this->assertEquals( 'http://foo.com', (string) $contact->url );
-      $this->assertEquals( '+44 0208 123 1234', (string) $contact->phone );
-      $this->assertEquals( '+44 0208 223 2234', (string) $contact->phone2 );
-      $this->assertEquals( '+44 0208 323 3234', (string) $contact->fax );
+      $this->assertEquals( '+44 208 123 1234', (string) $contact->phone, 'phone' );
+      $this->assertEquals( '+44 208 223 2234', (string) $contact->phone2, 'phone 2' );
+      $this->assertEquals( '+44 208 323 3234', (string) $contact->fax );
     }
 
     /**

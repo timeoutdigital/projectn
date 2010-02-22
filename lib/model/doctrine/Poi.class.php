@@ -12,22 +12,6 @@
  */
 class Poi extends BasePoi
 {
-   /**
-   * Get a Category by name
-   *
-   * @param string $name The Cat by name
-   *
-   * @return object
-   */
-/*  public function getByVendorPoiId( $id )
-  {
-    $q = Doctrine_Query::create()
-      ->select('p.name AS name, p.id AS id')
-      ->from('Poi p')
-      ->where('p.name=?', $id);
-
-      return $q->fetchOne();
-  }*/
   /**
    *
    */
@@ -78,8 +62,17 @@ class Poi extends BasePoi
    */
   public function preSave( $event )
   {
-     $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
+     
+     if(strlen($this['phone']) > 0)
+     {
+      $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
+     }
 
+     if( $this['url'] != '')
+     {
+        $this['url'] = stringTransform::formatUrl($this['url']);
+     }
+     
      //get the longitute and latitude
      $geoEncoder = new geoEncode();
      
@@ -87,7 +80,7 @@ class Poi extends BasePoi
      {
        if( empty( $this->geoEncodeLookUpString ) )
        {
-         throw new Exception( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
+         throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
        }
        
        $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
@@ -97,9 +90,9 @@ class Poi extends BasePoi
 
        if( $geoEncoder->getAccuracy() < 5 )
        {
-         $this['longitude'] = 0;
-         $this['latitude'] = 0;
-         throw new Exception('Geo encode accuracy below 5' );
+         $this['longitude'] = null;
+         $this['latitude'] = null;
+         //throw new GeoCodeException('Geo encode accuracy below 5' );
        }
      }
   }

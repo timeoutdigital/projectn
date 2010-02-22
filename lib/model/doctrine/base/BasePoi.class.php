@@ -414,19 +414,19 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->hasColumn('longitude', 'decimal', 18, array(
              'type' => 'decimal',
              'scale' => 15,
-             'notnull' => true,
+             'notnull' => false,
              'length' => '18',
              ));
         $this->hasColumn('latitude', 'decimal', 18, array(
              'type' => 'decimal',
              'scale' => 15,
-             'notnull' => true,
+             'notnull' => false,
              'length' => '18',
              ));
-        $this->hasColumn('email', 'string', 12, array(
+        $this->hasColumn('email', 'string', 128, array(
              'type' => 'string',
              'notnull' => false,
-             'length' => '12',
+             'length' => '128',
              ));
         $this->hasColumn('url', 'string', 1024, array(
              'type' => 'string',

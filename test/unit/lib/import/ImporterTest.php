@@ -58,34 +58,51 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * Test loggers get registered
+   * Test loggers are called correctly for adding records
    */
-  public function testRegisteringLogger()
+  public function testLogsRecordAddCorrectly()
   {
-    $this->markTestIncomplete();
-    //need to ammend to use logImport
-    $returnedLoggers = $this->object->getLoggers();
-    $this->assertEquals( array(), $returnedLoggers );
-    
-    $this->object->registerLogger( $this->poiLogger );
-    
-    $returnedLoggers = $this->object->getLoggers();
-    $this->assertType('array', $returnedLoggers);
+    $loggerTable = Doctrine::getTable( 'ImportLogger' );
+    $this->assertEquals( 0, $loggerTable->count() );
 
-    $this->assertEquals( 1, count( $returnedLoggers['poi'] ) );
-    $this->assertTrue( $returnedLoggers['poi'][0] instanceof logger );
-    $this->assertEquals( logger::POI, $returnedLoggers['poi'][0]->getType() );
+    $logger = new logImport( $this->vendor );
+    $logger->setType( 'poi' );
     
-    $this->object->registerLogger( $this->poiLogger );
-    $returnedLogger = $this->object->getLoggers();
-    $this->assertEquals( 1, count( $returnedLogger['poi'] ) );
+    $this->object->addLogger( $logger );
+    $this->object->addDataMapper( new UnitTestImporterDataMapper1() );
+    $this->object->run();
 
-    $this->object->registerLogger( $this->eventLogger );
-    $returnedLoggers = $this->object->getLoggers();
-    $this->assertEquals( 1, count( $returnedLoggers['event'] ) );
-    $this->assertEquals( logger::EVENT, $returnedLoggers['event'][0]->getType() );
+    $this->assertEquals( 1, $loggerTable->count() );
 
-    $this->assertEquals( 1, count( $returnedLoggers['poi'] ) );
+    $loggerRow = $loggerTable->findOneById( 1 );
+    
+    $this->assertEquals( 1, $loggerRow[ 'total_inserts' ], 'Total inserts' );
+    $this->assertEquals( 0, $loggerRow[ 'total_updates' ], 'Total updates');
+  }
+
+
+
+  /**
+   * Test loggers are called correctly for updating records
+   */
+  public function testLogsRecordUpdateCorrectly()
+  {
+    $loggerTable = Doctrine::getTable( 'ImportLogger' );
+    $this->assertEquals( 0, $loggerTable->count() );
+
+    $logger = new logImport( $this->vendor );
+    $logger->setType( 'poi' );
+
+    $this->object->addLogger( $logger );
+    $this->object->addDataMapper( new UnitTestImporterDataMapper() );
+    $this->object->run();
+
+    $this->assertEquals( 1, $loggerTable->count() );
+
+    $loggerRow = $loggerTable->findOneById( 1 );
+
+    $this->assertEquals( 0, $loggerRow[ 'total_inserts' ], 'Total inserts' );
+    $this->assertEquals( 1, $loggerRow[ 'total_updates' ], 'Total updates');
   }
 
   /**
@@ -93,7 +110,7 @@ class ImporterTest extends PHPUnit_Framework_TestCase
    */
   public function testAddDataMapper()
   {
-    $dataSource = new UnitTestImporterDataMapper( $this->importer );
+    $dataSource = new UnitTestImporterDataMapper( );
 
     $returnedImportData = $this->object->getDataMappers();
     $this->assertEquals(array(), $returnedImportData);
@@ -186,6 +203,7 @@ class UnitTestImporterDataMapper extends DataMapper
   }
 }
 
+//maps a new record
 class UnitTestImporterDataMapper1 extends DataMapper
 {
   public function mapPois()
@@ -201,11 +219,11 @@ class UnitTestImporterDataMapper1 extends DataMapper
   }
 }
 
+//maps an existing record
 class UnitTestImporterDataMapper2 extends DataMapper
 {
   public function mapPois()
   {
- 
     $poi = $this->getRecord('Poi', 'vendor_poi_id', 99 );
 
     $poi['street'] = 'bar';

@@ -40,7 +40,7 @@ class nyImportBcXmlTest extends PHPUnit_Framework_TestCase
           echo $e->getMessage();
         }
 
-        $this->object = new processNyBcXml($this->xmlObj, $this->vendorObj );
+      //  $this->object = new processNyBcXml($this->xmlObj, $this->vendorObj );
     }
 
     /**
@@ -52,11 +52,14 @@ class nyImportBcXmlTest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @todo finish the function
+     */
     public function testImportBars()
     {
 
-        $this->object->importBars();
-        $this->assertTrue(true);
+        //$this->object->importBars();
+        //$this->assertTrue(true);
     }
 }
 ?>
