@@ -36,14 +36,21 @@ class nyImportBcEd {
      *
      * @var logImport
      */
-    public $logger;
+    public $loggerObj;
 
 
-    public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj, logImport $logger )
+    /**
+     * Constructor
+     *
+     * @param processNyBcXml $bcObj
+     * @param Vendor $vendorObj
+     */
+    public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj)
     {
         $this->bcObj = $bcObj;
         $this->vendorObj = $vendorObj;
-        $this->logger = $logger;
+        $this->loggerObj = new logImport($vendorObj);
+        $this->loggerObj->setType('poi');
         Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     }
 
@@ -62,7 +69,8 @@ class nyImportBcEd {
             }
         }
 
-       
+        //Save the logger
+        $this->loggerObj->save();
     }
 
     
@@ -83,13 +91,15 @@ class nyImportBcEd {
         if($currentPoi)
         {
             //Count thisi as existing
-            $this->logger->countExisting();
+            $this->loggerObj->countExisting();
             return $currentPoi;
         }
         else
         {
-            return new Poi();
+            $currentPoi = new Poi();
         }
+
+        return $currentPoi;
     }
 
     
@@ -180,11 +190,11 @@ class nyImportBcEd {
             catch(Exception $e)
             {
                 //Force a Long/Lat or validation will fail
-                $poiObj[ 'longitude' ] = 0.00;
-                $poiObj[ 'latitude' ]  = 0.00;
+               // $poiObj[ 'longitude' ] = 0.00;
+               // $poiObj[ 'latitude' ]  = 0.00;
 
-                $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                $this->logger->addError($e, $log);
+                  $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
+                 $this->loggerObj->addError($e, $poiObj, $log);
             }
 
             /**
@@ -203,7 +213,7 @@ class nyImportBcEd {
             catch(Exception $e)
             {
                 $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                $this->logger->addError($e, $log);
+                $this->loggerObj->addError($e, $poiObj, $log);
             }
 
            //Add category
@@ -223,7 +233,7 @@ class nyImportBcEd {
            //save
            $poiObj->save();
            //post-save
-           ( $logIsNew ) ? $this->logger->countNewInsert() : $this->logger->addChange( 'update', $logChangedFields );
+           ( $logIsNew ) ? $this->loggerObj->countNewInsert() : $this->loggerObj->addChange( 'update', $logChangedFields );
 
            //Return Poi for testing
            return $poiObj;
@@ -233,7 +243,7 @@ class nyImportBcEd {
         catch(Doctrine_Validator_Exception $error)
         {           
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->logger->addError($error, $log);
+           $this->loggerObj->addError($error, $poiObj, $log);
             
             return $poiObj;
         }
@@ -241,7 +251,7 @@ class nyImportBcEd {
         catch(Exception $e)
         {
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->logger->addError($e, $log);
+           $this->loggerObj->addError($e, $poiObj, $log);
 
            return $poiObj;
         }
