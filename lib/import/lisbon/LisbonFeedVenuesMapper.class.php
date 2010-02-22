@@ -37,7 +37,6 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['vendor_category'] = (string) $venueElement[ 'tipo' ];
       $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
       $poi['vendor_id'] = $this->vendor['id'];
-
       
       $poi['description']                = $this->extractAnnotation( $venueElement );
       $poi['additional_address_details'] = $this->extractAddress( $venueElement );
@@ -64,7 +63,8 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'placeid'      => 'vendor_poi_id',
       'name'         => 'poi_name',
       'address'      => 'street',
-      'postcode'     => 'zips',
+      'postcode'     => 'zips',  
+      'genmail'      => 'email',
       'url'          => 'url',
       'tipo'         => 'vendor_category',
       'abbreviation' => 'short_description',
