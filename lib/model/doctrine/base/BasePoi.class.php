@@ -20,6 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @property string $zips
  * @property decimal $longitude
  * @property decimal $latitude
+ * @property string $email
  * @property string $url
  * @property string $phone
  * @property string $phone2
@@ -51,6 +52,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getZips()                       Returns the current record's "zips" value
  * @method decimal             getLongitude()                  Returns the current record's "longitude" value
  * @method decimal             getLatitude()                   Returns the current record's "latitude" value
+ * @method string              getEmail()                      Returns the current record's "email" value
  * @method string              getUrl()                        Returns the current record's "url" value
  * @method string              getPhone()                      Returns the current record's "phone" value
  * @method string              getPhone2()                     Returns the current record's "phone2" value
@@ -87,6 +89,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setZips()                       Sets the current record's "zips" value
  * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
  * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
+ * @method Poi                 setEmail()                      Sets the current record's "email" value
  * @method Poi                 setUrl()                        Sets the current record's "url" value
  * @method Poi                 setPhone()                      Sets the current record's "phone" value
  * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
@@ -126,6 +129,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getZips()                       Returns the current record's "zips" value
  * @method decimal             getLongitude()                  Returns the current record's "longitude" value
  * @method decimal             getLatitude()                   Returns the current record's "latitude" value
+ * @method string              getEmail()                      Returns the current record's "email" value
  * @method string              getUrl()                        Returns the current record's "url" value
  * @method string              getPhone()                      Returns the current record's "phone" value
  * @method string              getPhone2()                     Returns the current record's "phone2" value
@@ -162,6 +166,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setZips()                       Sets the current record's "zips" value
  * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
  * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
+ * @method Poi                 setEmail()                      Sets the current record's "email" value
  * @method Poi                 setUrl()                        Sets the current record's "url" value
  * @method Poi                 setPhone()                      Sets the current record's "phone" value
  * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
@@ -200,6 +205,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getZips()                       Returns the current record's "zips" value
  * @method decimal             getLongitude()                  Returns the current record's "longitude" value
  * @method decimal             getLatitude()                   Returns the current record's "latitude" value
+ * @method string              getEmail()                      Returns the current record's "email" value
  * @method string              getUrl()                        Returns the current record's "url" value
  * @method string              getPhone()                      Returns the current record's "phone" value
  * @method string              getPhone2()                     Returns the current record's "phone2" value
@@ -236,6 +242,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setZips()                       Sets the current record's "zips" value
  * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
  * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
+ * @method Poi                 setEmail()                      Sets the current record's "email" value
  * @method Poi                 setUrl()                        Sets the current record's "url" value
  * @method Poi                 setPhone()                      Sets the current record's "phone" value
  * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
@@ -276,6 +283,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getZips()                       Returns the current record's "zips" value
  * @method decimal             getLongitude()                  Returns the current record's "longitude" value
  * @method decimal             getLatitude()                   Returns the current record's "latitude" value
+ * @method string              getEmail()                      Returns the current record's "email" value
  * @method string              getUrl()                        Returns the current record's "url" value
  * @method string              getPhone()                      Returns the current record's "phone" value
  * @method string              getPhone2()                     Returns the current record's "phone2" value
@@ -312,6 +320,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setZips()                       Sets the current record's "zips" value
  * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
  * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
+ * @method Poi                 setEmail()                      Sets the current record's "email" value
  * @method Poi                 setUrl()                        Sets the current record's "url" value
  * @method Poi                 setPhone()                      Sets the current record's "phone" value
  * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
@@ -413,6 +422,11 @@ abstract class BasePoi extends sfDoctrineRecord
              'scale' => 15,
              'notnull' => false,
              'length' => '18',
+             ));
+        $this->hasColumn('email', 'string', 128, array(
+             'type' => 'string',
+             'notnull' => false,
+             'length' => '128',
              ));
         $this->hasColumn('url', 'string', 1024, array(
              'type' => 'string',
