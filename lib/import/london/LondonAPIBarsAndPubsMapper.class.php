@@ -68,8 +68,15 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
   {
     $poi = new Poi();
 
-    $this->mapCommonPoiMappings( $poi, $barsXml );
-
+    try
+    {
+      $this->mapCommonPoiMappings($poi, $barsXml);
+    }
+    catch( Exception $exception )
+    {
+      $this->notifyImporterOfFailure($exception, $poi);
+      return;
+    }
     $poi['PoiCategories'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $barsXml->starRating;
 

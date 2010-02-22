@@ -64,7 +64,7 @@ SLLVenue:
     url: Dummy Url 1
     latitude: 51.0000000
     longitude: -0.10000000
-    phone: Dummy Phone 1
+    phone: 0207 458 4569
     email: Dummy Email 1
     image_id: 11111111
     status: 10
@@ -138,7 +138,7 @@ SLLEvent:
     title: Dummy Title 1
     title_sort: Dummy Title 1
     annotation: Dummy Annotation 1
-    phone: Dummy Phone 1
+    phone: 0207 458 4569
     url: Dummy Url 1
     price: Dummy Price 1
     free: 0

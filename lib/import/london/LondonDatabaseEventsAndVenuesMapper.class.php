@@ -3,50 +3,44 @@
  * Description
  *
  * @package projectn
- * @subpackage london.import.lib
+ * @subpackage
  *
- * @author Rhodri Davies <rhodridavies@timout.com>
+ * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1
  *
  */
-class LondonImporter
+class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 {
 
-	/**
-	 * @var Vendor
-	 */
-	private $_vendor;
+  public function __construct( )
+  {
+    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'london', 'en-GB' );
+
+    if( !$vendor )
+    {
+      throw new Exception( 'Vendor not found.' );
+    }
+    $this->vendor = $vendor;
+
+    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
+  }
 
   /**
-   * @var PoiCategory
+   * 
    */
-  private $defaultPoiCategory;
-
-	public function __construct( )
-	{
-		$this->_vendor = Doctrine::getTable( 'Vendor' )->getVendorByCityAndLanguage( 'london', 'en-GB' );
-
-		if (! $this->_vendor instanceof Vendor)
-		{
-			throw new Exception( 'Cannot load Vendor' );
-		}
-    
-    
-    
-    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
-	}
-
-	public function run( )
-	{
-		$this->processCategories( );
+  public function mapAll()
+  {
+    //$this->processCategories( );
 		$this->processEvents( );
-	}
+  }
 
+    
 
 	/**
 	 * @todo only import categories that have occurrences
+
 	 */
 	private function processCategories( )
 	{
@@ -58,14 +52,14 @@ class LondonImporter
         {
         	$category = new VendorEventCategory( );
 
-        	$category[ 'Vendor' ] = $this->_vendor;
+        	$category[ 'Vendor' ] = $this->vendor;
         	$category[ 'name' ]   = $item[ 'name' ];
-
-        	$category->save( );
-        	$category->free( );
+ 
+          $this->notifyImporter( $category );
+        	//$category->free( );
         }
 
-        $items->free( true );
+        //$items->free( true );
 	}
 
 
@@ -103,7 +97,7 @@ class LondonImporter
 
         $poi['PoiCategories'][] = $this->defaultPoiCategory;
 
-				$poi[ 'Vendor' ] = $this->_vendor;
+				$poi[ 'Vendor' ] = $this->vendor;
 
 				$poi[ 'vendor_poi_id' ] = $item[ 'venue_id' ];
 
@@ -126,8 +120,12 @@ class LondonImporter
 				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
 				$poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
 
-				$poi->save( );
-
+        $this->notifyImporter( $poi );
+        
+        if( !$poi->exists() )
+        {
+          continue;
+        }
 
 				// insert/update event
 				$event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( $item[ 'event_id' ] );
@@ -135,7 +133,7 @@ class LondonImporter
 				if ( $event === false ) $event = new Event( );
 
 
-				$event[ 'Vendor' ] = $this->_vendor;
+				$event[ 'Vendor' ] = $this->vendor;
 
 				$event[ 'vendor_event_id' ] = $item[ 'event_id' ];
 
@@ -144,8 +142,11 @@ class LondonImporter
 				$event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
 				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
 
-				$event->save( );
-
+        $this->notifyImporter( $event );
+        if( !$event->exists() )
+        {
+          continue;
+        }
 
 
 				// insert/update occurrence
@@ -166,24 +167,24 @@ class LondonImporter
 				$timeOffset = $zone->getOffset( new DateTime( $item[ 'date_start' ], $zone ) );
 				$occurrence[ 'utc_offset' ] = $timeOffset / 3600;
 
-				$occurrence->save( );
-
-
+        $this->notifyImporter( $occurrence );
 
 				// free memory
-				$poi->free( );
-				$event->free( );
-				$occurrence->free( );
+//				$poi->free( );
+//				$event->free( );
+//				$occurrence->free( );
 
 			}
 
 			$currentPage++;
 
 			// free memory
-			$items->free( true );
+			//$items->free( true );
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 
 	}
 
 }
+ 
+ 

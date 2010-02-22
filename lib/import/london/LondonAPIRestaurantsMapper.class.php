@@ -23,7 +23,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    */
   public function  __construct( LondonAPICrawler $apiCrawler=null, geoEncode $encoder=null  )
   {
-    parent::__construct( $apiCrawler, $geoEncoder );
+    parent::__construct( $apiCrawler, $encoder );
     $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'restaurant' );
   }
 
@@ -65,7 +65,16 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
   public function doMapping( SimpleXMLElement $restaurantXml )
   {
     $poi = new Poi();
-    $this->mapCommonPoiMappings($poi, $restaurantXml);
+
+    try
+    {
+      $this->mapCommonPoiMappings($poi, $restaurantXml);
+    }
+    catch( Exception $exception )
+    {
+      $this->notifyImporterOfFailure($exception, $poi);
+      return;
+    }
     
     $poi[ 'star_rating' ] = (int) $restaurantXml->starRating;
     $poi[ 'PoiCategories' ][] = $this->poiCategory;

@@ -109,7 +109,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['longitude']         = $latLong['latitude'];
     $poi['latitude']          = $latLong['longitude'];
     $poi['zips']              = (string) $xml->postcode;
-    $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml );
+    $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml, $poi );
   
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $xml->uid;
@@ -131,7 +131,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
    *
    * @return string
    */
-  protected function deriveCity( $latitude, $longitude, $xml )
+  protected function deriveCity( $latitude, $longitude, $xml, $poi )
   {
     $city = 'London';
 
