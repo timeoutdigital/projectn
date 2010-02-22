@@ -36,14 +36,15 @@ class chicagoImportBcEd {
      *
      * @var logImport
      */
-    public $logger;
+    public $loggerObj;
 
 
-    public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj, logImport $logger )
+    public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj )
     {
         $this->bcObj = $bcObj;
         $this->vendorObj = $vendorObj;
-        $this->logger = $logger;
+        $this->loggerObj = new logImport($vendorObj);
+        $this->loggerObj->setType('poi');
         Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     }
 
@@ -61,6 +62,8 @@ class chicagoImportBcEd {
                 $this->importPoi($poi);
             }
         }
+
+        $this->loggerObj->save();
     }
 
 
@@ -81,13 +84,14 @@ class chicagoImportBcEd {
         if($currentPoi)
         {
             //Count this as existing
-            $this->logger->countExisting();
-            return $currentPoi;
+            $this->loggerObj->countExisting();
         }
         else
         {
-            return new Poi();
+            $currentPoi = new Poi();
         }
+
+        return $currentPoi;
     }
 
 
@@ -117,7 +121,7 @@ class chicagoImportBcEd {
             $poiObj[ 'description' ]             = (string) $poi->{'body'};
             $poiObj[ 'price_information' ]       = (string) $poi->{'prices'};
             $poiObj[ 'openingtimes' ]            = (string) $poi->{'hours'};
-            $poiObj['url'] = (string) $poi->{'url'};
+            $poiObj['url']                       = (string) $poi->{'url'};
 
 
             $stateCityArray                      = explode(',', (string) $poi->{'city.state'});
@@ -156,7 +160,7 @@ class chicagoImportBcEd {
                 $poiObj[ 'latitude' ]  = 0.00;
 
                 $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                $this->logger->addError($e, $log);
+                $this->loggerObj->addError($e, $poiObj, $log);
             }
 
             /**
@@ -176,7 +180,7 @@ class chicagoImportBcEd {
             {
                 echo "Phone number error \n \n";
                 $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                $this->logger->addError($e, $log);
+                $this->loggerObj->addError($e, $poiObj, $log);
             }
 
 
@@ -191,7 +195,7 @@ class chicagoImportBcEd {
                     $log.= "$k: $v \n";
                 }
 
-                $this->logger->addChange('update', $log);
+                $this->loggerObj->addChange('update', $log);
                 $isNew = false;
 
             }
@@ -234,7 +238,7 @@ class chicagoImportBcEd {
         {
            echo "Validation error \n \n";
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->logger->addError($error, $log);
+           $this->loggerObj->addError($error, $poiObj, $log);
             return $poiObj;
         }
 
@@ -242,7 +246,7 @@ class chicagoImportBcEd {
         {
 
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->logger->addError($e, $log);
+           $this->loggerObj->addError($e, $poiObj, $log);
 
            return $poiObj;
         }
@@ -251,7 +255,7 @@ class chicagoImportBcEd {
         //Update the logger
         if($isNew)
         {
-            $this->logger->countNewInsert();
+            $this->loggerObj->countNewInsert();
         }
 
 
