@@ -90,22 +90,26 @@ class geoEncode
      //Create an array containing the data
      $dataArray = explode(',', $data);
 
+
+     /**
+      * @todo re-implement exception handling
+      */
      switch($dataArray[0])
      {
-         case '602': throw new Exception('G_GEO_UNKNOWN_ADDRESS');
+         case '602': //throw new GeoCodeException('G_GEO_UNKNOWN_ADDRESS');
              break;
 
-         case '603': throw new Exception('G_GEO_UNAVAILABLE_ADDRESS');
+         case '603': //throw new GeoCodeException('G_GEO_UNAVAILABLE_ADDRESS');
              break;
 
-         case '620': throw new Exception('G_GEO_TOO_MANY_QUERIES');
+         case '620': //throw new GeoCodeException('G_GEO_TOO_MANY_QUERIES');
              break;
 
      }
 
      if($dataArray[0] != '200')
      {
-         throw new Exception('No Geocode available: Code = '.$dataArray[0]);
+         //throw new Exception('No Geocode available: Code = '.$dataArray[0]);
      }
 
      //Set invidual co-ords

@@ -62,7 +62,11 @@ class Poi extends BasePoi
    */
   public function preSave( $event )
   {
-     $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
+     
+     if(strlen($this['phone']) > 0)
+     {
+      $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
+     }
 
      if( $this['url'] != '')
      {
@@ -76,7 +80,7 @@ class Poi extends BasePoi
      {
        if( empty( $this->geoEncodeLookUpString ) )
        {
-         throw new Exception( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
+         throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
        }
        
        $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
@@ -86,9 +90,9 @@ class Poi extends BasePoi
 
        if( $geoEncoder->getAccuracy() < 5 )
        {
-         $this['longitude'] = 0;
-         $this['latitude'] = 0;
-         throw new Exception('Geo encode accuracy below 5' );
+         $this['longitude'] = null;
+         $this['latitude'] = null;
+         //throw new GeoCodeException('Geo encode accuracy below 5' );
        }
      }
   }
