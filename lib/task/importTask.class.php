@@ -37,8 +37,8 @@ class importTask extends sfBaseTask
         $loggerObj = new logImport($vendorObj);
 
         //Setup NY FTP
-        $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-        $ftpClientObj->setSourcePath( '/NOKIA/' );
+//        $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+//        $ftpClientObj->setSourcePath( '/NOKIA/' );
 
 
         switch( $options['type'] )
@@ -305,25 +305,12 @@ class importTask extends sfBaseTask
 
 
     case 'dubai':
-        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
-
+        $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+    
         switch( $options['type'] )
         {
-          case 'restaurants':
-           // $processXmlObj = new processNyXml('import/tony_leo.xml');
-           // $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-           // $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-           // $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-              $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
-
-                //Regression tests
-              $curlObj = new curlImporter();
-              //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
-               $restaurantXmlObj =  $curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/restaurants')->getXml();
-
-              //$this->barObject = new dubaiImportBars( $this->barXmlObj, $this->vendorObj, 'bar' );
-              $restaurantObj =  new dubaiImportBars( $restaurantXmlObj, $vendorObj, 'restaurant' );
-              $restaurantObj->importPoi();
+          case 'poi': //$this->importDubaiBars($vendorObj);
+                      $this->importDubaiRestaurants($vendorObj);
 
             break;
 
@@ -331,6 +318,9 @@ class importTask extends sfBaseTask
 
             break;
         }
+
+
+
         break; // end dubai
 
 
@@ -339,12 +329,8 @@ class importTask extends sfBaseTask
     }//end switch
 
 
-
-     //Save the logger
-     $loggerObj->save();
-
      //Get the total import time
-     echo "Total time: ". $loggerObj->finalTime . "\n";
+     //echo "Total time: ". $importObj->poiLoggerObj ->finalTime . "\n";
   }
 
 
@@ -492,16 +478,17 @@ class importTask extends sfBaseTask
   {
        try
         {
-          $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
+          //$fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
 
-          $processXmlObj = new processNyXml( $fileNameString );
+          //$processXmlObj = new processNyXml( $fileNameString );
+          $processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-          $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-          $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+          $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+          $nyImportObj->insertEventCategoriesAndEventsAndVenues();
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+          echo 'Exception caught in NY events import '  . $e->getMessage();
         }
    }
 
@@ -580,6 +567,48 @@ class importTask extends sfBaseTask
 
 
 
+   /***************************************************************************
+   *
+   *    Dubai
+   *
+   * *************************************************************************/
+    private function importDubaiBars($vendorObj)
+     {
+        try
+        {
+            $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
+            
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+           
+            $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
+            $importDubaiBars->importPois();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
+        }
+
+     }
+
+     private function importDubaiRestaurants($vendorObj)
+     {
+        try
+        {
+            $feed = new Curl('http://www.timeoutdubai.com/nokia/restaurants');
+
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+            $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
+            $importDubaiRestaurants->importPois();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
+        }
+
+     }
 
 
 
