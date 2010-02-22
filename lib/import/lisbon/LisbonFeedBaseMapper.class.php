@@ -89,7 +89,7 @@ class LisbonFeedBaseMapper extends DataMapper
     {
       if( in_array( $key, $ignoreMap ) )
       {
-        //do nothing
+        continue;
       }
       else if( key_exists( $key, $map ) )
       {
