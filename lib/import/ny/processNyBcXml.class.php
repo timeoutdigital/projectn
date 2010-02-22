@@ -43,12 +43,28 @@ class processNyBcXml extends processXml
 
       //$contents = str_replace('barkey.1', '', $contents);
 
-
-      $contents = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $contents);
+     // $contents = preg_replace("/&/", "&amp;", $contents);
+      /*$contents = preg_replace("/<type>/", "<type><![CDATA[", $contents);
+      $contents = preg_replace("/<\/type>/", "]]></type>", $contents);
+      $contents = preg_replace("/<title>/", "<title><![CDATA[", $contents);
+      $contents = preg_replace("/<\/title>/", "]]></title>", $contents);
+      $contents = preg_replace("/<email>/", "<email><![CDATA[", $contents);
+      $contents = preg_replace("/<\/email>/", "]]></email>", $contents);
+      $contents = preg_replace("/<description>/", "<description><![CDATA[", $contents);
+      $contents = preg_replace("/<\/description>/", "]]></description>", $contents);
+      $contents = preg_replace("/<location>/", "<location><![CDATA[", $contents);
+      $contents = preg_replace("/<\/location>/", "]]></location>", $contents);
+      $contents = preg_replace("/<link>/", "<link><![CDATA[", $contents);
+      $contents = preg_replace("/<\/link>/", "]]></link>", $contents);
       
 
-      //echo $contents;
-     
+      $contents = trim($contents);
+*/
+     // echo $contents;
+
+     //Remove crazy weird chars
+      $contents = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $contents);
+
       fclose($handle);
 
       $handle = fopen($sourceFile, "w");
