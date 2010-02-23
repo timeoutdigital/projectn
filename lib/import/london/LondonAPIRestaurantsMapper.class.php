@@ -64,7 +64,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    */
   public function doMapping( SimpleXMLElement $restaurantXml )
   {
-    $poi = new Poi();
+    $poi = $this->dataMapperHelper->getPoiRecord( (string) $restaurantXml->uid );
 
     try
     {

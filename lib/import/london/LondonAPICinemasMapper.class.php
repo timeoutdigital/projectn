@@ -67,7 +67,7 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
    */
   public function doMapping( SimpleXMLElement $cinemaXml )
   {
-    $poi = new Poi();
+    $poi = $this->dataMapperHelper->getPoiRecord( (string) $cinemaXml->uid );
 
     try
     {

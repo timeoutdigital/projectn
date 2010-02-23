@@ -18,18 +18,17 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->listings as $listingElement )
     {
-      $event = $this->getRecord('Event', 'vendor_event_id',  (int) $listingElement['RecurringListingID'] );
-
+      $event = $this->dataMapperHelper->getEventRecord( (int) $listingElement['RecurringListingID'] );
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
       $event['vendor_id'] = $this->vendor['id'];
       $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
 
-      $occurrence = $this->getRecord('EventOccurrence', 'vendor_event_occurrence_id', (int) $listingElement['musicid']);
-      
+      $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
       $occurrence['vendor_event_occurrence_id'] = (int) $listingElement['musicid'];
       $occurrence['start'] = str_replace('T', ' ', (string) $listingElement['ListingDate'] );
       $occurrence['utc_offset'] = 0;
       $occurrence['event_id'] = $event['id'];
+      
       try
       {
         $placeid = (int) $listingElement['placeid'];
@@ -40,6 +39,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
         $this->notifyImporterOfFailure($e, $occurrence, 'Could not find Lisbon Poi with vendor_poi_id of '. $placeid );
         continue;
       }
+      
       $event['EventOccurrence'][] = $occurrence;
 
        //we will try to find the event with name
