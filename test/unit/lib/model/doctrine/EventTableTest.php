@@ -95,5 +95,14 @@ class EventTableTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 3, count( $events[ 0 ][ 'EventOccurrence' ] ) );
   }
+
+  /**
+   * test getVendorUidFieldName() returns the right string
+   */
+  public function testGetVendorUidFieldName()
+  {
+    $column = $this->object->getVendorUidFieldName();
+    $this->assertTrue( $this->object->hasColumn( $column ) );
+  }
 }
 ?>
