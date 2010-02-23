@@ -1,12 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
-require_once dirname(__FILE__).'/../../../../../lib/processXml.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/nyImportBcEd.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/processNyBcXml.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/logImport.class.php';
-require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-spl_autoload_register(array('Doctrine', 'autoload'));
 
 
 /**
