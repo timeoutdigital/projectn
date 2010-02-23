@@ -109,7 +109,17 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'buildingno',
       'buildingName',
       'area',
-      'city', 
+      'city',
+      'cinemaheaderinfo',
+      'FilmDoubleIssueText',
+      'MusicheaderInfo',
+      'tubestationid',
+      'sortfield',
+      'comedyurlexport',
+      'danceurlexport',
+      'nightlifeurlexport',
+      'gayurlexport',
+      'placelist',
     );
   }
 
