@@ -21,13 +21,6 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi = new Poi();
       $this->mapAvailableData($poi, $venueElement );
 
-      //$poi['district'] = '';
-      //$poi['fax'] = '';
-      //$poi['keywords'] = '';
-      //$poi['star_rating'] = null;
-      //$poi['rating'] = '';
-      //$poi['provider'] = '';
-
       $poi['review_date'] = '';
       $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
