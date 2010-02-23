@@ -38,6 +38,17 @@ class LisbonFeedBaseMapper extends DataMapper
    */
   protected $xml;
 
+  /**
+   *
+   * @var projectNDataMapperHelper
+   */
+  protected $dataMapperHelper;
+
+  /**
+   *
+   * @param SimpleXMLElement $xml
+   * @param geoEncode $geoEncoder
+   */
   public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
   {
     $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
@@ -46,6 +57,7 @@ class LisbonFeedBaseMapper extends DataMapper
     {
       throw new Exception( 'Vendor not found.' );
     }
+    $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
     $this->vendor = $vendor;
     $this->xml = $xml;
 

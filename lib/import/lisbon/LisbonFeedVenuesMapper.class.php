@@ -18,7 +18,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->venues as $venueElement )
     {
-      $poi = new Poi();
+      $poi = $this->dataMapperHelper->getPoiRecord($venueElement['placeid']);
       $this->mapAvailableData($poi, $venueElement );
 
       $poi['review_date'] = '';

@@ -66,7 +66,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    */
   public function doMapping( SimpleXMLElement $barsXml )
   {
-    $poi = new Poi();
+    $poi = $this->dataMapperHelper->getPoiRecord((string) $barsXml->uid);
 
     try
     {

@@ -132,6 +132,7 @@ Event:
   actAs:
     Timestampable: ~
   columns:
+    review_date:                {type: datetime, notnull: false}
     vendor_event_id:            {type: string(10), notnull: true}
     name:                       {type: string(255), notnull: true}
     short_description:          {type: string(1024), notnull: false}

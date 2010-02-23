@@ -27,6 +27,7 @@ class LondonAPICrawlerTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    ProjectN_Test_Unit_Factory::add('Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
 
     $this->object = new LondonAPICrawler();
     $this->object->setLimit( 11 );

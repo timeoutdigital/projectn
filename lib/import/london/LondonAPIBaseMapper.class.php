@@ -48,6 +48,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @var LondonAPICrawler
    */
   protected $apiCrawler;
+
+  /**
+   * @var projectnDataMapperHelper
+   */
+  protected $dataMapperHelper;
   
   /**
    * @param LondonAPICrawler $apiCrawler
@@ -71,6 +76,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
     {
       $this->geoEncoder = new geoEncode();
     }
+
+    $this->dataMapperHelper = new projectNDataMapperHelper($this->vendor);
   }
   
   /**

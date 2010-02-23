@@ -53,7 +53,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
           Doctrine::loadData('data/fixtures');
           $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('chicago', 'en-US');
 
-          $this->xmlObj = new processNyBcXml( dirname(__FILE__).'/../../../data/toc_ed.xml' );
+          $this->xmlObj = new processNyBcXml( TO_TEST_DATA_PATH.'/toc_ed.xml' );
           $this->loggerObj = new logImport($this->vendorObj, 'poi');
 
         }

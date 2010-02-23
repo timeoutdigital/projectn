@@ -48,7 +48,7 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
   public function testGetsFilmsFromLondonDatabase()
   {
     $importer = new UnitTestNyMoviesImporter();
-    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor ) );
+    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
     $importer->run();
     
     $this->assertTrue( $importer->onRecordMappedCalled );
@@ -73,7 +73,7 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
   protected function runImport()
   {
     $importer = new Importer();
-    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor ) );
+    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
     $importer->run();
   }
 }

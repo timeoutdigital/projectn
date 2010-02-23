@@ -51,7 +51,8 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
    */
   public function doMapping( SimpleXMLElement $movieXml )
   {
-    $movie = new Movie();
+    $movie = $this->dataMapperHelper->getMovieRecord( (string) $movieXml->uid );
+
     $movie['vendor_id']         = $this->vendor['id'];
     $movie['vendor_movie_id']   = (string) $movieXml->uid;
     $movie['name']              = (string) $movieXml->name;

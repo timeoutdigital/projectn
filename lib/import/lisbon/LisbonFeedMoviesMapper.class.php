@@ -25,7 +25,7 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
       }
       $lastTitle = (string) $filmElement[ 'title' ];
 
-      $movie = new Movie();
+      $movie = $this->dataMapperHelper->getMovieRecord( $filmElement['filmID'] );
       
       $this->mapAvailableData($movie, $filmElement, 'MovieProperty' );
 
