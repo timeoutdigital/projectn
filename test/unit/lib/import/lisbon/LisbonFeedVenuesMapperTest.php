@@ -4,10 +4,10 @@ require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 
 /**
- * Test singapore import.
+ * Test of Lisbon Feed Venues Mapper import.
  *
  * @package test
- * @subpackage lisbon.import.lib
+ * @subpackage lisbon.import.lib.unit
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @copyright Timeout Communications Ltd
