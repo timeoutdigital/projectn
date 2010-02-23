@@ -89,7 +89,9 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   public function testAccuracy()
   {
-     $this->assertType('float', $this->object->getGeoCode()->getAccuracy());
+
+      print_r($this->object->getGeoCode()->getAccuracy());
+      $this->assertType('int', $this->object->getGeoCode()->getAccuracy());
   }
 
 
