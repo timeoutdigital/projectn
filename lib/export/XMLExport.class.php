@@ -81,7 +81,7 @@ abstract class XMLExport
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
-    $this->isValidAgainstXSD( $xml );
+    $this->validateAgainst( $xml );
   }
 
   /**
@@ -97,7 +97,7 @@ abstract class XMLExport
    * check the export against its XSD
    * @todo should enforce an XSD
    */
-  public function isValidAgainstXSD( DOMDocument $xml )
+  public function validateAgainst( DOMDocument $xml )
   {
     if( !is_null( $this->xsdPath ) )
     {

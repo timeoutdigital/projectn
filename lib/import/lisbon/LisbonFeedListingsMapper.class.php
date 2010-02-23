@@ -22,6 +22,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
       $event['vendor_id'] = $this->vendor['id'];
       $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
+      $event->addVendorCategory( array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] ), $this->vendor['id'] );
+      $event['review_date'] = preg_replace( '/T/', ' ', (string) $listingElement['ModifiedDate'] );
 
       $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
       $occurrence['vendor_event_occurrence_id'] = (int) $listingElement['musicid'];
@@ -65,6 +67,82 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       'Notesline1' => 'short_description',
       'AnnotationForWeb' => 'description',
       'priceinfo' => 'price',
+    );
+  }
+
+  protected function getIgnoreMap()
+  {
+    return array(
+      'category',
+      'listing_',
+      'residency',
+      'highlight',
+      'sortvalue',
+      'SavePreview',
+      'CatSort',
+      'Complete',
+      'ResTerm',
+      'PlacePrefix',
+      'Discounted',
+      'freeevent',
+      'fatbob',
+      'MagicSlim',
+      'see',
+      'archiveid',
+      'CreatedBy',
+      'CreatedDate',
+      'CreatedTime',
+      'Modifiedby',
+      'ModifiedDate',
+      'ModifiedTime',
+      'CategoryId',
+      'Section',
+      'ListingDate',
+      'todate',
+      'DoNotPublishOnWeb',
+      'SubCategory',
+      'LateNight',
+      'VenuePrefix',
+      'AnnotationSuffix',
+      'EventPrefix',
+      'FullPlaceInfo',
+      'ListingURL',
+      'Discount',
+      'FoodServed',
+      'New',
+      'Under5s',
+      'RecurringListingID',
+      'TelNoInfo',
+      'ExportArchiveInformation',
+      'ExcludeVenueInVenuesList',
+      'novenue',
+      'ListingTubeInfo',
+      'ListingBusInfo',
+      'ListingRailInfo',
+      'ListingsTubeExport',
+      'ProposedFromDate',
+      'Ongoing',
+      'OngoingText',
+      'ProposedToDate',
+      'ProductionID',
+      'BookingAhead',
+      'DoNotExportListing',
+      'LastChance',
+      'Extra',
+      'Cancelled',
+      'SectionID',
+      'SubCategoryID',
+      'EventInfoSuffix',
+      'ExportEventNameandSuffix',
+      'DupParentID',
+      'UniqueName',
+      'UniqueNameID',
+      'BookingTil',
+      'UnusedEventAlpha',
+      'EventLookup',
+      'OutputSortField',
+      'listingstatus',
+      'image',
     );
   }
 }
