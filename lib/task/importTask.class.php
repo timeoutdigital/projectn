@@ -64,7 +64,7 @@ class importTask extends sfBaseTask
 
           case 'movie':
                 $importer = new Importer();
-                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
                 $importer->run();
             break;
 

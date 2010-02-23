@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, clear-cache, php-documentor, php-codesniffer, php-pmd, php-cpd,phpunit "/>
+  <target name="build" depends="checkout, clear-cache, php-documentor, php-codesniffer, php-pmd, php-cpd,phpunit, git-add, git-commit, checkout, git-push "/>
   <!-- Delete all the log files -->
   <target name="init">
     <delete>
@@ -78,6 +78,9 @@
      <arg line="add doc/api" />
     </exec>
  </target>
+
+
+
 
  <!-- Git Commit -->
  <target name="git-commit">
