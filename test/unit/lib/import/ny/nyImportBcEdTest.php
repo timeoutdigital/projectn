@@ -19,7 +19,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class nyImportBcTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var nyImportBc
+     * @var nyImportBcEd
      */
     protected $object;
 
@@ -96,11 +96,11 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
     {
         $this->createExistingChangedPoi();
         $this->createObject();
-        $updateTestArray = $this->object->logger->changesCollection->toArray();
+        $updateTestArray = $this->object->loggerObj->changesCollection->toArray();
 
         //Check logger has looged the update
         $this->assertEquals('update', $updateTestArray[0]['type'], 'Testing record is updated');
-        $this->assertEquals(1,$this->object->logger->totalUpdates, 'Testing that the total has incremented' );
+        $this->assertEquals(1,$this->object->loggerObj->totalUpdates, 'Testing that the total has incremented' );
 
         //Check the DB for all entries
         $poi = Doctrine::getTable('Poi')->findByPoiName('Milanos Bar');
