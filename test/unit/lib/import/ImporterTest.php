@@ -222,9 +222,19 @@ class UnitTestImporterDataMapper1 extends DataMapper
 //maps an existing record
 class UnitTestImporterDataMapper2 extends DataMapper
 {
+  /**
+   * @var projectNDataMapperHelper
+   */
+  protected $dataMapperHelper;
+
+  public function __construct()
+  {
+    $this->dataMapperHelper = new projectNDataMapperHelper( Doctrine::getTable('Vendor')->findOneById( 1 ) );
+  }
+
   public function mapPois()
   {
-    $poi = $this->getRecord('Poi', 'vendor_poi_id', 99 );
+    $poi = $this->dataMapperHelper->getPoiRecord( 99 );
 
     $poi['street'] = 'bar';
 

@@ -254,7 +254,6 @@ class importNyChicagoEvents
       $phoneString = (string) $poi->telephone->number;
 
       $fullnumber = trim((string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString);
-      var_dump($fullnumber);
 
       if(strlen($fullnumber) > 0 )
       {
@@ -264,8 +263,6 @@ class importNyChicagoEvents
       {
           $fullnumber = null;
       }
- 
-var_dump($fullnumber);
 
       $poiObj[ 'phone' ] = $fullnumber;
 

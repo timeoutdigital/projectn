@@ -13,6 +13,10 @@
  */
 class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 {
+  /**
+   * @var projectNDataMapperHelper
+   */
+  protected $dataMapperHelper;
 
   public function __construct( )
   {
@@ -25,6 +29,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $this->vendor = $vendor;
 
     $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
+    $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
   }
 
   /**
@@ -91,7 +96,8 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 			foreach ( $items as $item )
 			{
 				// insert/update poi
-				$poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $item[ 'venue_id' ] );
+				//$poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $item[ 'venue_id' ] );
+        $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'venue_id' ] );
 
 				if ( $poi === false ) $poi = new Poi( );
 
@@ -128,7 +134,8 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         }
 
 				// insert/update event
-				$event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( $item[ 'event_id' ] );
+				//$event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( $item[ 'event_id' ] );
+        $event = $this->dataMapperHelper->getEventRecord( $item[ 'event_id' ] );
 
 				if ( $event === false ) $event = new Event( );
 
