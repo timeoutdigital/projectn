@@ -50,7 +50,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
       $poiCategoryObj[ 'name' ] = 'theatre-music-culture';
       $poiCategoryObj->save();
 
-      $this->xmlObj = new processNyXml( dirname(__FILE__).'/../../../data/tony_leo_test_correct.xml' );
+      $this->xmlObj = new processNyXml( TO_TEST_DATA_PATH.'/tony_leo_test_correct.xml' );
       $this->xmlObj->setEvents('/body/event')->setVenues('/body/address');
 
       $this->object = new importNyChicagoEvents( $this->xmlObj, $this->vendorObj );
