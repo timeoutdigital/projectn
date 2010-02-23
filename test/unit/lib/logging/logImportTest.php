@@ -1,8 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../test/bootstrap/unit.php';
-require_once dirname(__FILE__).'/../bootstrap.php';
+require_once dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
+require_once dirname(__FILE__).'/../../bootstrap.php';
 
 /**
  * Test class for logImport.
@@ -132,15 +132,11 @@ class logImportTest extends PHPUnit_Framework_TestCase
 
 
 
-        //Test changes
-        $results = Doctrine::getTable('ImportLoggerChange')->findAll();
-        $results = $results->toArray();
-        $this->assertEquals(1, count($results), 'Testing changes are in DB');
+        //Test changes        
+        $this->assertEquals(1, $results = Doctrine::getTable('ImportLoggerChange')->count(), 'Testing changes are in DB');
 
         //Test the logger
-        $results = Doctrine::getTable('ImportLogger')->findAll();
-        $results = $results->toArray();
-        $this->assertEquals(1, count($results), 'Testing logger is in DB');
+        $this->assertEquals(1, $results = Doctrine::getTable('ImportLogger')->count(), 'Testing logger is in DB');
     }
 
     /**
@@ -151,7 +147,7 @@ class logImportTest extends PHPUnit_Framework_TestCase
         try
         {
             //a poi with phone number less than six digits will throw an Exception
-            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'lattitude' => null ) );
+            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'latitude' => null ) );
             $poi->save();
         }
         catch(Exception $error)
