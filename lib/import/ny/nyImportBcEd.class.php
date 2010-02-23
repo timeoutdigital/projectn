@@ -86,7 +86,7 @@ class nyImportBcEd {
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiId($poi->{'ID'});
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId($poi->{'ID'}, $this->vendorObj['id']);
 
         if($currentPoi)
         {
