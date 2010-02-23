@@ -40,9 +40,26 @@ abstract class DataMapper
     $this->importer = $importer;
   }
 
-  protected function getRecord( $tableName, $vendorUidFieldname, $vendorUid )
+  /**
+   * Get a record by Vendor and that vendor's id for the record.
+   * Returns a new empty record if none found
+   *
+   * @param string $tableName
+   * @param Vendor $vendor
+   * @param string $vendorRecordUid
+   * @return Doctrine_Record
+   */
+  protected function getRecord( $tableName, $vendor, $vendorRecordUid )
   {
-    $record = Doctrine::getTable( $tableName )->findOneBy( $vendorUidFieldname, $vendorUid );
+    $table = Doctrine::getTable( $tableName );
+
+    $vendorUid = $table->getVendorUidFieldName();
+    
+    $record = $table
+      ->createQuery( 'record' )
+      ->addWhere( 'record.vendor_id = ?', $vendor['id'] )
+      ->addWhere("record.$vendorUid = ?" , $vendorRecordUid )
+      ->fetchOne();
 
     if( !$record )
     {
