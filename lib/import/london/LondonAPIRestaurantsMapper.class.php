@@ -1,6 +1,6 @@
 <?php
 /**
- * Description
+ * London API Restaurants Mapper
  *
  * @package projectn
  * @subpackage london.import.lib

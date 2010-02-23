@@ -1,6 +1,6 @@
 <?php
 /**
- * Description
+ * London API Cinemas Mapper
  *
  * @package projectn
  * @subpackage london.import.lib

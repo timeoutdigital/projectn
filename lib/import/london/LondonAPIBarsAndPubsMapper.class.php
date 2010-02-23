@@ -1,9 +1,9 @@
 <?php
 /**
- * Description
+ * London API Bars and Pubs Mapper
  *
  * @package projectn
- * @subpackage london.import.lib
+ * @subpackage london.import.lib.unit
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
