@@ -1,10 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../lib/logImport.class.php';
-require_once dirname(__FILE__).'/../../../test/bootstrap/unit.php';
-require_once dirname( __FILE__ ) . '/../bootstrap.php';
-spl_autoload_register(array('Doctrine', 'autoload'));
+require_once dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
+require_once dirname(__FILE__).'/../../bootstrap.php';
 
 /**
  * Test class for logImport.
@@ -107,7 +105,7 @@ class logImportTest extends PHPUnit_Framework_TestCase
         try
         {
             //a poi with phone number less than six digits will throw an Exception
-            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'phone' => 9999 ) );
+            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'latitude' => null ) );
             $poi->save();
         }
         catch(Exception $error)
@@ -128,23 +126,17 @@ class logImportTest extends PHPUnit_Framework_TestCase
         $this->object->save();
 
         //Test errrors
-        $results = Doctrine::getTable('ImportLoggerError')->findAll();
-        $results = $results->toArray();
-        $this->assertEquals(2, count($results), 'Testing errors are in DB');
+        $this->assertEquals(2, Doctrine::getTable('ImportLoggerError')->count(), 'Testing errors are in DB');
 
         $this->assertEquals(2, $this->object->totalErrors, 'Fetching total errors');
 
 
 
-        //Test changes
-        $results = Doctrine::getTable('ImportLoggerChange')->findAll();
-        $results = $results->toArray();
-        $this->assertEquals(1, count($results), 'Testing changes are in DB');
+        //Test changes        
+        $this->assertEquals(1, $results = Doctrine::getTable('ImportLoggerChange')->count(), 'Testing changes are in DB');
 
         //Test the logger
-        $results = Doctrine::getTable('ImportLogger')->findAll();
-        $results = $results->toArray();
-        $this->assertEquals(1, count($results), 'Testing logger is in DB');
+        $this->assertEquals(1, $results = Doctrine::getTable('ImportLogger')->count(), 'Testing logger is in DB');
     }
 
     /**
@@ -155,7 +147,7 @@ class logImportTest extends PHPUnit_Framework_TestCase
         try
         {
             //a poi with phone number less than six digits will throw an Exception
-            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'phone' => 9999 ) );
+            $poi = ProjectN_Test_Unit_Factory::get('Poi', array( 'latitude' => null ) );
             $poi->save();
         }
         catch(Exception $error)
