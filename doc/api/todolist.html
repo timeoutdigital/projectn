@@ -53,6 +53,18 @@
           [ <a href="errors.html">Errors</a> ]
                 </div><h2>Todo List</h2>
 <h2>projectn API</h2>
+<h3><a href="projectn API/EventOccurrenceTable.html#methodgetVendorUidFieldName">EventOccurrenceTable::getVendorUidFieldName()</a></h3>
+<ul>
+    <li>rename Poi, Events, Movies etc to have vendor_uid field instead  of vendor_&lt;model name&gt;_id to allow polymorphism</li>
+</ul>
+<h3><a href="projectn API/PoiTable.html#methodgetVendorUidFieldName">PoiTable::getVendorUidFieldName()</a></h3>
+<ul>
+    <li>rename Poi, Events, Movies etc to have vendor_uid field instead  of vendor_&lt;model name&gt;_id to allow polymorphism</li>
+</ul>
+<h3><a href="projectn API/EventTable.html#methodgetVendorUidFieldName">EventTable::getVendorUidFieldName()</a></h3>
+<ul>
+    <li>rename Poi, Events, Movies etc to have vendor_uid field instead  of vendor_&lt;model name&gt;_id to allow polymorphism</li>
+</ul>
 <h3><a href="projectn API/FTPClientTest.html#methodsetUp">FTPClientTest::setUp()</a></h3>
 <ul>
     <li>sort out ftp issues to get test back up in operation</li>
@@ -109,6 +121,14 @@
 <ul>
     <li>Implement testGetResponse().</li>
 </ul>
+<h3><a href="projectn API/nyImportBcXmlTest.html#methodtestImportBars">nyImportBcXmlTest::testImportBars()</a></h3>
+<ul>
+    <li>finish the function</li>
+</ul>
+<h3><a href="projectn API/ImportUaeBarsTest.html#methodtestImportPoi">ImportUaeBarsTest::testImportPoi()</a></h3>
+<ul>
+    <li>Implement testImportPoi().</li>
+</ul>
 <h3><a href="projectn API/DataMapperTest.html#methodtestMapFunctionsNotifyImporter">DataMapperTest::testMapFunctionsNotifyImporter()</a></h3>
 <ul>
     <li>Implement testMapPois().</li>
@@ -121,21 +141,17 @@
 <ul>
     <li><p>fix weird loop bug, the commented out count below should  work but some items appear to be looped over twice</p><p>test mapMovies has required fields and properties</p></li>
 </ul>
-<h3><a href="projectn API/LondonAPIRestaurantsMapperTest.html#methodtestNoLimit">LondonAPIRestaurantsMapperTest::testNoLimit()</a></h3>
-<ul>
-    <li>test grabs all restaurants if no limit set</li>
-</ul>
 <h3><a href="projectn API/LondonAPICinemasMapperTest.html#methodtestNoLimit">LondonAPICinemasMapperTest::testNoLimit()</a></h3>
 <ul>
     <li>test grabs all cinemas if no limit set</li>
 </ul>
-<h3><a href="projectn API/LondonAPIBarsAndPubsMapperTest.html#methodtestNoLimit">LondonAPIBarsAndPubsMapperTest::testNoLimit()</a></h3>
+<h3><a href="projectn API/LondonAPIRestaurantsMapperTest.html#methodtestNoLimit">LondonAPIRestaurantsMapperTest::testNoLimit()</a></h3>
 <ul>
     <li>test grabs all restaurants if no limit set</li>
 </ul>
-<h3><a href="projectn API/LondonImporterTest.html#methodtestRun">LondonImporterTest::testRun()</a></h3>
+<h3><a href="projectn API/LondonAPIBarsAndPubsMapperTest.html#methodtestNoLimit">LondonAPIBarsAndPubsMapperTest::testNoLimit()</a></h3>
 <ul>
-    <li>Implement testRun().</li>
+    <li>test grabs all restaurants if no limit set</li>
 </ul>
 <h3><a href="projectn API/XMLExportTest.html#methodtestRunCallsAbstractMethods">XMLExportTest::testRunCallsAbstractMethods()</a></h3>
 <ul>
@@ -189,6 +205,10 @@
 <li><div class="src-line">&nbsp;<span class="src-comm">//there&nbsp;are&nbsp;some&nbsp;more&nbsp;options&nbsp;available&nbsp;(include,&nbsp;exclude&nbsp;patterns,&nbsp;etc,&nbsp;see&nbsp;method&nbsp;descriptions)</span></div></li>
 </ol></p></li>
 </ul>
+<h3><a href="projectn/model/MovieTable.html#methodgetVendorUidFieldName">MovieTable::getVendorUidFieldName()</a></h3>
+<ul>
+    <li>rename Poi, Events, Movies etc to have vendor_uid field instead  of vendor_&lt;model name&gt;_id to allow polymorphism</li>
+</ul>
 <h3><a href="projectn/ny-import-lib/importNyED.html">importNyED</a></h3>
 <ul>
     <li>finish class - currently awaiting verification as to whether its now needed.</li>
@@ -201,16 +221,16 @@
 <ul>
     <li>should enforce an XSD</li>
 </ul>
-<h3><a href="projectn/export-lib/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
-<ul>
-    <li>PoiCateory needs to be one-to-many not one-to-one</li>
-</ul>
 <h3><a href="projectn/export-lib/XMLExportMovie.html#methodmapDataToDOMDocument">XMLExportMovie::mapDataToDOMDocument()</a></h3>
 <ul>
     <li>confirm where the place tag belongs</li>
     <li>correct movie/version/name to use real value</li>
     <li>correct movie@id to use real value</li>
     <li>correct version@lang use real value</li>
+</ul>
+<h3><a href="projectn/export-lib/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
+<ul>
+    <li>PoiCateory needs to be one-to-many not one-to-one</li>
 </ul>
 <h3><a href="projectn/lib/Importer.html#methodonRecordMapped">Importer::onRecordMapped()</a></h3>
 <ul>
@@ -234,7 +254,7 @@
     <li>possibly add transactions</li>
 </ul>
                 <div class="credit">
-                  Documentation generated on Fri, 19 Feb 2010 19:08:44 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Tue, 23 Feb 2010 15:21:52 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>
