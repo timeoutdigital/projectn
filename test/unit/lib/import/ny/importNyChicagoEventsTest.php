@@ -84,10 +84,10 @@ class importNyTest extends PHPUnit_Framework_TestCase
   {
     $venuesArray = $this->xmlObj->getVenues();
     $this->object->insertPoi( $venuesArray[ 0 ] );
+    $this->object->_poiLoggerObj->save();
 
     $poiObj = Doctrine::getTable('Poi')->findByPoiName('Zankel Hall (at Carnegie Hall)');
-
-       $this->assertEquals( 1, count( $poiObj ) );
+    $this->assertEquals( 1, count( $poiObj ) );
   }
 
   /*

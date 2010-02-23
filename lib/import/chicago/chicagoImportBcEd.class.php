@@ -38,6 +38,8 @@ class chicagoImportBcEd {
      */
     public $loggerObj;
 
+    
+
 
     public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj )
     {
@@ -105,7 +107,8 @@ class chicagoImportBcEd {
 
         //Get the POI object
         $poiObj = $this->getPoi($poi);
-        $isNew = true;
+
+        $isNew = $poiObj->isNew();
 
 
         try {
@@ -182,6 +185,7 @@ class chicagoImportBcEd {
                 $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
                 $this->loggerObj->addError($e, $poiObj, $log);
             }
+            
 
 
              //Check the modified fields for an existing fiel
@@ -206,16 +210,7 @@ class chicagoImportBcEd {
                {
                    $poiObj->addVendorCategory((string) $poi->{'category'}, $this->vendorObj['id']);
                }
-
-
-
-            //If its not modified and not new
-            if(!$poiObj->isNew())
-            {
-                $isNew = false;
-            }
-
-           
+               
 
            //Add the properties
            if((string) $poi->{'cuisine.1'})

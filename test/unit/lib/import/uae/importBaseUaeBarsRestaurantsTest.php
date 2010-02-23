@@ -13,8 +13,15 @@ spl_autoload_register(array('Doctrine', 'autoload'));
 /**
  * Test for the UAE base class
  *
+ *
  * @package test
- * @subpackage uae.import.unit
+ * @subpackage import.lib.unit
+ *
+ * @author Timmy Bowler <timbowler@timeout.com>
+ * @copyright Timeout Communications Ltd
+ *
+ * @version 1.0.0
+ *
  */
 class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
 {
@@ -110,7 +117,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
         }
 
         $this->object = new importBaseUaeBarsRestaurants( $this->xmlObj , $this->vendorObj);
-        $this->object->importPoi();
+        $this->object->importPoi($this->xmlObj);
     }
     
 

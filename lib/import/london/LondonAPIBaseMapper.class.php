@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ * London API Base Mapper
  *
  * @package projectn
  * @subpackage london.import.lib
