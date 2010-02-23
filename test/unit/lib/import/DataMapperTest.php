@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
-require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
-require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once dirname( __FILE__ ) . '/../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../../bootstrap.php';
 
 /**
  * Test class for DataSource.
@@ -71,6 +71,33 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
     $this->assertEquals( array( 'one', 'two', 'three', 'four' ), $dataMapper->calls );
   }
+
+  /**
+   * test getRecord behavior
+   */
+  public function testGetRecord()
+  {
+    $vendor = new Vendor();
+    $vendor['city'] = 'foo';
+    $vendor['language'] = 'bar';
+    $vendor['time_zone'] = 'europe/london';
+    $vendor->save();
+
+    ProjectN_Test_Unit_Factory::add('Poi', array(
+      'vendor_poi_id' => 123,
+      'vendor_id' => 1
+    ));
+
+    $poiTable = Doctrine::getTable('Poi');
+
+    $this->assertEquals(1, $poiTable->count() );
+
+    $importer = new Importer();
+    $importer->addDataMapper( new UnitTestGetRecordDataMapper() );
+    $importer->run();
+
+    $this->assertEquals(2, $poiTable->count() );
+  }
 }
 
 class UnitTestDataMapper extends DataMapper
@@ -116,6 +143,26 @@ class UnitTestOrderDataMapper extends DataMapper
   {
     $this->calls[] = 'four';
     $this->notifyImporter( new Poi() );
+  }
+}
+
+class UnitTestGetRecordDataMapper extends DataMapper
+{
+  public function mapFoo()
+  {
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+    $record = $this->getRecord('Poi', $vendor, 123);
+    $record->save();
+
+    $record = $this->getRecord('Poi', $vendor, 0);
+    $record['vendor_id'] = 1;
+    $record['vendor_poi_id'] = 9;
+    $record['street'] = 'test';
+    $record['city'] = 'test';
+    $record['country'] = 'test';
+    $record['longitude'] = $record['latitude'] = 0;
+    $record->save();
   }
 }
 ?>
