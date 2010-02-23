@@ -1,9 +1,9 @@
 <?php
 /**
- * Description
+ * London Database Events and Venues Mapper
  *
  * @package projectn
- * @subpackage
+ * @subpackage london.import.lib
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
