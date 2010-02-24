@@ -180,20 +180,21 @@ class logImport implements loggable
      * @param string $log Any extra details that can help someone solve this error
      *
      */
-    public function addError(Exception $error, Doctrine_Record $record=NULL, $log = '')
+    public function addError(Exception $error, Doctrine_Record $record = NULL, $log = '')
     {
-
         $errorObj               = new ImportLoggerError();
         $errorObj['trace']      = $error->__toString();
         $errorObj['log']        = $log;
         $errorObj['type']       = get_class($error);
         $errorObj['message']    = $error->getMessage();
-        $errorObj['serialized_object']    = serialize( $record );
+        if ( $record !==  NULL)
+        {
+            $errorObj['serialized_object']    = serialize( $record );
+        }
         $this->errorsCollection[]    = $errorObj;
 
         //Increment the error count
         $this->totalErrors++;
-
     }    
 
     /**

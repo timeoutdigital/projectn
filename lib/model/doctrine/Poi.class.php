@@ -97,4 +97,28 @@ class Poi extends BasePoi
      }
   }
 
+  /**
+   * adds a poi media and invokes the download for it
+   * 
+   * @param string $urlString 
+   */
+  public function addMediaByUrl( $urlString )
+  {
+    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
+    {
+        throw new Exception('Failed to add Poi Media due to missing Vendor city');
+    }
+
+    $identString = md5( $urlString );
+    $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $identString );
+    
+    if ( $poiMediaObj === false )
+    {
+        $poiMediaObj = new PoiMedia();
+    }
+
+    $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
+    $this[ 'PoiMedia' ][] = $poiMediaObj;
+  }
+
 }

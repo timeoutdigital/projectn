@@ -124,12 +124,16 @@ class londonDatabaseFilmsDataMapper extends DataMapper
 
       if( $data[ 'image_id' ] > 0 )
       { 
-        $image_id = $data[ 'image_id' ];
-        $movieMedia = new MovieMedia();
-
-        $movieMedia[ 'mime_type' ] = 'image/jpeg';
-        $movieMedia[ 'media_url' ] = 'http://www.timeout.com/img/' . $image_id . '/w398/image.jpg';
-        $movie[ 'MovieMedia' ][] = $movieMedia;
+        /*@todo sort out the test and uncomment this
+         *
+         * try
+        {
+            $movie->addMediaByUrl( 'http://www.timeout.com/img/' . $data[ 'image_id' ] . '/w398/image.jpg' );
+        }
+        catch( Exception $e )
+        {
+            $this->notifyImporterOfFailure( $e );
+        }*/
       }
 
       $this->notifyImporter( $movie );

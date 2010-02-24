@@ -13,49 +13,36 @@
  */
 class Curl
 {
-  const REQUEST_USING_GET      = 'GET';
-  const REQUEST_USING_POST     = 'POST';
-
-  const RETURN_WITH_HEADERS    = true;
-  const RETURN_WITHOUT_HEADERS = false;
-
-  const LOCATION_FOLLOW       = true;
-  const LOCATION_DONT_FOLLOW  = false;
 
   /**
-   * @var $url
+   * @var string
    */
-  private $url;
+  private $_url;
 
   /**
-   * @var $parameters
+   * @var array
    */
-  private $parameters;
+  private $_parameters;
 
   /**
-   * @var $response
+   * @var string
    */
-  private $response;
+  private $_response;
 
   /**
-   * @var $requestMethod
+   * @var string
    */
-  private $requestMethod;
+  private $_requestMethod;
 
   /**
-   * @var $requestUrl
+   * @var string
    */
-  private $requestUrl;
+  private $_requestUrl;
 
   /**
-   * @var $returnHeaders;
+   * @var boolean;
    */
-  private $returnHeaders;
-
-  /**
-   * @var $locationFollow
-   */
-  private $locationFollow;
+  private $_returnHeaderSwitch;
 
   /**
    * @var string
@@ -63,70 +50,116 @@ class Curl
   private $_storePath;
 
   /**
+   * @var string
+   */
+  private $_curlInfo;
+
+  /**
+   * @var string
+   */
+  private $_header;
+
+  /**
+   * @var curl handle
+   */
+  private $_curlHandle;
+
+  /**
+   * @var file handle
+   */
+  private $_tmpHeaderFile;
+
+  /**
    *
    * @param string $url
    *
    * @param array $parameters takes an associative array e.g. array( 'id' => 89 )
    *
-   * @param string $requestMethod Curl::REQUEST_USING_GET | CURL::REQUEST_USING_POST
+   * @param string $requestMethod
    *
-   * @param boolean $returnHeaders Curl::RETURN_WITH_HEADERS | Curl::RETURN_WITHOUT_HEADERS
+   * @param boolean $returnHeaders
    *
-   * @param boolean $locationFollow Curl::LOCATION_FOLLOW | Curl::LOCATION_DONT_FOLLOW
+   * @param boolean $locationFollow
    */
   public function __construct( $url,
                                $parameters     = array(),
-                               $requestMethod  = Curl::REQUEST_USING_GET,
-                               $returnHeaders  = Curl::RETURN_WITHOUT_HEADERS,
-                               $locationFollow = Curl::LOCATION_FOLLOW )
+                               $requestMethod  = 'GET',
+                               $returnHeaders  = false )
   {
-    $this->url           = $url;
-    $this->parameters    = $parameters;
-    $this->requestMethod = $requestMethod;
-    $this->returnHeaders = $returnHeaders;
-    
-    $curlHandle = curl_init();
+    $this->_url           = $url;
+    $this->_parameters    = $parameters;
+    $this->_requestMethod = $requestMethod;
+    $this->_returnHeaderSwitch = $returnHeaders;
 
-    $this->setCurlOptions($curlHandle);
+    $this->_curlHandle = curl_init();
+    $this->setCurlDefaultOptions();
+  }
 
 
-    $this->response = curl_exec($curlHandle);
-
-    $curlinfo = curl_getinfo( $curlHandle );
-
-    curl_close($curlHandle);
-
-    if ( !isset( $curlinfo[ 'http_code' ] ) ||  $curlinfo[ 'http_code' ] != 200 )
+  /**
+   * executes the curl request
+   */
+  public function exec()
+  {
+    if ( $this->_returnHeaderSwitch )
     {
-        throw new Exception( 'Curl Error, failed to fetch content (no http_code 200 received)' );
+        $this->_tmpHeaderFile = tmpfile();
+        $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
+    }
+
+    $this->_response= curl_exec( $this->_curlHandle );
+    $this->_curlInfo = curl_getinfo( $this->_curlHandle );
+    curl_close( $this->_curlHandle );
+
+    if ( !isset( $this->_curlInfo[ 'http_code' ] ) || !in_array( $this->_curlInfo[ 'http_code' ], array( '200', '304' ) ) )
+    {
+        throw new Exception( 'Curl Error, failed to fetch content (no http_code 200 or 304 received)' );
     }
   }
+
+  /**
+   *
+   * @param string $option
+   * @param mixed $value
+   * @return boolean
+   */
+  public function setCurlOption( $option, $value )
+  {
+      return curl_setopt( $this->_curlHandle, $option, $value );
+  }
+
+  /**
+   * returns the curl information
+   *
+   * @return array
+   */
+  public function getCurlInfo()
+  {
+      return $this->_curlInfo;
+  }
   
-  private function setCurlOptions( $curlHandle )
+  private function setCurlDefaultOptions()
   {
     $url = $this->getUrl();
 
-    if( $this->requestMethod == Curl::REQUEST_USING_GET )
+    if( $this->_requestMethod == 'GET' )
     {
-      if($this->getParametersString())
-      {
-        $url .= '?' . $this->getParametersString();
-      }
-      
-      curl_setopt( $curlHandle, CURLOPT_HTTPGET, true );
+      $paramString = $this->getParametersString();
+      $url .= ( empty( $paramString ) ? '' : '?' . $paramString );
+      curl_setopt( $this->_curlHandle, CURLOPT_HTTPGET, true );
     }
     else
     {
-      curl_setopt( $curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
-      curl_setopt( $curlHandle, CURLOPT_POST, true );
+      curl_setopt( $this->_curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
+      curl_setopt( $this->_curlHandle, CURLOPT_POST, true );
     }
     
-    curl_setopt( $curlHandle, CURLOPT_URL, $url );
-    $this->requestUrl = $url;
+    curl_setopt( $this->_curlHandle, CURLOPT_URL, $url );
+    $this->_requestUrl = $url;
 
-    curl_setopt( $curlHandle, CURLOPT_HEADER, $this->returnHeaders );
-    curl_setopt( $curlHandle, CURLOPT_FOLLOWLOCATION, $this->locationFollow );
-    curl_setopt( $curlHandle, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt( $this->_curlHandle, CURLOPT_HEADER, $this->_returnHeaderSwitch );
+    curl_setopt( $this->_curlHandle, CURLOPT_FOLLOWLOCATION, true );
+    curl_setopt( $this->_curlHandle, CURLOPT_RETURNTRANSFER, 1 );
   }
 
   /**
@@ -136,13 +169,14 @@ class Curl
    */
   public function getResponse()
   {
-    return $this->response;
+    return $this->_response;
   }
 
   /**
    * Stores the result of a curl call in a file
    *
    * @param string $filepath
+   * @return boolean
    */
   public function storeResponse( $filepath )
   {
@@ -151,30 +185,39 @@ class Curl
         throw new Exception( 'Curl Error, empty filename passed to storeResponse()' );
     }
 
-    if ( $this->response === NULL )
+    if ( $this->_response === NULL )
     {
         throw new Exception( 'Curl Error, no response to write in storeResponse()' );
     }
-      
-    $pathArray = explode( '/', $filepath );
 
-    if ( 1 < count( $pathArray ) )
+    if ( isset( $this->_curlInfo[ 'http_code' ] ) && $this->_curlInfo[ 'http_code' ] == '200' )
     {
-        $file = array_pop( $pathArray );
-        $path = implode( '/', $pathArray );
-        $this->setStorePath( $path );
+      
+        $pathArray = explode( '/', $filepath );
+
+        if ( 1 < count( $pathArray ) )
+        {
+            $file = array_pop( $pathArray );
+            $path = implode( '/', $pathArray );
+            $this->setStorePath( $path );
+        }
+        else
+        {
+            $file = $pathArray[ 0 ];
+        }
+
+        if ( $this->_storePath === NULL )
+        {
+            throw new Exception( 'Curl Error, no file path specified for  storeResponse()' );
+        }
+
+        //is int used to get proper boolean return value
+        return is_int( file_put_contents( $this->_storePath . '/' . $file, $this->_response ) );
     }
     else
     {
-        $file = $pathArray[ 0 ];
+        return false;
     }
-
-    if ( $this->_storePath === NULL )
-    {
-        throw new Exception( 'Curl Error, no file path specified for  storeResponse()' );
-    }
-
-    file_put_contents( $this->_storePath . '/' . $file, $this->response );
   }
 
   /**
@@ -204,10 +247,6 @@ class Curl
     return $this->_storePath;
   }
 
-
-
-
-
   /**
    * Return the URL
    *
@@ -215,7 +254,7 @@ class Curl
    */
   public function getUrl()
   {
-    return $this->url;
+    return $this->_url;
   }
 
   /**
@@ -225,17 +264,17 @@ class Curl
    */
   public function getParameters()
   {
-    return $this->parameters;
+    return $this->_parameters;
   }
 
   /**
    * Return the parameters URL-encoded query string
    *
-   * @return boolean
+   * @return string
    */
   public function getParametersString()
   {
-    return http_build_query( $this->getParameters() );
+      return http_build_query( $this->getParameters() );
   }
 
   /**
@@ -245,7 +284,7 @@ class Curl
    */
   public function getRequestUrl()
   {
-    return $this->requestUrl;
+    return $this->_requestUrl;
   }
 
   /**
@@ -255,17 +294,7 @@ class Curl
    */
   public function getRequestMethod()
   {
-    return $this->requestMethod;
-  }
-
-  /**
-   * Whether return headers is set to true
-   *
-   * @return boolean
-   */
-  public function getReturnHeaders()
-  {
-    return $this->returnHeaders;
+    return $this->_requestMethod;
   }
 
   /**
@@ -275,7 +304,148 @@ class Curl
    */
   public function getLocationFollow()
   {
-    return $this->locationFollow;
+    return $this->_locationFollow;
   }
+
+  /**
+   * switch the (custom) return header option on/off
+   * 
+   * @param boolean $returnHeader 
+   */
+  public function setReturnHeader( $returnHeader = true )
+  {
+    $this->_returnHeaderSwitch = $returnHeader;
+  }
+
+  /**
+   * returns header
+   *
+   * @return string
+   */
+  public function getHeader()
+  {
+    if ( $this->_tmpHeaderFile === NULL )
+    {
+      throw new Exception( 'Curl Error, tried to access header information w/a setting the header option beforehand' );
+    }
+
+    fseek( $this->_tmpHeaderFile, 0);
+
+    //get rid of charriage return character (ascii 13) as they mess up the further processing
+    $headerString = str_replace( chr(13), '', fread( $this->_tmpHeaderFile, 1024 ) ) ;
+    
+    return $headerString;
+
+  }
+
+  /**
+   * greps out a particular field of the header
+   *
+   * @param string $field
+   * @return string
+   */
+  public function getHeaderField( $field )
+  {
+      $matches = array();
+
+      preg_match( '/' . preg_quote( $field ) . '\:\s(.*)/',  $this->getHeader(), $matches );
+
+      if (isset( $matches[1] ) )
+      {
+        return $matches[ 1 ];
+      }
+
+      return '';
+  }
+
+  /**
+   * returns the date included in the header of the request (if available)
+   *
+   * @return string
+   */
+  public function getDate()
+  {
+    return $this->getHeaderField( 'Date' );
+  }
+
+  /**
+   * returns the server information included in the header of the request (if available)
+   *
+   * @return string
+   */
+  public function getServer()
+  {
+    return $this->getHeaderField( 'Server' );
+  }
+
+  /**
+   * returns the last modified date included in the header of the request (if available)
+   *
+   * @return string
+   */
+  public function getLastModified()
+  {
+    return $this->getHeaderField( 'Last-Modified' );
+  }
+
+  /**
+   * returns the ETag included in the header of the request (if available)
+   *
+   * @return string
+   */
+  public function getETag()
+  {
+    return $this->getHeaderField( 'ETag' );
+  }
+
+  /**
+   * returns the content-length included in the header of the request (if available)
+   *
+   * @return string
+   */
+  public function getContentLength()
+  {
+    return $this->getHeaderField( 'Content-Length' );
+  }
+
+  /**
+   * returns the content-type included in the header of the request (if available)
+   *
+   * @return string
+   */
+  public function getContentType()
+  {
+    return $this->getHeaderField( 'Content-Type' );
+  }
+
+  /**
+   * downlaods a a file to the specified location, if $lastModified date
+   * is passed it will only download the file if the lastModified date
+   * is newer than the specified date
+   *
+   * @param string $filepath
+   * @param string $lastModified
+   */
+  public function downloadTo( $filepath, $lastModified = false )
+  {
+      if ( $lastModified !== false )
+      {
+          $lastModifiedInSec = strtotime( $lastModified );
+      }
+
+      $this->setReturnHeader();
+
+      //needs to be checked for false again as strtotime above could return
+      //false too
+      if ( $lastModified !== false )
+      {
+          $this->setCurlOption( CURLOPT_TIMECONDITION, true);
+          $this->setCurlOption( CURLOPT_TIMEVALUE, $lastModifiedInSec );
+      }
+
+      $this->exec();
+      $this->storeResponse( $filepath );
+  }
+
 }
 ?>
