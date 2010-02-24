@@ -112,8 +112,15 @@ class LondonAPICrawler
   public function crawlApi()
   {
     $type = $this->mapper->getApiType();
-    
-    $searchXml = $this->callApiSearch( array( 'type' => $type, 'offset' => 0 ) );
+
+    try
+    {
+      $searchXml = $this->callApiSearch( array( 'type' => $type, 'offset' => 0 ) );
+    }
+    catch( Exception $exception )
+    {
+      $this->mapper->onException($exception, 'Call to API search failed.');
+    }
 
     $numPerPage = $searchXml->responseHeader->rows;
     $numResults = $searchXml->responseHeader->numFound;
@@ -122,7 +129,14 @@ class LondonAPICrawler
 
     for( $offset = 0; $offset < $numResults; $offset += $numPerPage )
     {
-      $searchPageXml = $this->callApiSearch( array( 'type' => $type, 'offset' => $offset ) );
+      try
+      {
+        $searchPageXml = $this->callApiSearch( array( 'type' => $type, 'offset' => $offset ) );
+      }
+      catch( Exception $exception )
+      {
+        $this->mapper->onException($exception);
+      }
 
       foreach( $searchPageXml->response->block->row as $row )
       {
