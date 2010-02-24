@@ -65,12 +65,12 @@ class Event extends BaseEvent
     $this[ 'EventMedia' ][] = $eventMediaObj;
   }
 
-  public function getEvents()
+  public function getPois()
   {
-    $pois = new Doctrine_Collection(Doctrine::getTable('Event'));
+    $pois = new Doctrine_Collection(Doctrine::getTable('Poi'));
     foreach( $this['EventOccurrence'] as $occurrence )
     {
-      $pois[] = $occurrence['Event'];
+      $pois[] = $occurrence['Poi'];
     }
     return $pois;
   }
