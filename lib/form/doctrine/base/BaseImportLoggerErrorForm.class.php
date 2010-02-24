@@ -33,7 +33,7 @@ abstract class BaseImportLoggerErrorForm extends BaseFormDoctrine
       'log'               => new sfValidatorString(),
       'type'              => new sfValidatorString(),
       'message'           => new sfValidatorString(),
-      'serialized_object' => new sfValidatorString(),
+      'serialized_object' => new sfValidatorString(array('required' => false)),
       'import_logger_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('ImportLogger'))),
       'resolved'          => new sfValidatorBoolean(array('required' => false)),
       'created_at'        => new sfValidatorDateTime(),

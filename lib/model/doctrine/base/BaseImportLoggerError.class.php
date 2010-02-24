@@ -61,7 +61,7 @@ abstract class BaseImportLoggerError extends sfDoctrineRecord
              ));
         $this->hasColumn('serialized_object', 'string', null, array(
              'type' => 'string',
-             'notnull' => true,
+             'notnull' => false,
              ));
         $this->hasColumn('import_logger_id', 'integer', null, array(
              'type' => 'integer',

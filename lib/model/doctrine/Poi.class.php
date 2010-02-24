@@ -76,7 +76,7 @@ class Poi extends BasePoi
      //get the longitute and latitude
      $geoEncoder = new geoEncode();
      
-     if( is_null( $this['longitude'] ) || is_null( $this['latitude'] ) )
+     if( !is_numeric( $this['longitude'] ) || !is_numeric( $this['latitude'] ) )
      {
        if( empty( $this->geoEncodeLookUpString ) )
        {

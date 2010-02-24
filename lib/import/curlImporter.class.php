@@ -116,9 +116,10 @@ class curlImporter
     * @param string $request        the Script
     * @param array  $parameters     the parameters
     * @param string $requestMethod  the request method, 'GET' (default ) or 'POST'
+    * @param boolean $overrideCharset
     *
     */
-   public function pullXml($url, $request, $parameters='', $requestMethod = 'GET')
+   public function pullXml($url, $request, $parameters='', $requestMethod = 'GET', $overrideCharset = false )
    {
      $this->_url = $url;
      $this->_xmlRequest = $request;
@@ -131,6 +132,11 @@ class curlImporter
       */
      libxml_use_internal_errors(true);
      $xmlString = stringTransform::stripEmptyLines( $this->_xmlResponseRaw );
+
+     if ( $overrideCharset )
+     {
+         $xmlString = preg_replace( '/^' . preg_quote( '<?xml version="1.0" encoding="ISO-8859-1"?>' ) . '/', '<?xml version="1.0" encoding="UTF-8"?>', $xmlString);
+     }
 
      $this->_simpleXml = simplexml_load_string( $xmlString );
 

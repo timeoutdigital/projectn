@@ -140,7 +140,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
      $this->assertEquals( 1, $eventsCol->count() );
 
-     $this->assertEquals( 1, count( $eventsCol[ 0 ][ 'EventOccurrence' ] ) );
+     $this->assertEquals( 4, count( $eventsCol[ 0 ][ 'EventOccurrence' ] ) );
 
   }
 

@@ -17,7 +17,7 @@ abstract class BaseImportLoggerErrorFormFilter extends BaseFormFilterDoctrine
       'log'               => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'type'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'message'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'serialized_object' => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'serialized_object' => new sfWidgetFormFilterInput(),
       'import_logger_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('ImportLogger'), 'add_empty' => true)),
       'resolved'          => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
