@@ -83,7 +83,11 @@ class Importer
          $mapMethod->invoke( $dataSource );
       }
     }
-      
+
+    foreach( $this->loggers as $logger )
+    {
+      $logger->save();
+    }
   }
 
   /**
@@ -97,19 +101,18 @@ class Importer
   {
      try
      {
-        //Save the object and log the changes
-        //pre-save
-       // $logIsNew = $record->isNew();
-       // $logChangedFields = $record->getModified();
-        //save
+        //get the state of the record before save
+        $recordIsNew = $record->isNew();
+        $recordModifications = $record->getModified();
+
         $record->save();
-        //post-save
-        if( $record->isNew() )
+        
+        //if record is saved, notify the logger
+        if( $recordIsNew )
         {
-          
           foreach( $this->loggers as $logger )
           {
-            $logger->countNewInsert() ;
+            $logger->countNewInsert();
           }
         }
         else
@@ -119,7 +122,6 @@ class Importer
             $logger->addChange( 'update', $record->getModified() );
           }
         }
-       // ( $logIsNew ) ? $this->logger->countNewInsert() : $this->logger->addChange( 'update', $logChangedFields );
      }
      catch( Exception $e )
      {

@@ -46,7 +46,7 @@ class importNyChicagoEvents
    *
    * @var logImport
    */
-  private $_poiLoggerObj;
+  public $_poiLoggerObj;
 
   /**
    * Store a event logger
@@ -106,6 +106,8 @@ class importNyChicagoEvents
       $this->insertPoi( $venue ) ;
     }
 
+    echo 'Pois done';
+
     //Save the logger
     $this->_poiLoggerObj->save();
 
@@ -115,11 +117,16 @@ class importNyChicagoEvents
       $this->insertVendorEventCategories( $event );
     }
 
+    echo 'Event cats done';
+
     //Loop through all the events to add them and occurances to database
     foreach($this->_events as $event)
     {
       $this->insertEvent( $event );
     }
+
+    $this->_eventLoggerObj->save();
+
   }
   
 
@@ -189,6 +196,32 @@ class importNyChicagoEvents
         }
     }
 
+    /**
+     *
+     * Test if the Event  already exists
+     *
+     * @param <simpleXml> $poi
+     * @return <boolean> Whether the poi has been found
+     *
+     */
+    public function getEvent($event)
+    {
+
+        //Check database for existing Poi by vendor id
+        $currentEvent = Doctrine::getTable('Event')->findOneByVendorEventIdAndVendorId((string)  $event['id'], $this->_vendorObj['id']);
+
+        if($currentEvent)
+        {
+            //Count thisi as existing
+            $this->_eventLoggerObj->countExisting();
+            return $currentEvent;
+        }
+        else
+        {
+            return new Event();
+        }
+    }
+
 
   /**
    * Insert the events pois
@@ -201,8 +234,7 @@ class importNyChicagoEvents
   public function insertPoi( SimpleXMLElement $poi )
   {
 
-
-    try{
+    
       $poiObj = $this->getPoi($poi);
 
 
@@ -220,8 +252,17 @@ class importNyChicagoEvents
       $countryCodeString = (string) $poi->telephone->country_code;
       $areaCodeString = (string) $poi->telephone->area_code;
       $phoneString = (string) $poi->telephone->number;
-      $fullnumber = (string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString;
-      $fullnumber = stringTransform::formatPhoneNumber($fullnumber , '+1');
+
+      $fullnumber = trim((string) $countryCodeString . ' '.$areaCodeString . ' '. $phoneString);
+
+      if(strlen($fullnumber) > 0 )
+      {
+          $fullnumber = stringTransform::formatPhoneNumber($fullnumber , '+1');
+      }
+      else
+      {
+          $fullnumber = null;
+      }
 
       $poiObj[ 'phone' ] = $fullnumber;
 
@@ -265,25 +306,23 @@ class importNyChicagoEvents
       }
 
 
-         //Check before save if Poi is new one
-        $logIsNew = $poiObj->isNew();
+      //Check before save if Poi is new one
+      $logIsNew = $poiObj->isNew();
 
-        //Get all changed fields
-        $logChangedFields = $poiObj->getModified();
+      //Get all changed fields
+      $logChangedFields = $poiObj->getModified();
 
-        //save the object
+      //save the object
+    try{
         $poiObj->save();
-
-        ( $logIsNew ) ? $this->_poiLoggerObj->countNewInsert() : $this->_poiLoggerObj->addChange( 'update', $logChangedFields );
-        
-      }
-
-      catch(Doctrine_Validator_Exception $error)
-      {
+      
+     }
+     catch(Doctrine_Validator_Exception $error)
+     {
           $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
           $this->_poiLoggerObj->addError($error, $poiObj, $log);
 
-          return $poiObj;
+          //return $poiObj;
       }
 
       catch(Exception $e)
@@ -291,9 +330,8 @@ class importNyChicagoEvents
           $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
           $this->_poiLoggerObj->addError($e, $poiObj, $log);
 
-          return $poiObj;
+         // return $poiObj;
       }
-
 
 
       //Loop throught the prices node
@@ -376,7 +414,7 @@ class importNyChicagoEvents
           $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
           $this->_poiLoggerObj->addError($error, $poiObj, $log);
 
-          return $poiObj;
+         
       }
 
       catch(Exception $e)
@@ -384,9 +422,11 @@ class importNyChicagoEvents
           $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
           $this->_poiLoggerObj->addError($e, $poiObj, $log);
 
-          return $poiObj;
+          
       }
 
+      //Count the item
+      ( $logIsNew ) ? $this->_poiLoggerObj->countNewInsert() : $this->_poiLoggerObj->addChange( 'update', $logChangedFields );
 
       //Kill the object
       $poiObj->free();    
@@ -498,7 +538,7 @@ class importNyChicagoEvents
        if(!$movieFound)
        {
            //Set the Events requirred values
-          $eventObj = new Event();
+          $eventObj = $this->getEvent((string) $event['id']);
           $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
           $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
           $eventObj[ 'name' ] = (string) $event->identifier;
@@ -506,19 +546,26 @@ class importNyChicagoEvents
 
 
            //save to database
-          if( $eventObj->isValid() )
+          try
           {
-              $eventObj->save();
+             
+            //Check before save if Poi is new one
+            $logIsNew = $eventObj->isNew();
+
+            //Get all changed fields
+            $logChangedFields = $eventObj->getModified();
+
+            $eventObj->save();
 
 
-              //Event Categories
-              $eventObj['EventCategories'] = $eventCategoriesCollection;
-              $eventObj['VendorEventCategories'] = $vendorCategoriesArray;
+            //Event Categories
+            $eventObj['EventCategories'] = $eventCategoriesCollection;
+            $eventObj['VendorEventCategories'] = $vendorCategoriesArray;
 
 
-                //deal with the "text-system" nodes
-                if ( isset( $event->{'text_system'}->text ) )
-                {
+            //deal with the "text-system" nodes
+            if ( isset( $event->{'text_system'}->text ) )
+            {
                   foreach( $event->{'text_system'}->text as $text )
                   {
                     switch( $text->{'text_type'} )
@@ -580,47 +627,64 @@ class importNyChicagoEvents
 
                     //save to database
                     $eventObj->save();
-                    
-                    //Loop throught the actual occurances now
-                    foreach ( $event->date as $occurrence )
-                    {
 
-                      $occurrenceObj = new EventOccurrence();
-                      $occurrenceObj[ 'utc_offset' ] = '-05:00';
-                      $occurrenceObj[ 'start' ] = (string) $occurrence->start;
-                      $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-                      $occurrenceObj->generateVendorEventOccurrenceId( (string) $event['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
 
-                      //set poi id
-                      $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
-                     
-                      $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
-
-                      //save to database
-                      if( $occurrenceObj->isValid() )
-                      {
-                        $occurrenceObj->save();
-                      }
-                      else
-                      {
-                        Throw new Exception( $occurrenceObj->getErrorStackAsString() );
-                      }
-
-                      //Kill the object
-                      $occurrenceObj->free();
-                    }//end foreach
+                   //Add the event occurances
+                   $this-> AddEventOccurance($event->{'date'}, $eventObj);
         }
-        else
-        {
-            echo $eventObj->getErrorStackAsString();
-        }//end if event obj is valid
 
+
+      catch(Exception $e)
+      {
+          $log =  "Error processing Event: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $event['id'] . " \n";
+          $this->_eventLoggerObj->addError($e, $eventObj, $log);
+
+         
+      }
+
+
+      ( $logIsNew ) ? $this->_eventLoggerObj->countNewInsert() : $this->_eventLoggerObj->addChange( 'update', $logChangedFields );
         //Kill the object
             $eventObj->free();
        }//end if movie found
   }
 
-  
+
+  /**
+   * Add the event occurances
+   *
+   * @param SimpleXMLElement $Occurrences
+   * @param Event The events
+   */
+  public function AddEventOccurance(SimpleXMLElement $Occurrences, Event $eventObj)
+  {
+    //Loop throught the actual occurances now
+    foreach ( $Occurrences as $occurrence )
+    {
+
+      $occurrenceObj = new EventOccurrence();
+      $occurrenceObj[ 'utc_offset' ] = '-05:00';
+      $occurrenceObj[ 'start' ] = (string) $occurrence->start;
+      $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
+      $occurrenceObj->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
+
+      //set poi id
+      $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
+
+      $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
+
+      $occurrenceObj->save();
+    
+      //Kill the object
+      $occurrenceObj->free();
+    }//end foreach
+  }
+
+
+
+
+
+
   /*
    * Extracts and fixes up a URL out of the contact blurb in the xml
    *

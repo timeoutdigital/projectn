@@ -34,7 +34,6 @@ class importTask extends sfBaseTask
 
         //Set vendor and logger
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
-        $loggerObj = new logImport($vendorObj);
 
         //Setup NY FTP
         $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
@@ -65,14 +64,14 @@ class importTask extends sfBaseTask
 
           case 'movie':
                 $importer = new Importer();
-                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
                 $importer->run();
             break;
 
           case 'eating-drinking':
             try
             {
-              $this->importNyEd($vendorObj, $ftpClientObj, $loggerObj);
+              $this->importNyEd($vendorObj, $ftpClientObj);
             }
             catch ( Exception $e )
             {
@@ -99,7 +98,7 @@ class importTask extends sfBaseTask
           case 'bars-clubs':
             try
             {
-              $this->importNyBc($vendorObj, $ftpClientObj, $loggerObj);
+              $this->importNyBc($vendorObj, $ftpClientObj);
             }
             catch ( Exception $e )
             {
@@ -113,6 +112,10 @@ class importTask extends sfBaseTask
               $this->importNyEvents($vendorObj, $ftpClientObj);
               $this->importNyMovies($vendorObj, $ftpClientObj);
 
+          break;
+
+          default: echo "Types available: \n bars-clubs \n";
+
         }
         break; // end ny
 
@@ -120,7 +123,7 @@ class importTask extends sfBaseTask
 
         $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-US');
         $ftpClientObj = new FTPClient( 'ftp.timeoutchicago.com', 'timeout', 'y6fv2LS8', $vendorObj[ 'city' ] );
-        $loggerObj = new logImport($vendorObj);
+       
 
         switch( $options['type'] )
         {
@@ -137,7 +140,7 @@ class importTask extends sfBaseTask
           case 'eating-drinking':
             try
             {
-              $importObj = $this->importChicagoEd($vendorObj, $ftpClientObj, $loggerObj);
+              $importObj = $this->importChicagoEd($vendorObj, $ftpClientObj);
             }
             catch ( Exception $e )
             {
@@ -147,7 +150,7 @@ class importTask extends sfBaseTask
           case 'bars-clubs':
             try
             {
-              $importObj = $this->importChicagoBc($vendorObj, $ftpClientObj, $loggerObj);
+              $importObj = $this->importChicagoBc($vendorObj, $ftpClientObj);
             }
             catch ( Exception $e )
             {
@@ -283,47 +286,37 @@ class importTask extends sfBaseTask
       case 'london':
       	$connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
 
+        $importer = new Importer();
+        $vendor = $this->getVendorByCityAndLanguage( 'london', 'en-GB' );
+        $loggerObj = new logImport( $vendor );
         switch( $options['type'] )
         {
           case 'poi-event':
-            $london = new LondonImporter( );
-            $london->run( );
-            $importer = new Importer();
-            $importer->addDataMapper( new LondonAPICinemasMapper() );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
+            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
             $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
             $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
-            $importer->run();
+            $importer->addDataMapper( new LondonAPICinemasMapper() );
             break;
 
           case 'movie':
-            $importer = new Importer();
+            $loggerObj->setType( 'movie' );
+            $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LondonAPIFilmsMapper() );
-            $importer->run();
           break;
         }
+        $importer->run();
         break; //end lisbon
 
 
     case 'dubai':
-        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
-
+        $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+    
         switch( $options['type'] )
         {
-          case 'restaurants':
-           // $processXmlObj = new processNyXml('import/tony_leo.xml');
-           // $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-           // $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-           // $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-              $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
-
-                //Regression tests
-              $curlObj = new curlImporter();
-              //$this->barXmlObj =  $this->curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/bars')->getXml();
-               $restaurantXmlObj =  $curlObj->pullXml('http://v7.test.timeoutdubai.com/', 'nokia/restaurants')->getXml();
-
-              //$this->barObject = new dubaiImportBars( $this->barXmlObj, $this->vendorObj, 'bar' );
-              $restaurantObj =  new dubaiImportBars( $restaurantXmlObj, $vendorObj, 'restaurant' );
-              $restaurantObj->importPoi();
+          case 'poi': //$this->importDubaiBars($vendorObj);
+                      $this->importDubaiRestaurants($vendorObj);
 
             break;
 
@@ -331,6 +324,9 @@ class importTask extends sfBaseTask
 
             break;
         }
+
+
+
         break; // end dubai
 
 
@@ -339,12 +335,8 @@ class importTask extends sfBaseTask
     }//end switch
 
 
-
-     //Save the logger
-     $loggerObj->save();
-
      //Get the total import time
-     echo "Total time: ". $loggerObj->finalTime . "\n";
+     //echo "Total time: ". $importObj->poiLoggerObj ->finalTime . "\n";
   }
 
 
@@ -379,7 +371,9 @@ class importTask extends sfBaseTask
           $processXmlObj = new processNyXml( $fileNameString );
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
           $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-          $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();            }
+          $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+
+        }
         catch ( Exception $e )
         {
           echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
@@ -419,18 +413,15 @@ class importTask extends sfBaseTask
   *
   * @return importBc Object
   */
-  public function importChicagoBc($vendorObj, $ftpClientObj, $loggerObj)
+  public function importChicagoBc($vendorObj, $ftpClientObj)
   {
         try
         {
-             //Set the logger type
-            $loggerObj->setType('poi');
-            
             $fileNameString = $ftpClientObj->fetchFile( 'toc_bc.xml' );
             $processXmlObj = new processNyBcXml( $fileNameString );
 
 
-            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj);
             $importObj->import();
                      
         }
@@ -450,18 +441,16 @@ class importTask extends sfBaseTask
   *
   * @return importBc Object
   */
-  public function importChicagoEd($vendorObj, $ftpClientObj, $loggerObj)
+  public function importChicagoEd($vendorObj, $ftpClientObj)
   {
         try
         {
-             //Set the logger type
-            $loggerObj->setType('poi');
 
             $fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
             $processXmlObj = new processNyBcXml( $fileNameString );
             //$processXmlObj = new processNyBcXml( '/var/workspace/projectn/import/chicago/toc_ed.xml' );
 
-            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj);
             $importObj->import();
 
         }
@@ -492,16 +481,17 @@ class importTask extends sfBaseTask
   {
        try
         {
-          $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
+          //$fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
 
-          $processXmlObj = new processNyXml( $fileNameString );
+          //$processXmlObj = new processNyXml( $fileNameString );
+          $processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-          $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-          $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+          $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+          $nyImportObj->insertEventCategoriesAndEventsAndVenues();
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+          echo 'Exception caught in NY events import '  . $e->getMessage();
         }
    }
 
@@ -533,19 +523,16 @@ class importTask extends sfBaseTask
    }
 
 
-     private function importNyBc($vendorObj, $ftpClientObj, $loggerObj)
+     private function importNyBc($vendorObj, $ftpClientObj)
      {
         try
         {
-            //Set the logger type
-            $loggerObj->setType('poi');
-
             //Download and process XML
             $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
             $processXmlObj = new processNyBcXml( $fileNameString );
 
             //Import the bars
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj);
             $importBcEd->import();
         }
         catch ( Exception $e )
@@ -556,19 +543,17 @@ class importTask extends sfBaseTask
      }
 
 
-     private function importNyEd($vendorObj, $ftpClientObj, $loggerObj)
+     private function importNyEd($vendorObj, $ftpClientObj)
      {
         try
         {
-            //Set the logger type
-            $loggerObj->setType('poi');
 
             //Download and process XML
             $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
             $processXmlObj = new processNyBcXml( $fileNameString );
 
             //Import the bars
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj,  $loggerObj);
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj);
             $importBcEd->import();
         }
         catch ( Exception $e )
@@ -580,6 +565,48 @@ class importTask extends sfBaseTask
 
 
 
+   /***************************************************************************
+   *
+   *    Dubai
+   *
+   * *************************************************************************/
+    private function importDubaiBars($vendorObj)
+     {
+        try
+        {
+            $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
+            
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+           
+            $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
+            $importDubaiBars->importPois();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
+        }
+
+     }
+
+     private function importDubaiRestaurants($vendorObj)
+     {
+        try
+        {
+            $feed = new Curl('http://www.timeoutdubai.com/nokia/restaurants');
+
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+            $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
+            $importDubaiRestaurants->importPois();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
+        }
+
+     }
 
 
 

@@ -22,7 +22,7 @@ Poi:
     zips:                       {type: string(16), notnull: false}
     longitude:                  {type: decimal(18), scale: 15, notnull: false}
     latitude:                   {type: decimal(18), scale: 15, notnull: false}
-    email:                      {type: string(128, notnull: false}
+    email:                      {type: string(128), notnull: false}
     url:                        {type: string(1024), notnull: false}
     phone:                      {type: string(32), notnull: false}
     phone2:                     {type: string(32), notnull: false}
@@ -132,6 +132,7 @@ Event:
   actAs:
     Timestampable: ~
   columns:
+    review_date:                {type: datetime, notnull: false}
     vendor_event_id:            {type: string(10), notnull: true}
     name:                       {type: string(255), notnull: true}
     short_description:          {type: string(1024), notnull: false}
@@ -380,7 +381,6 @@ ImportLoggerError:
     resolved:                   {type: boolean, notnull: true, default: 0}
   relations:
     ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerErrors}
-
 
 #Master Media table, extended by PoiMedia, EventMedia and MovieMedia
 Media:

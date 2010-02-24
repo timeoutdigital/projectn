@@ -40,18 +40,6 @@ abstract class DataMapper
     $this->importer = $importer;
   }
 
-  protected function getRecord( $tableName, $vendorUidFieldname, $vendorUid )
-  {
-    $record = Doctrine::getTable( $tableName )->findOneBy( $vendorUidFieldname, $vendorUid );
-
-    if( !$record )
-    {
-      $record = new $tableName;
-    }
-  
-    return $record;
-  }
-
   protected function notifyImporter( Doctrine_Record $record )
   {
     $this->importer->onRecordMapped( $record );

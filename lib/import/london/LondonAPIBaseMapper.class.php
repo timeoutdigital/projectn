@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ * London API Base Mapper
  *
  * @package projectn
  * @subpackage london.import.lib
@@ -48,6 +48,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @var LondonAPICrawler
    */
   protected $apiCrawler;
+
+  /**
+   * @var projectnDataMapperHelper
+   */
+  protected $dataMapperHelper;
   
   /**
    * @param LondonAPICrawler $apiCrawler
@@ -71,6 +76,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
     {
       $this->geoEncoder = new geoEncode();
     }
+
+    $this->dataMapperHelper = new projectNDataMapperHelper($this->vendor);
   }
   
   /**
@@ -109,7 +116,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['longitude']         = $latLong['latitude'];
     $poi['latitude']          = $latLong['longitude'];
     $poi['zips']              = (string) $xml->postcode;
-    $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml );
+    $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml, $poi );
   
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $xml->uid;
@@ -131,7 +138,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
    *
    * @return string
    */
-  protected function deriveCity( $latitude, $longitude, $xml )
+  protected function deriveCity( $latitude, $longitude, $xml, $poi )
   {
     $city = 'London';
 
@@ -226,17 +233,33 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
   protected function extractAdministrativeAreaName( $firstAddressXml )
   {
-    return (string) $firstAddressXml->Country
-      ->AdministrativeArea
-      ->AdministrativeAreaName;
+    $administrativeAreaName = '';
+    
+    try
+    {
+      $administrativeAreaName = (string) $firstAddressXml->Country
+        ->AdministrativeArea
+        ->AdministrativeAreaName;
+    }
+    catch( Exception $exception ){}
+
+    return $administrativeAreaName;
   }
 
   protected function extractSubAdministrativeAreaName( $firstAddressXml )
   {
-    return (string) $firstAddressXml->Country
-      ->AdministrativeArea
-      ->SubAdministrativeArea
-      ->SubAdministrativeAreaName;
+    $subAdministrativeAreaName = '';
+
+    try
+    {
+      $subAdministrativeAreaName = (string) $firstAddressXml->Country
+        ->AdministrativeArea
+        ->SubAdministrativeArea
+        ->SubAdministrativeAreaName;
+    }
+    catch( Exception $exception ){}
+    
+    return $subAdministrativeAreaName;
   }
 
   /**

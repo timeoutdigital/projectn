@@ -18,28 +18,18 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->venues as $venueElement )
     {
-      $poi = new Poi();
+      $poi = $this->dataMapperHelper->getPoiRecord($venueElement['placeid']);
       $this->mapAvailableData($poi, $venueElement );
-
-      //$poi['district'] = '';
-      //$poi['fax'] = '';
-      //$poi['keywords'] = '';
-      //$poi['star_rating'] = null;
-      //$poi['rating'] = '';
-      //$poi['provider'] = '';
 
       $poi['review_date'] = '';
       $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
       $poi['country'] = 'PTR';
-      $poi['additional_address_details'] = $this->extractAddress( $venueElement );;
-      $poi['longitude'] = 0;
-      $poi['latitude'] = 0;
+      $poi['additional_address_details'] = $this->extractAddress( $venueElement );
       $poi['phone'] =  (string) $venueElement[ 'phone' ];
       $poi['vendor_category'] = (string) $venueElement[ 'tipo' ];
       $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
       $poi['vendor_id'] = $this->vendor['id'];
-
       
       $poi['description']                = $this->extractAnnotation( $venueElement );
       $poi['additional_address_details'] = $this->extractAddress( $venueElement );
@@ -112,7 +102,17 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       'buildingno',
       'buildingName',
       'area',
-      'city', 
+      'city',
+      'cinemaheaderinfo',
+      'FilmDoubleIssueText',
+      'MusicheaderInfo',
+      'tubestationid',
+      'sortfield',
+      'comedyurlexport',
+      'danceurlexport',
+      'nightlifeurlexport',
+      'gayurlexport',
+      'placelist',
     );
   }
 

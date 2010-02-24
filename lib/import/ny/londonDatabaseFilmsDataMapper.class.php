@@ -13,6 +13,21 @@
  */
 class londonDatabaseFilmsDataMapper extends DataMapper
 {
+  /**
+   * This integer value comes from london database:
+   * film_convert.review.review_type_id
+   *
+   * @static int
+   */
+  const NEW_YORK_REVIEW_TYPE_ID = 3;
+
+  /**
+   * This integer value comes from london database:
+   * film_convert.review.review_type_id
+   * 
+   * @static int
+   */
+  const CHICAGO_REVIEW_TYPE_ID = 4;
 
   /**
    * @var string
@@ -30,6 +45,10 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    */
   protected $dbPwd = '65dali32';
 
+  /**
+   * @var int
+   */
+  protected $reviewTypeId;
 
   /**
    * @var PDO
@@ -41,10 +60,23 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    */
   protected $vendor;
 
-  public function  __construct( Vendor $vendor )
+  /**
+   * @var projectNDataMapperHelper
+   */
+  protected $dataMapperHelper;
+
+  /**
+   *
+   * @param Vendor $vendor
+   * @param int $reviewTypeId corresponds to the column 'review_type_id' on
+   * table 'review' of database 'film_convert'
+   */
+  public function  __construct( Vendor $vendor, $reviewTypeId )
   {
     $this->vendor = $vendor;
+    $this->reviewTypeId = $reviewTypeId;
     $this->pdo  = new PDO( $this->dsn, $this->dbUserName, $this->dbPwd );
+    $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
   }
   
   public function mapMovies()
@@ -53,7 +85,8 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     foreach( $this->getFilmsFromLondonDatabase() as $data )
     {
       
-      $movie = $this->getRecord('Movie', 'vendor_movie_id', $this->vendor['id'] );
+//      $movie = $this->getRecord('Movie', 'vendor_movie_id', $this->vendor['id'] );
+      $movie = $this->dataMapperHelper->getMovieRecord( $data[ 'film_id' ] );
 
       $movie['vendor_id']  = $this->vendor['id'];
       $movie['utf_offset'] = 0;//@todo use vendor->getUtcOffset( --- );
@@ -63,8 +96,9 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie['age_rating'] = $data[ 'age_rating' ];
       
       $review = $this->getReview( $data[ 'film_id' ] );
-      
-      $movie['review'] = $review[ 'text' ];
+
+      //echo $encoding = mb_detect_encoding($review[ 'text' ]).PHP_EOL;
+      $movie['review'] = $this->cleanForIconvStrlen( $review[ 'text' ] );
       $movie['rating'] = $review[ 'rating' ];
 
       $genres = explode( ',',$data[ 'genre' ]);
@@ -150,12 +184,11 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    */
   protected function getReview( $filmId )
   {
-    
     $query = "
-      SELECT review_type_id , text , rating
+      SELECT review_type_id , text , rating ,
       (
         CASE
-         WHEN review_type_id = 3 THEN 10
+         WHEN review_type_id = " . $this->reviewTypeId . " THEN 10
          WHEN review_type_id = 2 THEN 9
          WHEN review_type_id = 1 THEN 8
          WHEN review_type_id = 5 THEN 7
@@ -172,6 +205,17 @@ class londonDatabaseFilmsDataMapper extends DataMapper
      $statement->execute();
 
      return $statement->fetch( PDO::FETCH_ASSOC );
+  }
+
+  /**
+   * A dirty and dispicable hack that takes characters that iconv_strlen() chokes on
+   *
+   * @return string
+   */
+  protected function cleanForIconvStrlen( $string )
+  {
+    $string = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $string );
+    return $string;
   }
 }
 ?>

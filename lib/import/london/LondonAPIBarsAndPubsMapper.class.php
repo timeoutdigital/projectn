@@ -1,9 +1,9 @@
 <?php
 /**
- * Description
+ * London API Bars and Pubs Mapper
  *
  * @package projectn
- * @subpackage london.import.lib
+ * @subpackage london.import.lib.unit
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
@@ -66,10 +66,17 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    */
   public function doMapping( SimpleXMLElement $barsXml )
   {
-    $poi = new Poi();
+    $poi = $this->dataMapperHelper->getPoiRecord((string) $barsXml->uid);
 
-    $this->mapCommonPoiMappings( $poi, $barsXml );
-
+    try
+    {
+      $this->mapCommonPoiMappings($poi, $barsXml);
+    }
+    catch( Exception $exception )
+    {
+      $this->notifyImporterOfFailure($exception, $poi);
+      return;
+    }
     $poi['PoiCategories'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $barsXml->starRating;
 

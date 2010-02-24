@@ -98,12 +98,12 @@ class CurlTest extends PHPUnit_Framework_TestCase
   /**
    * test if exception is trown on a request with an invalid url
    */
-//  public function testIfErrorMessageIsReturnedIfNoHTTP200IsReceived()
-//  {
-//      $this->setExpectedException( 'Exception' );
-//      $this->object = new Curl( 'http://somewrongurl' );
-//      $this->object->exec();
-//  }
+  public function testIfErrorMessageIsReturnedIfNoHTTP200IsReceived()
+  {
+      $this->setExpectedException( 'Exception' );
+      $this->object = new Curl( 'http://somewrongurl' );
+      $this->object->exec();
+  }
   
   /**
    * test if header is successfully returned
@@ -149,7 +149,5 @@ EOF;
 
       $this->assertEquals( '304', $curlInfo[ 'http_code' ] );
   }
-
-
 }
 ?>

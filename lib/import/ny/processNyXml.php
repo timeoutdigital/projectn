@@ -33,7 +33,7 @@ class processNyXml extends processXml
     public function setEvents($eventsPath)
     {
       $this->events = $this->xmlObj->xpath($eventsPath);
-      $this->totalEvents = count($events);
+      $this->totalEvents = count($this->events);
       return $this;
     }
 
@@ -56,7 +56,7 @@ class processNyXml extends processXml
     public function setVenues($venuesPath)
     {
         $this->venues = $this->xmlObj->xpath($venuesPath);
-        $this->totalVenues = count($venues);
+        $this->totalVenues = count($this->venues);
         return $this;
     }
 
