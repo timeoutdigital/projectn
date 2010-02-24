@@ -115,7 +115,7 @@ class Importer
             $logger->countNewInsert();
           }
         }
-        else
+        else if( !empty( $recordModifications ) )
         {
           foreach( $this->loggers as $logger )
           {

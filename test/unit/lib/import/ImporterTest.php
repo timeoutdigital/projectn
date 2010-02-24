@@ -41,7 +41,7 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    $this->vendor = ProjectN_Test_Unit_Factory::get('vendor');
+    $this->vendor = ProjectN_Test_Unit_Factory::add('vendor');
     //$this->poiLogger = new logger( $this->vendor, logger::POI );
     //$this->eventLogger = new logger( $this->vendor, logger::EVENT );
     //$this->movieLogger = new logger( $this->vendor, logger::MOVIE );
@@ -55,54 +55,6 @@ class ImporterTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
-  }
-
-  /**
-   * Test loggers are called correctly for adding records
-   */
-  public function testLogsRecordAddCorrectly()
-  {
-    $loggerTable = Doctrine::getTable( 'ImportLogger' );
-    $this->assertEquals( 0, $loggerTable->count() );
-
-    $logger = new logImport( $this->vendor );
-    $logger->setType( 'poi' );
-    
-    $this->object->addLogger( $logger );
-    $this->object->addDataMapper( new UnitTestImporterDataMapper1() );
-    $this->object->run();
-
-    $this->assertEquals( 1, $loggerTable->count() );
-
-    $loggerRow = $loggerTable->findOneById( 1 );
-    
-    $this->assertEquals( 1, $loggerRow[ 'total_inserts' ], 'Total inserts' );
-    $this->assertEquals( 0, $loggerRow[ 'total_updates' ], 'Total updates');
-  }
-
-
-
-  /**
-   * Test loggers are called correctly for updating records
-   */
-  public function testLogsRecordUpdateCorrectly()
-  {
-    $loggerTable = Doctrine::getTable( 'ImportLogger' );
-    $this->assertEquals( 0, $loggerTable->count() );
-
-    $logger = new logImport( $this->vendor );
-    $logger->setType( 'poi' );
-
-    $this->object->addLogger( $logger );
-    $this->object->addDataMapper( new UnitTestImporterDataMapper() );
-    $this->object->run();
-
-    $this->assertEquals( 1, $loggerTable->count() );
-
-    $loggerRow = $loggerTable->findOneById( 1 );
-
-    $this->assertEquals( 0, $loggerRow[ 'total_inserts' ], 'Total inserts' );
-    $this->assertEquals( 1, $loggerRow[ 'total_updates' ], 'Total updates');
   }
 
   /**
@@ -178,14 +130,25 @@ class ImporterTest extends PHPUnit_Framework_TestCase
    * If a record exists in a database and the data has changed, it should be
    * updated, not saved as new
    */
-  public function testUpdatesIfRecordExists()
+  public function testUpdatesIfRecordExistsAndHasChanges()
   {
+    //do an import
     $importer = new Importer();
-    $importer->addDataMapper( new UnitTestImporterDataMapper1( $importer ) );
+    $importer->addDataMapper( new UnitTestImporter_Create_Poi_With_VendorId_And_Street_DataMapper( $importer ) );
     $importer->run();
 
+    //do the same import; no updates should be
+    $importer = new Importer();
+    $logger = new UnitTestImporterTestUpdatesCountingLogger();
+    $importer->addLogger($logger);
+    $importer->addDataMapper( new UnitTestImporter_Empty_Update_Poi_With_VendorId_And_Street_DataMapper( $importer ) );
+    $importer->run();
+
+    $this->assertEquals( 1, Doctrine::getTable( 'Poi' )->count() );
+    $this->assertEquals( 0, $logger->getNumChanges(), 'Update should not have occurred. No modifications made.' );
+
     $importer2 = new Importer();
-    $importer2->addDataMapper( new UnitTestImporterDataMapper2( $importer2 ) );
+    $importer2->addDataMapper( new UnitTestImporter_Update_Poi_With_VendorId_And_Street_DataMapper( $importer2 ) );
     $importer2->run();
 
     $record = Doctrine::getTable('Poi')->findOneById( 1 );
@@ -204,7 +167,7 @@ class UnitTestImporterDataMapper extends DataMapper
 }
 
 //maps a new record
-class UnitTestImporterDataMapper1 extends DataMapper
+class UnitTestImporter_Create_Poi_With_VendorId_And_Street_DataMapper extends DataMapper
 {
   public function mapPois()
   {
@@ -220,7 +183,27 @@ class UnitTestImporterDataMapper1 extends DataMapper
 }
 
 //maps an existing record
-class UnitTestImporterDataMapper2 extends DataMapper
+class UnitTestImporter_Empty_Update_Poi_With_VendorId_And_Street_DataMapper extends DataMapper
+{
+  /**
+   * @var projectNDataMapperHelper
+   */
+  protected $dataMapperHelper;
+
+  public function __construct()
+  {
+    $this->dataMapperHelper = new projectNDataMapperHelper( Doctrine::getTable('Vendor')->findOneById( 1 ) );
+  }
+
+  public function mapPois()
+  {
+    $poi = $this->dataMapperHelper->getPoiRecord( 99 );
+    $this->notifyImporter( $poi );
+  }
+}
+
+//maps an existing record
+class UnitTestImporter_Update_Poi_With_VendorId_And_Street_DataMapper extends DataMapper
 {
   /**
    * @var projectNDataMapperHelper
@@ -244,6 +227,21 @@ class UnitTestImporterDataMapper2 extends DataMapper
 
     $poi['PoiProperty'][] = $poiProperty;
     $this->notifyImporter( $poi );
+  }
+}
+
+class UnitTestImporterTestUpdatesCountingLogger extends doNothingLogger
+{
+  private $numChanges = 0;
+
+  public function addChange( $type, $modifiedFieldsArray )
+  {
+    $this->numChanges;
+  }
+
+  public function getNumChanges()
+  {
+    return $this->numChanges;
   }
 }
 ?>
