@@ -365,12 +365,9 @@ class singaporeImport
             //post-save
             ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
 
-            
-            $eventOccurrencesArray = new Doctrine_Collection( Doctrine::getTable( 'EventOccurrence' ) );
-
             if ( count( $eventObj->venue->id ) == 1 && (string) $eventObj->date_start != '' )
             {
-                $eventOccurrencesArray[] = $this->_createEventOccurrence( (string) $eventObj->venue->id, $event[ 'id' ], (string) $eventObj->date_start, (string) $eventObj->date_end );
+                $this->_createEventOccurrence( (string) $eventObj->venue->id, $event[ 'id' ], (string) $eventObj->date_start, (string) $eventObj->date_end );
             }
             
             // deal with the alternative dates
@@ -497,7 +494,7 @@ class singaporeImport
     }
 
 
-    /*
+   /*
    * creates and saves the event occurences
    *
    * @param integer $poiId
@@ -556,7 +553,6 @@ class singaporeImport
                 //post-save
                 ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
 
-                $eventOccurrencesArray[] = $eventOccurrence;
                 $eventOccurrence->free();
             }
             catch( Exception $e )
@@ -565,8 +561,6 @@ class singaporeImport
                 $this->_logger->addError($e, $eventOccurrence, $log );
             }
         }
-
-        return $eventOccurrencesArray;
     }
 
 
