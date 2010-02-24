@@ -80,8 +80,6 @@ class echoingLogger implements loggable
 
   public function countExisting()
   {
-    $this->changeCount++;
-    $this->printMarker( $this->existingMarker );
   }
   
   /**
@@ -92,7 +90,12 @@ class echoingLogger implements loggable
    */
   public function addChange( $type, $modifiedFieldsArray )
   {
-    //echo '#';
+    $this->changeCount++;
+    $this->printLineBreak();
+    echo 'Updated ' . $type . ':';
+    $this->printLineBreak();
+    var_dump( $modifiedFieldsArray );
+    $this->printLineBreak();
   }
 
   public function addError(Exception $exception, Doctrine_Record $record = null, $message = '')
@@ -118,18 +121,19 @@ class echoingLogger implements loggable
     }
 
     echo $exception->getMessage();
-
+    
     $this->printLineBreak( );
 
     echo $exception->getTraceAsString();
+
+    $this->printLineBreak( );
+
+    var_dump( $record->toArray() );
+
+    $this->printLineBreak( );
     
     $this->printLineSeparator();
-
-    echo $message;
-
     $this->printLineBreak( 2 );
-
-
   }
 
   public function save()
@@ -154,11 +158,13 @@ class echoingLogger implements loggable
 
   private function printMarker( $marker )
   {
-
-    if( ( $this->markerCount % 10 ) == 0 )
+    $isMultipleOfTen = ( $this->markerCount % 10 ) == 0;
+    $isAlreadyImporting = $this->markerCount > 0;
+    
+    if( $isMultipleOfTen && $isAlreadyImporting )
     {
+      echo ' ' . $this->markerCount;
       $this->printLineBreak();
-      //$this->markerCount = 0;
     }
     echo $marker;
     $this->markerCount++;
