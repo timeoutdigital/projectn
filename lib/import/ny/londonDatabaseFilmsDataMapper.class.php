@@ -76,6 +76,8 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     $this->vendor = $vendor;
     $this->reviewTypeId = $reviewTypeId;
     $this->pdo  = new PDO( $this->dsn, $this->dbUserName, $this->dbPwd );
+    $statement = $this->pdo->prepare( "SET NAMES UTF8 " );
+    $statement->execute();
     $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
   }
   
