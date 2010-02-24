@@ -31,7 +31,6 @@ class ValidateUaeXmlFeed extends ValidateXmlFeed{
         }
         catch(Exception $e)
         {
-            
             $this->ForceValiation();
 
             try
@@ -41,6 +40,8 @@ class ValidateUaeXmlFeed extends ValidateXmlFeed{
             }
             catch(Exception $e)
             {
+                echo $this->feedObj;
+                echo $e->__toString();
                 echo "Unable to force valid data";
             }//end try
         }//end try
@@ -56,14 +57,19 @@ class ValidateUaeXmlFeed extends ValidateXmlFeed{
       $this->feedObj = preg_replace("/<\/type>/", "]]></type>", $this->feedObj);
       $this->feedObj = preg_replace("/<title>/", "<title><![CDATA[", $this->feedObj);
       $this->feedObj = preg_replace("/<\/title>/", "]]></title>", $this->feedObj);
-      $this->feedObj = preg_replace("/<email>/", "<email><![CDATA[", $this->feedObj);
-      $this->feedObj = preg_replace("/<\/email>/", "]]></email>", $this->feedObj);
-      $this->feedObj = preg_replace("/<description>/", "<description><![CDATA[", $this->feedObj);
-      $this->feedObj = preg_replace("/<\/description>/", "]]></description>", $this->feedObj);
+     // $this->feedObj = preg_replace("/<email>/", "<email><![CDATA[", $this->feedObj);
+     // $this->feedObj = preg_replace("/<\/email>/", "]]></email>", $this->feedObj);
       $this->feedObj = preg_replace("/<location>/", "<location><![CDATA[", $this->feedObj);
       $this->feedObj = preg_replace("/<\/location>/", "]]></location>", $this->feedObj);
       $this->feedObj = preg_replace("/<link>/", "<link><![CDATA[", $this->feedObj);
       $this->feedObj = preg_replace("/<\/link>/", "]]></link>", $this->feedObj);
+      $this->feedObj = preg_replace("/<prices>/", "<prices><![CDATA[", $this->feedObj);
+      $this->feedObj = preg_replace("/<\/prices>/", "]]></prices>", $this->feedObj);
+      $this->feedObj = preg_replace("/<times>/", "<times><![CDATA[", $this->feedObj);
+      $this->feedObj = preg_replace("/<\/times>/", "]]></times>", $this->feedObj);
+
+      $this->feedObj = preg_replace("/&/", "&amp;", $this->feedObj);
+
       $this->feedObj = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $this->feedObj);
 
       $this->feedObj = trim($this->feedObj);
