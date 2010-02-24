@@ -32,7 +32,7 @@
  * </code>
  *
  */
-class logImport
+class logImport implements loggable
 {
 
     const POI = 'poi';
@@ -180,7 +180,7 @@ class logImport
      * @param string $log Any extra details that can help someone solve this error
      *
      */
-    public function addError(Exception $error, Doctrine_Record $record, $log = '')
+    public function addError(Exception $error, Doctrine_Record $record=NULL, $log = '')
     {
 
         $errorObj               = new ImportLoggerError();
