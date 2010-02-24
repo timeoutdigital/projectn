@@ -99,6 +99,7 @@ class reverseGeocode
   protected function callApi()
   {
     $curl = new Curl( $this->url, $this->params );
+    $curl->exec();
     
     $responseXml = simplexml_load_string( $curl->getResponse() );
 

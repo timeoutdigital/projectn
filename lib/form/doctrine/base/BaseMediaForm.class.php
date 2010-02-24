@@ -15,20 +15,32 @@ abstract class BaseMediaForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'         => new sfWidgetFormInputHidden(),
-      'media_url'  => new sfWidgetFormTextarea(),
-      'mime_type'  => new sfWidgetFormInputText(),
-      'created_at' => new sfWidgetFormDateTime(),
-      'updated_at' => new sfWidgetFormDateTime(),
+      'id'                 => new sfWidgetFormInputHidden(),
+      'ident'              => new sfWidgetFormInputText(),
+      'url'                => new sfWidgetFormTextarea(),
+      'mime_type'          => new sfWidgetFormInputText(),
+      'file_last_modified' => new sfWidgetFormInputText(),
+      'etag'               => new sfWidgetFormInputText(),
+      'content_length'     => new sfWidgetFormInputText(),
+      'created_at'         => new sfWidgetFormDateTime(),
+      'updated_at'         => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
-      'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'media_url'  => new sfValidatorString(array('max_length' => 1024)),
-      'mime_type'  => new sfValidatorString(array('max_length' => 255)),
-      'created_at' => new sfValidatorDateTime(),
-      'updated_at' => new sfValidatorDateTime(),
+      'id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'ident'              => new sfValidatorString(array('max_length' => 32)),
+      'url'                => new sfValidatorString(array('max_length' => 1024)),
+      'mime_type'          => new sfValidatorString(array('max_length' => 255)),
+      'file_last_modified' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'etag'               => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'content_length'     => new sfValidatorInteger(array('required' => false)),
+      'created_at'         => new sfValidatorDateTime(),
+      'updated_at'         => new sfValidatorDateTime(),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'Media', 'column' => array('ident')))
+    );
 
     $this->widgetSchema->setNameFormat('media[%s]');
 

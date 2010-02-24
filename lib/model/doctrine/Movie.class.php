@@ -46,6 +46,28 @@ class Movie extends BaseMovie
     $this[ 'MovieGenres' ][] = $movieGenreObj;            
   }
 
+  /**
+   * adds a movie media and invokes the download for it
+   *
+   * @param string $urlString
+   */
+  public function addMediaByUrl( $urlString )
+  {
+    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
+    {
+        throw new Exception('Failed to add Movie Media due to missing Vendor city');
+    }
 
+    $identString = md5( $urlString );
+    $movieMediaObj = Doctrine::getTable( 'MovieMedia' )->findOneByIdent( $identString );
+
+    if ( $movieMediaObj === false )
+    {
+        $movieMediaObj = new MovieMedia();
+    }
+
+    $movieMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
+    $this[ 'MovieMedia' ][] = $movieMediaObj;
+  }
 
 }

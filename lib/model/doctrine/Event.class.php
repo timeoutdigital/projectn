@@ -41,6 +41,30 @@ class Event extends BaseEvent
     $this[ 'VendorEventCategories' ][] = $vendorEventCategoryObj;
   }
 
+   /**
+   * adds a event media and invokes the download for it
+   *
+   * @param string $urlString
+   */
+  public function addMediaByUrl( $urlString )
+  {
+    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
+    {
+        throw new Exception('Failed to add Event Media due to missing Vendor city');
+    }
+
+    $identString = md5( $urlString );
+    $eventMediaObj = Doctrine::getTable( 'EventMedia' )->findOneByIdent( $identString );
+
+    if ( $eventMediaObj === false )
+    {
+        $eventMediaObj = new EventMedia();
+    }
+
+    $eventMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
+    $this[ 'EventMedia' ][] = $eventMediaObj;
+  }
+
   public function getPois()
   {
     $pois = new Doctrine_Collection(Doctrine::getTable('Poi'));
