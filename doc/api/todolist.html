@@ -52,6 +52,35 @@
                     [ <a href="elementindex.html">All elements</a> ]
           [ <a href="errors.html">Errors</a> ]
                 </div><h2>Todo List</h2>
+<h2>test</h2>
+<h3><a href="test/chicago-import-lib-unit/chicagoImportBcEdTest.html#methodtestExistingChangedPoiIsLoggedAndUpdated">chicagoImportBcEdTest::testExistingChangedPoiIsLoggedAndUpdated()</a></h3>
+<ul>
+    <li>re-implment</li>
+</ul>
+<h3><a href="test/ny-import-lib/importNyTest.html#methodtestInsertPoi">importNyTest::testInsertPoi()</a></h3>
+<ul>
+    <li>Create Regreshion test</li>
+</ul>
+<h3><a href="test/lisbon-import-lib-unit/LisbonFeedListingsMapperTest.html#methodtestMapListings">LisbonFeedListingsMapperTest::testMapListings()</a></h3>
+<ul>
+    <li>Implement testMapVenues().</li>
+</ul>
+<h3><a href="test/lisbon-import-lib-unit/LisbonFeedMoviesMapperTest.html#methodtestMapMovies">LisbonFeedMoviesMapperTest::testMapMovies()</a></h3>
+<ul>
+    <li><p>fix weird loop bug, the commented out count below should  work but some items appear to be looped over twice</p><p>test mapMovies has required fields and properties</p></li>
+</ul>
+<h3><a href="test/london-import-lib-unit/LondonAPIRestaurantsMapperTest.html#methodtestNoLimit">LondonAPIRestaurantsMapperTest::testNoLimit()</a></h3>
+<ul>
+    <li>test grabs all restaurants if no limit set</li>
+</ul>
+<h3><a href="test/london-import-lib-unit/LondonAPICinemasMapperTest.html#methodtestNoLimit">LondonAPICinemasMapperTest::testNoLimit()</a></h3>
+<ul>
+    <li>test grabs all cinemas if no limit set</li>
+</ul>
+<h3><a href="test/london-import-lib-unit/LondonAPIBarsAndPubsMapperTest.html#methodtestNoLimit">LondonAPIBarsAndPubsMapperTest::testNoLimit()</a></h3>
+<ul>
+    <li>test grabs all restaurants if no limit set</li>
+</ul>
 <h2>projectn API</h2>
 <h3><a href="projectn API/EventOccurrenceTable.html#methodgetVendorUidFieldName">EventOccurrenceTable::getVendorUidFieldName()</a></h3>
 <ul>
@@ -133,26 +162,6 @@
 <ul>
     <li>Implement testMapPois().</li>
 </ul>
-<h3><a href="projectn API/LisbonFeedListingsMapperTest.html#methodtestMapListings">LisbonFeedListingsMapperTest::testMapListings()</a></h3>
-<ul>
-    <li>Implement testMapVenues().</li>
-</ul>
-<h3><a href="projectn API/LisbonFeedMoviesMapperTest.html#methodtestMapMovies">LisbonFeedMoviesMapperTest::testMapMovies()</a></h3>
-<ul>
-    <li><p>fix weird loop bug, the commented out count below should  work but some items appear to be looped over twice</p><p>test mapMovies has required fields and properties</p></li>
-</ul>
-<h3><a href="projectn API/LondonAPICinemasMapperTest.html#methodtestNoLimit">LondonAPICinemasMapperTest::testNoLimit()</a></h3>
-<ul>
-    <li>test grabs all cinemas if no limit set</li>
-</ul>
-<h3><a href="projectn API/LondonAPIRestaurantsMapperTest.html#methodtestNoLimit">LondonAPIRestaurantsMapperTest::testNoLimit()</a></h3>
-<ul>
-    <li>test grabs all restaurants if no limit set</li>
-</ul>
-<h3><a href="projectn API/LondonAPIBarsAndPubsMapperTest.html#methodtestNoLimit">LondonAPIBarsAndPubsMapperTest::testNoLimit()</a></h3>
-<ul>
-    <li>test grabs all restaurants if no limit set</li>
-</ul>
 <h3><a href="projectn API/XMLExportTest.html#methodtestRunCallsAbstractMethods">XMLExportTest::testRunCallsAbstractMethods()</a></h3>
 <ul>
     <li>Implement testRun().</li>
@@ -168,15 +177,6 @@
 <h3><a href="projectn API/dubaiImportBars.html#method__construct">dubaiImportBars::__construct()</a></h3>
 <ul>
     <li>get by Vendo and type</li>
-</ul>
-<h2>test</h2>
-<h3><a href="test/import-lib-unit/dubaiImportBarsTest.html">dubaiImportBarsTest</a></h3>
-<ul>
-    <li>Finish as the feeds are not working from Dubai</li>
-</ul>
-<h3><a href="test/ny-import-lib/importNyTest.html#methodtestInsertPoi">importNyTest::testInsertPoi()</a></h3>
-<ul>
-    <li>Create Regreshion test</li>
 </ul>
 <h2>projectn</h2>
 <h3><a href="projectn/lib/FTPClient.html#methodaddExcludePattern">FTPClient::addExcludePattern()</a></h3>
@@ -217,9 +217,9 @@
 <ul>
     <li>go through the xml with a proper source xml editor to make sure that   no information is left out</li>
 </ul>
-<h3><a href="projectn/export-lib/XMLExport.html#methodisValidAgainstXSD">XMLExport::isValidAgainstXSD()</a></h3>
+<h3><a href="projectn/export-lib/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
 <ul>
-    <li>should enforce an XSD</li>
+    <li>PoiCateory needs to be one-to-many not one-to-one</li>
 </ul>
 <h3><a href="projectn/export-lib/XMLExportMovie.html#methodmapDataToDOMDocument">XMLExportMovie::mapDataToDOMDocument()</a></h3>
 <ul>
@@ -227,10 +227,6 @@
     <li>correct movie/version/name to use real value</li>
     <li>correct movie@id to use real value</li>
     <li>correct version@lang use real value</li>
-</ul>
-<h3><a href="projectn/export-lib/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
-<ul>
-    <li>PoiCateory needs to be one-to-many not one-to-one</li>
 </ul>
 <h3><a href="projectn/lib/Importer.html#methodonRecordMapped">Importer::onRecordMapped()</a></h3>
 <ul>
@@ -249,12 +245,16 @@
     <li><p>go through the file after all the questions are answered</p><p><strong>Example</strong>  <ol><li><div class="src-line">&nbsp;&nbsp;<span class="src-var">$singaporeImportObj&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="projectn/singapore-import-lib/singaporeImport.html">singaporeImport</a></span><span class="src-sym">(&nbsp;</span><span class="src-var">$xmlObj</span><span class="src-sym">,&nbsp;</span><span class="src-var">$vendorObj</span><span class="src-sym">,&nbsp;</span><span class="src-var">$curlImporterObj&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
 </ol></p></li>
 </ul>
+<h3><a href="projectn/export-lib/XMLExport.html#methodvalidateAgainst">XMLExport::validateAgainst()</a></h3>
+<ul>
+    <li>should enforce an XSD</li>
+</ul>
 <h3><a href="projectn/ny-import-lib/importNyChicagoEvents.html#method__construct">importNyChicagoEvents::__construct()</a></h3>
 <ul>
     <li>possibly add transactions</li>
 </ul>
                 <div class="credit">
-                  Documentation generated on Tue, 23 Feb 2010 15:21:52 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Wed, 24 Feb 2010 10:57:38 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>
