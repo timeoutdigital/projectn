@@ -80,6 +80,12 @@ class Poi extends BasePoi
   {
      $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
 
+     /* temp hack start */
+     $this['longitude'] = NULL;
+     $this['latitude'] = NULL;
+     return;
+     /* temp hack end */
+
      //get the longitute and latitude
      $geoEncoder = new geoEncode();
      
@@ -102,6 +108,30 @@ class Poi extends BasePoi
          throw new Exception('Geo encode accuracy below 5' );
        }
      }
+  }
+
+  /**
+   * adds a poi media and invokes the download for it
+   * 
+   * @param string $urlString 
+   */
+  public function addMediaByUrl( $urlString )
+  {
+    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
+    {
+        throw new Exception('Failed to add Poi Media due to missing Vendor city');
+    }
+
+    $identString = md5( $urlString );
+    $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $identString );
+    
+    if ( $poiMediaObj === false )
+    {
+        $poiMediaObj = new PoiMedia();
+    }
+
+    $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
+    $this[ 'PoiMedia' ][] = $poiMediaObj;
   }
 
 }

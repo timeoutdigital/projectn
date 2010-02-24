@@ -20,8 +20,8 @@ Poi:
     country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
     additional_address_details: {type: string(128), notnull: false}
     zips:                       {type: string(16), notnull: false}
-    longitude:                  {type: decimal(18), scale: 15, notnull: true}
-    latitude:                   {type: decimal(18), scale: 15, notnull: true}
+    longitude:                  {type: decimal(18), scale: 15, notnull: false}
+    latitude:                   {type: decimal(18), scale: 15, notnull: false}
     email:                      {type: string(128, notnull: false}
     url:                        {type: string(1024), notnull: false}
     phone:                      {type: string(32), notnull: false}
@@ -379,7 +379,7 @@ ImportLoggerError:
     import_logger_id:           {type: integer, notnull: true}
     resolved:                   {type: boolean, notnull: true, default: 0}
   relations:
-    ImportLogger:                {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerErrors}
+    ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerErrors}
 
 
 #Master Media table, extended by PoiMedia, EventMedia and MovieMedia
@@ -388,5 +388,9 @@ Media:
   actAs:
     Timestampable: ~
   columns:
-    media_url:                  {type: string(1024), notnull: true}
-    mime_type:                  {type: string(255), notnull: true}
+    ident:                {type: string(32), notnull: true, unique:true}
+    url:                  {type: string(1024), notnull: true}
+    mime_type:            {type: string(255), notnull: true}
+    file_last_modified:   {type: string(255), notnull: false}
+    etag:                 {type: string(255), notnull: false}
+    content_length:       {type: integer, notnull: false}
