@@ -73,6 +73,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   protected function getIgnoreMap()
   {
     return array(
+      'placeid',
+      'place',
       'category',
       'listing_',
       'residency',
