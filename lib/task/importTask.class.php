@@ -225,7 +225,7 @@ class importTask extends sfBaseTask
 
             /*$curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'thisweek' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
             $xmlObj = $curlImporterObj->getXml();
 
             $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
@@ -241,20 +241,20 @@ class importTask extends sfBaseTask
 
             $logger->setType( 'poi');
 
-//            $curlImporterObj = new curlImporter();
-//            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-//            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/venues/', '', $parametersArray );
-//            $xmlObj = $curlImporterObj->getXml();
-//
-//            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
-//
-//            $this->object->insertPois( $xmlObj );
+            $curlImporterObj = new curlImporter();
+            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/venues/', '', $parametersArray, 'GET', true );
+            $xmlObj = $curlImporterObj->getXml();
+
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
+
+            $this->object->insertPois( $xmlObj );
 
             $logger->setType( 'event');
 
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
             $xmlObj = $curlImporterObj->getXml();
 
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
@@ -267,7 +267,7 @@ class importTask extends sfBaseTask
 
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/movies/', '', $parametersArray );
+            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/movies/', '', $parametersArray, 'GET', true );
             $xmlObj = $curlImporterObj->getXml();
 
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
@@ -281,7 +281,7 @@ class importTask extends sfBaseTask
 
         $logger->save();
 
-        break; //end lisbon
+        break; //end singapore
 
       case 'london':
       	$connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
