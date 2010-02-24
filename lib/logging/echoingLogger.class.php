@@ -13,18 +13,23 @@
  */
 class echoingLogger implements loggable
 {
-  private $lineBreak = PHP_EOL;
-  private $separatorChar = '-';
+  private $lineBreak       = PHP_EOL;
+  private $separatorChar   = '-';
   private $separatorLength = 30;
-  private $newInsertOutput = '+';
-  private $existingOutput = '#';
+  private $newInsertMarker = '+';
+  private $existingMarker  = '#';
+  private $errorMarker     = 'e';
 
   private $insertCount = 0;
   private $changeCount = 0;
-  private $errorCount = 0;
+  private $errorCount  = 0;
+  private $markerCount = 0;
 
-  public function  __construct(  )
+  public function  __construct( )
   {
+    $this->printLineSeparator();
+    echo 'Using verbosing logging';
+    $this->printLineSeparator();
   }
   
   /**
@@ -54,7 +59,7 @@ class echoingLogger implements loggable
    */
   public function setNewInsertOutput( $output )
   {
-    $this->newInsertOutput = $output;
+    $this->newInsertMarker = $output;
   }
 
   /**
@@ -64,19 +69,19 @@ class echoingLogger implements loggable
    */
   public function setExistingOutput( $output )
   {
-    $this->existingOutput = $output;
+    $this->existingMarker = $output;
   }
 
   public function countNewInsert()
   {
     $this->insertCount++;
-    echo $this->newInsertOutput;
+    $this->printMarker( $this->newInsertMarker );
   }
 
   public function countExisting()
   {
     $this->changeCount++;
-    echo $this->existingOutput;
+    $this->printMarker( $this->existingMarker );
   }
   
   /**
@@ -94,9 +99,23 @@ class echoingLogger implements loggable
   {
     $this->errorCount++;
 
+    $recordType = '';
+    if( $record )
+    {
+      $recordType = ' for record of type "' . get_class( $record ) . '"';
+    }
+
+    echo 'Error on save attempt: ' . ( $this->markerCount + 1 ) . $recordType;
+
     $this->printLineBreak( 2 );
 
     $this->printLineSeparator();
+
+    if( $message )
+    {
+      echo $message;
+      $this->printLineBreak();
+    }
 
     echo $exception->getMessage();
 
@@ -131,6 +150,18 @@ class echoingLogger implements loggable
 
     $this->printLineSeparator();
     $this->printLineBreak( 2 );
+  }
+
+  private function printMarker( $marker )
+  {
+
+    if( ( $this->markerCount % 10 ) == 0 )
+    {
+      $this->printLineBreak();
+      //$this->markerCount = 0;
+    }
+    echo $marker;
+    $this->markerCount++;
   }
 
   private function printLineBreak( $amount = 1 )
