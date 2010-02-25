@@ -42,5 +42,14 @@ class EventOccurrenceTableTest extends PHPUnit_Framework_TestCase
     $column = $this->object->getVendorUidFieldName();
     $this->assertTrue( $this->object->hasColumn( $column ) );
   }
+
+  /*
+   * testIfAutomaticVendorEventOccurrenceTableIdGenerationWorks
+   */
+  public function testIfAutomaticVendorEventOccurrenceTableIdGenerationWorks()
+  {
+    $eventOccurrenceId = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId( 1, 1, '08.02.2010 04:20' );
+    $this->assertEquals('1_1_20100208042000', $eventOccurrenceId);
+  }
 }
 ?>

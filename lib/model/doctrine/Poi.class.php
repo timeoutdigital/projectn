@@ -24,6 +24,19 @@ class Poi extends BasePoi
   
   public function addProperty( $lookup, $value )
   {
+    if( $this->exists() )
+    {
+      foreach( $this['PoiProperty'] as $property )
+      {
+        $lookupIsSame = ( $lookup == $property[ 'lookup' ] );
+        $valueIsSame  = ( $value  == $property[ 'value' ]  );
+
+        if( $lookupIsSame && $valueIsSame )
+        {
+          return;
+        }
+      }
+    }
     $poiPropertyObj = new PoiProperty();
     $poiPropertyObj[ 'lookup' ] = (string) $lookup;
     $poiPropertyObj[ 'value' ] = (string) $value;
@@ -76,7 +89,7 @@ class Poi extends BasePoi
      //get the longitute and latitude
      $geoEncoder = new geoEncode();
      
-     if( is_null( $this['longitude'] ) || is_null( $this['latitude'] ) )
+     if( !is_numeric( $this['longitude'] ) || !is_numeric( $this['latitude'] ) )
      {
        if( empty( $this->geoEncodeLookUpString ) )
        {
@@ -95,6 +108,37 @@ class Poi extends BasePoi
          //throw new GeoCodeException('Geo encode accuracy below 5' );
        }
      }
+  }
+
+  /**
+   * adds a poi media and invokes the download for it
+   * 
+   * @param string $urlString 
+   */
+  public function addMediaByUrl( $urlString )
+  {
+    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
+    {
+        throw new Exception('Failed to add Poi Media due to missing Vendor city');
+    }
+
+    $identString = md5( $urlString );
+    $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $identString );
+    
+    if ( $poiMediaObj === false )
+    {
+      foreach( $this['PoiMedia'] as $poiMedia )
+      {
+        if( $identString == $poiMedia[ 'ident' ] )
+        {
+          return;
+        }
+      }
+      $poiMediaObj = new PoiMedia();
+    }
+
+    $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
+    $this[ 'PoiMedia' ][] = $poiMediaObj;
   }
 
 }

@@ -80,7 +80,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
     $poi['PoiCategories'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $barsXml->starRating;
 
-    foreach( $barsXml->details as $detail )
+    foreach( $this->getDetails( $barsXml ) as $detail )
     {
       $poi->addProperty( (string) $detail['name'], (string) $detail );
     }

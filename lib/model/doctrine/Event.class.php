@@ -13,8 +13,38 @@
 class Event extends BaseEvent
 {
 
+  /**
+   * Attempts to fix and / or format fields, e.g. url
+   */
+  public function preSave( $event )
+  {
+
+     if( $this['url'] != '')
+     {
+        $this['url'] = stringTransform::formatUrl($this['url']);
+     }
+     if( $this['booking_url'] != '')
+     {
+        $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
+     }     
+
+  }
+
   public function addProperty( $lookup, $value )
   {
+    if( $this->exists() )
+    {
+      foreach( $this['EventProperty'] as $property )
+      {
+        $lookupIsSame = ( $lookup == $property[ 'lookup' ] );
+        $valueIsSame  = ( $value  == $property[ 'value' ]  );
+
+        if( $lookupIsSame && $valueIsSame )
+        {
+          return;
+        }
+      }
+    }
     $eventPropertyObj = new EventProperty();
     $eventPropertyObj[ 'lookup' ] = (string) $lookup;
     $eventPropertyObj[ 'value' ] = (string) $value;
@@ -39,6 +69,37 @@ class Event extends BaseEvent
     }
 
     $this[ 'VendorEventCategories' ][] = $vendorEventCategoryObj;
+  }
+
+   /**
+   * adds a event media and invokes the download for it
+   *
+   * @param string $urlString
+   */
+  public function addMediaByUrl( $urlString )
+  {
+    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
+    {
+        throw new Exception('Failed to add Event Media due to missing Vendor city');
+    }
+
+    $identString = md5( $urlString );
+    $eventMediaObj = Doctrine::getTable( 'EventMedia' )->findOneByIdent( $identString );
+
+    if ( $eventMediaObj === false )
+    {
+      foreach( $this['EventMedia'] as $eventMedia )
+      {
+        if( $identString == $eventMedia[ 'ident' ] )
+        {
+          return;
+        }
+      }
+      $eventMediaObj = new EventMedia();
+    }
+
+    $eventMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
+    $this[ 'EventMedia' ][] = $eventMediaObj;
   }
 
   public function getPois()

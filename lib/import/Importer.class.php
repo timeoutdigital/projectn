@@ -39,7 +39,7 @@ class Importer
    * 
    * @param logImport $logger
    */
-  public function addLogger( logImport $logger )
+  public function addLogger( loggable $logger )
   {
     if( !in_array( $logger, $this->loggers ) )
     {
@@ -115,12 +115,13 @@ class Importer
             $logger->countNewInsert();
           }
         }
-        else
+        else if( !empty( $recordModifications ) )
         {
-          foreach( $this->loggers as $logger )
-          {
-            $logger->addChange( 'update', $record->getModified() );
-          }
+//          foreach( $this->loggers as $logger )
+//          {
+//            $logger->addChange( 'update', $recordModifications );
+//            $logger->countExisting();
+//          }
         }
      }
      catch( Exception $e )

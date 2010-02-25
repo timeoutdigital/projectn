@@ -76,22 +76,18 @@ class XMLExportEvent extends XMLExport
       }
 
       //event/version/short-description
-      $this->appendNonRequiredElement($versionElement, 'short-description', $event['short_description'], XMLExport::USE_CDATA);
+      $cleanShortDescription = $this->cleanHtml( $event['short_description'] );
+      $this->appendNonRequiredElement($versionElement, 'short-description', $cleanShortDescription, XMLExport::USE_CDATA);
 
       //event/version/description
-      $this->appendRequiredElement($versionElement, 'description', $event['description'], XMLExport::USE_CDATA);
+      $cleanDescription = $this->cleanHtml( $event['description'] );
+      $this->appendRequiredElement($versionElement, 'description', $cleanDescription, XMLExport::USE_CDATA);
 
       //event/version/booking-url
-      if( !empty( $event['booking_url'] ) )
-      {
-        $this->appendNonRequiredElement($versionElement, 'booking_url', $event['booking_url'], XMLExport::USE_CDATA);
-      }
+      $this->appendNonRequiredElement($versionElement, 'booking_url', $event['booking_url'], XMLExport::USE_CDATA);
 
       //event/version/url
-      if( !empty( $event['url'] ) )
-      {
-        $this->appendNonRequiredElement($versionElement, 'url', $event['url'], XMLExport::USE_CDATA);
-      }
+      $this->appendNonRequiredElement($versionElement, 'url', $event['url'], XMLExport::USE_CDATA);
 
       //event/version/price
       $this->appendNonRequiredElement($versionElement, 'price', $event['price'], XMLExport::USE_CDATA);

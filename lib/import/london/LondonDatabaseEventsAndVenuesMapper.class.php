@@ -108,8 +108,19 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$poi[ 'vendor_poi_id' ] = $item[ 'venue_id' ];
 
 				$poi[ 'poi_name' ] = $item[ 'SLLVenue' ][ 'name' ];
-				$poi[ 'house_no' ] = $item[ 'SLLVenue' ][ 'building_name' ];
-				$poi[ 'street' ] = $item[ 'SLLVenue' ][ 'address' ];
+        
+        $building_name = $item[ 'SLLVenue' ][ 'building_name' ];
+
+        if( strlen($building_name) <= 32 )
+        {
+  				$poi[ 'house_no' ] = $building_name;
+        }
+        else
+        {
+          $poi[ 'additional_address_details' ] = $building_name;
+        }
+				
+        $poi[ 'street' ] = $item[ 'SLLVenue' ][ 'address' ];
 				$poi[ 'city' ] = 'London';
 				$poi[ 'zips' ] = $item[ 'SLLVenue' ][ 'postcode' ];
 
@@ -120,11 +131,20 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$poi[ 'longitude' ] = $item[ 'SLLVenue' ][ 'longitude' ];
 
 				$poi[ 'email' ] = $item[ 'SLLVenue' ][ 'email' ];
-				$poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
-				//$poi[ 'phone' ] = stringTransform::formatPhoneNumber($item[ 'SLLVenue' ][ 'phone' ], '+44'); //@todo use dial code from vendor
+
+        $poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
+        if( !$poi['url'] ) $poi['url'] = '';
+
+        //$poi[ 'phone' ] = stringTransform::formatPhoneNumber($item[ 'SLLVenue' ][ 'phone' ], '+44'); //@todo use dial code from vendor
 				$poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ]; //@todo use dial code from vendor
-				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
-				$poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
+        if( !$poi['phone'] ) $poi['phone'] = '';
+
+        $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
+
+        $poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
+        if( !$poi['openingtimes'] ) $poi['openingtimes'] = '';
+
+        $poi['geoEncodeLookUpString'] = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
 
         $this->notifyImporter( $poi );
         
@@ -147,6 +167,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$event[ 'name' ]        = $item[ 'SLLEvent' ][ 'title' ];
 				$event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
 				$event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
+        if( !$event['url'] ) $poi['url'] = '';
 				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
 
         $this->notifyImporter( $event );

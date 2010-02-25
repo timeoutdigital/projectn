@@ -15,6 +15,11 @@
  *
  *
  */
+
+//Include PEAR Library
+require_once 'Validate.php';
+
+
 class stringTransform
 {
 
@@ -167,14 +172,40 @@ class stringTransform
    */
   public static function formatUrl($subject)
   {
+      //Return if no URL
+      if(empty($subject))
+      {
+        return null;
+      }
 
-      if(preg_match('/^http/', $subject)){
+      //Add http if not already
+      if(!preg_match('/^http/', $subject)){
+
+          $subject =  'http://'.$subject;
+      }
+
+      try
+      {
+        $validate = new Validate();
+      }
+      catch (Exception $e)
+      {
+        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
+        exit;
+      }
+
+      //Check if domain is valid
+      $valid = $validate->uri($subject ,array("allowed_schemes"=>array('https', 'http'),"domain_check"=>true));
+
+      if($valid)
+      {
           return $subject;
       }
       else
       {
-          'http://'.$subject;
+          return null;
       }
+
   }
 
   /*

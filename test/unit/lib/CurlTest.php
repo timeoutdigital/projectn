@@ -20,8 +20,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
    * This method is called before a test is executed.
    */
   protected function setUp()
-  {
-    $this->object = new Curl( 'http://www.google.co.uk/search', array( 'q' => 'wave', 'foo' => 'bar' ) );
+  {    
   }
 
   /**
@@ -37,6 +36,8 @@ class CurlTest extends PHPUnit_Framework_TestCase
    */
   public function testGetResponse()
   {
+    $this->object = new Curl( 'http://www.google.co.uk/search', array( 'q' => 'wave', 'foo' => 'bar' ) );
+    $this->object->exec();
     $this->assertRegExp('/wave/', $this->object->getResponse() );
   }
 
@@ -45,6 +46,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
    */
   public function testGetParametersString()
   {
+    $this->object = new Curl( 'http://www.google.co.uk/search', array( 'q' => 'wave', 'foo' => 'bar' ) );
     $this->assertEquals('q=wave&foo=bar', $this->object->getParametersString() );
   }
 
@@ -56,6 +58,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
   {
     $testPath = TO_TEST_ROOT_PATH . '/import/ny/images';
 
+    $this->object = new Curl( 'http://www.google.co.uk/search', array( 'q' => 'wave', 'foo' => 'bar' ) );
     $this->object->setStorePath( $testPath );
 
     $this->assertFileExists( $testPath );
@@ -67,6 +70,9 @@ class CurlTest extends PHPUnit_Framework_TestCase
    */
   public function testStoreResponse()
   {
+      $this->object = new Curl( 'http://www.google.co.uk/search', array( 'q' => 'wave', 'foo' => 'bar' ) );
+      $this->object->exec();
+
       $testFile = TO_TEST_ROOT_PATH . '/import/ny/images/test.txt';
 
       //clean out the already existing files first
@@ -96,7 +102,52 @@ class CurlTest extends PHPUnit_Framework_TestCase
   {
       $this->setExpectedException( 'Exception' );
       $this->object = new Curl( 'http://somewrongurl' );
+      $this->object->exec();
+  }
+  
+  /**
+   * test if header is successfully returned
+   */
+  public function testIfHeaderSuccesfullyReturned()
+  {
+      $header = <<<EOF
+HTTP/1.1 200 OK
+Date: Tue, 23 Feb 2010 12:16:42 GMT
+Server: Apache/2.2.3 (CentOS)
+Last-Modified: Thu, 04 Feb 2010 08:45:43 GMT
+ETag: "5a5c066-46f1e-47ec25c3b7bc0"
+Accept-Ranges: bytes
+Content-Length: 290590
+Connection: close
+Content-Type: image/jpeg
+
+EOF;
+
+      $this->stubCurl = $this->getMock( 'Curl', array( 'getHeader' ), array( 'http://www.toimg.net/travel/images/logos/home.gif' ) );
+      $this->stubCurl->expects( $this->any() )->method( 'getHeader' )->will( $this->returnValue( $header ) );
+
+      $this->assertEquals( 'Thu, 04 Feb 2010 08:45:43 GMT', $this->stubCurl->getHeaderField( 'Last-Modified' ) );
+      $this->assertEquals( 'image/jpeg', $this->stubCurl->getContentType() );
   }
 
+
+  public function testDownloadTo()
+  {
+      $testFile = TO_TEST_ROOT_PATH . '/import/test/images/test.jpg';
+
+      $this->object = new Curl( 'http://www.toimg.net/travel/images/logos/home.gif' );
+      $this->object->downloadTo( $testFile );
+      $curlInfo = $this->object->getCurlInfo();
+      $lastModified = $this->object->getLastModified() ;
+
+      $this->assertEquals( '200', $curlInfo[ 'http_code' ] );      
+
+      $this->object = new Curl( 'http://www.toimg.net/travel/images/logos/home.gif' );
+      $this->object->downloadTo( $testFile, $lastModified );
+      $curlInfo = $this->object->getCurlInfo();
+      $lastModified = $this->object->getLastModified() ;
+
+      $this->assertEquals( '304', $curlInfo[ 'http_code' ] );
+  }
 }
 ?>

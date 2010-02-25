@@ -23,7 +23,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $event['vendor_id'] = $this->vendor['id'];
       $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
       $event->addVendorCategory( array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] ), $this->vendor['id'] );
-      $event['review_date'] = preg_replace( '/T/', ' ', (string) $listingElement['ModifiedDate'] );
+      $event['review_date'] = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
 
       $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
       $occurrence['vendor_event_occurrence_id'] = (int) $listingElement['musicid'];
@@ -31,16 +31,16 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $occurrence['utc_offset'] = 0;
       $occurrence['event_id'] = $event['id'];
       
-      try
+      $placeid = (int) $listingElement['placeid'];
+      $poi = Doctrine::getTable('Poi')->findOneByVendorPoiId( $placeid );
+
+      if( !$poi )
       {
-        $placeid = (int) $listingElement['placeid'];
-        $occurrence['Poi'] =  Doctrine::getTable('Poi')->findOneByVendorPoiId( $placeid );
-      }
-      catch( Exception $e )
-      {
-        $this->notifyImporterOfFailure($e, $occurrence, 'Could not find Lisbon Poi with vendor_poi_id of '. $placeid );
+        $this->notifyImporterOfFailure( new Exception( 'Could not find Lisbon Poi with vendor_poi_id of '. $placeid ), $occurrence );
         continue;
       }
+
+      $occurrence['Poi'] = $poi;
       
       $event['EventOccurrence'][] = $occurrence;
 
@@ -73,6 +73,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   protected function getIgnoreMap()
   {
     return array(
+      'placeid',
+      'place',
       'category',
       'listing_',
       'residency',

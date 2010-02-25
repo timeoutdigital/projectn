@@ -68,6 +68,7 @@ protected function setUp()
         $poi->setLocalLanguage('en');
         $poi->setLongitude( '0.1' );
         $poi->setLatitude( '0.2' );
+        $poi['description'] = '<a href="http://www.foobar.com">foobar</a><strong></strong><b random="purposeful"></b><em></em><i></i><iframe></iframe>';
         $poi->link( 'Vendor', 2 );
         $poi->link('PoiCategories', array( 1, 2 ) );
 
@@ -251,6 +252,14 @@ protected function setUp()
     $this->assertEquals( 'test', $testElement->nodeName );
     $this->assertEqualXMLStructure( $expected, $domDocument );
 
+  }
+
+  public function testCleanHtml()
+  {
+    $this->markTestIncomplete();
+//    $this->object->run();
+//    echo file_get_contents( $this->destination );
+//    $this->assertRegExp( '%<a href="http://www.foobar.com">foobar</a><b></b><b></b><i></i><i></i>%', file_get_contents( $this->destination ) );
   }
 }
 ?>

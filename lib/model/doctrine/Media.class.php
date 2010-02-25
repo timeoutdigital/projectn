@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Media
  * 
@@ -12,4 +11,48 @@
  */
 class Media extends BaseMedia
 {
+    /**
+     * populates the media table with media information and invokes the actual
+     * file download
+     *
+     * @param string $urlString
+     * @param string $identString
+     * @param string $vendorCity
+     */
+    public function populateByUrl( $identString, $urlString, $vendorCity )
+    {
+        $this[ 'url' ] = $urlString;
+        $this[ 'ident' ] = $identString;
+
+        $curl = new Curl( $urlString );
+
+        $type = strtolower( str_replace( 'Media', '', get_class( $this ) ) );
+
+        if ( $type == '')
+        {
+            $filename = sfConfig::get( 'sf_root_dir' ) . '/import/' . $vendorCity . '/media/' . $identString . '.jpg';
+        }
+        else
+        {
+            $filename = sfConfig::get( 'sf_root_dir' ) . '/import/' . $vendorCity . '/' . $type . '/media/' . $identString . '.jpg';
+        }
+
+        if ( $this[ 'file_last_modified' ] === NULL || $this[ 'file_last_modified' ] == '' || !file_exists( $filename ) )
+        {
+            $curl->downloadTo(  $filename );
+
+            $this[ 'mime_type' ] = $curl->getContentType();
+            $this[ 'file_last_modified' ] = $curl->getLastModified();
+            $this[ 'etag' ] = $curl->getETag();
+            $this[ 'content_length' ] = $curl->getContentLength();
+        }
+        else
+        {
+            $curl->downloadTo(  $filename, $this[ 'file_last_modified' ] );
+        }
+        if ( !file_exists( $filename ) )
+        {
+            throw new Exception( 'Failed to successfully download / store media url: ' . $urlString . ' / ident: ' . $identString );
+        }
+    }
 }

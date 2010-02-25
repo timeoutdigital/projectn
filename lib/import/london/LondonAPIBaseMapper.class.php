@@ -101,6 +101,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
     return $this->limit;
   }
 
+  public function onException( Exception $exception, $message = null )
+  {
+    $this->notifyImporterOfFailure( $exception, null, $message );
+  }
+
   protected function crawlApi()
   {
     $this->apiCrawler->crawlApi();
@@ -290,6 +295,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
         return false;
       }
     }
+  }
+
+  protected function getDetails( $xml )
+  {
+    return $xml->details->detail;
   }
 
   /**

@@ -163,7 +163,8 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movieElement = $this->xpath->query( '/vendor-movies/movie' )->item(0);
 
     //movie@attributes
-    $this->assertEquals( '187', $movieElement->getAttribute( 'id' ) );
+    echo file_get_contents( $this->destination );
+    $this->assertEquals( '1111', $movieElement->getAttribute( 'id' ) );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
 
     //movie/name
@@ -172,7 +173,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $versionElement = $movieElement->getElementsByTagName( 'version' )->item(0);//$this->domDocument->movie[0]->version;
 
     //movie/version
-    $this->assertEquals( 'en', $versionElement->getAttribute( 'lang' ) );
+    $this->assertEquals( 'en-GB', $versionElement->getAttribute( 'lang' ) );
 
     //movie/version/name
     $this->assertEquals( 'test movie name', $versionElement->getElementsByTagName( 'name' )->item(0)->nodeValue );//(string) $versionTag->name );
