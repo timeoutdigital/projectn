@@ -568,15 +568,8 @@ class singaporeImport
                 $eventOccurrence[ 'poi_id' ] = $poiId;
                 $eventOccurrence[ 'event_id' ] = $eventId;
 
-                //Save the object and log the changes
-                //pre-save
-                $logIsNew = $eventOccurrence->isNew();
-                $logChangedFields = $eventOccurrence->getModified();
                 //save
                 $eventOccurrence->save();
-                //post-save
-                ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
-
                 $eventOccurrence->free();
             }
             catch( Exception $e )
