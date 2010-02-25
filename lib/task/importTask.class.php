@@ -222,7 +222,7 @@ class importTask extends sfBaseTask
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
             $xmlObj = $curlImporterObj->getXml();
 
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
             $this->object->insertEvents( $xmlObj );
 
             $logger->save();
