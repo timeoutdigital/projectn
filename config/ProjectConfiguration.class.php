@@ -23,9 +23,5 @@ class ProjectConfiguration extends sfProjectConfiguration
     spl_autoload_register(array('HTMLPurifier_Bootstrap', 'autoload'));
 
     self::$htmlPurifierLoaded = true;
-
-    $config = HTMLPurifier_Config::createDefault();
-    $config->set('Cache.DefinitionImpl', null);
-    $config->set('HTML.Allowed', 'p,b,a[href],i,br,pre');
   }
 }

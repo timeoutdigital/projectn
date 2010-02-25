@@ -68,10 +68,12 @@ class XMLExportMovie extends XMLExport
       }
 
       //movie/version/plot
-      $this->appendNonRequiredElement($versionElement, 'plot', $movie['plot'], XMLExport::USE_CDATA);
+      $cleanedPlot = $this->cleanHtml( $movie['plot'] );
+      $this->appendNonRequiredElement($versionElement, 'plot', $cleanedPlot, XMLExport::USE_CDATA);
 
       //movie/version/review
-      $this->appendNonRequiredElement($versionElement, 'review', $movie['review'], XMLExport::USE_CDATA);
+      $cleanedReview = $this->cleanHtml( $movie['review'] );
+      $this->appendNonRequiredElement($versionElement, 'review', $cleanedReview, XMLExport::USE_CDATA);
 
       //movie/version/url
       $this->appendNonRequiredElement($versionElement, 'url', $movie['url'], XMLExport::USE_CDATA);
