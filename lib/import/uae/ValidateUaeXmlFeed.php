@@ -31,6 +31,8 @@ class ValidateUaeXmlFeed extends ValidateXmlFeed{
         }
         catch(Exception $e)
         {
+
+            
             $this->ForceValiation();
 
             try

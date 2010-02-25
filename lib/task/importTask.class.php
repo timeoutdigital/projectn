@@ -325,6 +325,8 @@ class importTask extends sfBaseTask
             break;
 
 
+        case 'movies': $this->importDubaiMovies($vendorObj);
+
             break;
         }
 
@@ -621,12 +623,34 @@ class importTask extends sfBaseTask
         try
         {
             $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
+            $feed->exec();
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
 
             $importUaeEventsObj = new ImportUaeEvents($xmlFeedObj, $vendorObj);
             $importUaeEventsObj->import();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
+        }
+
+     }
+
+
+     private function importDubaiMovies($vendorObj)
+     {
+        try
+        {
+            $feed = new Curl('http://www.timeoutdubai.com/customfeed/nokia/films');
+            $feed->exec();
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+
+            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
+            $importUaeMoviesObj->import();
         }
         catch ( Exception $e )
         {
