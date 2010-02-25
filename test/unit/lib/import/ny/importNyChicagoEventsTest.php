@@ -87,8 +87,29 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->object->_poiLoggerObj->save();
 
     $poiObj = Doctrine::getTable('Poi')->findByPoiName('Zankel Hall (at Carnegie Hall)');
+
     $this->assertEquals( 1, count( $poiObj ) );
   }
+
+
+  /**
+   * 
+   */
+  public function testInsertEventAndEventOccurrences()
+  {
+    $venuesArray = $this->xmlObj->getVenues();
+    $this->object->insertPoi( $venuesArray[ 0 ] );
+
+    $eventsArray = $this->xmlObj->getEvents();
+    $this->object->insertEvent( $eventsArray[ 0 ] );
+
+    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
+
+    $this->assertTrue( $eventObj instanceof Event );
+
+    $this->assertEquals( 1, $eventObj['EventOccurrence']->count()  );
+  }
+
 
   /*
    * test if price information is appended
@@ -210,7 +231,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->object->insertEvent( $eventsArray[ 0 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
-  
+
     // url
     $this->assertEquals( 'http://theatermania.com', $eventObj[ 'url' ] );
 
@@ -293,7 +314,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->object->insertVendorEventCategories($eventsArray[ 2 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
- 
+
     $this->assertEquals( 'theater', $eventObj['EventCategories'][ 0 ][ 'name' ] );
   }
 
