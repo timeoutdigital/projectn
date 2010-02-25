@@ -42,7 +42,7 @@
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element ref="name"/>
-				<xsd:element name="genre" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/><!-- minOccurs was 0, maxOccurs was non-existent -->
+				<xsd:element name="genre" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/><!-- maxOccurs was non-existent -->
 				<xsd:element name="plot" type="xsd:string" minOccurs="0"/>
 				<xsd:element name="review" type="xsd:string" minOccurs="0"/>
 				<xsd:element name="url" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/><!-- url element was non-existent -->
