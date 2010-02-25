@@ -322,7 +322,12 @@ class importTask extends sfBaseTask
 
             break;
 
+          case 'poi-event': $this->importDubaiEvents($vendorObj);
 
+            break;
+
+
+        case 'movies': $this->importDubaiMovies($vendorObj);
 
             break;
         }
@@ -484,10 +489,12 @@ class importTask extends sfBaseTask
   {
        try
         {
-          //$fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
+          echo "Starting download \n\n";
+          $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
 
-          //$processXmlObj = new processNyXml( $fileNameString );
-          $processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
+          $processXmlObj = new processNyXml( $fileNameString );
+          //$processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
+          echo "XML Parsed \n\n";
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
           $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
           $nyImportObj->insertEventCategoriesAndEventsAndVenues();
@@ -552,16 +559,18 @@ class importTask extends sfBaseTask
         {
 
             //Download and process XML
-            $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
+           // $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
+            $fileNameString = "/var/workspace/projectn/import/ny/tony_ed.xml";
+            echo 'processing';
             $processXmlObj = new processNyBcXml( $fileNameString );
-
+            echo "\n\n Importing \n\n";
             //Import the bars
             $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj);
             $importBcEd->import();
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in NY import: ' . $e->getMessage();
+          echo 'Exception caught in NY import: ' . $e->__toString();
         }
 
      }
@@ -603,6 +612,48 @@ class importTask extends sfBaseTask
 
             $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
             $importDubaiRestaurants->importPois();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
+        }
+
+     }
+
+
+      private function importDubaiEvents($vendorObj)
+     {
+        try
+        {
+            $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
+            $feed->exec();
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+
+            $importUaeEventsObj = new ImportUaeEvents($xmlFeedObj, $vendorObj);
+            $importUaeEventsObj->import();
+        }
+        catch ( Exception $e )
+        {
+          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
+        }
+
+     }
+
+
+     private function importDubaiMovies($vendorObj)
+     {
+        try
+        {
+            $feed = new Curl('http://www.timeoutdubai.com/customfeed/nokia/films');
+            $feed->exec();
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+
+            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
+            $importUaeMoviesObj->import();
         }
         catch ( Exception $e )
         {

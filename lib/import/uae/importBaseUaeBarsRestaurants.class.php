@@ -89,7 +89,7 @@ class importBaseUaeBarsRestaurants{
     }
 
 
-    /**
+    /**000000000
      * Get the current Pois for one of the UAE cities
      *
      * @param <type> $city
