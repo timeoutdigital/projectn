@@ -312,22 +312,22 @@ class importTask extends sfBaseTask
         break; //end lisbon
 
 
-    case 'dubai':
-        $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+    case 'uae':
+        
     
         switch( $options['type'] )
         {
           case 'poi': //$this->importDubaiBars($vendorObj);
-                      $this->importDubaiRestaurants($vendorObj);
+                      $this->importDubaiRestaurants();
 
             break;
 
-          case 'poi-event': $this->importDubaiEvents($vendorObj);
+          case 'poi-event': $this->importDubaiEvents();
 
             break;
 
 
-        case 'movies': $this->importDubaiMovies($vendorObj);
+        case 'movies': $this->importUaeMovies();
 
             break;
         }
@@ -641,11 +641,16 @@ class importTask extends sfBaseTask
 
      }
 
-
-     private function importDubaiMovies($vendorObj)
+     /**
+      * Import the UAE movies
+      */
+     private function importUaeMovies()
      {
         try
         {
+            $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+
+            //Dubia
             $feed = new Curl('http://www.timeoutdubai.com/customfeed/nokia/films');
             $feed->exec();
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
@@ -654,6 +659,49 @@ class importTask extends sfBaseTask
 
             $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
             $importUaeMoviesObj->import();
+
+            echo "Dubai added \n\n";
+
+            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+
+            //Abu Dhabi
+            $feed = new Curl('http://www.timeoutabudhabi.com/customfeed/nokia/films');
+            $feed->exec();
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+
+            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
+            $importUaeMoviesObj->import();
+
+            echo "Abu Dhabi added \n\n";
+
+           /* //Doha
+            $feed = new Curl('http://www.timeoutdoha.com/customfeed/nokia/films');
+            $feed->exec();
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+
+            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
+            $importUaeMoviesObj->import();
+
+
+            echo "Doha \n\n";
+
+            //Doha
+            $feed = new Curl('http://www.timeoutbahrain.com/customfeed/nokia/films');
+            $feed->exec();
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+
+            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
+            $importUaeMoviesObj->import();
+
+               echo "Aahraain added \n\n";*/
+
+            
         }
         catch ( Exception $e )
         {

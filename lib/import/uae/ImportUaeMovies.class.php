@@ -91,12 +91,17 @@ class ImportUaeMovies {
         //Add movie rating
         $this->setRating($tagsArray, $movieObj);
        
-        //Add the movie properties
-        $this->addProperties($tagsArray, $movieObj);
+        //Add the movie Genres
+        $this->addGenres($tagsArray, $movieObj);
 
         //Log changed fields if any?
         $logChangedFields = $movieObj->getModified();
 
+        //Add the language
+        if(strtolower($tagsArray[1]) == 'english' || strtolower($tagsArray[1]) == 'arabic')
+        {
+            $movieObj->addProperty('Language', $tagsArray[1]);
+        }
 
         //Save the object
         try
@@ -131,25 +136,32 @@ class ImportUaeMovies {
 
             if(count($ratingArray) > 0)
             {
-                $movieObj['rating'] = $ratingArray[0];
+                //Some rating are > 5 an we only allow up to 5
+                if($ratingArray[0] > 5){
+                     $movieObj['rating'] = 5;
+                }
+                else
+                {
+                     $movieObj['rating'] = $ratingArray[0];
+                }
             }
         }
     }
 
     /**
-     *   Add a property to the movie
+     *   Add a genre to the movie
      *
      *  @param aray $tagsArray The array of the tags
+     *  @param Movie The movie object
      *
     */
-    public function addProperties($tagsArray)
+    public function addGenres($tagsArray, Movie $movieObj)
     {
          //Add all other tags from tags node
-        for($i=1; $i < (count($tagsArray)-1); $i++ )
+        for($i=2; $i < (count($tagsArray)-1); $i++ )
         {
-           $movieObj->addProperty('tags', $tagsArray[$i], $movieObj);
+           $movieObj->addGenre($tagsArray[$i]);
         }
-
     }
 
 
