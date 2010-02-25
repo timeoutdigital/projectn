@@ -56,13 +56,13 @@ class ImportUaeEvents
         $venues = $this->xmlObj->xpath('//venues');
         $events = $this->xmlObj->xpath('//events');
 
-        /*foreach ($venues[0] as $venue)
+        foreach ($venues[0] as $venue)
         {
                 $this->importPois($venue);
         }
 
         $this->poiLoggerObj->save();
-*/
+
 
 
         foreach($events[0] as $event)
@@ -102,19 +102,12 @@ class ImportUaeEvents
 
         $addressString = $poiObj['poi_name'] . ', ' .$poiObj['street'] . ', '. $poiObj['city'] . ', United Arab Emirates';
 
-    
-
         $poiObj->setGeoEncodeLookUpString($addressString);
-
         
         $category = (string) $xmlObj->{'mobile-section'}['value'];
-        
-  
-        $poiObj->addVendorCategory($category, $this->vendorObj['id']);
+          
+        //$poiObj->addVendorCategory($category, $this->vendorObj['id']);
 
-
-
-       
         $logChangedFields = $poiObj->getModified();
 
        try
@@ -132,7 +125,6 @@ class ImportUaeEvents
 
         //Count the item
       ( $isNew ) ? $this->poiLoggerObj->countNewInsert() : $this->poiLoggerObj->addChange( 'update', $logChangedFields );
-
 
         
 
@@ -158,7 +150,6 @@ class ImportUaeEvents
 
        $this->AddEventOccurance($xmlObj->{'day-occurences'}, $eventObj);
 
-       exit;
         
     }
 
@@ -166,32 +157,29 @@ class ImportUaeEvents
 
   public function AddEventOccurance(SimpleXMLElement $Occurrences, Event $eventObj)
   {
-
+echo 'ere';
 
 //Loop throught the actual occurances now
-    foreach ( $Occurrences as $occurrence )
+    foreach ( $Occurrences->{'day-occurence'} as $occurrence )
     {
-
       $occurrenceObj = new EventOccurrence();
       $occurrenceObj[ 'utc_offset' ] = '-05:00';
       $occurrenceObj[ 'start' ] = (string) $occurrence->{'start_date'};
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
      // $occurrenceObj->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
      
-      //set poi id
-      $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $occurrence->{'venue_id'}, $this->vendorObj['id'] );
+      //set poi
+      $poiObj = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $occurrence->{'venue_id'}, $this->vendorObj['id'] );
+      $occurrenceObj[ 'Poi' ] = $poiObj;
 
-      $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
-
-      echo $eventObj['id'] . " -- " . $venueObj[ 'poi_id' ] . " -- " . $occurrence->{'start_date'};
-
-      $occurrenceObj[ 'vendor_event_occurrence_id' ] = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId((string) $eventObj['id'],  $occurrenceObj[ 'poi_id' ], (string) $occurrence->{'start_date'} );
+      $occurrenceObj[ 'vendor_event_occurrence_id' ] = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId((string) $eventObj['id'],  $occurrenceObj[ 'poi_id' ], $occurrenceObj[ 'start' ] );
 
 
       $occurrenceObj->save();
 
       //Kill the object
-      $occurrenceObj->free();
+     $occurrenceObj->free();
+
     }//end foreach
   }
 
@@ -222,7 +210,7 @@ class ImportUaeEvents
     public function getEvent(SimpleXMLElement $xmlObj)
     {
 
-        $eventObj = Doctrine::getTable('Event')->findOneByVendorEventIdAndVendorId((string)  $event['id'], $this->vendorObj['id']);
+        $eventObj = Doctrine::getTable('Event')->findOneByVendorEventIdAndVendorId((string)  $xmlObj['id'], $this->vendorObj['id']);
 
         if(!$eventObj)
         {
