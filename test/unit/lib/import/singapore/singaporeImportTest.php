@@ -69,7 +69,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
     $this->logger = new logImport( $this->vendorObj );
     $this->logger->setType('poi');
 
-    $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $this->logger );
+    $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $this->logger, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
   }
 
   /**
@@ -159,7 +159,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
      $xmlObj = $this->stubCurlImporter->getXml();
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/movie_detail.xml' );
-     
+
      $stubReturnXMLObject->opens = '';
      $stubReturnXMLObject->data_add = '';
 
@@ -175,6 +175,8 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/movie_detail.xml' );
   }
+
+
 
   /*
    * testInsertMoviesAndInsertMovie
@@ -208,9 +210,9 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   /*
    * testInsertMoviesAndInsertMovie
-   * 
+   *
    * test with -61 expired date condition
-   * 
+   *
    */
   public function testInsertMoviesAndInsertMovie3()
   {
@@ -242,7 +244,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * testFetchDetailUrl
    */
    public function testFetchDetailUrl()
-   {     
+   {
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
      $xmlObj = $this->stubCurlImporter->getXml();
@@ -258,8 +260,30 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    public function testExtractSingaporeAgeRatingCode()
    {
      $ageRatingCode = $this->object->extractSingaporeAgeRatingCode( 'NC16 - No children under the age of 16' );
-     $this->assertEquals( 'NC16', $ageRatingCode );    
+     $this->assertEquals( 'NC16', $ageRatingCode );
    }
+
+  /*
+   * testTryToInsertMissingPoi
+   */
+  public function testTryToInsertMissingPoi()
+  {
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $stubCurlImporterDetail->getXml();
+
+     // this is needed just for testing
+     $this->object->setCurlImporter( $stubCurlImporterDetail );
+
+     $this->object->tryToInsertMissingPoi( 2154 );
+
+     $poisCol = Doctrine::getTable( 'Poi' )->findAll();
+
+     $this->assertEquals( 1, $poisCol->count() );
+  }
 
 }
 

@@ -88,7 +88,14 @@ class Event extends BaseEvent
 
     if ( $eventMediaObj === false )
     {
-        $eventMediaObj = new EventMedia();
+      foreach( $this['EventMedia'] as $eventMedia )
+      {
+        if( $identString == $eventMedia[ 'ident' ] )
+        {
+          return;
+        }
+      }
+      $eventMediaObj = new EventMedia();
     }
 
     $eventMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );

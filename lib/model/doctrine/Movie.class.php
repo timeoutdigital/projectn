@@ -87,7 +87,7 @@ class Movie extends BaseMovie
   {
     if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
     {
-        throw new Exception('Failed to add Movie Media due to missing Vendor city');
+        throw new Exception('Failed to add Movie Media due to missing Vendor city, set vendor on the object before calling addMediaUrl()');
     }
 
     $identString = md5( $urlString );
@@ -95,7 +95,14 @@ class Movie extends BaseMovie
 
     if ( $movieMediaObj === false )
     {
-        $movieMediaObj = new MovieMedia();
+      foreach( $this['MovieMedia'] as $movieMedia )
+      {
+        if( $identString == $movieMedia[ 'ident' ] )
+        {
+          return;
+        }
+      }
+      $movieMediaObj = new MovieMedia(); 
     }
 
     $movieMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );

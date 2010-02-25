@@ -127,7 +127,14 @@ class Poi extends BasePoi
     
     if ( $poiMediaObj === false )
     {
-        $poiMediaObj = new PoiMedia();
+      foreach( $this['PoiMedia'] as $poiMedia )
+      {
+        if( $identString == $poiMedia[ 'ident' ] )
+        {
+          return;
+        }
+      }
+      $poiMediaObj = new PoiMedia();
     }
 
     $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
