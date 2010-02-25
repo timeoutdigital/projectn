@@ -283,5 +283,12 @@ class stringTransform
     return preg_replace( '/\r*\n*/', '', $string );
   }
 
+  static public function move_CommaThe_FromEndToBeginning( $string )
+  {
+    $string = trim( $string );
+    $string = preg_replace( '/(.*), (The)$/i', '$2 $1', $string );
+    return $string;
+  }
+
 }
 ?>

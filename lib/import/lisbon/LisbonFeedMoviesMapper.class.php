@@ -31,8 +31,7 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
 
       $movie['vendor_id']  = $this->vendor[ 'id' ];
       $movie['utf_offset'] = $this->getUtcOffset( date( 'Y-m-d' ) );
-      $movie['poi_id']     = null;//$this->getPoiId( $filmElement );
-      $movie['age_rating'] = '';
+      $movie['poi_id']     = null;
 
       $this->notifyImporter( $movie );
       $movie->free();

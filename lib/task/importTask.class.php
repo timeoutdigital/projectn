@@ -187,21 +187,8 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi-event':
-
-            /*$curlImporterObj = new curlImporter();
-            $parametersArray = array( 'section' => 'index', 'thisweek' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
-            $xmlObj = $curlImporterObj->getXml();
-
-            $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
-            $singaporeImportObj->insertCategoriesPoisEvents();*/
-
             //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-
             //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-
-            //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-
 
             $logger = new logImport($vendorObj, 'poi' );
 
@@ -230,7 +217,8 @@ class importTask extends sfBaseTask
             
             break;
 
-          case 'film':
+          case 'movie':
+            //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
             $logger = new logImport($vendorObj, 'movie' );
           
             $curlImporterObj = new curlImporter();
