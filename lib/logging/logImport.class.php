@@ -98,17 +98,37 @@ class logImport
     public $finalTime;
 
 
+    public $_importObj;
+
+
     /**
      *
      * Constructor
      *
+     * @todo some heavy refactoring needed
+     *       - get rid of public vars
+     *       - get rid of setType method
+     *
      * @param int $vendorId
      */
-    public function  __construct(Vendor $vendorObj)
+    public function  __construct( Vendor $vendorObj, $type = 'poi' )
     {
         $this->vendorObj = $vendorObj;
         $this->errorsCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerError'));
         $this->changesCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerChange'));
+
+        $this->type = $type;
+
+        $this->_importObj = new ImportLogger;
+        $this->_importObj['total_inserts'] = $this->totalInserts;
+        $this->_importObj['total_updates'] = $this->totalUpdates;
+        $this->_importObj['type']          = $this->type;
+        $this->_importObj['total_errors']  = $this->totalErrors;
+        $this->_importObj['Vendor']        = $this->vendorObj;
+        $this->_importObj['total_existing'] = $this->totalExisting;
+        $this->_importObj['total_time']    = '00:00';
+        $this->_importObj->save();
+
         $this->timer = sfTimerManager::getTimer('importTimer');
      
     }
@@ -136,35 +156,34 @@ class logImport
      */
     public function save()
     {   
-        $importObj = new ImportLogger;
-        $importObj['total_inserts'] = $this->totalInserts;
-        $importObj['total_updates'] = $this->totalUpdates;
-        $importObj['type']          = $this->type;
-        $importObj['total_errors']  = $this->totalErrors;
-        $importObj['Vendor']        = $this->vendorObj;
-        $importObj['total_existing'] = $this->totalExisting;
+        $this->_importObj['total_inserts']  = $this->totalInserts;
+        $this->_importObj['total_updates']  = $this->totalUpdates;
+        $this->_importObj['type']           = $this->type;
+        $this->_importObj['total_errors']   = $this->totalErrors;
+        $this->_importObj['Vendor']         = $this->vendorObj;
+        $this->_importObj['total_existing'] = $this->totalExisting;
 
         //Convert he time to mysql format
         $totalTime = $this->timer->addTime();
         $timeStamp = $this->convertTime($totalTime);
   
-        $importObj['total_time']    = $timeStamp;
+        $this->_importObj['total_time']    = $timeStamp;
 
-        $importObj->save();
+        $this->_importObj->save();
 
         //Save all errors
-        foreach($this->errorsCollection as $error)
+        /*foreach($this->errorsCollection as $error)
         {
             $error['ImportLogger'] = $importObj;
             $error->save();
-        }
+        }*/
 
         //Save all changes
-        foreach($this->changesCollection as $change)
+        /*foreach($this->changesCollection as $change)
         {
             $change['ImportLogger'] = $importObj;
             $change->save();
-        }
+        }*/
 
         //Set the timer with the correct time
         $this->finalTime = $timeStamp;
@@ -182,15 +201,19 @@ class logImport
      */
     public function addError(Exception $error, Doctrine_Record $record = NULL, $log = '')
     {
-        $errorObj               = new ImportLoggerError();
-        $errorObj['trace']      = $error->__toString();
-        $errorObj['log']        = $log;
-        $errorObj['type']       = get_class($error);
-        $errorObj['message']    = $error->getMessage();
+        $errorObj                   = new ImportLoggerError();
+        $errorObj['import_logger_id']   = $this->_importObj[ 'id' ];
+        $errorObj['trace']          = $error->__toString();
+        $errorObj['log']            = $log;
+        $errorObj['type']           = get_class($error);
+        $errorObj['message']        = $error->getMessage();
         if ( $record !==  NULL)
         {
             $errorObj['serialized_object']    = serialize( $record );
         }
+
+        $errorObj->save();
+
         $this->errorsCollection[]    = $errorObj;
 
         //Increment the error count
@@ -214,9 +237,12 @@ class logImport
           $log .= "$k: $v \n";
       }
 
-      $changeObj = new ImportLoggerChange();
-      $changeObj['log'] = $log;
-      $changeObj['type'] = $type;
+      $changeObj                  = new ImportLoggerChange();
+      $changeObj['import_logger_id']   = $this->_importObj[ 'id' ];
+      $changeObj['log']           = $log;
+      $changeObj['type']          = $type;
+
+      $changeObj->save();
 
       $this->changesCollection[] = $changeObj;
 
