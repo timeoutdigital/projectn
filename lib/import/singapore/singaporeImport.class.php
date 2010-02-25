@@ -14,7 +14,7 @@
  *
  * <b>Example</b>
  * <code>
- *  $singaporeImportObj = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
+ *  $singaporeImportObj = new singaporeImport( $vendorObj, $curlImporterObj, $logger, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
  *  $singaporeImportObj->insertPois( $xmlObj );
  * </code>
  *
@@ -42,19 +42,26 @@ class singaporeImport
     */
     protected $_curlImporter;
 
+    /*
+    * @var poiLookupUrl
+    */
+    protected $_poiLookupUrl;
+
     /**
      * Construct
      *
      * @param $vendorObj Vendor
      * @param $curlImporterObj curlImporter
      * @param $curlImporterObj logImport
+     * @param $poiLookupUrl
      *
      */
-    public function  __construct( Vendor $vendorObj, curlImporter $curlImporterObj, logImport $loggerObj )
+    public function  __construct( Vendor $vendorObj, curlImporter $curlImporterObj, logImport $loggerObj, $poiLookupUrl = '' )
                 {
         $this->_vendor = $vendorObj;
         $this->_curlImporter = $curlImporterObj;
         $this->_logger = $loggerObj;
+        $this->_poiLookupUrl = $poiLookupUrl;
 
         if ( ! $this->_vendor instanceof Vendor )
             throw new Exception( 'Invalid Vendor' );
@@ -77,13 +84,16 @@ class singaporeImport
         {
             try
             {
-                $venueDetailObj = $this->fetchDetailUrl( $poiXmlObj->link );
+                $venueDetailObj = $this->fetchDetailUrl( (string) $poiXmlObj->link );
+                if ( !( $venueDetailObj instanceof SimpleXMLElement ) )
+                {
+                    throw new Exception( 'could not retrieve valid venue node by url: ' . (string) $poiXmlObj->link );
+                }
+                $this->insertPoi( $venueDetailObj );
             }
             catch( Exception $e ) {
                 $this->_logger->addError( $e );
-            }
-
-            $this->insertPoi( $venueDetailObj );
+            }            
         }
 
     }
@@ -101,14 +111,17 @@ class singaporeImport
         {
             try
             {
-                $eventDetailObj = $this->fetchDetailUrl( $eventXmlObj->link  );
+                $eventDetailObj = $this->fetchDetailUrl( (string)  $eventXmlObj->link  );
+                if ( !( $eventDetailObj instanceof SimpleXMLElement ) )
+                {
+                    throw new Exception( 'could not retrieve valid venue node by url: ' . (string) $eventXmlObj->link );
+                }
+                $this->insertEvent( $eventDetailObj );
             }
             catch( Exception $e )
             {
                 $this->_logger->addError( $e );
-            }
-
-            $this->insertEvent( $eventDetailObj );
+            }            
         }
 
     }
@@ -125,14 +138,17 @@ class singaporeImport
         foreach( $moviesXmlObj as $movieXmlObj )
         {
             try {
-                $movieDetailObj = $this->fetchDetailUrl( $movieXmlObj->link  );
+                $movieDetailObj = $this->fetchDetailUrl( (string)  $movieXmlObj->link  );
+                if ( !( $movieDetailObj instanceof SimpleXMLElement ) )
+                {
+                    throw new Exception( 'could not retrieve valid venue node by url: ' . (string) $movieXmlObj->link );
+                }
+                $this->insertMovie( $movieDetailObj );
             }
             catch( Exception $e )
             {
                 $this->_logger->addError( $e );
-            }
-
-            $this->insertMovie( $movieDetailObj );
+            }            
         }
 
     }
@@ -518,6 +534,14 @@ class singaporeImport
             }
         }
 
+        //lookup if we have the poi and if not try to fetch it
+        $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->_vendor[ 'id' ], $poiId );
+
+        if ( $poi === false )
+        {
+            $this->tryToInsertMissingPoi( $poiId );
+        }
+
         foreach( $datesArray as $date )
         {
 
@@ -710,6 +734,32 @@ class singaporeImport
                 $this->_createEventOccurrence( $poiId, $eventId, $date );
             }
         }
+    }
+
+    public function tryToInsertMissingPoi( $poiId )
+    {
+        if ( $this->_poiLookupUrl == '')
+        {
+            throw new Exception( 'no venue lookup url provided, venue lookup failed' );
+        }
+
+        $lookupUrl = str_replace( '{venueId}', $poiId, $this->_poiLookupUrl );
+
+        try
+        {
+            $venueDetailObj = $this->fetchDetailUrl( $lookupUrl );
+            if ( !( $venueDetailObj instanceof SimpleXMLElement ) )
+            {
+                throw new Exception( 'could not retrieve valid venue node by url: ' . $lookupUrl );
+            }       
+            $this->insertPoi( $venueDetailObj );
+
+            echo "added poi " . $poiId . " via occurrence\n";            
+        }
+        catch( Exception $e ) {
+            $this->_logger->addError( $e );
+        }
+
     }
 
 }
