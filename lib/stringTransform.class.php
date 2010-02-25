@@ -167,14 +167,18 @@ class stringTransform
    */
   public static function formatUrl($subject)
   {
-
-      if(preg_match('/^http/', $subject)){
-          return $subject;
-      }
-      else
+      if(empty($subject))
       {
-          'http://'.$subject;
+        return $subject;
       }
+
+
+      if(!preg_match('/^http/', $subject)){
+
+          $subject =  'http://'.$subject;
+      }
+
+      return $subject;
   }
 
   /*
