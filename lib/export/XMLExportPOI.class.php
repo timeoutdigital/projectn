@@ -23,7 +23,7 @@ class XMLExportPOI extends XMLExport
 
   protected function getData()
   {
-    $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
+    $data = Doctrine::getTable( $this->model )->findAllValidByVendorId( $this->vendor->getId() );
     return $data;
   }
   /**
