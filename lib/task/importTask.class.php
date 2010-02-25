@@ -306,7 +306,7 @@ class importTask extends sfBaseTask
           case 'movie':
             $loggerObj->setType( 'movie' );
             $importer->addLogger( $loggerObj );
-            $importer->addDataMapper( new LondonAPIFilmsMapper() );
+            $importer->addDataMapper( new londonDatabaseFilmsDataMapper($vendor, londonDatabaseFilmsDataMapper::LONDON_REVIEW_TYPE_ID) );
           break;
         }
         break; //end lisbon
