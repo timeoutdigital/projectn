@@ -15,9 +15,9 @@ class Media extends BaseMedia
      * populates the media table with media information and invokes the actual
      * file download
      *
-     * @param <type> $urlString
-     * @param <type> $identString
-     * @param <type> $vendorCity
+     * @param string $urlString
+     * @param string $identString
+     * @param string $vendorCity
      */
     public function populateByUrl( $identString, $urlString, $vendorCity )
     {
