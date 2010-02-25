@@ -58,20 +58,14 @@ class XMLExportMovie extends XMLExport
       {
         $this->appendRequiredElement($versionElement, 'genre', $genre['genre'], XMLExport::USE_CDATA);
       }
-      
-      //force an empty genre tag
-      if( $movie['MovieGenres']->count() == 0 )
-      {
-        //@todo figure out why tests passed when variable is clearly out of scope:
-        //$this->appendRequiredElement($versionElement, 'genre', $genre['genre], XMLExport::USE_CDATA); how did this line pass tests?!
-        $this->appendRequiredElement($versionElement, 'genre', '', XMLExport::USE_CDATA);
-      }
 
       //movie/version/plot
-      $this->appendNonRequiredElement($versionElement, 'plot', $movie['plot'], XMLExport::USE_CDATA);
+      $cleanedPlot = $this->cleanHtml( $movie['plot'] );
+      $this->appendNonRequiredElement($versionElement, 'plot', $cleanedPlot, XMLExport::USE_CDATA);
 
       //movie/version/review
-      $this->appendNonRequiredElement($versionElement, 'review', $movie['review'], XMLExport::USE_CDATA);
+      $cleanedReview = $this->cleanHtml( $movie['review'] );
+      $this->appendNonRequiredElement($versionElement, 'review', $cleanedReview, XMLExport::USE_CDATA);
 
       //movie/version/url
       $this->appendNonRequiredElement($versionElement, 'url', $movie['url'], XMLExport::USE_CDATA);

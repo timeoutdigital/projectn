@@ -9,6 +9,7 @@
  *
  *
  */
+
 abstract class XMLExport
 {
   const USE_CDATA = true;
@@ -45,6 +46,11 @@ abstract class XMLExport
   protected $xsdPath;
 
   /**
+   * @var HTMLPurifier
+   */
+  private $htmlPurifier;
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
@@ -69,6 +75,13 @@ abstract class XMLExport
     {
       $this->xsdPath = sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . $xsdFilename;
     }
+
+    ProjectConfiguration::registerHTMLPurifier();
+    
+    $config = HTMLPurifier_Config::createDefault();
+    $config->set('Cache.DefinitionImpl', null);
+    $config->set('HTML.Allowed', 'p,b,a[href],i,br,pre');
+    $this->htmlPurifier = new HTMLPurifier( $config );
   }
 
   /**
@@ -76,7 +89,6 @@ abstract class XMLExport
    */
   public function run()
   {
-
     $this->modifiedTimeStamp = date( 'Y-m-d\TH:i:s' );
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
@@ -192,6 +204,26 @@ abstract class XMLExport
     }
 
     $domDocument->save($this->destination);
+  }
+
+  /**
+   * @param string $html
+   * @return string
+   */
+  protected function cleanHtml( $html )
+  {
+    //em to i tags
+    $html = str_replace('<em>', '<i>', $html);
+    $html = str_replace('</em>', '</i>', $html);
+
+    //strong to b tags
+    $html = str_replace('<strong>', '<b>', $html);
+    $html = str_replace('</strong>', '</b>', $html);
+
+    //remove consecutively repeated br tags
+    $html = preg_replace(':(<br\s*/>)+:', '<br />', $html);
+
+    return $this->htmlPurifier->purify( $html );
   }
 
 }

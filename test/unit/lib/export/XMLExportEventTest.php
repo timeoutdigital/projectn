@@ -129,8 +129,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event['vendor_event_id'] = 1111;
     $event->setShortDescription( 'test vendor short description' );
     $event->setDescription( 'test vendor description' );
-    $event->setBookingUrl( 'http://test-booking.url' );
-    $event->setUrl( 'http://test.url' );
+    $event->setBookingUrl( 'http://timeout.com' );
+    $event->setUrl( 'http://timeout.com' );
     $event->setPrice( 'test price' );
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
@@ -286,11 +286,11 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $bookingUrl = $versionTag->getElementsByTagName( 'booking_url' );
     $this->assertEquals(1, $bookingUrl->length );
-    $this->assertEquals( 'http://test-booking.url', $bookingUrl->item(0)->nodeValue );
+    $this->assertEquals( 'http://timeout.com', $bookingUrl->item(0)->nodeValue );
 
     $url = $versionTag->getElementsByTagName( 'url' );
     $this->assertEquals(1, $url->length );
-    $this->assertEquals( 'http://test.url', $url->item(0)->nodeValue );
+    $this->assertEquals( 'http://timeout.com', $url->item(0)->nodeValue );
 
     $price = $versionTag->getElementsByTagName( 'price' );
     $this->assertEquals(1, $price->length );
@@ -308,7 +308,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $showtimes1 = $showtimes->item(0);
 
     $this->assertEquals( '1', $showtimes1->getElementsByTagName( 'place' )->item(0)->getAttribute( 'place-id' ) );
-    $this->assertEquals( 'http://test-booking.url', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
+    $this->assertEquals( 'http://timeout.com', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
     $this->assertEquals( '2010-01-31', $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue, 'Testing the Start time' );
     $this->assertEquals( '19:30:00', $showtimes1->getElementsByTagName( 'event_time' )->item(0)->nodeValue );
     $this->assertEquals( '-05:00:00', $showtimes1->getElementsByTagName( 'utc_offset' )->item(0)->nodeValue );
