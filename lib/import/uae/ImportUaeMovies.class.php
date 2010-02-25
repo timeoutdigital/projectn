@@ -75,6 +75,11 @@ class ImportUaeMovies {
         $movieObj['Vendor']             = $this->vendorObj;
         $movieObj['utf_offset']         = $this->vendorObj->getUtcOffset();
 
+
+
+        //$url = (string) $xmlObj->{'website'};
+        //$url = stringTransform::formatUrl($url);
+        //echo $url;
         /**
          * @todo Add the following to a test
          *
