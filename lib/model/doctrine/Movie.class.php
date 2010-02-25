@@ -13,6 +13,19 @@
 class Movie extends BaseMovie
 {
 
+  /**
+  * Attempts to fix and / or format fields, e.g. url
+  */
+  public function preSave( $event )
+  {
+
+     if( $this['url'] != '')
+     {
+        $this['url'] = stringTransform::formatUrl($this['url']);
+     }   
+
+  }
+
   public function addProperty( $lookup, $value )
   {
     $moviePropertyObj = new MovieProperty();

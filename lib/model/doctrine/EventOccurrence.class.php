@@ -12,4 +12,16 @@
  */
 class EventOccurrence extends BaseEventOccurrence
 {
+  /**
+  * Attempts to fix and / or format fields, e.g. url
+  */
+  public function preSave( $event )
+  {
+
+     if( $this['booking_url'] != '')
+     {
+        $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
+     }
+
+  }
 }

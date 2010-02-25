@@ -13,6 +13,23 @@
 class Event extends BaseEvent
 {
 
+  /**
+   * Attempts to fix and / or format fields, e.g. url
+   */
+  public function preSave( $event )
+  {
+
+     if( $this['url'] != '')
+     {
+        $this['url'] = stringTransform::formatUrl($this['url']);
+     }
+     if( $this['booking_url'] != '')
+     {
+        $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
+     }     
+
+  }
+
   public function addProperty( $lookup, $value )
   {
     $eventPropertyObj = new EventProperty();
