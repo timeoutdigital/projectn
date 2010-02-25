@@ -139,6 +139,7 @@ class importTask extends sfBaseTask
 
           case 'movie':
                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj, londonDatabaseFilmsDataMapper::CHICAGO_REVIEW_TYPE_ID ) );
+
           break;
 
           case 'eating-drinking':
@@ -255,7 +256,7 @@ class importTask extends sfBaseTask
         $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj     = new curlImporter();
         $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-02-23' );
+        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-03-01' );
         $method      = 'POST';
         $loggerObj =   new logImport( $vendorObj );
         
