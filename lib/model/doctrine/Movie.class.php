@@ -15,24 +15,42 @@ class Movie extends BaseMovie
 {
 
   /**
-   * Add a property to a movie
+  * Attempts to fix and / or format fields, e.g. url
+  */
+  public function preSave( $event )
+  {
+
+     if( $this['url'] != '')
+     {
+        $this['url'] = stringTransform::formatUrl($this['url']);
+     }   
+
+  }
+
+   /* Add a property to a movie
    *
    * @param string $lookup
    * @param string $value
    */
   public function addProperty( $lookup, $value)
   {
-    if(!$this['id'])
+    if( $this->exists() )
     {
-        $moviePropertyObj = new MovieProperty();
-        $moviePropertyObj[ 'lookup' ] = (string) $lookup;
-        $moviePropertyObj[ 'value' ] = (string) $value;
+      foreach( $this['MovieProperty'] as $property )
+      {
+        $lookupIsSame = ( $lookup == $property[ 'lookup' ] );
+        $valueIsSame  = ( $value  == $property[ 'value' ]  );
+
+        if( $lookupIsSame && $valueIsSame )
+        {
+          return;
+        }
+      }
     }
-    else
-    {
-        $moviePropertyObj = Doctrine::getTable('MovieProperty')->findOneByMovieIdAndValue($this['id'], $value);
-    }
-    
+    $moviePropertyObj = new MovieProperty();
+    $moviePropertyObj[ 'lookup' ] = (string) $lookup;
+    $moviePropertyObj[ 'value' ] = (string) $value;
+
     $this[ 'MovieProperty' ][] = $moviePropertyObj;
   }
 
