@@ -25,7 +25,14 @@ class Movie extends BaseMovie
         $this['url'] = stringTransform::formatUrl($this['url']);
      }   
 
+     //@todo test the everything below this line
      $this['name'] = stringTransform::move_CommaThe_FromEndToBeginning( $this['name'] );
+
+     if( $this['age_rating'] )
+     {
+       $this->addProperty( 'age_rating', $this['age_rating'] );
+       $this['age_rating'] = null;
+     }
 
   }
 
