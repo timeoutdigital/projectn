@@ -163,7 +163,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movieElement = $this->xpath->query( '/vendor-movies/movie' )->item(0);
 
     //movie@attributes
-    echo file_get_contents( $this->destination );
     $this->assertEquals( '1111', $movieElement->getAttribute( 'id' ) );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
 
@@ -221,29 +220,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'movie value 1', $propertyElements->item(0)->nodeValue );
     $this->assertEquals( 'movie key 2', $propertyElements->item(1)->getAttribute( 'key' ) );
     $this->assertEquals( 'movie value 2', $propertyElements->item(1)->nodeValue );
-  }
-
-  /**
-   *
-   */
-  public function testValidatesAgainstSchemaIfNoGenresInDatabase()
-  {
-    $movieWithNoGenre = new Movie();
-    $movieWithNoGenre[ 'vendor_movie_id' ] = 1111;
-    $movieWithNoGenre[ 'Vendor' ] = $this->vendor;
-    $movieWithNoGenre[ 'Poi' ] = $poi2;
-    $movieWithNoGenre[ 'name' ] = 'test movie name';
-    $movieWithNoGenre[ 'plot' ] = 'test movie plot';
-    $movieWithNoGenre[ 'review' ] = 'test movie review';
-    $movieWithNoGenre[ 'url' ] = 'http://movies.co.uk';
-    $movieWithNoGenre[ 'rating' ] = '1.2';
-    $movieWithNoGenre[ 'age_rating' ] = 'oap';
-    $movieWithNoGenre[ 'utf_offset' ] = '-01:00:00';
-    $movieWithNoGenre->save();
-
-    $this->setExpectedException( 'Exception' );
-    $this->export = new XMLExportMovie( $this->vendor, $this->destination );
-    $this->export->run();
   }
 }
 ?>
