@@ -138,7 +138,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj , londonDatabaseFilmsDataMapper::CHICAGO_REVIEW_TYPE_ID ) );
           break;
 
           case 'eating-drinking':
