@@ -25,7 +25,8 @@ class Movie extends BaseMovie
         $this['url'] = stringTransform::formatUrl($this['url']);
      }   
 
-     $poi['name'] = stringTransform::move_CommaThe_FromEndToBeginning( $poi['name'] );
+     $this['name'] = stringTransform::move_CommaThe_FromEndToBeginning( $this['name'] );
+
   }
 
    /* Add a property to a movie
