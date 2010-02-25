@@ -31,8 +31,7 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
 
       $movie['vendor_id']  = $this->vendor[ 'id' ];
       $movie['utf_offset'] = $this->getUtcOffset( date( 'Y-m-d' ) );
-      $movie['poi_id']     = $this->getPoiId( $filmElement );
-      //$movie['rating']     = $this->extractRating( $filmElement );
+      $movie['poi_id']     = null;//$this->getPoiId( $filmElement );
       $movie['age_rating'] = '';
 
       $this->notifyImporter( $movie );
@@ -56,6 +55,8 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
     return array(
         'filmID' => 'vendor_movie_id',
         'title' => 'name',
+        'Review_' => 'review',
+        'Review1Rating' => 'rating',
     );
   }
 
@@ -66,7 +67,67 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
    */
   protected function getIgnoreMap()
   {
-    return array();
+    return array(
+      'aka',
+      'image',
+      'Country',
+      'Review1Reviewer',
+      'Subtitles',
+      'Filmkey',
+      'comments',
+      'wordcount',
+      'fg',
+      'date',
+      'Review1IssueNo',
+      'AtexKey',
+      'Review2_',
+      'Review3_',
+      'Review4_',
+      'Review5_',
+      'Review6_',
+      'Review7_',
+      'Review8_',
+      'Review9_',
+      'Review10_',
+      'RegistrationDate',
+      //'RunningTime',
+      'BlackandWhite',
+      //'Directors',
+      'Producers',
+      'DirectorOfPhotography',
+      'Composers',
+      'ScreenWriters',
+      'Editors',
+      'ProductionDesigners',
+      'ArtDirectors',
+      //'Cast',
+      'Narrators',
+      'Top100',
+      'AwardsWon',
+      'Awards',
+      'Review2Reviewer',
+      'Review2rating',
+      'Review3Reviewer',
+      'Review3rating',
+      'Review4Reviewer',
+      'Review4rating',
+      'Review5Reviewer',
+      'Review5rating',
+      'Review6Reviewer',
+      'Review6rating',
+      'Review7Reviewer',
+      'Review7rating',
+      'Review8Reviewer',
+      'Review8rating',
+      'Review9Reviewer',
+      'Review9rating',
+      'Review10Reviewer8',
+      'Review10rating8',
+      'ReviewToUse',
+      'FilmSort',
+      'FilmEvent',
+      'Highlight',
+    );
   }
 
   /**

@@ -19,6 +19,14 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    *
    * @static int
    */
+  const LONDON_REVIEW_TYPE_ID = 2;
+
+  /**
+   * This integer value comes from london database:
+   * film_convert.review.review_type_id
+   *
+   * @static int
+   */
   const NEW_YORK_REVIEW_TYPE_ID = 3;
 
   /**
@@ -76,6 +84,8 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     $this->vendor = $vendor;
     $this->reviewTypeId = $reviewTypeId;
     $this->pdo  = new PDO( $this->dsn, $this->dbUserName, $this->dbPwd );
+    $statement = $this->pdo->prepare( "SET NAMES UTF8 " );
+    $statement->execute();
     $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
   }
   
@@ -102,7 +112,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie['rating'] = $review[ 'rating' ];
 
       $genres = explode( ',',$data[ 'genre' ]);
-
+      
       foreach( $genres as $genre )
       {
         if( empty( $genre ) )
@@ -148,15 +158,27 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     //Supporting a query by city is tough because there are many 'cities'
     //in Chicago, e.g. Skokie, Chicago, Wilmette, etc10119509...
     //this could go into a yml...
-    $vendorToStateMap = array( 'ny' => '%NY', 'chicago' => '%IL' );
 
-    if( !key_exists( $this->vendor->city ,$vendorToStateMap ) )
+    //@todo clean this crap up
+    $vendorToStateCountryMap = array( 'ny' => '%NY', 'chicago' => '%IL', 'london' => '930' );
+
+    if( !key_exists( $this->vendor->city ,$vendorToStateCountryMap ) )
     {
       throw new Exception( $this->vendor['city'] . ' vendor is not supported.' );
     }
 
-    $state = $vendorToStateMap[ $this->vendor[ 'city' ] ];
-     
+    $stateCountry = $vendorToStateCountryMap[ $this->vendor[ 'city' ] ];
+    
+    $query = ( is_numeric( $stateCountry ) ) ? $this->getFindByCountryQuery() : $this->getFindByStateQuery();
+
+    $statement = $this->pdo->prepare( $query );
+    $statement->execute( array( $stateCountry ) );
+
+    return $statement->fetchAll(  PDO::FETCH_ASSOC );
+  }
+  
+  private function getFindByStateQuery()
+  {
     $query = "
       SELECT f.*,cr.code as age_rating, group_concat(DISTINCT gt.genre SEPARATOR ',' ) as genre , f.image_id
         FROM cinema c
@@ -169,11 +191,24 @@ class londonDatabaseFilmsDataMapper extends DataMapper
         WHERE c.country_id = '931' AND  city_state LIKE ?
         GROUP BY film_id
     ";
-    
-    $statement = $this->pdo->prepare( $query );
-    $statement->execute( array( $state ) );
+    return $query;
+  }
 
-    return $statement->fetchAll(  PDO::FETCH_ASSOC );
+  private function getFindByCountryQuery()
+  {
+    $query = "
+      SELECT f.*,cr.code as age_rating, group_concat(DISTINCT gt.genre SEPARATOR ',' ) as genre , f.image_id
+        FROM cinema c
+        JOIN listing l ON l.cinema_id = c.cinema_id and date >= date( NOW() )
+        JOIN film f ON f.film_id = l.film_id
+        JOIN film_certificates fc ON f.film_id = fc.film_id
+        JOIN certificates cr ON fc.certificate_id = cr.id
+        LEFT JOIN genre g ON g.film_id = f.film_id
+        LEFT JOIN genre_title gt ON g.genre_id = gt.genre_id
+        WHERE c.country_id = ?
+        GROUP BY film_id
+    ";
+    return $query;
   }
 
   /**

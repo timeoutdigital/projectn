@@ -51,6 +51,14 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'test prop lookup 2', $this->object[ 'PoiProperty' ][ 1 ][ 'lookup' ] );
     $this->assertEquals( 'test prop value 2', $this->object[ 'PoiProperty' ][ 1 ][ 'value' ] );
+
+    $this->object->addProperty( 'test prop lookup', 'test prop value' );
+    $this->object->addProperty( 'test prop lookup 2', 'test prop value 2' );
+    $this->object->save();
+    
+    $poi = Doctrine::getTable('Poi')->findOneById( $this->object['id'] );
+
+    $this->assertEquals(2, count($poi['PoiProperty']) );
   }
 
   /*

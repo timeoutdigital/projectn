@@ -92,7 +92,7 @@ class XMLExportPOI extends XMLExport
       $versionElement = $this->appendRequiredElement( $entryElement , 'version');
       $versionElement->setAttribute( 'lang', 'en' );
 
-      $this->appendRequiredElement($versionElement, 'name', $poi['poi_name']);
+      $this->appendRequiredElement($versionElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA);
 
       $this->appendNonRequiredElement($versionElement, 'alternative-name', $poi['poi_name'], XMLExport::USE_CDATA);
       

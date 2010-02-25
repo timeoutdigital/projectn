@@ -18,7 +18,7 @@ Poi:
     city:                       {type: string(32), notnull: true}
     district:                   {type: string(128), notnull: false}
     country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
-    additional_address_details: {type: string(128), notnull: false}
+    additional_address_details: {type: string(1024), notnull: false}
     zips:                       {type: string(16), notnull: false}
     longitude:                  {type: decimal(18), scale: 15, notnull: false}
     latitude:                   {type: decimal(18), scale: 15, notnull: false}
