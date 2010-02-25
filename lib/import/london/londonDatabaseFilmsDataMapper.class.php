@@ -99,7 +99,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie = $this->dataMapperHelper->getMovieRecord( $data[ 'film_id' ] );
 
       $movie['vendor_id']  = $this->vendor['id'];
-      $movie['utf_offset'] = 0;//@todo use vendor->getUtcOffset( --- );
+      $movie['utf_offset'] = $this->vendor->getUtcOffset();
 
       $movie['name'] = $data[ 'title' ];
       $movie['vendor_movie_id'] = $data[ 'film_id' ];
