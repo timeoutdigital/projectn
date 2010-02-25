@@ -58,6 +58,12 @@ class XMLExportMovie extends XMLExport
       {
         $this->appendRequiredElement($versionElement, 'genre', $genre['genre'], XMLExport::USE_CDATA);
       }
+      
+      //force an empty genre tag
+      if( $movie['MovieGenres']->count() == 0 )
+      {
+        $this->appendRequiredElement($versionElement, 'genre', $genre['genre'], XMLExport::USE_CDATA);
+      }
 
       //movie/version/plot
       $this->appendNonRequiredElement($versionElement, 'plot', $movie['plot'], XMLExport::USE_CDATA);
