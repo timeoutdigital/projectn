@@ -109,7 +109,10 @@ class XMLExportPOI extends XMLExport
       $contentElement = $this->appendRequiredElement( $versionElement, 'content' );
 
       $this->appendNonRequiredElement( $contentElement, 'short-description', $poi['short_description'], XMLExport::USE_CDATA);
-      $this->appendNonRequiredElement( $contentElement, 'description', $poi['description'], XMLExport::USE_CDATA);
+      
+      $cleanDescription = $poi['description'];
+      $this->appendNonRequiredElement( $contentElement, 'description', $cleanDescription, XMLExport::USE_CDATA);
+      
       $this->appendNonRequiredElement( $contentElement, 'public-transport', $poi['public_transport_links'], XMLExport::USE_CDATA);
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
