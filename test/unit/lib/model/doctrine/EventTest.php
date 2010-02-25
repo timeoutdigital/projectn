@@ -93,6 +93,14 @@ class EventTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'test prop lookup 2', $this->object[ 'EventProperty' ][ 1 ][ 'lookup' ] );
     $this->assertEquals( 'test prop value 2', $this->object[ 'EventProperty' ][ 1 ][ 'value' ] );
+
+    $this->object->addProperty( 'test prop lookup', 'test prop value' );
+    $this->object->addProperty( 'test prop lookup 2', 'test prop value 2' );
+    $this->object->save();
+
+    $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
+
+    $this->assertEquals( 2, $this->object['EventProperty']->count() );
   }
 
   /*

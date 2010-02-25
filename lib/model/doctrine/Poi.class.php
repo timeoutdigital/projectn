@@ -24,6 +24,19 @@ class Poi extends BasePoi
   
   public function addProperty( $lookup, $value )
   {
+    if( $this->exists() )
+    {
+      foreach( $this['PoiProperty'] as $property )
+      {
+        $lookupIsSame = ( $lookup == $property[ 'lookup' ] );
+        $valueIsSame  = ( $value  == $property[ 'value' ]  );
+
+        if( $lookupIsSame && $valueIsSame )
+        {
+          return;
+        }
+      }
+    }
     $poiPropertyObj = new PoiProperty();
     $poiPropertyObj[ 'lookup' ] = (string) $lookup;
     $poiPropertyObj[ 'value' ] = (string) $value;

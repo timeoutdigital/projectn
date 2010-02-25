@@ -15,6 +15,19 @@ class Event extends BaseEvent
 
   public function addProperty( $lookup, $value )
   {
+    if( $this->exists() )
+    {
+      foreach( $this['EventProperty'] as $property )
+      {
+        $lookupIsSame = ( $lookup == $property[ 'lookup' ] );
+        $valueIsSame  = ( $value  == $property[ 'value' ]  );
+
+        if( $lookupIsSame && $valueIsSame )
+        {
+          return;
+        }
+      }
+    }
     $eventPropertyObj = new EventProperty();
     $eventPropertyObj[ 'lookup' ] = (string) $lookup;
     $eventPropertyObj[ 'value' ] = (string) $value;
