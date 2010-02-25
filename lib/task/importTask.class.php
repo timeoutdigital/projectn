@@ -9,6 +9,8 @@ class importTask extends sfBaseTask
       new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'The city to import'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'The type to import', 'poi-event'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+      new sfCommandOption('verbose', null, sfCommandOption::PARAMETER_OPTIONAL, 'Switch on/off printing of log info'),
+      new sfCommandOption('db-log', null, sfCommandOption::PARAMETER_OPTIONAL, 'Switch on/off saving log info to database', 'true'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
     ));
 
@@ -25,7 +27,12 @@ class importTask extends sfBaseTask
     Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
+    $importer = new Importer();
 
+    if( $options['verbose'] == 'true' )
+    {
+      $importer->addLogger( new echoingLogger() );
+    }
 
     //Select the task
     switch( $options['city'] )
@@ -34,7 +41,8 @@ class importTask extends sfBaseTask
 
         //Set vendor and logger
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
-
+        $importer->addLogger( new logImport($vendorObj) );
+        
         //Setup NY FTP
         $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
         $ftpClientObj->setSourcePath( '/NOKIA/' );
@@ -63,9 +71,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-                $importer = new Importer();
                 $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
-                $importer->run();
             break;
 
           case 'eating-drinking':
@@ -132,9 +138,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-               $importer = new Importer();
                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
-               $importer->run();
           break;
 
           case 'eating-drinking':
@@ -171,45 +175,6 @@ class importTask extends sfBaseTask
 
         }
         break; //end chicago
-
-      case 'lisbon':
-
-        $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
-        $importer    = new Importer();
-        $feedObj     = new curlImporter();
-        $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-02-23' );
-        $method      = 'POST';
-        $loggerObj =   new logImport( $vendorObj );
-        switch( $options['type'] )
-        {
-          case 'poi':
-            $request = 'xmlvenues.asp';
-            $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
-            $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
-            break;
-
-          case 'event':
-            $request = 'xmllist.asp';
-            $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'event' );
-            $importer->addLogger( $loggerObj );
-            $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
-          break;
-
-          case 'movie':
-            $request = 'xmlfilms.asp';
-            $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'movie' );
-            $importer->addLogger( $loggerObj );
-            $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
-          break;
-        }
-
-        $importer->run();
-        break; //end lisbon
 
       case 'singapore':
         $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-US');
@@ -283,15 +248,53 @@ class importTask extends sfBaseTask
 
         break; //end singapore
 
-      case 'london':
-      	$connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
+      case 'lisbon':
 
-        $importer = new Importer();
+        $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
+        $feedObj     = new curlImporter();
+        $url         = 'http://www.timeout.pt/';
+        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-02-23' );
+        $method      = 'POST';
+        $loggerObj =   new logImport( $vendorObj );
+        
+        switch( $options['type'] )
+        {
+          case 'poi':
+            $request = 'xmlvenues.asp';
+            $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $loggerObj->setType( 'poi' );
+
+            $importer->addLogger( $loggerObj );
+            $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
+            break;
+
+          case 'event':
+            $request = 'xmllist.asp';
+            $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $loggerObj->setType( 'event' );
+
+            $importer->addLogger( $loggerObj );
+            $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
+          break;
+
+          case 'movie':
+            $request = 'xmlfilms.asp';
+            $feedObj->pullXml ( $url, $request, $parameters, $method );
+            $loggerObj->setType( 'movie' );
+            
+            $importer->addLogger( $loggerObj );
+            $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
+          break;
+        }
+        break; //end lisbon
+
+      case 'london':
         $vendor = $this->getVendorByCityAndLanguage( 'london', 'en-GB' );
         $loggerObj = new logImport( $vendor );
         switch( $options['type'] )
         {
           case 'poi-event':
+            $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
             $loggerObj->setType( 'poi' );
             $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
@@ -306,7 +309,6 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LondonAPIFilmsMapper() );
           break;
         }
-        $importer->run();
         break; //end lisbon
 
 
@@ -339,6 +341,7 @@ class importTask extends sfBaseTask
 
     }//end switch
 
+    $importer->run();
 
      //Get the total import time
      //echo "Total time: ". $importObj->poiLoggerObj ->finalTime . "\n";

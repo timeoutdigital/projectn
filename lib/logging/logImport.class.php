@@ -32,7 +32,7 @@
  * </code>
  *
  */
-class logImport
+class logImport implements loggable
 {
 
     const POI = 'poi';

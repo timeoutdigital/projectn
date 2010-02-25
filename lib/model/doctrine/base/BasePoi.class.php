@@ -401,10 +401,10 @@ abstract class BasePoi extends sfDoctrineRecord
              'regexp' => '/^[a-zA-Z]{3}$/',
              'length' => '3',
              ));
-        $this->hasColumn('additional_address_details', 'string', 128, array(
+        $this->hasColumn('additional_address_details', 'string', 1024, array(
              'type' => 'string',
              'notnull' => false,
-             'length' => '128',
+             'length' => '1024',
              ));
         $this->hasColumn('zips', 'string', 16, array(
              'type' => 'string',
