@@ -229,7 +229,7 @@ class importTask extends sfBaseTask
             
             break;
 
-          case 'film':
+          case 'movie':
             $logger = new logImport($vendorObj, 'movie' );
           
             $curlImporterObj = new curlImporter();
