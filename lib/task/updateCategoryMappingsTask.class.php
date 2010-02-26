@@ -31,6 +31,10 @@ class updateCategoryMappingsTask extends sfBaseTask
     {
           $pois = Doctrine::getTable( 'Poi' )->findAll();
 
+          $totalPois = $pois->count();
+
+          $poiCounter = $totalPois;
+
           foreach ( $pois as $poi )
           {
 
@@ -52,11 +56,18 @@ class updateCategoryMappingsTask extends sfBaseTask
 
               $poi->setGeoEncodeByPass( true );
               $poi->save();
+              $poiCounter--;
+
+              echo "poi " . $poiCounter . ' of ' . $totalPois . PHP_EOL;
           }
     }
     if ( in_array( $options['type'], array( 'all', 'event') ) )
     {
           $events = Doctrine::getTable( 'Event' )->findAll();
+
+          $totalEvents = $events->count();
+
+          $eventCounter = $totalEvents;
 
           foreach ( $events as $event )
           {
@@ -78,6 +89,9 @@ class updateCategoryMappingsTask extends sfBaseTask
               }
 
               $event->save();
+              $eventCounter--;
+
+              echo "event " . $eventCounter . ' of ' . $totalEvents . PHP_EOL;
           }
     }
 
