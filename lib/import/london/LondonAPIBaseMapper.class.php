@@ -125,7 +125,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
   
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $xml->uid;
-    $poi['vendor_category']    = $this->getApiType();
+    //$poi['vendor_category']    = $this->getApiType();
+    $poi->addVendorCategory( $this->getApiType(), $this->vendor['id'] );
 
     $poi['street']            = (string) $xml->address;
     $poi['country']           = $this->country;

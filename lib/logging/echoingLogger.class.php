@@ -28,7 +28,7 @@ class echoingLogger implements loggable
   public function  __construct( )
   {
     $this->printLineSeparator();
-    echo 'Using verbosing logging';
+    echo 'Using verbose logging';
     $this->printLineSeparator();
   }
   

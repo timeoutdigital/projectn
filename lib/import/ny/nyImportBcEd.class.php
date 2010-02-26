@@ -215,11 +215,21 @@ class nyImportBcEd {
                 $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
                 $this->loggerObj->addError($e, $poiObj, $log);
             }
+            
+
+            $category = (string) $poi->Category;
 
            //Add category
-           if((string) $poi->{'Category'})
+            
+           if( !empty( $category ) ) 
            {
-               $poiObj->addVendorCategory((string) $poi->{'Category'}, $this->vendorObj['id']);
+             $categoryNameSchemaDefinition = Doctrine::getTable('VendorPoiCategory')->getColumnDefinition('name');
+             
+             if( strlen( $category ) > $categoryNameSchemaDefinition['length'] )
+             {
+               throw new Exception( 'Category is too long: "' . $category  . '"' );
+             }
+             $poiObj->addVendorCategory($category, $this->vendorObj['id']);
            }
 
            //Add the cuisine property
