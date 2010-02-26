@@ -106,7 +106,7 @@ class ImportUaeEvents
         
         $category = (string) $xmlObj->{'mobile-section'}['value'];
           
-        //$poiObj->addVendorCategory($category, $this->vendorObj['id']);
+        $poiObj->addVendorCategory($category, $this->vendorObj['id']);
 
         $logChangedFields = $poiObj->getModified();
 
@@ -166,7 +166,6 @@ echo 'ere';
       $occurrenceObj[ 'utc_offset' ] = '-05:00';
       $occurrenceObj[ 'start' ] = (string) $occurrence->{'start_date'};
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-     // $occurrenceObj->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
      
       //set poi
       $poiObj = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $occurrence->{'venue_id'}, $this->vendorObj['id'] );
