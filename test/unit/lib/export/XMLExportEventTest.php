@@ -156,6 +156,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $property2->link( 'Event', array( 1 ) );
     $property2->save();
 
+    $property = new EventMedia();
+    $property[ 'ident' ] = 'md5 hash of the url';
+    $property[ 'mime_type' ] = 'image/';
+    $property[ 'url' ] = 'url';
+    $property->link( 'Event', array( $event['id'] ) );
+    $property->save();
+
     $event2 = new Event();
     $event2['VendorEventCategories'] = $vendorEventCategories;
     $event2['EventCategories'] = $eventCategories;
@@ -350,6 +357,17 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, $placesForEvent2->item(0)->getElementsByTagName( 'occurrence' )->length );
     $this->assertEquals( 2, $placesForEvent2->item(1)->getElementsByTagName( 'occurrence' )->length );
 }
+
+    /**
+     * check properties tags
+     */
+    public function testMediaTags()
+    {
+      $propertyElements = $this->xpath->query( '/vendor-events/event[1]/version/media' );
+      var_dump($propertyElements);
+      $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
+      $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );
+    }
 
 
 }

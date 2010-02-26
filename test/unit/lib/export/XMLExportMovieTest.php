@@ -115,6 +115,13 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $property2->link( 'Movie', array( 1 ) );
     $property2->save();
 
+    $property = new MovieMedia();
+    $property[ 'ident' ] = 'md5 hash of the url';
+    $property[ 'mime_type' ] = 'image/';
+    $property[ 'url' ] = 'url';
+    $property->link( 'Movie', array( 1 ) );
+    $property->save();
+
     $movie2 = new Movie();
     $movie2[ 'vendor_movie_id' ] = 1111;
     $movie2[ 'Vendor' ] = $vendor;
@@ -221,5 +228,15 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     //$this->assertEquals( 'movie key 1', $propertyElements->item(1)->getAttribute( 'key' ) );
     //$this->assertEquals( 'movie value 1', $propertyElements->item(1)->nodeValue );
   }
+
+    /**
+     * check properties tags
+     */
+    public function testMediaTags()
+    {
+      $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/media' );
+      $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
+      $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );
+    }
 }
 ?>

@@ -100,6 +100,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property2->link( 'Poi', array( $poi['id'] ) );
         $property2->save();
 
+        $property = new PoiMedia();
+        $property[ 'ident' ] = 'md5 hash of the url';
+        $property[ 'mime_type' ] = 'image/';
+        $property[ 'url' ] = 'url';
+        $property->link( 'Poi', array( $poi['id'] ) );
+        $property->save();
+
         $poi = new Poi();
         $poi->setPoiName( 'test name2' . $this->specialChars );
         $poi->setStreet( 'test street2' . $this->specialChars );
@@ -297,6 +304,16 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'poi value 1', (string) $properties[0] );
       $this->assertEquals( 'poi key 2', (string) $properties[1]['key'] );
       $this->assertEquals( 'poi value 2', (string) $properties[1] );
+    }
+
+    /**
+     * check properties tags
+     */
+    public function testMediaTags()
+    {
+      $properties = $this->xml->entry[0]->version->content->media;
+      $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
+      $this->assertEquals( 'url', (string) $properties[0] );
     }
 
     /**

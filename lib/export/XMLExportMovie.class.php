@@ -86,6 +86,17 @@ class XMLExportMovie extends XMLExport
 
       //movie/showtimes/place/time
       //implementation on hold
+
+      //movie/version/media
+      foreach( $movie[ 'MovieMedia' ] as $medium )
+      {
+        $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium['url'], XMLExport::USE_CDATA);
+        if ( $mediaElement instanceof DOMElement )
+        {
+          $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+        }
+        //$medium->free();
+      }
       
       foreach( $movie['MovieProperty'] as $property )
       {

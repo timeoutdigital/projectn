@@ -116,6 +116,17 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contentElement, 'public-transport', $poi['public_transport_links'], XMLExport::USE_CDATA);
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
+      //event/version/media
+      foreach( $poi[ 'PoiMedia' ] as $medium )
+      {
+        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium['url'], XMLExport::USE_CDATA);
+        if ( $mediaElement instanceof DOMElement )
+        {
+          $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+        }
+        //$medium->free();
+      }
+
       foreach( $poi[ 'PoiProperty' ] as $property )
       {
         $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $property['value'], XMLExport::USE_CDATA);
