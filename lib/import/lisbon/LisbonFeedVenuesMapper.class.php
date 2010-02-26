@@ -27,7 +27,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['country'] = 'PTR';
       $poi['additional_address_details'] = $this->extractAddress( $venueElement );
       $poi['phone'] =  (string) $venueElement[ 'phone' ];
-      $poi['vendor_category'] = (string) $venueElement[ 'tipo' ];
+      $poi->addVendorCategory( (string) $venueElement[ 'tipo' ], $this->vendor['id'] );
       $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
       $poi['vendor_id'] = $this->vendor['id'];
       
