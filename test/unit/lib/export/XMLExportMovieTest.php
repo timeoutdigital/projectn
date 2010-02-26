@@ -206,7 +206,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('2', $placeId->getAttribute( 'place-id' ) );
 
     //movie/showtimes/place
-    $this->assertEquals( 'oap', $place->getElementsByTagName( 'age_rating' )->item(0)->nodeValue );
+    $this->assertEquals( '', $place->getElementsByTagName( 'age_rating' )->item(0)->nodeValue );
   }
 
   /**
@@ -216,10 +216,10 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   {
     //$properties = $this->domDocument->movie[0]->version->property;
     $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/property' );
-    $this->assertEquals( 'movie key 1', $propertyElements->item(0)->getAttribute( 'key' ) );
-    $this->assertEquals( 'movie value 1', $propertyElements->item(0)->nodeValue );
-    $this->assertEquals( 'movie key 2', $propertyElements->item(1)->getAttribute( 'key' ) );
-    $this->assertEquals( 'movie value 2', $propertyElements->item(1)->nodeValue );
+    $this->assertEquals( 'age_rating', $propertyElements->item(0)->getAttribute( 'key' ) );
+    $this->assertEquals( 'oap', $propertyElements->item(0)->nodeValue );
+    //$this->assertEquals( 'movie key 1', $propertyElements->item(1)->getAttribute( 'key' ) );
+    //$this->assertEquals( 'movie value 1', $propertyElements->item(1)->nodeValue );
   }
 }
 ?>
