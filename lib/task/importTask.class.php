@@ -313,7 +313,7 @@ class importTask extends sfBaseTask
 
             break;
 
-          case 'poi-event': $this->importDubaiEvents();
+          case 'poi-event': $this->importUaeEvents();
 
             break;
 
@@ -369,8 +369,16 @@ class importTask extends sfBaseTask
 
           $processXmlObj = new processNyXml( $fileNameString );
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-          $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-          $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+          echo "XML Parsed \n\n";
+
+          $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+          $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+
+          
+
+
+
+
 
         }
         catch ( Exception $e )
@@ -612,10 +620,12 @@ class importTask extends sfBaseTask
      }
 
 
-      private function importDubaiEvents($vendorObj)
+      private function importUaeEvents()
      {
         try
         {
+            $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+
             $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
             $feed->exec();
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
