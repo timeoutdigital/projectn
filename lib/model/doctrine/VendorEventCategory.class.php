@@ -18,7 +18,7 @@ class VendorEventCategory extends BaseVendorEventCategory
     return $this[ 'Vendor' ][ 'city' ];
   }
 
-  public function postSave( $obj )
+  /*public function postSave( $obj )
   {
 
     foreach ( $this['Events'] as $poi )
@@ -31,6 +31,6 @@ class VendorEventCategory extends BaseVendorEventCategory
 
       $poi->save();
     }
-  }
+  }*/
 
 }
