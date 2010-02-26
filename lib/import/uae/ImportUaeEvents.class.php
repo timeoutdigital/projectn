@@ -110,24 +110,23 @@ class ImportUaeEvents
 
         $logChangedFields = $poiObj->getModified();
 
-       try
-       {
-            $poiObj->save();
-       }
+         try
+         {
+              $poiObj->save();
+         }
 
-       catch(Exception $e)
-        {
-          $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".$xmlObj['id']. " \n";
-          $this->poiLoggerObj->addError($e, $poiObj, $log);
-          echo "\n\n". $e->__toString();
-          
+         catch(Exception $e)
+         {
+           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".$xmlObj['id']. " \n";
+           $this->poiLoggerObj->addError($e, $poiObj, $log);
+           echo "\n\n". $e->__toString();
         }
 
         //Count the item
-      ( $isNew ) ? $this->poiLoggerObj->countNewInsert() : $this->poiLoggerObj->addChange( 'update', $logChangedFields );
+        ( $isNew ) ? $this->poiLoggerObj->countNewInsert() : $this->poiLoggerObj->addChange( 'update', $logChangedFields );
 
-        
-
+        //Kill the object
+        $poiObj->free();
     }
 
     /**
@@ -140,26 +139,45 @@ class ImportUaeEvents
 
         $eventObj = $this->getEvent($xmlObj);
 
+        $isNew = $eventObj->isNew();
+
         $eventObj['name'] = (string) $xmlObj->{'name'};
         $eventObj['url'] = (string) $xmlObj->{'landing_url'};
         $eventObj['description'] = (string) $xmlObj->{'description'};
         $eventObj['price'] = (string) $xmlObj->{'prices'};
         $eventObj['vendor_event_id'] = (int) $xmlObj['id'];
         $eventObj['vendor_id'] = $this->vendorObj['id'];
-        $eventObj->save();
 
-       $this->AddEventOccurance($xmlObj->{'day-occurences'}, $eventObj);
+        $category = (string) $xmlObj->{'mobile-section'}['value'];
+        $eventObj->addVendorCategory($category, $this->vendorObj['id']);
 
-        
+        $logChangedFields = $eventObj->getModified();
+
+        try
+        {
+            $eventObj->save();
+        }
+        catch(Exception $e)
+        {
+            $log =  "Error processing Event: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_event_id = ".$xmlObj['id']. " \n";
+            $this->eventLoggerObj->addError($e, $eventObj, $log);
+            echo "\n\n". $e->__toString();
+        }
+
+        //Count the item
+        ( $isNew ) ? $this->eventLoggerObj->countNewInsert() : $this->eventLoggerObj->addChange( 'update', $logChangedFields );
+
+        $this->AddEventOccurance($xmlObj->{'day-occurences'}, $eventObj);
+
+        //Kill the object
+        $eventObj->free();
     }
 
 
 
   public function AddEventOccurance(SimpleXMLElement $Occurrences, Event $eventObj)
   {
-echo 'ere';
-
-//Loop throught the actual occurances now
+    //Loop throught the actual occurances now
     foreach ( $Occurrences->{'day-occurence'} as $occurrence )
     {
       $occurrenceObj = new EventOccurrence();
@@ -173,8 +191,16 @@ echo 'ere';
 
       $occurrenceObj[ 'vendor_event_occurrence_id' ] = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId((string) $eventObj['id'],  $occurrenceObj[ 'poi_id' ], $occurrenceObj[ 'start' ] );
 
-
-      $occurrenceObj->save();
+      try
+      {
+        $occurrenceObj->save();
+      }
+      catch(Exception $e)
+      {
+          $log =  "Error processing Occurrence: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_occurrence_id = ".$xmlObj['id']. " \n";
+          $this->occurrenceLoggerObj->addError($e, $occurrenceObj, $log);
+          echo "\n\n". $e->__toString();
+      }
 
       //Kill the object
      $occurrenceObj->free();
