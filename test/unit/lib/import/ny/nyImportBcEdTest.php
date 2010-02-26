@@ -74,14 +74,31 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
-    public function testYoAss()
+    public function testCatchesCategoryLengthWithinLimit()
     {
-      $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/tony_bc_test.xml' );
-//      $xml->registerXPathNamespace( 'n', 'http://www.filemaker.com/fmpdsoresult' );
-//      var_dump( $xml->xpath( '//n:Category' ) );
       $processNyBcXml = new processNyBcXml( TO_TEST_DATA_PATH . '/tony_bc_test.xml' );
-      $this->object = new nyImportBcEd($processNyBcXml, $this->vendorObj,  $this->loggerObj);
+      $this->object = new nyImportBcEd($processNyBcXml, $this->vendorObj, nyImportBcEd::BAR_CLUB );
       $this->object->import();
+    }
+
+    public function testCategoryIsCorrectForRestaurant()
+    {
+      $processNyBcXml = new processNyBcXml( TO_TEST_DATA_PATH . '/tony_bc_test.xml' );
+      $this->object = new nyImportBcEd($processNyBcXml, $this->vendorObj, nyImportBcEd::BAR_CLUB );
+      $this->object->import();
+
+      $testPoi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 20192 );
+      $this->assertEquals( 'Bar Category', $testPoi['VendorPoiCategories'][0]['name'] );
+    }
+
+    public function testCategoryIsCorrectForBarClub()
+    {
+      $processNyBcXml = new processNyBcXml( TO_TEST_DATA_PATH . '/tony_bc_test.xml' );
+      $this->object = new nyImportBcEd($processNyBcXml, $this->vendorObj, nyImportBcEd::RESTAURANT );
+      $this->object->import();
+
+      $testPoi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 20192 );
+      $this->assertEquals( 'Restaurant Category', $testPoi['VendorPoiCategories'][0]['name'] );
     }
 
     /**validationException
