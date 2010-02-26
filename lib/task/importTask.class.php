@@ -541,7 +541,7 @@ class importTask extends sfBaseTask
             $processXmlObj = new processNyBcXml( $fileNameString );
 
             //Import the bars
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj);
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::BAR_CLUB );
             $importBcEd->import();
         }
         catch ( Exception $e )
@@ -564,7 +564,7 @@ class importTask extends sfBaseTask
             $processXmlObj = new processNyBcXml( $fileNameString );
             echo "\n\n Importing \n\n";
             //Import the bars
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj);
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::RESTAURANT );
             $importBcEd->import();
         }
         catch ( Exception $e )
