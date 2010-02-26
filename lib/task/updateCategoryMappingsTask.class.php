@@ -50,6 +50,7 @@ class updateCategoryMappingsTask extends sfBaseTask
                   $poi[ 'PoiCategories' ] = $categoryMapper->mapCategories( $vendor, $categoriesToBeMapped, 'Poi' );
               }
 
+              $poi->setGeoEncodeByPass( true );
               $poi->save();
           }
     }
