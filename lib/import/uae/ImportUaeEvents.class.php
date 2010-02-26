@@ -41,10 +41,8 @@ class ImportUaeEvents
     {
         $this->xmlObj = $xmlObj;
         $this->vendorObj = $vendorObj;
-        $this->poiLoggerObj = new logImport($vendorObj);
-        $this->poiLoggerObj->setType('poi');
-        $this->eventLoggerObj = new logImport($vendorObj);
-        $this->eventLoggerObj->setType('event');
+        $this->poiLoggerObj = new logImport($vendorObj, 'poi');
+        $this->eventLoggerObj = new logImport($vendorObj, 'event');
         Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     }
 
@@ -197,7 +195,7 @@ class ImportUaeEvents
       }
       catch(Exception $e)
       {
-          $log =  "Error processing Occurrence: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_occurrence_id = ".$xmlObj['id']. " \n";
+          $log =  "Error processing Occurrence: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_event_occurrence_id = ".$occurrenceObj[ 'vendor_event_occurrence_id' ]. " \n";
           $this->occurrenceLoggerObj->addError($e, $occurrenceObj, $log);
           echo "\n\n". $e->__toString();
       }
