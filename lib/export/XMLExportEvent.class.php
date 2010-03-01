@@ -64,7 +64,7 @@ class XMLExportEvent extends XMLExport
 
       //Set theh language
       $langArray = explode('-',$this->vendor['language']);
-      $versionElement->setAttribute( 'lang', $langArray[0] );
+      $versionElement->setAttribute( 'lang', 'GB' );
 
       //event/version/name
       $this->appendRequiredElement($versionElement, 'name', $event['name'], XMLExport::USE_CDATA);
@@ -154,8 +154,13 @@ class XMLExportEvent extends XMLExport
           $endDate = date('Y-m-d', $endTimeStamp);
 
           $this->appendRequiredElement($timeElement, 'start_date', $startDate);
+
+          if( $startTime != '00:00:00' )
           $this->appendRequiredElement($timeElement, 'event_time', $startTime);
+
+          if( $endTime != '00:00:00' )
           $this->appendNonRequiredElement($timeElement, 'end_time', $endTime);
+
           $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
 
           //$eventOccurrence->free();
