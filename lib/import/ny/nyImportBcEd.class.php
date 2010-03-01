@@ -17,6 +17,8 @@
  */
 class nyImportBcEd {
 
+    const BAR_CLUB = 'bar_club';
+    const RESTAURANT = 'restaurant';
     /**
      * Process simple XML for B/C
      *
@@ -38,6 +40,11 @@ class nyImportBcEd {
      */
     public $loggerObj;
 
+    /**
+     * @var string;
+     */
+    private $restaurantOrBar;
+
 
     /**
      * Constructor
@@ -45,10 +52,11 @@ class nyImportBcEd {
      * @param processNyBcXml $bcObj
      * @param Vendor $vendorObj
      */
-    public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj)
+    public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj, $restuarantOrBar )
     {
         $this->bcObj = $bcObj;
         $this->vendorObj = $vendorObj;
+        $this->restaurantOrBar = $restuarantOrBar;
         $this->loggerObj = new logImport($vendorObj);
         $this->loggerObj->setType('poi');
         Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
@@ -216,14 +224,14 @@ class nyImportBcEd {
                 $this->loggerObj->addError($e, $poiObj, $log);
             }
 
-           //Add category
-           if((string) $poi->{'Category'})
-           {
-               $poiObj->addVendorCategory((string) $poi->{'Category'}, $this->vendorObj['id']);
-           }
+           $category = $this->extractCategory( $poi );
+           $poiObj->addVendorCategory($category, $this->vendorObj['id']);
 
            //Add the cuisine property
-           $poiObj->addProperty('cuisine',  (string) $poi->{'PrimaryCuisine'});
+           if( $this->restaurantOrBar == nyImportBcEd::RESTAURANT )
+           {
+             $poiObj->addProperty('cuisine',  (string) $poi->{'PrimaryCuisine'});
+           }
 
 
            //Save the object and log the changes
@@ -255,6 +263,34 @@ class nyImportBcEd {
 
            return $poiObj;
         }
+    }
+
+    public function extractCategory( $poi )
+    {
+        $category = '';
+
+        switch( $this->restaurantOrBar )
+        {
+          case nyImportBcEd::BAR_CLUB:
+            $category = 'bars';//(string) $poi->PrimaryCuisine;
+            break;
+          
+          case nyImportBcEd::RESTAURANT:
+            $category = 'restaurants';//(string) $poi->Category;
+            break;
+        }
+
+        if( !empty( $category ) )
+        {
+          $categoryNameSchemaDefinition = Doctrine::getTable('VendorPoiCategory')->getColumnDefinition('name');
+
+          if( strlen( $category ) > $categoryNameSchemaDefinition['length'] )
+          {
+            throw new Exception( 'Category is too long: "' . $category  . '"' );
+          }
+        }
+
+        return $category;
     }
 }
 ?>

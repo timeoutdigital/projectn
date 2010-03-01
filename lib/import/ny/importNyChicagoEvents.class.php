@@ -305,32 +305,19 @@ class importNyChicagoEvents
         }
       }
 
-
       //Check before save if Poi is new one
       $logIsNew = $poiObj->isNew();
-
       //Get all changed fields
       $logChangedFields = $poiObj->getModified();
-
       //save the object
-    try{
-        $poiObj->save();
-      
-     }
-     catch(Doctrine_Validator_Exception $error)
-     {
-          $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
-          $this->_poiLoggerObj->addError($error, $poiObj, $log);
-
-          //return $poiObj;
+      try
+      {
+          $poiObj->save();
       }
-
       catch(Exception $e)
       {
           $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
           $this->_poiLoggerObj->addError($e, $poiObj, $log);
-
-         // return $poiObj;
       }
 
 
@@ -409,20 +396,10 @@ class importNyChicagoEvents
         //save to database
         $poiObj->save();
       }
-      catch(Doctrine_Validator_Exception $error)
-      {
-          $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
-          $this->_poiLoggerObj->addError($error, $poiObj, $log);
-
-         
-      }
-
       catch(Exception $e)
       {
           $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
-          $this->_poiLoggerObj->addError($e, $poiObj, $log);
-
-          
+          $this->_poiLoggerObj->addError($e, $poiObj, $log);          
       }
 
       //Count the item
@@ -441,8 +418,7 @@ class importNyChicagoEvents
    *
    */
   public function insertVendorEventCategories( $event )
-  {
-    
+  {    
 
     if ( isset($event->category_combi) )
     {
@@ -482,7 +458,7 @@ class importNyChicagoEvents
    */
   public function insertEvent( $event )
   {
-        $movieFound = false;
+     $movieFound = false;
 
      /*
       * Category_combi is a node in the xml that contains all the categories which is then used for mapping.
@@ -499,13 +475,9 @@ class importNyChicagoEvents
           //Get all the Vendor Event Categories that were inserted during the first loop
           $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
 
-      
-
           //Loop through  the vendor categories
           foreach( $categoryArray as $categoryString )
           {
-
-
             $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findOneByName( (string) $categoryString );
 
             //If a match is found (Which should happen as the cats are inserted already)
@@ -632,14 +604,10 @@ class importNyChicagoEvents
                    //Add the event occurances
                    $this-> AddEventOccurance($event->{'date'}, $eventObj);
         }
-
-
       catch(Exception $e)
       {
           $log =  "Error processing Event: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $event['id'] . " \n";
-          $this->_eventLoggerObj->addError($e, $eventObj, $log);
-
-         
+          $this->_eventLoggerObj->addError($e, $eventObj, $log);         
       }
 
 
@@ -662,11 +630,18 @@ class importNyChicagoEvents
     foreach ( $Occurrences as $occurrence )
     {
 
-      $occurrenceObj = new EventOccurrence();
-      $occurrenceObj[ 'utc_offset' ] = '-05:00';
+      $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
+      $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
+
+      if ( $eventOccurrence === false )
+      {
+          $occurrenceObj = new EventOccurrence();
+          $occurrenceObj[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
+      }
+      
+      $occurrenceObj[ 'utc_offset' ] = $this->_vendorObj->getUtcOffset( (string) $occurrence->start );
       $occurrenceObj[ 'start' ] = (string) $occurrence->start;
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-      $occurrenceObj->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
 
       //set poi id
       $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );

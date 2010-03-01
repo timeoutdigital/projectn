@@ -138,7 +138,8 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj , londonDatabaseFilmsDataMapper::CHICAGO_REVIEW_TYPE_ID ) );
+               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj, londonDatabaseFilmsDataMapper::CHICAGO_REVIEW_TYPE_ID ) );
+
           break;
 
           case 'eating-drinking':
@@ -186,21 +187,8 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi-event':
-
-            /*$curlImporterObj = new curlImporter();
-            $parametersArray = array( 'section' => 'index', 'thisweek' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
-            $xmlObj = $curlImporterObj->getXml();
-
-            $singaporeImportObj = new singaporeImport( $xmlObj, $vendorObj, $curlImporterObj );
-            $singaporeImportObj->insertCategoriesPoisEvents();*/
-
             //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-
             //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-
-            //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-
 
             $logger = new logImport($vendorObj, 'poi' );
 
@@ -229,7 +217,8 @@ class importTask extends sfBaseTask
             
             break;
 
-          case 'film':
+          case 'movie':
+            //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
             $logger = new logImport($vendorObj, 'movie' );
           
             $curlImporterObj = new curlImporter();
@@ -255,7 +244,7 @@ class importTask extends sfBaseTask
         $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj     = new curlImporter();
         $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-02-23' );
+        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-03-01' );
         $method      = 'POST';
         $loggerObj =   new logImport( $vendorObj );
         
@@ -324,7 +313,7 @@ class importTask extends sfBaseTask
 
             break;
 
-          case 'poi-event': $this->importDubaiEvents();
+          case 'poi-event': $this->importUaeEvents();
 
             break;
 
@@ -380,8 +369,16 @@ class importTask extends sfBaseTask
 
           $processXmlObj = new processNyXml( $fileNameString );
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-          $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-          $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
+          echo "XML Parsed \n\n";
+
+          $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+          $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+
+          
+
+
+
+
 
         }
         catch ( Exception $e )
@@ -544,7 +541,7 @@ class importTask extends sfBaseTask
             $processXmlObj = new processNyBcXml( $fileNameString );
 
             //Import the bars
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj);
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::BAR_CLUB );
             $importBcEd->import();
         }
         catch ( Exception $e )
@@ -567,7 +564,7 @@ class importTask extends sfBaseTask
             $processXmlObj = new processNyBcXml( $fileNameString );
             echo "\n\n Importing \n\n";
             //Import the bars
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj);
+            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::RESTAURANT );
             $importBcEd->import();
         }
         catch ( Exception $e )
@@ -623,10 +620,12 @@ class importTask extends sfBaseTask
      }
 
 
-      private function importDubaiEvents($vendorObj)
+      private function importUaeEvents()
      {
         try
         {
+            $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+
             $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
             $feed->exec();
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());

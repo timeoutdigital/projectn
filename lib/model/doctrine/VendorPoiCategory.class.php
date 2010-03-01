@@ -18,7 +18,7 @@ class VendorPoiCategory extends BaseVendorPoiCategory
     return $this[ 'Vendor' ][ 'city' ];
   }
 
-  public function postSave( $obj )
+  /*public function postSave( $obj )
   {
     
     foreach ( $this['Poi'] as $poi )
@@ -31,6 +31,6 @@ class VendorPoiCategory extends BaseVendorPoiCategory
 
       $poi->save();
     }
-  }
+  }*/
 
 }

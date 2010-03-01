@@ -17,9 +17,20 @@ class Poi extends BasePoi
    */
   private $geoEncodeLookUpString;
 
+  /**
+   *
+   */
+  private $geoEncodeByPass = false;
+
+
   public function setGeoEncodeLookUpString( $geoEncodeLookUpString )
   {
     $this->geoEncodeLookUpString = $geoEncodeLookUpString;
+  }
+
+  public function setGeoEncodeByPass( $geoEncodeByPass = false )
+  {
+    $this->geoEncodeByPass = $geoEncodeByPass;
   }
   
   public function addProperty( $lookup, $value )
@@ -89,7 +100,7 @@ class Poi extends BasePoi
      //get the longitute and latitude
      $geoEncoder = new geoEncode();
      
-     if( !is_numeric( $this['longitude'] ) || !is_numeric( $this['latitude'] ) )
+     if( !$this->geoEncodeByPass && ( !is_numeric( $this['longitude'] ) || !is_numeric( $this['latitude'] ) ) )
      {
        if( empty( $this->geoEncodeLookUpString ) )
        {

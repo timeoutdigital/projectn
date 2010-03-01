@@ -115,6 +115,13 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $property2->link( 'Movie', array( 1 ) );
     $property2->save();
 
+    $property = new MovieMedia();
+    $property[ 'ident' ] = 'md5 hash of the url';
+    $property[ 'mime_type' ] = 'image/';
+    $property[ 'url' ] = 'url';
+    $property->link( 'Movie', array( 1 ) );
+    $property->save();
+
     $movie2 = new Movie();
     $movie2[ 'vendor_movie_id' ] = 1111;
     $movie2[ 'Vendor' ] = $vendor;
@@ -163,7 +170,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movieElement = $this->xpath->query( '/vendor-movies/movie' )->item(0);
 
     //movie@attributes
-    echo file_get_contents( $this->destination );
     $this->assertEquals( '1111', $movieElement->getAttribute( 'id' ) );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
 
@@ -207,7 +213,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('2', $placeId->getAttribute( 'place-id' ) );
 
     //movie/showtimes/place
-    $this->assertEquals( 'oap', $place->getElementsByTagName( 'age_rating' )->item(0)->nodeValue );
+    $this->assertEquals( '', $place->getElementsByTagName( 'age_rating' )->item(0)->nodeValue );
   }
 
   /**
@@ -217,33 +223,20 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   {
     //$properties = $this->domDocument->movie[0]->version->property;
     $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/property' );
-    $this->assertEquals( 'movie key 1', $propertyElements->item(0)->getAttribute( 'key' ) );
-    $this->assertEquals( 'movie value 1', $propertyElements->item(0)->nodeValue );
-    $this->assertEquals( 'movie key 2', $propertyElements->item(1)->getAttribute( 'key' ) );
-    $this->assertEquals( 'movie value 2', $propertyElements->item(1)->nodeValue );
+    $this->assertEquals( 'age_rating', $propertyElements->item(0)->getAttribute( 'key' ) );
+    $this->assertEquals( 'oap', $propertyElements->item(0)->nodeValue );
+    //$this->assertEquals( 'movie key 1', $propertyElements->item(1)->getAttribute( 'key' ) );
+    //$this->assertEquals( 'movie value 1', $propertyElements->item(1)->nodeValue );
   }
 
-  /**
-   *
-   */
-  public function testValidatesAgainstSchemaIfNoGenresInDatabase()
-  {
-    $movieWithNoGenre = new Movie();
-    $movieWithNoGenre[ 'vendor_movie_id' ] = 1111;
-    $movieWithNoGenre[ 'Vendor' ] = $this->vendor;
-    $movieWithNoGenre[ 'Poi' ] = $poi2;
-    $movieWithNoGenre[ 'name' ] = 'test movie name';
-    $movieWithNoGenre[ 'plot' ] = 'test movie plot';
-    $movieWithNoGenre[ 'review' ] = 'test movie review';
-    $movieWithNoGenre[ 'url' ] = 'http://movies.co.uk';
-    $movieWithNoGenre[ 'rating' ] = '1.2';
-    $movieWithNoGenre[ 'age_rating' ] = 'oap';
-    $movieWithNoGenre[ 'utf_offset' ] = '-01:00:00';
-    $movieWithNoGenre->save();
-
-    $this->setExpectedException( 'Exception' );
-    $this->export = new XMLExportMovie( $this->vendor, $this->destination );
-    $this->export->run();
-  }
+    /**
+     * check properties tags
+     */
+    public function testMediaTags()
+    {
+      $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/media' );
+      $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
+      $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );
+    }
 }
 ?>

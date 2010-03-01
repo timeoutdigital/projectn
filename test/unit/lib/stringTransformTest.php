@@ -197,5 +197,14 @@ three
    
    $this->assertEquals( $expected, stringTransform::stripEmptyLines( $string ) );
   }
+
+  public function testCommaThe()
+  {
+    $string = 'foo bar, The';
+    $this->assertEquals( 'The foo bar', stringTransform::move_CommaThe_FromEndToBeginning($string));
+
+    $string = 'foo bar, the';
+    $this->assertEquals( 'the foo bar', stringTransform::move_CommaThe_FromEndToBeginning($string));
+  }
 }
 ?>

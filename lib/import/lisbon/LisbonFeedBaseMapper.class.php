@@ -72,17 +72,6 @@ class LisbonFeedBaseMapper extends DataMapper
   }
 
   /**
-   * Gets the utc offset for a Lisbon date
-   */
-  protected function getUtcOffset( $time )
-  {
-    $offsetSeconds = $this->dateTimeZoneLondon->getOffset(
-      new DateTime( $time, $this->dateTimeZoneLisbon )
-    );
-    return $offsetSeconds / 3600;
-  }
-
-  /**
    * Maps all the attributes to the Event's properties unless stated otherwise
    * in getListingsMap() and / or getListingsIgnoreMap();
    *
