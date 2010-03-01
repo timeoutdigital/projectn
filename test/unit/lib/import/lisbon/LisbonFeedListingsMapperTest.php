@@ -89,7 +89,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
     $eventOccurrence2 = $event['EventOccurrence'][1];
     $this->assertEquals( '2010-07-07 00:00:00', $eventOccurrence2['start'] );
-    $this->assertEquals( '+00:00', $eventOccurrence2['utc_offset'] );
+    $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
 
     $eventOccurrences = Doctrine::getTable( 'EventOccurrence' )->findAll();
     $this->assertEquals( 6, $eventOccurrences->count() );
