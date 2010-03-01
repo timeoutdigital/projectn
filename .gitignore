@@ -17,3 +17,4 @@ test/unit/export/*.xml
 .sf
 *.swp
 *.swo
+lib/vendor/htmlpurifier-library/HTMLPurifier/DefinitionCache/*
