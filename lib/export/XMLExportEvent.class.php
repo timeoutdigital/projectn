@@ -155,10 +155,10 @@ class XMLExportEvent extends XMLExport
 
           $this->appendRequiredElement($timeElement, 'start_date', $startDate);
 
-          if( $startTime != '00:00:00' )
+          if( $startTime != '00:00:00' )//@todo fix this properly?
           $this->appendRequiredElement($timeElement, 'event_time', $startTime);
 
-          if( $endTime != '00:00:00' )
+          if( $endTime != '00:00:00' )//@todo fix this properly?
           $this->appendNonRequiredElement($timeElement, 'end_time', $endTime);
 
           $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
