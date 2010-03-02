@@ -45,13 +45,13 @@ class XMLExportPOI extends XMLExport
     foreach( $data as $poi )
     {
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
-      $entryElement->setAttribute( 'vpid', 'vpid_' . $poi->getVendorPoiId() );
+      $entryElement->setAttribute( 'vpid', $this->generateUID($poi) );
       $langArray = explode('-',$this->vendor['language']);
       $entryElement->setAttribute( 'lang', $langArray[0] );
       $entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //@todo if statement is not a proper fix. it should be fixed properly at import stage asap
-      if( $poi['longitude'] > 0 && $poi['longitude'] < 0 && $poi['latitude'] > 0 && $poi['latitude'] < 0  )
+      if( ($poi['longitude'] > 0 || $poi['longitude'] < 0) && ( $poi['latitude'] > 0 || $poi['latitude'] < 0 ) )
       {
         $geoPositionElement = $entryElement->appendChild( new DOMElement( 'geo-position' ) );
         $this->appendRequiredElement( $geoPositionElement, 'longitude', $poi['longitude'] );
