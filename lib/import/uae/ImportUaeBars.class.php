@@ -39,12 +39,16 @@ class ImportUaeBars extends importBaseUaeBarsRestaurants {
         $poiObj->addVendorCategory((string) $xmlObj->{'type'}, $this->vendorObj['id']);
 
         //Add the cuisine property
-        $poiObj->addProperty('website',  (string) $xmlObj->{'website'});
+        if((string) $xmlObj->{'link'})
+        {
+            $poiObj->addProperty('timeout-link',  (string) $xmlObj->{'link'});
+        }
 
         $logChangedFields = $poiObj->getModified();
 
        try{
              $poiObj->save();
+
 
              if($poiObj['longitude'] == null || $poiObj['longitude'] == null )
              {

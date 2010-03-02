@@ -88,7 +88,7 @@ class XMLExportMovie extends XMLExport
       //implementation on hold
 
       //movie/version/media
-      foreach( $movie[ 'MovieMedia' ] as $medium )
+      /*foreach( $movie[ 'MovieMedia' ] as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium['url'], XMLExport::USE_CDATA);
         if ( $mediaElement instanceof DOMElement )
@@ -96,7 +96,7 @@ class XMLExportMovie extends XMLExport
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }
+      }*/
       
       foreach( $movie['MovieProperty'] as $property )
       {

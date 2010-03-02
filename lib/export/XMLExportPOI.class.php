@@ -121,7 +121,7 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       //event/version/media
-      foreach( $poi[ 'PoiMedia' ] as $medium )
+      /*foreach( $poi[ 'PoiMedia' ] as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium['url'], XMLExport::USE_CDATA);
         if ( $mediaElement instanceof DOMElement )
@@ -129,7 +129,7 @@ class XMLExportPOI extends XMLExport
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }
+      }*/
 
       foreach( $poi[ 'PoiProperty' ] as $property )
       {

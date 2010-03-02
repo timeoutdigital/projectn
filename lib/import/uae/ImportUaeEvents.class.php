@@ -86,22 +86,29 @@ class ImportUaeEvents
         $poiObj['Vendor']                       = $this->vendorObj;
         $poiObj['vendor_poi_id']                = (string) $xmlObj['id'];
         $poiObj['poi_name']                     = (string) $xmlObj->{'name'};
-        $poiObj['url']                          = (string) $xmlObj->{'landing_url'};
+        $poiObj['url']                          = null;
         $poiObj['phone']                        = (string) $xmlObj->{'phone'};
         $poiObj['email']                        = (string) $xmlObj->{'email'};
-        $poiObj['street']                       = (string) $xmlObj->{'neighourhood'};
         $poiObj['price_information']            = (string) $xmlObj->{'prices'};
         $poiObj['openingtimes']                 = (string) $xmlObj->{'hours'};
         $poiObj['public_transport_links']       = (string) $xmlObj->{'travel'};
-        $poiObj['longitude']                    = (float) $xmlObj->coordinates->{'longitude'};
-        $poiObj['latitude']                     = (float) $xmlObj->coordinates->{'latitude'};
-        $poiObj['city']                         = $this->vendorObj['city'];
+        $poiObj['longitude']                    = (float)  $xmlObj->coordinates->{'longitude'};
+        $poiObj['latitude']                     = (float)  $xmlObj->coordinates->{'latitude'};
+        $poiObj['city']                         = trim(ucwords($this->vendorObj['city']));
         $poiObj['country']                      = 'ARE';
+        $poiObj['district']                     = trim(ucwords((string) $xmlObj->{'neighbourhood'}));
+        $poiObj['street']                       = trim((string) $xmlObj->{'travel'});
+        $poiObj['description']                  = trim((string) $xmlObj->{'description'});
 
         $addressString = $poiObj['poi_name'] . ', ' .$poiObj['street'] . ', '. $poiObj['city'] . ', United Arab Emirates';
 
+        //Set the geocode
         $poiObj->setGeoEncodeLookUpString($addressString);
-        
+
+        //Add properties
+        $poiObj->AddProperty('timeout_link', (string) $xmlObj->{'landing_url'});
+
+        //Set the vendors categories
         $category = (string) $xmlObj->{'mobile-section'}['value'];
           
         $poiObj->addVendorCategory($category, $this->vendorObj['id']);
@@ -179,12 +186,13 @@ class ImportUaeEvents
     foreach ( $Occurrences->{'day-occurence'} as $occurrence )
     {
       $occurrenceObj = new EventOccurrence();
-      $occurrenceObj[ 'utc_offset' ] = '-05:00';
+      $occurrenceObj[ 'utc_offset' ] = $this->vendorObj->getUtcOffset();
       $occurrenceObj[ 'start' ] = (string) $occurrence->{'start_date'};
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
      
       //set poi
       $poiObj = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $occurrence->{'venue_id'}, $this->vendorObj['id'] );
+
       $occurrenceObj[ 'Poi' ] = $poiObj;
 
       $occurrenceObj[ 'vendor_event_occurrence_id' ] = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId((string) $eventObj['id'],  $occurrenceObj[ 'poi_id' ], $occurrenceObj[ 'start' ] );
