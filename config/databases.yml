@@ -5,7 +5,7 @@ prod:
   project_n:
     class:                sfDoctrineDatabase
     param:
-      dsn:                mysql://root:outtime99@localhost/project_n_prod
+      dsn:                mysql://root:outtime99@localhost/project_n
       attributes:
         use_native_enum:  true
 

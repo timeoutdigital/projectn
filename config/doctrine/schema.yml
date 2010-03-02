@@ -42,6 +42,8 @@ Poi:
     Vendor:                     {local: vendor_id, foreign: id}
     PoiCategories:              {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
     VendorPoiCategories:        {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
+  indexes:
+    vendor_poi_id_index:        {fields: [vendor_poi_id]}
 
 
 
@@ -91,7 +93,9 @@ VendorPoiCategory:
   relations:
     Vendor:                   {local: vendor_id, foreign: id}
     Poi:                      {class: Poi, refClass: LinkingVendorPoiCategory, local: vendor_poi_category_id, foreign: poi_id}
-
+  indexes:
+    name_index:                 {fields: [name]}
+    
 #Categories available for Pois
 PoiCategory:
   connection: project_n
@@ -103,6 +107,8 @@ PoiCategory:
     Poi:                        {class: Poi, refClass: LinkingPoiCategory, local: poi_category_id, foreign: poi_id}
     Parent:                     {class: PoiCategory, local: child_id, foreign: parent_id, refClass: PoiCategoryReference, foreignAlias: Children}
     VendorPoiCategories:        {foreignAlias: PoiCategories, class: VendorPoiCategory, refClass: LinkingPoiCategoryMapping }
+  indexes:
+    name_index:                 {fields: [name]}
 
 #Poi CategoryMapping
 LinkingPoiCategoryMapping:
@@ -125,6 +131,8 @@ PoiProperty:
     poi_id:                     {type: integer, notnull: true}
   relations:
     Poi:                        {local: poi_id, foreign: id}
+  indexes:
+    lookup_index:               {fields: [lookup]}
 
 #Represents an event
 Event:
@@ -146,6 +154,8 @@ Event:
     Vendor:                     {local: vendor_id, foreign: id}
     EventCategories:            {class: EventCategory, refClass: LinkingEventCategory, local: event_id, foreign: event_category_id }
     VendorEventCategories:      {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: event_id, foreign: vendor_event_category_id }
+  indexes:
+    vendor_event_id_index:      {fields: [vendor_event_id]}
 
 #Represents an occurrence of an event
 EventOccurrence:
@@ -161,6 +171,9 @@ EventOccurrence:
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
     Poi:                        {local: poi_id, foreign: id, foreignType: many}
+  indexes:
+    vendor_event_occurrence_id_index:      {fields: [vendor_event_occurrence_id]}
+    start_index:                           {fields: [start]}
 
 #VendorEvent Category
 VendorEventCategory:
@@ -171,6 +184,8 @@ VendorEventCategory:
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
     Events:                     {class: Event, refClass: LinkingVendorEventCategory, local: vendor_event_category_id, foreign: event_id}
+  indexes:
+    name_index:                 {fields: [name]}
 
 
 #Event Category
@@ -181,7 +196,8 @@ EventCategory:
   relations:
     Events:                     {class: Event, refClass: LinkingEventCategory, local: event_category_id, foreign: event_id}
     VendorEventCategories:      {foreignAlias: EventCategories, class: VendorEventCategory, refClass: LinkingEventCategoryMapping }
-
+  indexes:
+    name_index:                 {fields: [name]}
 
 #LinkingEvent CategoryMapping
 LinkingEventCategoryMapping:
@@ -228,6 +244,8 @@ EventProperty:
     event_id:                   {type: integer, notnull: true}
   relations:
     Event:                      {local: event_id, foreign: id, foreignType: many}
+  indexes:
+    lookup_index:               {fields: [lookup]}
 
 #Represents a movie
 Movie:
@@ -250,6 +268,8 @@ Movie:
     Vendor:                     {local: vendor_id, foreign: id}
     MovieGenres:                {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
     Poi:                        {local: poi_id, foreign: id, foreignType: one}
+  indexes:
+    vendor_movie_id_index:      {fields: [vendor_movie_id]}
 
 
 #Movie Genres
@@ -268,8 +288,9 @@ MovieGenre:
   columns:
     genre:                      {type: string(255), notnull: true}
   relations:
-    Movies:                      {class: Movie, refClass: LinkingMovieGenre, local: movie_genre_id, foreign: movie_id}
-   
+    Movies:                     {class: Movie, refClass: LinkingMovieGenre, local: movie_genre_id, foreign: movie_id}
+  indexes:
+    genre_index:                {fields: [genre]}
 
 #Any media that is associated to a Movie
 MovieMedia:
@@ -293,6 +314,8 @@ MovieProperty:
     movie_id:                   {type: integer, notnull: true}
   relations:
     Movie:                      {local: movie_id, foreign: id, foreignType: many}
+  indexes:
+    lookup_index:               {fields: [lookup]}
 
 #Rating that the user gives to the poi
 UserContent:
@@ -335,6 +358,9 @@ Vendor:
     language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)
     time_zone:                  {type: string(50), notnull: true}
     inernational_dial_code:     {type: string(3)}
+  indexes:
+    city_index:                 {fields: [city]}
+    city_language_index:        {fields: [city, language]}
 
 
 #Import stats
@@ -394,3 +420,5 @@ Media:
     file_last_modified:   {type: string(255), notnull: false}
     etag:                 {type: string(255), notnull: false}
     content_length:       {type: integer, notnull: false}
+  indexes:
+    ident_index:          {fields: [ident]}
