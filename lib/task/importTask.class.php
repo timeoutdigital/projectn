@@ -244,7 +244,7 @@ class importTask extends sfBaseTask
         $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj     = new curlImporter();
         $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-03-01' );
+        $parameters  = array( 'from' => '2010-02-26', 'to' => '2010-03-08' );
         $method      = 'POST';
         $loggerObj =   new logImport( $vendorObj );
         
@@ -597,85 +597,79 @@ class importTask extends sfBaseTask
    *    Dubai
    *
    * *************************************************************************/
-    private function importUaePois($vendorObj)
+    private function importUaePois()
      {
         try
         {
-             echo "Importing Dubai Bars  \n";
+            echo "Starting to import Dubai Bars  \n";
+            echo "Downloading Dubai bars Feed \n";
             $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
 
             $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
-            
+            $feed->exec();
+
+            echo "Validating Dubai Bars XML \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
-           
+            
+            
+            echo "Importing Dubai Bars \n";
             $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
             $importDubaiBars->importPois();
 
-            echo "Importing Dubhai Restaurants \n";
-            $feed = new Curl('http://www.timeoutdubai.com/nokia/restaurants');
 
+
+
+            echo "Starting to Import Dubhai Restaurants \n";
+            echo "Downloading Dubai restaurants Feed \n";
+            $feed = new Curl('http://www.timeoutdubai.com/nokia/restaurants');
+            $feed->exec();
+
+
+            echo "Validating Dubai restaurants XML \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
+            echo "Importing Dubai Restaurants \n";
             $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
             $importDubaiRestaurants->importPois();
 
 
-            echo "Importing Abu Dhab bars \n";
+            /**
+             * Abu Dhabi's imports
+             */
+
+            echo "Starting to import Abu Dhab bars \n";
+            echo "Downloading Abu Dhabis bars Feed \n";
             $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
 
             $feed = new Curl('http://www.timeoutabudhabi.com/nokia/bars');
+            $feed->exec();
 
+            echo "Validating Abu Dhabis Bars XML \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
+            echo "Importing Abu Dhabi's Bars \n";
             $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
             $importDubaiBars->importPois();
 
 
-             echo "Importing Abu Dhab Resaurants \n";
+
+            echo "Starting to Import Abu Dhab Resaurants \n";
             $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
 
             $feed = new Curl('http://www.timeoutabudhabi.com/nokia/restaurants');
+            $feed->exec();
 
+            echo "Validating Abu Dhabis Resaurants XML \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
+             echo "Importing Abu Dhabi's Resaurants \n";
             $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
             $importDubaiBars->importPois();
 
-
-
-
-
-             try
-        {
-           
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
-        }
-
-
-         try
-        {
-            $feed = new Curl('http://www.timeoutabudhabi.com/nokia/restaurants');
-
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-            $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
-            $importDubaiRestaurants->importPois();
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
-        }
-
-
-
         }
         catch ( Exception $e )
         {
@@ -683,56 +677,38 @@ class importTask extends sfBaseTask
         }
 
      }
-
-     private function importDubaiRestaurants($vendorObj)
-     {
-        try
-        {
-            $feed = new Curl('http://www.timeoutdubai.com/nokia/restaurants');
-
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-            $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
-            $importDubaiRestaurants->importPois();
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
-        }
-
-     }
-
 
       private function importUaeEvents()
      {
         try
         {
 
-            echo "Importing Dubai Events \n";
+            echo "Starting Import of Dubai Events \n";
             $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
 
-            echo "Downloading feed \n";
+            echo "Downloading Dubai Events feed \n";
             $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
             $feed->exec();
 
-            echo "Validating feed \n";
+            echo "Validating Dubai Events feed \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
-             echo "Importint feed \n";
+             echo "Importint Dubai Events \n";
             $importUaeEventsObj = new ImportUaeEvents($xmlFeedObj, $vendorObj);
             $importUaeEventsObj->import();
 
 
-            echo "Importing Abu Dhab Events \n";
+            echo " \n\n\n\n\n\n\n ";
+
+            echo "Starting to import Abu Dhab Events \n";
             $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
 
-            echo "Downloading feed \n";
+            echo "Downloading Abu Dhab Events feed \n";
             $feed = new Curl('http://www.timeoutabudhabi.com/nokia/latestevents');
             $feed->exec();
 
-            echo "Validating feed \n";
+            echo "Validating Abu Dhab Events feed \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
