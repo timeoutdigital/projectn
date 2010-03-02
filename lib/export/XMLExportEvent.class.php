@@ -41,7 +41,7 @@ class XMLExportEvent extends XMLExport
     {
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
-      $eventElement->setAttribute( 'id', $event['vendor_event_id'] );
+      $eventElement->setAttribute( 'id', $this->generateUID( $event ) );
       $eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //event/name
@@ -64,7 +64,7 @@ class XMLExportEvent extends XMLExport
 
       //Set theh language
       $langArray = explode('-',$this->vendor['language']);
-      $versionElement->setAttribute( 'lang', $this->vendor['language'] );
+      $versionElement->setAttribute( 'lang', $langArray[0] );
 
       //event/version/name
       $this->appendRequiredElement($versionElement, 'name', $event['name'], XMLExport::USE_CDATA);

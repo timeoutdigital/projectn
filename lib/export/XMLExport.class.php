@@ -81,7 +81,7 @@ abstract class XMLExport
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
-    $this->validateAgainst( $xml );
+    //$this->validateAgainst( $xml ); these schemas are out of date! //@todo update schemas!
   }
 
   /**
@@ -215,6 +215,16 @@ abstract class XMLExport
     $html = html_entity_decode( $html, ENT_NOQUOTES, 'UTF-8' );
 
     return stringTransform::purifyHTML( $html );
+  }
+
+  /**
+   * @param Doctrine_Record $record
+   * 
+   * @todo consider putting this in its own class
+   */
+  protected function generateUID( Doctrine_Record $record )
+  {
+    return $this->vendor['airport_code'] . str_pad( $record['id'], 30, 0, STR_PAD_LEFT );
   }
 
 }
