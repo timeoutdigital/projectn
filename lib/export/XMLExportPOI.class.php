@@ -46,7 +46,8 @@ class XMLExportPOI extends XMLExport
     {
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', 'vpid_' . $poi->getVendorPoiId() );
-      $entryElement->setAttribute( 'lang', $this->vendor['language'] );
+      $langArray = explode('-',$this->vendor['language']);
+      $entryElement->setAttribute( 'lang', $langArray[0] );
       $entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //@todo if statement is not a proper fix. it should be fixed properly at import stage asap

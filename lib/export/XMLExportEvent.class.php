@@ -64,7 +64,7 @@ class XMLExportEvent extends XMLExport
 
       //Set theh language
       $langArray = explode('-',$this->vendor['language']);
-      $versionElement->setAttribute( 'lang', $this->vendor['language'] );
+      $versionElement->setAttribute( 'lang', $langArray[0] );
 
       //event/version/name
       $this->appendRequiredElement($versionElement, 'name', $event['name'], XMLExport::USE_CDATA);
