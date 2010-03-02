@@ -64,7 +64,7 @@ class XMLExportEvent extends XMLExport
 
       //Set theh language
       $langArray = explode('-',$this->vendor['language']);
-      $versionElement->setAttribute( 'lang', $langArray[0] );
+      $versionElement->setAttribute( 'lang', $this->vendor['language'] );
 
       //event/version/name
       $this->appendRequiredElement($versionElement, 'name', $event['name'], XMLExport::USE_CDATA);
@@ -93,7 +93,7 @@ class XMLExportEvent extends XMLExport
       $this->appendNonRequiredElement($versionElement, 'price', $event['price'], XMLExport::USE_CDATA);
       
       //event/version/media
-      foreach( $event[ 'EventMedia' ] as $medium )
+      /*foreach( $event[ 'EventMedia' ] as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium['url'], XMLExport::USE_CDATA);
         if ( $mediaElement instanceof DOMElement )
@@ -101,7 +101,7 @@ class XMLExportEvent extends XMLExport
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }
+      }*/
 
       //event/version/property
       foreach( $event[ 'EventProperty' ] as $property )
