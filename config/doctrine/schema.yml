@@ -358,6 +358,7 @@ Vendor:
     language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)
     time_zone:                  {type: string(50), notnull: true}
     inernational_dial_code:     {type: string(5)}
+    airport_code:               {type: string(3), notnull: true}
   indexes:
     city_index:                 {fields: [city]}
     city_language_index:        {fields: [city, language]}
