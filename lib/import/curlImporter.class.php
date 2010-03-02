@@ -105,7 +105,7 @@ class curlImporter
    private function getFeed()
    {
        $rawData=$this->curlRequest();
-       $this->_xmlResponseRaw = str_replace('&', '&amp;', $rawData);
+       $this->_xmlResponseRaw = preg_replace( '/&(?!amp;)/', '&amp;', $rawData );
    }
 
 
