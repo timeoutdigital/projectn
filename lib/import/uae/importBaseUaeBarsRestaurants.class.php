@@ -1,14 +1,20 @@
 <?php
 ini_set('display_errors', 0);
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of importUaeBarsclass
+ * Base class for the UAE bars and restuarante.
  *
- * @author timmy
+ * This class sets all the generic fields and leaves it to its children to set any
+ * non-generic field.
+ *
+ * @package projectn
+ * @subpackage uae.import.lib
+ *
+ *
+ * @author Tim Bower <timbowler@timeout.com>
+ *
+ * @version 1.0.1
+ *
+ * @todo Create unit tests refs #116
  */
 class importBaseUaeBarsRestaurants{
 
