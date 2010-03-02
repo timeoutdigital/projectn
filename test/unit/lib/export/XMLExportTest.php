@@ -256,10 +256,28 @@ protected function setUp()
 
   public function testCleanHtml()
   {
-    $this->markTestIncomplete();
-//    $this->object->run();
-//    echo file_get_contents( $this->destination );
-//    $this->assertRegExp( '%<a href="http://www.foobar.com">foobar</a><b></b><b></b><i></i><i></i>%', file_get_contents( $this->destination ) );
+    //$this->markTestIncomplete();
+    $testExporter = new UnitTestXMLExportTestObject( $this->vendor2, $this->destination, 'Poi' );
+    $testExporter->run();
+
+    $xmlString = file_get_contents( $this->destination );
+    echo $xmlString;
+
+    $this->assertRegExp( '%<a href="http://www.foobar.com">foobar</a><b></b><b></b><i></i><i></i>&x’x%', $xmlString );
+  }
+}
+
+class UnitTestXMLExportTestObject extends XMLExport
+{
+  protected function mapDataToDOMDocument( $data, $domDocument )
+  {
+    $dirtyHtml = '<a href="http://www.foobar.com">foobar</a><strong></strong><b random="purposeful"></b><em></em><i></i><iframe></iframe>&amp;amp;x&#146;x';
+    $cleanHtml = $this->cleanHtml($dirtyHtml);
+    $cdata = $domDocument->createCDataSection( $cleanHtml );
+    $testTag = $domDocument->createElement('test');
+    $testTag->appendChild( $cdata );
+    $domDocument->appendChild( $testTag );
+    return $domDocument;
   }
 }
 ?>
