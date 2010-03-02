@@ -123,7 +123,7 @@ class XMLExportEvent extends XMLExport
       {
 
         $placeElement = $this->appendRequiredElement($showtimeElement, 'place');
-        $placeElement->setAttribute( 'place-id', $place['id'] );
+        $placeElement->setAttribute( 'place-id', $this->generateUID($place) );
 
         foreach( $place['EventOccurrence'] as $eventOccurrence )
         {
