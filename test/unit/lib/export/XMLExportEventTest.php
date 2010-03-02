@@ -369,7 +369,5 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );
     }
-
-
 }
 ?>
