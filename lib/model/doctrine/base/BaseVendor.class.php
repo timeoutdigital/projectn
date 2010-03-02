@@ -72,6 +72,20 @@ abstract class BaseVendor extends sfDoctrineRecord
              'length' => '3',
              ));
 
+
+        $this->index('city_index', array(
+             'fields' => 
+             array(
+              0 => 'city',
+             ),
+             ));
+        $this->index('city_language_index', array(
+             'fields' => 
+             array(
+              0 => 'city',
+              1 => 'language',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

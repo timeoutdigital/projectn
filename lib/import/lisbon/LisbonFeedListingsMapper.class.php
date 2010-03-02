@@ -28,7 +28,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
       $occurrence['vendor_event_occurrence_id'] = (int) $listingElement['musicid'];
       $occurrence['start'] = str_replace('T', ' ', (string) $listingElement['ListingDate'] );
-      $occurrence['utc_offset'] = 0;
+      $occurrence['utc_offset'] =  $this->vendor->getUtcOffset( $occurrence['start'] );
       $occurrence['event_id'] = $event['id'];
       
       $placeid = (int) $listingElement['placeid'];

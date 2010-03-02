@@ -92,7 +92,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '51.0000000',            $poi[ 'latitude' ] );
     $this->assertEquals( '-0.10000000',           $poi[ 'longitude' ] );
     $this->assertEquals( 'Dummy Email 1',         $poi[ 'email' ] );
-    $this->assertEquals( 'http://Dummy Url 1',    $poi[ 'url' ] );
+    $this->assertEquals( 'http://timeout.com',    $poi[ 'url' ] );
     $this->assertEquals( '+44 207 458 4569',     $poi[ 'phone' ] );
     $this->assertEquals( '',                      $poi[ 'phone2' ] );
     $this->assertEquals( '',                      $poi[ 'fax' ] );
@@ -136,7 +136,12 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $occurrence instanceof Doctrine_Record );
 
     $this->assertEquals( date( 'Y-m-d' ), $occurrence[ 'start' ]  );
-    $this->assertEquals( '0', $occurrence[ 'utc_offset' ]  );
+    $this->assertEquals( '+00:00', $occurrence[ 'utc_offset' ]  );
+
+    $occurrence2 = Doctrine::getTable( 'EventOccurrence' )->findOneById( 2 );
+
+    $this->assertTrue( $occurrence2 instanceof Doctrine_Record );
+    $this->assertEquals( '+01:00', $occurrence2[ 'utc_offset' ]  );
   }
 
 }
