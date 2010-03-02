@@ -114,36 +114,43 @@ Vendor:
     language:                 en-US
     time_zone:                America/New_York
     inernational_dial_code:   '+1'
+    airport_code:             'JFK'
   v2:
     city:                     chicago
     language:                 en-US
     time_zone:                America/Chicago
     inernational_dial_code:   '+1'
+    airport_code:             'ORD'
   v3:
     city:                     singapore
     language:                 en-US
     time_zone:                Asia/Singapore
     inernational_dial_code:   '+65'
+    airport_code:             'SIN'
   v4:
     city:                     london
     language:                 en-GB
     time_zone:                Europe/London
     inernational_dial_code:   '+44'
+    airport_code:             'LHR'
   v5:
     city:                     abu dhabi
     language:                 en-US
     time_zone:                Asia/Muscat
     inernational_dial_code:   '+971'
+    airport_code:             'AUH'
   v6:
     city:                     dubai
     language:                 en-US
     time_zone:                Asia/Dubai
     inernational_dial_code:   '+971'
+    airport_code:             'DXB'
   v7:
     city:                     lisbon
     language:                 pt
     time_zone:                Europe/Lisbon
     inernational_dial_code:   '+351'
+    airport_code:             'LIS'
 
 
 EventCategory:

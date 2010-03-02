@@ -7,6 +7,7 @@
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @author Tim Bowler <timbowler@timeout.com>
+ * @author Clarence Lee <clarencelee@timeout.com>
  *
  * @copyright Timeout Communications Ltd
  *
@@ -282,5 +283,20 @@ class stringTransform
     return $string;
   }
 
+  /**
+   * @param string $allowedTags
+   *
+   * see http://htmlpurifier.org/docs
+   */
+  static public function purifyHTML( $html, $allowedTags = 'p,b,a[href],i,br,pre' )
+  {
+    ProjectConfiguration::registerHTMLPurifier();
+
+    $config = HTMLPurifier_Config::createDefault();
+    $config->set('Cache.DefinitionImpl', null);
+    $config->set('HTML.Allowed', $allowedTags );
+    $htmlPurifier = new HTMLPurifier( $config );
+    return $htmlPurifier->purify( $html );
+  }
 }
 ?>
