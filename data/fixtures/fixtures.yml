@@ -138,12 +138,12 @@ Vendor:
     city:                     dubai
     language:                 en-US
     time_zone:                Asia/Dubai
-    inernational_dial_code:   +971
+    inernational_dial_code:   '+971'
   v7:
     city:                     lisbon
     language:                 pt
     time_zone:                Europe/Lisbon
-    inernational_dial_code:   +971
+    inernational_dial_code:   '+351'
 
 
 EventCategory:
