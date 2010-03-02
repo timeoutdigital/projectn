@@ -2,7 +2,7 @@
 /**
  * Import all the UAE movies
  *
- * @package project n
+ * @package projectn
  * @subpackage uae.import.lib
  *
  *

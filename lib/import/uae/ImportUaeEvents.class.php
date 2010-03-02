@@ -1,8 +1,16 @@
 <?php
 /**
- * Description of ImportUaeEventsclass
+ * Import all the UAE Events
  *
- * @author timmy
+ * @package projectn
+ * @subpackage uae.import.lib
+ *
+ *
+ * @author Tim Bower <timbowler@timeout.com>
+ *
+ * @version 1.0.1
+ *
+ * @todo Create unit tests
  */
 class ImportUaeEvents
 {
@@ -108,10 +116,19 @@ class ImportUaeEvents
         //Add properties
         $poiObj->AddProperty('timeout_link', (string) $xmlObj->{'landing_url'});
 
+
+
+
         //Set the vendors categories
-        $category = (string) $xmlObj->{'mobile-section'}['value'];
+        $category = trim((string) $xmlObj->{'mobile-section'}['value']);
+
+        
+        if($category)
+        {
+            $poiObj->addVendorCategory($category, $this->vendorObj['id']);
+        }
           
-        $poiObj->addVendorCategory($category, $this->vendorObj['id']);
+        
 
         $logChangedFields = $poiObj->getModified();
 
