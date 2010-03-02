@@ -143,6 +143,10 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
 
       $transform = stringTransform::formatPhoneNumber('+44 207 3577173', '+44');
       $this->assertEquals('+44 207 357 7173', $transform, 'UK number type 3');
+
+      $transform = stringTransform::formatPhoneNumber('04 334 4159', '+971');
+      $this->assertEquals('+971 4 334 4159', $transform, 'UAE number type 1');
+
      
   }
 
