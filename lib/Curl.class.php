@@ -3,7 +3,7 @@
  * Description
  *
  * @package projectn
- * @subpackage
+ * @subpackage lib
  *
  * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
