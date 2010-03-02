@@ -20,6 +20,7 @@ abstract class BaseVendorForm extends BaseFormDoctrine
       'language'               => new sfWidgetFormInputText(),
       'time_zone'              => new sfWidgetFormInputText(),
       'inernational_dial_code' => new sfWidgetFormInputText(),
+      'airport_code'           => new sfWidgetFormInputText(),
       'created_at'             => new sfWidgetFormDateTime(),
       'updated_at'             => new sfWidgetFormDateTime(),
     ));
@@ -29,7 +30,8 @@ abstract class BaseVendorForm extends BaseFormDoctrine
       'city'                   => new sfValidatorString(array('max_length' => 15)),
       'language'               => new sfValidatorString(array('max_length' => 10)),
       'time_zone'              => new sfValidatorString(array('max_length' => 50)),
-      'inernational_dial_code' => new sfValidatorString(array('max_length' => 3, 'required' => false)),
+      'inernational_dial_code' => new sfValidatorString(array('max_length' => 5, 'required' => false)),
+      'airport_code'           => new sfValidatorString(array('max_length' => 3)),
       'created_at'             => new sfValidatorDateTime(),
       'updated_at'             => new sfValidatorDateTime(),
     ));
