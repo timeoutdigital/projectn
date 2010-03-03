@@ -435,21 +435,20 @@ ExportLogger:
   columns:
     vendor_id:                  {type: integer, notnull: true}
     type:                       {type: enum, values: [movie, poi, event], notnull: true}
-    environment:                {type: string(10), notnull: true}
     total_time:                 {type: time, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
 
 
 #Export stats
-ExportLoggerItens:
+ExportLoggerItem:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
     export_logger_id:           {type: integer, notnull: true}
     item_id:                    {type: integer, notnull: true}
-    vendor_item_id:             {type: integer, notnull: true}
+    vendor_item_id:             {type: string(25), notnull: true}
   relations:
     ExportLogger:               {local: export_logger_id, foreign: id}
     # remark, the item_id ( and vendor_item_id) links to either poi, event or
