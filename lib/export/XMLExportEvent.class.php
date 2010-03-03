@@ -20,7 +20,8 @@ class XMLExportEvent extends XMLExport
    */
   public function __construct( $vendor, $destination )
   {
-    parent::__construct(  $vendor, $destination, 'Event', 'events.xsd' );
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-events-1.4.xsd';
+    parent::__construct(  $vendor, $destination, 'Event', $xsd );
   }
 
   /**

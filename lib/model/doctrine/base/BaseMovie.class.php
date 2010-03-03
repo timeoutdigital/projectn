@@ -15,7 +15,6 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property string $review
  * @property string $url
  * @property decimal $rating
- * @property string $age_rating
  * @property string $utf_offset
  * @property integer $poi_id
  * @property Vendor $Vendor
@@ -32,7 +31,6 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method string              getReview()          Returns the current record's "review" value
  * @method string              getUrl()             Returns the current record's "url" value
  * @method decimal             getRating()          Returns the current record's "rating" value
- * @method string              getAgeRating()       Returns the current record's "age_rating" value
  * @method string              getUtfOffset()       Returns the current record's "utf_offset" value
  * @method integer             getPoiId()           Returns the current record's "poi_id" value
  * @method Vendor              getVendor()          Returns the current record's "Vendor" value
@@ -48,7 +46,6 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Movie               setReview()          Sets the current record's "review" value
  * @method Movie               setUrl()             Sets the current record's "url" value
  * @method Movie               setRating()          Sets the current record's "rating" value
- * @method Movie               setAgeRating()       Sets the current record's "age_rating" value
  * @method Movie               setUtfOffset()       Sets the current record's "utf_offset" value
  * @method Movie               setPoiId()           Sets the current record's "poi_id" value
  * @method Movie               setVendor()          Sets the current record's "Vendor" value
@@ -105,11 +102,6 @@ abstract class BaseMovie extends sfDoctrineRecord
              'type' => 'decimal',
              'scale' => 1,
              'notnull' => false,
-             ));
-        $this->hasColumn('age_rating', 'string', 32, array(
-             'type' => 'string',
-             'notnull' => false,
-             'length' => '32',
              ));
         $this->hasColumn('utf_offset', 'string', 9, array(
              'type' => 'string',

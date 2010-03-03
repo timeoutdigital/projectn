@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('ExportLogger', 'project_n');
  * 
  * @property integer $vendor_id
  * @property enum $type
+<<<<<<< HEAD:lib/model/doctrine/base/BaseExportLogger.class.php
  * @property string $environment
  * @property time $total_time
  * @property Vendor $Vendor
@@ -26,6 +27,22 @@ Doctrine_Manager::getInstance()->bindComponent('ExportLogger', 'project_n');
  * @method ExportLogger        setTotalTime()         Sets the current record's "total_time" value
  * @method ExportLogger        setVendor()            Sets the current record's "Vendor" value
  * @method ExportLogger        setExportLoggerItens() Sets the current record's "ExportLoggerItens" collection
+=======
+ * @property time $total_time
+ * @property Vendor $Vendor
+ * @property Doctrine_Collection $ExportLoggerItem
+ * 
+ * @method integer             getVendorId()         Returns the current record's "vendor_id" value
+ * @method enum                getType()             Returns the current record's "type" value
+ * @method time                getTotalTime()        Returns the current record's "total_time" value
+ * @method Vendor              getVendor()           Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getExportLoggerItem() Returns the current record's "ExportLoggerItem" collection
+ * @method ExportLogger        setVendorId()         Sets the current record's "vendor_id" value
+ * @method ExportLogger        setType()             Sets the current record's "type" value
+ * @method ExportLogger        setTotalTime()        Sets the current record's "total_time" value
+ * @method ExportLogger        setVendor()           Sets the current record's "Vendor" value
+ * @method ExportLogger        setExportLoggerItem() Sets the current record's "ExportLoggerItem" collection
+>>>>>>> e6b61449c10006f3908b9410f7f38e2093bf28d2:lib/model/doctrine/base/BaseExportLogger.class.php
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -51,11 +68,14 @@ abstract class BaseExportLogger extends sfDoctrineRecord
              ),
              'notnull' => true,
              ));
+<<<<<<< HEAD:lib/model/doctrine/base/BaseExportLogger.class.php
         $this->hasColumn('environment', 'string', 10, array(
              'type' => 'string',
              'notnull' => true,
              'length' => '10',
              ));
+=======
+>>>>>>> e6b61449c10006f3908b9410f7f38e2093bf28d2:lib/model/doctrine/base/BaseExportLogger.class.php
         $this->hasColumn('total_time', 'time', null, array(
              'type' => 'time',
              'notnull' => true,
@@ -73,7 +93,11 @@ abstract class BaseExportLogger extends sfDoctrineRecord
              'local' => 'vendor_id',
              'foreign' => 'id'));
 
+<<<<<<< HEAD:lib/model/doctrine/base/BaseExportLogger.class.php
         $this->hasMany('ExportLoggerItens', array(
+=======
+        $this->hasMany('ExportLoggerItem', array(
+>>>>>>> e6b61449c10006f3908b9410f7f38e2093bf28d2:lib/model/doctrine/base/BaseExportLogger.class.php
              'local' => 'id',
              'foreign' => 'export_logger_id'));
 

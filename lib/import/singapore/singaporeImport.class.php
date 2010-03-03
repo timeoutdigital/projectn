@@ -242,16 +242,21 @@ class singaporeImport
                 $poi->setGeoEncodeLookUpString( $geoEncodeLookupString );
             }
 
-            $poi->addProperty( 'issue', (string) $poiObj->issue );
-            $poi->addProperty( 'critic_choice', (string) $poiObj->critic_choice );
-            $poi->addProperty( 'standfirst', (string) $poiObj->standfirst );
+            
+            $poi->addProperty( 'Critics_choice', (string) $poiObj->critic_choice );
+            $poi->addProperty( 'Timeout_link', (string) $poiObj->link );
 
-            if ( count( $poiObj->tags ) == 1 )
+            /**
+             * The commented out properties are not ented becuase they are not generic in relation to the other feeds
+             */
+            //$poi->addProperty( 'standfirst', (string) $poiObj->standfirst );
+            //$poi->addProperty( 'issue', (string) $poiObj->issue );
+            /**if ( count( $poiObj->tags ) == 1 )
             {
                 foreach( $poiObj->tags->children() as $tag) {
                     $poi->addProperty( 'tag', (string) $tag );
                 }
-            }
+            }**/
 
             //add vendor categories
             $categoriesArray = array();
