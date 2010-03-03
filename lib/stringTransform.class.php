@@ -145,7 +145,7 @@ class stringTransform
         default:          return null;
 
     }
-
+    //var_dump(trim($transformedSubject));
      return $internationalCode. ' ' .trim($transformedSubject);
    
   }

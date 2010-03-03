@@ -1,3 +1,5 @@
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-events-1.4.xsd
+<<<<<<< .merge_file_eiLXlw
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
@@ -145,3 +147,157 @@
 	</xsd:element>
 
 </xsd:schema>
+=======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-events-1.4.xsd
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:simpleType name="UrlType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="http://.*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="MimeTypeType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="(image|audio|video)/.*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RatingValueType">
+		<xsd:restriction base="xsd:float">
+			<xsd:minInclusive value="1.0"/>
+			<xsd:maxInclusive value="5.0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="LanguageType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 639-1 codes</xsd:documentation>
+		</xsd:annotation>	
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="(aa|ab|ae|af|ak|am|an|ar|as|av|ay|az|ba|be|bg|bh|bi|bm|bn|bo|br|bs|ca|ce|ch|co|cr|cs|cu|cv|cy|da|de|dv|dz|ee|el|en|eo|es|et|eu|fa|ff|fi|fj|fo|fr|fy|ga|gd|gl|gn|gu|gv|ha|he|hi|ho|hr|ht|hu|hy|hz|ia|id|ie|ig|ii|ik|io|is|it|iu|ja|jv|ka|kg|ki|kj|kk|kl|km|kn|ko|kr|ks|ku|kv|kw|ky|la|lb|lg|li|ln|lo|lt|lu|lv|mg|mh|mi|mk|ml|mn|mr|ms|mt|my|na|nb|nd|ne|ng|nl|nn|no|nr|nv|ny|oc|oj|om|or|os|pa|pi|pl|ps|pt|qu|rm|rn|ro|ru|rw|sa|sc|sd|se|sg|si|sk|sl|sm|sn|so|sq|sr|ss|st|su|sv|sw|ta|te|tg|th|ti|tk|tl|tn|to|tr|ts|tt|tw|ty|ug|uk|ur|uz|ve|vi|vo|wa|wo|xh|yi|yo|za|zh|zu)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	
+	<xsd:simpleType name="EventCategoryType">
+		<xsd:annotation>
+			<xsd:documentation>Nokia Premium Event Categories</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">		
+			<xsd:enumeration value="movies"/>
+			<xsd:enumeration value="concerts"/>
+			<xsd:enumeration value="theater"/>
+			<xsd:enumeration value="festivals-fairs"/>
+			<xsd:enumeration value="clubbing-nightlife"/>
+			<xsd:enumeration value="business-tech"/>
+			<xsd:enumeration value="sport"/>
+			<xsd:enumeration value="family"/>
+			<xsd:enumeration value="tours"/>
+			<xsd:enumeration value="community"/>
+			<xsd:enumeration value="educational"/>
+			<xsd:enumeration value="dance"/>			
+			<xsd:enumeration value="arts-museums"/>
+			<xsd:enumeration value="other"/>			
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- Start defining complex types -->
+	<xsd:element name="vendor-events">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="event" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="vendor" type="xsd:normalizedString" use="required"/>	<!-- this is the vendor name/id -->
+			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/> <!-- timestamp -->			
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="event">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="name"/>	<!-- original event name -->
+				<xsd:element name="category" type="EventCategoryType" maxOccurs="unbounded" />				
+				<xsd:element ref="version" minOccurs="1" maxOccurs="unbounded"/>				
+				<xsd:element ref="showtimes" />
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:normalizedString" use="required"/>			<!-- unique vendor event ID -->
+			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/> <!-- timestamp -->
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="version">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="name"/>				
+				<xsd:element name="vendor-category" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="short-description" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="description" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="booking_url" type="UrlType" minOccurs="0"/>
+				<xsd:element name="url" type="UrlType" minOccurs="0"/>
+				<xsd:element name="price" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="rating" type="RatingValueType" minOccurs="0"/>
+				<xsd:element ref="media" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="lang" type="LanguageType" use="required"/>	<!-- specifies the language content, use ISO 3166-1 alpha-2 -->
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="showtimes">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="place" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="place">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="occurrence" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="place-id" type="xsd:normalizedString" use="required"/>	<!-- vendor place/venue id, same thing as vpid in vendor-pois-xx.xsd -->			
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="name" type="xsd:normalizedString"/>
+	<!-- use this node to specify available images -->
+	<xsd:element name="media">
+		<xsd:complexType mixed="true">
+			<xsd:attribute name="mime-type" type="MimeTypeType" use="required"/>
+			<xsd:attribute name="caption" type="xsd:normalizedString" use="optional"/>
+			<xsd:attribute name="author" type="xsd:normalizedString" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="property" >
+		<xsd:complexType mixed="true">
+			<xsd:attribute name="key" type="xsd:normalizedString" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="occurrence">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="booking_url" type="UrlType" minOccurs="0"/>
+				<xsd:element ref="time" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="time">
+		<xsd:complexType>
+			<xsd:sequence>
+				<!--date and time in ISO 8601 -->
+				<xsd:element name="start_date" type="xsd:date"/>
+				<xsd:element name="end_date" type="xsd:date" minOccurs="0"/>
+				<xsd:element name="event_time" type="xsd:time" minOccurs="0"/>  
+				<xsd:element name="end_time" type="xsd:time" minOccurs="0"/>
+				<xsd:element name="utc_offset" type="xsd:normalizedString"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-events-1.4.xsd
+>>>>>>> .merge_file_RyxiKs
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-events-1.4.xsd

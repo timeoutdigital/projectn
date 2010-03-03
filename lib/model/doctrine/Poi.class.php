@@ -58,9 +58,17 @@ class Poi extends BasePoi
 
   public function addVendorCategory( $name, $vendorId )
   {
+ 
     if ( is_array( $name ) )
     {
       $name = implode( ' | ', $name );
+    }
+    else
+    {
+        if(strlen($name) == 0)
+        {
+            return false;
+        }
     }
 
     $vendorPoiCategoryObj = Doctrine::getTable( 'VendorPoiCategory' )->findOneByNameAndVendorId( $name, $vendorId );

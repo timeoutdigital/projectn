@@ -260,7 +260,7 @@ Movie:
     plot:                       {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
     url:                        {type: string(1024), notnull: false}
-    rating:                     {type: float, notnull: false}
+    rating:                     {type: decimal, scale: 1, notnull: false}
     age_rating:                 {type: string(32), notnull: false}
     utf_offset:                 {type: string(9), notnull: true}
     poi_id:                     {type: integer, notnull: false}
@@ -393,7 +393,7 @@ ImportLoggerChange:
   relations:
     ImportLogger:                {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerChanges}
 
- #Logg All import issues
+ #Log All import issues
 ImportLoggerError:
   connection: project_n
   actAs:
@@ -423,3 +423,40 @@ Media:
     content_length:       {type: integer, notnull: false}
   indexes:
     ident_index:          {fields: [ident]}
+
+
+
+
+#Export stats
+ExportLogger:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    vendor_id:                  {type: integer, notnull: true}
+    type:                       {type: enum, values: [movie, poi, event], notnull: true}
+    environment:                {type: string(10), notnull: true}
+    total_time:                 {type: time, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+
+
+#Export stats
+ExportLoggerItens:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    export_logger_id:           {type: integer, notnull: true}
+    item_id:                    {type: integer, notnull: true}
+    vendor_item_id:             {type: integer, notnull: true}
+  relations:
+    ExportLogger:               {local: export_logger_id, foreign: id}
+    # remark, the item_id ( and vendor_item_id) links to either poi, event or
+    # movies, however we dont want to create an fk as if the parent is deleted,
+    # we still want to keep the child
+  indexes:
+    item_id_index:              {fields: [item_id]}
+    vendor_item_id_index:       {fields: [vendor_item_id]}
+
+

@@ -1,3 +1,5 @@
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-pois-1.9.xsd
+<<<<<<< .merge_file_oGGS6D
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<!-- Define simple types -->
@@ -294,3 +296,306 @@
 		</xsd:complexType>
 	</xsd:element>
 </xsd:schema>
+=======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-pois-1.9.xsd
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- Define simple types -->
+	<xsd:simpleType name="UrlType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="http://.*"/>			
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CountryType">
+		<xsd:annotation>
+			<xsd:documentation>Country code in ISO 3166-1 alpha-3</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="(ABW|AFG|AGO|AIA|ALA|ALB|AND|ANT|ARE|ARG|ARM|ASM|ATA|ATF|ATG|AUS|AUT|AZE|BDI|BEL|BEN|BFA|BGD|BGR|BHR|BHS|BIH|BLM|BLR|BLZ|BMU|BOL|BRA|BRB|BRN|BTN|BVT|BWA|CAF|CAN|CCK|CHE|CHL|CHN|CIV|CMR|COD|COG|COK|COL|COM|CPV|CRI|CUB|CXR|CYM|CYP|CZE|DEU|DJI|DMA|DNK|DOM|DZA|ECU|EGY|ERI|ESH|ESP|EST|ETH|FIN|FJI|FLK|FRA|FRO|FSM|GAB|GBR|GEO|GGY|GHA|GIB|GIN|GLP|GMB|GNB|GNQ|GRC|GRD|GRL|GTM|GUF|GUM|GUY|HKG|HMD|HND|HRV|HTI|HUN|IDN|IMN|IND|IOT|IRL|IRN|IRQ|ISL|ISR|ITA|JAM|JEY|JOR|JPN|KAZ|KEN|KGZ|KHM|KIR|KNA|PRK|KOR|KWT|LAO|LBN|LBR|LBY|LCA|LIE|LKA|LSO|LTU|LUX|LVA|MAC|MAF|MAR|MCO|MDA|MDG|MDV|MEX|MHL|MKD|MLI|MLT|MMR|MNE|MNG|MNP|MOZ|MRT|MSR|MTQ|MUS|MWI|MYS|MYT|NAM|NCL|NER|NFK|NGA|NIC|NIU|NLD|NOR|NPL|NRU|NZL|OMN|PAK|PAN|PCN|PER|PHL|PLW|PNG|POL|PRI|PRT|PRY|PSE|PYF|QAT|REU|ROU|RUS|RWA|SAU|SCG|SDN|SEN|SGP|SGS|SHN|SJM|SLB|SLE|SLV|SMR|SOM|SPM|SRB|STP|SUR|SVK|SVN|SWE|SWZ|SYC|SYR|TCA|TCD|TGO|THA|TJK|TKL|TKM|TLS|TMP|TON|TTO|TUN|TUR|TUV|TWN|TZA|UGA|UKR|UMI|URY|USA|UZB|VAT|VCT|VEN|VGB|VIR|VNM|VUT|WLF|WSM|YEM|ZAF|ZMB|ZWE)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Geographical coordinates in Deciaml Degrees format -->
+	<xsd:simpleType name="LatitudeType">
+		<xsd:restriction base="xsd:double">
+			<xsd:minInclusive value="-90.0"/>
+			<xsd:maxInclusive value="90.0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="LongitudeType">
+		<xsd:restriction base="xsd:double">
+			<xsd:minInclusive value="-180.0"/>
+			<xsd:maxInclusive value="180.0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="HotelStars">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="7"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="UserRatingValueType">
+		<xsd:restriction base="xsd:float">
+			<xsd:minInclusive value="1.0"/>
+			<xsd:maxInclusive value="5.0"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="MimeTypeType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="(image|audio|video)/.*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="LanguageType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 639-1 codes</xsd:documentation>
+		</xsd:annotation>	
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="(aa|ab|ae|af|ak|am|an|ar|as|av|ay|az|ba|be|bg|bh|bi|bm|bn|bo|br|bs|ca|ce|ch|co|cr|cs|cu|cv|cy|da|de|dv|dz|ee|el|en|eo|es|et|eu|fa|ff|fi|fj|fo|fr|fy|ga|gd|gl|gn|gu|gv|ha|he|hi|ho|hr|ht|hu|hy|hz|ia|id|ie|ig|ii|ik|io|is|it|iu|ja|jv|ka|kg|ki|kj|kk|kl|km|kn|ko|kr|ks|ku|kv|kw|ky|la|lb|lg|li|ln|lo|lt|lu|lv|mg|mh|mi|mk|ml|mn|mr|ms|mt|my|na|nb|nd|ne|ng|nl|nn|no|nr|nv|ny|oc|oj|om|or|os|pa|pi|pl|ps|pt|qu|rm|rn|ro|ru|rw|sa|sc|sd|se|sg|si|sk|sl|sm|sn|so|sq|sr|ss|st|su|sv|sw|ta|te|tg|th|ti|tk|tl|tn|to|tr|ts|tt|tw|ty|ug|uk|ur|uz|ve|vi|vo|wa|wo|xh|yi|yo|za|zh|zu)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="POICategoryType">
+		<xsd:annotation>
+			<xsd:documentation>Nokia Premium POI Categories</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">		
+			<xsd:enumeration value="eat-drink"/>
+			<xsd:enumeration value="restaurant"/>
+			<xsd:enumeration value="snacks-fast-food"/>
+			<xsd:enumeration value="bar-pub"/>
+			<xsd:enumeration value="coffee-tea"/>
+			<xsd:enumeration value="going-out"/>
+			<xsd:enumeration value="dance-night-club"/>
+			<xsd:enumeration value="cinema"/>
+			<xsd:enumeration value="theatre-music-culture"/>
+			<xsd:enumeration value="casino"/>
+			<xsd:enumeration value="sights-museums"/>
+			<xsd:enumeration value="landmark-attraction"/>
+			<xsd:enumeration value="museum"/>
+			<xsd:enumeration value="religious-place"/>
+			<xsd:enumeration value="transport"/>
+			<xsd:enumeration value="airport"/>
+			<xsd:enumeration value="railway-station"/>
+			<xsd:enumeration value="public-transport"/>
+			<xsd:enumeration value="ferry-terminal"/>
+			<xsd:enumeration value="taxi-stand"/>
+			<xsd:enumeration value="accommodation"/>
+			<xsd:enumeration value="hotel"/>
+			<xsd:enumeration value="motel"/>
+			<xsd:enumeration value="hostel"/>
+			<xsd:enumeration value="camping"/>
+			<xsd:enumeration value="shopping"/>
+			<xsd:enumeration value="kiosk-convenience-store"/>
+			<xsd:enumeration value="mall"/>
+			<xsd:enumeration value="department-store"/>
+			<xsd:enumeration value="food-drink"/>
+			<xsd:enumeration value="pharmacy"/>
+			<xsd:enumeration value="electronics"/>
+			<xsd:enumeration value="hardware-house-garden-shop"/>
+			<xsd:enumeration value="bookshop"/>
+			<xsd:enumeration value="clothing-accessories-shop"/>
+			<xsd:enumeration value="sport-outdoor-shop"/>
+			<xsd:enumeration value="shop"/>
+			<xsd:enumeration value="business-industry"/>
+			<xsd:enumeration value="atm-bank-exchange"/>
+			<xsd:enumeration value="police-emergency"/>
+			<xsd:enumeration value="post-office"/>
+			<xsd:enumeration value="tourist-information"/>
+			<xsd:enumeration value="petrol-station"/>
+			<xsd:enumeration value="car-rental"/>
+			<xsd:enumeration value="car-dealer-repair"/>
+			<xsd:enumeration value="travel-agency"/>
+			<xsd:enumeration value="communication-media"/>
+			<xsd:enumeration value="service"/>
+			<xsd:enumeration value="facilities"/>
+			<xsd:enumeration value="hospital-health-care-facility"/>
+			<xsd:enumeration value="government-community-facility"/>
+			<xsd:enumeration value="education-facility"/>
+			<xsd:enumeration value="library"/>
+			<xsd:enumeration value="fair-convention-facility"/>
+			<xsd:enumeration value="parking-facility"/>
+			<xsd:enumeration value="sports-facility-venue"/>
+			<xsd:enumeration value="facility"/>
+			<xsd:enumeration value="leisure-outdoor"/>
+			<xsd:enumeration value="recreation"/>
+			<xsd:enumeration value="amusement-holiday-park"/>			
+			<xsd:enumeration value="administrative-region"/>
+			<xsd:enumeration value="city-town-village"/>			
+			<xsd:enumeration value="outdoor-area-complex"/>
+			<xsd:enumeration value="building"/>
+			<xsd:enumeration value="body-of-water"/>
+			<xsd:enumeration value="mountain-hill"/>
+			<xsd:enumeration value="undersea-feature"/>
+			<xsd:enumeration value="forest-heath-vegetation"/>						
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="UserRatingType">
+		<xsd:annotation>
+			<xsd:documentation>User Rating Type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="overall"/>
+			<xsd:enumeration value="food"/>
+			<xsd:enumeration value="ambiance"/>
+			<xsd:enumeration value="service"/>
+			<xsd:enumeration value="price"/>
+			<xsd:enumeration value="decor"/>
+			<xsd:enumeration value="rooms"/>
+			<xsd:enumeration value="facilities"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	
+	
+	<!-- Start defining complex types -->
+	<xsd:element name="vendor-pois">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="entry" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="vendor" type="xsd:normalizedString" use="required"/>	<!-- this is the vendor name/id -->
+			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/> <!-- timestamp -->
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="entry">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="geo-position"/>
+				<xsd:element ref="name"/>				
+				<xsd:element ref="category" maxOccurs="unbounded"/>
+				<xsd:element ref="address"/>
+				<xsd:element ref="contact"/>
+				<xsd:element ref="version" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="vpid" type="xsd:normalizedString" use="required"/>		<!-- unique and persistent vendor poi ID -->
+			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/> <!-- timestamp -->
+			<xsd:attribute name="lang" type="LanguageType" use="required"/> 
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="geo-position">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="longitude" type="LongitudeType"/>
+				<xsd:element name="latitude" type="LatitudeType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="name" type="xsd:normalizedString"/>
+	<xsd:element name="category" type="POICategoryType"/>	<!-- FPC category set, provided by Nokia -->
+	<xsd:element name="address">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="street" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="houseno" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="zip" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="city" type="xsd:normalizedString"/>
+				<xsd:element name="district" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="extension" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="country" type="CountryType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="contact">
+		<xsd:complexType>
+			<xsd:sequence>
+				<!-- use ITU E.123 standard notation for international numbers: http://en.wikipedia.org/wiki/E.123 -->				
+				<xsd:element name="phone" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="fax" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="phone2" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="email" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="url" type="UrlType" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="version">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="name"/>
+				<xsd:element name="alternative-name" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>				
+				<xsd:element ref="address"/>
+				<xsd:element ref="content" minOccurs="0"/>
+				<xsd:element ref="user-content" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="lang" type="LanguageType" use="required"/>	
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="content">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="vendor-category" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="short-description" minOccurs="0"/>
+				<xsd:element ref="description" minOccurs="0"/>
+				<xsd:element name="public-transport" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="price" minOccurs="0"/>
+				<xsd:element name="openingtimes" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element name="stars" type="HotelStars" minOccurs="0"/>
+				<xsd:element ref="rating" minOccurs="0"/>
+				<xsd:element ref="media" minOccurs="0" maxOccurs="unbounded"/>		
+				<xsd:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>			
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="user-content">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element ref="user-info"/>
+				<xsd:element name="subject" type="xsd:normalizedString" minOccurs="0"/>
+				<xsd:element ref="description" />
+				<xsd:element ref="user-rating" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="vendor-ucid" type="xsd:normalizedString" use="required"/>
+			<xsd:attribute name="date" type="xsd:dateTime" use="required"/>		<!-- specifies when did the user created that content -->
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="user-info">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="displayname" type="xsd:normalizedString" />
+				<xsd:element name="reputation" type="xsd:int" minOccurs="0" />
+				<xsd:element name="total-comments" type="xsd:int" minOccurs="0" />
+				<xsd:element name="comments-relevance" type="xsd:int" minOccurs="0" />
+				<xsd:element name="specialty" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="vendor-category" type="xsd:normalizedString"/>
+	<xsd:element name="description" type="xsd:string"/>
+	<xsd:element name="short-description" type="xsd:string"/>
+	<xsd:element name="price" type="xsd:normalizedString"/>
+	<xsd:element name="rating" type="xsd:normalizedString"/>
+	
+	<xsd:element name="user-rating" >
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="UserRatingValueType">
+					<xsd:attribute name="type" type="UserRatingType" use="required"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	
+	<!-- use this node to specify available images -->
+	<xsd:element name="media">
+		<xsd:complexType mixed="true">
+			<xsd:attribute name="mime-type" type="MimeTypeType" use="required"/>
+			<xsd:attribute name="caption" type="xsd:normalizedString" use="optional"/>
+			<xsd:attribute name="author" type="xsd:normalizedString" use="optional"/>
+			<xsd:attribute name="copyright" type="xsd:normalizedString" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="property" >
+		<xsd:complexType mixed="true">
+			<xsd:attribute name="key" type="xsd:normalizedString" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-pois-1.9.xsd
+>>>>>>> .merge_file_PkyewA
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-pois-1.9.xsd

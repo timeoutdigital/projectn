@@ -1,4 +1,10 @@
-
+all:
+  project_n:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://root:outtime99@localhost/project_n;unix_socket=/var/run/mysqld/mysqld.sock
+      attributes:
+        use_native_enum:  true
 
 
 prod:
@@ -15,6 +21,7 @@ prod:
       dsn:                mysql://timeout:65dali32@192.9.215.250/searchlight_london
       attributes:
         use_native_enum:  true
+
 
 dev:
   searchlight_london:
@@ -37,13 +44,5 @@ test:
     class:                sfDoctrineDatabase
     param:
       dsn:                sqlite::memory:
-      attributes:
-        use_native_enum:  true
-
-all:
-  project_n:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                mysql://root:outtime99@localhost/project_n;unix_socket=/var/run/mysqld/mysqld.sock
       attributes:
         use_native_enum:  true
