@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="projectn" default="build" basedir=".">
-  <target name="build" depends="checkout, clear-cache, php-documentor, php-codesniffer, php-pmd, php-cpd,phpunit, git-add, git-commit, checkout, git-push "/>
+  <target name="build" depends="checkout, pull, clear-cache, php-documentor, php-codesniffer, php-pmd, php-cpd,phpunit, git-add, git-commit, checkout, git-push "/>
   <!-- Delete all the log files -->
   <target name="init">
     <delete>
@@ -8,8 +8,15 @@
     </delete>
   </target>
 
-  <!-- Pull our project out of git -->
+  <!-- Remove the test XML files -->
   <target name="checkout">
+    <exec executable="git" dir="${basedir}/source">
+      <arg line="git checkout test/unit/export/" />
+    </exec>
+  </target>
+
+  <!-- Pull our project out of git -->
+  <target name="pull">
     <exec executable="git" dir="${basedir}/source">
       <arg line="pull" />
     </exec>
