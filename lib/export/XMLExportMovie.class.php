@@ -67,22 +67,9 @@ class XMLExportMovie extends XMLExport
       $cleanedReview = $this->cleanHtml( $movie['review'] );
       $this->appendNonRequiredElement($versionElement, 'review', $cleanedReview, XMLExport::USE_CDATA);
 
-      //movie/version/url
-      $this->appendNonRequiredElement($versionElement, 'url', $movie['url'], XMLExport::USE_CDATA);
-
 
       //movie/version/rating
       $this->appendNonRequiredElement($versionElement, 'rating', $movie['rating'] );
-
-      //movie/showtimes
-      $showTimesElement = $this->appendRequiredElement($movieElement, 'showtimes' );
-
-      //movie/showtimes/place
-      $placeElement = $this->appendRequiredElement($showTimesElement, 'place' );
-      $placeElement->setAttribute( 'place-id', $movie['Poi']['id'] );
-
-      //movie/showtimes/place/age_rating
-      $this->appendNonRequiredElement($placeElement, 'age_rating', $movie['age_rating'] );
 
       //movie/showtimes/place/time
       //implementation on hold

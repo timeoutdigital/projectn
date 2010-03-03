@@ -81,7 +81,7 @@ abstract class XMLExport
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
-    //$this->validateAgainst( $xml );
+    $this->validateAgainst( $xml );
   }
 
   /**

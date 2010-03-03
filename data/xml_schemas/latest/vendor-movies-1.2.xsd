@@ -38,7 +38,7 @@
 			<xsd:sequence>
 				<xsd:element ref="name"/>	<!-- original movie name -->
 				<xsd:element ref="version" minOccurs="0" maxOccurs="unbounded"/>				
-				<xsd:element ref="showtimes" />
+				<!-- <xsd:element ref="showtimes" /> -->
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:normalizedString" use="required"/>	<!-- unique vendor movie ID -->			
 			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/>     <!-- timestamp -->
