@@ -44,7 +44,7 @@ class ImportUaeRestaurants extends importBaseUaeBarsRestaurants {
 
         foreach($cuisineArray as $cuisine)
         {
-            $poiObj->addProperty('cuisine',  trim($cuisine));
+            $poiObj->addProperty('Cuisine',  trim($cuisine));
         }
 
        

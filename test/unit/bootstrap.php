@@ -186,6 +186,7 @@ class VendorFixture
       'city' => 'test city',
       'language' => 'test lang',
       'time_zone' => 'Europe/London',
+      'airport_code' => 'LHR',
       'inernational_dial_code' => '+44'
     );
   }

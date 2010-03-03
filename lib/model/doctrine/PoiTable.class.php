@@ -38,8 +38,8 @@ class PoiTable extends Doctrine_Table
     public function findAllValidByVendorId( $vendorId )
     {
       return $this->createQuery( 'poi' )
-        ->addwhere( 'poi.longitude IS NOT NULL' )
-        ->addwhere( 'poi.latitude IS NOT NULL' )
+        ->addWhere( 'poi.longitude IS NOT NULL' )
+        ->addWhere( 'poi.latitude IS NOT NULL' )
         ->addWhere( 'poi.vendor_id = ?', $vendorId  )
         ->execute()
         ;

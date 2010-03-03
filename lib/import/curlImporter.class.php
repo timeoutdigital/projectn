@@ -105,7 +105,9 @@ class curlImporter
    private function getFeed()
    {
        $rawData=$this->curlRequest();
-       $this->_xmlResponseRaw = preg_replace( '/&(?!amp;)/', '&amp;', $rawData );
+
+       $ignore = '(amp|lt|gt|quot|apos|#[0-9]+);';
+       $this->_xmlResponseRaw = preg_replace( "/&(?!$ignore)/", '&amp;', $rawData );
    }
 
 

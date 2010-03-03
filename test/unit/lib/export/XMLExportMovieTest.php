@@ -187,8 +187,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     //movie/version/genre
     $genreElements = $versionElement->getElementsByTagName( 'genre' );
-    $this->assertEquals( 'comedy', $genreElements->item(0)->nodeValue );
-    $this->assertEquals( 'horror', $genreElements->item(1)->nodeValue );
+    $this->assertEquals( 'comedy, horror', $genreElements->item(0)->nodeValue );
 
     //movie/version/plot
     $this->assertEquals( 'test movie plot', $versionElement->getElementsByTagName( 'plot' )->item(0)->nodeValue );
@@ -196,25 +195,8 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     //movie/version/review
     $this->assertEquals( 'test movie review', $versionElement->getElementsByTagName( 'review' )->item(0)->nodeValue );
 
-    //movie/version/url
-    $this->assertEquals( 'http://movies.co.uk', $versionElement->getElementsByTagName( 'url' )->item(0)->nodeValue );
-
     //movie/version/rating
     $this->assertEquals( '1.1', $versionElement->getElementsByTagName( 'rating' )->item(0)->nodeValue );
-
-    //movie/showtimes
-    $showtimesElement = $movieElement->getElementsByTagName( 'showtimes' )->item(0);
-
-    //movie/showtimes/place
-    $place = $showtimesElement->getElementsByTagName( 'place' )->item(0);
-    $this->assertEquals( '1', $place->getAttribute( 'place-id' ) );
-
-    //test the second movie as well
-    $placeId = $this->xpath->query( '/vendor-movies/movie[2]/showtimes/place' )->item(0);
-    $this->assertEquals('2', $placeId->getAttribute( 'place-id' ) );
-
-    //movie/showtimes/place
-    $this->assertEquals( '', $place->getElementsByTagName( 'age_rating' )->item(0)->nodeValue );
   }
 
   /**
@@ -224,7 +206,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   {
     //$properties = $this->domDocument->movie[0]->version->property;
     $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/property' );
-    $this->assertEquals( 'age_rating', $propertyElements->item(0)->getAttribute( 'key' ) );
+    $this->assertEquals( 'Age_rating', $propertyElements->item(0)->getAttribute( 'key' ) );
     $this->assertEquals( 'oap', $propertyElements->item(0)->nodeValue );
     //$this->assertEquals( 'movie key 1', $propertyElements->item(1)->getAttribute( 'key' ) );
     //$this->assertEquals( 'movie value 1', $propertyElements->item(1)->nodeValue );

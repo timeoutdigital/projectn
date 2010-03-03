@@ -41,7 +41,7 @@ class ImportUaeBars extends importBaseUaeBarsRestaurants {
         //Add the cuisine property
         if((string) $xmlObj->{'link'})
         {
-            $poiObj->addProperty('timeout-link',  (string) $xmlObj->{'link'});
+            $poiObj->addProperty('Timeout_link',  (string) $xmlObj->{'link'});
         }
 
         $logChangedFields = $poiObj->getModified();
