@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property string $plot
  * @property string $review
  * @property string $url
- * @property float $rating
+ * @property decimal $rating
  * @property string $age_rating
  * @property string $utf_offset
  * @property integer $poi_id
@@ -31,7 +31,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method string              getPlot()            Returns the current record's "plot" value
  * @method string              getReview()          Returns the current record's "review" value
  * @method string              getUrl()             Returns the current record's "url" value
- * @method float               getRating()          Returns the current record's "rating" value
+ * @method decimal             getRating()          Returns the current record's "rating" value
  * @method string              getAgeRating()       Returns the current record's "age_rating" value
  * @method string              getUtfOffset()       Returns the current record's "utf_offset" value
  * @method integer             getPoiId()           Returns the current record's "poi_id" value
@@ -101,8 +101,9 @@ abstract class BaseMovie extends sfDoctrineRecord
              'notnull' => false,
              'length' => '1024',
              ));
-        $this->hasColumn('rating', 'float', null, array(
-             'type' => 'float',
+        $this->hasColumn('rating', 'decimal', null, array(
+             'type' => 'decimal',
+             'scale' => 1,
              'notnull' => false,
              ));
         $this->hasColumn('age_rating', 'string', 32, array(

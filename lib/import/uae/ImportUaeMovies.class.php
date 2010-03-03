@@ -99,6 +99,19 @@ class ImportUaeMovies {
         //Add the movie Genres
         $this->addGenres($tagsArray, $movieObj);
 
+        /**
+         * Add all the other properties
+         */
+        $movieObj->addProperty('Director', (string) $xmlObj->{'director'});
+        $movieObj->addProperty('Cast', (string) $xmlObj->{'cast'});
+        $movieObj->addProperty('Runtime', (string) $xmlObj->{'duration'});
+        $movieObj->addProperty('Timeout_link', (string) $xmlObj->{'landing_url'});
+
+        $website = stringTransform::formatUrl((string) $xmlObj->{'website'});
+        $movieObj->addProperty('Website', $website);
+
+
+        
         //Log changed fields if any?
         $logChangedFields = $movieObj->getModified();
 

@@ -83,7 +83,7 @@ class XMLExportMovie extends XMLExport
       $placeElement->setAttribute( 'place-id', $movie['Poi']['id'] );
 
       //movie/showtimes/place/age_rating
-      $this->appendNonRequiredElement($placeElement, 'age_rating', $movie['age_rating'] );
+      $this->appendNonRequiredElement($placeElement, 'Age_rating', $movie['age_rating'] );
 
       //movie/showtimes/place/time
       //implementation on hold

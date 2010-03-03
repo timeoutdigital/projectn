@@ -16,14 +16,14 @@ abstract class BaseLinkingMovieGenreForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'movie_genre_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MovieGenre'), 'add_empty' => false)),
-      'movie_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Movie'), 'add_empty' => false)),
+      'movie_genre_id' => new sfWidgetFormInputText(),
+      'movie_id'       => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'id'             => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'movie_genre_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('MovieGenre'))),
-      'movie_id'       => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Movie'))),
+      'movie_genre_id' => new sfValidatorInteger(),
+      'movie_id'       => new sfValidatorInteger(),
     ));
 
     $this->widgetSchema->setNameFormat('linking_movie_genre[%s]');

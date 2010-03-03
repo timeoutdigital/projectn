@@ -30,7 +30,7 @@ class Movie extends BaseMovie
 
      if( $this['age_rating'] )
      {
-       $this->addProperty( 'age_rating', $this['age_rating'] );
+       $this->addProperty( 'Age_rating', $this['age_rating'] );
        $this['age_rating'] = null;
      }
 
