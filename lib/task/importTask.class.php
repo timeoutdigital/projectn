@@ -192,21 +192,27 @@ class importTask extends sfBaseTask
 
             $logger = new logImport($vendorObj, 'poi' );
 
+            echo "Starting Singapore Pois import \n";
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
+
+            echo "Getting Singapore poi-event feed";
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/venues/', '', $parametersArray, 'GET', true );
             $xmlObj = $curlImporterObj->getXml();
 
+            echo "Importing Singapores Pois \n\n";
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
-
             $this->object->insertPois( $xmlObj );
 
             $logger->save();
 
             $logger = new logImport($vendorObj, 'event' );
 
+            echo "Starting Singapore Events import \n";
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
+
+             echo "Getting reading Singapore poi-event feed";
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
             $xmlObj = $curlImporterObj->getXml();
 
