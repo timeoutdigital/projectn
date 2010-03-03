@@ -138,6 +138,10 @@ class curlImporter
          $xmlString = preg_replace( '/^' . preg_quote( '<?xml version="1.0" encoding="ISO-8859-1"?>' ) . '/', '<?xml version="1.0" encoding="UTF-8"?>', $xmlString);
      }
 
+     // removes certain unwanted characters
+     // @todo, replace this regular expression to replace ONLY non UTF-8 characters
+     $xmlString = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $xmlString);
+
      $this->_simpleXml = simplexml_load_string( $xmlString );
 
      if ( !$this->_simpleXml )
