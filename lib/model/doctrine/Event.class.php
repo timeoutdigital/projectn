@@ -57,6 +57,12 @@ class Event extends BaseEvent
     if ( is_array( $name ) )
     {
       $name = implode( ' | ', $name );
+    }else
+    {
+        if(strlen($name) == 0)
+        {
+            return false;
+        }
     }
 
     $vendorEventCategoryObj = Doctrine::getTable( 'VendorEventCategory' )->findOneByNameAndVendorId( $name, $vendorId );
