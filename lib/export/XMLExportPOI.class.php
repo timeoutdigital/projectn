@@ -18,7 +18,8 @@ class XMLExportPOI extends XMLExport
    */
   public function __construct( $vendor, $destination )
   {
-    parent::__construct(  $vendor, $destination, 'Poi', 'poi.xsd' );
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-pois-1.9.xsd';
+    parent::__construct(  $vendor, $destination, 'Poi', $xsd );
   }
 
   protected function getData()
