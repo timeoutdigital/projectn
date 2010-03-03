@@ -96,7 +96,7 @@ class XMLExportPOI extends XMLExport
 
       $this->appendRequiredElement($versionElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA);
 
-      $this->appendNonRequiredElement($versionElement, 'alternative-name', $poi['poi_name'], XMLExport::USE_CDATA);
+      //$this->appendNonRequiredElement($versionElement, 'alternative-name', $poi['poi_name'], XMLExport::USE_CDATA);
       
       $addressElement = $this->appendRequiredElement($versionElement, 'address');
 
