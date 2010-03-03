@@ -31,6 +31,13 @@ abstract class BaseMovieGenre extends sfDoctrineRecord
              'length' => '255',
              ));
 
+
+        $this->index('genre_index', array(
+             'fields' => 
+             array(
+              0 => 'genre',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

@@ -45,13 +45,18 @@ class XMLExportPOI extends XMLExport
     foreach( $data as $poi )
     {
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
-      $entryElement->setAttribute( 'vpid', 'vpid_' . $poi->getVendorPoiId() );
-      $entryElement->setAttribute( 'lang', $poi->getLocalLanguage() );
+      $entryElement->setAttribute( 'vpid', $this->generateUID($poi) );
+      $langArray = explode('-',$this->vendor['language']);
+      $entryElement->setAttribute( 'lang', $langArray[0] );
       $entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
-      $geoPositionElement = $entryElement->appendChild( new DOMElement( 'geo-position' ) );
-      $this->appendRequiredElement( $geoPositionElement, 'longitude', $poi['longitude'] );
-      $this->appendRequiredElement( $geoPositionElement, 'latitude', $poi['latitude'] );
+      //@todo if statement is not a proper fix. it should be fixed properly at import stage asap
+      if( ($poi['longitude'] > 0 || $poi['longitude'] < 0) && ( $poi['latitude'] > 0 || $poi['latitude'] < 0 ) )
+      {
+        $geoPositionElement = $entryElement->appendChild( new DOMElement( 'geo-position' ) );
+        $this->appendRequiredElement( $geoPositionElement, 'longitude', $poi['longitude'] );
+        $this->appendRequiredElement( $geoPositionElement, 'latitude', $poi['latitude'] );
+      }
 
       $this->appendRequiredElement( $entryElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA );
 
@@ -117,7 +122,7 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       //event/version/media
-      foreach( $poi[ 'PoiMedia' ] as $medium )
+      /*foreach( $poi[ 'PoiMedia' ] as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium['url'], XMLExport::USE_CDATA);
         if ( $mediaElement instanceof DOMElement )
@@ -125,7 +130,7 @@ class XMLExportPOI extends XMLExport
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }
+      }*/
 
       foreach( $poi[ 'PoiProperty' ] as $property )
       {

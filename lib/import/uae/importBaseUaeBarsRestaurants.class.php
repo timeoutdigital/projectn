@@ -1,13 +1,20 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+ini_set('display_errors', 0);
 /**
- * Description of importUaeBarsclass
+ * Base class for the UAE bars and restuarante.
  *
- * @author timmy
+ * This class sets all the generic fields and leaves it to its children to set any
+ * non-generic field.
+ *
+ * @package projectn
+ * @subpackage uae.import.lib
+ *
+ *
+ * @author Tim Bower <timbowler@timeout.com>
+ *
+ * @version 1.0.1
+ *
+ * @todo Create unit tests refs #116
  */
 class importBaseUaeBarsRestaurants{
 
@@ -131,7 +138,7 @@ class importBaseUaeBarsRestaurants{
 
         $poiObj['poi_name'] = (string) $xmlObj->{'title'};
         $poiObj['vendor_poi_id'] = (int) $xmlObj->{'id'};
-        $poiObj['url'] = (string) $xmlObj->{'link'};
+        $poiObj['url'] = (string) $xmlObj->{'website'};
         $poiObj['phone'] = (string) $xmlObj->{'telephone'};
         $poiObj['description'] = (string) $xmlObj->{'description'};
         $poiObj['review_date'] = (string) $xmlObj->{'pubDate'};
@@ -140,22 +147,23 @@ class importBaseUaeBarsRestaurants{
         $poiObj['openingtimes'] = (string) $xmlObj->{'timings'};
         $poiObj['Vendor'] = $this->vendorObj;
         $poiObj['country'] = 'ARE';
-        
+
+     
         $addressArray = explode(',', (string) $xmlObj->{'location'});
 
         //Address is either street, city or street, suburb, city
         if(count($addressArray) == 3)
         {
-             $poiObj['street'] =$addressArray[0];
-             $poiObj['district'] =$addressArray[1];
-             $poiObj['city'] =$addressArray[2];
-             $geoEncodeLookUpString = $poiObj['poi_name'] .  ', '. $poiObj['city'] .', '. $poiObj['country']  ;
+             $poiObj['street'] = trim($addressArray[0]);
+             $poiObj['district'] =trim($addressArray[1]);
+             $poiObj['city'] = trim(ucwords($addressArray[2]));
+             $geoEncodeLookUpString = $poiObj['poi_name'] .  ', '. $poiObj['street'] . ', ' . $poiObj['district'] . ', '.$poiObj['city'] .', UAE' ;
         }
         else
         {
-             $poiObj['street'] =$addressArray[0];
-             $poiObj['city'] =$addressArray[1];
-             $geoEncodeLookUpString = $poiObj['poi_name'] . ', '.$poiObj['city']. ', '.$poiObj['country']  ;
+             $poiObj['street'] = trim(ucfirst($addressArray[0]));
+             $poiObj['city'] = trim(ucfirst($addressArray[1]));
+             $geoEncodeLookUpString = $poiObj['poi_name'] . ', '.$poiObj['city']. ', UAE'  ;
         }
 
         $poiObj->setGeoEncodeLookUpString($geoEncodeLookUpString);

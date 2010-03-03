@@ -75,7 +75,7 @@ class geoEncode
   public function getGeoCode()
   {
      $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $this->apiKey;
-
+     //echo "\n".$geoCode . "\n";
 
      //Setup curl
      $ch = curl_init();
@@ -114,7 +114,7 @@ class geoEncode
 
      //Set invidual co-ords
      $this->setCoOrdinates($dataArray);
-
+    // print_r($dataArray);
      return $this;
   }
 

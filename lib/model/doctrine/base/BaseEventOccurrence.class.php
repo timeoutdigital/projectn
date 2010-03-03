@@ -78,6 +78,19 @@ abstract class BaseEventOccurrence extends sfDoctrineRecord
              'notnull' => true,
              ));
 
+
+        $this->index('vendor_event_occurrence_id_index', array(
+             'fields' => 
+             array(
+              0 => 'vendor_event_occurrence_id',
+             ),
+             ));
+        $this->index('start_index', array(
+             'fields' => 
+             array(
+              0 => 'start',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

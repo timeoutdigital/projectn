@@ -244,7 +244,7 @@ class importTask extends sfBaseTask
         $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj     = new curlImporter();
         $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-02-18', 'to' => '2010-03-01' );
+        $parameters  = array( 'from' => '2010-02-26', 'to' => '2010-03-08' );
         $method      = 'POST';
         $loggerObj =   new logImport( $vendorObj );
         
@@ -309,7 +309,7 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi': //$this->importDubaiBars($vendorObj);
-                      $this->importDubaiRestaurants();
+                      $this->importUaePois();
 
             break;
 
@@ -357,7 +357,7 @@ class importTask extends sfBaseTask
    * Import Chicago's Events
    *
    *
-   * @param Vendor $vendoObj
+   * @param Vendor $vendoObj./
    * @param FTPClient $ftpClientObj
    *
    */
@@ -452,13 +452,19 @@ class importTask extends sfBaseTask
   {
         try
         {
-
+            echo "Chicago ED \n\n";
+            echo "Downloading toc_ed.xml \n";
             $fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
+            
+            echo "Processing xml \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
-            //$processXmlObj = new processNyBcXml( '/var/workspace/projectn/import/chicago/toc_ed.xml' );
+
+            echo "Importing ED \n";
 
             $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj);
             $importObj->import();
+
+            echo "Finished";
 
         }
         catch ( Exception $e )
@@ -488,11 +494,13 @@ class importTask extends sfBaseTask
   {
        try
         {
+          echo "Importing NY Events \n";
           echo "Starting download \n\n";
           $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
 
+          echo "Processing XML \n";
           $processXmlObj = new processNyXml( $fileNameString );
-          //$processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
+
           echo "XML Parsed \n\n";
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
           $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
@@ -536,10 +544,15 @@ class importTask extends sfBaseTask
      {
         try
         {
+            echo "Importing NY BC \n";
+            echo "Downloading XML \n";
             //Download and process XML
             $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
+
+            echo 'Processing XML \n';
             $processXmlObj = new processNyBcXml( $fileNameString );
 
+            echo "Importing \n\n";
             //Import the bars
             $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::BAR_CLUB );
             $importBcEd->import();
@@ -557,14 +570,17 @@ class importTask extends sfBaseTask
         try
         {
 
-            //Download and process XML
-           // $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
-            $fileNameString = "/var/workspace/projectn/import/ny/tony_ed.xml";
-            echo 'processing';
+            echo "Importing NY ED \n";
+            echo "Downloading XML \n";
+            $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
+
+            echo 'Processing XML \n';
             $processXmlObj = new processNyBcXml( $fileNameString );
+
             echo "\n\n Importing \n\n";
             //Import the bars
             $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::RESTAURANT );
+
             $importBcEd->import();
         }
         catch ( Exception $e )
@@ -581,36 +597,79 @@ class importTask extends sfBaseTask
    *    Dubai
    *
    * *************************************************************************/
-    private function importDubaiBars($vendorObj)
+    private function importUaePois()
      {
         try
         {
+            echo "Starting to import Dubai Bars  \n";
+            echo "Downloading Dubai bars Feed \n";
+            $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+
             $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
-            
+            $feed->exec();
+
+            echo "Validating Dubai Bars XML \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
-           
+            
+            
+            echo "Importing Dubai Bars \n";
             $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
             $importDubaiBars->importPois();
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
-        }
 
-     }
 
-     private function importDubaiRestaurants($vendorObj)
-     {
-        try
-        {
+
+
+            echo "Starting to Import Dubhai Restaurants \n";
+            echo "Downloading Dubai restaurants Feed \n";
             $feed = new Curl('http://www.timeoutdubai.com/nokia/restaurants');
+            $feed->exec();
 
+
+            echo "Validating Dubai restaurants XML \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
+            echo "Importing Dubai Restaurants \n";
             $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
             $importDubaiRestaurants->importPois();
+
+
+            /**
+             * Abu Dhabi's imports
+             */
+
+            echo "Starting to import Abu Dhab bars \n";
+            echo "Downloading Abu Dhabis bars Feed \n";
+            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+
+            $feed = new Curl('http://www.timeoutabudhabi.com/nokia/bars');
+            $feed->exec();
+
+            echo "Validating Abu Dhabis Bars XML \n";
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+            echo "Importing Abu Dhabi's Bars \n";
+            $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
+            $importDubaiBars->importPois();
+
+
+
+            echo "Starting to Import Abu Dhab Resaurants \n";
+            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+
+            $feed = new Curl('http://www.timeoutabudhabi.com/nokia/restaurants');
+            $feed->exec();
+
+            echo "Validating Abu Dhabis Resaurants XML \n";
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+             echo "Importing Abu Dhabi's Resaurants \n";
+            $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
+            $importDubaiBars->importPois();
+
         }
         catch ( Exception $e )
         {
@@ -618,20 +677,42 @@ class importTask extends sfBaseTask
         }
 
      }
-
 
       private function importUaeEvents()
      {
         try
         {
+
+            echo "Starting Import of Dubai Events \n";
             $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
 
+            echo "Downloading Dubai Events feed \n";
             $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
             $feed->exec();
+
+            echo "Validating Dubai Events feed \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
 
+             echo "Importint Dubai Events \n";
+            $importUaeEventsObj = new ImportUaeEvents($xmlFeedObj, $vendorObj);
+            $importUaeEventsObj->import();
 
+
+            echo " \n\n\n\n\n\n\n ";
+
+            echo "Starting to import Abu Dhab Events \n";
+            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+
+            echo "Downloading Abu Dhab Events feed \n";
+            $feed = new Curl('http://www.timeoutabudhabi.com/nokia/latestevents');
+            $feed->exec();
+
+            echo "Validating Abu Dhab Events feed \n";
+            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
+            $xmlFeedObj = $xmlObj->getXmlFeed();
+
+            echo "Importing Abu Dhab Events \n";
             $importUaeEventsObj = new ImportUaeEvents($xmlFeedObj, $vendorObj);
             $importUaeEventsObj->import();
         }

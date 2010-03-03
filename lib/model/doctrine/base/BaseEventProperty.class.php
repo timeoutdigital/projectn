@@ -46,6 +46,13 @@ abstract class BaseEventProperty extends sfDoctrineRecord
              'notnull' => true,
              ));
 
+
+        $this->index('lookup_index', array(
+             'fields' => 
+             array(
+              0 => 'lookup',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

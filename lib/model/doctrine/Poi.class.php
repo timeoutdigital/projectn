@@ -89,7 +89,7 @@ class Poi extends BasePoi
      
      if(strlen($this['phone']) > 0)
      {
-      $this['phone'] = stringTransform::formatPhoneNumber( $this['phone'], $this['Vendor']['inernational_dial_code'] );
+      $this['phone'] = stringTransform::formatPhoneNumber( trim($this['phone']), $this['Vendor']['inernational_dial_code'] );
      }
 
      if( $this['url'] != '')
@@ -114,8 +114,8 @@ class Poi extends BasePoi
 
        if( $geoEncoder->getAccuracy() < 5 )
        {
-         $this['longitude'] = null;
-         $this['latitude'] = null;
+         //$this['longitude'] = null;
+         //$this['latitude'] = null;
          //throw new GeoCodeException('Geo encode accuracy below 5' );
        }
      }

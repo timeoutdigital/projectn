@@ -115,6 +115,13 @@ abstract class BaseEvent extends sfDoctrineRecord
              'notnull' => true,
              ));
 
+
+        $this->index('vendor_event_id_index', array(
+             'fields' => 
+             array(
+              0 => 'vendor_event_id',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

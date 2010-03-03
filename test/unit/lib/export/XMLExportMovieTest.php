@@ -42,6 +42,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $vendor['language'] = 'en-GB';
     $vendor['time_zone'] = 'Europe/London';
     $vendor['inernational_dial_code'] = '+44';
+    $vendor['airport_code'] = 'XXX';
     $vendor->save();
     $this->vendor = $vendor;
 
@@ -170,7 +171,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movieElement = $this->xpath->query( '/vendor-movies/movie' )->item(0);
 
     //movie@attributes
-    $this->assertEquals( '1111', $movieElement->getAttribute( 'id' ) );
+    $this->assertEquals( 'XXX000000000000000000000000000001', $movieElement->getAttribute( 'id' ) );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
 
     //movie/name
@@ -179,7 +180,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $versionElement = $movieElement->getElementsByTagName( 'version' )->item(0);//$this->domDocument->movie[0]->version;
 
     //movie/version
-    $this->assertEquals( 'en-GB', $versionElement->getAttribute( 'lang' ) );
+    $this->assertEquals( 'en', $versionElement->getAttribute( 'lang' ) );
 
     //movie/version/name
     $this->assertEquals( 'test movie name', $versionElement->getElementsByTagName( 'name' )->item(0)->nodeValue );//(string) $versionTag->name );
@@ -234,6 +235,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
+      $this->markTestSkipped('temporarily removed media tags');
       $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/media' );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );

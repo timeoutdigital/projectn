@@ -68,6 +68,13 @@ abstract class BaseMedia extends sfDoctrineRecord
              'notnull' => false,
              ));
 
+
+        $this->index('ident_index', array(
+             'fields' => 
+             array(
+              0 => 'ident',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

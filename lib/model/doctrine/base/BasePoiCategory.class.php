@@ -43,6 +43,13 @@ abstract class BasePoiCategory extends sfDoctrineRecord
              'length' => '50',
              ));
 
+
+        $this->index('name_index', array(
+             'fields' => 
+             array(
+              0 => 'name',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

@@ -81,7 +81,15 @@ class FTPClient
     
     $this->setTestMode( $testMode );
     $this->setVendorImportPath( $targetPath );
-    $this->connection = ftp_connect( $host, $port, $timeout );
+   
+    if(!$this->connection = ftp_connect( $host, $port, $timeout ))
+    {
+        throw new Exception('FTP Server timeout');
+    }
+
+
+
+
 
     if( !empty( $username ) && !empty( $password ) )
     {

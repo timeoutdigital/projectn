@@ -40,7 +40,7 @@ class XMLExportMovie extends XMLExport
     foreach( $movieCollection as $movie )
     {
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
-      $movieElement->setAttribute( 'id', $movie['vendor_movie_id'] );
+      $movieElement->setAttribute( 'id', $this->generateUID( $movie ) );
       $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
@@ -48,7 +48,8 @@ class XMLExportMovie extends XMLExport
 
       //movie/version
       $versionElement = $this->appendRequiredElement($movieElement, 'version');
-      $versionElement->setAttribute( 'lang', $this->vendor['language'] );
+      $langArray = explode('-',$this->vendor['language']);
+      $versionElement->setAttribute( 'lang', $langArray[0] );
 
       //movie/version/name
       $this->appendRequiredElement($versionElement, 'name',  $movie['name'], XMLExport::USE_CDATA);
@@ -88,7 +89,7 @@ class XMLExportMovie extends XMLExport
       //implementation on hold
 
       //movie/version/media
-      foreach( $movie[ 'MovieMedia' ] as $medium )
+      /*foreach( $movie[ 'MovieMedia' ] as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium['url'], XMLExport::USE_CDATA);
         if ( $mediaElement instanceof DOMElement )
@@ -96,7 +97,7 @@ class XMLExportMovie extends XMLExport
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }
+      }*/
       
       foreach( $movie['MovieProperty'] as $property )
       {

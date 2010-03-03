@@ -72,7 +72,9 @@ EOF;
         break;
     }
 
-    $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
+    //$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
+    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language']);
+
     return new $exportClass( $vendor, $options['destination'] );
   }
 }

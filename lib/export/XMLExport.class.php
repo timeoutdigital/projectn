@@ -46,11 +46,6 @@ abstract class XMLExport
   protected $xsdPath;
 
   /**
-   * @var HTMLPurifier
-   */
-  private $htmlPurifier;
-
-  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
@@ -75,13 +70,6 @@ abstract class XMLExport
     {
       $this->xsdPath = sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . $xsdFilename;
     }
-
-    ProjectConfiguration::registerHTMLPurifier();
-    
-    $config = HTMLPurifier_Config::createDefault();
-    $config->set('Cache.DefinitionImpl', null);
-    $config->set('HTML.Allowed', 'p,b,a[href],i,br,pre');
-    $this->htmlPurifier = new HTMLPurifier( $config );
   }
 
   /**
@@ -93,7 +81,7 @@ abstract class XMLExport
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
-    $this->validateAgainst( $xml );
+    //$this->validateAgainst( $xml ); these schemas are out of date! //@todo update schemas!
   }
 
   /**
@@ -223,7 +211,20 @@ abstract class XMLExport
     //remove consecutively repeated br tags
     $html = preg_replace(':(<br\s*/>)+:', '<br />', $html);
 
-    return $this->htmlPurifier->purify( $html );
+    $html = html_entity_decode( $html, ENT_NOQUOTES, 'UTF-8' );
+    $html = html_entity_decode( $html, ENT_NOQUOTES, 'UTF-8' );
+
+    return stringTransform::purifyHTML( $html );
+  }
+
+  /**
+   * @param Doctrine_Record $record
+   * 
+   * @todo consider putting this in its own class
+   */
+  protected function generateUID( Doctrine_Record $record )
+  {
+    return $this->vendor['airport_code'] . str_pad( $record['id'], 30, 0, STR_PAD_LEFT );
   }
 
 }

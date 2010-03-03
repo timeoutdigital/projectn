@@ -41,7 +41,7 @@ class XMLExportEvent extends XMLExport
     {
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
-      $eventElement->setAttribute( 'id', $event['vendor_event_id'] );
+      $eventElement->setAttribute( 'id', $this->generateUID( $event ) );
       $eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //event/name
@@ -93,7 +93,7 @@ class XMLExportEvent extends XMLExport
       $this->appendNonRequiredElement($versionElement, 'price', $event['price'], XMLExport::USE_CDATA);
       
       //event/version/media
-      foreach( $event[ 'EventMedia' ] as $medium )
+      /*foreach( $event[ 'EventMedia' ] as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium['url'], XMLExport::USE_CDATA);
         if ( $mediaElement instanceof DOMElement )
@@ -101,7 +101,7 @@ class XMLExportEvent extends XMLExport
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }
+      }*/
 
       //event/version/property
       foreach( $event[ 'EventProperty' ] as $property )
@@ -123,7 +123,7 @@ class XMLExportEvent extends XMLExport
       {
 
         $placeElement = $this->appendRequiredElement($showtimeElement, 'place');
-        $placeElement->setAttribute( 'place-id', $place['id'] );
+        $placeElement->setAttribute( 'place-id', $this->generateUID($place) );
 
         foreach( $place['EventOccurrence'] as $eventOccurrence )
         {
@@ -154,8 +154,13 @@ class XMLExportEvent extends XMLExport
           $endDate = date('Y-m-d', $endTimeStamp);
 
           $this->appendRequiredElement($timeElement, 'start_date', $startDate);
+
+          if( $startTime != '00:00:00' )//@todo fix this properly?
           $this->appendRequiredElement($timeElement, 'event_time', $startTime);
+
+          if( $endTime != '00:00:00' )//@todo fix this properly?
           $this->appendNonRequiredElement($timeElement, 'end_time', $endTime);
+
           $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
 
           //$eventOccurrence->free();

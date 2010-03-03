@@ -120,6 +120,13 @@ abstract class BaseMovie extends sfDoctrineRecord
              'notnull' => false,
              ));
 
+
+        $this->index('vendor_movie_id_index', array(
+             'fields' => 
+             array(
+              0 => 'vendor_movie_id',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');

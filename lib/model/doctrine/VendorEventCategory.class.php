@@ -21,6 +21,9 @@ class VendorEventCategory extends BaseVendorEventCategory
   /*public function postSave( $obj )
   {
 
+    //possibly save just the links? not sure
+
+
     foreach ( $this['Events'] as $poi )
     {
 

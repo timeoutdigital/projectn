@@ -78,7 +78,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 		$zone = new DateTimeZone( 'Europe/London' );
 		$from = date( 'Y-m-d' );
-		$to   = date_add( new DateTime( ), new DateInterval( 'P2M' ) )->format( 'Y-m-d' );
+		$to   = date_add( new DateTime( ), new DateInterval( 'P2Y' ) )->format( 'Y-m-d' );
 
 		$query = Doctrine_Query::create( )->select( 'o.*, v.*, e.*' )
 		                                  ->from( 'SLLOccurrence o' )
@@ -192,8 +192,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$occurrence[ 'end' ]   = $item[ 'date_end' ];
 
 				// calc offset
-				$timeOffset = $zone->getOffset( new DateTime( $item[ 'date_start' ], $zone ) );
-				$occurrence[ 'utc_offset' ] = $timeOffset / 3600;
+				$occurrence[ 'utc_offset' ] = $this->vendor->getUtcOffset( $item[ 'date_start' ] );
 
         $this->notifyImporter( $occurrence );
 
