@@ -452,7 +452,7 @@ class singaporeImport
             $movieObj[ 'url' ] = (string) $movieXml->link;
             //$movieObj[ 'rating' ] = ;
 
-            $movieObj[ 'age_rating' ] = $this->extractSingaporeAgeRatingCode( (string) $movieXml->certificate );
+           
 
             $movieObj[ 'utf_offset' ] = $this->_vendor->getUtcOffset();
             //$movieObj[ 'poi_id' ] = ;
@@ -469,7 +469,9 @@ class singaporeImport
             if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'Certificate', (string) $movieXml->certificate );
             //if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
             if ( (string) $movieXml->link != '' ) $movieObj->addProperty( 'Timeout_link', (string) $movieXml->link );
-
+            
+            $movieObj->addProperty( 'Age_rating', $this->extractSingaporeAgeRatingCode( (string) $movieXml->certificate));
+           
             //genres
             if ( (string) $movieXml->category != '' ) $movieObj->addGenre( (string) $movieXml->category );
 
