@@ -187,8 +187,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     //movie/version/genre
     $genreElements = $versionElement->getElementsByTagName( 'genre' );
-    $this->assertEquals( 'comedy', $genreElements->item(0)->nodeValue );
-    $this->assertEquals( 'horror', $genreElements->item(1)->nodeValue );
+    $this->assertEquals( 'comedy, horror', $genreElements->item(0)->nodeValue );
 
     //movie/version/plot
     $this->assertEquals( 'test movie plot', $versionElement->getElementsByTagName( 'plot' )->item(0)->nodeValue );

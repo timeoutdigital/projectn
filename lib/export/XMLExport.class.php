@@ -68,7 +68,7 @@ abstract class XMLExport
 
     if( !is_null( $xsdFilename ) )
     {
-      $this->xsdPath = sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . $xsdFilename;
+      $this->xsdPath = $xsdFilename;
     }
   }
 
@@ -81,7 +81,7 @@ abstract class XMLExport
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
-    //$this->validateAgainst( $xml ); these schemas are out of date! //@todo update schemas!
+    //$this->validateAgainst( $xml );
   }
 
   /**

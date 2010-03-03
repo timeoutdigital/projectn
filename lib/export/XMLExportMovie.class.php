@@ -15,7 +15,8 @@ class XMLExportMovie extends XMLExport
 {
   public function __construct( $vendor, $destination )
   {
-    parent::__construct($vendor, $destination, 'Movie',  'movies.xsd' );
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-movies-1.2.xsd';
+    parent::__construct($vendor, $destination, 'Movie', $xsd );
   }
 
   /**
@@ -55,10 +56,8 @@ class XMLExportMovie extends XMLExport
       $this->appendRequiredElement($versionElement, 'name',  $movie['name'], XMLExport::USE_CDATA);
 
       //movie/version/genre
-      foreach( $movie['MovieGenres'] as $genre )
-      {
-        $this->appendRequiredElement($versionElement, 'genre', $genre['genre'], XMLExport::USE_CDATA);
-      }
+      $genreString = $this->extractGenre($movie);
+      $this->appendNonRequiredElement($versionElement, 'genre', $genreString, XMLExport::USE_CDATA);
 
       //movie/version/plot
       $cleanedPlot = $this->cleanHtml( $movie['plot'] );
@@ -108,6 +107,22 @@ class XMLExportMovie extends XMLExport
     }
 
     return $domDocument;
+  }
+
+  /**
+   * @param
+   * @return string comma separated string of genres
+   */
+  private function extractGenre( Doctrine_Record $movie )
+  {
+    $genreArray = array();
+    foreach( $movie['MovieGenres'] as $genre )
+    {
+      $genreArray[] = $genre['genre'];
+    }
+
+    $genreString = stringTransform::concatNonBlankStrings(', ', $genreArray );
+    return $genreString;
   }
 }
 ?>
