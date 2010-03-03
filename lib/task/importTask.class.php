@@ -220,16 +220,21 @@ class importTask extends sfBaseTask
           case 'movie':
             //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
             $logger = new logImport($vendorObj, 'movie' );
-          
+
+            echo "Connecting to Singapore Movie Feed \n";
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/movies/', '', $parametersArray, 'GET', true );
+
+            echo "Importing Singapore Feed \n";
             $xmlObj = $curlImporterObj->getXml();
 
+            echo "Importing Movie Data";
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
             $this->object->insertMovies( $xmlObj );
 
             $logger->save();
+            echo "Impored Singapores Movies \n";
             
           break;
 
