@@ -19,6 +19,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @property Doctrine_Collection $Movie
  * @property Doctrine_Collection $User
  * @property Doctrine_Collection $ImportLogger
+ * @property Doctrine_Collection $ExportLogger
  * 
  * @method string              getCity()                   Returns the current record's "city" value
  * @method string              getLanguage()               Returns the current record's "language" value
@@ -32,6 +33,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method Doctrine_Collection getMovie()                  Returns the current record's "Movie" collection
  * @method Doctrine_Collection getUser()                   Returns the current record's "User" collection
  * @method Doctrine_Collection getImportLogger()           Returns the current record's "ImportLogger" collection
+ * @method Doctrine_Collection getExportLogger()           Returns the current record's "ExportLogger" collection
  * @method Vendor              setCity()                   Sets the current record's "city" value
  * @method Vendor              setLanguage()               Sets the current record's "language" value
  * @method Vendor              setTimeZone()               Sets the current record's "time_zone" value
@@ -44,6 +46,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method Vendor              setMovie()                  Sets the current record's "Movie" collection
  * @method Vendor              setUser()                   Sets the current record's "User" collection
  * @method Vendor              setImportLogger()           Sets the current record's "ImportLogger" collection
+ * @method Vendor              setExportLogger()           Sets the current record's "ExportLogger" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -127,6 +130,10 @@ abstract class BaseVendor extends sfDoctrineRecord
              'foreign' => 'vendor_id'));
 
         $this->hasMany('ImportLogger', array(
+             'local' => 'id',
+             'foreign' => 'vendor_id'));
+
+        $this->hasMany('ExportLogger', array(
              'local' => 'id',
              'foreign' => 'vendor_id'));
 
