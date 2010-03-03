@@ -47,6 +47,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $vendor['language'] = 'en-GB';
         $vendor['time_zone'] = 'Europe/London';
         $vendor['inernational_dial_code'] = '+44';
+        $vendor['airport_code'] = 'XXX';
         $vendor->save();
 
         $this->vendor2 = new Vendor();
@@ -54,6 +55,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->vendor2['language'] = 'en-GB';
         $this->vendor2['time_zone'] = 'Europe/London';
         $this->vendor2['inernational_dial_code'] = '+44';
+        $this->vendor2['airport_code'] = 'XXX';
         $this->vendor2->save();
 
         $category = new PoiCategory();
@@ -166,7 +168,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //entry
       $this->assertEquals( 2, count( $this->xml->entry ) );
 
-      $prefix = 'vpid_';
+      $prefix = 'XXX';
       $this->assertStringStartsWith( $prefix, (string) $this->xml->entry[0]['vpid'] );
 
       $vpid = (string) $this->xml->entry[0]['vpid'];
@@ -311,19 +313,10 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
+      $this->markTestSkipped( 'temporarily removed media' );
       $properties = $this->xml->entry[0]->version->content->media;
       $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
       $this->assertEquals( 'url', (string) $properties[0] );
-    }
-
-    /**
-     *
-     */
-    public function testValidatesAgainSchema()
-    {
-      $this->domDocument = new DOMDocument();
-      $this->domDocument->load( $this->destination );
-      $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'poi.xsd' ) );
     }
 }
 ?>

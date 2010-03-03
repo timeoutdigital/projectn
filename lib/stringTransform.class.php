@@ -116,7 +116,6 @@ class stringTransform
 
     $transformedSubject = '';
 
-
     switch(strlen($subject))
     {
         case '7':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2", $subject);
@@ -146,8 +145,7 @@ class stringTransform
         default:          return null;
 
     }
-
-
+    //var_dump(trim($transformedSubject));
      return $internationalCode. ' ' .trim($transformedSubject);
    
   }

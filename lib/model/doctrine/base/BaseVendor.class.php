@@ -11,6 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @property string $language
  * @property string $time_zone
  * @property string $inernational_dial_code
+ * @property string $airport_code
  * @property Doctrine_Collection $Poi
  * @property Doctrine_Collection $VendorPoiCategory
  * @property Doctrine_Collection $Event
@@ -23,6 +24,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method string              getLanguage()               Returns the current record's "language" value
  * @method string              getTimeZone()               Returns the current record's "time_zone" value
  * @method string              getInernationalDialCode()   Returns the current record's "inernational_dial_code" value
+ * @method string              getAirportCode()            Returns the current record's "airport_code" value
  * @method Doctrine_Collection getPoi()                    Returns the current record's "Poi" collection
  * @method Doctrine_Collection getVendorPoiCategory()      Returns the current record's "VendorPoiCategory" collection
  * @method Doctrine_Collection getEvent()                  Returns the current record's "Event" collection
@@ -34,6 +36,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method Vendor              setLanguage()               Sets the current record's "language" value
  * @method Vendor              setTimeZone()               Sets the current record's "time_zone" value
  * @method Vendor              setInernationalDialCode()   Sets the current record's "inernational_dial_code" value
+ * @method Vendor              setAirportCode()            Sets the current record's "airport_code" value
  * @method Vendor              setPoi()                    Sets the current record's "Poi" collection
  * @method Vendor              setVendorPoiCategory()      Sets the current record's "VendorPoiCategory" collection
  * @method Vendor              setEvent()                  Sets the current record's "Event" collection
@@ -67,8 +70,13 @@ abstract class BaseVendor extends sfDoctrineRecord
              'notnull' => true,
              'length' => '50',
              ));
-        $this->hasColumn('inernational_dial_code', 'string', 3, array(
+        $this->hasColumn('inernational_dial_code', 'string', 5, array(
              'type' => 'string',
+             'length' => '5',
+             ));
+        $this->hasColumn('airport_code', 'string', 3, array(
+             'type' => 'string',
+             'notnull' => true,
              'length' => '3',
              ));
 

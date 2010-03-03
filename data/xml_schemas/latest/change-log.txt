@@ -1,0 +1,151 @@
+<<<<<<< HEAD:data/xml_schemas/latest/change-log.txt
+<<<<<<< .merge_file_jftrmk
+1 March 2010
+- vendor-*.doc: added information about schema and content validation
+- destination_guide.xsd, destination_sample.xml: initial revision
+
+
+2 February 2010
+- vendor-pois-1.9.xsd : 
+	- CountryType is now more specific, using regex to only allow valid country codes
+	- <user-content> now can contain <property> tags
+	- <media> now can contain 'copyright' attribute
+
+
+24 November 2009
+
+- vendor-pois-1.8.xsd: minimum ocurrence for <version> tag is now 1
+	
+
+
+15 October 2009
+
+-vendor-pois-1.7.xsd :
+-vendor-events-1.4.xsd :
+-vendor-movies-1.2.xsd :
+	- defined LanguageType
+	- 'lang' attribute is now of type LanguageType
+	- <media> - added two new optional attributes: 'caption' and 'author' 
+	
+
+
+28 August 2009 ---------------------------
+
+- vendor-events-1.3.xsd : 
+	<showtimes> - is required
+	<place> - minimum one item is required
+	<occurrence> - minimum one item is required
+	
+- vendor-movies-1.1.xsd :
+	<showtimes> - is required
+	<place> - minimum one item is required
+	<time>  - minimum one tiem is required
+
+
+28 July 2009 -----------------------------
+
+- vendor-pois-1.6.xsd : corrected the UserRatingType, 'service' type was duplicated
+
+- vendor-events-1.2.xsd, vendor-events.doc : added <category> tag, vendors must map their event categories to Nokia event categories
+
+
+8 July 2009 ------------------------------
+
+- vendor-pois-1.5.xsd, vendor-pois.doc, vendor-sample.xml : added `date` attribute for <user-content> node
+
+
+2 July 2009 ------------------------------
+
+
+
+- vendor-pois-1.4.xsd : Removed EmailType and PhoneType restrictions in order to be compatible with xmllint tool.
+
+
+- vendor-sample.xml : Corrected in order to valitade against vendor-pois-1.4.xsd using the xmllint tool.
+
+
+
+------------------------------------------
+
+
+
+
+
+=======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/change-log.txt
+1 March 2010
+- vendor-*.doc: added information about schema and content validation
+- destination_guide.xsd, destination_sample.xml: initial revision
+
+
+2 February 2010
+- vendor-pois-1.9.xsd : 
+	- CountryType is now more specific, using regex to only allow valid country codes
+	- <user-content> now can contain <property> tags
+	- <media> now can contain 'copyright' attribute
+
+
+24 November 2009
+
+- vendor-pois-1.8.xsd: minimum ocurrence for <version> tag is now 1
+	
+
+
+15 October 2009
+
+-vendor-pois-1.7.xsd :
+-vendor-events-1.4.xsd :
+-vendor-movies-1.2.xsd :
+	- defined LanguageType
+	- 'lang' attribute is now of type LanguageType
+	- <media> - added two new optional attributes: 'caption' and 'author' 
+	
+
+
+28 August 2009 ---------------------------
+
+- vendor-events-1.3.xsd : 
+	<showtimes> - is required
+	<place> - minimum one item is required
+	<occurrence> - minimum one item is required
+	
+- vendor-movies-1.1.xsd :
+	<showtimes> - is required
+	<place> - minimum one item is required
+	<time>  - minimum one tiem is required
+
+
+28 July 2009 -----------------------------
+
+- vendor-pois-1.6.xsd : corrected the UserRatingType, 'service' type was duplicated
+
+- vendor-events-1.2.xsd, vendor-events.doc : added <category> tag, vendors must map their event categories to Nokia event categories
+
+
+8 July 2009 ------------------------------
+
+- vendor-pois-1.5.xsd, vendor-pois.doc, vendor-sample.xml : added `date` attribute for <user-content> node
+
+
+2 July 2009 ------------------------------
+
+
+
+- vendor-pois-1.4.xsd : Removed EmailType and PhoneType restrictions in order to be compatible with xmllint tool.
+
+
+- vendor-sample.xml : Corrected in order to valitade against vendor-pois-1.4.xsd using the xmllint tool.
+
+
+
+------------------------------------------
+
+
+
+
+
+<<<<<<< HEAD:data/xml_schemas/latest/change-log.txt
+>>>>>>> .merge_file_SVtkri
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/change-log.txt

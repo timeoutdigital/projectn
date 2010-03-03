@@ -1,0 +1,299 @@
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-sample.xml
+<<<<<<< .merge_file_5qZgvF
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vendor-pois modified="2008-11-04T11:58:08" vendor="vendor_name">
+    <entry vpid="vpid_454636" lang="de" modified="2008-11-04T11:58:08">
+        <geo-position>
+            <longitude>12.232</longitude>
+            <latitude>52.1232</latitude>
+        </geo-position>
+        <name>Toca Rouge</name>
+        <category>restaurant</category>
+		<category>bar-pub</category>
+		<address>
+			<street>Invalidenstr.</street>
+			<houseno>117</houseno>
+			<zip>10115</zip>
+			<city>Berlin</city>
+			<district></district>
+			<country>DEU</country>
+		</address>		
+        <contact>
+			<phone>+04432423421332</phone>			
+			<fax>+0432434222</fax>
+			<phone2>+04432422221332</phone2>
+			<email>contact@tocared.com</email>
+			<url>http://www.tocared.com</url>
+		</contact>
+        <version lang="en">
+            <name>Restaurant toca red</name>
+            <alternative-name>Restaurant toca red</alternative-name>
+            <alternative-name>Toca red rouge</alternative-name>			
+			<address>
+				<street>Invalidenstr.</street>
+				<houseno>117</houseno>
+				<zip>10115</zip>
+				<city>Berlin</city>
+				<district></district>
+				<country>DEU</country>
+			</address>
+            <content>
+                <vendor-category>Spanish Restaurant</vendor-category>
+                <vendor-category>Bar</vendor-category>
+				<short-description>This is a short description, that could be displayed independent of the 'description' field.</short-description>
+				<description>This is longer description about the POI. The maximum length is 65535 characters.</description>				
+				<public-transport>An optional field that could contain short info on how to get to this POI using the public transportation.</public-transport>
+				<price>10 EURO</price>
+				<openingtimes>Mon-Sun, between 10 and 23</openingtimes>
+				<rating>Excellent</rating>                
+				<media mime-type="image/jpeg">oIOxVEmRT.jpg</media>
+                <media mime-type="image/jpeg">lCxuNYP.jpg</media>
+				<property key="smoking_allowed">yes</property>
+				<property key="specialty">mediteranian</property>
+            </content>
+			<user-content vendor-ucid="2121" date="2009-04-04T11:58:08">
+				<user-info>
+					<displayname>Jack223</displayname>
+					<reputation>5</reputation>
+					<total-comments>12</total-comments>
+					<comments-relevance>9</comments-relevance>
+					<specialty>cinemas</specialty>
+					<specialty>restaurants</specialty>
+				</user-info>
+				<subject>Excellent place</subject>
+				<description>Greate place, but don't eat the Red Devil Salad.</description>
+				<user-rating type="overall">4</user-rating>
+				<user-rating type="service">4.5</user-rating>
+				<user-rating type="ambiance">5</user-rating>
+				<user-rating type="price">4</user-rating>
+				<property key="tag">see food</property>
+				<property key="tag">expensive</property>
+			</user-content>
+			<user-content vendor-ucid="2122" date="2009-04-04T11:58:08">
+				<user-info>
+					<displayname>Catalin</displayname>
+					<reputation>4</reputation>
+					<total-comments>4</total-comments>
+					<comments-relevance>7</comments-relevance>
+					<specialty>cinemas</specialty>
+				</user-info>
+				<subject>Good spanish food</subject>
+				<description>I enjoyed eating here. I recommand every one to try the Red Devil Salad.</description>
+				<user-rating type="overall">4.5</user-rating>
+				<user-rating type="service">4</user-rating>
+				<user-rating type="ambiance">5</user-rating>
+				<user-rating type="price">4</user-rating>
+			</user-content>
+        </version>
+        <version lang="es">
+            <name>Restaurant toca red</name>
+            <alternative-name>Restaurant toca red</alternative-name>
+            <alternative-name>Toca red rouge</alternative-name>			
+			<address>
+				<street>Invalidenstr.</street>
+				<houseno>117</houseno>
+				<zip>10115</zip>
+				<city>Berlin</city>
+				<district></district>
+				<country>DEU</country>
+			</address>
+            <content>
+                <vendor-category>Restaurante Espanol</vendor-category>
+                <vendor-category>Bar</vendor-category>
+				<short-description>Esta es una breve descripcion, que puede ser independiente de la muestra "description" sobre el terreno.</short-description>
+				<description>Esta es ya la descripcion de PI. La longitud maxima es 65535 caracteres.</description>				
+				<public-transport>Un campo opcional que podría contener información breve sobre la forma de llegar a este PDI utilizando el transporte público.</public-transport>
+				<price>10 EURO</price>
+				<openingtimes>Lun-dom, entre el 10 y 23</openingtimes>
+				<rating>Excelente</rating>                
+				<media mime-type="image/jpeg" caption="Exterior view">http://media.domain.com/picture1.jpg</media>
+                <media mime-type="image/jpeg">lCxuNYP.jpg</media>
+				<property key="smoking_allowed">yes</property>
+				<property key="specialty">mediteranian</property>
+            </content>
+			<user-content vendor-ucid="2121" date="2008-11-04T11:58:08" >
+				<user-info>
+					<displayname>Jack223</displayname>
+					<reputation>5</reputation>
+					<total-comments>12</total-comments>
+					<comments-relevance>9</comments-relevance>
+					<specialty>cinemas</specialty>
+					<specialty>restaurants</specialty>
+				</user-info>
+				<subject>Excelente lugar</subject>
+				<description>Greate lugar, pero no comer la ensalada Diablo Rojo.</description>
+				<user-rating type="overall">4</user-rating>
+				<user-rating type="service">4.5</user-rating>
+				<user-rating type="ambiance">2.5</user-rating>
+				<user-rating type="price">3</user-rating>
+			</user-content>
+			<user-content vendor-ucid="2122" date="2009-04-04T11:58:08">
+				<user-info>
+					<displayname>Catalin</displayname>
+					<reputation>4</reputation>
+					<total-comments>4</total-comments>
+					<comments-relevance>7</comments-relevance>
+					<specialty>cinemas</specialty>
+				</user-info>
+				<subject>Español buena comida</subject>
+				<description>Disfruté comer aquí. Recomendamos que cada uno para tratar la Ensalada de Diablo Rojo.</description>
+				<user-rating type="overall">4</user-rating>
+				<user-rating type="service">4.5</user-rating>
+				<user-rating type="ambiance">5</user-rating>
+				<user-rating type="price">4</user-rating>
+			</user-content>
+        </version>
+    </entry>
+</vendor-pois>
+=======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-sample.xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vendor-pois modified="2008-11-04T11:58:08" vendor="vendor_name">
+    <entry vpid="vpid_454636" lang="de" modified="2008-11-04T11:58:08">
+        <geo-position>
+            <longitude>12.232</longitude>
+            <latitude>52.1232</latitude>
+        </geo-position>
+        <name>Toca Rouge</name>
+        <category>restaurant</category>
+		<category>bar-pub</category>
+		<address>
+			<street>Invalidenstr.</street>
+			<houseno>117</houseno>
+			<zip>10115</zip>
+			<city>Berlin</city>
+			<district></district>
+			<country>DEU</country>
+		</address>		
+        <contact>
+			<phone>+04432423421332</phone>			
+			<fax>+0432434222</fax>
+			<phone2>+04432422221332</phone2>
+			<email>contact@tocared.com</email>
+			<url>http://www.tocared.com</url>
+		</contact>
+        <version lang="en">
+            <name>Restaurant toca red</name>
+            <alternative-name>Restaurant toca red</alternative-name>
+            <alternative-name>Toca red rouge</alternative-name>			
+			<address>
+				<street>Invalidenstr.</street>
+				<houseno>117</houseno>
+				<zip>10115</zip>
+				<city>Berlin</city>
+				<district></district>
+				<country>DEU</country>
+			</address>
+            <content>
+                <vendor-category>Spanish Restaurant</vendor-category>
+                <vendor-category>Bar</vendor-category>
+				<short-description>This is a short description, that could be displayed independent of the 'description' field.</short-description>
+				<description>This is longer description about the POI. The maximum length is 65535 characters.</description>				
+				<public-transport>An optional field that could contain short info on how to get to this POI using the public transportation.</public-transport>
+				<price>10 EURO</price>
+				<openingtimes>Mon-Sun, between 10 and 23</openingtimes>
+				<rating>Excellent</rating>                
+				<media mime-type="image/jpeg">oIOxVEmRT.jpg</media>
+                <media mime-type="image/jpeg">lCxuNYP.jpg</media>
+				<property key="smoking_allowed">yes</property>
+				<property key="specialty">mediteranian</property>
+            </content>
+			<user-content vendor-ucid="2121" date="2009-04-04T11:58:08">
+				<user-info>
+					<displayname>Jack223</displayname>
+					<reputation>5</reputation>
+					<total-comments>12</total-comments>
+					<comments-relevance>9</comments-relevance>
+					<specialty>cinemas</specialty>
+					<specialty>restaurants</specialty>
+				</user-info>
+				<subject>Excellent place</subject>
+				<description>Greate place, but don't eat the Red Devil Salad.</description>
+				<user-rating type="overall">4</user-rating>
+				<user-rating type="service">4.5</user-rating>
+				<user-rating type="ambiance">5</user-rating>
+				<user-rating type="price">4</user-rating>
+				<property key="tag">see food</property>
+				<property key="tag">expensive</property>
+			</user-content>
+			<user-content vendor-ucid="2122" date="2009-04-04T11:58:08">
+				<user-info>
+					<displayname>Catalin</displayname>
+					<reputation>4</reputation>
+					<total-comments>4</total-comments>
+					<comments-relevance>7</comments-relevance>
+					<specialty>cinemas</specialty>
+				</user-info>
+				<subject>Good spanish food</subject>
+				<description>I enjoyed eating here. I recommand every one to try the Red Devil Salad.</description>
+				<user-rating type="overall">4.5</user-rating>
+				<user-rating type="service">4</user-rating>
+				<user-rating type="ambiance">5</user-rating>
+				<user-rating type="price">4</user-rating>
+			</user-content>
+        </version>
+        <version lang="es">
+            <name>Restaurant toca red</name>
+            <alternative-name>Restaurant toca red</alternative-name>
+            <alternative-name>Toca red rouge</alternative-name>			
+			<address>
+				<street>Invalidenstr.</street>
+				<houseno>117</houseno>
+				<zip>10115</zip>
+				<city>Berlin</city>
+				<district></district>
+				<country>DEU</country>
+			</address>
+            <content>
+                <vendor-category>Restaurante Espanol</vendor-category>
+                <vendor-category>Bar</vendor-category>
+				<short-description>Esta es una breve descripcion, que puede ser independiente de la muestra "description" sobre el terreno.</short-description>
+				<description>Esta es ya la descripcion de PI. La longitud maxima es 65535 caracteres.</description>				
+				<public-transport>Un campo opcional que podría contener información breve sobre la forma de llegar a este PDI utilizando el transporte público.</public-transport>
+				<price>10 EURO</price>
+				<openingtimes>Lun-dom, entre el 10 y 23</openingtimes>
+				<rating>Excelente</rating>                
+				<media mime-type="image/jpeg" caption="Exterior view">http://media.domain.com/picture1.jpg</media>
+                <media mime-type="image/jpeg">lCxuNYP.jpg</media>
+				<property key="smoking_allowed">yes</property>
+				<property key="specialty">mediteranian</property>
+            </content>
+			<user-content vendor-ucid="2121" date="2008-11-04T11:58:08" >
+				<user-info>
+					<displayname>Jack223</displayname>
+					<reputation>5</reputation>
+					<total-comments>12</total-comments>
+					<comments-relevance>9</comments-relevance>
+					<specialty>cinemas</specialty>
+					<specialty>restaurants</specialty>
+				</user-info>
+				<subject>Excelente lugar</subject>
+				<description>Greate lugar, pero no comer la ensalada Diablo Rojo.</description>
+				<user-rating type="overall">4</user-rating>
+				<user-rating type="service">4.5</user-rating>
+				<user-rating type="ambiance">2.5</user-rating>
+				<user-rating type="price">3</user-rating>
+			</user-content>
+			<user-content vendor-ucid="2122" date="2009-04-04T11:58:08">
+				<user-info>
+					<displayname>Catalin</displayname>
+					<reputation>4</reputation>
+					<total-comments>4</total-comments>
+					<comments-relevance>7</comments-relevance>
+					<specialty>cinemas</specialty>
+				</user-info>
+				<subject>Español buena comida</subject>
+				<description>Disfruté comer aquí. Recomendamos que cada uno para tratar la Ensalada de Diablo Rojo.</description>
+				<user-rating type="overall">4</user-rating>
+				<user-rating type="service">4.5</user-rating>
+				<user-rating type="ambiance">5</user-rating>
+				<user-rating type="price">4</user-rating>
+			</user-content>
+        </version>
+    </entry>
+</vendor-pois>
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-sample.xml
+>>>>>>> .merge_file_ykysDG
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-sample.xml

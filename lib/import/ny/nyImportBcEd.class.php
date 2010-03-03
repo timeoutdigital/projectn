@@ -131,7 +131,7 @@ class nyImportBcEd {
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
             $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
             $poiObj[ 'zips' ]                    = (string) $poi->{'zip.0'};
-
+            $poiObj[ 'phone' ]                   = (string) $poi->{'phone.0'};
 
             //The B/C and E/D have different column names for the description
             if((string) $poi->{'BAR.body'})
@@ -205,24 +205,6 @@ class nyImportBcEd {
                  $this->loggerObj->addError($e, $poiObj, $log);
             }
 
-            /**
-             * Try to convert the phone number
-             */
-            try{
-                
-                $phoneNumber = strtolower((string) $poi->{'phone.0'});
-
-                if( $phoneNumber != "no phone")
-                {
-                    $poiObj[ 'phone' ] = stringTransform::formatPhoneNumber($phoneNumber , $this->vendorObj['inernational_dial_code']);
-                }
-
-            }
-            catch(Exception $e)
-            {
-                $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                $this->loggerObj->addError($e, $poiObj, $log);
-            }
 
            $category = $this->extractCategory( $poi );
            $poiObj->addVendorCategory($category, $this->vendorObj['id']);

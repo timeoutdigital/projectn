@@ -135,6 +135,10 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
       $transform = stringTransform::formatPhoneNumber('1-800-MY-CIGAR' , '+1');
       $this->assertEquals('+1 1 800 692 4427', $transform, 'Testing American number type 7');
 
+      $transform = stringTransform::formatPhoneNumber('212-864-7326' , '+1');
+      $this->assertEquals('+1 212 864 7326', $transform, 'Testing American number type 8');
+
+
       $transform = stringTransform::formatPhoneNumber('0207 3577173', '+44');
       $this->assertEquals('+44 207 357 7173', $transform, 'UK number type 1');
 

@@ -40,7 +40,7 @@ class XMLExportMovie extends XMLExport
     foreach( $movieCollection as $movie )
     {
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
-      $movieElement->setAttribute( 'id', $movie['vendor_movie_id'] );
+      $movieElement->setAttribute( 'id', $this->generateUID( $movie ) );
       $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name

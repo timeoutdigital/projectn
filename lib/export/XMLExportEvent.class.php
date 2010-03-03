@@ -41,7 +41,7 @@ class XMLExportEvent extends XMLExport
     {
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
-      $eventElement->setAttribute( 'id', $event['vendor_event_id'] );
+      $eventElement->setAttribute( 'id', $this->generateUID( $event ) );
       $eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //event/name
@@ -123,7 +123,7 @@ class XMLExportEvent extends XMLExport
       {
 
         $placeElement = $this->appendRequiredElement($showtimeElement, 'place');
-        $placeElement->setAttribute( 'place-id', $place['id'] );
+        $placeElement->setAttribute( 'place-id', $this->generateUID($place) );
 
         foreach( $place['EventOccurrence'] as $eventOccurrence )
         {
