@@ -242,16 +242,21 @@ class singaporeImport
                 $poi->setGeoEncodeLookUpString( $geoEncodeLookupString );
             }
 
-            $poi->addProperty( 'issue', (string) $poiObj->issue );
-            $poi->addProperty( 'critic_choice', (string) $poiObj->critic_choice );
-            $poi->addProperty( 'standfirst', (string) $poiObj->standfirst );
+            
+            $poi->addProperty( 'Critics_choice', (string) $poiObj->critic_choice );
+            $poi->addProperty( 'Timeout_link', (string) $poiObj->link );
 
-            if ( count( $poiObj->tags ) == 1 )
+            /**
+             * The commented out properties are not ented becuase they are not generic in relation to the other feeds
+             */
+            //$poi->addProperty( 'standfirst', (string) $poiObj->standfirst );
+            //$poi->addProperty( 'issue', (string) $poiObj->issue );
+            /**if ( count( $poiObj->tags ) == 1 )
             {
                 foreach( $poiObj->tags->children() as $tag) {
                     $poi->addProperty( 'tag', (string) $tag );
                 }
-            }
+            }**/
 
             //add vendor categories
             $categoriesArray = array();
@@ -453,16 +458,17 @@ class singaporeImport
             //$movieObj[ 'poi_id' ] = ;
 
             //properties
-            if ( (string) $movieXml->director != '' ) $movieObj->addProperty( 'director', (string) $movieXml->director );
-            if ( (string) $movieXml->cast != '' ) $movieObj->addProperty( 'cast', (string) $movieXml->cast );
-            if ( (string) $movieXml->length != '' ) $movieObj->addProperty( 'length', (string) $movieXml->length );
-            if ( (string) $movieXml->origin != '' ) $movieObj->addProperty( 'origin', (string) $movieXml->origin );
-            if ( (string) $movieXml->year_production != '' ) $movieObj->addProperty( 'year_production', (string) $movieXml->year_production );
-            if ( (string) $movieXml->trailer_url != '' ) $movieObj->addProperty( 'trailer_url', (string) $movieXml->trailer_url );
-            if ( (string) $movieXml->website != '' ) $movieObj->addProperty( 'website', (string) $movieXml->website );
-            if ( (string) $movieXml->critic_choice != '' ) $movieObj->addProperty( 'critic_choice', (string) $movieXml->critic_choice );
-            if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'certificate', (string) $movieXml->certificate );
-            if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
+            if ( (string) $movieXml->director != '' ) $movieObj->addProperty( 'Director', (string) $movieXml->director );
+            if ( (string) $movieXml->cast != '' ) $movieObj->addProperty( 'Cast', (string) $movieXml->cast );
+            if ( (string) $movieXml->length != '' ) $movieObj->addProperty( 'Runtime', (string) $movieXml->length );
+           // if ( (string) $movieXml->origin != '' ) $movieObj->addProperty( 'origin', (string) $movieXml->origin );
+           // if ( (string) $movieXml->year_production != '' ) $movieObj->addProperty( 'Year', (string) $movieXml->year_production );
+            if ( (string) $movieXml->trailer_url != '' ) $movieObj->addProperty( 'Trailer_url', (string) $movieXml->trailer_url );
+            if ( (string) $movieXml->website != '' ) $movieObj->addProperty( 'Website', (string) $movieXml->website );
+            if ( (string) $movieXml->critic_choice != '' ) $movieObj->addProperty( 'Critics_choice', (string) $movieXml->critic_choice );
+            if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'Certificate', (string) $movieXml->certificate );
+            //if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
+            if ( (string) $movieXml->link != '' ) $movieObj->addProperty( 'Timeout_link', (string) $movieXml->link );
 
             //genres
             if ( (string) $movieXml->category != '' ) $movieObj->addGenre( (string) $movieXml->category );

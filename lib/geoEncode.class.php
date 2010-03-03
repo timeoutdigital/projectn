@@ -109,12 +109,14 @@ class geoEncode
 
      if($dataArray[0] != '200')
      {
-         //throw new Exception('No Geocode available: Code = '.$dataArray[0]);
+          unset($dataArray[2]);
+          unset($dataArray[3]);
      }
 
-     //Set invidual co-ords
      $this->setCoOrdinates($dataArray);
-    // print_r($dataArray);
+
+     //Set invidual co-ords
+   
      return $this;
   }
 
