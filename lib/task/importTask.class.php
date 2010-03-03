@@ -252,12 +252,14 @@ class importTask extends sfBaseTask
 
       case 'lisbon':
 
-        $vendorObj = $this->getVendorByCityAndLanguage('lisbon', 'pt');
-        $feedObj     = new curlImporter();
-        $url         = 'http://www.timeout.pt/';
-        $parameters  = array( 'from' => '2010-02-26', 'to' => '2010-03-08' );
-        $method      = 'POST';
-        $loggerObj =   new logImport( $vendorObj );
+        $vendorObj    = $this->getVendorByCityAndLanguage('lisbon', 'pt');
+        $feedObj      = new curlImporter();
+        $url          = 'http://www.timeout.pt/';
+        $today        = date( 'Y-m-d' );
+        $oneWeekLater = date_add( new DateTime(), new DateInterval( 'P9D' ) )->format( 'Y-m-d' );
+        $parameters   = array( 'from' => $today, 'to' => $oneWeekLater );//lisbon caps the request at 9 days
+        $method       = 'POST';
+        $loggerObj    = new logImport( $vendorObj );
         
         switch( $options['type'] )
         {
