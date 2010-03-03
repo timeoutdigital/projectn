@@ -5,7 +5,8 @@ nbproject/
 import/*
 test/unit/import/*
 export/*
-test/unit/export/*.xml
+test/unit/export/**/*.xml
+test/unit/data/downloaded_feeds/ny/[!.]*
 .project
 .settings
 .chanels
