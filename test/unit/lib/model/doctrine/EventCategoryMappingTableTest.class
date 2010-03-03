@@ -5,7 +5,16 @@ require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
 spl_autoload_register(array('Doctrine', 'autoload'));
 
 /**
- * Test class for EventCategoryMappingTable.
+ * Test class for Event Category Mapping Model
+ *
+ * @package test
+ * @subpackage doctrine.model.lib.unit
+ *
+ * @author Clarence Lee <clarencelee@timeout.com>
+ * @copyright Timeout Communications Ltd
+ *
+ * @version 1.0.0
+ *
  *
  */
 class EventCategoryMappingTableTest extends PHPUnit_Framework_TestCase
