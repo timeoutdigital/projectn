@@ -25,6 +25,9 @@
                   <a href="../../classtrees_projectn API.html">projectn API</a>
                 </li>
                               <li>
+                  <a href="../../classtrees_project.html">project</a>
+                </li>
+                              <li>
                   <a href="../../classtrees_projectn.html">projectn</a>
                 </li>
                               <li>
@@ -46,6 +49,8 @@
   <ul>
 	<li>ny-import-lib	    <ul>		<li><a href="../../test/ny-import-lib/importNyTest.html">importNyTest</a></li>    </ul></li>	  </ul>
   <ul>
+	<li>import-lib-unit	    <ul>		<li><a href="../../test/import-lib-unit/ImportUaeBarsTest.html">ImportUaeBarsTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/import-lib-unit/ImportUaeEventsTest.html">ImportUaeEventsTest</a></li>    </ul></li>	  </ul>
+  <ul>
 	<li>lisbon-import-lib-unit	    <ul>		<li><a href="../../test/lisbon-import-lib-unit/LisbonFeedListingsMapperTest.html">LisbonFeedListingsMapperTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/lisbon-import-lib-unit/LisbonFeedMoviesMapperTest.html">LisbonFeedMoviesMapperTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/lisbon-import-lib-unit/LisbonFeedVenuesMapperTest.html">LisbonFeedVenuesMapperTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/lisbon-import-lib-unit/lisbonImportTest.html">lisbonImportTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/lisbon-import-lib-unit/NullDoctrineRecordTest.html">NullDoctrineRecordTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/lisbon-import-lib-unit/RecordDataTest.html">RecordDataTest</a></li>    </ul></li>	  </ul>
   <ul>
 	<li>london-import-lib-unit	    <ul>		<li><a href="../../test/london-import-lib-unit/LondonAPIBarsAndPubsMapperTest.html">LondonAPIBarsAndPubsMapperTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/london-import-lib-unit/LondonAPICinemasMapperTest.html">LondonAPICinemasMapperTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/london-import-lib-unit/LondonAPICrawlerTest.html">LondonAPICrawlerTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/london-import-lib-unit/LondonAPIFilmsMapperTest.html">LondonAPIFilmsMapperTest</a></li>    </ul></li>	    <ul>		<li><a href="../../test/london-import-lib-unit/LondonAPIRestaurantsMapperTest.html">LondonAPIRestaurantsMapperTest</a></li>    </ul></li>	  </ul>
@@ -63,7 +68,7 @@
                                                                   <h2>test::ny-import-lib-unit::nyImportBcTest</h2>
                                 <div class="menu">
           
-                                                                                                                            
+                                                                                                                                                  
                                 [ <a href="../../index.html">Index</a> ]
                       [ <a href="../../classtrees_test.html">test classes</a> ]
             [ <a href="../../elementindex_test.html">test elements</a> ]
@@ -153,7 +158,7 @@
   <a name="sec-method-summary"></a>
   <h2>Method Summary</h2>
   <table class="summary">
-                                                                                  <tr>
+                                                                                                                <tr>
           <td class="right">
             <em>public</em>                        <em>void</em>          </td>
           <td>
@@ -188,7 +193,37 @@
             <em>public</em>                        <em>void</em>          </td>
           <td>
             <code>
-              <a href="#testExistingChangedPoiIsLoggedAndUpdated"><b>testExistingChangedPoiIsLoggedAndUpdated</b></a>(
+              <a href="#testCatchesCategoryLengthWithinLimit"><b>testCatchesCategoryLengthWithinLimit</b></a>(
+               )
+            </code>
+                      </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#testCategoryIsCorrectForBarClub"><b>testCategoryIsCorrectForBarClub</b></a>(
+               )
+            </code>
+                      </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#testCategoryIsCorrectForRestaurant"><b>testCategoryIsCorrectForRestaurant</b></a>(
+               )
+            </code>
+                      </td>
+        </tr>
+                        <tr>
+          <td class="right">
+            <em>public</em>                        <em>void</em>          </td>
+          <td>
+            <code>
+              <a href="#_testExistingChangedPoiIsLoggedAndUpdated"><b>_testExistingChangedPoiIsLoggedAndUpdated</b></a>(
                )
             </code>
             <br /><div style="margin-left: 20px">Test that a Poi that has changed is logged and updated.</div>          </td>
@@ -198,7 +233,7 @@
             <em>public</em>                        <em>void</em>          </td>
           <td>
             <code>
-              <a href="#testExistingSamePoiIsNotImported"><b>testExistingSamePoiIsNotImported</b></a>(
+              <a href="#_testExistingSamePoiIsNotImported"><b>_testExistingSamePoiIsNotImported</b></a>(
                )
             </code>
             <br /><div style="margin-left: 20px">validationException</div>          </td>
@@ -208,7 +243,7 @@
             <em>public</em>                        <em>void</em>          </td>
           <td>
             <code>
-              <a href="#testNonExistantPoiIsImported"><b>testNonExistantPoiIsImported</b></a>(
+              <a href="#_testNonExistantPoiIsImported"><b>_testNonExistantPoiIsImported</b></a>(
                )
             </code>
             <br /><div style="margin-left: 20px">Test that an extry not already in the database is saved.</div>          </td>
@@ -219,7 +254,7 @@
   <a name="sec-methods"></a>
   <h2>Methods</h2>
   <a name='method_detail'></a>
-            
+                  
       <a name="methodcreateExistingChangedPoi" id="createExistingChangedPoi"><!-- --></a>
 
     <h3>createExistingChangedPoi</h3>
@@ -271,13 +306,64 @@
     
     
     
-        <a name="methodtestExistingChangedPoiIsLoggedAndUpdated" id="testExistingChangedPoiIsLoggedAndUpdated"><!-- --></a>
+        <a name="methodtestCatchesCategoryLengthWithinLimit" id="testCatchesCategoryLengthWithinLimit"><!-- --></a>
 
-    <h3>testExistingChangedPoiIsLoggedAndUpdated</h3>
+    <h3>testCatchesCategoryLengthWithinLimit</h3>
 
     <div class="method-signature">
       void
-      testExistingChangedPoiIsLoggedAndUpdated(
+      testCatchesCategoryLengthWithinLimit(
+      )
+    </div>
+
+    
+    
+        
+
+    
+    
+    
+        <a name="methodtestCategoryIsCorrectForBarClub" id="testCategoryIsCorrectForBarClub"><!-- --></a>
+
+    <h3>testCategoryIsCorrectForBarClub</h3>
+
+    <div class="method-signature">
+      void
+      testCategoryIsCorrectForBarClub(
+      )
+    </div>
+
+    
+    
+        
+
+    
+    
+    
+        <a name="methodtestCategoryIsCorrectForRestaurant" id="testCategoryIsCorrectForRestaurant"><!-- --></a>
+
+    <h3>testCategoryIsCorrectForRestaurant</h3>
+
+    <div class="method-signature">
+      void
+      testCategoryIsCorrectForRestaurant(
+      )
+    </div>
+
+    
+    
+        
+
+    
+    
+    
+        <a name="method_testExistingChangedPoiIsLoggedAndUpdated" id="_testExistingChangedPoiIsLoggedAndUpdated"><!-- --></a>
+
+    <h3>_testExistingChangedPoiIsLoggedAndUpdated</h3>
+
+    <div class="method-signature">
+      void
+      _testExistingChangedPoiIsLoggedAndUpdated(
       )
     </div>
 
@@ -288,13 +374,13 @@
     
     
     
-        <a name="methodtestExistingSamePoiIsNotImported" id="testExistingSamePoiIsNotImported"><!-- --></a>
+        <a name="method_testExistingSamePoiIsNotImported" id="_testExistingSamePoiIsNotImported"><!-- --></a>
 
-    <h3>testExistingSamePoiIsNotImported</h3>
+    <h3>_testExistingSamePoiIsNotImported</h3>
 
     <div class="method-signature">
       void
-      testExistingSamePoiIsNotImported(
+      _testExistingSamePoiIsNotImported(
       )
     </div>
 
@@ -305,13 +391,13 @@
     
     
     
-        <a name="methodtestNonExistantPoiIsImported" id="testNonExistantPoiIsImported"><!-- --></a>
+        <a name="method_testNonExistantPoiIsImported" id="_testNonExistantPoiIsImported"><!-- --></a>
 
-    <h3>testNonExistantPoiIsImported</h3>
+    <h3>_testNonExistantPoiIsImported</h3>
 
     <div class="method-signature">
       void
-      testNonExistantPoiIsImported(
+      _testNonExistantPoiIsImported(
       )
     </div>
 
@@ -329,7 +415,7 @@
 </p>
 
                 <div class="credit">
-                  Documentation generated on Wed, 24 Feb 2010 12:11:03 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Mon, 01 Mar 2010 14:33:48 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>
