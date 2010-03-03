@@ -25,13 +25,7 @@
                   <a href="classtrees_projectn API.html">projectn API</a>
                 </li>
                               <li>
-                  <a href="classtrees_project.html">project</a>
-                </li>
-                              <li>
                   <a href="classtrees_projectn.html">projectn</a>
-                </li>
-                              <li>
-                  <a href="classtrees_sfFeed2.html">sfFeed2</a>
                 </li>
                               <li>
                   <a href="classtrees_sf_sandbox.html">sf_sandbox</a>
@@ -49,7 +43,7 @@
                                                                 <div class="menu">
           
                                     
-                                                                                                                                              [ <a href="index.html">Index</a> ]
+                                                                                                  [ <a href="index.html">Index</a> ]
                       [ <a href="classtrees_projectn API.html">projectn API classes</a> ]
             [ <a href="elementindex_projectn API.html">projectn API elements</a> ]
                     [ <a href="elementindex.html">All elements</a> ]
@@ -228,6 +222,10 @@
 <li><div class="src-line">&nbsp;<span class="src-comm">//there&nbsp;are&nbsp;some&nbsp;more&nbsp;options&nbsp;available&nbsp;(include,&nbsp;exclude&nbsp;patterns,&nbsp;etc,&nbsp;see&nbsp;method&nbsp;descriptions)</span></div></li>
 </ol></p></li>
 </ul>
+<h3><a href="projectn/export-lib/XMLExport.html#methodgenerateUID">XMLExport::generateUID()</a></h3>
+<ul>
+    <li>consider putting this in its own class</li>
+</ul>
 <h3><a href="projectn/model/MovieTable.html#methodgetVendorUidFieldName">MovieTable::getVendorUidFieldName()</a></h3>
 <ul>
     <li>rename Poi, Events, Movies etc to have vendor_uid field instead  of vendor_&lt;model name&gt;_id to allow polymorphism</li>
@@ -236,9 +234,21 @@
 <ul>
     <li>finish class - currently awaiting verification as to whether its now needed.</li>
 </ul>
+<h3><a href="projectn/uae-import-lib/ImportUaeEvents.html">ImportUaeEvents</a></h3>
+<ul>
+    <li>Create unit tests</li>
+</ul>
+<h3><a href="projectn/uae-import-lib/ImportUaeMovies.html">ImportUaeMovies</a></h3>
+<ul>
+    <li>Create unit tests refs #116</li>
+</ul>
 <h3><a href="projectn/ny-import-lib/importNyChicagoEvents.html#methodinsertPoi">importNyChicagoEvents::insertPoi()</a></h3>
 <ul>
     <li>go through the xml with a proper source xml editor to make sure that   no information is left out</li>
+</ul>
+<h3><a href="projectn/export-lib/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
+<ul>
+    <li>PoiCateory needs to be one-to-many not one-to-one</li>
 </ul>
 <h3><a href="projectn/export-lib/XMLExportMovie.html#methodmapDataToDOMDocument">XMLExportMovie::mapDataToDOMDocument()</a></h3>
 <ul>
@@ -246,10 +256,6 @@
     <li>correct movie/version/name to use real value</li>
     <li>correct movie@id to use real value</li>
     <li>correct version@lang use real value</li>
-</ul>
-<h3><a href="projectn/export-lib/XMLExportPOI.html#methodmapDataToDOMDocument">XMLExportPOI::mapDataToDOMDocument()</a></h3>
-<ul>
-    <li>PoiCateory needs to be one-to-many not one-to-one</li>
 </ul>
 <h3><a href="projectn/model-doctrine-lib/Movie.html">Movie</a></h3>
 <ul>
@@ -285,13 +291,8 @@
 <ul>
     <li>possibly add transactions</li>
 </ul>
-<h2>project</h2>
-<h3><a href="project/uae-import-lib/ImportUaeMovies.html">ImportUaeMovies</a></h3>
-<ul>
-    <li>Create unit tests refs #116</li>
-</ul>
                 <div class="credit">
-                  Documentation generated on Mon, 01 Mar 2010 14:33:59 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+                  Documentation generated on Wed, 03 Mar 2010 13:05:42 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
                 </div>
               </td>
             </tr>
