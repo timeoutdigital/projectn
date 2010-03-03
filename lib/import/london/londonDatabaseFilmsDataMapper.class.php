@@ -103,7 +103,8 @@ class londonDatabaseFilmsDataMapper extends DataMapper
 
       $movie['name'] = $data[ 'title' ];
       $movie['vendor_movie_id'] = $data[ 'film_id' ];
-      $movie['age_rating'] = $data[ 'age_rating' ];
+
+      $movie->addProperty('Age_rating', $data[ 'age_rating' ]);
       
       $review = $this->getReview( $data[ 'film_id' ] );
 
