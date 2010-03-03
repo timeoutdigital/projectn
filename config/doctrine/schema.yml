@@ -1,3 +1,4 @@
+<<<<<<< HEAD:config/doctrine/schema.yml
 <<<<<<< .merge_file_DlJaPN
 options:
   type: INNODB
@@ -462,6 +463,8 @@ ExportLoggerItens:
 
 
 =======
+=======
+>>>>>>> 1d1487f7c8b5de956daa3aaf9f8e09a38ab0258a:config/doctrine/schema.yml
 options:
   type: INNODB
   collate: utf8_unicode_ci
@@ -922,4 +925,7 @@ ExportLoggerItem:
     vendor_item_id_index:       {fields: [vendor_item_id]}
 
 
+<<<<<<< HEAD:config/doctrine/schema.yml
 >>>>>>> .merge_file_vUSOCN
+=======
+>>>>>>> 1d1487f7c8b5de956daa3aaf9f8e09a38ab0258a:config/doctrine/schema.yml
