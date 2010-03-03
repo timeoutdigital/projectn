@@ -1,3 +1,4 @@
+<<<<<<< HEAD:data/xml_schemas/latest/destination_guide.xsd
 <<<<<<< .merge_file_AUbnYo
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -108,6 +109,8 @@
 			
 			
 =======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/destination_guide.xsd
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -216,5 +219,8 @@
 </xsd:element>
 			
 			
+<<<<<<< HEAD:data/xml_schemas/latest/destination_guide.xsd
 >>>>>>> .merge_file_12iKNm
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/destination_guide.xsd
 </xsd:schema>

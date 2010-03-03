@@ -1,3 +1,4 @@
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-events-1.4.xsd
 <<<<<<< .merge_file_eiLXlw
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -147,6 +148,8 @@
 
 </xsd:schema>
 =======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-events-1.4.xsd
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
@@ -294,4 +297,7 @@
 	</xsd:element>
 
 </xsd:schema>
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-events-1.4.xsd
 >>>>>>> .merge_file_RyxiKs
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-events-1.4.xsd

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-sample.xml
 <<<<<<< .merge_file_5qZgvF
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <vendor-pois modified="2008-11-04T11:58:08" vendor="vendor_name">
@@ -145,6 +146,8 @@
     </entry>
 </vendor-pois>
 =======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-sample.xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <vendor-pois modified="2008-11-04T11:58:08" vendor="vendor_name">
     <entry vpid="vpid_454636" lang="de" modified="2008-11-04T11:58:08">
@@ -290,4 +293,7 @@
         </version>
     </entry>
 </vendor-pois>
+<<<<<<< HEAD:data/xml_schemas/latest/vendor-sample.xml
 >>>>>>> .merge_file_ykysDG
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/vendor-sample.xml

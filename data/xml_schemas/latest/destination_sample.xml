@@ -1,3 +1,4 @@
+<<<<<<< HEAD:data/xml_schemas/latest/destination_sample.xml
 <<<<<<< .merge_file_lxRZcq
 <?xml version="1.0" encoding="UTF-8"?>
 <destination vendor="explorer" modified="2010-02-23T12:12:00" vendor-id="1111" country="ARE">
@@ -75,6 +76,8 @@
 	</section>
 </destination>
 =======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/destination_sample.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <destination vendor="explorer" modified="2010-02-23T12:12:00" vendor-id="1111" country="ARE">
 	<geo-position>
@@ -150,4 +153,7 @@
 		</section>					
 	</section>
 </destination>
+<<<<<<< HEAD:data/xml_schemas/latest/destination_sample.xml
 >>>>>>> .merge_file_srI0or
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/destination_sample.xml

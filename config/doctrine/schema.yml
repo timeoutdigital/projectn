@@ -848,5 +848,8 @@ Media:
     etag:                 {type: string(255), notnull: false}
     content_length:       {type: integer, notnull: false}
   indexes:
+<<<<<<< HEAD:config/doctrine/schema.yml
 >>>>>>> .merge_file_IW6n69
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:config/doctrine/schema.yml
     ident_index:          {fields: [ident]}

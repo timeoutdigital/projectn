@@ -1,3 +1,4 @@
+<<<<<<< HEAD:data/xml_schemas/latest/change-log.txt
 <<<<<<< .merge_file_jftrmk
 1 March 2010
 - vendor-*.doc: added information about schema and content validation
@@ -71,6 +72,8 @@
 
 
 =======
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/change-log.txt
 1 March 2010
 - vendor-*.doc: added information about schema and content validation
 - destination_guide.xsd, destination_sample.xml: initial revision
@@ -142,4 +145,7 @@
 
 
 
+<<<<<<< HEAD:data/xml_schemas/latest/change-log.txt
 >>>>>>> .merge_file_SVtkri
+=======
+>>>>>>> a1c9e44133aca5ad59cf20e954cd505cb4c1379d:data/xml_schemas/latest/change-log.txt
