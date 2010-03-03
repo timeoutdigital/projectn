@@ -393,7 +393,7 @@ class importTask extends sfBaseTask
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+          echo 'Exception caught in chicago' . $e->getMessage();
         }
   }
 
