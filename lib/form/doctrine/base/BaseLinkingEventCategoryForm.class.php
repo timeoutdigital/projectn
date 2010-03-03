@@ -16,13 +16,13 @@ abstract class BaseLinkingEventCategoryForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
-      'event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => false)),
+      'event_category_id' => new sfWidgetFormInputText(),
       'event_id'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'                => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'))),
+      'event_category_id' => new sfValidatorInteger(),
       'event_id'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Event'))),
     ));
 
