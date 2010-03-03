@@ -18,7 +18,8 @@ class XMLExportPOI extends XMLExport
    */
   public function __construct( $vendor, $destination )
   {
-    parent::__construct(  $vendor, $destination, 'Poi', 'poi.xsd' );
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-pois-1.9.xsd';
+    parent::__construct(  $vendor, $destination, 'Poi', $xsd );
   }
 
   protected function getData()
@@ -50,13 +51,9 @@ class XMLExportPOI extends XMLExport
       $entryElement->setAttribute( 'lang', $langArray[0] );
       $entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
-      //@todo if statement is not a proper fix. it should be fixed properly at import stage asap
-      if( ($poi['longitude'] > 0 || $poi['longitude'] < 0) && ( $poi['latitude'] > 0 || $poi['latitude'] < 0 ) )
-      {
-        $geoPositionElement = $entryElement->appendChild( new DOMElement( 'geo-position' ) );
-        $this->appendRequiredElement( $geoPositionElement, 'longitude', $poi['longitude'] );
-        $this->appendRequiredElement( $geoPositionElement, 'latitude', $poi['latitude'] );
-      }
+      $geoPositionElement = $entryElement->appendChild( new DOMElement( 'geo-position' ) );
+      $this->appendRequiredElement( $geoPositionElement, 'longitude', $poi['longitude'] );
+      $this->appendRequiredElement( $geoPositionElement, 'latitude', $poi['latitude'] );
 
       $this->appendRequiredElement( $entryElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA );
 
@@ -113,9 +110,10 @@ class XMLExportPOI extends XMLExport
       //content
       $contentElement = $this->appendRequiredElement( $versionElement, 'content' );
 
-      $this->appendNonRequiredElement( $contentElement, 'short-description', $poi['short_description'], XMLExport::USE_CDATA);
+      $cleanShortDescription = $this->cleanHtml($poi['short_description']);
+      $this->appendNonRequiredElement( $contentElement, 'short-description', $cleanShortDescription, XMLExport::USE_CDATA);
       
-      $cleanDescription = $poi['description'];
+      $cleanDescription = $this->cleanHtml($poi['description']);
       $this->appendNonRequiredElement( $contentElement, 'description', $cleanDescription, XMLExport::USE_CDATA);
       
       $this->appendNonRequiredElement( $contentElement, 'public-transport', $poi['public_transport_links'], XMLExport::USE_CDATA);

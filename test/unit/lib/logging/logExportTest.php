@@ -44,12 +44,7 @@ class logExportTest extends PHPUnit_Framework_TestCase {
 
         //var_export( $exportLogger->toArray() );
 
-        $in = 'abc &sdf asdf & &#34; asdf &ert  &amp; &lt;';
 
-        $ignore = '(amp|lt|gt|quot|apos|#[0-9]+);';
-        $out = preg_replace( "/&(?!$ignore)/", '&amp;', $in );
-
-        var_export($out);
 
 
         //$this->asser
