@@ -65,6 +65,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapListings()
   {
     $importer = new Importer();
+    //$importer->addLogger( new echoingLogger() );
     $importer->addDataMapper( $this->object );
     $importer->run();
 
@@ -84,11 +85,13 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '1', $event['vendor_id'] );
 
     $eventOccurrence1 = $event['EventOccurrence'][0];
-    $this->assertEquals( '2010-01-01 00:00:00', $eventOccurrence1['start'] );
+    $this->assertEquals( '2010-01-01', $eventOccurrence1['start_date'] );
+    $this->assertEquals( null, $eventOccurrence1['start_time'] );
     $this->assertEquals( '+00:00', $eventOccurrence1['utc_offset'] );
 
     $eventOccurrence2 = $event['EventOccurrence'][1];
-    $this->assertEquals( '2010-07-07 00:00:00', $eventOccurrence2['start'] );
+    $this->assertEquals( '2010-07-07', $eventOccurrence2['start_date'] );
+    $this->assertEquals( null, $eventOccurrence2['start_time'] );
     $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
 
     $eventOccurrences = Doctrine::getTable( 'EventOccurrence' )->findAll();
