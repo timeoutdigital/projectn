@@ -83,6 +83,7 @@ class ImportUaeBarsTest extends PHPUnit_Framework_TestCase
         if($this->xmlObj == '' || $this->vendorObj == '' )
         {
             $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
+            $feed->exec();
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $this->xmlObj = $xmlObj->getXmlFeed();
             $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
