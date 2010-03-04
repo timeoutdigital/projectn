@@ -46,6 +46,11 @@ abstract class XMLExport
   protected $xsdPath;
 
   /**
+   * @var logExport
+   */
+  protected $logExport;
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
@@ -70,6 +75,8 @@ abstract class XMLExport
     {
       $this->xsdPath = $xsdFilename;
     }
+
+    $this->logExport = new logExport( $this->vendor[ 'id' ] , $this->model );
   }
 
   /**

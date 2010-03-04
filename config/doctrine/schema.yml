@@ -437,7 +437,8 @@ ExportLogger:
     total_time:                 {type: time, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
-
+  indexes:
+    model_index:                {fields: [model]}
 
 #Export stats
 ExportLoggerItem:

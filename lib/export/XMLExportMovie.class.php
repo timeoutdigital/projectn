@@ -82,9 +82,6 @@ class XMLExportMovie extends XMLExport
       $placeElement = $this->appendRequiredElement($showTimesElement, 'place' );
       $placeElement->setAttribute( 'place-id', $movie['Poi']['id'] );
 
-      //movie/showtimes/place/age_rating
-      $this->appendNonRequiredElement($placeElement, 'Age_rating', $movie['age_rating'] );
-
       //movie/showtimes/place/time
       //implementation on hold
 
@@ -105,6 +102,9 @@ class XMLExportMovie extends XMLExport
         if( $propertyTag )
         $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
       }
+
+      $this->logExport->addItem( $poi[ 'id' ], $poi[ 'vendor_movie_id' ] );
+
     }
 
     return $domDocument;
