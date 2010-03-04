@@ -163,8 +163,10 @@ EventOccurrence:
   columns:
     vendor_event_occurrence_id: {type: string(50), notnull: true}
     booking_url:                {type: string(1024), notnull: false}
-    start:                      {type: datetime, notnull: true}
-    end:                        {type: datetime, notnull: false}
+    start_date:                 {type: date, notnull: true}
+    start_time:                 {type: time, notnull: false}
+    end_date:                   {type: date, notnull: true}
+    end_time:                   {type: time, notnull: false}
     utc_offset:                 {type: string(9), notnull: true}
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
