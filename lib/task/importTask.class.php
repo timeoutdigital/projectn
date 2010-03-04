@@ -378,25 +378,24 @@ class importTask extends sfBaseTask
   {
       try
         {
+
+          echo "Downloading Chicago's Events Feed \n";
           $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
 
+          echo "Parsing Chicago's Events Feed \n";
           $processXmlObj = new processNyXml( $fileNameString );
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-          echo "XML Parsed \n\n";
-
+          
+          echo "\n Inserting Chicag'o Events  \n";
           $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
           $nyImportObj->insertEventCategoriesAndEventsAndVenues();
 
-          
-
-
-
-
+          echo "\n\n Chicago's Events imported \n\n";
 
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+          echo 'Exception caught in chicago' . $e->getMessage();
         }
   }
 
@@ -411,15 +410,21 @@ class importTask extends sfBaseTask
   {
     try
     {
+
+      echo "Downloading Chicago's Movies feed \n";
       $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'xffd_TOChicago_[0-9]+.xml' );
 
+      echo "Parsing Chicago's Movies \n";
       $processXmlObj = new processNyMoviesXml( $fileNameString );
       $processXmlObj->setMovies( '/xffd/movies/movie' );
       $processXmlObj->setPoi( '/xffd/theaters/theater' );
       $processXmlObj->setOccurances( '/xffd/showTimes/showTime' );
 
+      echo "Importing Chicago's Movies \n";
       $nyImportMoviesObj = new importNyMovies( $processXmlObj, $vendorObj) ;
       $nyImportMoviesObj->importMovies();
+
+      echo "\n\n Chicago's Movies Imported \n\n";
 
     }
     catch ( Exception $e )
@@ -437,22 +442,24 @@ class importTask extends sfBaseTask
   {
         try
         {
+            echo "Downloading Chicago's B/C feed \n";
             $fileNameString = $ftpClientObj->fetchFile( 'toc_bc.xml' );
+
+            echo "Parsing Chicago's B/C's feed \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
 
-
+            echo "Importing Chicago's B/C's \n";
             $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj);
             $importObj->import();
+
+            echo "\n\n Chicago's B/C's Imported \n\n";
                      
         }
         catch ( Exception $e )
         {
           echo 'Exception caught in Chicago import: ' . $e->getMessage();
         }
-
-
         return $importObj;
-
   }
 
 
@@ -465,19 +472,17 @@ class importTask extends sfBaseTask
   {
         try
         {
-            echo "Chicago ED \n\n";
-            echo "Downloading toc_ed.xml \n";
+            echo "Downloading Chicago's E/D feed \n";
             $fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
             
-            echo "Processing xml \n";
+            echo "Parsing Chicago's E/D's feed \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
 
-            echo "Importing ED \n";
-
+            echo "Importing Chicago's E/D's \n";
             $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj);
             $importObj->import();
 
-            echo "Finished";
+            echo "\n\n Chicago's E/D's Imported \n\n";
 
         }
         catch ( Exception $e )
@@ -507,17 +512,18 @@ class importTask extends sfBaseTask
   {
        try
         {
-          echo "Importing NY Events \n";
-          echo "Starting download \n\n";
+          echo "Downloading NY's Event's feed \n";
           $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
 
-          echo "Processing XML \n";
+          echo "Parsing Ny's Event's feed \n";
           $processXmlObj = new processNyXml( $fileNameString );
-
-          echo "XML Parsed \n\n";
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
+
+          echo "Importing Ny's Event's \n";
           $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
           $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+
+          echo "\n\n NY's Event's Imported \n\n";
         }
         catch ( Exception $e )
         {
@@ -536,15 +542,20 @@ class importTask extends sfBaseTask
    {
         try
         {
+          echo "Downloading NY's Movies feed \n";
           $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'xffd_TONewYork_[0-9]+.xml' );
 
+          echo "Parsing Ny's Movies feed \n";
           $processXmlObj = new processNyMoviesXml( $fileNameString );
           $processXmlObj->setMovies('/xffd/movies/movie');
           $processXmlObj->setPoi('/xffd/theaters/theater');
           $processXmlObj->setOccurances('/xffd/showTimes/showTime');
 
+          echo "Importing Ny's Movies \n";
           $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
           $nyImportMoviesObj->importMovies();
+
+          echo "\n\n NY's Movies Imported \n\n";
         }
         catch ( Exception $e )
         {
@@ -557,22 +568,21 @@ class importTask extends sfBaseTask
      {
         try
         {
-            echo "Importing NY BC \n";
-            echo "Downloading XML \n";
-            //Download and process XML
+            echo "Downloading B/C's feed \n";
             $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
 
-            echo 'Processing XML \n';
+            echo "Parsing Ny's B/C's feed \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
 
-            echo "Importing \n\n";
-            //Import the bars
+            echo "Importing Ny's B/C's \n";
             $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::BAR_CLUB );
             $importBcEd->import();
+
+           echo "\n\n NY's B/C's Imported \n\n";
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in NY import: ' . $e->getMessage();
+          echo "Exception caught in NY's B/C's import: " . $e->getMessage();
         }
          
      }
@@ -583,22 +593,21 @@ class importTask extends sfBaseTask
         try
         {
 
-            echo "Importing NY ED \n";
-            echo "Downloading XML \n";
+            echo "Downloading E/D's feed \n";
             $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
 
-            echo 'Processing XML \n';
+            echo "Parsing Ny's E/D's feed \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
 
-            echo "\n\n Importing \n\n";
-            //Import the bars
+            echo "Importing Ny's E/D's \n";
             $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::RESTAURANT );
-
             $importBcEd->import();
+
+            echo "\n\n NY's E/D's Imported \n\n";
         }
         catch ( Exception $e )
         {
-          echo 'Exception caught in NY import: ' . $e->__toString();
+          echo "Exception caught in NY's E/D import: " . $e->__toString();
         }
 
      }
