@@ -9,12 +9,12 @@ Doctrine_Manager::getInstance()->bindComponent('ExportLoggerItem', 'project_n');
  * 
  * @property integer $export_logger_id
  * @property integer $item_id
- * @property string $vendor_item_id
+ * @property integer $vendor_item_id
  * @property ExportLogger $ExportLogger
  * 
  * @method integer          getExportLoggerId()   Returns the current record's "export_logger_id" value
  * @method integer          getItemId()           Returns the current record's "item_id" value
- * @method string           getVendorItemId()     Returns the current record's "vendor_item_id" value
+ * @method integer          getVendorItemId()     Returns the current record's "vendor_item_id" value
  * @method ExportLogger     getExportLogger()     Returns the current record's "ExportLogger" value
  * @method ExportLoggerItem setExportLoggerId()   Sets the current record's "export_logger_id" value
  * @method ExportLoggerItem setItemId()           Sets the current record's "item_id" value
@@ -39,10 +39,9 @@ abstract class BaseExportLoggerItem extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('vendor_item_id', 'string', 25, array(
-             'type' => 'string',
+        $this->hasColumn('vendor_item_id', 'integer', null, array(
+             'type' => 'integer',
              'notnull' => true,
-             'length' => '25',
              ));
 
 

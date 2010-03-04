@@ -24,7 +24,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['review_date'] = '';
       $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
-      $poi['country'] = 'PTR';
+      $poi['country'] = 'PRT';
       $poi['additional_address_details'] = $this->extractAddress( $venueElement );
       $poi['phone'] =  (string) $venueElement[ 'phone' ];
       $poi->addVendorCategory( (string) $venueElement[ 'tipo' ], $this->vendor['id'] );

@@ -23,7 +23,7 @@ abstract class BaseExportLoggerItemFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'export_logger_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('ExportLogger'), 'column' => 'id')),
       'item_id'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'vendor_item_id'   => new sfValidatorPass(array('required' => false)),
+      'vendor_item_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'created_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -48,7 +48,7 @@ abstract class BaseExportLoggerItemFormFilter extends BaseFormFilterDoctrine
       'id'               => 'Number',
       'export_logger_id' => 'ForeignKey',
       'item_id'          => 'Number',
-      'vendor_item_id'   => 'Text',
+      'vendor_item_id'   => 'Number',
       'created_at'       => 'Date',
       'updated_at'       => 'Date',
     );
