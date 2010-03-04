@@ -27,7 +27,7 @@ abstract class BaseExportLoggerItemForm extends BaseFormDoctrine
       'id'               => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'export_logger_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('ExportLogger'))),
       'item_id'          => new sfValidatorInteger(),
-      'vendor_item_id'   => new sfValidatorString(array('max_length' => 25)),
+      'vendor_item_id'   => new sfValidatorInteger(),
       'created_at'       => new sfValidatorDateTime(),
       'updated_at'       => new sfValidatorDateTime(),
     ));

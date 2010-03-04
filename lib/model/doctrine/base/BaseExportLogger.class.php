@@ -9,23 +9,20 @@ Doctrine_Manager::getInstance()->bindComponent('ExportLogger', 'project_n');
  * 
  * @property integer $vendor_id
  * @property enum $type
- * @property string $environment
  * @property time $total_time
  * @property Vendor $Vendor
- * @property Doctrine_Collection $ExportLoggerItens
+ * @property Doctrine_Collection $ExportLoggerItem
  * 
- * @method integer             getVendorId()          Returns the current record's "vendor_id" value
- * @method enum                getType()              Returns the current record's "type" value
- * @method string              getEnvironment()       Returns the current record's "environment" value
- * @method time                getTotalTime()         Returns the current record's "total_time" value
- * @method Vendor              getVendor()            Returns the current record's "Vendor" value
- * @method Doctrine_Collection getExportLoggerItens() Returns the current record's "ExportLoggerItens" collection
- * @method ExportLogger        setVendorId()          Sets the current record's "vendor_id" value
- * @method ExportLogger        setType()              Sets the current record's "type" value
- * @method ExportLogger        setEnvironment()       Sets the current record's "environment" value
- * @method ExportLogger        setTotalTime()         Sets the current record's "total_time" value
- * @method ExportLogger        setVendor()            Sets the current record's "Vendor" value
- * @method ExportLogger        setExportLoggerItens() Sets the current record's "ExportLoggerItens" collection
+ * @method integer             getVendorId()         Returns the current record's "vendor_id" value
+ * @method enum                getType()             Returns the current record's "type" value
+ * @method time                getTotalTime()        Returns the current record's "total_time" value
+ * @method Vendor              getVendor()           Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getExportLoggerItem() Returns the current record's "ExportLoggerItem" collection
+ * @method ExportLogger        setVendorId()         Sets the current record's "vendor_id" value
+ * @method ExportLogger        setType()             Sets the current record's "type" value
+ * @method ExportLogger        setTotalTime()        Sets the current record's "total_time" value
+ * @method ExportLogger        setVendor()           Sets the current record's "Vendor" value
+ * @method ExportLogger        setExportLoggerItem() Sets the current record's "ExportLoggerItem" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -51,11 +48,6 @@ abstract class BaseExportLogger extends sfDoctrineRecord
              ),
              'notnull' => true,
              ));
-        $this->hasColumn('environment', 'string', 10, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '10',
-             ));
         $this->hasColumn('total_time', 'time', null, array(
              'type' => 'time',
              'notnull' => true,
@@ -73,7 +65,7 @@ abstract class BaseExportLogger extends sfDoctrineRecord
              'local' => 'vendor_id',
              'foreign' => 'id'));
 
-        $this->hasMany('ExportLoggerItens', array(
+        $this->hasMany('ExportLoggerItem', array(
              'local' => 'id',
              'foreign' => 'export_logger_id'));
 
