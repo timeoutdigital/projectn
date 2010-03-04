@@ -89,5 +89,52 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategories' ][ 1 ][ 'vendor_id' ] );
   }
 
+  /**
+   * Test the long/lat is either valid or null
+   */
+  public function testLongLat()
+  {
+      $vendorObj = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+      $poiObj = new Poi();
+      $poiObj['poi_name']       = 'Fantastic';
+      $poiObj['longitude']      = 0.0000;
+      $poiObj['latitude']       = 0.0000;
+      $poiObj['vendor_poi_id']  = 1111;
+      $poiObj['Vendor']         = $vendorObj;
+      $poiObj['street']         = "Tottenham Court Road";
+      $poiObj['city']           = "London";
+      $poiObj['country']        = "UK";
+
+      $poiObj->setGeoEncodeLookUpString("Time out, Tottenham Court Road London");
+
+      $poiObj->setGeoEncodeByPass(false);
+      $poiObj->save();
+
+
+      $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
+
+
+      $poiObj = new Poi();
+      $poiObj['poi_name']       = 'Fantastic';
+      $poiObj['longitude']      = 0.0000;
+      $poiObj['latitude']       = 0.0000;
+      $poiObj['vendor_poi_id']  = 1111;
+      $poiObj['Vendor']         = $vendorObj;
+      $poiObj['street']         = "  ";
+      $poiObj['city']           = " ";
+      $poiObj['country']        =  "  ";
+
+      $poiObj->setGeoEncodeLookUpString(" ");
+
+      $poiObj->setGeoEncodeByPass(false);
+      $poiObj->save();
+
+      $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
+
+  }
+
+
+
 }
 ?>

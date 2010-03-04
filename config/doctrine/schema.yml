@@ -20,8 +20,8 @@ Poi:
     country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
     additional_address_details: {type: string(1024), notnull: false}
     zips:                       {type: string(16), notnull: false}
-    longitude:                  {type: decimal(18), scale: 15, notnull: false}
-    latitude:                   {type: decimal(18), scale: 15, notnull: false}
+    longitude:                  {type: decimal(8), scale: 6, notnull: false}
+    latitude:                   {type: decimal(8), scale: 6, notnull: false}
     email:                      {type: string(128), notnull: false}
     url:                        {type: string(1024), notnull: false}
     phone:                      {type: string(32), notnull: false}
