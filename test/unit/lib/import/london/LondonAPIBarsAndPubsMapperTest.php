@@ -25,13 +25,7 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine_Manager::connection()->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
-
-    $vendor = new Vendor();
-    $vendor['city'] = 'london';
-    $vendor['language'] = 'en-GB';
-    $vendor['time_zone'] = 'Europe/London';
-    $vendor['inernational_dial_code'] = '+44';
-    $vendor->save();
+    ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
   }
 
   /**

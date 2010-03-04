@@ -188,8 +188,8 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 				$occurrence[ 'Event' ] = $event;
 				$occurrence[ 'Poi' ] = $poi;
 
-				$occurrence[ 'start' ] = $item[ 'date_start' ];
-				$occurrence[ 'end' ]   = $item[ 'date_end' ];
+				$occurrence[ 'start_date' ] = $item[ 'date_start' ];
+				$occurrence[ 'end_date' ]   = $item[ 'date_end' ];
 
 				// calc offset
 				$occurrence[ 'utc_offset' ] = $this->vendor->getUtcOffset( $item[ 'date_start' ] );
