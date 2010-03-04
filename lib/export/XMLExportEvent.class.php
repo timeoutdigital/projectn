@@ -43,7 +43,7 @@ class XMLExportEvent extends XMLExport
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
       $eventElement->setAttribute( 'id', $this->generateUID( $event ) );
-      $eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
+      //$eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //event/name
       $this->appendRequiredElement($eventElement, 'name', $event['name'], XMLExport::USE_CDATA );
