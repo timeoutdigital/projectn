@@ -115,6 +115,7 @@ class geoEncode
 
      $this->setCoOrdinates($dataArray);
 
+     //print_r($dataArray);
      //Set invidual co-ords
    
      return $this;

@@ -18,6 +18,11 @@
  * <b>Example</b>
  * <code>
  *
+ * // create a new logExport instance
+ * $logExportObj = new logExport( $vendorObj[ 'id' ], 'poi' );
+ *
+ * // add a an item ( our uid, vendors uid)
+ * $logExportObj->addItem( 1, 'some id');
  *
  * </code>
  *
@@ -39,12 +44,12 @@ class logExport
 
 
     
-    public function  __construct( $vendorId, $type )
+    public function  __construct( $vendorId, $model )
     {
         $this->_exportLogger = new ExportLogger();
 
         $this->_exportLogger[ 'vendor_id' ] = $vendorId;
-        $this->_exportLogger[ 'type' ] = $type;
+        $this->_exportLogger[ 'model' ] = $model;
         $this->_exportLogger[ 'total_time' ] = 0;
         $this->_exportLogger->save();
         
@@ -65,7 +70,10 @@ class logExport
 
     private function _getElapsedTime()
     {
+        $this->_timer->addTime();
+        $this->_timer->startTimer();
         $seconds = $this->_timer->getElapsedTime();
+
         $timeStamp = mktime( 0, 0, $seconds );
 
         return date('H:i:s', $timeStamp);

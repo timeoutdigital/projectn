@@ -136,6 +136,9 @@ class XMLExportPOI extends XMLExport
         if( $propertyElement )
           $propertyElement->setAttribute( 'key', $property['lookup'] );
       }
+
+      $this->logExport->addItem( $poi[ 'id' ], $poi[ 'vendor_poi_id' ] );
+
     }
 
     return $domDocument;

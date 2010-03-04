@@ -170,6 +170,8 @@ class XMLExportEvent extends XMLExport
         //$place->free();
       }
 
+      $this->logExport->addItem( $event[ 'id' ], $event[ 'vendor_event_id' ] );
+
       //$event->free();
     }
 

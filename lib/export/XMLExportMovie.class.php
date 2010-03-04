@@ -76,14 +76,16 @@ class XMLExportMovie extends XMLExport
       $this->appendNonRequiredElement($versionElement, 'rating', $movie['rating'] );
 
       //movie/showtimes
-      $showTimesElement = $this->appendRequiredElement($movieElement, 'showtimes' );
+     // $showTimesElement = $this->appendRequiredElement($movieElement, 'showtimes' );
 
       //movie/showtimes/place
-      $placeElement = $this->appendRequiredElement($showTimesElement, 'place' );
-      $placeElement->setAttribute( 'place-id', $movie['Poi']['id'] );
+    //  $placeElement = $this->appendRequiredElement($showTimesElement, 'place' );
+    //  $placeElement->setAttribute( 'place-id', $movie['Poi']['id'] );
+
 
       //movie/showtimes/place/age_rating
-      $this->appendNonRequiredElement($placeElement, 'Age_rating', $movie['age_rating'] );
+      //$this->appendNonRequiredElement($placeElement, 'Age_rating', $movie['age_rating'] );
+
 
       //movie/showtimes/place/time
       //implementation on hold
@@ -105,6 +107,9 @@ class XMLExportMovie extends XMLExport
         if( $propertyTag )
         $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
       }
+
+      $this->logExport->addItem( $poi[ 'id' ], $poi[ 'vendor_movie_id' ] );
+
     }
 
     return $domDocument;
