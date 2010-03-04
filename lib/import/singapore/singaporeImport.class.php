@@ -754,8 +754,6 @@ class singaporeImport
                 throw new Exception( 'could not retrieve valid venue node by url: ' . $lookupUrl );
             }       
             $this->insertPoi( $venueDetailObj );
-
-            echo "added poi " . $poiId . " via occurrence\n";            
         }
         catch( Exception $e ) {
             $this->_logger->addError( $e );
