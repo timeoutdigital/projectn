@@ -165,7 +165,7 @@ EventOccurrence:
     booking_url:                {type: string(1024), notnull: false}
     start_date:                 {type: date, notnull: true}
     start_time:                 {type: time, notnull: false}
-    end_date:                   {type: date, notnull: true}
+    end_date:                   {type: date, notnull: false}
     end_time:                   {type: time, notnull: false}
     utc_offset:                 {type: string(9), notnull: true}
     event_id:                   {type: integer, notnull: true}
@@ -175,7 +175,6 @@ EventOccurrence:
     Poi:                        {local: poi_id, foreign: id, foreignType: many}
   indexes:
     vendor_event_occurrence_id_index:      {fields: [vendor_event_occurrence_id]}
-    start_index:                           {fields: [start]}
 
 #VendorEvent Category
 VendorEventCategory:
