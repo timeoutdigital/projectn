@@ -16,7 +16,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  * 
  * 
  */
-class nyImportBcTest extends PHPUnit_Framework_TestCase
+class nyImportBcEdTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var nyImportBcEd
@@ -88,7 +88,7 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
       $this->object->import();
 
       $testPoi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 20192 );
-      $this->assertEquals( 'Bar Category', $testPoi['VendorPoiCategories'][0]['name'] );
+      $this->assertEquals( 'Bar Category', $testPoi[ 'VendorPoiCategories' ][0]['name'] );
     }
 
     public function testCategoryIsCorrectForBarClub()
@@ -98,7 +98,7 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
       $this->object->import();
 
       $testPoi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 20192 );
-      $this->assertEquals( 'Restaurant Category', $testPoi['VendorPoiCategories'][0]['name'] );
+      $this->assertEquals( 'Restaurant Category', $testPoi[ 'VendorPoiCategories' ][0]['name'] );
     }
 
     /**validationException
@@ -120,7 +120,8 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
      */
     public function _testExistingChangedPoiIsLoggedAndUpdated()
     {
-        /*$this->createExistingChangedPoi();
+        $this->markTestSkipped();
+        $this->createExistingChangedPoi();
         $this->createObject();
         $updateTestArray = $this->object->loggerObj->changesCollection->toArray();
 
@@ -131,7 +132,6 @@ class nyImportBcTest extends PHPUnit_Framework_TestCase
         //Check the DB for all entries
         $poi = Doctrine::getTable('Poi')->findByPoiName('Milanos Bar');
         $this->assertEquals(1, count($poi->toArray()), 'Test that there is only 1 in the DB');
-*/
     }
 
 
