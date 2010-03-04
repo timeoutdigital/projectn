@@ -567,10 +567,10 @@ class singaporeImport
                 $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( $date[ 'start' ] );
 
                 //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
-                $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
-                if ( isset( $date['end'] ) )
+                $eventOccurrence[ 'start_date' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
+                if ( isset( $date['end_date'] ) )
                 {
-                    $eventOccurrence[ 'end' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
+                    $eventOccurrence[ 'end_date' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
                 }
 
                 $eventOccurrence[ 'poi_id' ] = $poiId;
