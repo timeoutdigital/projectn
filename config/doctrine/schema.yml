@@ -433,7 +433,7 @@ ExportLogger:
     Timestampable:              ~
   columns:
     vendor_id:                  {type: integer, notnull: true}
-    type:                       {type: enum, values: [movie, poi, event], notnull: true}
+    model:                      {type: enum, values: [movie, poi, event], notnull: true}
     total_time:                 {type: time, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}

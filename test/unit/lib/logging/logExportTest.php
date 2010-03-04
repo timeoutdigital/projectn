@@ -39,16 +39,13 @@ class logExportTest extends PHPUnit_Framework_TestCase {
     public function testAddItem()
     {
         $this->object->addItem( 1, 'some id');
+        sleep(2);
+        $this->object->addItem( 1, 'some id');
 
         $exportLogger = Doctrine::getTable( 'ExportLogger' )->findOneById( 1 );
 
-        //var_export( $exportLogger->toArray() );
-
-
-
-
-        //$this->asser
-
+        $this->assertGreaterThanOrEqual( strtotime( '00:00:02' ), strtotime( $exportLogger[ 'total_time' ] ) );
+        $this->assertEquals( 2 , count( $exportLogger[ 'ExportLoggerItem' ] ) );
     }
 }
 ?>

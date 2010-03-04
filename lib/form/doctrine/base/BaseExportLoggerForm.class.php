@@ -17,7 +17,7 @@ abstract class BaseExportLoggerForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'vendor_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
-      'type'       => new sfWidgetFormChoice(array('choices' => array('movie' => 'movie', 'poi' => 'poi', 'event' => 'event'))),
+      'model'      => new sfWidgetFormChoice(array('choices' => array('movie' => 'movie', 'poi' => 'poi', 'event' => 'event'))),
       'total_time' => new sfWidgetFormTime(),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
@@ -26,7 +26,7 @@ abstract class BaseExportLoggerForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'vendor_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
-      'type'       => new sfValidatorChoice(array('choices' => array('movie' => 'movie', 'poi' => 'poi', 'event' => 'event'))),
+      'model'      => new sfValidatorChoice(array('choices' => array('movie' => 'movie', 'poi' => 'poi', 'event' => 'event'))),
       'total_time' => new sfValidatorTime(),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),
