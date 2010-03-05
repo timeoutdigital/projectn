@@ -99,7 +99,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie[ 'review' ] = 'test movie review';
     $movie[ 'url' ] = 'http://movies.co.uk';
     $movie[ 'rating' ] = '1.1';
-    $movie[ 'age_rating' ] = 'oap';
+    //$movie[ 'age_rating' ] = 'oap';
     $movie[ 'utf_offset' ] = '-01:00:00';
     $movie->link( 'MovieGenres', array( 1, 2 ) );
     $movie->save();
@@ -132,7 +132,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2[ 'review' ] = 'test movie review';
     $movie2[ 'url' ] = 'http://movies.co.uk';
     $movie2[ 'rating' ] = '1.2';
-    $movie2[ 'age_rating' ] = 'oap';
+    //$movie2[ 'age_rating' ] = 'oap';
     $movie2[ 'utf_offset' ] = '-01:00:00';
     $movie2->link( 'MovieGenres', array( 1, 2 ) );
     $movie2->save();
@@ -172,7 +172,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     //movie@attributes
     $this->assertEquals( 'XXX000000000000000000000000000001', $movieElement->getAttribute( 'id' ) );
-    $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
+    //$this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $movieElement->getAttribute( 'modified' ) );
 
     //movie/name
     $this->assertEquals( 'test movie name', $movieElement->getElementsByTagName( 'name' )->item(0)->nodeValue );

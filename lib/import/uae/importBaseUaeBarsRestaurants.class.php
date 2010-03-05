@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+//ini_set('display_errors', 0);
 /**
  * Base class for the UAE bars and restuarante.
  *

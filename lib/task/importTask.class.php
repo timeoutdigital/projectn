@@ -386,7 +386,7 @@ class importTask extends sfBaseTask
           $processXmlObj = new processNyXml( $fileNameString );
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
           
-          echo "\n Inserting Chicag'o Events  \n";
+          echo "Inserting Chicago's Events  \n";
           $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
           $nyImportObj->insertEventCategoriesAndEventsAndVenues();
 

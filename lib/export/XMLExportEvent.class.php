@@ -145,22 +145,15 @@ class XMLExportEvent extends XMLExport
 
           //event/showtimes/occurrence/time/start-date
           
-          $startTimeStamp = strtotime($eventOccurrence['start']);
-          $endTimeStamp = strtotime($eventOccurrence['end']);
+          $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start_date']);
 
+          if( $eventOccurrence['start_time'] != '00:00:00' )//@todo fix this properly?
+          $this->appendRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
 
-          $startTime = date('H:i:s', $startTimeStamp);
-          $startDate = date('Y-m-d', $startTimeStamp);
-          $endTime = date('H:i:s', $endTimeStamp);
-          $endDate = date('Y-m-d', $endTimeStamp);
+          //$this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']); //not in schema...
 
-          $this->appendRequiredElement($timeElement, 'start_date', $startDate);
-
-          if( $startTime != '00:00:00' )//@todo fix this properly?
-          $this->appendRequiredElement($timeElement, 'event_time', $startTime);
-
-          if( $endTime != '00:00:00' )//@todo fix this properly?
-          $this->appendNonRequiredElement($timeElement, 'end_time', $endTime);
+          if( $eventOccurrence['end_time'] != '00:00:00' )//@todo fix this properly?
+          $this->appendNonRequiredElement($timeElement, 'end_time', $eventOccurrence['end_time']);
 
           $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
 

@@ -58,7 +58,6 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
     $movie['name']              = (string) $movieXml->name;
     $movie['url']               = (string) $movieXml->webUrl;
     $movie['plot']              = (string) $movieXml->description;
-    $movie['age_rating']        = (string) $movieXml->cert;
 
     //@todo resolve below field
     $movie['utf_offset']        = 0;
@@ -67,6 +66,7 @@ class LondonAPIFilmsMapper extends LondonAPIBaseMapper
     $movie->addProperty( 'release',  (string) $movieXml->released );
     $movie->addProperty( 'duration', (string) $movieXml->duration );
     $movie->addProperty( 'director', (string) $movieXml->director );
+    $movie->addProperty( 'Age_rating',    (string) $movieXml->genre );
 
     foreach( $movieXml->cast->name as $castMember )
     {

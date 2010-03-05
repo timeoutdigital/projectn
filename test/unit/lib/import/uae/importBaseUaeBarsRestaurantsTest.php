@@ -78,7 +78,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
      */
     public function testGetCurrentPois()
     {
-        $this->createObject();
+        $this->createXMLObject();
         $this->createExistingUnchangedPoi();
         //$this->xmlObj = $this->getXMLString();
 
@@ -101,12 +101,13 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
     /**
      * Creates the object that is being tested
      */
-    private function createObject()
+    private function createXMLObject()
     {
 
         if($this->xmlObj == '')
         {
             $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
+            $feed->exec();
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $this->xmlObj = $xmlObj->getXmlFeed();
         }

@@ -639,8 +639,11 @@ class importNyChicagoEvents
           $occurrenceObj[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
       }
       
-      $occurrenceObj[ 'utc_offset' ] = $this->_vendorObj->getUtcOffset( (string) $occurrence->start );
-      $occurrenceObj[ 'start' ] = (string) $occurrence->start;
+      $start = $this->extractStartDateTime( (string) $occurrence->start );
+      $occurrenceObj[ 'start_date' ] = $start['date'];
+      $occurrenceObj[ 'start_time' ] = $start['time'];
+      $occurrenceObj[ 'utc_offset' ] = $this->_vendorObj->getUtcOffset( $start['datetime'] );
+
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
 
       //set poi id
@@ -655,7 +658,27 @@ class importNyChicagoEvents
     }//end foreach
   }
 
+  /**
+   * Takes a date and returns an array in the form:
+   * array(
+   *  'date' => '0000-00-00',
+   *  'time' => '00:00:00',
+   *  'datetime' => '0000-00-00 00:00:00'
+   * )
+   *
+   * @param string $datetime
+   * @return array
+   */
+  private function extractStartDateTime( $datetime )
+  {
+    $startParts = explode( ' ', $datetime );
 
+    $start[ 'date' ]     = $startParts[0];
+    $start[ 'time' ]     = $startParts[1];
+    $start[ 'datetime' ] = $datetime;
+
+    return $start;
+  }
 
 
 

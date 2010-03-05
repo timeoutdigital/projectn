@@ -41,7 +41,7 @@
 				<!-- <xsd:element ref="showtimes" /> -->
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:normalizedString" use="required"/>	<!-- unique vendor movie ID -->			
-			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/>     <!-- timestamp -->
+			<!--<xsd:attribute name="modified" type="xsd:dateTime" use="required"/>-->     <!-- timestamp -->
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="version">

@@ -567,10 +567,10 @@ class singaporeImport
                 $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( $date[ 'start' ] );
 
                 //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
-                $eventOccurrence[ 'start' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
-                if ( isset( $date['end'] ) )
+                $eventOccurrence[ 'start_date' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
+                if ( isset( $date['end_date'] ) )
                 {
-                    $eventOccurrence[ 'end' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
+                    $eventOccurrence[ 'end_date' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
                 }
 
                 $eventOccurrence[ 'poi_id' ] = $poiId;
@@ -754,8 +754,6 @@ class singaporeImport
                 throw new Exception( 'could not retrieve valid venue node by url: ' . $lookupUrl );
             }       
             $this->insertPoi( $venueDetailObj );
-
-            echo "added poi " . $poiId . " via occurrence\n";            
         }
         catch( Exception $e ) {
             $this->_logger->addError( $e );

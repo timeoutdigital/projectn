@@ -204,7 +204,7 @@ class ImportUaeEvents
     {
       $occurrenceObj = new EventOccurrence();
       $occurrenceObj[ 'utc_offset' ] = $this->vendorObj->getUtcOffset();
-      $occurrenceObj[ 'start' ] = (string) $occurrence->{'start_date'};
+      $occurrenceObj[ 'start_date' ] = (string) $occurrence->{'start_date'};
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
      
       //set poi
@@ -212,7 +212,7 @@ class ImportUaeEvents
 
       $occurrenceObj[ 'Poi' ] = $poiObj;
 
-      $occurrenceObj[ 'vendor_event_occurrence_id' ] = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId((string) $eventObj['id'],  $occurrenceObj[ 'poi_id' ], $occurrenceObj[ 'start' ] );
+      $occurrenceObj[ 'vendor_event_occurrence_id' ] = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId((string) $eventObj['id'],  $occurrenceObj[ 'poi_id' ], $occurrenceObj[ 'start_date' ] );
 
       try
       {

@@ -20,8 +20,8 @@ Poi:
     country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
     additional_address_details: {type: string(1024), notnull: false}
     zips:                       {type: string(16), notnull: false}
-    longitude:                  {type: decimal(18), scale: 15, notnull: false}
-    latitude:                   {type: decimal(18), scale: 15, notnull: false}
+    longitude:                  {type: decimal(8), scale: 6, notnull: false}
+    latitude:                   {type: decimal(8), scale: 6, notnull: false}
     email:                      {type: string(128), notnull: false}
     url:                        {type: string(1024), notnull: false}
     phone:                      {type: string(32), notnull: false}
@@ -163,8 +163,10 @@ EventOccurrence:
   columns:
     vendor_event_occurrence_id: {type: string(50), notnull: true}
     booking_url:                {type: string(1024), notnull: false}
-    start:                      {type: datetime, notnull: true}
-    end:                        {type: datetime, notnull: false}
+    start_date:                 {type: date, notnull: true}
+    start_time:                 {type: time, notnull: false}
+    end_date:                   {type: date, notnull: false}
+    end_time:                   {type: time, notnull: false}
     utc_offset:                 {type: string(9), notnull: true}
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
@@ -173,7 +175,6 @@ EventOccurrence:
     Poi:                        {local: poi_id, foreign: id, foreignType: many}
   indexes:
     vendor_event_occurrence_id_index:      {fields: [vendor_event_occurrence_id]}
-    start_index:                           {fields: [start]}
 
 #VendorEvent Category
 VendorEventCategory:
