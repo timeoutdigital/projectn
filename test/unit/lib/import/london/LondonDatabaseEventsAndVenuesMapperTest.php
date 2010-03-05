@@ -135,7 +135,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue( $occurrence instanceof Doctrine_Record );
 
-    $this->assertEquals( date( 'Y-m-d' ), $occurrence[ 'start' ]  );
+    $this->assertEquals( date( 'Y-m-d' ), $occurrence[ 'start_date' ]  );
     $this->assertEquals( '+00:00', $occurrence[ 'utc_offset' ]  );
 
     $occurrence2 = Doctrine::getTable( 'EventOccurrence' )->findOneById( 2 );

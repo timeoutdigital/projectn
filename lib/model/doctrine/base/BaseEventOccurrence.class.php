@@ -9,8 +9,10 @@ Doctrine_Manager::getInstance()->bindComponent('EventOccurrence', 'project_n');
  * 
  * @property string $vendor_event_occurrence_id
  * @property string $booking_url
- * @property datetime $start
- * @property datetime $end
+ * @property date $start_date
+ * @property time $start_time
+ * @property date $end_date
+ * @property time $end_time
  * @property string $utc_offset
  * @property integer $event_id
  * @property integer $poi_id
@@ -19,8 +21,10 @@ Doctrine_Manager::getInstance()->bindComponent('EventOccurrence', 'project_n');
  * 
  * @method string          getVendorEventOccurrenceId()    Returns the current record's "vendor_event_occurrence_id" value
  * @method string          getBookingUrl()                 Returns the current record's "booking_url" value
- * @method datetime        getStart()                      Returns the current record's "start" value
- * @method datetime        getEnd()                        Returns the current record's "end" value
+ * @method date            getStartDate()                  Returns the current record's "start_date" value
+ * @method time            getStartTime()                  Returns the current record's "start_time" value
+ * @method date            getEndDate()                    Returns the current record's "end_date" value
+ * @method time            getEndTime()                    Returns the current record's "end_time" value
  * @method string          getUtcOffset()                  Returns the current record's "utc_offset" value
  * @method integer         getEventId()                    Returns the current record's "event_id" value
  * @method integer         getPoiId()                      Returns the current record's "poi_id" value
@@ -28,8 +32,10 @@ Doctrine_Manager::getInstance()->bindComponent('EventOccurrence', 'project_n');
  * @method Poi             getPoi()                        Returns the current record's "Poi" value
  * @method EventOccurrence setVendorEventOccurrenceId()    Sets the current record's "vendor_event_occurrence_id" value
  * @method EventOccurrence setBookingUrl()                 Sets the current record's "booking_url" value
- * @method EventOccurrence setStart()                      Sets the current record's "start" value
- * @method EventOccurrence setEnd()                        Sets the current record's "end" value
+ * @method EventOccurrence setStartDate()                  Sets the current record's "start_date" value
+ * @method EventOccurrence setStartTime()                  Sets the current record's "start_time" value
+ * @method EventOccurrence setEndDate()                    Sets the current record's "end_date" value
+ * @method EventOccurrence setEndTime()                    Sets the current record's "end_time" value
  * @method EventOccurrence setUtcOffset()                  Sets the current record's "utc_offset" value
  * @method EventOccurrence setEventId()                    Sets the current record's "event_id" value
  * @method EventOccurrence setPoiId()                      Sets the current record's "poi_id" value
@@ -56,12 +62,20 @@ abstract class BaseEventOccurrence extends sfDoctrineRecord
              'notnull' => false,
              'length' => '1024',
              ));
-        $this->hasColumn('start', 'datetime', null, array(
-             'type' => 'datetime',
+        $this->hasColumn('start_date', 'date', null, array(
+             'type' => 'date',
              'notnull' => true,
              ));
-        $this->hasColumn('end', 'datetime', null, array(
-             'type' => 'datetime',
+        $this->hasColumn('start_time', 'time', null, array(
+             'type' => 'time',
+             'notnull' => false,
+             ));
+        $this->hasColumn('end_date', 'date', null, array(
+             'type' => 'date',
+             'notnull' => false,
+             ));
+        $this->hasColumn('end_time', 'time', null, array(
+             'type' => 'time',
              'notnull' => false,
              ));
         $this->hasColumn('utc_offset', 'string', 9, array(
@@ -83,12 +97,6 @@ abstract class BaseEventOccurrence extends sfDoctrineRecord
              'fields' => 
              array(
               0 => 'vendor_event_occurrence_id',
-             ),
-             ));
-        $this->index('start_index', array(
-             'fields' => 
-             array(
-              0 => 'start',
              ),
              ));
         $this->option('type', 'INNODB');

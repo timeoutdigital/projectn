@@ -27,8 +27,12 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
       $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
       $occurrence['vendor_event_occurrence_id'] = (int) $listingElement['musicid'];
-      $occurrence['start'] = str_replace('T', ' ', (string) $listingElement['ListingDate'] );
-      $occurrence['utc_offset'] =  $this->vendor->getUtcOffset( $occurrence['start'] );
+
+      $start = $this->extractStartTimes( $listingElement );
+      $occurrence['start_date'] = $start['date'];
+      $occurrence['start_time'] = $start['time'];
+      $occurrence['utc_offset'] = $this->vendor->getUtcOffset( $start[ 'datetime' ] );
+
       $occurrence['event_id'] = $event['id'];
       
       $placeid = (int) $listingElement['placeid'];
@@ -52,6 +56,17 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       }
       $this->notifyImporter( $event );
     }
+  }
+
+  private function extractStartTimes( $listingElement )
+  {
+      $startParts = explode('T', (string) $listingElement['ListingDate'] );
+
+      $start[ 'date' ] = $startParts[ 0 ];                        //@todo get start times for Lisbon
+      $start[ 'time' ] = null;                                    //$startParts[ 1 ]; we don't seem to have times for Lisbon at the moment
+      $start[ 'datetime' ] = $startParts[ 0 ] . ' ' . '00:00:00'; //$startParts[ 1 ]; so we need to hard code a work around for now
+
+      return $start;
   }
 
   /**

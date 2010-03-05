@@ -91,6 +91,11 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, count( $poiObj ) );
   }
 
+  public function testStartDate()
+  {
+    $this->markTestSkipped();
+  }
+
 
   /**
    * 

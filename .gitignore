@@ -19,3 +19,4 @@ test/unit/data/downloaded_feeds/ny/[!.]*
 *.swp
 *.swo
 lib/vendor/htmlpurifier-library/HTMLPurifier/DefinitionCache/*
+tags

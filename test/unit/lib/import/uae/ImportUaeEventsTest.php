@@ -123,6 +123,7 @@ class ImportUaeEventsTest extends PHPUnit_Framework_TestCase
         if($this->xmlObj == '')
         {
             $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
+            $feed->exec();
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $this->xmlObj = $xmlObj->getXmlFeed();
         }

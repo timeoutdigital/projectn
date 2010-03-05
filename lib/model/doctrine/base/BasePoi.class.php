@@ -411,17 +411,17 @@ abstract class BasePoi extends sfDoctrineRecord
              'notnull' => false,
              'length' => '16',
              ));
-        $this->hasColumn('longitude', 'decimal', 18, array(
+        $this->hasColumn('longitude', 'decimal', 8, array(
              'type' => 'decimal',
-             'scale' => 15,
+             'scale' => 6,
              'notnull' => false,
-             'length' => '18',
+             'length' => '8',
              ));
-        $this->hasColumn('latitude', 'decimal', 18, array(
+        $this->hasColumn('latitude', 'decimal', 8, array(
              'type' => 'decimal',
-             'scale' => 15,
+             'scale' => 6,
              'notnull' => false,
-             'length' => '18',
+             'length' => '8',
              ));
         $this->hasColumn('email', 'string', 128, array(
              'type' => 'string',

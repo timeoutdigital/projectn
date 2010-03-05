@@ -53,6 +53,13 @@ abstract class BaseExportLogger extends sfDoctrineRecord
              'notnull' => true,
              ));
 
+
+        $this->index('model_index', array(
+             'fields' => 
+             array(
+              0 => 'model',
+             ),
+             ));
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_unicode_ci');
         $this->option('charset', 'utf8');
