@@ -21,9 +21,9 @@ generator:
       filter:
         display:           [vendor_id, name, event_categories_list]
       form:
-        display:           [vendor_id, name, event_categories_list, events_list]
+        display:           [vendor_id, name, event_categories_list]
       edit:
-        actions:           { _list: ~, _save: ~ }
+        actions:           { _list: ~, _save_and_list: ~ }
         fields:            ~
       new:                 ~
 
