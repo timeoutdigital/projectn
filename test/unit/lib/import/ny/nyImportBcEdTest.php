@@ -89,6 +89,7 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
 
       $testPoi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 20192 );
       $this->assertEquals( 'Bar Category', $testPoi[ 'VendorPoiCategories' ][0]['name'] );
+
     }
 
     public function testCategoryIsCorrectForBarClub()

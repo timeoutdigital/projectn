@@ -78,15 +78,48 @@ class ProjectN_Test_Unit_Factory
    */
   static public function get( $model, $data = null, $autoCreateRelatedObjects = true )
   {
+    NullFixture::setModelClass( $model );
+    $modelClass = NullFixture;
+
     switch( strtolower( $model ) )
     {
       case 'poi':
-        return PoiFixture::create( $data, $autoCreateRelatedObjects );
+        $modelClass = PoiFixture;
+        break;
+
       case 'poicategory':
-        return PoiCategoryFixture::create( $data, $autoCreateRelatedObjects );
+        $modelClass = PoiCategoryFixture;
+        break;
+
       case 'vendor':
-        return VendorFixture::create( $data, $autoCreateRelatedObjects );
+        $modelClass = VendorFixture;
+        break;
+
+      case 'event':
+        $modelClass = EventFixture;
+        break;
+
+      case 'eventoccurrence':
+        $modelClass = EventOccurrenceFixture;
+        break;
     }
+
+    return $modelClass::create( $data, $autoCreateRelatedObjects );
+  }
+}
+
+class NullFixture
+{
+  static private $modelClass;
+
+  static public function setModelClass( $modelClass )
+  {
+    NullFixture::$modelClass = $modelClass;
+  }
+
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    throw new Exception( 'There is current no fixture generator for the model: ' . NullFixture::$modelClass . '. Please make one :)' );
   }
 }
 
@@ -188,6 +221,68 @@ class VendorFixture
       'time_zone' => 'Europe/London',
       'airport_code' => 'LHR',
       'inernational_dial_code' => '+44'
+    );
+  }
+}
+
+class EventFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = EventFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $vendor = new Event();
+    $vendor->fromArray( $defaults );
+
+    return $vendor;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name' => 'test name',
+      'short_description' => 'test short description',
+      'description' => 'test description',
+      'booking_url' => 'http://timeout.com',
+      'url' => 'http://timeout.com',
+      'price' => 'test price',
+      'vendor_event_id' => 0000,
+    );
+  }
+}
+
+class EventOccurrenceFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = EventOccurrenceFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $vendor = new EventOccurrence();
+    $vendor->fromArray( $defaults );
+
+    return $vendor;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name' => 'test name',
+      'start_date' => '2001-01-01',
+      'start_time' => '00:00:00',
+      'end_date' => '2001-01-01',
+      'end_time' => '00:00:00',
+      'utc_offset' => '+00:00:00',
+      'vendor_event_occurrence_id' => '0000'
     );
   }
 }

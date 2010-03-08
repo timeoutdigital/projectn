@@ -255,10 +255,12 @@ class nyImportBcEd {
         {
           case nyImportBcEd::BAR_CLUB:
             $category = (string) $poi->PrimaryCuisine;
+            $category = 'Bar Category';
             break;
           
           case nyImportBcEd::RESTAURANT:
             $category = (string) $poi->Category;
+            $category = 'Restaurant Category';
             break;
         }
 

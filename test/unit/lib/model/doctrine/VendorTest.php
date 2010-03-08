@@ -42,6 +42,7 @@ class VendorTest extends PHPUnit_Framework_TestCase
       $this->vendor['language'] = 'en-US';
       $this->vendor['time_zone'] = 'Asia/Singapore';
       $this->vendor['inernational_dial_code'] = '+65';
+      $this->vendor['airport_code'] = 'XXX';
       $this->vendor->save();
 
     }

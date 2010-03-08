@@ -94,7 +94,8 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
      */
     public function testExistingChangedPoiIsLoggedAndUpdated()
     {
-        /**$this->createExistingChangedPoi();
+      $this->markTestSkipped();
+        $this->createExistingChangedPoi();
         $this->createObject();
         $updateTestArray = $this->object->loggerObj->changesCollection->toArray();
 
@@ -107,7 +108,6 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
         //Check the DB for all entries
         $poi = Doctrine::getTable('Poi')->findByPoiName('A La Turka');
         $this->assertEquals(1, count($poi->toArray()), 'Test that there is only 1 in the DB');
-*/
     }
 
 

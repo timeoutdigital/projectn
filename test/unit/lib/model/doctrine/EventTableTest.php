@@ -53,7 +53,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
 
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 1;
-    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'start_date' ] = date( 'Y-m-d' );
     $occurrence[ 'utc_offset' ] = '0';
     $occurrence[ 'event_id' ] = $event[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
@@ -61,7 +61,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
 
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 2;
-    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'start_date' ] = date( 'Y-m-d' );
     $occurrence[ 'utc_offset' ] = '0';
     $occurrence[ 'event_id' ] = $event[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi[ 'id' ];
@@ -69,7 +69,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
 
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 3;
-    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'start_date' ] = date( 'Y-m-d' );
     $occurrence[ 'utc_offset' ] = '0';
     $occurrence[ 'event_id' ] = $event[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
@@ -77,7 +77,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
 
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 4;
-    $occurrence[ 'start' ] = date( 'Y-m-d' );
+    $occurrence[ 'start_date' ] = date( 'Y-m-d' );
     $occurrence[ 'utc_offset' ] = '0';
     $occurrence[ 'event_id' ] = $event2[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
