@@ -53,11 +53,6 @@ class ImportUaeRestaurants extends importBaseUaeBarsRestaurants {
 
        try{
              $poiObj->save();
-
-             if($poiObj['longitude'] == null || $poiObj['longitude'] == null )
-             {
-                throw new GeoCodeException('Geocode is null');
-             }
         }
         catch(Doctrine_Validator_Exception $error)
         {
@@ -65,27 +60,6 @@ class ImportUaeRestaurants extends importBaseUaeBarsRestaurants {
             $this->poiLoggerObj->addError($error, $poiObj, $log);
             echo $error->getMessage();
             //return $poiObj;
-        }
-
-
-
-        catch(PhoneNumberException $error)
-        {
-            $log =  "PhoneNumberException while processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".$poiObj['vendor_poi_id']. " \n";
-            $this->poiLoggerObj->addError($error, $poiObj, $log);
-            //echo $log;
-            //return $poiObj;
-        }
-
-        catch(GeoCodeException $error)
-        {
-            $log =  "GeoCodeException exception while processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".$poiObj['vendor_poi_id']. " \n";
-            $this->poiLoggerObj->addError($error, $poiObj, $log);
-
-             //$poiObj->save();
-
-            //return $poiObj;
-
         }
 
         catch(Exception $error)

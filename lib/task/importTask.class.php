@@ -316,29 +316,23 @@ class importTask extends sfBaseTask
         break; //end lisbon
 
 
+
+
+
+
     case 'uae':
-        
-    
         switch( $options['type'] )
         {
-          case 'poi': //$this->importDubaiBars($vendorObj);
-                      $this->importUaePois();
-
+          case 'poi': $this->importUaePois();
             break;
 
           case 'poi-event': $this->importUaeEvents();
-
             break;
 
-
-        case 'movies': $this->importUaeMovies();
-
+          case 'movies': $this->importUaeMovies();
             break;
         }
-
-
-
-        break; // end dubai
+    break; // end dubai
 
 
 
