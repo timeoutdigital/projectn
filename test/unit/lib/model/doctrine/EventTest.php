@@ -50,25 +50,22 @@ class EventTest extends PHPUnit_Framework_TestCase
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
-    $eventOccurrence1 = new EventOccurrence();
+    $eventOccurrence1 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
     $eventOccurrence1['vendor_event_occurrence_id'] = 1;
-    $eventOccurrence1['start'] = '2009-01-01';
     $eventOccurrence1['utc_offset'] = '-05:00:00';
     $eventOccurrence1->link( 'Event', array( $event['id'] ) );
     $eventOccurrence1->link( 'Poi', array( 1 ) );
     $eventOccurrence1->save();
 
-    $eventOccurrence2 = new EventOccurrence();
+    $eventOccurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
     $eventOccurrence2['vendor_event_occurrence_id'] = 2;
-    $eventOccurrence2['start'] = '2009-01-01';
     $eventOccurrence2['utc_offset'] = '-05:00';
     $eventOccurrence2->link( 'Event', array( $event['id'] ) );
     $eventOccurrence2->link( 'Poi', array( 1 ) );
     $eventOccurrence2->save();
 
-    $eventOccurrence3 = new EventOccurrence();
+    $eventOccurrence3 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
     $eventOccurrence3['vendor_event_occurrence_id'] = 3;
-    $eventOccurrence3['start'] = '2009-01-01';
     $eventOccurrence3['utc_offset'] = '-05:00:00';
     $eventOccurrence3->link( 'Event', array( $event['id'] ) );
     $eventOccurrence3->link( 'Poi', array( 2 ) );
@@ -129,6 +126,33 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategories' ][ 0 ][ 'vendor_id' ] );
     $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategories' ][ 1 ][ 'name' ] );
     $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategories' ][ 1 ][ 'vendor_id' ] );
+  }
+
+  /*
+   * test if the add vendor category are added correctly
+   */
+  public function testAddVendorCategoryDoesntAddDuplicateCategories()
+  {
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
+    $this->object->save();
+    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
+    $this->object->save();
+
+    $categoryTable = Doctrine::getTable( 'VendorEventCategory' );
+    $this->assertEquals( 1, $categoryTable->count() );
+
+    $this->object->addVendorCategory( 'test cat 2', $vendor[ 'id' ] );
+    
+    //@todo fix duplicate vendor categories
+    $this->markTestIncomplete();
+
+    $this->object->addVendorCategory( 'test cat 2', $vendor[ 'id' ] );
+    $this->object->save();
+
+    $categoryTable = Doctrine::getTable( 'VendorEventCategory' );
+    $this->assertEquals( 2, $categoryTable->count() );
   }
 
   /**

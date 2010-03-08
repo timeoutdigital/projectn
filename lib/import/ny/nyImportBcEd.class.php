@@ -263,6 +263,7 @@ class nyImportBcEd {
           
           case nyImportBcEd::RESTAURANT:
             $category = 'restaurant';
+
             break;
         }
 

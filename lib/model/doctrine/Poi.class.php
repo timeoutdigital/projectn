@@ -155,6 +155,11 @@ class Poi extends BasePoi
          //throw new GeoCodeException('Geo encode accuracy below 5' );
        }
      }
+
+     if( !is_null( $this['longitude'] ) )
+       $this['longitude'] = substr( (string) $this['longitude'], 0, 8 );
+     if( !is_null( $this['longitude'] ) )
+       $this['latitude'] = substr( (string) $this['latitude'], 0, 8 );
   }
 
   /**

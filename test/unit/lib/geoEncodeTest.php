@@ -47,11 +47,11 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   public function testGetGeoCodeData()
   {
-    
-   // $this->assertType('array', $this->object->getGeoCode());
-   // $this->assertType('string',$this->object->getGeoCode('string'));
+    $this->markTestSkipped();
+    $this->assertType('array', $this->object->getGeoCode());
+    $this->assertType('string',$this->object->getGeoCode('string'));
 
-    /*$observer = $this->getMock('geoEncode' , array('getGeoCode'));
+    $observer = $this->getMock('geoEncode' , array('getGeoCode'));
     $observer
       ->expects($this->once())
       ->method('getGeoCode')
@@ -68,10 +68,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
          ->will($this->returnValue('foo'));
          //->will($this->returnCallback('callback'));
 
-     var_dump($stub->getGeoCode());
-
     $this->assertEquals('foo', $stub->getGeoCode());
-*/
   }
 
   
