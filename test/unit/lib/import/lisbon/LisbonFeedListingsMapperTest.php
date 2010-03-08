@@ -31,13 +31,12 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
       'city' => 'Lisbon',
       'language' => 'pt',
       'time_zone' => 'Europe/Lisbon',
       )
     );
-    $vendor->save();
     $this->vendor = $vendor;
 
     foreach( array( 833, 2844/*, 4109*/ ) as $placeid )
@@ -100,6 +99,23 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 50797 );
      
     $this->assertEquals( 2 ,count( $event['EventOccurrence'] )  );
+  }
+
+  public function testAddsCategoryToPoi()
+  {
+    $importer = new Importer();
+    //$importer->addLogger( new echoingLogger() );
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $poi833Results = Doctrine::getTable('Poi')->findByVendorPoiId( 833 );
+    $this->assertEquals( 1, $poi833Results->count() );
+
+    $poi833 = $poi833Results[0];
+    $poi833Categories = $poi833['VendorPoiCategories'];
+    $this->assertEquals( 2, $poi833Categories->count() );
+    $this->assertEquals( $poi833Categories[0]['name'], 'Museus | Museus' );
+    $this->assertEquals( $poi833Categories[1]['name'], 'Category | SubCategory' );
   }
 }
 ?>
