@@ -17,6 +17,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
    * @var projectNDataMapperHelper
    */
   protected $dataMapperHelper;
+  protected $vendorCategories = array();
 
   public function __construct( )
   {
@@ -37,17 +38,14 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
    */
   public function mapAll()
   {
-    //$this->processCategories( );
+    $this->loadCategories( );
 		$this->processEvents( );
   }
 
-    
-
 	/**
-	 * @todo only import categories that have occurrences
-
+	 * load categories in memory so that they can be referenced later
 	 */
-	private function processCategories( )
+	private function loadCategories( )
 	{
         $items = Doctrine_Query::create( )->select( 'c.*' )
                                           ->from( 'SLLCategory c' )
@@ -55,16 +53,9 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
         foreach ( $items as $item )
         {
-        	$category = new VendorEventCategory( );
-
-        	$category[ 'Vendor' ] = $this->vendor;
-        	$category[ 'name' ]   = $item[ 'name' ];
- 
-          $this->notifyImporter( $category );
-        	//$category->free( );
+          $id = $item[ 'id' ];
+          $this->vendorCategories[ $id ] = $item;
         }
-
-        //$items->free( true );
 	}
 
 
@@ -95,13 +86,15 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 			foreach ( $items as $item )
 			{
+        $categoryId = $item['SLLEvent']['master_category_id'];
+        //var_dump( $ );
 				// insert/update poi
 				//$poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $item[ 'venue_id' ] );
         $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'venue_id' ] );
 
 				if ( $poi === false ) $poi = new Poi( );
 
-        $poi['PoiCategories'][] = $this->defaultPoiCategory;
+        //$poi['VendorPoiCategories'][] = $this->defaultPoiCategory;
 
 				$poi[ 'Vendor' ] = $this->vendor;
 
@@ -170,12 +163,18 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         if( !$event['url'] ) $poi['url'] = '';
 				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
 
+        $sllEventCategoryId = $item[ 'SLLEvent' ][ 'master_category_id' ];
+        $sllEventCategory = $this->vendorCategories[ $sllEventCategoryId ];
+        $categories = $this->extractCategory( $sllEventCategory );
+
+        $poi->addVendorCategory( $categories, $this->vendor['id'] );
+
         $this->notifyImporter( $event );
+
         if( !$event->exists() )
         {
           continue;
         }
-
 
 				// insert/update occurrence
 				$occurrence = Doctrine::getTable( 'EventOccurrence' )->find( $item[ 'id' ] );
@@ -211,6 +210,19 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 		while ( $pager->getLastPage( ) >= $currentPage );
 
 	}
+
+  private function extractCategory( SLLCategory $category, &$collectedCategories = array() )
+  {
+    array_unshift( $collectedCategories, $category['name'] );
+
+    $parentCategoryId = $category[ 'parent_category_id' ];
+    if( array_key_exists( $parentCategoryId, $this->vendorCategories ) )
+    {
+      $this->extractCategory( $this->vendorCategories[ $parentCategoryId ], $collectedCategories );
+    }
+
+    return $collectedCategories;
+  }
 
 }
  

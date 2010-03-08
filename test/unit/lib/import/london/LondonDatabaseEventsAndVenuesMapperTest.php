@@ -75,6 +75,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedVenue()
   {
+    $this->assertEquals( 3, Doctrine::getTable('Poi')->count() );
    
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
     //$poi = Doctrine::getTable( 'Poi' )->findAll();
@@ -107,7 +108,22 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '',                      $poi[ 'rating' ] );
     $this->assertEquals( '',                      $poi[ 'provider' ] );
 
-    $this->assertEquals( 'theatre-music-culture', $poi[ 'PoiCategories' ][ 0 ][ 'name' ] );
+    //$this->assertEquals( 'theatre-music-culture', $poi[ 'PoiCategories' ][ 0 ][ 'name' ] );
+  }
+
+  public function testVenueCategoryAssignment()
+  {
+    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
+    $this->assertEquals( 1, $poi['VendorPoiCategories']->count(), 'First POI should have 1 category' );
+    $this->assertEquals( 'Root', $poi['VendorPoiCategories'][0]['name'] );
+
+    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '2' );
+    $this->assertEquals( 1, $poi['VendorPoiCategories']->count(), 'Second POI should have 1 category' );
+    $this->assertEquals( 'Root | Root Child 1', $poi['VendorPoiCategories'][0]['name'] );
+
+    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '3' );
+    $this->assertEquals( 1, $poi['VendorPoiCategories']->count(), 'Third POI should have 1 category' );
+    $this->assertEquals( 'Root | Root Child 1 | Child 1 Child 1', $poi['VendorPoiCategories'][0]['name'] );
   }
 
   /**
@@ -141,7 +157,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $occurrence2 = Doctrine::getTable( 'EventOccurrence' )->findOneById( 2 );
 
     $this->assertTrue( $occurrence2 instanceof Doctrine_Record );
-    $this->assertEquals( '+01:00', $occurrence2[ 'utc_offset' ]  );
+    $this->assertEquals( '+00:00', $occurrence2[ 'utc_offset' ]  );
   }
 
 }
