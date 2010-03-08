@@ -89,6 +89,15 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategories' ][ 1 ][ 'vendor_id' ] );
   }
 
+  public function testVendorCategoriesAreUnique()
+  {
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
+    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
+    $this->assertEquals( 1, $this->object[ 'VendorPoiCategories' ]->count() );
+  }
+
   /**
    * Test the long/lat is either valid or null
    */
