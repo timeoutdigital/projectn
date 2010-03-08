@@ -132,6 +132,7 @@ class nyImportBcEd {
             $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
             $poiObj[ 'zips' ]                    = (string) $poi->{'zip.0'};
             $poiObj[ 'phone' ]                   = (string) $poi->{'phone.0'};
+            $poiObj[ 'url' ]                   = (string) $poi->{'url.0'};
 
             //The B/C and E/D have different column names for the description
             if((string) $poi->{'BAR.body'})
@@ -251,14 +252,17 @@ class nyImportBcEd {
     {
         $category = '';
 
+        /**
+         * Later changed on licensee's front end
+         */
         switch( $this->restaurantOrBar )
         {
           case nyImportBcEd::BAR_CLUB:
-            $category = (string) $poi->PrimaryCuisine;
+            $category = 'bar-club';
             break;
           
           case nyImportBcEd::RESTAURANT:
-            $category = (string) $poi->Category;
+            $category = 'restaurant';
             break;
         }
 
