@@ -75,8 +75,6 @@ abstract class XMLExport
     {
       $this->xsdPath = $xsdFilename;
     }
-
-    $this->logExport = new logExport( $this->vendor[ 'id' ] , $this->model );
   }
 
   /**
@@ -84,11 +82,13 @@ abstract class XMLExport
    */
   public function run()
   {
+    $this->logExport = new logExport( $this->vendor[ 'id' ], $this->model );
     $this->modifiedTimeStamp = date( 'Y-m-d\TH:i:s' );
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
     $this->validateAgainst( $xml );
+    $this->logExport->save();
   }
 
   /**
