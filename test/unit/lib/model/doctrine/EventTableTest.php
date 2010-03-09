@@ -113,5 +113,48 @@ class EventTableTest extends PHPUnit_Framework_TestCase
     $column = $this->object->getVendorUidFieldName();
     $this->assertTrue( $this->object->hasColumn( $column ) );
   }
+
+  /**
+   * 
+   */
+   public function testFindByVendorAndStartsFrom()
+   {
+     ProjectN_Test_Unit_Factory::destroyDatabases();
+     ProjectN_Test_Unit_Factory::createDatabases();
+     $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+     $poi    = ProjectN_Test_Unit_Factory::add( 'Poi' );
+
+     $event  = ProjectN_Test_Unit_Factory::get( 'Event' );
+     $event[ 'Vendor' ] = $vendor;
+     $event->save();
+
+     $numOccurrencesStartingToday = 2;
+     for( $i = 0; $i < $numOccurrencesStartingToday; $i++) 
+     {
+       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+       $occurrence[ 'start_date' ] = date( 'Y-m-d' );
+       $occurrence[ 'Event' ] = $event;
+       $occurrence[ 'Poi' ]   = $poi;
+       $occurrence->save();
+     }
+
+     $numOccurencesStartingBeforeToday = 2;
+     for( $i = 0; $i < $numOccurencesStartingBeforeToday; $i++) 
+     {
+       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+       $occurrence[ 'Event' ]      = $event;
+       $occurrence[ 'Poi' ]        = $poi;
+       $occurrence->save();
+     }
+
+     $numOccurrencesInTotal = $numOccurrencesStartingToday + $numOccurencesStartingBeforeToday;
+
+     $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
+     $this->assertEquals( $numOccurrencesInTotal, $event[ 'EventOccurrence' ]->count() );
+
+     $goodEvents = Doctrine::getTable( 'Event' )->findByVendorAndStartsFrom( $vendor, new DateTime );
+     $goodEvent = $goodEvents[0];
+     $this->assertEquals( 2, $goodEvent[ 'EventOccurrence' ]->count() );
+   }
 }
 ?>

@@ -139,7 +139,6 @@ class Poi extends BasePoi
      }
      
      //get the longitute and latitude
-     $geoEncoder = new geoEncode();
 
      if( !$this->geoEncodeByPass && (( $this['longitude'] == 0  || $this['latitude'] == 0 ) ||  ( $this['longitude'] == null  || $this['latitude'] == null )) )
      {
@@ -147,6 +146,8 @@ class Poi extends BasePoi
        {
          throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
        }
+
+       $geoEncoder = new geoEncode();
        
        $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
 

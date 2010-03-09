@@ -37,11 +37,20 @@ class PoiTable extends Doctrine_Table
      */
     public function findAllValidByVendorId( $vendorId )
     {
-      return $this->createQuery( 'poi' )
+      $query = $this->createQuery( 'poi' );
+      $query->addWhere( 'poi.vendor_id = ?', $vendorId  );
+
+      $query = $this->addWhereLongitudeLatitudeNotNull( $query );
+
+      return $query->execute();
+    }
+
+    private function addWhereLongitudeLatitudeNotNull( Doctrine_Query $query )
+    {
+      $query
         ->addWhere( 'poi.longitude IS NOT NULL' )
         ->addWhere( 'poi.latitude IS NOT NULL' )
-        ->addWhere( 'poi.vendor_id = ?', $vendorId  )
-        ->execute()
         ;
+      return $query;
     }
 }

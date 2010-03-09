@@ -24,6 +24,11 @@ class XMLExportEvent extends XMLExport
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
   }
 
+  protected function getData()
+  {
+    return Doctrine::getTable( 'Event' )->findByVendorAndStartsFrom( $this->vendor );
+  }
+
   /**
    * Returns a string representation of the all Events in the database as XML
    *

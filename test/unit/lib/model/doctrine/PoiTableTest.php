@@ -50,5 +50,30 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
     $column = $this->object->getVendorUidFieldName();
     $this->assertTrue( $this->object->hasColumn($column) );
   }
+
+  public function testFindAllValidByVendor()
+  {
+     $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+     $numPoisWithLongLat = 2;
+     for( $i=0; $i < $numPoisWithLongLat; $i++ )
+     {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'longitude' ] = null;
+      $poi[ 'latitude' ]  = null;
+      $poi->setGeoEncodeByPass( true );
+      $poi->save();
+     }
+
+     $numPoisThatAreGood = 3;
+     for( $i=0; $i < $numPoisThatAreGood; $i++ )
+     {
+       $poi    = ProjectN_Test_Unit_Factory::add( 'Poi' );
+     }
+
+     $pois = Doctrine::getTable( 'Poi' )->findAllValidByVendorId( $vendor['id'] );
+     $this->assertEquals( 3, $pois->count() );
+  }
+
 }
 ?>

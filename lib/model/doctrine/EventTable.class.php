@@ -33,4 +33,26 @@ class EventTable extends Doctrine_Table
     return 'vendor_event_id';
   }
 
+  /**
+   * @param Vendor $vendor
+   * @param DateTime $dateTime
+   */
+  public function findByVendorAndStartsFrom( Vendor $vendor, DateTime $dateTime = null )
+  {
+    if( is_null( $dateTime ) )
+    {
+      $dateTime = new DateTime;
+    }
+
+    $dateString = $dateTime->format( 'Y-m-d' );
+
+    $query = $this->createQuery( 'event' )
+                  ->leftJoin( 'event.EventOccurrence occurrence' )
+                  ->leftJoin( 'occurrence.Poi poi' )
+                  ->addWhere( 'occurrence.start_date >= ?', $dateString )
+                  ;
+
+    return $query->execute();
+  }
+
 }
