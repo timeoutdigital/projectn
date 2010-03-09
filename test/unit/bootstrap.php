@@ -78,48 +78,25 @@ class ProjectN_Test_Unit_Factory
    */
   static public function get( $model, $data = null, $autoCreateRelatedObjects = true )
   {
-    NullFixture::setModelClass( $model );
-    $modelClass = NullFixture;
+    $classMap = array(
+      'poi'             => PoiFixture,
+      'poicategory'     => PoiCategoryFixture,
+      'vendor'          => VendorFixture,
+      'event'           => EventFixture,
+      'eventoccurrence' => EventOccurrenceFixture,
+    );
 
-    switch( strtolower( $model ) )
+    $model = strtolower( $model );
+    if( array_key_exists( $model, $classMap ) )
     {
-      case 'poi':
-        $modelClass = PoiFixture;
-        break;
-
-      case 'poicategory':
-        $modelClass = PoiCategoryFixture;
-        break;
-
-      case 'vendor':
-        $modelClass = VendorFixture;
-        break;
-
-      case 'event':
-        $modelClass = EventFixture;
-        break;
-
-      case 'eventoccurrence':
-        $modelClass = EventOccurrenceFixture;
-        break;
+      $modelClass = $classMap[ $model ];
+    }
+    else
+    {
+      throw new Exception( 'There is current no fixture generator for the model: ' . $model . '. Please make one :)' );
     }
 
     return $modelClass::create( $data, $autoCreateRelatedObjects );
-  }
-}
-
-class NullFixture
-{
-  static private $modelClass;
-
-  static public function setModelClass( $modelClass )
-  {
-    NullFixture::$modelClass = $modelClass;
-  }
-
-  static public function create( $data=null, $autoCreateRelatedObjects=true )
-  {
-    throw new Exception( 'There is current no fixture generator for the model: ' . NullFixture::$modelClass . '. Please make one :)' );
   }
 }
 
@@ -135,6 +112,7 @@ class PoiFixture
 
     $poi = new Poi();
     $poi->fromArray( $defaults );
+    $poi->setGeoEncodeLookUpString( 'foo' );
 
     if( $autoCreateRelatedObjects )
     {
