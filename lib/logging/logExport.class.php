@@ -64,6 +64,10 @@ class logExport
         $exportLoggerItem[ 'vendor_item_id' ] = $vendorItemId;
         
         $this->_exportLogger[ 'ExportLoggerItem' ][] = $exportLoggerItem;
+    }
+
+    public function save()
+    {
         $this->_exportLogger[ 'total_time' ] = $this->_getElapsedTime();
         $this->_exportLogger->save();
     }

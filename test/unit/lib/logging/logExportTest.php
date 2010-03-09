@@ -41,6 +41,7 @@ class logExportTest extends PHPUnit_Framework_TestCase {
         $this->object->addItem( 1, 'some id');
         sleep(2);
         $this->object->addItem( 1, 'some id');
+        $this->object->save();
 
         $exportLogger = Doctrine::getTable( 'ExportLogger' )->findOneById( 1 );
 
