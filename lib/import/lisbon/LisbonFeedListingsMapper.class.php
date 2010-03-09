@@ -23,7 +23,6 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
       $event['vendor_id'] = $this->vendor['id'];
       $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
-      $event->addVendorCategory( array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] ), $this->vendor['id'] );
       $event['review_date'] = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
 
       $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
@@ -45,12 +44,19 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
         continue;
       }
 
+      $category = array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] );
+      $event->addVendorCategory( $category, $this->vendor['id'] );
+      $poi->addVendorCategory(   $category, $this->vendor['id'] );
+
+      $this->notifyImporter( $poi );
+
       $occurrence['Poi'] = $poi;
       
       $event['EventOccurrence'][] = $occurrence;
 
-       //we will try to find the event with name
-      if( is_null (  $event[ 'id' ] ) && Doctrine::getTable('Event')->findOneByName( (string) $listingElement['gigKey'] ) )
+      //try to find the event using name
+      $eventName = (string) $listingElement['gigKey'];
+      if( !$event->exists() && Doctrine::getTable('Event')->findOneByName( $eventName ) )
       {
           $this->notifyImporterOfFailure( new Exception( 'An event of this name already exists; suspicious...' ) , $event );
           continue;

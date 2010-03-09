@@ -99,6 +99,11 @@ class Poi extends BasePoi
         }
     }
 
+    foreach( $this[ 'VendorPoiCategories' ] as $existingCategory )
+    {
+      if( $existingCategory[ 'name' ] == $name ) return;
+    }
+
     $vendorPoiCategoryObj = Doctrine::getTable( 'VendorPoiCategory' )->findOneByNameAndVendorId( $name, $vendorId );
 
     if ( $vendorPoiCategoryObj === false )
