@@ -49,9 +49,9 @@ echo "Exporting London"
 #Export Lisbon
 echo "";
 echo "Exporting Lisbon"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --city="lisbon" --type="movie" --language="en-US" --destination="/var/vhosts/projectn/httpdocs/export/export_$(date +'%Y%m%d')/movies/lisbon.xml"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --city="lisbon" --type="poi" --language="en-US" --destination="/var/vhosts/projectn/httpdocs/export/export_$(date +'%Y%m%d')/pois/lisbon.xml"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --city="lisbon" --type="event" --language="en-US" --destination="/var/vhosts/projectn/httpdocs/export/export_$(date +'%Y%m%d')/events/lisbon.xml"
+/var/vhosts/projectn/httpdocs/./symfony projectn:export --city="lisbon" --type="movie" --language="pt" --destination="/var/vhosts/projectn/httpdocs/export/export_$(date +'%Y%m%d')/movies/lisbon.xml"
+/var/vhosts/projectn/httpdocs/./symfony projectn:export --city="lisbon" --type="poi" --language="pt" --destination="/var/vhosts/projectn/httpdocs/export/export_$(date +'%Y%m%d')/pois/lisbon.xml"
+/var/vhosts/projectn/httpdocs/./symfony projectn:export --city="lisbon" --type="event" --language="pt" --destination="/var/vhosts/projectn/httpdocs/export/export_$(date +'%Y%m%d')/events/lisbon.xml"
 
 
 

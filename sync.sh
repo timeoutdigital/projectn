@@ -22,5 +22,5 @@ then
  fi
 fi
 
-rsync -rlhvzCcp   $dry --delete --progress --force --exclude "sync.sh" --exclude "/export/" --exclude "/import/" --exclude "/test/" --exclude "/web/uploads/" --exclude "/doc/" --exclude "/cache/" --exclude ".*" --exclude "/nbproject/" --exclude "/log/" --exclude "/config/"  . $username@$host:/var/vhosts/projectn/httpdocs
+rsync -rlhvzCcp   $dry --delete --progress --force --exclude "sync.sh" --exclude "/export/" --exclude "/import/"  --exclude "/test/" --exclude "/web/uploads/" --exclude "/doc/" --exclude "/cache/" --exclude ".*" --exclude "/nbproject/" --exclude "/log/" --exclude "/config/"  . $username@$host:/var/vhosts/projectn/httpdocs
 
