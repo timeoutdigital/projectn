@@ -198,6 +198,7 @@ abstract class XMLExport
       unlink( $this->destination );
     }
 
+    $domDocument->formatOutput = true;
     $domDocument->save($this->destination);
   }
 
@@ -229,9 +230,9 @@ abstract class XMLExport
    * 
    * @todo consider putting this in its own class
    */
-  protected function generateUID( Doctrine_Record $record )
+  protected function generateUID( $recordId )
   {
-    return $this->vendor['airport_code'] . str_pad( $record['id'], 30, 0, STR_PAD_LEFT );
+    return $this->vendor['airport_code'] . str_pad( $recordId, 30, 0, STR_PAD_LEFT );
   }
 
 }

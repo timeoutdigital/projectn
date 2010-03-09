@@ -124,6 +124,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
      $poi    = ProjectN_Test_Unit_Factory::add( 'Poi' );
 
+     //add a good event (has occurrences that start today or later)
      $event  = ProjectN_Test_Unit_Factory::get( 'Event' );
      $event[ 'Vendor' ] = $vendor;
      $event->save();
@@ -131,21 +132,25 @@ class EventTableTest extends PHPUnit_Framework_TestCase
      $numOccurrencesStartingToday = 2;
      for( $i = 0; $i < $numOccurrencesStartingToday; $i++) 
      {
-       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-       $occurrence[ 'start_date' ] = date( 'Y-m-d' );
-       $occurrence[ 'Event' ] = $event;
-       $occurrence[ 'Poi' ]   = $poi;
-       $occurrence->save();
+       $this->addEventOccurrence( $vendor, $poi, $event, ProjectN_Test_Unit_Factory::today() );
      }
 
      $numOccurencesStartingBeforeToday = 2;
      for( $i = 0; $i < $numOccurencesStartingBeforeToday; $i++) 
      {
-       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-       $occurrence[ 'Event' ]      = $event;
-       $occurrence[ 'Poi' ]        = $poi;
-       $occurrence->save();
+       $this->addEventOccurrence( $vendor, $poi, $event, '2000-01-01' );
      }
+
+     //add a bad event (has only occurrences that start before today)
+     $event2 = ProjectN_Test_Unit_Factory::get( 'Event' );
+     $event2[ 'Vendor' ] = $vendor;
+     $event2->save();
+
+     for( $i = 0; $i < 4; $i++) 
+     {
+       $this->addEventOccurrence( $vendor, $poi, $event2, '2000-01-01' );
+     }
+
 
      $numOccurrencesInTotal = $numOccurrencesStartingToday + $numOccurencesStartingBeforeToday;
 
@@ -154,7 +159,61 @@ class EventTableTest extends PHPUnit_Framework_TestCase
 
      $goodEvents = Doctrine::getTable( 'Event' )->findByVendorAndStartsFrom( $vendor, new DateTime );
      $goodEvent = $goodEvents[0];
-     $this->assertEquals( 2, $goodEvent[ 'EventOccurrence' ]->count() );
+     $this->assertEquals( 2, count( $goodEvent[ 'EventOccurrence' ] ) );
+
+     $this->assertEquals( 1, count( $goodEvents ) );
+   }
+
+   public function testFindByVendorAndStartsFromOrder()
+   {
+     ProjectN_Test_Unit_Factory::destroyDatabases();
+     ProjectN_Test_Unit_Factory::createDatabases();
+
+     $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+     $poi1    = ProjectN_Test_Unit_Factory::add( 'Poi' );
+     $poi2    = ProjectN_Test_Unit_Factory::add( 'Poi' );
+     $poi3    = ProjectN_Test_Unit_Factory::add( 'Poi' );
+
+     $event  = ProjectN_Test_Unit_Factory::get( 'Event' );
+     $event[ 'Vendor' ] = $vendor;
+     $event->save();
+     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi2, $event, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi1, $event, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi2, $event, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today() );
+
+     $event2  = ProjectN_Test_Unit_Factory::get( 'Event' );
+     $event2[ 'Vendor' ] = $vendor;
+     $event2->save();
+     $this->addEventOccurrence( $vendor, $poi3, $event2, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi1, $event2, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi2, $event2, ProjectN_Test_Unit_Factory::today() );
+
+     $events = Doctrine::getTable( 'Event' )->findByVendorAndStartsFrom( $vendor, new DateTime );
+
+     $occurrences = $events[0]['EventOccurrence'];
+     $this->assertEquals( 1, $occurrences[ 0 ][ 'poi_id' ] );
+     $this->assertEquals( 2, $occurrences[ 1 ][ 'poi_id' ] );
+     $this->assertEquals( 2, $occurrences[ 2 ][ 'poi_id' ] );
+     $this->assertEquals( 3, $occurrences[ 3 ][ 'poi_id' ] );
+     $this->assertEquals( 3, $occurrences[ 4 ][ 'poi_id' ] );
+     $this->assertEquals( 3, $occurrences[ 5 ][ 'poi_id' ] );
+
+     $occurrences = $events[1]['EventOccurrence'];
+     $this->assertEquals( 1, $occurrences[ 0 ][ 'poi_id' ] );
+     $this->assertEquals( 2, $occurrences[ 1 ][ 'poi_id' ] );
+     $this->assertEquals( 3, $occurrences[ 2 ][ 'poi_id' ] );
+   }
+
+   private function addEventOccurrence( $vendor, $poi, $event, $date )
+   {
+       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+       $occurrence[ 'start_date' ] = $date;
+       $occurrence[ 'Event' ] = $event;
+       $occurrence[ 'Poi' ]   = $poi;
+       $occurrence->save();
    }
 }
 ?>
