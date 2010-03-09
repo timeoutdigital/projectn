@@ -104,7 +104,10 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
-    $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_time' => '00:00:01' ) );
+    $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 
+      'start_date' => $this->today(),
+      'start_time' => '00:00:01',
+    ) );
     $occurrence->link( 'Event', array( 1 ) );
     $occurrence->link( 'Poi', array( 1 ) );
     $occurrence->save();
@@ -136,19 +139,19 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event2->link( 'Vendor', array( 1 ) );
     $event2->save();
 
-    $occurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+    $occurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
     $occurrence2['vendor_event_occurrence_id'] = 1110;
     $occurrence2->link( 'Event', array( 2 ) );
     $occurrence2->link( 'Poi', array( 1 ) );
     $occurrence2->save();
 
-    $occurrence3 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+    $occurrence3 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
     $occurrence3['vendor_event_occurrence_id'] = 1111;
     $occurrence3->link( 'Event', array( 2 ) );
     $occurrence3->link( 'Poi', array( 2 ) );
     $occurrence3->save();
 
-    $occurrence4 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+    $occurrence4 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
     $occurrence4['vendor_event_occurrence_id'] = 1111;
     $occurrence4->link( 'Event', array( 2 ) );
     $occurrence4->link( 'Poi', array( 2 ) );
@@ -274,7 +277,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'XXX000000000000000000000000000001', $placeTags->item(0)->getAttribute( 'place-id' ) );
     $this->assertEquals( 'http://timeout.com', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
-    $this->assertEquals( '2001-01-01', $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue, 'Testing the Start time' );
+    $this->assertEquals( $this->today(), $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue, 'Testing the Start time' );
     $this->assertEquals( '00:00:01', $showtimes1->getElementsByTagName( 'event_time' )->item(0)->nodeValue );
     $this->assertEquals( '+00:00:00', $showtimes1->getElementsByTagName( 'utc_offset' )->item(0)->nodeValue );
 
@@ -327,6 +330,14 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $propertyElements = $this->xpath->query( '/vendor-events/event[1]/version/media' );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );
+    }
+
+    /**
+     * get today's date
+     */
+    private function today()
+    {
+      return date( 'Y-m-d' );
     }
 }
 ?>
