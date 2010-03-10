@@ -40,6 +40,14 @@ class ProjectN_Test_Unit_Factory
     	if ( $connection instanceof Doctrine_Connection ) $connection->close( );
     }
   }
+  
+  /**
+   *
+   */
+   static public function today( $format = 'Y-m-d' )
+   {
+     return date( $format );
+   }
 
   /**
    * Creates and saves a new $model object to the Sqlite database with minimum required

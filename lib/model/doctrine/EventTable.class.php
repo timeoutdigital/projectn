@@ -36,8 +36,10 @@ class EventTable extends Doctrine_Table
   /**
    * @param Vendor $vendor
    * @param DateTime $dateTime
+   *
+   * @returns array
    */
-  public function findByVendorAndStartsFrom( Vendor $vendor, DateTime $dateTime = null )
+  public function findByVendorAndStartsFromAsArray( Vendor $vendor, DateTime $dateTime = null )
   {
     if( is_null( $dateTime ) )
     {
@@ -48,11 +50,15 @@ class EventTable extends Doctrine_Table
 
     $query = $this->createQuery( 'event' )
                   ->leftJoin( 'event.EventOccurrence occurrence' )
-                  ->leftJoin( 'occurrence.Poi poi' )
+                  ->leftJoin( 'event.EventCategories eventCategory' )
+                  ->leftJoin( 'event.EventProperty eventProperties' )
+                  ->leftJoin( 'event.EventMedia eventMedia' )
+                  ->leftJoin( 'event.VendorEventCategories vendorEventProperties' )
                   ->addWhere( 'occurrence.start_date >= ?', $dateString )
+                  ->addOrderBy( 'occurrence.poi_id' );
                   ;
 
-    return $query->execute();
+    return $query->execute( array(), Doctrine_Core::HYDRATE_ARRAY);
   }
 
 }
