@@ -49,7 +49,7 @@ class XMLExportPOI extends XMLExport
       $entryElement->setAttribute( 'vpid', $this->generateUID($poi) );
       $langArray = explode('-',$this->vendor['language']);
       $entryElement->setAttribute( 'lang', $langArray[0] );
-      //$entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
+      $entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       $geoPositionElement = $entryElement->appendChild( new DOMElement( 'geo-position' ) );
       $this->appendRequiredElement( $geoPositionElement, 'longitude', $poi['longitude'] );
