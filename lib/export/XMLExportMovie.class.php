@@ -107,7 +107,7 @@ class XMLExportMovie extends XMLExport
         $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
       }
       
-      $this->logExport->addItem( $movie[ 'id' ], $movie[ 'vendor_movie_id' ] );
+      //$this->logExport->addItem( $movie[ 'id' ], $movie[ 'vendor_movie_id' ] );
     }
 
     return $domDocument;
