@@ -413,13 +413,13 @@ abstract class BasePoi extends sfDoctrineRecord
              ));
         $this->hasColumn('longitude', 'decimal', 8, array(
              'type' => 'decimal',
-             'scale' => 6,
+             'scale' => 5,
              'notnull' => false,
              'length' => '8',
              ));
         $this->hasColumn('latitude', 'decimal', 8, array(
              'type' => 'decimal',
-             'scale' => 6,
+             'scale' => 5,
              'notnull' => false,
              'length' => '8',
              ));
