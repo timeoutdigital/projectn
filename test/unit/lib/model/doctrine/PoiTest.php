@@ -101,49 +101,45 @@ class PoiTest extends PHPUnit_Framework_TestCase
   /**
    * Test the long/lat is either valid or null
    */
-  public function testLongLat()
+  public function testLongLatIsFoundOrNull()
   {
-      $vendorObj = Doctrine::getTable('Vendor')->findOneById( 1 );
-
-      $poiObj = new Poi();
-      $poiObj['poi_name']       = 'Fantastic';
-      $poiObj['longitude']      = 0.0000;
-      $poiObj['latitude']       = 0.0000;
-      $poiObj['vendor_poi_id']  = 1111;
-      $poiObj['Vendor']         = $vendorObj;
-      $poiObj['street']         = "Tottenham Court Road";
-      $poiObj['city']           = "London";
-      $poiObj['country']        = "UK";
-
+      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj->setGeoEncodeLookUpString("Time out, Tottenham Court Road London");
-
-      $poiObj->setGeoEncodeByPass(false);
       $poiObj->save();
-
 
       $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
 
 
-      $poiObj = new Poi();
-      $poiObj['poi_name']       = 'Fantastic';
-      $poiObj['longitude']      = 0.0000;
-      $poiObj['latitude']       = 0.0000;
-      $poiObj['vendor_poi_id']  = 1111;
-      $poiObj['Vendor']         = $vendorObj;
-      $poiObj['street']         = "  ";
-      $poiObj['city']           = " ";
-      $poiObj['country']        =  "  ";
-
+      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj->setGeoEncodeLookUpString(" ");
-
-      $poiObj->setGeoEncodeByPass(false);
       $poiObj->save();
 
       $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
-
   }
 
+  /**
+   * longitude latitude needs to be truncated to fit the database (db was throwing errors)
+   */
+  public function testLongLatTruncatedToLengthDefinedInSchema()
+  {
+      $poi = $this->createPoiWithLongitudeLatitude( 180.123456789, 180.123456789 );
+      $poi = $this->createPoiWithLongitudeLatitude( 180.123456789, 180.123456789 );
+      $poi->save();
 
+      $longitudeLength = (int) ProjectN_Test_Unit_Factory::getColumnDefinition( 'Poi', 'longitude', 'length' ) + 1;//+1 to account for decimal
+      $this->assertEquals( $longitudeLength, strlen( $poi['longitude'] ) );
+
+      $latitudeLength = (int) ProjectN_Test_Unit_Factory::getColumnDefinition( 'Poi', 'latitude', 'length' ) + 1;//+1 to account for decimal
+      $this->assertEquals( $latitudeLength,  strlen( $poi['latitude'] ) );
+  }
+
+  private function createPoiWithLongitudeLatitude( $longitude, $latitude )
+  {
+      return ProjectN_Test_Unit_Factory::get( 'Poi', array(
+        'longitude' => $longitude,
+        'latitude'  => $latitude,
+      ) );
+  }
 
 }
 ?>
