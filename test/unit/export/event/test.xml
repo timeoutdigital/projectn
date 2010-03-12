@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-events vendor="test_en-GB" modified="2010-03-10T16:19:17">
-  <event id="XXX000000000000000000000000000001" modified="2010-03-10T16:19:17">
+<vendor-events vendor="test_en-GB" modified="2010-03-12T12:19:13">
+  <event id="XXX000000000000000000000000000001" modified="2010-03-12T12:19:13">
     <name><![CDATA[test name]]></name>
     <category>concerts</category>
     <category>theater</category>
@@ -21,7 +21,7 @@
         <occurrence>
           <booking_url>http://timeout.com</booking_url>
           <time>
-            <start_date>2010-03-10</start_date>
+            <start_date>2010-03-12</start_date>
             <event_time>00:00:01</event_time>
             <utc_offset>+00:00:00</utc_offset>
           </time>
@@ -29,7 +29,7 @@
       </place>
     </showtimes>
   </event>
-  <event id="XXX000000000000000000000000000002" modified="2010-03-10T16:19:17">
+  <event id="XXX000000000000000000000000000002" modified="2010-03-12T12:19:13">
     <name><![CDATA[test event2&<>'"]]></name>
     <category>concerts</category>
     <version lang="en">
@@ -40,7 +40,7 @@
       <place place-id="XXX000000000000000000000000000001">
         <occurrence>
           <time>
-            <start_date>2010-03-10</start_date>
+            <start_date>2010-03-12</start_date>
             <utc_offset>+00:00:00</utc_offset>
           </time>
         </occurrence>
@@ -48,13 +48,13 @@
       <place place-id="XXX000000000000000000000000000002">
         <occurrence>
           <time>
-            <start_date>2010-03-10</start_date>
+            <start_date>2010-03-12</start_date>
             <utc_offset>+00:00:00</utc_offset>
           </time>
         </occurrence>
         <occurrence>
           <time>
-            <start_date>2010-03-10</start_date>
+            <start_date>2010-03-12</start_date>
             <utc_offset>+00:00:00</utc_offset>
           </time>
         </occurrence>

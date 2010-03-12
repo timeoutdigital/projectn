@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-movies modified="2010-03-10T16:19:24" vendor="test_en-GB">
+<vendor-movies modified="2010-03-12T12:19:21" vendor="test_en-GB">
   <movie id="XXX000000000000000000000000000001">
     <name><![CDATA[test movie name]]></name>
     <version lang="en">
