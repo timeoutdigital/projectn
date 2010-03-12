@@ -13,50 +13,16 @@
  */
 class londonDatabaseFilmsDataMapper extends DataMapper
 {
-  /**
-   * This integer value comes from london database:
-   * film_convert.review.review_type_id
-   *
-   * @static int
-   */
-  const LONDON_REVIEW_TYPE_ID = 2;
 
   /**
-   * This integer value comes from london database:
-   * film_convert.review.review_type_id
-   *
-   * @static int
+   * @var array
    */
-  const NEW_YORK_REVIEW_TYPE_ID = 3;
+  protected $databaseConfig;
 
   /**
-   * This integer value comes from london database:
-   * film_convert.review.review_type_id
-   * 
-   * @static int
+   * @var array
    */
-  const CHICAGO_REVIEW_TYPE_ID = 4;
-
-  /**
-   * @var string
-   */
-  protected $dsn = 'mysql:dbname=film_convert;host=80.250.104.16';
-
-  /**
-   * @var string
-   */
-  protected $dbUserName = 'timeout';
-
-
-  /**
-   * @var string
-   */
-  protected $dbPwd = '65dali32';
-
-  /**
-   * @var int
-   */
-  protected $reviewTypeId;
+  protected $citiesConfig;
 
   /**
    * @var PDO
@@ -76,26 +42,20 @@ class londonDatabaseFilmsDataMapper extends DataMapper
   /**
    *
    * @param Vendor $vendor
-   * @param int $reviewTypeId corresponds to the column 'review_type_id' on
    * table 'review' of database 'film_convert'
    */
-  public function  __construct( Vendor $vendor, $reviewTypeId )
+  public function  __construct( Vendor $vendor )
   {
+    $this->fillConfig();
     $this->vendor = $vendor;
-    $this->reviewTypeId = $reviewTypeId;
-    $this->pdo  = new PDO( $this->dsn, $this->dbUserName, $this->dbPwd );
-    $statement = $this->pdo->prepare( "SET NAMES UTF8 " );
-    $statement->execute();
+    $this->preparePdo();
     $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
   }
   
   public function mapMovies()
   {
-
     foreach( $this->getFilmsFromLondonDatabase() as $data )
     {
-      
-//      $movie = $this->getRecord('Movie', 'vendor_movie_id', $this->vendor['id'] );
       $movie = $this->dataMapperHelper->getMovieRecord( $data[ 'film_id' ] );
 
       $movie['vendor_id']  = $this->vendor['id'];
@@ -105,6 +65,10 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie['vendor_movie_id'] = $data[ 'film_id' ];
 
       $movie->addProperty('Age_rating', $data[ 'age_rating' ]);
+      $movie->addProperty('Director', $data[ 'director' ]);
+      $movie->addProperty('Cast', $data[ 'cast' ]);
+      $movie->addProperty('Year', $data[ 'year' ]);
+      $movie->addProperty('Runtime', $data[ 'runtime' ]);
       
       $review = $this->getReview( $data[ 'film_id' ] );
 
@@ -131,19 +95,19 @@ class londonDatabaseFilmsDataMapper extends DataMapper
         $movie[ 'MovieGenres' ][] = $movieGenre;
       }
 
+      /*@todo sort out the test and uncomment this
       if( $data[ 'image_id' ] > 0 )
       { 
-        /*@todo sort out the test and uncomment this
-         *
-         * try
+        try
         {
             $movie->addMediaByUrl( 'http://www.timeout.com/img/' . $data[ 'image_id' ] . '/w398/image.jpg' );
         }
         catch( Exception $e )
         {
             $this->notifyImporterOfFailure( $e );
-        }*/
+        }
       }
+      */
 
       $this->notifyImporter( $movie );
     }
@@ -160,55 +124,68 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     //in Chicago, e.g. Skokie, Chicago, Wilmette, etc10119509...
     //this could go into a yml...
 
-    //@todo clean this crap up
-    $vendorToStateCountryMap = array( 'ny' => '%NY', 'chicago' => '%IL', 'london' => '930' );
-
-    if( !key_exists( $this->vendor->city ,$vendorToStateCountryMap ) )
-    {
-      throw new Exception( $this->vendor['city'] . ' vendor is not supported.' );
-    }
-
-    $stateCountry = $vendorToStateCountryMap[ $this->vendor[ 'city' ] ];
-    
-    $query = ( is_numeric( $stateCountry ) ) ? $this->getFindByCountryQuery() : $this->getFindByStateQuery();
-
+    $query = $this->getQueryFromConfig();
     $statement = $this->pdo->prepare( $query );
-    $statement->execute( array( $stateCountry ) );
+
+    $param = $this->getParamFromConfig();
+    $statement->execute( array( $param ) );
 
     return $statement->fetchAll(  PDO::FETCH_ASSOC );
   }
   
   private function getFindByStateQuery()
   {
-    $query = "
-      SELECT f.*,cr.code as age_rating, group_concat(DISTINCT gt.genre SEPARATOR ',' ) as genre , f.image_id
-        FROM cinema c
-        JOIN listing l ON l.cinema_id = c.cinema_id and date >= date( NOW() )
-        JOIN film f ON f.film_id = l.film_id
-        JOIN film_certificates fc ON f.film_id = fc.film_id
-        JOIN certificates cr ON fc.certificate_id = cr.id
-        LEFT JOIN genre g ON g.film_id = f.film_id
-        LEFT JOIN genre_title gt ON g.genre_id = gt.genre_id
-        WHERE c.country_id = '931' AND  city_state LIKE ?
-        GROUP BY film_id
-    ";
-    return $query;
+    return $this->getFindQueryWithWhere( "c.country_id = '931' AND  city_state LIKE ?" );
   }
 
   private function getFindByCountryQuery()
   {
+    return $this->getFindQueryWithWhere( "c.country_id = ?" );
+  }
+
+  private function getFindQueryWithWhere( $whereClause )
+  {
     $query = "
-      SELECT f.*,cr.code as age_rating, group_concat(DISTINCT gt.genre SEPARATOR ',' ) as genre , f.image_id
-        FROM cinema c
-        JOIN listing l ON l.cinema_id = c.cinema_id and date >= date( NOW() )
-        JOIN film f ON f.film_id = l.film_id
-        JOIN film_certificates fc ON f.film_id = fc.film_id
-        JOIN certificates cr ON fc.certificate_id = cr.id
-        LEFT JOIN genre g ON g.film_id = f.film_id
-        LEFT JOIN genre_title gt ON g.genre_id = gt.genre_id
-        WHERE c.country_id = ?
-        GROUP BY film_id
+    SELECT 
+    f.film_id, 
+    f.title, 
+    f.year_made year,
+    f.duration runtime,
+    cr.code as age_rating,
+    (
+      SELECT GROUP_CONCAT( DISTINCT gt.genre SEPARATOR ', ' ) as genre
+      FROM genre g2
+      LEFT JOIN genre_title gt ON g2.genre_id = gt.genre_id
+      WHERE g2.film_id = f.film_id
+    ) genre2,
+    f.image_id,
+    (
+      SELECT group_concat(DISTINCT CONCAT( p2.name_first, ' ', p2.name_second) SEPARATOR ', ' ) as name
+      FROM film_map map2
+      LEFT JOIN role r2  ON map2.role_id = r2.role_id
+      LEFT JOIN person p2 on map2.person_id = p2.person_id
+      WHERE map2.film_id = f.film_id
+      AND r2.role = 'd'
+    ) director,
+    (
+    SELECT group_concat(DISTINCT CONCAT( p2.name_first, ' ', p2.name_second) SEPARATOR ', ' ) as name
+      FROM film_map map2
+      LEFT JOIN role r2  ON map2.role_id = r2.role_id
+      LEFT JOIN person p2 on map2.person_id = p2.person_id
+      WHERE map2.film_id = f.film_id
+      AND r2.role= 'cast'
+    ) cast
+
+    FROM cinema c
+    JOIN listing l ON l.cinema_id = c.cinema_id 
+      AND date >= date( NOW() )
+    JOIN film f ON f.film_id = l.film_id
+    JOIN film_certificates fc ON f.film_id = fc.film_id
+    JOIN certificates cr ON fc.certificate_id = cr.id
+    WHERE %where%
+    GROUP BY film_id
     ";
+    $query = str_replace( '%where%', $whereClause, $query );
     return $query;
   }
 
@@ -224,11 +201,12 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    */
   protected function getReview( $filmId )
   {
+    $review_type_id = $this->citiesConfig['params']['review_type_id'];
     $query = "
       SELECT review_type_id , text , rating ,
       (
         CASE
-         WHEN review_type_id = " . $this->reviewTypeId . " THEN 10
+         WHEN review_type_id = " . $review_type_id . " THEN 10
          WHEN review_type_id = 2 THEN 9
          WHEN review_type_id = 1 THEN 8
          WHEN review_type_id = 5 THEN 7
@@ -241,7 +219,6 @@ class londonDatabaseFilmsDataMapper extends DataMapper
        ORDER BY review_index DESC LIMIT 1";
 
      $statement = $this->pdo->prepare( $query );
-
      $statement->execute();
 
      return $statement->fetch( PDO::FETCH_ASSOC );
@@ -256,6 +233,77 @@ class londonDatabaseFilmsDataMapper extends DataMapper
   {
     $string = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $string );
     return $string;
+  }
+
+  private function fillConfig()
+  {
+    $config = sfYaml::load( sfConfig::get( 'sf_config_dir' ) . '/londonDatabaseFilm.yml' );
+
+    $environment = $this->getEnvironment();
+    $config      = $config[ $environment ];
+
+    $this->databaseConfig = $config[ 'database' ];
+    $this->citiesConfig   = $config[ 'cities' ];
+  }
+
+  private function getEnvironment()
+  {
+    $environment = sfConfig::get( 'sf_environment' );
+    $environment = preg_replace( '/dev|prod/', 'all', $environment );
+    return $environment;
+  }
+
+  private function preparePdo()
+  {
+		if( is_null( $pdo ) )
+		{
+			$pdo  = new PDO( 
+				$this->databaseConfig[ 'dsn' ],
+				$this->databaseConfig[ 'username' ],
+				$this->databaseConfig[ 'password' ]
+			);
+		}
+    
+		$this->pdo = $pdo;
+
+    $statement = $this->pdo->prepare( "SET NAMES UTF8 " );
+    if( $statement ) $statement->execute();
+  }
+
+  private function getQueryFromConfig()
+  {
+    $cityLanguage = $this->getCityLanguage();
+    $method       = 'get' . ucfirst( $this->citiesConfig[ $cityLanguage ]['query'] ) . 'Query';
+    return $this->$method();
+  }
+
+  private function getParamFromConfig()
+  {
+    $cityLanguage = $this->getCityLanguage();
+    $cityConfig   = $this->citiesConfig[ $cityLanguage ];
+
+    $param = null;
+    switch( $cityConfig['query'] )
+    {
+      case 'findByCountry':
+        $param = $cityConfig['params']['country_id'];
+        break;
+      case 'findByState':
+        $param = $cityConfig['params']['state'];
+        break;
+      default:
+        throw new Exception( 'query "findByCountry" is not supported. Please change the Yaml config to use either "findByCountry" or "findByState".' );
+    }
+
+    return $param;
+  }
+
+  private function getCityLanguage()
+  {
+    $cityLanguage = $this->vendor[ 'city' ] . '_' . $this->vendor[ 'language' ];
+    $cityLanguage = preg_replace( '/[^a-z]/i', '_', $cityLanguage );
+    $cityLanguage = strtolower( $cityLanguage );
+    return $cityLanguage;
   }
 }
 ?>
