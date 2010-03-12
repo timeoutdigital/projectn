@@ -40,6 +40,14 @@ class ProjectN_Test_Unit_Factory
     	if ( $connection instanceof Doctrine_Connection ) $connection->close( );
     }
   }
+  
+  /**
+   *
+   */
+   static public function today( $format = 'Y-m-d' )
+   {
+     return date( $format );
+   }
 
   /**
    * Creates and saves a new $model object to the Sqlite database with minimum required
@@ -97,6 +105,25 @@ class ProjectN_Test_Unit_Factory
     }
 
     return $modelClass::create( $data, $autoCreateRelatedObjects );
+  }
+
+  /**
+   * @param string $modelName
+   * @param string $columnName
+   * @param string $part
+   * @return mixed
+   */
+  static public function getColumnDefinition( $modelName, $column, $part=null)
+  {
+    $definition = Doctrine::getTable( $modelName )->getColumnDefinition( 'longitude' );
+
+    if( is_null( $part ) )
+      return $definition;
+
+    if( !array_key_exists( $part, $definition ) )
+      throw new Exception( "'$part' is not in the column definition for the Poi column '$column'."  );
+
+    return $definition[$part];
   }
 }
 

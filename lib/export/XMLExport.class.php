@@ -82,13 +82,13 @@ abstract class XMLExport
    */
   public function run()
   {
-    $this->logExport = new logExport( $this->vendor[ 'id' ], $this->model );
+    //$this->logExport = new logExport( $this->vendor[ 'id' ], $this->model );
     $this->modifiedTimeStamp = date( 'Y-m-d\TH:i:s' );
     $data = $this->getData();
     $xml = $this->mapDataToDOMDocument( $data, $this->getDomDocument() );
     $this->writeXMLToFile( $xml );
     $this->validateAgainst( $xml );
-    $this->logExport->save();
+   // $this->logExport->save();
   }
 
   /**
@@ -198,6 +198,7 @@ abstract class XMLExport
       unlink( $this->destination );
     }
 
+    $domDocument->formatOutput = true;
     $domDocument->save($this->destination);
   }
 
@@ -229,9 +230,9 @@ abstract class XMLExport
    * 
    * @todo consider putting this in its own class
    */
-  protected function generateUID( $record )
+  protected function generateUID( $recordId )
   {
-    return $this->vendor['airport_code'] . str_pad( $record['id'], 30, 0, STR_PAD_LEFT );
+    return $this->vendor['airport_code'] . str_pad( $recordId, 30, 0, STR_PAD_LEFT );
   }
 
 }

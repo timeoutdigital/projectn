@@ -26,7 +26,7 @@ class XMLExportEvent extends XMLExport
 
   protected function getData()
   {
-    return Doctrine::getTable( 'Event' )->findByVendorAndStartsFrom( $this->vendor );
+    return Doctrine::getTable( 'Event' )->findByVendorAndStartsFromAsArray( $this->vendor );
   }
 
   /**
@@ -47,8 +47,8 @@ class XMLExportEvent extends XMLExport
     {
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
-      $eventElement->setAttribute( 'id', $this->generateUID( $event ) );
-      //$eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
+      $eventElement->setAttribute( 'id', $this->generateUID( $event['id'] ) );
+      $eventElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //event/name
       $this->appendRequiredElement($eventElement, 'name', $event['name'], XMLExport::USE_CDATA );
@@ -56,11 +56,11 @@ class XMLExportEvent extends XMLExport
       //event/category
       foreach( $event['EventCategory'] as $category )
       {
-        $this->appendRequiredElement($eventElement, 'category', $category);
+        $this->appendRequiredElement($eventElement, 'category', $category['name']);
         //$category->free( );
       }
 
-      if( $event[ 'EventCategory' ]->count() < 1 )
+      if( count( $event[ 'EventCategory' ] ) < 1 )
       {
         $this->appendRequiredElement($eventElement, 'category', 'other');
       }
@@ -124,51 +124,50 @@ class XMLExportEvent extends XMLExport
       //event/showtimes
       $showtimeElement = $this->appendRequiredElement($eventElement, 'showtimes');
 
-      //event/showtimes/place
-      foreach( $event['Pois'] as $place)
+
+      $currentPoiId = null;
+      foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
-
-        $placeElement = $this->appendRequiredElement($showtimeElement, 'place');
-        $placeElement->setAttribute( 'place-id', $this->generateUID($place) );
-
-        foreach( $place['EventOccurrence'] as $eventOccurrence )
+ 
+        if ( $currentPoiId != $eventOccurrence[ 'poi_id' ] )
         {
-          
-          if ( $eventOccurrence[ 'Event' ] != $event ) continue;
-
-          //event/showtimes/place/occurrence
-          $occurrenceElement = $this->appendRequiredElement($placeElement, 'occurrence');
-
-          //event/showtimes/occurrence/booking-url
-          if( !empty( $event['booking_url'] ) )
-          {
-            $this->appendNonRequiredElement($occurrenceElement, 'booking_url', $event['booking_url']);
-          }
-
-          //event/showtimes/occurrence/time
-          $timeElement = $this->appendRequiredElement($occurrenceElement, 'time');
-
-          //event/showtimes/occurrence/time/start-date
-          
-          $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start_date']);
-
-          if( $eventOccurrence['start_time'] != '00:00:00' )//@todo fix this properly?
-          $this->appendRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
-
-          //$this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']); //not in schema...
-
-          if( $eventOccurrence['end_time'] != '00:00:00' )//@todo fix this properly?
-          $this->appendNonRequiredElement($timeElement, 'end_time', $eventOccurrence['end_time']);
-
-          $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
-
-          //$eventOccurrence->free();
+          //event/showtimes/place
+          $placeElement = $this->appendRequiredElement($showtimeElement, 'place');
+          $placeElement->setAttribute( 'place-id', $this->generateUID( $eventOccurrence[ 'poi_id' ] ) );
         }
 
+        $currentPoiId = $eventOccurrence[ 'poi_id' ];
+
+        //event/showtimes/place/occurrence
+        $occurrenceElement = $this->appendRequiredElement($placeElement, 'occurrence');
+
+        //event/showtimes/occurrence/booking-url
+        if( !empty( $event['booking_url'] ) )
+        {
+          $this->appendNonRequiredElement($occurrenceElement, 'booking_url', $event['booking_url']);
+        }
+
+        //event/showtimes/occurrence/time
+        $timeElement = $this->appendRequiredElement($occurrenceElement, 'time');
+
+        //event/showtimes/occurrence/time/start-date
+
+        $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start_date']);
+
+        if( $eventOccurrence['start_time'] != '00:00:00' )//@todo fix this properly?
+        $this->appendRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
+
+        //$this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']); //not in schema...
+
+        if( $eventOccurrence['end_time'] != '00:00:00' )//@todo fix this properly?
+        $this->appendNonRequiredElement($timeElement, 'end_time', $eventOccurrence['end_time']);
+
+        $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
+        //$eventOccurrence->free();
         //$place->free();
       }
 
-      $this->logExport->addItem( $event[ 'id' ], $event[ 'vendor_event_id' ] );
+     // $this->logExport->addItem( $event[ 'id' ], $event[ 'vendor_event_id' ] );
 
       //$event->free();
     }

@@ -127,46 +127,89 @@ class Poi extends BasePoi
    */
   public function preSave( $event )
   {
-     
+     $this->fixPhone();
+     $this->fixUrl();
+     $this->lookupAndApplyGeocodes();
+     $this->truncateGeocodeLengthToMatchSchema();
+  }
+
+  private function fixPhone()
+  {
      if(strlen($this['phone']) > 0)
      {
       $this['phone'] = stringTransform::formatPhoneNumber( trim($this['phone']), $this['Vendor']['inernational_dial_code'] );
      }
+  }
 
+  private function fixUrl()
+  {
      if( $this['url'] != '')
      {
         $this['url'] = stringTransform::formatUrl($this['url']);
      }
-     
-     //get the longitute and latitude
-
-     if( !$this->geoEncodeByPass && (( $this['longitude'] == 0  || $this['latitude'] == 0 ) ||  ( $this['longitude'] == null  || $this['latitude'] == null )) )
-     {
-       if( empty( $this->geoEncodeLookUpString ) )
-       {
-         throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
-       }
-
-       $geoEncoder = new geoEncode();
-       
-       $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
-
-       $this['longitude'] = $geoEncoder->getLongitude();
-       $this['latitude'] = $geoEncoder->getLatitude();
-
-       if( $geoEncoder->getAccuracy() < 5 )
-       {
-         //$this['longitude'] = null;
-         //$this['latitude'] = null;
-         //throw new GeoCodeException('Geo encode accuracy below 5' );
-       }
-     }
-
-     if( !is_null( $this['longitude'] ) )
-       $this['longitude'] = substr( (string) $this['longitude'], 0, 8 );
-     if( !is_null( $this['longitude'] ) )
-       $this['latitude'] = substr( (string) $this['latitude'], 0, 8 );
   }
+
+  private function lookupAndApplyGeocodes()
+  {
+    if( $this->geoEncodeByPass )
+      return;
+
+    if( !$this->isGeocodeValid() )
+      return;
+
+    if( empty( $this->geoEncodeLookUpString ) )
+    {
+      throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
+    }
+
+    $geoEncoder = new geoEncode();
+    
+    $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
+
+    $this['longitude'] = $geoEncoder->getLongitude();
+    $this['latitude'] = $geoEncoder->getLatitude();
+
+    //if( $geoEncoder->getAccuracy() < 5 )
+    //{
+    //  $this['longitude'] = null;
+    //  $this['latitude'] = null;
+    //  throw new GeoCodeException('Geo encode accuracy below 5' );
+    //}
+  }
+
+  private function isGeocodeValid()
+  {
+    $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
+    $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );
+
+    return $isNotZero || $isNull;
+  }
+
+  private function truncateGeocodeLengthToMatchSchema()
+  {
+    $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+    $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
+
+     if( strlen( $this['longitude'] ) > $longitudeLength )
+       $this['longitude'] = substr( (string) $this['longitude'], 0, $longitudeLength );
+
+     if( strlen( $this['latitude'] ) > $latitudeLength )
+       $this['latitude'] = substr( (string) $this['latitude'], 0, $latitudeLength );
+  }
+
+  private function getColumnDefinition( $column, $part=null )
+  {
+    $definition = $this->getTable()->getColumnDefinition( 'longitude' );
+
+    if( is_null( $part ) )
+      return $definition;
+
+    if( !array_key_exists( $part, $definition ) )
+      throw new Exception( "'$part' is not in the column definition for the Poi column '$column'."  );
+
+    return $definition[$part];
+  }
+
 
   /**
    * adds a poi media and invokes the download for it
