@@ -1,10 +1,10 @@
 <?php
-( 0 < count( $vendor_poi_category['PoiCategories'] ) ) ? '<ul>' : '';
+( 0 < count( $vendor_poi_category['PoiCategory'] ) ) ? '<ul>' : '';
 
-foreach ( $vendor_poi_category['PoiCategories'] as $category )
+foreach ( $vendor_poi_category['PoiCategory'] as $category )
 {
   echo '<li>' . $category['name'] . '</li>';
 }
 
-( 0 < count( $vendor_poi_category['PoiCategories'] ) ) ? '</ul>' : '';
+( 0 < count( $vendor_poi_category['PoiCategory'] ) ) ? '</ul>' : '';
 ?>

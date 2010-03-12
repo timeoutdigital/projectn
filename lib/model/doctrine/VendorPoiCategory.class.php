@@ -24,9 +24,9 @@ class VendorPoiCategory extends BaseVendorPoiCategory
     foreach ( $this['Poi'] as $poi )
     {
 
-      foreach( $this['PoiCategories'] as $category )
+      foreach( $this['PoiCategory'] as $category )
       {
-        $poi['PoiCategories'][] = $category;
+        $poi['PoiCategory'][] = $category;
       }
 
       $poi->save();

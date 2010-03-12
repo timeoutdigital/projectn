@@ -99,7 +99,7 @@ class importNyED
     //Get and set the child category
     $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
     $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName( 'restaurant' );
-    $poi['PoiCategories'] =  $categoriesArray;
+    $poi['PoiCategory'] =  $categoriesArray;
 
     //save to database
     $poi->save();

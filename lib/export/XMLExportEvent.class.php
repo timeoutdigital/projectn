@@ -54,13 +54,13 @@ class XMLExportEvent extends XMLExport
       $this->appendRequiredElement($eventElement, 'name', $event['name'], XMLExport::USE_CDATA );
 
       //event/category
-      foreach( $event['EventCategories'] as $category )
+      foreach( $event['EventCategory'] as $category )
       {
         $this->appendRequiredElement($eventElement, 'category', $category);
         //$category->free( );
       }
 
-      if( $event[ 'EventCategories' ]->count() < 1 )
+      if( $event[ 'EventCategory' ]->count() < 1 )
       {
         $this->appendRequiredElement($eventElement, 'category', 'other');
       }
@@ -76,7 +76,7 @@ class XMLExportEvent extends XMLExport
       $this->appendRequiredElement($versionElement, 'name', $event['name'], XMLExport::USE_CDATA);
 
       //event/version/vendor-category
-      foreach( $event['VendorEventCategories'] as $vendorEventCategory )
+      foreach( $event['VendorEventCategory'] as $vendorEventCategory )
       {
           $this->appendRequiredElement($versionElement, 'vendor-category', $vendorEventCategory['name'], XMLExport::USE_CDATA);
       }

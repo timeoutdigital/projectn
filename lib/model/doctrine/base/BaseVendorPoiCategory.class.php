@@ -11,21 +11,18 @@ Doctrine_Manager::getInstance()->bindComponent('VendorPoiCategory', 'project_n')
  * @property integer $vendor_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $Poi
- * @property Doctrine_Collection $PoiCategories
- * @property Doctrine_Collection $LinkingPoiCategoryMappings
+ * @property Doctrine_Collection $PoiCategory
  * 
- * @method string              getName()                       Returns the current record's "name" value
- * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
- * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Doctrine_Collection getPoiCategories()              Returns the current record's "PoiCategories" collection
- * @method Doctrine_Collection getLinkingPoiCategoryMappings() Returns the current record's "LinkingPoiCategoryMappings" collection
- * @method VendorPoiCategory   setName()                       Sets the current record's "name" value
- * @method VendorPoiCategory   setVendorId()                   Sets the current record's "vendor_id" value
- * @method VendorPoiCategory   setVendor()                     Sets the current record's "Vendor" value
- * @method VendorPoiCategory   setPoi()                        Sets the current record's "Poi" collection
- * @method VendorPoiCategory   setPoiCategories()              Sets the current record's "PoiCategories" collection
- * @method VendorPoiCategory   setLinkingPoiCategoryMappings() Sets the current record's "LinkingPoiCategoryMappings" collection
+ * @method string              getName()        Returns the current record's "name" value
+ * @method integer             getVendorId()    Returns the current record's "vendor_id" value
+ * @method Vendor              getVendor()      Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getPoi()         Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getPoiCategory() Returns the current record's "PoiCategory" collection
+ * @method VendorPoiCategory   setName()        Sets the current record's "name" value
+ * @method VendorPoiCategory   setVendorId()    Sets the current record's "vendor_id" value
+ * @method VendorPoiCategory   setVendor()      Sets the current record's "Vendor" value
+ * @method VendorPoiCategory   setPoi()         Sets the current record's "Poi" collection
+ * @method VendorPoiCategory   setPoiCategory() Sets the current record's "PoiCategory" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -71,13 +68,9 @@ abstract class BaseVendorPoiCategory extends sfDoctrineRecord
              'local' => 'vendor_poi_category_id',
              'foreign' => 'poi_id'));
 
-        $this->hasMany('PoiCategory as PoiCategories', array(
+        $this->hasMany('PoiCategory', array(
              'refClass' => 'LinkingPoiCategoryMapping',
              'local' => 'vendor_poi_category_id',
              'foreign' => 'poi_category_id'));
-
-        $this->hasMany('LinkingPoiCategoryMapping as LinkingPoiCategoryMappings', array(
-             'local' => 'id',
-             'foreign' => 'vendor_poi_category_id'));
     }
 }

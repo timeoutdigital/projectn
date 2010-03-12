@@ -13,4 +13,14 @@ class VendorEventCategoryForm extends BaseVendorEventCategoryForm
   public function configure()
   {
   }
+
+  public function setup()
+  {
+      parent::setup();
+
+      //remove the event list as we dont want to see it and not to update the data
+      //either, which it would if only hidden in the generator yaml. at least as
+      //of symfony 1.4
+      $this->offsetUnset( 'event_list' );
+  }
 }

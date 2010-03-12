@@ -83,10 +83,10 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
     $this->object = Doctrine::getTable('Poi')->findOneById( $this->object['id'] );
 
-    $this->assertEquals( 'test cat', $this->object[ 'VendorPoiCategories' ][ 0 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategories' ][ 0 ][ 'vendor_id' ] );
-    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorPoiCategories' ][ 1 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategories' ][ 1 ][ 'vendor_id' ] );
+    $this->assertEquals( 'test cat', $this->object[ 'VendorPoiCategory' ][ 0 ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategory' ][ 0 ][ 'vendor_id' ] );
+    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorPoiCategory' ][ 1 ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategory' ][ 1 ][ 'vendor_id' ] );
   }
 
   public function testVendorCategoriesAreUnique()
@@ -95,7 +95,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
-    $this->assertEquals( 1, $this->object[ 'VendorPoiCategories' ]->count() );
+    $this->assertEquals( 1, $this->object[ 'VendorPoiCategory' ]->count() );
   }
 
   /**

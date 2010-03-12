@@ -65,12 +65,12 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
     $poi->link( 'Vendor', array( 1 ) );
-    $poi->link( 'PoiCategories', array( 1 ) );
+    $poi->link( 'PoiCategory', array( 1 ) );
     $poi->save();
 
     $poi2 = ProjectN_Test_Unit_Factory::get( 'Poi' );
     $poi2->link( 'Vendor', array( 1 ) );
-    $poi2->link( 'PoiCategories', array( 1 ) );
+    $poi2->link( 'PoiCategory', array( 1 ) );
     $poi2->save();
 
     $vendorEventCategory = new VendorEventCategory();
@@ -99,8 +99,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $eventCategories[] = $eventCat;
 
     $event = ProjectN_Test_Unit_Factory::get( 'Event' );
-    $event['VendorEventCategories'] = $vendorEventCategories;
-    $event['EventCategories'] = $eventCategories;
+    $event['VendorEventCategory'] = $vendorEventCategories;
+    $event['EventCategory'] = $eventCategories;
     $event->link( 'Vendor', array( 1 ) );
     $event->save();
 
@@ -132,8 +132,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $property->save();
 
     $event2 = new Event();
-    $event2['VendorEventCategories'] = $vendorEventCategories;
-    $event2['EventCategories'] = $eventCategories;
+    $event2['VendorEventCategory'] = $vendorEventCategories;
+    $event2['EventCategory'] = $eventCategories;
     $event2['vendor_event_id'] = 1112;
     $event2->setName( 'test event2' . $this->specialChars );
     $event2->link( 'Vendor', array( 1 ) );

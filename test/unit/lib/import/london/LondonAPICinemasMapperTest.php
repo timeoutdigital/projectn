@@ -74,7 +74,7 @@ class LondonAPICinemasMapperTest extends PHPUnit_Framework_TestCase
     $this->assertFalse( empty( $poi[ 'url' ] ),               'url should not be empty: '           . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'phone' ] ),             'phone should not be empty: '         . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'zips' ] ),              'zips should not be empty: '          . $poi[ 'url' ] );
-    //$this->assertEquals( $poi[ 'PoiCategories' ][ 0 ][ 'name' ], 'cinema', 'category should be "bar-pub": '   . $poi[ 'url' ] );
+    //$this->assertEquals( $poi[ 'PoiCategory' ][ 0 ][ 'name' ], 'cinema', 'category should be "bar-pub": '   . $poi[ 'url' ] );
 
     //$this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) );
   }

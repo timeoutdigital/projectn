@@ -9,17 +9,11 @@ Doctrine_Manager::getInstance()->bindComponent('LinkingPoiCategoryMapping', 'pro
  * 
  * @property integer $poi_category_id
  * @property integer $vendor_poi_category_id
- * @property PoiCategory $PoiCategory
- * @property VendorPoiCategory $VendorPoiCategory
  * 
  * @method integer                   getPoiCategoryId()          Returns the current record's "poi_category_id" value
  * @method integer                   getVendorPoiCategoryId()    Returns the current record's "vendor_poi_category_id" value
- * @method PoiCategory               getPoiCategory()            Returns the current record's "PoiCategory" value
- * @method VendorPoiCategory         getVendorPoiCategory()      Returns the current record's "VendorPoiCategory" value
  * @method LinkingPoiCategoryMapping setPoiCategoryId()          Sets the current record's "poi_category_id" value
  * @method LinkingPoiCategoryMapping setVendorPoiCategoryId()    Sets the current record's "vendor_poi_category_id" value
- * @method LinkingPoiCategoryMapping setPoiCategory()            Sets the current record's "PoiCategory" value
- * @method LinkingPoiCategoryMapping setVendorPoiCategory()      Sets the current record's "VendorPoiCategory" value
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -48,12 +42,6 @@ abstract class BaseLinkingPoiCategoryMapping extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('PoiCategory', array(
-             'local' => 'poi_category_id',
-             'foreign' => 'id'));
-
-        $this->hasOne('VendorPoiCategory', array(
-             'local' => 'vendor_poi_category_id',
-             'foreign' => 'id'));
+        
     }
 }

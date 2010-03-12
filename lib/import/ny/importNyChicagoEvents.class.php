@@ -78,7 +78,7 @@ class importNyChicagoEvents
     $this->_venues = $this->_xmlFeed->getVenues();
     $this->_events = $this->_xmlFeed->getEvents();
     $this->_vendorObj = $vendorObj;
-    $this->_categoryMap = new CategoryMap();
+    $this->_categoryMap = new CategoryMap( false );
     $this->_poiLoggerObj = new logImport($vendorObj);
     $this->_eventLoggerObj = new logImport($vendorObj);
     $this->_poiLoggerObj->setType('poi');
@@ -372,23 +372,11 @@ class importNyChicagoEvents
       //store categories
       if ( 0 < count( $categoryArray ) )
       {
-        $poiObj['PoiCategories'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Poi', 'theatre-music-culture' );
-
-        $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
         foreach( $categoryArray as $category )
         {
-          $vendorPoiCategory = Doctrine::getTable('VendorPoiCategory')->findOneByName( $category );
-        
-          if ( is_object( $vendorPoiCategory ) )
-          {
-            $vendorCategoriesArray[] = $vendorPoiCategory;
-          }
-          else
-          {
-            Throw new Exception("Invalid Vendor Poi Category");
-          }
-        }
-        $poiObj['VendorPoiCategories'] = $vendorCategoriesArray;
+          $poiObj->addVendorCategory( $category, $this->_vendorObj[ 'id' ] );
+        }        
+        $poiObj['PoiCategory'] = $this->_categoryMap->mapCategories( $this->_vendorObj, $poiObj['VendorPoiCategory'], 'Poi' );
       }
 
 
@@ -419,6 +407,8 @@ class importNyChicagoEvents
    */
   public function insertVendorEventCategories( $event )
   {    
+
+    
 
     if ( isset($event->category_combi) )
     {
@@ -469,9 +459,6 @@ class importNyChicagoEvents
          //Concatinate the categories Categories
           $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
 
-          //Get the Event Categories and their mappings
-          $eventCategoriesCollection = $this->_categoryMap->mapCategories( $this->_vendorObj, $categoryArray, 'Event' );
-
           //Get all the Vendor Event Categories that were inserted during the first loop
           $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
 
@@ -493,6 +480,9 @@ class importNyChicagoEvents
               //Throw new Exception("Invalid Vendor Event Category");
             }
           }
+
+          //Get the Event Categories and their mappings
+          $eventCategoriesCollection = $this->_categoryMap->mapCategories( $this->_vendorObj, $vendorCategoriesArray, 'Event' );
 
           //Loop through and check to see if any vendor mapped catagories are 'movies'
           foreach($eventCategoriesCollection as $eventCat)
@@ -531,8 +521,8 @@ class importNyChicagoEvents
 
 
             //Event Categories
-            $eventObj['EventCategories'] = $eventCategoriesCollection;
-            $eventObj['VendorEventCategories'] = $vendorCategoriesArray;
+            $eventObj['EventCategory'] = $eventCategoriesCollection;
+            $eventObj['VendorEventCategory'] = $vendorCategoriesArray;
 
 
             //deal with the "text-system" nodes

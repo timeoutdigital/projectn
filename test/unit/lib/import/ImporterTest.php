@@ -119,11 +119,11 @@ class ImporterTest extends PHPUnit_Framework_TestCase
     
     $poiCategory = $poiCategoryTable->findOneById( 1 );
     $poiCatFromDb = $poiCategory->getId();
-    $poiCatFromObject = $poi->getPoiCategories()->getFirst()->getId();
+    $poiCatFromObject = $poi->getPoiCategory()->getFirst()->getId();
     $this->assertEquals( $poiCatFromDb, $poiCatFromObject );
 
-    $this->assertEquals( 1, $poi->getPoiCategories()->count() );
-    $this->assertNotEquals( $poiCategory2['id'], $poi->getPoiCategories()->getFirst()->getId() );
+    $this->assertEquals( 1, $poi->getPoiCategory()->count() );
+    $this->assertNotEquals( $poiCategory2['id'], $poi->getPoiCategory()->getFirst()->getId() );
   }
 
   /**

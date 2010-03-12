@@ -15,17 +15,17 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                           => new sfWidgetFormInputHidden(),
-      'name'                         => new sfWidgetFormInputText(),
-      'events_list'                  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
-      'vendor_event_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
+      'id'                         => new sfWidgetFormInputHidden(),
+      'name'                       => new sfWidgetFormInputText(),
+      'event_list'                 => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
+      'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
     ));
 
     $this->setValidators(array(
-      'id'                           => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'name'                         => new sfValidatorString(array('max_length' => 50)),
-      'events_list'                  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
-      'vendor_event_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
+      'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'name'                       => new sfValidatorString(array('max_length' => 50)),
+      'event_list'                 => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
+      'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event_category[%s]');
@@ -46,34 +46,34 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
   {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['events_list']))
+    if (isset($this->widgetSchema['event_list']))
     {
-      $this->setDefault('events_list', $this->object->Events->getPrimaryKeys());
+      $this->setDefault('event_list', $this->object->Event->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['vendor_event_categories_list']))
+    if (isset($this->widgetSchema['vendor_event_category_list']))
     {
-      $this->setDefault('vendor_event_categories_list', $this->object->VendorEventCategories->getPrimaryKeys());
+      $this->setDefault('vendor_event_category_list', $this->object->VendorEventCategory->getPrimaryKeys());
     }
 
   }
 
   protected function doSave($con = null)
   {
-    $this->saveEventsList($con);
-    $this->saveVendorEventCategoriesList($con);
+    $this->saveEventList($con);
+    $this->saveVendorEventCategoryList($con);
 
     parent::doSave($con);
   }
 
-  public function saveEventsList($con = null)
+  public function saveEventList($con = null)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['events_list']))
+    if (!isset($this->widgetSchema['event_list']))
     {
       // somebody has unset this widget
       return;
@@ -84,8 +84,8 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $existing = $this->object->Events->getPrimaryKeys();
-    $values = $this->getValue('events_list');
+    $existing = $this->object->Event->getPrimaryKeys();
+    $values = $this->getValue('event_list');
     if (!is_array($values))
     {
       $values = array();
@@ -94,24 +94,24 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
     $unlink = array_diff($existing, $values);
     if (count($unlink))
     {
-      $this->object->unlink('Events', array_values($unlink));
+      $this->object->unlink('Event', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
     if (count($link))
     {
-      $this->object->link('Events', array_values($link));
+      $this->object->link('Event', array_values($link));
     }
   }
 
-  public function saveVendorEventCategoriesList($con = null)
+  public function saveVendorEventCategoryList($con = null)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['vendor_event_categories_list']))
+    if (!isset($this->widgetSchema['vendor_event_category_list']))
     {
       // somebody has unset this widget
       return;
@@ -122,8 +122,8 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $existing = $this->object->VendorEventCategories->getPrimaryKeys();
-    $values = $this->getValue('vendor_event_categories_list');
+    $existing = $this->object->VendorEventCategory->getPrimaryKeys();
+    $values = $this->getValue('vendor_event_category_list');
     if (!is_array($values))
     {
       $values = array();
@@ -132,13 +132,13 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
     $unlink = array_diff($existing, $values);
     if (count($unlink))
     {
-      $this->object->unlink('VendorEventCategories', array_values($unlink));
+      $this->object->unlink('VendorEventCategory', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
     if (count($link))
     {
-      $this->object->link('VendorEventCategories', array_values($link));
+      $this->object->link('VendorEventCategory', array_values($link));
     }
   }
 

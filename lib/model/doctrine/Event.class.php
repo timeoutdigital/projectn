@@ -74,7 +74,7 @@ class Event extends BaseEvent
       $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
     }
 
-    $this[ 'VendorEventCategories' ][] = $vendorEventCategoryObj;
+    $this[ 'VendorEventCategory' ][] = $vendorEventCategoryObj;
   }
 
    /**

@@ -127,7 +127,7 @@ class PoiFixture
 
     if( $autoCreateRelatedObjects )
     {
-      $poi->link( 'PoiCategories', array( 1 ) );
+      $poi->link( 'PoiCategory', array( 1 ) );
       $poi->link( 'Vendor', array( 1 ) );
     }
 

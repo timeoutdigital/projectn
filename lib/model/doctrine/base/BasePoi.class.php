@@ -69,8 +69,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getProvider()                   Returns the current record's "provider" value
  * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
  * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoiCategories()              Returns the current record's "PoiCategories" collection
- * @method Doctrine_Collection getVendorPoiCategories()        Returns the current record's "VendorPoiCategories" collection
+ * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
+ * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
@@ -106,14 +106,14 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setProvider()                   Sets the current record's "provider" value
  * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
  * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
- * @method Poi                 setPoiCategories()              Sets the current record's "PoiCategories" collection
- * @method Poi                 setVendorPoiCategories()        Sets the current record's "VendorPoiCategories" collection
+ * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
+ * @method Poi                 setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
  * @method Poi                 setMovie()                      Sets the current record's "Movie" value
- * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionCategories
- * @property Doctrine_Collection $VendorPoiCategories
+ * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionCategory
+ * @property Doctrine_Collection $VendorPoiCategory
  * @property Doctrine_Collection $Poi
  * 
  * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
@@ -146,8 +146,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getProvider()                   Returns the current record's "provider" value
  * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
  * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoiCategories()              Returns the current record's "PoiCategories" collection
- * @method Doctrine_Collection getVendorPoiCategories()        Returns the current record's "VendorPoiCategories" collection
+ * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
+ * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
@@ -183,8 +183,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setProvider()                   Sets the current record's "provider" value
  * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
  * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
- * @method Poi                 setPoiCategories()              Sets the current record's "PoiCategories" collection
- * @method Poi                 setVendorPoiCategories()        Sets the current record's "VendorPoiCategories" collection
+ * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
+ * @method Poi                 setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
@@ -222,8 +222,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getProvider()                   Returns the current record's "provider" value
  * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
  * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoiCategories()              Returns the current record's "PoiCategories" collection
- * @method Doctrine_Collection getVendorPoiCategories()        Returns the current record's "VendorPoiCategories" collection
+ * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
+ * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
@@ -259,8 +259,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setProvider()                   Sets the current record's "provider" value
  * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
  * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
- * @method Poi                 setPoiCategories()              Sets the current record's "PoiCategories" collection
- * @method Poi                 setVendorPoiCategories()        Sets the current record's "VendorPoiCategories" collection
+ * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
+ * @method Poi                 setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
@@ -300,8 +300,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method string              getProvider()                   Returns the current record's "provider" value
  * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
  * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoiCategories()              Returns the current record's "PoiCategories" collection
- * @method Doctrine_Collection getVendorPoiCategories()        Returns the current record's "VendorPoiCategories" collection
+ * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
+ * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
@@ -337,8 +337,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setProvider()                   Sets the current record's "provider" value
  * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
  * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
- * @method Poi                 setPoiCategories()              Sets the current record's "PoiCategories" collection
- * @method Poi                 setVendorPoiCategories()        Sets the current record's "VendorPoiCategories" collection
+ * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
+ * @method Poi                 setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
@@ -522,12 +522,12 @@ abstract class BasePoi extends sfDoctrineRecord
              'local' => 'vendor_id',
              'foreign' => 'id'));
 
-        $this->hasMany('PoiCategory as PoiCategories', array(
+        $this->hasMany('PoiCategory', array(
              'refClass' => 'LinkingPoiCategory',
              'local' => 'poi_id',
              'foreign' => 'poi_category_id'));
 
-        $this->hasMany('VendorPoiCategory as VendorPoiCategories', array(
+        $this->hasMany('VendorPoiCategory', array(
              'refClass' => 'LinkingVendorPoiCategory',
              'local' => 'poi_id',
              'foreign' => 'vendor_poi_category_id'));

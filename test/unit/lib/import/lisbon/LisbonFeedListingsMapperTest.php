@@ -112,7 +112,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, $poi833Results->count() );
 
     $poi833 = $poi833Results[0];
-    $poi833Categories = $poi833['VendorPoiCategories'];
+    $poi833Categories = $poi833['VendorPoiCategory'];
     $this->assertEquals( 2, $poi833Categories->count() );
     $this->assertEquals( $poi833Categories[0]['name'], 'Museus | Museus' );
     $this->assertEquals( $poi833Categories[1]['name'], 'Category | SubCategory' );
