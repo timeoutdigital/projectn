@@ -40,12 +40,10 @@ Poi:
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
-    PoiCategories:              {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
-    VendorPoiCategories:        {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
+    PoiCategory:                {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
+    VendorPoiCategory:          {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
   indexes:
     vendor_poi_id_index:        {fields: [vendor_poi_id]}
-
-
 
 #Any media that is associated to a Poi
 PoiMedia:
@@ -57,6 +55,19 @@ PoiMedia:
   relations:
     Poi:                        {local: poi_id, foreign: id}
 
+#Category available for Pois
+PoiCategory:
+  connection: project_n
+  actAs:
+    Timestampable: ~
+  columns:
+    name:                       {type: string(50), notnull: true}
+  relations:
+    Poi:                        {class: Poi, refClass: LinkingPoiCategory}
+    Parent:                     {class: PoiCategory, local: child_id, foreign: parent_id, refClass: PoiCategoryReference, foreignAlias: Children}
+    VendorPoiCategory:          {class: VendorPoiCategory, refClass: LinkingPoiCategoryMapping }
+  indexes:
+    name_index:                 {fields: [name]}
 
 #Self referencing table for PoiCategory to enable a tree
 PoiCategoryReference:
@@ -69,21 +80,6 @@ PoiCategoryReference:
       type: integer
       primary: true
 
-#Poi Category (linking)
-LinkingPoiCategory:
-  connection: project_n
-  columns:
-     poi_category_id:         {type: integer, notnull: true}
-     poi_id:                  {type: integer, notnull: true}
-
-
-#Vendor Poi Category (linking)
-LinkingVendorPoiCategory:
-  connection: project_n
-  columns:
-     vendor_poi_category_id:  {type: integer, notnull: true}
-     poi_id:                  {type: integer, notnull: true}
-
 #VendorPoiCategory
 VendorPoiCategory:
   connection: project_n
@@ -92,33 +88,31 @@ VendorPoiCategory:
     vendor_id:                {type: integer, notnull: true}
   relations:
     Vendor:                   {local: vendor_id, foreign: id}
-    Poi:                      {class: Poi, refClass: LinkingVendorPoiCategory, local: vendor_poi_category_id, foreign: poi_id}
+    Poi:                      {class: Poi, refClass: LinkingVendorPoiCategory}
+    PoiCategory:              {class: PoiCategory, refClass: LinkingPoiCategoryMapping}
   indexes:
-    name_index:                 {fields: [name]}
-    
-#Categories available for Pois
-PoiCategory:
+    name_index:               {fields: [name]}
+
+#Poi Category (linking)
+LinkingPoiCategory:
   connection: project_n
-  actAs:
-    Timestampable: ~
   columns:
-    name:                       {type: string(50), notnull: true}
-  relations:
-    Poi:                        {class: Poi, refClass: LinkingPoiCategory, local: poi_category_id, foreign: poi_id}
-    Parent:                     {class: PoiCategory, local: child_id, foreign: parent_id, refClass: PoiCategoryReference, foreignAlias: Children}
-    VendorPoiCategories:        {foreignAlias: PoiCategories, class: VendorPoiCategory, refClass: LinkingPoiCategoryMapping }
-  indexes:
-    name_index:                 {fields: [name]}
+     poi_category_id:         {type: integer, notnull: true}
+     poi_id:                  {type: integer, notnull: true}
+
+#Vendor Poi Category (linking)
+LinkingVendorPoiCategory:
+  connection: project_n
+  columns:
+     vendor_poi_category_id:  {type: integer, notnull: true}
+     poi_id:                  {type: integer, notnull: true}
 
 #Poi CategoryMapping
 LinkingPoiCategoryMapping:
   connection: project_n
   columns:
-    poi_category_id:                {type: integer, notnull: true}
-    vendor_poi_category_id:         {type: integer, notnull: true}
-  relations:
-    PoiCategory:                    {foreignAlias: LinkingPoiCategoryMappings}
-    VendorPoiCategory:              {foreignAlias: LinkingPoiCategoryMappings}
+    poi_category_id:          {type: integer, notnull: true}
+    vendor_poi_category_id:   {type: integer, notnull: true}
 
 #Key value pairs for unmappable values on a Poi
 PoiProperty:
@@ -126,13 +120,13 @@ PoiProperty:
   actAs:
     Timestampable: ~
   columns:
-    lookup:                     {type: string(50), notnull: true}
-    value:                      {type: string(1024), notnull: true}
-    poi_id:                     {type: integer, notnull: true}
+    lookup:                   {type: string(50), notnull: true}
+    value:                    {type: string(1024), notnull: true}
+    poi_id:                   {type: integer, notnull: true}
   relations:
-    Poi:                        {local: poi_id, foreign: id}
+    Poi:                      {local: poi_id, foreign: id}
   indexes:
-    lookup_index:               {fields: [lookup]}
+    lookup_index:             {fields: [lookup]}
 
 #Represents an event
 Event:
@@ -152,8 +146,8 @@ Event:
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
-    EventCategories:            {class: EventCategory, refClass: LinkingEventCategory, local: event_id, foreign: event_category_id }
-    VendorEventCategories:      {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: event_id, foreign: vendor_event_category_id }
+    EventCategory:              {class: EventCategory, refClass: LinkingEventCategory, local: event_id, foreign: event_category_id }
+    VendorEventCategory:        {class: VendorEventCategory, refClass: LinkingVendorEventCategory, local: event_id, foreign: vendor_event_category_id }
   indexes:
     vendor_event_id_index:      {fields: [vendor_event_id]}
 
@@ -176,6 +170,17 @@ EventOccurrence:
   indexes:
     vendor_event_occurrence_id_index:      {fields: [vendor_event_occurrence_id]}
 
+#Event Category
+EventCategory:
+  connection: project_n
+  columns:
+    name:                       {type: string(50), notnull: true}
+  relations:
+    Event:                      {class: Event, refClass: LinkingEventCategory}
+    VendorEventCategory:        {class: VendorEventCategory, refClass: LinkingEventCategoryMapping}
+  indexes:
+    name_index:                 {fields: [name]}
+    
 #VendorEvent Category
 VendorEventCategory:
   connection: project_n
@@ -184,31 +189,17 @@ VendorEventCategory:
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
-    Events:                     {class: Event, refClass: LinkingVendorEventCategory, local: vendor_event_category_id, foreign: event_id}
+    Event:                      {class: Event, refClass: LinkingVendorEventCategory}
+    EventCategory:              {class: EventCategory, refClass: LinkingEventCategoryMapping}
   indexes:
     name_index:                 {fields: [name]}
 
-
-#Event Category
-EventCategory:
+#Event Category (linking)
+LinkingEventCategory:
   connection: project_n
   columns:
-    name:                       {type: string(50), notnull: true}
-  relations:
-    Events:                     {class: Event, refClass: LinkingEventCategory, local: event_category_id, foreign: event_id}
-    VendorEventCategories:      {foreignAlias: EventCategories, class: VendorEventCategory, refClass: LinkingEventCategoryMapping }
-  indexes:
-    name_index:                 {fields: [name]}
-
-#LinkingEvent CategoryMapping
-LinkingEventCategoryMapping:
-  connection: project_n
-  columns:
-    event_category_id:          {type: integer, notnull: true}
-    vendor_event_category_id:   {type: integer, notnull: true}
-  relations:
-    VendorEventCategory:        {foreignAlias: LinkingEventCategoryMappings}
-    EventCategory:              {foreignAlias: LinkingEventCategoryMappings}
+     event_category_id:         {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
 
 #Vendor Event Category (linking)
 LinkingVendorEventCategory:
@@ -217,12 +208,12 @@ LinkingVendorEventCategory:
      vendor_event_category_id:  {type: integer, notnull: true}
      event_id:                  {type: integer, notnull: true}
 
-#Event Category (linking)
-LinkingEventCategory:
+#LinkingEvent CategoryMapping
+LinkingEventCategoryMapping:
   connection: project_n
   columns:
-     event_category_id:         {type: integer, notnull: true}
-     event_id:                  {type: integer, notnull: true}
+    event_category_id:          {type: integer, notnull: true}
+    vendor_event_category_id:   {type: integer, notnull: true}
 
 #Any media that is associated to a Event
 EventMedia:

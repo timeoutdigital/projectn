@@ -94,7 +94,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 				if ( $poi === false ) $poi = new Poi( );
 
-        //$poi['VendorPoiCategories'][] = $this->defaultPoiCategory;
+        //$poi['VendorPoiCategory'][] = $this->defaultPoiCategory;
 
 				$poi[ 'Vendor' ] = $this->vendor;
 

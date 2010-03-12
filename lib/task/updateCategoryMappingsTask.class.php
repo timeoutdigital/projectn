@@ -8,6 +8,7 @@ class updateCategoryMappingsTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'Update mappings for the following entity', 'all'),
+      new sfCommandOption('verbose', null, sfCommandOption::PARAMETER_OPTIONAL, 'Output processing of nodes', 'false'),
     ));
 
     $this->namespace        = 'projectn';
@@ -22,14 +23,20 @@ class updateCategoryMappingsTask extends sfBaseTask
     $databaseManager = new sfDatabaseManager($this->configuration);
     Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
+    
+    $timer = sfTimerManager::getTimer('importTimer');
 
     //create category mapper instance
     $categoryMapper = new CategoryMap();
 
+    $vendors = Doctrine::getTable( 'Vendor' )->findAll();
+
     //Select the task
     if ( in_array( $options['type'], array( 'all', 'poi') ) )
     {
-          $pois = Doctrine::getTable( 'Poi' )->findAll();
+        foreach( $vendors as $vendor )
+        {
+          $pois = Doctrine::getTable( 'Poi' )->findByVendorId( $vendor[ 'id' ] );
 
           $totalPois = $pois->count();
 
@@ -38,32 +45,30 @@ class updateCategoryMappingsTask extends sfBaseTask
           foreach ( $pois as $poi )
           {
 
-              $vendor = Doctrine::getTable( 'Vendor' )->findOneById( $poi[ 'vendor_id'] );
+              $poi->unlink( 'PoiCategory' );
 
-              $categoriesToBeMapped = array();
-
-              foreach ( $poi[ 'VendorPoiCategories' ] as $poisVendorPoiCategory )
+              if ( 0 < count( $poi[ 'VendorPoiCategory' ] ) )
               {
-                  $categoriesToBeMapped[] = $poisVendorPoiCategory[ 'name'];
-              }
-
-              $poi->unlink( 'PoiCategories' );
-
-              if ( 0 < count( $categoriesToBeMapped ) )
-              {
-                  $poi[ 'PoiCategories' ] = $categoryMapper->mapCategories( $vendor, $categoriesToBeMapped, 'Poi' );
+                  $poi[ 'PoiCategory' ] = $categoryMapper->mapCategories( $vendor, $poi[ 'VendorPoiCategory' ], 'Poi' );
               }
 
               $poi->setGeoEncodeByPass( true );
               $poi->save();
               $poiCounter--;
 
-              echo "poi " . $poiCounter . ' of ' . $totalPois . PHP_EOL;
+              if ( $options['verbose'] == 'true' )
+              {
+                  echo "vendor " . $vendor[ 'city' ] . " / poi " . $poiCounter . ' of ' . $totalPois . PHP_EOL;
+              }
           }
+        }        
     }
+
     if ( in_array( $options['type'], array( 'all', 'event') ) )
     {
-          $events = Doctrine::getTable( 'Event' )->findAll();
+        foreach( $vendors as $vendor )
+        {
+          $events = Doctrine::getTable( 'Event' )->findByVendorId( $vendor[ 'id' ] );
 
           $totalEvents = $events->count();
 
@@ -72,29 +77,28 @@ class updateCategoryMappingsTask extends sfBaseTask
           foreach ( $events as $event )
           {
 
-              $vendor = Doctrine::getTable( 'Vendor' )->findOneById( $event[ 'vendor_id'] );
+              $event->unlink( 'EventCategory' );
 
-              $categoriesToBeMapped = array();
-
-              foreach ( $event[ 'VendorEventCategories' ] as $eventsVendorEventCategory )
+              if ( 0 < count( $event[ 'VendorEventCategory' ] ) )
               {
-                  $categoriesToBeMapped[] = $eventsVendorEventCategory[ 'name'];
-              }
-
-              $event->unlink( 'EventCategories' );
-
-              if ( 0 < count( $categoriesToBeMapped ) )
-              {
-                  $event[ 'EventCategories' ] = $categoryMapper->mapCategories( $vendor, $categoriesToBeMapped, 'Event' );
+                  $event[ 'EventCategory' ] = $categoryMapper->mapCategories( $vendor, $event[ 'VendorEventCategory' ], 'Event' );
               }
 
               $event->save();
               $eventCounter--;
 
-              echo "event " . $eventCounter . ' of ' . $totalEvents . PHP_EOL;
+              if ( $options['verbose'] == 'true' )
+              {
+                  echo "vendor " . $vendor[ 'city' ] . " / event " . $eventCounter . ' of ' . $totalEvents . PHP_EOL;
+              }
           }
+        }
     }
 
+    $timer->addTime();
+    $totalTime = $timer->getElapsedTime();
+
+    echo "Total time: ". $totalTime . "\n";
 
   }
 }

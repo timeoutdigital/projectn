@@ -122,10 +122,10 @@ class EventTest extends PHPUnit_Framework_TestCase
 
     $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
 
-    $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategories' ][ 0 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategories' ][ 0 ][ 'vendor_id' ] );
-    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategories' ][ 1 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategories' ][ 1 ][ 'vendor_id' ] );
+    $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 0 ][ 'vendor_id' ] );
+    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategory' ][ 1 ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 1 ][ 'vendor_id' ] );
   }
 
   /*

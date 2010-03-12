@@ -25,14 +25,9 @@ class CategoryMap {
   private $_queryCache;
 
   /*
-   * @var Category Obj
+   * @var Doctrine_Collection holding VendorCategories
    */
-  private $_noMatchCategory;
-
-  /*
-   * @var Doctrine_Collection holding category mappings
-   */
-  private $_categoriesMappingLookupCol;
+  private $_vendorCategories;
 
   /*
    * @var int vendor id
@@ -56,11 +51,10 @@ class CategoryMap {
    * @param vendorObj Vendor
    * @param mixed $sourceCategory (can be SimpleXMLElement or Array)
    * @param string $type ('poi' or 'event' supported)
-   * @param string $otherCategoryNameString defaults to 'other'
    * @return array of Doctrine_Collection
    *
    */
-  public function mapCategories( $vendorObj, $sourceCategory, $mapCategoriesFor, $noMatchCategoryNameString = 'other' )
+  public function mapCategories( $vendorObj, $sourceCategories, $mapCategoriesFor )
   {
 
     if ( ! in_array( $mapCategoriesFor, array( 'Poi', 'Event' ) ) )
@@ -68,47 +62,29 @@ class CategoryMap {
       Throw new Exception("mapping class not supported");
     }
 
-    //if ( ! $this->_queryCache || $this->_noMatchCategory != $noMatchCategoryNameString )
-    //{
-      $this->_noMatchCategory = Doctrine::getTable( $mapCategoriesFor . 'Category' )->findOneByName( $noMatchCategoryNameString );
-    //}
-
-    //if ( ! $this->_queryCache || $this->_vendorId != $vendorObj[ 'id' ] ||  )
-    //{
-
-      $this->_vendorId = $vendorObj[ 'id' ];
-
-      $this->_categoriesMappingLookupCol = Doctrine::getTable( 'Vendor' . $mapCategoriesFor . 'Category' )->findMappingsByVendorId( $this->_vendorId );
-
-    //}
-
-    $mappedCategoriesCol = new Doctrine_Collection( Doctrine::getTable( $mapCategoriesFor . 'Category' ) );
-
-    foreach( $sourceCategory as $category )
+    if ( !$this->_queryCache || $this->_vendorId != $vendorObj[ 'id' ] )
     {
-      $match = false;
+        $this->_vendorId = $vendorObj[ 'id' ];
+        $this->_vendorCategories = Doctrine::getTable( 'Vendor' . $mapCategoriesFor . 'Category' )->findByVendorId( $this->_vendorId );
+    }
 
-      foreach ( $this->_categoriesMappingLookupCol as $ourCategoryObj )
-      {
+    $returnCategories = new Doctrine_Collection( Doctrine::getTable( $mapCategoriesFor . 'Category' ) );
 
-        foreach( $ourCategoryObj[ 'Vendor' . $mapCategoriesFor . 'Categories' ] as $vendorPoiCategory )
+    foreach( $sourceCategories as $category )
+    {
+        foreach( $this->_vendorCategories as $vendorCategory )
         {
-
-          if (  $vendorPoiCategory[ 'name' ] == (string) $category )
+          if (  $vendorCategory[ 'name' ] == (string) $category[ 'name' ] )
           {
-            $mappedCategoriesCol[] = $ourCategoryObj;
-            $match = true;
+            foreach( $vendorCategory[ $mapCategoriesFor . 'Category' ] as $destinationCategory )
+            {
+                $returnCategories[] = $destinationCategory;
+            }
           }
         }
-      }
     }
 
-    if ( $match === false && is_object( $this->_noMatchCategory ) )
-    {
-      $mappedCategoriesCol[] = $this->_noMatchCategory;
-    }
-
-    return $mappedCategoriesCol;
+    return $returnCategories;
   }
 
 }

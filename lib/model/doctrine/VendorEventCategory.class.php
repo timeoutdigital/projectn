@@ -27,9 +27,9 @@ class VendorEventCategory extends BaseVendorEventCategory
     foreach ( $this['Events'] as $poi )
     {
 
-      foreach( $this['EventCategories'] as $category )
+      foreach( $this['EventCategory'] as $category )
       {
-        $poi['EventCategories'][] = $category;
+        $poi['EventCategory'][] = $category;
       }
 
       $poi->save();

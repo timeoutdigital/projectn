@@ -108,22 +108,22 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '',                      $poi[ 'rating' ] );
     $this->assertEquals( '',                      $poi[ 'provider' ] );
 
-    //$this->assertEquals( 'theatre-music-culture', $poi[ 'PoiCategories' ][ 0 ][ 'name' ] );
+    //$this->assertEquals( 'theatre-music-culture', $poi[ 'PoiCategory' ][ 0 ][ 'name' ] );
   }
 
   public function testVenueCategoryAssignment()
   {
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
-    $this->assertEquals( 1, $poi['VendorPoiCategories']->count(), 'First POI should have 1 category' );
-    $this->assertEquals( 'Root', $poi['VendorPoiCategories'][0]['name'] );
+    $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'First POI should have 1 category' );
+    $this->assertEquals( 'Root', $poi['VendorPoiCategory'][0]['name'] );
 
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '2' );
-    $this->assertEquals( 1, $poi['VendorPoiCategories']->count(), 'Second POI should have 1 category' );
-    $this->assertEquals( 'Root | Root Child 1', $poi['VendorPoiCategories'][0]['name'] );
+    $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'Second POI should have 1 category' );
+    $this->assertEquals( 'Root | Root Child 1', $poi['VendorPoiCategory'][0]['name'] );
 
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '3' );
-    $this->assertEquals( 1, $poi['VendorPoiCategories']->count(), 'Third POI should have 1 category' );
-    $this->assertEquals( 'Root | Root Child 1 | Child 1 Child 1', $poi['VendorPoiCategories'][0]['name'] );
+    $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'Third POI should have 1 category' );
+    $this->assertEquals( 'Root | Root Child 1 | Child 1 Child 1', $poi['VendorPoiCategory'][0]['name'] );
   }
 
   /**

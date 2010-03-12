@@ -13,17 +13,17 @@ abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'name'                  => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'vendor_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
-      'events_list'           => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
-      'event_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
+      'name'                => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'vendor_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
+      'event_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
+      'event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
     ));
 
     $this->setValidators(array(
-      'name'                  => new sfValidatorPass(array('required' => false)),
-      'vendor_id'             => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
-      'events_list'           => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
-      'event_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
+      'name'                => new sfValidatorPass(array('required' => false)),
+      'vendor_id'           => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
+      'event_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
+      'event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('vendor_event_category_filters[%s]');
@@ -35,7 +35,7 @@ abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
     parent::setup();
   }
 
-  public function addEventsListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addEventListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -51,7 +51,7 @@ abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('LinkingVendorEventCategory.event_id', $values);
   }
 
-  public function addEventCategoriesListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addEventCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -75,11 +75,11 @@ abstract class BaseVendorEventCategoryFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'                    => 'Number',
-      'name'                  => 'Text',
-      'vendor_id'             => 'ForeignKey',
-      'events_list'           => 'ManyKey',
-      'event_categories_list' => 'ManyKey',
+      'id'                  => 'Number',
+      'name'                => 'Text',
+      'vendor_id'           => 'ForeignKey',
+      'event_list'          => 'ManyKey',
+      'event_category_list' => 'ManyKey',
     );
   }
 }

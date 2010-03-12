@@ -77,7 +77,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
     }
     
     $poi[ 'star_rating' ] = (int) $restaurantXml->starRating;
-    $poi[ 'PoiCategories' ][] = $this->poiCategory;
+    $poi[ 'PoiCategory' ][] = $this->poiCategory;
 
     foreach( $this->getDetails( $restaurantXml ) as $detail )
     {

@@ -77,7 +77,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
       $this->notifyImporterOfFailure($exception, $poi);
       return;
     }
-    $poi['PoiCategories'][]   = $this->poiCategory;
+    $poi['PoiCategory'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $barsXml->starRating;
 
     foreach( $this->getDetails( $barsXml ) as $detail )

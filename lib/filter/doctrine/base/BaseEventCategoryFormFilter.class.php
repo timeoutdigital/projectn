@@ -13,15 +13,15 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'name'                         => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'events_list'                  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
-      'vendor_event_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
+      'name'                       => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'event_list'                 => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
+      'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
     ));
 
     $this->setValidators(array(
-      'name'                         => new sfValidatorPass(array('required' => false)),
-      'events_list'                  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
-      'vendor_event_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
+      'name'                       => new sfValidatorPass(array('required' => false)),
+      'event_list'                 => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
+      'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event_category_filters[%s]');
@@ -33,7 +33,7 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
     parent::setup();
   }
 
-  public function addEventsListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addEventListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -49,7 +49,7 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('LinkingEventCategory.event_id', $values);
   }
 
-  public function addVendorEventCategoriesListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addVendorEventCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -73,10 +73,10 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'                           => 'Number',
-      'name'                         => 'Text',
-      'events_list'                  => 'ManyKey',
-      'vendor_event_categories_list' => 'ManyKey',
+      'id'                         => 'Number',
+      'name'                       => 'Text',
+      'event_list'                 => 'ManyKey',
+      'vendor_event_category_list' => 'ManyKey',
     );
   }
 }
