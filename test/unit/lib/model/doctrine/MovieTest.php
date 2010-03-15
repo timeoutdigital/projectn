@@ -121,6 +121,20 @@ class MovieTest extends PHPUnit_Framework_TestCase
     $year = 1930;
     $this->object->addYearProperty( $year );
     $this->assertEquals( 1, count( $this->object['MovieProperty'] ), 'Year property is saved if value is four digit integer' );
+    $this->assertEquals( 'Year', $this->object['MovieProperty'][0]['lookup'], 'Year property is saved if value is four digit integer' );
+    $this->assertEquals( $year,  $this->object['MovieProperty'][0]['value'], 'Year property is saved if value is four digit integer' );
+  }
+
+  /**
+   * tests addAgeRatingProperty()
+   */
+  public function testAddAgeRatingProperty()
+  {
+    $ageRating = 'age rating';
+    $this->object->addAgeRatingProperty( $ageRating );
+    $this->assertEquals( 1, count( $this->object['MovieProperty'] ), 'Age Rating property is saved' );
+    $this->assertEquals( 'Age_rating', $this->object['MovieProperty'][0]['lookup'] );
+    $this->assertEquals( $ageRating, $this->object['MovieProperty'][0]['value'] );
   }
 
   /*

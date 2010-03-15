@@ -80,6 +80,15 @@ class Movie extends BaseMovie
     $this->addProperty( 'Year', $year );
   }
 
+  /**
+   * Add age rating as a property
+   * @param string $ageRating
+   */
+  public function addAgeRatingProperty( $ageRating )
+  {
+    $this->addProperty( 'Age_rating', $ageRating );
+  }
+
    /* Add a property to a movie
    *
    * @param string $lookup
@@ -115,7 +124,6 @@ class Movie extends BaseMovie
    */
   public function addGenre( $genre )
   {
-
     $movieGenreObj = Doctrine::getTable( 'MovieGenre' )->findOneByGenre( $genre );
 
     if ( $movieGenreObj === false )
