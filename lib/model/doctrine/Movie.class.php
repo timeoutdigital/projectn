@@ -19,7 +19,6 @@ class Movie extends BaseMovie
   */
   public function preSave( $event )
   {
-
      if( $this['url'] != '')
      {
         $this['url'] = stringTransform::formatUrl($this['url']);
@@ -27,8 +26,6 @@ class Movie extends BaseMovie
 
      //@todo test the everything below this line
      $this['name'] = stringTransform::move_CommaThe_FromEndToBeginning( $this['name'] );
-
-
   }
 
   /**
@@ -66,6 +63,21 @@ class Movie extends BaseMovie
       return;
 
     $this->addProperty( 'Cast', $cast );
+  }
+
+  /**
+   * Add year as a property
+   * @param string $year
+   */
+  public function addYearProperty( $year )
+  {
+    if( strlen( $year ) != 4 )
+      return;
+
+    if( (int) $year == 0 )
+      return;
+
+    $this->addProperty( 'Year', $year );
   }
 
    /* Add a property to a movie

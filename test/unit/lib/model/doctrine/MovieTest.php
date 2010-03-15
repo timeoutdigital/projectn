@@ -105,6 +105,24 @@ class MovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $cast, $this->object['MovieProperty'][0]['value'] );
   }
 
+  /**
+   * tests addYearProperty()
+   */
+  public function testAddYearProperty()
+  {
+    $year = 'foo';
+    $this->object->addYearProperty( $year );
+    $this->assertEquals( 0, count( $this->object['MovieProperty'] ), 'Year property is not saved if is string' );
+
+    $year = 0;
+    $this->object->addYearProperty( $year );
+    $this->assertEquals( 0, count( $this->object['MovieProperty'] ), 'Year property is not saved if value is 0' );
+
+    $year = 1930;
+    $this->object->addYearProperty( $year );
+    $this->assertEquals( 1, count( $this->object['MovieProperty'] ), 'Year property is saved if value is four digit integer' );
+  }
+
   /*
    * test if the genres are added (w/a duplicates)
    */
