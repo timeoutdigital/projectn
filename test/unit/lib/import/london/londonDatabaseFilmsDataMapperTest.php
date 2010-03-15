@@ -10,7 +10,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
 {
   /**
-   * @var nyMoviesDataMapper
+   * @var londonDatabaseFilmsDataMapper
    */
   protected $object;
 
@@ -27,7 +27,7 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'ny' ) );
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'ny', 'language' => 'en-US' ) );
   }
 
   /**
@@ -42,7 +42,7 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
   public function testGetsFilmsFromLondonDatabase()
   {
     $importer = new UnitTestNyMoviesImporter();
-    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
+    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor ) );
     $importer->run();
     
     $this->assertTrue( $importer->onRecordMappedCalled );
@@ -65,12 +65,14 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
     //$this->assertTrue( !empty( $movie[ 'MovieGenres' ][ 0 ][ 'genre' ] ) ,'genre should not be empty' );
 
   }
+
   protected function runImport()
   {
     $importer = new Importer();
-    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
+    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor ) );
     $importer->run();
   }
+
 }
 
 class UnitTestNyMoviesImporter extends Importer
@@ -82,4 +84,3 @@ class UnitTestNyMoviesImporter extends Importer
     $this->onRecordMappedCalled = true;
   }
 }
-?>

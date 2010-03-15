@@ -1,2 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD:test/unit/export/event/test.xml
+<vendor-events vendor="test_en-GB" modified="2010-03-12T12:19:13">
+  <event id="XXX000000000000000000000000000001" modified="2010-03-12T12:19:13">
+    <name><![CDATA[test name]]></name>
+    <category>concerts</category>
+    <category>theater</category>
+    <category>sport</category>
+    <version lang="en">
+      <name><![CDATA[test name]]></name>
+      <vendor-category><![CDATA[test vendor category]]></vendor-category>
+      <short-description><![CDATA[test short description]]></short-description>
+      <description><![CDATA[test description]]></description>
+      <booking_url><![CDATA[http://timeout.com]]></booking_url>
+      <url><![CDATA[http://timeout.com]]></url>
+      <price><![CDATA[test price]]></price>
+      <property key="test key 1"><![CDATA[test value 1]]></property>
+      <property key="test key 2"><![CDATA[test value 2]]></property>
+    </version>
+    <showtimes>
+      <place place-id="XXX000000000000000000000000000001">
+        <occurrence>
+          <booking_url>http://timeout.com</booking_url>
+          <time>
+            <start_date>2010-03-12</start_date>
+            <event_time>00:00:01</event_time>
+            <utc_offset>+00:00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="XXX000000000000000000000000000002" modified="2010-03-12T12:19:13">
+    <name><![CDATA[test event2&<>'"]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[test event2&<>'"]]></name>
+      <description><![CDATA[]]></description>
+    </version>
+    <showtimes>
+      <place place-id="XXX000000000000000000000000000001">
+        <occurrence>
+          <time>
+            <start_date>2010-03-12</start_date>
+            <utc_offset>+00:00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+      <place place-id="XXX000000000000000000000000000002">
+        <occurrence>
+          <time>
+            <start_date>2010-03-12</start_date>
+            <utc_offset>+00:00:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-03-12</start_date>
+            <utc_offset>+00:00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>
+=======
 <vendor-events vendor="test_en-GB" modified="2010-03-08T18:11:01"><event id="XXX000000000000000000000000000001"><name><![CDATA[test name]]></name><category>concerts</category><category>theater</category><category>sport</category><version lang="en"><name><![CDATA[test name]]></name><vendor-category><![CDATA[test vendor category]]></vendor-category><short-description><![CDATA[test short description]]></short-description><description><![CDATA[test description]]></description><booking_url><![CDATA[http://timeout.com]]></booking_url><url><![CDATA[http://timeout.com]]></url><price><![CDATA[test price]]></price><property key="test key 1"><![CDATA[test value 1]]></property><property key="test key 2"><![CDATA[test value 2]]></property></version><showtimes><place place-id="XXX000000000000000000000000000001"><occurrence><booking_url>http://timeout.com</booking_url><time><start_date>2001-01-01</start_date><event_time>00:00:01</event_time><utc_offset>+00:00:00</utc_offset></time></occurrence></place></showtimes></event><event id="XXX000000000000000000000000000002"><name><![CDATA[test event2&<>'"]]></name><category>concerts</category><category>theater</category><category>sport</category><version lang="en"><name><![CDATA[test event2&<>'"]]></name><vendor-category><![CDATA[test vendor category]]></vendor-category><description><![CDATA[]]></description></version><showtimes><place place-id="XXX000000000000000000000000000001"><occurrence><time><start_date>2001-01-01</start_date><utc_offset>+00:00:00</utc_offset></time></occurrence></place><place place-id="XXX000000000000000000000000000002"><occurrence><time><start_date>2001-01-01</start_date><utc_offset>+00:00:00</utc_offset></time></occurrence><occurrence><time><start_date>2001-01-01</start_date><utc_offset>+00:00:00</utc_offset></time></occurrence></place></showtimes></event></vendor-events>
+>>>>>>> 19ebde42ccf9867aac4ff766acb71b953de0d8d9:test/unit/export/event/test.xml

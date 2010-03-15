@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD:test/unit/export/movie/test.xml
+<vendor-movies modified="2010-03-12T12:19:21" vendor="test_en-GB">
+  <movie id="XXX000000000000000000000000000001">
+    <name><![CDATA[test movie name]]></name>
+    <version lang="en">
+      <name><![CDATA[test movie name]]></name>
+      <genre><![CDATA[comedy, horror]]></genre>
+      <plot><![CDATA[test movie plot]]></plot>
+      <review><![CDATA[test movie review]]></review>
+      <rating>1.1</rating>
+      <property key="movie key 1"><![CDATA[movie value 1]]></property>
+      <property key="movie key 2"><![CDATA[movie value 2]]></property>
+    </version>
+  </movie>
+  <movie id="XXX000000000000000000000000000002">
+    <name><![CDATA[test movie name]]></name>
+    <version lang="en">
+      <name><![CDATA[test movie name]]></name>
+      <genre><![CDATA[comedy, horror]]></genre>
+      <plot><![CDATA[test movie plot]]></plot>
+      <review><![CDATA[test movie review]]></review>
+      <rating>1.2</rating>
+    </version>
+  </movie>
+</vendor-movies>
+=======
 <vendor-movies modified="2010-03-08T18:11:11" vendor="test_en-GB"><movie id="XXX000000000000000000000000000001"><name><![CDATA[test movie name]]></name><version lang="en"><name><![CDATA[test movie name]]></name><genre><![CDATA[comedy, horror]]></genre><plot><![CDATA[test movie plot]]></plot><review><![CDATA[test movie review]]></review><rating>1.1</rating><property key="movie key 1"><![CDATA[movie value 1]]></property><property key="movie key 2"><![CDATA[movie value 2]]></property></version></movie><movie id="XXX000000000000000000000000000002"><name><![CDATA[test movie name]]></name><version lang="en"><name><![CDATA[test movie name]]></name><genre><![CDATA[comedy, horror]]></genre><plot><![CDATA[test movie plot]]></plot><review><![CDATA[test movie review]]></review><rating>1.2</rating></version></movie></vendor-movies>
+>>>>>>> 19ebde42ccf9867aac4ff766acb71b953de0d8d9:test/unit/export/movie/test.xml
