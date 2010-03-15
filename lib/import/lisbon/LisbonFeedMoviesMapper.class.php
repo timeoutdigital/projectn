@@ -33,9 +33,9 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
       $movie['utf_offset'] = $this->vendor->getUtcOffset();
       $movie['poi_id']     = null;
 
-      $movie->addProperty( 'Director', (string) $filmElement[ 'Directors' ] );
-      $movie->addProperty( 'Runtime',  (string) $filmElement[ 'RunningTime' ] );
-      $movie->addProperty( 'Cast',     (string) $filmElement[ 'Cast' ] );
+      $movie->addDirectorProperty( (string) $filmElement[ 'Directors' ] );
+      $movie->addRuntimeProperty(  (string) $filmElement[ 'RunningTime' ] );
+      $movie->addCastProperty(     (string) $filmElement[ 'Cast' ] );
 
       $this->notifyImporter( $movie );
       $movie->free();

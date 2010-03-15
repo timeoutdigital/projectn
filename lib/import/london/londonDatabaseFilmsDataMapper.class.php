@@ -64,14 +64,11 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie['name'] = $data[ 'title' ];
       $movie['vendor_movie_id'] = $data[ 'film_id' ];
 
-      $movie->addProperty('name', $data['title'] );
-      $movie->addProperty('Age_rating', $data[ 'age_rating' ]);
-      $movie->addProperty('Director', $data[ 'director' ]);
-      $movie->addProperty('Cast', $data[ 'cast' ]);
-      $movie->addProperty('Year', $data[ 'year' ]);
-
-      if( $data['runtime'] )
-        $movie->addProperty('Runtime', $data[ 'runtime' ]);
+      $movie->addAgeRatingProperty( $data[ 'age_rating' ]);
+      $movie->addDirectorProperty(  $data[ 'director' ]);
+      $movie->addCastProperty(      $data[ 'cast' ]);
+      $movie->addRuntimeProperty(   $data[ 'runtime' ]);
+      $movie->addYearProperty(      $data[ 'year' ]);
       
       $review = $this->getReview( $data[ 'film_id' ] );
 
