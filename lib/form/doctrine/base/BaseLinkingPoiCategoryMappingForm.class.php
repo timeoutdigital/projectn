@@ -17,13 +17,13 @@ abstract class BaseLinkingPoiCategoryMappingForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                     => new sfWidgetFormInputHidden(),
       'poi_category_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => false)),
-      'vendor_poi_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'), 'add_empty' => false)),
+      'vendor_poi_category_id' => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'poi_category_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'))),
-      'vendor_poi_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'))),
+      'vendor_poi_category_id' => new sfValidatorInteger(),
     ));
 
     $this->widgetSchema->setNameFormat('linking_poi_category_mapping[%s]');
