@@ -43,9 +43,6 @@ class importTask extends sfBaseTask
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
         $importer->addLogger( new logImport($vendorObj) );
         
-        //Setup NY FTP
-        $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-        $ftpClientObj->setSourcePath( '/NOKIA/' );
 
 
         switch( $options['type'] )
@@ -53,6 +50,9 @@ class importTask extends sfBaseTask
           case 'poi-event-kids':
             try
             {
+              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+              $ftpClientObj->setSourcePath( '/NOKIA/' );
               $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_kids_leo.xml' );
 
               $processXmlObj = new processNyXml( $fileNameString );
@@ -67,16 +67,22 @@ class importTask extends sfBaseTask
             break;
 
           case 'poi-event':
+                //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+                $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+                $ftpClientObj->setSourcePath( '/NOKIA/' );
                 $this->importNyEvents($vendorObj, $ftpClientObj);
             break;
 
           case 'movie':
-                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj, londonDatabaseFilmsDataMapper::NEW_YORK_REVIEW_TYPE_ID ) );
+                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
             break;
 
           case 'eating-drinking':
             try
             {
+              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+              $ftpClientObj->setSourcePath( '/NOKIA/' );
               $this->importNyEd($vendorObj, $ftpClientObj);
             }
             catch ( Exception $e )
@@ -88,6 +94,9 @@ class importTask extends sfBaseTask
           case 'eating-drinking-kids':
             try
             {
+              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+              $ftpClientObj->setSourcePath( '/NOKIA/' );
               $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
 
               /*$vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
@@ -104,6 +113,9 @@ class importTask extends sfBaseTask
           case 'bars-clubs':
             try
             {
+              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+              $ftpClientObj->setSourcePath( '/NOKIA/' );
               $this->importNyBc($vendorObj, $ftpClientObj);
             }
             catch ( Exception $e )
@@ -115,6 +127,9 @@ class importTask extends sfBaseTask
 
           case 'all':
               //Import all events
+              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+              $ftpClientObj->setSourcePath( '/NOKIA/' );
               $this->importNyEvents($vendorObj, $ftpClientObj);
               $this->importNyMovies($vendorObj, $ftpClientObj);
 
@@ -138,7 +153,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj, londonDatabaseFilmsDataMapper::CHICAGO_REVIEW_TYPE_ID ) );
+               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
 
           break;
 
@@ -310,7 +325,7 @@ class importTask extends sfBaseTask
           case 'movie':
             $loggerObj->setType( 'movie' );
             $importer->addLogger( $loggerObj );
-            $importer->addDataMapper( new londonDatabaseFilmsDataMapper($vendor, londonDatabaseFilmsDataMapper::LONDON_REVIEW_TYPE_ID) );
+            $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendor ) );
           break;
         }
         break; //end lisbon

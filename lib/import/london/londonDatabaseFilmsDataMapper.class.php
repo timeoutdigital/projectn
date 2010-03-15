@@ -22,7 +22,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
   /**
    * @var array
    */
-  protected $citiesConfig;
+  protected $cityConfig;
 
   /**
    * @var PDO
@@ -46,8 +46,8 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    */
   public function  __construct( Vendor $vendor )
   {
-    $this->fillConfig();
     $this->vendor = $vendor;
+    $this->fillConfig();
     $this->preparePdo();
     $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
   }
@@ -64,11 +64,14 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie['name'] = $data[ 'title' ];
       $movie['vendor_movie_id'] = $data[ 'film_id' ];
 
+      $movie->addProperty('name', $data['title'] );
       $movie->addProperty('Age_rating', $data[ 'age_rating' ]);
       $movie->addProperty('Director', $data[ 'director' ]);
       $movie->addProperty('Cast', $data[ 'cast' ]);
       $movie->addProperty('Year', $data[ 'year' ]);
-      $movie->addProperty('Runtime', $data[ 'runtime' ]);
+
+      if( $data['runtime'] )
+        $movie->addProperty('Runtime', $data[ 'runtime' ]);
       
       $review = $this->getReview( $data[ 'film_id' ] );
 
@@ -127,7 +130,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     $query = $this->getQueryFromConfig();
     $statement = $this->pdo->prepare( $query );
 
-    $param = $this->getParamFromConfig();
+    $param = $this->getQueryParamFromConfig();
     $statement->execute( array( $param ) );
 
     return $statement->fetchAll(  PDO::FETCH_ASSOC );
@@ -147,34 +150,34 @@ class londonDatabaseFilmsDataMapper extends DataMapper
   {
     $query = "
     SELECT 
-    f.film_id, 
-    f.title, 
-    f.year_made year,
-    f.duration runtime,
-    cr.code as age_rating,
-    (
-      SELECT GROUP_CONCAT( DISTINCT gt.genre SEPARATOR ', ' ) as genre
-      FROM genre g2
-      LEFT JOIN genre_title gt ON g2.genre_id = gt.genre_id
-      WHERE g2.film_id = f.film_id
-    ) genre2,
-    f.image_id,
-    (
+      f.film_id, 
+      f.title, 
+      f.year_made year,
+      f.duration runtime,
+      cr.code as age_rating,
+      (
+        SELECT GROUP_CONCAT( DISTINCT gt.genre SEPARATOR ', ' ) as genre
+        FROM genre g2
+        LEFT JOIN genre_title gt ON g2.genre_id = gt.genre_id
+        WHERE g2.film_id = f.film_id
+      ) genre,
+      f.image_id,
+      (
+        SELECT group_concat(DISTINCT CONCAT( p2.name_first, ' ', p2.name_second) SEPARATOR ', ' ) as name
+        FROM film_map map2
+        LEFT JOIN role r2  ON map2.role_id = r2.role_id
+        LEFT JOIN person p2 on map2.person_id = p2.person_id
+        WHERE map2.film_id = f.film_id
+        AND r2.role = 'd'
+      ) director,
+      (
       SELECT group_concat(DISTINCT CONCAT( p2.name_first, ' ', p2.name_second) SEPARATOR ', ' ) as name
-      FROM film_map map2
-      LEFT JOIN role r2  ON map2.role_id = r2.role_id
-      LEFT JOIN person p2 on map2.person_id = p2.person_id
-      WHERE map2.film_id = f.film_id
-      AND r2.role = 'd'
-    ) director,
-    (
-    SELECT group_concat(DISTINCT CONCAT( p2.name_first, ' ', p2.name_second) SEPARATOR ', ' ) as name
-      FROM film_map map2
-      LEFT JOIN role r2  ON map2.role_id = r2.role_id
-      LEFT JOIN person p2 on map2.person_id = p2.person_id
-      WHERE map2.film_id = f.film_id
-      AND r2.role= 'cast'
-    ) cast
+        FROM film_map map2
+        LEFT JOIN role r2  ON map2.role_id = r2.role_id
+        LEFT JOIN person p2 on map2.person_id = p2.person_id
+        WHERE map2.film_id = f.film_id
+        AND r2.role= 'cast'
+      ) cast
 
     FROM cinema c
     JOIN listing l ON l.cinema_id = c.cinema_id 
@@ -183,7 +186,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     JOIN film_certificates fc ON f.film_id = fc.film_id
     JOIN certificates cr ON fc.certificate_id = cr.id
     WHERE %where%
-    GROUP BY film_id
+    GROUP BY f.film_id
     ";
     $query = str_replace( '%where%', $whereClause, $query );
     return $query;
@@ -201,7 +204,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    */
   protected function getReview( $filmId )
   {
-    $review_type_id = $this->citiesConfig['params']['review_type_id'];
+    $review_type_id = $this->cityConfig['params']['review_type_id'];
     $query = "
       SELECT review_type_id , text , rating ,
       (
@@ -214,9 +217,9 @@ class londonDatabaseFilmsDataMapper extends DataMapper
          WHEN review_type_id = 8 THEN 5
         END
       ) AS review_index
-       FROM review
-       WHERE film_id = " .$filmId. "
-       ORDER BY review_index DESC LIMIT 1";
+      FROM review
+      WHERE film_id = " .$filmId. "
+      ORDER BY review_index DESC LIMIT 1";
 
      $statement = $this->pdo->prepare( $query );
      $statement->execute();
@@ -243,7 +246,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     $config      = $config[ $environment ];
 
     $this->databaseConfig = $config[ 'database' ];
-    $this->citiesConfig   = $config[ 'cities' ];
+    $this->cityConfig = $config[ 'cities' ][ $this->getCityLanguage() ];
   }
 
   private function getEnvironment()
@@ -255,14 +258,11 @@ class londonDatabaseFilmsDataMapper extends DataMapper
 
   private function preparePdo()
   {
-		if( is_null( $pdo ) )
-		{
-			$pdo  = new PDO( 
-				$this->databaseConfig[ 'dsn' ],
-				$this->databaseConfig[ 'username' ],
-				$this->databaseConfig[ 'password' ]
-			);
-		}
+		$pdo  = new PDO(
+			$this->databaseConfig[ 'dsn' ],
+			$this->databaseConfig[ 'username' ],
+			$this->databaseConfig[ 'password' ]
+		);
     
 		$this->pdo = $pdo;
 
@@ -272,24 +272,22 @@ class londonDatabaseFilmsDataMapper extends DataMapper
 
   private function getQueryFromConfig()
   {
-    $cityLanguage = $this->getCityLanguage();
-    $method       = 'get' . ucfirst( $this->citiesConfig[ $cityLanguage ]['query'] ) . 'Query';
+    $method = 'get' . ucfirst( $this->cityConfig['query'] ) . 'Query';
     return $this->$method();
   }
 
-  private function getParamFromConfig()
+  private function getQueryParamFromConfig()
   {
     $cityLanguage = $this->getCityLanguage();
-    $cityConfig   = $this->citiesConfig[ $cityLanguage ];
 
     $param = null;
-    switch( $cityConfig['query'] )
+    switch( $this->cityConfig['query'] )
     {
       case 'findByCountry':
-        $param = $cityConfig['params']['country_id'];
+        $param = $this->cityConfig['params']['country_id'];
         break;
       case 'findByState':
-        $param = $cityConfig['params']['state'];
+        $param = $this->cityConfig['params']['state'];
         break;
       default:
         throw new Exception( 'query "findByCountry" is not supported. Please change the Yaml config to use either "findByCountry" or "findByState".' );
