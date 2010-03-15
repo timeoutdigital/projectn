@@ -31,6 +31,43 @@ class Movie extends BaseMovie
 
   }
 
+  /**
+   * Add a director as a property
+   * @param string $director
+   */
+  public function addDirectorProperty( $director )
+  {
+    if( empty( $director ) )
+      return;
+
+    $this->addProperty( 'Director', $director );
+  }
+
+  /**
+   * Add runtime as a property
+   * @param int $runtime
+   */
+  public function addRuntimeProperty( $runtime )
+  {
+    $runtime = (int) $runtime;
+    if( $runtime <= 0 )
+      return;
+
+    $this->addProperty( 'Runtime', $runtime );
+  }
+
+  /**
+   * Add cast as a property
+   * @param string $cast a comma separated set of actors names
+   */
+  public function addCastProperty( $cast )
+  {
+    if( empty( $cast ) )
+      return;
+
+    $this->addProperty( 'Cast', $cast );
+  }
+
    /* Add a property to a movie
    *
    * @param string $lookup

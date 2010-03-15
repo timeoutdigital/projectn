@@ -31,15 +31,7 @@ class MovieTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-
-    $movieObj = new Movie();
-    $movieObj[ 'vendor_id' ] = 1;
-    $movieObj[ 'vendor_movie_id' ] = 1;
-    $movieObj[ 'name' ] = 'Test Movie';
-    $movieObj[ 'utf_offset' ] = '0.00';
-    $movieObj->save();
-
-    $this->object = Doctrine::getTable('Movie')->findOneById( $movieObj['id'] );
+    $this->object = ProjectN_Test_Unit_Factory::get( 'Movie' );
   }
 
   /**
@@ -67,6 +59,50 @@ class MovieTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'test prop lookup 2', $this->object[ 'MovieProperty' ][ 1 ][ 'lookup' ] );
     $this->assertEquals( 'test prop value 2', $this->object[ 'MovieProperty' ][ 1 ][ 'value' ] );
+  }
+
+  /**
+   * tests addDirectorProperty()
+   */
+  public function testAddDirectorProperty()
+  {
+    $director = 'Michael Bay';
+    $this->object->addDirectorProperty( $director );
+    $this->assertEquals( 1, count( $this->object['MovieProperty'] ) );
+    $this->assertEquals( 'Director', $this->object['MovieProperty'][0]['lookup'] );
+    $this->assertEquals( $director, $this->object['MovieProperty'][0]['value'] );
+  }
+
+  /**
+   * tests addRuntimeProperty()
+   */
+  public function testAddRuntimeProperty()
+  {
+    $runtime = '0';
+    $this->object->addRuntimeProperty( $runtime );
+    $this->assertEquals( 0, count( $this->object['MovieProperty'] ), 'Runtime property should not be added if value is 0' );
+
+    $runtime = 'a string';
+    $this->object->addRuntimeProperty( $runtime );
+    $this->assertEquals( 0, count( $this->object['MovieProperty'] ), 'Runtime property should not be added if value is type string' );
+
+    $runtime = '1';
+    $this->object->addRuntimeProperty( $runtime );
+    $this->assertEquals( 1, count( $this->object['MovieProperty'] ), 'Runtime property is saved if value is integer' );
+    $this->assertEquals( 'Runtime', $this->object['MovieProperty'][0]['lookup'] );
+    $this->assertEquals( $runtime, $this->object['MovieProperty'][0]['value'] );
+  }
+
+  /**
+   * tests addCastProperty()
+   */
+  public function testAddCastProperty()
+  {
+    $cast = 'Jennifer Lopez, James Spade, Warren G';
+    $this->object->addCastProperty( $cast );
+    $this->assertEquals( 1, count( $this->object['MovieProperty'] ), 'Cast property is saved' );
+    $this->assertEquals( 'Cast', $this->object['MovieProperty'][0]['lookup'] );
+    $this->assertEquals( $cast, $this->object['MovieProperty'][0]['value'] );
   }
 
   /*
