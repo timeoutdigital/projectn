@@ -15,7 +15,7 @@ class XMLExportMovie extends XMLExport
 {
   public function __construct( $vendor, $destination )
   {
-    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-movies-1.2.xsd';
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-movies-1.4.xsd';
     parent::__construct($vendor, $destination, 'Movie', $xsd );
   }
 
@@ -42,7 +42,7 @@ class XMLExportMovie extends XMLExport
     {
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
       $movieElement->setAttribute( 'id', $this->generateUID( $movie['id'] ) );
-      //$movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
+      $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
       $nameElement = $this->appendRequiredElement($movieElement, 'name', $movie['name'], XMLExport::USE_CDATA);
