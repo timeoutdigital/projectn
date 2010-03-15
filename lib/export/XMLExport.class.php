@@ -226,7 +226,7 @@ abstract class XMLExport
   }
 
   /**
-   * @param Doctrine_Record $record
+   * @param integer $recordId
    * 
    * @todo consider putting this in its own class
    */

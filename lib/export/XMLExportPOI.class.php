@@ -46,7 +46,7 @@ class XMLExportPOI extends XMLExport
     foreach( $data as $poi )
     {
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
-      $entryElement->setAttribute( 'vpid', $this->generateUID($poi) );
+      $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );
       $langArray = explode('-',$this->vendor['language']);
       $entryElement->setAttribute( 'lang', $langArray[0] );
       $entryElement->setAttribute( 'modified', $this->modifiedTimeStamp );
