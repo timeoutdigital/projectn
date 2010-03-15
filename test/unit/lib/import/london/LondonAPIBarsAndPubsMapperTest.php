@@ -86,7 +86,7 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertFalse( empty( $poi[ 'openingtimes' ] ),      'openingtimes should not be empty: '  . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'star_rating' ] ),       'star_rating should not be empty: '   . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'description' ] ),       'description should not be empty: '   . $poi[ 'url' ] );
-    $this->assertEquals( $poi[ 'PoiCategories' ][ 0 ][ 'name' ], 'bar-pub', 'category should be "bar-pub": '   . $poi[ 'url' ] );
+    $this->assertEquals( $poi[ 'PoiCategory' ][ 0 ][ 'name' ], 'bar-pub', 'category should be "bar-pub": '   . $poi[ 'url' ] );
 
     //$this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) ); //need fixtures!
   }

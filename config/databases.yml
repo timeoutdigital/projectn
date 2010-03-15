@@ -6,7 +6,6 @@ all:
       attributes:
         use_native_enum:  true
 
-
 prod:
   project_n:
     class:                sfDoctrineDatabase
@@ -21,7 +20,6 @@ prod:
       dsn:                mysql://timeout:65dali32@192.9.215.250/searchlight_london
       attributes:
         use_native_enum:  true
-
 
 dev:
   searchlight_london:

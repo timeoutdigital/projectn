@@ -63,7 +63,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $poi->setLongitude( '0.1' );
     $poi->setLatitude( '0.2' );
     $poi->link( 'Vendor', array( 1 ) );
-    $poi->link('PoiCategories', array( 1 ) );
+    $poi->link('PoiCategory', array( 1 ) );
     $poi->save();
 
     $poi2 = new Poi();
@@ -79,7 +79,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $poi2->setLongitude( '0.1' );
     $poi2->setLatitude( '0.2' );
     $poi2->link( 'Vendor', array( 1 ) );
-    $poi2->link('PoiCategories', array( 1 ) );
+    $poi2->link('PoiCategory', array( 1 ) );
     $poi2->save();
 
     $genre = new MovieGenre();

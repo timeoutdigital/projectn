@@ -61,7 +61,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
       echo $e->getMessage();
     }
 
-    $this->categoryMap = new CategoryMap();
+    $this->categoryMap = new CategoryMap( false );
+
   }
 
 
@@ -98,7 +99,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
 
   /**
-   * 
+   *
    */
   public function testInsertEventAndEventOccurrences()
   {
@@ -282,7 +283,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
   /*
    * test insertVendorPoiCategories
    */
-  public function testInsertVendorPoiCategories()
+  public function testinsertVendorPoiCategories()
   {
     $poisArray = $this->xmlObj->getVenues();
     $this->object->insertVendorPoiCategories( $poisArray[ 0 ] );
@@ -316,11 +317,11 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $eventsArray = $this->xmlObj->getEvents();
     $this->object->insertEvent( $eventsArray[ 0 ] );
 
-    $this->object->insertVendorEventCategories($eventsArray[ 2 ] );
+    $this->object->insertVendorEventCategories($eventsArray[ 0 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    $this->assertEquals( 'theater', $eventObj['EventCategories'][ 0 ][ 'name' ] );
+    $this->assertEquals( 'theater', $eventObj['EventCategory'][ 0 ][ 'name' ] );
   }
 
   /*
@@ -336,20 +337,20 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    $this->assertEquals( 'Comedy', $eventObj['VendorEventCategories'][ 0 ][ 'name' ] );
+    $this->assertEquals( 'Comedy', $eventObj['VendorEventCategory'][ 0 ][ 'name' ] );
   }
 
   /*
    * Test if poi category is appended
    */
-  public function testCategoryIfPoiCategoryIsSuccessfullyAppended()
+  public function testCategoryIfPoiCategoriesIsSuccessfullyAppended()
   {
     $venuesArray = $this->xmlObj->getVenues();
     $this->object->insertPoi( $venuesArray[ 0 ] );
 
     $venueObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
 
-    $this->assertEquals( 'shop', $venueObj['PoiCategories'][ 0 ][ 'name' ] );
+    $this->assertEquals( 'shop', $venueObj['PoiCategory'][ 0 ][ 'name' ] );
   }
 
   /*
@@ -362,7 +363,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
 
-    $this->assertEquals( 'Shops', $poiObj['VendorPoiCategories'][ 0 ][ 'name' ] );
+    $this->assertEquals( 'Shops', $poiObj['VendorPoiCategory'][ 0 ][ 'name' ] );
   }
 
   /*
@@ -372,9 +373,11 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiCategoryMapShops()
   {
-    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Shops' );
+    $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
+    $vendorCategoriesArray[] = Doctrine::getTable( 'VendorPoiCategory' )->findOneByVendorIdAndName( 1, 'Not found' );
+    $vendorCategoriesArray[] = Doctrine::getTable( 'VendorPoiCategory' )->findOneByVendorIdAndName( 1, 'Shops' );
 
-    $mappedCategoriesObject = $this->categoryMap->mapCategories(  $this->vendorObj, $categoryArray, 'Poi', 'theatre-music-culture' );
+    $mappedCategoriesObject = $this->categoryMap->mapCategories(  $this->vendorObj, $vendorCategoriesArray, 'Poi', 'theatre-music-culture' );
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 
@@ -387,11 +390,13 @@ class importNyTest extends PHPUnit_Framework_TestCase
   /*
    * Test if the event categories get mapped correctly
    */
-  public function testEventCategoryMapMovies()
+  public function testEventCategoryMapComedy()
   {
-    $categoryArray = array( 'Some invalid category', 'Another invalid category', 'Comedy' );
+    $vendorCategoriesArray = new Doctrine_Collection( Doctrine::getTable( 'VendorEventCategory' ) );
+    $vendorCategoriesArray[] = Doctrine::getTable( 'VendorEventCategory' )->findOneByVendorIdAndName( 1, 'Not found' );
+    $vendorCategoriesArray[] = Doctrine::getTable( 'VendorEventCategory' )->findOneByVendorIdAndName( 1, 'Comedy' );
 
-    $mappedCategoriesObject = $this->categoryMap->mapCategories( $this->vendorObj, $categoryArray, 'Event' );
+    $mappedCategoriesObject = $this->categoryMap->mapCategories( $this->vendorObj, $vendorCategoriesArray, 'Event' );
 
     $this->assertTrue( $mappedCategoriesObject instanceof Doctrine_Collection );
 

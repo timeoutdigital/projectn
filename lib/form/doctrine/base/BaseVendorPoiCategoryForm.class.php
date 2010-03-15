@@ -15,19 +15,19 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                  => new sfWidgetFormInputHidden(),
-      'name'                => new sfWidgetFormInputText(),
-      'vendor_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
-      'poi_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
-      'poi_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'id'                => new sfWidgetFormInputHidden(),
+      'name'              => new sfWidgetFormInputText(),
+      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
+      'poi_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
+      'poi_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
     ));
 
     $this->setValidators(array(
-      'id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'name'                => new sfValidatorString(array('max_length' => 255)),
-      'vendor_id'           => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
-      'poi_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
-      'poi_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'id'                => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'name'              => new sfValidatorString(array('max_length' => 255)),
+      'vendor_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
+      'poi_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
+      'poi_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('vendor_poi_category[%s]');
@@ -53,9 +53,9 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
       $this->setDefault('poi_list', $this->object->Poi->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['poi_categories_list']))
+    if (isset($this->widgetSchema['poi_category_list']))
     {
-      $this->setDefault('poi_categories_list', $this->object->PoiCategories->getPrimaryKeys());
+      $this->setDefault('poi_category_list', $this->object->PoiCategory->getPrimaryKeys());
     }
 
   }
@@ -63,7 +63,7 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
   protected function doSave($con = null)
   {
     $this->savePoiList($con);
-    $this->savePoiCategoriesList($con);
+    $this->savePoiCategoryList($con);
 
     parent::doSave($con);
   }
@@ -106,14 +106,14 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
     }
   }
 
-  public function savePoiCategoriesList($con = null)
+  public function savePoiCategoryList($con = null)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['poi_categories_list']))
+    if (!isset($this->widgetSchema['poi_category_list']))
     {
       // somebody has unset this widget
       return;
@@ -124,8 +124,8 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $existing = $this->object->PoiCategories->getPrimaryKeys();
-    $values = $this->getValue('poi_categories_list');
+    $existing = $this->object->PoiCategory->getPrimaryKeys();
+    $values = $this->getValue('poi_category_list');
     if (!is_array($values))
     {
       $values = array();
@@ -134,13 +134,13 @@ abstract class BaseVendorPoiCategoryForm extends BaseFormDoctrine
     $unlink = array_diff($existing, $values);
     if (count($unlink))
     {
-      $this->object->unlink('PoiCategories', array_values($unlink));
+      $this->object->unlink('PoiCategory', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
     if (count($link))
     {
-      $this->object->link('PoiCategories', array_values($link));
+      $this->object->link('PoiCategory', array_values($link));
     }
   }
 

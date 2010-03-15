@@ -57,7 +57,7 @@ class XMLExportPOI extends XMLExport
 
       $this->appendRequiredElement( $entryElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA );
 
-      foreach( $poi[ 'PoiCategories' ] as $category )
+      foreach( $poi[ 'PoiCategory' ] as $category )
       {
         $this->appendRequiredElement( $entryElement, 'category', $category['name'], XMLExport::USE_CDATA);
       }
@@ -65,7 +65,7 @@ class XMLExportPOI extends XMLExport
       
       // @todo this block adds a default others category. as it is not allowed as of the schema this will
       // need to be removed as soon as the category (mapping) is properly in place
-      if ( count( $poi[ 'PoiCategories' ]) < 1 )
+      if ( count( $poi[ 'PoiCategory' ]) < 1 )
       {
         $this->appendRequiredElement( $entryElement, 'category', 'others', XMLExport::USE_CDATA);
       }

@@ -78,7 +78,7 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
       $this->notifyImporterOfFailure($exception, $poi);
       return;
     }
-    //$poi['PoiCategories'][]   = $this->poiCategory;
+    //$poi['PoiCategory'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $cinemaXml->starRating;
 
     //@todo add userRating

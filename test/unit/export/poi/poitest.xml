@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-pois vendor="test_en-GB" modified="2010-03-10T16:19:23">
-  <entry vpid="XXX000000000000000000000test name" lang="en" modified="2010-03-10T16:19:23">
+<<<<<<< HEAD:test/unit/export/poi/poitest.xml
+<vendor-pois vendor="test_en-GB" modified="2010-03-12T12:19:19">
+  <entry vpid="XXX000000000000000000000test name" lang="en" modified="2010-03-12T12:19:19">
     <geo-position>
       <longitude>0.1</longitude>
       <latitude>0.2</latitude>
@@ -43,7 +44,7 @@
       </content>
     </version>
   </entry>
-  <entry vpid="XXX000000000000000test name2&amp;&lt;&gt;'&quot;" lang="en" modified="2010-03-10T16:19:23">
+  <entry vpid="XXX000000000000000test name2&amp;&lt;&gt;'&quot;" lang="en" modified="2010-03-12T12:19:19">
     <geo-position>
       <longitude>0.3</longitude>
       <latitude>0.4</latitude>
@@ -75,3 +76,6 @@
     </version>
   </entry>
 </vendor-pois>
+=======
+<vendor-pois vendor="test_en-GB" modified="2010-03-08T18:11:09"><entry vpid="XXX000000000000000000000000000001" lang="en"><geo-position><longitude>0.1</longitude><latitude>0.2</latitude></geo-position><name><![CDATA[test name]]></name><category><![CDATA[restaurant]]></category><category><![CDATA[cinema]]></category><address><street><![CDATA[test street]]></street><houseno><![CDATA[12]]></houseno><zip><![CDATA[1234]]></zip><city><![CDATA[test town]]></city><district><![CDATA[test district]]></district><country>GBR</country></address><contact><phone>+44 208 123 1234</phone><fax>+44 208 323 3234</fax><phone2>+44 208 223 2234</phone2><email><![CDATA[you@who.com]]></email><url>http://foo.com</url></contact><version lang="en"><name><![CDATA[test name]]></name><address><street><![CDATA[test street]]></street><houseno><![CDATA[12]]></houseno><zip><![CDATA[1234]]></zip><city><![CDATA[test town]]></city><district><![CDATA[test district]]></district><country>GBR</country></address><content><short-description><![CDATA[test short description]]></short-description><description><![CDATA[test description]]></description><public-transport><![CDATA[test public transport]]></public-transport><openingtimes><![CDATA[test opening times]]></openingtimes><property key="poi key 1"><![CDATA[poi value 1]]></property><property key="poi key 2"><![CDATA[poi value 2]]></property></content></version></entry><entry vpid="XXX000000000000000000000000000002" lang="en"><geo-position><longitude>0.3</longitude><latitude>0.4</latitude></geo-position><name><![CDATA[test name2&<>'"]]></name><category><![CDATA[others]]></category><address><street><![CDATA[test street2&<>'"]]></street><houseno><![CDATA[13&<>'"]]></houseno><zip><![CDATA[4321]]></zip><city><![CDATA[test town2&<>'"]]></city><district><![CDATA[test district2&<>'"]]></district><country>GBR</country></address><contact/><version lang="en"><name><![CDATA[test name2&<>'"]]></name><address><street><![CDATA[test street2&<>'"]]></street><houseno><![CDATA[13&<>'"]]></houseno><zip><![CDATA[4321]]></zip><city><![CDATA[test town2&<>'"]]></city><district><![CDATA[test district2&<>'"]]></district><country>GBR</country></address><content><property key="poi key special&amp;&lt;&gt;'&quot;"><![CDATA[poi value special&<>'"]]></property></content></version></entry></vendor-pois>
+>>>>>>> 19ebde42ccf9867aac4ff766acb71b953de0d8d9:test/unit/export/poi/poitest.xml

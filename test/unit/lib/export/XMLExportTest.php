@@ -72,7 +72,7 @@ protected function setUp()
         $poi->setLatitude( '0.2' );
         $poi['description'] = '<a href="http://www.foobar.com">foobar</a><strong></strong><b random="purposeful"></b><em></em><i></i><iframe></iframe>';
         $poi->link( 'Vendor', 2 );
-        $poi->link('PoiCategories', array( 1, 2 ) );
+        $poi->link('PoiCategory', array( 1, 2 ) );
 
         $poi->save();
 
@@ -90,7 +90,7 @@ protected function setUp()
         $poi->setLatitude( '0.4' );
 
         $poi->link( 'Vendor', 2 );
-        $poi->link('PoiCategories', 1);
+        $poi->link('PoiCategory', 1);
 
         $poi->save();
 

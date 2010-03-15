@@ -171,7 +171,7 @@
 				<xsd:element ref="version" minOccurs="1" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="vpid" type="xsd:normalizedString" use="required"/>		<!-- unique and persistent vendor poi ID -->
-			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/><!-- timestamp -->
+			<!-- <xsd:attribute name="modified" type="xsd:dateTime" use="required"/> --><!-- timestamp -->
 			<xsd:attribute name="lang" type="LanguageType" use="required"/> 
 		</xsd:complexType>
 	</xsd:element>

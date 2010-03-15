@@ -19,9 +19,9 @@ generator:
         actions:           {}
         batch_actions:     {}
       filter:
-        display:           [vendor_id, name, poi_categories_list]
+        display:           [vendor_id, name, poi_category_list]
       form:
-        display:           [vendor_id, name, poi_categories_list]
+        display:           [vendor_id, name, poi_category_list]
       edit:
         actions:           { _list: ~, _save_and_list: ~ }
         fields:            ~

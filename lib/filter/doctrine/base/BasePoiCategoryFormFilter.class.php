@@ -13,23 +13,23 @@ abstract class BasePoiCategoryFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'name'                       => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'created_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'poi_list'                   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
-      'parent_list'                => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
-      'vendor_poi_categories_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory')),
-      'children_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'name'                     => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'created_at'               => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'updated_at'               => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'poi_list'                 => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Poi')),
+      'parent_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
+      'vendor_poi_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory')),
+      'children_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
     ));
 
     $this->setValidators(array(
-      'name'                       => new sfValidatorPass(array('required' => false)),
-      'created_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'poi_list'                   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
-      'parent_list'                => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
-      'vendor_poi_categories_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory', 'required' => false)),
-      'children_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'name'                     => new sfValidatorPass(array('required' => false)),
+      'created_at'               => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'updated_at'               => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'poi_list'                 => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Poi', 'required' => false)),
+      'parent_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
+      'vendor_poi_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory', 'required' => false)),
+      'children_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('poi_category_filters[%s]');
@@ -73,7 +73,7 @@ abstract class BasePoiCategoryFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('PoiCategoryReference.parent_id', $values);
   }
 
-  public function addVendorPoiCategoriesListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addVendorPoiCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -113,14 +113,14 @@ abstract class BasePoiCategoryFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'                         => 'Number',
-      'name'                       => 'Text',
-      'created_at'                 => 'Date',
-      'updated_at'                 => 'Date',
-      'poi_list'                   => 'ManyKey',
-      'parent_list'                => 'ManyKey',
-      'vendor_poi_categories_list' => 'ManyKey',
-      'children_list'              => 'ManyKey',
+      'id'                       => 'Number',
+      'name'                     => 'Text',
+      'created_at'               => 'Date',
+      'updated_at'               => 'Date',
+      'poi_list'                 => 'ManyKey',
+      'parent_list'              => 'ManyKey',
+      'vendor_poi_category_list' => 'ManyKey',
+      'children_list'            => 'ManyKey',
     );
   }
 }

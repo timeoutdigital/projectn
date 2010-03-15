@@ -9,17 +9,11 @@ Doctrine_Manager::getInstance()->bindComponent('LinkingEventCategoryMapping', 'p
  * 
  * @property integer $event_category_id
  * @property integer $vendor_event_category_id
- * @property VendorEventCategory $VendorEventCategory
- * @property EventCategory $EventCategory
  * 
  * @method integer                     getEventCategoryId()          Returns the current record's "event_category_id" value
  * @method integer                     getVendorEventCategoryId()    Returns the current record's "vendor_event_category_id" value
- * @method VendorEventCategory         getVendorEventCategory()      Returns the current record's "VendorEventCategory" value
- * @method EventCategory               getEventCategory()            Returns the current record's "EventCategory" value
  * @method LinkingEventCategoryMapping setEventCategoryId()          Sets the current record's "event_category_id" value
  * @method LinkingEventCategoryMapping setVendorEventCategoryId()    Sets the current record's "vendor_event_category_id" value
- * @method LinkingEventCategoryMapping setVendorEventCategory()      Sets the current record's "VendorEventCategory" value
- * @method LinkingEventCategoryMapping setEventCategory()            Sets the current record's "EventCategory" value
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -48,12 +42,6 @@ abstract class BaseLinkingEventCategoryMapping extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('VendorEventCategory', array(
-             'local' => 'vendor_event_category_id',
-             'foreign' => 'id'));
-
-        $this->hasOne('EventCategory', array(
-             'local' => 'event_category_id',
-             'foreign' => 'id'));
+        
     }
 }

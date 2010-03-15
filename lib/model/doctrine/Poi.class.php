@@ -99,7 +99,7 @@ class Poi extends BasePoi
         }
     }
 
-    foreach( $this[ 'VendorPoiCategories' ] as $existingCategory )
+    foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
       if( $existingCategory[ 'name' ] == $name ) return;
     }
@@ -113,7 +113,7 @@ class Poi extends BasePoi
       $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
     }
 
-    $this[ 'VendorPoiCategories' ][] = $vendorPoiCategoryObj;
+    $this[ 'VendorPoiCategory' ][] = $vendorPoiCategoryObj;
   }
 
 
