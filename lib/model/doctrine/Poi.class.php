@@ -182,7 +182,7 @@ class Poi extends BasePoi
     $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
     $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );
 
-    return $isNotZero || $isNull;
+    return $isZero || $isNull;
   }
 
   private function truncateGeocodeLengthToMatchSchema()
