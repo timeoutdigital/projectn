@@ -165,7 +165,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $rootElement = $this->domDocument->firstChild;
     $this->assertEquals('vendor-movies', $rootElement->nodeName);
 
-    $this->assertEquals( $this->vendor->getName(), $rootElement->getAttribute('vendor') );
+    $this->assertEquals( XMLExport::VENDOR_NAME, $rootElement->getAttribute('vendor') );
     $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $rootElement->getAttribute('modified') );
 
     $movieElement = $this->xpath->query( '/vendor-movies/movie' )->item(0);

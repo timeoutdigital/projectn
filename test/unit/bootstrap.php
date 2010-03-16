@@ -92,6 +92,7 @@ class ProjectN_Test_Unit_Factory
       'vendor'          => VendorFixture,
       'event'           => EventFixture,
       'eventoccurrence' => EventOccurrenceFixture,
+      'movie'           => MovieFixture,
     );
 
     $model = strtolower( $model );
@@ -292,4 +293,35 @@ class EventOccurrenceFixture
   }
 }
 
+class MovieFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = MovieFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $vendor = new Movie();
+    $vendor->fromArray( $defaults );
+
+    return $vendor;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name'       => 'test name',
+      'plot'       => 'test plot',
+      'review'     => 'test review',
+      'url'        => 'http://www.timeout.com',
+      'rating'     => '1.0',
+      'utf_offset' => '+00:00:00',
+      'vendor_id' => '1',
+      'vendor_movie_id' => '1',
+    );
+  }
+}
 ?>
