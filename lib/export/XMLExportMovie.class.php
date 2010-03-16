@@ -36,7 +36,7 @@ class XMLExportMovie extends XMLExport
     $rootTag = $this->appendRequiredElement($domDocument, 'vendor-movies');
 
     $rootTag->setAttribute( 'modified', $this->modifiedTimeStamp );
-    $rootTag->setAttribute( 'vendor', $this->vendor->getName() );
+    $rootTag->setAttribute( 'vendor', XMLExport::VENDOR_NAME );
 
     foreach( $movieCollection as $movie )
     {

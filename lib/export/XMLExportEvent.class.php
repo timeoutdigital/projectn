@@ -40,7 +40,7 @@ class XMLExportEvent extends XMLExport
     $rootElement = $this->appendRequiredElement( $domDocument, 'vendor-events');
 
     //vendor_event
-    $rootElement->setAttribute( 'vendor', $this->vendor['name'] );
+    $rootElement->setAttribute( 'vendor', XMLExport::VENDOR_NAME );
     $rootElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
     foreach( $data as $event )

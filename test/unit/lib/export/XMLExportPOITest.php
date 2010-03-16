@@ -156,7 +156,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertTrue( $this->xml instanceof SimpleXMLElement );
 
       //vendor-pois
-      $this->assertEquals( $this->vendor2->getName(), (string) $this->xml['vendor'] );
+      $this->assertEquals( XMLExport::VENDOR_NAME, (string) $this->xml['vendor'], 'Vendor should be "timeout"' );
       $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
     }
 
