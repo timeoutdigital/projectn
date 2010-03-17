@@ -217,7 +217,7 @@ class PoiCategoryFixture
   static private function getDefaults()
   {
     return array(
-      'name' => 'test name'
+      'name' => 'theatre-music-culture'
     );
   }
 }
@@ -243,7 +243,7 @@ class VendorFixture
   {
     return array(
       'city' => 'test city',
-      'language' => 'test lang',
+      'language' => 'en-GB',
       'time_zone' => 'Europe/London',
       'airport_code' => 'LHR',
       'inernational_dial_code' => '+44'
