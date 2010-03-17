@@ -45,6 +45,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
   protected $escapedSpecialChars;
 
+
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -169,6 +171,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
   /**
    * test generateXML() has vendor-events root tag with required attributes
+   *
+   * @todo Check if this is still needed
    */
 //  public function testGeneratedXMLHasEventWithRequiredAttribute()
 //  {
@@ -252,6 +256,24 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $price = $versionTag->getElementsByTagName( 'price' );
     $this->assertEquals(1, $price->length );
     $this->assertEquals( 'test price', $price->item(0)->nodeValue );
+  }
+
+  /**
+   * Check that the event has a POI linked to it
+   *
+   */
+  public function testPoiExistsBeforeEventExport()
+  {
+
+
+
+
+      
+  }
+
+  public function testThrowsErrorIfPoiXmlNotFound()
+  {
+      
   }
 
   /**

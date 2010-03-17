@@ -13,15 +13,47 @@
  */
 class XMLExportEvent extends XMLExport
 {
-  /**
+
+    public $exportedPoisArray;
+
+    public $poiXmlObj;
+
+
+
+   /**
    *
    * @param Vendor $vendor The Vendor to get Events for
    * @param String $destination Path to the file the export writes to
+   * @param String $poiXmlLocation The location to the POI XML file
    */
-  public function __construct( $vendor, $destination )
+  public function __construct( $vendor, $destination, $poiXmlLocation )
   {
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-events-1.4.xsd';
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
+
+
+
+    
+   // $this->poiXmlObj = simplexml_load_file('export/export_'.date('Ymd').'/pois/london.xml');
+
+    try{
+        $this->poiXmlObj = simplexml_load_file($poiXmlLocation);
+    }
+    catch (Exception $e)
+    {
+        echo "Failed to find POI XML" . $e->getMessage();
+        exit;
+    }
+
+    /*
+    //Get all of the ID's from the Poi export
+    $poiIdArray = $poiXmlObj->xpath('//@vpid');
+
+    $poiIds = array();
+    foreach( $poiIdArray as $idObj )
+    {
+        $poiIds[] = $idObj['vpid'];
+    }*/
   }
 
   protected function getData()
