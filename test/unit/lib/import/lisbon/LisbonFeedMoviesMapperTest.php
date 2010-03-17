@@ -65,6 +65,7 @@ class LisbonFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapMovies()
   {
+    $this->markTestSkipped();
     /*$importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();

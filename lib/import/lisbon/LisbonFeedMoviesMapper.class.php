@@ -33,6 +33,10 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
       $movie['utf_offset'] = $this->vendor->getUtcOffset();
       $movie['poi_id']     = null;
 
+      $movie->addDirectorProperty( (string) $filmElement[ 'Directors' ] );
+      $movie->addRuntimeProperty(  (string) $filmElement[ 'RunningTime' ] );
+      $movie->addCastProperty(     (string) $filmElement[ 'Cast' ] );
+
       $this->notifyImporter( $movie );
       $movie->free();
     }
@@ -52,9 +56,9 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
   protected function getMap()
   {
     return array(
-        'filmID' => 'vendor_movie_id',
-        'title' => 'name',
-        'Review_' => 'review',
+        'filmID'        => 'vendor_movie_id',
+        'title'         => 'name',
+        'Review_'       => 'review',
         'Review1Rating' => 'rating',
     );
   }
@@ -89,9 +93,9 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
       'Review9_',
       'Review10_',
       'RegistrationDate',
-      //'RunningTime',
+      'RunningTime',
       'BlackandWhite',
-      //'Directors',
+      'Directors',
       'Producers',
       'DirectorOfPhotography',
       'Composers',
@@ -99,7 +103,7 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
       'Editors',
       'ProductionDesigners',
       'ArtDirectors',
-      //'Cast',
+      'Cast',
       'Narrators',
       'Top100',
       'AwardsWon',

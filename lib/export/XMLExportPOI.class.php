@@ -39,7 +39,7 @@ class XMLExportPOI extends XMLExport
     $rootElement = $domDocument->appendChild( new DOMElement('vendor-pois') );
 
     //poi_vendor
-    $rootElement->setAttribute( 'vendor', $this->vendor->getName() );
+    $rootElement->setAttribute( 'vendor', XMLExport::VENDOR_NAME );
     $rootElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
     //entry

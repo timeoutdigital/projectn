@@ -36,7 +36,7 @@ class XMLExportMovie extends XMLExport
     $rootTag = $this->appendRequiredElement($domDocument, 'vendor-movies');
 
     $rootTag->setAttribute( 'modified', $this->modifiedTimeStamp );
-    $rootTag->setAttribute( 'vendor', $this->vendor->getName() );
+    $rootTag->setAttribute( 'vendor', XMLExport::VENDOR_NAME );
 
     foreach( $movieCollection as $movie )
     {
@@ -72,7 +72,8 @@ class XMLExportMovie extends XMLExport
 
 
       //movie/version/rating
-      $this->appendNonRequiredElement($versionElement, 'rating', $movie['rating'] );
+      if( $this->ratingInRangeOfOneToFiveInclusive( $movie ) )
+        $this->appendNonRequiredElement($versionElement, 'rating', $movie['rating'] );
 
       //movie/showtimes
      // $showTimesElement = $this->appendRequiredElement($movieElement, 'showtimes' );
@@ -127,6 +128,11 @@ class XMLExportMovie extends XMLExport
 
     $genreString = stringTransform::concatNonBlankStrings(', ', $genreArray );
     return $genreString;
+  }
+
+  private function ratingInRangeOfOneToFiveInclusive( $movie )
+  {
+    return ($movie[ 'rating' ] >= 1) && ($movie[ 'rating' ] <= 5);
   }
 }
 ?>

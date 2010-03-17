@@ -63,7 +63,6 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
     $movie =  Doctrine::getTable( 'Movie' )->findOneById( 1 );
     //@todo add fixtures so we can test this
     //$this->assertTrue( !empty( $movie[ 'MovieGenres' ][ 0 ][ 'genre' ] ) ,'genre should not be empty' );
-
   }
 
   protected function runImport()

@@ -13,6 +13,7 @@
 abstract class XMLExport
 {
   const USE_CDATA = true;
+  const VENDOR_NAME = 'timeout';
 
   /**
    *
