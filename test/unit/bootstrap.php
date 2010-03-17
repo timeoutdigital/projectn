@@ -128,6 +128,24 @@ class ProjectN_Test_Unit_Factory
 
     return $definition[$part];
   }
+
+  /**
+   * get the first $model record from the database
+   * will add a record and return it if none exists
+   */
+  static public function autoCreate( $model )
+  {
+    $record = null;
+
+    $table = Doctrine::getTable( $model );
+
+    if( $table->count() > 0 )
+      $record = $table->findOneById( 1 );
+    else
+      $record = ProjectN_Test_Unit_Factory::add( $model );
+
+    return $record;
+  }
 }
 
 class PoiFixture
@@ -244,10 +262,15 @@ class EventFixture
       $defaults = array_merge( $defaults, $data );
     }
 
-    $vendor = new Event();
-    $vendor->fromArray( $defaults );
+    $record = new Event();
+    $record->fromArray( $defaults );
 
-    return $vendor;
+    if( $autoCreateRelatedObjects )
+    {
+      $record[ 'Vendor' ] = ProjectN_Test_Unit_Factory::autoCreate( 'Vendor' );
+    }
+
+    return $record;
   }
 
   static private function getDefaults()
@@ -277,6 +300,7 @@ class EventOccurrenceFixture
 
     $vendor = new EventOccurrence();
     $vendor->fromArray( $defaults );
+    $vendor[ 'Poi' ] = ProjectN_Test_Unit_Factory::autoCreate( 'Poi' );
 
     return $vendor;
   }

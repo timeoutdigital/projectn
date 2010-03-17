@@ -83,19 +83,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $eventCategories = new Doctrine_Collection(Doctrine::getTable('EventCategory'));
 
-    $eventCat1 = new EventCategory();
-    $eventCat1->setName( 'concerts' );
-    $eventCat1->save();
+    $eventCat1 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'concerts' ) );
     $eventCategories[] = $eventCat1;
 
-    $eventCat2 = new EventCategory();
-    $eventCat2->setName( 'theater' );
-    $eventCat2->save();
+    $eventCat2 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'theater' ) );
     $eventCategories[] = $eventCat2;
 
-    $eventCat3 = new EventCategory();
-    $eventCat3->setName( 'sport' );
-    $eventCat3->save();
+    $eventCat3 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'sport' ) );
     $eventCategories[] = $eventCat3;
 
     $event = ProjectN_Test_Unit_Factory::get( 'Event' );
@@ -112,15 +106,17 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $occurrence->link( 'Poi', array( 1 ) );
     $occurrence->save();
 
-    $property = new EventProperty();
-    $property['lookup'] = 'test key 1';
-    $property['value'] = 'test value 1';
+    $property = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 
+      'lookup' => 'test key 1',
+      'value'  => 'test value 1',
+      ) );
     $property->link( 'Event', array( 1 ) );
     $property->save();
 
-    $property2 = new EventProperty();
-    $property2['lookup'] = 'test key 2';
-    $property2['value'] = 'test value 2';
+    $property2 = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 
+      'lookup' => 'test key 2',
+      'value'  => 'test value 2',
+      ) );
     $property2->link( 'Event', array( 1 ) );
     $property2->save();
 
@@ -157,14 +153,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $occurrence4->link( 'Poi', array( 2 ) );
     $occurrence4->save();
 
-
-    $this->destination = dirname( __FILE__ ) . '/../../export/event/test.xml';
-    $this->export = new XMLExportEvent( $this->vendor, $this->destination );
-
-    $this->export->run();
-    $this->domDocument = new DOMDocument();
-    $this->domDocument->load( $this->destination );
-    $this->xpath = new DOMXPath( $this->domDocument );
+    $this->export();
 
     $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
   }
@@ -274,7 +263,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, $showtimes->length );
 
     $showtimes1 = $showtimes->item(0);
-    $placeTags = $showtimes1->getElementsByTagName( 'place' );
+    $placeTags  = $showtimes1->getElementsByTagName( 'place' );
 
     $this->assertEquals( 'XXX000000000000000000000000000001', $placeTags->item(0)->getAttribute( 'place-id' ) );
     $this->assertEquals( 'http://timeout.com', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
@@ -296,9 +285,9 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $propertyElements1 = $this->xpath->query( '/vendor-events/event[1]/version/property' );
     $this->assertEquals(2, $propertyElements1->length);
 
-    $this->assertEquals( 'test key 1', $propertyElements1->item(0)->getAttribute( 'key' ) );
+    $this->assertEquals( 'test key 1',   $propertyElements1->item(0)->getAttribute( 'key' ) );
     $this->assertEquals( 'test value 1', $propertyElements1->item(0)->nodeValue );
-    $this->assertEquals( 'test key 2', $propertyElements1->item(1)->getAttribute( 'key' ) );
+    $this->assertEquals( 'test key 2',   $propertyElements1->item(1)->getAttribute( 'key' ) );
     $this->assertEquals( 'test value 2', $propertyElements1->item(1)->nodeValue );
   }
 
@@ -320,7 +309,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 2, $placesForEvent2->length );
     $this->assertEquals( 1, $placesForEvent2->item(0)->getElementsByTagName( 'occurrence' )->length );
     $this->assertEquals( 2, $placesForEvent2->item(1)->getElementsByTagName( 'occurrence' )->length );
-}
+  }
 
     /**
      * check properties tags
@@ -330,7 +319,31 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->markTestSkipped();
       $propertyElements = $this->xpath->query( '/vendor-events/event[1]/version/media' );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
-      $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );
+      $this->assertEquals( 'url',    $propertyElements->item(0)->nodeValue );
+    }
+
+    public function testEventsWithoutPoiAreNotExported()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      for( $i = 0; $i < 2; $i++ ) 
+      {
+        $event = ProjectN_Test_Unit_Factory::get( 'Event', array( 'name' => "has no poi $i" ) );
+        $event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array(
+          'start_date' => date( 'Y-m-d' )
+        ) );
+        $event->save();
+      }
+
+      $eventWithPoi = ProjectN_Test_Unit_Factory::add( 'Event', array( 'name' => 'has poi' ) );
+      $eventWithPoi[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array(
+        'start_date' => date( 'Y-m-d' )
+      ) );
+      $eventWithPoi->save();
+      $this->export();
+
+      $this->assertEquals( 1, $this->xpath->query( '//event' )->length );
     }
 
     /**
@@ -339,6 +352,16 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     private function today()
     {
       return date( 'Y-m-d' );
+    }
+
+    private function export()
+    {
+      $this->destination = dirname( __FILE__ ) . '/../../export/event/test.xml';
+      $this->export = new XMLExportEvent( $this->vendor, $this->destination );
+      $this->export->run();
+      $this->domDocument = new DOMDocument();
+      $this->domDocument->load( $this->destination );
+      $this->xpath = new DOMXPath( $this->domDocument );
     }
 }
 ?>
