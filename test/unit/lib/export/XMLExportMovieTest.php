@@ -131,11 +131,24 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2[ 'plot' ] = 'test movie plot';
     $movie2[ 'review' ] = 'test movie review';
     $movie2[ 'url' ] = 'http://movies.co.uk';
-    $movie2[ 'rating' ] = '1.2';
+    $movie2[ 'rating' ] = '0.0';
     //$movie2[ 'age_rating' ] = 'oap';
     $movie2[ 'utf_offset' ] = '-01:00:00';
     $movie2->link( 'MovieGenres', array( 1, 2 ) );
     $movie2->save();
+
+    $movie3 = new Movie();
+    $movie3[ 'vendor_movie_id' ] = 1111;
+    $movie3[ 'Vendor' ] = $vendor;
+    $movie3[ 'Poi' ] = $poi2;
+    $movie3[ 'name' ] = 'test movie name';
+    $movie3[ 'plot' ] = 'test movie plot';
+    $movie3[ 'review' ] = 'test movie review';
+    $movie3[ 'url' ] = 'http://movies.co.uk';
+    $movie3[ 'rating' ] = '6';
+    $movie3[ 'utf_offset' ] = '-01:00:00';
+    $movie3->link( 'MovieGenres', array( 1, 2 ) );
+    $movie3->save();
 
     $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
     $this->export = new XMLExportMovie( $this->vendor, $this->destination );
@@ -221,6 +234,21 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
       $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/media' );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'url', $propertyElements->item(0)->nodeValue );
+    }
+
+    public function testRatingRangeIsOneToFiveInclusive()
+    {
+      $movies = $this->xpath->query( '//movie' );
+      $this->assertEquals( 3, $movies->length );
+
+      $movie1 = $this->xpath->query( '//movie[1]' )->item(0);
+      $this->assertEquals(1, $movie1->getElementsByTagName( 'rating' )->length );
+
+      $movie2 = $this->xpath->query( '//movie[2]' )->item(0);
+      $this->assertEquals(0, $movie2->getElementsByTagName( 'rating' )->length );
+
+      $movie3 = $this->xpath->query( '//movie[3]' )->item(0);
+      $this->assertEquals(0, $movie3->getElementsByTagName( 'rating' )->length );
     }
 }
 ?>
