@@ -15,9 +15,14 @@
 
 class IMDB 
 {
-    function __construct($url) {
-        $this->gotCurl      = extension_loaded('curl');
-        $imdb_content       = $this->imdbHandler($url);
+    private $searchTerms;
+    private $response;
+
+    function __construct( $searchTerms ) 
+    {
+        $this->searchTerms = $searchTerms;
+        $imdb_content       = $this->doSearchRequest();
+
         $this->movie        = trim($this->getMatch('|<title>(.*) \((.*)\)</title>|Uis', $imdb_content));
         $this->director     = trim($this->getMatch('|<h5>Director:</h5><a href="(.*)">(.*)</a><br/>|Uis', $imdb_content, 2));
         $this->url_director = trim($this->getMatch('|<h5>Director:</h5><a href="(.*)">(.*)</a><br/>|Uis', $imdb_content));
@@ -31,69 +36,41 @@ class IMDB
         $this->url_country  = trim($this->getMatch('|<h5>Country:</h5><a href="(.*)">(.*)</a></div>|Uis', $imdb_content));
     }
 
-    function imdbHandler($input) {
-        if (!$this->getMatch('|^http://(.*)$|Uis', $input)) {
-            $tmpUrl = 'http://us.imdb.com/find?s=all&q='.str_replace(' ', '+', $input).'&x=0&y=0';
-            if ($this->gotCurl) {
-                $ch      = curl_init();
-                curl_setopt_array($ch, array(CURLOPT_URL => $tmpUrl,
-                                             CURLOPT_HEADER => false,
-                                             CURLOPT_RETURNTRANSFER => true,
-                                             CURLOPT_TIMEOUT => 10
-                                            )
-                                  );
-                $data = curl_exec($ch);
-                curl_close($ch);
-            } else {
-                $data = file_get_contents($tmpUrl);
-            }
-            $foundMatch = $this->getMatch('|<p style="margin:0 0 0.5em 0;"><b>Media from&nbsp;<a href="(.*)">(.*)</a> ((.*))</b></p>|Uis', $data);
-            if ($foundMatch) {
-                $this->url = 'http://www.imdb.com'.$foundMatch;
-            } else {
-                $this->url = '';
-                return 0;
-            }
-        } else {
-            $this->url = $input;
-        }
-        if ($this->gotCurl) {
-            $ch      = curl_init();
-            curl_setopt_array($ch, array(CURLOPT_URL => $this->url,
-                                         CURLOPT_HEADER => false,
-                                         CURLOPT_RETURNTRANSFER => true,
-                                         CURLOPT_TIMEOUT => 10
-                                        )
-                              );
-            $data = curl_exec($ch);
-            curl_close($ch);
-        } else {
-            $data = file_get_contents($this->url);
-        }
-        return str_replace("\n",'',(string)$data);
+    private function doSearchRequest()
+    {
+      $url    = 'http://www.imdb.com/find';
+      $params = array( 
+        's' => 'all', 
+        'q' => $this->searchTerms
+      );
+      $curl = new Curl( $url, $params );
+      $curl->exec();
+
+      $response = $curl->getResponse();
+      $lineBreaks = array( "\r\n", "\n", "\r" );
+      $this->response = str_replace( $lineBreaks, '', $response );
     }
 
-    function getMatch($regex, $content, $index=1) {
+    public function getTitle()
+    {
+      $non_greedy_any = '.*?';
+      $regex = ':'.
+        '<b>Popular Titles' . $non_greedy_any . //Under Popular Titles
+        '1\.'               . $non_greedy_any .  //get the first film
+        'href="/title/'     . $non_greedy_any . //inside a link
+        '>(.*?)</a>:'
+      ;
+      $title = $this->getMatch( $regex, $this->response, 1 );
+      return $title;
+    }
+
+    private function getMatch($regex, $content, $index=1) {
         preg_match($regex, $content, $matches);
-        return $matches[(int)$index];
-    }
 
-    function showOutput() {
-        if ($this->url) {
-            $content.= '<h2>Film</h2><p>'.$this->movie.'</p>';
-            $content.= '<h2>Director</h2><p><a href="http://www.imdb.com'.$this->url_director.'">'.$this->director.'</a></p>';
-            $content.= '<h2>Plot</h2><p>'.$this->plot.'</p>';
-            $content.= '<h2>Release Date</h2><p>'.$this->release_date.'</p>';
-            $content.= '<h2>MPAA</h2><p>'.$this->mpaa.'</p>';
-            $content.= '<h2>Run Time</h2><p>'.$this->run_time.' minutes</p>';
-            $content.= '<h2>Full Details</h2><p><a href="'.$this->url.'">'.$this->url.'</a></p>';
-            $content.= '<h2>Rating</h2><p>'.$this->rating.'</p>';
-            $content.= '<h2>Votes</h2><p>'.$this->votes.' votes</p>';
-            $content.= '<h2>Country</h2><p><a href="http://www.imdb.com'.$this->url_country.'">'.$this->country.'</a></p>';
-            echo $content;
-        } else {
-            echo 'Sorry, nothing found! :(';
-        }
+        if( empty( $matches ) )
+          return null;
+
+        return $matches[$index];
     }
 }
 ?>
