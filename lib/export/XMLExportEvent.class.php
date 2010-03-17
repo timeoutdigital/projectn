@@ -16,10 +16,7 @@ class XMLExportEvent extends XMLExport
 
     public $exportedPoisArray;
 
-    public $poiXmlObj;
-
-
-
+    public $poiIdsArray;
    /**
    *
    * @param Vendor $vendor The Vendor to get Events for
@@ -37,7 +34,7 @@ class XMLExportEvent extends XMLExport
    // $this->poiXmlObj = simplexml_load_file('export/export_'.date('Ymd').'/pois/london.xml');
 
     try{
-        $this->poiXmlObj = simplexml_load_file($poiXmlLocation);
+        $poiXmlObj = simplexml_load_file($poiXmlLocation);
     }
     catch (Exception $e)
     {
@@ -45,15 +42,18 @@ class XMLExportEvent extends XMLExport
         exit;
     }
 
-    /*
+    
     //Get all of the ID's from the Poi export
-    $poiIdArray = $poiXmlObj->xpath('//@vpid');
+    $poiIdXmlArray = $poiXmlObj->xpath('//@vpid');
 
-    $poiIds = array();
-    foreach( $poiIdArray as $idObj )
+    $this->poiIdsArray = array();
+    foreach( $poiIdXmlArray as $idObj )
     {
-        $poiIds[] = $idObj['vpid'];
-    }*/
+        $this->poiIdsArray[] = (string) $idObj['vpid'];
+    }
+
+
+
   }
 
   protected function getData()
@@ -77,6 +77,13 @@ class XMLExportEvent extends XMLExport
 
     foreach( $data as $event )
     {
+
+      //Check to see if this event has a corresponding poi
+      if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
+      {
+        continue;
+      }
+      
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
       $eventElement->setAttribute( 'id', $this->generateUID( $event['id'] ) );
@@ -160,6 +167,8 @@ class XMLExportEvent extends XMLExport
       $currentPoiId = null;
       foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
+        if( !in_array( $this->generateUID( $eventOccurrence[ 'poi_id' ] ), $this->poiIdsArray ) )
+                continue;
  
         if ( $currentPoiId != $eventOccurrence[ 'poi_id' ] )
         {
@@ -205,6 +214,20 @@ class XMLExportEvent extends XMLExport
     }
 
     return $domDocument;
+  }
+
+  /**
+   * Check whether POIs that this event happens at is in Export POI xml.
+   */
+  private function eventHappensAtExportPoi( Event $event )
+  {
+      foreach( $event['EventOccurrence'] as $occurrence )
+      {
+        $uid = $this->generateUID($occurrence['poi_id']);
+        if( in_array( $uid, $this->poiIdsArray ) )
+          return true;
+      }
+      return false;
   }
 
 }

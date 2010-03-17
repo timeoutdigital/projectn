@@ -35,6 +35,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   protected $domDocument;
 
+
+
   /**
    *
    * @var DOMXPath
@@ -58,11 +60,11 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
       'city'         => 'test',
       'language'     => 'en-GB',
-      'airport_code' => 'XXX',
+      'airport_code' => 'LHR',
       ) );
 
     $poiCat = new PoiCategory();
-    $poiCat->setName( 'test' );
+    $poiCat->setName( 'eat-drink' );
     $poiCat->save();
 
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -155,9 +157,16 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $occurrence4->link( 'Poi', array( 2 ) );
     $occurrence4->save();
 
+    $this->destination    = dirname( __FILE__ ) . '/../../export/event/test.xml';
+    $this->poiXmlLocation = TO_TEST_DATA_PATH . '/poi.xml';
+
+    $poiExport = new XMLExportPOI( $this->vendor, $this->poiXmlLocation );
+    $poiExport->run();
+   
     $this->export();
 
     $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
+
   }
 
   /**
@@ -167,6 +176,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+    unlink( $this->destination );
   }
 
   /**
@@ -193,7 +203,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 //    $this->domDocument->formatOutput = true;
 //    var_dump( get_class( $eventElement ) );
 //    $this->assertTrue( $eventElement instanceof DOMElement );
-//    $this->assertEquals( 'XXX000000000000000000000000000001', $eventElement->getAttribute('id') );
+//    $this->assertEquals( 'LHR000000000000000000000000000001', $eventElement->getAttribute('id') );
 //    //$this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', $eventElement->getAttribute('modified') );
 //
 //    $this->assertEquals('test name', $eventElement->getElementsByTagName('name')->item(0)->nodeValue );
@@ -264,16 +274,50 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiExistsBeforeEventExport()
   {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      unlink( $this->destination );
+
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'airport_code' => 'LHR' ) );
 
 
+      for( $i=0; $i<3; $i++)
+      {
+        if( $i == 1 ) continue;
+        $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+        $poi['Vendor'] = $vendor;
+        $poi->save();
+      }
 
+      for( $i=0; $i<3; $i++ )
+      {
+        $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+        $event[ 'Vendor' ] = $vendor;
+        $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => date( 'Y-m-d' ) ) );
+        $occurrence['poi_id'] = $i+1;
+        $event['EventOccurrence'][] = $occurrence;
+        $event->save();
+      }
 
-      
+      $event2 = Doctrine::getTable( 'Event' )->findOneById( 2 );
+      $this->assertEquals( 2, $event2['EventOccurrence'][0]['poi_id'], 'Event occurrence id should match poi id.' );
+      $this->assertEquals( 'LHR', $event2['Vendor']['airport_code'], 'airport code' );
+
+      $this->assertEquals( 2, count( $vendor['Poi'] ), 'Testing the total venues' );
+
+      $poiExport = new XMLExportPOI( $vendor, $this->poiXmlLocation );
+      $poiExport->run();
+
+      $this->export();
+
+      $this->assertEquals(2, $this->xpath->query('//event')->length, 'Testing the total true events' );
   }
 
   public function testThrowsErrorIfPoiXmlNotFound()
   {
-      
+      //$this->setExpectedException(Exception);
+      //$export = new XMLExportEvent($this->vendor, $this->destination, 'not_a_real_file');
   }
 
   /**
@@ -287,7 +331,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $showtimes1 = $showtimes->item(0);
     $placeTags  = $showtimes1->getElementsByTagName( 'place' );
 
-    $this->assertEquals( 'XXX000000000000000000000000000001', $placeTags->item(0)->getAttribute( 'place-id' ) );
+    $this->assertEquals( 'LHR000000000000000000000000000001', $placeTags->item(0)->getAttribute( 'place-id' ) );
     $this->assertEquals( 'http://timeout.com', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
     $this->assertEquals( $this->today(), $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue, 'Testing the Start time' );
     $this->assertEquals( '00:00:01', $showtimes1->getElementsByTagName( 'event_time' )->item(0)->nodeValue );
@@ -296,7 +340,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $placesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' );
     $this->assertEquals( 2, $placesForEvent2->length );
 
-    $this->assertEquals( 'XXX000000000000000000000000000002', $placesForEvent2->item(1)->getAttribute( 'place-id' ) );
+    $this->assertEquals( 'LHR000000000000000000000000000002', $placesForEvent2->item(1)->getAttribute( 'place-id' ) );
   }
 
   /**
@@ -344,30 +388,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'url',    $propertyElements->item(0)->nodeValue );
     }
 
-    public function testEventsWithoutPoiAreNotExported()
-    {
-      ProjectN_Test_Unit_Factory::destroyDatabases();
-      ProjectN_Test_Unit_Factory::createDatabases();
-
-      for( $i = 0; $i < 2; $i++ ) 
-      {
-        $event = ProjectN_Test_Unit_Factory::get( 'Event', array( 'name' => "has no poi $i" ) );
-        $event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array(
-          'start_date' => date( 'Y-m-d' )
-        ) );
-        $event->save();
-      }
-
-      $eventWithPoi = ProjectN_Test_Unit_Factory::add( 'Event', array( 'name' => 'has poi' ) );
-      $eventWithPoi[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array(
-        'start_date' => date( 'Y-m-d' )
-      ) );
-      $eventWithPoi->save();
-      $this->export();
-
-      $this->assertEquals( 1, $this->xpath->query( '//event' )->length );
-    }
-
     /**
      * get today's date
      */
@@ -378,8 +398,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     private function export()
     {
-      $this->destination = dirname( __FILE__ ) . '/../../export/event/test.xml';
-      $this->export = new XMLExportEvent( $this->vendor, $this->destination );
+      $this->export = new XMLExportEvent( $this->vendor, $this->destination, $this->poiXmlLocation );
       $this->export->run();
       $this->domDocument = new DOMDocument();
       $this->domDocument->load( $this->destination );
