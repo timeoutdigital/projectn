@@ -92,6 +92,8 @@ class ProjectN_Test_Unit_Factory
       'vendor'          => VendorFixture,
       'event'           => EventFixture,
       'eventoccurrence' => EventOccurrenceFixture,
+      'eventcategory'   => EventCategoryFixture,
+      'eventproperty'   => EventPropertyFixture,
       'movie'           => MovieFixture,
     );
 
@@ -321,6 +323,57 @@ class MovieFixture
       'utf_offset' => '+00:00:00',
       'vendor_id' => '1',
       'vendor_movie_id' => '1',
+    );
+  }
+}
+
+class EventCategoryFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = EventCategoryFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $record = new EventCategory();
+    $record->fromArray( $defaults );
+
+    return $record;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name'       => 'test name',
+    );
+  }
+}
+
+class EventPropertyFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = EventPropertyFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $record = new EventProperty();
+    $record->fromArray( $defaults );
+
+    return $record;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'lookup'       => 'test lookup',
+      'value'       => 'test value',
     );
   }
 }
