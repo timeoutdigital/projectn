@@ -67,7 +67,7 @@ class XMLExportPOI extends XMLExport
       // need to be removed as soon as the category (mapping) is properly in place
       if ( count( $poi[ 'PoiCategory' ]) < 1 )
       {
-        $this->appendRequiredElement( $entryElement, 'category', 'others', XMLExport::USE_CDATA);
+        $this->appendRequiredElement( $entryElement, 'category', 'theatre-music-culture', XMLExport::USE_CDATA);
       }
       
       

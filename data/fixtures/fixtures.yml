@@ -61,6 +61,36 @@ PoiCategory:
   c16:
     name:    shop
     Parent:  [c5]
+  c17:
+    name:    facilities
+  c18:
+    name:    leisure-outdoor
+  c19:
+    name:    library
+    Parent:  [c17]
+  c20:
+    name:    recreation
+    Parent:  [c18]
+  c21:
+    name:    department-store
+    Parent:  [c5]
+  c22:
+    name:    food-drink
+    Parent:  [c5]
+  c23:
+    name:    bookshop
+    Parent:  [c5]
+  c24:
+    name:    sport-outdoor-shop
+    Parent:  [c5]
+  c25:
+    name:    business-industry
+  c26:
+    name:   service
+    Parent: [c26]
+  c27:
+    name:   sports-facility-venue
+    Parent: [c17]
 
 
 VendorPoiCategory:

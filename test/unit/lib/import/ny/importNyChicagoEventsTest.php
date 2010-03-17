@@ -1,11 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../../../lib/import/ny/importNyChicagoEvents.class.php';
-require_once dirname(__FILE__).'/../../../../../lib/processXml.class.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-spl_autoload_register(array('Doctrine', 'autoload'));
 
 
 /**
@@ -23,7 +20,7 @@ spl_autoload_register(array('Doctrine', 'autoload'));
 class importNyTest extends PHPUnit_Framework_TestCase
 {
   /**
-   * @var importNy
+   * @var importNyChicagoEvents
    */
   protected $object;
 
@@ -111,9 +108,11 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    $this->assertTrue( $eventObj instanceof Event );
+    $this->assertTrue( $eventObj instanceof Event, 'And event should be returned.' );
 
-    $this->assertEquals( 1, $eventObj['EventOccurrence']->count()  );
+    $this->assertEquals( 1, $eventObj['EventOccurrence']->count(), 'Should be one occurrence on the event.'  );
+
+    var_dump( $eventObj['Poi']['id'] );
   }
 
 
@@ -153,29 +152,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue( $passed );
   }
-
-  /**
-   * Tests that an event that is categorised as a File or Picture House is not added
-   *
-   */
-  public function testMovieEventNoInsert()
-  {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 1 ] );
-
-    $eventObj = Doctrine::getTable('Event')->findByName('Black Dynamite');
-
-    //There should be no records returned as its a movie/picture house
-    $this->assertEquals( 0, count( $eventObj ) );
-
-    $occurance = Doctrine::getTable('EventOccurrence')->findOneByEventId(1);
-  }
-
-
-
 
   /*
    * Test catgegory property for poi
@@ -281,50 +257,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
   }
 
   /*
-   * test insertVendorPoiCategories
-   */
-  public function testinsertVendorPoiCategories()
-  {
-    $poisArray = $this->xmlObj->getVenues();
-    $this->object->insertVendorPoiCategories( $poisArray[ 0 ] );
-
-    $vendorPoiCategory = Doctrine::getTable('VendorPoiCategory')->findAll();
-
-    $this->assertGreaterThan( 0, count( $vendorPoiCategory)  );
-  }
-
-  /*
-   * test insertVendorEventCategories
-   */
-  public function testInsertVendorEventCategories()
-  {
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertVendorEventCategories( $eventsArray[ 0 ] );
-
-    $vendorEventCategory = Doctrine::getTable('VendorEventCategory')->findAll();
-
-    $this->assertGreaterThan( 0, count( $vendorEventCategory)  );
-  }
-
-  /*
-   * Test if event category is appended
-   */
-  public function testCategoryIfEventCategorIsSuccessfullyAppended()
-  {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 0 ] );
-
-    $this->object->insertVendorEventCategories($eventsArray[ 0 ] );
-
-    $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
-
-    $this->assertEquals( 'theater', $eventObj['EventCategory'][ 0 ][ 'name' ] );
-  }
-
-  /*
   * test testCategoryIfVendorEventCategorIsSuccessfullyAppended
   */
   public function testCategoryIfVendorEventCategorIsSuccessfullyAppended()
@@ -338,32 +270,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
     $this->assertEquals( 'Comedy', $eventObj['VendorEventCategory'][ 0 ][ 'name' ] );
-  }
-
-  /*
-   * Test if poi category is appended
-   */
-  public function testCategoryIfPoiCategoriesIsSuccessfullyAppended()
-  {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $venueObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
-
-    $this->assertEquals( 'shop', $venueObj['PoiCategory'][ 0 ][ 'name' ] );
-  }
-
-  /*
-   * Test if vendor poi category is appended
-   */
-  public function testCategoryIfVendorPoiCategoryIsSuccessfullyAppended()
-  {
-    $poisArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $poisArray[ 0 ] );
-
-    $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
-
-    $this->assertEquals( 'Shops', $poiObj['VendorPoiCategory'][ 0 ][ 'name' ] );
   }
 
   /*
@@ -403,6 +309,24 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'theater', $mappedCategoriesObject[ 0 ][ 'name' ] );
 
     $this->assertEquals( 1, count( $mappedCategoriesObject ) );
+  }
+
+  public function testPoisHaveCategories()
+  {
+      $venuesArray = $this->xmlObj->getVenues();
+      $testVenue = $venuesArray[0];
+
+      $venueId = 103532;
+      $this->assertEquals( $venueId, (int) $testVenue['id'], 'The venue we are working on is has id '.$venueId );
+      
+      $this->object->insertPoi( $testVenue );
+      $poiTable = Doctrine::getTable('Poi');
+      $this->assertEquals( 1, $poiTable->count(), 'There should only be one poi imported' );
+
+      $poi = $poiTable->findOneByVendorIdAndVendorPoiId( $this->vendorObj['id'], $venueId );
+
+      $this->assertEquals( 1, count( $poi['VendorPoiCategory'] ), 'The poi should only have one vendor category' );
+      $this->assertEquals( 'Comedy', $poi['VendorPoiCategory'][0]['name'] );
   }
 }
 ?>
