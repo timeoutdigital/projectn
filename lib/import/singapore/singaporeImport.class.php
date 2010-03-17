@@ -283,10 +283,7 @@ class singaporeImport
             //post-save
             ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
 
-            $poiId = $poi[ 'id' ];
-            $poi->free();
-
-            return $poiId;
+            return $poi;
 
             //currently not used fields
             //
@@ -521,12 +518,12 @@ class singaporeImport
    /*
    * creates and saves the event occurences
    *
-   * @param integer $poiId
+   * @param integer $vendorPoiId
    * @param integer $eventId
    * @param string $dataStart (the node containing the start date)
    * @param string $dataEnd (the node containing the end date)
     */
-    private function _createEventOccurrence( $poiId, $eventId, $dateStart, $dateEnd = '' )
+    private function _createEventOccurrence( $vendorPoiId, $eventId, $dateStart, $dateEnd = '' )
     {
 
         $datesArray = array();
@@ -543,18 +540,18 @@ class singaporeImport
         }
 
         //lookup if we have the poi and if not try to fetch it
-        $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->_vendor[ 'id' ], $poiId );
+        $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->_vendor[ 'id' ], $vendorPoiId );
 
         if ( $poi === false )
         {
-            $this->tryToInsertMissingPoi( $poiId );
+            $poi = $this->tryToInsertMissingPoi( $vendorPoiId );
         }
 
         foreach( $datesArray as $date )
         {
 
             try {
-                $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventId, $poiId, $date[ 'start' ] );
+                $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventId, $poi[ 'id' ], $date[ 'start' ] );
                 $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
 
                 if ( $eventOccurrence === false )
@@ -573,7 +570,7 @@ class singaporeImport
                     $eventOccurrence[ 'end_date' ] = date( 'Y-m-d', strtotime( $date[ 'end' ] ) );
                 }
 
-                $eventOccurrence[ 'poi_id' ] = $poiId;
+                $eventOccurrence[ 'poi_id' ] = $poi[ 'id' ];
                 $eventOccurrence[ 'event_id' ] = $eventId;
 
                 //save
@@ -753,7 +750,7 @@ class singaporeImport
             {
                 throw new Exception( 'could not retrieve valid venue node by url: ' . $lookupUrl );
             }       
-            $this->insertPoi( $venueDetailObj );
+            return $this->insertPoi( $venueDetailObj );
         }
         catch( Exception $e ) {
             $this->_logger->addError( $e );

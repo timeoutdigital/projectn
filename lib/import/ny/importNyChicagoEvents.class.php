@@ -637,7 +637,7 @@ class importNyChicagoEvents
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
 
       //set poi id
-      $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiId( (string) $occurrence->venue[0]->address_id );
+      $venueObj = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $occurrence->venue[0]->address_id, $this->_vendorObj['id'] );
 
       $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
