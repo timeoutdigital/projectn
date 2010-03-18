@@ -41,7 +41,6 @@ class XMLExportEvent extends XMLExport
         echo "Failed to find POI XML" . $e->getMessage();
         exit;
     }
-
     
     //Get all of the ID's from the Poi export
     $poiIdXmlArray = $poiXmlObj->xpath('//@vpid');
@@ -75,13 +74,18 @@ class XMLExportEvent extends XMLExport
     $rootElement->setAttribute( 'vendor', XMLExport::VENDOR_NAME );
     $rootElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
+
+  //  print_r($this->poiIdsArray);
+
     foreach( $data as $event )
     {
 
+     // echo$this->generateUID( $event['EventOccurrence'][0]['poi_id']);
+//exit;
       //Check to see if this event has a corresponding poi
       if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
       {
-        continue;
+          //continue;
       }
       
       //event
