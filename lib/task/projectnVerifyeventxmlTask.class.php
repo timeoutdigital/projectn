@@ -33,12 +33,14 @@ EOF;
     $this->eventXml = simplexml_load_file( $this->options['event-xml'] );
 
     $tests = array(
-      new eventPlaceIdsShouldExistInPoiXml( $this ),
+      new eventPlaceIdsShouldExistInPoiXml( ),
+      new eventsShouldHaveAtleastOneVendorCategory( ),
     );
 
     foreach( $tests as $test )
     {
-      $test->run();
+      $test->run( $this );
+      echo $test->getMessage();
     }
   }
 

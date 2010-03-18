@@ -24,12 +24,12 @@ class eventPlaceIdsShouldExistInPoiXmlTest extends PHPUnit_Framework_TestCase
   public function testRun()
   {
     $goodTask = new eventPlaceIdsShouldExistInPoiXmlTestTask( true );
-    $test = new eventPlaceIdsShouldExistInPoiXml( $goodTask );
-    $this->assertTrue( $test->run() );
+    $test = new eventPlaceIdsShouldExistInPoiXml();
+    $this->assertTrue( $test->run( $goodTask ) );
 
     $badTask = new eventPlaceIdsShouldExistInPoiXmlTestTask( false );
-    $test = new eventPlaceIdsShouldExistInPoiXml( $badTask );
-    $this->assertFalse( $test->run() );
+    $test = new eventPlaceIdsShouldExistInPoiXml();
+    $this->assertFalse( $test->run( $badTask ) );
   }
 }
 

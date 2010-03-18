@@ -11,16 +11,9 @@
  * @version 1.0.1
  *
  */
-class eventPlaceIdsShouldExistInPoiXml
+class eventPlaceIdsShouldExistInPoiXml extends verifyTask
 {
-  private $task;
-
-  public function __construct( $task )
-  {
-    $this->task = $task;
-  }
-
-  public function run()
+  protected function verify()
   {
     $poiIds   = $this->extractPoiIds();
     $placeIds = $this->extractPlaceIds();
@@ -28,29 +21,14 @@ class eventPlaceIdsShouldExistInPoiXml
 
     if( empty( $strays ) )
     {
-      echo 'It\'s allllll good!' . PHP_EOL;
+      $this->setMessage( 'Event place-ids should exist in poi xml: ok' . PHP_EOL );
       return true;
     }
     else
     {
-      echo $this->createErrorMessage( $strays );
+      $this->setMessage( $this->createErrorMessage( $strays ) );
       return false;
     }
-  }
-
-  private function getPoiXml()
-  {
-    return $this->task->getPoiXml();
-  }
-
-  private function getEventXml()
-  {
-    return $this->task->getEventXml();
-  }
-
-  private function getOption( $option )
-  {
-    return $this->task->getOption( $option );
   }
 
   private function createErrorMessage( $errorValues )
