@@ -55,6 +55,7 @@ EOF;
    */
   protected function getExporter( $options )
   {
+    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language']);
 
     switch( strtolower($options['type']) )
     {
@@ -62,7 +63,10 @@ EOF;
         $exportClass = 'XMLExportPOI';
         break;
       case 'event':
-        $exportClass = 'XMLExportEvent';
+
+        //The poi's xml file contain no spaces
+        $city = str_replace(' ', '', $vendor['city']);
+        return new XMLExportEvent( $vendor, $options['destination'], 'export/export_'.date('Ymd').'/pois/'.$city .'.xml' );
         break;
       case 'movie':
         $exportClass = 'XMLExportMovie';
@@ -73,7 +77,6 @@ EOF;
     }
 
     //$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language']);
 
     return new $exportClass( $vendor, $options['destination'] );
   }
