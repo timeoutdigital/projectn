@@ -9,10 +9,11 @@ class projectnVerifyeventxmlTask extends sfBaseTask
     //   new sfCommandArgument('my_arg', sfCommandArgument::REQUIRED, 'My argument'),
     // ));
 
-    // // add your own options here
-    // $this->addOptions(array(
-    //   new sfCommandOption('my_option', null, sfCommandOption::PARAMETER_REQUIRED, 'My option'),
-    // ));
+    // add your own options here
+    $this->addOptions(array(
+      new sfCommandOption('poi-xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The poi xml'),
+      new sfCommandOption('event-xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The event xml'),
+    ));
 
     $this->namespace        = 'projectn';
     $this->name             = 'verify-event-xml';
@@ -27,6 +28,28 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    // add your code here
+    $this->options = $options;
+    $this->poiXml   = simplexml_load_file( $this->options['poi-xml'] );
+    $this->eventXml = simplexml_load_file( $this->options['event-xml'] );
+
+    $tests = array(
+      new eventPlaceIdsShouldExistInPoiXml( $this ),
+    );
+
+    foreach( $tests as $test )
+    {
+      $test->run();
+    }
   }
+
+  public function getPoiXml()
+  {
+    return $this->poiXml;
+  }
+
+  public function getEventXml()
+  {
+    return $this->eventXml;
+  }
+
 }
