@@ -74,18 +74,13 @@ class XMLExportEvent extends XMLExport
     $rootElement->setAttribute( 'vendor', XMLExport::VENDOR_NAME );
     $rootElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
-
-  //  print_r($this->poiIdsArray);
-
     foreach( $data as $event )
     {
 
-     // echo$this->generateUID( $event['EventOccurrence'][0]['poi_id']);
-//exit;
       //Check to see if this event has a corresponding poi
       if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
       {
-          //continue;
+          continue;
       }
       
       //event
@@ -186,6 +181,8 @@ class XMLExportEvent extends XMLExport
         //event/showtimes/place/occurrence
         $occurrenceElement = $this->appendRequiredElement($placeElement, 'occurrence');
 
+
+
         //event/showtimes/occurrence/booking-url
         if( !empty( $event['booking_url'] ) )
         {
@@ -199,8 +196,14 @@ class XMLExportEvent extends XMLExport
 
         $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start_date']);
 
-        if( $eventOccurrence['start_time'] != '00:00:00' )//@todo fix this properly?
-        $this->appendRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
+
+        /**
+         * @todo fix this properly?
+         */
+        if( $eventOccurrence['start_time'] != '00:00:00' && !is_null($eventOccurrence['start_time']) )
+        {
+            $this->appendRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
+        }
 
         //$this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']); //not in schema...
 
