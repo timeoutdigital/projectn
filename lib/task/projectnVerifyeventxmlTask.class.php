@@ -52,4 +52,9 @@ EOF;
     return $this->eventXml;
   }
 
+  public function getOption( $option )
+  {
+    return $this->options[ $option ];
+  }
+
 }

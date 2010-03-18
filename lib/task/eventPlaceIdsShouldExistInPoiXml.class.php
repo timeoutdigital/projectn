@@ -27,9 +27,15 @@ class eventPlaceIdsShouldExistInPoiXml
     $strays   = $this->valuesInSet1AreInSet2( $placeIds, $poiIds );
 
     if( empty( $strays ) )
+    {
       echo 'It\'s allllll good!' . PHP_EOL;
+      return true;
+    }
     else
+    {
       echo $this->createErrorMessage( $strays );
+      return false;
+    }
   }
 
   private function getPoiXml()
@@ -42,10 +48,15 @@ class eventPlaceIdsShouldExistInPoiXml
     return $this->task->getEventXml();
   }
 
+  private function getOption( $option )
+  {
+    return $this->task->getOption( $option );
+  }
+
   private function createErrorMessage( $errorValues )
   {
-    $message = count( $errorValues ) . ' place-ids from' . $this->options['event-xml'] . 
-               ' could not be found in ' . $this->options['poi-xml'];
+    $message = count( $errorValues ) . ' place-ids from ' . $this->getOption('event-xml') . 
+               ' could not be found in ' . $this->getOption('poi-xml');
 
     return $message;
   }
