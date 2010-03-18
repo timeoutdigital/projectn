@@ -177,7 +177,10 @@ class ImportUaeEvents
 
         try
         {
-            $eventObj->save();
+            if($isNew)
+            {
+                $eventObj->save();
+            }
         }
         catch(Exception $e)
         {
@@ -196,17 +199,44 @@ class ImportUaeEvents
     }
 
 
+    /**
+     * Check if the occurance exists
+     *
+     * @param SimpleXMLElement $Occurrences
+     * @param Event $eventObj
+     * @return Boolean Return true if it exists or false if it doesn't
+     */
+  public function checkForDuplicateOccurrence(SimpleXMLElement $Occurrences, Event $eventObj)
+  {
+      foreach($eventObj['EventOccurrence'] as $existingOccurances)
+      {
+          if( $existingOccurances['start_date'] ==  (string) $Occurrences->{'start_date'})
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+
 
   public function AddEventOccurance(SimpleXMLElement $Occurrences, Event $eventObj)
   {
     //Loop throught the actual occurances now
     foreach ( $Occurrences->{'day-occurence'} as $occurrence )
     {
+      //Check offurance exists
+      if($this->checkForDuplicateOccurrence($occurrence, $eventObj))
+      {
+         continue;
+      }
+
       $occurrenceObj = new EventOccurrence();
       $occurrenceObj[ 'utc_offset' ] = $this->vendorObj->getUtcOffset();
       $occurrenceObj[ 'start_date' ] = (string) $occurrence->{'start_date'};
       $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-     
+
       //set poi
       $poiObj = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $occurrence->{'venue_id'}, $this->vendorObj['id'] );
 

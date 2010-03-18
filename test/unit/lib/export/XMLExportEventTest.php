@@ -334,7 +334,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'LHR000000000000000000000000000001', $placeTags->item(0)->getAttribute( 'place-id' ) );
     $this->assertEquals( 'http://timeout.com', $showtimes1->getElementsByTagName( 'booking_url' )->item(0)->nodeValue);
     $this->assertEquals( $this->today(), $showtimes1->getElementsByTagName( 'start_date' )->item(0)->nodeValue, 'Testing the Start time' );
-    $this->assertEquals( '00:00:01', $showtimes1->getElementsByTagName( 'event_time' )->item(0)->nodeValue );
+    $this->assertEquals( '00:00:01', $showtimes1->getElementsByTagName( 'event_time' )->item(0)->nodeValue, 'Testing for a start time present' );
     $this->assertEquals( '+00:00:00', $showtimes1->getElementsByTagName( 'utc_offset' )->item(0)->nodeValue );
 
     $placesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' );
