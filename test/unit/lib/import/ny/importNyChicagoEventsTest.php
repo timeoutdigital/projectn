@@ -112,7 +112,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 1, $eventObj['EventOccurrence']->count(), 'Should be one occurrence on the event.'  );
 
-    var_dump( $eventObj['Poi']['id'] );
   }
 
 
@@ -311,22 +310,35 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, count( $mappedCategoriesObject ) );
   }
 
+
   public function testPoisHaveCategories()
   {
       $venuesArray = $this->xmlObj->getVenues();
       $testVenue = $venuesArray[0];
-
+      
+      
       $venueId = 103532;
       $this->assertEquals( $venueId, (int) $testVenue['id'], 'The venue we are working on is has id '.$venueId );
       
       $this->object->insertPoi( $testVenue );
       $poiTable = Doctrine::getTable('Poi');
+     
+
       $this->assertEquals( 1, $poiTable->count(), 'There should only be one poi imported' );
 
       $poi = $poiTable->findOneByVendorIdAndVendorPoiId( $this->vendorObj['id'], $venueId );
 
-      $this->assertEquals( 1, count( $poi['VendorPoiCategory'] ), 'The poi should only have one vendor category' );
-      $this->assertEquals( 'Comedy', $poi['VendorPoiCategory'][0]['name'] );
+      $this->assertEquals( 0, count( $poi['VendorPoiCategory'] ), 'The poi should only no vendor category as there is no category there' );
+
+      //The Poi gets its categories from the event if it doesn't have any
+      $eventsArray = $this->xmlObj->getEvents();
+      $testEvent = $eventsArray[0];
+
+
+      $this->object->insertEvent($testEvent);
+      $poiObj = Doctrine::getTable("Poi")->findOneByVendorIdAndVendorPoiId( $this->vendorObj['id'], $venueId );
+      $this->assertEquals( 1,count($poiObj['VendorPoiCategory']->toArray()), 'The poi should now have a category based on event category' );
+
   }
 }
 ?>
