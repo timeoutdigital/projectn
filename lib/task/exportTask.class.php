@@ -8,7 +8,6 @@ class exportTask extends sfBaseTask
     // $this->addArguments(array(
     //   new sfCommandArgument('my_arg', sfCommandArgument::REQUIRED, 'My argument'),
     // ));
-
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'The type of data we want to export (e.g. poi, event, movies'),
@@ -17,6 +16,7 @@ class exportTask extends sfBaseTask
       new sfCommandOption('language', null, sfCommandOption::PARAMETER_REQUIRED, 'The language of the city we want to export', 'en-GB'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
+      new sfCommandOption('poi-xml', null, sfCommandOption::PARAMETER_REQUIRED, 'Location of poi xml to check this export against', 'poop'),
       // add your own options here
     ));
 
@@ -66,7 +66,13 @@ EOF;
 
         //The poi's xml file contain no spaces
         $city = str_replace(' ', '', $vendor['city']);
-        return new XMLExportEvent( $vendor, $options['destination'], 'export/export_'.date('Ymd').'/pois/'.$city .'.xml' );
+
+        if( $options[ 'poi-xml' ] == 'poop' )
+		      $location = 'export/export_'.date('Ymd').'/pois/'. $city .'.xml';
+        else
+          $location = $options[ 'poi-xml' ];
+
+        return new XMLExportEvent( $vendor, $options['destination'], $location );
         break;
       case 'movie':
         $exportClass = 'XMLExportMovie';
