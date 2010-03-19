@@ -24,4 +24,14 @@ class EventOccurrence extends BaseEventOccurrence
      }
 
   }
+
+  public function save( Doctrine_Connection $conn = null)
+  {
+    if( $this->getTable()->hasEquivalent( $this ) )
+    {
+      return;
+    }
+
+    parent::save( $conn );
+  }
 }

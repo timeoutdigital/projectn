@@ -288,7 +288,7 @@ class stringTransform
    *
    * see http://htmlpurifier.org/docs
    */
-  static public function purifyHTML( $html, $allowedTags = 'p,b,a[href],i,br,pre' )
+  static public function purifyHTML( $html, $allowedTags = 'p,b,i,br,pre' )
   {
     ProjectConfiguration::registerHTMLPurifier();
 
