@@ -25,7 +25,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'vendor_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => true)),
       'created_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'event_category_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
       'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
     ));
 
@@ -42,7 +41,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'vendor_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Vendor'), 'column' => 'id')),
       'created_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'event_category_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
       'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
     ));
 
@@ -53,22 +51,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
     $this->setupInheritance();
 
     parent::setup();
-  }
-
-  public function addEventCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query->leftJoin('r.LinkingEventCategory LinkingEventCategory')
-          ->andWhereIn('LinkingEventCategory.event_category_id', $values);
   }
 
   public function addVendorEventCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
@@ -108,7 +90,6 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'vendor_id'                  => 'ForeignKey',
       'created_at'                 => 'Date',
       'updated_at'                 => 'Date',
-      'event_category_list'        => 'ManyKey',
       'vendor_event_category_list' => 'ManyKey',
     );
   }

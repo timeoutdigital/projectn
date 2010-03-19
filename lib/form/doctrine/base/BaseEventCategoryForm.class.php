@@ -17,14 +17,12 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
       'name'                       => new sfWidgetFormInputText(),
-      'event_list'                 => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
       'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
     ));
 
     $this->setValidators(array(
       'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'name'                       => new sfValidatorString(array('max_length' => 50)),
-      'event_list'                 => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
       'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
     ));
 
@@ -46,11 +44,6 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
   {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['event_list']))
-    {
-      $this->setDefault('event_list', $this->object->Event->getPrimaryKeys());
-    }
-
     if (isset($this->widgetSchema['vendor_event_category_list']))
     {
       $this->setDefault('vendor_event_category_list', $this->object->VendorEventCategory->getPrimaryKeys());
@@ -60,48 +53,9 @@ abstract class BaseEventCategoryForm extends BaseFormDoctrine
 
   protected function doSave($con = null)
   {
-    $this->saveEventList($con);
     $this->saveVendorEventCategoryList($con);
 
     parent::doSave($con);
-  }
-
-  public function saveEventList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['event_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->Event->getPrimaryKeys();
-    $values = $this->getValue('event_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('Event', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('Event', array_values($link));
-    }
   }
 
   public function saveVendorEventCategoryList($con = null)
