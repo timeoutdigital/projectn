@@ -18,6 +18,7 @@ Doctrine_Manager::getInstance()->bindComponent('Event', 'project_n');
  * @property float $rating
  * @property integer $vendor_id
  * @property Vendor $Vendor
+ * @property Doctrine_Collection $EventCategory
  * @property Doctrine_Collection $VendorEventCategory
  * @property Doctrine_Collection $EventOccurrence
  * @property Doctrine_Collection $EventMedia
@@ -34,6 +35,7 @@ Doctrine_Manager::getInstance()->bindComponent('Event', 'project_n');
  * @method float               getRating()              Returns the current record's "rating" value
  * @method integer             getVendorId()            Returns the current record's "vendor_id" value
  * @method Vendor              getVendor()              Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getEventCategory()       Returns the current record's "EventCategory" collection
  * @method Doctrine_Collection getVendorEventCategory() Returns the current record's "VendorEventCategory" collection
  * @method Doctrine_Collection getEventOccurrence()     Returns the current record's "EventOccurrence" collection
  * @method Doctrine_Collection getEventMedia()          Returns the current record's "EventMedia" collection
@@ -49,6 +51,7 @@ Doctrine_Manager::getInstance()->bindComponent('Event', 'project_n');
  * @method Event               setRating()              Sets the current record's "rating" value
  * @method Event               setVendorId()            Sets the current record's "vendor_id" value
  * @method Event               setVendor()              Sets the current record's "Vendor" value
+ * @method Event               setEventCategory()       Sets the current record's "EventCategory" collection
  * @method Event               setVendorEventCategory() Sets the current record's "VendorEventCategory" collection
  * @method Event               setEventOccurrence()     Sets the current record's "EventOccurrence" collection
  * @method Event               setEventMedia()          Sets the current record's "EventMedia" collection
@@ -130,6 +133,11 @@ abstract class BaseEvent extends sfDoctrineRecord
         $this->hasOne('Vendor', array(
              'local' => 'vendor_id',
              'foreign' => 'id'));
+
+        $this->hasMany('EventCategory', array(
+             'refClass' => 'LinkingEventCategory',
+             'local' => 'event_id',
+             'foreign' => 'event_category_id'));
 
         $this->hasMany('VendorEventCategory', array(
              'refClass' => 'LinkingVendorEventCategory',

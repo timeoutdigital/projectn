@@ -14,11 +14,13 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'name'                       => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'event_list'                 => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Event')),
       'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
     ));
 
     $this->setValidators(array(
       'name'                       => new sfValidatorPass(array('required' => false)),
+      'event_list'                 => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Event', 'required' => false)),
       'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
     ));
 
@@ -29,6 +31,22 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
     $this->setupInheritance();
 
     parent::setup();
+  }
+
+  public function addEventListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query->leftJoin('r.LinkingEventCategory LinkingEventCategory')
+          ->andWhereIn('LinkingEventCategory.event_id', $values);
   }
 
   public function addVendorEventCategoryListColumnQuery(Doctrine_Query $query, $field, $values)
@@ -57,6 +75,7 @@ abstract class BaseEventCategoryFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                         => 'Number',
       'name'                       => 'Text',
+      'event_list'                 => 'ManyKey',
       'vendor_event_category_list' => 'ManyKey',
     );
   }
