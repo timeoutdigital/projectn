@@ -117,4 +117,26 @@ class Event extends BaseEvent
     }
     return $pois;
   }
+
+  public function getEventCategory()
+  {
+    $eventCategoryQuery = Doctrine::getTable( 'VendorEventCategory' )
+      ->createQuery( 'vec' )
+      ->leftJoin( 'vec.EventCategory ec' )
+      ->addWhere( 'vec.id = ?' )
+    ;
+
+    $categories = new Doctrine_Collection( Doctrine::getTable( 'EventCategory' ) );
+    foreach( $this[ 'VendorEventCategory' ] as $vendorCategory )
+    {
+      //wtf? Executing the query seems to hydrate the object more fully...
+      $eventCategoryQuery->execute( array( $vendorCategory[ 'id' ] ) );
+      foreach( $vendorCategory[ 'EventCategory' ] as $eventCategory )
+      {
+        $categories[] = $eventCategory;
+      }
+    }
+
+    return $categories;
+  }
 }
