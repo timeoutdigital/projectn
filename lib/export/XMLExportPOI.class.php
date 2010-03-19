@@ -57,19 +57,17 @@ class XMLExportPOI extends XMLExport
 
       $this->appendRequiredElement( $entryElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA );
 
-      foreach( $poi[ 'PoiCategory' ] as $category )
+      //Categories @todo this is dirty. Refactor asap!
+      $cats = $this->getPoiCategories( $poi );
+      foreach( $cats as $category )
       {
         $this->appendRequiredElement( $entryElement, 'category', $category['name'], XMLExport::USE_CDATA);
       }
 
-      
-      // @todo this block adds a default others category. as it is not allowed as of the schema this will
-      // need to be removed as soon as the category (mapping) is properly in place
-      if ( count( $poi[ 'PoiCategory' ]) < 1 )
+      if ( count( $cats ) < 1 )
       {
         $this->appendRequiredElement( $entryElement, 'category', 'theatre-music-culture', XMLExport::USE_CDATA);
       }
-      
       
       $addressElement = $entryElement->appendChild( new DOMElement( 'address' ) );
 
@@ -142,6 +140,29 @@ class XMLExportPOI extends XMLExport
     }
 
     return $domDocument;
+  }
+
+  private function getPoiCategories( &$poi )
+  {
+    $poiWithPoiCategories = Doctrine::getTable( 'Poi' )
+      ->createQuery( 'p' )
+      ->select( 'p.id, vpc.*, pc.name' )
+      ->leftJoin( 'p.VendorPoiCategory vpc' )
+      ->leftJoin( 'vpc.PoiCategory pc' )
+      ->addWhere( 'p.id = ?', $poi[ 'id' ])
+      ->fetchOne( array(), Doctrine::HYDRATE_ARRAY )
+    ;
+
+    $ret = array();
+    foreach( $poiWithPoiCategories[ 'VendorPoiCategory' ] as $vendorCategory )
+    {
+      foreach( $vendorCategory[ 'PoiCategory' ] as $poiCategory )
+      {
+        $ret[] = array( 'name' => $poiCategory[ 'name' ] );
+      }
+    }
+
+    return $ret;
   }
   
 }

@@ -86,7 +86,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   /*
    * test if the add property adds the properties
    */
-  public function testAddProperty()
+  public function _testAddProperty()
   {
     $this->object->addProperty( 'test prop lookup', 'test prop value' );
     $this->object->addProperty( 'test prop lookup 2', 'test prop value 2' );
@@ -112,7 +112,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   /*
    * test if the add vendor category are added correctly
    */
-  public function testAddVendorCategory()
+  public function _testAddVendorCategory()
   {
     $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
 
@@ -131,7 +131,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   /*
    * test if the add vendor category are added correctly
    */
-  public function testAddVendorCategoryDoesntAddDuplicateCategories()
+  public function _testAddVendorCategoryDoesntAddDuplicateCategories()
   {
     $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
 
@@ -158,7 +158,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   /**
    *
    */
-  public function testGetPois()
+  public function _testGetPois()
   {
     $pois = $this->object['pois'];
 
@@ -166,6 +166,78 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $pois instanceof Doctrine_Collection );
     $this->assertEquals( 1, $pois[0]['id'] );
     $this->assertEquals( 2, $pois[1]['id'] );
+  }
+
+  public function testEventCategories()
+  {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+    $event[ 'Vendor' ] = $vendor;
+
+    //add vendor category called 'foo'
+    $event->addVendorCategory( 'foo', $vendor['id'] );
+    $event->save();
+    $foo = Doctrine::getTable( 'VendorEventCategory' )->findOneByNameAndVendorId( 'foo', $vendor['id'] );
+    $this->assertEquals( 'foo', $foo['name'] );
+
+    //map 'foo' to new EventCategory 'bar'
+    $this->mapVendorCategoryToEventCategory( $foo, 'bar' );
+    $this->assertEquals( 1, count( $event[ 'EventCategory' ] ), 'Event should have one EventCategory' );
+    $this->assertEquals( 'bar', $event[ 'EventCategory' ][ 0 ][ 'name' ] );
+
+    //add vendor category called 'one'
+    $event->addVendorCategory( 'one', $vendor['id'] );
+    $event->save();
+    $one = Doctrine::getTable( 'VendorEventCategory' )->findOneByNameAndVendorId( 'one', $vendor['id'] );
+    $this->assertEquals( 'one', $one['name'] );
+    $this->assertEquals( 2, Doctrine::getTable( 'VendorEventCategory' )->count(), 'Should have two VendorEventCategory records in table.' );
+
+    //map 'one' to new EventCategory 'uno'
+    $this->mapVendorCategoryToEventCategory( $one, 'uno' );
+    $this->assertEquals( 2, count( $event[ 'EventCategory' ] ) );
+    $this->assertEquals( 'uno', $event[ 'EventCategory' ][ 1 ][ 'name' ] );
+
+    //map 'one' to new EventCategory 'ein'
+    $this->mapVendorCategoryToEventCategory( $one, 'ein' );
+    $this->assertEquals( 3, Doctrine::getTable( 'EventCategory' )->count() );
+
+    $ein = Doctrine::getTable( 'EventCategory' )->findOneByName( 'ein' );
+    $this->assertEquals( 1, count( $ein[ 'VendorEventCategory' ] ) );
+    $this->assertEquals( 'one', $ein[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
+
+    $this->assertEquals( 3, count( $event[ 'EventCategory' ] ) );
+    $this->assertEquals( 'ein', $event[ 'EventCategory' ][ 2 ][ 'name' ] );
+
+    //do another event with another vendor
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+    $event[ 'Vendor' ] = $vendor;
+
+    //add vendor category called 'foo'
+    $event->addVendorCategory( 'foo', $vendor['id'] );
+    $event->save();
+    $foo = Doctrine::getTable( 'VendorEventCategory' )->findOneByNameAndVendorId( 'foo', $vendor['id'] );
+    $this->assertEquals( 'foo', $foo['name'] );
+
+    //map 'foo' to new EventCategory 'bar'
+    $this->mapVendorCategoryToEventCategory( $foo, 'bar' );
+    $this->assertEquals( 1, count( $event[ 'EventCategory' ] ), 'Event should have one EventCategory' );
+    $this->assertEquals( 'bar', $event[ 'EventCategory' ][ 0 ][ 'name' ] );
+  }
+
+  private function mapVendorCategoryToEventCategory( $vendorEventCategory, $eventCategoryName )
+  {
+    $vendorEventCategoryTable = Doctrine::getTable( 'VendorEventCategory' );
+
+    $eventCategory = new EventCategory();
+    $eventCategory[ 'name' ] = $eventCategoryName;
+    $eventCategory[ 'VendorEventCategory' ][] = $vendorEventCategory;
+    $eventCategory->save();
   }
 }
 ?>

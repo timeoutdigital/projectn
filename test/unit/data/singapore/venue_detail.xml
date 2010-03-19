@@ -52,13 +52,12 @@
 	<name>Vegsenz</name>
 	<critic_choice>N</critic_choice>
 	<hot_seat>N</hot_seat>
-	<website></website>
-	<opentime></opentime>
-	<excerpt>Enviro-minded eaters should get moving to this new vegetarian restaurant that uses foodstuffs free of pesticides and chemicals, sourced from Australia, Thailand and the US, and served in a space furnished with recycled materials. We recommend the healthy, greens-filled Sichuan sour spicy noodles. <br />
-<br />
-<em>Main courses $6.50-$9. </em></excerpt>
-	<min_price>0.00</min_price>
-	<max_price>0.00</max_price>
+	<website>http://www.timeout.com</website>
+	<opentime>9-5</opentime>
+	<excerpt>Enviro-minded eaters should get moving to this new vegetarian restaurant that uses foodstuffs free of pesticides and chemicals, sourced from Australia, Thailand and the US, and served in a space furnished with recycled materials. We recommend the healthy, greens-filled Sichuan sour spicy noodles.<br /><br /><em>Main courses $6.50-$9.</em>
+  </excerpt>
+  <min_price>1.00</min_price>
+	<max_price>2.00</max_price>
 	<views>7</views>
 	<data_add>Thu, 04 Feb 2010 08:48:48 +0000</data_add>
 	<data_change>Thu, 04 Feb 2010 08:48:48 +0000</data_change>
@@ -81,9 +80,9 @@
 </tags>
 	<addresses>
 		<address_slot>
-			<location></location>
+			<location>location</location>
 			<address>#01-24-26 The Verge 2 Serangoon Rd </address>
-			<postcode></postcode>
+			<postcode>abc 890</postcode>
 			<phone>6392 0369</phone>
 			<near_station>Little India</near_station>
 			<buses></buses>

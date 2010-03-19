@@ -57,7 +57,7 @@ class XMLExportEvent extends XMLExport
 
   protected function getData()
   {
-    return Doctrine::getTable( 'Event' )->findByVendorAndStartsFromAsArray( $this->vendor );
+    return Doctrine::getTable( 'Event' )->findForExport( $this->vendor );
   }
 
   /**
@@ -92,6 +92,8 @@ class XMLExportEvent extends XMLExport
       $this->appendRequiredElement($eventElement, 'name', $event['name'], XMLExport::USE_CDATA );
 
       //event/category
+      $this->addEventCategories( $event );
+
       foreach( $event['EventCategory'] as $category )
       {
         $this->appendRequiredElement($eventElement, 'category', $category['name']);
@@ -235,6 +237,27 @@ class XMLExportEvent extends XMLExport
           return true;
       }
       return false;
+  }
+
+  private function addEventCategories( &$event )
+  {
+    $eventWithEventCategories = Doctrine::getTable( 'Event' )
+      ->createQuery( 'e' )
+      ->select( 'e.id, vec.*, ec.name' )
+      ->leftJoin( 'e.VendorEventCategory vec' )
+      ->leftJoin( 'vec.EventCategory ec' )
+      ->addWhere( 'e.id = ?', $event[ 'id' ])
+      ->fetchOne( array(), Doctrine::HYDRATE_ARRAY )
+    ;
+
+    $event[ 'EventCategory' ] = array();
+    foreach( $eventWithEventCategories[ 'VendorEventCategory' ] as $vendorCategory )
+    {
+      foreach( $vendorCategory[ 'EventCategory' ] as $eventCategory )
+      {
+        $event[ 'EventCategory' ][] = $eventCategory;
+      }
+    }
   }
 
 }
