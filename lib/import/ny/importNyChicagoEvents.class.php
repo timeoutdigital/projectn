@@ -408,6 +408,7 @@ class importNyChicagoEvents
 
         //deal with attributes node
         $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
+
         foreach( $event->attributes->children() as $attribute )
         {
             if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
@@ -440,8 +441,28 @@ class importNyChicagoEvents
 
         ( $logIsNew ) ? $this->_eventLoggerObj->countNewInsert() : $this->_eventLoggerObj->addChange( 'update', $logChangedFields );
 
+
+
         //Kill the object
         $eventObj->free();
+    }
+
+
+    /**
+     * Add the
+     *
+     * @param Event $eventObj
+     * @param Poi $poiObj
+     */
+    public function addEventCategoriesToPoi(Event $eventObj, Poi $poiObj)
+    {
+        //Loop through all categories
+        foreach($eventObj['VendorEventCategory']->toArray() as $categories)
+        {
+            $poiObj->addVendorCategory($categories['name'], $this->_vendorObj['id']);
+        }
+
+        $poiObj->save();
     }
 
 
@@ -480,6 +501,12 @@ class importNyChicagoEvents
 
             $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
             $occurrenceObj->save();
+
+
+
+            //Add event categories to the POI
+            $this->addEventCategoriesToPoi($eventObj, $venueObj);
+
 
             //Kill the object
             $occurrenceObj->free();
