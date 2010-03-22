@@ -17,20 +17,16 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
    * @var projectNDataMapperHelper
    */
   protected $dataMapperHelper;
+
   protected $vendorCategories = array();
+
+  protected $vendor;
 
   public function __construct( )
   {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'london', 'en-GB' );
-
-    if( !$vendor )
-    {
-      throw new Exception( 'Vendor not found.' );
-    }
-    $this->vendor = $vendor;
-
-    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
-    $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
+    $this->setVendor();
+    $this->setDefaultPoiCategory();
+    $this->setDataMapperHelper();
   }
 
   /**
@@ -40,6 +36,26 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
   {
     $this->loadCategories( );
 		$this->processEvents( );
+  }
+
+  private function setVendor()
+  {
+    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'london', 'en-GB' );
+    if( !$vendor )
+    {
+      throw new Exception( 'Vendor not found.' );
+    }
+    $this->vendor = $vendor;
+  }
+
+  private function setDataMapperHelper()
+  {
+    $this->dataMapperHelper = new projectNDataMapperHelper( $this->vendor );
+  }
+
+  private function setDefaultPoiCategory()
+  {
+    $this->defaultPoiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'theatre-music-culture' );
   }
 
 	/**
@@ -86,24 +102,30 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 			foreach ( $items as $item )
 			{
-        $categoryId = $item['SLLEvent']['master_category_id'];
-        //var_dump( $ );
-				// insert/update poi
-				//$poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $item[ 'venue_id' ] );
+        $sllEventCategoryId = $item[ 'SLLEvent' ][ 'master_category_id' ];
+        $sllEventCategory = $this->vendorCategories[ $sllEventCategoryId ];
+        $categories = $this->extractCategory( $sllEventCategory );
+
         $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'venue_id' ] );
 
-				if ( $poi === false ) $poi = new Poi( );
+				$poi[ 'Vendor' ]                 = $this->vendor;
+				$poi[ 'vendor_poi_id' ]          = $item[ 'venue_id' ];
+				$poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
+				$poi[ 'street' ]                 = $item[ 'SLLVenue' ][ 'address' ];
+				$poi[ 'city' ]                   = 'London';
+				$poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
+				$poi[ 'country' ]                = 'GBR';
+				$poi[ 'local_language' ]         = $this->vendor[ 'language' ];//'en-GB';
+				$poi[ 'latitude' ]               = $item[ 'SLLVenue' ][ 'latitude' ];
+				$poi[ 'longitude' ]              = $item[ 'SLLVenue' ][ 'longitude' ];
+				$poi[ 'email' ]                  = $item[ 'SLLVenue' ][ 'email' ];
+				$poi[ 'url' ]                    = $item[ 'SLLVenue' ][ 'url' ];
+				$poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
+				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
+				$poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
+				$poi['geoEncodeLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
 
-        //$poi['VendorPoiCategory'][] = $this->defaultPoiCategory;
-
-				$poi[ 'Vendor' ] = $this->vendor;
-
-				$poi[ 'vendor_poi_id' ] = $item[ 'venue_id' ];
-
-				$poi[ 'poi_name' ] = $item[ 'SLLVenue' ][ 'name' ];
-        
-        $building_name = $item[ 'SLLVenue' ][ 'building_name' ];
-
+				$building_name                   = $item[ 'SLLVenue' ][ 'building_name' ];
         if( strlen($building_name) <= 32 )
         {
   				$poi[ 'house_no' ] = $building_name;
@@ -112,36 +134,10 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         {
           $poi[ 'additional_address_details' ] = $building_name;
         }
-				
-        $poi[ 'street' ] = $item[ 'SLLVenue' ][ 'address' ];
-				$poi[ 'city' ] = 'London';
-				$poi[ 'zips' ] = $item[ 'SLLVenue' ][ 'postcode' ];
-
-				$poi[ 'country' ] = 'GBR';
-				$poi[ 'local_language' ] = 'en-GB';
-
-				$poi[ 'latitude' ] = $item[ 'SLLVenue' ][ 'latitude' ];
-				$poi[ 'longitude' ] = $item[ 'SLLVenue' ][ 'longitude' ];
-
-				$poi[ 'email' ] = $item[ 'SLLVenue' ][ 'email' ];
-
-        $poi[ 'url' ] = $item[ 'SLLVenue' ][ 'url' ];
-        if( !$poi['url'] ) $poi['url'] = '';
-
-        //$poi[ 'phone' ] = stringTransform::formatPhoneNumber($item[ 'SLLVenue' ][ 'phone' ], '+44'); //@todo use dial code from vendor
-				$poi[ 'phone' ] = $item[ 'SLLVenue' ][ 'phone' ]; //@todo use dial code from vendor
-        if( !$poi['phone'] ) $poi['phone'] = '';
-
-        $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
-
-        $poi[ 'openingtimes' ] = $item[ 'SLLVenue' ][ 'opening_times' ];
-        if( !$poi['openingtimes'] ) $poi['openingtimes'] = '';
-
-        $poi['geoEncodeLookUpString'] = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
 
         $this->notifyImporter( $poi );
         
-        if( !$poi->exists() )
+        if( !$this->successfullySaved( $poi )  )
         {
           continue;
         }
@@ -163,15 +159,13 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         if( !$event['url'] ) $poi['url'] = '';
 				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
 
-        $sllEventCategoryId = $item[ 'SLLEvent' ][ 'master_category_id' ];
-        $sllEventCategory = $this->vendorCategories[ $sllEventCategoryId ];
-        $categories = $this->extractCategory( $sllEventCategory );
 
+        $event->addVendorCategory( $categories, $this->vendor['id'] );
         $poi->addVendorCategory( $categories, $this->vendor['id'] );
 
         $this->notifyImporter( $event );
 
-        if( !$event->exists() )
+        if( !$this->successfullySaved( $event ) )
         {
           continue;
         }
@@ -210,6 +204,11 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 		while ( $pager->getLastPage( ) >= $currentPage );
 
 	}
+
+  private function successfullySaved( Doctrine_Record $record )
+  {
+    return $record->exists();
+  }
 
   private function extractCategory( SLLCategory $category, &$collectedCategories = array() )
   {
