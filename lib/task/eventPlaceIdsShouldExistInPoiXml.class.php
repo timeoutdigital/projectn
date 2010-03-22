@@ -11,7 +11,7 @@
  * @version 1.0.1
  *
  */
-class eventPlaceIdsShouldExistInPoiXml extends verifyTask
+class eventPlaceIdsShouldExistInPoiXml extends baseVerifyTask
 {
   protected function verify()
   {
