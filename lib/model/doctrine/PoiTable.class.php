@@ -53,4 +53,27 @@ class PoiTable extends Doctrine_Table
         ;
       return $query;
     }
+
+
+    /**
+     * Get all poi categories
+     *
+     * @return <type>
+     */
+    public function getAllDuplicatedLongLatPois()
+    {
+        $query = Doctrine_Query::create()
+                     ->select('p.id AS id, p.latitude AS latitude, p.longitude as longitude, count(*) as total')
+                     ->from('Poi p')
+                     ->groupBy('p.longitude')
+                     ->orderBy('p__3 DESC')
+                     ->having('count(*) > 1');
+
+        
+
+        return $query->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+
+
+
+    }
 }

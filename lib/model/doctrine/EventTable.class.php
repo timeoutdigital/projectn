@@ -58,11 +58,29 @@ class EventTable extends Doctrine_Table
                   ->addWhere( 'occurrence.start_date >= ?', $dateString )
                   ->addOrderBy( 'occurrence.poi_id' );
 
-
-   
-
-
     return $query->execute( array(), Doctrine_Core::HYDRATE_ARRAY);
+  }
+
+
+  public function customFindByVendorId( $vendorID, $hydrate=true)
+  {
+      
+      $query = $this->createQuery('event e')
+                    ->leftJoin('e.EventCategory ec')
+                    ->leftJoin('e.LinkingEventCategory')
+                    ->addWhere('e.vendor_id=?', $vendorID);
+
+      echo $query->getSqlQuery(). "\n\n\n";
+
+      if($hydrate)
+      {
+         return  $query->execute( );
+      }
+      else
+      {
+         return  $query->execute( array(), Doctrine_Core::HYDRATE_ARRAY);
+      }
+     
   }
 
   public function findForExport( Vendor $vendor )

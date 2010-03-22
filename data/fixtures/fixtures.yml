@@ -91,6 +91,9 @@ PoiCategory:
   c27:
     name:   sports-facility-venue
     Parent: [c17]
+  c28:
+    name:   clothing-accessories-shop
+    Parent: [c5]
 
 
 VendorPoiCategory:
