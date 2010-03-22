@@ -11,7 +11,7 @@
  * @version 1.0.1
  *
  */
-class eventsShouldHaveAtleastOneVendorCategory extends verifyTask
+class eventsShouldHaveAtleastOneVendorCategory extends baseVerifyTask
 {
   protected function verify()
   {
