@@ -17,7 +17,7 @@ require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
  *
  *
  */
-class singaporeImportTest extends PHPUnit_Framework_TestCase {
+class singaporeVenuesMapperTest extends PHPUnit_Framework_TestCase {
   /**
    * @var singaporeImport
    */
@@ -64,18 +64,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
       'airport_code' => 'SIN',
       'inernational_dial_code' => '+65'
     ) );
-
-    //Doctrine::loadData('data/fixtures');
-   
-    //$this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
-
-    //$this->stubCurlImporter = $this->getMock( 'curlImporter' );
-    //$this->stubCurlImporter->expects( $this->any() )->method( 'pullXML' );
-
-    //$this->logger = new logImport( $this->vendorObj );
-    //$this->logger->setType('poi');
-
-    //$this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $this->logger, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
   }
 
   /**
@@ -127,18 +115,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals( 'abc 890'    , $mappedPoi['zips'] );
     $this->assertEquals( $street      , $mappedPoi['street'] );
     $this->assertEquals( 'Singapore'  , $mappedPoi['city'] );
-  }
-}
-
-class singaporeImportTestVersion extends singaporeImport
-{
-  public function setCurlImporter( $curlImporter )
-  {
-    $this->_curlImporter = $curlImporter;
-  }
-
-  protected function addImageHelper( Doctrine_Record $storeObject, SimpleXMLElement $element ) {
-      return;
   }
 }
 
