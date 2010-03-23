@@ -136,7 +136,7 @@ class importNyChicagoEvents
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId((string)  $poi['id'], $this->_vendorObj['id']);
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId((string) $poi['id'], $this->_vendorObj['id']);
 
         if($currentPoi)
         {
@@ -154,15 +154,15 @@ class importNyChicagoEvents
      *
      * Test if the Event  already exists
      *
-     * @param <simpleXml> $poi
+     * @param <simpleXml> $event
      * @return <boolean> Whether the poi has been found
      *
      */
-    public function getEvent($event)
+    public function getEvent( $event )
     {
 
         //Check database for existing Poi by vendor id
-        $currentEvent = Doctrine::getTable('Event')->findOneByVendorEventIdAndVendorId((string)  $event['id'], $this->_vendorObj['id']);
+        $currentEvent = Doctrine::getTable('Event')->findOneByVendorEventIdAndVendorId((string) $event['id'], $this->_vendorObj['id']);
 
         if($currentEvent)
         {
@@ -334,8 +334,9 @@ class importNyChicagoEvents
     public function insertEvent( $event )
     {
 
+        $eventObj = $this->getEvent( $event );
+
         //Set the Events required values
-        $eventObj = $this->getEvent((string) $event['id']);
         $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
         $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
         $eventObj[ 'name' ] = (string) $event->identifier;
@@ -478,9 +479,9 @@ class importNyChicagoEvents
         foreach ( $Occurrences as $occurrence )
         {
             $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
-            $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
+            $occurrenceObj = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
 
-            if ( $eventOccurrence === false )
+            if ( $occurrenceObj === false )
             {
                 $occurrenceObj = new EventOccurrence();
                 $occurrenceObj[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
@@ -493,20 +494,15 @@ class importNyChicagoEvents
 
             $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
 
-            $poi = Doctrine::getTable('Poi')->findAll();
-            $poi = $poi[0];
-
             //set poi id
             $venueObj = Doctrine::getTable('Poi')->findOneByVendorIdAndVendorPoiId( $this->_vendorObj['id'], (string) $occurrence->venue[0]->address_id );
 
             $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
+
             $occurrenceObj->save();
-
-
 
             //Add event categories to the POI
             $this->addEventCategoriesToPoi($eventObj, $venueObj);
-
 
             //Kill the object
             $occurrenceObj->free();
