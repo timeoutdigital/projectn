@@ -59,14 +59,21 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    *
    * @uses /plugins/toLondonPlugin/data/fixtures/fixtures.yml
    */
-  public function _testProcessCategoryImportedCategory()
+  public function testEventsHaveCategories()
   {
+    //event1
+    $event1 = Doctrine::getTable( 'Event' )->findOneById( 1 );
+    $this->assertEquals( 'Dummy Title 1', $event1[ 'name' ] );
 
-    $category = Doctrine::getTable( 'VendorEventCategory' )->findOneByName( 'Root' );
+    $this->assertEquals( 1, count( $event1[ 'VendorEventCategory' ] ) );
+    $this->assertEquals( 'Root', $event1[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
 
-    $this->assertTrue( $category instanceof Doctrine_Record );
+    //event2
+    $event2 = Doctrine::getTable( 'Event' )->findOneById( 2 );
+    $this->assertEquals( 'Dummy Title 2', $event2[ 'name' ] );
 
-    $this->assertEquals( 'Root', $category[ 'name' ]  );
+    $this->assertEquals( 1, count( $event2[ 'VendorEventCategory' ] ) );
+    $this->assertEquals( 'Root | Root Child 1', $event2[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
   }
 
   /**
@@ -109,6 +116,12 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '',                      $poi[ 'provider' ] );
 
     //$this->assertEquals( 'theatre-music-culture', $poi[ 'PoiCategory' ][ 0 ][ 'name' ] );
+  }
+
+  public function testEventAndOccurrencesNotSavedIfPoiNotSaved()
+  {
+    $poiTable = Doctrine::getTable( 'Poi' );
+    $this->assertEquals( 3, $poiTable->count() );
   }
 
   public function testVenueCategoryAssignment()

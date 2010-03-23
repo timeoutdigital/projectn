@@ -27,11 +27,16 @@ class EventOccurrence extends BaseEventOccurrence
 
   public function save( Doctrine_Connection $conn = null)
   {
-    if( $this->getTable()->hasEquivalent( $this ) )
+    if( $this->equivalentExistsInDatabase() )
     {
       return;
     }
 
     parent::save( $conn );
+  }
+
+  public function equivalentExistsInDatabase()
+  {
+    return $this->getTable()->hasEquivalent( $this );
   }
 }
