@@ -106,6 +106,17 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'restaurant', $testPoi[ 'VendorPoiCategory' ][0]['name'] );
     }
 
+
+    public function testNormalisedNY()
+    {
+        $this->createObject();
+        $poi = Doctrine::getTable('Poi')->findOneById(1);
+
+        $this->assertEquals('New York', $poi['city'], 'Test that NY is normalized to New York');
+    }
+
+
+
     /**validationException
      * Test that an existing poi is not duplicated
      */

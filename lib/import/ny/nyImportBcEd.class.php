@@ -149,15 +149,24 @@ class nyImportBcEd {
             $poiObj[ 'price_information' ]       = (string) $poi->{'prices.0'};
             $poiObj[ 'openingtimes' ]            = (string) $poi->{'hours.0'};
 
-            //Get state and city
+            //Get state and city - All forms of NY should be New York
             $stateCityArray                      = explode(',', (string) $poi->{'city.state.0'});
             if(count($stateCityArray) < 1)
             {
-               $poiObj[ 'city' ]                 = 'NY';
+               $poiObj[ 'city' ]                 = 'New York';
             }
             else
             {
-               $poiObj[ 'city' ]                 = trim($stateCityArray[1]);
+
+                $city = trim($stateCityArray[0]);
+
+                if($city == 'NY')
+                {
+                    $city = 'New York';
+                }
+                
+                
+                $poiObj[ 'city' ]                 = $city;
               
             }
 
