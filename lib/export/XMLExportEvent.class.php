@@ -25,7 +25,7 @@ class XMLExportEvent extends XMLExport
    */
   public function __construct( $vendor, $destination, $poiXmlLocation )
   {
-    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-events-1.4.xsd';
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'event.xsd';
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
 
 
@@ -198,9 +198,9 @@ class XMLExportEvent extends XMLExport
 
         $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start_date']);
 
-        $this->appendNonRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
-
         $this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']);
+
+        $this->appendNonRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
 
         if( !is_null($eventOccurrence['end_date']) )
         {

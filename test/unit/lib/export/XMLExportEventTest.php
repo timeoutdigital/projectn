@@ -360,7 +360,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function _testAgainstSchema()
   {
-    $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'events.xsd' ) );
+    $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'event.xsd' ) );
   }
 
   /**
