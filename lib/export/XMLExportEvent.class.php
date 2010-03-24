@@ -168,7 +168,7 @@ class XMLExportEvent extends XMLExport
       $currentPoiId = null;
       foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
-        if( !in_array( $this->generateUID( $eventOccurrence[ 'poi_id' ] ), $this->poiIdsArray ) )
+        if( !$this->poiXmlExportHasPoiRelatedTo( $eventOccurrence )  )
                 continue;
  
         if ( $currentPoiId != $eventOccurrence[ 'poi_id' ] )
@@ -218,6 +218,11 @@ class XMLExportEvent extends XMLExport
     }
 
     return $domDocument;
+  }
+
+  private function poiXmlExportHasPoiRelatedTo( $eventOccurrence )
+  {
+    return in_array( $this->generateUID( $eventOccurrence[ 'poi_id' ] ), $this->poiIdsArray );
   }
 
   /**

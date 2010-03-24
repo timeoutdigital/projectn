@@ -52,8 +52,14 @@ class Event extends BaseEvent
     $this[ 'EventProperty' ][] = $eventPropertyObj;
   }
 
-  public function addVendorCategory( $name, $vendorId )
+  public function addVendorCategory( $name, $vendorId = null )
   {
+    if( !$vendorId )
+      $vendorId = $this[ 'vendor_id' ];
+
+    if( !$vendorId )
+      throw new Exception( 'Cannot add a vendor category to an Event record without a vendor id.' );
+
     if ( is_array( $name ) )
     {
       $name = implode( ' | ', $name );
