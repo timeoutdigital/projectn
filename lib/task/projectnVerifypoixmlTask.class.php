@@ -1,22 +1,21 @@
 <?php
 
-class projectnVerifyeventxmlTask extends sfBaseTask
+class projectnVerifypoixmlTask extends sfBaseTask
 {
   protected function configure()
   {
     $this->addOptions(array(
       new sfCommandOption('poi-xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The poi xml'),
-      new sfCommandOption('event-xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The event xml'),
     ));
 
     $this->namespace        = 'projectn';
-    $this->name             = 'verify-event-xml';
+    $this->name             = 'verify-poi-xml';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
-The [projectn:verify-event-xml|INFO] task does things.
+The [projectn:verify-poi-xml|INFO] task does things.
 Call it with:
 
-  [php symfony projectn:verify-event-xml|INFO]
+  [php symfony projectn:verify-poi-xml|INFO]
 EOF;
   }
 
@@ -24,13 +23,9 @@ EOF;
   {
     $this->options = $options;
     $this->poiXml   = simplexml_load_file( $this->options['poi-xml'] );
-    $this->eventXml = simplexml_load_file( $this->options['event-xml'] );
 
     $tests = array(
-      new eventPlaceIdsShouldExistInPoiXml( ),
-      new eventsShouldHaveAtleastOneVendorCategory( ),
-      new eventsShouldNotHaveDuplicateOccurrences( ),
-      new noDuplicateEvents()
+      new noDuplicatePois()
     );
 
     foreach( $tests as $test )
@@ -45,11 +40,6 @@ EOF;
   public function getPoiXml()
   {
     return $this->poiXml;
-  }
-
-  public function getEventXml()
-  {
-    return $this->eventXml;
   }
 
   public function getOption( $option )
