@@ -18,22 +18,22 @@ class VendorEventCategory extends BaseVendorEventCategory
     return $this[ 'Vendor' ][ 'city' ];
   }
 
-  /*public function postSave( $obj )
+  public function save(Doctrine_Connection $conn = null)
   {
+    if( $this->hasEquivalentInDatabase() )
+      return;
 
-    //possibly save just the links? not sure
+    parent::save( $conn );
+  }
 
+  public function hasEquivalentInDatabase()
+  {
+    $recordFinder = new recordFinder();
+    $equivalentRecord = $recordFinder->findEquivalentOf( $this )
+                                     ->comparingAllFieldsExcept( 'id' )
+                                     ->go();
 
-    foreach ( $this['Events'] as $poi )
-    {
-
-      foreach( $this['EventCategory'] as $category )
-      {
-        $poi['EventCategory'][] = $category;
-      }
-
-      $poi->save();
-    }
-  }*/
+    return !is_null( $equivalentRecord );
+  }
 
 }
