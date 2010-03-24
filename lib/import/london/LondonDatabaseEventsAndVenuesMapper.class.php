@@ -102,127 +102,128 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 			foreach ( $items as $item )
 			{
-        $sllEventCategoryId = $item[ 'SLLEvent' ][ 'master_category_id' ];
-        $sllEventCategory = $this->vendorCategories[ $sllEventCategoryId ];
-        $categories = $this->extractCategory( $sllEventCategory );
+        $this->categories = $this->extractCategoriesFrom( $item );
 
-        $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'venue_id' ] );
+        $poi             = $this->mapPoiFrom(             $item );
+        $event           = $this->mapEventFrom(           $item, $poi );
+        $eventOccurrence = $this->mapEventOccurrenceFrom( $item, $poi, $event );
 
-				$poi[ 'Vendor' ]                 = $this->vendor;
-				$poi[ 'vendor_poi_id' ]          = $item[ 'venue_id' ];
-				$poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
-				$poi[ 'street' ]                 = $item[ 'SLLVenue' ][ 'address' ];
-				$poi[ 'city' ]                   = 'London';
-				$poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
-				$poi[ 'country' ]                = 'GBR';
-				$poi[ 'local_language' ]         = $this->vendor[ 'language' ];//'en-GB';
-				$poi[ 'latitude' ]               = $item[ 'SLLVenue' ][ 'latitude' ];
-				$poi[ 'longitude' ]              = $item[ 'SLLVenue' ][ 'longitude' ];
-				$poi[ 'email' ]                  = $item[ 'SLLVenue' ][ 'email' ];
-				$poi[ 'url' ]                    = $item[ 'SLLVenue' ][ 'url' ];
-				$poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
-				$poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
-				$poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
-				$poi['geoEncodeLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
-
-				$building_name                   = $item[ 'SLLVenue' ][ 'building_name' ];
-        if( strlen($building_name) <= 32 )
-        {
-  				$poi[ 'house_no' ] = $building_name;
-        }
-        else
-        {
-          $poi[ 'additional_address_details' ] = $building_name;
-        }
-
-        $this->notifyImporter( $poi );
-        
-        if( !$this->successfullySaved( $poi )  )
-        {
-          continue;
-        }
-
-				// insert/update event
-				//$event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( $item[ 'event_id' ] );
-        $event = $this->dataMapperHelper->getEventRecord( $item[ 'event_id' ] );
-
-				if ( $event === false ) $event = new Event( );
-
-
-				$event[ 'Vendor' ] = $this->vendor;
-
-				$event[ 'vendor_event_id' ] = $item[ 'event_id' ];
-
-				$event[ 'name' ]        = $item[ 'SLLEvent' ][ 'title' ];
-				$event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
-				$event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
-        if( !$event['url'] ) $poi['url'] = '';
-				$event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
-
-
-        $event->addVendorCategory( $categories, $this->vendor['id'] );
-        $poi->addVendorCategory( $categories, $this->vendor['id'] );
-
-        $this->notifyImporter( $event );
-
-        if( !$this->successfullySaved( $event ) )
-        {
-          continue;
-        }
-
-				// insert/update occurrence
-				$occurrence = Doctrine::getTable( 'EventOccurrence' )->find( $item[ 'id' ] );
-
-				if ( $occurrence === false ) $occurrence = new EventOccurrence( );
-
-
-				$occurrence[ 'vendor_event_occurrence_id' ] = $item[ 'id' ];
-
-				$occurrence[ 'Event' ] = $event;
-				$occurrence[ 'Poi' ] = $poi;
-
-				$occurrence[ 'start_date' ] = $item[ 'date_start' ];
-				$occurrence[ 'end_date' ]   = $item[ 'date_end' ];
-
-				// calc offset
-				$occurrence[ 'utc_offset' ] = $this->vendor->getUtcOffset( $item[ 'date_start' ] );
-
-        $this->notifyImporter( $occurrence );
-
-				// free memory
-//				$poi->free( );
-//				$event->free( );
-//				$occurrence->free( );
-
+				$poi->free( );
+	   		$event->free( );
+				$eventOccurrence->free( );
+        $this->categories = null;
 			}
 
 			$currentPage++;
 
 			// free memory
-			//$items->free( true );
+			$items->free( true );
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 
 	}
 
-  private function successfullySaved( Doctrine_Record $record )
+  private function mapEventOccurrenceFrom( $item, Poi $poi, Event $event )
   {
-    return $record->exists();
+    if( !$poi || !$event )
+      return;
+
+    $occurrence = Doctrine::getTable( 'EventOccurrence' )->find( $item[ 'id' ] );
+    if ( $occurrence === false ) $occurrence = new EventOccurrence( );
+
+    $occurrence[ 'vendor_event_occurrence_id' ] = $item[ 'id' ];
+    $occurrence[ 'Event' ] = $event;
+    $occurrence[ 'Poi' ] = $poi;
+    $occurrence[ 'start_date' ] = $item[ 'date_start' ];
+    $occurrence[ 'end_date' ]   = $item[ 'date_end' ];
+    $occurrence[ 'utc_offset' ] = $this->vendor->getUtcOffset( $item[ 'date_start' ] );
+    $this->notifyImporter( $occurrence );
+
+    if( $this->successfullySaved( $occurrence ) )
+      return $occurrence;
   }
 
-  private function extractCategory( SLLCategory $category, &$collectedCategories = array() )
+  private function mapEventFrom( $item, $poi )
+  {
+    if( !$poi )
+      return;
+
+    $event = $this->dataMapperHelper->getEventRecord( $item[ 'event_id' ] );
+    $event[ 'Vendor' ] = $this->vendor;
+    $event[ 'vendor_event_id' ] = $item[ 'event_id' ];
+    $event[ 'name' ]        = $item[ 'SLLEvent' ][ 'title' ];
+    $event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
+    $event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
+    $event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
+    $event->addVendorCategory( $this->categories, $this->vendor['id'] );
+
+    $this->notifyImporter( $event );
+
+    if( $this->successfullySaved( $event ) )
+      return $event;
+  }
+
+  private function mapPoiFrom( $item )
+  {
+    $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'venue_id' ] );
+    $poi[ 'Vendor' ]                 = $this->vendor;
+    $poi[ 'vendor_poi_id' ]          = $item[ 'venue_id' ];
+    $poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
+    $poi[ 'street' ]                 = $item[ 'SLLVenue' ][ 'address' ];
+    $poi[ 'city' ]                   = 'London';
+    $poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
+    $poi[ 'country' ]                = 'GBR';
+    $poi[ 'local_language' ]         = $this->vendor[ 'language' ];//'en-GB';
+    $poi[ 'latitude' ]               = $item[ 'SLLVenue' ][ 'latitude' ];
+    $poi[ 'longitude' ]              = $item[ 'SLLVenue' ][ 'longitude' ];
+    $poi[ 'email' ]                  = $item[ 'SLLVenue' ][ 'email' ];
+    $poi[ 'url' ]                    = $item[ 'SLLVenue' ][ 'url' ];
+    $poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
+    $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
+    $poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
+    $poi['geoEncodeLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
+
+    $building_name                   = $item[ 'SLLVenue' ][ 'building_name' ];
+    if( strlen($building_name) <= 32 )
+    {
+      $poi[ 'house_no' ] = $building_name;
+    }
+    else
+    {
+      $poi[ 'additional_address_details' ] = $building_name;
+    }
+
+    $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
+
+    $this->notifyImporter( $poi );
+    if( $this->successfullySaved( $poi ) )
+      return $poi;
+  }
+
+  private function extractCategoriesFrom( $item )
+  {
+    $sllEventCategoryId = $item[ 'SLLEvent' ][ 'master_category_id' ];
+    $sllEventCategory = $this->vendorCategories[ $sllEventCategoryId ];
+    $categories = $this->flattenCategoryTree( $sllEventCategory );
+    return $categories;
+  }
+
+  private function flattenCategoryTree( SLLCategory $category, &$collectedCategories = array() )
   {
     array_unshift( $collectedCategories, $category['name'] );
 
     $parentCategoryId = $category[ 'parent_category_id' ];
     if( array_key_exists( $parentCategoryId, $this->vendorCategories ) )
     {
-      $this->extractCategory( $this->vendorCategories[ $parentCategoryId ], $collectedCategories );
+      $this->flattenCategoryTree( $this->vendorCategories[ $parentCategoryId ], $collectedCategories );
     }
 
     return $collectedCategories;
   }
 
+  private function successfullySaved( Doctrine_Record $record )
+  {
+    return $record->exists();
+  }
+
 }
- 
- 
