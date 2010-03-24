@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) by Alexis Orssich (Time Out Communications Ltd) -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<!-- Define simple types -->
 	<xsd:simpleType name="UrlType">
@@ -9,10 +8,10 @@
 	</xsd:simpleType>
 	<xsd:simpleType name="CountryType">
 		<xsd:annotation>
-			<xsd:documentation>Contains country code in ISO 3166-1 alpha-3</xsd:documentation>
+			<xsd:documentation>Country code in ISO 3166-1 alpha-3</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:normalizedString">
-			<xsd:pattern value="[A-Z][A-Z][A-Z]"/>
+			<xsd:pattern value="(ABW|AFG|AGO|AIA|ALA|ALB|AND|ANT|ARE|ARG|ARM|ASM|ATA|ATF|ATG|AUS|AUT|AZE|BDI|BEL|BEN|BFA|BGD|BGR|BHR|BHS|BIH|BLM|BLR|BLZ|BMU|BOL|BRA|BRB|BRN|BTN|BVT|BWA|CAF|CAN|CCK|CHE|CHL|CHN|CIV|CMR|COD|COG|COK|COL|COM|CPV|CRI|CUB|CXR|CYM|CYP|CZE|DEU|DJI|DMA|DNK|DOM|DZA|ECU|EGY|ERI|ESH|ESP|EST|ETH|FIN|FJI|FLK|FRA|FRO|FSM|GAB|GBR|GEO|GGY|GHA|GIB|GIN|GLP|GMB|GNB|GNQ|GRC|GRD|GRL|GTM|GUF|GUM|GUY|HKG|HMD|HND|HRV|HTI|HUN|IDN|IMN|IND|IOT|IRL|IRN|IRQ|ISL|ISR|ITA|JAM|JEY|JOR|JPN|KAZ|KEN|KGZ|KHM|KIR|KNA|PRK|KOR|KWT|LAO|LBN|LBR|LBY|LCA|LIE|LKA|LSO|LTU|LUX|LVA|MAC|MAF|MAR|MCO|MDA|MDG|MDV|MEX|MHL|MKD|MLI|MLT|MMR|MNE|MNG|MNP|MOZ|MRT|MSR|MTQ|MUS|MWI|MYS|MYT|NAM|NCL|NER|NFK|NGA|NIC|NIU|NLD|NOR|NPL|NRU|NZL|OMN|PAK|PAN|PCN|PER|PHL|PLW|PNG|POL|PRI|PRT|PRY|PSE|PYF|QAT|REU|ROU|RUS|RWA|SAU|SCG|SDN|SEN|SGP|SGS|SHN|SJM|SLB|SLE|SLV|SMR|SOM|SPM|SRB|STP|SUR|SVK|SVN|SWE|SWZ|SYC|SYR|TCA|TCD|TGO|THA|TJK|TKL|TKM|TLS|TMP|TON|TTO|TUN|TUR|TUV|TWN|TZA|UGA|UKR|UMI|URY|USA|UZB|VAT|VCT|VEN|VGB|VIR|VNM|VUT|WLF|WSM|YEM|ZAF|ZMB|ZWE)"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<!-- Geographical coordinates in Deciaml Degrees format -->
@@ -40,11 +39,22 @@
 			<xsd:maxInclusive value="5.0"/>
 		</xsd:restriction>
 	</xsd:simpleType>
+
 	<xsd:simpleType name="MimeTypeType">
 		<xsd:restriction base="xsd:normalizedString">
 			<xsd:pattern value="(image|audio|video)/.*"/>
 		</xsd:restriction>
 	</xsd:simpleType>
+
+	<xsd:simpleType name="LanguageType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 639-1 codes</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:pattern value="(aa|ab|ae|af|ak|am|an|ar|as|av|ay|az|ba|be|bg|bh|bi|bm|bn|bo|br|bs|ca|ce|ch|co|cr|cs|cu|cv|cy|da|de|dv|dz|ee|el|en|eo|es|et|eu|fa|ff|fi|fj|fo|fr|fy|ga|gd|gl|gn|gu|gv|ha|he|hi|ho|hr|ht|hu|hy|hz|ia|id|ie|ig|ii|ik|io|is|it|iu|ja|jv|ka|kg|ki|kj|kk|kl|km|kn|ko|kr|ks|ku|kv|kw|ky|la|lb|lg|li|ln|lo|lt|lu|lv|mg|mh|mi|mk|ml|mn|mr|ms|mt|my|na|nb|nd|ne|ng|nl|nn|no|nr|nv|ny|oc|oj|om|or|os|pa|pi|pl|ps|pt|qu|rm|rn|ro|ru|rw|sa|sc|sd|se|sg|si|sk|sl|sm|sn|so|sq|sr|ss|st|su|sv|sw|ta|te|tg|th|ti|tk|tl|tn|to|tr|ts|tt|tw|ty|ug|uk|ur|uz|ve|vi|vo|wa|wo|xh|yi|yo|za|zh|zu)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
 	<xsd:simpleType name="POICategoryType">
 		<xsd:annotation>
 			<xsd:documentation>Nokia Premium POI Categories</xsd:documentation>
@@ -113,17 +123,15 @@
 			<xsd:enumeration value="administrative-region"/>
 			<xsd:enumeration value="city-town-village"/>
 			<xsd:enumeration value="outdoor-area-complex"/>
+			<xsd:enumeration value="building"/>
 			<xsd:enumeration value="body-of-water"/>
 			<xsd:enumeration value="mountain-hill"/>
 			<xsd:enumeration value="undersea-feature"/>
 			<xsd:enumeration value="forest-heath-vegetation"/>
-                        <!--
-                          the others was added by to, needs to be removed as soon as
-                          categories (mapping, etc) are properly in place
-                        -->
-                        <xsd:enumeration value="others"/>
+			<xsd:enumeration value="others"/><!-- some venues do not have a category. It can be a general purpose venue which hosts conferences, exhibitions, concerts, etc -->
 		</xsd:restriction>
 	</xsd:simpleType>
+
 	<xsd:simpleType name="UserRatingType">
 		<xsd:annotation>
 			<xsd:documentation>User Rating Type</xsd:documentation>
@@ -139,16 +147,17 @@
 			<xsd:enumeration value="facilities"/>
 		</xsd:restriction>
 	</xsd:simpleType>
+
+
+
 	<!-- Start defining complex types -->
 	<xsd:element name="vendor-pois">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element ref="entry" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
-			<xsd:attribute name="vendor" type="xsd:normalizedString" use="required"/>
-			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/>
-			<!-- this is the vendor name/id -->
-			<!-- timestamp -->
+			<xsd:attribute name="vendor" type="xsd:normalizedString" use="required"/>	<!-- this is the vendor name/id -->
+			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/> <!-- timestamp -->
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="entry">
@@ -159,13 +168,11 @@
 				<xsd:element ref="category" maxOccurs="unbounded"/>
 				<xsd:element ref="address"/>
 				<xsd:element ref="contact"/>
-				<xsd:element ref="version" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="version" minOccurs="1" maxOccurs="unbounded"/>
 			</xsd:sequence>
-			<xsd:attribute name="vpid" type="xsd:normalizedString" use="required"/>
-			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/>
-			<xsd:attribute name="lang" type="xsd:language" use="required"/>
-			<!-- unique vendor poi ID -->
-			<!-- timestamp -->
+			<xsd:attribute name="vpid" type="xsd:normalizedString" use="required"/>		<!-- unique and persistent vendor poi ID -->
+			<xsd:attribute name="modified" type="xsd:dateTime" use="required"/>             <!-- timestamp -->
+			<xsd:attribute name="lang" type="LanguageType" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="geo-position">
@@ -177,8 +184,7 @@
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="name" type="xsd:normalizedString"/>
-	<xsd:element name="category" type="POICategoryType"/>
-	<!-- FPC category set, provided by Nokia -->
+	<xsd:element name="category" type="POICategoryType"/>	<!-- FPC category set, provided by Nokia -->
 	<xsd:element name="address">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -188,7 +194,7 @@
 				<xsd:element name="city" type="xsd:normalizedString"/>
 				<xsd:element name="district" type="xsd:normalizedString" minOccurs="0"/>
 				<xsd:element name="extension" type="xsd:normalizedString" minOccurs="0"/>
-				<xsd:element name="country" type="CountryType"/>
+				<xsd:element name="country" type="CountryType" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -213,8 +219,7 @@
 				<xsd:element ref="content" minOccurs="0"/>
 				<xsd:element ref="user-content" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
-			<xsd:attribute name="lang" type="xsd:language" use="required"/>
-			<!-- specifies the language content, use ISO 3166-1 alpha-2 -->
+			<xsd:attribute name="lang" type="LanguageType" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="content">
@@ -238,31 +243,33 @@
 			<xsd:sequence>
 				<xsd:element ref="user-info"/>
 				<xsd:element name="subject" type="xsd:normalizedString" minOccurs="0"/>
-				<xsd:element ref="description"/>
-				<xsd:element ref="user-rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="description" />
+				<xsd:element ref="user-rating" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="vendor-ucid" type="xsd:normalizedString" use="required"/>
-			<xsd:attribute name="date" type="xsd:dateTime" use="required"/>
-			<!-- specifies when did the user created that content -->
+			<xsd:attribute name="date" type="xsd:dateTime" use="required"/>		<!-- specifies when did the user created that content -->
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="user-info">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="displayname" type="xsd:normalizedString"/>
-				<xsd:element name="reputation" type="xsd:int" minOccurs="0"/>
-				<xsd:element name="total-comments" type="xsd:int" minOccurs="0"/>
-				<xsd:element name="comments-relevance" type="xsd:int" minOccurs="0"/>
+				<xsd:element name="displayname" type="xsd:normalizedString" />
+				<xsd:element name="reputation" type="xsd:int" minOccurs="0" />
+				<xsd:element name="total-comments" type="xsd:int" minOccurs="0" />
+				<xsd:element name="comments-relevance" type="xsd:int" minOccurs="0" />
 				<xsd:element name="specialty" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+
 	<xsd:element name="vendor-category" type="xsd:normalizedString"/>
 	<xsd:element name="description" type="xsd:string"/>
 	<xsd:element name="short-description" type="xsd:string"/>
 	<xsd:element name="price" type="xsd:normalizedString"/>
 	<xsd:element name="rating" type="xsd:normalizedString"/>
-	<xsd:element name="user-rating">
+
+	<xsd:element name="user-rating" >
 		<xsd:complexType>
 			<xsd:simpleContent>
 				<xsd:extension base="UserRatingValueType">
@@ -271,13 +278,18 @@
 			</xsd:simpleContent>
 		</xsd:complexType>
 	</xsd:element>
+
+
 	<!-- use this node to specify available images -->
 	<xsd:element name="media">
 		<xsd:complexType mixed="true">
 			<xsd:attribute name="mime-type" type="MimeTypeType" use="required"/>
+			<xsd:attribute name="caption" type="xsd:normalizedString" use="optional"/>
+			<xsd:attribute name="author" type="xsd:normalizedString" use="optional"/>
+			<xsd:attribute name="copyright" type="xsd:normalizedString" use="optional"/>
 		</xsd:complexType>
 	</xsd:element>
-	<xsd:element name="property">
+	<xsd:element name="property" >
 		<xsd:complexType mixed="true">
 			<xsd:attribute name="key" type="xsd:normalizedString" use="required"/>
 		</xsd:complexType>
