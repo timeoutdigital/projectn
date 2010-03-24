@@ -198,19 +198,14 @@ class XMLExportEvent extends XMLExport
 
         $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start_date']);
 
+        $this->appendNonRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
 
-        /**
-         * @todo fix this properly?
-         */
-        if( $eventOccurrence['start_time'] != '00:00:00' && !is_null($eventOccurrence['start_time']) )
+        $this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']);
+
+        if( !is_null($eventOccurrence['end_date']) )
         {
-            $this->appendRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
+            $this->appendNonRequiredElement($timeElement, 'end_time', $eventOccurrence['end_time']);
         }
-
-        //$this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']); //not in schema...
-
-        if( $eventOccurrence['end_time'] != '00:00:00' )//@todo fix this properly?
-        $this->appendNonRequiredElement($timeElement, 'end_time', $eventOccurrence['end_time']);
 
         $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
         //$eventOccurrence->free();
