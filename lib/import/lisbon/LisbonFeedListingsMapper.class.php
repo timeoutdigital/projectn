@@ -18,7 +18,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->listings as $listingElement )
     {
-      $event = $this->dataMapperHelper->getEventRecord( (int) $listingElement['RecurringListingID'] );
+      $listingId = (int) $listingElement['RecurringListingID']
+      $event = $this->getEventRecord( $listingId );
       
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
       $event['vendor_id'] = $this->vendor['id'];
@@ -63,6 +64,11 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       }
       $this->notifyImporter( $event );
     }
+  }
+
+  private function getEventRecord( $id )
+  {
+    return $this->dataMapperHelper->getEventRecord( $id );
   }
 
   private function extractStartTimes( $listingElement )
