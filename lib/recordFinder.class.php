@@ -46,8 +46,6 @@ class recordFinder
       if( !$this->shouldCompare( $column ) )
         continue;
 
-      echo $column . ':' . $record[ $column ] . ', ';
-
       if( $record[$column] )
       {
         $query->addWhere( "r.$column = ? " , $record[$column] );
