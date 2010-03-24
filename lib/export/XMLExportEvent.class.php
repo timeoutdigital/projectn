@@ -25,7 +25,7 @@ class XMLExportEvent extends XMLExport
    */
   public function __construct( $vendor, $destination, $poiXmlLocation )
   {
-    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-events-1.4.xsd';
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'event.xsd';
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
 
 
@@ -168,7 +168,7 @@ class XMLExportEvent extends XMLExport
       $currentPoiId = null;
       foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
-        if( !in_array( $this->generateUID( $eventOccurrence[ 'poi_id' ] ), $this->poiIdsArray ) )
+        if( !$this->poiXmlExportHasPoiRelatedTo( $eventOccurrence )  )
                 continue;
  
         if ( $currentPoiId != $eventOccurrence[ 'poi_id' ] )
@@ -198,19 +198,14 @@ class XMLExportEvent extends XMLExport
 
         $this->appendRequiredElement($timeElement, 'start_date', $eventOccurrence['start_date']);
 
+        $this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']);
 
-        /**
-         * @todo fix this properly?
-         */
-        if( $eventOccurrence['start_time'] != '00:00:00' && !is_null($eventOccurrence['start_time']) )
+        $this->appendNonRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
+
+        if( !is_null($eventOccurrence['end_date']) )
         {
-            $this->appendRequiredElement($timeElement, 'event_time', $eventOccurrence['start_time']);
+            $this->appendNonRequiredElement($timeElement, 'end_time', $eventOccurrence['end_time']);
         }
-
-        //$this->appendNonRequiredElement($timeElement, 'end_date', $eventOccurrence['end_date']); //not in schema...
-
-        if( $eventOccurrence['end_time'] != '00:00:00' )//@todo fix this properly?
-        $this->appendNonRequiredElement($timeElement, 'end_time', $eventOccurrence['end_time']);
 
         $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
         //$eventOccurrence->free();
@@ -223,6 +218,11 @@ class XMLExportEvent extends XMLExport
     }
 
     return $domDocument;
+  }
+
+  private function poiXmlExportHasPoiRelatedTo( $eventOccurrence )
+  {
+    return in_array( $this->generateUID( $eventOccurrence[ 'poi_id' ] ), $this->poiIdsArray );
   }
 
   /**

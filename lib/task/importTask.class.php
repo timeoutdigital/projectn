@@ -271,7 +271,7 @@ class importTask extends sfBaseTask
         $feedObj      = new curlImporter();
         $url          = 'http://www.timeout.pt/';
         $today        = date( 'Y-m-d' );
-        $oneWeekLater = date_add( new DateTime(), new DateInterval( 'P9D' ) )->format( 'Y-m-d' );
+        $oneWeekLater = date_add( new DateTime(), new DateInterval( 'P4D' ) )->format( 'Y-m-d' );
         $parameters   = array( 'from' => $today, 'to' => $oneWeekLater );//lisbon caps the request at 9 days
         $method       = 'POST';
         $loggerObj    = new logImport( $vendorObj );

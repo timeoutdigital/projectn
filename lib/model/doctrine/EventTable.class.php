@@ -70,8 +70,6 @@ class EventTable extends Doctrine_Table
                     ->leftJoin('e.LinkingEventCategory')
                     ->addWhere('e.vendor_id=?', $vendorID);
 
-      echo $query->getSqlQuery(). "\n\n\n";
-
       if($hydrate)
       {
          return  $query->execute( );

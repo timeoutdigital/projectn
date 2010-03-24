@@ -40,12 +40,18 @@ class londonDatabaseFilmsDataMapper extends DataMapper
   protected $dataMapperHelper;
 
   /**
+   * @var configFilePath
+   */
+  protected $configFilePath;
+
+  /**
    *
    * @param Vendor $vendor
    * table 'review' of database 'film_convert'
    */
-  public function  __construct( Vendor $vendor )
+  public function  __construct( Vendor $vendor, $configFilePath = null )
   {
+    $this->setConfigFilePath( $configFilePath );
     $this->vendor = $vendor;
     $this->fillConfig();
     $this->preparePdo();
@@ -235,9 +241,21 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     return $string;
   }
 
+  private function setConfigFilePath( $path=null )
+  {
+    if( !$path )
+      $path = sfConfig::get( 'sf_config_dir' ) . '/projectn/londonDatabaseFilm.yml';
+
+    if( !is_file( $path ) )
+      throw new Exception( 'Could not find config at path: '. $path );
+
+    $this->configFilePath = $path;
+  }
+
   private function fillConfig()
   {
-    $config = sfYaml::load( sfConfig::get( 'sf_config_dir' ) . '/londonDatabaseFilm.yml' );
+    $config = sfYaml::load( $this->configFilePath );
+    $config = sfYaml::load( sfConfig::get( 'sf_config_dir' ) . '/projectn/londonDatabaseFilm.yml' );
 
     $environment = $this->getEnvironment();
     $config      = $config[ $environment ];

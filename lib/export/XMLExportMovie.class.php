@@ -15,7 +15,7 @@ class XMLExportMovie extends XMLExport
 {
   public function __construct( $vendor, $destination )
   {
-    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'latest' . DIRECTORY_SEPARATOR . 'vendor-movies-1.4.xsd';
+    $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'movie.xsd';
     parent::__construct($vendor, $destination, 'Movie', $xsd );
   }
 

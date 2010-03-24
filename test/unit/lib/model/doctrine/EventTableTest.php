@@ -157,7 +157,8 @@ class EventTableTest extends PHPUnit_Framework_TestCase
      $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
      $this->assertEquals( $numOccurrencesInTotal, $event[ 'EventOccurrence' ]->count() );
 
-     $goodEvents = Doctrine::getTable( 'Event' )->findByVendorAndStartsFrom( $vendor, new DateTime );
+     $goodEvents = Doctrine::getTable( 'Event' )
+      ->findByVendorAndStartsFromAsArray( $vendor, new DateTime );
      $goodEvent = $goodEvents[0];
      $this->assertEquals( 2, count( $goodEvent[ 'EventOccurrence' ] ) );
 

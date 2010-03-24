@@ -39,6 +39,15 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testThrowsErrorIfConfigFileNotAvailable()
+  {
+    $importer = new Importer();
+
+    $this->setExpectedException( Exception );
+    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor, 'non/existient/path' ) );
+    $importer->run();
+  }
+
   public function testGetsFilmsFromLondonDatabase()
   {
     $importer = new UnitTestNyMoviesImporter();

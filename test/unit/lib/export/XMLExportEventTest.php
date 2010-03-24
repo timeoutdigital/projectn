@@ -57,11 +57,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
-      'city'         => 'test',
-      'language'     => 'en-GB',
-      'airport_code' => 'LHR',
-      ) );
+    $this->createVendor();
 
     $poiCat = new PoiCategory();
     $poiCat->setName( 'eat-drink' );
@@ -157,16 +153,9 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $occurrence4->link( 'Poi', array( 2 ) );
     $occurrence4->save();
 
-    $this->destination    = dirname( __FILE__ ) . '/../../export/event/test.xml';
-    $this->poiXmlLocation = TO_TEST_DATA_PATH . '/poi.xml';
-
-    $poiExport = new XMLExportPOI( $this->vendor, $this->poiXmlLocation );
-    $poiExport->run();
-   
-    $this->export();
+    $this->runExport();
 
     $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
-
   }
 
   /**
@@ -214,16 +203,24 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testGeneratedXMLCategory()
   {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $this->createVendor();
+    $this->addAnEventWithEventCategories( 'concerts', 'theater', 'sport' );
+    $this->addAnEventWithEventCategories( 'family' );
+    $this->runExport();
+
     $categoryElements1 = $this->xpath->query( '/vendor-events/event[1]/category' );
 
-    $this->assertEquals(3, $categoryElements1->length);
+    $this->assertEquals( 3, $categoryElements1->length );
 
     $this->assertEquals( 'concerts', $categoryElements1->item(0)->nodeValue );
-    $this->assertEquals( 'theater', $categoryElements1->item(1)->nodeValue );
-    $this->assertEquals( 'sport', $categoryElements1->item(2)->nodeValue );
+    $this->assertEquals( 'theater',  $categoryElements1->item(1)->nodeValue );
+    $this->assertEquals( 'sport',    $categoryElements1->item(2)->nodeValue );
 
     $categoryElements2 = $this->xpath->query( '/vendor-events/event[2]/category' );
-    $this->assertEquals( 'concerts', $categoryElements2->item(0)->nodeValue );
+    $this->assertEquals( 'family', $categoryElements2->item(0)->nodeValue );
   }
 
   /**
@@ -346,8 +343,9 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   /**
    * check properties tags
    */
-  public function _testPropertyTags()
+  public function testPropertyTags()
   {
+    $this->markTestSkipped();
     $propertyElements1 = $this->xpath->query( '/vendor-events/event[1]/version/property' );
     $this->assertEquals(2, $propertyElements1->length);
 
@@ -362,7 +360,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function _testAgainstSchema()
   {
-    $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'events.xsd' ) );
+    $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'event.xsd' ) );
   }
 
   /**
@@ -370,6 +368,21 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testCorrectNumberPlaceAndOccurrenceTags()
   {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $event = $this->createEventStartingToday();
+    $event->save();
+
+    $event = $this->createEventStartingToday();
+    $poi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+    $this->addAnotherEventOccurrenceTo( $event, $poi );
+    $this->addAnotherEventOccurrenceTo( $event, $poi );
+    $event->save();
+
+    $this->runExport();
+    var_dump( $this->domDocument->saveXml() );
+    
     $placesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' );
 
     $this->assertEquals( 2, $placesForEvent2->length );
@@ -403,6 +416,78 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->domDocument = new DOMDocument();
       $this->domDocument->load( $this->destination );
       $this->xpath = new DOMXPath( $this->domDocument );
+    }
+
+    private function createVendor()
+    {
+      $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
+        'city'         => 'test',
+        'language'     => 'en-GB',
+        'airport_code' => 'LHR',
+        ) );
+    }
+
+    private function runExport()
+    {
+      $this->destination    = dirname( __FILE__ ) . '/../../export/event/test.xml';
+      $this->poiXmlLocation = TO_TEST_DATA_PATH . '/poi.xml';
+
+      $poiExport = new XMLExportPOI( $this->vendor, $this->poiXmlLocation );
+      $poiExport->run();
+     
+      $this->export();
+    }
+
+    private function addAnEventWithEventCategories()
+    {
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event[ 'Vendor' ] = $this->vendor;
+      $event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 
+        'start_date' => ProjectN_Test_Unit_Factory::today() 
+      ) );
+
+      foreach( func_get_args() as $category )
+      {
+        $event->addVendorCategory( $category );
+        $event->save();
+        $this->saveEventCategoryMapping( $category );
+      }
+      $event->save();
+    }
+
+    private function saveEventCategoryMapping( $category )
+    {
+      $eventCategory = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => $category ) );
+
+      $vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )
+        ->findOneByName( $category );
+
+      $eventCategory = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => $category ) );
+      $eventCategory[ 'VendorEventCategory' ][] = $vendorEventCategory;
+      $eventCategory->save();
+    }
+
+    private function createEventStartingToday()
+    {
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event[ 'Vendor' ] = $this->vendor;
+
+      $eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+      $eventOccurrence[ 'start_date' ] = ProjectN_Test_Unit_Factory::today();
+      $event[ 'EventOccurrence' ][] = $eventOccurrence;
+
+      return $event;
+    }
+
+    private function addAnotherEventOccurrenceTo( $event, $poi )
+    {
+      $year  = '2020';
+      $month = str_pad( rand( 1, 12 ), 2, '0', STR_PAD_LEFT );
+      $day   = str_pad( rand( 1, 28 ), 2, '0', STR_PAD_LEFT );
+      $start_date = implode( '-', array( $year, $month, $day ) );
+      $eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $start_date ) );
+      $eventOccurrence[ 'Poi' ] = $poi;
+      $event[ 'EventOccurrence' ][] = $eventOccurrence;
     }
 }
 ?>

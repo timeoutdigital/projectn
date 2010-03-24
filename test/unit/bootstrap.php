@@ -95,6 +95,7 @@ class ProjectN_Test_Unit_Factory
       'eventcategory'   => EventCategoryFixture,
       'eventproperty'   => EventPropertyFixture,
       'movie'           => MovieFixture,
+      'vendoreventcategory' => VendorEventCategoryFixture,
     );
 
     $model = strtolower( $model );
@@ -401,4 +402,34 @@ class EventPropertyFixture
     );
   }
 }
-?>
+
+class VendorEventCategoryFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = VendorEventCategoryFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $record = new VendorEventCategory();
+    $record->fromArray( $defaults );
+
+    if( $autoCreateRelatedObjects )
+    {
+      $record[ 'Vendor' ] = ProjectN_Test_Unit_Factory::autoCreate( 'Vendor' );
+    }
+
+    return $record;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name'       =>  'test name',
+    );
+  }
+}
+
