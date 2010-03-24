@@ -48,25 +48,20 @@ class EventOccurrenceTable extends Doctrine_Table
    * - event_id
    * - poi_id
    */
-  public function findEquivalents( EventOccurrence $eventOccurrence )
+  public function findEquivalents( EventOccurrence $record )
   {
-    $query = $this->createQuery( 'e' )
-                  ->addWhere( 'e.event_id = ? '                   , $eventOccurrence['Event']['id'] )
-                  ->addWhere( 'e.poi_id = ? '                     , $eventOccurrence['Poi']['id'] )
-                  ;
-    //the relationships we do separately because for some strange reason,
-    //$eventOccurrence['event_id'] returns the Event object, not the id
+    $query = $this->createQuery( 'e' );
 
     $columns = $this->getColumnNames();
 
     foreach( $columns as $column )
     {
-      if( in_array( $column, array( 'id', 'poi_id', 'event_id' ) ) )
+      if( in_array( $column, array( 'id' ) ) )
         continue;
 
-      if( $eventOccurrence[$column] )
+      if( $record[$column] )
       {
-        $query->addWhere( "e.$column = ? " , $eventOccurrence[$column] );
+        $query->addWhere( "e.$column = ? " , $record[$column] );
       }
       else
       {
