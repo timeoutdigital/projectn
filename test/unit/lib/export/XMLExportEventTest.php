@@ -168,6 +168,53 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     unlink( $this->destination );
   }
 
+	public function testCategoryTagsAreUnique()
+	{
+		ProjectN_Test_Unit_Factory::destroyDatabases();
+		ProjectN_Test_Unit_Factory::createDatabases();
+
+		$vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+		$poi 		= ProjectN_Test_Unit_Factory::add( 'Poi' );
+		$this->doPoiExport( $vendor, $poi );
+
+		$event  = ProjectN_Test_Unit_Factory::get( 'Event' );
+		$event[ 'Vendor' ] = $vendor;
+		$eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => ProjectN_Test_Unit_Factory::today() ) );
+		$eventOccurrence[ 'Poi' ] = $poi;
+		$event[ 'EventOccurrence' ][] = $eventOccurrence;
+		$event->addVendorCategory( 'foo', $vendor );
+		$event->addVendorCategory( 'bar', $vendor );
+		$event->save();
+
+		$eventCategory = ProjectN_Test_Unit_Factory::get( 'EventCategory' );
+		$eventCategory[ 'name' ] = 'sport';
+		$eventCategory->save();
+
+		$vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )->findOneById( 1 );
+		$vendorEventCategory[ 'EventCategory' ][] = $eventCategory;
+		$vendorEventCategory->save();
+
+		$vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )->findOneById( 2 );
+		$vendorEventCategory[ 'EventCategory' ][] = $eventCategory;
+		$vendorEventCategory->save();
+
+		$this->destination = dirname( __FILE__ ) . '/../../export/event/eventtest.xml';
+		$this->export = new XMLExportEvent( $vendor, $this->destination, dirname( __FILE__ ) . '/../../export/poi/poitest.xml' );
+
+		$this->export->run();
+		$this->xml = simplexml_load_file( $this->destination );
+
+		$this->assertEquals( 1, count( $this->xml->xpath( '//category' ) ) );
+	}
+
+	private function doPoiExport( $vendor, $poi )
+	{
+    $destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+    $this->export = new XMLExportPOI( $vendor, $destination );
+    $this->export->run();
+		$xml = simplexml_load_file( $destination );
+	}
+
   /**
    * test generateXML() has vendor-events root tag with required attributes
    *
@@ -457,8 +504,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     private function saveEventCategoryMapping( $category )
     {
-      $eventCategory = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => $category ) );
-
       $vendorEventCategory = Doctrine::getTable( 'VendorEventCategory' )
         ->findOneByName( $category );
 
