@@ -108,6 +108,11 @@ class XMLExportPOI extends XMLExport
       //content
       $contentElement = $this->appendRequiredElement( $versionElement, 'content' );
 
+      foreach( $poi[ 'VendorPoiCategory' ] as $vendorPoiCategory )
+      {
+          $vendorPoiCategoryElement = $this->appendNonRequiredElement( $contentElement, 'vendor-category', $vendorPoiCategory['name'], XMLExport::USE_CDATA);
+      }
+
       $cleanShortDescription = $this->cleanHtml($poi['short_description']);
       $this->appendNonRequiredElement( $contentElement, 'short-description', $cleanShortDescription, XMLExport::USE_CDATA);
       
