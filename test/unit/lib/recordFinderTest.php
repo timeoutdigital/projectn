@@ -53,12 +53,24 @@ class recordFinderTest extends PHPUnit_Framework_TestCase
     $record = $this->createAnotherVendorEventCategoryRecordWithTheSameFields();
 
     $recordFinder = new recordFinder();
+    $equivalentRecord = $recordFinder->findEquivalentOf( $record )
+                                     ->comparingAllFieldsExcept( 'id' )
+                                     ->go();
+    
+    $this->assertTrue( $equivalentRecord instanceof VendorEventCategory );
+  }
 
+  public function testFindEquivalentRecordDoesntFindIdenticalRecord()
+  {
+    $this->putAVendorEventCategoryRecordInDatabase();
+    $record = Doctrine::getTable( 'VendorEventCategory' )->findOneById( 1 );
+
+    $recordFinder = new recordFinder();
     $equivalentRecord = $recordFinder->findEquivalentOf( $record )
                                      ->comparingAllFieldsExcept( 'id' )
                                      ->go();
 
-    $this->assertTrue( $equivalentRecord instanceof VendorEventCategory );
+    $this->assertNull( $equivalentRecord );
   }
 
   private function createARecord()

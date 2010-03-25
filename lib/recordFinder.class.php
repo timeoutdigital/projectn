@@ -37,9 +37,13 @@ class recordFinder
 
   public function go()
   {
+    $record  = $this->recordToFind;
+
+    if( $record->exists() )
+      return;
+
     $query   = $this->createQuery();
     $columns = $this->getColumnsFromRecordTable();
-    $record  = $this->recordToFind;
 
     foreach( $columns as $column )
     {
