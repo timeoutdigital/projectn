@@ -45,6 +45,15 @@ SLLCategory:
     name: Child 1 Child 1
     status: 10
     name_url: child-1-child-1
+  cat_4:
+    id: 4
+    parent_category_id: 2
+    lft: 4
+    rgt: 5
+    level: 4
+    name: Child 1 Child 1 Child 1
+    status: 10
+    name_url: child-1-child-1-child-1
 
 
 
@@ -276,6 +285,47 @@ SLLEvent:
     date_created: '2010-01-03 00:00:00'
     date_modified: '2010-01-03 00:00:00'
 
+  event_4:
+    id: 4
+    master_category_id: 4
+    default_venue_id: 4
+    title: Dummy Title 4
+    title_sort: Dummy Title 4
+    annotation: Dummy Annotation 4
+    phone: Dummy Phone 4
+    url: Dummy Url 4
+    price: Dummy Price 4
+    free: 0
+    price_cheapest: 4
+    discount: 0
+    image_id: 44444444
+    status: 10
+    recommended: 0
+    distinct_occurrences: 1
+    travel: Dummy Travel 4
+    venue_prefix: Dummy Venue Prefix 4
+    search_priority: 0
+    keywords: Dummy Keywords 4
+    tags: Dummy Tags 4
+    source: Dummy Source 4
+    source_field: Dummy Source Field 4
+    source_id: 4
+    source_event_id: 4
+    date_start: '2010-02-04'
+    date_end: '2010-02-14'
+    opening_times: Dummy Opening Times 4
+    type: 4
+    title_url: Dummy-Title-Url-4
+    suitable_for_kids: 0
+    seo_synopsis: Dummy Seo Synopsis 4
+    booking_ahead: 0
+    rescheduled: 0
+    extra: 0
+    cancelled: 0
+    flickr_tag: Dummy Flickr Tag 4
+    advanced_text: Dummy Advanced Text 4
+    date_created: '2010-01-04 00:00:00'
+    date_modified: '2010-01-04 00:00:00'
 
 
 SLLEventCategoryMapping:
