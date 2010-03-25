@@ -64,6 +64,9 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         ProjectN_Test_Unit_Factory::add( 'PoiCategory', array( 'name' => 'cinema' ) );
 
+        ProjectN_Test_Unit_Factory::add( 'VendorPoiCategory', array( 'name' => 'french restaurant', 'vendor_id' => 2 ), false );
+        ProjectN_Test_Unit_Factory::add( 'VendorPoiCategory', array( 'name' => 'italian restaurant', 'vendor_id' => 2 ), false );
+
         $poi = new Poi();
         $poi->setPoiName( 'test name' );
         $poi->setStreet( 'test street' );
@@ -88,6 +91,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setOpeningTimes( 'test opening times' );
         $poi->link( 'Vendor', 2 );
         $poi->link('PoiCategory', array( 1, 2 ) );
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
         $poi->save();
 
         $property = new PoiProperty();
@@ -258,6 +262,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     /**
      * test generated XML has content tags with required attributes
+     *
+     * @see the nodes with possible children (media, property, vendor-category) are tested separately
      */
     public function testGenerateXMLHasContentTagsWithRequiredChildren()
     {
@@ -294,6 +300,16 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertRegExp( ':test district2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi key special' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi value special' . $this->escapedSpecialChars . ':', $xmlString );
+    }
+
+    /**
+     * check vendor-category tags
+     */
+    public function testVendorCategoryTags()
+    {
+      $vendorPoiCategories = $this->xml->entry[0]->version->content->{'vendor-category'} ;
+      $this->assertEquals( 'french restaurant', (string) $vendorPoiCategories[0] );
+      $this->assertEquals( 'italian restaurant', (string) $vendorPoiCategories[1] );
     }
 
     /**

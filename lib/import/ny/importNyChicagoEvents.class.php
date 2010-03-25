@@ -489,7 +489,16 @@ class importNyChicagoEvents
 
             $start = $this->extractStartDateTime( (string) $occurrence->start );
             $occurrenceObj[ 'start_date' ] = $start['date'];
-            $occurrenceObj[ 'start_time' ] = $start['time'];
+            
+            if ( $start['time'] != '00:00:00' )
+            {
+                $occurrenceObj[ 'start_time' ] = $start['time'];
+            }
+            else
+            {
+                $occurrenceObj[ 'start_time' ] = NULL;
+            }
+
             $occurrenceObj[ 'utc_offset' ] = $this->_vendorObj->getUtcOffset( $start['datetime'] );
 
             $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];

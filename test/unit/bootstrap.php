@@ -87,15 +87,16 @@ class ProjectN_Test_Unit_Factory
   static public function get( $model, $data = null, $autoCreateRelatedObjects = true )
   {
     $classMap = array(
-      'poi'             => PoiFixture,
-      'poicategory'     => PoiCategoryFixture,
-      'vendor'          => VendorFixture,
-      'event'           => EventFixture,
-      'eventoccurrence' => EventOccurrenceFixture,
-      'eventcategory'   => EventCategoryFixture,
-      'eventproperty'   => EventPropertyFixture,
-      'movie'           => MovieFixture,
+      'poi'                 => PoiFixture,
+      'poicategory'         => PoiCategoryFixture,
+      'vendor'              => VendorFixture,
+      'event'               => EventFixture,
+      'eventoccurrence'     => EventOccurrenceFixture,
+      'eventcategory'       => EventCategoryFixture,
+      'eventproperty'       => EventPropertyFixture,
+      'movie'               => MovieFixture,
       'vendoreventcategory' => VendorEventCategoryFixture,
+      'vendorpoicategory'   => VendorPoiCategoryFixture,
     );
 
     $model = strtolower( $model );
@@ -415,6 +416,36 @@ class VendorEventCategoryFixture
     }
 
     $record = new VendorEventCategory();
+    $record->fromArray( $defaults );
+
+    if( $autoCreateRelatedObjects )
+    {
+      $record[ 'Vendor' ] = ProjectN_Test_Unit_Factory::autoCreate( 'Vendor' );
+    }
+
+    return $record;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name'       =>  'test name',
+    );
+  }
+}
+
+class VendorPoiCategoryFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = VendorPoiCategoryFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $record = new VendorPoiCategory();
     $record->fromArray( $defaults );
 
     if( $autoCreateRelatedObjects )

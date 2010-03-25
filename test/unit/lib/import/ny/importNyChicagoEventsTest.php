@@ -111,7 +111,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $eventObj instanceof Event, 'And event should be returned.' );
 
     $this->assertEquals( 1, $eventObj['EventOccurrence']->count(), 'Should be one occurrence on the event.'  );
-
   }
 
 
