@@ -48,11 +48,9 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases( );
   }
 
-  /**
-   * @todo Implement testRun().
-   */
-  public function testRun()
+  public function testImportDoesNotStopIfPoiFailsToSave()
   {
+    //don't need to do anything, the import will stop in setup()
   }
 
   /**
@@ -82,7 +80,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedVenue()
   {
-    $this->assertEquals( 3, Doctrine::getTable('Poi')->count() );
+    $this->assertEquals( 4, Doctrine::getTable('Poi')->count() );
    
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
     //$poi = Doctrine::getTable( 'Poi' )->findAll();
@@ -121,7 +119,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testEventAndOccurrencesNotSavedIfPoiNotSaved()
   {
     $poiTable = Doctrine::getTable( 'Poi' );
-    $this->assertEquals( 3, $poiTable->count() );
+    $this->assertEquals( 4, $poiTable->count() );
   }
 
   public function testVenueCategoryAssignment()

@@ -208,8 +208,11 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     return $categories;
   }
 
-  private function flattenCategoryTree( SLLCategory $category, &$collectedCategories = array() )
+  private function flattenCategoryTree( SLLCategory $category=null, &$collectedCategories = array() )
   {
+		if( !$category )
+			return;
+
     array_unshift( $collectedCategories, $category['name'] );
 
     $parentCategoryId = $category[ 'parent_category_id' ];
