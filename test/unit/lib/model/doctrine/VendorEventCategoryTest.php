@@ -31,11 +31,18 @@ class VendorEventCategoryTest extends PHPUnit_Framework_TestCase
 
   public function testDoesNotHaveDuplicateVendorEventCategories()
   {
-    $vendorEventCategory = ProjectN_Test_Unit_Factory::add( 'VendorEventCategory' );
-    $vendorEventCategory = ProjectN_Test_Unit_Factory::add( 'VendorEventCategory' );
+    $vendorEventCategory1 = ProjectN_Test_Unit_Factory::add( 'VendorEventCategory' );
+    $vendorEventCategory2 = ProjectN_Test_Unit_Factory::add( 'VendorEventCategory' );
 
     $vendorEventCategoryTable = Doctrine::getTable( 'VendorEventCategory' );
     $this->assertEquals( 1, $vendorEventCategoryTable->count() );
+
+    $newName = 'Rename vendor category 1';
+    $vendorEventCategory1[ 'name' ] = $newName;
+    $vendorEventCategory1->save();
+
+    $vendorEventCategory = $vendorEventCategoryTable->findOneById( 1 );
+    $this->assertEquals( $newName, $vendorEventCategory[ 'name' ] );
   }
 }
 ?>
