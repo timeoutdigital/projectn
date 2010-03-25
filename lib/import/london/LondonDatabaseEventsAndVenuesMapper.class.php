@@ -108,9 +108,9 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         $event           = $this->mapEventFrom(           $item, $poi );
         $eventOccurrence = $this->mapEventOccurrenceFrom( $item, $poi, $event );
 
-				$poi->free( );
-	   		$event->free( );
-				$eventOccurrence->free( );
+				//$poi->free( );
+	   		//$event->free( );
+				//$eventOccurrence->free( );
         $this->categories = null;
 			}
 
@@ -123,7 +123,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 	}
 
-  private function mapEventOccurrenceFrom( $item, Poi $poi, Event $event )
+  private function mapEventOccurrenceFrom( $item, Poi $poi=null, Event $event=null )
   {
     if( !$poi || !$event )
       return;
@@ -143,7 +143,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
       return $occurrence;
   }
 
-  private function mapEventFrom( $item, $poi )
+  private function mapEventFrom( $item, Poi $poi=null )
   {
     if( !$poi )
       return;
@@ -208,8 +208,11 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     return $categories;
   }
 
-  private function flattenCategoryTree( SLLCategory $category, &$collectedCategories = array() )
+  private function flattenCategoryTree( SLLCategory $category=null, &$collectedCategories = array() )
   {
+		if( !$category )
+			return;
+
     array_unshift( $collectedCategories, $category['name'] );
 
     $parentCategoryId = $category[ 'parent_category_id' ];

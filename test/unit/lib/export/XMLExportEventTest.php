@@ -242,6 +242,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $vendorCategoryElements = $versionTag->getElementsByTagName( 'vendor-category' );
     $this->assertEquals( 1, $vendorCategoryElements->length );
+
     $this->assertEquals( 'test vendor category', $vendorCategoryElements->item(0)->nodeValue );
 
     $shortDescriptions = $versionTag->getElementsByTagName( 'short-description' );
@@ -381,7 +382,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $event->save();
 
     $this->runExport();
-    var_dump( $this->domDocument->saveXml() );
     
     $placesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' );
 

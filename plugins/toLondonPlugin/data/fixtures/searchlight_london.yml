@@ -96,7 +96,7 @@ SLLVenue:
   venue_3:
     id: 3
     neighbourhood_id: 3
-    name: Dummy Name 3
+    name: Dummy Name 3x
     alt_name: Dummy Alt Name 3
     building_name: Dummy Building Name 3
     address: Dummy Address 3
@@ -112,6 +112,26 @@ SLLVenue:
     source: Dummy Source 3
     source_id: 3
     event_count: 3
+
+  venue_4:
+    id: 4
+    neighbourhood_id: 4
+    name: Dummy Name 4
+    alt_name: Dummy Alt Name 4
+    building_name: Dummy Building Name 4
+    address: Dummy Address 4
+    postcode: Dummy Postcode 4
+    travel: Dummy Travel 4
+    opening_times: Dummy Opening Times 3
+    url: Dummy Url 3
+    latitude: 51.0000000
+    longitude: -2.30000000
+    email: Dummy Email 4
+    image_id: 33333333
+    status: 10
+    source: Dummy Source 4
+    source_id: 4
+    event_count: 4
 
 
 
@@ -347,6 +367,31 @@ SLLOccurrence:
     seo_synopsis: 0
     flickr_tag: Dummy Flickr Tag 3
     advanced_text: Dummy Advanced Text 3
+    date_created: '2010-01-03 00:00:00'
+    date_modified: '2010-01-03 00:00:00'
+
+  occurrence_4:
+    id: 4
+    event_id: 4
+    venue_id: 4
+    date_start: <?php echo "'" . date( 'Y-m-d', mktime( 0, 0, 0, date('n'), date('j'), date('Y') ) ) . "'" . PHP_EOL ?>
+    time_start: 00:00:00
+    date_end: <?php echo "'" . date( 'Y-m-d', mktime( 0, 0, 0, date('n'), date('j'), date('Y') ) ) . "'" . PHP_EOL ?>
+    time_end: 00:00:00
+    title: Dummy Title 4
+    annotation: Dummy Annotation 4
+    annotation_behaviour: 0
+    price: Dummy Price 4
+    new: 0
+    last_chance: 0
+    image_id: 44444444
+    recommended: 0
+    source: Dummy Source 4
+    source_id: 4
+    search_grouping_id: 4
+    seo_synopsis: 0
+    flickr_tag: Dummy Flickr Tag 4
+    advanced_text: Dummy Advanced Text 4
     date_created: '2010-01-03 00:00:00'
     date_modified: '2010-01-03 00:00:00'
 

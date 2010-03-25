@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-pois vendor="timeout" modified="2010-03-16T14:33:17">
-  <entry vpid="XXX000000000000000000000000000001" lang="en" modified="2010-03-16T14:33:17">
+<vendor-pois vendor="timeout" modified="2010-03-25T12:55:45">
+  <entry vpid="XXX000000000000000000000000000001" lang="en" modified="2010-03-25T12:55:45">
     <geo-position>
       <longitude>0.1</longitude>
       <latitude>0.2</latitude>
     </geo-position>
     <name><![CDATA[test name]]></name>
-    <category><![CDATA[restaurant]]></category>
-    <category><![CDATA[cinema]]></category>
+    <category><![CDATA[theatre-music-culture]]></category>
     <address>
       <street><![CDATA[test street]]></street>
       <houseno><![CDATA[12]]></houseno>
@@ -34,6 +33,8 @@
         <country>GBR</country>
       </address>
       <content>
+        <vendor-category><![CDATA[french restaurant]]></vendor-category>
+        <vendor-category><![CDATA[italian restaurant]]></vendor-category>
         <short-description><![CDATA[test short description]]></short-description>
         <description><![CDATA[test description]]></description>
         <public-transport><![CDATA[test public transport]]></public-transport>
@@ -43,13 +44,13 @@
       </content>
     </version>
   </entry>
-  <entry vpid="XXX000000000000000000000000000002" lang="en" modified="2010-03-16T14:33:17">
+  <entry vpid="XXX000000000000000000000000000002" lang="en" modified="2010-03-25T12:55:45">
     <geo-position>
       <longitude>0.3</longitude>
       <latitude>0.4</latitude>
     </geo-position>
     <name><![CDATA[test name2&<>'"]]></name>
-    <category><![CDATA[others]]></category>
+    <category><![CDATA[theatre-music-culture]]></category>
     <address>
       <street><![CDATA[test street2&<>'"]]></street>
       <houseno><![CDATA[13&<>'"]]></houseno>
