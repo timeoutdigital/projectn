@@ -86,7 +86,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   /*
    * test if the add property adds the properties
    */
-  public function _testAddProperty()
+  public function testAddProperty()
   {
     $this->object->addProperty( 'test prop lookup', 'test prop value' );
     $this->object->addProperty( 'test prop lookup 2', 'test prop value 2' );
@@ -112,7 +112,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   /*
    * test if the add vendor category are added correctly
    */
-  public function _testAddVendorCategory()
+  public function testAddVendorCategory()
   {
     $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
 
@@ -121,22 +121,24 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->object->save();
 
     $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
-
-    $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 0 ][ 'vendor_id' ] );
-    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategory' ][ 1 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 1 ][ 'vendor_id' ] );
+    
+    $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategory' ][ 'test cat' ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 'test cat' ][ 'vendor_id' ] );
+    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategory' ][ 'test parent cat | test cat' ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 'test parent cat | test cat' ][ 'vendor_id' ] );
   }
 
   /*
    * test if the add vendor category are added correctly
    */
-  public function _testAddVendorCategoryDoesntAddDuplicateCategories()
+  public function testAddVendorCategoryDoesntAddDuplicateCategories()
   {
     $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
 
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
+    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
     $this->object->save();
+
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
     $this->object->save();
 
@@ -158,7 +160,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   /**
    *
    */
-  public function _testGetPois()
+  public function testGetPois()
   {
     $pois = $this->object['pois'];
 

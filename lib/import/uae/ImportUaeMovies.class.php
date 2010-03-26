@@ -92,6 +92,7 @@ class ImportUaeMovies {
          */
         $tagsArray = explode(',', (string) $xmlObj->{'tags'});
 
+       
         //Add movie rating
         $this->setRating($tagsArray, $movieObj);
        
@@ -175,9 +176,13 @@ class ImportUaeMovies {
     public function addGenres($tagsArray, Movie $movieObj)
     {
          //Add all other tags from tags node
-        for($i=2; $i < (count($tagsArray)-1); $i++ )
+        for($i=2; $i < count($tagsArray); $i++ )
         {
-           $movieObj->addGenre($tagsArray[$i]);
+
+            if(!preg_match('/star/', $tagsArray[$i]))
+            {
+                $movieObj->addGenre($tagsArray[$i]);
+            }
         }
     }
 

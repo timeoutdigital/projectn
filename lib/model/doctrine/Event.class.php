@@ -63,7 +63,8 @@ class Event extends BaseEvent
     if ( is_array( $name ) )
     {
       $name = implode( ' | ', $name );
-    }else
+    }
+    else
     {
         if(strlen($name) == 0)
         {
@@ -71,16 +72,16 @@ class Event extends BaseEvent
         }
     }
 
-    $vendorEventCategoryObj = Doctrine::getTable( 'VendorEventCategory' )->findOneByNameAndVendorId( $name, $vendorId );
+    $vendorEventCategoryObj = new VendorEventCategory();
+    $vendorEventCategoryObj[ 'name' ] = $name;
+    $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
 
-    if ( $vendorEventCategoryObj === false )
-    {
-      $vendorEventCategoryObj = new VendorEventCategory();
-      $vendorEventCategoryObj[ 'name' ] = $name;
-      $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
-    }
+    $recordFinder = new recordFinder();
+    $uniqueRecord = $recordFinder->findEquivalentOf( $vendorEventCategoryObj )
+                                     ->comparingAllFieldsExcept( 'id' )
+                                     ->getUniqueRecord();
 
-    $this[ 'VendorEventCategory' ][] = $vendorEventCategoryObj;
+    $this[ 'VendorEventCategory' ][ $name ] = $uniqueRecord;
   }
 
    /**
@@ -145,4 +146,5 @@ class Event extends BaseEvent
 
     return $categories;
   }
+
 }

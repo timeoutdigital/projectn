@@ -72,6 +72,20 @@ class recordFinder
     }
   }
 
+  public function getUniqueRecord()
+  {
+    $equivalentRecord = $this->go();
+    
+    if ( $equivalentRecord instanceof Doctrine_Record )
+    {
+        return $equivalentRecord;
+    }
+    else
+    {
+        return $this->recordToFind;
+    }
+  }
+
   private function shouldCompare( $column )
   {
     return !in_array( $column, $this->dontCompareFields );
