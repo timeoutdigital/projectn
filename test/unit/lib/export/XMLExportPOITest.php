@@ -152,6 +152,40 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
+    public function testCategoryTagsAreUnique()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi    = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $vendor;
+      $poi->addVendorCategory( 'foo', $vendor );
+      $poi->addVendorCategory( 'bar', $vendor );
+      $poi->save();
+
+      $poiCategory = ProjectN_Test_Unit_Factory::get( 'PoiCategory' );
+      $poiCategory[ 'name' ] = 'cinema';
+      $poiCategory->save();
+
+      $vendorPoiCategory = Doctrine::getTable( 'VendorPoiCategory' )->findOneById( 1 );
+      $vendorPoiCategory[ 'PoiCategory' ][] = $poiCategory;
+      $vendorPoiCategory->save();
+
+      $vendorPoiCategory = Doctrine::getTable( 'VendorPoiCategory' )->findOneById( 2 );
+      $vendorPoiCategory[ 'PoiCategory' ][] = $poiCategory;
+      $vendorPoiCategory->save();
+
+      $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+      $this->export = new XMLExportPOI( $vendor, $this->destination );
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $this->destination );
+
+      $this->assertEquals( 1, count( $this->xml->xpath( '//category' ) ) );
+    }
+
     /**
      * test generated XML has vendor-poi root tag with required attributes
      */

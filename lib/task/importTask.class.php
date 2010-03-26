@@ -389,12 +389,12 @@ class importTask extends sfBaseTask
         {
 
           echo "Downloading Chicago's Events Feed \n";
-          //$fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
+          $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
 
           echo "Parsing Chicago's Events Feed \n";
-          //$processXmlObj = new processNyXml( $fileNameString );
+          $processXmlObj = new processNyXml( $fileNameString );
 
-          $processXmlObj = new processNyXml('/var/workspace/projectn/import/chicago/toc_leo.xml');
+          //$processXmlObj = new processNyXml('/var/workspace/projectn/import/chicago/toc_leo.xml');
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
           
           echo "Inserting Chicago's Events  \n";
@@ -528,6 +528,9 @@ class importTask extends sfBaseTask
 
           echo "Parsing Ny's Event's feed \n";
           $processXmlObj = new processNyXml( $fileNameString );
+
+          //$processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
+          
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
 
           echo "Importing Ny's Event's \n";

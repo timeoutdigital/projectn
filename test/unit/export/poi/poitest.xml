@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-pois vendor="timeout" modified="2010-03-25T12:55:45">
-  <entry vpid="XXX000000000000000000000000000001" lang="en" modified="2010-03-25T12:55:45">
+<vendor-pois vendor="timeout" modified="2010-03-25T16:51:57">
+  <entry vpid="XXX000000000000000000000000000001" lang="en" modified="2010-03-25T16:51:57">
     <geo-position>
       <longitude>0.1</longitude>
       <latitude>0.2</latitude>
@@ -44,7 +44,7 @@
       </content>
     </version>
   </entry>
-  <entry vpid="XXX000000000000000000000000000002" lang="en" modified="2010-03-25T12:55:45">
+  <entry vpid="XXX000000000000000000000000000002" lang="en" modified="2010-03-25T16:51:57">
     <geo-position>
       <longitude>0.3</longitude>
       <latitude>0.4</latitude>

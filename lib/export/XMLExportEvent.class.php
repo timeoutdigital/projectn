@@ -50,9 +50,6 @@ class XMLExportEvent extends XMLExport
     {
         $this->poiIdsArray[] = (string) $idObj['vpid'];
     }
-
-
-
   }
 
   protected function getData()
@@ -76,7 +73,6 @@ class XMLExportEvent extends XMLExport
 
     foreach( $data as $event )
     {
-
       //Check to see if this event has a corresponding poi
       if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
       {
@@ -164,7 +160,6 @@ class XMLExportEvent extends XMLExport
       //event/showtimes
       $showtimeElement = $this->appendRequiredElement($eventElement, 'showtimes');
 
-
       $currentPoiId = null;
       foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
@@ -250,14 +245,26 @@ class XMLExportEvent extends XMLExport
       ->fetchOne( array(), Doctrine::HYDRATE_ARRAY )
     ;
 
-    $event[ 'EventCategory' ] = array();
+    //$event[ 'EventCategory' ] = array();
+    $eventCategories = array();
     foreach( $eventWithEventCategories[ 'VendorEventCategory' ] as $vendorCategory )
     {
       foreach( $vendorCategory[ 'EventCategory' ] as $eventCategory )
       {
-        $event[ 'EventCategory' ][] = $eventCategory;
+        //$event[ 'EventCategory' ][] = $eventCategory;
+        $eventCategories[] = $eventCategory;
       }
     }
+
+    $uniqueCategories = array();
+    $categories       = array();
+    foreach( $eventCategories as $eventCategory )
+    {
+      if( !in_array( $eventCategory[ 'name' ], $categories ) )
+      $uniqueCategories[] = $eventCategory;
+      $categories[] = $eventCategory['name'];
+    }
+    $event[ 'EventCategory' ] = $uniqueCategories;
   }
 
 }

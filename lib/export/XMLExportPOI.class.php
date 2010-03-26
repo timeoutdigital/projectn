@@ -167,6 +167,8 @@ class XMLExportPOI extends XMLExport
       }
     }
 
+    $ret = array_unique( $ret );
+
     return $ret;
   }
   
