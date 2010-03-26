@@ -68,7 +68,7 @@ EOF;
         $city = str_replace(' ', '', $vendor['city']);
 
         if( $options[ 'poi-xml' ] == 'poop' )
-		      $location = 'export/export_'.date('Ymd').'/pois/'. $city .'.xml';
+		      $location = 'export/export_'.date('Ymd').'/poi/'. $city .'.xml';
         else
           $location = $options[ 'poi-xml' ];
 
