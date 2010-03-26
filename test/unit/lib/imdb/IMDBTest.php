@@ -19,32 +19,14 @@ require_once dirname(__FILE__).'/../../bootstrap.php';
  */
 class IMDBTest extends PHPUnit_Framework_TestCase
 {
-
-  /**
-   * @todo Implement testGetResponse().
-   */
-  public function testGetFilmTitle()
+  public function testFindMovieByTitleReturnsAMovieWithCorrectyId()
   {
-    $movie = 'Avatar';
-    $imdb = new IMDB( $movie );
-    $this->assertEquals( $movie, $imdb->getTitle() );
-  }
-
-  public function testGetFilmId()
-  {
-    $movie = 'Avatar';
-    $imdb = new IMDB( $movie );
-    $this->assertEquals( 'tt0499549', $imdb->getId() );
-  }
-
-  public function testSearchForMovieByTitle()
-  {
-    $movie = IMDB::searchForMovieByTitle( 'ljsdlkfsuroep' );
+    $movie = IMDB::findMovieByTitle( 'ljsdlkfsuroep' );
     $this->assertNull( $movie );
 
-    $movie = IMDB::searchForMovieByTitle( 'Avatar' );
-    $this->assertNotNull( $movie );
+    $movie = IMDB::findMovieByTitle( 'Avatar' );
+    $this->assertTrue( $movie instanceof IMDBMovie, 'Searching for Avatar should return a result' );
+    $this->assertEquals( 'tt0499549', $movie->getId() );
   }
-
 }
 ?>
