@@ -18,22 +18,4 @@ class VendorEventCategory extends BaseVendorEventCategory
     return $this[ 'Vendor' ][ 'city' ];
   }
 
-  public function save(Doctrine_Connection $conn = null)
-  {
-    if( $this->hasEquivalentInDatabase() )
-      return;
-
-    parent::save( $conn );
-  }
-
-  public function hasEquivalentInDatabase()
-  {
-    $recordFinder = new recordFinder();
-    $equivalentRecord = $recordFinder->findEquivalentOf( $this )
-                                     ->comparingAllFieldsExcept( 'id' )
-                                     ->go();
-
-    return !is_null( $equivalentRecord );
-  }
-
 }
