@@ -253,12 +253,10 @@ Movie:
     tag_line:                   {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
     url:                        {type: string(1024), notnull: false}
-
     director:                   {type: string(255), notnull: false}
     writer:                     {type: string(255), notnull: false}
     cast:                       {type: string(255), notnull: false}
     #cast:                       {type: array(1024), notnull: false} # $cast = array( array( 'actor-name' => 'Mia Wasikowska', 'character-name' => 'Alice', 'picture' => 'http://...' ) )
-
     age_rating:                 {type: string(50), notnull: false}
     release_date:               {type: string(50), notnull: false}
     duration:                   {type: string(50), notnull: false}
@@ -267,7 +265,6 @@ Movie:
     aspect_ratio:               {type: string(50), notnull: false}
     sound_mix:                  {type: string(50), notnull: false}
     company:                    {type: string(50), notnull: false}
-
     rating:                     {type: decimal, scale: 1, notnull: false}
     utf_offset:                 {type: string(9), notnull: true}
   relations:
