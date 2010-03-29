@@ -27,15 +27,10 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
 
       $movie = $this->dataMapperHelper->getMovieRecord( $filmElement['filmID'] );
       
-      $this->mapAvailableData($movie, $filmElement, 'MovieProperty' );
+      $this->mapAvailableData($movie, $filmElement );
 
       $movie['vendor_id']  = $this->vendor[ 'id' ];
       $movie['utf_offset'] = $this->vendor->getUtcOffset();
-      $movie['poi_id']     = null;
-
-      $movie->addDirectorProperty( (string) $filmElement[ 'Directors' ] );
-      $movie->addRuntimeProperty(  (string) $filmElement[ 'RunningTime' ] );
-      $movie->addCastProperty(     (string) $filmElement[ 'Cast' ] );
 
       $this->notifyImporter( $movie );
       $movie->free();
@@ -58,8 +53,13 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
     return array(
         'filmID'        => 'vendor_movie_id',
         'title'         => 'name',
-        'Review_'       => 'review',
-        'Review1Rating' => 'rating',
+        'Review_'       => 'review',        
+        'Director'      => 'director',
+        'Stars'         => 'cast',
+        'Year'          => 'release_date',
+        'Runtime'       => 'duration',
+        'Country'       => 'country',
+        'Review1Rating' => 'rating',        
     );
   }
 
@@ -70,16 +70,16 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
    */
   protected function getIgnoreMap()
   {
-    return array(
+    return array(      
       'aka',
       'image',
-      'Country',
       'Review1Reviewer',
       'Subtitles',
       'Filmkey',
       'comments',
       'wordcount',
       'fg',
+      'ReleaseStatus',
       'date',
       'Review1IssueNo',
       'AtexKey',
