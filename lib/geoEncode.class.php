@@ -39,6 +39,8 @@ class geoEncode
   private  $longitude;
   private  $latitude;
   private  $accuracy;
+  private  $vendorObj;
+  private  $lookupUrl;
 
 
   /**
@@ -58,9 +60,12 @@ class geoEncode
    * @return void
    * 
    */
-  public function setAddress($address)
+  public function setAddress( $address, Vendor $vendorObj=null )
   {
     $this->addressString = urlencode($address);
+
+    $this->vendorObj = $vendorObj;
+
     $this->getGeoCode();
   }
 
@@ -75,7 +80,17 @@ class geoEncode
   public function getGeoCode()
   {
      $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $this->apiKey;
-     //echo "\n".$geoCode . "\n";
+
+     if( !is_null( $this->vendorObj ) )
+     {
+         $geoCode .= '&region='.$this->vendorObj['country_code'];
+     }
+     
+     //Set the string at a class level
+     $this->lookupUrl = $geoCode;
+
+
+//echo "\n".$geoCode . "\n";
 
      //Setup curl
      $ch = curl_init();
@@ -161,6 +176,12 @@ class geoEncode
   {
     return $this->accuracy;
   }
+
+  public function getLookupUrl()
+  {
+    return $this->lookupUrl;
+  }
+
 
 }
 

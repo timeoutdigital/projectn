@@ -16,13 +16,21 @@ abstract class BaseLinkingPoiCategoryForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
+<<<<<<< HEAD:lib/form/doctrine/base/BaseLinkingPoiCategoryForm.class.php
       'poi_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => false)),
+=======
+      'poi_category_id' => new sfWidgetFormInputText(),
+>>>>>>> 9c6972df7572956a8f7268cff10964681ad511b6:lib/form/doctrine/base/BaseLinkingPoiCategoryForm.class.php
       'poi_id'          => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'id'              => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+<<<<<<< HEAD:lib/form/doctrine/base/BaseLinkingPoiCategoryForm.class.php
       'poi_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'))),
+=======
+      'poi_category_id' => new sfValidatorInteger(),
+>>>>>>> 9c6972df7572956a8f7268cff10964681ad511b6:lib/form/doctrine/base/BaseLinkingPoiCategoryForm.class.php
       'poi_id'          => new sfValidatorInteger(),
     ));
 

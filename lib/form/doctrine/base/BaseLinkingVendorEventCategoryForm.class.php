@@ -16,13 +16,21 @@ abstract class BaseLinkingVendorEventCategoryForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                       => new sfWidgetFormInputHidden(),
+<<<<<<< HEAD:lib/form/doctrine/base/BaseLinkingVendorEventCategoryForm.class.php
       'vendor_event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'), 'add_empty' => false)),
+=======
+      'vendor_event_category_id' => new sfWidgetFormInputText(),
+>>>>>>> 9c6972df7572956a8f7268cff10964681ad511b6:lib/form/doctrine/base/BaseLinkingVendorEventCategoryForm.class.php
       'event_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Event'), 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'                       => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+<<<<<<< HEAD:lib/form/doctrine/base/BaseLinkingVendorEventCategoryForm.class.php
       'vendor_event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'))),
+=======
+      'vendor_event_category_id' => new sfValidatorInteger(),
+>>>>>>> 9c6972df7572956a8f7268cff10964681ad511b6:lib/form/doctrine/base/BaseLinkingVendorEventCategoryForm.class.php
       'event_id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Event'))),
     ));
 

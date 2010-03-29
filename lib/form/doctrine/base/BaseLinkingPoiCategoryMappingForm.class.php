@@ -16,13 +16,21 @@ abstract class BaseLinkingPoiCategoryMappingForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                     => new sfWidgetFormInputHidden(),
+<<<<<<< HEAD:lib/form/doctrine/base/BaseLinkingPoiCategoryMappingForm.class.php
       'poi_category_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => false)),
+=======
+      'poi_category_id'        => new sfWidgetFormInputText(),
+>>>>>>> 9c6972df7572956a8f7268cff10964681ad511b6:lib/form/doctrine/base/BaseLinkingPoiCategoryMappingForm.class.php
       'vendor_poi_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'), 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+<<<<<<< HEAD:lib/form/doctrine/base/BaseLinkingPoiCategoryMappingForm.class.php
       'poi_category_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'))),
+=======
+      'poi_category_id'        => new sfValidatorInteger(),
+>>>>>>> 9c6972df7572956a8f7268cff10964681ad511b6:lib/form/doctrine/base/BaseLinkingPoiCategoryMappingForm.class.php
       'vendor_poi_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('VendorPoiCategory'))),
     ));
 
