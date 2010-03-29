@@ -107,7 +107,7 @@
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="actor-name" type="xsd:normalizedString" minOccurs="1"/> 		<!-- actor real name, e.g.: Mia Wasikowska -->
-				<xsd:element name="character-name" type="xsd:normalizedString" minOccurs="0" />	<!-- personaje name, e.g.: Alice -->
+				<xsd:element name="character-name" type="xsd:normalizedString" minOccurs="0" />	<!-- personage name, e.g.: Alice -->
 				<xsd:element name="picture" type="UrlType" minOccurs="0" />						<!-- web URL to actor photo -->
 			</xsd:sequence>
 		</xsd:complexType>
@@ -119,11 +119,11 @@
 				<xsd:element name="website" type="UrlType" minOccurs="0"/>					 <!-- movie official website, e.g.: http://www.lovelybones.com -->
 				<xsd:element name="age-rating" type="xsd:normalizedString" minOccurs="0"/>	 <!-- relaxed age rating. Use whatever age rating notation is available. e.g.: PG15 -->
 				<xsd:element name="release-date" type="xsd:date" minOccurs="0"/>
-				<xsd:element name="durration" type="xsd:normalizedString" minOccurs="0"/>	 <!-- durration of movie, e.g.: 105 min -->
+				<xsd:element name="duration" type="xsd:normalizedString" minOccurs="0"/>	 <!-- duration of movie, e.g.: 105 min -->
 				<xsd:element name="country" type="CountryType" minOccurs="0"/>				 <!-- country where the movie was produced launched, e.g.: USA -->
 				<xsd:element name="language" type="xsd:normalizedString" minOccurs="0"/>     <!-- original language spoken in the movie, e.g.: English, French-->
 				<xsd:element name="aspect-ratio" type="xsd:normalizedString" minOccurs="0"/> <!-- movie aspect ratio, e.g.: 1.85 : 1 -->
-				<xsd:element name="sound-mix" type="xsd:normalizedString" minOccurs="0"/>    <!-- sound thechnology, e.g.: DTS | Dolby Digital | SDDS -->
+				<xsd:element name="sound-mix" type="xsd:normalizedString" minOccurs="0"/>    <!-- sound technology, e.g.: DTS | Dolby Digital | SDDS -->
 				<xsd:element name="company" type="xsd:normalizedString" minOccurs="0"/>		 <!-- producer company, e.g.: Walt Disney Pictures -->
 			</xsd:sequence>
 		</xsd:complexType>
