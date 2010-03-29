@@ -250,8 +250,24 @@ Movie:
     vendor_movie_id:            {type: string(25), notnull: true}
     name:                       {type: string(255), notnull: true}
     plot:                       {type: string(65535), notnull: false}
+    tag_line:                   {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
     url:                        {type: string(1024), notnull: false}
+
+    director:                   {type: string(255), notnull: false}
+    writer:                     {type: string(255), notnull: false}
+    cast:                       {type: string(255), notnull: false}
+    #cast:                       {type: array(1024), notnull: false} # $cast = array( array( 'actor-name' => 'Mia Wasikowska', 'character-name' => 'Alice', 'picture' => 'http://...' ) )
+
+    age_rating:                 {type: string(50), notnull: false}
+    release_date:               {type: string(50), notnull: false}
+    duration:                   {type: string(50), notnull: false}
+    country:                    {type: string(50), notnull: false}
+    language:                   {type: string(50), notnull: false}
+    aspect_ratio:               {type: string(50), notnull: false}
+    sound_mix:                  {type: string(50), notnull: false}
+    company:                    {type: string(50), notnull: false}
+
     rating:                     {type: decimal, scale: 1, notnull: false}
     utf_offset:                 {type: string(9), notnull: true}
     poi_id:                     {type: integer, notnull: false}
