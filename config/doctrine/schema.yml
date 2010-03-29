@@ -270,11 +270,9 @@ Movie:
 
     rating:                     {type: decimal, scale: 1, notnull: false}
     utf_offset:                 {type: string(9), notnull: true}
-    poi_id:                     {type: integer, notnull: false}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
     MovieGenres:                {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
-    Poi:                        {local: poi_id, foreign: id, foreignType: one}
   indexes:
     vendor_movie_id_index:      {fields: [vendor_movie_id]}
 

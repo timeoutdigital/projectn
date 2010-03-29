@@ -28,10 +28,8 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property string $company
  * @property decimal $rating
  * @property string $utf_offset
- * @property integer $poi_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $MovieGenres
- * @property Poi $Poi
  * @property Doctrine_Collection $MovieMedia
  * @property Doctrine_Collection $MovieProperty
  * 
@@ -56,10 +54,8 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method string              getCompany()         Returns the current record's "company" value
  * @method decimal             getRating()          Returns the current record's "rating" value
  * @method string              getUtfOffset()       Returns the current record's "utf_offset" value
- * @method integer             getPoiId()           Returns the current record's "poi_id" value
  * @method Vendor              getVendor()          Returns the current record's "Vendor" value
  * @method Doctrine_Collection getMovieGenres()     Returns the current record's "MovieGenres" collection
- * @method Poi                 getPoi()             Returns the current record's "Poi" value
  * @method Doctrine_Collection getMovieMedia()      Returns the current record's "MovieMedia" collection
  * @method Doctrine_Collection getMovieProperty()   Returns the current record's "MovieProperty" collection
  * @method Movie               setId()              Sets the current record's "id" value
@@ -83,10 +79,8 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Movie               setCompany()         Sets the current record's "company" value
  * @method Movie               setRating()          Sets the current record's "rating" value
  * @method Movie               setUtfOffset()       Sets the current record's "utf_offset" value
- * @method Movie               setPoiId()           Sets the current record's "poi_id" value
  * @method Movie               setVendor()          Sets the current record's "Vendor" value
  * @method Movie               setMovieGenres()     Sets the current record's "MovieGenres" collection
- * @method Movie               setPoi()             Sets the current record's "Poi" value
  * @method Movie               setMovieMedia()      Sets the current record's "MovieMedia" collection
  * @method Movie               setMovieProperty()   Sets the current record's "MovieProperty" collection
  * 
@@ -204,10 +198,6 @@ abstract class BaseMovie extends sfDoctrineRecord
              'notnull' => true,
              'length' => '9',
              ));
-        $this->hasColumn('poi_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => false,
-             ));
 
 
         $this->index('vendor_movie_id_index', array(
@@ -232,10 +222,6 @@ abstract class BaseMovie extends sfDoctrineRecord
              'refClass' => 'LinkingMovieGenre',
              'local' => 'movie_id',
              'foreign' => 'movie_genre_id'));
-
-        $this->hasOne('Poi', array(
-             'local' => 'poi_id',
-             'foreign' => 'id'));
 
         $this->hasMany('MovieMedia', array(
              'local' => 'id',
