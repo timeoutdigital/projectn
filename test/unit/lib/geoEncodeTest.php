@@ -1,7 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../../../lib/geoEncode.class.php';
+require_once dirname(__FILE__).'/../../bootstrap/unit.php';
+require_once dirname(__FILE__).'/../bootstrap.php';
 
 /**
  * Test class for Geoencoding
@@ -21,6 +22,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    * @var geoEncode
    */
   protected $object;
+  protected $vendorObj;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -28,7 +30,19 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
     $this->object = new geoEncode();
-    $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
+     try {
+
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      Doctrine::loadData('data/fixtures');
+      
+
+     }
+    catch( Exception $e )
+    {
+      echo $e->getMessage();
+    }
+    
   }
 
   /**
@@ -36,6 +50,8 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    * This method is called after a test is executed.
    */
   protected function tearDown() {
+    //Close DB connection
+    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
 
@@ -71,12 +87,38 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('foo', $stub->getGeoCode());
   }
 
-  
+
+  public function testSetAddress()
+  {
+      include('Net/URL2.php');
+
+
+      $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
+      $urlObj = new Net_URL2($this->object->getLookupUrl());
+      $this->assertFalse(key_exists('region', $urlObj->getQueryVariables()), 'Testing that no region is appended');
+
+
+
+      //Test that a vendor region is added
+      $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+      $this->object->setAddress('Bermondsey Stree London SE1 3TQ', $this->vendorObj);
+      $urlObj = new Net_URL2($this->object->getLookupUrl());
+
+
+      $this->assertTrue(key_exists('region', $urlObj->getQueryVariables()), 'Testing that a region is appended');
+      
+
+
+
+  }
+
+
   /**
    * Test longitude is returned as an float
    */
   public function testLongitude()
   {
+    $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
     $this->assertType('float', $this->object->getGeoCode()->getLongitude());
   }
 
@@ -86,6 +128,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   public function testLatitude()
   {
+      $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
     $this->assertType('float', $this->object->getGeoCode()->getLatitude());
   }
 
@@ -96,7 +139,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
   public function testAccuracy()
   {
 
-      print_r($this->object->getGeoCode()->getAccuracy());
+      //print_r($this->object->getGeoCode()->getAccuracy());
       $this->assertType('int', $this->object->getGeoCode()->getAccuracy());
   }
 

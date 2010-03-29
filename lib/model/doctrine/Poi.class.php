@@ -164,7 +164,7 @@ class Poi extends BasePoi
 
     $geoEncoder = new geoEncode();
     
-    $geoEncoder->setAddress(  $this->geoEncodeLookUpString );
+    $geoEncoder->setAddress(  $this->geoEncodeLookUpString, $this['Vendor']  );
 
     $this['longitude'] = $geoEncoder->getLongitude();
     $this['latitude'] = $geoEncoder->getLatitude();
