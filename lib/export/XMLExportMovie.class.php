@@ -59,6 +59,10 @@ class XMLExportMovie extends XMLExport
       $genreString = $this->extractGenre($movie);
       $this->appendNonRequiredElement($versionElement, 'genre', $genreString, XMLExport::USE_CDATA);
 
+      //movie/version/tag-line
+      $cleanedTagLine = $this->cleanHtml( $movie['tag_line'] );
+      $this->appendNonRequiredElement($versionElement, 'tag-line', $cleanedTagLine, XMLExport::USE_CDATA);
+
       //movie/version/plot
       $cleanedPlot = $this->cleanHtml( $movie['plot'] );
       $this->appendNonRequiredElement($versionElement, 'plot', $cleanedPlot, XMLExport::USE_CDATA);
@@ -67,13 +71,62 @@ class XMLExportMovie extends XMLExport
       $cleanedReview = $this->cleanHtml( $movie['review'] );
       $this->appendNonRequiredElement($versionElement, 'review', $cleanedReview, XMLExport::USE_CDATA);
 
-      //movie/version/url
-      //$this->appendNonRequiredElement($versionElement, 'url', $movie['url'], XMLExport::USE_CDATA); //not in schema
-
-
       //movie/version/rating
       if( $this->ratingInRangeOfOneToFiveInclusive( $movie ) )
         $this->appendNonRequiredElement($versionElement, 'rating', $movie['rating'] );
+
+      //movie/version/director
+      $this->appendNonRequiredElement($versionElement, 'director', $movie['director'], XMLExport::USE_CDATA);
+
+      //movie/version/writer
+      $this->appendNonRequiredElement($versionElement, 'writer', $movie['writer'], XMLExport::USE_CDATA);
+
+      $actors = explode( ',', $movie['cast'] );
+
+      if ( 1 < count( $actors ) || $actors[ 0 ] != '' )
+      {
+          //movie/version/cast
+          $castElement = $this->appendRequiredElement($versionElement, 'cast');
+
+          foreach( $actors as $actor )
+          {
+              //movie/version/cast/actor
+              $actorElement = $this->appendRequiredElement($castElement, 'actor');
+              //movie/version/cast/actor/actor-name
+              $this->appendRequiredElement($actorElement, 'actor-name', $actor, XMLExport::USE_CDATA);
+          }
+      }
+
+      //movie/additional-details
+      $additionalDetailsElement = $this->appendRequiredElement($movieElement, 'additional-details');
+
+      //movie/additional-details/website
+      $this->appendNonRequiredElement($additionalDetailsElement, 'website', $movie['url'], XMLExport::USE_CDATA);
+
+      //movie/additional-details/age-rating
+      $this->appendNonRequiredElement($additionalDetailsElement, 'age-rating', $movie['age_rating'], XMLExport::USE_CDATA);
+
+      //movie/additional-details/age-rating
+      $this->appendNonRequiredElement($additionalDetailsElement, 'release-date', $movie['release_date'], XMLExport::USE_CDATA);
+
+      //movie/additional-details/age-rating
+      $this->appendNonRequiredElement($additionalDetailsElement, 'duration', $movie['duration'], XMLExport::USE_CDATA);
+
+      //movie/additional-details/age-rating
+      //$this->appendNonRequiredElement($additionalDetailsElement, 'country', $movie['country'], XMLExport::USE_CDATA);
+
+      //movie/additional-details/age-rating
+      $this->appendNonRequiredElement($additionalDetailsElement, 'aspect-ratio', $movie['aspect_ratio'], XMLExport::USE_CDATA);
+
+      //movie/additional-details/age-rating
+      $this->appendNonRequiredElement($additionalDetailsElement, 'sound-mix', $movie['sound_mix'], XMLExport::USE_CDATA);
+      
+      //movie/additional-details/age-rating
+      $this->appendNonRequiredElement($additionalDetailsElement, 'company', $movie['company'], XMLExport::USE_CDATA);
+
+
+
+
 
       //movie/showtimes
      // $showTimesElement = $this->appendRequiredElement($movieElement, 'showtimes' );
