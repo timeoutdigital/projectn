@@ -64,7 +64,7 @@ abstract class BaseMovieForm extends BaseFormDoctrine
       'company'           => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'rating'            => new sfValidatorNumber(array('required' => false)),
       'utf_offset'        => new sfValidatorString(array('max_length' => 9)),
-      'imdb_id'           => new sfValidatorInteger(array('required' => false)),
+      'imdb_id'           => new sfValidatorPass(array('required' => false)),
       'created_at'        => new sfValidatorDateTime(),
       'updated_at'        => new sfValidatorDateTime(),
       'movie_genres_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'required' => false)),

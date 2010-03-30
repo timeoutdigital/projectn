@@ -28,7 +28,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property string $company
  * @property decimal $rating
  * @property string $utf_offset
- * @property integer $imdb_id
+ * @property varchar $imdb_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $MovieGenres
  * @property Doctrine_Collection $MovieMedia
@@ -55,7 +55,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method string              getCompany()         Returns the current record's "company" value
  * @method decimal             getRating()          Returns the current record's "rating" value
  * @method string              getUtfOffset()       Returns the current record's "utf_offset" value
- * @method integer             getImdbId()          Returns the current record's "imdb_id" value
+ * @method varchar             getImdbId()          Returns the current record's "imdb_id" value
  * @method Vendor              getVendor()          Returns the current record's "Vendor" value
  * @method Doctrine_Collection getMovieGenres()     Returns the current record's "MovieGenres" collection
  * @method Doctrine_Collection getMovieMedia()      Returns the current record's "MovieMedia" collection
@@ -201,9 +201,10 @@ abstract class BaseMovie extends sfDoctrineRecord
              'notnull' => true,
              'length' => '9',
              ));
-        $this->hasColumn('imdb_id', 'integer', null, array(
-             'type' => 'integer',
+        $this->hasColumn('imdb_id', 'varchar', 10, array(
+             'type' => 'varchar',
              'notnull' => false,
+             'length' => '10',
              ));
 
 

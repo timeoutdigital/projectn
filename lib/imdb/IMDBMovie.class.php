@@ -127,8 +127,10 @@ class IMDBMovie
     $regex = sprintf( '@<a.*?href="/title/(tt[0-9]+)/".{0,200}>(%s)@', $this->title );
 
     preg_match( $regex, $this->html, $matches );
-    if( count( $matches ) < 2 ) echo $regex;
-    $id = $matches[1];
+
+    $id = null;
+    if( count( $matches ) >= 2 )
+      $id = $matches[1];
 
     return $id;
   }

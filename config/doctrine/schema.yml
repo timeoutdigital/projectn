@@ -267,7 +267,7 @@ Movie:
     company:                    {type: string(50), notnull: false}
     rating:                     {type: decimal, scale: 1, notnull: false}
     utf_offset:                 {type: string(9), notnull: true}
-    imdb_id:                    {type: integer, notnull: false}
+    imdb_id:                    {type: varchar(10), notnull: false}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
     MovieGenres:                {class: MovieGenre, refClass: LinkingMovieGenre, local: movie_id, foreign: movie_genre_id }
