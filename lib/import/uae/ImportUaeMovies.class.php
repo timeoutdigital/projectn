@@ -90,7 +90,7 @@ class ImportUaeMovies {
         //$movieObj['writer']           = ;
         $movieObj['cast']               = (string) $xmlObj->{'cast'};
         $movieObj['age_rating']         = $tagsArray[0];
-        //$movieObj['release_date']       = ;
+        $movieObj['release_date']       = (string) $xmlObj->{'release_date'};
         $movieObj['duration']           = (string) $xmlObj->{'duration'};
         //$movieObj['country']            = (string) $xmlObj->{'website'};
         //Add the language

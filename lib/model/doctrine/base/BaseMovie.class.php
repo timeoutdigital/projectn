@@ -19,7 +19,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property string $writer
  * @property string $cast
  * @property string $age_rating
- * @property string $release_date
+ * @property date $release_date
  * @property string $duration
  * @property string $country
  * @property string $language
@@ -45,7 +45,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method string              getWriter()          Returns the current record's "writer" value
  * @method string              getCast()            Returns the current record's "cast" value
  * @method string              getAgeRating()       Returns the current record's "age_rating" value
- * @method string              getReleaseDate()     Returns the current record's "release_date" value
+ * @method date                getReleaseDate()     Returns the current record's "release_date" value
  * @method string              getDuration()        Returns the current record's "duration" value
  * @method string              getCountry()         Returns the current record's "country" value
  * @method string              getLanguage()        Returns the current record's "language" value
@@ -153,10 +153,9 @@ abstract class BaseMovie extends sfDoctrineRecord
              'notnull' => false,
              'length' => '50',
              ));
-        $this->hasColumn('release_date', 'string', 50, array(
-             'type' => 'string',
+        $this->hasColumn('release_date', 'date', null, array(
+             'type' => 'date',
              'notnull' => false,
-             'length' => '50',
              ));
         $this->hasColumn('duration', 'string', 50, array(
              'type' => 'string',
