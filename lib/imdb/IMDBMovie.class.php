@@ -23,42 +23,46 @@ class IMDBMovie
 
   /**
    * @param string $searchResultsHtml
+   *
    * @return IMDBMovie
    */
   static public function fromTitleAndSearchResult( $title, $searchResultsHtml )
   {
-    $movie = new IMDBMovie();
-    $movie->setTitle( $title );
-    $movie->setHtml( $searchResultsHtml );
+    $movie = new IMDBMovie( $title, $searchResultsHtml );
     return $movie;
   }
 
-  /**
-   * 
-   */
-  private function __construct()
+  private function __construct( $title, $html)
   {
+    $this->setTitle( $title );
+    $this->setHtml( $html );
   }
 
-  public function setHtml( $html )
+  /**
+   * Takes the html as a string. Other functions use the HTML to get information from, like id
+   *
+   * @param string $html
+   */
+  private function setHtml( $html )
   {
     $this->html = $html;
     $this->setPageType();
   }
 
-  public function setId( $id )
-  {
-    $this->id = $id;
-  }
-
-  public function setTitle( $title )
+  /**
+   * Set the title of the movie. This is used to help find the movie in the html
+   *
+   * @param string $html
+   */
+  private function setTitle( $title )
   {
     $this->title = $title;
     $this->setPageType();
   }
 
   /**
-   * 
+   * Returns the IMDb id
+   *
    * @return int
    */
   public function getId()
@@ -96,6 +100,11 @@ class IMDBMovie
     return $this->pageType;
   }
 
+  /**
+   * Determine what page type was used to instanciate the object. Types include:
+   * PAGE_TYPE_TITLE_SEARCH
+   * PAGE_TYPE_TITLE
+   */
   private function setPageType()
   {
     if( !$this->title || !$this->html )
@@ -119,20 +128,50 @@ class IMDBMovie
     $this->pageType = $pageType;
   }
 
+  /**
+   * Is used to extract the IMDb id from a Title Search Page.
+   * 
+   * A Title Search Page
+   *
+   * @return string
+   */
   private function getIdFromTitleSearchPage()
   {
     if( !$this->html || !$this->title )
       return;
 
-    $regex = sprintf( '@<a.*?href="/title/(tt[0-9]+)/".{0,200}>(%s)@', $this->title );
+    $id = $this->tryGettingIdFromOriginalTitle();
 
+    return $id;
+  }
+
+  /**
+   * @return string
+   */
+  private function tryGettingIdFromOriginalTitle()
+  {
+    $id = null;
+
+    $regex = sprintf( '@<a.*?href="/title/(tt[0-9]+)/".{0,200}>(%s)@', $this->title );
     preg_match( $regex, $this->html, $matches );
 
-    $id = null;
     if( count( $matches ) >= 2 )
       $id = $matches[1];
 
     return $id;
+  }
+
+  private function tryGettingIdFromAkas()
+  {
+    //To be implmented 
+    //Results in IMDb keep their original title
+    //With aka titles underneath
+    //So if we search in Portuguese
+    //we need to find the id using
+    //the Protuguese title against the aka
+    //For example see page
+    //see http://www.imdb.com/find?s=tt&q=Como+Treinares+o+Teu+Drago+-+VP
+    //The number 1 result has the English title and the Portuguese title in aka
   }
 
   private function getIdFromTitlePage()
