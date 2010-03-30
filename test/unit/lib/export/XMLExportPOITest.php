@@ -48,6 +48,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $vendor['time_zone'] = 'Europe/London';
         $vendor['inernational_dial_code'] = '+44';
         $vendor['airport_code'] = 'XXX';
+        $vendor['country_code'] = 'XX';
         $vendor->save();
 
         $this->vendor2 = new Vendor();
@@ -56,6 +57,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->vendor2['time_zone'] = 'Europe/London';
         $this->vendor2['inernational_dial_code'] = '+44';
         $this->vendor2['airport_code'] = 'XXX';
+        $this->vendor2['country_code'] = 'XX';
         $this->vendor2->save();
 
         $category = new PoiCategory();
