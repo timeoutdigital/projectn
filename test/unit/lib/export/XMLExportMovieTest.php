@@ -43,6 +43,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $vendor['time_zone'] = 'Europe/London';
     $vendor['inernational_dial_code'] = '+44';
     $vendor['airport_code'] = 'XXX';
+    $vendor['country_code'] = 'XX';
     $vendor->save();
     $this->vendor = $vendor;
 
