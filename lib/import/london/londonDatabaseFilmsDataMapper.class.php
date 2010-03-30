@@ -65,22 +65,26 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie = $this->dataMapperHelper->getMovieRecord( $data[ 'film_id' ] );
 
       $movie['vendor_id']  = $this->vendor['id'];
-      $movie['utf_offset'] = $this->vendor->getUtcOffset();
-
-      $movie['name'] = $data[ 'title' ];
       $movie['vendor_movie_id'] = $data[ 'film_id' ];
-
-      $movie->addAgeRatingProperty( $data[ 'age_rating' ]);
-      $movie->addDirectorProperty(  $data[ 'director' ]);
-      $movie->addCastProperty(      $data[ 'cast' ]);
-      $movie->addRuntimeProperty(   $data[ 'runtime' ]);
-      $movie->addYearProperty(      $data[ 'year' ]);
-      
+      $movie['name'] = $data[ 'title' ];
+      //$movie['plot'] = ;
+      //$movie['tag_line'] = ;
       $review = $this->getReview( $data[ 'film_id' ] );
-
       //echo $encoding = mb_detect_encoding($review[ 'text' ]).PHP_EOL;
       $movie['review'] = $this->cleanForIconvStrlen( $review[ 'text' ] );
+      $movie['director'] = $data[ 'director' ];
+      $movie['writer'] = $data[ 'screenwriter' ];
+      $movie['cast'] = $data[ 'cast' ];
+      $movie['age_rating'] = $data[ 'age_rating' ];
+      $movie['release_date'] = $data[ 'year' ];
+      $movie['duration'] = ( $data[ 'runtime' ] != 0 ) ? $data[ 'runtime' ] : NULL;
+      //$movie['country'] = ;
+      //$movie['language'] = ;
+      //$movie['aspect_ratio'] = ;
+      //$movie['sound_mix'] = ;
+      //$movie['company'] = ;
       $movie['rating'] = $review[ 'rating' ];
+      $movie['utf_offset'] = $this->vendor->getUtcOffset();
 
       $genres = explode( ',',$data[ 'genre' ]);
       
@@ -180,7 +184,15 @@ class londonDatabaseFilmsDataMapper extends DataMapper
         LEFT JOIN person p2 on map2.person_id = p2.person_id
         WHERE map2.film_id = f.film_id
         AND r2.role= 'cast'
-      ) cast
+      ) cast,
+      (
+      SELECT group_concat(DISTINCT CONCAT( p2.name_first, ' ', p2.name_second) SEPARATOR ', ' ) as name
+        FROM film_map map2
+        LEFT JOIN role r2  ON map2.role_id = r2.role_id
+        LEFT JOIN person p2 on map2.person_id = p2.person_id
+        WHERE map2.film_id = f.film_id
+        AND r2.role= 'sc'
+      ) screenwriter
 
     FROM cinema c
     JOIN listing l ON l.cinema_id = c.cinema_id 

@@ -67,19 +67,6 @@ class ImportUaeMovies {
 
         $isNew = $movieObj->isNew();
 
-        $movieObj['vendor_movie_id']    = (int) $xmlObj['id'];
-        $movieObj['name']               = (string) $xmlObj->{'name'};
-        $movieObj['plot']               = (string) $xmlObj->{'description'};
-        $movieObj['review']             = (string) $xmlObj->{'full_review'};
-        $movieObj['url']                = (string) $xmlObj->{'website'};
-        $movieObj['Vendor']             = $this->vendorObj;
-        $movieObj['utf_offset']         = $this->vendorObj->getUtcOffset();
-
-
-
-        //$url = (string) $xmlObj->{'website'};
-        //$url = stringTransform::formatUrl($url);
-        //echo $url;
         /**
          * @todo Add the following to a test
          *
@@ -92,34 +79,44 @@ class ImportUaeMovies {
          */
         $tagsArray = explode(',', (string) $xmlObj->{'tags'});
 
-       
+        $movieObj['Vendor']             = $this->vendorObj;
+        $movieObj['vendor_movie_id']    = (int) $xmlObj['id'];
+        $movieObj['name']               = (string) $xmlObj->{'name'};
+        $movieObj['plot']               = (string) $xmlObj->{'description'};
+        //$movieObj['tag_line']           ;
+        $movieObj['review']             = (string) $xmlObj->{'full_review'};
+        $movieObj['url']                = (string) $xmlObj->{'website'};
+        $movieObj['director']           = (string) $xmlObj->{'director'};
+        //$movieObj['writer']           = ;
+        $movieObj['cast']               = (string) $xmlObj->{'cast'};
+        $movieObj['age_rating']         = $tagsArray[0];
+        //$movieObj['release_date']       = ;
+        $movieObj['duration']           = (string) $xmlObj->{'duration'};
+        //$movieObj['country']            = (string) $xmlObj->{'website'};
+        //Add the language
+        if(strtolower($tagsArray[1]) == 'english' || strtolower($tagsArray[1]) == 'arabic')
+        {
+            $movieObj['language']           = $tagsArray[1];
+        }
+        //$movieObj['aspect_ratio']       = (string) $xmlObj->{'website'};
+        //$movieObj['sound_mix']          = (string) $xmlObj->{'website'};
+        //$movieObj['company']           = (string) $xmlObj->{'website'};
+
         //Add movie rating
         $this->setRating($tagsArray, $movieObj);
-       
+        
+        $movieObj['utf_offset']         = $this->vendorObj->getUtcOffset();
+
         //Add the movie Genres
         $this->addGenres($tagsArray, $movieObj);
 
         /**
          * Add all the other properties
          */
-        $movieObj->addProperty('Director', (string) $xmlObj->{'director'});
-        $movieObj->addProperty('Cast', (string) $xmlObj->{'cast'});
-        $movieObj->addProperty('Runtime', (string) $xmlObj->{'duration'});
         $movieObj->addProperty('Timeout_link', (string) $xmlObj->{'landing_url'});
-
-        $website = stringTransform::formatUrl((string) $xmlObj->{'website'});
-        $movieObj->addProperty('Website', $website);
-        $movieObj->addProperty('Age_rating', $tagsArray[0]);
-
         
         //Log changed fields if any?
-        $logChangedFields = $movieObj->getModified();
-
-        //Add the language
-        if(strtolower($tagsArray[1]) == 'english' || strtolower($tagsArray[1]) == 'arabic')
-        {
-            $movieObj->addProperty('Language', $tagsArray[1]);
-        }
+        $logChangedFields = $movieObj->getModified();       
 
         //Save the object
         try

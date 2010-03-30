@@ -69,27 +69,19 @@ class importBaseUaeBarsRestaurants{
      */
     public function importPois()
     {
-
-        $count = 0;
-
         //Loop over the xml
         foreach($this->xmlObj as $poi)
         {
-            if($count < 20)
-            {
-
-//Only process if there is a record id and its not closed
+           
+            //Only process if there is a record id and its not closed
             if($poi->{'id'})
             {
                 $this->importPoi($poi);
-                $count++;
-            }
             }
             else
             {
                 break;
             }
-
         }
       
         $this->poiLoggerObj->save();

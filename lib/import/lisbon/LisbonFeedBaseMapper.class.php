@@ -124,23 +124,5 @@ class LisbonFeedBaseMapper extends DataMapper
   {
     return array();
   }
-
-  /**
-   * Add a property to the data array
-   *
-   * @return array
-   */
-  protected function addProperty( $propertiesKey, &$recordArray, $key, $value )
-  {
-    $property = array();
-    $property[ 'lookup' ] = $key;
-    $property[ 'value' ] = (string) $value;
-
-    if( !key_exists( $propertiesKey, $recordArray ) )
-    {
-      $recordArray[ $propertiesKey ] = array();
-    }
-    $recordArray[ $propertiesKey ][] = $property;
-  }
 }
 ?>

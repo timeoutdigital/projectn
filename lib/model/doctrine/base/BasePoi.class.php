@@ -74,7 +74,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
- * @method Movie               getMovie()                      Returns the current record's "Movie" value
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
@@ -111,7 +110,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
- * @method Poi                 setMovie()                      Sets the current record's "Movie" value
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionCategory
  * @property Doctrine_Collection $VendorPoiCategory
  * @property Doctrine_Collection $Poi
@@ -151,7 +149,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
- * @method Movie               getMovie()                      Returns the current record's "Movie" value
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
@@ -188,7 +185,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
- * @method Poi                 setMovie()                      Sets the current record's "Movie" value
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionMedia
  * @property Doctrine_Collection $Poi
  * 
@@ -227,7 +223,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
- * @method Movie               getMovie()                      Returns the current record's "Movie" value
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
@@ -264,10 +259,8 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
- * @method Poi                 setMovie()                      Sets the current record's "Movie" value
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionProperty
  * @property Doctrine_Collection $EventOccurrence
- * @property Movie $Movie
  * @property Doctrine_Collection $Poi
  * 
  * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
@@ -305,7 +298,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
- * @method Movie               getMovie()                      Returns the current record's "Movie" value
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
@@ -342,7 +334,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
- * @method Poi                 setMovie()                      Sets the current record's "Movie" value
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
  * 
  * @package    sf_sandbox
@@ -541,10 +532,6 @@ abstract class BasePoi extends sfDoctrineRecord
              'foreign' => 'poi_id'));
 
         $this->hasMany('EventOccurrence', array(
-             'local' => 'id',
-             'foreign' => 'poi_id'));
-
-        $this->hasOne('Movie', array(
              'local' => 'id',
              'foreign' => 'poi_id'));
 

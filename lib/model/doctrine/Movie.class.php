@@ -49,67 +49,6 @@ class Movie extends BaseMovie
      }
   }
 
-  /**
-   * Add a director as a property
-   * @param string $director
-   */
-  public function addDirectorProperty( $director )
-  {
-    if( empty( $director ) )
-      return;
-
-    $this->addProperty( 'Director', $director );
-  }
-
-  /**
-   * Add runtime as a property
-   * @param int $runtime
-   */
-  public function addRuntimeProperty( $runtime )
-  {
-    $runtime = (int) $runtime;
-    if( $runtime <= 0 )
-      return;
-
-    $this->addProperty( 'Runtime', $runtime );
-  }
-
-  /**
-   * Add cast as a property
-   * @param string $cast a comma separated set of actors names
-   */
-  public function addCastProperty( $cast )
-  {
-    if( empty( $cast ) )
-      return;
-
-    $this->addProperty( 'Cast', $cast );
-  }
-
-  /**
-   * Add year as a property
-   * @param string $year
-   */
-  public function addYearProperty( $year )
-  {
-    if( strlen( $year ) != 4 )
-      return;
-
-    if( (int) $year == 0 )
-      return;
-
-    $this->addProperty( 'Year', $year );
-  }
-
-  /**
-   * Add age rating as a property
-   * @param string $ageRating
-   */
-  public function addAgeRatingProperty( $ageRating )
-  {
-    $this->addProperty( 'Age_rating', $ageRating );
-  }
-
    /* Add a property to a movie
    *
    * @param string $lookup

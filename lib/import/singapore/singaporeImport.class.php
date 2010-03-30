@@ -445,32 +445,33 @@ class singaporeImport
             $movieObj[ 'vendor_movie_id' ] = (string) $movieXml->id;
             $movieObj[ 'name' ] = (string) $movieXml->title;
             //$movieObj[ 'plot' ] = (string) $movieXml->synopsis;
+            //$movieObj[ 'tag_line' ] = ;
             $movieObj[ 'review' ] = (string) $movieXml->synopsis;
-            $movieObj[ 'url' ] = (string) $movieXml->link;
+            $movieObj[ 'url' ] = (string) (string) $movieXml->website;
+            $movieObj[ 'director' ] = (string) $movieXml->director;
+            //$movieObj[ 'writer' ] = ;
+            $movieObj[ 'cast' ] = (string) $movieXml->cast;
+            $movieObj[ 'age_rating' ] = $this->extractSingaporeAgeRatingCode( (string) $movieXml->certificate);
+            $movieObj[ 'release_date' ] = (string) $movieXml->year_production;
+            $movieObj[ 'duration' ] = (string) $movieXml->length;
+            $movieObj[ 'country' ] = (string) $movieXml->origin;
+            //$movieObj[ 'language' ] = ;
+            //$movieObj[ 'aspect_ratio' ] = ;
+            //$movieObj[ 'sound_mix' ] = ;
+            //$movieObj[ 'company' ] = ;
             //$movieObj[ 'rating' ] = ;
 
-           
-
             $movieObj[ 'utf_offset' ] = $this->_vendor->getUtcOffset();
-            //$movieObj[ 'poi_id' ] = ;
 
-            //properties
-            if ( (string) $movieXml->director != '' ) $movieObj->addProperty( 'Director', (string) $movieXml->director );
-            if ( (string) $movieXml->cast != '' ) $movieObj->addProperty( 'Cast', (string) $movieXml->cast );
-            if ( (string) $movieXml->length != '' ) $movieObj->addProperty( 'Runtime', (string) $movieXml->length );
-           // if ( (string) $movieXml->origin != '' ) $movieObj->addProperty( 'origin', (string) $movieXml->origin );
-           // if ( (string) $movieXml->year_production != '' ) $movieObj->addProperty( 'Year', (string) $movieXml->year_production );
-            if ( (string) $movieXml->trailer_url != '' ) $movieObj->addProperty( 'Trailer_url', (string) $movieXml->trailer_url );
-            if ( (string) $movieXml->website != '' ) $movieObj->addProperty( 'Website', (string) $movieXml->website );
-            if ( (string) $movieXml->critic_choice != '' ) $movieObj->addProperty( 'Critics_choice', (string) $movieXml->critic_choice );
-            if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'Certificate', (string) $movieXml->certificate );
-            //if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
-            if ( (string) $movieXml->link != '' ) $movieObj->addProperty( 'Timeout_link', (string) $movieXml->link );
-            
-            $movieObj->addProperty( 'Age_rating', $this->extractSingaporeAgeRatingCode( (string) $movieXml->certificate));
-           
             //genres
             if ( (string) $movieXml->category != '' ) $movieObj->addGenre( (string) $movieXml->category );
+
+            //properties
+            if ( (string) $movieXml->trailer_url != '' ) $movieObj->addProperty( 'Trailer_url', (string) $movieXml->trailer_url );
+            if ( (string) $movieXml->critic_choice != '' ) $movieObj->addProperty( 'Critics_choice', (string) $movieXml->critic_choice );
+            if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'Certificate', (string) $movieXml->certificate );
+            if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
+            if ( (string) $movieXml->link != '' ) $movieObj->addProperty( 'Timeout_link', (string) $movieXml->link );
 
             // add images
             $this->addImageHelper( $movieObj, $movieXml->highres );

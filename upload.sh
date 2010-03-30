@@ -2,7 +2,7 @@
 
 echo "Zipping Movies"
 zip export/export_$(date +"%Y%m%d")/movie/movie.zip export/export_$(date +"%Y%m%d")/movie/*
-md5sum /export/export_$(date +"%Y%m%d")/movie/movie.zip > /var/workspace/projectn/export/export_$(date +"%Y%m%d")/movie/movie.zip.md5
+md5sum /export/export_$(date +"%Y%m%d")/movie/movie.zip > export/export_$(date +"%Y%m%d")/movie/movie.zip.md5
 
 echo "Zipping Pois"
 zip export/export_$(date +"%Y%m%d")/poi/poi.zip export/export_$(date +"%Y%m%d")/poi/*
@@ -34,7 +34,7 @@ lftp -c 'open -e "rm event/event.zip.md5" -u timeout,t1M0T#8 pictis.msudev.nokla
 echo -e " ------------------------------------------------ \n"
 
 echo -e "Syncing files\n"
-lftp -c 'open -e "mirror -R -x xml /var/workspace/projectn/export/export_'$(date +"%Y%m%d")' ." -u timeout,t1M0T#8 pictis.msudev.noklab.net '
+lftp -c 'open -e "mirror -R -x xml export/export_'$(date +"%Y%m%d")' ." -u timeout,t1M0T#8 pictis.msudev.noklab.net '
 
 echo -e "Removing lock file\n"
 lftp -c 'open -e "rm upload.lock" -u timeout,t1M0T#8 pictis.msudev.noklab.net '
