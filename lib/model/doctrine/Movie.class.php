@@ -19,13 +19,34 @@ class Movie extends BaseMovie
   */
   public function preSave( $event )
   {
+    $this->fixUrl();
+    $this->reformatTitle();
+    $this->requestImdbId();
+  }
+
+  private function requestImdbId()
+  {
+    $movie = IMDB::findMovieByTitle( $this[ 'name' ] );
+
+    if( is_null( $movie ) )
+      throw new Exception( 'Could not find IMDB id for movie titled: ' . $this[ 'title' ] );
+
+      var_dump( $this[ 'name' ] . ': ' . $movie->getId() );
+
+    $this['imdb_id'] = $movie->getId();
+  }
+
+  private function reformatTitle()
+  {
+     $this['name'] = stringTransform::move_CommaThe_FromEndToBeginning( $this['name'] );
+  }
+
+  private function fixUrl()
+  {
      if( $this['url'] != '')
      {
         $this['url'] = stringTransform::formatUrl($this['url']);
-     }   
-
-     //@todo test the everything below this line
-     $this['name'] = stringTransform::move_CommaThe_FromEndToBeginning( $this['name'] );
+     }
   }
 
   /**

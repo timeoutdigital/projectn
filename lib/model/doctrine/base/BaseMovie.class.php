@@ -17,6 +17,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property decimal $rating
  * @property string $utf_offset
  * @property integer $poi_id
+ * @property integer $imdb_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $MovieGenres
  * @property Poi $Poi
@@ -33,6 +34,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method decimal             getRating()          Returns the current record's "rating" value
  * @method string              getUtfOffset()       Returns the current record's "utf_offset" value
  * @method integer             getPoiId()           Returns the current record's "poi_id" value
+ * @method integer             getImdbId()          Returns the current record's "imdb_id" value
  * @method Vendor              getVendor()          Returns the current record's "Vendor" value
  * @method Doctrine_Collection getMovieGenres()     Returns the current record's "MovieGenres" collection
  * @method Poi                 getPoi()             Returns the current record's "Poi" value
@@ -48,6 +50,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Movie               setRating()          Sets the current record's "rating" value
  * @method Movie               setUtfOffset()       Sets the current record's "utf_offset" value
  * @method Movie               setPoiId()           Sets the current record's "poi_id" value
+ * @method Movie               setImdbId()          Sets the current record's "imdb_id" value
  * @method Movie               setVendor()          Sets the current record's "Vendor" value
  * @method Movie               setMovieGenres()     Sets the current record's "MovieGenres" collection
  * @method Movie               setPoi()             Sets the current record's "Poi" value
@@ -109,6 +112,10 @@ abstract class BaseMovie extends sfDoctrineRecord
              'length' => '9',
              ));
         $this->hasColumn('poi_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => false,
+             ));
+        $this->hasColumn('imdb_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => false,
              ));

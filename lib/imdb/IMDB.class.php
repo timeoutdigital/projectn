@@ -27,7 +27,7 @@ class IMDB
 
       if( self::hasMatchIn( $resultsHtml ) )
       {
-        return IMDBMovie::fromSearchResultHtml( $resultsHtml );
+        return IMDBMovie::fromTitleAndSearchResult( $title, $resultsHtml );
       }
     }
 
