@@ -76,7 +76,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie['writer'] = $data[ 'screenwriter' ];
       $movie['cast'] = $data[ 'cast' ];
       $movie['age_rating'] = $data[ 'age_rating' ];
-      $movie['release_date'] = $data[ 'year' ];
+      $movie['release_date'] = $data[ 'release_date' ];
       $movie['duration'] = ( $data[ 'runtime' ] != 0 ) ? $data[ 'runtime' ] : NULL;
       //$movie['country'] = ;
       //$movie['language'] = ;
@@ -158,10 +158,10 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     $query = "
     SELECT 
       f.film_id, 
-      f.title, 
-      f.year_made year,
+      f.title,
       f.duration runtime,
       cr.code as age_rating,
+      r.release_date,
       (
         SELECT GROUP_CONCAT( DISTINCT gt.genre SEPARATOR ', ' ) as genre
         FROM genre g2
@@ -195,11 +195,11 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       ) screenwriter
 
     FROM cinema c
-    JOIN listing l ON l.cinema_id = c.cinema_id 
-      AND date >= date( NOW() )
-    JOIN film f ON f.film_id = l.film_id
-    JOIN film_certificates fc ON f.film_id = fc.film_id
-    JOIN certificates cr ON fc.certificate_id = cr.id
+    JOIN listing l ON ( l.cinema_id = c.cinema_id AND l.date >= date( NOW() ) )
+    JOIN film f ON ( f.film_id = l.film_id )
+    LEFT JOIN film_certificates fc ON ( f.film_id = fc.film_id )
+    LEFT JOIN certificates cr ON ( fc.certificate_id = cr.id )
+    LEFT JOIN film_release_date r ON ( f.film_id = r.film_id AND c.country_id = r.country_id )
     WHERE %where%
     GROUP BY f.film_id
     ";

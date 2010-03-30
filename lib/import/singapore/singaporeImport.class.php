@@ -452,7 +452,7 @@ class singaporeImport
             //$movieObj[ 'writer' ] = ;
             $movieObj[ 'cast' ] = (string) $movieXml->cast;
             $movieObj[ 'age_rating' ] = $this->extractSingaporeAgeRatingCode( (string) $movieXml->certificate);
-            $movieObj[ 'release_date' ] = (string) $movieXml->year_production;
+            $movieObj[ 'release_date' ] = (string) $movieXml->opens;
             $movieObj[ 'duration' ] = (string) $movieXml->length;
             $movieObj[ 'country' ] = (string) $movieXml->origin;
             //$movieObj[ 'language' ] = ;
@@ -470,7 +470,7 @@ class singaporeImport
             if ( (string) $movieXml->trailer_url != '' ) $movieObj->addProperty( 'Trailer_url', (string) $movieXml->trailer_url );
             if ( (string) $movieXml->critic_choice != '' ) $movieObj->addProperty( 'Critics_choice', (string) $movieXml->critic_choice );
             if ( (string) $movieXml->certificate != '' ) $movieObj->addProperty( 'Certificate', (string) $movieXml->certificate );
-            if ( (string) $movieXml->opens != '' ) $movieObj->addProperty( 'opens', (string) $movieXml->opens );
+            if ( (string) $movieXml->year_production != '' ) $movieObj->addProperty( 'year', (string) $movieXml->year_production );
             if ( (string) $movieXml->link != '' ) $movieObj->addProperty( 'Timeout_link', (string) $movieXml->link );
 
             // add images

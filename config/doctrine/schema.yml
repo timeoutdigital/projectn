@@ -258,7 +258,7 @@ Movie:
     cast:                       {type: string(255), notnull: false}
     #cast:                       {type: array(1024), notnull: false} # $cast = array( array( 'actor-name' => 'Mia Wasikowska', 'character-name' => 'Alice', 'picture' => 'http://...' ) )
     age_rating:                 {type: string(50), notnull: false}
-    release_date:               {type: string(50), notnull: false}
+    release_date:               {type: date, notnull: false}
     duration:                   {type: string(50), notnull: false}
     country:                    {type: string(50), notnull: false}
     language:                   {type: string(50), notnull: false}
