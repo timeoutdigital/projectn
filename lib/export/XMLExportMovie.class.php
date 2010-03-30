@@ -106,22 +106,22 @@ class XMLExportMovie extends XMLExport
       //movie/additional-details/age-rating
       $this->appendNonRequiredElement($additionalDetailsElement, 'age-rating', $movie['age_rating'], XMLExport::USE_CDATA);
 
-      //movie/additional-details/age-rating
-      $this->appendNonRequiredElement($additionalDetailsElement, 'release-date', $movie['release_date'], XMLExport::USE_CDATA);
+      //movie/additional-details/release-date
+      $this->appendNonRequiredElement($additionalDetailsElement, 'release-date', $movie['release_date']);
 
-      //movie/additional-details/age-rating
+      //movie/additional-details/duration
       $this->appendNonRequiredElement($additionalDetailsElement, 'duration', $movie['duration'], XMLExport::USE_CDATA);
 
-      //movie/additional-details/age-rating
+      //movie/additional-details/country
       //$this->appendNonRequiredElement($additionalDetailsElement, 'country', $movie['country'], XMLExport::USE_CDATA);
 
-      //movie/additional-details/age-rating
+      //movie/additional-details/aspect-ratio
       $this->appendNonRequiredElement($additionalDetailsElement, 'aspect-ratio', $movie['aspect_ratio'], XMLExport::USE_CDATA);
 
-      //movie/additional-details/age-rating
+      //movie/additional-details/sound-mix
       $this->appendNonRequiredElement($additionalDetailsElement, 'sound-mix', $movie['sound_mix'], XMLExport::USE_CDATA);
       
-      //movie/additional-details/age-rating
+      //movie/additional-details/company
       $this->appendNonRequiredElement($additionalDetailsElement, 'company', $movie['company'], XMLExport::USE_CDATA);
 
 
