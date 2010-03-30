@@ -46,42 +46,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $vendor->save();
     $this->vendor = $vendor;
 
-    $poiCat = new PoiCategory();
-    $poiCat->setName( 'test' );
-    $poiCat->save();
-
-    $poi = new Poi();
-    $poi->setPoiName( 'test name' );
-    $poi->setStreet( 'test street' );
-    $poi->setHouseNo('12' );
-    $poi->setZips('1234' );
-    $poi->setCity( 'test town' );
-    $poi->setDistrict( 'test district' );
-    $poi->setCountry( 'GRB' );
-    $poi->setVendorPoiId( '123' );
-    $poi->setLocalLanguage('en');
-    $poi->setLongitude( '0.1' );
-    $poi->setLatitude( '0.2' );
-    $poi->link( 'Vendor', array( 1 ) );
-    $poi->link('PoiCategory', array( 1 ) );
-    $poi->save();
-
-    $poi2 = new Poi();
-    $poi2->setPoiName( 'test name' );
-    $poi2->setStreet( 'test street' );
-    $poi2->setHouseNo('12' );
-    $poi2->setZips('1234' );
-    $poi2->setCity( 'test town' );
-    $poi2->setDistrict( 'test district' );
-    $poi2->setCountry( 'GRB' );
-    $poi2->setVendorPoiId( '123' );
-    $poi2->setLocalLanguage('en');
-    $poi2->setLongitude( '0.1' );
-    $poi2->setLatitude( '0.2' );
-    $poi2->link( 'Vendor', array( 1 ) );
-    $poi2->link('PoiCategory', array( 1 ) );
-    $poi2->save();
-
     $genre = new MovieGenre();
     $genre['genre'] = 'comedy';
     $genre->save();
@@ -93,7 +57,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie = new Movie();
     $movie[ 'vendor_movie_id' ] = 1111;
     $movie[ 'Vendor' ] = $vendor;
-    $movie[ 'Poi' ] = $poi;
     $movie[ 'name' ] = 'test movie name';
     $movie[ 'plot' ] = 'test movie plot';
     $movie[ 'review' ] = 'test movie review';
@@ -126,7 +89,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2 = new Movie();
     $movie2[ 'vendor_movie_id' ] = 1111;
     $movie2[ 'Vendor' ] = $vendor;
-    $movie2[ 'Poi' ] = $poi2;
     $movie2[ 'name' ] = 'test movie name';
     $movie2[ 'plot' ] = 'test movie plot';
     $movie2[ 'review' ] = 'test movie review';
@@ -140,12 +102,23 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie3 = new Movie();
     $movie3[ 'vendor_movie_id' ] = 1111;
     $movie3[ 'Vendor' ] = $vendor;
-    $movie3[ 'Poi' ] = $poi2;
     $movie3[ 'name' ] = 'test movie name';
     $movie3[ 'plot' ] = 'test movie plot';
     $movie3[ 'review' ] = 'test movie review';
     $movie3[ 'url' ] = 'http://movies.co.uk';
     $movie3[ 'rating' ] = '6';
+    $movie3[ 'tag_line' ] = 'test movie tag-line';
+    $movie3[ 'director' ] = 'test director';
+    $movie3[ 'writer' ] = 'test writer';
+    $movie3[ 'cast' ] = 'test cast';
+    $movie3[ 'age_rating' ] = 'test age-rating';
+    $movie3[ 'release_date' ] = '2010-02-28';
+    $movie3[ 'duration' ] = 'test duratione';
+    $movie3[ 'country' ] = 'test country';
+    $movie3[ 'language' ] = 'test language';
+    $movie3[ 'aspect_ratio' ] = 'test aspect-ratio';
+    $movie3[ 'sound_mix' ] = 'test sound-mix';
+    $movie3[ 'company' ] = 'test company';
     $movie3[ 'utf_offset' ] = '-01:00:00';
     $movie3->link( 'MovieGenres', array( 1, 2 ) );
     $movie3->save();
