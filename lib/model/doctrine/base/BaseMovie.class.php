@@ -28,6 +28,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property string $company
  * @property decimal $rating
  * @property string $utf_offset
+ * @property varchar $imdb_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $MovieGenres
  * @property Doctrine_Collection $MovieMedia
@@ -54,6 +55,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method string              getCompany()         Returns the current record's "company" value
  * @method decimal             getRating()          Returns the current record's "rating" value
  * @method string              getUtfOffset()       Returns the current record's "utf_offset" value
+ * @method varchar             getImdbId()          Returns the current record's "imdb_id" value
  * @method Vendor              getVendor()          Returns the current record's "Vendor" value
  * @method Doctrine_Collection getMovieGenres()     Returns the current record's "MovieGenres" collection
  * @method Doctrine_Collection getMovieMedia()      Returns the current record's "MovieMedia" collection
@@ -79,6 +81,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Movie               setCompany()         Sets the current record's "company" value
  * @method Movie               setRating()          Sets the current record's "rating" value
  * @method Movie               setUtfOffset()       Sets the current record's "utf_offset" value
+ * @method Movie               setImdbId()          Sets the current record's "imdb_id" value
  * @method Movie               setVendor()          Sets the current record's "Vendor" value
  * @method Movie               setMovieGenres()     Sets the current record's "MovieGenres" collection
  * @method Movie               setMovieMedia()      Sets the current record's "MovieMedia" collection
@@ -196,6 +199,11 @@ abstract class BaseMovie extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => '9',
+             ));
+        $this->hasColumn('imdb_id', 'varchar', 10, array(
+             'type' => 'varchar',
+             'notnull' => false,
+             'length' => '10',
              ));
 
 

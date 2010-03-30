@@ -149,5 +149,24 @@ class MovieTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 2, Doctrine::getTable('MovieGenre')->findAll()->count() );
   }
+
+  public function testMovieTitleIsReformatted()
+  {
+    $movie = $this->object;
+
+    $movie[ 'name' ] = 'Wolfman, The';
+    $movie->save();
+
+    $this->assertEquals( 'The Wolfman', $movie[ 'name' ] );
+  }
+
+  public function testMovieFindsImdbTitle()
+  {
+    $movie = $this->object;
+
+    $movie[ 'name' ] = 'Avatar';
+    $movie->save();
+    $this->assertEquals( 'tt0499549', $movie[ 'imdb_id' ] );
+  }
 }
 ?>
