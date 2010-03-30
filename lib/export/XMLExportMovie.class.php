@@ -42,6 +42,7 @@ class XMLExportMovie extends XMLExport
     {
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
       $movieElement->setAttribute( 'id', $this->generateUID( $movie['id'] ) );
+      $movieElement->setAttribute( 'link-id', $movie['imdb_id'] );
       $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
@@ -116,6 +117,9 @@ class XMLExportMovie extends XMLExport
       //$this->appendNonRequiredElement($additionalDetailsElement, 'country', $movie['country'], XMLExport::USE_CDATA);
 
       //movie/additional-details/aspect-ratio
+      $this->appendNonRequiredElement($additionalDetailsElement, 'language', $movie['language'], XMLExport::USE_CDATA);
+
+      //movie/additional-details/aspect-ratio
       $this->appendNonRequiredElement($additionalDetailsElement, 'aspect-ratio', $movie['aspect_ratio'], XMLExport::USE_CDATA);
 
       //movie/additional-details/sound-mix
@@ -124,7 +128,11 @@ class XMLExportMovie extends XMLExport
       //movie/additional-details/company
       $this->appendNonRequiredElement($additionalDetailsElement, 'company', $movie['company'], XMLExport::USE_CDATA);
 
-
+      //check if movie/additional-details node is actually needed (has kids)
+      if ( ! $additionalDetailsElement->hasChildNodes() )
+      {
+        $movieElement->removeChild( $additionalDetailsElement );
+      }
 
 
 
