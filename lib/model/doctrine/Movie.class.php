@@ -27,7 +27,11 @@ class Movie extends BaseMovie
   private function requestImdbId()
   {
     $movie = IMDB::findMovieByTitle( $this[ 'name' ] );
-    $this['imdb_id'] = $movie->getId();
+
+    if( !is_null( $movie ) )
+    {
+      $this['imdb_id'] = $movie->getId();
+    }
   }
 
   private function reformatTitle()

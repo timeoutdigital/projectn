@@ -43,7 +43,7 @@ class IMDBTest extends PHPUnit_Framework_TestCase
   public function testFindMovieByTitleOnATitlePage()
   {
     $movie = IMDB::findMovieByTitle( 'Planet 51' );
-    $this->assertTrue( $movie instanceof IMDBMovie, 'Searching for Amelia should return a result' );
+    $this->assertTrue( $movie instanceof IMDBMovie, 'Searching for Planet 51 should return a result' );
     $this->assertEquals( 'tt0762125', $movie->getId() );
   }
 
