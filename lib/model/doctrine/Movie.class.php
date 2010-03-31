@@ -26,11 +26,20 @@ class Movie extends BaseMovie
 
   private function requestImdbId()
   {
+    if( $this[ 'imdb_id' ] )
+    {
+      return;
+    }
+
     $movie = IMDB::findMovieByTitle( $this[ 'name' ] );
 
     if( !is_null( $movie ) )
     {
-      $this['imdb_id'] = $movie->getId();
+      $this[ 'imdb_id' ] = $movie->getId();
+    }
+    else
+    {
+      $this[ 'imdb_id' ] = null;
     }
   }
 
