@@ -42,7 +42,10 @@ class XMLExportMovie extends XMLExport
     {
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
       $movieElement->setAttribute( 'id', $this->generateUID( $movie['id'] ) );
-      $movieElement->setAttribute( 'link-id', $movie['imdb_id'] );
+      if ( !empty( $movie['imdb_id'] ) )
+      {
+        $movieElement->setAttribute( 'link-id', $movie['imdb_id'] );
+      }
       $movieElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
       //movie/name
