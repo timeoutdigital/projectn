@@ -16,14 +16,14 @@ abstract class BaseLinkingEventCategoryMappingForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                       => new sfWidgetFormInputHidden(),
-      'event_category_id'        => new sfWidgetFormInputText(),
-      'vendor_event_category_id' => new sfWidgetFormInputText(),
+      'event_category_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'), 'add_empty' => false)),
+      'vendor_event_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'), 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'                       => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'event_category_id'        => new sfValidatorInteger(),
-      'vendor_event_category_id' => new sfValidatorInteger(),
+      'event_category_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('EventCategory'))),
+      'vendor_event_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('VendorEventCategory'))),
     ));
 
     $this->widgetSchema->setNameFormat('linking_event_category_mapping[%s]');

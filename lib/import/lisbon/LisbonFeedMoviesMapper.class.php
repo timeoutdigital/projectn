@@ -56,7 +56,6 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
         'Review_'       => 'review',        
         'Director'      => 'director',
         'Stars'         => 'cast',
-        'Year'          => 'release_date',
         'Runtime'       => 'duration',
         'Country'       => 'country',
         'Review1Rating' => 'rating',        
@@ -73,6 +72,7 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
     return array(      
       'aka',
       'image',
+      'Year',
       'Review1Reviewer',
       'Subtitles',
       'Filmkey',
