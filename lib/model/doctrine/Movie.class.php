@@ -14,6 +14,8 @@
 class Movie extends BaseMovie
 {
 
+  private $externalSearchClass = IMDB;
+
   /**
   * Attempts to fix and / or format fields, e.g. url
   */
@@ -22,6 +24,11 @@ class Movie extends BaseMovie
     $this->fixUrl();
     $this->reformatTitle();
     $this->requestImdbId();
+  }
+
+  public function setExternalSearchClass( $externalSearchClass )
+  {
+    $this->externalSearchClass = $externalSearchClass;
   }
 
   private function requestImdbId()

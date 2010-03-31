@@ -152,6 +152,36 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testLinkIdAttributeExistsIfAvailableInData()
+  {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+    $movie[ 'imdb_id' ] = 'tt123456';
+    $movie->save();
+
+    $this->runExport();
+
+    $movie = $this->xpath->query( '/vendor-movies/movie[1]/@link-id' )->item(0);
+    $this->assertNotNull( $movie );
+  }
+
+  public function testLinkIdAttributeDoesNotExistsIfNotAvailableInData()
+  {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+    $movie[ 'name' ] = 'sldfjsdofisjfij'; //won't find an id on this
+    $movie->save();
+
+    $this->runExport();
+
+    $movie = $this->xpath->query( '/vendor-movies/movie[1]/@link-id' )->item(0);
+    $this->assertNull( $movie );
+  }
+
   /**
    * Test movie tag has correct attributes and children
    */
@@ -287,6 +317,17 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
       $movie3 = $this->xpath->query( '//movie[3]' )->item(0);
       $this->assertEquals(0, $movie3->getElementsByTagName( 'rating' )->length );
+    }
+
+    private function runExport()
+    {
+      $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
+      $this->export = new XMLExportMovie( $this->vendor, $this->destination );
+
+      $this->export->run();
+      $this->domDocument = new DOMDocument();
+      $this->domDocument->load( $this->destination );
+      $this->xpath = new DOMXPath($this->domDocument);
     }
 }
 
