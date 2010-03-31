@@ -64,14 +64,14 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Dummy Title 1', $event1[ 'name' ] );
 
     $this->assertEquals( 1, count( $event1[ 'VendorEventCategory' ] ) );
-    $this->assertEquals( 'Root', $event1[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
+    $this->assertEquals( 'Root', $event1[ 'VendorEventCategory' ][ 'Root' ][ 'name' ] );
 
     //event2
     $event2 = Doctrine::getTable( 'Event' )->findOneById( 2 );
     $this->assertEquals( 'Dummy Title 2', $event2[ 'name' ] );
 
     $this->assertEquals( 1, count( $event2[ 'VendorEventCategory' ] ) );
-    $this->assertEquals( 'Root | Root Child 1', $event2[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
+    $this->assertEquals( 'Root | Root Child 1', $event2[ 'VendorEventCategory' ][ 'Root | Root Child 1' ][ 'name' ] );
   }
 
   /**
@@ -163,12 +163,16 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $occurrence instanceof Doctrine_Record );
 
     $this->assertEquals( date( 'Y-m-d' ), $occurrence[ 'start_date' ]  );
-    $this->assertEquals( '+00:00', $occurrence[ 'utc_offset' ]  );
+
+    $zone = new DateTimeZone( 'Europe/London' );
+    $datetime = new DateTime( 'now', $zone );
+    $offset = $datetime->format( 'P' );
+    $this->assertEquals( $offset, $occurrence[ 'utc_offset' ]  );
 
     $occurrence2 = Doctrine::getTable( 'EventOccurrence' )->findOneById( 2 );
 
     $this->assertTrue( $occurrence2 instanceof Doctrine_Record );
-    $this->assertEquals( '+00:00', $occurrence2[ 'utc_offset' ]  );
+    $this->assertEquals( $offset, $occurrence2[ 'utc_offset' ]  );
   }
 
 }
