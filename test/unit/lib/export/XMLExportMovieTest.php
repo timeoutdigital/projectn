@@ -63,7 +63,18 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie[ 'review' ] = 'test movie review';
     $movie[ 'url' ] = 'http://movies.co.uk';
     $movie[ 'rating' ] = '1.1';
-    //$movie[ 'age_rating' ] = 'oap';
+    $movie[ 'tag_line' ] = 'test movie tag-line';
+    $movie[ 'director' ] = 'test director';
+    $movie[ 'writer' ] = 'test writer';
+    $movie[ 'cast' ] = 'test cast';
+    $movie[ 'age_rating' ] = 'test age-rating';
+    $movie[ 'release_date' ] = '2010-02-28';
+    $movie[ 'duration' ] = 'test duratione';
+    //$movie[ 'country' ] = 'test country';
+    $movie[ 'language' ] = 'test language';
+    $movie[ 'aspect_ratio' ] = 'test aspect-ratio';
+    $movie[ 'sound_mix' ] = 'test sound-mix';
+    $movie[ 'company' ] = 'test company';
     $movie[ 'utf_offset' ] = '-01:00:00';
     $movie->link( 'MovieGenres', array( 1, 2 ) );
     $movie->save();
@@ -95,7 +106,18 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2[ 'review' ] = 'test movie review';
     $movie2[ 'url' ] = 'http://movies.co.uk';
     $movie2[ 'rating' ] = '0.0';
-    //$movie2[ 'age_rating' ] = 'oap';
+    $movie2[ 'tag_line' ] = 'test movie tag-line';
+    $movie2[ 'director' ] = 'test director';
+    $movie2[ 'writer' ] = 'test writer';
+    $movie2[ 'cast' ] = 'test cast';
+    $movie2[ 'age_rating' ] = 'test age-rating';
+    $movie2[ 'release_date' ] = '2010-02-28';
+    $movie2[ 'duration' ] = 'test duratione';
+    //$movie2[ 'country' ] = 'test country';
+    $movie2[ 'language' ] = 'test language';
+    $movie2[ 'aspect_ratio' ] = 'test aspect-ratio';
+    $movie2[ 'sound_mix' ] = 'test sound-mix';
+    $movie2[ 'company' ] = 'test company';
     $movie2[ 'utf_offset' ] = '-01:00:00';
     $movie2->link( 'MovieGenres', array( 1, 2 ) );
     $movie2->save();
@@ -106,20 +128,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie3[ 'name' ] = 'test movie name';
     $movie3[ 'plot' ] = 'test movie plot';
     $movie3[ 'review' ] = 'test movie review';
-    $movie3[ 'url' ] = 'http://movies.co.uk';
-    $movie3[ 'rating' ] = '6';
-    $movie3[ 'tag_line' ] = 'test movie tag-line';
-    $movie3[ 'director' ] = 'test director';
-    $movie3[ 'writer' ] = 'test writer';
-    $movie3[ 'cast' ] = 'test cast';
-    $movie3[ 'age_rating' ] = 'test age-rating';
-    $movie3[ 'release_date' ] = '2010-02-28';
-    $movie3[ 'duration' ] = 'test duratione';
-    $movie3[ 'country' ] = 'test country';
-    $movie3[ 'language' ] = 'test language';
-    $movie3[ 'aspect_ratio' ] = 'test aspect-ratio';
-    $movie3[ 'sound_mix' ] = 'test sound-mix';
-    $movie3[ 'company' ] = 'test company';
     $movie3[ 'utf_offset' ] = '-01:00:00';
     $movie3->link( 'MovieGenres', array( 1, 2 ) );
     $movie3->save();
@@ -176,6 +184,9 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $genreElements = $versionElement->getElementsByTagName( 'genre' );
     $this->assertEquals( 'comedy, horror', $genreElements->item(0)->nodeValue );
 
+    //movie/version/tag-line
+    $this->assertEquals( 'test movie tag-line', $versionElement->getElementsByTagName( 'tag-line' )->item(0)->nodeValue );
+
     //movie/version/plot
     $this->assertEquals( 'test movie plot', $versionElement->getElementsByTagName( 'plot' )->item(0)->nodeValue );
 
@@ -184,6 +195,59 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     //movie/version/rating
     $this->assertEquals( '1.1', $versionElement->getElementsByTagName( 'rating' )->item(0)->nodeValue );
+
+    //movie/version/director
+    $this->assertEquals( 'test director', $versionElement->getElementsByTagName( 'director' )->item(0)->nodeValue );
+
+    //movie/version/writer
+    $this->assertEquals( 'test writer', $versionElement->getElementsByTagName( 'writer' )->item(0)->nodeValue );
+
+    //movie/version/cast/actor/actor-name
+    $actorElement = $this->xpath->query( '/vendor-movies/movie/version/cast/actor' )->item(0);
+
+    $this->assertEquals( 'test cast', $actorElement->getElementsByTagName( 'actor-name' )->item(0)->nodeValue );
+
+    $additionalDetailsElement = $movieElement->getElementsByTagName( 'additional-details' )->item(0);//$this->domDocument->movie[0]->additional-details;
+
+    //movie/additional-details/website
+    $this->assertEquals( 'http://movies.co.uk', $additionalDetailsElement->getElementsByTagName( 'website' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    $this->assertEquals( 'test age-rating', $additionalDetailsElement->getElementsByTagName( 'age-rating' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    $this->assertEquals( '2010-02-28', $additionalDetailsElement->getElementsByTagName( 'release-date' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    $this->assertEquals( 'test duratione', $additionalDetailsElement->getElementsByTagName( 'duration' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    //$this->assertEquals( 'country', $additionalDetailsElement->getElementsByTagName( 'country' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    $this->assertEquals( 'test language', $additionalDetailsElement->getElementsByTagName( 'language' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    $this->assertEquals( 'test aspect-ratio', $additionalDetailsElement->getElementsByTagName( 'aspect-ratio' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    $this->assertEquals( 'test sound-mix', $additionalDetailsElement->getElementsByTagName( 'sound-mix' )->item(0)->nodeValue );
+
+    //movie/additional-details/website
+    $this->assertEquals( 'test company', $additionalDetailsElement->getElementsByTagName( 'company' )->item(0)->nodeValue );
+  }
+
+
+  /**
+   * check if additional-details node is not appended if no children are present
+   */
+  public function testNoAdditionalDetailsTagIfNoChildren()
+  {
+    $additionalDetailsElement = $this->xpath->query( '/vendor-movies/movie[1]/additional-details' )->item(0);
+    $this->assertTrue( $additionalDetailsElement instanceof DomElement  );
+
+    $additionalDetailsElement = $this->xpath->query( '/vendor-movies/movie[3]/additional-details' )->item(0);
+    $this->assertFalse( $additionalDetailsElement instanceof DomElement  );
   }
 
   /**
@@ -225,4 +289,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
       $this->assertEquals(0, $movie3->getElementsByTagName( 'rating' )->length );
     }
 }
+
+
 ?>
