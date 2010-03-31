@@ -127,6 +127,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setLocalLanguage('en');
         $poi->setLongitude( '0.3' );
         $poi->setLatitude( '0.4' );
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
         $poi->link( 'Vendor', 2 );
         $poi->save();
 
@@ -136,11 +137,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property3->link( 'Poi', array( $poi['id'] ) );
         $property3->save();
 
-        $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
-        $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
-
-        $this->export->run();
-        $this->xml = simplexml_load_file( $this->destination );
+        $this->runImport();
 
       }
       catch(PDOException $e)
@@ -152,6 +149,32 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
       ProjectN_Test_Unit_Factory::destroyDatabases();
+    }
+
+    public function testPoisWithoutVendorCategoriesAreNotExported()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['poi_name'] = 'hello';
+      $poi['VendorPoiCategory'][] = ProjectN_Test_Unit_Factory::add( 'VendorPoiCategory' );
+      $poi->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+
+      $this->runImport();
+      $numEntries = $this->xml->xpath( '//entry' );
+      var_dump( $this->xml->asXml() );
+
+      $this->assertEquals( 1, count( $numEntries ) );
     }
 
     public function testCategoryTagsAreUnique()
@@ -369,6 +392,15 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $properties = $this->xml->entry[0]->version->content->media;
       $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
       $this->assertEquals( 'url', (string) $properties[0] );
+    }
+
+    private function runImport()
+    {
+      $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+      $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $this->destination );
     }
 }
 ?>
