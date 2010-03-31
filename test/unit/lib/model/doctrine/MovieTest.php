@@ -43,6 +43,29 @@ class MovieTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * 
+   */
+  public function testShouldNotLookupImdbIfImdbIdExists()
+  {
+    $manualId = 'tt8098';
+
+    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+    $movie[ 'imdb_id' ] = $manualId;
+    $movie->save();
+
+    $this->assertEquals( $manualId, $movie[ 'imdb_id' ] );
+  }
+
+  public function testMovieFindsImdbTitle()
+  {
+    $movie = $this->object;
+
+    $movie[ 'name' ] = 'Avatar';
+    $movie->save();
+    $this->assertEquals( 'tt0499549', $movie[ 'imdb_id' ] );
+  }
+
   /*
    * test if the add property adds the properties
    */
@@ -82,15 +105,6 @@ class MovieTest extends PHPUnit_Framework_TestCase
     $movie->save();
 
     $this->assertEquals( 'The Wolfman', $movie[ 'name' ] );
-  }
-
-  public function testMovieFindsImdbTitle()
-  {
-    $movie = $this->object;
-
-    $movie[ 'name' ] = 'Avatar';
-    $movie->save();
-    $this->assertEquals( 'tt0499549', $movie[ 'imdb_id' ] );
   }
 }
 ?>
