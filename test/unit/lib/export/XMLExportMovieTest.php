@@ -59,6 +59,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie[ 'vendor_movie_id' ] = 1111;
     $movie[ 'Vendor' ] = $vendor;
     $movie[ 'name' ] = 'test movie name';
+    $movie[ 'imdb_id' ] = 'tt092378';
     $movie[ 'plot' ] = 'test movie plot';
     $movie[ 'review' ] = 'test movie review';
     $movie[ 'url' ] = 'http://movies.co.uk';
@@ -102,6 +103,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2[ 'vendor_movie_id' ] = 1111;
     $movie2[ 'Vendor' ] = $vendor;
     $movie2[ 'name' ] = 'test movie name';
+    $movie2[ 'imdb_id' ] = 'tt092378';
     $movie2[ 'plot' ] = 'test movie plot';
     $movie2[ 'review' ] = 'test movie review';
     $movie2[ 'url' ] = 'http://movies.co.uk';
@@ -126,6 +128,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie3[ 'vendor_movie_id' ] = 1111;
     $movie3[ 'Vendor' ] = $vendor;
     $movie3[ 'name' ] = 'test movie name';
+    $movie3[ 'imdb_id' ] = 'tt092378';
     $movie3[ 'plot' ] = 'test movie plot';
     $movie3[ 'review' ] = 'test movie review';
     $movie3[ 'utf_offset' ] = '-01:00:00';
@@ -178,7 +181,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     $this->runExport();
 
-    $movie = $this->xpath->query( '/vendor-movies/movie[1]/@link-id' )->item(0);
+    $movie = $this->xpath->query( '/vendor-movies/movie[1]' )->item(0);
     $this->assertNull( $movie );
   }
 
