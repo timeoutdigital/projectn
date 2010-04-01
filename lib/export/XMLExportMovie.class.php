@@ -30,6 +30,8 @@ class XMLExportMovie extends XMLExport
    * @todo correct movie@id to use real value
    * @todo correct movie/version/name to use real value
    * @todo confirm where the place tag belongs
+   * @todo sort out imdb properly (either log error and change schema if must
+   *       field, or then stop jumping the loop
    */
   protected function mapDataToDOMDocument($movieCollection, $domDocument)
   {
