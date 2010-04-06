@@ -78,6 +78,11 @@ class XMLExportEvent extends XMLExport
       {
           continue;
       }
+
+      if ( count( $event['VendorEventCategory'] ) < 1 )
+      {
+          continue;
+      }
       
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
