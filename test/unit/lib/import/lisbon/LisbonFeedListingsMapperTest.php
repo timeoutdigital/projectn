@@ -32,8 +32,8 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
-      'city' => 'Lisbon',
-      'language' => 'pt',
+      'city'      => 'Lisbon',
+      'language'  => 'pt',
       'time_zone' => 'Europe/Lisbon',
       )
     );
@@ -56,6 +56,43 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+  }
+
+  public function testEventsWithZeroAsRecurringListingIdAreNotSaved()
+  {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+      'city'      => 'Lisbon',
+      'language'  => 'pt',
+      'time_zone' => 'Europe/Lisbon',
+      )
+    );
+
+    $import = simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_xmllist.xml' );
+    $placeids = $import->xpath( '/geral/listings/@placeid' );
+
+    foreach( $placeids as $placeid )
+    {
+      $id = $placeid['placeid'];
+      ProjectN_Test_Unit_Factory::add('poi', array("vendor_poi_id"=>$id));
+    }
+
+    $mapper = new LisbonFeedListingsMapper( $import );
+
+    $importer = new Importer();
+    $importer->addDataMapper( $mapper );
+    $importer->run();
+
+    $totalrecords = $import->xpath( '/geral/listings' );
+    $notrecurring = $import->xpath( '/geral/listings[@RecurringListingID!=0]' );
+
+    $this->assertNotEquals( count( $totalrecords ), count( $notrecurring ), "one" );
+
+    $events = Doctrine::getTable( 'EventOccurrence' )->count();
+
+    $this->assertEquals( count( $notrecurring ), $events, "two" );
   }
 
   /**
