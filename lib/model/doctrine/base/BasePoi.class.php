@@ -37,231 +37,13 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @property string $provider
  * @property integer $vendor_id
  * @property Vendor $Vendor
- * @property Doctrine_Collection $Poi
- * 
- * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
- * @method datetime            getReviewDate()                 Returns the current record's "review_date" value
- * @method string              getLocalLanguage()              Returns the current record's "local_language" value
- * @method string              getPoiName()                    Returns the current record's "poi_name" value
- * @method string              getHouseNo()                    Returns the current record's "house_no" value
- * @method string              getStreet()                     Returns the current record's "street" value
- * @method string              getCity()                       Returns the current record's "city" value
- * @method string              getDistrict()                   Returns the current record's "district" value
- * @method string              getCountry()                    Returns the current record's "country" value
- * @method string              getAdditionalAddressDetails()   Returns the current record's "additional_address_details" value
- * @method string              getZips()                       Returns the current record's "zips" value
- * @method decimal             getLongitude()                  Returns the current record's "longitude" value
- * @method decimal             getLatitude()                   Returns the current record's "latitude" value
- * @method string              getEmail()                      Returns the current record's "email" value
- * @method string              getUrl()                        Returns the current record's "url" value
- * @method string              getPhone()                      Returns the current record's "phone" value
- * @method string              getPhone2()                     Returns the current record's "phone2" value
- * @method string              getFax()                        Returns the current record's "fax" value
- * @method string              getVendorCategory()             Returns the current record's "vendor_category" value
- * @method string              getKeywords()                   Returns the current record's "keywords" value
- * @method string              getShortDescription()           Returns the current record's "short_description" value
- * @method string              getDescription()                Returns the current record's "description" value
- * @method string              getPublicTransportLinks()       Returns the current record's "public_transport_links" value
- * @method string              getPriceInformation()           Returns the current record's "price_information" value
- * @method string              getOpeningtimes()               Returns the current record's "openingtimes" value
- * @method integer             getStarRating()                 Returns the current record's "star_rating" value
- * @method integer             getRating()                     Returns the current record's "rating" value
- * @method string              getProvider()                   Returns the current record's "provider" value
- * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
- * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
- * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
- * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
- * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
- * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
- * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
- * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
- * @method Poi                 setLocalLanguage()              Sets the current record's "local_language" value
- * @method Poi                 setPoiName()                    Sets the current record's "poi_name" value
- * @method Poi                 setHouseNo()                    Sets the current record's "house_no" value
- * @method Poi                 setStreet()                     Sets the current record's "street" value
- * @method Poi                 setCity()                       Sets the current record's "city" value
- * @method Poi                 setDistrict()                   Sets the current record's "district" value
- * @method Poi                 setCountry()                    Sets the current record's "country" value
- * @method Poi                 setAdditionalAddressDetails()   Sets the current record's "additional_address_details" value
- * @method Poi                 setZips()                       Sets the current record's "zips" value
- * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
- * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
- * @method Poi                 setEmail()                      Sets the current record's "email" value
- * @method Poi                 setUrl()                        Sets the current record's "url" value
- * @method Poi                 setPhone()                      Sets the current record's "phone" value
- * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
- * @method Poi                 setFax()                        Sets the current record's "fax" value
- * @method Poi                 setVendorCategory()             Sets the current record's "vendor_category" value
- * @method Poi                 setKeywords()                   Sets the current record's "keywords" value
- * @method Poi                 setShortDescription()           Sets the current record's "short_description" value
- * @method Poi                 setDescription()                Sets the current record's "description" value
- * @method Poi                 setPublicTransportLinks()       Sets the current record's "public_transport_links" value
- * @method Poi                 setPriceInformation()           Sets the current record's "price_information" value
- * @method Poi                 setOpeningtimes()               Sets the current record's "openingtimes" value
- * @method Poi                 setStarRating()                 Sets the current record's "star_rating" value
- * @method Poi                 setRating()                     Sets the current record's "rating" value
- * @method Poi                 setProvider()                   Sets the current record's "provider" value
- * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
- * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
- * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
- * @method Poi                 setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
- * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
- * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
- * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
- * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionCategory
+ * @property Doctrine_Collection $PoiCategory
  * @property Doctrine_Collection $VendorPoiCategory
- * @property Doctrine_Collection $Poi
- * 
- * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
- * @method datetime            getReviewDate()                 Returns the current record's "review_date" value
- * @method string              getLocalLanguage()              Returns the current record's "local_language" value
- * @method string              getPoiName()                    Returns the current record's "poi_name" value
- * @method string              getHouseNo()                    Returns the current record's "house_no" value
- * @method string              getStreet()                     Returns the current record's "street" value
- * @method string              getCity()                       Returns the current record's "city" value
- * @method string              getDistrict()                   Returns the current record's "district" value
- * @method string              getCountry()                    Returns the current record's "country" value
- * @method string              getAdditionalAddressDetails()   Returns the current record's "additional_address_details" value
- * @method string              getZips()                       Returns the current record's "zips" value
- * @method decimal             getLongitude()                  Returns the current record's "longitude" value
- * @method decimal             getLatitude()                   Returns the current record's "latitude" value
- * @method string              getEmail()                      Returns the current record's "email" value
- * @method string              getUrl()                        Returns the current record's "url" value
- * @method string              getPhone()                      Returns the current record's "phone" value
- * @method string              getPhone2()                     Returns the current record's "phone2" value
- * @method string              getFax()                        Returns the current record's "fax" value
- * @method string              getVendorCategory()             Returns the current record's "vendor_category" value
- * @method string              getKeywords()                   Returns the current record's "keywords" value
- * @method string              getShortDescription()           Returns the current record's "short_description" value
- * @method string              getDescription()                Returns the current record's "description" value
- * @method string              getPublicTransportLinks()       Returns the current record's "public_transport_links" value
- * @method string              getPriceInformation()           Returns the current record's "price_information" value
- * @method string              getOpeningtimes()               Returns the current record's "openingtimes" value
- * @method integer             getStarRating()                 Returns the current record's "star_rating" value
- * @method integer             getRating()                     Returns the current record's "rating" value
- * @method string              getProvider()                   Returns the current record's "provider" value
- * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
- * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
- * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
- * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
- * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
- * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
- * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
- * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
- * @method Poi                 setLocalLanguage()              Sets the current record's "local_language" value
- * @method Poi                 setPoiName()                    Sets the current record's "poi_name" value
- * @method Poi                 setHouseNo()                    Sets the current record's "house_no" value
- * @method Poi                 setStreet()                     Sets the current record's "street" value
- * @method Poi                 setCity()                       Sets the current record's "city" value
- * @method Poi                 setDistrict()                   Sets the current record's "district" value
- * @method Poi                 setCountry()                    Sets the current record's "country" value
- * @method Poi                 setAdditionalAddressDetails()   Sets the current record's "additional_address_details" value
- * @method Poi                 setZips()                       Sets the current record's "zips" value
- * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
- * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
- * @method Poi                 setEmail()                      Sets the current record's "email" value
- * @method Poi                 setUrl()                        Sets the current record's "url" value
- * @method Poi                 setPhone()                      Sets the current record's "phone" value
- * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
- * @method Poi                 setFax()                        Sets the current record's "fax" value
- * @method Poi                 setVendorCategory()             Sets the current record's "vendor_category" value
- * @method Poi                 setKeywords()                   Sets the current record's "keywords" value
- * @method Poi                 setShortDescription()           Sets the current record's "short_description" value
- * @method Poi                 setDescription()                Sets the current record's "description" value
- * @method Poi                 setPublicTransportLinks()       Sets the current record's "public_transport_links" value
- * @method Poi                 setPriceInformation()           Sets the current record's "price_information" value
- * @method Poi                 setOpeningtimes()               Sets the current record's "openingtimes" value
- * @method Poi                 setStarRating()                 Sets the current record's "star_rating" value
- * @method Poi                 setRating()                     Sets the current record's "rating" value
- * @method Poi                 setProvider()                   Sets the current record's "provider" value
- * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
- * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
- * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
- * @method Poi                 setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
- * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
- * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
- * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
- * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionMedia
- * @property Doctrine_Collection $Poi
- * 
- * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
- * @method datetime            getReviewDate()                 Returns the current record's "review_date" value
- * @method string              getLocalLanguage()              Returns the current record's "local_language" value
- * @method string              getPoiName()                    Returns the current record's "poi_name" value
- * @method string              getHouseNo()                    Returns the current record's "house_no" value
- * @method string              getStreet()                     Returns the current record's "street" value
- * @method string              getCity()                       Returns the current record's "city" value
- * @method string              getDistrict()                   Returns the current record's "district" value
- * @method string              getCountry()                    Returns the current record's "country" value
- * @method string              getAdditionalAddressDetails()   Returns the current record's "additional_address_details" value
- * @method string              getZips()                       Returns the current record's "zips" value
- * @method decimal             getLongitude()                  Returns the current record's "longitude" value
- * @method decimal             getLatitude()                   Returns the current record's "latitude" value
- * @method string              getEmail()                      Returns the current record's "email" value
- * @method string              getUrl()                        Returns the current record's "url" value
- * @method string              getPhone()                      Returns the current record's "phone" value
- * @method string              getPhone2()                     Returns the current record's "phone2" value
- * @method string              getFax()                        Returns the current record's "fax" value
- * @method string              getVendorCategory()             Returns the current record's "vendor_category" value
- * @method string              getKeywords()                   Returns the current record's "keywords" value
- * @method string              getShortDescription()           Returns the current record's "short_description" value
- * @method string              getDescription()                Returns the current record's "description" value
- * @method string              getPublicTransportLinks()       Returns the current record's "public_transport_links" value
- * @method string              getPriceInformation()           Returns the current record's "price_information" value
- * @method string              getOpeningtimes()               Returns the current record's "openingtimes" value
- * @method integer             getStarRating()                 Returns the current record's "star_rating" value
- * @method integer             getRating()                     Returns the current record's "rating" value
- * @method string              getProvider()                   Returns the current record's "provider" value
- * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
- * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
- * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
- * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
- * @method Doctrine_Collection getPoiMedia()                   Returns the current record's "PoiMedia" collection
- * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
- * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
- * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
- * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
- * @method Poi                 setLocalLanguage()              Sets the current record's "local_language" value
- * @method Poi                 setPoiName()                    Sets the current record's "poi_name" value
- * @method Poi                 setHouseNo()                    Sets the current record's "house_no" value
- * @method Poi                 setStreet()                     Sets the current record's "street" value
- * @method Poi                 setCity()                       Sets the current record's "city" value
- * @method Poi                 setDistrict()                   Sets the current record's "district" value
- * @method Poi                 setCountry()                    Sets the current record's "country" value
- * @method Poi                 setAdditionalAddressDetails()   Sets the current record's "additional_address_details" value
- * @method Poi                 setZips()                       Sets the current record's "zips" value
- * @method Poi                 setLongitude()                  Sets the current record's "longitude" value
- * @method Poi                 setLatitude()                   Sets the current record's "latitude" value
- * @method Poi                 setEmail()                      Sets the current record's "email" value
- * @method Poi                 setUrl()                        Sets the current record's "url" value
- * @method Poi                 setPhone()                      Sets the current record's "phone" value
- * @method Poi                 setPhone2()                     Sets the current record's "phone2" value
- * @method Poi                 setFax()                        Sets the current record's "fax" value
- * @method Poi                 setVendorCategory()             Sets the current record's "vendor_category" value
- * @method Poi                 setKeywords()                   Sets the current record's "keywords" value
- * @method Poi                 setShortDescription()           Sets the current record's "short_description" value
- * @method Poi                 setDescription()                Sets the current record's "description" value
- * @method Poi                 setPublicTransportLinks()       Sets the current record's "public_transport_links" value
- * @method Poi                 setPriceInformation()           Sets the current record's "price_information" value
- * @method Poi                 setOpeningtimes()               Sets the current record's "openingtimes" value
- * @method Poi                 setStarRating()                 Sets the current record's "star_rating" value
- * @method Poi                 setRating()                     Sets the current record's "rating" value
- * @method Poi                 setProvider()                   Sets the current record's "provider" value
- * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
- * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
- * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
- * @method Poi                 setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
- * @method Poi                 setPoiMedia()                   Sets the current record's "PoiMedia" collection
- * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
- * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
- * @method Poi                 setPoi()                        Sets the current record's "Poi" collectionProperty
+ * @property Doctrine_Collection $PoiMedia
+ * @property Doctrine_Collection $PoiProperty
  * @property Doctrine_Collection $EventOccurrence
  * @property Doctrine_Collection $Poi
+ * @property Doctrine_Collection $RecordFieldOverride
  * 
  * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
  * @method datetime            getReviewDate()                 Returns the current record's "review_date" value
@@ -299,6 +81,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getRecordFieldOverride()        Returns the current record's "RecordFieldOverride" collection
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
  * @method Poi                 setLocalLanguage()              Sets the current record's "local_language" value
@@ -335,6 +118,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
+ * @method Poi                 setRecordFieldOverride()        Sets the current record's "RecordFieldOverride" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -538,6 +322,11 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->hasMany('UserContent as Poi', array(
              'local' => 'id',
              'foreign' => 'poi_id'));
+
+        $this->hasMany('RecordFieldOverride', array(
+             'refClass' => 'OverridePoi',
+             'local' => 'poi_id',
+             'foreign' => 'override_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

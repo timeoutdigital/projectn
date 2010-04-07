@@ -462,3 +462,34 @@ ExportLoggerItem:
   indexes:
     item_id_index:              {fields: [item_id]}
     vendor_item_id_index:       {fields: [vendor_item_id]}
+
+RecordFieldOverride:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    field:                      {type: string(50), notnull: false}
+    received_value:             {type: string,     notnull: false}
+    edited_value:               {type: string,     notnull: false}
+  relations:
+    Poi:   {local: override_id, foreign: poi_id,   refClass: OverridePoi }
+    Event: {local: override_id, foreign: event_id, refClass: OverrideEvent }
+    Movie: {local: override_id, foreign: movie_id, refClass: OverrideMovie }
+
+OverridePoi:
+  connection: project_n
+  columns:
+    override_id: { type: integer, primary: true }
+    poi_id:      { type: integer, primary: true }
+
+OverrideEvent:
+  connection: project_n
+  columns:
+    override_id: { type: integer, primary: true }
+    event_id:    { type: integer, primary: true }
+
+OverrideMovie:
+  connection: project_n
+  columns:
+    override_id: { type: integer, primary: true }
+    movie_id:    { type: integer, primary: true }
