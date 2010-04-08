@@ -468,28 +468,34 @@ RecordFieldOverride:
   actAs:
     Timestampable:              ~
   columns:
-    field:                      {type: string(50), notnull: false}
+    record_id:                  {type: integer, notnull: true}
+    field:                      {type: string(50), notnull: true}
     received_value:             {type: string,     notnull: false}
     edited_value:               {type: string,     notnull: false}
+    is_active:                  {type: boolean,    notnull: true}
+
+RecordFieldOverridePoi:
+  connection: project_n
+  inheritance:
+    extends: RecordFieldOverride
+    type: concrete
   relations:
-    Poi:   {local: override_id, foreign: poi_id,   refClass: OverridePoi }
-    Event: {local: override_id, foreign: event_id, refClass: OverrideEvent }
-    Movie: {local: override_id, foreign: movie_id, refClass: OverrideMovie }
+    Poi:   {local: record_id, foreign: id}
 
-OverridePoi:
-  connection: project_n
-  columns:
-    override_id: { type: integer, primary: true }
-    poi_id:      { type: integer, primary: true }
 
-OverrideEvent:
+RecordFieldOverrideEvent:
   connection: project_n
-  columns:
-    override_id: { type: integer, primary: true }
-    event_id:    { type: integer, primary: true }
+  inheritance:
+    extends: RecordFieldOverride
+    type: concrete
+  relations:
+    Event:   {local: record_id, foreign: id}
 
-OverrideMovie:
+
+RecordFieldOverrideMovie:
   connection: project_n
-  columns:
-    override_id: { type: integer, primary: true }
-    movie_id:    { type: integer, primary: true }
+  inheritance:
+    extends: RecordFieldOverride
+    type: concrete
+  relations:
+    Movie:   {local: record_id, foreign: id}

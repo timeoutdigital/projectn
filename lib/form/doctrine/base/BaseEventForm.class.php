@@ -30,7 +30,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'updated_at'                 => new sfWidgetFormDateTime(),
       'event_category_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
       'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
-      'record_field_override_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'RecordFieldOverride')),
     ));
 
     $this->setValidators(array(
@@ -49,7 +48,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'updated_at'                 => new sfValidatorDateTime(),
       'event_category_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
       'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
-      'record_field_override_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'RecordFieldOverride', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event[%s]');
@@ -80,18 +78,12 @@ abstract class BaseEventForm extends BaseFormDoctrine
       $this->setDefault('vendor_event_category_list', $this->object->VendorEventCategory->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['record_field_override_list']))
-    {
-      $this->setDefault('record_field_override_list', $this->object->RecordFieldOverride->getPrimaryKeys());
-    }
-
   }
 
   protected function doSave($con = null)
   {
     $this->saveEventCategoryList($con);
     $this->saveVendorEventCategoryList($con);
-    $this->saveRecordFieldOverrideList($con);
 
     parent::doSave($con);
   }
@@ -169,44 +161,6 @@ abstract class BaseEventForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('VendorEventCategory', array_values($link));
-    }
-  }
-
-  public function saveRecordFieldOverrideList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['record_field_override_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->RecordFieldOverride->getPrimaryKeys();
-    $values = $this->getValue('record_field_override_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('RecordFieldOverride', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('RecordFieldOverride', array_values($link));
     }
   }
 

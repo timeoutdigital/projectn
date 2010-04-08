@@ -19,6 +19,27 @@ class recordFieldOverrideManager
   private $record;
 
   /**
+   * Get the table containing the overrides
+   * 
+   * @return Doctrine_Table
+   */
+  public function getOverrideTable()
+  {
+    return Doctrine::getTable( $this->getRelationAlias() );
+  }
+
+  /**
+   * Get the name of the relationship linking the record to the override
+   * eg For an Event record this will return 'RecordFieldOverrideEvent'
+   * 
+   * @return string
+   */
+  public function getRelationAlias()
+  {
+    return 'RecordFieldOverride' . get_class( $this->record );
+  }
+
+  /**
    * @param Doctrine_Record $record
    */
   public function __construct( Doctrine_Record $record )
@@ -50,6 +71,18 @@ class recordFieldOverrideManager
     }
   }
 
+  /**
+   * @return Doctrine_Collection
+   */
+  public function getOverrides()
+  {
+    $alias = $this->getRelationAlias();
+    return $this->record[ $alias ];
+  }
+
+  /*
+   * Apply the overrides to the record
+   */
   public function applyOverridesToRecord()
   {
     foreach( $this->getOverrides() as $override )
@@ -82,13 +115,15 @@ class recordFieldOverrideManager
    */
   private function saveOverride( $field, $savedValue, $editedValue )
   {
-    $override  = new RecordFieldOverride();
+    $class = 'RecordFieldOverride' . $this->getRecordType();
+    $override  = new $class;
     $override[ 'field' ]          = $field;
     $override[ 'received_value' ] = $savedValue;
     $override[ 'edited_value' ]   = $editedValue;
+    $override[ 'is_active' ]      = true;
 
     $recordType = $this->getRecordType();
-    $override[ $recordType ][] = $this->getRecord();
+    $override[ $recordType ] = $this->getRecord();
     $override->save();
   }
 
@@ -98,14 +133,6 @@ class recordFieldOverrideManager
   private function getRecordType()
   {
     return get_class( $this->record );
-  }
-
-  /**
-   * @return Doctrine_Collection
-   */
-  private function getOverrides()
-  {
-    return $this->record[ 'RecordFieldOverride' ];
   }
 
 }

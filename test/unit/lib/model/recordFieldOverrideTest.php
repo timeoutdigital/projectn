@@ -22,6 +22,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testSavesRecordModificationsAsRecordFieldOverrides()
   {
+    //create and save a poi
     $receivedName   = 'Received name';
     $receivedStreet = 'Received street';
     $record = ProjectN_Test_Unit_Factory::add( 'Poi', array( 
@@ -29,18 +30,22 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
       'street'    => $receivedStreet
     ) );
 
+    //change some fields on the poi
     $editedName           = 'Edited name';
     $editedStreet         = 'Edited street';
     $record[ 'poi_name' ] = $editedName;
     $record[ 'street' ]   = $editedStreet;
     $this->assertEquals( 2, count( $record->getModified() ), 'Record should have 1 modified field.' );
 
+    //generate overrides using poi's changes
     $overrides = new recordFieldOverrideManager( $record );
     $overrides->saveRecordModificationsAsOverrides();
     $this->assertEquals( $editedName,   $record[ 'poi_name' ], 'Record should not be affected by saveRecordModificationsAsOverrides()');
     $this->assertEquals( $editedStreet, $record[ 'street' ],   'Record should not be affected by saveRecordModificationsAsOverrides()');
 
-    $overrideTable = Doctrine::getTable( 'RecordFieldOverride' );
+    //do assertions
+
+    $overrideTable = $overrides->getOverrideTable();
     $this->assertEquals( 2, $overrideTable->count(), 'Should have 2 records in RecordFieldOverride table.' );
 
     $nameOverride = $overrideTable->findOneByField( 'poi_name' );
@@ -51,7 +56,8 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals( $receivedStreet, $streetOverride[ 'received_value' ], 'Checking received street' ); 
     $this->assertEquals( $editedStreet,   $streetOverride[ 'edited_value' ], 'Checking edited street' );
 
-    $this->assertEquals( 2, count( $record[ 'RecordFieldOverride' ] )  );
+    $relation = $overrides->getRelationAlias();
+    $this->assertEquals( 2, count( $record[ $relation ] )  );
   }
 
   public function testOverridesRemainInPlaceIfIncomingValueHasNotChanged()
@@ -88,6 +94,14 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals( $newIncomingValue, $record[ 'name' ],        'Name should contain the incoming value.' );
     $this->assertEquals( $newIncomingValue, $record[ 'price' ],       'Price should contain the incoming value.' );
     $this->assertEquals( $this->editedDescription, $record[ 'description' ], 'Description should contain the incoming value.' );
+  }
+
+  public function testGetOverrides()
+  {
+    $record = $this->createAnEventAndThreeOverrides();
+
+    $overrides = new recordFieldOverrideManager( $record );
+    $this->assertEquals( 3, count( $overrides->getOverrides() ) );
   }
 
   private function createAnEventAndThreeOverrides()
@@ -128,7 +142,9 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
   {
     $overrides = new recordFieldOverrideManager( $record );
     $overrides->saveRecordModificationsAsOverrides();
-    $this->assertEquals( 3, count( $record[ 'RecordFieldOverride' ] ) );
+
+    $relation = $overrides->getRelationAlias();
+    $this->assertEquals( 3, count( $record[ $relation ] ) );
   }
 
 }
