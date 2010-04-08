@@ -50,8 +50,27 @@ class recordFieldOverrideManager
     }
   }
 
-  public function applyOverrides()
+  public function applyOverridesToRecord()
   {
+    foreach( $this->getOverrides() as $override )
+    {
+      if( $this->lastReceivedValueEqualsValueIn( $override ) )
+      {
+        $this->applyOverride( $override );
+      }
+    }
+  }
+
+  private function lastReceivedValueEqualsValueIn( $override )
+  {
+    $field = $override[ 'field' ];
+    return $override[ 'received_value' ] == $this->record[ $field ];
+  }
+
+  private function applyOverride( $override )
+  {
+      $field = $override[ 'field' ];
+      $this->record[ $field ] = $override[ 'edited_value' ];
   }
 
   /**
@@ -79,6 +98,14 @@ class recordFieldOverrideManager
   private function getRecordType()
   {
     return get_class( $this->record );
+  }
+
+  /**
+   * @return Doctrine_Collection
+   */
+  private function getOverrides()
+  {
+    return $this->record[ 'RecordFieldOverride' ];
   }
 
 }

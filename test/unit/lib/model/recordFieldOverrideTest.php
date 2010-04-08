@@ -29,8 +29,8 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
       'street'    => $receivedStreet
     ) );
 
-    $editedName  = 'Edited name';
-    $editedStreet = 'Edited street';
+    $editedName           = 'Edited name';
+    $editedStreet         = 'Edited street';
     $record[ 'poi_name' ] = $editedName;
     $record[ 'street' ]   = $editedStreet;
     $this->assertEquals( 2, count( $record->getModified() ), 'Record should have 1 modified field.' );
@@ -54,8 +54,81 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals( 2, count( $record[ 'RecordFieldOverride' ] )  );
   }
 
-  public function testOverridesAreHonored()
+  public function testOverridesRemainInPlaceIfIncomingValueHasNotChanged()
   {
+    $record = $this->createAnEventAndThreeOverrides();
+
+    //change the edited values back
+    $record[ 'name' ]        = $this->incomingName;
+    $record[ 'price' ]       = $this->incomingPrice;
+    $record[ 'description' ] = $this->incomingDescription;
+
+    //reapply the overrides
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->applyOverridesToRecord();
+
+    $this->assertEquals( $this->editedName,        $record[ 'name' ],        'Name should contain the edited value.' );
+    $this->assertEquals( $this->editedPrice,       $record[ 'price' ],       'Price should contain the edited value.' );
+    $this->assertEquals( $this->editedDescription, $record[ 'description' ], 'Description should contain the edited value.' );
+  }
+
+  public function testOverridesIgnoredIfIncomingValueHasChanged()
+  {
+    $record = $this->createAnEventAndThreeOverrides();
+
+    //change the some of the edited values back
+    $newIncomingValue = 'something different';    
+    $record[ 'name' ]  = $newIncomingValue;
+    $record[ 'price' ] = $newIncomingValue;
+
+    //reapply the overrides
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->applyOverridesToRecord();
+
+    $this->assertEquals( $newIncomingValue, $record[ 'name' ],        'Name should contain the incoming value.' );
+    $this->assertEquals( $newIncomingValue, $record[ 'price' ],       'Price should contain the incoming value.' );
+    $this->assertEquals( $this->editedDescription, $record[ 'description' ], 'Description should contain the incoming value.' );
+  }
+
+  private function createAnEventAndThreeOverrides()
+  {
+    $record = $this->addAnEventToDBWithCustomNamePriceAndDescription();
+              $this->editEventsNamePriceAndDescription( $record );
+              $this->saveModificationsAsOverrides( $record );
+    return $record;
+  }
+
+  private function addAnEventToDBWithCustomNamePriceAndDescription()
+  {
+    $this->incomingName        = 'incoming name';
+    $this->incomingPrice       = 'incoming price';
+    $this->incomingDescription = 'incoming description';
+
+    $record              = ProjectN_Test_Unit_Factory::add( 'Event', array(
+      'name'        => $this->incomingName,
+      'price'       => $this->incomingPrice,
+      'description' => $this->incomingDescription,
+    ) );
+    return $record;
+  }
+
+  private function editEventsNamePriceAndDescription( $record )
+  {
+    $this->editedName        = 'edited name';
+    $record[ 'name' ]        = $this->editedName;
+
+    $this->editedPrice       = 'edited price';
+    $record[ 'price' ]       = $this->editedPrice;
+
+    $this->editedDescription = 'edited description';
+    $record[ 'description' ] = $this->editedDescription;
+  }
+
+  private function saveModificationsAsOverrides( $record )
+  {
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->saveRecordModificationsAsOverrides();
+    $this->assertEquals( 3, count( $record[ 'RecordFieldOverride' ] ) );
   }
 
 }
