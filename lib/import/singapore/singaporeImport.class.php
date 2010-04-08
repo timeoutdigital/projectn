@@ -92,6 +92,7 @@ class singaporeImport
                 $this->insertPoi( $venueDetailObj );
             }
             catch( Exception $e ) {
+                
                 $this->_logger->addError( $e );
             }            
         }
@@ -346,7 +347,7 @@ class singaporeImport
             //$event[ 'rating' ] = '';
             $event[ 'vendor_id' ] = $this->_vendor[ 'id' ];
 
-            $event->addProperty( 'critic_choice', (string)  $eventObj->critic_choice );
+            $event->addProperty( 'Critics_choice', (string)  $eventObj->critic_choice );
             $event->addProperty( 'opentime', (string)  $eventObj->opentime );
 
             if ( count( $eventObj->tags ) == 1 )
