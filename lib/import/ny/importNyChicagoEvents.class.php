@@ -414,7 +414,7 @@ class importNyChicagoEvents
         {
             if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
             {
-                $eventObj->addProperty( (string) $attribute->name, (string) $attribute->value );
+                $eventObj->addProperty( "Critics_choice", (string) $attribute->value );
             }
         }
 
