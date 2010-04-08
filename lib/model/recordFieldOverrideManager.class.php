@@ -25,18 +25,8 @@ class recordFieldOverrideManager
    */
   public function getOverrideTable()
   {
-    return Doctrine::getTable( $this->getRelationAlias() );
-  }
-
-  /**
-   * Get the name of the relationship linking the record to the override
-   * eg For an Event record this will return 'RecordFieldOverrideEvent'
-   * 
-   * @return string
-   */
-  public function getRelationAlias()
-  {
-    return 'RecordFieldOverride' . get_class( $this->record );
+    $tableName = 'RecordFieldOverride' . $this->getRecordType();
+    return Doctrine::getTable( $tableName );
   }
 
   /**
@@ -74,10 +64,32 @@ class recordFieldOverrideManager
   /**
    * @return Doctrine_Collection
    */
-  public function getOverrides()
+  public function getActiveOverrides()
   {
-    $alias = $this->getRelationAlias();
-    return $this->record[ $alias ];
+    $ret = $this->getOverrideTable()->findActiveOverrideForRecord( $this->record );
+    return $ret;
+  }
+
+  /**
+   * @return Doctrine_Collection
+   */
+  public function getActiveOverrideByField( $field )
+  {
+    $ret = $this->getOverrideTable()->findActiveOverrideForRecordByField( $this->record, $field );
+    return $ret;
+  }
+
+  /**
+   * @return Doctrine_Collection
+   */
+  public function getAllOverrides()
+  {
+    //$alias = $this->getRelationAlias();
+    //$ret = $this->record[ $alias ];
+    //todo find out why the above relationship does not return all override records
+
+    $ret = $this->getOverrideTable()->findByRecordId( $this->record[ 'id' ] );
+    return $ret;
   }
 
   /*
@@ -124,8 +136,27 @@ class recordFieldOverrideManager
 
     $recordType = $this->getRecordType();
     $override[ $recordType ] = $this->getRecord();
+    
+    //$override = $this->getEquivalentOverrideRecord( $override );
+
     $override->save();
   }
+
+
+
+  private function getEquivalentOverrideRecord( $overrideRecord )
+  {
+    $recordFinder = new recordFinder();
+    $returnOverrideRecord = $recordFinder->findEquivalentOf( $overrideRecord )
+                            ->comparingAllFieldsExcept( 'id', 'created_at', 'updated_at', 'is_active' )
+                            ->getUniqueRecord();
+    var_dump( $returnOverrideRecord );
+    $returnOverrideRecord[ 'is_active' ] = $overrideRecord[ 'is_active' ];
+    
+    return $returnOverrideRecord;
+  }
+
+
 
   /**
    * @return string
@@ -133,6 +164,19 @@ class recordFieldOverrideManager
   private function getRecordType()
   {
     return get_class( $this->record );
+  }
+
+  private function deactivateOverrideForField( $field )
+  {
+    $class = 'RecordFieldOverride' . $this->getRecordType();
+
+    $overrides = $this->getOverrideTable()->findByRecordIdAndIsActive( $this->record[ 'id' ], true );
+
+    foreach ( $overrides as $override )
+    {
+      $override[ 'is_active' ]      = false;
+      $override->save();
+    }
   }
 
 }

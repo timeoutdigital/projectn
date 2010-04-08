@@ -23,42 +23,42 @@ Doctrine_Manager::getInstance()->bindComponent('Event', 'project_n');
  * @property Doctrine_Collection $EventOccurrence
  * @property Doctrine_Collection $EventMedia
  * @property Doctrine_Collection $EventProperty
- * @property Doctrine_Collection $RecordFieldOverrideEvent
+ * @property Doctrine_Collection $RecordFieldOverride
  * 
- * @method datetime            getReviewDate()               Returns the current record's "review_date" value
- * @method string              getVendorEventId()            Returns the current record's "vendor_event_id" value
- * @method string              getName()                     Returns the current record's "name" value
- * @method string              getShortDescription()         Returns the current record's "short_description" value
- * @method string              getDescription()              Returns the current record's "description" value
- * @method string              getBookingUrl()               Returns the current record's "booking_url" value
- * @method string              getUrl()                      Returns the current record's "url" value
- * @method string              getPrice()                    Returns the current record's "price" value
- * @method float               getRating()                   Returns the current record's "rating" value
- * @method integer             getVendorId()                 Returns the current record's "vendor_id" value
- * @method Vendor              getVendor()                   Returns the current record's "Vendor" value
- * @method Doctrine_Collection getEventCategory()            Returns the current record's "EventCategory" collection
- * @method Doctrine_Collection getVendorEventCategory()      Returns the current record's "VendorEventCategory" collection
- * @method Doctrine_Collection getEventOccurrence()          Returns the current record's "EventOccurrence" collection
- * @method Doctrine_Collection getEventMedia()               Returns the current record's "EventMedia" collection
- * @method Doctrine_Collection getEventProperty()            Returns the current record's "EventProperty" collection
- * @method Doctrine_Collection getRecordFieldOverrideEvent() Returns the current record's "RecordFieldOverrideEvent" collection
- * @method Event               setReviewDate()               Sets the current record's "review_date" value
- * @method Event               setVendorEventId()            Sets the current record's "vendor_event_id" value
- * @method Event               setName()                     Sets the current record's "name" value
- * @method Event               setShortDescription()         Sets the current record's "short_description" value
- * @method Event               setDescription()              Sets the current record's "description" value
- * @method Event               setBookingUrl()               Sets the current record's "booking_url" value
- * @method Event               setUrl()                      Sets the current record's "url" value
- * @method Event               setPrice()                    Sets the current record's "price" value
- * @method Event               setRating()                   Sets the current record's "rating" value
- * @method Event               setVendorId()                 Sets the current record's "vendor_id" value
- * @method Event               setVendor()                   Sets the current record's "Vendor" value
- * @method Event               setEventCategory()            Sets the current record's "EventCategory" collection
- * @method Event               setVendorEventCategory()      Sets the current record's "VendorEventCategory" collection
- * @method Event               setEventOccurrence()          Sets the current record's "EventOccurrence" collection
- * @method Event               setEventMedia()               Sets the current record's "EventMedia" collection
- * @method Event               setEventProperty()            Sets the current record's "EventProperty" collection
- * @method Event               setRecordFieldOverrideEvent() Sets the current record's "RecordFieldOverrideEvent" collection
+ * @method datetime            getReviewDate()          Returns the current record's "review_date" value
+ * @method string              getVendorEventId()       Returns the current record's "vendor_event_id" value
+ * @method string              getName()                Returns the current record's "name" value
+ * @method string              getShortDescription()    Returns the current record's "short_description" value
+ * @method string              getDescription()         Returns the current record's "description" value
+ * @method string              getBookingUrl()          Returns the current record's "booking_url" value
+ * @method string              getUrl()                 Returns the current record's "url" value
+ * @method string              getPrice()               Returns the current record's "price" value
+ * @method float               getRating()              Returns the current record's "rating" value
+ * @method integer             getVendorId()            Returns the current record's "vendor_id" value
+ * @method Vendor              getVendor()              Returns the current record's "Vendor" value
+ * @method Doctrine_Collection getEventCategory()       Returns the current record's "EventCategory" collection
+ * @method Doctrine_Collection getVendorEventCategory() Returns the current record's "VendorEventCategory" collection
+ * @method Doctrine_Collection getEventOccurrence()     Returns the current record's "EventOccurrence" collection
+ * @method Doctrine_Collection getEventMedia()          Returns the current record's "EventMedia" collection
+ * @method Doctrine_Collection getEventProperty()       Returns the current record's "EventProperty" collection
+ * @method Doctrine_Collection getRecordFieldOverride() Returns the current record's "RecordFieldOverride" collection
+ * @method Event               setReviewDate()          Sets the current record's "review_date" value
+ * @method Event               setVendorEventId()       Sets the current record's "vendor_event_id" value
+ * @method Event               setName()                Sets the current record's "name" value
+ * @method Event               setShortDescription()    Sets the current record's "short_description" value
+ * @method Event               setDescription()         Sets the current record's "description" value
+ * @method Event               setBookingUrl()          Sets the current record's "booking_url" value
+ * @method Event               setUrl()                 Sets the current record's "url" value
+ * @method Event               setPrice()               Sets the current record's "price" value
+ * @method Event               setRating()              Sets the current record's "rating" value
+ * @method Event               setVendorId()            Sets the current record's "vendor_id" value
+ * @method Event               setVendor()              Sets the current record's "Vendor" value
+ * @method Event               setEventCategory()       Sets the current record's "EventCategory" collection
+ * @method Event               setVendorEventCategory() Sets the current record's "VendorEventCategory" collection
+ * @method Event               setEventOccurrence()     Sets the current record's "EventOccurrence" collection
+ * @method Event               setEventMedia()          Sets the current record's "EventMedia" collection
+ * @method Event               setEventProperty()       Sets the current record's "EventProperty" collection
+ * @method Event               setRecordFieldOverride() Sets the current record's "RecordFieldOverride" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -159,7 +159,7 @@ abstract class BaseEvent extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'event_id'));
 
-        $this->hasMany('RecordFieldOverrideEvent', array(
+        $this->hasMany('RecordFieldOverrideEvent as RecordFieldOverride', array(
              'local' => 'id',
              'foreign' => 'record_id'));
 

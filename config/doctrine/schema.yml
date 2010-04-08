@@ -480,8 +480,7 @@ RecordFieldOverridePoi:
     extends: RecordFieldOverride
     type: concrete
   relations:
-    Poi:   {local: record_id, foreign: id}
-
+    Poi:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}
 
 RecordFieldOverrideEvent:
   connection: project_n
@@ -489,8 +488,7 @@ RecordFieldOverrideEvent:
     extends: RecordFieldOverride
     type: concrete
   relations:
-    Event:   {local: record_id, foreign: id}
-
+    Event:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}
 
 RecordFieldOverrideMovie:
   connection: project_n
@@ -498,4 +496,4 @@ RecordFieldOverrideMovie:
     extends: RecordFieldOverride
     type: concrete
   relations:
-    Movie:   {local: record_id, foreign: id}
+    Movie:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}

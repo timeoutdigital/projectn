@@ -43,7 +43,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @property Doctrine_Collection $PoiProperty
  * @property Doctrine_Collection $EventOccurrence
  * @property Doctrine_Collection $Poi
- * @property Doctrine_Collection $RecordFieldOverridePoi
+ * @property Doctrine_Collection $RecordFieldOverride
  * 
  * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
  * @method datetime            getReviewDate()                 Returns the current record's "review_date" value
@@ -81,7 +81,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Doctrine_Collection getRecordFieldOverridePoi()     Returns the current record's "RecordFieldOverridePoi" collection
+ * @method Doctrine_Collection getRecordFieldOverride()        Returns the current record's "RecordFieldOverride" collection
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
  * @method Poi                 setLocalLanguage()              Sets the current record's "local_language" value
@@ -118,7 +118,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
- * @method Poi                 setRecordFieldOverridePoi()     Sets the current record's "RecordFieldOverridePoi" collection
+ * @method Poi                 setRecordFieldOverride()        Sets the current record's "RecordFieldOverride" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -323,7 +323,7 @@ abstract class BasePoi extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'poi_id'));
 
-        $this->hasMany('RecordFieldOverridePoi', array(
+        $this->hasMany('RecordFieldOverridePoi as RecordFieldOverride', array(
              'local' => 'id',
              'foreign' => 'record_id'));
 
