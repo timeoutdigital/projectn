@@ -180,12 +180,18 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * Test movies do not contain a null (empty) review.
+   */
   public function testDoNotExportOnMissingReview()
   {
     $movies_with_empty_reviews = $this->xpath->query( '/vendor-movies/movie/version[review="" or not(review)]' );
     $this->assertEquals( 0, $movies_with_empty_reviews->length );
   }
 
+  /**
+   * Test movies have a link-id if it exists (as imdb_id) in the data.
+   */
   public function testLinkIdAttributeExistsIfAvailableInData()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
@@ -201,6 +207,9 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertNotNull( $movie );
   }
 
+  /**
+   * Test movies do not have a link-id if it does not exist (as imdb_id) in the data.
+   */
   public function testLinkIdAttributeDoesNotExistsIfNotAvailableInData()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
