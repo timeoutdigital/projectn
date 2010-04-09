@@ -20,9 +20,20 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testNullComparison()
+  {
+    $record = ProjectN_Test_Unit_Factory::add( 'Movie', array( 'plot' => null ) );
+
+    $record[ 'plot' ] = '';
+
+    $override = new recordFieldOverrideManager( $record );
+    $override->saveRecordModificationsAsOverrides();
+
+    $this->assertEquals( 0, count( $override->getAllOverrides() ) );
+  }
+
   public function testSavesRecordModificationsAsRecordFieldOverrides()
   {
-    return;
     //create and save a poi
     $receivedName   = 'Received name';
     $receivedStreet = 'Received street';
@@ -57,13 +68,11 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals( $receivedStreet, $streetOverride[ 'received_value' ], 'Checking received street' ); 
     $this->assertEquals( $editedStreet,   $streetOverride[ 'edited_value' ], 'Checking edited street' );
 
-    $relation = $overrides->getRelationAlias();
-    $this->assertEquals( 2, count( $record[ $relation ] )  );
+    $this->assertEquals( 2, count( $record[ 'RecordFieldOverride' ] )  );
   }
 
   public function testOverridesRemainInPlaceIfIncomingValueHasNotChanged()
   {
-    return;
     $record = $this->createAnEventAndThreeOverrides();
 
     //change the edited values back
@@ -82,7 +91,6 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testOverridesIgnoredIfIncomingValueHasChanged()
   {
-    return;
     $record = $this->createAnEventAndThreeOverrides();
 
     //change the some of the edited values back

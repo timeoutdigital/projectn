@@ -13,4 +13,20 @@ require_once dirname(__FILE__).'/../lib/poiGeneratorHelper.class.php';
  */
 class poiActions extends autoPoiActions
 {
+//
+//  protected function processForm(sfWebRequest $request, sfForm $form)
+//  {
+//    $record = $form->getObject();
+//
+//    var_dump( $request->getParameter($form->getName()) );
+//    $recordb = Doctrine::getTable( 'Poi' )->findOneById( $record['id'] );
+//    var_dump( $recordb['poi_name'] );
+//    exit();
+//
+//    $overrideManger = new recordFieldOverrideManager( $record );
+//    $overrideManger->applyOverridesToRecord();
+//
+//    parent::processForm( $request, $form );
+//  }
+
 }

@@ -20,4 +20,14 @@ class RecordFieldOverrideTable extends Doctrine_Table
     ;
     return $query->execute();
   }
+
+  public function findPreviousOverrideFor( $override )
+  {
+    $query = $this->createQuery( 'o' )
+                  ->andWhere(   'o.record_id = ?',    $override[ 'record_id' ] )
+                  ->andWhere(   'o.field = ?',        $override[ 'field'] )
+                  ->addOrderBy( 'o.is_active DESC, o.updated_at DESC' )
+    ;
+    return $query->fetchOne();
+  }
 }

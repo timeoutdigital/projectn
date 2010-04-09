@@ -14,19 +14,24 @@ class RecordFieldOverride extends BaseRecordFieldOverride
 {
   public function save( Doctrine_Connection $conn = null )
   {
-    if ( $this[ 'id' ] == NULL )
+    if ( !$this->exists() )
     {
-      $recordFinder = new recordFinder();
-      $override = $recordFinder->findEquivalentOf( $this )
-                               ->comparingAllFieldsExcept( 'id', 'created_at', 'updated_at', 'is_active' )
-                               ->getUniqueRecord();
+      $existingOverride = $this->getTable()->findPreviousOverrideFor( $this );
 
-      if( $override[ 'id' ] != NULL )
+      if( $existingOverride instanceof Doctrine_Record )
       {
-        $override[ 'is_active' ] = $this[ 'is_active' ];
-        $override->save();
-        return;
+        if( $this[ 'edited_value' ] == $existingOverride[ 'edited_value' ] )
+        {
+          $existingOverride[ 'is_active' ] = $this[ 'is_active' ];
+          $existingOverride->save();
+          return;
+        }
+        else
+        {
+          $this[ 'received_value' ] = $existingOverride[ 'received_value' ];
+        }
       }
+
     }
     parent::save();
   }

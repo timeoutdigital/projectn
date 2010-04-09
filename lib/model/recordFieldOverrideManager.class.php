@@ -51,14 +51,17 @@ class recordFieldOverrideManager
    */
   public function saveRecordModificationsAsOverrides()
   {
-    $savedValues    = $this->record->getLastModified( true );
-    $modifiedValues = $this->record->getModified();
+    $currentReceivedValues = $this->record->getModified( true );
+    $modifiedValues        = $this->record->getModified();
 
     foreach( $modifiedValues as $field => $editedValue )
     {
+      if( empty( $editedValue ) && is_null( $currentReceivedValues[ $field ] ) )
+        continue;
+
       $this->deactivateOverridesForField( $field );
-      $savedValue = $savedValues[ $field ];
-      $this->saveOverride( $field, $savedValue, $editedValue );
+      $currentReceivedValue = $currentReceivedValues[ $field ];
+      $this->saveOverride( $field, $currentReceivedValue, $editedValue );
     }
   }
 
@@ -98,7 +101,7 @@ class recordFieldOverrideManager
    */
   public function applyOverridesToRecord()
   {
-    foreach( $this->getOverrides() as $override )
+    foreach( $this->getActiveOverrides() as $override )
     {
       if( $this->lastReceivedValueEqualsValueIn( $override ) )
       {
@@ -123,15 +126,15 @@ class recordFieldOverrideManager
    * Creates and saves an override
    *$this->record[ 'id' ]
    * @param string $field
-   * @param string $savedValue
+   * @param string $currentReceivedValue
    * @param string $editedValue
    */
-  private function saveOverride( $field, $savedValue, $editedValue )
+  private function saveOverride( $field, $currentReceivedValue, $editedValue )
   {
     $class = 'RecordFieldOverride' . $this->getRecordType();
     $override  = new $class;
     $override[ 'field' ]          = $field;
-    $override[ 'received_value' ] = $savedValue;
+    $override[ 'received_value' ] = $currentReceivedValue;
     $override[ 'edited_value' ]   = $editedValue;
     $override[ 'is_active' ]      = true;
 
