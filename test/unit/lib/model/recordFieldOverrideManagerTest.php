@@ -152,6 +152,25 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     //$this->assertTrue( $overridesRecords[ 0 ][ 'is_active' ] );
   }
 
+  public function testSaveOverridesAndHasOnlyOneActiveOverride()
+  {
+    $record = ProjectN_Test_Unit_Factory::add( 'Event' );
+
+    $this->editedName        = 'edited name';
+    $record[ 'name' ]        = $this->editedName;
+
+    $this->saveModificationsAsOverrides( $record );
+
+    $this->editedName        = 'edited name again';
+    $record[ 'name' ]        = $this->editedName;
+
+    $this->saveModificationsAsOverrides( $record );
+
+    $activeOverrides = Doctrine::getTable( 'RecordFieldOverrideEvent' )->findByIsActive( true );
+
+    $this->assertEquals( 1, $activeOverrides->count() );
+  }
+
   private function createAnEventAndThreeOverrides()
   {
     $record = $this->addAnEventToDBWithCustomNamePriceAndDescription();
@@ -190,8 +209,6 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
   {
     $overrides = new recordFieldOverrideManager( $record );
     $overrides->saveRecordModificationsAsOverrides();
-
-    $this->assertEquals( 3, count( $record[ 'RecordFieldOverride' ] ) );
   }
 
 }

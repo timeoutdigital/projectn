@@ -56,6 +56,7 @@ class recordFieldOverrideManager
 
     foreach( $modifiedValues as $field => $editedValue )
     {
+      $this->deactivateOverridesForField( $field );
       $savedValue = $savedValues[ $field ];
       $this->saveOverride( $field, $savedValue, $editedValue );
     }
@@ -120,7 +121,7 @@ class recordFieldOverrideManager
 
   /**
    * Creates and saves an override
-   *
+   *$this->record[ 'id' ]
    * @param string $field
    * @param string $savedValue
    * @param string $editedValue
@@ -150,7 +151,7 @@ class recordFieldOverrideManager
     $returnOverrideRecord = $recordFinder->findEquivalentOf( $overrideRecord )
                             ->comparingAllFieldsExcept( 'id', 'created_at', 'updated_at', 'is_active' )
                             ->getUniqueRecord();
-    var_dump( $returnOverrideRecord );
+    
     $returnOverrideRecord[ 'is_active' ] = $overrideRecord[ 'is_active' ];
     
     return $returnOverrideRecord;
@@ -166,12 +167,11 @@ class recordFieldOverrideManager
     return get_class( $this->record );
   }
 
-  private function deactivateOverrideForField( $field )
+  private function deactivateOverridesForField( $field )
   {
     $class = 'RecordFieldOverride' . $this->getRecordType();
 
-    $overrides = $this->getOverrideTable()->findByRecordIdAndIsActive( $this->record[ 'id' ], true );
-
+    $overrides = $this->getOverrideTable()->findActiveOverrideForRecordByField( $this->record, $field );
     foreach ( $overrides as $override )
     {
       $override[ 'is_active' ]      = false;
