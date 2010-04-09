@@ -1,16 +1,22 @@
 #!/bin/bash
 
 echo "Zipping Movies"
-zip export/export_$(date +"%Y%m%d")/movie/movie.zip export/export_$(date +"%Y%m%d")/movie/*
-md5sum /export/export_$(date +"%Y%m%d")/movie/movie.zip > export/export_$(date +"%Y%m%d")/movie/movie.zip.md5
+
+cd export/export_$(date +"%Y%m%d")/movie/
+zip movie.zip ./*
+md5sum movie.zip > movie.zip.md5
 
 echo "Zipping Pois"
-zip export/export_$(date +"%Y%m%d")/poi/poi.zip export/export_$(date +"%Y%m%d")/poi/*
-md5sum export/export_$(date +"%Y%m%d")/poi/poi.zip > export/export_$(date +"%Y%m%d")/poi/poi.zip.md5
+cd ../poi/
+zip poi.zip ./*
+md5sum poi.zip > poi.zip.md5
 
 echo "Zipping Events"
-zip export/export_$(date +"%Y%m%d")/event/event.zip export/export_$(date +"%Y%m%d")/event/*
-md5sum export/export_$(date +"%Y%m%d")/event/event.zip > export/export_$(date +"%Y%m%d")/event/event.zip.md5
+cd ../event/
+zip event.zip ./*
+md5sum event.zip > event.zip.md5
+
+cd ../../../
 
 
 echo "Uploading lock"

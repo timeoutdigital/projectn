@@ -285,6 +285,50 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
      $this->assertEquals( 1, $poisCol->count() );
   }
 
+  /**
+   * test if attribute is appended
+   *
+   */
+  public function testCriticsPicksPropertyOnEvent()
+  {
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_events_list.xml' );
+     $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $this->stubCurlImporter->getXml();
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/event_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+
+     // this is needed just for testing
+     $this->object->setCurlImporter( $stubCurlImporterDetail );
+
+     $this->object->insertEvents( $xmlObj );
+
+     $eventObj = Doctrine::getTable('Event')->findOneByVendorEventId(8529);
+
+    //Test that the Critics_choice is normalized to this form
+    $this->assertEquals( 'Critics_choice', $eventObj['EventProperty'][0]['lookup'], "Use 'Critics_choice' instead of 'Critic's Pick' or whatever else.");
+  }
+
+  /**
+   * test if attribute is appended
+   *
+   */
+  public function testCriticsPicksPropertyOnPoi()
+  {
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $stubCurlImporterDetail->getXml();
+
+     $this->object->insertPoi( $xmlObj );
+
+     $poiObj = Doctrine::getTable('Poi')->findOneByVendorPoiId('2154');
+     
+     $this->assertEquals( 'Critics_choice', $poiObj['PoiProperty'][0]['lookup'], "Use 'Critics_choice' instead of 'Critic's Pick' or whatever else.");
+   }
 }
 
 
