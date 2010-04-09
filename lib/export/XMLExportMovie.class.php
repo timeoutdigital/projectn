@@ -42,7 +42,7 @@ class XMLExportMovie extends XMLExport
 
     foreach( $movieCollection as $movie )
     {
-      if( empty( $movie[ 'imdb_id' ] ) )
+      if( empty( $movie[ 'imdb_id' ] ) || empty( $movie[ 'review' ] ) )
         continue;
 
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');

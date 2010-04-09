@@ -135,6 +135,31 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie3->link( 'MovieGenres', array( 1, 2 ) );
     $movie3->save();
 
+    $movie4 = new Movie();
+    $movie4[ 'vendor_movie_id' ] = 1111;
+    $movie4[ 'Vendor' ] = $vendor;
+    $movie4[ 'name' ] = 'test movie name';
+    $movie4[ 'imdb_id' ] = 'tt092378';
+    $movie4[ 'plot' ] = 'test movie plot';
+    $movie4[ 'review' ] = '';
+    $movie4[ 'url' ] = 'http://movies.co.uk';
+    $movie4[ 'rating' ] = '0.0';
+    $movie4[ 'tag_line' ] = 'test movie tag-line';
+    $movie4[ 'director' ] = 'test director';
+    $movie4[ 'writer' ] = 'test writer';
+    $movie4[ 'cast' ] = 'test cast';
+    $movie4[ 'age_rating' ] = 'test age-rating';
+    //$movie2[ 'release_date' ] = '2010-02-28'; //Removed see #262
+    $movie4[ 'duration' ] = 'test duratione';
+    //$movie2[ 'country' ] = 'test country';
+    $movie4[ 'language' ] = 'test language';
+    $movie4[ 'aspect_ratio' ] = 'test aspect-ratio';
+    $movie4[ 'sound_mix' ] = 'test sound-mix';
+    $movie4[ 'company' ] = 'test company';
+    $movie4[ 'utf_offset' ] = '-01:00:00';
+    $movie4->link( 'MovieGenres', array( 1, 2 ) );
+    $movie4->save();
+
     $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
     $this->export = new XMLExportMovie( $this->vendor, $this->destination );
 
@@ -153,6 +178,12 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+  }
+
+  public function testDoNotExportOnMissingReview()
+  {
+    $movies_with_empty_reviews = $this->xpath->query( '/vendor-movies/movie/version[review="" or not(review)]' );
+    $this->assertEquals( 0, $movies_with_empty_reviews->length );
   }
 
   public function testLinkIdAttributeExistsIfAvailableInData()
