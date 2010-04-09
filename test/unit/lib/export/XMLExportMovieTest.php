@@ -69,7 +69,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie[ 'writer' ] = 'test writer';
     $movie[ 'cast' ] = 'test cast';
     $movie[ 'age_rating' ] = 'test age-rating';
-    $movie[ 'release_date' ] = '2010-02-28';
+    //$movie[ 'release_date' ] = '2010-02-28';  //Removed see #262
     $movie[ 'duration' ] = 'test duratione';
     //$movie[ 'country' ] = 'test country';
     $movie[ 'language' ] = 'test language';
@@ -113,7 +113,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2[ 'writer' ] = 'test writer';
     $movie2[ 'cast' ] = 'test cast';
     $movie2[ 'age_rating' ] = 'test age-rating';
-    $movie2[ 'release_date' ] = '2010-02-28';
+    //$movie2[ 'release_date' ] = '2010-02-28'; //Removed see #262
     $movie2[ 'duration' ] = 'test duratione';
     //$movie2[ 'country' ] = 'test country';
     $movie2[ 'language' ] = 'test language';
@@ -249,7 +249,8 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'test age-rating', $additionalDetailsElement->getElementsByTagName( 'age-rating' )->item(0)->nodeValue );
 
     //movie/additional-details/website
-    $this->assertEquals( '2010-02-28', $additionalDetailsElement->getElementsByTagName( 'release-date' )->item(0)->nodeValue );
+    //Removed see #262
+    //$this->assertEquals( '2010-02-28', $additionalDetailsElement->getElementsByTagName( 'release-date' )->item(0)->nodeValue );
 
     //movie/additional-details/website
     $this->assertEquals( 'test duratione', $additionalDetailsElement->getElementsByTagName( 'duration' )->item(0)->nodeValue );
