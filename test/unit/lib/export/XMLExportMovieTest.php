@@ -69,7 +69,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie[ 'writer' ] = 'test writer';
     $movie[ 'cast' ] = 'test cast';
     $movie[ 'age_rating' ] = 'test age-rating';
-    $movie[ 'release_date' ] = '2010-02-28';
+    //$movie[ 'release_date' ] = '2010-02-28';  //Removed see #262
     $movie[ 'duration' ] = 'test duratione';
     //$movie[ 'country' ] = 'test country';
     $movie[ 'language' ] = 'test language';
@@ -113,7 +113,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie2[ 'writer' ] = 'test writer';
     $movie2[ 'cast' ] = 'test cast';
     $movie2[ 'age_rating' ] = 'test age-rating';
-    $movie2[ 'release_date' ] = '2010-02-28';
+    //$movie2[ 'release_date' ] = '2010-02-28'; //Removed see #262
     $movie2[ 'duration' ] = 'test duratione';
     //$movie2[ 'country' ] = 'test country';
     $movie2[ 'language' ] = 'test language';
@@ -135,6 +135,31 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie3->link( 'MovieGenres', array( 1, 2 ) );
     $movie3->save();
 
+    $movie4 = new Movie();
+    $movie4[ 'vendor_movie_id' ] = 1111;
+    $movie4[ 'Vendor' ] = $vendor;
+    $movie4[ 'name' ] = 'test movie name';
+    $movie4[ 'imdb_id' ] = 'tt092378';
+    $movie4[ 'plot' ] = 'test movie plot';
+    $movie4[ 'review' ] = '';
+    $movie4[ 'url' ] = 'http://movies.co.uk';
+    $movie4[ 'rating' ] = '0.0';
+    $movie4[ 'tag_line' ] = 'test movie tag-line';
+    $movie4[ 'director' ] = 'test director';
+    $movie4[ 'writer' ] = 'test writer';
+    $movie4[ 'cast' ] = 'test cast';
+    $movie4[ 'age_rating' ] = 'test age-rating';
+    //$movie2[ 'release_date' ] = '2010-02-28'; //Removed see #262
+    $movie4[ 'duration' ] = 'test duratione';
+    //$movie2[ 'country' ] = 'test country';
+    $movie4[ 'language' ] = 'test language';
+    $movie4[ 'aspect_ratio' ] = 'test aspect-ratio';
+    $movie4[ 'sound_mix' ] = 'test sound-mix';
+    $movie4[ 'company' ] = 'test company';
+    $movie4[ 'utf_offset' ] = '-01:00:00';
+    $movie4->link( 'MovieGenres', array( 1, 2 ) );
+    $movie4->save();
+
     $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
     $this->export = new XMLExportMovie( $this->vendor, $this->destination );
 
@@ -155,6 +180,18 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * Test movies do not contain a null (empty) review.
+   */
+  public function testDoNotExportOnMissingReview()
+  {
+    $movies_with_empty_reviews = $this->xpath->query( '/vendor-movies/movie/version[review="" or not(review)]' );
+    $this->assertEquals( 0, $movies_with_empty_reviews->length );
+  }
+
+  /**
+   * Test movies have a link-id if it exists (as imdb_id) in the data.
+   */
   public function testLinkIdAttributeExistsIfAvailableInData()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
@@ -170,6 +207,9 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertNotNull( $movie );
   }
 
+  /**
+   * Test movies do not have a link-id if it does not exist (as imdb_id) in the data.
+   */
   public function testLinkIdAttributeDoesNotExistsIfNotAvailableInData()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
@@ -249,7 +289,8 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'test age-rating', $additionalDetailsElement->getElementsByTagName( 'age-rating' )->item(0)->nodeValue );
 
     //movie/additional-details/website
-    $this->assertEquals( '2010-02-28', $additionalDetailsElement->getElementsByTagName( 'release-date' )->item(0)->nodeValue );
+    //Removed see #262
+    //$this->assertEquals( '2010-02-28', $additionalDetailsElement->getElementsByTagName( 'release-date' )->item(0)->nodeValue );
 
     //movie/additional-details/website
     $this->assertEquals( 'test duratione', $additionalDetailsElement->getElementsByTagName( 'duration' )->item(0)->nodeValue );
