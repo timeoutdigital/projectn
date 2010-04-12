@@ -281,7 +281,17 @@ class singaporeImport
             //save
             $poi->save();
             //post-save
-            ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
+            $this->_logger->addSuccess( $poi, ( $logIsNew ) ? 'insert' : 'update', $logChangedFields );
+
+
+
+     
+
+
+
+
+            //
+
 
             return $poi;
 
