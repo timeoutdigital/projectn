@@ -87,16 +87,16 @@ class ProjectN_Test_Unit_Factory
   static public function get( $model, $data = null, $autoCreateRelatedObjects = true )
   {
     $classMap = array(
-      'poi'                 => PoiFixture,
-      'poicategory'         => PoiCategoryFixture,
-      'vendor'              => VendorFixture,
-      'event'               => EventFixture,
-      'eventoccurrence'     => EventOccurrenceFixture,
-      'eventcategory'       => EventCategoryFixture,
-      'eventproperty'       => EventPropertyFixture,
-      'movie'               => MovieFixture,
-      'vendoreventcategory' => VendorEventCategoryFixture,
-      'vendorpoicategory'   => VendorPoiCategoryFixture,
+      'poi'                 => 'PoiFixture',
+      'poicategory'         => 'PoiCategoryFixture',
+      'vendor'              => 'VendorFixture',
+      'event'               => 'EventFixture',
+      'eventoccurrence'     => 'EventOccurrenceFixture',
+      'eventcategory'       => 'EventCategoryFixture',
+      'eventproperty'       => 'EventPropertyFixture',
+      'movie'               => 'MovieFixture',
+      'vendoreventcategory' => 'VendorEventCategoryFixture',
+      'vendorpoicategory'   => 'VendorPoiCategoryFixture',
     );
 
     $model = strtolower( $model );

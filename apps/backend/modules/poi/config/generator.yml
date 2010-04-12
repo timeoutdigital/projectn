@@ -17,6 +17,42 @@ generator:
       list:
         display: [=name, longitude, latitude, city]
       filter:  ~
-      form:    ~
+      form:
+        display:
+          Editable:
+            - poi_name
+            - house_no
+            - street
+            - city
+            - district
+            - country
+            - additional_address_details
+            - zips
+            - longitude
+            - latitude
+            - email
+            - url
+            - phone
+            - phone2
+            - fax
+            - keywords
+            - short_description
+            - description
+            - public_transport_links
+            - price_information
+            - openingtimes
+            - star_rating
+            - rating
+            - provider
+            - poi_category_list
+            - vendor_poi_category_list
+          Info: 
+            - vendor_poi_id
+            - review_date
+            - local_language
+            - id
+            - created_at
+            - updated_at
+            - vendor_id
       edit:    ~
       new:     ~
