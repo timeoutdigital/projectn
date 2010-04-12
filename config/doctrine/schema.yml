@@ -368,34 +368,59 @@ Vendor:
     city_language_index:        {fields: [city, language]}
 
 
+
+
 #Import stats
 ImportLogger:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
-    total_inserts:              {type: integer, notnull: true}
-    total_updates:              {type: integer, notnull: true}
-    total_errors:               {type: integer, notnull: true}
+    total_received:             {type: integer, notnull: true}
+    #total_inserts:              {type: integer, notnull: true}
+    #total_updates:              {type: integer, notnull: true}
+    #total_errors:               {type: integer, notnull: true}
     total_existing:             {type: integer, notnull: true}
     vendor_id:                  {type: integer, notnull: true}
     type:                       {type: enum, values: [movie, poi, event], notnull: true}
+    status:                     {type: enum, values: [running, failed, success], notnull: true}
     total_time:                 {type: time, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
 
-
-#Log all changes during an import i.e. updated poi content
-ImportLoggerChange:
+#Log all successfull additions, changes and deletes during an import i.e. updated poi content
+ImportLoggerSuccess:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
-    type:                       {type: enum, values: [update, delete], notnull: true}
+    type:                       {type: enum, values: [insert, update, delete], notnull: true}
     log:                        {type: string, notnull: true}
     import_logger_id:           {type: integer, notnull: true}
   relations:
-    ImportLogger:                {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerChanges}
+    ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerSuccess}
+    Poi:                        {class: Poi, refClass: LinkingImportLoggerSuccessPoi, local: import_logger_success_id, foreign: poi_id }
+    Event:                      {class: Event, refClass: LinkingImportLoggerSuccessEvent, local: import_logger_success_id, foreign: event_id }
+    Movie:                      {class: Movie, refClass: LinkingImportLoggerSuccessMovie, local: import_logger_success_id, foreign: movie_id }
+
+#Linking tables for the ImportLoggerSuccess
+LinkingImportLoggerSuccessPoi:
+  connection: project_n
+  columns:
+     import_logger_success_id:  {type: integer, notnull: true}
+     poi_id:                    {type: integer, notnull: true}
+
+LinkingImportLoggerSuccessEvent:
+  connection: project_n
+  columns:
+     import_logger_success_id:  {type: integer, notnull: true}
+     event_id:                  {type: integer, notnull: true}
+
+LinkingImportLoggerSuccessMovie:
+  connection: project_n
+  columns:
+     import_logger_success_id:  {type: integer, notnull: true}
+     movie_id:                  {type: integer, notnull: true}
 
  #Log All import issues
 ImportLoggerError:
@@ -411,7 +436,13 @@ ImportLoggerError:
     import_logger_id:           {type: integer, notnull: true}
     resolved:                   {type: boolean, notnull: true, default: 0}
   relations:
-    ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerErrors}
+    ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerError}
+
+
+
+
+
+
 
 #Master Media table, extended by PoiMedia, EventMedia and MovieMedia
 Media:
