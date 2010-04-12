@@ -59,6 +59,9 @@ class recordFieldOverrideManager
       if( empty( $editedValue ) && is_null( $currentReceivedValues[ $field ] ) )
         continue;
 
+      if( $field == 'updated_at' )
+        continue;
+
       $this->deactivateOverridesForField( $field );
       $currentReceivedValue = $currentReceivedValues[ $field ];
       $this->saveOverride( $field, $currentReceivedValue, $editedValue );
@@ -141,26 +144,8 @@ class recordFieldOverrideManager
     $recordType = $this->getRecordType();
     $override[ $recordType ] = $this->getRecord();
     
-    //$override = $this->getEquivalentOverrideRecord( $override );
-
     $override->save();
   }
-
-
-
-  private function getEquivalentOverrideRecord( $overrideRecord )
-  {
-    $recordFinder = new recordFinder();
-    $returnOverrideRecord = $recordFinder->findEquivalentOf( $overrideRecord )
-                            ->comparingAllFieldsExcept( 'id', 'created_at', 'updated_at', 'is_active' )
-                            ->getUniqueRecord();
-    
-    $returnOverrideRecord[ 'is_active' ] = $overrideRecord[ 'is_active' ];
-    
-    return $returnOverrideRecord;
-  }
-
-
 
   /**
    * @return string
@@ -172,12 +157,16 @@ class recordFieldOverrideManager
 
   private function deactivateOverridesForField( $field )
   {
-    $class = 'RecordFieldOverride' . $this->getRecordType();
-
     $overrides = $this->getOverrideTable()->findActiveOverrideForRecordByField( $this->record, $field );
+
     foreach ( $overrides as $override )
     {
-      $override[ 'is_active' ]      = false;
+      $override[ 'is_active' ] = false;
+
+      //it appears that relations are confusing
+      //the save method on the RecordFieldOverride
+      //superclass and causing a save failure
+      $override->clearRelated();
       $override->save();
     }
   }

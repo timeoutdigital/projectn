@@ -54,6 +54,7 @@ abstract class BaseRecordFieldOverride extends sfDoctrineRecord
         $this->hasColumn('is_active', 'boolean', null, array(
              'type' => 'boolean',
              'notnull' => true,
+             'default' => false,
              ));
 
         $this->option('type', 'INNODB');

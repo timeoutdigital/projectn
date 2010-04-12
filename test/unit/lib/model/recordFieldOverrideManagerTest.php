@@ -22,6 +22,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testNullComparison()
   {
+    //$this->markTestSkipped();
     $record = ProjectN_Test_Unit_Factory::add( 'Movie', array( 'plot' => null ) );
 
     $record[ 'plot' ] = '';
@@ -34,6 +35,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testSavesRecordModificationsAsRecordFieldOverrides()
   {
+    //$this->markTestSkipped();
     //create and save a poi
     $receivedName   = 'Received name';
     $receivedStreet = 'Received street';
@@ -73,6 +75,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testOverridesRemainInPlaceIfIncomingValueHasNotChanged()
   {
+    //$this->markTestSkipped();
     $record = $this->createAnEventAndThreeOverrides();
 
     //change the edited values back
@@ -91,6 +94,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testOverridesIgnoredIfIncomingValueHasChanged()
   {
+    //$this->markTestSkipped();
     $record = $this->createAnEventAndThreeOverrides();
 
     //change the some of the edited values back
@@ -109,6 +113,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testGetAllOverrides()
   {
+    //$this->markTestSkipped();
     $record = $this->createAnEventAndThreeOverrides();
     $record2 = $this->createAnEventAndThreeOverrides();
     $this->assertEquals( 6, Doctrine::getTable( 'RecordFieldOverrideEvent' )->count() );
@@ -122,6 +127,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testGetActiveOverrides()
   {
+    //$this->markTestSkipped();
     $record = ProjectN_Test_Unit_Factory::add( 'Movie', array( 'name' => 'Name one' ) );
 
     $record[ 'name' ] = 'Name one';
@@ -140,6 +146,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testANewOverrideDeactivatesExistingOverrides()
   {
+    //$this->markTestSkipped();
     $record = ProjectN_Test_Unit_Factory::add( 'Movie', array( 'name' => 'Name one' ) );
 
     $record[ 'name' ] = 'Name two';
@@ -155,27 +162,40 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
 
     $this->assertEquals( 2, count( $overrides->getAllOverrides() ) );
-    //$overridesRecords = $overrides->getAllOverrides();
-    //var_dump( $overridesRecords->toArray() );
-    //$this->assertTrue( $overridesRecords[ 0 ][ 'is_active' ] );
+    $overridesRecords = $overrides->getAllOverrides();
+    $this->assertTrue( $overridesRecords[ 0 ][ 'is_active' ] );
   }
 
   public function testSaveOverridesAndHasOnlyOneActiveOverride()
   {
     $record = ProjectN_Test_Unit_Factory::add( 'Event' );
 
-    $this->editedName        = 'edited name';
+    $this->editedName        = 'one';
     $record[ 'name' ]        = $this->editedName;
 
-    $this->saveModificationsAsOverrides( $record );
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->saveRecordModificationsAsOverrides();
 
-    $this->editedName        = 'edited name again';
+    $this->editedName        = 'two';
     $record[ 'name' ]        = $this->editedName;
 
-    $this->saveModificationsAsOverrides( $record );
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->saveRecordModificationsAsOverrides();
+
+    $this->assertEquals( 2, Doctrine::getTable( 'RecordFieldOverrideEvent' )->count(), 'Count 1' );
 
     $activeOverrides = Doctrine::getTable( 'RecordFieldOverrideEvent' )->findByIsActive( true );
+    $this->assertEquals( 1, $activeOverrides->count() );
 
+    $activeRecord = $activeOverrides[ 0 ];
+    $this->assertEquals( 'two', $activeRecord[ 'edited_value' ] );
+
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->saveRecordModificationsAsOverrides();
+
+    $this->assertEquals( 2, Doctrine::getTable( 'RecordFieldOverrideEvent' )->count(), 'Count 2' );
+
+    $activeOverrides = Doctrine::getTable( 'RecordFieldOverrideEvent' )->findByIsActive( true );
     $this->assertEquals( 1, $activeOverrides->count() );
   }
 

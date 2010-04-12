@@ -468,11 +468,11 @@ RecordFieldOverride:
   actAs:
     Timestampable:              ~
   columns:
-    record_id:                  {type: integer, notnull: true}
+    record_id:                  {type: integer,    notnull: true}
     field:                      {type: string(50), notnull: true}
     received_value:             {type: string,     notnull: false}
     edited_value:               {type: string,     notnull: false}
-    is_active:                  {type: boolean,    notnull: true}
+    is_active:                  {type: boolean,    notnull: true, default: false}
 
 RecordFieldOverridePoi:
   connection: project_n

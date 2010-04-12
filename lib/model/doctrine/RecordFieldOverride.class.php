@@ -14,6 +14,7 @@ class RecordFieldOverride extends BaseRecordFieldOverride
 {
   public function save( Doctrine_Connection $conn = null )
   {
+
     if ( !$this->exists() )
     {
       $existingOverride = $this->getTable()->findPreviousOverrideFor( $this );

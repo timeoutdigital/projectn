@@ -31,7 +31,7 @@ abstract class BaseRecordFieldOverrideForm extends BaseFormDoctrine
       'field'          => new sfValidatorString(array('max_length' => 50)),
       'received_value' => new sfValidatorString(array('required' => false)),
       'edited_value'   => new sfValidatorString(array('required' => false)),
-      'is_active'      => new sfValidatorBoolean(),
+      'is_active'      => new sfValidatorBoolean(array('required' => false)),
       'created_at'     => new sfValidatorDateTime(),
       'updated_at'     => new sfValidatorDateTime(),
     ));
