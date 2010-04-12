@@ -16,12 +16,11 @@ abstract class BaseImportLoggerForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'total_inserts'  => new sfWidgetFormInputText(),
-      'total_updates'  => new sfWidgetFormInputText(),
-      'total_errors'   => new sfWidgetFormInputText(),
+      'total_received' => new sfWidgetFormInputText(),
       'total_existing' => new sfWidgetFormInputText(),
       'vendor_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
       'type'           => new sfWidgetFormChoice(array('choices' => array('movie' => 'movie', 'poi' => 'poi', 'event' => 'event'))),
+      'status'         => new sfWidgetFormChoice(array('choices' => array('running' => 'running', 'failed' => 'failed', 'success' => 'success'))),
       'total_time'     => new sfWidgetFormTime(),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
@@ -29,12 +28,11 @@ abstract class BaseImportLoggerForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'             => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'total_inserts'  => new sfValidatorInteger(),
-      'total_updates'  => new sfValidatorInteger(),
-      'total_errors'   => new sfValidatorInteger(),
+      'total_received' => new sfValidatorInteger(),
       'total_existing' => new sfValidatorInteger(),
       'vendor_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
       'type'           => new sfValidatorChoice(array('choices' => array('movie' => 'movie', 'poi' => 'poi', 'event' => 'event'))),
+      'status'         => new sfValidatorChoice(array('choices' => array('running' => 'running', 'failed' => 'failed', 'success' => 'success'))),
       'total_time'     => new sfValidatorTime(),
       'created_at'     => new sfValidatorDateTime(),
       'updated_at'     => new sfValidatorDateTime(),

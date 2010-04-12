@@ -27,6 +27,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'event_category_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
       'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
+      'import_logger_success_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess')),
     ));
 
     $this->setValidators(array(
@@ -44,6 +45,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'event_category_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
       'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
+      'import_logger_success_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event_filters[%s]');
@@ -87,6 +89,22 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('LinkingVendorEventCategory.vendor_event_category_id', $values);
   }
 
+  public function addImportLoggerSuccessListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query->leftJoin('r.LinkingImportLoggerSuccessEvent LinkingImportLoggerSuccessEvent')
+          ->andWhereIn('LinkingImportLoggerSuccessEvent.import_logger_success_id', $values);
+  }
+
   public function getModelName()
   {
     return 'Event';
@@ -110,6 +128,7 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => 'Date',
       'event_category_list'        => 'ManyKey',
       'vendor_event_category_list' => 'ManyKey',
+      'import_logger_success_list' => 'ManyKey',
     );
   }
 }

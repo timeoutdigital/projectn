@@ -30,6 +30,7 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'updated_at'                 => new sfWidgetFormDateTime(),
       'event_category_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory')),
       'vendor_event_category_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory')),
+      'import_logger_success_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess')),
     ));
 
     $this->setValidators(array(
@@ -48,6 +49,7 @@ abstract class BaseEventForm extends BaseFormDoctrine
       'updated_at'                 => new sfValidatorDateTime(),
       'event_category_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'EventCategory', 'required' => false)),
       'vendor_event_category_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorEventCategory', 'required' => false)),
+      'import_logger_success_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('event[%s]');
@@ -78,12 +80,18 @@ abstract class BaseEventForm extends BaseFormDoctrine
       $this->setDefault('vendor_event_category_list', $this->object->VendorEventCategory->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['import_logger_success_list']))
+    {
+      $this->setDefault('import_logger_success_list', $this->object->ImportLoggerSuccess->getPrimaryKeys());
+    }
+
   }
 
   protected function doSave($con = null)
   {
     $this->saveEventCategoryList($con);
     $this->saveVendorEventCategoryList($con);
+    $this->saveImportLoggerSuccessList($con);
 
     parent::doSave($con);
   }
@@ -161,6 +169,44 @@ abstract class BaseEventForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('VendorEventCategory', array_values($link));
+    }
+  }
+
+  public function saveImportLoggerSuccessList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['import_logger_success_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->ImportLoggerSuccess->getPrimaryKeys();
+    $values = $this->getValue('import_logger_success_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('ImportLoggerSuccess', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('ImportLoggerSuccess', array_values($link));
     }
   }
 

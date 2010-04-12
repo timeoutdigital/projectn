@@ -46,6 +46,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'poi_category_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory')),
       'vendor_poi_category_list'   => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory')),
+      'import_logger_success_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess')),
     ));
 
     $this->setValidators(array(
@@ -82,6 +83,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'poi_category_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PoiCategory', 'required' => false)),
       'vendor_poi_category_list'   => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'VendorPoiCategory', 'required' => false)),
+      'import_logger_success_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('poi_filters[%s]');
@@ -123,6 +125,22 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
 
     $query->leftJoin('r.LinkingVendorPoiCategory LinkingVendorPoiCategory')
           ->andWhereIn('LinkingVendorPoiCategory.vendor_poi_category_id', $values);
+  }
+
+  public function addImportLoggerSuccessListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query->leftJoin('r.LinkingImportLoggerSuccessPoi LinkingImportLoggerSuccessPoi')
+          ->andWhereIn('LinkingImportLoggerSuccessPoi.import_logger_success_id', $values);
   }
 
   public function getModelName()
@@ -167,6 +185,7 @@ abstract class BasePoiFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => 'Date',
       'poi_category_list'          => 'ManyKey',
       'vendor_poi_category_list'   => 'ManyKey',
+      'import_logger_success_list' => 'ManyKey',
     );
   }
 }
