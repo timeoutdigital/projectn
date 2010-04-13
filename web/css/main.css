@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+
+#logo {
+    height:45px;
+}
+
+#header {
+    width:300px;
+    float:left;
+}
+
+#menu {
+    padding-top:50px;
+}
+
+#menu ul {
+    padding:0px;
+    margin:0px;
+}
+
+#menu li {
+    float:left;
+    list-style: none;
+    padding-right:10px;
+    margin:0px;
+}
+
+#menu, #menu a {
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#menu a:hover {
+    color: #555555;
+}
+
+.clear {
+    clear:both;
+    height:1px;
+    overflow:hidden;
+}
+

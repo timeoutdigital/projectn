@@ -9,6 +9,37 @@
     <?php include_javascripts() ?>
   </head>
   <body>
-    <?php echo $sf_content ?>
+    <div id="container">
+      <div id="header">
+        <h1>
+          <a href="<?php echo url_for('@homepage') ?>">
+            <img id="logo" src="/images/logo.gif" alt="Timeout Project N Admin" />
+          </a>
+          Project N Admin
+        </h1>
+      </div>
+
+      <div id="menu">
+        <ul>
+          <li>
+            <?php echo link_to('Poi', '@poi') ?> /
+          </li>
+          <li>
+            <?php echo link_to('Movie', '@movie') ?> /
+          </li>
+          <li>
+            <?php echo link_to('Vendor Poi Categories', '@vendor_poi_category') ?> /
+          </li>
+          <li>
+            <?php echo link_to('Categories', '@vendor_event_category') ?>
+          </li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+      <div id="content">
+        <?php echo $sf_content ?>
+      </div>
+      <div id="footer"></div>
+    </div>
   </body>
 </html>
