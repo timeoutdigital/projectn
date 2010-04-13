@@ -15,7 +15,6 @@ class PoiForm extends BasePoiForm
     $this->widgetSchema[ 'vendor_poi_id' ] = new widgetFormFixedText();
     $this->widgetSchema[ 'review_date' ] = new widgetFormFixedText();
     $this->widgetSchema[ 'local_language' ] = new widgetFormFixedText();
-    $this->widgetSchema[ 'city' ] = new widgetFormFixedText();
     $this->widgetSchema[ 'created_at' ] = new widgetFormFixedText();
     $this->widgetSchema[ 'updated_at' ] = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ] = new widgetFormFixedText();
