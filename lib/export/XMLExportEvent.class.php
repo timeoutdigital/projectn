@@ -154,8 +154,12 @@ class XMLExportEvent extends XMLExport
       foreach( $event[ 'EventProperty' ] as $property )
       {
         $propertyElement = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        if ( $propertyElement instanceof DOMElement )
+        if ( $propertyElement instanceof DOMElement && isset( $property[ 'lookup' ] ) )
         {
+          if( $property['lookup'] == "critics_choice" && $property['value'] != "y" )
+          {
+              break;
+          }
           $propertyElement->setAttribute( 'key', $property[ 'lookup' ] );
         }
 

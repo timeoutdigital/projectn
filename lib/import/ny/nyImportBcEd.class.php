@@ -222,7 +222,23 @@ class nyImportBcEd {
            //Add the cuisine property
            if( $this->restaurantOrBar == nyImportBcEd::RESTAURANT )
            {
-             $poiObj->addProperty('cuisine',  (string) $poi->{'PrimaryCuisine'});
+               $cuisineString = (string) $poi->{'PrimaryCuisine'};
+               $priceString = ": $";
+               $findPriceString = strpos( (string) $cuisineString, $priceString );
+
+               // Cuisine contains price info, fix as per refs #260
+               if( $findPriceString !== false )
+               {
+                   $priceSectionString = substr( $cuisineString, $findPriceString + strlen( $priceString ) -1 );
+                   $cuisineString = substr( $cuisineString, 0, $findPriceString );
+
+                   // Create a 'price_general_remark' property to hold the price info.
+                   if( (string) $priceSectionString && (string) substr( $priceSectionString, 0, 1 ) == "$" )
+                   {
+                      $poiObj->addProperty( 'price_general_remark', $priceSectionString );
+                   }
+               }
+               $poiObj->addProperty( 'cuisine', $cuisineString );
            }
 
 
