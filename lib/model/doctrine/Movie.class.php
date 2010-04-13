@@ -14,7 +14,7 @@
 class Movie extends BaseMovie
 {
 
-  private $externalSearchClass = IMDB;
+  private $externalSearchClass = 'IMDB';
 
   /**
   * Attempts to fix and / or format fields, e.g. url
