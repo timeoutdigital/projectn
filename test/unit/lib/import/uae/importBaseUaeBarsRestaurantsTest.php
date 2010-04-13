@@ -75,6 +75,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
 
     /**
      * Get an existing POi
+     * @todo has no assertations.
      */
     public function testGetCurrentPois()
     {
@@ -83,6 +84,9 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
         //$this->xmlObj = $this->getXMLString();
 
         //$this->object->getCurrentPois($this->xmlObj);
+        $this->markTestIncomplete(
+                'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -108,6 +112,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
         {
             $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
             $feed->exec();
+                       
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $this->xmlObj = $xmlObj->getXmlFeed();
         }

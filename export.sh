@@ -7,11 +7,11 @@ mkdir /var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event
 touch /var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/upload.lock
 
 echo "Exporting Movies"
-echo "Exporting Movies for abu dhabi"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=movie --city="abu dhabi" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/movie/abudhabi.xml
+#echo "Exporting Movies for abu dhabi"
+#/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=movie --city="abu dhabi" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/movie/abudhabi.xml
 
-echo "Exporting Movies for Dubai"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=movie --city="dubai" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/movie/dubai.xml
+#echo "Exporting Movies for Dubai"
+#/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=movie --city="dubai" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/movie/dubai.xml
 
 echo "Exporting Movies for Lisbon"
 /var/vhosts/projectn/httpdocs/./symfony projectn:export --type=movie --city="lisbon" --language=pt --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/movie/lisbon.xml
@@ -32,11 +32,11 @@ echo "Exporting Movies for Chicago"
 echo "========================================================================="
 
 echo "Exporting Pois"
-echo "Exporting Pois for abu dhabi"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=poi --city="abu dhabi" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/poi/abudhabi.xml
+#echo "Exporting Pois for abu dhabi"
+#/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=poi --city="abu dhabi" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/poi/abudhabi.xml
 
-echo "Exporting Pois for Dubai"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=poi --city="dubai" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/poi/dubai.xml
+#echo "Exporting Pois for Dubai"
+#/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=poi --city="dubai" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/poi/dubai.xml
 
 echo "Exporting Pois for Lisbon"
 /var/vhosts/projectn/httpdocs/./symfony projectn:export --type=poi --city="lisbon" --language=pt --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/poi/lisbon.xml
@@ -57,11 +57,11 @@ echo "Exporting Pois for Chicago"
 echo "========================================================================="
 
 echo "Exporting Events"
-echo "Exporting Events for abu dhabi"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=event --city="abu dhabi" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event/abudhabi.xml
+#echo "Exporting Events for abu dhabi"
+#/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=event --city="abu dhabi" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event/abudhabi.xml
 
-echo "Exporting Events for Dubai"
-/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=event --city="dubai" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event/dubai.xml
+#echo "Exporting Events for Dubai"
+#/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=event --city="dubai" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event/dubai.xml
 
 echo "Exporting Events for Lisbon"
 /var/vhosts/projectn/httpdocs/./symfony projectn:export --type=event --city="lisbon" --language=pt --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event/lisbon.xml

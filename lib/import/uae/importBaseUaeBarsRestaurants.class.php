@@ -72,15 +72,11 @@ class importBaseUaeBarsRestaurants{
         //Loop over the xml
         foreach($this->xmlObj as $poi)
         {
-           
             //Only process if there is a record id and its not closed
-            if($poi->{'id'})
+            
+            if($poi->{"id"})
             {
                 $this->importPoi($poi);
-            }
-            else
-            {
-                break;
             }
         }
       
@@ -171,6 +167,7 @@ class importBaseUaeBarsRestaurants{
      *
      */
     public function importPoi( SimpleXMLElement $xmlObj ){
+           throw new Exception( "You called an empty method! 'importPoi()'" );
     }
 
     
