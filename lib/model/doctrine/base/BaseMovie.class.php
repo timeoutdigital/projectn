@@ -34,6 +34,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property Doctrine_Collection $MovieMedia
  * @property Doctrine_Collection $MovieProperty
  * @property Doctrine_Collection $ImportLoggerSuccess
+ * @property Doctrine_Collection $RecordFieldOverride
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method integer             getVendorId()            Returns the current record's "vendor_id" value
@@ -62,6 +63,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Doctrine_Collection getMovieMedia()          Returns the current record's "MovieMedia" collection
  * @method Doctrine_Collection getMovieProperty()       Returns the current record's "MovieProperty" collection
  * @method Doctrine_Collection getImportLoggerSuccess() Returns the current record's "ImportLoggerSuccess" collection
+ * @method Doctrine_Collection getRecordFieldOverride() Returns the current record's "RecordFieldOverride" collection
  * @method Movie               setId()                  Sets the current record's "id" value
  * @method Movie               setVendorId()            Sets the current record's "vendor_id" value
  * @method Movie               setVendorMovieId()       Sets the current record's "vendor_movie_id" value
@@ -89,6 +91,7 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Movie               setMovieMedia()          Sets the current record's "MovieMedia" collection
  * @method Movie               setMovieProperty()       Sets the current record's "MovieProperty" collection
  * @method Movie               setImportLoggerSuccess() Sets the current record's "ImportLoggerSuccess" collection
+ * @method Movie               setRecordFieldOverride() Sets the current record's "RecordFieldOverride" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -245,6 +248,10 @@ abstract class BaseMovie extends sfDoctrineRecord
              'refClass' => 'LinkingImportLoggerSuccessMovie',
              'local' => 'movie_id',
              'foreign' => 'import_logger_success_id'));
+
+        $this->hasMany('RecordFieldOverrideMovie as RecordFieldOverride', array(
+             'local' => 'id',
+             'foreign' => 'record_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

@@ -42,7 +42,7 @@ class XMLExportMovie extends XMLExport
 
     foreach( $movieCollection as $movie )
     {
-      if( empty( $movie[ 'imdb_id' ] ) )
+      if( empty( $movie[ 'imdb_id' ] ) || empty( $movie[ 'review' ] ) )
         continue;
 
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
@@ -113,7 +113,8 @@ class XMLExportMovie extends XMLExport
       $this->appendNonRequiredElement($additionalDetailsElement, 'age-rating', $movie['age_rating'], XMLExport::USE_CDATA);
 
       //movie/additional-details/release-date
-      $this->appendNonRequiredElement($additionalDetailsElement, 'release-date', $movie['release_date']);
+      //$this->appendNonRequiredElement($additionalDetailsElement, 'release-date', $movie['release_date']);
+      // Removed, see ticket #262
 
       //movie/additional-details/duration
       $this->appendNonRequiredElement($additionalDetailsElement, 'duration', $movie['duration'], XMLExport::USE_CDATA);

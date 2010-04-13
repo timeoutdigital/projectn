@@ -74,6 +74,38 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
+    /**
+     * Test to see that POIs with a property of 'cuisine' does not contain price information s per #260
+     */
+    public function testPoiPropertyNamedCuisineDoesNotContainPriceInfo()
+    {
+        $this->createObject();
+        $poiProperty = Doctrine::getTable('PoiProperty')->findByLookup('cuisine');
+        $this->assertEquals( false, strpos( $poiProperty[0]['value'], ": $" ), "POI value for lookup 'cuisine' cannot contain string ': $'" );
+    }
+
+    /**
+     * Test to see that POIs with a property of 'cuisine' and correct price info now contain a 'price_general_remark' property, per #260.
+     */
+    public function testPoiPropertyNamedCuisineHaveAPropertyCalledPriceGeneralRemarkWithPriceInfoInIt()
+    {
+        $this->createObject();
+        $poiProperty = Doctrine::getTable('PoiProperty')->findByLookup('cuisine');
+
+        $poi = Doctrine::getTable('Poi')->findOneById( $poiProperty[0]['Poi']['id'] );
+
+        foreach( $poi['PoiProperty'] as $poiProperty )
+        {
+            if( isset( $poiProperty['value'] ) && (string) $poiProperty['lookup'] == 'cuisine' )
+            {
+                $this->assertEquals( false, strpos( $poiProperty['value'], ": $" ), "POI value for lookup 'cuisine' cannot contain string ': $'" );
+                $this->assertEquals( true, ( isset( $previousProperty['lookup'] ) && $previousProperty['lookup'] == 'price_general_remark' ), "Price info was removed from 'cuisine' property but 'price_general_remark' was not added." );
+                $this->assertEquals( true, is_numeric( strpos( $previousProperty['value'], "$" ) ), "'price_general_remark' value should now contain a '$'" );
+            }
+            $previousProperty = $poiProperty;
+        }
+    }
+
     public function testCatchesCategoryLengthWithinLimit()
     {
       $processNyBcXml = new processNyBcXml( TO_TEST_DATA_PATH . '/tony_bc_test.xml' );
@@ -170,7 +202,7 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
      */
     private function createObject()
     {
-        $this->object = new nyImportBcEd($this->xmlObj, $this->vendorObj,  $this->loggerObj);
+        $this->object = new nyImportBcEd($this->xmlObj, $this->vendorObj, nyImportBcEd::RESTAURANT );
         $this->object->importPoi($this->getXMLString());
     }
 
@@ -419,7 +451,7 @@ Wheelchair accessible bathroom</barkey>
 		<prices.7/>
 		<prices.8/>
 		<prices.9/>
-		<PrimaryCuisine>Date place</PrimaryCuisine>
+		<PrimaryCuisine>Italian: $16-24</PrimaryCuisine>
 		<SecondaryCuisine/>
 		<subway.0>Subway: B, D, F, V to BroadwayLafayette St; 6 to Bleecker St</subway.0>
 		<subway.1/>

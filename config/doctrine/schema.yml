@@ -493,3 +493,38 @@ ExportLoggerItem:
   indexes:
     item_id_index:              {fields: [item_id]}
     vendor_item_id_index:       {fields: [vendor_item_id]}
+
+RecordFieldOverride:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    record_id:                  {type: integer,    notnull: true}
+    field:                      {type: string(50), notnull: true}
+    received_value:             {type: string,     notnull: false}
+    edited_value:               {type: string,     notnull: false}
+    is_active:                  {type: boolean,    notnull: true, default: false}
+
+RecordFieldOverridePoi:
+  connection: project_n
+  inheritance:
+    extends: RecordFieldOverride
+    type: concrete
+  relations:
+    Poi:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}
+
+RecordFieldOverrideEvent:
+  connection: project_n
+  inheritance:
+    extends: RecordFieldOverride
+    type: concrete
+  relations:
+    Event:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}
+
+RecordFieldOverrideMovie:
+  connection: project_n
+  inheritance:
+    extends: RecordFieldOverride
+    type: concrete
+  relations:
+    Movie:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}

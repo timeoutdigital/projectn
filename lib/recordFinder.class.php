@@ -50,7 +50,7 @@ class recordFinder
       if( !$this->shouldCompare( $column ) )
         continue;
 
-      if( $record[$column] )
+      if( !is_null( $record[$column] ) )
       {
         $query->addWhere( "r.$column = ? " , $record[$column] );
       }
@@ -70,6 +70,13 @@ class recordFinder
     {
       return null;
     }
+  }
+
+  public function exists()
+  {
+    $equivalentRecord = $this->go();
+
+    return $equivalentRecord instanceof Doctrine_Record;
   }
 
   public function getUniqueRecord()

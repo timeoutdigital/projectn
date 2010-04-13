@@ -27,7 +27,13 @@ class Event extends BaseEvent
      {
         $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
      }     
+    $this->applyOverrides();
+  }
 
+  private function applyOverrides()
+  {
+    $override = new recordFieldOverrideManager( $this );
+    $override->applyOverridesToRecord();
   }
 
   public function addProperty( $lookup, $value )
