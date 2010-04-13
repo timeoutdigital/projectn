@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /var/vhosts/projectn/httpdocs
+
 echo "Zipping Movies"
 
 cd export/export_$(date +"%Y%m%d")/movie/
