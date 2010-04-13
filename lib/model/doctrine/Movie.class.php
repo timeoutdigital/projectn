@@ -24,6 +24,13 @@ class Movie extends BaseMovie
     $this->fixUrl();
     $this->reformatTitle();
     $this->requestImdbId();
+    $this->applyOverrides();
+  }
+
+  private function applyOverrides()
+  {
+    $override = new recordFieldOverrideManager( $this );
+    $override->applyOverridesToRecord();
   }
 
   public function setExternalSearchClass( $externalSearchClass )

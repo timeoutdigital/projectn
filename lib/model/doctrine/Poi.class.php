@@ -131,6 +131,13 @@ class Poi extends BasePoi
      $this->fixUrl();
      $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
+     $this->applyOverrides();
+  }
+
+  private function applyOverrides()
+  {
+    $override = new recordFieldOverrideManager( $this );
+    $override->applyOverridesToRecord();
   }
 
   private function fixPhone()

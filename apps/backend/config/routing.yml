@@ -1,3 +1,21 @@
+movie:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Movie
+    module:               movie
+    prefix_path:          /movie
+    column:               id
+    with_wildcard_routes: true
+
+poi:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Poi
+    module:               poi
+    prefix_path:          /poi
+    column:               id
+    with_wildcard_routes: true
+
 vendor_event_category:
   class: sfDoctrineRouteCollection
   options:

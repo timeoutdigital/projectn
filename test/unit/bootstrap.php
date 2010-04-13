@@ -87,16 +87,16 @@ class ProjectN_Test_Unit_Factory
   static public function get( $model, $data = null, $autoCreateRelatedObjects = true )
   {
     $classMap = array(
-      'poi'                 => PoiFixture,
-      'poicategory'         => PoiCategoryFixture,
-      'vendor'              => VendorFixture,
-      'event'               => EventFixture,
-      'eventoccurrence'     => EventOccurrenceFixture,
-      'eventcategory'       => EventCategoryFixture,
-      'eventproperty'       => EventPropertyFixture,
-      'movie'               => MovieFixture,
-      'vendoreventcategory' => VendorEventCategoryFixture,
-      'vendorpoicategory'   => VendorPoiCategoryFixture,
+      'poi'                 => 'PoiFixture',
+      'poicategory'         => 'PoiCategoryFixture',
+      'vendor'              => 'VendorFixture',
+      'event'               => 'EventFixture',
+      'eventoccurrence'     => 'EventOccurrenceFixture',
+      'eventcategory'       => 'EventCategoryFixture',
+      'eventproperty'       => 'EventPropertyFixture',
+      'movie'               => 'MovieFixture',
+      'vendoreventcategory' => 'VendorEventCategoryFixture',
+      'vendorpoicategory'   => 'VendorPoiCategoryFixture',
     );
 
     $model = strtolower( $model );
@@ -166,7 +166,7 @@ class PoiFixture
 
     if( $autoCreateRelatedObjects )
     {
-      foreach( array( 'Vendor', 'PoiCategory' ) as $model )
+      foreach( array( 'Vendor', 'PoiCategory', 'VendorPoiCategory' ) as $model )
       {
         if( Doctrine::getTable( $model )->count() < 1 )
         {
@@ -178,6 +178,7 @@ class PoiFixture
     if( $autoCreateRelatedObjects )
     {
       $poi->link( 'PoiCategory', array( 1 ) );
+      $poi->link( 'VendorPoiCategory', array( 1 ) );
       $poi->link( 'Vendor', array( 1 ) );
     }
 

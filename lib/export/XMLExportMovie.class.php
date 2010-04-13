@@ -30,6 +30,8 @@ class XMLExportMovie extends XMLExport
    * @todo correct movie@id to use real value
    * @todo correct movie/version/name to use real value
    * @todo confirm where the place tag belongs
+   * @todo sort out imdb properly (either log error and change schema if must
+   *       field, or then stop jumping the loop
    */
   protected function mapDataToDOMDocument($movieCollection, $domDocument)
   {
@@ -40,7 +42,7 @@ class XMLExportMovie extends XMLExport
 
     foreach( $movieCollection as $movie )
     {
-      if( empty( $movie[ 'imdb_id' ] ) )
+      if( empty( $movie[ 'imdb_id' ] ) || empty( $movie[ 'review' ] ) )
         continue;
 
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
@@ -111,7 +113,8 @@ class XMLExportMovie extends XMLExport
       $this->appendNonRequiredElement($additionalDetailsElement, 'age-rating', $movie['age_rating'], XMLExport::USE_CDATA);
 
       //movie/additional-details/release-date
-      $this->appendNonRequiredElement($additionalDetailsElement, 'release-date', $movie['release_date']);
+      //$this->appendNonRequiredElement($additionalDetailsElement, 'release-date', $movie['release_date']);
+      // Removed, see ticket #262
 
       //movie/additional-details/duration
       $this->appendNonRequiredElement($additionalDetailsElement, 'duration', $movie['duration'], XMLExport::USE_CDATA);

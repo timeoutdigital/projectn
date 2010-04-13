@@ -1,4 +1,4 @@
-<?php
+ <?php
 require_once 'PHPUnit/Framework.php';
 
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
@@ -89,6 +89,9 @@ class importNyTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, count( $poiObj ) );
   }
 
+  /**
+   * @todo Implement the test for the start date.
+   */
   public function testStartDate()
   {
     $this->markTestSkipped();
@@ -182,6 +185,10 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   }
 
+
+  /**
+   *
+   */
   public function testInsertEventProperty()
   {
     $venuesArray = $this->xmlObj->getVenues();
@@ -237,8 +244,9 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   }
 
-  /*
+  /**
    * test if attribute is appended
+   *
    */
   public function testCriticsPicksPropertyOnEvent()
   {
@@ -250,8 +258,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    //Critic\'s Picks
-    $this->assertEquals( 'Critic\'s Picks', $eventObj[ 'EventProperty' ][ 2 ][ 'lookup' ]);
+    //Test that the Critics_choice is normalized to this form
+    $this->assertEquals( 'Critics_choice', $eventObj[ 'EventProperty' ][ 2 ][ 'lookup' ], "Use 'Critics_choice' instead of 'Critic's Pick' or whatever else.");
   }
 
   /*

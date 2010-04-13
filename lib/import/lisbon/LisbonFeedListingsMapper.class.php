@@ -18,6 +18,11 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->listings as $listingElement )
     {
+      if( (int) $listingElement['RecurringListingID'] == 0 )
+      {
+         continue;
+      }
+
       $event = $this->getEventRecordFrom( $listingElement );
       
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );

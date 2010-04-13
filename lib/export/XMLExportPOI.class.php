@@ -45,6 +45,9 @@ class XMLExportPOI extends XMLExport
     //entry
     foreach( $data as $poi )
     {
+      if( count( $poi[ 'VendorPoiCategory' ] ) == 0 )
+        continue;
+
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );
       $langArray = explode('-',$this->vendor['language']);
