@@ -12,6 +12,16 @@
 class Media extends BaseMedia
 {
     /**
+     *
+     */
+    public function getAwsUrl()
+    {
+        // eg. http://projectn.s3.amazonaws.com/singapore/event/images/2e67b4c713718ea4583a2bb823bb1723.jpg
+        $type = str_replace( 'Media', '', get_class( $this ) );
+        return "http://projectn.s3.amazonaws.com/" . $this[ $type ]['Vendor']['city'] . "/" . strtolower( $type ) . "/images/" . $this['ident'] . ".jpg";
+    }
+
+    /**
      * populates the media table with media information and invokes the actual
      * file download
      *
@@ -50,9 +60,10 @@ class Media extends BaseMedia
         {
             $curl->downloadTo(  $filename, $this[ 'file_last_modified' ] );
         }
-        if ( !file_exists( $filename ) )
+        if ( !file_exists( $filename ) || $this[ 'content_length' ] < 1 )
         {
             throw new Exception( 'Failed to successfully download / store media url: ' . $urlString . ' / ident: ' . $identString );
         }
+        return file_exists( $filename );
     }
 }
