@@ -52,7 +52,7 @@ abstract class BaseImportLoggerSuccess extends sfDoctrineRecord
              ));
         $this->hasColumn('log', 'string', null, array(
              'type' => 'string',
-             'notnull' => true,
+             'notnull' => false,
              ));
         $this->hasColumn('import_logger_id', 'integer', null, array(
              'type' => 'integer',

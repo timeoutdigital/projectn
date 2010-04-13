@@ -25,7 +25,7 @@ class logImportTest extends PHPUnit_Framework_TestCase
         Doctrine::loadData('data/fixtures');
 
         $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-        $this->object = new logImport( $this->vendorObj, logImport::MOVIE );
+        $this->object = new logImport( $this->vendorObj, logImport::TYPE_MOVIE );
     }
 
     /**
@@ -43,11 +43,12 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testCountNewInsert()
     {
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
+        for ( $i=0; $i < 5; $i++ )
+        {
+            $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+            $this->object->addSuccess( $poi, logImport::OPERATION_INSERT );
+        }
+
         $this->assertEquals('5', $this->object->getTotalInserts(), 'Increment the total by 5');
     }
 
@@ -71,11 +72,14 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testCountExists()
     {
-        $this->object->countExisting();
-        $this->object->countExisting();
-        $this->object->countExisting();
+        $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
 
-        $this->assertEquals('3', $this->object->getTotalExisting(), 'Increment the total existing by one');
+        for ( $i=0; $i < 5; $i++ )
+        {
+            $this->object->addSuccess( $poi, logImport::OPERATION_UPDATE );
+        }
+
+        $this->assertEquals('5', $this->object->getTotalExisting(), 'Increment the total existing by one');
     }
 
     /**
@@ -83,12 +87,6 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testSave()
     {
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
-        $this->object->countNewInsert();
-
         //Add an exception
         $poi = null;
         try

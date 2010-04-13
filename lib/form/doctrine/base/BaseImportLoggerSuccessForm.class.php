@@ -29,7 +29,7 @@ abstract class BaseImportLoggerSuccessForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'               => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'type'             => new sfValidatorChoice(array('choices' => array('insert' => 'insert', 'update' => 'update', 'delete' => 'delete'))),
-      'log'              => new sfValidatorString(),
+      'log'              => new sfValidatorString(array('required' => false)),
       'import_logger_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('ImportLogger'))),
       'created_at'       => new sfValidatorDateTime(),
       'updated_at'       => new sfValidatorDateTime(),

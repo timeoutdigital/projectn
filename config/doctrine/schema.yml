@@ -388,6 +388,11 @@ ImportLogger:
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
 
+
+
+
+
+
 #Log all successfull additions, changes and deletes during an import i.e. updated poi content
 ImportLoggerSuccess:
   connection: project_n
@@ -395,7 +400,7 @@ ImportLoggerSuccess:
     Timestampable:              ~
   columns:
     type:                       {type: enum, values: [insert, update, delete], notnull: true}
-    log:                        {type: string, notnull: true}
+    log:                        {type: string, notnull: false}
     import_logger_id:           {type: integer, notnull: true}
   relations:
     ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerSuccess}
@@ -422,7 +427,17 @@ LinkingImportLoggerSuccessMovie:
      import_logger_success_id:  {type: integer, notnull: true}
      movie_id:                  {type: integer, notnull: true}
 
- #Log All import issues
+
+
+
+
+
+
+
+
+
+
+#Log All import issues
 ImportLoggerError:
   connection: project_n
   actAs:

@@ -14,7 +14,7 @@ abstract class BaseImportLoggerSuccessFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'type'             => new sfWidgetFormChoice(array('choices' => array('' => '', 'insert' => 'insert', 'update' => 'update', 'delete' => 'delete'))),
-      'log'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'log'              => new sfWidgetFormFilterInput(),
       'import_logger_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('ImportLogger'), 'add_empty' => true)),
       'created_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
