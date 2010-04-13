@@ -268,12 +268,17 @@ class singaporeImport
                 $poi->addVendorCategory( $categoriesArray,  $this->_vendor[ 'id' ]);
             }
 
-            // add images
-            $this->addImageHelper( $poi, $poiObj->highres );
-            $this->addImageHelper( $poi, $poiObj->large_image );
-            $this->addImageHelper( $poi, $poiObj->thumbnail );
-            $this->addImageHelper( $poi, $poiObj->thumb );
-            $this->addImageHelper( $poi, $poiObj->image );
+            // -- Add Images --
+            // Fall back, process images, starting with first and working down the array.
+            $priorityQueue = array( $poiObj->highres, $poiObj->large_image, $poiObj->thumbnail, $poiObj->thumb, $poiObj->image );
+
+            // Add only one image, but try and get highest quality image.
+            foreach( $priorityQueue as $queueItem )
+            {
+                $success = $this->addImageHelper( $poi, $queueItem );
+                if( $success ) break;
+            }
+            // -- End Add Images --
 
             //Save the object and log the changes
             //pre-save
@@ -367,11 +372,17 @@ class singaporeImport
                 $event->addVendorCategory( $categoriesArray,  $this->_vendor[ 'id' ]);
             }
 
-            // add images
-            $this->addImageHelper( $event, $eventObj->highres );
-            $this->addImageHelper( $event, $eventObj->size1 );
-            $this->addImageHelper( $event, $eventObj->large_image );
-            $this->addImageHelper( $event, $eventObj->thumbnail );
+            // -- Add Images --
+            // Fall back, process images, starting with first and working down the array.
+            $priorityQueue = array( $eventObj->highres, $eventObj->large_image, $eventObj->size1, $eventObj->thumbnail );
+            
+            // Add only one image, but try and get highest quality image.
+            foreach( $priorityQueue as $queueItem )
+            {
+                $success = $this->addImageHelper( $event, $queueItem );
+                if( $success ) break;
+            }
+            // -- End Add Images --
 
             //save to populate the id
 
@@ -654,6 +665,7 @@ class singaporeImport
             try
             {
                 $storeObject->addMediaByUrl( (string) $element );
+                return true;
             }
             catch( Exception $e )
             {

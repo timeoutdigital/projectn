@@ -11,7 +11,7 @@
  */
 class XMLExportPOI extends XMLExport
 {
-  
+
  /**
    *
    * @param Vendor $vendor
@@ -31,11 +31,11 @@ class XMLExportPOI extends XMLExport
    * @todo PoiCateory needs to be one-to-many not one-to-one
    * @param Poi $data
    * @param DOMDocument $domDocument
-   * 
+   *
    * @return string XML string
    */
   public function mapDataToDOMDocument( $data, $domDocument )
-  {    
+  {
     $rootElement = $domDocument->appendChild( new DOMElement('vendor-pois') );
 
     //poi_vendor
@@ -71,7 +71,7 @@ class XMLExportPOI extends XMLExport
       {
         $this->appendRequiredElement( $entryElement, 'category', 'theatre-music-culture', XMLExport::USE_CDATA);
       }
-      
+
       $addressElement = $entryElement->appendChild( new DOMElement( 'address' ) );
 
       $this->appendRequiredElement(    $addressElement, 'street',   $poi['street'],   XMLExport::USE_CDATA);
@@ -86,7 +86,7 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
       $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
       $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
-      
+
       $this->appendNonRequiredElement( $contactElement, 'email', $poi['email'], XMLExport::USE_CDATA );
 
       $this->appendNonRequiredElement( $contactElement, 'url', $poi['url']);
@@ -98,7 +98,7 @@ class XMLExportPOI extends XMLExport
       $this->appendRequiredElement($versionElement, 'name', $poi['poi_name'], XMLExport::USE_CDATA);
 
       //$this->appendNonRequiredElement($versionElement, 'alternative-name', $poi['poi_name'], XMLExport::USE_CDATA);
-      
+
       $addressElement = $this->appendRequiredElement($versionElement, 'address');
 
       $this->appendRequiredElement(    $addressElement, 'street',   $poi['street'],   XMLExport::USE_CDATA);
@@ -118,29 +118,36 @@ class XMLExportPOI extends XMLExport
 
       $cleanShortDescription = $this->cleanHtml($poi['short_description']);
       $this->appendNonRequiredElement( $contentElement, 'short-description', $cleanShortDescription, XMLExport::USE_CDATA);
-      
+
       $cleanDescription = $this->cleanHtml($poi['description']);
       $this->appendNonRequiredElement( $contentElement, 'description', $cleanDescription, XMLExport::USE_CDATA);
-      
+
       $this->appendNonRequiredElement( $contentElement, 'public-transport', $poi['public_transport_links'], XMLExport::USE_CDATA);
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       //event/version/media
-      /*foreach( $poi[ 'PoiMedia' ] as $medium )
-      {
-        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium['url'], XMLExport::USE_CDATA);
+      foreach( $poi[ 'PoiMedia' ] as $medium )
+      {        
+        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
+        
         if ( $mediaElement instanceof DOMElement )
         {
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }*/
+      }
 
       foreach( $poi[ 'PoiProperty' ] as $property )
       {
         $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        if( $propertyElement )
+        if( $propertyElement && isset( $property['lookup'] ) )
+        {
+          if( $property['lookup'] == "critics_choice" && $property['value'] != "y" )
+          {
+              break;
+          }
           $propertyElement->setAttribute( 'key', $property['lookup'] );
+        }
       }
 
       //$this->logExport->addItem( $poi[ 'id' ], $poi[ 'vendor_poi_id' ] );
@@ -174,6 +181,6 @@ class XMLExportPOI extends XMLExport
 
     return $ret;
   }
-  
+
 }
 ?>

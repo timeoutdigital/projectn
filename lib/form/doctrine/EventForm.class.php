@@ -12,5 +12,18 @@ class EventForm extends BaseEventForm
 {
   public function configure()
   {
+    $this->widgetSchema[ 'vendor_event_id' ] = new widgetFormFixedText();
+    $this->widgetSchema[ 'created_at' ]      = new widgetFormFixedText();
+    $this->widgetSchema[ 'updated_at' ]      = new widgetFormFixedText();
+    $this->widgetSchema[ 'vendor_id' ]       = new widgetFormFixedText();
+  }
+
+  protected function doUpdateObject( $values = null )
+  {
+    parent::doUpdateObject( $values );
+
+    $record = $this->getObject();
+    $override = new recordFieldOverrideManager( $record );
+    $override->saveRecordModificationsAsOverrides();
   }
 }
