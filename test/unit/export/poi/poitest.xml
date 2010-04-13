@@ -1,79 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-pois vendor="timeout" modified="2010-04-09T17:02:22">
-  <entry vpid="XXX000000000000000000000000000001" lang="en" modified="2010-04-09T17:02:22">
+<vendor-pois vendor="timeout" modified="2010-04-13T12:38:02">
+  <entry vpid="LHR000000000000000000000000000001" lang="en" modified="2010-04-13T12:38:02">
     <geo-position>
-      <longitude>0.1</longitude>
-      <latitude>0.2</latitude>
+      <longitude>1.1</longitude>
+      <latitude>1.1</latitude>
     </geo-position>
     <name><![CDATA[test name]]></name>
     <category><![CDATA[theatre-music-culture]]></category>
     <address>
       <street><![CDATA[test street]]></street>
-      <houseno><![CDATA[12]]></houseno>
-      <zip><![CDATA[1234]]></zip>
       <city><![CDATA[test town]]></city>
-      <district><![CDATA[test district]]></district>
-      <country>GBR</country>
-    </address>
-    <contact>
-      <phone>+44 208 123 1234</phone>
-      <fax>+44 208 323 3234</fax>
-      <phone2>+44 208 223 2234</phone2>
-      <email><![CDATA[you@who.com]]></email>
-      <url>http://foo.com</url>
-    </contact>
-    <version lang="en">
-      <name><![CDATA[test name]]></name>
-      <address>
-        <street><![CDATA[test street]]></street>
-        <houseno><![CDATA[12]]></houseno>
-        <zip><![CDATA[1234]]></zip>
-        <city><![CDATA[test town]]></city>
-        <district><![CDATA[test district]]></district>
-        <country>GBR</country>
-      </address>
-      <content>
-        <vendor-category><![CDATA[french restaurant]]></vendor-category>
-        <vendor-category><![CDATA[italian restaurant]]></vendor-category>
-        <short-description><![CDATA[test short description]]></short-description>
-        <description><![CDATA[test description]]></description>
-        <public-transport><![CDATA[test public transport]]></public-transport>
-        <openingtimes><![CDATA[test opening times]]></openingtimes>
-        <property key="poi key 1"><![CDATA[poi value 1]]></property>
-        <property key="poi key 2"><![CDATA[poi value 2]]></property>
-      </content>
-    </version>
-  </entry>
-  <entry vpid="XXX000000000000000000000000000002" lang="en" modified="2010-04-09T17:02:22">
-    <geo-position>
-      <longitude>0.3</longitude>
-      <latitude>0.4</latitude>
-    </geo-position>
-    <name><![CDATA[test name2&<>'"]]></name>
-    <category><![CDATA[theatre-music-culture]]></category>
-    <address>
-      <street><![CDATA[test street2&<>'"]]></street>
-      <houseno><![CDATA[13&<>'"]]></houseno>
-      <zip><![CDATA[4321]]></zip>
-      <city><![CDATA[test town2&<>'"]]></city>
-      <district><![CDATA[test district2&<>'"]]></district>
       <country>GBR</country>
     </address>
     <contact/>
     <version lang="en">
-      <name><![CDATA[test name2&<>'"]]></name>
+      <name><![CDATA[test name]]></name>
       <address>
-        <street><![CDATA[test street2&<>'"]]></street>
-        <houseno><![CDATA[13&<>'"]]></houseno>
-        <zip><![CDATA[4321]]></zip>
-        <city><![CDATA[test town2&<>'"]]></city>
-        <district><![CDATA[test district2&<>'"]]></district>
+        <street><![CDATA[test street]]></street>
+        <city><![CDATA[test town]]></city>
         <country>GBR</country>
       </address>
       <content>
-        <vendor-category><![CDATA[french restaurant]]></vendor-category>
-        <vendor-category><![CDATA[italian restaurant]]></vendor-category>
-        <property key="poi key special&amp;&lt;&gt;'&quot;"><![CDATA[poi value special&<>'"]]></property>
+        <vendor-category><![CDATA[restaurant]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LHR000000000000000000000000000002" lang="en" modified="2010-04-13T12:38:02">
+    <geo-position>
+      <longitude>1.1</longitude>
+      <latitude>1.1</latitude>
+    </geo-position>
+    <name><![CDATA[test name]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[test street]]></street>
+      <city><![CDATA[test town]]></city>
+      <country>GBR</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[test name]]></name>
+      <address>
+        <street><![CDATA[test street]]></street>
+        <city><![CDATA[test town]]></city>
+        <country>GBR</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[restaurant]]></vendor-category>
       </content>
     </version>
   </entry>

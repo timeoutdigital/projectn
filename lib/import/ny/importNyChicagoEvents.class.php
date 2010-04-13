@@ -290,6 +290,7 @@ class importNyChicagoEvents
             foreach ( $poi->attributes->children() as $attribute )
             {
                 $attributeNameString = (string) $attribute->name;
+                $attributeValueString = (string) trim( $attribute->value );
 
                 if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
                 {
@@ -301,7 +302,16 @@ class importNyChicagoEvents
                     }
                 }
 
-                $poiObj->addProperty( $attributeNameString, trim( $attribute->value ) );
+                if( $attribute->name == "Critics_choice" )
+                {
+                    $critics_choice_value = (string) strtolower( $attribute->value );
+
+                    // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
+                    if( $critics_choice_value == "yes" ) $attributeValueString = "y";
+                    if( $critics_choice_value == "no" ) $attributeValueString = "n";
+                }
+
+                $poiObj->addProperty( $attributeNameString, $attributeValueString );
             }
         }
 
@@ -414,7 +424,13 @@ class importNyChicagoEvents
         {
             if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
             {
-                $eventObj->addProperty( "Critics_choice", (string) $attribute->value );
+                $critics_choice_value = (string) strtolower( $attribute->value );
+
+                // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
+                if( $critics_choice_value == "yes" ) $critics_choice_value = "y";
+                if( $critics_choice_value == "no" ) $critics_choice_value = "n";
+                
+                $eventObj->addProperty( "Critics_choice", $critics_choice_value );
             }
         }
 
