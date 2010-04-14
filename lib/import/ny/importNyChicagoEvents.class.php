@@ -93,7 +93,6 @@ class importNyChicagoEvents
      */
     public function insertEventCategoriesAndEventsAndVenues()
     {
-
         //Add each venue to the database
         foreach( $this->_venues as $venue )
         {

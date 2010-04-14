@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+TEST DATA
+Has two events and two venues
+-->
+<body xmlns:fo="http://www.w3.org/1999/XSL/Format">
+	<params>
+		<!--Hochzeichen-Zeichenersetzung-->
+		<replacechar str="’" to="’"/>
+		<replacechar str="{dbcomma}" to="“"/>
+		<replacechar str="{ldquo}" to="”"/>
+		<replacechar str="&amp;#8211;" to="–"/>
+		<replacechar str="“" to="“"/>
+		<replacechar str="”" to="”"/>
+	</params>
+
+	<event id="1">
+		<type>2</type>
+		<released>1</released>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</start>
+			<venue>
+				<address_id>1</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date_start dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</date_start>
+		<date_end dd="19" mm="12" yyyy="2009" hh="18" nn="00" ss="00" dw="Sat" dwnum="6" hh12="6" ampm="pm">2009-12-19 18:00:00</date_end>
+		<website/>
+		<transformation>
+			<address_id>1</address_id>
+			<secondary_venue_id/>
+			<dynamic>
+				<day dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</day>
+				<time>
+					<from hh="18" nn="00" ss="00" hh12="6" ampm="pm">18:00:00</from>
+				</time>
+			</dynamic>
+		</transformation>
+		<main_event/>
+		<identifier>Rien Que Les Heures</identifier>
+		<description>One of the best “symphony films” of the ’20s and ’30s, this avant-garde travelogue explores the cobblestone streets and broken boulevards of anything-goes Paris. It screens with Viking Eggeling’s “Symphonie Diagonale” (1924), the last abstract short the filmmaker made before his untimely death.</description>
+		<category_combi id="400">
+                        <category1 id="279">Comedy</category1>
+			<category2 id="344"></category2>
+			<category3 id=""/>
+		</category_combi>
+		<edition id="16">Time Out New York</edition>
+		<text_system>
+			<text>
+				<text_type>Prices</text_type>
+				<language>english</language>
+				<content>$10</content>
+				<author/>
+				<released>1</released>
+			</text>
+			<text>
+				<text_type>Legend</text_type>
+				<language>english</language>
+				<content>50mins. No intermission.</content>
+				<author/>
+				<released>1</released>
+			</text>
+			<text>
+				<text_type>Contact Blurb</text_type>
+				<language>english</language>
+				<content>212-352-3101, steve@timeout.com, theatermania.com</content>
+				<author/>
+				<released>1</released>
+			</text>
+		</text_system>
+		<attributes>
+			<attribute>
+				<name>WebReady</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+			<attribute>
+				<name>Critic's Picks</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
+		<sort_string>Rien Que Les Heures</sort_string>
+	</event>
+
+	<event id="2">
+		<type>2</type>
+		<released>1</released>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</start>
+			<venue>
+				<address_id>2</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</start>
+			<venue>
+				<address_id>2</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date_start dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</date_start>
+		<date_end dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</date_end>
+		<website/>
+		<transformation>
+			<address_id>2</address_id>
+			<secondary_venue_id/>
+			<dynamic>
+				<day dd="20" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sun" dwnum="7" hh12="12" ampm="am">2009-12-20 00:00:00</day>
+				<day dd="19" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2009-12-19 00:00:00</day>
+				<time>
+					<from hh="0" nn="00" ss="00" hh12="12" ampm="am">00:00:00</from>
+				</time>
+			</dynamic>
+		</transformation>
+		<main_event/>
+		<identifier>Black Dynamite</identifier>
+		<description>He’s a complicated man, and nobody understands him but his lady. We’re not talking about John Shaft, but rather, Michael Jai White’s karate-kickin’ blaxploitation hero who’s out to avenge his brother’s death by getting even with—who else?—the Man. Trust us, a feature-length parody of guys mugging in Afros is not as funny as it might sound.</description>
+		<category_combi id="400">
+			<category1 id="279">Film</category1>
+			<category2 id="344">Art-house &amp; indie cinema</category2>
+			<category3 id=""/>
+		</category_combi>
+		<edition id="16">Time Out New York</edition>
+		<attributes>
+			<attribute>
+				<name>WebReady</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
+		<sort_string>Black Dynamite</sort_string>
+	</event>
+
+  <event id="3">
+		<type>2</type>
+		<released>1</released>
+		<date>
+			<start dd="18" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Fri" dwnum="5" hh12="1" ampm="pm">2009-12-18 13:10:00</start>
+			<venue>
+				<address_id>2</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="18" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Fri" dwnum="5" hh12="3" ampm="pm">2009-12-18 15:20:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="18" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Fri" dwnum="5" hh12="5" ampm="pm">2009-12-18 17:30:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="18" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Fri" dwnum="5" hh12="7" ampm="pm">2009-12-18 19:40:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="18" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Fri" dwnum="5" hh12="9" ampm="pm">2009-12-18 21:50:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sat" dwnum="6" hh12="1" ampm="pm">2009-12-19 13:10:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sat" dwnum="6" hh12="3" ampm="pm">2009-12-19 15:20:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sat" dwnum="6" hh12="5" ampm="pm">2009-12-19 17:30:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sat" dwnum="6" hh12="7" ampm="pm">2009-12-19 19:40:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="19" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2009-12-19 21:50:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="20" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sun" dwnum="7" hh12="1" ampm="pm">2009-12-20 13:10:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="20" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sun" dwnum="7" hh12="3" ampm="pm">2009-12-20 15:20:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="20" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sun" dwnum="7" hh12="5" ampm="pm">2009-12-20 17:30:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date>
+			<start dd="20" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-20 19:40:00</start>
+			<venue>
+				<address_id>3</address_id>
+				<secondary_venue_id/>
+			</venue>
+		</date>
+		<date_start dd="18" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Fri" dwnum="5" hh12="1" ampm="pm">2009-12-18 13:10:00</date_start>
+		<date_end dd="29" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Tue" dwnum="2" hh12="9" ampm="pm">2009-12-29 21:50:00</date_end>
+		<website/>
+		<transformation>
+			<address_id>101392</address_id>
+			<secondary_venue_id/>
+			<range days="12">
+				<from dd="18" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2009-12-18 00:00:00</from>
+				<to dd="29" mm="12" yyyy="2009" hh="0" nn="00" ss="00" dw="Tue" dwnum="2" hh12="12" ampm="am">2009-12-29 00:00:00</to>
+				<time>
+					<from hh="19" nn="40" ss="00" hh12="7" ampm="pm">19:40:00</from>
+				</time>
+				<time>
+					<from hh="21" nn="50" ss="00" hh12="9" ampm="pm">21:50:00</from>
+				</time>
+				<time>
+					<from hh="17" nn="30" ss="00" hh12="5" ampm="pm">17:30:00</from>
+				</time>
+				<time>
+					<from hh="15" nn="20" ss="00" hh12="3" ampm="pm">15:20:00</from>
+				</time>
+				<time>
+					<from hh="13" nn="10" ss="00" hh12="1" ampm="pm">13:10:00</from>
+				</time>
+			</range>
+		</transformation>
+		<main_event/>
+		<identifier>The Third Man</identifier>
+		<description>Seriously, is there a better screen entrance than the first appearance of Harry Lime, the black-market mover and shaker? And what about the “cuckoo clock” speech? Plus, that zither-heavy soundtrack!</description>
+		<category_combi id="400">
+			<category1 id="279">Shopping</category1>
+			<category2 id="344">Stores</category2>
+			<category3 id=""/>
+		</category_combi>
+		<edition id="16">Time Out New York</edition>
+		<attributes>
+			<attribute>
+				<name>Critic's Picks</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+			<attribute>
+				<name>WebReady</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
+		<sort_string>Third Man</sort_string>
+	</event>
+	<!--Formatted address Element-->
+	<address id="103532">
+		<address_type>S</address_type>
+		<address_type_ext>-VEN-</address_type_ext>
+		<address_group id="1">New York</address_group>
+		<released>1</released>
+		<name/>
+		<first_name/>
+		<identifier>Zankel Hall (at Carnegie Hall)</identifier>
+		<country_symbol>USA</country_symbol>
+		<country>United States of America</country>
+		<state>NY</state>
+		<district>Manhattan</district>
+		<street>154 W 57th St</street>
+		<house_number/>
+		<cross_streets>at Seventh Ave</cross_streets>
+		<country_code>+1</country_code>
+		<telephone>
+			<function id="0">info desk</function>
+			<area_code>212</area_code>
+			<number>247-7800</number>
+		</telephone>
+		<postcode>0</postcode>
+		<town>New York</town>
+		<suburb>Midtown West</suburb>
+		<text_system>
+			<text>
+				<text_type>Approach Descriptions</text_type>
+				<language>english</language>
+				<content>Subway: B, D, E to Seventh Ave; N, Q, R, W to 57th St</content>
+				<author/>
+				<released>1</released>
+			</text>
+		</text_system>
+		<prices>
+			<price_id id="125294">
+				<general_remark>children under 5 not admitted.</general_remark>
+				<price>
+					<price_type/>
+					<currency>USD</currency>
+					<value integer="12" decimal_places="50">12.50</value>
+					<value_to integer="0" decimal_places="00">0.00</value_to>
+				</price>
+				<price>
+					<price_type>seniors and students</price_type>
+					<currency>USD</currency>
+					<value integer="8" decimal_places="00">8.00</value>
+					<value_to integer="0" decimal_places="00">0.00</value_to>
+				</price>
+				<price>
+					<price_type>children 5–14</price_type>
+					<currency>USD</currency>
+					<value integer="6" decimal_places="50">6.50</value>
+					<value_to integer="0" decimal_places="00">0.00</value_to>
+				</price>
+			</price_id>
+		</prices>
+		<attributes>
+			<attribute>
+				<name>NYCVisit: Trendsetter</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+			<attribute>
+				<name>Venue type: Shops</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
+		<sort_string>Zankel Hall (at Carnegie Hall)</sort_string>
+	</address>
+
+	<!--end Formatted address Element-->
+	<address id="1">
+		<address_type>S</address_type>
+		<address_type_ext>-VEN-</address_type_ext>
+		<address_group id="1">New York</address_group>
+		<released>1</released>
+		<name/>
+		<first_name/>
+		<identifier>Zebulon</identifier>
+		<country_symbol>USA</country_symbol>
+		<country>United States of America</country>
+		<state>NY</state>
+		<district>Kings</district>
+		<street>258 Wythe Ave</street>
+		<house_number/>
+		<cross_streets>between Metropolitan Ave and North 3rd St</cross_streets>
+		<country_code>+1</country_code>
+		<telephone>
+			<function id="0">info desk</function>
+			<area_code>718</area_code>
+			<number>218-6934</number>
+		</telephone>
+		<postcode>0</postcode>
+		<town>Brooklyn</town>
+		<suburb>Williamsburg</suburb>
+		<text_system>
+			<text>
+				<text_type>Approach Descriptions</text_type>
+				<language>english</language>
+				<content>Subway: L to Bedford Ave</content>
+				<author/>
+				<released>1</released>
+			</text>
+		</text_system>
+		<attributes>
+			<attribute>
+				<name>Venue type: Music</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
+		<sort_string>Zebulon</sort_string>
+	</address>
+
+	<address id="2">
+		<address_type>S</address_type>
+		<address_type_ext>-VEN-</address_type_ext>
+		<address_group id="1">New York</address_group>
+		<released>1</released>
+		<name/>
+		<first_name/>
+		<identifier>Zebulon</identifier>
+		<country_symbol>USA</country_symbol>
+		<country>United States of America</country>
+		<state>NY</state>
+		<district>Kings</district>
+		<street>258 Wythe Ave</street>
+		<house_number/>
+		<cross_streets>between Metropolitan Ave and North 3rd St</cross_streets>
+		<country_code>+1</country_code>
+		<telephone>
+			<function id="0">info desk</function>
+			<area_code>718</area_code>
+			<number>218-6934</number>
+		</telephone>
+		<postcode>0</postcode>
+		<town>Brooklyn</town>
+		<suburb>Williamsburg</suburb>
+		<text_system>
+			<text>
+				<text_type>Approach Descriptions</text_type>
+				<language>english</language>
+				<content>Subway: L to Bedford Ave</content>
+				<author/>
+				<released>1</released>
+			</text>
+		</text_system>
+		<attributes>
+			<attribute>
+				<name>Venue type: Music</name>
+				<type>Yes/No</type>
+				<value>Yes</value>
+			</attribute>
+		</attributes>
+		<sort_string>Zebulon</sort_string>
+	</address>
+
+</body>
