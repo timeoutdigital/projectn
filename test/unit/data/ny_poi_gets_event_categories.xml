@@ -41,7 +41,7 @@ Has two events and two venues
 		<identifier>Rien Que Les Heures</identifier>
 		<description>One of the best “symphony films” of the ’20s and ’30s, this avant-garde travelogue explores the cobblestone streets and broken boulevards of anything-goes Paris. It screens with Viking Eggeling’s “Symphonie Diagonale” (1924), the last abstract short the filmmaker made before his untimely death.</description>
 		<category_combi id="400">
-                        <category1 id="279">Comedy</category1>
+      <category1 id="279">Comedy</category1>
 			<category2 id="344"></category2>
 			<category3 id=""/>
 		</category_combi>
@@ -147,91 +147,91 @@ Has two events and two venues
 		<date>
 			<start dd="18" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Fri" dwnum="5" hh12="3" ampm="pm">2009-12-18 15:20:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="18" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Fri" dwnum="5" hh12="5" ampm="pm">2009-12-18 17:30:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="18" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Fri" dwnum="5" hh12="7" ampm="pm">2009-12-18 19:40:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="18" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Fri" dwnum="5" hh12="9" ampm="pm">2009-12-18 21:50:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="19" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sat" dwnum="6" hh12="1" ampm="pm">2009-12-19 13:10:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="19" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sat" dwnum="6" hh12="3" ampm="pm">2009-12-19 15:20:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="19" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sat" dwnum="6" hh12="5" ampm="pm">2009-12-19 17:30:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="19" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sat" dwnum="6" hh12="7" ampm="pm">2009-12-19 19:40:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="19" mm="12" yyyy="2009" hh="21" nn="50" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2009-12-19 21:50:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="20" mm="12" yyyy="2009" hh="13" nn="10" ss="00" dw="Sun" dwnum="7" hh12="1" ampm="pm">2009-12-20 13:10:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="20" mm="12" yyyy="2009" hh="15" nn="20" ss="00" dw="Sun" dwnum="7" hh12="3" ampm="pm">2009-12-20 15:20:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="20" mm="12" yyyy="2009" hh="17" nn="30" ss="00" dw="Sun" dwnum="7" hh12="5" ampm="pm">2009-12-20 17:30:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
 		<date>
 			<start dd="20" mm="12" yyyy="2009" hh="19" nn="40" ss="00" dw="Sun" dwnum="7" hh12="7" ampm="pm">2009-12-20 19:40:00</start>
 			<venue>
-				<address_id>3</address_id>
+				<address_id>2</address_id>
 				<secondary_venue_id/>
 			</venue>
 		</date>
@@ -284,79 +284,7 @@ Has two events and two venues
 		</attributes>
 		<sort_string>Third Man</sort_string>
 	</event>
-	<!--Formatted address Element-->
-	<address id="103532">
-		<address_type>S</address_type>
-		<address_type_ext>-VEN-</address_type_ext>
-		<address_group id="1">New York</address_group>
-		<released>1</released>
-		<name/>
-		<first_name/>
-		<identifier>Zankel Hall (at Carnegie Hall)</identifier>
-		<country_symbol>USA</country_symbol>
-		<country>United States of America</country>
-		<state>NY</state>
-		<district>Manhattan</district>
-		<street>154 W 57th St</street>
-		<house_number/>
-		<cross_streets>at Seventh Ave</cross_streets>
-		<country_code>+1</country_code>
-		<telephone>
-			<function id="0">info desk</function>
-			<area_code>212</area_code>
-			<number>247-7800</number>
-		</telephone>
-		<postcode>0</postcode>
-		<town>New York</town>
-		<suburb>Midtown West</suburb>
-		<text_system>
-			<text>
-				<text_type>Approach Descriptions</text_type>
-				<language>english</language>
-				<content>Subway: B, D, E to Seventh Ave; N, Q, R, W to 57th St</content>
-				<author/>
-				<released>1</released>
-			</text>
-		</text_system>
-		<prices>
-			<price_id id="125294">
-				<general_remark>children under 5 not admitted.</general_remark>
-				<price>
-					<price_type/>
-					<currency>USD</currency>
-					<value integer="12" decimal_places="50">12.50</value>
-					<value_to integer="0" decimal_places="00">0.00</value_to>
-				</price>
-				<price>
-					<price_type>seniors and students</price_type>
-					<currency>USD</currency>
-					<value integer="8" decimal_places="00">8.00</value>
-					<value_to integer="0" decimal_places="00">0.00</value_to>
-				</price>
-				<price>
-					<price_type>children 5–14</price_type>
-					<currency>USD</currency>
-					<value integer="6" decimal_places="50">6.50</value>
-					<value_to integer="0" decimal_places="00">0.00</value_to>
-				</price>
-			</price_id>
-		</prices>
-		<attributes>
-			<attribute>
-				<name>NYCVisit: Trendsetter</name>
-				<type>Yes/No</type>
-				<value>Yes</value>
-			</attribute>
-			<attribute>
-				<name>Venue type: Shops</name>
-				<type>Yes/No</type>
-				<value>Yes</value>
-			</attribute>
-		</attributes>
-		<sort_string>Zankel Hall (at Carnegie Hall)</sort_string>
-	</address>
 
-	<!--end Formatted address Element-->
 	<address id="1">
 		<address_type>S</address_type>
 		<address_type_ext>-VEN-</address_type_ext>
