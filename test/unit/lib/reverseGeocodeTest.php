@@ -1,6 +1,9 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
+require_once dirname(__FILE__).'/../../bootstrap/unit.php';
+require_once dirname(__FILE__).'/../bootstrap.php';
+
 require_once dirname(__FILE__).'/../../../lib/Curl.class.php';
 require_once dirname(__FILE__).'/../../../lib/reverseGeocode.class.php';
 
