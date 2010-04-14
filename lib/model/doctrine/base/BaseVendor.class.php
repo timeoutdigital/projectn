@@ -13,6 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @property string $inernational_dial_code
  * @property string $airport_code
  * @property string $country_code
+ * @property string $geo_boundries
  * @property Doctrine_Collection $Poi
  * @property Doctrine_Collection $VendorPoiCategory
  * @property Doctrine_Collection $Event
@@ -28,6 +29,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method string              getInernationalDialCode()   Returns the current record's "inernational_dial_code" value
  * @method string              getAirportCode()            Returns the current record's "airport_code" value
  * @method string              getCountryCode()            Returns the current record's "country_code" value
+ * @method string              getGeoBoundries()           Returns the current record's "geo_boundries" value
  * @method Doctrine_Collection getPoi()                    Returns the current record's "Poi" collection
  * @method Doctrine_Collection getVendorPoiCategory()      Returns the current record's "VendorPoiCategory" collection
  * @method Doctrine_Collection getEvent()                  Returns the current record's "Event" collection
@@ -42,6 +44,7 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @method Vendor              setInernationalDialCode()   Sets the current record's "inernational_dial_code" value
  * @method Vendor              setAirportCode()            Sets the current record's "airport_code" value
  * @method Vendor              setCountryCode()            Sets the current record's "country_code" value
+ * @method Vendor              setGeoBoundries()           Sets the current record's "geo_boundries" value
  * @method Vendor              setPoi()                    Sets the current record's "Poi" collection
  * @method Vendor              setVendorPoiCategory()      Sets the current record's "VendorPoiCategory" collection
  * @method Vendor              setEvent()                  Sets the current record's "Event" collection
@@ -89,6 +92,11 @@ abstract class BaseVendor extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => '2',
+             ));
+        $this->hasColumn('geo_boundries', 'string', 255, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '255',
              ));
 
 
