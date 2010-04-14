@@ -35,10 +35,6 @@ EOF;
 
 
     //Get pois grouped by the same lat/long
-    $poiGroupObj = Doctrine::getTable('Poi')->getAllDuplicatedLongLatPois();
-
-
-    
 
     echo "Total to fix: ".count($poiGroupObj);
     $count = count($poiGroupObj);
@@ -53,7 +49,7 @@ EOF;
             {
                 //Get all of the Poi's in this group
                 $poiObj = Doctrine::getTable('Poi')->findbyLongitudeAndLatitude($poiGroup['longitude'], $poiGroup['latitude']);
-print_r($poiObj->count());exit;
+print_r($poiObj->count());
                 //Go through each POI and update the long/lat
                 foreach($poiObj as $poi)
                 {

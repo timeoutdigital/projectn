@@ -84,6 +84,7 @@ class geoEncode
      if( !is_null( $this->vendorObj ) )
      {
          $geoCode .= '&region='.$this->vendorObj['country_code'];
+         $geoCode .= '&bounds='.$this->vendorObj->getGoogleApiGeoBounds();
      }
      
      //Set the string at a class level

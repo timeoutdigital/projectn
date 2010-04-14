@@ -149,6 +149,7 @@ Vendor:
     inernational_dial_code:   '+1'
     airport_code:             'JFK'
     country_code:             'us'
+    geo_boundries:            '18.910839;-167.276413;72.896057;-66.687943'
   v2:
     city:                     chicago
     language:                 en-US
@@ -156,6 +157,7 @@ Vendor:
     inernational_dial_code:   '+1'
     airport_code:             'ORD'
     country_code:             'us'
+    geo_boundries:            '18.910839;-167.276413;72.896057;-66.687943'
   v3:
     city:                     singapore
     language:                 en-US
@@ -163,6 +165,7 @@ Vendor:
     inernational_dial_code:   '+65'
     airport_code:             'SIN'
     country_code:             'sg'
+    geo_boundries:            '1.166440237201368;103.5977086672865;1.478535721771006;104.097382262637'
   v4:
     city:                     london
     language:                 en-GB
@@ -170,6 +173,7 @@ Vendor:
     inernational_dial_code:   '+44'
     airport_code:             'LHR'
     country_code:             'gb'
+    geo_boundries:            '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179'
   v5:
     city:                     abu dhabi
     language:                 en-US
@@ -177,6 +181,7 @@ Vendor:
     inernational_dial_code:   '+971'
     airport_code:             'AUH'
     country_code:             'ae'
+    geo_boundries:            '22.6333274841309;51.583324432373;26.0841617584229;56.381664276123'
   v6:
     city:                     dubai
     language:                 en-US
@@ -184,6 +189,7 @@ Vendor:
     inernational_dial_code:   '+971'
     airport_code:             'DXB'
     country_code:             'ae'
+    geo_boundries:            '22.6333274841309;51.583324432373;26.0841617584229;56.381664276123'
   v7:
     city:                     lisbon
     language:                 pt
@@ -191,6 +197,7 @@ Vendor:
     inernational_dial_code:   '+351'
     airport_code:             'LIS'
     country_code:             'pt'
+    geo_boundries:            '30.032881;-31.33763383378733;42.1456451416016;-6.182693481445309'
 
 
 EventCategory:

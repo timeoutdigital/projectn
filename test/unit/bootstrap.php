@@ -250,7 +250,8 @@ class VendorFixture
       'time_zone' => 'Europe/London',
       'airport_code' => 'LHR',
       'inernational_dial_code' => '+44',
-      'country_code' => 'gb'
+      'country_code' => 'gb',
+      'geo_boundries' => '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179',
     );
   }
 }
