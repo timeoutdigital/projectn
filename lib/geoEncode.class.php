@@ -90,7 +90,7 @@ class geoEncode
      $this->lookupUrl = $geoCode;
 
 
-//echo "\n".$geoCode . "\n";
+     //echo "\n".$geoCode . "\n";
 
      //Setup curl
      $ch = curl_init();
