@@ -44,6 +44,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $vendor['inernational_dial_code'] = '+44';
     $vendor['airport_code'] = 'XXX';
     $vendor['country_code'] = 'XX';
+    $vendor['geo_boundries'] = '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179';
     $vendor->save();
     $this->vendor = $vendor;
 
