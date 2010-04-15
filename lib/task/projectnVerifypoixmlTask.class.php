@@ -25,7 +25,8 @@ EOF;
     $this->poiXml   = simplexml_load_file( $this->options['poi-xml'] );
 
     $tests = array(
-      new noDuplicatePois()
+      new noDuplicatePois(),
+      new eachPoiHasAtleastOneVendorCategory()
     );
 
     foreach( $tests as $test )
