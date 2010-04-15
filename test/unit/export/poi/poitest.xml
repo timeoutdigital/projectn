@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-pois vendor="timeout" modified="2010-04-14T18:06:47">
-  <entry vpid="XXX000000000000000000000000000001" lang="en" modified="2010-04-14T18:06:47">
+<vendor-pois vendor="timeout" modified="2010-04-15T13:03:39">
+  <entry vpid="XXX000000000000000000000000000001" lang="en" modified="2010-04-15T13:03:39">
     <geo-position>
       <longitude>0.1</longitude>
       <latitude>0.2</latitude>
@@ -42,10 +42,11 @@
         <media mime-type="image/"><![CDATA[http://projectn.s3.amazonaws.com/test/poi/images/md5 hash of the url.jpg]]></media>
         <property key="poi key 1"><![CDATA[poi value 1]]></property>
         <property key="poi key 2"><![CDATA[poi value 2]]></property>
+        <property key="Critics_choice"><![CDATA[Y]]></property>
       </content>
     </version>
   </entry>
-  <entry vpid="XXX000000000000000000000000000002" lang="en" modified="2010-04-14T18:06:47">
+  <entry vpid="XXX000000000000000000000000000002" lang="en" modified="2010-04-15T13:03:39">
     <geo-position>
       <longitude>0.3</longitude>
       <latitude>0.4</latitude>

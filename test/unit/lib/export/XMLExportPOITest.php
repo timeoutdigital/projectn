@@ -110,11 +110,17 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property2->link( 'Poi', array( $poi['id'] ) );
         $property2->save();
 
-        $property3 = new PoiProperty();
-        $property3[ 'lookup' ] = 'Critics_choice';
-        $property3[ 'value' ] = 'not y';
-        $property3->link( 'Poi', array( $poi['id'] ) );
-        $property3->save();
+//        $property3 = new PoiProperty();
+//        $property3[ 'lookup' ] = 'Critics_choice';
+//        $property3[ 'value' ] = 'not y';
+//        $property3->link( 'Poi', array( $poi['id'] ) );
+//        $property3->save();
+
+        $property4 = new PoiProperty();
+        $property4[ 'lookup' ] = 'Critics_choice';
+        $property4[ 'value' ] = 'Y';
+        $property4->link( 'Poi', array( $poi['id'] ) );
+        $property4->save();
 
         $property = new PoiMedia();
         $property[ 'ident' ] = 'md5 hash of the url';
@@ -167,7 +173,9 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->domDocument->load( $this->destination );
       $this->xpath = new DOMXPath( $this->domDocument );
       
-      $badCriticsChoice = $this->xpath->query( "/vendor-pois/entry/property[@key='Critics_choice' and . != 'y']" );
+      //echo $this->domDocument->saveXML();
+
+      $badCriticsChoice = $this->xpath->query( "/vendor-pois/entry/property[@key='Critics_choice' and lower-case(.) != 'y']" );
       $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
   }
     

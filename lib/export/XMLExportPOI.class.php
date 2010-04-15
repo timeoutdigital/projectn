@@ -141,7 +141,7 @@ class XMLExportPOI extends XMLExport
       {
         if( isset( $property['lookup'] ) )
         {
-          if( $property['lookup'] == "Critics_choice" && $property['value'] != "y" )
+          if( $property['lookup'] == "Critics_choice" && strtolower( $property['value'] ) != "y" )
           {
               break;
           }
