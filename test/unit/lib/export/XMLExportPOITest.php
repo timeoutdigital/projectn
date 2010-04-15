@@ -155,8 +155,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testPoisWithoutVendorCategoriesAreNotExported()
     {
-      $this->markTestSkipped("Test Fails, looks unfinished.");
-
       ProjectN_Test_Unit_Factory::destroyDatabases();
       ProjectN_Test_Unit_Factory::createDatabases();
 
@@ -164,19 +162,18 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['VendorPoiCategory'] = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
       $poi->save();
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
       $poi['poi_name'] = 'hello';
-      $poi['VendorPoiCategory'][] = ProjectN_Test_Unit_Factory::add( 'VendorPoiCategory' );
       $poi->save();
 
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
 
       $this->runImport();
       $numEntries = $this->xml->xpath( '//entry' );
-      var_dump( $this->xml->asXml() );
 
       $this->assertEquals( 1, count( $numEntries ) );
     }
@@ -392,7 +389,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
-      $this->markTestSkipped( 'temporarily removed media' );
       $properties = $this->xml->entry[0]->version->content->media;
       $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
       $this->assertEquals( 'url', (string) $properties[0] );
