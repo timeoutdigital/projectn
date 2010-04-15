@@ -24,6 +24,17 @@ class Vendor extends BaseVendor
   }
 
   /**
+   * Returns the geo boundaries for the vendor area in a format that google uses.
+   *
+   * @return string google_bounds
+   */
+  public function getGoogleApiGeoBounds()
+  {
+    $bounds_array = explode( ";", $this['geo_boundries'] );
+    return $bounds_array[0] . "," . $bounds_array[1] . "|" . $bounds_array[2] . "," . $bounds_array[3];
+  }
+
+  /**
    * returns the utc offset in the following format +00:00
    * for a given date or for 'now' by default if no date
    * passed

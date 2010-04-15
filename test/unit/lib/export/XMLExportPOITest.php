@@ -49,6 +49,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $vendor['inernational_dial_code'] = '+44';
         $vendor['airport_code'] = 'XXX';
         $vendor['country_code'] = 'XX';
+        $vendor['geo_boundries'] = '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179';
         $vendor->save();
 
         $this->vendor2 = new Vendor();
@@ -58,6 +59,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->vendor2['inernational_dial_code'] = '+44';
         $this->vendor2['airport_code'] = 'XXX';
         $this->vendor2['country_code'] = 'XX';
+        $this->vendor2['geo_boundries'] = '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179';
         $this->vendor2->save();
 
         $category = new PoiCategory();
@@ -108,6 +110,18 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property2->link( 'Poi', array( $poi['id'] ) );
         $property2->save();
 
+//        $property3 = new PoiProperty();
+//        $property3[ 'lookup' ] = 'Critics_choice';
+//        $property3[ 'value' ] = 'not y';
+//        $property3->link( 'Poi', array( $poi['id'] ) );
+//        $property3->save();
+
+        $property4 = new PoiProperty();
+        $property4[ 'lookup' ] = 'Critics_choice';
+        $property4[ 'value' ] = 'Y';
+        $property4->link( 'Poi', array( $poi['id'] ) );
+        $property4->save();
+
         $property = new PoiMedia();
         $property[ 'ident' ] = 'md5 hash of the url';
         $property[ 'mime_type' ] = 'image/';
@@ -149,6 +163,21 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     {
       ProjectN_Test_Unit_Factory::destroyDatabases();
     }
+
+  /**
+   * Check to make sure we don't export a property named 'Critics_choice' with a value which is not 'y'.
+   */
+  public function testOnlyYesForCriticsChoiceProperty()
+  {
+      $this->domDocument = new DOMDocument();
+      $this->domDocument->load( $this->destination );
+      $this->xpath = new DOMXPath( $this->domDocument );
+      
+      //echo $this->domDocument->saveXML();
+
+      $badCriticsChoice = $this->xpath->query( "/vendor-pois/entry/property[@key='Critics_choice' and lower-case(.) != 'y']" );
+      $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
+  }
     
     /**
      * @todo Someone didn't finish what they were doing.

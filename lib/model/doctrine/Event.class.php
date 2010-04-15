@@ -119,6 +119,7 @@ class Event extends BaseEvent
 
     $eventMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
     $this[ 'EventMedia' ][] = $eventMediaObj;
+    return true;
   }
 
   public function getPois()

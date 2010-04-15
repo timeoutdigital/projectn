@@ -19,7 +19,7 @@ class reverseGeocode
    *
    * @var string
    */
-  private  $apiKey = 'ABQIAAAA_FL2s5FUf4LMO_mUYDXUABSveoBGowI7nqh6kHEuOnD_thDOzhQRISkLudF55CGQjHRYPqfn429wzw';
+  private  $apiKey;
 
   /**
    * GoogleMaps Url
@@ -53,6 +53,8 @@ class reverseGeocode
   {
     $this->longitude = $longitude;
     $this->latitude = $latitude;
+
+    $this->apiKey = sfConfig::get('app_google_api_key');
     
     $params = array(
         'q' => $latitude . ',' . $longitude,

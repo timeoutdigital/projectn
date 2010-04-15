@@ -137,6 +137,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $property2->link( 'Event', array( 1 ) );
     $property2->save();
 
+    $property3 = ProjectN_Test_Unit_Factory::get( 'EventProperty', array(
+      'lookup' => 'Critics_choice',
+      'value'  => 'n',
+      ) );
+    $property3->link( 'Event', array( 1 ) );
+    $property3->save();
+
     $property = new EventMedia();
     $property[ 'ident' ] = 'md5 hash of the url';
     $property[ 'mime_type' ] = 'image/';
@@ -204,6 +211,15 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
     //unlink( $this->destination );
+  }
+
+  /**
+   * Check to make sure we don't export a property named 'Critics_choice' with a value which is not 'y'.
+   */
+  public function testOnlyYesForCriticsChoiceProperty()
+  {
+      $badCriticsChoice = $this->xpath->query( "/vendor-events/event/version/property[@key='Critics_choice' and . != 'y']" );
+      $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
   }
 
     public function testCategoryTagsAreUnique()
@@ -523,6 +539,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
         'city'         => 'test',
         'language'     => 'en-GB',
         'airport_code' => 'LHR',
+        'geo_boundries' => '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179',
         ) );
     }
 

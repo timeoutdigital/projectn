@@ -35,7 +35,6 @@ class geoEncode
 {
 
   private  $addressString;
-  private  $apiKey = 'ABQIAAAA_FL2s5FUf4LMO_mUYDXUABSveoBGowI7nqh6kHEuOnD_thDOzhQRISkLudF55CGQjHRYPqfn429wzw';
   private  $longitude;
   private  $latitude;
   private  $accuracy;
@@ -44,12 +43,11 @@ class geoEncode
 
 
   /**
-   * Instanciate object with 
-   *
-   * @param string Address
-   * @param $apiKey
+   * 
    */
-  public function  __construct(){ }
+  public function  __construct()
+  {
+  }
 
 
   /**
@@ -79,18 +77,21 @@ class geoEncode
    */
   public function getGeoCode()
   {
-     $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $this->apiKey;
+     $apiKey = sfConfig::get('app_google_api_key');
+     
+     $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $apiKey;
 
      if( !is_null( $this->vendorObj ) )
      {
          $geoCode .= '&region='.$this->vendorObj['country_code'];
+         $geoCode .= '&bounds='.$this->vendorObj->getGoogleApiGeoBounds();
      }
      
      //Set the string at a class level
      $this->lookupUrl = $geoCode;
 
 
-//echo "\n".$geoCode . "\n";
+     //echo "\n".$geoCode . "\n";
 
      //Setup curl
      $ch = curl_init();

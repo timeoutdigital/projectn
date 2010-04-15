@@ -109,7 +109,7 @@ class XMLExportEvent extends XMLExport
       //event/version
       $versionElement = $this->appendRequiredElement( $eventElement, 'version' );
 
-      //Set theh language
+      //Set the language
       $langArray = explode('-',$this->vendor['language']);
       $versionElement->setAttribute( 'lang', $langArray[0] );
 
@@ -140,27 +140,35 @@ class XMLExportEvent extends XMLExport
       $this->appendNonRequiredElement($versionElement, 'price', $event['price'], XMLExport::USE_CDATA);
       
       //event/version/media
-      /*foreach( $event[ 'EventMedia' ] as $medium )
+      foreach( $event[ 'EventMedia' ] as $medium )
       {
-        $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium['url'], XMLExport::USE_CDATA);
+        $em = new EventMedia();
+        $em->merge( $medium );
+          
+        $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $em->getAwsUrl(), XMLExport::USE_CDATA );
+        unset( $em );
+        
         if ( $mediaElement instanceof DOMElement )
         {
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }*/
+      }
 
       //event/version/property
       foreach( $event[ 'EventProperty' ] as $property )
       {
-        $propertyElement = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        if ( $propertyElement instanceof DOMElement && isset( $property[ 'lookup' ] ) )
+        if ( isset( $property[ 'lookup' ] ) )
         {
-          if( $property['lookup'] == "critics_choice" && $property['value'] != "y" )
+          if( $property['lookup'] == "Critics_choice" && $property['value'] != "y" )
           {
               break;
           }
-          $propertyElement->setAttribute( 'key', $property[ 'lookup' ] );
+          $propertyElement = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
+          if( $propertyElement instanceof DOMElement )
+          {
+              $propertyElement->setAttribute( 'key', $property[ 'lookup' ] );
+          }
         }
 
         //$property->free();

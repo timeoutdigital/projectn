@@ -126,26 +126,30 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       //event/version/media
-      /*foreach( $poi[ 'PoiMedia' ] as $medium )
-      {
-        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium['url'], XMLExport::USE_CDATA);
+      foreach( $poi[ 'PoiMedia' ] as $medium )
+      {        
+        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
+        
         if ( $mediaElement instanceof DOMElement )
         {
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
-      }*/
+      }
 
       foreach( $poi[ 'PoiProperty' ] as $property )
       {
-        $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        if( $propertyElement && isset( $property['lookup'] ) )
+        if( isset( $property['lookup'] ) )
         {
-          if( $property['lookup'] == "critics_choice" && $property['value'] != "y" )
+          if( $property['lookup'] == "Critics_choice" && strtolower( $property['value'] ) != "y" )
           {
               break;
           }
-          $propertyElement->setAttribute( 'key', $property['lookup'] );
+          $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $property['value'], XMLExport::USE_CDATA);
+          if( $propertyElement instanceof DOMElement )
+          {
+            $propertyElement->setAttribute( 'key', $property['lookup'] );
+          }
         }
       }
 
