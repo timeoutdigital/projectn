@@ -420,7 +420,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     {
       $properties = $this->xml->entry[0]->version->content->media;
       $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
-      $this->assertEquals( 'url', (string) $properties[0] );
+      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/images/md5 hash of the url.jpg', (string) $properties[0] );
     }
 
     private function runImport()
