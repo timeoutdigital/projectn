@@ -29,7 +29,7 @@ class eachPoiHasAtleastOneVendorCategory extends baseVerifyTask
 
     foreach( $entryTags as $entryTag )
     {
-      $vendorCategories = $entryTag->content->{ 'vendor-category' };
+      $vendorCategories = $entryTag->{'version'}->{'content'}->{ 'vendor-category' };
       $numVendorCategories = count( $vendorCategories );
 
       if( $numVendorCategories == 0 )
@@ -52,7 +52,7 @@ class eachPoiHasAtleastOneVendorCategory extends baseVerifyTask
 
     $numEntriesWithoutVendorCategories = count( $this->entriesWithoutVendorCategories );
 
-    $message = $numVendorCategories . ' POI entries have no vendor-category tags, showing first 10:' . PHP_EOL;
+    $message = $numEntriesWithoutVendorCategories . ' POI entries have no vendor-category tags, showing first 10:' . PHP_EOL;
 
     $limit = 10;
     foreach( $this->entriesWithoutVendorCategories as $entryTag )
