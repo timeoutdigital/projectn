@@ -16,13 +16,13 @@ abstract class BaseLinkingPoiCategoryForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
-      'poi_category_id' => new sfWidgetFormInputText(),
+      'poi_category_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'), 'add_empty' => false)),
       'poi_id'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'), 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'              => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'poi_category_id' => new sfValidatorInteger(),
+      'poi_category_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PoiCategory'))),
       'poi_id'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Poi'))),
     ));
 
