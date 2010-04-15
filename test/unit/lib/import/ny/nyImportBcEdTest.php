@@ -122,7 +122,7 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
       $testPoi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 20192 );
       //$this->assertEquals( 'Bar Category', $testPoi[ 'VendorPoiCategory' ][0]['name'] );
       //@todo hard coded evil resides in the function that this is testing....
-      $this->assertEquals( 'bar-club', $testPoi[ 'VendorPoiCategory' ][0]['name'] );
+      $this->assertEquals( 'Bar-club', $testPoi[ 'VendorPoiCategory' ][0]['name'] );
 
     }
 
@@ -135,7 +135,7 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
       $testPoi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( 20192 );
       //$this->assertEquals( 'Restaurant Category', $testPoi[ 'VendorPoiCategory' ][0]['name'] );
       //@todo hard coded evil resides in the function that this is testing....
-      $this->assertEquals( 'restaurant', $testPoi[ 'VendorPoiCategory' ][0]['name'] );
+      $this->assertEquals( 'Restaurant', $testPoi[ 'VendorPoiCategory' ][0]['name'] );
     }
 
 
