@@ -283,11 +283,11 @@ class nyImportBcEd {
         switch( $this->restaurantOrBar )
         {
           case nyImportBcEd::BAR_CLUB:
-            $category = 'bar-club';
+            $category = 'Bar-club';
             break;
           
           case nyImportBcEd::RESTAURANT:
-            $category = 'restaurant';
+            $category = 'Restaurant';
 
             break;
         }
