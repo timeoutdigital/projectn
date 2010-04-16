@@ -24,8 +24,24 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       }
 
       $event = $this->getEventRecordFrom( $listingElement );
+
+      // -- Append band info to description as per #259 --
+      $band_info = explode( ",", (string) $listingElement['band'] );
+      foreach( $band_info as $k => $info )
+      {
+          $band_info[$k] = trim( $info, "  " ); // One of those is a weird portugese space
+      }
+      $band_info = (string) implode( "<br />", $band_info );
+
+      if( (string) trim( $event['description'] ) != "" )
+      {
+         $event['description'] .= "<br /><br />";
+      }
+      $event['description'] .= $band_info;
+      // --
       
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
+
       $event['vendor_id'] = $this->vendor['id'];
       $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
       $event['review_date'] = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
@@ -178,6 +194,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       'OutputSortField',
       'listingstatus',
       'image',
+      'band'
     );
   }
 }

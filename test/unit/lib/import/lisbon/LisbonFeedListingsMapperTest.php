@@ -58,6 +58,25 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * Test to make sure 'band' property is not present.
+   * refs #259
+   */
+  public function testBandPropertyIsNotPresent()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $search = Doctrine::getTable('Event')->findById( 1 );
+    $first = $search->getFirst();
+
+    foreach( $first['EventProperty'] as $eventProperty )
+    {
+        $this->assertNotEquals( $eventProperty['lookup'], 'band', "Event should not have property named 'band', refs #259" );
+    }
+  }
+
   public function testEventsWithZeroAsRecurringListingIdAreNotSaved()
   {
     $this->markTestSkipped();
@@ -151,7 +170,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
     $poi833 = $poi833Results[0];
     $poi833Categories = $poi833['VendorPoiCategory'];
-    var_dump( $poi833['VendorPoiCategory']->toArray() );
+    //var_dump( $poi833['VendorPoiCategory']->toArray() );
     $this->assertEquals( 3, $poi833Categories->count() );
     $this->assertEquals( $poi833Categories[0]['name'], 'test name' );//autocreated by bootstrap
     $this->assertEquals( $poi833Categories[1]['name'], 'Museus | Museus' );
