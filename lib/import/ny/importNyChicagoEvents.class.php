@@ -93,14 +93,13 @@ class importNyChicagoEvents
      */
     public function insertEventCategoriesAndEventsAndVenues()
     {
-
         //Add each venue to the database
         foreach( $this->_venues as $venue )
         {
             $this->insertPoi( $venue ) ;
         }
 
-        echo 'Pois done';
+        //echo 'Pois done';
 
         //Save the logger
         $this->_poiLoggerObj->save();
@@ -111,7 +110,7 @@ class importNyChicagoEvents
       $this->insertVendorEventCategories( $event );
     }
         */
-        echo 'Event cats done';
+        //echo 'Event cats done';
 
         //Loop through all the events to add them and occurances to database
         foreach($this->_events as $event)

@@ -72,6 +72,39 @@ class importNyTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * Pois do not have categories. As we import events, we need to copy
+   * the event's categories over to its related POI
+   */
+  public function testPoisAreAttachedWithCategoriesOfRelatedEvents()
+  {
+    $this->markTestSkipped();
+    //not required anymore
+    $testXml = $this->loadTestFeedFrom( TO_TEST_DATA_PATH . '/ny_poi_gets_event_categories.xml' );
+    $importer = new importNyChicagoEvents( $testXml, $this->vendorObj );
+    $importer->insertEventCategoriesAndEventsAndVenues();
+
+    $eventTable = Doctrine::getTable( 'Event' );
+    $poiTable = Doctrine::getTable( 'Poi' );
+
+    $this->assertEquals( 3, $eventTable->count() );
+    $this->assertEquals( 2, $poiTable->count() );
+
+    $firstPoi = $poiTable->findOneById( 1 );
+    $this->assertEquals( 0, count( $firstPoi[ 'VendorPoiCategory' ] ) );
+  }
+
+  private function loadTestFeedFrom( $sourceFile )
+  {
+    $xmlFeed  = new processNyXml( $sourceFile );
+
+    if( !$xmlFeed->getXml() )
+      $this->fail( 'Could not find test file:' . $testData );
+
+    $xmlFeed->setEvents('/body/event')->setVenues('/body/address');
+
+    return $xmlFeed;
+  }
 
    /**
    * testInsertPoi
