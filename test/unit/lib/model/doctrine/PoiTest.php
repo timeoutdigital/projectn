@@ -32,7 +32,9 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->object = ProjectN_Test_Unit_Factory::add( 'poi' );
+    $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
+    $this->object[ 'VendorPoiCategory' ] = new Doctrine_Collection( Doctrine::getTable( 'Poi' ) );
+    $this->object->save();
   }
 
   /**

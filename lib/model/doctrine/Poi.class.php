@@ -50,7 +50,6 @@ class Poi extends BasePoi
     $this->geoEncodeByPass = $geoEncodeByPass;
   }
 
-
   /**
    * Add the Poi Properties
    *
@@ -166,7 +165,7 @@ class Poi extends BasePoi
     if( $this->geoEncodeByPass )
       return;
 
-    if( !$this->isGeocodeValid() )
+    if( !$this->hasValidGeocode() )
       return;
 
     if( empty( $this->geoEncodeLookUpString ) )
@@ -189,7 +188,7 @@ class Poi extends BasePoi
     }
   }
 
-  private function isGeocodeValid()
+  private function hasValidGeocode()
   {
     $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
     $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );
