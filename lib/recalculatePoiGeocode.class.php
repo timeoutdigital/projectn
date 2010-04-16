@@ -30,7 +30,11 @@ class recalculatePoiGeocode
    */
   public function addPois( $collection )
   {
+    if( is_null( $collection ) )
+      throw new Exception( 'Requires a collection of Pois. Got null.' );
+
     $type = $this->getTypeOf( $collection );
+
     if( $type != 'Poi' )
       throw new Exception( 'Requires a collection of Pois. Got collection of ' . $type );
 
