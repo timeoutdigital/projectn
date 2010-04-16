@@ -35,6 +35,11 @@ class Poi extends BasePoi
     $this->geoEncodeLookUpString = $geoEncodeLookUpString;
   }
 
+  public function getGeoEncodeLookUpString()
+  {
+    return $this->geoEncodeLookUpString;
+  }
+
   /**
    * Set if Geoencoding is to be bypassed
    *
