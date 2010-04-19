@@ -1,6 +1,8 @@
 <?php
 setlocale(LC_ALL, array('en_US.UTF-8', ));
 require_once 'PHPUnit/Framework.php';
+require_once dirname( __FILE__ ) . '/../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../bootstrap.php';
 
 require_once dirname(__FILE__).'/../../../lib/stringTransform.class.php';
 
@@ -51,6 +53,24 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
+  }
+
+  /**
+   * Load a comprehensive list of timeinfo strings (delimeted by ^^) and try to
+   * apply the extractTimesFromText() function, and see what happens.
+   * eg. 'Tera a domingo das 10.00 s 18.00.' 'Ter-Sex 10-18h' '21.30' 'At 1 de Abril.'
+   */
+  public function testExtractTimesFromText()
+  {
+      $import = explode( "^^",file_get_contents( TO_TEST_DATA_PATH . '/timeinfo_examples.txt' ) );
+      //print_r( $import );
+      foreach( $import as $item )
+      {
+          $times = stringTransform::extractTimesFromText( $item );
+          //if( count( $times ) > 0 )
+          echo( explode( ",", $times ) . ' "' . $item . '"' . PHP_EOL );
+          //echo PHP_EOL;
+      }
   }
 
   /**

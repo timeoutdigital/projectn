@@ -24,6 +24,34 @@ require_once 'Validate.php';
 class stringTransform
 {
 
+  public function remove_null_values( $array ) {
+    foreach( $array as $k => $v )
+    {
+        if( empty( $array[ $k ] ) ) unset( $array[ $k ] );
+        else if( is_array( $v ) )
+            $array[ $k ] = stringTransform::remove_null_values( $v );
+        if( empty( $array[ $k ] ) ) unset( $array[ $k ] );
+    }
+    return $array;
+  }
+
+  /**
+   * Try to extract time information from a string.
+   * @return array
+   */
+  public static function extractTimesFromText( $subject )
+  {
+      $returnArray = array();
+
+      $pattern = '^((([0]?[1-9]|1[0-2])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?( )?(AM|am|aM|Am|PM|pm|pM|Pm))|(([0]?[0-9]|1[0-9]|2[0-3])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?))$^';
+
+      preg_match_all( $pattern, $subject, $returnArray );
+
+     $returnArray = stringTransform::remove_null_values( $returnArray );
+
+      return $returnArray;
+  }
+
   public static function extractEmailAddressesFromText( $subject )
   {
     $pattern = '/([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+/';
