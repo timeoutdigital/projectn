@@ -37,6 +37,10 @@ class Poi extends BasePoi
 
   public function getGeoEncodeLookUpString()
   {
+    if( is_null( $this->geoEncodeLookUpString ) )
+    {
+      $this->geoEncodeLookUpString = $this['street'] . $this[ 'city' ];
+    }
     return $this->geoEncodeLookUpString;
   }
 

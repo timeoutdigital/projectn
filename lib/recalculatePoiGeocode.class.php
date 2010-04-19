@@ -51,15 +51,7 @@ class recalculatePoiGeocode
 
   private function recalculateGeocodeFor( $poi )
   {
-    $geoEncode = $this->geoEncode;
-    $geoEncode->setAddress( $poi->getGeoEncodeLookUpString(), $poi['Vendor'] );
-    $geoEncode->getGeoCode();
-
-    $poi[ 'longitude' ] = $geoEncode->getLongitude();
-    $poi[ 'latitude' ]  = $geoEncode->getLatitude();
-
-    $poi[ 'longitude' ] = $geoEncode->getLongitude();
-    $poi[ 'latitude' ]  = $geoEncode->getLatitude();
+    $poi->save();
   }
 
   private function getTypeOf( Doctrine_Collection $collection )
