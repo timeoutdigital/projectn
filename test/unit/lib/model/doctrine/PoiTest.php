@@ -151,6 +151,23 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '251 Tottenham Court Road, London, W1T 7AB, United Kingdom', $poi['geo_encode_look_up_string'] );
   }
 
+  public function testGetGeoEncodeLookupStringFromVendorDoesNotIncludeEmptyValues()
+  {
+    $poi = ProjectN_Test_Unit_Factory::add('poi', array( 
+      'house_no' => '',
+      'street'   => '251 Tottenham Court Road',
+      'city'     => 'London',
+      'zips'     => null,
+      'geo_encode_look_up_string' => null,
+      ));
+
+    $poi[ 'Vendor' ] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 
+      'geo_encode_look_up_pattern' => '%house_no%, %street%, %city%, %zips%, United Kingdom',
+      ));
+
+    $this->assertEquals( '251 Tottenham Court Road, London, United Kingdom', $poi['geo_encode_look_up_string'] );
+  }
+
   private function createPoiWithLongitudeLatitude( $longitude, $latitude )
   {
       return ProjectN_Test_Unit_Factory::get( 'Poi', array(

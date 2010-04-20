@@ -269,6 +269,7 @@ class Poi extends BasePoi
       '%additional_address_details%',
       '%zips%',
     );
+
     $to = array(
       $this['house_no'],
       $this['street'],
@@ -278,7 +279,10 @@ class Poi extends BasePoi
       $this['additional_address_details'],
       $this['zips'],
     );
-    return str_replace( $from, $to, $pattern );
+
+    $lookUpString = str_replace( $from, $to, $pattern );
+    $lookUpString = stringTransform::removeEmptyDelimiters( ',', $lookUpString );
+    return $lookUpString;
   }
 
 }
