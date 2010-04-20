@@ -5,8 +5,7 @@ mkdir /var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/movie
 mkdir /var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/poi
 mkdir /var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event
 touch /var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/upload.lock
-
-echo "Exporting Movies"
+secho "Exporting Movies"
 #echo "Exporting Movies for abu dhabi"
 #/var/vhosts/projectn/httpdocs/./symfony projectn:export --type=movie --city="abu dhabi" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/movie/abudhabi.xml
 
@@ -77,3 +76,7 @@ echo "Exporting Events for NY"
 
 echo "Exporting Events for Chicago"
 /var/vhosts/projectn/httpdocs/./symfony projectn:export --type=event --city="chicago" --language=en-US --destination=/var/vhosts/projectn/httpdocs/export/export_$(date +"%Y%m%d")/event/chicago.xml
+
+cd /var/vhosts/projectn/httpdocs/export/
+tar zcvf exports_$(date +"%Y%m%d").tgz export_$(date +"%Y%m%d")/*
+
