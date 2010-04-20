@@ -39,11 +39,6 @@
  */
 class logImport implements loggable
 {
-    // available type constants
-    const TYPE_POI = 'poi';
-    const TYPE_EVENT = 'event';
-    const TYPE_MOVIE = 'movie';
-
     // available operations constants
     const OPERATION_INSERT = 'insert';
     const OPERATION_UPDATE = 'update';
@@ -54,12 +49,6 @@ class logImport implements loggable
      * @var integer
      */
     private $_totalReceived = 0;
-
-    /**
-     *
-     * @var integer
-     */
-    private $_totalExisting = 0;
 
     /**
      *
@@ -87,14 +76,12 @@ class logImport implements loggable
      * @param Vendor $vendorObj
      * @param log type $type
      */
-    public function  __construct( Vendor $vendorObj, $type )
+    public function  __construct( Vendor $vendorObj )
     {
         $this->_vendorObj = $vendorObj;
 
         $this->_importLogger = new ImportLogger;
-        $this->_importLogger['total_received'] = $this->_totalReceived;
-        $this->_importLogger['total_existing'] = $this->_totalExisting;
-        $this->_importLogger['type']           = $this->_checkType( $type );
+        //$this->_importLogger['total_received'] = $this->_totalReceived;
         $this->_importLogger['Vendor']         = $this->_vendorObj;
         $this->_importLogger['status']         = 'running';
         $this->_importLogger['total_time']     = '00:00';
@@ -105,30 +92,42 @@ class logImport implements loggable
     }    
 
     /**
-     * 
+     *
+     * @param string $limitByModel
      * @return integer
      */
-    public function getTotalInserts()
+    public function getTotalInserts( $limitByModel = '' )
     {
-        return $this->_count( 'insert' );
+        return $this->_count( 'insert', $limitByModel );
+    }
+
+    /**
+     *
+     * @param string $limitByModel
+     * @return integer
+     */
+    public function getTotalUpdates( $limitByModel = '' )
+    {
+        return $this->_count( 'update', $limitByModel );
     }
 
     /**
      *
      * @return integer
      */
-    public function getTotalUpdates()
+    public function getTotalExisting( $limitByModel = '' )
     {
-        return $this->_count( 'update' );
+        return $this->_count( 'existing', $limitByModel  );
     }
 
     /**
      *
+     * @param string $limitByModel
      * @return integer
      */
-    public function getTotalDeletes()
+    public function getTotalDeletes( $limitByModel = '' )
     {
-        return $this->_count( 'delete' );
+        return $this->_count( 'delete', $limitByModel );
     }
 
     /**
@@ -137,16 +136,7 @@ class logImport implements loggable
      */
     public function getTotalErrors()
     {
-        return $this->_importLogger['ImportLoggerError']->count();
-    }
-
-    /**
-     *
-     * @return integer
-     */
-    public function getTotalExisting()
-    {
-        return $this->_totalExisting;
+        return $this->_importLogger['ImportRecordErrorLogger']->count();
     }
 
     /**
@@ -159,23 +149,43 @@ class logImport implements loggable
     }
 
     /**
-     *
-     * @param integer $totalReceived
-     */
-    public function setTotalReceived( $totalReceived )
-    {
-        $this->_totalReceived = $totalReceived;
-    }
-
-    /**
      * Save the stats
      */
     public function save()
     {   
-        $this->_importLogger['total_received'] = $this->_totalReceived;
-        $this->_importLogger['total_existing'] = $this->_totalExisting;
+        //$this->_importLogger['total_received'] = $this->_totalReceived;
         $this->_importLogger['total_time'] = $this->_getElapsedTime();
         $this->_importLogger->save();
+    }
+
+    /**
+     *
+     * @param string $model
+     * @param integer $totalReceived
+     */
+    public function setTotalReceivedItems( $model, $totalReceived )
+    {
+        $importRecordErrorLogger = null;
+        
+        foreach ( $this->_importLogger[ 'ImportLoggerReceived' ] as $existingImportRecordErrorLogger )
+        {
+           if ( $existingImportRecordErrorLogger[ 'model' ] == $model )
+           {
+               $importRecordErrorLogger = $existingImportRecordErrorLogger;
+               break;
+           }
+        }
+        
+        if ( is_null( $importRecordErrorLogger  ) )
+        {
+            $importRecordErrorLogger = new ImportLoggerReceived();
+            $importRecordErrorLogger['model'] = $this->_checkModel( $model );
+        }
+
+        $importRecordErrorLogger['total_received'] = $totalReceived;
+
+        $this->_importLogger[ 'ImportLoggerReceived' ][] = $importRecordErrorLogger;
+        $this->save();
     }
 
     /**
@@ -215,24 +225,20 @@ class logImport implements loggable
      */
     public function addError(Exception $error, Doctrine_Record $record = NULL, $log = '')
     {
-        $errorObj                     = new ImportLoggerError();
-        $errorObj['import_logger_id'] = $this->_importLogger[ 'id' ];
-        $errorObj['trace']            = $error->__toString();
-        $errorObj['log']              = $log;
-        $errorObj['type']             = get_class($error);
-        $errorObj['message']          = $error->getMessage();
-
+        $importRecordErrorLogger                     = new ImportRecordErrorLogger();
+        $importRecordErrorLogger['model']            = get_class( $record) ;
+        $importRecordErrorLogger['exception_class']  = get_class( $error );
+        $importRecordErrorLogger['trace']            = $error->__toString();
+        $importRecordErrorLogger['message']          = $error->getMessage();
+        $importRecordErrorLogger['log']              = $log;
+        
         if ( $record !==  NULL)
         {
-            $errorObj['serialized_object']        = serialize( $record );
+            $importRecordErrorLogger['serialized_object']        = serialize( $record );
         }
 
-        $this->_importLogger[ 'ImportLoggerError' ][] = $errorObj;
-
+        $this->_importLogger[ 'ImportRecordErrorLogger' ][] = $importRecordErrorLogger;
         $this->save();
-
-        //Increment the error count
-        $this->_totalErrors++;
     }
 
     /**
@@ -267,28 +273,19 @@ class logImport implements loggable
         return $this->_importLogger instanceof ImportLogger;
     }
 
-    /**
-     * count each record that already exists
-     */
-    private function _countUpExisting()
-    {
-        $this->_totalExisting++;
-    }
-
      /**
      * Log an insert
      *
-     * @param object $newObject
+     * @param object $record
      */
-    private function _addInsert( Doctrine_Record $newObject )
+    private function _addInsert( Doctrine_Record $record )
     {
-      $changeObj         = new ImportLoggerSuccess();
-      $changeObj['type'] = 'insert';
+      $importRecordLogger = new ImportRecordLogger();
+      $importRecordLogger[ 'record_id' ] = $record[ 'id' ];
+      $importRecordLogger[ 'model' ] = get_class( $record );
+      $importRecordLogger['operation'] = 'insert';
 
-      $changeObj[ get_class( $newObject ) ][] = $newObject;
-
-      $this->_importLogger[ 'ImportLoggerSuccess' ][] = $changeObj;
-
+      $this->_importLogger[ 'ImportRecordLogger' ][] = $importRecordLogger;
       $this->save();
     }
 
@@ -296,31 +293,33 @@ class logImport implements loggable
     /**
      * Log an update
      *
-     * @param object $newObject
+     * @param object $record
      * @param string $log Log of all updates
      */
-    private function _addUpdate( Doctrine_Record $newObject, $modifiedFieldsArray )
+    private function _addUpdate( Doctrine_Record $record, $modifiedFieldsArray )
     {
+      $importRecordLogger = new ImportRecordLogger();
+      $importRecordLogger[ 'record_id' ] = $record[ 'id' ];
+      $importRecordLogger[ 'model' ] = get_class( $record );
+
       if ( count( $modifiedFieldsArray ) == 0 )
       {
-          $this->_countUpExisting();
+          $importRecordLogger['operation']   = 'existing';
       }
-
-      $log = "Updated Fields: \n";
-
-      //The item is modified therefore log as an update
-      foreach( $modifiedFieldsArray as $k => $v )
+      else
       {
-          $log .= "$k: $v \n";
+          $log = "Updated Fields: \n";
+
+          //The item is modified therefore log as an update
+          foreach( $modifiedFieldsArray as $k => $v )
+          {
+              $log .= "$k: $v \n";
+          }
+          $importRecordLogger['log']         = $log;
+          $importRecordLogger['operation']   = 'update';
       }
 
-      $changeObj         = new ImportLoggerSuccess();
-      $changeObj['log']  = $log;
-      $changeObj['type'] = 'update';
-      $changeObj[ get_class( $newObject ) ][] = $newObject;
-
-      $this->_importLogger[ 'ImportLoggerSuccess' ][] = $changeObj;
-
+      $this->_importLogger[ 'ImportRecordLogger' ][] = $importRecordLogger;
       $this->save();
     }
 
@@ -336,28 +335,20 @@ class logImport implements loggable
 
         if( !in_array( $operation, $availableOperations ) )
         {
-            throw new Exception('Incorrect Operation, must be : ' . implode( ',', $availableOperations ) );
+            throw new Exception('Incorrect Operation (' .$operation. '), must be : ' . implode( ',', $availableOperations ) );
         }
 
         return $operation;
     }
 
-    /**
-     * Check if the log type is valid
-     *
-     * @param string $type
-     * @return string $type
-     */
-    private function _checkType( $type )
+    private function _checkModel( $model )
     {
-        $availableTypes = array( logImport::TYPE_POI, logImport::TYPE_EVENT, logImport::TYPE_MOVIE );
-
-        if( !in_array( $type, $availableTypes ) )
+        if( !Doctrine::isValidModelClass( $model ) )
         {
-            throw new Exception('Incorrect Type. Must be on of: ' . implode( ',', $availableTypes ) );
+            throw new Exception('Incorrect Model (' .$model. ') specified' );
         }
 
-        return $type;
+        return $model;
     }
     
     /**
@@ -376,18 +367,19 @@ class logImport implements loggable
     }
     
     /**
-     * Count types ('integer', 'update' or 'delete')
+     * Count types ('integer', 'update', 'existing or 'delete')
      * 
-     * @param string $type
+     * @param string $operation
+     * @param string $limitByModel
      * @return integer
      */
-    private function _count( $type )
+    private function _count( $operation, $limitByModel = '' )
     {
         $count = 0;
         
-        foreach( $this->_importLogger[ 'ImportLoggerSuccess' ] as $success )
+        foreach( $this->_importLogger[ 'ImportRecordLogger' ] as $success )
         {
-            if ( $type == $success['type'] )
+            if ( $operation == $success['operation'] && ( $limitByModel == '' || $limitByModel == $success[ 'model' ] ) )
             {
                 $count++;
             }

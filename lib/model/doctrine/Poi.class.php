@@ -122,17 +122,59 @@ class Poi extends BasePoi
     return $this[ 'poi_name' ];
   }
 
-  /**
-   * Attempts to fix and / or format fields, e.g. finds a lat long if none provided
-   */
-  public function preSave( $event )
+
+
+
+
+   public function getModified()
+   {
+
+
+       $updatedData = $this->toArray( true );
+       
+       //$this->co
+
+       //$this->refresh();
+       //$oldData = $this->toArray();
+
+       //$this->_resetModified();
+       $this->fromArray( $updatedData, true );
+
+       //var_export( array_diff($updatedData, $oldData) );
+
+        //$this->merge($updatedData);
+       // $this->synchronizeWithArray( $updatedData );
+
+       return parent::getModified();
+   }
+
+
+
+
+
+  public function applyDataFixes()
   {
+
      $this->fixPhone();
      $this->fixUrl();
      $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyOverrides();
+
+
   }
+
+//  /**
+//   * Attempts to fix and / or format fields, e.g. finds a lat long if none provided
+//   */
+//  public function preSave( $event )
+//  {
+//     $this->fixPhone();
+//     $this->fixUrl();
+//     $this->lookupAndApplyGeocodes();
+//     $this->truncateGeocodeLengthToMatchSchema();
+//     $this->applyOverrides();
+//  }
 
   private function applyOverrides()
   {

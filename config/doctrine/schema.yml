@@ -370,88 +370,140 @@ Vendor:
 
 
 
-#Import stats
+
+
+
+
+Logger:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    vendor_id:                  {type: integer, notnull: true}
+    status:                     {type: enum, values: [running, failed, success], notnull: true}
+    total_time:                 {type: time, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+  indexes:
+    status_index:               {fields: [status]}
+
+RecordLogger:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    record_id:                  {type: integer, notnull: true}
+    model:                      {type: string(50), notnull: true}
+  indexes:
+    record_id_index:            {fields: [record_id]}
+    model_index:                {fields: [model]}
+
+#ImportLogger main import stats table
 ImportLogger:
+  connection: project_n
+  inheritance:
+    extends: Logger
+    type: concrete
+
+#ImportRecordLogger logs all successful db operations
+ImportRecordLogger:
+  connection: project_n
+  inheritance:
+    extends: RecordLogger
+    type: concrete
+  columns:
+    operation:                  {type: enum, values: [insert, update, existing, delete], notnull: true}
+    log:                        {type: string, notnull: false}
+    import_logger_id:           {type: integer, notnull: true}
+  relations:
+    ImportLogger:               {local: import_logger_id, foreign: id}
+  indexes:
+    operation_index:            {fields: [operation]}
+
+#ImportRecordErrorLogger logs error
+ImportRecordErrorLogger:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    model:                      {type: string(50), notnull: true}
+    exception_class:            {type: string(255), notnull: true}
+    trace:                      {type: string, notnull: true}
+    message:                    {type: string, notnull: true}
+    log:                        {type: string, notnull: true}
+    serialized_object:          {type: string, notnull: false}
+    resolved:                   {type: boolean, notnull: true, default: 0}
+    import_logger_id:           {type: integer, notnull: true}
+  relations:
+    ImportLogger:               {local: import_logger_id, foreign: id}
+  indexes:
+    model_index:                {fields: [model]}
+    exception_class_index:      {fields: [exception_class]}
+    resolved_index:             {fields: [resolved]}
+
+#ImportLoggerReceived keeps track of nodes we receive in our imports
+ImportLoggerReceived:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
     total_received:             {type: integer, notnull: true}
-    #total_inserts:              {type: integer, notnull: true}
-    #total_updates:              {type: integer, notnull: true}
-    #total_errors:               {type: integer, notnull: true}
-    total_existing:             {type: integer, notnull: true}
-    vendor_id:                  {type: integer, notnull: true}
-    type:                       {type: enum, values: [movie, poi, event], notnull: true}
-    status:                     {type: enum, values: [running, failed, success], notnull: true}
-    total_time:                 {type: time, notnull: true}
-  relations:
-    Vendor:                     {local: vendor_id, foreign: id}
-
-
-
-
-
-
-#Log all successfull additions, changes and deletes during an import i.e. updated poi content
-ImportLoggerSuccess:
-  connection: project_n
-  actAs:
-    Timestampable:              ~
-  columns:
-    type:                       {type: enum, values: [insert, update, delete], notnull: true}
-    log:                        {type: string, notnull: false}
+    model:                      {type: string(50), notnull: true}
     import_logger_id:           {type: integer, notnull: true}
   relations:
-    ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerSuccess}
-    Poi:                        {class: Poi, refClass: LinkingImportLoggerSuccessPoi, local: import_logger_success_id, foreign: poi_id }
-    Event:                      {class: Event, refClass: LinkingImportLoggerSuccessEvent, local: import_logger_success_id, foreign: event_id }
-    Movie:                      {class: Movie, refClass: LinkingImportLoggerSuccessMovie, local: import_logger_success_id, foreign: movie_id }
+    ImportLogger:               {local: import_logger_id, foreign: id}
+  indexes:
+    model_index:                {fields: [model]}
 
-#Linking tables for the ImportLoggerSuccess
-LinkingImportLoggerSuccessPoi:
+#ExportLogger main import stats table
+ExportLogger:
   connection: project_n
-  columns:
-     import_logger_success_id:  {type: integer, notnull: true}
-     poi_id:                    {type: integer, notnull: true}
+  inheritance:
+    extends: Logger
+    type: concrete
 
-LinkingImportLoggerSuccessEvent:
+#Export stats
+ExportRecordLogger:
   connection: project_n
+  inheritance:
+    extends: Logger
   columns:
-     import_logger_success_id:  {type: integer, notnull: true}
-     event_id:                  {type: integer, notnull: true}
+    vendor_record_id:             {type: integer, notnull: true}
+    export_logger_id:           {type: integer, notnull: true}
+  relations:
+    ExportLogger:               {local: export_logger_id, foreign: id}
+  indexes:
+    vendor_record_id_index:     {fields: [vendor_record_id]}
 
-LinkingImportLoggerSuccessMovie:
-  connection: project_n
-  columns:
-     import_logger_success_id:  {type: integer, notnull: true}
-     movie_id:                  {type: integer, notnull: true}
-
-
-
-
-
-
-
-
-
-
-
-#Log All import issues
-ImportLoggerError:
+#ExportLoggerSkippedItem logs skipped items
+ExportSkippedRecordLogger:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
-    trace:                      {type: string, notnull: true}
+    record_id:                  {type: integer, notnull: true}
+    model:                      {type: string(50), notnull: true}
+    vendor_record_id:           {type: integer, notnull: true}
     log:                        {type: string, notnull: true}
-    type:                       {type: string, notnull: true}
-    message:                    {type: string, notnull: true}
-    serialized_object:          {type: string, notnull: false}
-    import_logger_id:           {type: integer, notnull: true}
-    resolved:                   {type: boolean, notnull: true, default: 0}
+    export_logger_id:           {type: integer, notnull: true}
   relations:
-    ImportLogger:               {local: import_logger_id, foreign: id, foreignAlias: ImportLoggerError}
+    ExportLogger:               {local: export_logger_id, foreign: id}
+  indexes:
+    record_id_index:            {fields: [record_id]}
+    model_index:                {fields: [model]}
+    vendor_record_id_index:     {fields: [vendor_record_id]}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -476,38 +528,6 @@ Media:
 
 
 
-
-#Export stats
-ExportLogger:
-  connection: project_n
-  actAs:
-    Timestampable:              ~
-  columns:
-    vendor_id:                  {type: integer, notnull: true}
-    model:                      {type: enum, values: [movie, poi, event], notnull: true}
-    total_time:                 {type: time, notnull: true}
-  relations:
-    Vendor:                     {local: vendor_id, foreign: id}
-  indexes:
-    model_index:                {fields: [model]}
-
-#Export stats
-ExportLoggerItem:
-  connection: project_n
-  actAs:
-    Timestampable:              ~
-  columns:
-    export_logger_id:           {type: integer, notnull: true}
-    item_id:                    {type: integer, notnull: true}
-    vendor_item_id:             {type: integer, notnull: true}
-  relations:
-    ExportLogger:               {local: export_logger_id, foreign: id}
-    # remark, the item_id ( and vendor_item_id) links to either poi, event or
-    # movies, however we dont want to create an fk as if the parent is deleted,
-    # we still want to keep the child
-  indexes:
-    item_id_index:              {fields: [item_id]}
-    vendor_item_id_index:       {fields: [vendor_item_id]}
 
 RecordFieldOverride:
   connection: project_n

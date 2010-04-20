@@ -15,61 +15,59 @@ abstract class BaseMovieForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                         => new sfWidgetFormInputHidden(),
-      'vendor_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
-      'vendor_movie_id'            => new sfWidgetFormInputText(),
-      'name'                       => new sfWidgetFormInputText(),
-      'plot'                       => new sfWidgetFormTextarea(),
-      'tag_line'                   => new sfWidgetFormTextarea(),
-      'review'                     => new sfWidgetFormTextarea(),
-      'url'                        => new sfWidgetFormTextarea(),
-      'director'                   => new sfWidgetFormInputText(),
-      'writer'                     => new sfWidgetFormInputText(),
-      'cast'                       => new sfWidgetFormInputText(),
-      'age_rating'                 => new sfWidgetFormInputText(),
-      'release_date'               => new sfWidgetFormDate(),
-      'duration'                   => new sfWidgetFormInputText(),
-      'country'                    => new sfWidgetFormInputText(),
-      'language'                   => new sfWidgetFormInputText(),
-      'aspect_ratio'               => new sfWidgetFormInputText(),
-      'sound_mix'                  => new sfWidgetFormInputText(),
-      'company'                    => new sfWidgetFormInputText(),
-      'rating'                     => new sfWidgetFormInputText(),
-      'utf_offset'                 => new sfWidgetFormInputText(),
-      'imdb_id'                    => new sfWidgetFormInputText(),
-      'created_at'                 => new sfWidgetFormDateTime(),
-      'updated_at'                 => new sfWidgetFormDateTime(),
-      'movie_genres_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre')),
-      'import_logger_success_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess')),
+      'id'                => new sfWidgetFormInputHidden(),
+      'vendor_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'), 'add_empty' => false)),
+      'vendor_movie_id'   => new sfWidgetFormInputText(),
+      'name'              => new sfWidgetFormInputText(),
+      'plot'              => new sfWidgetFormTextarea(),
+      'tag_line'          => new sfWidgetFormTextarea(),
+      'review'            => new sfWidgetFormTextarea(),
+      'url'               => new sfWidgetFormTextarea(),
+      'director'          => new sfWidgetFormInputText(),
+      'writer'            => new sfWidgetFormInputText(),
+      'cast'              => new sfWidgetFormInputText(),
+      'age_rating'        => new sfWidgetFormInputText(),
+      'release_date'      => new sfWidgetFormDate(),
+      'duration'          => new sfWidgetFormInputText(),
+      'country'           => new sfWidgetFormInputText(),
+      'language'          => new sfWidgetFormInputText(),
+      'aspect_ratio'      => new sfWidgetFormInputText(),
+      'sound_mix'         => new sfWidgetFormInputText(),
+      'company'           => new sfWidgetFormInputText(),
+      'rating'            => new sfWidgetFormInputText(),
+      'utf_offset'        => new sfWidgetFormInputText(),
+      'imdb_id'           => new sfWidgetFormInputText(),
+      'created_at'        => new sfWidgetFormDateTime(),
+      'updated_at'        => new sfWidgetFormDateTime(),
+      'movie_genres_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre')),
     ));
 
     $this->setValidators(array(
-      'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'vendor_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
-      'vendor_movie_id'            => new sfValidatorString(array('max_length' => 25)),
-      'name'                       => new sfValidatorString(array('max_length' => 255)),
-      'plot'                       => new sfValidatorString(array('max_length' => 65535, 'required' => false)),
-      'tag_line'                   => new sfValidatorString(array('max_length' => 65535, 'required' => false)),
-      'review'                     => new sfValidatorString(array('max_length' => 65535, 'required' => false)),
-      'url'                        => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
-      'director'                   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'writer'                     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'cast'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'age_rating'                 => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'release_date'               => new sfValidatorDate(array('required' => false)),
-      'duration'                   => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'country'                    => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'language'                   => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'aspect_ratio'               => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'sound_mix'                  => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'company'                    => new sfValidatorString(array('max_length' => 50, 'required' => false)),
-      'rating'                     => new sfValidatorNumber(array('required' => false)),
-      'utf_offset'                 => new sfValidatorString(array('max_length' => 9)),
-      'imdb_id'                    => new sfValidatorPass(array('required' => false)),
-      'created_at'                 => new sfValidatorDateTime(),
-      'updated_at'                 => new sfValidatorDateTime(),
-      'movie_genres_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'required' => false)),
-      'import_logger_success_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ImportLoggerSuccess', 'required' => false)),
+      'id'                => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'vendor_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Vendor'))),
+      'vendor_movie_id'   => new sfValidatorString(array('max_length' => 25)),
+      'name'              => new sfValidatorString(array('max_length' => 255)),
+      'plot'              => new sfValidatorString(array('max_length' => 65535, 'required' => false)),
+      'tag_line'          => new sfValidatorString(array('max_length' => 65535, 'required' => false)),
+      'review'            => new sfValidatorString(array('max_length' => 65535, 'required' => false)),
+      'url'               => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
+      'director'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'writer'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'cast'              => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'age_rating'        => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'release_date'      => new sfValidatorDate(array('required' => false)),
+      'duration'          => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'country'           => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'language'          => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'aspect_ratio'      => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'sound_mix'         => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'company'           => new sfValidatorString(array('max_length' => 50, 'required' => false)),
+      'rating'            => new sfValidatorNumber(array('required' => false)),
+      'utf_offset'        => new sfValidatorString(array('max_length' => 9)),
+      'imdb_id'           => new sfValidatorPass(array('required' => false)),
+      'created_at'        => new sfValidatorDateTime(),
+      'updated_at'        => new sfValidatorDateTime(),
+      'movie_genres_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('movie[%s]');
@@ -95,17 +93,11 @@ abstract class BaseMovieForm extends BaseFormDoctrine
       $this->setDefault('movie_genres_list', $this->object->MovieGenres->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['import_logger_success_list']))
-    {
-      $this->setDefault('import_logger_success_list', $this->object->ImportLoggerSuccess->getPrimaryKeys());
-    }
-
   }
 
   protected function doSave($con = null)
   {
     $this->saveMovieGenresList($con);
-    $this->saveImportLoggerSuccessList($con);
 
     parent::doSave($con);
   }
@@ -145,44 +137,6 @@ abstract class BaseMovieForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('MovieGenres', array_values($link));
-    }
-  }
-
-  public function saveImportLoggerSuccessList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['import_logger_success_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->ImportLoggerSuccess->getPrimaryKeys();
-    $values = $this->getValue('import_logger_success_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('ImportLoggerSuccess', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('ImportLoggerSuccess', array_values($link));
     }
   }
 

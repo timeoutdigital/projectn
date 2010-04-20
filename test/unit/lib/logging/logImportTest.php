@@ -25,7 +25,7 @@ class logImportTest extends PHPUnit_Framework_TestCase
         Doctrine::loadData('data/fixtures');
 
         $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-        $this->object = new logImport( $this->vendorObj, logImport::TYPE_MOVIE );
+        $this->object = new logImport( $this->vendorObj );
     }
 
     /**
@@ -37,7 +37,6 @@ class logImportTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
-
     /**
      * Test that a new insert is incremented
      */
@@ -45,11 +44,16 @@ class logImportTest extends PHPUnit_Framework_TestCase
     {
         for ( $i=0; $i < 5; $i++ )
         {
-            $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+            $poi = ProjectN_Test_Unit_Factory::add( 'Poi' );
             $this->object->addSuccess( $poi, logImport::OPERATION_INSERT );
         }
 
-        $this->assertEquals('5', $this->object->getTotalInserts(), 'Increment the total by 5');
+        $event = ProjectN_Test_Unit_Factory::add( 'Event' );
+        $this->object->addSuccess( $event, logImport::OPERATION_INSERT );
+
+        $this->assertEquals('6', $this->object->getTotalInserts() );
+        $this->assertEquals('5', $this->object->getTotalInserts( 'Poi' ) );
+        $this->assertEquals('1', $this->object->getTotalInserts( 'Event' ) );
     }
 
     /**
@@ -57,13 +61,20 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testCountUpdate()
     {
-       //The item is modified therefore log as an update
-       $poi = ProjectN_Test_Unit_Factory::add( 'Poi' );
-       $modifiedFieldsArray = array( 'openingtimes' => '8am4am', 'district' => 'ChinatownLittle Italy' );
+        $poi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+        $modifiedFieldsArray = array( 'openingtimes' => '8am4am', 'district' => 'ChinatownLittle Italy' );
+        for ( $i=0; $i < 5; $i++ )
+        {
+            $this->object->addSuccess( $poi, logImport::OPERATION_UPDATE, $modifiedFieldsArray );
+        }
 
-       $this->object->addSuccess( $poi, 'update', $modifiedFieldsArray );
+        $event = ProjectN_Test_Unit_Factory::add( 'Event' );
+        $modifiedFieldsArray = array( 'name' => 'new test name' );
+        $this->object->addSuccess( $event, logImport::OPERATION_UPDATE, $modifiedFieldsArray );
 
-       $this->assertEquals('1', $this->object->getTotalUpdates(), 'Increment the total updates by one');
+        $this->assertEquals('6', $this->object->getTotalUpdates() );
+        $this->assertEquals('5', $this->object->getTotalUpdates( 'Poi' ) );
+        $this->assertEquals('1', $this->object->getTotalUpdates( 'Event' ) );
     }
 
 
@@ -72,14 +83,19 @@ class logImportTest extends PHPUnit_Framework_TestCase
      */
     public function testCountExists()
     {
-        $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
+        $poi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+        $modifiedFieldsArray = array();
         for ( $i=0; $i < 5; $i++ )
         {
-            $this->object->addSuccess( $poi, logImport::OPERATION_UPDATE );
+            $this->object->addSuccess( $poi, logImport::OPERATION_UPDATE, $modifiedFieldsArray );
         }
 
-        $this->assertEquals('5', $this->object->getTotalExisting(), 'Increment the total existing by one');
+        $event = ProjectN_Test_Unit_Factory::add( 'Event' );
+        $this->object->addSuccess( $event, logImport::OPERATION_UPDATE );
+
+        $this->assertEquals('6', $this->object->getTotalExisting() );
+        $this->assertEquals('5', $this->object->getTotalExisting( 'Poi' ) );
+        $this->assertEquals('1', $this->object->getTotalExisting( 'Event' ) );
     }
 
     /**
@@ -114,12 +130,12 @@ class logImportTest extends PHPUnit_Framework_TestCase
         $this->object->save();
 
         //Test errrors
-        $this->assertEquals(2, Doctrine::getTable('ImportLoggerError')->count(), 'Testing errors are in DB');
+        $this->assertEquals(2, Doctrine::getTable('ImportRecordErrorLogger')->count(), 'Testing errors are in DB');
 
         $this->assertEquals(2, $this->object->getTotalErrors(), 'Fetching total errors');
 
         //Test successes
-        $this->assertEquals(1, $results = Doctrine::getTable('ImportLoggerSuccess')->count(), 'Testing changes are in DB');
+        $this->assertEquals(1, $results = Doctrine::getTable('ImportRecordLogger')->count(), 'Testing changes are in DB');
 
         //Test the logger
         $this->assertEquals(1, $results = Doctrine::getTable('ImportLogger')->count(), 'Testing logger is in DB');
@@ -142,9 +158,9 @@ class logImportTest extends PHPUnit_Framework_TestCase
             $this->object->addError($error, $poi, $log);
         }
 
-        $this->assertEquals(1, Doctrine::getTable('ImportLoggerError')->count() );
+        $this->assertEquals(1, Doctrine::getTable('ImportRecordErrorLogger')->count() );
 
-        $importLoggerError = Doctrine::getTable('ImportLoggerError')->findOneById( 1 );
+        $importLoggerError = Doctrine::getTable('ImportRecordErrorLogger')->findOneById( 1 );
         $this->assertEquals( serialize( $poi )  , $importLoggerError[ 'serialized_object' ]);
 
         $this->assertNotEquals( serialize( ProjectN_Test_Unit_Factory::get( 'Poi' ) ), $importLoggerError[ 'serialized_object' ] );
@@ -160,7 +176,7 @@ class logImportTest extends PHPUnit_Framework_TestCase
         $modifiedFieldsArray = array( 'openingtimes' => '8am4am', 'district' => 'ChinatownLittle Italy' );
         $this->object->addSuccess( $poi, 'update', $modifiedFieldsArray);
 
-        $this->assertEquals(1, Doctrine::getTable('ImportLoggerSuccess')->count() );
+        $this->assertEquals(1, Doctrine::getTable('ImportRecordLogger')->count() );
     }
 
     /**
@@ -197,6 +213,24 @@ class logImportTest extends PHPUnit_Framework_TestCase
           $this->object->endSuccessful();
 
           $this->assertFalse( $this->object->checkIfRunning() );
+      }
+
+     /**
+      * Test testSetTotalReceivedItems
+      */
+      public function testSetTotalReceivedItems()
+      {
+          $this->object->setTotalReceivedItems( 'Poi', 5 );
+          $this->object->setTotalReceivedItems( 'Poi', 7 );
+          $this->object->setTotalReceivedItems( 'Event', 5 );
+
+          $importLoggerReceived = Doctrine::getTable('ImportLoggerReceived');
+
+          $this->assertEquals( 2, $importLoggerReceived->count() );
+
+          $poiLogs =  $importLoggerReceived->findByModel( 'Poi' );
+
+          $this->assertEquals( 7, $poiLogs[ 0 ][ 'total_received' ] );
       }
 }
 ?>

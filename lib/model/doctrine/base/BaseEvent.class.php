@@ -23,7 +23,6 @@ Doctrine_Manager::getInstance()->bindComponent('Event', 'project_n');
  * @property Doctrine_Collection $EventOccurrence
  * @property Doctrine_Collection $EventMedia
  * @property Doctrine_Collection $EventProperty
- * @property Doctrine_Collection $ImportLoggerSuccess
  * @property Doctrine_Collection $RecordFieldOverride
  * 
  * @method datetime            getReviewDate()          Returns the current record's "review_date" value
@@ -42,7 +41,6 @@ Doctrine_Manager::getInstance()->bindComponent('Event', 'project_n');
  * @method Doctrine_Collection getEventOccurrence()     Returns the current record's "EventOccurrence" collection
  * @method Doctrine_Collection getEventMedia()          Returns the current record's "EventMedia" collection
  * @method Doctrine_Collection getEventProperty()       Returns the current record's "EventProperty" collection
- * @method Doctrine_Collection getImportLoggerSuccess() Returns the current record's "ImportLoggerSuccess" collection
  * @method Doctrine_Collection getRecordFieldOverride() Returns the current record's "RecordFieldOverride" collection
  * @method Event               setReviewDate()          Sets the current record's "review_date" value
  * @method Event               setVendorEventId()       Sets the current record's "vendor_event_id" value
@@ -60,7 +58,6 @@ Doctrine_Manager::getInstance()->bindComponent('Event', 'project_n');
  * @method Event               setEventOccurrence()     Sets the current record's "EventOccurrence" collection
  * @method Event               setEventMedia()          Sets the current record's "EventMedia" collection
  * @method Event               setEventProperty()       Sets the current record's "EventProperty" collection
- * @method Event               setImportLoggerSuccess() Sets the current record's "ImportLoggerSuccess" collection
  * @method Event               setRecordFieldOverride() Sets the current record's "RecordFieldOverride" collection
  * 
  * @package    sf_sandbox
@@ -161,11 +158,6 @@ abstract class BaseEvent extends sfDoctrineRecord
         $this->hasMany('EventProperty', array(
              'local' => 'id',
              'foreign' => 'event_id'));
-
-        $this->hasMany('ImportLoggerSuccess', array(
-             'refClass' => 'LinkingImportLoggerSuccessEvent',
-             'local' => 'event_id',
-             'foreign' => 'import_logger_success_id'));
 
         $this->hasMany('RecordFieldOverrideEvent as RecordFieldOverride', array(
              'local' => 'id',

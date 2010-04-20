@@ -43,7 +43,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @property Doctrine_Collection $PoiProperty
  * @property Doctrine_Collection $EventOccurrence
  * @property Doctrine_Collection $Poi
- * @property Doctrine_Collection $ImportLoggerSuccess
  * @property Doctrine_Collection $RecordFieldOverride
  * 
  * @method string              getVendorPoiId()                Returns the current record's "vendor_poi_id" value
@@ -82,7 +81,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Doctrine_Collection getPoiProperty()                Returns the current record's "PoiProperty" collection
  * @method Doctrine_Collection getEventOccurrence()            Returns the current record's "EventOccurrence" collection
  * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Doctrine_Collection getImportLoggerSuccess()        Returns the current record's "ImportLoggerSuccess" collection
  * @method Doctrine_Collection getRecordFieldOverride()        Returns the current record's "RecordFieldOverride" collection
  * @method Poi                 setVendorPoiId()                Sets the current record's "vendor_poi_id" value
  * @method Poi                 setReviewDate()                 Sets the current record's "review_date" value
@@ -120,7 +118,6 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setPoiProperty()                Sets the current record's "PoiProperty" collection
  * @method Poi                 setEventOccurrence()            Sets the current record's "EventOccurrence" collection
  * @method Poi                 setPoi()                        Sets the current record's "Poi" collection
- * @method Poi                 setImportLoggerSuccess()        Sets the current record's "ImportLoggerSuccess" collection
  * @method Poi                 setRecordFieldOverride()        Sets the current record's "RecordFieldOverride" collection
  * 
  * @package    sf_sandbox
@@ -325,11 +322,6 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->hasMany('UserContent as Poi', array(
              'local' => 'id',
              'foreign' => 'poi_id'));
-
-        $this->hasMany('ImportLoggerSuccess', array(
-             'refClass' => 'LinkingImportLoggerSuccessPoi',
-             'local' => 'poi_id',
-             'foreign' => 'import_logger_success_id'));
 
         $this->hasMany('RecordFieldOverridePoi as RecordFieldOverride', array(
              'local' => 'id',

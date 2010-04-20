@@ -33,7 +33,6 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @property Doctrine_Collection $MovieGenres
  * @property Doctrine_Collection $MovieMedia
  * @property Doctrine_Collection $MovieProperty
- * @property Doctrine_Collection $ImportLoggerSuccess
  * @property Doctrine_Collection $RecordFieldOverride
  * 
  * @method integer             getId()                  Returns the current record's "id" value
@@ -62,7 +61,6 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Doctrine_Collection getMovieGenres()         Returns the current record's "MovieGenres" collection
  * @method Doctrine_Collection getMovieMedia()          Returns the current record's "MovieMedia" collection
  * @method Doctrine_Collection getMovieProperty()       Returns the current record's "MovieProperty" collection
- * @method Doctrine_Collection getImportLoggerSuccess() Returns the current record's "ImportLoggerSuccess" collection
  * @method Doctrine_Collection getRecordFieldOverride() Returns the current record's "RecordFieldOverride" collection
  * @method Movie               setId()                  Sets the current record's "id" value
  * @method Movie               setVendorId()            Sets the current record's "vendor_id" value
@@ -90,7 +88,6 @@ Doctrine_Manager::getInstance()->bindComponent('Movie', 'project_n');
  * @method Movie               setMovieGenres()         Sets the current record's "MovieGenres" collection
  * @method Movie               setMovieMedia()          Sets the current record's "MovieMedia" collection
  * @method Movie               setMovieProperty()       Sets the current record's "MovieProperty" collection
- * @method Movie               setImportLoggerSuccess() Sets the current record's "ImportLoggerSuccess" collection
  * @method Movie               setRecordFieldOverride() Sets the current record's "RecordFieldOverride" collection
  * 
  * @package    sf_sandbox
@@ -243,11 +240,6 @@ abstract class BaseMovie extends sfDoctrineRecord
         $this->hasMany('MovieProperty', array(
              'local' => 'id',
              'foreign' => 'movie_id'));
-
-        $this->hasMany('ImportLoggerSuccess', array(
-             'refClass' => 'LinkingImportLoggerSuccessMovie',
-             'local' => 'movie_id',
-             'foreign' => 'import_logger_success_id'));
 
         $this->hasMany('RecordFieldOverrideMovie as RecordFieldOverride', array(
              'local' => 'id',

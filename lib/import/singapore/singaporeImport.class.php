@@ -278,7 +278,18 @@ class singaporeImport
             //Save the object and log the changes
             //pre-save
             $logIsNew = $poi->isNew();
+
+
+            $poi->applyDataFixes();
+
+
             $logChangedFields = $poi->getModified();
+
+
+
+
+
+
             //save
             $poi->save();
             //post-save
