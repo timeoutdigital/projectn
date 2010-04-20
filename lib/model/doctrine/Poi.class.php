@@ -37,9 +37,10 @@ class Poi extends BasePoi
 
   public function getGeoEncodeLookUpString()
   {
-    if( is_null( $this->geoEncodeLookUpString ) )
+    if( empty( $this->geoEncodeLookUpString ) )
     {
-      $this->geoEncodeLookUpString = $this['street'] . $this[ 'city' ];
+      $lookUpPattern = $this[ 'Vendor' ][ 'geo_encode_look_up_pattern' ];
+      $this->geoEncodeLookUpString = $this->createGeoEncodeLookUpStringFromPattern( $lookUpPattern );
     }
     return $this->geoEncodeLookUpString;
   }
@@ -255,6 +256,29 @@ class Poi extends BasePoi
 
     $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
     $this[ 'PoiMedia' ][] = $poiMediaObj;
+  }
+
+  private function createGeoEncodeLookUpStringFromPattern( $pattern )
+  {
+    $from = array(
+      '%house_no%',
+      '%street%',
+      '%city%',
+      '%district%',
+      '%country%',
+      '%additional_address_details%',
+      '%zips%',
+    );
+    $to = array(
+      $this['house_no'],
+      $this['street'],
+      $this['city'],
+      $this['district'],
+      $this['country'],
+      $this['additional_address_details'],
+      $this['zips'],
+    );
+    return str_replace( $from, $to, $pattern );
   }
 
 }
