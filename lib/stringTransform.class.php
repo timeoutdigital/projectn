@@ -28,7 +28,7 @@ class stringTransform
     foreach( $array as $k => $v )
     {
         if( empty( $array[ $k ] ) ) unset( $array[ $k ] );
-        else if( is_array( $v ) )
+        else if( is_array( $array[ $k ] ) )
             $array[ $k ] = stringTransform::remove_null_values( $v );
         if( empty( $array[ $k ] ) ) unset( $array[ $k ] );
     }
@@ -36,20 +36,47 @@ class stringTransform
   }
 
   /**
+   * Format string into a nice format, result is '09:00' for input of '9'.
+   * @return array
+   */
+  public static function formatAsTime( $subject )
+  {
+    $subject = str_replace( ".", ":", $subject );
+    if( strlen( $subject ) == 1 || ( strlen( $subject ) == 4 && substr( $subject, 1, 1 ) == ":" ) )
+      $subject = "0" . $subject;
+    if( strlen( $subject ) == 2 )
+      $subject .= ":00";
+    return $subject;
+  }
+  
+  /**
    * Try to extract time information from a string.
+   * eg '10:00', '9.15', '10h' or in the case of '10-12h', return 2 values
    * @return array
    */
   public static function extractTimesFromText( $subject )
   {
       $returnArray = array();
-
-      $pattern = '^((([0]?[1-9]|1[0-2])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?( )?(AM|am|aM|Am|PM|pm|pM|Pm))|(([0]?[0-9]|1[0-9]|2[0-3])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?))$^';
-
+      $pattern = '([0-2]?[0-9](((?:\:|\.)[0-5][0-9])|(h|-)))';
       preg_match_all( $pattern, $subject, $returnArray );
+      if( !empty( $returnArray[0] ) && array_key_exists( 0, $returnArray ) );
+        return $returnArray[0];
+      return array();
+  }
 
-     $returnArray = stringTransform::remove_null_values( $returnArray );
-
-      return $returnArray;
+  /**
+   * Try to extract time range information from a string.
+   * eg '10-11' or '10.45-12h' or '9h-10h'
+   * @return array
+   */
+  public static function extractTimeRangesFromText( $subject )
+  {
+      $returnArray = array();
+      $pattern = '(([0-2]?[0-9]((?:\:|\.)[0-5][0-9])?)h? ?- ?([0-2]?[0-9]((?:\:|\.)[0-5][0-9])?))';
+      preg_match_all( $pattern, $subject, $returnArray );
+      if( !empty( $returnArray[0] ) && array_key_exists( 0, $returnArray ) );
+        return $returnArray[0];
+      return array();
   }
 
   public static function extractEmailAddressesFromText( $subject )

@@ -57,20 +57,27 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
 
   /**
    * Load a comprehensive list of timeinfo strings (delimeted by ^^) and try to
-   * apply the extractTimesFromText() function, and see what happens.
+   * apply the extractTimeRangesFromText() & extractTimesFromText() functions, and see what happens.
+   * also uses stringTransform::formatAsTime()
    * eg. 'Tera a domingo das 10.00 s 18.00.' 'Ter-Sex 10-18h' '21.30' 'At 1 de Abril.'
+   * Rejects: multiple date ranges, multiple times (except where we have 2 times and they are part of a single range).
    */
-  public function testExtractTimesFromText()
+  public function testExtractStartingTimesFromText()
   {
-      $import = explode( "^^",file_get_contents( TO_TEST_DATA_PATH . '/timeinfo_examples.txt' ) );
-      //print_r( $import );
+      $import = explode( "^^", file_get_contents( TO_TEST_DATA_PATH . '/timeinfo_examples.txt' ) );
+      $data = array(); // Array to store results for this test.
+
+      //$import = array( 'Todos os sbados; Formao A: 14.30h-16h; ' );
       foreach( $import as $item )
       {
-          $times = stringTransform::extractTimesFromText( $item );
-          //if( count( $times ) > 0 )
-          echo( explode( ",", $times ) . ' "' . $item . '"' . PHP_EOL );
-          //echo PHP_EOL;
+          $ranges = stringTransform::extractTimeRangesFromText( trim( $item ) );
+          $times = stringTransform::extractTimesFromText( trim( $item ) );
+
+          if( ( count( $ranges ) == 1 && count( $times ) == 2 ) || count( $times ) == 1 )
+              $data[] = stringTransform::formatAsTime( trim( $times[0], " :-h." ) );
       }
+      //print_r( $data );
+      print( "-- Found start time found for: " . count( $data ) . " of " . count( $import ) . " strings checked. --" . PHP_EOL );
   }
 
   /**
