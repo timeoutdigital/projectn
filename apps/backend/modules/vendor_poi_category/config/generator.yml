@@ -16,7 +16,7 @@ generator:
       list:
         display:           [vendor_name, name, _poi_categories]
         object_actions:    { _edit: ~ }
-        actions:           {}
+        actions:           ~
         batch_actions:     {}
       filter:
         display:           [vendor_id, name, poi_category_list]
@@ -25,4 +25,6 @@ generator:
       edit:
         actions:           { _list: ~, _save_and_list: ~ }
         fields:            ~
-      new:                 ~
+      new:                 
+        actions:           { _list: ~, _save_and_list: ~, _save_and_add: ~ }
+        fields:            ~
