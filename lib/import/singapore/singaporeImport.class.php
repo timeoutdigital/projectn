@@ -487,12 +487,12 @@ class singaporeImport
 
             // -- Add Images --
             // Fall back, process images, starting with first and working down the array.
-            $priorityQueue = array( $eventObj->highres, $eventObj->large_image, $eventObj->thumbnail, $eventObj->image, $eventObj->thumb );
+            $priorityQueue = array( $movieXml->highres, $movieXml->large_image, $movieXml->thumbnail, $movieXml->image, $movieXml->thumb );
 
             // Add only one image, but try and get highest quality image.
             foreach( $priorityQueue as $queueItem )
             {
-                $success = $this->addImageHelper( $event, $queueItem );
+                $success = $this->addImageHelper( $movieObj, $queueItem );
                 if( $success ) break;
             }
             // -- End Add Images --
