@@ -140,7 +140,14 @@ class LondonAPICrawler
 
       foreach( $searchPageXml->response->block->row as $row )
       {
-        $xml = $this->callApiGetDetails( $row->uid );
+        try
+        {
+          $xml = $this->callApiGetDetails( $row->uid );
+        }
+        catch( Exception $exception )
+        {
+          $this->mapper->onException($exception);
+        }
 
         $this->doMapping( $xml );
         if( !$this->inLimit( ++$numResultsMapped ) ) return;

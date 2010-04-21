@@ -45,7 +45,7 @@ abstract class DataMapper
     $this->importer->onRecordMapped( $record );
   }
   
-  protected function notifyImporterOfFailure( Exception $exception ,Doctrine_Record $record, $message='' )
+  protected function notifyImporterOfFailure( Exception $exception , Doctrine_Record $record = NULL, $message='' )
   {
     $this->importer->onRecordMappingException( $exception ,$record, $message );
   }
