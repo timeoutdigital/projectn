@@ -24,6 +24,11 @@ class Poi extends BasePoi
    */
   private $geoEncodeByPass = false;
 
+  /**
+   * @var geoEncode
+   */
+  private $geoEncoder;
+
 
   /**
    * Set the address string that will be used to lookup the geocodes
@@ -43,6 +48,19 @@ class Poi extends BasePoi
       $this->geoEncodeLookUpString = $this->createGeoEncodeLookUpStringFromPattern( $lookUpPattern );
     }
     return $this->geoEncodeLookUpString;
+  }
+
+  public function setGeoEncoder( geoEncode $geoEncoder )
+  {
+    $this->geoEncoder = $geoEncoder;
+  }
+
+  public function getGeoEncoder()
+  {
+    if( !$this->geoEncoder )
+      $this->geoEncoder = new geoEncode();
+
+    return $this->geoEncoder;
   }
 
   /**
@@ -178,7 +196,7 @@ class Poi extends BasePoi
       throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
     }
 
-    $geoEncoder = new geoEncode();
+    $geoEncoder = $this->getGeoEncoder();
     
     $geoEncoder->setAddress(  $this->geoEncodeLookUpString, $this['Vendor']  );
 
@@ -281,7 +299,7 @@ class Poi extends BasePoi
     );
 
     $lookUpString = str_replace( $from, $to, $pattern );
-    $lookUpString = stringTransform::removeEmptyDelimiters( ',', $lookUpString );
+    $lookUpString = stringTransform::removeEmptyDelimiters( ', ', $lookUpString );
     return $lookUpString;
   }
 
