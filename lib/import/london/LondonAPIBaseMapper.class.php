@@ -262,7 +262,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
     try
     {
-      $subAdministrativeAreaName = (string) $firstAddressXml->Country
+      $subAdministrativeAreaName = (string) @$firstAddressXml->Country
         ->AdministrativeArea
         ->SubAdministrativeArea
         ->SubAdministrativeAreaName;
