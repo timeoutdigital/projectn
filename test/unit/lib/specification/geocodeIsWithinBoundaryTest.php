@@ -23,6 +23,8 @@ class geocodeIsWithinBoundaryTest extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    $this->vendor = $this->addVendorWithGeocodeBoundariesOf( 
+      '-10.0;-10.0;10.0;10.0' );
   }
 
   public function tearDown()
@@ -32,9 +34,6 @@ class geocodeIsWithinBoundaryTest extends PHPUnit_Framework_TestCase
 
   public function testGetFailingPois()
   {
-    $this->vendor = $this->addVendorWithGeocodeBoundariesOf( 
-      '-10.0;10.0;10.0;-10.0' );
-
     //create pois that are out of bounding box
     $this->addPoiWithLongLatOf( -11,   1 ); //breaks left
     $this->addPoiWithLongLatOf(  11,   1 ); //breaks right
@@ -50,9 +49,6 @@ class geocodeIsWithinBoundaryTest extends PHPUnit_Framework_TestCase
 
   public function testGetPassingPois()
   {
-    $this->vendor = $this->addVendorWithGeocodeBoundariesOf( 
-      '-10.0;10.0;10.0;-10.0' );
-
     //create pois that are out of bounding box
     $this->addPoiWithLongLatOf( -11,   1 ); //breaks left
     $this->addPoiWithLongLatOf(  11,   1 ); //breaks right

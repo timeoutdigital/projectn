@@ -35,6 +35,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @property integer $star_rating
  * @property integer $rating
  * @property string $provider
+ * @property string $geocode_look_up
  * @property integer $vendor_id
  * @property Vendor $Vendor
  * @property Doctrine_Collection $PoiCategory
@@ -73,6 +74,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method integer             getStarRating()                 Returns the current record's "star_rating" value
  * @method integer             getRating()                     Returns the current record's "rating" value
  * @method string              getProvider()                   Returns the current record's "provider" value
+ * @method string              getGeocodeLookUp()              Returns the current record's "geocode_look_up" value
  * @method integer             getVendorId()                   Returns the current record's "vendor_id" value
  * @method Vendor              getVendor()                     Returns the current record's "Vendor" value
  * @method Doctrine_Collection getPoiCategory()                Returns the current record's "PoiCategory" collection
@@ -110,6 +112,7 @@ Doctrine_Manager::getInstance()->bindComponent('Poi', 'project_n');
  * @method Poi                 setStarRating()                 Sets the current record's "star_rating" value
  * @method Poi                 setRating()                     Sets the current record's "rating" value
  * @method Poi                 setProvider()                   Sets the current record's "provider" value
+ * @method Poi                 setGeocodeLookUp()              Sets the current record's "geocode_look_up" value
  * @method Poi                 setVendorId()                   Sets the current record's "vendor_id" value
  * @method Poi                 setVendor()                     Sets the current record's "Vendor" value
  * @method Poi                 setPoiCategory()                Sets the current record's "PoiCategory" collection
@@ -271,6 +274,11 @@ abstract class BasePoi extends sfDoctrineRecord
         $this->hasColumn('provider', 'string', 512, array(
              'type' => 'string',
              'notnull' => false,
+             'length' => '512',
+             ));
+        $this->hasColumn('geocode_look_up', 'string', 512, array(
+             'type' => 'string',
+             'notnull' => true,
              'length' => '512',
              ));
         $this->hasColumn('vendor_id', 'integer', null, array(

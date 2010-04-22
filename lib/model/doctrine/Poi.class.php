@@ -15,11 +15,6 @@
 class Poi extends BasePoi
 {
   /**
-   * @var string
-   */
-  private $geoEncodeLookUpString;
-
-  /**
    * @var boolean
    */
   private $geoEncodeByPass = false;
@@ -29,25 +24,14 @@ class Poi extends BasePoi
    */
   private $geoEncoder;
 
-
-  /**
-   * Set the address string that will be used to lookup the geocodes
-   *
-   * @param string $geoEncodeLookUpString
-   */
-  public function setGeoEncodeLookUpString( $geoEncodeLookUpString )
+  public function setGeoEncodeLookUpString( $lookup )
   {
-    $this->geoEncodeLookUpString = $geoEncodeLookUpString;
+    $this['geocode_look_up'] = $lookup;
   }
 
   public function getGeoEncodeLookUpString()
   {
-    if( empty( $this->geoEncodeLookUpString ) )
-    {
-      $lookUpPattern = $this[ 'Vendor' ][ 'geo_encode_look_up_pattern' ];
-      $this->geoEncodeLookUpString = $this->createGeoEncodeLookUpStringFromPattern( $lookUpPattern );
-    }
-    return $this->geoEncodeLookUpString;
+    return $this['geocode_look_up'];
   }
 
   public function setGeoEncoder( geoEncode $geoEncoder )
@@ -191,17 +175,17 @@ class Poi extends BasePoi
     if( !$this->hasValidGeocode() )
       return;
 
-    if( empty( $this->geoEncodeLookUpString ) )
+    if( empty( $this['geocode_look_up'] ) )
     {
-      throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
+      throw new GeoCodeException( 'geocode_look_up is required to lookup a geoCode for this POI.' );
     }
 
     $geoEncoder = $this->getGeoEncoder();
     
-    $geoEncoder->setAddress(  $this->geoEncodeLookUpString, $this['Vendor']  );
+    $geoEncoder->setAddress(  $this['geocode_look_up'], $this['Vendor']  );
 
     $this['longitude'] = $geoEncoder->getLongitude();
-    $this['latitude'] = $geoEncoder->getLatitude();
+    $this['latitude']  = $geoEncoder->getLatitude();
 
     if( $geoEncoder->getAccuracy() < 8 )
     {
@@ -274,33 +258,6 @@ class Poi extends BasePoi
 
     $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
     $this[ 'PoiMedia' ][] = $poiMediaObj;
-  }
-
-  private function createGeoEncodeLookUpStringFromPattern( $pattern )
-  {
-    $from = array(
-      '%house_no%',
-      '%street%',
-      '%city%',
-      '%district%',
-      '%country%',
-      '%additional_address_details%',
-      '%zips%',
-    );
-
-    $to = array(
-      $this['house_no'],
-      $this['street'],
-      $this['city'],
-      $this['district'],
-      $this['country'],
-      $this['additional_address_details'],
-      $this['zips'],
-    );
-
-    $lookUpString = str_replace( $from, $to, $pattern );
-    $lookUpString = stringTransform::removeEmptyDelimiters( ', ', $lookUpString );
-    return $lookUpString;
   }
 
 }
