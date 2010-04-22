@@ -199,7 +199,6 @@ Vendor:
     country_code:             'pt'
     geo_boundries:            '30.032881;-31.33763383378733;42.1456451416016;-6.182693481445309'
 
-
 EventCategory:
   c1:
     name:                movies

@@ -353,5 +353,28 @@ class stringTransform
     $htmlPurifier = new HTMLPurifier( $config );
     return $htmlPurifier->purify( $html );
   }
+
+  /**
+   * Removes empty delimiters.
+   * Example:
+   *
+   * <code>
+   *   $clean = stringTransform::removeEmptyDelimiters( ',', ', foo, bar, , , baz');
+   *   echo $clean;
+   *   //outputs 'foo, bar, baz'
+   * </code>
+   * 
+   * @param string $delimiter
+   * @param string $string
+   * @return string
+   *
+   */
+  static public function removeEmptyDelimiters( $delimiter, $string )
+  {
+    $delimiter = preg_quote( $delimiter );
+    $string = preg_replace( "/^($delimiter)*/",            '', $string );
+    $string = preg_replace( "/(?<=$delimiter)$delimiter/", '', $string );
+    $string = preg_replace( "/$delimiter$/",               '', $string );
+    return $string;
+  }
 }
-?>
