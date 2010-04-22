@@ -364,6 +364,7 @@ Vendor:
     airport_code:               {type: string(3), notnull: true}
     country_code:               {type: string(2), notnull: true}
     geo_boundries:              {type: string(255), notnull: true}
+    geo_encode_look_up_pattern: {type: string(255), notnull: false}
   indexes:
     city_index:                 {fields: [city]}
     city_language_index:        {fields: [city, language]}
