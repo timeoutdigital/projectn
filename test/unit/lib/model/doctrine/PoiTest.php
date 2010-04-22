@@ -92,6 +92,19 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategory' ][ 1 ][ 'vendor_id' ] );
   }
 
+  public function testAddVendorCategoryDoesNotDeleteExistingVendorCategories()
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi->save();
+
+    $poi->refresh();
+    $this->assertEquals(1, count($poi['VendorPoiCategory'])); //bootstrap adds a category already
+
+    $poi->addVendorCategory( 'Foo', $poi['Vendor']['id'] );
+    $poi->save();
+    $this->assertEquals(2, count($poi['VendorPoiCategory'])); //bootstrap adds a category already
+  }
+
   public function testVendorCategoriesAreUnique()
   {
     $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
