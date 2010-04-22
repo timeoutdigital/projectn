@@ -30,15 +30,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
-    $recalc = new recalculatePoiGeocode();
-
-    $method = $options[ 'method' ];
-    $recalc->addPois( $this->$method() );
-    $recalc->run();
-  }
-
-  private function onPoisWithLongitudeOfOneHundred()
-  {
-    return Doctrine::getTable( 'Poi' )->findByLongitude( 100 );
+    $job = new resavePoisWithGeocodesOutsideOfBoundingBox();
+    $job->run();
   }
 }

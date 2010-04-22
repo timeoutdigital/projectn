@@ -107,7 +107,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   public function testLongLatIsFoundOrNull()
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj['geoEncodeLookUpString'] = "Time out, Tottenham Court Road London";
+      $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
       $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
       $poiObj->save();
 
@@ -136,39 +136,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $latitudeLength = (int) ProjectN_Test_Unit_Factory::getColumnDefinition( 'Poi', 'latitude', 'length' ) + 1;//+1 to account for decimal
       $this->assertEquals( $latitudeLength,  strlen( $poi['latitude'] ) );
-  }
-
-  public function testGetGeoEncodeLookupStringReturnsValueInVendorIfNotOverridden()
-  {
-    $poi = ProjectN_Test_Unit_Factory::add('poi', array( 
-      'street'   => '251 Tottenham Court Road',
-      'city'     => 'London',
-      'zips'     => 'W1T 7AB',
-      'geo_encode_look_up_string' => null,
-      ));
-
-    $poi[ 'Vendor' ] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 
-      'geo_encode_look_up_pattern' => '%street%, %city%, %zips%, United Kingdom',
-      ));
-
-    $this->assertEquals( '251 Tottenham Court Road, London, W1T 7AB, United Kingdom', $poi['geo_encode_look_up_string'] );
-  }
-
-  public function testGetGeoEncodeLookupStringFromVendorDoesNotIncludeEmptyValues()
-  {
-    $poi = ProjectN_Test_Unit_Factory::add('poi', array( 
-      'house_no' => '',
-      'street'   => '251 Tottenham Court Road',
-      'city'     => 'London',
-      'zips'     => null,
-      'geo_encode_look_up_string' => null,
-      ));
-
-    $poi[ 'Vendor' ] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 
-      'geo_encode_look_up_pattern' => '%house_no%, %street%, %city%, %zips%, United Kingdom',
-      ));
-
-    $this->assertEquals( '251 Tottenham Court Road, London, United Kingdom', $poi['geo_encode_look_up_string'] );
   }
 
   private function createPoiWithLongitudeLatitude( $longitude, $latitude )

@@ -78,11 +78,11 @@
 
    private function setBounds( $bounds )
    {
-     $boundaryArray  = explode( ';', $bounds );
+     $boundaryArray     = explode( ';', $bounds );
      $this->leftBound   = $boundaryArray[0];
-     $this->topBound    = $boundaryArray[1];
+     $this->bottomBound = $boundaryArray[1];
      $this->rightBound  = $boundaryArray[2];
-     $this->bottomBound = $boundaryArray[3];
+     $this->topBound    = $boundaryArray[3];
    }
 
    private function getPoisNotInBounds()
@@ -92,7 +92,7 @@
       ->addWhere( 'p.longitude < ?', $this->leftBound )
       ->OrWhere(  'p.longitude > ?', $this->rightBound )
       ->OrWhere(  'p.latitude > ?',  $this->topBound )
-      ->OrWhere( 'p.latitude < ?',   $this->bottomBound )
+      ->OrWhere(  'p.latitude < ?',  $this->bottomBound )
       ->execute();
    }
 
@@ -100,10 +100,10 @@
    {
      return Doctrine::getTable( 'Poi' )
       ->createQuery( 'p' )
-      ->addWhere( 'p.longitude > ?', $this->leftBound )
+      ->addWhere(  'p.longitude > ?', $this->leftBound )
       ->andWhere(  'p.longitude < ?', $this->rightBound )
       ->andWhere(  'p.latitude < ?',  $this->topBound )
-      ->andWhere( 'p.latitude > ?',   $this->bottomBound )
+      ->andWhere(  'p.latitude > ?',  $this->bottomBound )
       ->execute();
    }
  }

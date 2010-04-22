@@ -34,6 +34,7 @@ class resavePoisWithGeocodesOutsideOfBoundingBoxTest extends PHPUnit_Framework_T
   public function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+		$this->geocode_look_up = '21 Mock Ave, Mockton, Mockia';
   }
 
   public function tearDown()
@@ -45,26 +46,47 @@ class resavePoisWithGeocodesOutsideOfBoundingBoxTest extends PHPUnit_Framework_T
 
   public function testPoisWithGeocodesOutsideOfBoundingBoxAreResaved()
   {
-    $this->addVendorWithBoundaries('-10.0;10.0;10.0;-10.0');
-    $this->geoEncoder = new MockGeoEncodeForBoundsTest();
+    $this->addVendorWithBoundaries('-10.0;-10.0;10.0;10.0');
+
+    $mockGeocoder = $this->getMock( 'geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude', 'getAccuracy' ) )
+								 ;
+    $mockGeocoder->expects( $this->exactly(2) )
+								 ->method( 'setAddress' )
+								 ->with(   $this->equalTo( $this->geocode_look_up ) )
+								 ;
+    $mockGeocoder->expects( $this->exactly(2) )
+								 ->method( 'getLongitude' )
+								 ->will(   $this->returnValue( 1.111111 ) )
+								 ;
+    $mockGeocoder->expects( $this->exactly(2) )
+								 ->method( 'getLatitude' )
+								 ->will(   $this->returnValue( 2.222222 ) )
+								 ;
+    $mockGeocoder->expects( $this->exactly(2) )
+								 ->method( 'getAccuracy' )
+								 ->will(   $this->returnValue( 9 ) )
+								 ;
+    //var_dump( $mockGeocoder->getLongitude() );
+
+		$this->geoEncoder = $mockGeocoder;
 
     //These pois are out of bounds
-    $this->addPoiWithLongLat( 12, 12 );
-    $this->addPoiWithLongLat( 12, 12 );
+    $badPoi1 = $this->addPoiWithLongLat( 12, 12 );
+    $badPoi2 = $this->addPoiWithLongLat( 12, 12 );
 
     //These pois are withing bounds
     $this->addPoiWithLongLat(  1,  1 );
     $this->addPoiWithLongLat(  2,  2 );
     $this->addPoiWithLongLat( -1, -1 );
 
-    $specification = new geocodeIsWithinBoundary();
-    $this->assertEquals( 2, $specification->getFailingPois()->count() );
-    $this->assertEquals( 3, $specification->getPassingPois()->count() );
-
     $resaver = new resavePoisWithGeocodesOutsideOfBoundingBox();
     $resaver->run();
 
-    $this->assertEquals(2, $this->geoEncoder->numCallsToSetAddress() );
+		$this->assertEquals( 1.111111, $badPoi1['longitude'] );
+		$this->assertEquals( 2.222222, $badPoi1['latitude'] );
+
+		$this->assertEquals( 1.111111, $badPoi2['longitude'] );
+		$this->assertEquals( 2.222222, $badPoi2['latitude'] );
   }
 
   private function addVendorWithBoundaries( $bounds )
@@ -79,23 +101,12 @@ class resavePoisWithGeocodesOutsideOfBoundingBoxTest extends PHPUnit_Framework_T
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi', array(
       'longitude' => $long,
       'latitude'  => $lat,
+			'geocode_look_up' => $this->geocode_look_up,
     ) );
 
     $poi['Vendor'] = $this->vendor;
     $poi->setGeoEncoder( $this->geoEncoder );
     $poi->save();
-  }
-}
-
-class MockGeoEncodeForBoundsTest extends geoEncode
-{
-  private $callCount = 0;
-  public function setAddress()
-  {
-    $this->callCount++;
-  }
-  public function numCallsToSetAddress()
-  {
-    return $this->callCount;
+		return $poi;
   }
 }

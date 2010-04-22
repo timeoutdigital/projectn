@@ -37,6 +37,7 @@ Poi:
     star_rating:                {type: integer(1), notnull: false}
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
+    geocode_look_up:            {type: string(512), notnull: true}
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
