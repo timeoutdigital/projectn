@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
-require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
-require_once dirname(__FILE__).'/../../../bootstrap.php';
+require_once dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
+require_once dirname(__FILE__).'/../../bootstrap.php';
 
 /**
  * Test class for widgetFormPoiVendorCategoryChoice
