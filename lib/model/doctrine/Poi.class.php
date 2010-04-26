@@ -39,6 +39,12 @@ class Poi extends BasePoi
     $this->geoEncoder = $geoEncoder;
   }
 
+  public function setPoiName( $string )
+  {
+    $string = preg_replace( '/[, ]*$/', '', $string );
+    $this->_set( 'poi_name', $string );
+  }
+
   public function getGeoEncoder()
   {
     if( !$this->geoEncoder )
