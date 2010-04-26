@@ -15,24 +15,42 @@
 class Poi extends BasePoi
 {
   /**
-   * @var string
-   */
-  private $geoEncodeLookUpString;
-
-  /**
    * @var boolean
    */
   private $geoEncodeByPass = false;
 
-
   /**
-   * Set the address string that will be used to lookup the geocodes
-   *
-   * @param string $geoEncodeLookUpString
+   * @var geoEncode
    */
-  public function setGeoEncodeLookUpString( $geoEncodeLookUpString )
+  private $geoEncoder;
+
+  public function setGeoEncodeLookUpString( $lookup )
   {
-    $this->geoEncodeLookUpString = $geoEncodeLookUpString;
+    $this['geocode_look_up'] = $lookup;
+  }
+
+  public function getGeoEncodeLookUpString()
+  {
+    return $this['geocode_look_up'];
+  }
+
+  public function setGeoEncoder( geoEncode $geoEncoder )
+  {
+    $this->geoEncoder = $geoEncoder;
+  }
+
+  public function setPoiName( $string )
+  {
+    $string = preg_replace( '/[, ]*$/', '', $string );
+    $this->_set( 'poi_name', $string );
+  }
+
+  public function getGeoEncoder()
+  {
+    if( !$this->geoEncoder )
+      $this->geoEncoder = new geoEncode();
+
+    return $this->geoEncoder;
   }
 
   /**
@@ -44,7 +62,6 @@ class Poi extends BasePoi
   {
     $this->geoEncodeByPass = $geoEncodeByPass;
   }
-
 
   /**
    * Add the Poi Properties
@@ -161,20 +178,20 @@ class Poi extends BasePoi
     if( $this->geoEncodeByPass )
       return;
 
-    if( !$this->isGeocodeValid() )
+    if( !$this->hasValidGeocode() )
       return;
 
-    if( empty( $this->geoEncodeLookUpString ) )
+    if( empty( $this['geocode_look_up'] ) )
     {
-      throw new GeoCodeException( 'geoEncodeLookupString is required to lookup a geoCode for this POI.' );
+      throw new GeoCodeException( 'geocode_look_up is required to lookup a geoCode for this POI.' );
     }
 
-    $geoEncoder = new geoEncode();
+    $geoEncoder = $this->getGeoEncoder();
     
-    $geoEncoder->setAddress(  $this->geoEncodeLookUpString, $this['Vendor']  );
+    $geoEncoder->setAddress(  $this['geocode_look_up'], $this['Vendor']  );
 
     $this['longitude'] = $geoEncoder->getLongitude();
-    $this['latitude'] = $geoEncoder->getLatitude();
+    $this['latitude']  = $geoEncoder->getLatitude();
 
     if( $geoEncoder->getAccuracy() < 8 )
     {
@@ -184,7 +201,7 @@ class Poi extends BasePoi
     }
   }
 
-  private function isGeocodeValid()
+  private function hasValidGeocode()
   {
     $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
     $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );

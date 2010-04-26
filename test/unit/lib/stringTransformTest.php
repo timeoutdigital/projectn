@@ -249,5 +249,23 @@ three
     $string = 'foo bar, the';
     $this->assertEquals( 'the foo bar', stringTransform::move_CommaThe_FromEndToBeginning($string));
   }
+
+  public function testRemoveEmptyDelimiters()
+  {
+    $this->assertEquals(                           'foo, bar, baz',
+      stringTransform::removeEmptyDelimiters( ', ', ', foo, , , bar, , baz' )
+      );
+
+    $this->assertEquals(                           'foo|bar|baz',
+      stringTransform::removeEmptyDelimiters( '|', '||foo|bar||||baz|' )
+      );
+  }
+
+  public function testRemoveTrailingCommas()
+  {
+    $this->assertEquals(                     'foo',
+      stringTransform::removeTrailingCommas( 'foo,' )
+      );
+  }
 }
 ?>

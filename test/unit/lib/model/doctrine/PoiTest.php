@@ -32,7 +32,10 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->object = ProjectN_Test_Unit_Factory::add( 'poi' );
+    $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
+    $this->object[ 'VendorPoiCategory' ] = new Doctrine_Collection( Doctrine::getTable( 'Poi' ) );
+    $this->object[ 'geoEncoder' ] = new MockGeoEncodeForPoiTest();
+    $this->object->save();
   }
 
   /**
@@ -42,6 +45,23 @@ class PoiTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+  }
+
+  public function testPoiNameDoesNotEndWIthCommaAndOrSpace()
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $poi['poi_name'] = 'foo,';
+    $this->assertEquals( 'foo', $poi['poi_name'] );
+
+    $poi['poi_name'] = 'bar ';
+    $this->assertEquals( 'bar', $poi['poi_name'] );
+
+    $poi['poi_name'] = 'baz, ';
+    $this->assertEquals( 'baz', $poi['poi_name'] );
+
+    $poi['poi_name'] = 'oof ,';
+    $this->assertEquals( 'oof', $poi['poi_name'] );
   }
 
   /*
@@ -89,6 +109,19 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorPoiCategory' ][ 1 ][ 'vendor_id' ] );
   }
 
+  public function testAddVendorCategoryDoesNotDeleteExistingVendorCategories()
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi->save();
+
+    $poi->refresh();
+    $this->assertEquals(1, count($poi['VendorPoiCategory'])); //bootstrap adds a category already
+
+    $poi->addVendorCategory( 'Foo', $poi['Vendor']['id'] );
+    $poi->save();
+    $this->assertEquals(2, count($poi['VendorPoiCategory'])); //bootstrap adds a category already
+  }
+
   public function testVendorCategoriesAreUnique()
   {
     $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
@@ -104,7 +137,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
   public function testLongLatIsFoundOrNull()
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj->setGeoEncodeLookUpString("Time out, Tottenham Court Road London");
+      $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
+      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
       $poiObj->save();
 
       $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
@@ -112,6 +146,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj->setGeoEncodeLookUpString(" ");
+      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTestWithoutAddress();
       $poiObj->save();
 
       $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
@@ -142,4 +177,38 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
 }
-?>
+
+class MockGeoEncodeForPoiTest extends geoEncode
+{
+  private $address;
+
+  public function setAddress( $address )
+  {
+    $this->address = $address;
+  }
+  public function numCallCount()
+  {
+    return $this->callCount;
+  }
+  public function getLongitude()
+  {
+    return 1.0;
+  }
+  public function getLatitude()
+  {
+    return 1.0;
+  }
+  public function getAccuracy()
+  {
+    return 9;
+  }
+}
+
+class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
+{
+  public function setAddress( $address ) { }
+  public function numCallCount() { }
+  public function getLongitude() { }
+  public function getLatitude() { }
+  public function getAccuracy() { }
+}

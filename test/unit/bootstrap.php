@@ -162,7 +162,6 @@ class PoiFixture
 
     $poi = new Poi();
     $poi->fromArray( $defaults );
-    $poi->setGeoEncodeLookUpString( 'foo' );
 
     if( $autoCreateRelatedObjects )
     {
@@ -196,6 +195,7 @@ class PoiFixture
         'local_language' =>'aaa',
         'longitude' => '1.1',
         'latitude' => '1.1',
+        'geoEncodeLookupString' => 'foo',
     );
   }
 }

@@ -54,5 +54,7 @@ generator:
             - created_at
             - updated_at
             - vendor_id
+            #- vendor_category
+            - geocode_look_up
       edit:    ~
       new:     ~
