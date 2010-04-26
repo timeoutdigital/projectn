@@ -16,6 +16,7 @@ class EventForm extends BaseEventForm
     $this->widgetSchema[ 'created_at' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'updated_at' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ]       = new widgetFormFixedText();
+    $this->configureVendorEventCategoryWidget();
   }
 
   protected function doUpdateObject( $values = null )
@@ -25,5 +26,14 @@ class EventForm extends BaseEventForm
     $record = $this->getObject();
     $override = new recordFieldOverrideManager( $record );
     $override->saveRecordModificationsAsOverrides();
+  }
+
+  private function configureVendorEventCategoryWidget()
+  {
+    $widget = new widgetFormEventVendorCategoryChoice( array( 'record' => $this->object ) );
+    $this->widgetSchema[ 'vendor_event_category_list' ] = $widget;
+
+    $validator = new validatorVendorEventCategoryChoice( array( 'event' => $this->object ) );
+    $this->validatorSchema[ 'vendor_event_category_list' ] = $validator;
   }
 }

@@ -12,14 +12,14 @@
  *
  *
  */
-class validatorVendorPoiCategoryChoice extends sfValidatorChoice
+class validatorVendorEventCategoryChoice extends sfValidatorChoice
 {
   protected function configure($options = array(), $messages = array())
   {
     $this->removeRequiredOption( 'choices' );
     $this->addOption( 'multiple' );
     $this->setOption( 'multiple', true );
-    $this->addRequiredOption( 'poi' );
+    $this->addRequiredOption( 'event' );
   }
 
   protected function doClean($value)
@@ -30,7 +30,7 @@ class validatorVendorPoiCategoryChoice extends sfValidatorChoice
   public function getChoices()
   {
     $choices = array();
-    foreach( $this->getCategoriesForPoi() as $category )
+    foreach( $this->getCategoriesForEvent() as $category )
     {
       $value   = $category['id'];
       $display = $category['name'];
@@ -40,10 +40,10 @@ class validatorVendorPoiCategoryChoice extends sfValidatorChoice
     return $choices;
   }
 
-  private function getCategoriesForPoi()
+  private function getCategoriesForEvent()
   {
     $event = $this->options['event'];
-    return Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $event['Vendor']['id'] );
+    return Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $event['Vendor']['id'] );
   }
 
   private function removeRequiredOption( $option )
