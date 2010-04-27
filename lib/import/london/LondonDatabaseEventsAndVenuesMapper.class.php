@@ -169,7 +169,10 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $poi[ 'Vendor' ]                 = $this->vendor;
     $poi[ 'vendor_poi_id' ]          = $item[ 'venue_id' ];
     $poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
-    $poi[ 'street' ]                 = $item[ 'SLLVenue' ][ 'address' ];
+
+    $fix = new removeCommaLondonFromEndOfString($item[ 'SLLVenue' ][ 'address' ]);
+    $poi[ 'street' ]                 = $fix->getFixedString();
+
     $poi[ 'city' ]                   = 'London';
     $poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
     $poi[ 'country' ]                = 'GBR';

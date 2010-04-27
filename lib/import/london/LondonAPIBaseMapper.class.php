@@ -128,7 +128,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
     //$poi['vendor_category']    = $this->getApiType();
     $poi->addVendorCategory( $this->getApiType(), $this->vendor['id'] );
 
-    $poi['street']            = (string) $xml->address;
+    $fix = new removeCommaLondonFromEndOfString( (string) $xml->address );
+    $poi['street']            = $fix->getFixedString();
     $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $xml->name;
     $poi['url']               = (string) $xml->webUrl;

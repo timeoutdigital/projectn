@@ -88,7 +88,10 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $poi instanceof Doctrine_Record );
 
     $this->assertEquals( 'Dummy Building Name 1', $poi[ 'house_no' ]  );
+
+    //tests ', London ' is removed from end of address/street
     $this->assertEquals( 'Dummy Address 1',       $poi[ 'street' ] );
+
     $this->assertEquals( 'London',                $poi[ 'city' ] );
     $this->assertEquals( '',                      $poi[ 'district' ] );
     $this->assertEquals( 'GBR',                   $poi[ 'country' ] );
