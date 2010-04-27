@@ -65,7 +65,6 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
   public function doMapping( SimpleXMLElement $restaurantXml )
   {
     $poi = $this->dataMapperHelper->getPoiRecord( (string) $restaurantXml->uid );
-
     try
     {
       $this->mapCommonPoiMappings($poi, $restaurantXml);
@@ -78,6 +77,16 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
     
     $poi[ 'star_rating' ] = (int) $restaurantXml->starRating;
     $poi[ 'PoiCategory' ][] = $this->poiCategory;
+
+    if( !empty( $restaurantXml->imageUrl ) )
+    {
+        $notResizedImageUrl = $this->rewriteMediaUrlToRemoveScaling( $restaurantXml->imageUrl );
+
+        if( $notResizedImageUrl !== false /* Don't add Image if the URL has errors */ )
+        {
+            $this->addImageHelper( $poi, $notResizedImageUrl );
+        }
+    }
 
     foreach( $this->getDetails( $restaurantXml ) as $detail )
     {

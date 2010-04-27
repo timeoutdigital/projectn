@@ -85,6 +85,16 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
       $poi->addProperty( (string) $detail['name'], (string) $detail );
     }
 
+    if( !empty( $barsXml->imageUrl ) )
+    {
+        $notResizedImageUrl = $this->rewriteMediaUrlToRemoveScaling( $barsXml->imageUrl );
+
+        if( $notResizedImageUrl !== false /* Don't add Image if the URL has errors */ )
+        {
+            $this->addImageHelper( $poi, $notResizedImageUrl );
+        }
+    }
+
     $this->notifyImporter( $poi );
   }
 }

@@ -101,6 +101,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
     return $this->limit;
   }
 
+  /**
+   * @todo Can this be removed? Why is it Public?
+   */
   public function onException( Exception $exception, $message = null )
   {
     $this->notifyImporterOfFailure( $exception, null, $message );
@@ -338,5 +341,28 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * Do mapping of xml to poi and notify Importer here
    */
   abstract public function doMapping( SimpleXMLElement $xml );
+
+  /**
+   * Re-write media url, to get best quality image available.
+   * (instead of iphone size that gets served by default)
+   * eg. http://toimg.net/managed/images/bounded/5168/w300/h317/i.jpg
+   * becomes http://toimg.net/managed/images/5168/i.jpg
+   */
+  protected function rewriteMediaUrlToRemoveScaling( $url = "" )
+  {
+    $boundedString = "bounded/";
+    $findBoundsStringEndPosition = strpos( $url, $boundedString ) + strlen( $boundedString );
+
+    $baseUrl = substr( $url, 0, $findBoundsStringEndPosition - strlen( $boundedString ) );
+    $mediaId = substr( $url, $findBoundsStringEndPosition, strpos( $url, "/", $findBoundsStringEndPosition ) - $findBoundsStringEndPosition );
+
+    if( $mediaId == 0 )
+    {
+        $message = "London API returning media id of 0. url: '" . $url . "'";
+        $this->onException( new Exception( $message ), $message );
+        return false;
+    }
+    return( $baseUrl . $mediaId . "/i.jpg" );
+  }
 }
 ?>

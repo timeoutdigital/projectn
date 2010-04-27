@@ -30,7 +30,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     // load projectn data
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
-
+    
     // load london data
     Doctrine::loadData( dirname( __FILE__ ) . '/../../../../../plugins/toLondonPlugin/data/fixtures/searchlight_london.yml' );
     
@@ -51,6 +51,16 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testImportDoesNotStopIfPoiFailsToSave()
   {
     //don't need to do anything, the import will stop in setup()
+  }
+
+  /**
+   * Test to see that media file(s) imports correctly.
+   * At time of writing, fixtures conatins one valid venue media url.
+   */
+  public function testMediaImports()
+  {
+     $pois = Doctrine::getTable( 'PoiMedia' )->findAll();
+     $this->assertEquals( $pois->count(), 1, "Fixture data should contain one valid image url, and importer should import it correctly." );
   }
 
   /**
@@ -88,10 +98,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $poi instanceof Doctrine_Record );
 
     $this->assertEquals( 'Dummy Building Name 1', $poi[ 'house_no' ]  );
-
-    //tests ', London ' is removed from end of address/street
     $this->assertEquals( 'Dummy Address 1',       $poi[ 'street' ] );
-
     $this->assertEquals( 'London',                $poi[ 'city' ] );
     $this->assertEquals( '',                      $poi[ 'district' ] );
     $this->assertEquals( 'GBR',                   $poi[ 'country' ] );
