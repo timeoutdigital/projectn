@@ -66,7 +66,7 @@ SLLVenue:
     name: Dummy Name 1
     alt_name: Dummy Alt Name 1
     building_name: Dummy Building Name 1
-    address: Dummy Address 1
+    address: Dummy Address 1, London
     postcode: Dummy Postcode 1
     travel: Dummy Travel 1
     opening_times: Dummy Opening Times 1
@@ -87,7 +87,7 @@ SLLVenue:
     name: Dummy Name 2
     alt_name: Dummy Alt Name 2
     building_name: Dummy Building Name 2
-    address: Dummy Address 2
+    address: Dummy Address 2, london
     postcode: Dummy Postcode 2
     travel: Dummy Travel 2
     opening_times: Dummy Opening Times 2
@@ -108,7 +108,7 @@ SLLVenue:
     name: Dummy Name 3x
     alt_name: Dummy Alt Name 3
     building_name: Dummy Building Name 3
-    address: Dummy Address 3
+    address: Dummy Address 3,
     postcode: Dummy Postcode 3
     travel: Dummy Travel 3
     opening_times: Dummy Opening Times 3
