@@ -19,5 +19,8 @@ class removeCommaLondonFromEndOfStringTest extends PHPUnit_Framework_TestCase
   {
     $fix = new removeCommaLondonFromEndOfString( 'Guildhall Library, Aldermanbury, London ' );
     $this->assertEquals( 'Guildhall Library, Aldermanbury', $fix->getFixedString() );
+
+    $fix = new removeCommaLondonFromEndOfString( 'Guildhall Library, Aldermanbury, ' );
+    $this->assertEquals( 'Guildhall Library, Aldermanbury', $fix->getFixedString() );
   }
 }

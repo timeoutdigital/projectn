@@ -31,6 +31,6 @@ class removeCommaLondonFromEndOfString
    */
   public function getFixedString()
   {
-    return preg_replace( '/, ?london ?$/i', '', $this->string );
+    return preg_replace( '/, ?(london)? ?$/i', '', $this->string );
   }
 }
