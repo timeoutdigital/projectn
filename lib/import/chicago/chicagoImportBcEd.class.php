@@ -81,7 +81,7 @@ class chicagoImportBcEd {
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiId((string) $poi->{'ID'});
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $poi->{'ID'}, $this->vendorObj );
 
         if($currentPoi)
         {
