@@ -32,6 +32,7 @@ class importNyED
    */
   public function  __construct( $csv, $vendor )
   {
+    throw new Exception( 'This class is suspicious. Dont use it, it doesnt update pois, just adds new ones.' );
     $this->_csv = $csv;
     $this->_vendor = $vendor;
   }
