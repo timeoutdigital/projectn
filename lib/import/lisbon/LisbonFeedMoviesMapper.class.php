@@ -139,7 +139,7 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
   private function getPoiId( $filmElement )
   {
     $vendorPoiId = (string) $filmElement->cinemaplacelink[ 'placeid' ];
-    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( $vendorPoiId );
+    $poi = $this->getMovieRecord( $vendorPoiId );
     if( $poi['id'] )
       return $poi['id'];
     else

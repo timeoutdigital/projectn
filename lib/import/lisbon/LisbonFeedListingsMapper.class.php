@@ -57,7 +57,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $occurrence['event_id'] = $event['id'];
       
       $placeid = (int) $listingElement['placeid'];
-      $poi = Doctrine::getTable('Poi')->findOneByVendorPoiId( $placeid );
+      $poi = $this->dataMapperHelper->getPoiRecord( $placeid, $this->vendor['id'] );
 
       if( !$poi )
       {
