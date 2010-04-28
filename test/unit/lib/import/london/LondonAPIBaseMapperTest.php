@@ -40,6 +40,22 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * @see unfuddled ticket #253
+   */
+  public function testPoiUrlIsNotTimeoutUrlAndTimeoutLinkIsStoredAsAProperty()
+  {
+    $mock = new MockLondonAPIBaseMapper();
+
+    $poi = new Poi();
+    $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl></xml>' );
+    $mock->map( $poi, $xml );
+
+    $this->assertEquals( 'http://www.google.com', $poi['url'] );
+    $this->assertEquals( 'Timeout_link', $poi['PoiProperty'][0]['lookup'] );
+    $this->assertEquals( 'http://www.timeout.com', $poi['PoiProperty'][0]['value'] );
+  }
+
+  /**
    * @see unfuddled ticket #250
    */
   public function testCommaLondonNotInEndOfAddressField()

@@ -135,7 +135,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['street']            = $fix->getFixedString();
     $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $xml->name;
-    $poi['url']               = (string) $xml->webUrl;
+    $poi['url']               = (string) $xml->url;
+    if( (string) $xml->webUrl != "" )
+    {
+        $poi->addProperty( "Timeout_link", (string) $xml->webUrl );
+    }
     $poi['phone']             = (string) $xml->phone;
     $poi['price_information'] = (string) $xml->price;
     $poi['openingtimes']      = (string) $xml->openingTimes;
