@@ -33,4 +33,4 @@ $this->_sections['tag']['last']       = ($this->_sections['tag']['iteration'] ==
 </td></tr>
 	<?php endfor; endif; ?>
 </table>
-<?php endif; ?>
+<?php endif; ?>

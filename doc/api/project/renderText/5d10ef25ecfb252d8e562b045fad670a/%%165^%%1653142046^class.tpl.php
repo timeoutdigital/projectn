@@ -802,7 +802,7 @@ $this->_sections['imethods2']['last']       = ($this->_sections['imethods2']['it
     <?php endfor; endif; ?>
   </table>
 <?php endif; ?>
-
+
 <?php if ($this->_tpl_vars['methods']): ?>
   <a name="sec-methods"></a>
   <h2>Methods</h2>

@@ -35,4 +35,4 @@ $this->_sections['files']['last']       = ($this->_sections['files']['iteration'
     <?php if ($this->_tpl_vars['subpackage'] != ""): ?></ul></li><?php endif; ?>
 	<?php endfor; endif; ?>
   </ul>
-<?php endforeach; unset($_from); endif; ?>
+<?php endforeach; unset($_from); endif; ?>
