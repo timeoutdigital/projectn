@@ -75,5 +75,37 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
      $this->assertEquals( 3, $pois->count() );
   }
 
+  public function testFindByVendorPoiIdAndVendor()
+  {
+    $chicago   = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'chicago',   'language' => 'en-US' ) );
+    $singapore = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'singapore', 'language' => 'en-US' ) );
+    $lisbon    = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'lisbon',    'language' => 'pt' ) );
+
+    $this->addPoi( '1234', 'I am in Chicago',   $chicago );
+    $this->addPoi( '1234', 'I am in Singapore', $singapore );
+    $this->addPoi( '1234', 'I am in Lisbon',    $lisbon );
+
+    $poiTable = Doctrine::getTable( 'Poi' );
+
+    $chicagoPoi = $poiTable->findOneByVendorPoiIdAndVendorId( '1234', $chicago['id'] );
+    $this->assertEquals( 'I am in Chicago', $chicagoPoi['poi_name'] );
+
+    $singaporePoi = $poiTable->findOneByVendorPoiIdAndVendorId( '1234', $singapore['id'] );
+    $this->assertEquals( 'I am in Singapore', $singaporePoi['poi_name'] );
+
+    $lisbonPoi = $poiTable->findOneByVendorPoiIdAndVendorId( '1234', $lisbon['id'] );
+    $this->assertEquals( 'I am in Lisbon', $lisbonPoi['poi_name'] );
+  }
+
+  private function addPoi( $vendorPoiId, $name, $vendor )
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi[ 'poi_name' ]      = $name;
+    $poi[ 'vendor_poi_id' ] = $vendorPoiId;
+    $poi[ 'Vendor' ]        = $vendor;
+    $poi->save();
+    return $poi;
+  }
+
 }
 ?>
