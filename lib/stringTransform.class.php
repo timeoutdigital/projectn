@@ -380,7 +380,7 @@ class stringTransform
 
   static public function removeTrailingCommas( $string )
   {
-    return preg_replace( '/,$/', '', $string );
+    return trim( $string, ', ' );
   }
 
 }
