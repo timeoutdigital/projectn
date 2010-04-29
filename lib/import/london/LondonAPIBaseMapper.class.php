@@ -146,7 +146,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['public_transport_links'] = (string) $xml->travelInfo;
     $poi['description']       = (string) $xml->description;
 
-    $geoEncodeLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], $poi['country'] ) );
+    $geoEncodeLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], "UK" ) );
 
     $poi->setGeoEncodeLookUpString( $geoEncodeLookUpString );
   }
