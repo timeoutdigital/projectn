@@ -451,7 +451,7 @@ class singaporeImport
         // check if we can insert the movie (workaround as the if showing information is missing
         if ( !$this->checkIfMovieInsertable( $movieXml, 61 ) ) return false;
 
-        $movieObj = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->_vendor[ 'id' ], (string) $movieXml->id );
+        $movieObj = Doctrine::getTable( 'Movie' )->findOneByVendorMovieIdAndVendorId( (string) $movieXml->id, $this->_vendor[ 'id' ] );
 
         try
         {
