@@ -133,6 +133,14 @@ class chicagoImportBcEd {
             $poiObj[ 'country' ]                 = 'USA';
             $poiObj[ 'Vendor' ]                  = $this->vendorObj;
 
+            $poiObj[ 'geocode_look_up' ]         = stringTransform::concatNonBlankStrings(',', array(
+                $poiObj['poi_name'],
+                $poiObj['street'],
+                $poiObj['city'],
+                $poiObj['zips'],
+                'Chicago',
+            ));
+
 
 
             /**
