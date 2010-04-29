@@ -233,7 +233,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['public_transport_links'] = 'El: Brown to Paulina. Bus: 9, 11, 77';
            $this->existingPoiObj['phone'] = '+1 773-935-6101';
            $this->existingPoiObj['zips'] = '60657';
-           $this->existingPoiObj['geocode_look_up'] = "Somewhere Nice."
+           $this->existingPoiObj['geocode_look_up'] = "Somewhere Nice.";
            $this->existingPoiObj->save();
     }
 
@@ -262,6 +262,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['public_transport_links'] = 'El: Brown to Paulina. Bus: 9, 11, 77';
            $this->existingPoiObj['phone'] = '+1 773-935-6101';
            $this->existingPoiObj['zips'] = '60657';
+           $this->existingPoiObj['geocode_look_up'] = 'somewhere else';
            $this->existingPoiObj->save();
     }
 
