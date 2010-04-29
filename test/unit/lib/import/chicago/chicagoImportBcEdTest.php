@@ -74,6 +74,19 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test to see that POIs with Property names 'features' do not contain the string "Cheap (entrees under $10)".
+     * as per ticket #251
+     */
+    public function testPoiPropertyNamedFeaturesDoesNotContainCheapEatsString()
+    {
+        $this->markTestSkipped();
+        $this->createObject();
+        $poiProperty = Doctrine::getTable('PoiProperty')->findByLookup('features');
+        var_dump( $poiProperty->toArray() );
+        //$this->assertEquals( false, strpos( $poiProperty[0]['value'], ": $" ), "POI value for lookup 'cuisine' cannot contain string ': $'" );
+    }
+
+    /**
      * Test to see that POIs with a property of 'cuisine' does not contain price information s per #260
      */
     public function testPoiPropertyNamedCuisineDoesNotContainPriceInfo()
@@ -192,6 +205,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['public_transport_links'] = 'El: Brown to Paulina. Bus: 9, 11, 77';
            $this->existingPoiObj['phone'] = '+1 773-935-6101';
            $this->existingPoiObj['zips'] = '60657';
+           $this->existingPoiObj['geocode_look_up'] = "Somewhere Nice.";
            $this->existingPoiObj->save();
     }
 
@@ -219,6 +233,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['public_transport_links'] = 'El: Brown to Paulina. Bus: 9, 11, 77';
            $this->existingPoiObj['phone'] = '+1 773-935-6101';
            $this->existingPoiObj['zips'] = '60657';
+           $this->existingPoiObj['geocode_look_up'] = "Somewhere Nice."
            $this->existingPoiObj->save();
     }
 
