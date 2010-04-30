@@ -126,6 +126,19 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     //$this->assertEquals( 'theatre-music-culture', $poi[ 'PoiCategory' ][ 0 ][ 'name' ] );
   }
 
+  /**
+   * @see unfuddled ticket #250
+   */
+  public function testCommaLondonNotInEndOfAddressField()
+  {
+    $pois = Doctrine::getTable('Poi');
+    $this->assertEquals( 4, $pois->count() );
+    foreach( $pois as $poi )
+    {
+      $this->assertRegexp( '/Dummy Address [1-3]/', $poi['street'] );
+    }
+  }
+
   public function testEventAndOccurrencesNotSavedIfPoiNotSaved()
   {
     $poiTable = Doctrine::getTable( 'Poi' );

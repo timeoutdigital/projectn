@@ -79,8 +79,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
             }
         }
     }
-
-    print_r( $search->toArray() );
   }
 
   /**
@@ -89,7 +87,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testBandPropertyIsNotPresent()
   {
-    $this->markTestSkipped();
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();
@@ -105,8 +102,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testEventsWithZeroAsRecurringListingIdAreNotSaved()
   {
-    $this->markTestSkipped();
-    $this->markTestSkipped();
     ProjectN_Test_Unit_Factory::destroyDatabases();
     ProjectN_Test_Unit_Factory::createDatabases();
 
@@ -147,7 +142,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapListings()
   {
-    $this->markTestSkipped();
     $importer = new Importer();
     //$importer->addLogger( new echoingLogger() );
     $importer->addDataMapper( $this->object );
@@ -188,7 +182,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testAddsCategoryToPoi()
   {
-    $this->markTestSkipped();
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();
