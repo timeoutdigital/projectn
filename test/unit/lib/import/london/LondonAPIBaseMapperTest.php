@@ -63,9 +63,19 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
     $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geoEncode' ));
 
     $poi = new Poi();
-    $xml = simplexml_load_string( '<xml><address>foo, London </address></xml>' );
+    $xml = simplexml_load_string( '<xml><address>foo, London </address><lat>51.5079</lat><lng>-0.3049</lng></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
     $mock->map( $poi, $xml );
     $this->assertEquals( 'foo', $poi['street'] );
+
+    $poi = new Poi();
+    $xml = simplexml_load_string( '<xml><address>foo, </address><lat>51.5079</lat><lng>-0.3048</lng></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
+    $mock->map( $poi, $xml );
+    $this->assertEquals( 'foo', $poi['street'] );
+
+    $poi = new Poi();
+    $xml = simplexml_load_string( '<xml><address>56 Artillery Lane, London, </address><lat>51.5079</lat><lng>-0.3048</lng></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
+    $mock->map( $poi, $xml );
+    $this->assertEquals( '56 Artillery Lane', $poi['street'] );
   }
 }
 
