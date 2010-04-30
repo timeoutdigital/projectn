@@ -44,7 +44,7 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiUrlIsNotTimeoutUrlAndTimeoutLinkIsStoredAsAProperty()
   {
-    $mock = new MockLondonAPIBaseMapper();
+    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geoEncode' ) );
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl></xml>' );
@@ -60,7 +60,7 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
    */
   public function testCommaLondonNotInEndOfAddressField()
   {
-    $mock = new MockLondonAPIBaseMapper();
+    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geoEncode' ));
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><address>foo, London </address></xml>' );
@@ -71,6 +71,10 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
 
 class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
 {
+  public function __construct( $apiCrawler, $geoEncode )
+  {
+    parent::__construct( $apiCrawler, $geoEncode );
+  }
   public function map( Poi $poi, SimpleXMLElement $xml )
   {
     $this->mapCommonPoiMappings( $poi, $xml );

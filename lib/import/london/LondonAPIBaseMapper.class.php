@@ -67,15 +67,14 @@ abstract class LondonAPIBaseMapper extends DataMapper
     {
       $apiCrawler = new LondonAPICrawler();
     }
-
     $apiCrawler->setMapper( $this );
     $this->apiCrawler = $apiCrawler;
-    $this->geoEncoder = $geoEncoder;
 
     if( is_null( $geoEncoder ) )
     {
-      $this->geoEncoder = new geoEncode();
+      $geoEncoder = new geoEncode();
     }
+    $this->geoEncoder = $geoEncoder;
 
     $this->dataMapperHelper = new projectNDataMapperHelper($this->vendor);
   }
@@ -119,10 +118,16 @@ abstract class LondonAPIBaseMapper extends DataMapper
    */
   protected function mapCommonPoiMappings(Poi $poi, SimpleXMLElement $xml )
   {
-    $latLong = $this->deriveLatitudeLongitude( $xml );
+    $poi[ 'latitude' ]  = (string) $xml->lat;
+    $poi[ 'longitude' ] = (string) $xml->lng;
 
-    $poi['longitude']         = $latLong['latitude'];
-    $poi['latitude']          = $latLong['longitude'];
+    if( empty( $poi['latitude'] ) || empty( $poi['longitude'] ) )
+    {
+      $latLong = $this->deriveLatitudeLongitude( $xml );
+      $poi['longitude']         = $latLong['latitude'];
+      $poi['latitude']          = $latLong['longitude'];
+    }
+
     $poi['zips']              = (string) $xml->postcode;
     $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml, $poi );
   
@@ -146,7 +151,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['public_transport_links'] = (string) $xml->travelInfo;
     $poi['description']       = (string) $xml->description;
 
-    $geoEncodeLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], $poi['country'] ) );
+    $geoEncodeLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], "UK" ) );
 
     $poi->setGeoEncodeLookUpString( $geoEncodeLookUpString );
   }
