@@ -81,7 +81,7 @@ class chicagoImportBcEd {
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $poi->{'ID'}, $this->vendorObj );
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $poi->{'ID'}, $this->vendorObj['id'] );
 
         if($currentPoi)
         {
@@ -140,8 +140,6 @@ class chicagoImportBcEd {
                 $poiObj['zips'],
                 'Chicago',
             ));
-
-
 
             /**
              * Try and get the longitude and latitude for POI
@@ -244,7 +242,14 @@ class chicagoImportBcEd {
 
            if((string) $poi->{'features'} != '')
            {
-                $poiObj->addProperty( 'features',  (string) $poi->{'features'});
+                $featuresString = (string) $poi->{'features'};
+                
+                // Clean up features property, to remove the string "Cheap (entrees under $10)" and
+                // ...associated new line characters, if you want to clean this up, feel free. refs #251
+                $featuresString = str_replace( "\nCheap (entrees under $10)", "", $featuresString );
+                $featuresString = str_replace( "Cheap (entrees under $10)", "", $featuresString );
+                
+                $poiObj->addProperty( 'features', trim( $featuresString, "\n " ) );
            }
 
            

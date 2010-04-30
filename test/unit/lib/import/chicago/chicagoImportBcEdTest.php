@@ -79,11 +79,9 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
      */
     public function testPoiPropertyNamedFeaturesDoesNotContainCheapEatsString()
     {
-        $this->markTestSkipped();
         $this->createObject();
         $poiProperty = Doctrine::getTable('PoiProperty')->findByLookup('features');
-        var_dump( $poiProperty->toArray() );
-        //$this->assertEquals( false, strpos( $poiProperty[0]['value'], ": $" ), "POI value for lookup 'cuisine' cannot contain string ': $'" );
+        $this->assertEquals( false, strpos( $poiProperty[0]['value'], "Cheap (entrees under $10)" ), "POI value for lookup 'features' cannot contain string 'Cheap (entrees under $10)'" );
     }
 
     /**
@@ -117,7 +115,8 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**validationException
+    /**
+     * validationException
      * Test that an existing poi is not duplicated
      */
     public function testExistingSamePoiIsNotImported()
@@ -126,8 +125,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
         $this->createObject();
 
         //Find by name so we know there is only 1
-         $poi = Doctrine::getTable('Poi')->findByPoiName('A La Turka');
-         $this->assertEquals(1, count($poi->toArray()), 'Test that there is only 1 in the DB');
+        $this->assertEquals(1, Doctrine::getTable('Poi')->findByPoiName('A La Turka')->count(), 'Test that there is only 1 in the DB');
     }
 
     /**
@@ -138,12 +136,10 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
      */
     public function testExistingChangedPoiIsLoggedAndUpdated()
     {
-      $this->markTestSkipped();
+        $this->markTestSkipped();
         $this->createExistingChangedPoi();
         $this->createObject();
         $updateTestArray = $this->object->loggerObj->changesCollection->toArray();
-
-        var_dump($updateTestArray[0]['type']);
 
         //Check logger has looged the update
         $this->assertEquals('update', $updateTestArray[0]['type'], 'Testing record is updated');
@@ -262,7 +258,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj['public_transport_links'] = 'El: Brown to Paulina. Bus: 9, 11, 77';
            $this->existingPoiObj['phone'] = '+1 773-935-6101';
            $this->existingPoiObj['zips'] = '60657';
-           $this->existingPoiObj['geocode_look_up'] = 'somewhere else';
+           $this->existingPoiObj['geocode_look_up'] = "Somewhere else.";
            $this->existingPoiObj->save();
     }
 
