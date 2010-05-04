@@ -126,7 +126,17 @@ class nyImportBcEd {
         try {
             //Add the main details that should not change
             $poiObj[ 'vendor_poi_id' ]           = (string) $poi->{'ID'};
-            $poiObj[ 'street' ]                  = (string) $poi->{'location.0'};
+
+            $streetAddress = (string) $poi->{'location.0'};
+            $pos = strpos( $streetAddress, "between" );
+            if( $pos !== false )
+            {
+                $betweenSection = substr( $streetAddress, $pos );
+                $poiObj[ 'additional_address_details' ] = $betweenSection;
+                $streetAddress = substr( $streetAddress, 0, $pos );
+            }
+
+            $poiObj[ 'street' ]                  = (string) $streetAddress;
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name.0'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
             $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
