@@ -234,7 +234,7 @@ class FTPClient
       return $this->fetchFile( $latestSrcFile, $targetFile);
     }
     
-    throw new Exception( 'failed to fetch file by pattern: ' . $latestSrcFile );
+    throw new Exception( 'failed to fetch file by pattern' );
   }
 
   /**
