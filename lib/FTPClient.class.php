@@ -234,7 +234,7 @@ class FTPClient
       return $this->fetchFile( $latestSrcFile, $targetFile);
     }
     
-    throw new Exception( 'failed to fetch file by pattern' );
+    throw new Exception( 'failed to fetch file by pattern: ' . $latestSrcFile );
   }
 
   /**
@@ -251,7 +251,7 @@ class FTPClient
     foreach( $dirListingArray as $dirItem )
     {
       $matches = array();
-      preg_match( '/[\s]+((Jan|Feb|Mar|Apr|Mai|Jun|Jul|Aug|Sep|Nov|Dec)[\s]+([0-9]+){1}[\s]+([0-9]{2}:[0-9]{2}){1})[\s]+(.*+)$/', $dirItem, $matches );
+      preg_match( '/[\s]+((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Nov|Dec)[\s]+([0-9]+){1}[\s]+([0-9]{2}:[0-9]{2}){1})[\s]+(.*+)$/', $dirItem, $matches );
 
       if ( isset( $matches[ 1 ] ) && isset( $matches[ 5 ] ) )
       {
