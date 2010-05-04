@@ -49,5 +49,27 @@ abstract class DataMapper
   {
     $this->importer->onRecordMappingException( $exception ,$record, $message );
   }
+
+    /**
+     * helper function to add images
+     *
+     * @param Doctrine_Record $storeObject
+     * @param $url
+     */
+    protected function addImageHelper( Doctrine_Record $storeObject, $url )
+    {
+        if ( (string) $url != '' )
+        {
+            try
+            {
+                $storeObject->addMediaByUrl( (string) $url );
+                return true;
+            }
+            catch( Exception $e )
+            {
+                $this->notifyImporterOfFailure( $e, $storeObject, "Failed to add media for object" );
+            }
+        }
+    }
 }
 ?>

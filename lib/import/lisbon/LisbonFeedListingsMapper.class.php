@@ -57,7 +57,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $occurrence['event_id'] = $event['id'];
       
       $placeid = (int) $listingElement['placeid'];
-      $poi = Doctrine::getTable('Poi')->findOneByVendorPoiId( $placeid );
+      $poi = $this->dataMapperHelper->getPoiRecord( $placeid, $this->vendor['id'] );
 
       if( !$poi )
       {
@@ -77,7 +77,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
       //try to find the event using name
       $eventName = (string) $listingElement['gigKey'];
-      if( !$event->exists() && Doctrine::getTable('Event')->findOneByName( $eventName ) )
+      if( !$event->exists() && Doctrine::getTable('Event')->findOneByNameAndVendorId( $eventName, $this->vendor['id'] ) )
       {
           $this->notifyImporterOfFailure( new Exception( 'An event of this name already exists; suspicious...' ) , $event );
           continue;

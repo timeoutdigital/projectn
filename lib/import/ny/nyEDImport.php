@@ -32,6 +32,7 @@ class importNyED
    */
   public function  __construct( $csv, $vendor )
   {
+    throw new Exception( 'This class is suspicious. Dont use it, it doesnt update pois, just adds new ones.' );
     $this->_csv = $csv;
     $this->_vendor = $vendor;
   }
@@ -58,8 +59,8 @@ class importNyED
 
   public function insertPoi( $poiData )
   {
-
     //Set the Poi's required values
+    var_dump( $poiData );
     $poi = new Poi();
     $poi->setPoiName( $poiData[ 'name' ] );
     $poi->setStreet( $poiData[ 'address' ] );

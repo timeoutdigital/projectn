@@ -195,7 +195,7 @@ class PoiFixture
         'local_language' =>'aaa',
         'longitude' => '1.1',
         'latitude' => '1.1',
-        'geoEncodeLookupString' => 'foo',
+        'geocode_look_up' => 'foo',
     );
   }
 }

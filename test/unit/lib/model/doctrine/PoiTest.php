@@ -47,6 +47,23 @@ class PoiTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testPoiNameDoesNotEndWIthCommaAndOrSpace()
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $poi['poi_name'] = 'foo,';
+    $this->assertEquals( 'foo', $poi['poi_name'] );
+
+    $poi['poi_name'] = 'bar ';
+    $this->assertEquals( 'bar', $poi['poi_name'] );
+
+    $poi['poi_name'] = 'baz, ';
+    $this->assertEquals( 'baz', $poi['poi_name'] );
+
+    $poi['poi_name'] = 'oof ,';
+    $this->assertEquals( 'oof', $poi['poi_name'] );
+  }
+
   /*
    * test if the add property adds properties successfuly
    */

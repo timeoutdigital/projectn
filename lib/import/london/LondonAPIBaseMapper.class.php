@@ -67,15 +67,14 @@ abstract class LondonAPIBaseMapper extends DataMapper
     {
       $apiCrawler = new LondonAPICrawler();
     }
-
     $apiCrawler->setMapper( $this );
     $this->apiCrawler = $apiCrawler;
-    $this->geoEncoder = $geoEncoder;
 
     if( is_null( $geoEncoder ) )
     {
-      $this->geoEncoder = new geoEncode();
+      $geoEncoder = new geoEncode();
     }
+    $this->geoEncoder = $geoEncoder;
 
     $this->dataMapperHelper = new projectNDataMapperHelper($this->vendor);
   }
@@ -101,6 +100,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
     return $this->limit;
   }
 
+  /**
+   * @todo Can this be removed? Why is it Public?
+   */
   public function onException( Exception $exception, $message = null )
   {
     $this->notifyImporterOfFailure( $exception, null, $message );
@@ -116,29 +118,40 @@ abstract class LondonAPIBaseMapper extends DataMapper
    */
   protected function mapCommonPoiMappings(Poi $poi, SimpleXMLElement $xml )
   {
-    $latLong = $this->deriveLatitudeLongitude( $xml );
+    $poi[ 'latitude' ]  = (string) $xml->lat;
+    $poi[ 'longitude' ] = (string) $xml->lng;
 
-    $poi['longitude']         = $latLong['latitude'];
-    $poi['latitude']          = $latLong['longitude'];
+    if( empty( $poi['latitude'] ) || empty( $poi['longitude'] ) )
+    {
+      $latLong = $this->deriveLatitudeLongitude( $xml );
+      $poi['longitude']         = $latLong['latitude'];
+      $poi['latitude']          = $latLong['longitude'];
+    }
+
     $poi['zips']              = (string) $xml->postcode;
-    $poi['city']              = $this->deriveCity( $latLong['latitude'], $latLong['longitude'], $xml, $poi );
+    $poi['city']              = $this->deriveCity( $poi['latitude'], $poi['longitude'], $xml, $poi );
   
     $poi['vendor_id']         = $this->vendor['id'];
     $poi['vendor_poi_id']     = (string) $xml->uid;
     //$poi['vendor_category']    = $this->getApiType();
     $poi->addVendorCategory( $this->getApiType(), $this->vendor['id'] );
 
-    $poi['street']            = (string) $xml->address;
+    $fix = new removeCommaLondonFromEndOfString( (string) $xml->address );
+    $poi['street']            = $fix->getFixedString();
     $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $xml->name;
-    $poi['url']               = (string) $xml->webUrl;
+    $poi['url']               = (string) $xml->url;
+    if( (string) $xml->webUrl != "" )
+    {
+        $poi->addProperty( "Timeout_link", (string) $xml->webUrl );
+    }
     $poi['phone']             = (string) $xml->phone;
     $poi['price_information'] = (string) $xml->price;
     $poi['openingtimes']      = (string) $xml->openingTimes;
     $poi['public_transport_links'] = (string) $xml->travelInfo;
     $poi['description']       = (string) $xml->description;
 
-    $geoEncodeLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], $poi['country'] ) );
+    $geoEncodeLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], "UK" ) );
 
     $poi->setGeoEncodeLookUpString( $geoEncodeLookUpString );
   }
@@ -337,5 +350,28 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * Do mapping of xml to poi and notify Importer here
    */
   abstract public function doMapping( SimpleXMLElement $xml );
+
+  /**
+   * Re-write media url, to get best quality image available.
+   * (instead of iphone size that gets served by default)
+   * eg. http://toimg.net/managed/images/bounded/5168/w300/h317/i.jpg
+   * becomes http://toimg.net/managed/images/5168/i.jpg
+   */
+  protected function rewriteMediaUrlToRemoveScaling( $url = "" )
+  {
+    $boundedString = "bounded/";
+    $findBoundsStringEndPosition = strpos( $url, $boundedString ) + strlen( $boundedString );
+
+    $baseUrl = substr( $url, 0, $findBoundsStringEndPosition - strlen( $boundedString ) );
+    $mediaId = substr( $url, $findBoundsStringEndPosition, strpos( $url, "/", $findBoundsStringEndPosition ) - $findBoundsStringEndPosition );
+
+    if( $mediaId == 0 )
+    {
+        $message = "London API returning media id of 0. url: '" . $url . "'";
+        $this->onException( new Exception( $message ), $message );
+        return false;
+    }
+    return( $baseUrl . $mediaId . "/i.jpg" );
+  }
 }
 ?>

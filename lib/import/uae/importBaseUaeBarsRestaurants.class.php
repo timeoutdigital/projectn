@@ -93,7 +93,7 @@ class importBaseUaeBarsRestaurants{
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiId($xmlObj->{'id'});
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( $xmlObj->{'id'}, $this->$vendorObj['id'] );
 
         if($currentPoi)
         {

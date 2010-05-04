@@ -227,7 +227,11 @@ class singaporeImport
                 $poi[ 'latitude' ]                   = (string) $addressArray[0]->mm_lat;
 
                 $publicTransportString = ( (string) $addressArray[0]->near_station != '' ) ? 'Near station: ' . (string) $addressArray[0]->near_station: '';
-                $publicTransportString = ( (string) $addressArray[0]->buses != '' ) ? ' | ' . (string) $addressArray[0]->buses: '';
+                if( ( (string) $addressArray[0]->buses != '' && strlen( $publicTransportString ) > 0 ) )
+                {
+                    $publicTransportString .= ' | ';
+                }
+                $publicTransportString .= ( (string) $addressArray[0]->buses != '' ) ? 'Buses: ' . (string) $addressArray[0]->buses: '';
                 $poi[ 'public_transport_links' ]     = $publicTransportString;
 
                 $poi[ 'phone' ]                      = '+65 ' .  (string) $addressArray[0]->phone;
@@ -447,7 +451,7 @@ class singaporeImport
         // check if we can insert the movie (workaround as the if showing information is missing
         if ( !$this->checkIfMovieInsertable( $movieXml, 61 ) ) return false;
 
-        $movieObj = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->_vendor[ 'id' ], (string) $movieXml->id );
+        $movieObj = Doctrine::getTable( 'Movie' )->findOneByVendorMovieIdAndVendorId( (string) $movieXml->id, $this->_vendor[ 'id' ] );
 
         try
         {

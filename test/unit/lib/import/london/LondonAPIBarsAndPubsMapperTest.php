@@ -42,33 +42,39 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapPoi()
   {
-    $limit = 11;
+    $importer = new Importer();
+
+    $crawler = new MockLondonAPIBarsAndPubsMapperCrawler();
 
     $mockGeoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
-
-    $mockGeoEncoder->expects( $this->any() )
-               ->method( 'setAddress' );
-
-    $mockGeoEncoder->expects( $this->any( $limit ) )
+    $mockGeoEncoder->expects( $this->exactly( 1 ) )
+               ->method( 'setAddress' )
+               ;
+    $mockGeoEncoder->expects( $this->exactly( 1 ) )
                ->method( 'getLongitude' )
-               ->will( $this->returnValue( -0.0901 ) );
-
-    $mockGeoEncoder->expects( $this->any( $limit ) )
+               ->will( $this->returnValue( -0.0901 ) )
+               ;
+    $mockGeoEncoder->expects( $this->exactly( 1 ) )
                ->method( 'getLatitude' )
-               ->will( $this->returnValue( 51.35736 ) );
+               ->will( $this->returnValue( 51.35736 ) )
+               ;
 
-    $crawler = new LondonAPICrawler();
-    $crawler->setLimit($limit);
     $mapper = new LondonAPIBarsAndPubsMapper( $crawler, $mockGeoEncoder );
 
-    $importer = new Importer();
-    $mapper->setLimit( $limit );
     $importer->addDataMapper( $mapper );
+
+    $logger = $this->getMock( 'doNothingLogger' );
+    $logger->expects( $this->exactly( 0 ) )
+           ->method( 'addError' );
+    $logger->expects( $this->exactly( 11 ) )
+           ->method( 'countNewInsert' );
+
+    $importer->addLogger( $logger );
     $importer->run();
 
     $poiResults = Doctrine::getTable('Poi')->findAll();
 
-    $this->assertEquals( $limit, $poiResults->count() );
+    $this->assertEquals( 11, $poiResults->count() );
 
     $poi = $poiResults[0];
 
@@ -97,5 +103,27 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
   public function testNoLimit()
   {
     $this->markTestIncomplete();
+  }
+}
+
+class MockLondonAPIBarsAndPubsMapperCrawler extends LondonAPICrawler
+{
+  public function crawlApi()
+  {
+    for( $i=1; $i<=11; $i++ )
+    {
+      $fileContents = file_get_contents( TO_TEST_DATA_PATH . '/LondonAPIBarsAndPubsTest.xml' );
+      $fileContents = str_replace( '{id}', $i, $fileContents );
+      $fileContents = str_replace( '{name}', "Poi $i", $fileContents );
+
+      if( $i == 11 )
+      {
+        $fileContents = preg_replace( ':<lat>[-0-9.]*</lat>:', '', $fileContents );
+        $fileContents = preg_replace( ':<lng>[-0-9.]*</lng>:', '', $fileContents );
+      }
+
+      $xml = simplexml_load_string( $fileContents );
+      $this->mapper->doMapping( $xml->response->row );
+    }
   }
 }

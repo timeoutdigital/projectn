@@ -260,5 +260,12 @@ three
       stringTransform::removeEmptyDelimiters( '|', '||foo|bar||||baz|' )
       );
   }
+
+  public function testRemoveTrailingCommas()
+  {
+    $this->assertEquals(                     'foo',
+      stringTransform::removeTrailingCommas( 'foo,' )
+      );
+  }
 }
 ?>

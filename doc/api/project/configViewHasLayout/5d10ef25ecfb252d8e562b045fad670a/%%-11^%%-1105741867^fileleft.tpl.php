@@ -34,4 +34,4 @@ $this->_sections['files']['last']       = ($this->_sections['files']['iteration'
 "><?php endif;  echo $this->_tpl_vars['files'][$this->_sections['files']['index']]['title'];  if ($this->_tpl_vars['files'][$this->_sections['files']['index']]['link'] != ''): ?></a><?php endif; ?></span><br />
 	<?php endfor; endif; ?>
   </div>
-<?php endforeach; unset($_from); endif; ?>
+<?php endforeach; unset($_from); endif; ?>

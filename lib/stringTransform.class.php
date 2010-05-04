@@ -377,4 +377,10 @@ class stringTransform
     $string = preg_replace( "/$delimiter$/",               '', $string );
     return $string;
   }
+
+  static public function removeTrailingCommas( $string )
+  {
+    return trim( $string, ', ' );
+  }
+
 }
