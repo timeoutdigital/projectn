@@ -63,6 +63,13 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi->addMediaByUrl(     (string) $venue->ImagePath );
       $poi->addVendorCategory( $this->extractVendorCategories( $venue ), $this->vendor );
 
+      $poi['TimeoutLinkProperty'] = (string) $venue->TimeoutURL;
+
+      if ( (string) $venue->Recommended == 'Recommended')
+        $poi['RecommendedProperty'] = true;
+      else if ( (string) $venue->Recommended == 'Critics Choice')
+        $poi['CriticsChoiceProperty'] = true;
+
       $this->notifyImporter( $poi );
     }
   }

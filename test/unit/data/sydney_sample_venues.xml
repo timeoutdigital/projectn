@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <venues>
 	<venue>
 		<VenueID><![CDATA[1]]></VenueID>
@@ -62,7 +62,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<Phone><![CDATA[02 9922 4215]]></Phone>
 		<Website><![CDATA[www.catalonia.com.au]]></Website>
 		<Status><![CDATA[1]]></Status>
-		<Recommended><![CDATA[N/A]]></Recommended>
+		<Recommended><![CDATA[Recommended]]></Recommended>
 		<Price><![CDATA[]]></Price>
 		<PriceFrom><![CDATA[1.0000]]></PriceFrom>
 		<PriceTo><![CDATA[0.0000]]></PriceTo>
@@ -74,7 +74,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<Longitude><![CDATA[151.2138270]]></Longitude>
 		<Latitude><![CDATA[-33.8475120]]></Latitude>
 		<ImagePath><![CDATA[]]></ImagePath>
-		<TimeoutURL><![CDATA[http://www.timeoutsydney.com.au/searchall/viewvenue.aspx?venueid=2]]></TimeoutURL>
+		<TimeoutURL><![CDATA[]]></TimeoutURL>
 		<MetaKeywords><![CDATA[]]></MetaKeywords>
 		<Feature1><![CDATA[]]></Feature1>
 		<Feature2><![CDATA[]]></Feature2>
@@ -106,7 +106,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<Phone><![CDATA[02 9251 2797]]></Phone>
 		<Website><![CDATA[www.thebasement.com.au]]></Website>
 		<Status><![CDATA[1]]></Status>
-		<Recommended><![CDATA[N/A]]></Recommended>
+		<Recommended><![CDATA[Critics Choice]]></Recommended>
 		<Price><![CDATA[]]></Price>
 		<PriceFrom><![CDATA[2.0000]]></PriceFrom>
 		<PriceTo><![CDATA[10.0000]]></PriceTo>

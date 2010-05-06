@@ -81,6 +81,22 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
                          );
   }
 
+  public function testProperties()
+  {
+    $pois = $this->poiTable->findAll( );
+
+    $this->assertEquals( 'http://www.timeoutsydney.com.au/searchall/viewvenue.aspx?venueid=1', 
+                          $pois[0]['TimeoutLinkProperty'], 
+                         'Check for Timeout_url' );
+
+    $this->assertNull(   $pois[1]['TimeoutLinkProperty'], 
+                         'Check for absence of Timeout_url' );
+
+    $this->assertNull(        $pois[0]['CriticsChoiceProperty'] , 'Check that Critics_choice flag is not present' );
+    $this->assertEquals( 'Y', $pois[1]['RecommendedProperty'] , 'Check Recommended flag is present' );
+    $this->assertEquals( 'Y', $pois[2]['CriticsChoiceProperty'] , 'Check Critics_choice flag is present' );
+  }
+
   public function testPriceInfo()
   {
     $pois = $this->poiTable->findAll( );
@@ -110,9 +126,5 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Restaurant | Spanish | Tapas',
                           $pois[1]['VendorPoiCategory'][0]['name']
                           );
-  }
-
-  public function test()
-  {
   }
 }
