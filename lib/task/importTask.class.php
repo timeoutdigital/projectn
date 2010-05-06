@@ -19,11 +19,15 @@ class importTask extends sfBaseTask
     $this->name             = 'import';
     $this->briefDescription = 'Import data files from vendors';
     $this->detailedDescription = '';
+
+
   }
 
   protected function execute($arguments = array(), $options = array())
   {
     $this->options = $options;
+
+    $this->writeLogLine( 'start import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
 
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
@@ -319,6 +323,8 @@ class importTask extends sfBaseTask
             $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
             $loggerObj->setType( 'poi' );
             $importer->addLogger( $loggerObj );
+
+
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
             $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
             $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
@@ -395,8 +401,7 @@ class importTask extends sfBaseTask
 
     $importer->run();
 
-     //Get the total import time
-     //echo "Total time: ". $importObj->poiLoggerObj ->finalTime . "\n";
+    $this->writeLogLine( 'end import' );
   }
 
 
@@ -867,27 +872,6 @@ class importTask extends sfBaseTask
 
      }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /**
    * Get the Vendor by its city and language
    *
@@ -917,4 +901,10 @@ class importTask extends sfBaseTask
   {
     if( $this->options['verbose'] ) echo $message . PHP_EOL ;
   }
+
+  private function writeLogLine( $message )
+  {
+      echo PHP_EOL . date( 'Y-m-d H:m:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL . PHP_EOL;
+  }
+
 }
