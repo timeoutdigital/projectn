@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <outlets>
 <title>Time Out - Dubai Homepage </title>
@@ -2418,4 +2419,2426 @@
 <timings>Open daily 10pm-3am</timings>
 <website>www.crowneplaza.com</website>
 </item>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<outlets>
+<title>Time Out - Dubai Homepage </title>
+<category>Bar</category>
+<pubDate>Mon, 01 Feb 2010 09:16:57 +0000</pubDate>
+<item>
+<title>1897 Bar</title>
+<id>964</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/964-1897-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/1897_bar/listsmall/1897bar7809_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Barsha, Dubai</location>
+<telephone>04 409 5999</telephone>
+<type>Cocktail bar</type>
+<email>restaurants.malloftheemirates@kempinski.com</email>
+<timings>Open daily 4pm-2.30am</timings>
+<website>www.kempinski-dubai.com</website>
+</item>
+<item>
+<title>360°</title>
+<id>951</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/951-360</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/360/listsmall/360_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 406 8769</telephone>
+<type>Nightclub</type>
+<email>360degrees@jumeirah.com</email>
+<timings>Open daily 5pm-2am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Rock Bottom Café</title>
+<id>147</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/147-rock-bottom-cafe</link>
+<location>Trade Center Road, Karama, Dubai</location>
+<telephone>04 396 3888</telephone>
+<cuisine>Bar Food</cuisine>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily noon-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Al Mushref</title>
+<id>1045</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1045-al-mushref</link>
+<location>Al Ras Street, Deira, Dubai</location>
+<telephone>04 225 1122</telephone>
+<type>Nightclub</type>
+<email>reservation@stgeorgedubai.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.stgeorgedubai.ae</website>
+</item>
+<item>
+<title>Al Zumorrod</title>
+<id>813</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/813-al-zumorrod</link>
+<location>Baniyas Road, Deira, Dubai</location>
+<telephone>04 222 7111</telephone>
+<type>Nightclub</type>
+<email>reservation@carltontower.net</email>
+<timings>Open Sat-Fri 9.30pm-3am</timings>
+<website>www.carltontower.net</website>
+</item>
+<item>
+<title>Alpha</title>
+<id>992</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/992-alpha</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/alpha/listsmall/alpha_2_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 000</telephone>
+<type>Nightclub</type>
+<email>info@alphaclub.ae</email>
+<timings>Open Thu, Tue 6pm-3am; Fri 4pm-3am</timings>
+<website>www.alphaclub.ae</website>
+</item>
+<item>
+<title>Anthakshari</title>
+<id>814</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/814-anthakshari</link>
+<location>Trade Centre Road, Karama, Dubai</location>
+<telephone>04 334 6565</telephone>
+<type>Nightclub</type>
+<email></email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.presidentdubai.com</website>
+</item>
+<item>
+<title>Apartment Lounge + Club</title>
+<id>952</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/952-apartment-lounge-club</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/apartment_lounge__club_the/listsmall/apartment11_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 406 8000</telephone>
+<type>Nightclub</type>
+<email>theapartment@jumeirah.com</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Après</title>
+<id>810</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/810-apres</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/aprs/listsmall/apres_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Barsha, Dubai</location>
+<telephone>04 341 2575</telephone>
+<type>Cocktail bar</type>
+<email></email>
+<timings>Open daily noon-2am</timings>
+<website>www.mmidubai.com</website>
+</item>
+<item>
+<title>Arabic Nightclub</title>
+<id>888</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/888-arabic-nightclub</link>
+<location>Al Maktoum Street, Deira, Dubai</location>
+<telephone>04 228 4444</telephone>
+<type>Nightclub</type>
+<email></email>
+<timings>Open daily 8pm-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Harry Ghatto’s</title>
+<id>837</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/837-harry-ghattos</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/harry_ghattos/listsmall/gatto1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 319 8088</telephone>
+<type>Karaoke bar</type>
+<email>jetrestaurants@jumeirah.com</email>
+<timings>Open daily 8pm-3am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Ashiana</title>
+<id>886</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/886-ashiana</link>
+<location>Nasser Square, Deira, Dubai</location>
+<telephone>04 224 0222</telephone>
+<type>Nightclub</type>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Aussie Legends</title>
+<id>811</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/811-aussie-legends</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/aussie_legends/listsmall/aussie_bar_1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 398 2222</telephone>
+<type>Pub, Sports bar</type>
+<email></email>
+<timings>Open daily 3pm-3am</timings>
+<website>www.rydges.com</website>
+</item>
+<item>
+<title>Axis Lobby Lounge</title>
+<id>912</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/912-axis-lobby-lounge</link>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 1111</telephone>
+<type>Bars</type>
+<email>dubai-jumeirah@hilton.com</email>
+<timings>Open daily 8am-1.30am</timings>
+<website>www.hilton.com</website>
+</item>
+<item>
+<title>Bahri Bar</title>
+<id>924</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/924-bahri-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/bahri_bar/listsmall/bahribar_bar_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 366 6730</telephone>
+<type>Bars</type>
+<email>mjrestaurants@jumeirah.com</email>
+<timings>Open daily 4pm-2am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Balcony Bar</title>
+<id>953</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/953-balcony-bar</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 405 2703</telephone>
+<type>Cigar bar, Wine bar</type>
+<email>sldb@shangri-la.com</email>
+<timings>Open daily noon-2am</timings>
+<website>www.shangri-la.com</website>
+</item>
+<item>
+<title>Bar 44</title>
+<id>949</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/949-bar-44</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/bar_44/listsmall/bar44_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 8888</telephone>
+<type>Cocktail bar</type>
+<email>reservations@lrm-gh-dubai.com</email>
+<timings>Open Sat-Wed 6pm-2am; Thu 6pm-3am; Fri 6pm-2am</timings>
+<website>www.grosvenorhouse-dubai.com</website>
+</item>
+<item>
+<title>Bar Below</title>
+<id>2320</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/2320-bar-below</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/bar_below/listsmall/barbelow000_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 5555</telephone>
+<type>Cigar bar, Cocktail bar</type>
+<email>reservations@lrm-gh-dubai.com</email>
+<timings>Open Fri-Wed 7pm-1am; Thu 7pm-2am</timings>
+<website>www.leroyalmeridien-dubai.com</website>
+</item>
+<item>
+<title>Barasti Bar</title>
+<id>869</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/869-barasti-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/barasti_bar/listsmall/barasti_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 3333</telephone>
+<type>Beach & pool bar</type>
+<latitude>25.092031</latitude>
+<longitude>55.145744</longitude>
+<email>guestservices@lemeridien-minaseyahi.com</email>
+<timings>Open daily 11am-2am</timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>St Andrew’s English Pub</title>
+<id>898</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/898-st-andrews-snug</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/st_andrews_english_pub/listsmall/dresbukidss_1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 398 2222</telephone>
+<type>Pub, Sports bar</type>
+<email></email>
+<timings>Open daily noon-midnight</timings>
+<website>www.rydges.com</website>
+</item>
+<item>
+<title>Barrels</title>
+<id>978</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/978-barrels</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/barrels/listsmall/barrels_bar_1_listsmall.jpg</image>
+<location>Mankhool Road, Bur Dubai, Dubai</location>
+<telephone>04 359 8888</telephone>
+<type>Sports bar</type>
+<email>info@dubaimajestic.com</email>
+<timings>Open daily noon-3am</timings>
+<website>www.dubaimajestic.com</website>
+</item>
+<item>
+<title>Bartini</title>
+<id>6786</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/6786-bartini</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/bartini/listsmall/bartini25110_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 5000</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily 6pm-1.30am</timings>
+<website>www.habtoorhotels.com</website>
+</item>
+<item>
+<title>BarZar</title>
+<id>932</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/932-barzar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/bar_zar/listsmall/barzar7909_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 366 6730</telephone>
+<type>Bars</type>
+<email>mjrestaurants@jumeirah.com</email>
+<timings>Open daily Fri 3pm-3am; Sat-Thu 5pm-2am</timings>
+<website>www.madinatjumeirah.com</website>
+</item>
+<item>
+<title>Beach Bar</title>
+<id>817</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/817-beach-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/beach_bar/listsmall/beachbarhot_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 346 1111</telephone>
+<type>Beach & pool bar</type>
+<email>dxbmarin@emirates.net.ae</email>
+<timings>Open daily 8am-6pm</timings>
+<website>www.dxbmarine.com</website>
+</item>
+<item>
+<title>Belgian Beer Café (Crowne Plaza Dubai)</title>
+<id>998</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/998-belgian-beer-cafe-crowne-plaza-dubai</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/belgian_beer_caf/listsmall/belgianbeer_1_listsmall.jpg</image>
+<location>Al Rebat Street, Festival City, Dubai</location>
+<telephone>04 331 1111</telephone>
+<type>Bars</type>
+<email>crowneplaza@cpdfc.ae</email>
+<timings>Open Sat noon-3am; Sun-Mon 5pm-2am; Tue-Wed noon-3pm, 5pm-2am; Thu-Fri noon-3am</timings>
+<website>www.crowneplaza.com</website>
+</item>
+<item>
+<title>St Andrew’s English Pub</title>
+<id>898</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/898-st-andrews-snug</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/st_andrews_english_pub/listsmall/dresbukidss_1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 398 2222</telephone>
+<type>Pub, Sports bar</type>
+<email></email>
+<timings>Open daily noon-midnight</timings>
+<website>www.rydges.com</website>
+</item>
+<item>
+<title>Biggles</title>
+<id>907</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/907-biggles</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/biggles/listsmall/biggles_rest_bar_listsmall.jpg</image>
+<location>Casablanca Street, Garhoud, Dubai</location>
+<telephone>04 282 3464</telephone>
+<type>Pub, Sports bar</type>
+<email>sales.airdxb@mill-cop.com</email>
+<timings>Open daily noon-2am</timings>
+<website>www.millenniumhotels.com</website>
+</item>
+<item>
+<title>Billy Blues</title>
+<id>818</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/818-billy-blues</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/billy_blues/listsmall/billy_blues_bar1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 398 2272</telephone>
+<type>Bars</type>
+<email>cactus1@eim.ae</email>
+<timings>Open daily 6pm-1am</timings>
+<website>www.billybluesdubai.com</website>
+</item>
+<item>
+<title>Blue Bar</title>
+<id>929</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/929-blue-bar</link>
+<location>Zabeel Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 332 0000</telephone>
+<type>Bars</type>
+<email>h5261@accor.com</email>
+<timings>Open daily 12.30pm-2am</timings>
+<website>www.novotel.com</website>
+</item>
+<item>
+<title>Blues & Cues</title>
+<id>933</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/933-blues-a-cues</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/blues__cues/listsmall/bluesnques_bar_1_listsmall.jpg</image>
+<location>Abu Hail Road, Deira, Dubai</location>
+<telephone>04 266 2666</telephone>
+<type>Sports bar</type>
+<email>ramadadb@emirates.net.ae</email>
+<timings>Open daily 4pm-3am</timings>
+<website>www.ramadacontinental.com</website>
+</item>
+<item>
+<title>Bollywood Café</title>
+<id>876</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/876-bollywood-cafe</link>
+<location>Trade Center Road, Karama, Dubai</location>
+<telephone>04 396 3888</telephone>
+<type>Nightclub</type>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily 9.30pm-2am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Bollywood Stars</title>
+<id>871</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/871-bollywood-stars</link>
+<location>Al Rigga Street, Deira, Dubai</location>
+<telephone>04 295 8777</telephone>
+<type>Nightclub</type>
+<email>rgdh@emirates.net.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Boston Bar</title>
+<id>819</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/819-boston-bar</link>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 345 5888</telephone>
+<type>Pub, Sports bar</type>
+<email>jumeira.hotel@rotana.com</email>
+<timings>Open daily noon-3am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>Boudoir</title>
+<id>915</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/915-boudoir</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 345 5995</telephone>
+<type>Nightclub</type>
+<email>info@myboudoir.com</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.myboudoir.com</website>
+</item>
+<item>
+<title>Bridges</title>
+<id>829</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/829-bridges</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 332 5555</telephone>
+<type>Cocktail bar</type>
+<email>fbconcierge.dubai@fairmont.com</email>
+<timings>Open daily 8am-2am</timings>
+<website>www.fairmont.com</website>
+</item>
+<item>
+<title>Bubble</title>
+<id>968</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/968-bubble</link>
+<location>Damascus Street, Ghusais, Dubai</location>
+<telephone>04 261 5796</telephone>
+<type>Nightclub</type>
+<email>reservation@dubaigrandhotel.ae</email>
+<timings>Open daily 8pm-3am</timings>
+<website>www.dubaigrandhotel.ae</website>
+</item>
+<item>
+<title>Buddha Bar</title>
+<id>950</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/950-buddha-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/buddha_bar/listsmall/buddha_bar_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 8888</telephone>
+<type>Bars</type>
+<email>reservations@lrm-gh-dubai.com</email>
+<timings>Daily 8pm-2am</timings>
+<website>www.grosvenorhouse-dubai.com</website>
+</item>
+<item>
+<title>Bussola</title>
+<id>948</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/948-bussola</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/bussola/listsmall/bussolla_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 4141</telephone>
+<type>Bars</type>
+<email>guestservices@lemeridien-minaseyahi.com</email>
+<timings>Open daily noon-2.45pm, 7pm-10.45pm</timings>
+<website>www.lemeridien-minaseyahi.com</website>
+</item>
+<item>
+<title>C-Bar</title>
+<id>960</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/960-c-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/c-bar/listsmall/cbar_bar_1_listsmall.jpg</image>
+<location>Al Saffa Street, Sheikh Zayed Road, Dubai</location>
+<telephone>04 307 3482</telephone>
+<type>Nightclub</type>
+<email>almurooj.hotel@rotana.com</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>Cactus Cantina</title>
+<id>890</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/890-cactus-cantina</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/cactus_cantina/listsmall/cactus_cantbar_1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 398 2274</telephone>
+<type>Bars</type>
+<email>cactus1@eim.ae</email>
+<timings>Open daily noon-1am</timings>
+<website>www.cactuscantinadubai.com</website>
+</item>
+<item>
+<title>Boston Bar</title>
+<id>73</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/73-boston-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/boston_bar/listsmall/bostonb_1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 345 5888</telephone>
+<cuisine>American, Bar Food</cuisine>
+<email>jumeira.hotel@rotana.com</email>
+<timings>Open daily noon-2am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>Calabar</title>
+<id>3158</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/3158-calabar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/calabar/listsmall/calabarev_listsmall.jpg</image>
+<location>Al Doha Street, Downtown Burj Dubai, Dubai</location>
+<telephone>04 436 8888</telephone>
+<type>Bars</type>
+<email>stay@theaddress.com</email>
+<timings>Open daily 6pm-2.30am</timings>
+<website>www.theaddress.com</website>
+</item>
+<item>
+<title>Carpenters</title>
+<id>873</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/873-carpenters</link>
+<location>Al Khaleej Road, Deira, Dubai</location>
+<telephone>04 209 1234</telephone>
+<type>Cocktail bar</type>
+<email>dubai.regency@hyattintl.com</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.dubai.regency.hyatt.com</website>
+</item>
+<item>
+<title>Carter's</title>
+<id>821</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/821-carters</link>
+<location>Oud Metha Road, Oud Metha, Dubai</location>
+<telephone>04 324 0000</telephone>
+<type>Pub</type>
+<latitude>25.229576</latitude>
+<longitude>55.318542</longitude>
+<email>fnb.sales@wafi.com</email>
+<timings>Open daily noon-2am</timings>
+<website>www.wafi.com</website>
+</item>
+<item>
+<title>Jumeirah Beach Hotel</title>
+<id>23</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/23-jumeirah-beach-hotel</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/jumeirah_beach_hotel/listsmall/jbh_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 348 0000</telephone>
+<latitude>25.141506</latitude>
+<longitude>55.190807</longitude>
+<email>jbhinfo@jumeirah.com</email>
+<timings></timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Centimetro</title>
+<id>975</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/975-centimetro</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/centimetro/listsmall/centimetrobar_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 366 6730</telephone>
+<type>Bars</type>
+<email>mjrestaurants@jumeirah.com</email>
+<timings>Open daily 7pm-11.30pm</timings>
+<website>www.madinatjumeirah.com</website>
+</item>
+<item>
+<title>Chameleon Bar</title>
+<id>883</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/883-chameleon-bar</link>
+<location>Abu Baker Al Siddique Street, Deira, Dubai</location>
+<telephone>04 214 7272</telephone>
+<type>Bars</type>
+<email>thdb@shangri-la.com</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.shangri-la.com</website>
+</item>
+<item>
+<title>Champagne Lounge</title>
+<id>872</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/872-champagne-lounge</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 343 3333</telephone>
+<type>Wine bar</type>
+<email>dtdu@dusit.com</email>
+<timings>Open daily noon-midnight</timings>
+<website>www.dusit.com</website>
+</item>
+<item>
+<title>Champions</title>
+<id>822</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/822-champions</link>
+<location>Abu Baker Al Siddique Road, Deira, Dubai</location>
+<telephone>04 262 4444</telephone>
+<type>Sports bar</type>
+<email></email>
+<timings>Open daily 4pm-3am</timings>
+<website>www.marriott.com</website>
+</item>
+<item>
+<title>Chandi</title>
+<id>917</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/917-chandi</link>
+<location>Al Fahidi Street, Bur Dubai, Dubai</location>
+<telephone>04 355 9000</telephone>
+<type>Nightclub</type>
+<email>info@dubainovahotel.com</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.dubainovahotel.com</website>
+</item>
+<item>
+<title>Chelsea Arms</title>
+<id>823</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/823-chelsea-arms</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/chelsea_arms/listsmall/chelsearms_bar_1_listsmall.jpg</image>
+<location>Baniyas Street, Deira, Dubai</location>
+<telephone>04 228 1111</telephone>
+<type>Pub, Sports bar</type>
+<email>dubai.creek@sheraton.com</email>
+<timings>Open daily noon-4pm, 6pm-2am</timings>
+<website>www.sheraton.com</website>
+</item>
+<item>
+<title>Chi@The Lodge</title>
+<id>977</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/977-chithe-lodge</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/chithe_lodge/listsmall/chi_bar_1_listsmall.jpg</image>
+<location>Al Nasr Leisureland, Oud Metha, Dubai</location>
+<telephone>04 337 9470</telephone>
+<type>Nightclub</type>
+<latitude>25.238495</latitude>
+<longitude>55.312237</longitude>
+<email></email>
+<timings>Open daily 8pm-3am</timings>
+<website>www.lodgedubai.com</website>
+</item>
+<item>
+<title>Chill</title>
+<id>3058</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/3058-chill</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/chill/listsmall/chill_1_listsmall.jpg</image>
+<location>Khalid Bin Walid Street, Bur Dubai, Dubai</location>
+<telephone>04 355 8500</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily noon-2am</timings>
+<website></website>
+</item>
+<item>
+<title>Garage Club</title>
+<id>832</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/832-garage-club</link>
+<location>Nasser Square, Deira, Dubai</location>
+<telephone>04 224 0222</telephone>
+<type>Nightclub</type>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Churchill’s</title>
+<id>877</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/877-churchills</link>
+<location>Port Saeed Road, Deira, Dubai</location>
+<telephone>04 294 1222</telephone>
+<type>Pub, Sports bar</type>
+<email>reservation@citycentrehotel.ae</email>
+<timings>Open daily noon-2am</timings>
+<website>www.accorhotels.com</website>
+</item>
+<item>
+<title>Cigar Bar</title>
+<id>905</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/905-cigar-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/cigar_bar_the/listsmall/cigarbar_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 332 5555</telephone>
+<type>Cigar bar</type>
+<email>fbconcierge.dubai@fairmont.com</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.fairmont.com</website>
+</item>
+<item>
+<title>Cin Cin</title>
+<id>909</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/909-cin-cin</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 332 5555</telephone>
+<type>Wine bar</type>
+<email>fbconcierge.dubai@fairmont.com</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.fairmont.com</website>
+</item>
+<item>
+<title>Ciro’s Pomodoro</title>
+<id>870</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/870-ciros-pomodoro</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/ciros_pomodoro/listsmall/ciro_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 3333</telephone>
+<type>Bars</type>
+<email>guestservices@lemeridien-minaseyahi.com</email>
+<timings>Open daily 5.30pm-2am</timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Cooz</title>
+<id>944</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/944-cooz</link>
+<location>Oud Metha Road, Oud Metha, Dubai</location>
+<telephone>04 317 1234</telephone>
+<type>Cocktail bar</type>
+<email>dubai.grand@hyatt.com</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.dubai.grand.hyatt.com</website>
+</item>
+<item>
+<title>Le Méridien Dubai</title>
+<id>58</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/58-le-meridien-dubai</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/le_meridien_dubai/listsmall/lemer_airport1_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 0000</telephone>
+<latitude>25.249140</latitude>
+<longitude>55.347725</longitude>
+<email>reservation@lmdubai.com</email>
+<timings></timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Garage Club</title>
+<id>832</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/832-garage-club</link>
+<location>Nasser Square, Deira, Dubai</location>
+<telephone>04 224 0222</telephone>
+<type>Nightclub</type>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Crossroads Bar</title>
+<id>990</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/990-crossroads-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/crossroads_bar/listsmall/crossroads_bar_1_listsmall.jpg</image>
+<location>Sheikh Rashid Road, Oud Metha, Dubai</location>
+<telephone>04 324 8888</telephone>
+<type>Cocktail bar</type>
+<email>dining.dubai@raffles.com</email>
+<timings>Open daily 5pm-2am</timings>
+<website>dubai.raffles.com</website>
+</item>
+<item>
+<title>Crystal Bar</title>
+<id>1058</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1058-crystal-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/crystal_bar/listsmall/crystal_bar_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, TECOM, Dubai</location>
+<telephone>04 429 9999</telephone>
+<type>Wine bar</type>
+<email>f&b.reservations@grandmill-dubai.com</email>
+<timings>Open daily noon-2am</timings>
+<website>www.millenniumhotels.com</website>
+</item>
+<item>
+<title>Cuban Bar</title>
+<id>824</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/824-cuban-bar</link>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 1111</telephone>
+<type>Cigar bar</type>
+<email>dubai-jumeirah@hilton.com</email>
+<timings>Open daily 6pm-1am</timings>
+<website>www.hilton.com</website>
+</item>
+<item>
+<title>Dhow & Anchor</title>
+<id>1047</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1047-dhow-a-anchor</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 406 8999</telephone>
+<type>Beach & pool bar, Sports bar</type>
+<email>jbhboxoffice@jumeirah.com</email>
+<timings>Open daily noon-1am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Double Decker</title>
+<id>840</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/840-double-decker</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/double_decker/listsmall/dd_bar_1_listsmall.jpg</image>
+<location>Al Saffa Street, Sheikh Zayed Road, Dubai</location>
+<telephone>04 321 1111</telephone>
+<type>Pub, Sports bar</type>
+<email>almurooj.hotel@rotana.com</email>
+<timings>Open daily noon-3am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>Dublin Arms</title>
+<id>825</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/825-dublin-arms</link>
+<location>Al Maktoum Street, Deira, Dubai</location>
+<telephone>04 295 9171</telephone>
+<type>Pub</type>
+<email>metdeira@habtoorhotels.com</email>
+<timings>Open daily noon-3pm, 6pm-3am</timings>
+<website>www.habtoorhotels.com</website>
+</item>
+<item>
+<title>Dubliners</title>
+<id>826</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/826-dubliners</link>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 702 2508</telephone>
+<type>Pub, Sports bar</type>
+<email>dubliners@lmdubai.com</email>
+<timings>Open daily 11am-3am</timings>
+<website>www.dubai.lemeridien.com</website>
+</item>
+<item>
+<title>Dusk Terrace</title>
+<id>986</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/986-dusk-terrace</link>
+<location>Dubai Media City, Dubai Media City, Dubai</location>
+<telephone>04 366 9111</telephone>
+<type>Bars</type>
+<email>info.mediacity.dubai@radissonblu.com</email>
+<timings>Open Mon-Sat 10am-6pm</timings>
+<website>www.radissonblu.com/hotel-mediacitydubai</website>
+</item>
+<item>
+<title>Eclipse Bar</title>
+<id>1000</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1000-eclipse-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/eclipse_bar/listsmall/eclipse_bar_1_listsmall.jpg</image>
+<location>Al Rebat Street, Festival City, Dubai</location>
+<telephone>04 701 1111</telephone>
+<type>Bars, Cocktail bar</type>
+<email>intercontinental@ichdfc.ae</email>
+<timings>Open daily 6pm till late</timings>
+<website>www.ichotelsgroup.com</website>
+</item>
+<item>
+<title>El Rancho</title>
+<id>828</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/828-el-rancho</link>
+<location>Al Muteena Street, Deira, Dubai</location>
+<telephone>04 272 0000</telephone>
+<type>Bars</type>
+<email>marcohot@emirates.net.ae</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.marcopolohotel.net</website>
+</item>
+<item>
+<title>Keva</title>
+<id>679</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/679-keva</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/keva/listsmall/keva_1_listsmall.jpg</image>
+<location>Al Nasr Leisureland, Oud Metha, Oud Metha, Dubai</location>
+<telephone>04 334 4159</telephone>
+<cuisine>Indian, International , Mediterranean, Vegetarian</cuisine>
+<latitude>25.238991</latitude>
+<longitude>55.312191</longitude>
+<email></email>
+<timings>Open daily 3pm-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Ermita</title>
+<id>830</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/830-ermita</link>
+<location>Al Mankhool Road, Bur Dubai, Dubai</location>
+<telephone>04 341 8518</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily 6pm–3am</timings>
+<website></website>
+</item>
+<item>
+<title>Evory Lounge</title>
+<id>963</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/963-evory-lounge</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/evory_lounge/listsmall/evory7809_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Barsha, Dubai</location>
+<telephone>04 341 0000</telephone>
+<type>Bars</type>
+<email>restaurants.malloftheemirates@kempinski.com</email>
+<timings>Open daily 8am-2am</timings>
+<website>www.kempinski-dubai.com</website>
+</item>
+<item>
+<title>Fibber Magee's</title>
+<id>947</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/947-fibber-magees</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/fibber_magees/listsmall/fibber_bar_1_listsmall.jpg</image>
+<location>Behind the Crowne Plaza Hotel, Sheikh Zayed Road, Dubai</location>
+<telephone>04 332 2400</telephone>
+<type>Pub, Sports bar</type>
+<latitude>25.223228</latitude>
+<longitude>55.281895</longitude>
+<email>info@fibbersdubai.com</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.fibbersdubai.com</website>
+</item>
+<item>
+<title>Fox & Hounds</title>
+<id>831</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/831-fox-a-hounds</link>
+<location>Al Muteena Street, Deira, Dubai</location>
+<telephone>04 272 0000</telephone>
+<type>Pub, Sports bar</type>
+<email>marcohot@emirates.net.ae</email>
+<timings>Open daily noon-4pm, 6pm-2am</timings>
+<website>www.marcopolohotel.net</website>
+</item>
+<item>
+<title>Garage Club</title>
+<id>832</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/832-garage-club</link>
+<location>Nasser Square, Deira, Dubai</location>
+<telephone>04 224 0222</telephone>
+<type>Nightclub</type>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>George & Dragon</title>
+<id>1046</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1046-george-a-dragon</link>
+<location>Al Falah Street, Bur Dubai, Dubai</location>
+<telephone>04 393 9444</telephone>
+<type>Pub, Sports bar</type>
+<email>astfnb@astmb.com</email>
+<timings>Open daily noon-1am
+</timings>
+<website>www.astamb.com</website>
+</item>
+<item>
+<title>Ghungat</title>
+<id>970</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/970-ghungat</link>
+<location>Port Rashid Road, Bur Dubai, Dubai</location>
+<telephone>04 398 8840</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.countryclubdubai.com</website>
+</item>
+<item>
+<title>Goodfellas</title>
+<id>834</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/834-goodfellas</link>
+<location>Al Mankhool Street, Bur Dubai, Dubai</location>
+<telephone>04 355 6633</telephone>
+<type>Pub, Sports bar</type>
+<email>regaldxb@emirates.net.ae</email>
+<timings>Open daily noon-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Harry Ghatto’s</title>
+<id>837</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/837-harry-ghattos</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/harry_ghattos/listsmall/gatto1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 319 8088</telephone>
+<type>Karaoke bar</type>
+<email>jetrestaurants@jumeirah.com</email>
+<timings>Open daily 8pm-3am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Harry’s Place</title>
+<id>838</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/838-harrys-place</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/harrys_place__the_cigar_room/listsmall/harrypal_bar_1_listsmall.jpg</image>
+<location>Salahuddin Road, Deira, Dubai</location>
+<telephone>04 262 5555</telephone>
+<type>Sports bar</type>
+<email></email>
+<timings>Open Sun-Thu noon-2am; Fri 6pm-2am</timings>
+<website>www.marriott.com</website>
+</item>
+<item>
+<title>Harry Ghatto’s</title>
+<id>837</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/837-harry-ghattos</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/harry_ghattos/listsmall/gatto1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 319 8088</telephone>
+<type>Karaoke bar</type>
+<email>jetrestaurants@jumeirah.com</email>
+<timings>Open daily 8pm-3am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Healey’s</title>
+<id>6632</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/6632-healeys</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/healeys/listsmall/healey50110_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Jumeirah Lakes Towers, Dubai</location>
+<telephone>04 356 0000</telephone>
+<type>Bars</type>
+<email>info@bonningtontower.com</email>
+<timings>Open Sun-Wed noon-1am; Sat-Thu noon-2am</timings>
+<website>www.bonningtontower.com</website>
+</item>
+<item>
+<title>Hero’s Pool Bar</title>
+<id>914</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/914-heros-pool-bar</link>
+<location>Salahuddin Road, Deira, Dubai</location>
+<telephone>04 262 5555</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily 10am-10pm</timings>
+<website>www.marriott.com</website>
+</item>
+<item>
+<title>Harry Ghatto’s</title>
+<id>837</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/837-harry-ghattos</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/harry_ghattos/listsmall/gatto1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 319 8088</telephone>
+<type>Karaoke bar</type>
+<email>jetrestaurants@jumeirah.com</email>
+<timings>Open daily 8pm-3am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Le Méridien Dubai</title>
+<id>58</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/58-le-meridien-dubai</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/le_meridien_dubai/listsmall/lemer_airport1_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 0000</telephone>
+<latitude>25.249140</latitude>
+<longitude>55.347725</longitude>
+<email>reservation@lmdubai.com</email>
+<timings></timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Horizon</title>
+<id>899</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/899-horizon</link>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 3333</telephone>
+<type>Beach & pool bar</type>
+<email>guestservices@lemeridien-minaseyahi.com</email>
+<timings>Open daily 9am-8pm</timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Horizon Lounge</title>
+<id>973</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/973-horizon-lounge</link>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 408 4444</telephone>
+<type>Beach & pool bar</type>
+<email>horizon_lounge@yahoo.com</email>
+<timings>Open daily 8am-2am</timings>
+<website>www.habtoorhotels.com</website>
+</item>
+<item>
+<title>Alpha</title>
+<id>992</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/992-alpha</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/alpha/listsmall/alpha_2_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 000</telephone>
+<type>Nightclub</type>
+<email>info@alphaclub.ae</email>
+<timings>Open Thu, Tue 6pm-3am; Fri 4pm-3am</timings>
+<website>www.alphaclub.ae</website>
+</item>
+<item>
+<title>Icon Bar & Lounge</title>
+<id>962</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/962-icon-bar-lounge</link>
+<location>Dubai Media City, Dubai Media City, Dubai</location>
+<telephone>04 366 9111</telephone>
+<type>Sports bar</type>
+<email>info.mediacity.dubai@radissonblu.com</email>
+<timings>Open daily noon-1am</timings>
+<website>www.radissonblu.com/hotel-mediacitydubai</website>
+</item>
+<item>
+<title>iKandy Bar</title>
+<id>1167</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1167-ikandy-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/ikandy_bar/listsmall/ikandy4_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 343 8888</telephone>
+<type>Beach & pool bar</type>
+<email>sldb@shangri-la.com</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.shangri-la.com</website>
+</item>
+<item>
+<title>Irish Village</title>
+<id>939</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/939-irish-village</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/irish_village_the/listsmall/iv_bar_1_listsmall.jpg</image>
+<location>Dubai Tennis Stadium, Garhoud, Dubai</location>
+<telephone>04 282 4750</telephone>
+<type>Pub, Sports bar</type>
+<latitude>25.242619</latitude>
+<longitude>55.341740</longitude>
+<email>info@theirishvillage.ae</email>
+<timings>Open Fri-Tue 11am-1am, Wed-Thu 11am-2.45am</timings>
+<website>www.theirishvillage.ae</website>
+</item>
+<item>
+<title>Issimo Bar & Lounge</title>
+<id>911</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/911-issimo-bar-a-lounge</link>
+<location>Baniyas Street, Deira, Dubai</location>
+<telephone>04 227 1111</telephone>
+<type>Cocktail bar, Sports bar</type>
+<email>info.creek@hilton.com</email>
+<timings>Open daily 11am-2am</timings>
+<website>www.hilton.com</website>
+</item>
+<item>
+<title>JamBase</title>
+<id>955</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/955-jambase</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/jambase/listsmall/jambase_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 366 6914</telephone>
+<type>Bars</type>
+<email>mjrestaurants@jumeirah.com</email>
+<timings>Open daily 7pm-2am</timings>
+<website>www.madinatjumeirah.com</website>
+</item>
+<item>
+<title>Jockeys</title>
+<id>842</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/842-jockeys</link>
+<location>Al Mankhool Road, Bur Dubai, Dubai</location>
+<telephone>04 351 8518</telephone>
+<type>Pub</type>
+<email></email>
+<timings>Open daily noon-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Jules Bar</title>
+<id>843</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/843-jules-bar</link>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 0000</telephone>
+<type>Bars</type>
+<email>reservation@lmdubai.com</email>
+<timings>Open Tue-Fri 11pm-2.45am</timings>
+<website>www.dubai.lemeridien.com</website>
+</item>
+<item>
+<title>Kasbar</title>
+<id>844</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/844-kasbar</link>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 9999</telephone>
+<type>Nightclub</type>
+<email>info@oneandonlyroyalmirage.ae</email>
+<timings>Open Mon-Sat 9.30pm-3am</timings>
+<website>www.oneandonlyresorts.com</website>
+</item>
+<item>
+<title>Keva</title>
+<id>1162</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1162-keva</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/keva/listsmall/keva_1_bar_listsmall.jpg</image>
+<location>Al Nasr Leisureland, Oud Metha , Oud Metha, Dubai</location>
+<telephone>04 334 4159</telephone>
+<type>Nightclub</type>
+<latitude>25.238991</latitude>
+<longitude>55.312191</longitude>
+<email></email>
+<timings>Open daily 8pm-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Koubba</title>
+<id>835</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/835-koubba</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 366 6730</telephone>
+<type>Bars</type>
+<email>mjrestaurants@jumeirah.com</email>
+<timings>Open daily 7.30pm-2am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Ku-Bu</title>
+<id>920</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/920-ku-bu</link>
+<location>Baniyas Road, Deira, Dubai</location>
+<telephone>04 222 7171</telephone>
+<type>Nightclub</type>
+<email>info.deiracreek.dubai@radissonsas.com</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.deiracreek.dubai.radissonsas.com</website>
+</item>
+<item>
+<title>Left Bank (Madinat)</title>
+<id>930</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/930-left-bank-madinat</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/left_bank/listsmall/left_bank_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 4000</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily noon-2am</timings>
+<website></website>
+</item>
+<item>
+<title>Left Bank (Souk Al Bahar)</title>
+<id>1583</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1583-left-bank-souk-al-bahar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/left_bank/listsmall/lefbankk_1_listsmall.jpg</image>
+<location>Al Doha Street, Downtown Burj Dubai, Dubai</location>
+<telephone>04 368 4501</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily noon-1am</timings>
+<website></website>
+</item>
+<item>
+<title>Alpha</title>
+<id>992</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/992-alpha</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/alpha/listsmall/alpha_2_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 000</telephone>
+<type>Nightclub</type>
+<email>info@alphaclub.ae</email>
+<timings>Open Thu, Tue 6pm-3am; Fri 4pm-3am</timings>
+<website>www.alphaclub.ae</website>
+</item>
+<item>
+<title>Library Lounge</title>
+<id>1062</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1062-library-lounge</link>
+<location>Dubai Media City, Dubai Media City, Dubai</location>
+<telephone>04 366 9111</telephone>
+<type>Bars</type>
+<email>info.mediacity.dubai@radissonblu.com</email>
+<timings>Open Sun-Thu 9am-9pm</timings>
+<website>www.radissonblu.com/hotel-mediacitydubai</website>
+</item>
+<item>
+<title>Lindbergh’s Bar</title>
+<id>845</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/845-lindberghs-bar</link>
+<location>Al Muteena Street, Deira, Dubai</location>
+<telephone>04 268 8888</telephone>
+<type>Cigar bar</type>
+<email>sheratondeira@sheraton.com</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.sheraton.com</website>
+</item>
+<item>
+<title>Locker Room</title>
+<id>984</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/984-locker-room</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/locker_room_the/listsmall/lockeroom0_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Barsha, Dubai</location>
+<telephone>04 341 7750</telephone>
+<type>Sports bar</type>
+<email>food-beverage@goldentulipalbarsha.com</email>
+<timings>Open daily 1pm-4pm, 6pm-1am
+</timings>
+<website>www.goldentulipalbarsha.com</website>
+</item>
+<item>
+<title>Long’s Bar</title>
+<id>846</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/846-longs-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/longs_bar/listsmall/longsbar0_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 312 2202</telephone>
+<type>Pub, Sports bar</type>
+<email>fb.towers@rotana.com</email>
+<timings>Open daily noon-2.30am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>Lotus One</title>
+<id>943</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/943-lotus-one</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/lotus_one/listsmall/lotusone_bar_1_listsmall.jpg</image>
+<location>World Trade Convention Centre, Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 329 3200</telephone>
+<type>Nightclub</type>
+<latitude>25.221878</latitude>
+<longitude>55.288406</longitude>
+<email>info@lotus1.com</email>
+<timings>Open Thu-Fri noon-2am; Sat-Wed noon-midnight</timings>
+<website>www.lotus1.com</website>
+</item>
+<item>
+<title>Lounge Bar</title>
+<id>895</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/895-lounge-bar</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 346 1111</telephone>
+<type>Wine bar</type>
+<email>dxbmarin@emirates.net.ae</email>
+<timings>Open daily 8am-1am</timings>
+<website>www.dxbmarine.com</website>
+</item>
+<item>
+<title>Madinat Jumeirah Rooftop</title>
+<id>1700</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1700-madinat-jumeirah-rooftop</link>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 366 8888</telephone>
+<type>Nightclub</type>
+<email>mjinfo@jumeirah.com</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.madinatjumeirah.com</website>
+</item>
+<item>
+<title>Garage Club</title>
+<id>832</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/832-garage-club</link>
+<location>Nasser Square, Deira, Dubai</location>
+<telephone>04 224 0222</telephone>
+<type>Nightclub</type>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Malécon</title>
+<id>1055</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1055-malecon</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 346 1111</telephone>
+<type>Nightclub</type>
+<email>dxbmarin@emirates.net.ae</email>
+<timings>Open daily 6.30pm-3am</timings>
+<website>www.dxbmarine.com</website>
+</item>
+<item>
+<title>Manila 365</title>
+<id>1052</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1052-manila-365</link>
+<location>Al Rigga Street, Deira, Dubai</location>
+<telephone>04 295 8777</telephone>
+<type>Bars</type>
+<email>rgdh@emirates.net.ae</email>
+<timings>Open daily 9.30pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Manzil</title>
+<id>935</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/935-manzil</link>
+<location>Khalid Bin Walid Street, Bur Dubai, Dubai</location>
+<telephone>04 352 2235</telephone>
+<type>Bars</type>
+<email></email>
+<timings>Open daily 9pm-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Marbles Lobby Bar</title>
+<id>847</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/847-marbles-lobby-bar</link>
+<location>Baniyas Road, Deira, Dubai</location>
+<telephone>04 222 7171</telephone>
+<type>Cocktail bar</type>
+<email>info.deiracreek.dubai@radissonsas.com</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.deiracreek.dubai.radissonsas.com</website>
+</item>
+<item>
+<title>Marine's Club</title>
+<id>936</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/936-marines-club</link>
+<location>Al Mina Road, Bur Dubai, Dubai</location>
+<telephone>04 355 8080</telephone>
+<type>Nightclub</type>
+<email>seaviewh@emirates.net.ae</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.seaviewhoteldubai.com</website>
+</item>
+<item>
+<title>Marlin Pool Bar</title>
+<id>889</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/889-marlin-pool-bar</link>
+<location>Al Maktoum Street, Deira, Dubai</location>
+<telephone>04 228 4444</telephone>
+<type>Beach & pool bar</type>
+<email></email>
+<timings>Open daily 9am-9pm</timings>
+<website></website>
+</item>
+<item>
+<title>Mehfil</title>
+<id>848</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/848-mehfil</link>
+<location>Khalid Bin Walid Street, Bur Dubai, Dubai</location>
+<telephone>04 393 1999</telephone>
+<type>Nightclub</type>
+<email></email>
+<timings>Open daily noon-3pm, 7pm-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Moods Bar</title>
+<id>1060</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1060-moods-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/moods_bar/listsmall/moods1_listsmall.jpg</image>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 5533</telephone>
+<type>Bars</type>
+<email>sherjum@emirates.net.ae</email>
+<timings>Open daily 1pm-3am</timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Moulin Rouge</title>
+<id>982</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/982-moulin-rouge</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/moulin_rouge/listsmall/moulin_rouge_bar_listsmall.jpg</image>
+<location>Rigga Al Buteen Street, Deira, Dubai</location>
+<telephone>04 221 7111</telephone>
+<type>Nightclub</type>
+<email>brodway@emirates.net.ae</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.capitol-hotel.com</website>
+</item>
+<item>
+<title>Music Room</title>
+<id>956</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/956-music-room</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/music_room/listsmall/musicroom_1_listsmall.jpg</image>
+<location>Mankhool Road, Bur Dubai, Dubai</location>
+<telephone>04 359 8888</telephone>
+<type>Bars</type>
+<email>info@dubaimajestic.com</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.dubaimajestic.com</website>
+</item>
+<item>
+<title>MyBar</title>
+<id>974</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/974-mybar</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 343 3333</telephone>
+<type>Bars</type>
+<email>dtdu@dusit.com</email>
+<timings>Open daily 5pm-2am</timings>
+<website>www.dusit.com</website>
+</item>
+<item>
+<title>Nakhuda Bar</title>
+<id>925</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/925-nakhuda-bar</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 366 6730</telephone>
+<type>Bars</type>
+<email>mjrestaurants@jumeirah.com</email>
+<timings>Open Mon-Sat 4pm-1am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Nelson's Bar</title>
+<id>3165</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/3165-nelsons-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/nelsons_bar/listsmall/nelson24809_1_listsmall.jpg</image>
+<location>Al Barsha Road, TECOM, Dubai</location>
+<telephone>04 435 0000</telephone>
+<type>Pub</type>
+<email>fb.media@rotana.com</email>
+<timings>Open daily noon-3am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>St Andrew’s English Pub</title>
+<id>898</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/898-st-andrews-snug</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/st_andrews_english_pub/listsmall/dresbukidss_1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 398 2222</telephone>
+<type>Pub, Sports bar</type>
+<email></email>
+<timings>Open daily noon-midnight</timings>
+<website>www.rydges.com</website>
+</item>
+<item>
+<title>Nezesaussi</title>
+<id>979</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/979-nezesaussi</link>
+<location>Al Doha Street, Downtown Burj Dubai, Dubai</location>
+<telephone>04 428 5888</telephone>
+<type>Sports bar</type>
+<email>reservationsalmanzil@southernsun.ae</email>
+<timings>Open Sun-Thu 6pm-2am; Fri-Sat noon-2am</timings>
+<website>www.southernsunme.com</website>
+</item>
+<item>
+<title>Oeno</title>
+<id>1057</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1057-oeno</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/oeno/listsmall/oeno_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 4141</telephone>
+<type>Wine bar</type>
+<email>serviceexpress.dubai@westin.com</email>
+<timings>Open Sat 6pm-2.30am; Sun-Thu 6pm-1.30am; Fri 6pm-2.30am</timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Old Vic</title>
+<id>849</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/849-old-vic</link>
+<location>Al Mankhool Road, Bur Dubai, Dubai</location>
+<telephone>04 351 9999</telephone>
+<type>Pub, Sports bar</type>
+<email>rhddxb@emirates.net.ae</email>
+<timings>Open daily 7pm-1am</timings>
+<website>www.ramadadubai.com</website>
+</item>
+<item>
+<title>One On One</title>
+<id>994</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/994-one-on-one</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/one_on_one/listsmall/oneon1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 501 8888</telephone>
+<type>Cocktail bar, Wine bar</type>
+<email>welcome@themonarchdubai.com</email>
+<timings>Open daily 1pm-2am</timings>
+<website>www.themonarchdubai.com</website>
+</item>
+<item>
+<title>Oscar's Vine Society</title>
+<id>858</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/858-oscars-vine-society</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/oscars/listsmall/oscar_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 331 1111</telephone>
+<type>Wine bar</type>
+<email>crowneplaza@cpdubai.ae</email>
+<timings>Open Sat-Thu noon-2am, Fri 6pm-2am</timings>
+<website>www.crowneplaza.com</website>
+</item>
+<item>
+<title>Pachanga</title>
+<id>850</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/850-pachanga</link>
+<location>Hilton Dubai Jumeirah, Dubai Marina, Dubai</location>
+<telephone>04 399 1111</telephone>
+<type>Bars</type>
+<email>diana_debley@hilton.com</email>
+<timings>Open daily 6pm-1am</timings>
+<website>www.hilton.com</website>
+</item>
+<item>
+<title>Palm Court</title>
+<id>880</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/880-palm-court</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 406 8999</telephone>
+<type>Bars</type>
+<email>jbhboxoffice@jumeirah.com</email>
+<timings>Open daily 9am-11.30pm</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Pancho Villas</title>
+<id>894</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/894-pancho-villas</link>
+<location>Al Fahidi Street, Bur Dubai, Dubai</location>
+<telephone>04 353 4300</telephone>
+<type>Bars</type>
+<email>astfnb@astmb.com</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.astamb.com</website>
+</item>
+<item>
+<title>Piano Bar</title>
+<id>900</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/900-piano-bar</link>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 5555</telephone>
+<type>Bars</type>
+<email>reservations@lrm-gh-dubai.com</email>
+<timings>Open daily 5pm-1am</timings>
+<website>www.leroyalmeridien-dubai.com</website>
+</item>
+<item>
+<title>Planet Hollywood</title>
+<id>893</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/893-planet-hollywood</link>
+<location>Oud Metha Road, Oud Metha, Dubai</location>
+<telephone>04 324 4777</telephone>
+<type>Bars</type>
+<latitude>25.229177</latitude>
+<longitude>55.321045</longitude>
+<email>fnb.sales@wafi.com</email>
+<timings>Open daily noon-midnight</timings>
+<website>www.planethollywood-dubai.com</website>
+</item>
+<item>
+<title>Player's Lounge</title>
+<id>946</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/946-players-lounge</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/players_lounge/listsmall/playersloung_bar_1_listsmall.jpg</image>
+<location>Port Rashid Road, Bur Dubai, Dubai</location>
+<telephone>04 398 8840</telephone>
+<type>Pub, Sports bar</type>
+<email></email>
+<timings>Open daily 7.30pm-1.30am</timings>
+<website>www.countryclubdubai.com</website>
+</item>
+<item>
+<title>Premiere</title>
+<id>875</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/875-premiere</link>
+<location>Al Khaleej Road, Deira, Dubai</location>
+<telephone>04 209 1234</telephone>
+<type>Nightclub</type>
+<email>dubai.regency@hyattintl.com</email>
+<timings>Open daily 10pm-3am</timings>
+<website>www.dubai.regency.hyatt.com</website>
+</item>
+<item>
+<title>QD’s</title>
+<id>885</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/885-qds</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/qds/listsmall/qds_bar_1_listsmall.jpg</image>
+<location>Dubai Creek Golf & Yacht Club, Garhoud, Dubai</location>
+<telephone>04 295 6000</telephone>
+<type>Bars</type>
+<latitude>25.246161</latitude>
+<longitude>55.331085</longitude>
+<email>dubaicreek@dubaigolf.com</email>
+<timings>Open daily 6pm-1am</timings>
+<website>www.dubaigolf.com</website>
+</item>
+<item>
+<title>Jumeirah Beach Hotel</title>
+<id>23</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/23-jumeirah-beach-hotel</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/jumeirah_beach_hotel/listsmall/jbh_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 348 0000</telephone>
+<latitude>25.141506</latitude>
+<longitude>55.190807</longitude>
+<email>jbhinfo@jumeirah.com</email>
+<timings></timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Le Méridien Dubai</title>
+<id>58</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/58-le-meridien-dubai</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/le_meridien_dubai/listsmall/lemer_airport1_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 0000</telephone>
+<latitude>25.249140</latitude>
+<longitude>55.347725</longitude>
+<email>reservation@lmdubai.com</email>
+<timings></timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Ratsky’s</title>
+<id>983</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/983-ratskys</link>
+<location>Karama Hotel, Karama, Dubai</location>
+<telephone>04 336 6607</telephone>
+<type>Nightclub</type>
+<email>info@karamahotel.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.karamahotel.ae</website>
+</item>
+<item>
+<title>Rattlesnake</title>
+<id>852</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/852-rattlesnake</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 343 0000</telephone>
+<type>Nightclub</type>
+<email>metdubai@habtoorhotels.com</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.habtoorhotels.com</website>
+</item>
+<item>
+<title>Red Lion</title>
+<id>853</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/853-red-lion</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/red_lion_the/listsmall/redlion_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 343 0000</telephone>
+<type>Pub, Sports bar</type>
+<email>metdubai@habtoorhotels.com</email>
+<timings>Open daily noon-1am</timings>
+<website>www.habtoorhotels.com</website>
+</item>
+<item>
+<title>Red Square Nightclub</title>
+<id>941</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/941-red-square-nightclub</link>
+<location>Al Maktoum Street, Deira, Dubai</location>
+<telephone>04 228 8222</telephone>
+<type>Nightclub</type>
+<email>reservation@moscowhoteldubai.com</email>
+<timings>Open daily 7.30pm-3am</timings>
+<website>www.moscowhoteldubai.com</website>
+</item>
+<item>
+<title>Rock Bottom Café</title>
+<id>901</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/901-rock-bottom-cafe</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/rock_bottom_caf/listsmall/rockbot_bar_1_listsmall.jpg</image>
+<location>Trade Center Road, Karama, Dubai</location>
+<telephone>04 396 3888</telephone>
+<type>Pub</type>
+<email>rameedxb@emirates.net.ae</email>
+<timings>Open daily noon-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Rockafellas</title>
+<id>854</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/854-rockafellas</link>
+<location>Al Mankhool Street, Bur Dubai, Dubai</location>
+<telephone>04 355 6633</telephone>
+<type>Nightclub</type>
+<email>regaldxb@emirates.net.ae</email>
+<timings>Open daily 8pm-3am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Rockwell Cafe</title>
+<id>988</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/988-rockwell-cafe</link>
+<location>Al Mina Road, Satwa, Dubai</location>
+<telephone>04 346 0111</telephone>
+<type>Bars</type>
+<email>caphotel@emirates.net.ae</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.capitol-hotel.com</website>
+</item>
+<item>
+<title>Rodeo Bar & Grill</title>
+<id>855</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/855-rodeo-bar-a-grill</link>
+<location>Casablanca Road, Garhoud, Dubai</location>
+<telephone>04 282 0000</telephone>
+<type>Bars</type>
+<email>albustan.hotel@rotana.com</email>
+<timings>Open daily noon-3pm, 7pm-midnight</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>Rumours Nightclub</title>
+<id>902</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/902-rumours-nightclub</link>
+<location>Al Mankhool Road, Bur Dubai, Dubai</location>
+<telephone>04 351 9999</telephone>
+<type>Nightclub</type>
+<email>rhddxb@emirates.net.ae</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.ramadadubai.com</website>
+</item>
+<item>
+<title>Sanctuary</title>
+<id>1161</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1161-sanctuary</link>
+<location>Atlantis, Palm Jumeirah, Palm Jumeirah, Dubai</location>
+<telephone>04 426 0000</telephone>
+<type>Nightclub</type>
+<email>info@atlantisthepalm.com</email>
+<timings>Open daily 9.30pm-3am</timings>
+<website>www.atlantisthepalm.com</website>
+</item>
+<item>
+<title>Sapphire Lounge</title>
+<id>980</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/980-sapphire-lounge</link>
+<location>The Aviation Club, Garhoud, Dubai</location>
+<telephone>04 286 8520</telephone>
+<type>Cocktail bar</type>
+<latitude>25.242172</latitude>
+<longitude>55.342812</longitude>
+<email></email>
+<timings>Open daily 5pm-3am</timings>
+<website>www.thesapphiredubai.com</website>
+</item>
+<item>
+<title>Satchmo’s</title>
+<id>856</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/856-satchmos</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/satchmos/listsmall/satchmoto1_listsmall.jpg</image>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 5555</telephone>
+<type>Bars</type>
+<email>reservations@lrm-gh-dubai.com</email>
+<timings>Open daily 5.30pm-3am</timings>
+<website>www.leroyalmeridien-dubai.com</website>
+</item>
+<item>
+<title>Savage Garden</title>
+<id>937</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/937-savage-garden</link>
+<location>Al Mina Road, Satwa, Dubai</location>
+<telephone>04 346 0111</telephone>
+<type>Nightclub</type>
+<email>caphotel@emirates.net.ae</email>
+<timings>Open Fri-Mon 6pm-3am</timings>
+<website>www.capitol-hotel.com</website>
+</item>
+<item>
+<title>Scarlett’s</title>
+<id>857</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/857-scarletts</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/scarletts/listsmall/scarlett_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 319 8768</telephone>
+<type>Nightclub</type>
+<email>jetrestaurants@jumeirah.com</email>
+<timings>Open daily 12.30pm-3am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Senyar</title>
+<id>996</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/996-senyar</link>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 426 0000</telephone>
+<type>Cocktail bar</type>
+<email>serviceexpress.dubai@westin.com</email>
+<timings>Open Sun-Thu noon-1am, Fri-Sat noon-3am</timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Serai</title>
+<id>926</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/926-serai</link>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 346 1111</telephone>
+<type>Nightclub</type>
+<email>dxbmarin@emirates.net.ae</email>
+<timings>Open daily 10pm-3am</timings>
+<website>www.dxbmarine.com</website>
+</item>
+<item>
+<title>Seville's</title>
+<id>859</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/859-sevilles</link>
+<location>Oud Metha Road, Oud Metha, Dubai</location>
+<telephone>04 324 4777</telephone>
+<type>Bars</type>
+<email>fnb.sales@wafi.com</email>
+<timings>Open Tue-Fri noon-2am; Sat-Mon noon-1am</timings>
+<website>www.wafi.com</website>
+</item>
+<item>
+<title>Sherlock Holmes</title>
+<id>967</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/967-sherlock-holmes</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/sherlock_holmes/listsmall/sherlock_bar_1_listsmall.jpg</image>
+<location>Al Fahidi Street, Bur Dubai, Dubai</location>
+<telephone>04 351 9111</telephone>
+<type>Cigar bar, Pub, Sports bar</type>
+<email>fbd@arabiancourtyard.com</email>
+<timings>Open daily noon-2am</timings>
+<website>www.arabiancourtyard.com</website>
+</item>
+<item>
+<title>Sho Cho</title>
+<id>860</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/860-sho-cho</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/sho_cho/listsmall/shocho_bar_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 346 1111</telephone>
+<type>Nightclub</type>
+<email>dxbmarin@emirates.net.ae</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.dxbmarine.com</website>
+</item>
+<item>
+<title>Sketch</title>
+<id>966</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/966-sketch</link>
+<location>Al Maktoum Street, Deira, Dubai</location>
+<telephone>04 227 0000</telephone>
+<type>Bars</type>
+<email>palacedubai@habtoorhotels.com</email>
+<timings>Open daily noon-2am</timings>
+<website>www.habtoorhotels.com</website>
+</item>
+<item>
+<title>Sky</title>
+<id>965</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/965-sky</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 343 0000</telephone>
+<type>Bars</type>
+<email>metdubai@habtoorhotels.com</email>
+<timings>Open daily 7.30pm-2am</timings>
+<website>www.habtoorhotels.com</website>
+</item>
+<item>
+<title>Après</title>
+<id>810</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/810-apres</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/aprs/listsmall/apres_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Barsha, Dubai</location>
+<telephone>04 341 2575</telephone>
+<type>Cocktail bar</type>
+<email></email>
+<timings>Open daily noon-2am</timings>
+<website>www.mmidubai.com</website>
+</item>
+<item>
+<title>SKYYline Bar</title>
+<id>6734</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/6734-skyyline-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/skyyline_bar/listsmall/skyline180110_1_listsmall.jpg</image>
+<location>Al Rebat Street, Festival City, Dubai</location>
+<telephone>04 701 2222</telephone>
+<type>Bars</type>
+<email>crowneplaza@cpdfc.ae</email>
+<timings>Open Mon-Sat 7pm till late</timings>
+<website>www.crowneplaza.com</website>
+</item>
+<item>
+<title>Sol Juice Bar</title>
+<id>882</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/882-sol-juice-bar</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 332 5555</telephone>
+<type>Bars</type>
+<email>fbconcierge.dubai@fairmont.com</email>
+<timings>Open daily 9am-10pm</timings>
+<website>www.fairmont.com</website>
+</item>
+<item>
+<title>Somerset’s</title>
+<id>903</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/903-somersets</link>
+<location>Oud Metha Street, Oud Metha, Dubai</location>
+<telephone>04 336 6000</telephone>
+<type>Pub, Sports bar</type>
+<email>hotel.burdubai@moevenpick.com</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.moevenpick-hotels.com</website>
+</item>
+<item>
+<title>Le Méridien Dubai</title>
+<id>58</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/58-le-meridien-dubai</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/le_meridien_dubai/listsmall/lemer_airport1_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 0000</telephone>
+<latitude>25.249140</latitude>
+<longitude>55.347725</longitude>
+<email>reservation@lmdubai.com</email>
+<timings></timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>St Andrew’s English Pub</title>
+<id>898</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/898-st-andrews-snug</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/st_andrews_english_pub/listsmall/dresbukidss_1_listsmall.jpg</image>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 398 2222</telephone>
+<type>Pub, Sports bar</type>
+<email></email>
+<timings>Open daily noon-midnight</timings>
+<website>www.rydges.com</website>
+</item>
+<item>
+<title>Stag’s Head</title>
+<id>861</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/861-stags-head</link>
+<location>Al Rigga Street, Deira, Dubai</location>
+<telephone>04 295 6666</telephone>
+<type>Pub</type>
+<email>sales@avari-dubai.co.ae</email>
+<timings>Open daily noon-4pm, 6pm-3am</timings>
+<website>www.avari.com</website>
+</item>
+<item>
+<title>Stars Studio</title>
+<id>862</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/862-stars-studio</link>
+<location>Al Muteena Street, Deira, Dubai</location>
+<telephone>04 268 8888</telephone>
+<type>Nightclub</type>
+<email>sheratondeira@sheraton.com</email>
+<timings>Open daily 9pm-3am</timings>
+<website>www.sheraton.com</website>
+</item>
+<item>
+<title>Studio One</title>
+<id>863</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/863-studio-one</link>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 1111</telephone>
+<type>Cocktail bar, Sports bar</type>
+<email>dubai-jumeirah@hilton.com</email>
+<timings>Open daily 4pm-1am</timings>
+<website>www.hilton.com</website>
+</item>
+<item>
+<title>Submarine</title>
+<id>987</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/987-submarine</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/submarine/listsmall/submarine_bar_1_listsmall.jpg</image>
+<location>Kuwait Street, Bur Dubai, Dubai</location>
+<telephone>04 359 9992</telephone>
+<type>Nightclub</type>
+<email>info@dhowpalacedubai.com</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.dhowpalacedubai.com</website>
+</item>
+<item>
+<title>Tamanya Terrace</title>
+<id>961</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/961-tamanya-terrace</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/tamanya_terrace/listsmall/tamanaterrace_1_listsmall.jpg</image>
+<location>Dubai Media City, Dubai Media City, Dubai</location>
+<telephone>04 366 9111</telephone>
+<type>Bars</type>
+<email>info.mediacity.dubai@radissonblu.com</email>
+<timings>Open Sun-Thu 5pm-2am; Fri-Sat 6pm-2am</timings>
+<website>www.radissonblu.com/hotel-mediacitydubai</website>
+</item>
+<item>
+<title>Tehran By Night</title>
+<id>864</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/864-tehran-by-night</link>
+<location>Al Ras Street, Deira, Dubai</location>
+<telephone>04 225 1122</telephone>
+<type>Nightclub</type>
+<email>reservation@stgeorgedubai.ae</email>
+<timings>Open daily 10.30pm-3am</timings>
+<website>www.stgeorgedubai.ae</website>
+</item>
+<item>
+<title>The Agency</title>
+<id>809</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/809-the-agency</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/agency_the/listsmall/agency_bar_mj_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 330 0000</telephone>
+<type>Wine bar</type>
+<email>jetrestaurants@jumeirah.com</email>
+<timings>Open daily noon-1am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>The Agency</title>
+<id>938</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/938-the-agency</link>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 366 6730</telephone>
+<type>Wine bar</type>
+<email>mjrestaurants@jumeirah.com</email>
+<timings>Open daily noon-1am</timings>
+<website>www.madinatjumeirah.com</website>
+</item>
+<item>
+<title>The Bar</title>
+<id>931</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/931-the-bar</link>
+<location>Al Khaleej Road, Deira, Dubai</location>
+<telephone>04 209 1234</telephone>
+<type>Bars</type>
+<email>dubai.regency@hyattintl.com</email>
+<timings>Open daily noon-4pm, 6pm-3am</timings>
+<website>www.dubai.regency.hyatt.com</website>
+</item>
+<item>
+<title>Jumeirah Beach Hotel</title>
+<id>23</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/23-jumeirah-beach-hotel</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/jumeirah_beach_hotel/listsmall/jbh_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 348 0000</telephone>
+<latitude>25.141506</latitude>
+<longitude>55.190807</longitude>
+<email>jbhinfo@jumeirah.com</email>
+<timings></timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>The Boardwalk</title>
+<id>892</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/892-the-boardwalk</link>
+<location>Dubai Creek Golf & Yacht Club, Deira, Dubai</location>
+<telephone>04 295 6000</telephone>
+<type>Bars</type>
+<latitude>25.245686</latitude>
+<longitude>55.331345</longitude>
+<email>dubaicreek@dubaigolf.com</email>
+<timings>Open daily 8am-1am</timings>
+<website>www.dubaigolf.com</website>
+</item>
+<item>
+<title>The Cellar</title>
+<id>816</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/816-the-cellar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/cellar_the/listsmall/cellar_bar_1_listsmall.jpg</image>
+<location>Casablanca Road, Garhoud, Dubai</location>
+<telephone>04 282 4122</telephone>
+<type>Wine bar</type>
+<latitude>25.242310</latitude>
+<longitude>55.341515</longitude>
+<email>thecellar@aviationclub.ae</email>
+<timings>Open daily noon-1am</timings>
+<website>www.aviationclub.ae</website>
+</item>
+<item>
+<title>The English Pub</title>
+<id>1044</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1044-the-english-pub</link>
+<location>Baniyas Road, Deira, Dubai</location>
+<telephone>04 222 7171</telephone>
+<type>Pub, Sports bar</type>
+<email>info.deiracreek.dubai@radissonsas.com</email>
+<timings>Open daily 6pm-1am</timings>
+<website>www.deiracreek.dubai.radissonsas.com</website>
+</item>
+<item>
+<title>The High Mile Club</title>
+<id>6615</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/6615-the-high-mile-club</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/the_high_mile_club/listsmall/thehighmileclub_listsmall.jpg</image>
+<location>Al Mankhool Road, Bur Dubai, Dubai</location>
+<telephone>04 325 9000</telephone>
+<type>Bars</type>
+<email>info@manhattan-dubai.com</email>
+<timings>Open daily noon-3am</timings>
+<website>www.manhattan-dubai.com</website>
+</item>
+<item>
+<title>The Q</title>
+<id>4953</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/4953-the-q</link>
+<location>Sheikh Zayed Road, Barsha, Dubai</location>
+<telephone>04 323 4333</telephone>
+<type>Sports bar</type>
+<email></email>
+<timings>Open daily 11am-2am</timings>
+<website></website>
+</item>
+<item>
+<title>The Roof Top</title>
+<id>923</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/923-the-roof-top</link>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 399 9999</telephone>
+<type>Bars</type>
+<email>info@oneandonlyroyalmirage.ae</email>
+<timings>Open daily 5pm-1am</timings>
+<website>www.oneandonlyresorts.com</website>
+</item>
+<item>
+<title>The Terrace</title>
+<id>6613</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/6613-the-terrace</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/the_terrace/listsmall/theterracebar_1_listsmall.jpg</image>
+<location>Al Barsha Road, TECOM, Dubai</location>
+<telephone>04 435 0000</telephone>
+<type>Bars</type>
+<email>fb.media@rotana.com</email>
+<timings>Open daily 10am-1am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>The Terrace</title>
+<id>1064</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1064-the-terrace</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/terrace_the/listsmall/theterrace_bar_1_listsmall.jpg</image>
+<location>Al Garhoud Road, Deira, Dubai</location>
+<telephone>04 602 1234</telephone>
+<type>Cocktail bar</type>
+<email>dubai.park@hyatt.com</email>
+<timings>Open daily noon-1.30am</timings>
+<website>www.dubai.park.hyatt.com</website>
+</item>
+<item>
+<title>Boston Bar</title>
+<id>819</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/819-boston-bar</link>
+<location>Al Diyafah Street, Satwa, Dubai</location>
+<telephone>04 345 5888</telephone>
+<type>Pub, Sports bar</type>
+<email>jumeira.hotel@rotana.com</email>
+<timings>Open daily noon-3am</timings>
+<website>www.rotana.com</website>
+</item>
+<item>
+<title>Tiki Bar</title>
+<id>940</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/940-tiki-bar</link>
+<location>Salahuddin Road, Deira, Dubai</location>
+<telephone>04 262 5555</telephone>
+<type>Cocktail bar</type>
+<email></email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.marriott.com</website>
+</item>
+<item>
+<title>Time Café</title>
+<id>981</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/981-time-cafe</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/time_caf/listsmall/timecafe_barr_1_listsmall.jpg</image>
+<location>Near Al Maktoum Bridge, Karama, Dubai</location>
+<telephone>04 334 4088</telephone>
+<type>Sports bar</type>
+<email>rameeryl@emirates.net.ae</email>
+<timings>Open daily 7pm-1am</timings>
+<website>www.ramee-group.com</website>
+</item>
+<item>
+<title>Touch</title>
+<id>891</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/891-touch</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/touch/listsmall/touch_1_listsmall.jpg</image>
+<location>Khalid Bin Walid Street, Bur Dubai, Dubai</location>
+<telephone>04 397 7444</telephone>
+<type>Nightclub</type>
+<email></email>
+<timings>Open daily 10pm-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Trader Vic's (Madinat)</title>
+<id>958</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/958-trader-vics-madinat</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/trader_vics/listsmall/trader_mj_bar_1_listsmall.jpg</image>
+<location>Al Sufouh Road, Jumeirah, Dubai</location>
+<telephone>04 366 5646</telephone>
+<type>Cocktail bar</type>
+<email>tradervicsmadinat@crowneplaza.co.ae</email>
+<timings>Open Sat-Wed 6pm-1.15am; Thu-Fri 6pm-1.20am</timings>
+<website>www.tradervics.com</website>
+</item>
+<item>
+<title>Trader Vic's Mai-Tai Lounge</title>
+<id>1059</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1059-trader-vics-mai-tai-lounge</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/trader_vics_mai-tai_lounge/listsmall/trader_1_listsmall.jpg</image>
+<location>Al Fattan Towers, Dubai Marina, Dubai</location>
+<telephone>04 399 8993</telephone>
+<type>Cocktail bar</type>
+<email>maitaialfattan@rmalhospitality.ae</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.tradervics.com</website>
+</item>
+<item>
+<title>Trader Vic’s (Crowne Plaza)</title>
+<id>865</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/865-trader-vics-crowne-plaza</link>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 331 1111</telephone>
+<type>Cocktail bar</type>
+<email>tradervics@cpdubai.ae</email>
+<timings>Open daily 6pm-2am</timings>
+<website>www.tradervics.com</website>
+</item>
+<item>
+<title>Traiteur Bar</title>
+<id>942</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/942-traiteur-bar</link>
+<location>Al Garhoud Road, Deira, Dubai</location>
+<telephone>04 602 1234</telephone>
+<type>Wine bar</type>
+<email>dubai.park@hyatt.com</email>
+<timings>Open daily noon-3pm, 7pm-midnight</timings>
+<website>www.dubai.park.hyatt.com</website>
+</item>
+<item>
+<title>Up on the Tenth</title>
+<id>887</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/887-up-on-the-tenth</link>
+<location>Baniyas Road, Deira, Dubai</location>
+<telephone>04 222 7171</telephone>
+<type>Bars</type>
+<email>info.deiracreek.dubai@radissonsas.com</email>
+<timings>Open daily 6.30pm-3am</timings>
+<website>www.deiracreek.dubai.radissonsas.com</website>
+</item>
+<item>
+<title>Uptown Bar</title>
+<id>881</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/881-uptown-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/uptown_bar/listsmall/uptownbar_bar_1_listsmall.jpg</image>
+<location>Jumeirah Beach Road, Jumeirah, Dubai</location>
+<telephone>04 406 8999</telephone>
+<type>Cocktail bar</type>
+<email>jbhboxoffice@jumeirah.com</email>
+<timings>Open daily 7pm-2am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Velvet Lounge</title>
+<id>1051</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1051-velvet-lounge</link>
+<location>Al Maktoum Street, Deira, Dubai</location>
+<telephone>04 223 1000</telephone>
+<type>Bars</type>
+<email>reservations@alkhaleejhotels.ae</email>
+<timings>Open daily 6pm-3am</timings>
+<website>www.alkhaleejhotels.com</website>
+</item>
+<item>
+<title>Viceroy</title>
+<id>866</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/866-viceroy</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/viceroy_the/listsmall/viceroy_bar_1_listsmall.jpg</image>
+<location>Khalid Bin Walid Street, Bur Dubai, Dubai</location>
+<telephone>04 397 7444</telephone>
+<type>Pub</type>
+<email></email>
+<timings>Open daily noon-2am</timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Vinoteca</title>
+<id>927</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/927-vinoteca</link>
+<location>Oud Metha Road, Oud Metha, Dubai</location>
+<telephone>04 317 1234</telephone>
+<type>Wine bar</type>
+<email>dubai.grand@hyatt.com</email>
+<timings>Open daily noon-3pm, 6pm-11.30pm</timings>
+<website>www.dubai.grand.hyatt.com</website>
+</item>
+<item>
+<title>Vintage</title>
+<id>910</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/910-vintage</link>
+<location>Oud Metha Road, Oud Metha, Dubai</location>
+<telephone>04 324 4100</telephone>
+<type>Wine bar</type>
+<latitude>25.230013</latitude>
+<longitude>55.318672</longitude>
+<email>fnb.sales@wafi.com</email>
+<timings>Open Sat-Wed 6pm-1.30am; Thu-Fri 4am-2am</timings>
+<website>www.wafi.com</website>
+</item>
+<item>
+<title>Vista Lounge & Bar</title>
+<id>991</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/991-vista-lounge-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/vista/listsmall/vista_1_listsmall.jpg</image>
+<location>Al Rebat Street, Festival City, Dubai</location>
+<telephone>04 701 1111</telephone>
+<type>Cocktail bar</type>
+<email>intercontinental@ichdfc.ae</email>
+<timings>Open daily 6.30pm-11.30pm</timings>
+<website>www.ichotelsgroup.com</website>
+</item>
+<item>
+<title>Voodoo</title>
+<id>959</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/959-voodoo</link>
+<location>Abu Hail Road, Deira, Dubai</location>
+<telephone>04 266 2666</telephone>
+<type>Nightclub</type>
+<email>ramadadb@emirates.net.ae</email>
+<timings>Open daily 7pm-3am</timings>
+<website>www.ramadacontinental.com</website>
+</item>
+<item>
+<title>Vu’s Bar</title>
+<id>867</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/867-vus-bar</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/vus_bar/listsmall/vubar_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 330 0000</telephone>
+<type>Wine bar</type>
+<email>jetrestaurants@jumeirah.com</email>
+<timings>Open daily 7pm-1am</timings>
+<website>www.jumeirah.com</website>
+</item>
+<item>
+<title>Le Méridien Dubai</title>
+<id>58</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/58-le-meridien-dubai</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/le_meridien_dubai/listsmall/lemer_airport1_listsmall.jpg</image>
+<location>Airport Road, Garhoud, Dubai</location>
+<telephone>04 217 0000</telephone>
+<latitude>25.249140</latitude>
+<longitude>55.347725</longitude>
+<email>reservation@lmdubai.com</email>
+<timings></timings>
+<website>www.starwoodhotels.com</website>
+</item>
+<item>
+<title>Wavebreaker</title>
+<id>1056</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/1056-wavebreaker</link>
+<location>Al Sufouh Road, Dubai Marina, Dubai</location>
+<telephone>04 399 1111</telephone>
+<type>Bars</type>
+<email>dubai-jumeirah@hilton.com</email>
+<timings>Open daily 10am-9pm</timings>
+<website>www.hilton.com</website>
+</item>
+<item>
+<title>Waxy's</title>
+<id>922</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/922-waxys</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/waxy_oconners/listsmall/waxy_barr_1_listsmall.jpg</image>
+<location>Khalid Bin Walid Street, Bur Dubai, Dubai</location>
+<telephone>04 352 0900 </telephone>
+<type>Pub, Sports bar</type>
+<email>waxys@ascot.ae</email>
+<timings>Open daily 10am-3am</timings>
+<website></website>
+</item>
+<item>
+<title>Zinc</title>
+<id>916</id>
+<link>http://v7.test.timeoutdubai.com/bars/details/916-zinc</link>
+<image>http:://v7.test.timeoutdubai.com/images/outlets/zinc/listsmall/zinc_bar_1_listsmall.jpg</image>
+<location>Sheikh Zayed Road, Sheikh Zayed Road, Dubai</location>
+<telephone>04 331 1111</telephone>
+<type>Nightclub</type>
+<email>zinc@cpdubai.ae</email>
+<timings>Open daily 10pm-3am</timings>
+<website>www.crowneplaza.com</website>
+</item>
+>>>>>>> 1b6a35cd9a9fe50677cd55e449ab97733fb64ea0
 </outlets>

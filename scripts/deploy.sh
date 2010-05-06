@@ -11,15 +11,25 @@ if (($# == 1)); then
  # Include .sh from the deploy folder
  DEPLOY_ENV=$1
  DEPLOY_FILE=$DEPLOY_ENV.sh
+<<<<<<< HEAD
+ 
+ if [ -f $DEPLOY_FILE ]; then
+   source $CURRENT_DIR/$DEPLOY_FILE
+=======
 
 
  if [ -f $CURRENT_DIR/scripts/$DEPLOY_FILE ]; then
    source $CURRENT_DIR/scripts/$DEPLOY_FILE
+>>>>>>> 1b6a35cd9a9fe50677cd55e449ab97733fb64ea0
  else
    echo "Could not find deploy file for $DEPLOY_ENV environment, it should be located in $DEPLOY_FILE"
    exit 1
  fi
+<<<<<<< HEAD
+   
+=======
 
+>>>>>>> 1b6a35cd9a9fe50677cd55e449ab97733fb64ea0
  echo "Deploying $APP_NAME to $DEPLOY_ENV environment."
 
 else
@@ -63,7 +73,22 @@ do
  #echo ${ARRAY[*]}
 
 
+<<<<<<< HEAD
+done       
+
+
+
+
+  
+
+
+
+
+
+
+=======
 done
+>>>>>>> 1b6a35cd9a9fe50677cd55e449ab97733fb64ea0
 
 
 echo "Finished successfully"

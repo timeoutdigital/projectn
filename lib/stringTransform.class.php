@@ -170,6 +170,7 @@ class stringTransform
 
 
     $transformedSubject = '';
+    
 
     switch(strlen($subject))
     {
@@ -177,6 +178,9 @@ class stringTransform
         break;
     
         case '8':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{1})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
+        break;
+
+        case '9':       $transformedSubject = preg_replace("/^([0-9]{1})([0-9]{4})/", "$1 $2 ", $subject);
         break;
 
         case '10';      $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
@@ -268,11 +272,13 @@ class stringTransform
    * @return string the price range string
    *
   */
-  public static function formatPriceRange( $minPrice, $maxPrice, $format='long' )
+  public static function formatPriceRange( $minPrice, $maxPrice=0, $format='long' )
   {
     $returnString = '';
+    $pricesAreNumeric  = is_numeric( $minPrice ) &&  is_numeric( $maxPrice );
+    $pricesAreOverZero = (0 < (int) $minPrice)   &&  (0 <= (int) $maxPrice);
 
-    if ( is_numeric( $minPrice ) && is_numeric( $maxPrice ) && 0 < (int) $minPrice &&  0 <= (int) $maxPrice )
+    if ( $pricesAreNumeric && $pricesAreOverZero )
     {
       $moneyFormatString = '%.2n';
 
