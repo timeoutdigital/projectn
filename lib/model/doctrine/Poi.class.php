@@ -161,7 +161,7 @@ class Poi extends BasePoi
   {
      if(strlen($this['phone']) > 0)
      {
-      $this['phone'] = stringTransform::formatPhoneNumber( trim($this['phone']), $this['Vendor']['inernational_dial_code'] );
+       $this['phone'] = stringTransform::formatPhoneNumber( trim($this['phone']), $this['Vendor']['inernational_dial_code'] );
      }
   }
 
@@ -242,6 +242,10 @@ class Poi extends BasePoi
    */
   public function addMediaByUrl( $urlString )
   {
+    //@todo log missing images
+    if( empty( $urlString ) )
+      return;
+
     if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
     {
         throw new Exception('Failed to add Poi Media due to missing Vendor city');
