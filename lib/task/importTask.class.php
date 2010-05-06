@@ -339,6 +339,7 @@ class importTask extends sfBaseTask
         }
         break; //end lisbon
 
+      //sydney is dirty I know... needs fixing bad, like the rest of this task
       case 'sydney':
         $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
         $importer->addLogger( new logImport( $vendor ) );
@@ -360,7 +361,7 @@ class importTask extends sfBaseTask
             $ftpFiles[ 'event' ] = $filename;
 
           else if( strpos( $filename, 'film' ) !== false )
-            $ftpFiles[ 'film' ] = $filename;
+            $ftpFiles[ 'movie' ] = $filename;
         }
 
         switch( $options['type'] )
@@ -371,6 +372,14 @@ class importTask extends sfBaseTask
             $this->output( 'xml received' );
             $xml = simplexml_load_file( $downloadedFile );
             $importer->addDataMapper( new sydneyFtpVenuesMapper( $vendor, $xml ) );
+            break;
+
+          case 'movie':
+            $this->output( 'fetching xml...' );
+            $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'movie' ], 'movie.xml' );
+            $this->output( 'xml received' );
+            $xml = simplexml_load_file( $downloadedFile );
+            $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $xml ) );
             break;
         }
         break;
