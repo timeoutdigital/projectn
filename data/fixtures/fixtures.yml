@@ -204,7 +204,7 @@ Vendor:
     time_zone:                Australia/Sydney
     inernational_dial_code:   '+61'
     airport_code:             'SYD'
-    country_code:             'AUS'
+    country_code:             'au'
     geo_boundries:            '-43.74980833333333;112.91105;-9.212524999999999;153.6392833333333'
   v9:
     city:                     kuala lumpur
