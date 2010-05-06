@@ -58,6 +58,88 @@ class Event extends BaseEvent
     $this[ 'EventProperty' ][] = $eventPropertyObj;
   }
 
+  public function setCriticsChoiceProperty( $isCriticsChoice )
+  {
+    if( !is_bool($isCriticsChoice))
+      throw new Exception( 'Parameter must be a boolean value.' );
+
+    if( $isCriticsChoice )
+      $this->addProperty( 'Critics_choice', 'Y' );
+    //@todo else removeProperty
+  }
+
+  public function getCriticsChoiceProperty()
+  {
+    foreach ( $this['EventProperty'] as $property )
+    {
+      if ( $property[ 'lookup' ] == 'Critics_choice' )
+      {
+        return $property[ 'value' ];
+      }
+    }
+  }
+
+  public function setRecommendedProperty($isRecommended)
+  {
+    if( !is_bool( $isRecommended ))
+      throw new Exception( 'Parameter must be a boolean value.' );
+
+    if( $isRecommended )
+      $this->addProperty( 'Recommended', 'Y' );
+    //@todo else removeProperty
+  }
+
+  public function getRecommendedProperty()
+  {
+    foreach ( $this['EventProperty'] as $property )
+    {
+      if ( $property[ 'lookup' ] == 'Recommended' )
+      {
+        return $property[ 'value' ];
+      }
+    }
+  }
+
+  public function setFreeProperty( $isFree )
+  {
+    if( !is_bool($isFree))
+      throw new Exception( 'Parameter must be a boolean value.' );
+
+    if( $isFree )
+      $this->addProperty( 'Free', 'Y' );
+    //@todo else removeProperty
+  }
+
+  public function getFreeProperty()
+  {
+    foreach ( $this['EventProperty'] as $property )
+    {
+      if ( $property[ 'lookup' ] == 'Free' )
+      {
+        return $property[ 'value' ];
+      }
+    }
+  }
+
+  public function setTimeoutLinkProperty( $url )
+  {
+    if( empty($url) )
+      return; //@todo consider logging
+
+    $this->addProperty( 'Timeout_link', $url );
+  }
+
+  public function getTimeoutLinkProperty()
+  {
+    foreach ( $this['EventProperty'] as $property )
+    {
+      if ( $property[ 'lookup' ] == 'Timeout_link' )
+      {
+        return $property[ 'value' ];
+      }
+    }
+  }
+
   public function addVendorCategory( $name, $vendorId = null )
   {
     if( !$vendorId )
@@ -97,6 +179,10 @@ class Event extends BaseEvent
    */
   public function addMediaByUrl( $urlString )
   {
+    //@todo log missing images
+    if( empty( $urlString ) )
+      return;
+
     if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
     {
         throw new Exception('Failed to add Event Media due to missing Vendor city');

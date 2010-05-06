@@ -1,12 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <venues>
 	<event>
 		<EventID><![CDATA[17343]]></EventID>
 		<VenueID><![CDATA[3169]]></VenueID>
 		<Name><![CDATA[Ascension]]></Name>
 		<Website><![CDATA[]]></Website>
-		<Description><![CDATA[Sydney Leather Pride Association brngs Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis
-kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.]]></Description>
+		<Description><![CDATA[Sydney Leather Pride Association brngs Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.]]></Description>
 		<Time><![CDATA[3pm–12am]]></Time>
 		<Phone><![CDATA[]]></Phone>
 		<Price><![CDATA[]]></Price>
@@ -23,7 +22,7 @@ kick the afternoon off and see the leather and fetish geared up crowd working th
 		<Justopen><![CDATA[False]]></Justopen>
 		<Gearedgirls><![CDATA[False]]></Gearedgirls>
 		<Gearedboys><![CDATA[False]]></Gearedboys>
-		<Rating><![CDATA[0]]></Rating>
+		<Rating><![CDATA[1]]></Rating>
 		<DateFirstShowOnSite><![CDATA[1/01/1900 12:00:00 AM]]></DateFirstShowOnSite>
 		<RelatedKeyword><![CDATA[]]></RelatedKeyword>
 		<RestaurantLocation><![CDATA[]]></RestaurantLocation>
@@ -51,11 +50,10 @@ kick the afternoon off and see the leather and fetish geared up crowd working th
 	</event>
 	<event>
 		<EventID><![CDATA[17344]]></EventID>
-		<VenueID><![CDATA[3169]]></VenueID>
+		<VenueID><![CDATA[1]]></VenueID>
 		<Name><![CDATA[Ascension]]></Name>
-		<Website><![CDATA[]]></Website>
-		<Description><![CDATA[Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis
-kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.]]></Description>
+		<Website><![CDATA[http://www.somewebsite.com]]></Website>
+		<Description><![CDATA[Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.]]></Description>
 		<Time><![CDATA[3pm–12am]]></Time>
 		<Phone><![CDATA[]]></Phone>
 		<Price><![CDATA[]]></Price>
@@ -72,7 +70,7 @@ kick the afternoon off and see the leather and fetish geared up crowd working th
 		<Justopen><![CDATA[False]]></Justopen>
 		<Gearedgirls><![CDATA[False]]></Gearedgirls>
 		<Gearedboys><![CDATA[False]]></Gearedboys>
-		<Rating><![CDATA[0]]></Rating>
+		<Rating><![CDATA[1]]></Rating>
 		<DateFirstShowOnSite><![CDATA[1/01/1900 12:00:00 AM]]></DateFirstShowOnSite>
 		<RelatedKeyword><![CDATA[]]></RelatedKeyword>
 		<RestaurantLocation><![CDATA[]]></RestaurantLocation>
@@ -84,7 +82,7 @@ kick the afternoon off and see the leather and fetish geared up crowd working th
 		<DateInserted><![CDATA[29/03/2010 10:01:00 AM]]></DateInserted>
 		<DateUpdated><![CDATA[29/03/2010 10:01:00 AM]]></DateUpdated>
 		<OtherVenue><![CDATA[]]></OtherVenue>
-		<ImagePath><![CDATA[]]></ImagePath>
+		<ImagePath><![CDATA[http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg]]></ImagePath>
 		<Link1><![CDATA[]]></Link1>
 		<Link2><![CDATA[]]></Link2>
 		<Link3><![CDATA[]]></Link3>
@@ -116,7 +114,7 @@ kick the afternoon off and see the leather and fetish geared up crowd working th
 		<DateFrom><![CDATA[3/04/2010 12:00:00 AM]]></DateFrom>
 		<DateTo><![CDATA[3/04/2010 12:00:00 AM]]></DateTo>
 		<CriticsPick><![CDATA[False]]></CriticsPick>
-		<Recommended><![CDATA[False]]></Recommended>
+		<Recommended><![CDATA[True]]></Recommended>
 		<Free><![CDATA[False]]></Free>
 		<Bs><![CDATA[False]]></Bs>
 		<Veg><![CDATA[False]]></Veg>
