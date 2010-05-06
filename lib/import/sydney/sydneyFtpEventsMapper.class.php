@@ -46,16 +46,18 @@ class sydneyFtpEventsMapper extends DataMapper
       
       try
       {
-          $event = $this->dataMapperHelper->getEventRecord( (string) $eventNode->Name );
+          $event = $this->dataMapperHelper->getEventRecord( substr( md5( (string) $eventNode->Name ), 0, 9 ) );
 
           $event['review_date']             = $this->extractDate( (string) $eventNode->DateUpdated );
-          $event['vendor_event_id']         = (string) $eventNode->Name;
+          $event['vendor_event_id']         = substr( md5( (string) $eventNode->Name ), 0, 9 );
           $event['name']                    = (string) $eventNode->Name;
           $event['description']             = (string) $eventNode->Description;
           $event['url']                     = (string) $eventNode->Website;
           $event['price']                   = stringTransform::formatPriceRange( (int) $eventNode->PriceFrom, (int) $eventNode->PriceTo );;
           $event['rating']                  = (string) $eventNode->Rating;
           $event['Vendor']                  = $this->vendor;
+
+          
 
           $event->addVendorCategory( $this->extractVendorCategories( $eventNode ), $this->vendor );
 
