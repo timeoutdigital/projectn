@@ -374,6 +374,14 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new sydneyFtpVenuesMapper( $vendor, $xml ) );
             break;
 
+          case 'event':
+            $this->output( 'fetching xml...' );
+            $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'event' ], 'event.xml' );
+            $this->output( 'xml received' );
+            $xml = simplexml_load_file( $downloadedFile );
+            $importer->addDataMapper( new sydneyFtpEventsMapper( $vendor, $xml ) );
+            break;
+
           case 'movie':
             $this->output( 'fetching xml...' );
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'movie' ], 'movie.xml' );
