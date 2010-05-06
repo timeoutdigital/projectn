@@ -14,7 +14,6 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @property string $airport_code
  * @property string $country_code
  * @property string $geo_boundries
- * @property string $geo_encode_look_up_pattern
  * @property Doctrine_Collection $Poi
  * @property Doctrine_Collection $VendorPoiCategory
  * @property Doctrine_Collection $Event
@@ -24,38 +23,36 @@ Doctrine_Manager::getInstance()->bindComponent('Vendor', 'project_n');
  * @property Doctrine_Collection $ImportLogger
  * @property Doctrine_Collection $ExportLogger
  * 
- * @method string              getCity()                       Returns the current record's "city" value
- * @method string              getLanguage()                   Returns the current record's "language" value
- * @method string              getTimeZone()                   Returns the current record's "time_zone" value
- * @method string              getInernationalDialCode()       Returns the current record's "inernational_dial_code" value
- * @method string              getAirportCode()                Returns the current record's "airport_code" value
- * @method string              getCountryCode()                Returns the current record's "country_code" value
- * @method string              getGeoBoundries()               Returns the current record's "geo_boundries" value
- * @method string              getGeoEncodeLookUpPattern()     Returns the current record's "geo_encode_look_up_pattern" value
- * @method Doctrine_Collection getPoi()                        Returns the current record's "Poi" collection
- * @method Doctrine_Collection getVendorPoiCategory()          Returns the current record's "VendorPoiCategory" collection
- * @method Doctrine_Collection getEvent()                      Returns the current record's "Event" collection
- * @method Doctrine_Collection getVendorEventCategory()        Returns the current record's "VendorEventCategory" collection
- * @method Doctrine_Collection getMovie()                      Returns the current record's "Movie" collection
- * @method Doctrine_Collection getUser()                       Returns the current record's "User" collection
- * @method Doctrine_Collection getImportLogger()               Returns the current record's "ImportLogger" collection
- * @method Doctrine_Collection getExportLogger()               Returns the current record's "ExportLogger" collection
- * @method Vendor              setCity()                       Sets the current record's "city" value
- * @method Vendor              setLanguage()                   Sets the current record's "language" value
- * @method Vendor              setTimeZone()                   Sets the current record's "time_zone" value
- * @method Vendor              setInernationalDialCode()       Sets the current record's "inernational_dial_code" value
- * @method Vendor              setAirportCode()                Sets the current record's "airport_code" value
- * @method Vendor              setCountryCode()                Sets the current record's "country_code" value
- * @method Vendor              setGeoBoundries()               Sets the current record's "geo_boundries" value
- * @method Vendor              setGeoEncodeLookUpPattern()     Sets the current record's "geo_encode_look_up_pattern" value
- * @method Vendor              setPoi()                        Sets the current record's "Poi" collection
- * @method Vendor              setVendorPoiCategory()          Sets the current record's "VendorPoiCategory" collection
- * @method Vendor              setEvent()                      Sets the current record's "Event" collection
- * @method Vendor              setVendorEventCategory()        Sets the current record's "VendorEventCategory" collection
- * @method Vendor              setMovie()                      Sets the current record's "Movie" collection
- * @method Vendor              setUser()                       Sets the current record's "User" collection
- * @method Vendor              setImportLogger()               Sets the current record's "ImportLogger" collection
- * @method Vendor              setExportLogger()               Sets the current record's "ExportLogger" collection
+ * @method string              getCity()                   Returns the current record's "city" value
+ * @method string              getLanguage()               Returns the current record's "language" value
+ * @method string              getTimeZone()               Returns the current record's "time_zone" value
+ * @method string              getInernationalDialCode()   Returns the current record's "inernational_dial_code" value
+ * @method string              getAirportCode()            Returns the current record's "airport_code" value
+ * @method string              getCountryCode()            Returns the current record's "country_code" value
+ * @method string              getGeoBoundries()           Returns the current record's "geo_boundries" value
+ * @method Doctrine_Collection getPoi()                    Returns the current record's "Poi" collection
+ * @method Doctrine_Collection getVendorPoiCategory()      Returns the current record's "VendorPoiCategory" collection
+ * @method Doctrine_Collection getEvent()                  Returns the current record's "Event" collection
+ * @method Doctrine_Collection getVendorEventCategory()    Returns the current record's "VendorEventCategory" collection
+ * @method Doctrine_Collection getMovie()                  Returns the current record's "Movie" collection
+ * @method Doctrine_Collection getUser()                   Returns the current record's "User" collection
+ * @method Doctrine_Collection getImportLogger()           Returns the current record's "ImportLogger" collection
+ * @method Doctrine_Collection getExportLogger()           Returns the current record's "ExportLogger" collection
+ * @method Vendor              setCity()                   Sets the current record's "city" value
+ * @method Vendor              setLanguage()               Sets the current record's "language" value
+ * @method Vendor              setTimeZone()               Sets the current record's "time_zone" value
+ * @method Vendor              setInernationalDialCode()   Sets the current record's "inernational_dial_code" value
+ * @method Vendor              setAirportCode()            Sets the current record's "airport_code" value
+ * @method Vendor              setCountryCode()            Sets the current record's "country_code" value
+ * @method Vendor              setGeoBoundries()           Sets the current record's "geo_boundries" value
+ * @method Vendor              setPoi()                    Sets the current record's "Poi" collection
+ * @method Vendor              setVendorPoiCategory()      Sets the current record's "VendorPoiCategory" collection
+ * @method Vendor              setEvent()                  Sets the current record's "Event" collection
+ * @method Vendor              setVendorEventCategory()    Sets the current record's "VendorEventCategory" collection
+ * @method Vendor              setMovie()                  Sets the current record's "Movie" collection
+ * @method Vendor              setUser()                   Sets the current record's "User" collection
+ * @method Vendor              setImportLogger()           Sets the current record's "ImportLogger" collection
+ * @method Vendor              setExportLogger()           Sets the current record's "ExportLogger" collection
  * 
  * @package    sf_sandbox
  * @subpackage model
@@ -99,11 +96,6 @@ abstract class BaseVendor extends sfDoctrineRecord
         $this->hasColumn('geo_boundries', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => '255',
-             ));
-        $this->hasColumn('geo_encode_look_up_pattern', 'string', 255, array(
-             'type' => 'string',
-             'notnull' => false,
              'length' => '255',
              ));
 
