@@ -67,6 +67,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('+61 2 9225 1700',                  $poi['phone'],         'Check phone field.' );
     $this->assertEquals('2000',                             $poi['zips'],          'Check zips field.' );
     $this->assertEquals('http://www.artgallery.nsw.gov.au', $poi['url'],           'Check url field.' );
+    $this->assertEquals('5',                                $poi['star_rating'],   'Check star_rating field.' );
     $this->assertEquals('Mon & Tue 10am–5pm; Wed 10am–9pm; Thu–Sun 10am–5pm', 
                                                             $poi['openingtimes'],  'Check openingtimes field.' );
 
@@ -79,6 +80,13 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
                          $poi['street'],
                         'Check street field.'
                          );
+  }
+
+  public function testReviewDate()
+  {
+    $poi = $this->poiTable->findOneById( 1 );
+
+    $this->assertEquals( '2010-03-03 12:56:00', $poi[ 'review_date' ] );
   }
 
   public function testProperties()

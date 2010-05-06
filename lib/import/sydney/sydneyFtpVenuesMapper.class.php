@@ -59,6 +59,8 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['url']               = (string) $venue->Website;
       $poi['price_information'] = (string) stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo );
       $poi['openingtimes']      = (string) $venue->OpenTimes;
+      $poi['star_rating']       = (string) $venue->Rating;
+      $poi['review_date']       = (string) $this->extractDate( $venue->DateUpdated );
 
       $poi->addMediaByUrl(     (string) $venue->ImagePath );
       $poi->addVendorCategory( $this->extractVendorCategories( $venue ), $this->vendor );
@@ -72,6 +74,12 @@ class sydneyFtpVenuesMapper extends DataMapper
 
       $this->notifyImporter( $poi );
     }
+  }
+
+  private function extractDate( $dateString )
+  {
+    $date = new DateTime( $dateString );
+    return $date->format( 'Y-m-d H:i:s' );
   }
 
   private function extractVendorCategories( SimpleXMLElement $venue )
