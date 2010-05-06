@@ -128,7 +128,7 @@ class echoingLogger implements loggable
 
     $this->printLineBreak( );
 
-    var_dump( $record->toArray() );
+    //var_dump( $record->toArray() );
 
     $this->printLineBreak( );
     
