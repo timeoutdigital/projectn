@@ -23,6 +23,8 @@ class importTask extends sfBaseTask
 
   protected function execute($arguments = array(), $options = array())
   {
+    $this->options = $options;
+
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
     Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
@@ -333,17 +335,36 @@ class importTask extends sfBaseTask
 
       case 'sydney':
         $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
-        $loggerObj = new logImport( $vendor );
+        $importer->addLogger( new logImport( $vendor ) );
 
         $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
         $ftpClient->setSourcePath( '/timeoutlondon/' );
-        var_dump($ftpClient->fetchDirListing());
+
+        //map the files to our terms
+        $ftpFiles = array();
+        foreach( $ftpClient->fetchRawDirListing() as $fileListing )
+        {
+          //get rid of the date / other info from ls command
+          $filename = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
+
+          if( strpos( $filename, 'venue' ) !== false )
+            $ftpFiles[ 'poi' ] = $filename;
+
+          else if( strpos( $filename, 'event' ) !== false )
+            $ftpFiles[ 'event' ] = $filename;
+
+          else if( strpos( $filename, 'film' ) !== false )
+            $ftpFiles[ 'film' ] = $filename;
+        }
 
         switch( $options['type'] )
         {
           case 'poi':
-            //$fileName = $ftpClientObj->fetchLatestFileByPattern( '*' );
-            //var_dump( $fileName );
+            $this->output( 'fetching xml...' );
+            $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'poi' ], 'venues.xml' );
+            $this->output( 'xml received' );
+            $xml = simplexml_load_file( $downloadedFile );
+            $importer->addDataMapper( new sydneyFtpVenuesMapper( $vendor, $xml ) );
             break;
         }
         break;
@@ -890,5 +911,10 @@ class importTask extends sfBaseTask
     }
 
     return $vendorObj;
+  }
+
+  private function output( $message )
+  {
+    if( $this->options['verbose'] ) echo $message . PHP_EOL ;
   }
 }
