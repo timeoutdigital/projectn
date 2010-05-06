@@ -241,5 +241,67 @@ class EventTest extends PHPUnit_Framework_TestCase
     $eventCategory[ 'VendorEventCategory' ][] = $vendorEventCategory;
     $eventCategory->save();
   }
+
+  /**
+   *
+   * test the  getter and setter functions for the Critics_choice flag
+   */
+  public function testSetterGetterCriticsChoiceFlag()
+  {
+    $this->object['CriticsChoiceProperty'] = true;
+    $this->assertEquals( 'Y', $this->object['CriticsChoiceProperty'] );
+
+    //see todo in subject class
+    //$this->object['CriticsChoiceProperty'] = false;
+    //$this->assertNull( $this->object['CriticsChoiceProperty'] );
+
+    $this->setExpectedException( 'Exception' );
+    $this->object->setCriticsChoiceProperty( 'not a boolean' );
+    $this->assertNull( $this->object->getCriticsChoiceProperty() );
+  }
+
+  /**
+   *
+   * test the  getter and setter functions for the Recommended flag
+   */
+  public function testSetterGetterRecommendedFlag()
+  {
+    $this->object['RecommendedProperty'] = true;
+    $this->assertEquals( 'Y', $this->object['RecommendedProperty'] );
+
+    //$this->object['RecommendedProperty'] = false;
+    //$this->assertNull( $this->object['RecommendedProperty'] );
+
+    $this->setExpectedException( 'Exception' );
+    $this->object->setRecommendedProperty('not a boolean');
+    $this->assertNull( $this->object->getRecommendedProperty() );
+  }
+
+  /**
+   *
+   * test the  getter and setter functions for the Free flag
+   */
+  public function testSetterGetterFreeFlag()
+  {
+    $this->object['FreeProperty'] = true;
+    $this->assertEquals( 'Y', $this->object['FreeProperty'] );
+
+    //$this->object['RecommendedProperty'] = false;
+    //$this->assertNull( $this->object['RecommendedProperty'] );
+
+    $this->setExpectedException( 'Exception' );
+    $this->object->setFreeProperty('not a boolean');
+    $this->assertNull( $this->object->getFreeProperty() );
+  }
+
+  public function testAddTimeoutUrl()
+  {
+    $this->object['TimeoutLinkProperty'] = '';
+    $this->assertNull( $this->object['TimeoutLinkProperty'] );
+
+    $url = 'http://www.timeout.com/london/event/123';
+    $this->object['TimeoutLinkProperty'] = $url;
+    $this->assertEquals( $url, $this->object['TimeoutLinkProperty'] );
+  }
 }
 ?>
