@@ -63,12 +63,24 @@ class importNyED
     var_dump( $poiData );
     $poi = new Poi();
     $poi->setPoiName( $poiData[ 'name' ] );
-    $poi->setStreet( $poiData[ 'address' ] );
+
+    $streetAddress = (string) $poiData[ 'address' ];
+    $pos = strpos( $streetAddress, "between" );
+    if( $pos !== false )
+    {
+        $betweenSection = substr( $streetAddress, $pos );
+        $streetAddress = substr( $streetAddress, 0, $pos );
+    }
+
+    $poi->setStreet( $streetAddress );
     $poi->setCity( $poiData[ 'city' ] );
     $poi->setCountry( 'United States of America' );
     $poi->setCountryCode( 'us' );
     $poi->setLocalLanguage( 'en' );
-    $poi->setAdditionalAddressDetails( $poiData[ 'directions' ] );
+
+    $additionalAddressDetails = isset( $betweenSection ) ? $betweenSection . ", " . $poiData[ 'directions' ] : $poiData[ 'directions' ];
+    $poi->setAdditionalAddressDetails( $additionalAddressDetails );
+    
     $poi->setUrl( $poiData[ 'website' ] );
     $poi->setVendorId( $this->_vendor->getId() );
     $poi->setPhone( $poiData[ 'phone' ] );
