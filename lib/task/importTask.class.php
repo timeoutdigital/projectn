@@ -331,6 +331,23 @@ class importTask extends sfBaseTask
         }
         break; //end lisbon
 
+      case 'sydney':
+        $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
+        $loggerObj = new logImport( $vendor );
+
+        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
+        $ftpClient->setSourcePath( '/timeoutlondon/' );
+        var_dump($ftpClient->fetchDirListing());
+
+        switch( $options['type'] )
+        {
+          case 'poi':
+            //$fileName = $ftpClientObj->fetchLatestFileByPattern( '*' );
+            //var_dump( $fileName );
+            break;
+        }
+        break;
+
 
 
 
