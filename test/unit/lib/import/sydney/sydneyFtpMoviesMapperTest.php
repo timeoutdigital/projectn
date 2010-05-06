@@ -38,7 +38,7 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
     $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $feed ) );
     $importer->run();
 
-    $this->assertEquals( count( $feed->film ),
+    $this->assertEquals( 1,
                          Doctrine::getTable( 'Movie' )->count(),
                         'Database should have same number of Movies as feed after import'
                          );
