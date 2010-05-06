@@ -69,7 +69,6 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('http://www.artgallery.nsw.gov.au', $poi['url'],           'Check url field.' );
     $this->assertEquals('Mon & Tue 10am–5pm; Wed 10am–9pm; Thu–Sun 10am–5pm', 
                                                             $poi['openingtimes'],  'Check openingtimes field.' );
-    $this->assertEquals('', $poi['star_rating'],           'Check star_rating field.' );
 
     $this->assertEquals('Art Gallery of NSW, Art Gallery Road, The Domain, Sydney, 2000, AUS',
                          $poi['geocode_look_up'],

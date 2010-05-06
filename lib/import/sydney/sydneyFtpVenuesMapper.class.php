@@ -57,7 +57,7 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['description']       = (string) $venue->Description;
       $poi['phone']             = (string) $venue->Phone;
       $poi['url']               = (string) $venue->Website;
-      $poi['price_information'] = (string) $this->extractPriceInformation( $venue );
+      $poi['price_information'] = (string) stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo );
       $poi['openingtimes']      = (string) $venue->OpenTimes;
 
       $poi->addMediaByUrl(     (string) $venue->ImagePath );
@@ -93,15 +93,5 @@ class sydneyFtpVenuesMapper extends DataMapper
     );
 
     return stringTransform::concatNonBlankStrings( ', ', $fields );
-  }
-
-  private function extractPriceInformation( $venue )
-  {
-    return stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo );
-  }
-
-  private function priceIsValid( $price )
-  {
-    return !empty($price) && $price != 0.0000;
   }
 }
