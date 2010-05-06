@@ -32,6 +32,7 @@ class importNyED
    */
   public function  __construct( $csv, $vendor )
   {
+    throw new Exception( 'This class is suspicious. Dont use it, it doesnt update pois, just adds new ones.' );
     $this->_csv = $csv;
     $this->_vendor = $vendor;
   }
@@ -58,16 +59,28 @@ class importNyED
 
   public function insertPoi( $poiData )
   {
-
     //Set the Poi's required values
+    var_dump( $poiData );
     $poi = new Poi();
     $poi->setPoiName( $poiData[ 'name' ] );
-    $poi->setStreet( $poiData[ 'address' ] );
+
+    $streetAddress = (string) $poiData[ 'address' ];
+    $pos = strpos( $streetAddress, "between" );
+    if( $pos !== false )
+    {
+        $betweenSection = substr( $streetAddress, $pos );
+        $streetAddress = substr( $streetAddress, 0, $pos );
+    }
+
+    $poi->setStreet( $streetAddress );
     $poi->setCity( $poiData[ 'city' ] );
     $poi->setCountry( 'United States of America' );
     $poi->setCountryCode( 'us' );
     $poi->setLocalLanguage( 'en' );
-    $poi->setAdditionalAddressDetails( $poiData[ 'directions' ] );
+
+    $additionalAddressDetails = isset( $betweenSection ) ? $betweenSection . ", " . $poiData[ 'directions' ] : $poiData[ 'directions' ];
+    $poi->setAdditionalAddressDetails( $additionalAddressDetails );
+    
     $poi->setUrl( $poiData[ 'website' ] );
     $poi->setVendorId( $this->_vendor->getId() );
     $poi->setPhone( $poiData[ 'phone' ] );

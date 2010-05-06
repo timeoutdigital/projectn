@@ -37,6 +37,7 @@ Poi:
     star_rating:                {type: integer(1), notnull: false}
     rating:                     {type: integer(1), notnull: false}
     provider:                   {type: string(512), notnull: false}
+    geocode_look_up:            {type: string(512), notnull: true}
     vendor_id:                  {type: integer, notnull: true}
   relations:
     Vendor:                     {local: vendor_id, foreign: id}
@@ -364,6 +365,7 @@ Vendor:
     airport_code:               {type: string(3), notnull: true}
     country_code:               {type: string(2), notnull: true}
     geo_boundries:              {type: string(255), notnull: true}
+    geo_encode_look_up_pattern: {type: string(255), notnull: false}
   indexes:
     city_index:                 {fields: [city]}
     city_language_index:        {fields: [city, language]}
@@ -405,7 +407,7 @@ ImportLoggerError:
     Timestampable:              ~
   columns:
     trace:                      {type: string, notnull: true}
-    log:                        {type: string, notnull: true}
+    log:                        {type: string, notnull: false}
     type:                       {type: string, notnull: true}
     message:                    {type: string, notnull: true}
     serialized_object:          {type: string, notnull: false}

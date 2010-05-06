@@ -143,6 +143,11 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
       return $occurrence;
   }
 
+  /**
+   * @todo Try to get data from Occurrence, not from event, as events and
+   * occurences are handled differenctly in London to our schema.
+   * Ie. For London: Occurences take priority and Events may not have much info entered.
+   */
   private function mapEventFrom( $item, Poi $poi=null )
   {
     if( !$poi )
@@ -169,7 +174,10 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $poi[ 'Vendor' ]                 = $this->vendor;
     $poi[ 'vendor_poi_id' ]          = $item[ 'venue_id' ];
     $poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
-    $poi[ 'street' ]                 = $item[ 'SLLVenue' ][ 'address' ];
+
+    $fix = new removeCommaLondonFromEndOfString($item[ 'SLLVenue' ][ 'address' ]);
+    $poi[ 'street' ]                 = $fix->getFixedString();
+
     $poi[ 'city' ]                   = 'London';
     $poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
     $poi[ 'country' ]                = 'GBR';
@@ -182,6 +190,13 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
     $poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
     $poi['geoEncodeLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
+
+    // Add Images
+    if( isset( $item[ 'SLLVenue' ]['image_id'] ) && is_numeric( $item[ 'SLLVenue' ]['image_id'] ) )
+    {
+        $imageUrl = "http://toimg.net/managed/images/". $item[ 'SLLVenue' ]['image_id'] ."/i.jpg";
+        $this->addImageHelper( $poi, $imageUrl );
+    }
 
     $building_name                   = $item[ 'SLLVenue' ][ 'building_name' ];
     if( strlen($building_name) <= 32 )

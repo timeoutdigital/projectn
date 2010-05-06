@@ -24,6 +24,61 @@ require_once 'Validate.php';
 class stringTransform
 {
 
+  public function remove_null_values( $array ) {
+    foreach( $array as $k => $v )
+    {
+        if( empty( $array[ $k ] ) ) unset( $array[ $k ] );
+        else if( is_array( $array[ $k ] ) )
+            $array[ $k ] = stringTransform::remove_null_values( $v );
+        if( empty( $array[ $k ] ) ) unset( $array[ $k ] );
+    }
+    return $array;
+  }
+
+  /**
+   * Format string into a nice format, result is '09:00' for input of '9'.
+   * @return array
+   */
+  public static function formatAsTime( $subject )
+  {
+    $subject = str_replace( ".", ":", $subject );
+    if( strlen( $subject ) == 1 || ( strlen( $subject ) == 4 && substr( $subject, 1, 1 ) == ":" ) )
+      $subject = "0" . $subject;
+    if( strlen( $subject ) == 2 )
+      $subject .= ":00";
+    return $subject;
+  }
+  
+  /**
+   * Try to extract time information from a string.
+   * eg '10:00', '9.15', '10h' or in the case of '10-12h', return 2 values
+   * @return array
+   */
+  public static function extractTimesFromText( $subject )
+  {
+      $returnArray = array();
+      $pattern = '([0-2]?[0-9](((?:\:|\.)[0-5][0-9])|(h|-)))';
+      preg_match_all( $pattern, $subject, $returnArray );
+      if( !empty( $returnArray[0] ) && array_key_exists( 0, $returnArray ) );
+        return $returnArray[0];
+      return array();
+  }
+
+  /**
+   * Try to extract time range information from a string.
+   * eg '10-11' or '10.45-12h' or '9h-10h'
+   * @return array
+   */
+  public static function extractTimeRangesFromText( $subject )
+  {
+      $returnArray = array();
+      $pattern = '(([0-2]?[0-9]((?:\:|\.)[0-5][0-9])?)h? ?- ?([0-2]?[0-9]((?:\:|\.)[0-5][0-9])?))';
+      preg_match_all( $pattern, $subject, $returnArray );
+      if( !empty( $returnArray[0] ) && array_key_exists( 0, $returnArray ) );
+        return $returnArray[0];
+      return array();
+  }
+
   public static function extractEmailAddressesFromText( $subject )
   {
     $pattern = '/([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+/';
@@ -115,6 +170,7 @@ class stringTransform
 
 
     $transformedSubject = '';
+    
 
     switch(strlen($subject))
     {
@@ -122,6 +178,9 @@ class stringTransform
         break;
     
         case '8':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{1})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
+        break;
+
+        case '9':       $transformedSubject = preg_replace("/^([0-9]{1})([0-9]{4})/", "$1 $2 ", $subject);
         break;
 
         case '10';      $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
@@ -213,11 +272,13 @@ class stringTransform
    * @return string the price range string
    *
   */
-  public static function formatPriceRange( $minPrice, $maxPrice, $format='long' )
+  public static function formatPriceRange( $minPrice, $maxPrice=0, $format='long' )
   {
     $returnString = '';
+    $pricesAreNumeric  = is_numeric( $minPrice ) &&  is_numeric( $maxPrice );
+    $pricesAreOverZero = (0 < (int) $minPrice)   &&  (0 <= (int) $maxPrice);
 
-    if ( is_numeric( $minPrice ) && is_numeric( $maxPrice ) && 0 < (int) $minPrice &&  0 <= (int) $maxPrice )
+    if ( $pricesAreNumeric && $pricesAreOverZero )
     {
       $moneyFormatString = '%.2n';
 
@@ -298,5 +359,34 @@ class stringTransform
     $htmlPurifier = new HTMLPurifier( $config );
     return $htmlPurifier->purify( $html );
   }
+
+  /**
+   * Removes empty delimiters.
+   * Example:
+   *
+   * <code>
+   *   $clean = stringTransform::removeEmptyDelimiters( ',', ', foo, bar, , , baz');
+   *   echo $clean;
+   *   //outputs 'foo, bar, baz'
+   * </code>
+   * 
+   * @param string $delimiter
+   * @param string $string
+   * @return string
+   *
+   */
+  static public function removeEmptyDelimiters( $delimiter, $string )
+  {
+    $delimiter = preg_quote( $delimiter );
+    $string = preg_replace( "/^($delimiter)*/",            '', $string );
+    $string = preg_replace( "/(?<=$delimiter)$delimiter/", '', $string );
+    $string = preg_replace( "/$delimiter$/",               '', $string );
+    return $string;
+  }
+
+  static public function removeTrailingCommas( $string )
+  {
+    return trim( $string, ', ' );
+  }
+
 }
-?>

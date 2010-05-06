@@ -89,4 +89,4 @@ $this->_sections['contents']['last']       = ($this->_sections['contents']['iter
 </dd>
     <?php endfor; endif; ?>
   </dl>
-<?php endfor; endif; ?>
+<?php endfor; endif; ?>

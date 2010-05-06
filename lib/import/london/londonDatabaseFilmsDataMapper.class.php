@@ -83,7 +83,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       //$movie['aspect_ratio'] = ;
       //$movie['sound_mix'] = ;
       //$movie['company'] = ;
-      $movie['rating'] = $review[ 'rating' ];
+      $movie['rating'] = is_numeric( $review[ 'rating' ] ) ? $review[ 'rating' ] : NULL;
       $movie['utf_offset'] = $this->vendor->getUtcOffset();
 
       $genres = explode( ',',$data[ 'genre' ]);
@@ -103,28 +103,26 @@ class londonDatabaseFilmsDataMapper extends DataMapper
         }
        
         $movie[ 'MovieGenres' ][] = $movieGenre;
-      }
 
-      /*@todo sort out the test and uncomment this
-      if( $data[ 'image_id' ] > 0 )
-      { 
-        try
+        if( isset( $data['image_id'] ) && is_numeric( $data['image_id'] ) && $data['image_id'] != 0 )
         {
-            $movie->addMediaByUrl( 'http://www.timeout.com/img/' . $data[ 'image_id' ] . '/w398/image.jpg' );
-        }
-        catch( Exception $e )
-        {
-            $this->notifyImporterOfFailure( $e );
+            try
+            {
+                $movie->addMediaByUrl( 'http://www.toimg.net/managed/images/' . $data[ 'image_id' ] . '/i.jpg' );
+            }
+            catch( Exception $e )
+            {
+                $this->notifyImporterOfFailure( $e, $movie, "Failed to add media for object. Data: " . (string) $data );
+            }
         }
       }
-      */
 
       $this->notifyImporter( $movie );
     }
   }
  
   /**
-   *
+   * @todo Comments in method refer to USA when this is for London
    */
   protected function getFilmsFromLondonDatabase()
   { 

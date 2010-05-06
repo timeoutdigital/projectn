@@ -100,12 +100,13 @@ class singaporeVenuesMapper extends DataMapper
           $poi->addVendorCategory( $categoriesArray,  $this->_vendor[ 'id' ]);
       }
 
+      //@todo refactor to use the method from the parent class
       // add images
-      $this->addImageHelper( $poi, $poiXml->highres );
-      $this->addImageHelper( $poi, $poiXml->large_image );
-      $this->addImageHelper( $poi, $poiXml->thumbnail );
-      $this->addImageHelper( $poi, $poiXml->thumb );
-      $this->addImageHelper( $poi, $poiXml->image );
+      $this->addImage( $poi, $poiXml->highres );
+      $this->addImage( $poi, $poiXml->large_image );
+      $this->addImage( $poi, $poiXml->thumbnail );
+      $this->addImage( $poi, $poiXml->thumb );
+      $this->addImage( $poi, $poiXml->image );
 
       $this->notifyImporter( $poi );
     }
@@ -192,7 +193,7 @@ class singaporeVenuesMapper extends DataMapper
      * @param Doctrine_Record $storeObject
      * @param SimpleXMLElement $element
      */
-    protected function addImageHelper( Doctrine_Record $storeObject, SimpleXMLElement $element )
+    protected function addImage( Doctrine_Record $storeObject, SimpleXMLElement $element )
     {
         if ( (string) $element != '' )
         {

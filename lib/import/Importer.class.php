@@ -130,7 +130,7 @@ class Importer
      }
   }
 
-  public function onRecordMappingException( Exception $exception, Doctrine_Record $record ,$message = '' )
+  public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )
   {
      foreach( $this->loggers as $logger )
      {

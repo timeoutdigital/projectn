@@ -14,7 +14,7 @@ abstract class BaseImportLoggerErrorFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'trace'             => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'log'               => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'log'               => new sfWidgetFormFilterInput(),
       'type'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'message'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'serialized_object' => new sfWidgetFormFilterInput(),

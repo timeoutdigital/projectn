@@ -85,7 +85,7 @@
 			<postcode>abc 890</postcode>
 			<phone>6392 0369</phone>
 			<near_station>Little India</near_station>
-			<buses></buses>
+			<buses>1, 2, 3, 4, 5, 6</buses>
 			<mm_lat></mm_lat>
 			<mm_lon></mm_lon>
 		</address_slot>

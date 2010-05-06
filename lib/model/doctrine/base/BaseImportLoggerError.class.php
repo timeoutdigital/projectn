@@ -49,7 +49,7 @@ abstract class BaseImportLoggerError extends sfDoctrineRecord
              ));
         $this->hasColumn('log', 'string', null, array(
              'type' => 'string',
-             'notnull' => true,
+             'notnull' => false,
              ));
         $this->hasColumn('type', 'string', null, array(
              'type' => 'string',

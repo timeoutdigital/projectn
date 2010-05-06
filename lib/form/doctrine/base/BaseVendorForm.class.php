@@ -15,29 +15,31 @@ abstract class BaseVendorForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                     => new sfWidgetFormInputHidden(),
-      'city'                   => new sfWidgetFormInputText(),
-      'language'               => new sfWidgetFormInputText(),
-      'time_zone'              => new sfWidgetFormInputText(),
-      'inernational_dial_code' => new sfWidgetFormInputText(),
-      'airport_code'           => new sfWidgetFormInputText(),
-      'country_code'           => new sfWidgetFormInputText(),
-      'geo_boundries'          => new sfWidgetFormInputText(),
-      'created_at'             => new sfWidgetFormDateTime(),
-      'updated_at'             => new sfWidgetFormDateTime(),
+      'id'                         => new sfWidgetFormInputHidden(),
+      'city'                       => new sfWidgetFormInputText(),
+      'language'                   => new sfWidgetFormInputText(),
+      'time_zone'                  => new sfWidgetFormInputText(),
+      'inernational_dial_code'     => new sfWidgetFormInputText(),
+      'airport_code'               => new sfWidgetFormInputText(),
+      'country_code'               => new sfWidgetFormInputText(),
+      'geo_boundries'              => new sfWidgetFormInputText(),
+      'geo_encode_look_up_pattern' => new sfWidgetFormInputText(),
+      'created_at'                 => new sfWidgetFormDateTime(),
+      'updated_at'                 => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
-      'id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'city'                   => new sfValidatorString(array('max_length' => 15)),
-      'language'               => new sfValidatorString(array('max_length' => 10)),
-      'time_zone'              => new sfValidatorString(array('max_length' => 50)),
-      'inernational_dial_code' => new sfValidatorString(array('max_length' => 5, 'required' => false)),
-      'airport_code'           => new sfValidatorString(array('max_length' => 3)),
-      'country_code'           => new sfValidatorString(array('max_length' => 2)),
-      'geo_boundries'          => new sfValidatorString(array('max_length' => 255)),
-      'created_at'             => new sfValidatorDateTime(),
-      'updated_at'             => new sfValidatorDateTime(),
+      'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'city'                       => new sfValidatorString(array('max_length' => 15)),
+      'language'                   => new sfValidatorString(array('max_length' => 10)),
+      'time_zone'                  => new sfValidatorString(array('max_length' => 50)),
+      'inernational_dial_code'     => new sfValidatorString(array('max_length' => 5, 'required' => false)),
+      'airport_code'               => new sfValidatorString(array('max_length' => 3)),
+      'country_code'               => new sfValidatorString(array('max_length' => 2)),
+      'geo_boundries'              => new sfValidatorString(array('max_length' => 255)),
+      'geo_encode_look_up_pattern' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'created_at'                 => new sfValidatorDateTime(),
+      'updated_at'                 => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('vendor[%s]');

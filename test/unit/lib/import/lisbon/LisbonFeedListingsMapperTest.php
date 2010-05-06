@@ -59,6 +59,29 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Test to make sure 'start_time' property is present where time_info has start time info.
+   */
+  public function testStartTimePropertyExistsWhereTimeInfoIsPresentAndContainsStartTime()
+  {
+    $this->markTestSkipped();
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $search = Doctrine::getTable('Event')->findAll();
+    foreach( $search as $event )
+    {
+        foreach( $event['EventProperty'] as $ep )
+        {
+            if( $e['lookup'] = 'timeinfo' )
+            {
+                
+            }
+        }
+    }
+  }
+
+  /**
    * Test to make sure 'band' property is not present.
    * refs #259
    */
@@ -79,7 +102,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testEventsWithZeroAsRecurringListingIdAreNotSaved()
   {
-    $this->markTestSkipped();
     ProjectN_Test_Unit_Factory::destroyDatabases();
     ProjectN_Test_Unit_Factory::createDatabases();
 
@@ -120,7 +142,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapListings()
   {
-    $this->markTestSkipped();
     $importer = new Importer();
     //$importer->addLogger( new echoingLogger() );
     $importer->addDataMapper( $this->object );
@@ -175,6 +196,50 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi833Categories[0]['name'], 'test name' );//autocreated by bootstrap
     $this->assertEquals( $poi833Categories[1]['name'], 'Museus | Museus' );
     $this->assertEquals( $poi833Categories[2]['name'], 'Category | SubCategory' );
+  }
+
+  public function testIsNotAffectedByEventsFromOtherVendors()
+  {
+    $lisbon    = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city'=>'lisbon', 'language'=>'pt' ) );
+    $lisbonPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'placeid' => 1 ) ); //fixture event happens at this event
+
+    $london    = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city'=>'london', 'language'=>'en-GB' ) );
+    $londonPoi = $this->addPoi( 'London Poi', $london );
+    $this->addEvent( 'Cool Event', $londonPoi, $london );
+
+    $logger = $this->getMock('doNothingLogger', array( 'addError' ) );
+    $logger->expects( $this->exactly( 0 ) )
+           ->method( 'addError' )
+           ;
+
+    //fixture has an event with name 'Cool Event'
+    $this->importFrom(TO_TEST_DATA_PATH . '/lisbon_listings_testIsNotAffectedByEventsFromOtherVendors.xml', $logger);
+  }
+
+  private function addPoi( $name, $vendor )
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi['poi_name'] = $vendor;
+    $poi['Vendor'] = $vendor;
+    $poi->save();
+  }
+
+  private function addEvent( $name, $poi, $vendor )
+  {
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+    $event['name']   = $name;
+    $event['Vendor'] = $vendor;
+    $event->save();
+  }
+
+  private function importFrom( $file, $logger )
+  {
+    $importer = new importer();
+    $xml = simplexml_load_file( $file );
+    $geocoder = $this->getMock( 'geoEncode' );
+    $importer->addDataMapper( new LisbonFeedListingsMapper( $xml, $geocoder ) );
+    $importer->addLogger( $logger );
+    $importer->run();
   }
 }
 ?>

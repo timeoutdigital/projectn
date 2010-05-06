@@ -83,6 +83,33 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * testPublicTransportDoesNotStartWithASpaceOrPipeCharacter
+   */
+  public function testPublicTransportDoesNotStartWithASpaceOrPipeCharacter()
+  {
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_venues_list.xml' );
+     $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+     $xmlObj = $this->stubCurlImporter->getXml();
+
+     $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
+     $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'pullXML' );
+     $stubCurlImporterDetail->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
+
+     // this is needed just for testing
+     $this->object->setCurlImporter( $stubCurlImporterDetail );
+
+     $this->object->insertPois( $xmlObj );
+
+     $pois = Doctrine::getTable( 'Poi' )->findAll();
+     $firstPoi = $pois->getFirst();
+     $transportFirstCharacter = substr( $firstPoi['public_transport_links'], 0, 1 );
+
+     $this->assertNotEquals( " ", $transportFirstCharacter, "Public Transport Links should not start with a space." );
+     $this->assertNotEquals( "|", $transportFirstCharacter, "Public Transport Links should not start with a pipe." );
+  }
+
   /*
    * testInsertPoisAndInsertPoi
    */
