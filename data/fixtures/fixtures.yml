@@ -198,6 +198,22 @@ Vendor:
     airport_code:             'LIS'
     country_code:             'pt'
     geo_boundries:            '30.032881;-31.33763383378733;42.1456451416016;-6.182693481445309'
+  v8:
+    city:                     sydney
+    language:                 en-AU
+    time_zone:                Australia/Sydney
+    inernational_dial_code:   '+61'
+    airport_code:             'SYD'
+    country_code:             'au'
+    geo_boundries:            '-43.74980833333333;112.91105;-9.212524999999999;153.6392833333333'
+  v9:
+    city:                     kuala lumpur
+    language:                 en-MY
+    time_zone:                Asia/Kuala_Lumpur
+    inernational_dial_code:   '+60'
+    airport_code:             'KUL'
+    country_code:             'my'
+    geo_boundries:            '0.855221927165985;99.643440246582;7.36341762542725;119.267517089844'
 
 EventCategory:
   c1:
