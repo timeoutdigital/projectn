@@ -51,9 +51,9 @@ class sydneyFtpMoviesMapper extends DataMapper
         $movie['Vendor']            = $this->vendor;
         $movie['vendor_movie_id']   = (string) $film->EventID;
         $movie['name']              = (string) $film->Name;
-        $movie['plot']              = (string) $film->Description;
+        //$movie['plot']              = (string) $film->Description;
         //$movie['tag_line']          = (string);
-        //$movie['review']            = (string);
+        $movie['review']            = (string) $film->Description;
         $movie['url']               = (string) $film->Website;
         $movie['director']          = (string) $film->FilmDirector;
         //$movie['writer']            = (string);

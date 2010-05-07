@@ -31,7 +31,7 @@ class kualaLumpurEventsMapper extends DataMapper
       $record = $this->dataMapperHelper->getEventRecord( $eventId );
 
       $record['vendor_event_id']   = $eventId;
-      $record['name']              = (string) $event->name;
+      $record['name']              = (string) $event->title;
       $record['url']               = (string) $event->url;
       $record['short_description'] = (string) $event->short_description;
       $record['description']       = (string) $event->descripton;

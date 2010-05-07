@@ -18,7 +18,7 @@
 		<GeneralLocation><![CDATA[Sydney]]></GeneralLocation>
 		<Travel><![CDATA[travel]]></Travel>
 		<GoogleMap><![CDATA[<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com.au/maps?f=q&amp;hl=en&amp;q=Art+Gallery+Rd,+Sydney+NSW+2000,+Australia&amp;sll=-33.863885,151.170188&amp;sspn=0.007118,0.012274&amp;ie=UTF8&amp;cd=1&amp;geocode=0,-33.868650,151.216484&amp;s=AARTsJpX2CL79gzQ_EYRSVNuRDoW_S-F9A&amp;ll=-33.864892,151.216035&amp;spn=0.012472,0.018239&amp;z=15&amp;iwloc=addr&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com.au/maps?f=q&amp;hl=en&amp;q=Art+Gallery+Rd,+Sydney+NSW+2000,+Australia&amp;sll=-33.863885,151.170188&amp;sspn=0.007118,0.012274&amp;ie=UTF8&amp;cd=1&amp;geocode=0,-33.868650,151.216484&amp;ll=-33.864892,151.216035&amp;spn=0.012472,0.018239&amp;z=15&amp;iwloc=addr&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>]]></GoogleMap>
-		<Rating><![CDATA[5]]></Rating>
+		<Rating><![CDATA[6]]></Rating>
 		<Longitude><![CDATA[151.2164369]]></Longitude>
 		<Latitude><![CDATA[-33.8677263]]></Latitude>
 		<ImagePath><![CDATA[http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg]]></ImagePath>
@@ -70,7 +70,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<GeneralLocation><![CDATA[North]]></GeneralLocation>
 		<Travel><![CDATA[]]></Travel>
 		<GoogleMap><![CDATA[<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com.au/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Shop+2,+31A+Fitzroy+St+Kirribilli,+2061&amp;sll=-33.831139,151.224232&amp;sspn=0.038287,0.076046&amp;gl=au&amp;ie=UTF8&amp;ll=-33.846913,151.214361&amp;spn=0.006237,0.00912&amp;z=16&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com.au/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Shop+2,+31A+Fitzroy+St+Kirribilli,+2061&amp;sll=-33.831139,151.224232&amp;sspn=0.038287,0.076046&amp;gl=au&amp;ie=UTF8&amp;ll=-33.846913,151.214361&amp;spn=0.006237,0.00912&amp;z=16&amp;iwloc=A" style="color:#0000FF;text-align:left">View Larger Map</a></small>]]></GoogleMap>
-		<Rating><![CDATA[1]]></Rating>
+		<Rating><![CDATA[0]]></Rating>
 		<Longitude><![CDATA[151.2138270]]></Longitude>
 		<Latitude><![CDATA[-33.8475120]]></Latitude>
 		<ImagePath><![CDATA[]]></ImagePath>
@@ -91,6 +91,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<categories>
 			<parent_category_name><![CDATA[Restaurant]]></parent_category_name>
 			<childrens>
+				<children_category><![CDATA[N/A]]></children_category>
 				<children_category><![CDATA[Spanish]]></children_category>
 				<children_category><![CDATA[Tapas]]></children_category>
 			</childrens>
@@ -135,7 +136,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<categories>
 			<parent_category_name><![CDATA[N/A]]></parent_category_name>
 			<childrens>
-				<children_category><![CDATA[Nightclub]]></children_category>
+				<children_category><![CDATA[N/A]]></children_category>
 			</childrens>
 		</categories>
 	</venue>

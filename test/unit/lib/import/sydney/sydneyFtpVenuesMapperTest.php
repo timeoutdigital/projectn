@@ -37,9 +37,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
                                                      'inernational_dial_code'  => '+61', 
                                                      ) );
 
-    $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpVenuesMapper( $this->vendor, $this->feed ) );
-    $importer->run();
+    $this->runImport();
 
     $this->poiTable = Doctrine::getTable( 'Poi' );
   }
@@ -62,12 +60,11 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('1',                                $poi['vendor_poi_id'], 'Check vendor poi id field.' );
     $this->assertEquals('-33.8677263',                      $poi['latitude'],      'Check latitude field.' );
     $this->assertEquals('151.2164369',                      $poi['longitude'],     'Check longitude field.' );
-    $this->assertEquals('sydney',                           $poi['city'],          'Check city field.' );
+    $this->assertEquals('Sydney',                           $poi['city'],          'Check city field.' );
     $this->assertEquals('AUS',                              $poi['country'],       'Check country field.' );
     $this->assertEquals('+61 2 9225 1700',                  $poi['phone'],         'Check phone field.' );
     $this->assertEquals('2000',                             $poi['zips'],          'Check zips field.' );
     $this->assertEquals('http://www.artgallery.nsw.gov.au', $poi['url'],           'Check url field.' );
-    $this->assertEquals('5',                                $poi['star_rating'],   'Check star_rating field.' );
     $this->assertEquals('Mon & Tue 10am–5pm; Wed 10am–9pm; Thu–Sun 10am–5pm', 
                                                             $poi['openingtimes'],  'Check openingtimes field.' );
 
@@ -80,6 +77,15 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
                          $poi['street'],
                         'Check street field.'
                          );
+  }
+
+  public function testRatings()
+  {
+    $pois = Doctrine::getTable('Poi')->findAll();
+
+    $this->assertEquals('5', $pois[0]['star_rating'],   'Check star_rating field.' );
+    $this->assertNull(       $pois[1]['star_rating'],   'Check star_rating field.' );
+    $this->assertEquals('3', $pois[2]['star_rating'],   'Check star_rating field.' );
   }
 
   public function testReviewDate()
@@ -127,6 +133,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testHasVendorCategories()
   {
     $pois = $this->poiTable->findAll( );
+    $numVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->count();
 
     $this->assertEquals( 'Gallery',
                           $pois[0]['VendorPoiCategory'][0]['name']
@@ -135,5 +142,16 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Restaurant | Spanish | Tapas',
                           $pois[1]['VendorPoiCategory'][0]['name']
                           );
+
+    $this->assertEquals(  0,
+                          $pois[2]['VendorPoiCategory']->count()
+                          );
+  }
+
+  public function runImport()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( new sydneyFtpVenuesMapper( $this->vendor, $this->feed ) );
+    $importer->run();
   }
 }

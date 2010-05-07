@@ -33,18 +33,20 @@ class kualaLumpurVenuesMapper extends DataMapper
       $poi[ 'geocode_look_up' ]   = (string) $venue->address;
       $poi[ 'latitude' ]          = $this->extractLatitude( $venue );
       $poi[ 'longitude' ]         = $this->extractLongitude( $venue );
-      $poi[ 'email' ]             = $venue->contact_details->email;
-      $poi[ 'url' ]               = $venue->url;
-      $poi[ 'phone' ]             = $venue->contact_details->tel_no;
-      $poi[ 'short_description' ] = $venue->short_description;
-      $poi[ 'description' ]       = $venue->description;
+      $poi[ 'email' ]             = (string) $venue->contact_details->email;
+      $poi[ 'url' ]               = (string) $venue->url;
+      $poi[ 'phone' ]             = (string) $venue->contact_details->tel_no;
+      $poi[ 'short_description' ] = (string) $venue->short_description;
+      $poi[ 'description' ]       = (string) $venue->description;
       $poi[ 'Vendor' ]            = $this->vendor;
 
-      $poi->addVendorCategory( array(
-        $venue->categories->category,
-        $venue->categories->subCategory,
-      ), 
-      $this->vendor );
+			$cat = (string) $venue->categories->category;
+			$cat2 = (string) $venue->categories->subCategory;
+
+			if( !empty( $cat ) && !empty( $cat2 ) )
+			{
+				$poi->addVendorCategory( array( $cat, $cat2 ), $this->vendor['id'] );
+			}
 
       //$poi->addMediaByUrl( (string) $venue->medias->big_image );
 
@@ -55,12 +57,12 @@ class kualaLumpurVenuesMapper extends DataMapper
   private function extractLatitude( SimpleXMLElement $venue )
   {
     $latlong = explode( ',', (string) $venue->location->longlat );
-    return $latlong[1];
+    return $latlong[0];
   }
 
   private function extractLongitude( SimpleXMLElement $venue )
   {
     $latlong = explode( ',', (string) $venue->location->longlat );
-    return $latlong[0];
+    return $latlong[1];
   }
 }
