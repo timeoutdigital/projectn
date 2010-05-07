@@ -60,7 +60,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('1',                                $poi['vendor_poi_id'], 'Check vendor poi id field.' );
     $this->assertEquals('-33.8677263',                      $poi['latitude'],      'Check latitude field.' );
     $this->assertEquals('151.2164369',                      $poi['longitude'],     'Check longitude field.' );
-    $this->assertEquals('sydney',                           $poi['city'],          'Check city field.' );
+    $this->assertEquals('Sydney',                           $poi['city'],          'Check city field.' );
     $this->assertEquals('AUS',                              $poi['country'],       'Check country field.' );
     $this->assertEquals('+61 2 9225 1700',                  $poi['phone'],         'Check phone field.' );
     $this->assertEquals('2000',                             $poi['zips'],          'Check zips field.' );
