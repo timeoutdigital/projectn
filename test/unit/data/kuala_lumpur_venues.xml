@@ -22,7 +22,7 @@
             <lrt_station><![CDATA[]]></lrt_station>
             <contact_details>
                 <tel_no><![CDATA[03 4107 5154]]></tel_no>
-                <email><![CDATA[]]></email>
+                <email><![CDATA[xyz@foo.bar]]></email>
             </contact_details>
             <price>
             	<entry_fee><![CDATA[]]></entry_fee>

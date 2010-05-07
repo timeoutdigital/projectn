@@ -26,7 +26,8 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
       'city'=>'kuala lumpur', 
-      'language'=>'en'
+      'language'=>'en',
+      'inernational_dial_code' => '+60',
       ) );
 
     $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kuala_lumpur_venues.xml' );
@@ -57,5 +58,21 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          3.209707,
                          'Checking longitude'
                          );
+
+    $this->assertEquals( $this->pois[0]['email'],
+                         'xyz@foo.bar',
+                         'Checking email'
+                         );
+
+    $this->assertEquals( $this->pois[0]['url'],
+                         'http://www.tmsart.com.my',
+                         'Checking url'
+                         );
+
+    $this->assertEquals( $this->pois[0]['phone'],
+                         '+60 3 4107 5154',
+                         'Checking phone'
+                         );
+
   }
 }

@@ -32,6 +32,9 @@ class kualaLumpurVenuesMapper extends DataMapper
       $poi[ 'geocode_look_up' ] =  $this->extractGeoLookup( $venue );
       $poi[ 'latitude' ]        =  $this->extractLatitude( $venue );
       $poi[ 'longitude' ]       =  $this->extractLongitude( $venue );
+      $poi[ 'email' ]           =  $venue->contact_details->email;
+      $poi[ 'url' ]             =  $venue->url;
+      $poi[ 'phone' ]           =  $venue->contact_details->tel_no;
       $poi[ 'Vendor' ]          =  $this->vendor;
       $this->notifyImporter( $poi );
     }
