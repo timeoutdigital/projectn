@@ -22,19 +22,15 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $importer = new Importer();
-
     $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
       'city'=>'kuala lumpur', 
       'language'=>'en',
       'inernational_dial_code' => '+60',
       ) );
+    $this->addPoisWithIds( array( 509, 208, 216, 450, 1084 ) );
 
     $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kuala_lumpur_events.xml' );
-
-    $importer->addDataMapper( new kualaLumpurEventsMapper( $this->vendor, $this->xml ) );
-    $importer->addLogger( new echoingLogger( ));
-    $importer->run();
+    $this->runImport();
 
     $this->events = Doctrine::getTable( 'Event' )->findAll();
   }
@@ -99,5 +95,40 @@ EOF;
                          $this->events[1]['description'],
                          'Checking long description'
                           );
+  }
+
+  public function testOccurrence()
+  {
+    $this->assertEquals( 1,
+                         count( $this->events[0]['EventOccurrence'] ),
+                         'check occurrence count'
+                         );
+    $this->runImport();
+
+    $events = Doctrine::getTable( 'Event' )->findAll();
+    $this->assertEquals( 1,
+                         count( $events[0]['EventOccurrence'] ),
+                         'check occurrence count'
+                         );
+  }
+
+  private function runImport()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( new kualaLumpurEventsMapper( $this->vendor, $this->xml ) );
+    //$importer->addLogger( new echoingLogger( ));
+    $importer->run();
+  }
+
+  private function addPoisWithIds( $ids )
+  {
+    foreach( $ids as $id )
+    {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor;
+      $poi[ 'vendor_poi_id' ] = $id;
+      $poi->save();
+    }
+    $this->assertEquals( count( $ids ), Doctrine::getTable( 'Poi' )->count() );
   }
 }
