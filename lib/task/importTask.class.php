@@ -413,7 +413,6 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
-          var_dump( 'ha' );
             $this->output( 'fetching KL poi xml...' );
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
             $feedObj->exec();
