@@ -24,13 +24,15 @@ class kualaLumpurVenuesMapper extends DataMapper
     foreach( $this->xml->venueDetails as $venue )
     {
       $poi = $this->dataMapperHelper->getPoiRecord( (string) $venue->id );
-      $poi['poi_name'] = (string) $venue->title;
-      $poi['vendor_poi_id'] = (string) $venue->id;
-      $poi['street'] = (string) $venue->address;
-      $poi['city'] = 'Kuala Lumpur';
-      $poi['country'] = 'MYS';
-      $poi[ 'geocode_look_up' ] = $this->extractGeoLookup( $venue );
-      $poi[ 'Vendor' ] = $this->vendor;
+      $poi['vendor_poi_id']     =  (string) $venue->id;
+      $poi['poi_name']          =  (string) $venue->title;
+      $poi['street']            =  (string) $venue->address;
+      $poi['city']              =  'Kuala Lumpur';
+      $poi['country']           =  'MYS';
+      $poi[ 'geocode_look_up' ] =  $this->extractGeoLookup( $venue );
+      $poi[ 'latitude' ]        =  $this->extractLatitude( $venue );
+      $poi[ 'longitude' ]       =  $this->extractLongitude( $venue );
+      $poi[ 'Vendor' ]          =  $this->vendor;
       $this->notifyImporter( $poi );
     }
   }
@@ -38,5 +40,17 @@ class kualaLumpurVenuesMapper extends DataMapper
   private function extractGeoLookup( SimpleXMLElement $venue )
   {
     return 'foo';
+  }
+
+  private function extractLatitude( SimpleXMLElement $venue )
+  {
+    $latlong = explode( ',', (string) $venue->location->longlat );
+    return $latlong[1];
+  }
+
+  private function extractLongitude( SimpleXMLElement $venue )
+  {
+    $latlong = explode( ',', (string) $venue->location->longlat );
+    return $latlong[0];
   }
 }
