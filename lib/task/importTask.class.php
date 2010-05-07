@@ -421,7 +421,8 @@ class importTask extends sfBaseTask
             $loggerObj->setType( 'poi' );
             $importer->addLogger( $loggerObj );
             
-            $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $feedObj->getXml() ) );
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $xml ) );
             break;
 
           case 'event':
@@ -435,7 +436,8 @@ class importTask extends sfBaseTask
             // @todo - Re-impliment this when we're not just hacking this together to get it out.
             //$feedSimpleXML = $this->removeKualaLumpurMoviesFromEventFeed( $feedObj->getResponse()() );
 
-            $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $feedObj->getXml() ) );
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $xml ) );
           break;
 
           case 'movie':

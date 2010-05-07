@@ -209,7 +209,7 @@ class logImport implements loggable
         $errorObj['message']        = $error->getMessage();
         if ( $record !==  NULL)
         {
-            $errorObj['serialized_object']    = serialize( $record );
+            //$errorObj['serialized_object']    = @serialize( $record );
         }
 
         $errorObj->save();
