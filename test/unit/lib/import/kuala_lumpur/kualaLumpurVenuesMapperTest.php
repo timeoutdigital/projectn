@@ -49,30 +49,42 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          count( $this->pois ),
                          'Should have same number of Pois in db as in xml.');
 
-    $this->assertEquals( $this->pois[0]['latitude'],
-                         101.746359,
+    $this->assertEquals( 101.746359,
+                         $this->pois[0]['latitude'],
                          'Checking latitude'
                          );
 
-    $this->assertEquals( $this->pois[0]['longitude'],
-                         3.209707,
+    $this->assertEquals( 3.209707,
+                         $this->pois[0]['longitude'],
                          'Checking longitude'
                          );
 
-    $this->assertEquals( $this->pois[0]['email'],
-                         'xyz@foo.bar',
+    $this->assertEquals( 'xyz@foo.bar',
+                         $this->pois[0]['email'],
                          'Checking email'
                          );
 
-    $this->assertEquals( $this->pois[0]['url'],
-                         'http://www.tmsart.com.my',
+    $this->assertEquals( 'http://www.tmsart.com.my',
+                         $this->pois[0]['url'],
                          'Checking url'
                          );
 
-    $this->assertEquals( $this->pois[0]['phone'],
-                         '+60 3 4107 5154',
+    $this->assertEquals( '+60 3 4107 5154',
+                         $this->pois[0]['phone'],
                          'Checking phone'
                          );
 
+  }
+
+  public function testVendorPoiCategory()
+  {
+    $this->assertEquals( 'Art | Gallery',
+                         $this->pois[0]['VendorPoiCategory'][0]['name'],
+                         'Checking vendor poi category'
+                         );
+    $this->assertEquals( 'Food | European',
+                         $this->pois[1]['VendorPoiCategory'][0]['name'],
+                         'Checking vendor poi category'
+                         );
   }
 }

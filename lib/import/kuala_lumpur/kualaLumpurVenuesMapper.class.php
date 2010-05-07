@@ -24,6 +24,7 @@ class kualaLumpurVenuesMapper extends DataMapper
     foreach( $this->xml->venueDetails as $venue )
     {
       $poi = $this->dataMapperHelper->getPoiRecord( (string) $venue->id );
+
       $poi['vendor_poi_id']     =  (string) $venue->id;
       $poi['poi_name']          =  (string) $venue->title;
       $poi['street']            =  (string) $venue->address;
@@ -36,6 +37,13 @@ class kualaLumpurVenuesMapper extends DataMapper
       $poi[ 'url' ]             =  $venue->url;
       $poi[ 'phone' ]           =  $venue->contact_details->tel_no;
       $poi[ 'Vendor' ]          =  $this->vendor;
+
+      $poi->addVendorCategory( array(
+        $venue->categories->category,
+        $venue->categories->subCategory,
+      ), 
+      $this->vendor );
+
       $this->notifyImporter( $poi );
     }
   }
