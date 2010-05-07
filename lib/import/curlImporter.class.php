@@ -91,6 +91,7 @@ class curlImporter
             }
        }
 
+       curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0" );
        curl_setopt($ch, CURLOPT_TIMEOUT, 200);
        curl_setopt($ch, CURLOPT_HEADER, 0);
        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

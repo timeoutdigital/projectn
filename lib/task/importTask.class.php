@@ -339,9 +339,15 @@ class importTask extends sfBaseTask
         }
         break; //end lisbon
 
+
+
+
+
+
       //sydney is dirty I know... needs fixing bad, like the rest of this task
       case 'sydney':
         $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
+        $loggerObj = new logImport( $vendor );
         $importer->addLogger( new logImport( $vendor ) );
 
         $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
@@ -367,7 +373,8 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
-            $this->output( 'fetching xml...' );
+            $loggerObj->setType( 'poi' );
+            $this->output( 'fetching sydney poi xml...' );
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'poi' ], 'venues.xml' );
             $this->output( 'xml received' );
             $xml = simplexml_load_file( $downloadedFile );
@@ -375,7 +382,8 @@ class importTask extends sfBaseTask
             break;
 
           case 'event':
-            $this->output( 'fetching xml...' );
+            $loggerObj->setType( 'event' );
+            $this->output( 'fetching sydney event xml...' );
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'event' ], 'event.xml' );
             $this->output( 'xml received' );
             $xml = simplexml_load_file( $downloadedFile );
@@ -383,7 +391,8 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-            $this->output( 'fetching xml...' );
+            $loggerObj->setType( 'movie' );
+            $this->output( 'fetching sydney movie xml...' );
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'movie' ], 'movie.xml' );
             $this->output( 'xml received' );
             $xml = simplexml_load_file( $downloadedFile );
@@ -392,6 +401,62 @@ class importTask extends sfBaseTask
         }
         break;
 
+
+
+
+
+      case 'kuala_lumpur':
+        $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
+        $loggerObj      = new logImport( $vendor );
+        $feedObj        = new curlImporter();
+
+        switch( $options['type'] )
+        {
+          case 'event':
+          case 'movie':
+            $this->output( 'fetching KL event/movie xml...' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+            $feedObj->exec();
+            $this->output( 'xml received' );
+          break;
+          case 'poi':
+            $this->output( 'fetching KL poi xml...' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
+            $feedObj->exec();
+            $this->output( 'xml received' );
+          break;
+
+          case 'poi':
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
+            
+            $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $feedObj->getXml() ) );
+            break;
+
+          case 'event':
+            $loggerObj->setType( 'event' );
+            $importer->addLogger( $loggerObj );
+            // @todo - Re-impliment this when we're not just hacking this together to get it out.
+            //$feedSimpleXML = $this->removeKualaLumpurMoviesFromEventFeed( $feedObj->getResponse()() );
+
+            $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $feedObj->getXml() ) );
+          break;
+
+          case 'movie':
+
+            // @todo, seperate movie datamapper from event datamapper.
+
+            $loggerObj->setType( 'movie' );
+            $importer->addLogger( $loggerObj );
+            // @todo - Re-impliment this when we're not just hacking this together to get it out.
+            //$feedSimpleXML = $this->returnKualaLumpurMoviesFromEventFeed( $feedObj->getResponse() );
+            //
+            // @todo - Replace 'something' below with the name of the Data Mapper
+            //$importer->addDataMapper( new something( $vendor, $feedObj->getXml() ) );
+          break;
+        }
+        unset( $feedSimpleXML );
+        break; //end kuala_lumpur
 
 
 
@@ -924,4 +989,53 @@ class importTask extends sfBaseTask
       echo PHP_EOL . date( 'Y-m-d H:m:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL . PHP_EOL;
   }
 
+  private function returnKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
+  {
+    $string = <<<EOF
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:template match="/">
+		<xsl:element name="event">
+			<xsl:for-each select="//event/eventDetails">
+				<xsl:if test="categories[category/text()='Film' and subCategory/text()='Screenings']">
+					<xsl:copy-of select="."/>
+				</xsl:if>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+</xsl:stylesheet>
+EOF;
+
+    $xsl = new DOMDocument();
+    $xsl->loadXML( $string );
+
+    $xslProcessor = new XSLTProcessor();
+    $xslProcessor->importStyleSheet( $xsl );
+
+    return new SimpleXMLElement( $xslProcessor->transformToXML( dom_import_simplexml( $feed ) ) );
+  }
+
+  private function removeKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
+  {
+    $string = <<<EOF
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:template match="/">
+		<xsl:element name="event">
+			<xsl:for-each select="//event/eventDetails">
+				<xsl:if test="categories[not(category/text()='Film' and subCategory/text()='Screenings')]">
+					<xsl:copy-of select="."/>
+				</xsl:if>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+</xsl:stylesheet>
+EOF;
+
+    $xsl = new DOMDocument();
+    $xsl->loadXML( $string );
+
+    $xslProcessor = new XSLTProcessor();
+    $xslProcessor->importStyleSheet( $xsl );
+
+    return new SimpleXMLElement( $xslProcessor->transformToXML( dom_import_simplexml( $feed ) ) );
+  }
 }
