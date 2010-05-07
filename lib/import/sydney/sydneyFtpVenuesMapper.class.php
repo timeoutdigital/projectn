@@ -63,7 +63,11 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['review_date']       = (string) $this->extractDate( $venue->DateUpdated );
 
       //$poi->addMediaByUrl(     (string) $venue->ImagePath );
-      $poi->addVendorCategory( $this->extractVendorCategories( $venue ), $this->vendor );
+      $cats = $this->extractVendorCategories( $venue );
+      if( count( $cats ) )
+      {
+        $poi->addVendorCategory( $cats, $this->vendor['id'] );
+      }
 
       $poi['TimeoutLinkProperty'] = (string) $venue->TimeoutURL;
 
@@ -111,7 +115,8 @@ class sydneyFtpVenuesMapper extends DataMapper
       $vendorCats[] = $parentCategory;
 
     foreach( $venue->categories->childrens->children_category as $childCategory )
-      $vendorCats[] = (string) $childCategory;
+      if( $childCategory != 'N/A' )
+        $vendorCats[] = (string) $childCategory;
 
     return $vendorCats;
   }

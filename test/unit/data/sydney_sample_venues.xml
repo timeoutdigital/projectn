@@ -91,6 +91,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<categories>
 			<parent_category_name><![CDATA[Restaurant]]></parent_category_name>
 			<childrens>
+				<children_category><![CDATA[N/A]]></children_category>
 				<children_category><![CDATA[Spanish]]></children_category>
 				<children_category><![CDATA[Tapas]]></children_category>
 			</childrens>
@@ -135,7 +136,7 @@ eggs with golden yolks topped with cheese crisps is tangy and bright.   A crème
 		<categories>
 			<parent_category_name><![CDATA[N/A]]></parent_category_name>
 			<childrens>
-				<children_category><![CDATA[Nightclub]]></children_category>
+				<children_category><![CDATA[N/A]]></children_category>
 			</childrens>
 		</categories>
 	</venue>

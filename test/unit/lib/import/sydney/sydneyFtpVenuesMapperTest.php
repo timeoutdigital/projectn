@@ -37,9 +37,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
                                                      'inernational_dial_code'  => '+61', 
                                                      ) );
 
-    $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpVenuesMapper( $this->vendor, $this->feed ) );
-    $importer->run();
+    $this->runImport();
 
     $this->poiTable = Doctrine::getTable( 'Poi' );
   }
@@ -135,6 +133,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testHasVendorCategories()
   {
     $pois = $this->poiTable->findAll( );
+    $numVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->count();
 
     $this->assertEquals( 'Gallery',
                           $pois[0]['VendorPoiCategory'][0]['name']
@@ -143,5 +142,16 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Restaurant | Spanish | Tapas',
                           $pois[1]['VendorPoiCategory'][0]['name']
                           );
+
+    $this->assertEquals(  0,
+                          $pois[2]['VendorPoiCategory']->count()
+                          );
+  }
+
+  public function runImport()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( new sydneyFtpVenuesMapper( $this->vendor, $this->feed ) );
+    $importer->run();
   }
 }
