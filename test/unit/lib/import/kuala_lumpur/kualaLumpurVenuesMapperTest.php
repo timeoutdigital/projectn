@@ -74,6 +74,10 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          'Checking phone'
                          );
 
+    $this->assertEquals( '+60 3 4107 5154',
+                         $this->pois[0]['phone'],
+                         'Checking phone'
+                         );
   }
 
   public function testVendorPoiCategory()
@@ -82,9 +86,39 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          $this->pois[0]['VendorPoiCategory'][0]['name'],
                          'Checking vendor poi category'
                          );
+
     $this->assertEquals( 'Food | European',
                          $this->pois[1]['VendorPoiCategory'][0]['name'],
                          'Checking vendor poi category'
+                         );
+  }
+
+  public function testImage()
+  {
+    $this->assertEquals( 'http://www.timeoutkl.com/uploadfiles/image/Venues/Art/Big/bigimg_TMSArtGallery.jpg',
+                          $this->pois[0]['PoiMedia'][0]['url'],
+                          'Checking poi media'
+                          );
+  }
+
+  public function testDescriptions()
+  {
+    $this->assertEquals( 'Hankering for real German food to accompany that cold beer of yours? Then Stadt is the place just for you....',
+                          $this->pois[1]['short_description'],
+                          'Checking short description'
+                         );
+    $desc = <<<EOF
+<p>Hankering for real German food to accompany that cold beer of yours? Then Stadt is the place just for you. <br />
+<br />
+Stadt specializes in authentic German cuisine, featuring original recipe of German favourites such as German Grilled steak, sausages, and their specialty, crispy pork knuckle. <br />
+<br />
+Stadt also serves a wonderful selection of German and local beers. So, beers and meat, heavenly, ain't it so?</p>
+<p><strong>Stadt Puchong</strong>: <em>(see side bar)</em></p>
+<p><strong>Stadt Kepong</strong>: <em>No 2, Jalan Metro Perdana 8, Taman Usahawan Kepong, Kepong Utara, 52100 KL. 03 6250 1016 </em></p>
+EOF;
+    $this->assertEquals( 'Hankering for real German food to accompany that cold beer of yours? Then Stadt is the place just for you....',
+                          $this->pois[1]['short_description'],
+                          'Checking short description'
                          );
   }
 }
