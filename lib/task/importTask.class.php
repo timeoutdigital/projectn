@@ -405,28 +405,20 @@ class importTask extends sfBaseTask
 
 
 
-      case 'kuala_lumpur':
+      case 'kuala lumpur':
         $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
         $loggerObj      = new logImport( $vendor );
         $feedObj        = new curlImporter();
 
         switch( $options['type'] )
         {
-          case 'event':
-          case 'movie':
-            $this->output( 'fetching KL event/movie xml...' );
-            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
-            $feedObj->exec();
-            $this->output( 'xml received' );
-          break;
           case 'poi':
+          var_dump( 'ha' );
             $this->output( 'fetching KL poi xml...' );
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
             $feedObj->exec();
             $this->output( 'xml received' );
-          break;
 
-          case 'poi':
             $loggerObj->setType( 'poi' );
             $importer->addLogger( $loggerObj );
             
@@ -434,6 +426,11 @@ class importTask extends sfBaseTask
             break;
 
           case 'event':
+            $this->output( 'fetching KL event/movie xml...' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+            $feedObj->exec();
+            $this->output( 'xml received' );
+
             $loggerObj->setType( 'event' );
             $importer->addLogger( $loggerObj );
             // @todo - Re-impliment this when we're not just hacking this together to get it out.
@@ -443,6 +440,10 @@ class importTask extends sfBaseTask
           break;
 
           case 'movie':
+            //$this->output( 'fetching KL event/movie xml...' );
+            //$feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+            //$feedObj->exec();
+            //$this->output( 'xml received' );
 
             // @todo, seperate movie datamapper from event datamapper.
 
