@@ -68,7 +68,7 @@ class sydneyFtpEventsMapper extends DataMapper
           if ( (string) $eventNode->Free == 'True' )
             $event['FreeProperty'] = true;
 
-          $event->addMediaByUrl( (string) $eventNode->ImagePath );
+          //$event->addMediaByUrl( (string) $eventNode->ImagePath );
 
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 

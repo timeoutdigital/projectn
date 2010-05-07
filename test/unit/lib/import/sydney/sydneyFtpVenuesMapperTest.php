@@ -116,6 +116,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testHasImages()
   {
+    $this->markTestSkipped();
     $pois = $this->poiTable->findAll( );
 
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
