@@ -23,7 +23,11 @@ class kualaLumpurEventsMapper extends DataMapper
   {
     foreach( $this->xml->eventDetails as $event )
     {
+      if( $this->isFilm( $event ) )
+        continue;
+
       $eventId = (string) $event->id;
+
       $record = $this->dataMapperHelper->getEventRecord( $eventId );
 
       $record['vendor_event_id']   = $eventId;
@@ -61,5 +65,13 @@ class kualaLumpurEventsMapper extends DataMapper
 
       $this->notifyImporter( $record );
     }
+  }
+
+  private function isFilm( $event )
+  {
+    return (string) $event->categories->category     == 'Film'
+        && (string) $event->categories->subCategory  == 'Screenings'
+        && (string) $event->categories->genre        != ''
+        ;
   }
 }

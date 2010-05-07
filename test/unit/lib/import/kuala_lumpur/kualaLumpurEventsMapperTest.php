@@ -16,7 +16,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  *
  *
  */
-class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
+class kualaLumpurEventsMapperTest extends PHPUnit_Framework_TestCase
 {
   protected function setUp()
   {
@@ -42,9 +42,9 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapping()
   {
-    $this->assertEquals( count( $this->xml ),
+    $this->assertEquals( 4,
                          $this->events->count(),
-                         'check import count'
+                         'check import count is 4. 5 in the feed, but one is a movie.'
                          );
 
     $this->assertEquals( 5158,
