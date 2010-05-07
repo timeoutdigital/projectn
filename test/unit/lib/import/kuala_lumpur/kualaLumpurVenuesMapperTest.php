@@ -50,12 +50,12 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          'Should have same number of Pois in db as in xml.');
 
     $this->assertEquals( 101.746359,
-                         $this->pois[0]['latitude'],
+                         $this->pois[0]['longitude'],
                          'Checking latitude'
                          );
 
     $this->assertEquals( 3.209707,
-                         $this->pois[0]['longitude'],
+                         $this->pois[0]['latitude'],
                          'Checking longitude'
                          );
 

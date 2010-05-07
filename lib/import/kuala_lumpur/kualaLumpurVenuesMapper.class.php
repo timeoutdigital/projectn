@@ -40,11 +40,13 @@ class kualaLumpurVenuesMapper extends DataMapper
       $poi[ 'description' ]       = (string) $venue->description;
       $poi[ 'Vendor' ]            = $this->vendor;
 
-      $poi->addVendorCategory( array(
-        $venue->categories->category,
-        $venue->categories->subCategory,
-      ), 
-      $this->vendor['id'] );
+			$cat = (string) $venue->categories->category;
+			$cat2 = (string) $venue->categories->subCategory;
+
+			if( !empty( $cat ) && !empty( $cat2 ) )
+			{
+				$poi->addVendorCategory( array( $cat, $cat2 ), $this->vendor['id'] );
+			}
 
       //$poi->addMediaByUrl( (string) $venue->medias->big_image );
 
