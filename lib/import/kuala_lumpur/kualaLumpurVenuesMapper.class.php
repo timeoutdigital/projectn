@@ -44,7 +44,7 @@ class kualaLumpurVenuesMapper extends DataMapper
         $venue->categories->category,
         $venue->categories->subCategory,
       ), 
-      $this->vendor );
+      $this->vendor['id'] );
 
       //$poi->addMediaByUrl( (string) $venue->medias->big_image );
 
@@ -55,12 +55,12 @@ class kualaLumpurVenuesMapper extends DataMapper
   private function extractLatitude( SimpleXMLElement $venue )
   {
     $latlong = explode( ',', (string) $venue->location->longlat );
-    return $latlong[1];
+    return $latlong[0];
   }
 
   private function extractLongitude( SimpleXMLElement $venue )
   {
     $latlong = explode( ',', (string) $venue->location->longlat );
-    return $latlong[0];
+    return $latlong[1];
   }
 }
