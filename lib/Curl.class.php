@@ -160,6 +160,7 @@ class Curl
     curl_setopt( $this->_curlHandle, CURLOPT_HEADER, $this->_returnHeaderSwitch );
     curl_setopt( $this->_curlHandle, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt( $this->_curlHandle, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt( $this->_curlHandle, CURLOPT_USERAGENT, "Mozilla/4.0" );
   }
 
   /**
