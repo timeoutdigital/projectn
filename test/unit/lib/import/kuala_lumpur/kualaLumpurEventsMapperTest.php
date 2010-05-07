@@ -55,6 +55,16 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          $this->events[0]['vendor_event_id'],
                          'Check id'
                          );
+
+    $this->assertEquals( 'http://www.instantcafetheatre.com/',
+                         $this->events[0]['url'],
+                         'Check url'
+                         );
+ 
+    $this->assertEquals( 'FREE entry for Ladies / RM35 Men (Inc 1 drink)',
+                         $this->events[0]['price'],
+                         'Check price'
+                         );
   }
 
   public function testVendorCategories()
