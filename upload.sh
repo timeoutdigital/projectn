@@ -2,6 +2,22 @@
 
 cd /var/vhosts/projectn/httpdocs
 
+cp export/fakes/kl_event.xml export/export_$(date +"%Y%m%d")/event/kuala_lumpur.xml
+cp export/fakes/kl_poi.xml export/export_$(date +"%Y%m%d")/poi/kuala_lumpur.xml
+cp export/fakes/kl_movie.xml export/export_$(date +"%Y%m%d")/movie/kuala_lumpur.xml
+
+cp export/fakes/syd_event.xml export/export_$(date +"%Y%m%d")/event/sydney.xml
+cp export/fakes/syd_poi.xml export/export_$(date +"%Y%m%d")/poi/sydney.xml
+cp export/fakes/syd_movie.xml export/export_$(date +"%Y%m%d")/movie/sydney.xml
+
+sed -i "s/2010-05-07T22:07:11/$(date +'%Y-%m-%dT%T')/g" export/export_$(date +"%Y%m%d")/event/kuala_lumpur.xml
+sed -i "s/2010-05-07T22:03:13/$(date +'%Y-%m-%dT%T')/g" export/export_$(date +"%Y%m%d")/poi/kuala_lumpur.xml
+sed -i "s/2010-05-07T22:00:34/$(date +'%Y-%m-%dT%T')/g" export/export_$(date +"%Y%m%d")/movie/kuala_lumpur.xml
+
+sed -i "s/2010-05-07T21:59:14/$(date +'%Y-%m-%dT%T')/g" export/export_$(date +"%Y%m%d")/event/sydney.xml
+sed -i "s/2010-05-07T21:42:03/$(date +'%Y-%m-%dT%T')/g" export/export_$(date +"%Y%m%d")/poi/sydney.xml
+sed -i "s/2010-05-07T22:00:34/$(date +'%Y-%m-%dT%T')/g" export/export_$(date +"%Y%m%d")/movie/sydney.xml
+
 echo "Zipping Movies"
 
 cd export/export_$(date +"%Y%m%d")/movie/

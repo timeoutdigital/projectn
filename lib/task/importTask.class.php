@@ -402,8 +402,60 @@ class importTask extends sfBaseTask
         break;
 
 
+    case 'kuala lumpur':
+        $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
+        $loggerObj      = new logImport( $vendor );
+        $feedObj        = new curlImporter();
 
+        switch( $options['type'] )
+        {
+          case 'poi':
+            $this->output( 'fetching KL poi xml...' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
+            $feedObj->exec();
+            $this->output( 'xml received' );
 
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
+            
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $xml ) );
+            break;
+
+          case 'event':
+            $this->output( 'fetching KL event/movie xml...' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+            $feedObj->exec();
+            $this->output( 'xml received' );
+
+            $loggerObj->setType( 'event' );
+            $importer->addLogger( $loggerObj );
+            // @todo - Re-impliment this when we're not just hacking this together to get it out.
+            //$feedSimpleXML = $this->removeKualaLumpurMoviesFromEventFeed( $feedObj->getResponse()() );
+
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $xml ) );
+          break;
+
+          case 'movie':
+            //$this->output( 'fetching KL event/movie xml...' );
+            //$feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+            //$feedObj->exec();
+            //$this->output( 'xml received' );
+
+            // @todo, seperate movie datamapper from event datamapper.
+
+            $loggerObj->setType( 'movie' );
+            $importer->addLogger( $loggerObj );
+            // @todo - Re-impliment this when we're not just hacking this together to get it out.
+            //$feedSimpleXML = $this->returnKualaLumpurMoviesFromEventFeed( $feedObj->getResponse() );
+            //
+            // @todo - Replace 'something' below with the name of the Data Mapper
+            //$importer->addDataMapper( new something( $vendor, $feedObj->getXml() ) );
+          break;
+        }
+        unset( $feedSimpleXML );
+        break; //end kuala_lumpur
 
       case 'kuala lumpur':
         $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
@@ -485,7 +537,7 @@ class importTask extends sfBaseTask
 
     $importer->run();
 
-    $this->writeLogLine( 'end import' );
+    $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ') -- Peak memory used: ' . $this->byteToHumanReadable( memory_get_peak_usage( true ) ) );
   }
 
 
@@ -989,6 +1041,17 @@ class importTask extends sfBaseTask
   private function writeLogLine( $message )
   {
       echo PHP_EOL . date( 'Y-m-d H:m:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL . PHP_EOL;
+  }
+
+  /**
+   *
+   * taken from http://uk2.php.net/manual/en/function.memory-get-usage.php
+   */
+  private function byteToHumanReadable( $size )
+  {
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+
   }
 
   private function returnKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
