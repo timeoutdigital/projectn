@@ -43,6 +43,8 @@ abstract class DataMapper
   protected function notifyImporter( Doctrine_Record $record )
   {
     $this->importer->onRecordMapped( $record );
+//    $record->free( true );
+//    unset( $record );
   }
   
   protected function notifyImporterOfFailure( Exception $exception , Doctrine_Record $record = NULL, $message='' )

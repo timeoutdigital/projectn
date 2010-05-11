@@ -99,13 +99,15 @@ class Importer
    */
   public function onRecordMapped( Doctrine_Record $record )
   {
-     try
-     {
+//     try
+//     {
         //get the state of the record before save
         $recordIsNew = $record->isNew();
         $recordModifications = $record->getModified();
 
         $record->save();
+//        $record->free( true );
+//        unset( $record );
         
         //if record is saved, notify the logger
         if( $recordIsNew )
@@ -117,17 +119,17 @@ class Importer
         }
         else if( !empty( $recordModifications ) )
         {
-//          foreach( $this->loggers as $logger )
-//          {
-//            $logger->addChange( 'update', $recordModifications );
-//            $logger->countExisting();
-//          }
+          foreach( $this->loggers as $logger )
+          {
+            $logger->addChange( 'update', $recordModifications );
+            $logger->countExisting();
+          }
         }
-     }
-     catch( Exception $e )
-     {
-         $this->onRecordMappingException( $e ,$record  );
-     }
+//     }
+//     catch( Exception $e )
+//     {
+//         $this->onRecordMappingException( $e ,$record  );
+//     }
   }
 
   public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )

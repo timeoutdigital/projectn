@@ -35,7 +35,19 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
   public function mapAll()
   {
     $this->loadCategories( );
-		$this->processEvents( );
+
+    $zone = new DateTimeZone( 'Europe/London' );
+    $from = date( 'Y-m-d' );
+    $to   = date_add( new DateTime( ), new DateInterval( 'P2Y' ) )->format( 'Y-m-d' );
+
+
+    //5807 ralph     20   0 2815m 2.7g 6576 R  100 77.7  40:48.82 php
+
+    $this->processPois( $from, $to );
+
+    $this->processEvents( $from, $to );
+
+    $this->processEventOccurrences( $from, $to );
   }
 
   private function setVendor()
@@ -63,84 +75,258 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 	 */
 	private function loadCategories( )
 	{
-        $items = Doctrine_Query::create( )->select( 'c.*' )
-                                          ->from( 'SLLCategory c' )
-                                          ->execute( );
+            $items = Doctrine_Query::create( )->select( 'c.*' )
+                                              ->from( 'SLLCategory c' )
+                                              ->execute( );
 
-        foreach ( $items as $item )
-        {
-          $id = $item[ 'id' ];
-          $this->vendorCategories[ $id ] = $item;
-        }
+            foreach ( $items as $item )
+            {
+              $id = $item[ 'id' ];
+              $this->vendorCategories[ $id ] = $item;
+            }
 	}
 
 
-    /**
-     *
-     */
-	private function processEvents( )
+        private function processPois( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 5000;
 
-		$zone = new DateTimeZone( 'Europe/London' );
-		$from = date( 'Y-m-d' );
-		$to   = date_add( new DateTime( ), new DateInterval( 'P2Y' ) )->format( 'Y-m-d' );
-
-		$query = Doctrine_Query::create( )->select( 'o.*, v.*, e.*' )
-		                                  ->from( 'SLLOccurrence o' )
+		$query = Doctrine_Query::create( )->select( 'o.id, v.*' )
+                                                  ->from( 'SLLOccurrence o' )
 		                                  ->leftJoin( 'o.SLLVenue v' )
 		                                  ->leftJoin( 'o.SLLEvent e' )
 		                                  ->where( 'o.date_start >= ?', $from )
-		                                  ->andWhere( 'o.date_start <= ?', $to );
-
+		                                  ->andWhere( 'o.date_start <= ?', $to )
+                                                  ->groupBy( 'v.id, e.id' );
 		do
 		{
 			$pager = new Doctrine_Pager( $query, $currentPage, $resultsPerPage );
 
-			$items = $pager->execute( );
+			$items = $pager->execute( array(), Doctrine::HYDRATE_ARRAY );
+
+
+                        //$items = $query->execute( array(), Doctrine::HYDRATE_ARRAY );
+
+                        $currentVendorPoiId = null;
+                        $currentVendorEventId = null;
 
 			foreach ( $items as $item )
 			{
-        $this->categories = $this->extractCategoriesFrom( $item );
-
-        $poi             = $this->mapPoiFrom(             $item );
-        $event           = $this->mapEventFrom(           $item, $poi );
-        $eventOccurrence = $this->mapEventOccurrenceFrom( $item, $poi, $event );
-
-				//$poi->free( );
-	   		//$event->free( );
-				//$eventOccurrence->free( );
-        $this->categories = null;
+                           // $this->categories = $this->extractCategoriesFrom( $item );
+                            $poi = $this->mapPoiFrom( $item );
+                            $this->categories = null;
 			}
 
 			$currentPage++;
 
-			// free memory
-			$items->free( true );
+			unset( $items );
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 
 	}
 
-  private function mapEventOccurrenceFrom( $item, Poi $poi=null, Event $event=null )
-  {
-    if( !$poi || !$event )
-      return;
 
-    $occurrence = Doctrine::getTable( 'EventOccurrence' )->find( $item[ 'id' ] );
-    if ( $occurrence === false ) $occurrence = new EventOccurrence( );
+	private function processEvents( $from, $to )
+	{
+		$currentPage = 1;
+		$resultsPerPage = 5000;
+
+		$query = Doctrine_Query::create( )->select( 'o.id, e.*' )
+		                                  ->from( 'SLLOccurrence o' )
+		                                  ->leftJoin( 'o.SLLEvent e' )
+		                                  ->where( 'o.date_start >= ?', $from )
+		                                  ->andWhere( 'o.date_start <= ?', $to )
+                                                  ->groupBy( 'e.id' );
+
+		do
+		{
+			$pager = new Doctrine_Pager( $query, $currentPage, $resultsPerPage );
+
+			$items = $pager->execute( array(), Doctrine::HYDRATE_ARRAY );
+
+
+                        //$items = $query->execute( array(), Doctrine::HYDRATE_ARRAY );
+
+                        $currentVendorPoiId = null;
+                        $currentVendorEventId = null;
+
+			foreach ( $items as $item )
+			{
+                           // $this->categories = $this->extractCategoriesFrom( $item );
+                            $event = $this->mapEventFrom( $item );
+                            $this->categories = null;
+			}
+
+			$currentPage++;
+
+			 unset( $items );
+		}
+		while ( $pager->getLastPage( ) >= $currentPage );
+
+	}
+
+        private function processEventOccurrences( $from, $to )
+	{
+		$currentPage = 1;
+		$resultsPerPage = 5000;
+
+		$query = Doctrine_Query::create( )->select( 'o.*' )
+		                                  ->from( 'SLLOccurrence o' )
+		                                  ->where( 'o.date_start >= ?', $from )
+		                                  ->andWhere( 'o.date_start <= ?', $to );
+
+		//$items = $query->execute( array(), Doctrine::HYDRATE_ARRAY );
+
+                do
+		{
+			$pager = new Doctrine_Pager( $query, $currentPage, $resultsPerPage );
+			$items = $pager->execute( array(), Doctrine::HYDRATE_ARRAY );
+
+                        $currentVendorPoiId = null;
+                        $currentVendorEventId = null;
+
+			foreach ( $items as $item )
+			{
+                            if ( $currentVendorPoiId != $item[ 'venue_id' ] )
+                            {
+                                if ( isset( $poi ) && $poi instanceof Poi )
+                                {
+                                    $poi->free( true );
+                                    unset( $poi );
+                                }
+
+                                $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor[ 'id' ], $item[ 'venue_id' ], Doctrine::HYDRATE_ARRAY );
+
+                                if ( isset( $poi ) && $poi === false )
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    $currentVendorPoiId = $item[ 'venue_id' ];
+                                }
+                            }
+
+                            if ( $currentVendorEventId != $item[ 'event_id' ] )
+                            {
+                                if ( isset( $event ) && $event instanceof Event )
+                                {
+                                    $event->free( true );
+                                    unset( $event );                                    
+                                }
+
+                                $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor[ 'id' ], $item[ 'event_id' ], Doctrine::HYDRATE_ARRAY );
+                                
+                                if ( $event === false)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    $currentVendorEventId = $item[ 'event_id'];
+                                }
+                            }
+
+                            $this->mapEventOccurrenceFrom( $item, $poi[ 'id' ], $event[ 'id' ] );
+
+                            //$eventOccurrence->free( true );
+                            //unset($eventOccurrence);
+			}
+
+			$currentPage++;
+
+                        unset( $items );
+
+		}
+		while ( $pager->getLastPage( ) >= $currentPage );
+
+	}
+
+
+//        private function processEvents( )
+//	{
+//		$currentPage = 1;
+//		$resultsPerPage = 5000;
+//
+//		$zone = new DateTimeZone( 'Europe/London' );
+//		$from = date( 'Y-m-d' );
+//		$to   = date_add( new DateTime( ), new DateInterval( 'P2Y' ) )->format( 'Y-m-d' );
+//
+//		$query = Doctrine_Query::create( )->select( 'o.*, v.*, e.*' )
+//		                                  ->from( 'SLLOccurrence o' )
+//		                                  ->leftJoin( 'o.SLLVenue v' )
+//		                                  ->leftJoin( 'o.SLLEvent e' )
+//		                                  ->where( 'o.date_start >= ?', $from )
+//		                                  ->andWhere( 'o.date_start <= ?', $to )
+//                                                  ->orderBy( 'o.venue_id, o.event_id' );
+//
+//
+//
+//		do
+//		{
+//			$pager = new Doctrine_Pager( $query, $currentPage, $resultsPerPage );
+//
+//			$items = $pager->execute( array(), Doctrine::HYDRATE_ARRAY );
+//
+//
+//                        //$items = $query->execute( array(), Doctrine::HYDRATE_ARRAY );
+//
+//                        $currentVendorPoiId = null;
+//                        $currentVendorEventId = null;
+//
+//			foreach ( $items as $item )
+//			{
+//
+//                            $this->categories = $this->extractCategoriesFrom( $item );
+//
+//                            if ( $currentVendorPoiId != $item[ 'venue_id' ] )
+//                            {
+//                                $poi = $this->mapPoiFrom( $item );
+//                                $currentVendorPoiId = $item[ 'venue_id' ];
+//                            }
+//
+//                            if ( $currentVendorEventId != $item[ 'event_id' ] )
+//                            {
+//                               $event = $this->mapEventFrom( $item, $poi );
+//                               $currentVendorEventId = $item[ 'event_id' ];
+//                            }
+//
+//                            $eventOccurrence = $this->mapEventOccurrenceFrom( $item, $poi, $event );
+//
+//                            $this->categories = null;
+//			}
+//
+//			$currentPage++;
+//
+//			// free memory
+//			//$items->free( true );
+//		}
+//		while ( $pager->getLastPage( ) >= $currentPage );
+//
+//	}
+
+  private function mapEventOccurrenceFrom( $item, $poiId, $eventId )
+  {
+    if ( empty( $poiId ) || empty( $eventId ) )
+    {
+        return;
+    }
+
+    $occurrence = $this->dataMapperHelper->getEventOccurrenceRecordById( $eventId, $item[ 'id' ] );
 
     $occurrence[ 'vendor_event_occurrence_id' ] = $item[ 'id' ];
-    $occurrence[ 'Event' ] = $event;
-    $occurrence[ 'Poi' ] = $poi;
+    $occurrence[ 'event_id' ] = $eventId;
+    $occurrence[ 'poi_id' ] = $poiId;
     $occurrence[ 'start_date' ] = $item[ 'date_start' ];
     $occurrence[ 'end_date' ]   = $item[ 'date_end' ];
+
     $occurrence[ 'utc_offset' ] = $this->vendor->getUtcOffset( $item[ 'date_start' ] );
     $this->notifyImporter( $occurrence );
+    $occurrence->free( true );
+    unset( $occurrence );
 
-    if( $this->successfullySaved( $occurrence ) )
-      return $occurrence;
+
   }
 
   /**
@@ -148,31 +334,32 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
    * occurences are handled differenctly in London to our schema.
    * Ie. For London: Occurences take priority and Events may not have much info entered.
    */
-  private function mapEventFrom( $item, Poi $poi=null )
+  private function mapEventFrom( $item )
   {
-    if( !$poi )
-      return;
 
-    $event = $this->dataMapperHelper->getEventRecord( $item[ 'event_id' ] );
+    $event = $this->dataMapperHelper->getEventRecord( $item[ 'SLLEvent' ][ 'id' ] );
     $event[ 'Vendor' ] = $this->vendor;
-    $event[ 'vendor_event_id' ] = $item[ 'event_id' ];
+    $event[ 'vendor_event_id' ] = $item[ 'SLLEvent' ][ 'id' ];
     $event[ 'name' ]        = $item[ 'SLLEvent' ][ 'title' ];
     $event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
     $event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
     $event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
-    $event->addVendorCategory( $this->categories, $this->vendor['id'] );
+    //$event->addVendorCategory( $this->categories, $this->vendor['id'] );
 
     $this->notifyImporter( $event );
 
-    if( $this->successfullySaved( $event ) )
-      return $event;
+//    $event->free( true );
+//    unset( $event );
+
+//    if( $this->successfullySaved( $event ) )
+//      return $event;
   }
 
   private function mapPoiFrom( $item )
   {
-    $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'venue_id' ] );
+    $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'SLLVenue' ][ 'id' ] );
     $poi[ 'Vendor' ]                 = $this->vendor;
-    $poi[ 'vendor_poi_id' ]          = $item[ 'venue_id' ];
+    $poi[ 'vendor_poi_id' ]          = $item[ 'SLLVenue' ][ 'id' ];
     $poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
 
     $fix = new removeCommaLondonFromEndOfString($item[ 'SLLVenue' ][ 'address' ]);
@@ -208,11 +395,15 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
       $poi[ 'additional_address_details' ] = $building_name;
     }
 
-    $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
+    //$poi->addVendorCategory( $this->categories, $this->vendor['id'] );
 
     $this->notifyImporter( $poi );
-    if( $this->successfullySaved( $poi ) )
-      return $poi;
+
+//    $poi->free( true );
+//    unset( $poi );
+
+//    if( $this->successfullySaved( $poi ) )
+//      return $poi;
   }
 
   private function extractCategoriesFrom( $item )
@@ -225,8 +416,8 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
   private function flattenCategoryTree( SLLCategory $category=null, &$collectedCategories = array() )
   {
-		if( !$category )
-			return;
+    if( !$category )
+        return;
 
     array_unshift( $collectedCategories, $category['name'] );
 
