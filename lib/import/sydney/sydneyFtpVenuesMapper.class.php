@@ -50,7 +50,7 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['longitude']         = (float)  $venue->Longitude;
       $poi['poi_name']          = (string) $venue->Name;
       $poi['street']            = (string) $venue->Address;
-      $poi['city']              = (string) $this->vendor['city'];
+      $poi['city']              = ucfirst( (string) $this->vendor['city'] );
       $poi['zips']              = (string) $venue->PostCode;
       $poi['country']           = (string) 'AUS';
       $poi['geocode_look_up']   = (string) $this->extractGeocodeLookUp( $venue );
@@ -59,11 +59,15 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['url']               = (string) $venue->Website;
       $poi['price_information'] = (string) stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo );
       $poi['openingtimes']      = (string) $venue->OpenTimes;
-      $poi['star_rating']       = (string) $venue->Rating;
+      $poi['star_rating']       = $this->extractRating( $venue );
       $poi['review_date']       = (string) $this->extractDate( $venue->DateUpdated );
 
-      $poi->addMediaByUrl(     (string) $venue->ImagePath );
-      $poi->addVendorCategory( $this->extractVendorCategories( $venue ), $this->vendor );
+      //$poi->addMediaByUrl(     (string) $venue->ImagePath );
+      $cats = $this->extractVendorCategories( $venue );
+      if( count( $cats ) )
+      {
+        $poi->addVendorCategory( $cats, $this->vendor['id'] );
+      }
 
       $poi['TimeoutLinkProperty'] = (string) $venue->TimeoutURL;
 
@@ -74,6 +78,19 @@ class sydneyFtpVenuesMapper extends DataMapper
 
       $this->notifyImporter( $poi );
     }
+  }
+
+  private function extractRating( $venue )
+  {
+    $rating = (string) $venue->Rating;
+
+    if( empty( $rating ) || $rating == 0 )
+      $rating = null;
+
+    if( $rating > 5 )
+      $rating = 5;
+
+    return $rating;
   }
 
   private function extractDate( $dateString )
@@ -98,7 +115,8 @@ class sydneyFtpVenuesMapper extends DataMapper
       $vendorCats[] = $parentCategory;
 
     foreach( $venue->categories->childrens->children_category as $childCategory )
-      $vendorCats[] = (string) $childCategory;
+      if( $childCategory != 'N/A' )
+        $vendorCats[] = (string) $childCategory;
 
     return $vendorCats;
   }
