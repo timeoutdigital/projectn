@@ -393,10 +393,6 @@ class importTask extends sfBaseTask
         break;
 
 
-
-
-
-
     case 'uae':
         switch( $options['type'] )
         {
@@ -418,7 +414,7 @@ class importTask extends sfBaseTask
 
     $importer->run();
 
-    $this->writeLogLine( 'end import' );
+    $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
   }
 
 
