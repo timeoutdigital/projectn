@@ -537,7 +537,7 @@ class importTask extends sfBaseTask
 
     $importer->run();
 
-    $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
+    $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ') -- Peak memory used: ' . $this->byteToHumanReadable( memory_get_peak_usage( true ) ) );
   }
 
 
@@ -1041,6 +1041,17 @@ class importTask extends sfBaseTask
   private function writeLogLine( $message )
   {
       echo PHP_EOL . date( 'Y-m-d H:m:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL . PHP_EOL;
+  }
+
+  /**
+   *
+   * taken from http://uk2.php.net/manual/en/function.memory-get-usage.php
+   */
+  private function byteToHumanReadable( $size )
+  {
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+
   }
 
   private function returnKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
