@@ -78,6 +78,11 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          $this->pois[0]['phone'],
                          'Checking phone'
                          );
+
+    $this->assertEquals( 'No 301, Jalan Bandar 11, Taman Melawati, KL',
+                         $this->pois[0]['geocode_look_up'],
+                         'Checking geocode_look_up'
+                         );
   }
 
   public function testVendorPoiCategory()

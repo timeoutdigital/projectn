@@ -127,6 +127,10 @@ class Movie extends BaseMovie
    */
   public function addMediaByUrl( $urlString )
   {
+    //@todo log missing images
+    if( empty( $urlString ) )
+      return;
+
     if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
     {
         throw new Exception('Failed to add Movie Media due to missing Vendor city, set vendor on the object before calling addMediaUrl()');
