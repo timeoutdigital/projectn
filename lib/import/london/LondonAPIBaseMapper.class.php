@@ -124,8 +124,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
     if( empty( $poi['latitude'] ) || empty( $poi['longitude'] ) )
     {
       $latLong = $this->deriveLatitudeLongitude( $xml );
-      $poi['longitude']         = $latLong['latitude'];
-      $poi['latitude']          = $latLong['longitude'];
+      $poi['longitude']         = $latLong['longitude'];
+      $poi['latitude']          = $latLong['latitude'];
     }
 
     $poi['zips']              = (string) $xml->postcode;
