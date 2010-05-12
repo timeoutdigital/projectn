@@ -60,7 +60,6 @@ class importNyED
   public function insertPoi( $poiData )
   {
     //Set the Poi's required values
-    var_dump( $poiData );
     $poi = new Poi();
     $poi->setPoiName( $poiData[ 'name' ] );
 
