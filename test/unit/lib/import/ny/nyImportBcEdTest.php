@@ -75,6 +75,17 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test if geocode lookup string is present
+     */
+    public function testGeocodeLookUp()
+    {
+       $this->createObject();
+       $poi = Doctrine::getTable('Poi')->findOneByPoiName('Milanos Bar');
+
+       $this->assertEquals( '51 E Houston St, New York, 10012, USA', $poi['geocode_look_up'] );
+    }
+
+    /**
      * Test to see that POIs with a property of 'cuisine' does not contain price information s per #260
      */
     public function testPoiPropertyNamedCuisineDoesNotContainPriceInfo()
@@ -195,6 +206,8 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
        $poi = Doctrine::getTable('Poi')->findByPoiName('Milanos Bar');
        $this->assertEquals(2, count($poi->toArray()), 'Test that there is only 1 in the DB');
     }
+
+
 
 
     /**
