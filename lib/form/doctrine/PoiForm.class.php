@@ -28,7 +28,7 @@ class PoiForm extends BasePoiForm
     parent::doUpdateObject( $values );
 
     $record   = $this->getObject();
-    $override = new recordFieldOverrideManager( $record );()
+    $override = new recordFieldOverrideManager( $record );
     $override->saveRecordModificationsAsOverrides();
   }
 
