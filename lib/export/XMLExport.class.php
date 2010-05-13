@@ -109,7 +109,34 @@ abstract class XMLExport
   {
     if( !is_null( $this->xsdPath ) )
     {
-      $xml->schemaValidate( $this->xsdPath );
+        libxml_use_internal_errors( true );
+        $xml->schemaValidate( $this->xsdPath );
+
+        foreach ( libxml_get_errors() as $error )
+        {
+            $error_message = (string) date( "Y-m-d H:i:s" ) . " -- libxml XSD validation for '".$this->xsdPath."' -- ";
+            
+            switch ($error->level)
+            {
+                case LIBXML_ERR_WARNING:
+                    $error_message .= "Warning Code: '$error->code' -- ";
+                    break;
+                case LIBXML_ERR_ERROR:
+                    $error_message .= "Error Code: '$error->code' -- ";
+                    break;
+                case LIBXML_ERR_FATAL:
+                    $error_message .= "Fatal Error Code: '$error->code' -- ";
+                    break;
+            }
+            $error_message .= "Message: '" . trim( $error->message ) . "' -- ";
+            if ($error->file) $error_message .= " File: '$error->file' -- ";
+            if ($error->line) $error_message .= " Line: '$error->line' -- ";
+
+            echo $error_message . PHP_EOL;
+        }
+
+        libxml_clear_errors();
+        libxml_use_internal_errors( false );
     }
   }
 
