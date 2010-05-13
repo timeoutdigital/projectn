@@ -39,8 +39,6 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
-    ini_set( 'memory_limit', '512M' );
-
     $this->getExporter( $options )->run();
 
     $timer->addTime();
