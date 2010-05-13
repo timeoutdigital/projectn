@@ -226,11 +226,18 @@ class Poi extends BasePoi
    */
   public function preSave( $event )
   {
+     $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();
      $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyOverrides();
+  }
+
+  private function applyDefaultGeocodeLookupStringIfNull()
+  {
+     if( is_null( $this['geocode_look_up'] ) ) 
+       $this['geocode_look_up'] = stringTransform::concatNonBlankStrings( ', ', array( $this['house_no'], $this['street'], $this['city'], $this['zips'], $this['country']) );
   }
 
   private function applyOverrides()
