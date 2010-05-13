@@ -19,6 +19,7 @@ class PoiForm extends BasePoiForm
     $this->widgetSchema[ 'updated_at' ]     = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'geocode_look_up' ]= new widgetFormFixedText();
+    $this->validatorSchema[ 'geocode_look_up' ] = new sfValidatorString( array( 'min_length' => 0 ) );
     $this->configureVendorPoiCategoryWidget();
   }
 
@@ -27,7 +28,7 @@ class PoiForm extends BasePoiForm
     parent::doUpdateObject( $values );
 
     $record   = $this->getObject();
-    $override = new recordFieldOverrideManager( $record );
+    $override = new recordFieldOverrideManager( $record );()
     $override->saveRecordModificationsAsOverrides();
   }
 
