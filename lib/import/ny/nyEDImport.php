@@ -87,27 +87,8 @@ class importNyED
 
     $poi->setPoiName( $poiData[ 'group_review' ] );
 
-
-    //Full address String
-    $name = $venue->identifier;
-    $street = $poiData[ 'address' ];
-    $town = $poiData[ 'city' ];
-    /*$country = $venue->country_symbol;
-    $state = $venue->state;
-    $suburb = $venue->suburb;
-    $district = $venue->district;
-    $addressString = "$name, $street, $district, $suburb, $town, $country, $state";*/
-
-    $addressString = "$name, $street, $town";
-
-    //Get longitude and latitude for venue
-    $geoEncode = new geoEncode();
-    $geoEncode->setAddress( $addressString );
-
-    //Set longitude and latitude
-    $poi->setLongitude( $geoEncode->getLongitude()) ;
-    $poi->setLatitude( $geoEncode->getLatitude() );
-
+    $poiObj[ 'geocode_look_up' ] = stringTransform::concatNonBlankStrings( ', ', array( $poiData[ 'address' ], $poiData[ 'city' ], $poiData[ 'country' ]   ) );
+    
     //Get and set the child category
     $categoriesArray = new Doctrine_Collection( Doctrine::getTable( 'PoiCategory' ) );
     $categoriesArray[] = Doctrine::getTable('PoiCategory')->findOneByName( 'restaurant' );

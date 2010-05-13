@@ -136,7 +136,7 @@ class nyImportBcEd {
                 $streetAddress = substr( $streetAddress, 0, $pos );
             }
 
-            $poiObj[ 'street' ]                  = (string) $streetAddress;
+            $poiObj[ 'street' ]                  = (string) trim( $streetAddress );
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name.0'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
             $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
@@ -193,38 +193,7 @@ class nyImportBcEd {
 
             $poiObj[ 'country' ]                 = 'USA';
             $poiObj[ 'Vendor' ]                  = $this->vendorObj;
-
-
-
-            /**
-             * Try and get the longitude and latitude for POI
-             */
-            try{
-               //Add the problematic areas that can cause exceptions
-                $addressString = $poiObj[ 'poi_name' ].', ' . $poiObj[ 'street' ] .', ' . ', ' . $poiObj[ 'city' ]  . ', '  . $poiObj[ 'country' ];
-
-
-                if($poiObj[ 'longitude' ] == '' || $poiObj[ 'latitude' ] == '')
-                {
-                    //Get longitude and latitude for venue
-                    $geoEncode = new geoEncode();
-                    $geoEncode->setAddress( $addressString );
-
-                    //Set longitude and latitude
-                    $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
-                    $poiObj[ 'latitude' ]  = $geoEncode->getLatitude();
-                }
-            }
-            catch(Exception $e)
-            {
-                //Force a Long/Lat or validation will fail
-               // $poiObj[ 'longitude' ] = 0.00;
-               // $poiObj[ 'latitude' ]  = 0.00;
-
-                  $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                 $this->loggerObj->addError($e, $poiObj, $log);
-            }
-
+            $poiObj[ 'geocode_look_up' ]         = stringTransform::concatNonBlankStrings( ', ', array( $poiObj[ 'street' ], $poiObj[ 'city' ], $poiObj[ 'zips' ], $poiObj[ 'country' ]   ) );
 
            $category = $this->extractCategory( $poi );
            $poiObj->addVendorCategory($category, $this->vendorObj['id']);
