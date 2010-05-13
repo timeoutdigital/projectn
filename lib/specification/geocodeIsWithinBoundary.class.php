@@ -49,6 +49,8 @@
        $failingPois->merge( $this->getPoisNotInBounds() );
      }
 
+     $failingPois->merge( $this->getPoisWithNullLongOrLat() );
+
      return $failingPois;
    }
 
@@ -93,6 +95,15 @@
       ->OrWhere(  'p.longitude > ?', $this->rightBound )
       ->OrWhere(  'p.latitude > ?',  $this->topBound )
       ->OrWhere(  'p.latitude < ?',  $this->bottomBound )
+      ->execute();
+   }
+
+   private function getPoisWithNullLongOrLat()
+   {
+     return Doctrine::getTable( 'Poi' )
+      ->createQuery( 'p' )
+      ->addWhere( 'p.longitude is null' )
+      ->OrWhere(  'p.latitude is null' )
       ->execute();
    }
 
