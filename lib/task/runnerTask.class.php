@@ -58,7 +58,11 @@ class runnerTask extends sfBaseTask
 
                         $logPath = $logRootDir . '/' . $task;
                         $this->verifyAndCreatePath( $logPath );                        
-                        $this->executeCommand( $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city=' . $cityName . ' --type=' . $type, $logPath . '/' . $cityName . '.log' );
+
+                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env="' . $options['env'] . '" --city="' . $cityName . '" --type="' . $type . '"';
+                        $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
+
+                        $this->executeCommand( $taskCommand, $logCommand );
                     }
                 }
 
@@ -79,7 +83,10 @@ class runnerTask extends sfBaseTask
                         $this->verifyAndCreatePath( $logPath );
                         $currentExportPath = $exportPath .'/'.$type;
                         $this->verifyAndCreatePath( $currentExportPath );
-                        $this->executeCommand( $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city=' . $cityName . ' --language=' . $cityParams[ 'language' ] . ' --type=' . $type . ' --destination=' . $currentExportPath . '/' . $cityName .'.xml', $logPath . '/' . $cityName . '.log' );
+
+                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city=' . $cityName . ' --language=' . $cityParams[ 'language' ] . ' --type=' . $type . ' --destination=' . $currentExportPath . '/' . $cityName .'.xml';
+                        $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
+                        $this->executeCommand( $taskCommand, $logCommand );
                     }
                 }
 
