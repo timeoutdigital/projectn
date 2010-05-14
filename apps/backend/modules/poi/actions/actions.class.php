@@ -13,20 +13,53 @@ require_once dirname(__FILE__).'/../lib/poiGeneratorHelper.class.php';
  */
 class poiActions extends autoPoiActions
 {
-//
-//  protected function processForm(sfWebRequest $request, sfForm $form)
-//  {
-//    $record = $form->getObject();
-//
-//    var_dump( $request->getParameter($form->getName()) );
-//    $recordb = Doctrine::getTable( 'Poi' )->findOneById( $record['id'] );
-//    var_dump( $recordb['poi_name'] );
-//    exit();
-//
-//    $overrideManger = new recordFieldOverrideManager( $record );
-//    $overrideManger->applyOverridesToRecord();
-//
-//    parent::processForm( $request, $form );
-//  }
+  /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
+  protected function processForm(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
 
+      try {
+        $poi = $form->save();
+      } catch (Doctrine_Validator_Exception $e) {
+
+        $errorStack = $form->getObject()->getErrorStack();
+
+        $message = get_class($form->getObject()) . ' has ' . count($errorStack) . " field" . (count($errorStack) > 1 ?  's' : null) . " with validation errors: ";
+        foreach ($errorStack as $field => $errors) {
+            $message .= "$field (" . implode(", ", $errors) . "), ";
+        }
+        $message = trim($message, ', ');
+
+        $this->getUser()->setFlash('error', $message);
+        return sfView::SUCCESS;
+      }
+
+      $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $poi)));
+
+      if ($request->hasParameter('_save_and_add'))
+      {
+        $this->getUser()->setFlash('notice', $notice.' You can add another one below.');
+
+        $this->redirect('@poi_new');
+      }
+      else
+      {
+        $this->getUser()->setFlash('notice', $notice);
+
+        /*** custom code start ***/
+        $this->redirect( '@poi' );
+        /*** custom code end ***/
+
+        $this->redirect(array('sf_route' => 'poi_edit', 'sf_subject' => $poi));
+      }
+    }
+    else
+    {
+      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+    }
+  }
+  /*** symfony generated end ***/
 }
