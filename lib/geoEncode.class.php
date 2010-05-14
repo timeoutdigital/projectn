@@ -40,6 +40,7 @@ class geoEncode
   private  $accuracy;
   private  $vendorObj;
   private  $lookupUrl;
+  private  $response;
 
 
   /**
@@ -75,9 +76,9 @@ class geoEncode
    * @param string How to return the data. array | string
    *
    */
-  public function getGeoCode()
+  public function getGeoCode( $apiKey = NULL )
   {
-     $apiKey = sfConfig::get('app_google_api_key');
+     if( !is_string( $apiKey ) || strlen( $apiKey ) != 86 ) $apiKey = sfConfig::get('app_google_api_key');
      
      $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $apiKey;
 
@@ -100,11 +101,11 @@ class geoEncode
      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-     $data = curl_exec($ch);
+     $this->response = curl_exec($ch);
      curl_close($ch);
 
      //Create an array containing the data
-     $dataArray = explode(',', $data);
+     $dataArray = explode(',', $this->response);
 
 
      /**
@@ -135,6 +136,11 @@ class geoEncode
      //Set invidual co-ords
    
      return $this;
+  }
+
+  public function getRawResponse()
+  {
+      return $this->response;
   }
 
 
