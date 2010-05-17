@@ -446,9 +446,6 @@ class importTask extends sfBaseTask
 
             $xml = $this->returnKualaLumpurMoviesFromEventFeed( simplexml_load_string( $feedObj->getResponse() ) );
 
-
-            echo (string) $xml->saveXML(); die;
-
             $importer->addDataMapper( new kualaLumpurMoviesMapper( $vendor, $xml ) );
           break;
         }
