@@ -72,137 +72,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
   }
 
-  private function populateDbWithLondonData()
-  {
-    $this->createLondonVendor();
-
-    $poiCat = new PoiCategory();
-    $poiCat->setName( 'eat-drink' );
-    $poiCat->save();
-
-    $vendorPoiCat = new VendorPoiCategory();
-    $vendorPoiCat[ 'name' ] = 'restaurant';
-    $vendorPoiCat[ 'vendor_id' ] = 1;
-    $vendorPoiCat->save();
-
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-    $poi->link( 'Vendor', array( 1 ) );
-    $poi->link( 'PoiCategory', array( 1 ) );
-    $poi->link( 'VendorPoiCategory', array( 1 ) );
-    $poi->save();
-
-    $poi2 = ProjectN_Test_Unit_Factory::get( 'Poi' );
-    $poi2->link( 'Vendor', array( 1 ) );
-    $poi2->link( 'PoiCategory', array( 1 ) );
-    $poi2->link( 'VendorPoiCategory', array( 1 ) );
-    $poi2->save();
-
-    $vendorEventCategory = new VendorEventCategory();
-    $vendorEventCategory['name'] = 'test vendor category';
-    $vendorEventCategory['Vendor'] = $this->vendor;
-    $vendorEventCategory->save();
-
-    $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
-    $vendorEventCategories[] = $vendorEventCategory;
-
-    $eventCategories = new Doctrine_Collection(Doctrine::getTable('EventCategory'));
-
-    $eventCat1 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'concerts' ) );
-    $eventCategories[] = $eventCat1;
-
-    $eventCat2 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'theater' ) );
-    $eventCategories[] = $eventCat2;
-
-    $eventCat3 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'sport' ) );
-    $eventCategories[] = $eventCat3;
-
-    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
-    $event->addVendorCategory( 'test vendor category');
-    $event['EventCategory'] = $eventCategories;
-    $event->setName( 'ytest event2' . $this->specialChars );
-    $event->link( 'Vendor', array( 1 ) );
-    $event->save();
-
-    $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 
-      'start_date' => $this->today(),
-      'start_time' => '00:00:01',
-    ) );
-    $occurrence->link( 'Event', array( 1 ) );
-    $occurrence->link( 'Poi', array( 1 ) );
-    $occurrence->save();
-
-    $property = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 
-      'lookup' => 'test key 1',
-      'value'  => 'test value 1',
-      ) );
-    $property->link( 'Event', array( 1 ) );
-    $property->save();
-
-    $property2 = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 
-      'lookup' => 'test key 2',
-      'value'  => 'test value 2',
-      ) );
-    $property2->link( 'Event', array( 1 ) );
-    $property2->save();
-
-    $property3 = ProjectN_Test_Unit_Factory::get( 'EventProperty', array(
-      'lookup' => 'Critics_choice',
-      'value'  => 'n',
-      ) );
-    $property3->link( 'Event', array( 1 ) );
-    $property3->save();
-
-    $property = new EventMedia();
-    $property[ 'ident' ] = 'md5 hash of the url';
-    $property[ 'mime_type' ] = 'image/';
-    $property[ 'url' ] = 'url';
-    $property->link( 'Event', array( $event['id'] ) );
-    $property->save();
-
-
-
-
-    $vendorEventCategory = new VendorEventCategory();
-    $vendorEventCategory['name'] = 'test vendor category 2';
-    $vendorEventCategory['Vendor'] = $this->vendor;
-    $vendorEventCategory->save();
-
-    $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
-    $vendorEventCategories[] = $vendorEventCategory;
-
-    $event2 = ProjectN_Test_Unit_Factory::get( 'Event' );
-    $event2->addVendorCategory( 'test vendor category');
-    $event2['EventCategory'][] = $eventCat1;
-    $event2['vendor_event_id'] = 1112;
-    $event2->setName( 'xtest event2' . $this->specialChars );
-    $event2->link( 'Vendor', array( 1 ) );
-    $event2->save();
-
-    $occurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
-    $occurrence2['vendor_event_occurrence_id'] = 1110;
-    $occurrence2->link( 'Event', array( 2 ) );
-    $occurrence2->link( 'Poi', array( 1 ) );
-    $occurrence2->save();
-
-    $occurrence3 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
-    $occurrence3['vendor_event_occurrence_id'] = 1111;
-    $occurrence3->link( 'Event', array( 2 ) );
-    $occurrence3->link( 'Poi', array( 1,2 ) );
-    $occurrence3->save();
-
-    $occurrence4 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
-    $occurrence4['vendor_event_occurrence_id'] = 1111;
-    $occurrence4->link( 'Event', array( 2 ) );
-    $occurrence4->link( 'Poi', array( 2 ) );
-    $occurrence4->save();
-
-    $occurrence5 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
-    $occurrence5['vendor_event_occurrence_id'] = 1112;
-    $occurrence5->link( 'Event', array( 2 ) );
-    $occurrence5->link( 'Poi', array( 2 ) );
-    $occurrence5->save();
-  }
-
   /**
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
@@ -220,37 +89,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->export();
 
     $this->assertEquals( 0, count( $this->xpath->query( '//timeinfo' ) ) );
-  }
-
-  private function exportPoisAndEvents()
-  {
-    $this->doPoiExport();
-    $this->export();
-  }
-
-  private function addEventWithTimeInfoForLisbon()
-  {
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
-      'city'     => 'lisbon',
-      'language' => 'pt',
-      ) );
-    $this->vendor = $vendor;
-
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-    $poi[ 'Vendor' ] = $vendor;
-    $poi->save();
-
-    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
-
-    $eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-    $eventOccurrence['Poi'] = $poi;
-    $event[ 'EventOccurrence' ][] = $eventOccurrence;
-
-    $timeinfo = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 'lookup' => 'timeinfo', 'value' => 'foo' ) );
-    $event[ 'EventProperty' ][] = $timeinfo;
-
-    $event->save();
-    return $event;
   }
 
 
@@ -641,5 +479,168 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $eventOccurrence[ 'Poi' ] = $poi;
       $event[ 'EventOccurrence' ][] = $eventOccurrence;
     }
+
+  private function exportPoisAndEvents()
+  {
+    $this->doPoiExport();
+    $this->export();
+  }
+
+  private function addEventWithTimeInfoForLisbon()
+  {
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
+      'city'     => 'lisbon',
+      'language' => 'pt',
+      ) );
+    $this->vendor = $vendor;
+
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi[ 'Vendor' ] = $vendor;
+    $poi->save();
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+
+    $eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+    $eventOccurrence['Poi'] = $poi;
+    $event[ 'EventOccurrence' ][] = $eventOccurrence;
+
+    $timeinfo = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 'lookup' => 'timeinfo', 'value' => 'foo' ) );
+    $event[ 'EventProperty' ][] = $timeinfo;
+
+    $event->save();
+    return $event;
+  }
+
+  private function populateDbWithLondonData()
+  {
+    $this->createLondonVendor();
+
+    $poiCat = new PoiCategory();
+    $poiCat->setName( 'eat-drink' );
+    $poiCat->save();
+
+    $vendorPoiCat = new VendorPoiCategory();
+    $vendorPoiCat[ 'name' ] = 'restaurant';
+    $vendorPoiCat[ 'vendor_id' ] = 1;
+    $vendorPoiCat->save();
+
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi->link( 'Vendor', array( 1 ) );
+    $poi->link( 'PoiCategory', array( 1 ) );
+    $poi->link( 'VendorPoiCategory', array( 1 ) );
+    $poi->save();
+
+    $poi2 = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi2->link( 'Vendor', array( 1 ) );
+    $poi2->link( 'PoiCategory', array( 1 ) );
+    $poi2->link( 'VendorPoiCategory', array( 1 ) );
+    $poi2->save();
+
+    $vendorEventCategory = new VendorEventCategory();
+    $vendorEventCategory['name'] = 'test vendor category';
+    $vendorEventCategory['Vendor'] = $this->vendor;
+    $vendorEventCategory->save();
+
+    $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
+    $vendorEventCategories[] = $vendorEventCategory;
+
+    $eventCategories = new Doctrine_Collection(Doctrine::getTable('EventCategory'));
+
+    $eventCat1 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'concerts' ) );
+    $eventCategories[] = $eventCat1;
+
+    $eventCat2 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'theater' ) );
+    $eventCategories[] = $eventCat2;
+
+    $eventCat3 = ProjectN_Test_Unit_Factory::get( 'EventCategory', array( 'name' => 'sport' ) );
+    $eventCategories[] = $eventCat3;
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+    $event->addVendorCategory( 'test vendor category');
+    $event['EventCategory'] = $eventCategories;
+    $event->setName( 'ytest event2' . $this->specialChars );
+    $event->link( 'Vendor', array( 1 ) );
+    $event->save();
+
+    $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 
+      'start_date' => $this->today(),
+      'start_time' => '00:00:01',
+    ) );
+    $occurrence->link( 'Event', array( 1 ) );
+    $occurrence->link( 'Poi', array( 1 ) );
+    $occurrence->save();
+
+    $property = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 
+      'lookup' => 'test key 1',
+      'value'  => 'test value 1',
+      ) );
+    $property->link( 'Event', array( 1 ) );
+    $property->save();
+
+    $property2 = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 
+      'lookup' => 'test key 2',
+      'value'  => 'test value 2',
+      ) );
+    $property2->link( 'Event', array( 1 ) );
+    $property2->save();
+
+    $property3 = ProjectN_Test_Unit_Factory::get( 'EventProperty', array(
+      'lookup' => 'Critics_choice',
+      'value'  => 'n',
+      ) );
+    $property3->link( 'Event', array( 1 ) );
+    $property3->save();
+
+    $property = new EventMedia();
+    $property[ 'ident' ] = 'md5 hash of the url';
+    $property[ 'mime_type' ] = 'image/';
+    $property[ 'url' ] = 'url';
+    $property->link( 'Event', array( $event['id'] ) );
+    $property->save();
+
+
+
+
+    $vendorEventCategory = new VendorEventCategory();
+    $vendorEventCategory['name'] = 'test vendor category 2';
+    $vendorEventCategory['Vendor'] = $this->vendor;
+    $vendorEventCategory->save();
+
+    $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
+    $vendorEventCategories[] = $vendorEventCategory;
+
+    $event2 = ProjectN_Test_Unit_Factory::get( 'Event' );
+    $event2->addVendorCategory( 'test vendor category');
+    $event2['EventCategory'][] = $eventCat1;
+    $event2['vendor_event_id'] = 1112;
+    $event2->setName( 'xtest event2' . $this->specialChars );
+    $event2->link( 'Vendor', array( 1 ) );
+    $event2->save();
+
+    $occurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
+    $occurrence2['vendor_event_occurrence_id'] = 1110;
+    $occurrence2->link( 'Event', array( 2 ) );
+    $occurrence2->link( 'Poi', array( 1 ) );
+    $occurrence2->save();
+
+    $occurrence3 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
+    $occurrence3['vendor_event_occurrence_id'] = 1111;
+    $occurrence3->link( 'Event', array( 2 ) );
+    $occurrence3->link( 'Poi', array( 1,2 ) );
+    $occurrence3->save();
+
+    $occurrence4 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
+    $occurrence4['vendor_event_occurrence_id'] = 1111;
+    $occurrence4->link( 'Event', array( 2 ) );
+    $occurrence4->link( 'Poi', array( 2 ) );
+    $occurrence4->save();
+
+    $occurrence5 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
+    $occurrence5['vendor_event_occurrence_id'] = 1112;
+    $occurrence5->link( 'Event', array( 2 ) );
+    $occurrence5->link( 'Poi', array( 2 ) );
+    $occurrence5->save();
+  }
+
 }
 ?>
