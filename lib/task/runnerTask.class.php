@@ -34,7 +34,7 @@ class runnerTask extends sfBaseTask
                                     'chicago' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
                                     'london' => array( 'poi-event', 'movie' ),
                                     'lisbon' => array( 'poi', 'event', 'movie' ),
-                                    'kuala lumpur' => array( 'poi', 'event', 'movie' ),
+                                    '"kuala lumpur"' => array( 'poi', 'event', 'movie' ),
                     ),
                     'export' => array(
                                     'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
@@ -42,7 +42,7 @@ class runnerTask extends sfBaseTask
                                     'chicago' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'london' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'lisbon' => array( 'language' => 'pt', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    '"kuala lumpur"' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
                     ),
                  );
 
