@@ -158,6 +158,11 @@ class XMLExportEvent extends XMLExport
       //event/version/property
       foreach( $event[ 'EventProperty' ] as $property )
       {
+        if ( isset( $property[ 'lookup' ] ) && $property['lookup'] == 'timeinfo' )
+        {
+          //continue;
+        }
+
         if ( isset( $property[ 'lookup' ] ) )
         {
           if( $property['lookup'] == "Critics_choice" && $property['value'] != "y" )

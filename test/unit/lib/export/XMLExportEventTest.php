@@ -66,7 +66,15 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->createVendor();
+    $this->poiXmlLocation = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+    $this->destination = dirname( __FILE__ ) . '/../../export/event/eventtest.xml';
+
+    $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
+  }
+
+  private function populateDbWithLondonData()
+  {
+    $this->createLondonVendor();
 
     $poiCat = new PoiCategory();
     $poiCat->setName( 'eat-drink' );
@@ -193,14 +201,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $occurrence5->link( 'Event', array( 2 ) );
     $occurrence5->link( 'Poi', array( 2 ) );
     $occurrence5->save();
-
-    $this->poiXmlLocation = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
-    $this->destination = dirname( __FILE__ ) . '/../../export/event/eventtest.xml';
-
-    $this->doPoiExport();
-    $this->export();
-
-    $this->escapedSpecialChars = htmlspecialchars( $this->specialChars );
   }
 
   /**
@@ -210,24 +210,63 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
-    //unlink( $this->destination );
   }
+
+  public function testSuppressLisbonTimeinfoProperty()
+  {
+    $this->addEventWithTimeInfoForLisbon();
+
+    $this->doPoiExport( $this->vendor );
+    $this->export();
+
+    $this->assertEquals( 0, count( $this->xpath->query( '//timeinfo' ) ) );
+  }
+
+  private function exportPoisAndEvents()
+  {
+    $this->doPoiExport();
+    $this->export();
+  }
+
+  private function addEventWithTimeInfoForLisbon()
+  {
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
+      'city'     => 'lisbon',
+      'language' => 'pt',
+      ) );
+    $this->vendor = $vendor;
+
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi[ 'Vendor' ] = $vendor;
+    $poi->save();
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+
+    $eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+    $eventOccurrence['Poi'] = $poi;
+    $event[ 'EventOccurrence' ][] = $eventOccurrence;
+
+    $timeinfo = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 'lookup' => 'timeinfo', 'value' => 'foo' ) );
+    $event[ 'EventProperty' ][] = $timeinfo;
+
+    $event->save();
+    return $event;
+  }
+
 
   /**
    * Check to make sure we don't export a property named 'Critics_choice' with a value which is not 'y'.
    */
   public function testOnlyYesForCriticsChoiceProperty()
   {
+      $this->populateDbWithLondonData();
+      $this->exportPoisAndEvents();
       $badCriticsChoice = $this->xpath->query( "/vendor-events/event/version/property[@key='Critics_choice' and . != 'y']" );
       $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
   }
 
     public function testCategoryTagsAreUnique()
     {
-        ProjectN_Test_Unit_Factory::destroyDatabases();
-        ProjectN_Test_Unit_Factory::createDatabases();
-        unlink( $this->destination );
-
         $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
         $poi 	= ProjectN_Test_Unit_Factory::add( 'Poi' );
         $this->doPoiExport( $vendor, $poi );
@@ -300,11 +339,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     */
    public function testNoEventWithoutVendorCategoryExported()
    {
-       ProjectN_Test_Unit_Factory::destroyDatabases();
-       ProjectN_Test_Unit_Factory::createDatabases();
-       unlink( $this->destination );
-
-       $this->createVendor();
+       $this->createLondonVendor();
        $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
        $poi->save();
        $eventCategory = ProjectN_Test_Unit_Factory::get( 'EventCategory' );
@@ -351,11 +386,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testGeneratedXMLCategory()
   {
-    ProjectN_Test_Unit_Factory::destroyDatabases();
-    ProjectN_Test_Unit_Factory::createDatabases();
-    unlink( $this->destination );
-
-    $this->createVendor();
+    $this->createLondonVendor();
     $this->addAnEventWithEventCategories( 'concerts', 'theater', 'sport' );
     $this->addAnEventWithEventCategories( 'family' );
     $this->export();
@@ -377,6 +408,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testGeneratedXMLEventVersionTag()
   {
+    $this->populateDbWithLondonData();
+    $this->exportPoisAndEvents();
     $langAttributes = $this->xpath->query( '/vendor-events/event[1]/version' );
     $this->assertEquals(1, $langAttributes->length);
     $this->assertEquals( 'en', $langAttributes->item(0)->getAttribute( 'lang' ) );
@@ -387,6 +420,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testGeneratedXMLEventVersionChildrenTags()
   {
+    $this->populateDbWithLondonData();
+    $this->exportPoisAndEvents();
     $versionTag = $this->xpath->query( '/vendor-events/event[1]/version' )->item(0);
 
     $vendorCategoryElements = $versionTag->getElementsByTagName( 'vendor-category' );
@@ -421,6 +456,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiExistsBeforeEventExport()
   {
+      $this->populateDbWithLondonData();
+      $this->exportPoisAndEvents();
       $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
 
       $this->assertEquals( 1, $event['EventOccurrence'][0]['poi_id'], 'Event occurrence id should match poi id.' );
@@ -441,6 +478,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testGeneratedXMLEventShowtimesDirectChildrenTags()
   {
+    $this->populateDbWithLondonData();
+    $this->exportPoisAndEvents();
     $showtimes = $this->xpath->query( '/vendor-events/event[1]/showtimes' );
     $this->assertEquals( 1, $showtimes->length );
 
@@ -465,6 +504,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   public function testPropertyTags()
   {
     $this->markTestSkipped();
+    $this->populateDbWithLondonData();
+    $this->exportPoisAndEvents();
     $propertyElements1 = $this->xpath->query( '/vendor-events/event[1]/version/property' );
     $this->assertEquals(2, $propertyElements1->length);
 
@@ -479,6 +520,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function _testAgainstSchema()
   {
+    $this->populateDbWithLondonData();
+    $this->exportPoisAndEvents();
     $this->assertTrue( $this->domDocument->schemaValidate( TO_PROJECT_ROOT_PATH . '/data/xml_schemas/' . 'event.xsd' ) );
   }
 
@@ -487,6 +530,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testCorrectNumberPlaceAndOccurrenceTags()
   {
+    $this->populateDbWithLondonData();
+    $this->exportPoisAndEvents();
     $placesForEvent2 = $this->xpath->query( '/vendor-events/event[2]/showtimes/place' );
 
     $this->assertEquals( 2, $placesForEvent2->length );
@@ -500,10 +545,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     public function testMediaTags()
     {
       $this->markTestSkipped();
+      $this->populateDbWithLondonData();
+    $this->exportPoisAndEvents();
       $propertyElements = $this->xpath->query( '/vendor-events/event[1]/version/media' );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'url',    $propertyElements->item(0)->nodeValue );
     }
+
 
     /**
      * get today's date
@@ -515,6 +563,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     private function export()
     {
+
       $this->export = new XMLExportEvent( $this->vendor, $this->destination, $this->poiXmlLocation );
       $this->export->run();
       $this->domDocument = new DOMDocument();
@@ -533,7 +582,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
         $poiExport->run();
     }
 
-    private function createVendor()
+    private function createLondonVendor()
     {
       $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
         'city'         => 'test',
