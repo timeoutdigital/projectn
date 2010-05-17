@@ -1,12 +1,13 @@
-all:
-  project_n:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                mysql://root:outtime99@localhost/project_n;unix_socket=/var/run/mysqld/mysqld.sock
-      attributes:
-        use_native_enum:  true
+all: ~
+
 
 prod:
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://projectn:outtime99@192.9.215.250/searchlight_london
+      attributes:
+        use_native_enum:  true
   project_n:
     class:                sfDoctrineDatabase
     param:
@@ -14,12 +15,6 @@ prod:
       attributes:
         use_native_enum:  true
 
-  searchlight_london:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                mysql://timeout:65dali32@192.9.215.250/searchlight_london
-      attributes:
-        use_native_enum:  true
 
 dev:
   searchlight_london:
@@ -28,9 +23,21 @@ dev:
       dsn:                mysql://root:outtime99@localhost/searchlight_london
       attributes:
         use_native_enum:  true
+  project_n:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://root:outtime99@localhost/project_n
+      attributes:
+        use_native_enum:  true
     
 
 test:
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                sqlite::memory:
+      attributes:
+        use_native_enum:  true
   project_n:
     class:                sfDoctrineDatabase
     param:
@@ -38,9 +45,3 @@ test:
       attributes:
         use_native_enum:  true
 
-  searchlight_london:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                sqlite::memory:
-      attributes:
-        use_native_enum:  true
