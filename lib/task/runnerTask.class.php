@@ -34,7 +34,7 @@ class runnerTask extends sfBaseTask
                                     'chicago' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
                                     'london' => array( 'poi-event', 'movie' ),
                                     'lisbon' => array( 'poi', 'event', 'movie' ),
-                                    '"kuala lumpur"' => array( 'poi', 'event', 'movie' ),
+                                    'kuala lumpur' => array( 'poi', 'event', 'movie' ),
                     ),
                     'export' => array(
                                     'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
@@ -42,7 +42,7 @@ class runnerTask extends sfBaseTask
                                     'chicago' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'london' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'lisbon' => array( 'language' => 'pt', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    '"kuala lumpur"' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
                     ),
                  );
 
@@ -86,7 +86,7 @@ class runnerTask extends sfBaseTask
                         $currentExportPath = $exportPath .'/'.$type;
                         $this->verifyAndCreatePath( $currentExportPath );
 
-                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city=' . $cityName . ' --language=' . $cityParams[ 'language' ] . ' --type=' . $type . ' --destination=' . $currentExportPath . '/' . $cityName .'.xml';
+                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city="' . $cityName . '" --language=' . $cityParams[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "", $cityName ) .'.xml';
                         $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
                         $this->executeCommand( $taskCommand, $logCommand );
                     }
