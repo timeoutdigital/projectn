@@ -414,7 +414,8 @@ class importTask extends sfBaseTask
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
             $feedObj->exec();
             $this->output( 'xml received' );
-        } elseif( $options['type'] == "poi" )
+        }
+        elseif( $options['type'] == "poi" )
         {
             $this->output( 'fetching KL poi xml...' );
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
@@ -424,7 +425,6 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-
           case 'poi':
             $loggerObj->setType( 'poi' );
             $xml = simplexml_load_string( $feedObj->getResponse() );
