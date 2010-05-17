@@ -406,9 +406,11 @@ class importTask extends sfBaseTask
         $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
         $loggerObj      = new logImport( $vendor );
         $feedObj        = new curlImporter();
+        $importer->addLogger( $loggerObj );
 
         switch( $options['type'] )
         {
+
           case 'poi':
             $this->output( 'fetching KL poi xml...' );
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
@@ -416,7 +418,6 @@ class importTask extends sfBaseTask
             $this->output( 'xml received' );
 
             $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
             
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $xml ) );
@@ -429,29 +430,26 @@ class importTask extends sfBaseTask
             $this->output( 'xml received' );
 
             $loggerObj->setType( 'event' );
-            $importer->addLogger( $loggerObj );
-            // @todo - Re-impliment this when we're not just hacking this together to get it out.
-            //$feedSimpleXML = $this->removeKualaLumpurMoviesFromEventFeed( $feedObj->getResponse()() );
 
-            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $xml = $this->removeKualaLumpurMoviesFromEventFeed( simplexml_load_string( $feedObj->getResponse() ) );
+
             $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $xml ) );
           break;
 
           case 'movie':
-            //$this->output( 'fetching KL event/movie xml...' );
-            //$feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
-            //$feedObj->exec();
-            //$this->output( 'xml received' );
-
-            // @todo, seperate movie datamapper from event datamapper.
-
+            $this->output( 'fetching KL event/movie xml...' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+            $feedObj->exec();
+            $this->output( 'xml received' );
+            
             $loggerObj->setType( 'movie' );
-            $importer->addLogger( $loggerObj );
-            // @todo - Re-impliment this when we're not just hacking this together to get it out.
-            //$feedSimpleXML = $this->returnKualaLumpurMoviesFromEventFeed( $feedObj->getResponse() );
-            //
-            // @todo - Replace 'something' below with the name of the Data Mapper
-            //$importer->addDataMapper( new something( $vendor, $feedObj->getXml() ) );
+
+            $xml = $this->returnKualaLumpurMoviesFromEventFeed( simplexml_load_string( $feedObj->getResponse() ) );
+
+
+            echo (string) $xml->saveXML(); die;
+
+            $importer->addDataMapper( new kualaLumpurMoviesMapper( $vendor, $xml ) );
           break;
         }
         unset( $feedSimpleXML );
@@ -1001,12 +999,14 @@ class importTask extends sfBaseTask
   private function returnKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
   {
     $string = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="id keyword category subCategory genre title short_description descripton url venue start_date end_date start_time venue_area venue_address venue_map contact tel_no email booking price small_image big_image" />
 	<xsl:template match="/">
 		<xsl:element name="event">
 			<xsl:for-each select="//event/eventDetails">
-				<xsl:if test="categories[category/text()='Film' and subCategory/text()='Screenings']">
-					<xsl:copy-of select="."/>
+				<xsl:if test="categories[(category/text()='Film' and subCategory/text()='Screenings')]">
+					<xsl:copy-of select="." />
 				</xsl:if>
 			</xsl:for-each>
 		</xsl:element>
@@ -1026,12 +1026,14 @@ EOF;
   private function removeKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
   {
     $string = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="id keyword category subCategory genre title short_description descripton url venue start_date end_date start_time venue_area venue_address venue_map contact tel_no email booking price small_image big_image" />
 	<xsl:template match="/">
 		<xsl:element name="event">
 			<xsl:for-each select="//event/eventDetails">
 				<xsl:if test="categories[not(category/text()='Film' and subCategory/text()='Screenings')]">
-					<xsl:copy-of select="."/>
+					<xsl:copy-of select="." />
 				</xsl:if>
 			</xsl:for-each>
 		</xsl:element>
