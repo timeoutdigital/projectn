@@ -143,7 +143,9 @@ class curlImporter
 
      // removes certain unwanted characters
      // @todo, replace this regular expression to replace ONLY non UTF-8 characters
-     $xmlString = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $xmlString);
+     
+     // peter @ 14-May-2010, removed below as it was stripping accented characters.
+     // $xmlString = preg_replace( "/[^\x9\xA\xD\x20-\x7F]/", "", $xmlString );
 
      $this->_simpleXml = simplexml_load_string( $xmlString );
 
