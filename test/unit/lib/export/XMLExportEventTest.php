@@ -81,17 +81,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-  public function testSuppressLisbonTimeinfoProperty()
-  {
-    $this->addEventWithTimeInfoForLisbon();
-
-    $this->doPoiExport( $this->vendor );
-    $this->export();
-
-    $this->assertEquals( 0, count( $this->xpath->query( '//timeinfo' ) ) );
-  }
-
-
   /**
    * Check to make sure we don't export a property named 'Critics_choice' with a value which is not 'y'.
    */
@@ -390,6 +379,29 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'url',    $propertyElements->item(0)->nodeValue );
     }
 
+  public function testSuppressLisbonTimeinfoProperty()
+  {
+    $this->addEventWithTimeInfoForVendor( 'lisbon' );
+    $this->doPoiExport( $this->vendor );
+    $this->export();
+
+    //should only get the 'other' property back
+    $this->assertEquals( 1, $this->xpath->query( '//property' )->length );
+    $node = $this->xpath->query( '//property' )->item(0);
+    $this->assertEquals( 'other', $node->attributes->item(0)->nodeValue );
+    $this->assertEquals( 'other', $node->nodeValue );
+
+    //@todo why doesn't it work if I don't reset the db?
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $this->addEventWithTimeInfoForVendor( 'london' );
+    $this->doPoiExport( $this->vendor );
+    $this->export();
+
+    //should get both the 'other' and 'timeinfo' properties back
+    $this->assertEquals( 2, $this->xpath->query( '//property' )->length );
+  }
 
     /**
      * get today's date
@@ -401,7 +413,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     private function export()
     {
-
       $this->export = new XMLExportEvent( $this->vendor, $this->destination, $this->poiXmlLocation );
       $this->export->run();
       $this->domDocument = new DOMDocument();
@@ -486,12 +497,24 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->export();
   }
 
-  private function addEventWithTimeInfoForLisbon()
+  private function addEventWithTimeInfoForVendor( $city )
   {
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
-      'city'     => 'lisbon',
-      'language' => 'pt',
-      ) );
+    if( $city == 'lisbon')
+    {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
+        'city'     => 'lisbon',
+        'language' => 'pt',
+        'airport_code' => 'LIS',
+        ) );
+    }
+    else if( $city == 'london' )
+    {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
+        'city'     => 'london',
+        'language' => 'en-GB',
+        'airport_code' => 'LHR',
+        ) );
+    }
     $this->vendor = $vendor;
 
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -500,12 +523,23 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $event = ProjectN_Test_Unit_Factory::get( 'Event' );
 
-    $eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+    $eventOccurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array(
+      'start_date' => $this->today(),
+      'start_time' => '00:00:01',
+    ) );
     $eventOccurrence['Poi'] = $poi;
     $event[ 'EventOccurrence' ][] = $eventOccurrence;
 
+    $vendorEventCategory = new VendorEventCategory();
+    $vendorEventCategory['name'] = 'test vendor category';
+    $vendorEventCategory['Vendor'] = $this->vendor;
+    $event[ 'VendorEventCategory' ][] = $vendorEventCategory;
+
     $timeinfo = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 'lookup' => 'timeinfo', 'value' => 'foo' ) );
     $event[ 'EventProperty' ][] = $timeinfo;
+
+    $otherProperty = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 'lookup' => 'other', 'value' => 'other' ) );
+    $event[ 'EventProperty' ][] = $otherProperty;
 
     $event->save();
     return $event;

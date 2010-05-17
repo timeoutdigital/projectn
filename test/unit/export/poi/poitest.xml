@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-pois vendor="timeout" modified="2010-05-17T19:08:19">
-  <entry vpid="LHR000000000000000000000000000001" lang="en" modified="2010-05-17T19:08:19">
+<vendor-pois vendor="timeout" modified="2010-05-17T21:17:24">
+  <entry vpid="LHR000000000000000000000000000001" lang="en" modified="2010-05-17T21:17:24">
     <geo-position>
       <longitude>1.1</longitude>
       <latitude>1.1</latitude>
@@ -21,32 +21,7 @@
         <country>GBR</country>
       </address>
       <content>
-        <vendor-category><![CDATA[restaurant]]></vendor-category>
-      </content>
-    </version>
-  </entry>
-  <entry vpid="LHR000000000000000000000000000002" lang="en" modified="2010-05-17T19:08:19">
-    <geo-position>
-      <longitude>1.1</longitude>
-      <latitude>1.1</latitude>
-    </geo-position>
-    <name><![CDATA[test name]]></name>
-    <category><![CDATA[theatre-music-culture]]></category>
-    <address>
-      <street><![CDATA[test street]]></street>
-      <city><![CDATA[test town]]></city>
-      <country>GBR</country>
-    </address>
-    <contact/>
-    <version lang="en">
-      <name><![CDATA[test name]]></name>
-      <address>
-        <street><![CDATA[test street]]></street>
-        <city><![CDATA[test town]]></city>
-        <country>GBR</country>
-      </address>
-      <content>
-        <vendor-category><![CDATA[restaurant]]></vendor-category>
+        <vendor-category><![CDATA[test name]]></vendor-category>
       </content>
     </version>
   </entry>
