@@ -32,7 +32,7 @@ class runnerTask extends sfBaseTask
                                     'singapore' => array( 'poi-event', 'movie' ),
                                     'ny' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
                                     'chicago' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
-                                    'london' => array( 'poi-event', 'movie' ),
+                                    'london' => array( 'poi', 'event', 'event-occurrence', 'movie' ),
                                     'lisbon' => array( 'poi', 'event', 'movie' ),
                                     'kuala lumpur' => array( 'poi', 'event', 'movie' ),
                                     'sydney' => array( 'poi', 'event', 'movie' ),
