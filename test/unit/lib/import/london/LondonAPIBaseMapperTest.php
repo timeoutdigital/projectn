@@ -47,7 +47,7 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
     $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geoEncode' ) );
 
     $poi = new Poi();
-    $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl></xml>' );
+    $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl><lat>1</lat><lng>1</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
     $mock->map( $poi, $xml );
 
     $this->assertEquals( 'http://www.google.com', $poi['url'] );
@@ -63,19 +63,24 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
     $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geoEncode' ));
 
     $poi = new Poi();
-    $xml = simplexml_load_string( '<xml><address>foo, London </address><lat>51.5079</lat><lng>-0.3049</lng></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
+    $xml = simplexml_load_string( '<xml><address>foo, London </address><lat>51.5079</lat><lng>-0.3049</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
     $mock->map( $poi, $xml );
-    $this->assertEquals( 'foo', $poi['street'] );
+    $this->assertEquals( 'foo', $poi['street'], "Street cannot end with a space or a comma." );
 
     $poi = new Poi();
-    $xml = simplexml_load_string( '<xml><address>foo, </address><lat>51.5079</lat><lng>-0.3048</lng></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
+    $xml = simplexml_load_string( '<xml><address>foo, </address><lat>51.5079</lat><lng>-0.3048</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
     $mock->map( $poi, $xml );
-    $this->assertEquals( 'foo', $poi['street'] );
+    $this->assertEquals( 'foo', $poi['street'], "Street cannot end with a space or a comma." );
 
     $poi = new Poi();
-    $xml = simplexml_load_string( '<xml><address>56 Artillery Lane, London, </address><lat>51.5079</lat><lng>-0.3048</lng></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
+    $xml = simplexml_load_string( '<xml><address>foo </address><lat>51.5079</lat><lng>-0.3048</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
     $mock->map( $poi, $xml );
-    $this->assertEquals( '56 Artillery Lane', $poi['street'] );
+    $this->assertEquals( 'foo', $poi['street'], "Street cannot end with a space or a comma." );
+
+    $poi = new Poi();
+    $xml = simplexml_load_string( '<xml><address>56 Artillery Lane, London, </address><lat>51.5079</lat><lng>-0.3048</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
+    $mock->map( $poi, $xml );
+    $this->assertEquals( '56 Artillery Lane', $poi['street'], "Street cannot end with a space or a comma." );
   }
 }
 

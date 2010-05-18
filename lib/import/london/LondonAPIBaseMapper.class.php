@@ -138,6 +138,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
     $fix = new removeCommaLondonFromEndOfString( (string) $xml->address );
     $poi['street']            = $fix->getFixedString();
+    $poi['street']            = trim( $poi['street'], ", " );
+
     $poi['country']           = $this->country;
     $poi['poi_name']          = (string) $xml->name;
     $poi['url']               = (string) $xml->url;
@@ -173,6 +175,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
       {
         $address = $this->getAddressUsingGeocode( $latitude, $longitude );
         $city = $address['SubAdministrativeArea'];
+        $this->notifyImporterOfFailure( new Exception("Warning: Reverse Geocode Lookup Used on London POI, does this happen often?") );
       }
     }
 
