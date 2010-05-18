@@ -42,7 +42,6 @@ class kualaLumpurMoviesMapper extends DataMapper
 
   public function mapMovies()
   {
-    echo (string) $this->feed->saveXML(); die;
     foreach( $this->feed->eventDetails as $film )
     {
         $movie = $this->dataMapperHelper->getMovieRecord( (string) $film->id );

@@ -14,10 +14,10 @@ Poi:
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: false, minlength: 1 } # @todo should be 'name'
     house_no:                   {type: string(32), notnull: false}
-    street:                     {type: string(128), notnull: true}
-    city:                       {type: string(32), notnull: true}
+    street:                     {type: string(128), notnull: true, minlength: 1 }
+    city:                       {type: string(32), notnull: true, minlength: 1}
     district:                   {type: string(128), notnull: false}
-    country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
+    country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/', minlength: 1 }
     additional_address_details: {type: string(1024), notnull: false}
     zips:                       {type: string(16), notnull: false}
     longitude:                  {type: decimal(11), scale: 8, notnull: false}

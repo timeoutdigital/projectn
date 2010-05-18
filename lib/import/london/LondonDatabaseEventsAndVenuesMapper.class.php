@@ -343,6 +343,14 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
     $event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
     $event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
+
+    // Add Images
+    if( isset( $item[ 'SLLEvent' ]['image_id'] ) && is_numeric( $item[ 'SLLEvent' ]['image_id'] ) )
+    {
+        $imageUrl = "http://toimg.net/managed/images/". $item[ 'SLLEvent' ]['image_id'] ."/i.jpg";
+        $this->addImageHelper( $event, $imageUrl );
+    }
+
     $event->addVendorCategory( $this->categories, $this->vendor['id'] );
 
     $this->notifyImporter( $event );
