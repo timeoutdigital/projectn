@@ -93,6 +93,13 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $property2->link( 'Movie', array( 1 ) );
     $property2->save();
 
+    $property3 = ProjectN_Test_Unit_Factory::get( 'MovieProperty', array(
+      'lookup' => 'Critics_choice',
+      'value'  => 'n',
+      ) );
+    $property3->link( 'Movie', array( 1 ) );
+    $property3->save();
+
     $property = new MovieMedia();
     $property[ 'ident' ] = 'md5 hash of the url';
     $property[ 'mime_type' ] = 'image/';
@@ -179,6 +186,15 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+  }
+
+  /**
+   * Check to make sure we don't export a property named 'Critics_choice' with a value which is not 'y'.
+   */
+  public function testOnlyYesForCriticsChoiceProperty()
+  {
+      $badCriticsChoice = $this->xpath->query( "/vendor-movies/movie/version/property[@key='Critics_choice' and . != 'y']" );
+      $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
   }
 
   /**

@@ -16,9 +16,9 @@ class Media extends BaseMedia
      */
     public function getAwsUrl()
     {
-        // eg. http://projectn.s3.amazonaws.com/singapore/event/images/2e67b4c713718ea4583a2bb823bb1723.jpg
+        // eg. http://projectn.s3.amazonaws.com/singapore/event/media/2e67b4c713718ea4583a2bb823bb1723.jpg
         $type = str_replace( 'Media', '', get_class( $this ) );
-        return "http://projectn.s3.amazonaws.com/" . $this[ $type ]['Vendor']['city'] . "/" . strtolower( $type ) . "/images/" . $this['ident'] . ".jpg";
+        return "http://projectn.s3.amazonaws.com/" . $this[ $type ]['Vendor']['city'] . "/" . strtolower( $type ) . "/media/" . $this['ident'] . ".jpg";
     }
 
     /**

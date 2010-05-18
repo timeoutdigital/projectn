@@ -171,9 +171,18 @@ class XMLExportMovie extends XMLExport
       
       foreach( $movie['MovieProperty'] as $property )
       {
-        $propertyTag = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
-        if( $propertyTag )
-        $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
+        if( isset( $property['lookup'] ) )
+        {
+            if( $property['lookup'] == "Critics_choice" && strtolower( $property['value'] ) != "y" )
+            {
+              break;
+            }
+            $propertyTag = $this->appendNonRequiredElement($versionElement, 'property', $property['value'], XMLExport::USE_CDATA);
+            if( $propertyTag )
+            {
+                $propertyTag->setAttribute( 'key', htmlspecialchars($property[ 'lookup' ]) );
+            }
+        }
       }
       
       //$this->logExport->addItem( $movie[ 'id' ], $movie[ 'vendor_movie_id' ] );

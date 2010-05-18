@@ -63,7 +63,7 @@ EOF;
       case 'event':
 
         //The poi's xml file contain no spaces
-        $city = str_replace(' ', '', $vendor['city']);
+        $city = str_replace(' ', '_', $vendor['city']);
 
         if( $options[ 'poi-xml' ] == 'poop' )
 		      $location = 'export/export_'.date('Ymd').'/poi/'. $city .'.xml';
