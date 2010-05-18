@@ -63,7 +63,7 @@ fi
 DEPLOY_COMMAND="cd $DEPLOY_PATH/$APP_NAME/releases &&
                               git clone $GIT_USER@$APP_REPO $RELEASE_NAME &&
                               cd $RELEASE_NAME &&
-                              git checkout -b $REPO_TAG &&
+                              $GIT_CHECKOUT
                               rm -rf export/ import/ log/ config/databases.yml &&
                               ln -ns $DEPLOY_PATH/$APP_NAME/export export &&
                               ln -ns $DEPLOY_PATH/$APP_NAME/import import &&
