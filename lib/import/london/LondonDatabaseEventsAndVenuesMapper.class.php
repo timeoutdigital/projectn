@@ -41,7 +41,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
     $zone = new DateTimeZone( 'Europe/London' );
     $from = date( 'Y-m-d' );
-    $to   = date_add( new DateTime( ), new DateInterval( 'P2Y' ) )->format( 'Y-m-d' );
+    $to   = date_add( new DateTime( ), new DateInterval( 'P6M' ) )->format( 'Y-m-d' );
 
     switch( $this->type )
     {
