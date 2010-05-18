@@ -54,6 +54,20 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testNoCommasAtEndOfStreet()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $pois = Doctrine::getTable('Poi')->findAll();
+    foreach( $pois as $poi )
+    {
+        $this->assertNotEquals( " ",  substr( $poi['street'], -1 ), "Street cannot end with a space." );
+        $this->assertNotEquals( ",",  substr( $poi['street'], -1 ), "Street cannot end with a comma." );
+    }
+  }
+
   public function testMapVenues()
   {
     $importer = new Importer();
@@ -70,7 +84,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'pt', $poi['local_language'] );
     $this->assertEquals( 'Igreja da Memória', $poi['poi_name'] );
     $this->assertEquals( '5', $poi['house_no'] );
-    $this->assertEquals( 'Lg da Memória, ', $poi['street'] );
+    $this->assertEquals( 'Lg da Memória', $poi['street'] );
     $this->assertEquals( 'Lisbon', $poi['city'] );
     $this->assertEquals( '', $poi['district'] );
     $this->assertEquals( 'PRT', $poi['country'] );
