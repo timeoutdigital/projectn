@@ -82,7 +82,7 @@ class singaporeVenuesMapper extends DataMapper
           $poi[ 'phone' ]                      = '+65 ' .  (string) $address->phone;
           $poi[ 'additional_address_details' ] = (string) $address->location;
           $poi[ 'zips' ]                       = (string) $address->postcode;
-          $poi[ 'street' ]                     = trim( (string) $address->address );
+          $poi[ 'street' ]                     = trim( (string) $address->address, ", " );
           $poi[ 'city' ]                       = $this->_vendor['city'];
 
           $poi->setGeoEncodeLookUpString( $this->extractGeoEncodeLookupString( $poi ) );
