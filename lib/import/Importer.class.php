@@ -117,11 +117,11 @@ class Importer
         }
         else if( !empty( $recordModifications ) )
         {
-//          foreach( $this->loggers as $logger )
-//          {
-//            $logger->addChange( 'update', $recordModifications );
-//            $logger->countExisting();
-//          }
+          foreach( $this->loggers as $logger )
+          {
+            $logger->addChange( 'update', $recordModifications );
+            $logger->countExisting();
+          }
         }
      }
      catch( Exception $e )
