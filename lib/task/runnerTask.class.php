@@ -88,7 +88,7 @@ class runnerTask extends sfBaseTask
                         $currentExportPath = $exportPath .'/'.$type;
                         $this->verifyAndCreatePath( $currentExportPath );
 
-                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city="' . $cityName . '" --language=' . $cityParams[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "", $cityName ) .'.xml';
+                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city="' . $cityName . '" --language=' . $cityParams[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_", $cityName ) .'.xml';
                         $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
                         $this->executeCommand( $taskCommand, $logCommand );
                     }
