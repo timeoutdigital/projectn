@@ -22,8 +22,11 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
   protected $vendor;
 
-  public function __construct( )
+  protected $type;
+
+  public function __construct( $type = 'all' )
   {
+    $this->type = $type;
     $this->setVendor();
     $this->setDefaultPoiCategory();
     $this->setDataMapperHelper();
@@ -40,14 +43,24 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $from = date( 'Y-m-d' );
     $to   = date_add( new DateTime( ), new DateInterval( 'P2Y' ) )->format( 'Y-m-d' );
 
+    switch( $this->type )
+    {
+        case 'poi' :
+            $this->processPois( $from, $to );
+            break;
+        case 'event' :
+            $this->processEvents( $from, $to );
+            break;
+        case 'event-occurrence' :
+            $this->processEventOccurrences( $from, $to );
+            break;
+        case 'all' :
+            $this->processPois( $from, $to );
+            $this->processEvents( $from, $to );
+            $this->processEventOccurrences( $from, $to );
+            break;
+    }
 
-    //5807 ralph     20   0 2815m 2.7g 6576 R  100 77.7  40:48.82 php
-
-    $this->processPois( $from, $to );
-
-    $this->processEvents( $from, $to );
-
-    $this->processEventOccurrences( $from, $to );
   }
 
   private function setVendor()
@@ -90,9 +103,9 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processPois( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 5000;
+		$resultsPerPage = 1000;
 
-		$query = Doctrine_Query::create( )->select( 'o.id, v.*' )
+		$query = Doctrine_Query::create( )->select( 'o.id, v.*, e.*' )
                                                   ->from( 'SLLOccurrence o' )
 		                                  ->leftJoin( 'o.SLLVenue v' )
 		                                  ->leftJoin( 'o.SLLEvent e' )
@@ -105,21 +118,17 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 			$items = $pager->execute( array(), Doctrine::HYDRATE_ARRAY );
 
-
-                        //$items = $query->execute( array(), Doctrine::HYDRATE_ARRAY );
-
                         $currentVendorPoiId = null;
                         $currentVendorEventId = null;
 
 			foreach ( $items as $item )
 			{
-                           // $this->categories = $this->extractCategoriesFrom( $item );
+                            $this->categories = $this->extractCategoriesFrom( $item );
                             $poi = $this->mapPoiFrom( $item );
                             $this->categories = null;
 			}
 
 			$currentPage++;
-
 			unset( $items );
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
@@ -130,7 +139,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 	private function processEvents( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 5000;
+		$resultsPerPage = 1000;
 
 		$query = Doctrine_Query::create( )->select( 'o.id, e.*' )
 		                                  ->from( 'SLLOccurrence o' )
@@ -145,22 +154,18 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 			$items = $pager->execute( array(), Doctrine::HYDRATE_ARRAY );
 
-
-                        //$items = $query->execute( array(), Doctrine::HYDRATE_ARRAY );
-
                         $currentVendorPoiId = null;
                         $currentVendorEventId = null;
 
 			foreach ( $items as $item )
 			{
-                           // $this->categories = $this->extractCategoriesFrom( $item );
+                            $this->categories = $this->extractCategoriesFrom( $item );
                             $event = $this->mapEventFrom( $item );
                             $this->categories = null;
 			}
 
 			$currentPage++;
-
-			 unset( $items );
+			unset( $items );
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 
@@ -169,14 +174,13 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processEventOccurrences( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 5000;
+		$resultsPerPage = 1000;
 
 		$query = Doctrine_Query::create( )->select( 'o.*' )
 		                                  ->from( 'SLLOccurrence o' )
 		                                  ->where( 'o.date_start >= ?', $from )
-		                                  ->andWhere( 'o.date_start <= ?', $to );
-
-		//$items = $query->execute( array(), Doctrine::HYDRATE_ARRAY );
+		                                  ->andWhere( 'o.date_start <= ?', $to )
+                                                  ->orderBy( 'o.venue_id, o.event_id' );
 
                 do
 		{
@@ -229,15 +233,10 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
                             }
 
                             $this->mapEventOccurrenceFrom( $item, $poi[ 'id' ], $event[ 'id' ] );
-
-                            //$eventOccurrence->free( true );
-                            //unset($eventOccurrence);
 			}
 
 			$currentPage++;
-
                         unset( $items );
-
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 
@@ -344,15 +343,9 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
     $event[ 'url' ]         = $item[ 'SLLEvent' ][ 'url' ];
     $event[ 'price' ]       = $item[ 'SLLEvent' ][ 'price' ];
-    //$event->addVendorCategory( $this->categories, $this->vendor['id'] );
+    $event->addVendorCategory( $this->categories, $this->vendor['id'] );
 
     $this->notifyImporter( $event );
-
-//    $event->free( true );
-//    unset( $event );
-
-//    if( $this->successfullySaved( $event ) )
-//      return $event;
   }
 
   private function mapPoiFrom( $item )
@@ -395,15 +388,9 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
       $poi[ 'additional_address_details' ] = $building_name;
     }
 
-    //$poi->addVendorCategory( $this->categories, $this->vendor['id'] );
+    $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
 
     $this->notifyImporter( $poi );
-
-//    $poi->free( true );
-//    unset( $poi );
-
-//    if( $this->successfullySaved( $poi ) )
-//      return $poi;
   }
 
   private function extractCategoriesFrom( $item )
@@ -414,7 +401,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     return $categories;
   }
 
-  private function flattenCategoryTree( SLLCategory $category=null, &$collectedCategories = array() )
+  private function flattenCategoryTree( $category=null, &$collectedCategories = array() )
   {
     if( !$category )
         return;

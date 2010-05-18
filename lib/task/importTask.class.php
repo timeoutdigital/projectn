@@ -319,16 +319,29 @@ class importTask extends sfBaseTask
         $loggerObj = new logImport( $vendor );
         switch( $options['type'] )
         {
-          case 'poi-event':
+          case 'poi':
             $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
             $loggerObj->setType( 'poi' );
             $importer->addLogger( $loggerObj );
 
-
-            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
+            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'poi' ) );
             $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
             $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
             $importer->addDataMapper( new LondonAPICinemasMapper() );
+            break;
+
+          case 'event':
+            $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
+            $loggerObj->setType( 'event' );
+            $importer->addLogger( $loggerObj );
+
+            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event' ) );
+            break;
+
+          case 'event-occurrence':
+            $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
+
+            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event-occurrence' ) );
             break;
 
           case 'movie':
@@ -337,9 +350,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendor ) );
           break;
         }
-        break; //end lisbon
-
-
+        break; //end london
 
 
 
