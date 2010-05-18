@@ -27,10 +27,10 @@ class kualaLumpurVenuesMapper extends DataMapper
 
       $poi['vendor_poi_id']       = (string) $venue->id;
       $poi['poi_name']            = (string) $venue->title;
-      $poi['street']              = (string) $venue->address;
+      $poi['street']              = (string) $venue->location->address;
       $poi['city']                = 'Kuala Lumpur';
       $poi['country']             = 'MYS';
-      $poi[ 'geocode_look_up' ]   = (string) $venue->address;
+      $poi[ 'geocode_look_up' ]   = (string) $venue->location->address;
       $poi[ 'latitude' ]          = $this->extractLatitude( $venue );
       $poi[ 'longitude' ]         = $this->extractLongitude( $venue );
       $poi[ 'email' ]             = (string) $venue->contact_details->email;
