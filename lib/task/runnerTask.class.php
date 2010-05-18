@@ -44,7 +44,7 @@ class runnerTask extends sfBaseTask
                                     'london' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'lisbon' => array( 'language' => 'pt', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'sydney' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'sydney' => array( 'language' => 'en-AU', 'type' => array( 'poi', 'event', 'movie' ) ),
                     ),
                  );
 
