@@ -57,11 +57,21 @@ class projectNDataMapperHelper
       return new EventOccurrence();
     }
     
+    return $this->getEventOccurrenceRecordById( $event['id'], $vendorUid );
+  }
+
+    /**
+   * @param integer $eventId
+   * @param string $vendorUid
+   * @return Event
+   */
+  public function getEventOccurrenceRecordById( $eventId, $vendorUid )
+  {
     $table = Doctrine::getTable('EventOccurrence');
 
     $eventRecord = $table->findOneByEventIdAndVendorEventOccurrenceId
     (
-      $event['id'],
+      $eventId,
       $vendorUid
     );
 
