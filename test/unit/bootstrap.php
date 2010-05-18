@@ -95,6 +95,7 @@ class ProjectN_Test_Unit_Factory
       'eventcategory'       => 'EventCategoryFixture',
       'eventproperty'       => 'EventPropertyFixture',
       'movie'               => 'MovieFixture',
+      'movieproperty'       => 'MoviePropertyFixture',
       'vendoreventcategory' => 'VendorEventCategoryFixture',
       'vendorpoicategory'   => 'VendorPoiCategoryFixture',
     );
@@ -352,6 +353,32 @@ class MovieFixture
       'utf_offset' => '+00:00:00',
       'vendor_id' => '1',
       'vendor_movie_id' => '1',
+    );
+  }
+}
+
+class MoviePropertyFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = MoviePropertyFixture::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $record = new MovieProperty();
+    $record->fromArray( $defaults );
+
+    return $record;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'lookup'       => 'test lookup',
+      'value'       => 'test value',
     );
   }
 }
