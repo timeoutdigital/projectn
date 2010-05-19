@@ -54,6 +54,20 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testEuroSignsInsteadOfQuestionMarks()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $pois = Doctrine::getTable('Poi')->findAll();
+    foreach( $pois as $poi )
+    {
+        //echo $poi['price_information'] . PHP_EOL . PHP_EOL;
+        $this->assertEquals( false, strpos( $poi['price_information'], "?" ), "Price info should not contain a question mark." );
+    }
+  }
+
   public function testNoCommasAtEndOfStreet()
   {
     $importer = new Importer();

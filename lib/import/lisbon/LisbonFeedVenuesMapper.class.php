@@ -152,7 +152,9 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $venueElement['nightlifepriceexport'],
       $venueElement['gaypriceexport'],
     );
-    return stringTransform::concatNonBlankStrings(', ', $priceArray );
+    $concat = stringTransform::concatNonBlankStrings( ', ', $priceArray );
+    $concat = str_replace( "?", "€", $concat );
+    return $concat;
   }
 
   /**
