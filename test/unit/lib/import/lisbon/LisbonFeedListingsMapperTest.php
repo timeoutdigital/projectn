@@ -61,24 +61,16 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   /**
    * Test to make sure 'start_time' property is present where time_info has start time info.
    */
-  public function testStartTimePropertyExistsWhereTimeInfoIsPresentAndContainsStartTime()
+  public function testDescriptionHtmlIsNotWrittenWithPerentheses()
   {
-    $this->markTestSkipped();
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();
 
     $search = Doctrine::getTable('Event')->findAll();
-    foreach( $search as $event )
-    {
-        foreach( $event['EventProperty'] as $ep )
-        {
-            if( $e['lookup'] = 'timeinfo' )
-            {
-                
-            }
-        }
-    }
+
+    $this->assertEquals( false, strpos( $search[0]['description'], "{I}Robinson Crusoe{/I}" ), "Description cannot contain parenthesis for html elements." );
+    $this->assertNotEquals( false, strpos( $search[0]['description'], "<I>Robinson Crusoe</I>" ), "Description cannot contain parenthesis for html elements." );
   }
 
   /**

@@ -25,6 +25,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
       $event = $this->getEventRecordFrom( $listingElement );
 
+      $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
+
       // -- Append band info to description as per #259 --
       $band_info = explode( ",", (string) $listingElement['band'] );
       foreach( $band_info as $k => $info )
@@ -39,8 +41,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       }
       $event['description'] .= $band_info;
       // --
-      
-      $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
+
+      $event['description'] = preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] );
 
       $event['vendor_id'] = $this->vendor['id'];
       $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
