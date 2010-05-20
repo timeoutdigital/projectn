@@ -23,35 +23,49 @@ class kualaLumpurVenuesMapper extends DataMapper
   {
     foreach( $this->xml->venueDetails as $venue )
     {
-      $poi = $this->dataMapperHelper->getPoiRecord( (string) $venue->id );
+        try
+        {
+          $poi = $this->dataMapperHelper->getPoiRecord( (string) $venue->id );
 
-      $poi['vendor_poi_id']       = (string) $venue->id;
-      $poi['poi_name']            = (string) $venue->title;
-      $poi['street']              = (string) $venue->location->address;
-      $poi['city']                = 'Kuala Lumpur';
-      $poi['country']             = 'MYS';
-      $poi[ 'geocode_look_up' ]   = (string) $venue->location->address;
-      $poi[ 'latitude' ]          = $this->extractLatitude( $venue );
-      $poi[ 'longitude' ]         = $this->extractLongitude( $venue );
-      $poi[ 'email' ]             = (string) $venue->contact_details->email;
-      $poi[ 'url' ]               = (string) $venue->url;
-      $poi[ 'phone' ]             = (string) $venue->contact_details->tel_no;
-      $poi[ 'short_description' ] = (string) $venue->short_description;
-      $poi[ 'description' ]       = (string) $venue->description;
-      $poi[ 'Vendor' ]            = $this->vendor;
-      $poi[ 'geocode_look_up' ]   = (string) $venue->location->address;
+          $poi['vendor_poi_id']       = (string) $venue->id;
+          $poi['poi_name']            = (string) $venue->title;
+          $poi['street']              = (string) $venue->location->address;
+          $poi['city']                = 'Kuala Lumpur';
+          $poi['country']             = 'MYS';
+          $poi[ 'geocode_look_up' ]   = (string) $venue->location->address;
+          $poi[ 'latitude' ]          = $this->extractLatitude( $venue );
+          $poi[ 'longitude' ]         = $this->extractLongitude( $venue );
+          $poi[ 'email' ]             = (string) $venue->contact_details->email;
+          $poi[ 'url' ]               = (string) $venue->url;
+          $poi[ 'phone' ]             = (string) $venue->contact_details->tel_no;
+          $poi[ 'short_description' ] = (string) $venue->short_description;
+          $poi[ 'description' ]       = (string) $venue->description;
+          $poi[ 'Vendor' ]            = $this->vendor;
+          $poi[ 'geocode_look_up' ]   = (string) $venue->location->address;
 
-			$cat = (string) $venue->categories->category;
-			$cat2 = (string) $venue->categories->subCategory;
+                            $cat = (string) $venue->categories->category;
+                            $cat2 = (string) $venue->categories->subCategory;
 
-			if( !empty( $cat ) && !empty( $cat2 ) )
-			{
-				$poi->addVendorCategory( array( $cat, $cat2 ), $this->vendor['id'] );
-			}
+                            if( !empty( $cat ) && !empty( $cat2 ) )
+                            {
+                                    $poi->addVendorCategory( array( $cat, $cat2 ), $this->vendor['id'] );
+                            }
 
-      //$poi->addMediaByUrl( (string) $venue->medias->big_image );
+          try {
+            $poi->addMediaByUrl( (string) $venue->medias->big_image );
+          }
+          catch( Exception $exception )
+          {
+            $this->notifyImporterOfFailure($exception);
+          }
 
-      $this->notifyImporter( $poi );
+          $this->notifyImporter( $poi );
+          
+        }
+        catch( Exception $exception )
+        {
+            $this->notifyImporterOfFailure($exception, $poi);
+        }
     }
   }
 

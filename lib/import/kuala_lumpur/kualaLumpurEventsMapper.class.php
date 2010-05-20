@@ -19,51 +19,63 @@ class kualaLumpurEventsMapper extends DataMapper
     $this->dataMapperHelper = new ProjectNDataMapperHelper( $vendor );
   }
 
-  public function mapVenues()
+  public function mapEvents()
   {
     foreach( $this->xml->eventDetails as $event )
     {
-      if( $this->isFilm( $event ) )
-        continue;
+        try {
+          if( $this->isFilm( $event ) )
+            continue;
 
-      $eventId = (string) $event->id;
+          $eventId = (string) $event->id;
 
-      $record = $this->dataMapperHelper->getEventRecord( $eventId );
+          $record = $this->dataMapperHelper->getEventRecord( $eventId );
 
-      $record['vendor_event_id']   = $eventId;
-      $record['name']              = (string) $event->title;
-      $record['url']               = (string) $event->url;
-      $record['short_description'] = (string) $event->short_description;
-      $record['description']       = (string) $event->descripton;
-      $record['price']             = (string) $event->price;
-      $record['Vendor']            = $this->vendor;
+          $record['vendor_event_id']   = $eventId;
+          $record['name']              = (string) $event->title;
+          $record['url']               = (string) $event->url;
+          $record['short_description'] = (string) $event->short_description;
+          $record['description']       = (string) $event->descripton;
+          $record['price']             = (string) $event->price;
+          $record['Vendor']            = $this->vendor;
 
-      $record->addVendorCategory( array(
-        $event->categories->category,
-        $event->categories->subCategory,
-      ), 
-      $this->vendor );
+          $record->addVendorCategory( array(
+            $event->categories->category,
+            $event->categories->subCategory,
+          ),
+          $this->vendor );
 
-      //$event->addMediaByUrl( (string) $event->medias->big_image );
+          try {
+            $record->addMediaByUrl( (string) $event->medias->big_image );
+          }
+          catch( Exception $exception )
+          {
+            $this->notifyImporterOfFailure($exception);
+          }
 
-      $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $record, $eventId );
-      $occurrence[ 'vendor_event_occurrence_id' ] = $eventId;
-      $occurrence['start_date'] = (string) $event->occurrences->start_date;
-      $occurrence['utc_offset'] = $this->vendor->getUtcOffset( (string) $event->occurrences->start_date );
+          $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $record, $eventId );
+          $occurrence[ 'vendor_event_occurrence_id' ] = $eventId;
+          $occurrence['start_date'] = (string) $event->occurrences->start_date;
+          $occurrence['utc_offset'] = $this->vendor->getUtcOffset( (string) $event->occurrences->start_date );
 
-      $poi = $this->dataMapperHelper->getPoiRecord( (string) $event->occurrences->venue, $this->vendor['id'] );
+          $poi = $this->dataMapperHelper->getPoiRecord( (string) $event->occurrences->venue, $this->vendor['id'] );
 
-      if( !$poi->exists() )
-      {
-        $this->notifyImporterOfFailure( new Exception( 'Could not find Lisbon Poi with vendor_poi_id of '. (string) $event->occurrences->venue ), $occurrence );
-        continue;
-      }
+          if( !$poi->exists() )
+          {
+            $this->notifyImporterOfFailure( new Exception( 'Could not find Kuala Lumpur Poi with vendor_poi_id of '. (string) $event->occurrences->venue ), $occurrence );
+            continue;
+          }
 
-      $occurrence['Poi'] = $poi;
+          $occurrence['Poi'] = $poi;
 
-      $record['EventOccurrence'][] = $occurrence;
+          $record['EventOccurrence'][] = $occurrence;
 
-      $this->notifyImporter( $record );
+          $this->notifyImporter( $record );
+        }
+        catch( Exception $exception )
+        {
+            $this->notifyImporterOfFailure($exception, $record);
+        }
     }
   }
 
