@@ -42,6 +42,8 @@ class Poi extends BasePoi
   public function setPoiName( $string )
   {
     $string = preg_replace( '/[, ]*$/', '', $string );
+
+
     $this->_set( 'poi_name', $string );
   }
 
@@ -231,7 +233,31 @@ class Poi extends BasePoi
      $this->fixUrl();
      $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
+     $this->cleanStreetField();
      $this->applyOverrides();
+  }
+
+  private function cleanStreetField()
+  {
+     $vendorCityName = array( $this->Vendor->city );
+
+     // A list of City Name Aliases
+     $vendorCityNameAliasMap = array();
+     $vendorCityNameAliasMap[ "Lisbon" ] = array( "Lisbon", "Lisboa" );
+
+     // Use aliases if they are available
+     if( array_key_exists( $vendorCityName[0], $vendorCityNameAliasMap ) )
+          $vendorCityName = $vendorCityNameAliasMap[ $vendorCityName[0] ];
+
+     // Remove all City Name Aliases from street field
+     foreach( $vendorCityName as $vendorCityAlias )
+     {
+        $this['street'] = str_replace( ", " . $vendorCityAlias, "", $this['street'] );
+        $this['street'] = str_replace( $vendorCityAlias, "", $this['street'] );
+     }
+
+     // Clean all the rubbish off the beginning and end.
+     $this['street'] = trim( $this['street'], " ,." );
   }
 
   private function applyDefaultGeocodeLookupStringIfNull()

@@ -64,6 +64,21 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'oof', $poi['poi_name'] );
   }
 
+  /**
+   * test if the street field is clean (doesnt have city or trailing jazz)
+   */
+  public function testCleanStreet()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $poi['street'] = "100 Easy Street, Lisbon, Lisboa, 5, ,,,,, , ";
+
+      $poi->save();
+      $this->assertNotEquals( " ", substr( $poi['street'], -1 ), "POI street cannot end in space" );
+      $this->assertNotEquals( ",", substr( $poi['street'], -1 ), "POI street cannot end in comma" );
+      $this->assertEquals( false, strpos( $poi['street'], $poi['Vendor']['city'] ), "POI street cannot contain vendor city name" );
+  }
+
   /*
    * test if the add property adds properties successfuly
    */
