@@ -45,15 +45,8 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   {
     $limit = 11;
     
-    $crawler = new LondonAPICrawler();
-    $crawler->setLimit( $limit );
-    $mapper = new LondonAPIRestaurantsMapper( $crawler );
-
-    $importer = new Importer();
-    $importer->addDataMapper( $mapper );
-
     $this->setExpectedException( 'Exception' );
-    $importer->run();
+    $this->runImportWithLimit( $limit );
     
     $poiResults = Doctrine::getTable('Poi')->findAll();
 
@@ -79,6 +72,42 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( empty( $poi[ 'PoiCategory' ][ 0 ][ 'name' ] ), 'restaurant', 'description should not be empty: '   . $poi[ 'url' ] );
 
     $this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) );
+  }
+
+  public function testCriticsChoiceFlagIsSavedAsNormalisedProperty()
+  {
+    $this->runImportWithLimit( 11 );
+
+    $poiResults = Doctrine::getTable('Poi')->findAll();
+
+    $criticsChoiceCount = 0;
+    foreach( $poiResults as $poi )
+    {
+      foreach( $poi['PoiProperty'] as $property )
+      {
+        if( preg_match( '/Flags/', $property[ 'lookup' ] ) )
+          $this->fail( 'Has critics choice as a Flag property' );
+      }
+
+      foreach( $poi['PoiProperty'] as $property )
+      {
+        if('Critics_choice' == $property[ 'lookup' ] && 'Y' == $property['value'] )
+          $criticsChoiceCount++;
+      }
+    }
+    $this->assertGreaterThan( 0, $criticsChoiceCount, 'Should have Critics_choice property' );
+  }
+
+  private function runImportWithLimit( $limit )
+  {
+    $crawler = new LondonAPICrawler();
+    $crawler->setLimit( $limit );
+    $mapper = new LondonAPIRestaurantsMapper( $crawler );
+
+    $importer = new Importer();
+    $importer->addDataMapper( $mapper );
+
+    $importer->run();
   }
 
   /**
