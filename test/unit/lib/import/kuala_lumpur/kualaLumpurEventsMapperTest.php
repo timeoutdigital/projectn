@@ -52,6 +52,11 @@ class kualaLumpurEventsMapperTest extends PHPUnit_Framework_TestCase
                          'Check id'
                          );
 
+    $this->assertEquals( 'Deepak Menon Film Showing and Conversations',
+                         $this->events[0]['name'],
+                         'Check name'
+                         );
+
     $this->assertEquals( 'http://www.instantcafetheatre.com/',
                          $this->events[0]['url'],
                          'Check url'
@@ -94,6 +99,14 @@ EOF;
     $this->assertEquals( $desc,
                          $this->events[1]['description'],
                          'Checking long description'
+                          );
+  }
+
+  public function testImage()
+  {
+    $this->assertEquals( 'http://www.timeoutkl.com/uploadfiles/image/Events/Music/Big/bigimg_MiriIntJazzFest_Preview.jpg',
+                          $this->events[1]['EventMedia'][0]['url'],
+                          'Checking event media'
                           );
   }
 
