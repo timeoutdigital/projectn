@@ -244,7 +244,7 @@ Vendor:
     time_zone:                Asia/Almaty
     inernational_dial_code:   '+7727'
     airport_code:             'ALA'
-    country_code:             'ru'
+    country_code:             'kz'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v14:
     city:                     novosibirsk
