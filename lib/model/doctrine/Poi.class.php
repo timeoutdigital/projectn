@@ -180,7 +180,7 @@ class Poi extends BasePoi
  /**
   * Add the vendor Categories to the Poi
   *
-  * @param string $name The category name
+  * @param string | array $name The category name
   * @param int $vendorId The vendors Id
   * @return boolean false if the name is null
   *
@@ -368,7 +368,7 @@ class Poi extends BasePoi
 
     $identString = md5( $urlString );
     $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $identString );
-    
+
     if ( $poiMediaObj === false )
     {
       foreach( $this['PoiMedia'] as $poiMedia )
