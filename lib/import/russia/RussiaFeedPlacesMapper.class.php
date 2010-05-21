@@ -19,8 +19,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
     {
         try {
             // Get Venue Id
-            foreach( $venueElement->attributes() as $k => $v )
-                if( $k == "id" ) $vendor_venue_id = (int) $v;
+            $vendor_venue_id = (string) $venueElement['id'];
 
             if( !isset( $vendor_venue_id ) || !is_numeric( $vendor_venue_id ) ) break;
 
@@ -34,7 +33,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['house_no']                      = (string) $venueElement->house_no;
             $poi['street']                        = (string) $venueElement->street;
             $poi['city']                          = (string) $venueElement->city;
-            $poi['district']                      = (string) $venueElement->district;
+            //$poi['district']                      = (string) $venueElement->district;
             $poi['country']                       = "RUS";
             $poi['additional_address_details']    = (string) $venueElement->additional_address_details;
             $poi['zips']                          = (string) $venueElement->postcode;
@@ -64,7 +63,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
 
             // Timeout Link
             if( (string) $venueElement->timeout_url != "" )
-                $poi->addProperty( "Timeout_link", (string) (string) $venueElement->timeout_url );
+                $poi['TimeoutLinkProperty'] = (string) $venueElement->timeout_url;
 
             // Add First Image Only
             $medias = array();
