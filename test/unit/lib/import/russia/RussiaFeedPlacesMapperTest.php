@@ -67,7 +67,7 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $poi = $pois[0];
 
     $this->assertEquals( 1,  $poi['vendor_poi_id'] );
-    $this->assertEquals( 'Одежда из Европы/', $poi['name'] );
+    $this->assertEquals( 'Одежда из Европы', $poi['name'] );
     $this->assertEquals( 'Таллиннская, 17, корп. 1', $poi['street'] );
     $this->assertEquals( 'Москва', $poi['city'] );
     $this->assertEquals( 'RUS', $poi['country'] );

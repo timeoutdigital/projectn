@@ -48,13 +48,20 @@ class RussiaFeedBaseMapper extends DataMapper
         if( !isset( $vendor ) || !$vendor )
           throw new Exception( 'Vendor not found.' );
 
-        $this->dataMapperHelper     = new projectNDataMapperHelper( $vendor );
+        //$this->dataMapperHelper     = new projectNDataMapperHelper( $vendor );
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
-        $this->vendor               = $vendor;
+        //$this->vendor               = $vendor;
         $this->xml                  = $xml;
+    }
 
-        $this->dateTimeZoneLondon   = new DateTimeZone( 'Europe/London' );
-        $this->dateTimeZoneRussia   = new DateTimeZone( $this->vendor->time_zone );
+    protected function fixHtmlEntities( $string )
+    {
+        $string = htmlspecialchars_decode( (string) $string );
+        $string = htmlspecialchars_decode( $string );
+        $string = html_entity_decode( $string );
+        $string = str_replace( "&mdash;", "-", $string );
+        $string = str_replace( "&hellip;", "...", $string );
+        return $string;
     }
 
     /**
@@ -74,7 +81,7 @@ class RussiaFeedBaseMapper extends DataMapper
             }
             catch( Exception $e )
             {
-                $this->_logger->addError( $e );
+                $this->notifyImporterOfFailure( $e );
             }
         }
     }
