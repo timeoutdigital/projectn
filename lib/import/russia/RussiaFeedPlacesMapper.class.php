@@ -69,7 +69,6 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
         $medias = array();
         foreach( $venueElement->medias->media as $media ) $medias[] = (string) $media;
         if( !empty( $medias ) ) $this->addImageHelper( $poi, $medias[0] );
-
         $this->notifyImporter( $poi );
     }
   }
