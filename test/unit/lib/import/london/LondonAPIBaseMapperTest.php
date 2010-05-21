@@ -82,6 +82,34 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
     $mock->map( $poi, $xml );
     $this->assertEquals( '56 Artillery Lane', $poi['street'], "Street cannot end with a space or a comma." );
   }
+
+  public function testCriticsChoiceFlagIsSavedAsNormalisedProperty()
+  {
+    $mock = new MockLondonAPIBaseMapperCriticsChoice( null, $this->getMock( 'geoEncode' ));
+    $mock->setImporter( new Importer() );
+    $poi = new Poi();
+    $xml = simplexml_load_string( '
+      <xml>
+        <details>
+          <detail name="Facilities">foo</detail>
+          <detail name="Flags">Critic\'s choice</detail>
+        </details>
+        <lat>51.5079</lat><lng>-0.3048</lng>
+      </xml>' );
+    $mock->map( $poi, $xml );
+
+    $this->assertEquals( 2, $poi['PoiProperty']->count() );
+
+    $criticsChoiceCount = 0;
+    foreach( $poi['PoiProperty'] as $property )
+    {
+      var_dump( $property['lookup'] );
+      if( $property['lookup'] == 'Critics_choice' )
+        $criticsChoiceCount++;
+    }
+
+    $this->assertEquals( 1, $criticsChoiceCount, 'Should have Critics_choice property');
+  }
 }
 
 class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
@@ -93,6 +121,23 @@ class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
   public function map( Poi $poi, SimpleXMLElement $xml )
   {
     $this->mapCommonPoiMappings( $poi, $xml );
+  }
+  public function getDetailsUrl(){}
+  public function getApiType(){}
+  public function doMapping( SimpleXMLElement $xml ){}
+}
+class MockLondonAPIBaseMapperCriticsChoice extends LondonAPIBaseMapper
+{
+  public function __construct( $apiCrawler, $geoEncode )
+  {
+    parent::__construct( $apiCrawler, $geoEncode );
+  }
+  public function map( Poi $poi, SimpleXMLElement $xml )
+  {
+    foreach( $this->getDetails( $xml ) as $detail )
+    {
+      $this->addDetailAsProperty( $poi, $detail );
+    }
   }
   public function getDetailsUrl(){}
   public function getApiType(){}
