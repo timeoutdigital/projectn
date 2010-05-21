@@ -113,6 +113,17 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $this->apiCrawler->crawlApi();
   }
 
+  protected function addDetailAsProperty( $record, SimpleXMLElement $detail )
+  {
+    if( (string) $detail == 'Critics\' choice' || (string) $detail == 'Critic\'s choice' )
+    {
+      $record['CriticsChoiceProperty'] = true;
+      return;
+    }
+
+    $record->addProperty( (string) $detail['name'], (string) $detail );
+  }
+
   /**
    * do common API-POI mappings
    */

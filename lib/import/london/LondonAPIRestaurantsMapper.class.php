@@ -90,13 +90,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
 
     foreach( $this->getDetails( $restaurantXml ) as $detail )
     {
-      if( (string) $detail == 'Critics\' choice' )
-      {
-        $poi['CriticsChoiceProperty'] = true;
-        continue;
-      }
-
-      $poi->addProperty( (string) $detail['name'], (string) $detail );
+      $this->addDetailAsProperty( $poi, $detail );
     }
 
     $this->notifyImporter( $poi );

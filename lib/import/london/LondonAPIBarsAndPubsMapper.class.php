@@ -82,7 +82,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
 
     foreach( $this->getDetails( $barsXml ) as $detail )
     {
-      $poi->addProperty( (string) $detail['name'], (string) $detail );
+      $this->addDetailAsProperty( $poi, $detail );
     }
 
     if( !empty( $barsXml->imageUrl ) )
