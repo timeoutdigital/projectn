@@ -100,7 +100,6 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testImage()
   {
-		$this->markTestSkipped();
     $this->assertEquals( 'http://www.timeoutkl.com/uploadfiles/image/Venues/Art/Big/bigimg_TMSArtGallery.jpg',
                           $this->pois[0]['PoiMedia'][0]['url'],
                           'Checking poi media'
