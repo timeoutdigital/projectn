@@ -107,7 +107,7 @@ class curlImporter
    {
        $rawData=$this->curlRequest();
 
-       $ignore = '(amp|lt|gt|quot|apos|#[0-9]+);';
+       $ignore = '(laquo|raquo|nbsp|amp|lt|gt|quot|apos|#[0-9]+);';
        $this->_xmlResponseRaw = preg_replace( "/&(?!$ignore)/", '&amp;', $rawData );
    }
 
