@@ -208,6 +208,36 @@ class EventTableTest extends PHPUnit_Framework_TestCase
      $this->assertEquals( 3, $occurrences[ 2 ][ 'poi_id' ] );
    }
 
+   public function testFindByVendorEventIdAndVendorLanguage()
+   {
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
+
+    $vendorData = array(
+      array( 'city' => 'lisbon', 'language' => 'pt' ),
+      array( 'city' => 'moscow', 'language' => 'ru' ),
+      array( 'city' => 'london', 'language' => 'en' ),
+    );
+
+    $vendors = array();
+    foreach( $vendorData as $data )
+      $vendors[] = ProjectN_Test_Unit_Factory::add( 'Vendor', $data );
+
+    $this->assertEquals( 3, Doctrine::getTable( 'Vendor' )->count() );
+
+    foreach( $vendors as $vendor )
+    {
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event[ 'Vendor' ] = $vendor;
+      $event['vendor_event_id'] = '1234';
+      $event->save();
+      $this->assertEquals( 1, $vendor['Event']->count() );
+    }
+
+    $event = Doctrine::getTable( 'Event' )->findByVendorPoiIdAndVendorLanguage( '1234', 'ru' );
+    $this->assertEquals( 'moscow', $event['Vendor']['city'] );
+   }
+
    private function addEventOccurrence( $vendor, $poi, $event, $date )
    {
        $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );

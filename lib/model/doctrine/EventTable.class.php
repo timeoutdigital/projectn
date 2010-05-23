@@ -97,4 +97,21 @@ class EventTable extends Doctrine_Table
 
     return $query->execute( array(), Doctrine_Core::HYDRATE_ARRAY);
   }
+
+  public function findByVendorEventIdAndVendorLanguage( $vendorEventId, $vendorLanguage )
+  {
+    $vendors = Doctrine::getTable( 'Vendor' )->findByLanguage( $vendorLanguage );
+
+    $vendorIds = array();
+    foreach( $vendors as $vendor )
+      $vendorIds[] = $vendor[ 'id' ];
+
+    $event = $this
+      ->createQuery( 'e' )
+      ->andWhere( 'e.vendor_event_id = ?', $vendorPoiId )
+      ->andWhereIn( 'e.vendor_id', $vendorIds )
+      ->fetchOne()
+      ;
+    return $event;
+  }
 }
