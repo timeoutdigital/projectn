@@ -76,4 +76,21 @@ class PoiTable extends Doctrine_Table
 
 
     }
+
+    public function findByVendorPoiIdAndVendorLanguage( $vendorPoiId, $vendorLanguage )
+    {
+      $vendors = Doctrine::getTable( 'Vendor' )->findByLanguage( $vendorLanguage );
+
+      $vendorIds = array();
+      foreach( $vendors as $vendor )
+        $vendorIds[] = $vendor[ 'id' ];
+
+      $poi = $this
+        ->createQuery( 'p' )
+        ->andWhere( 'p.vendor_poi_id = ?', $vendorPoiId )
+        ->andWhereIn( 'p.vendor_id', $vendorIds )
+        ->fetchOne()
+        ;
+      return $poi;
+    }
 }

@@ -97,6 +97,33 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'I am in Lisbon', $lisbonPoi['poi_name'] );
   }
 
+  public function testFindByIdAndVendorLanguage()
+  {
+    $vendorData = array(
+      array( 'city' => 'lisbon', 'language' => 'pt' ),
+      array( 'city' => 'moscow', 'language' => 'ru' ),
+      array( 'city' => 'london', 'language' => 'en' ),
+    );
+
+    $vendors = array();
+    foreach( $vendorData as $data )
+      $vendors[] = ProjectN_Test_Unit_Factory::add( 'Vendor', $data );
+
+    $this->assertEquals( 3, Doctrine::getTable( 'Vendor' )->count() );
+
+    foreach( $vendors as $vendor )
+    {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $vendor;
+      $poi['vendor_poi_id'] = '1234';
+      $poi->save();
+      $this->assertEquals( 1, $vendor['Poi']->count() );
+    }
+
+    $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( '1234', 'ru' );
+    $this->assertEquals( 'moscow', $poi['Vendor']['city'] );
+  }
+
   private function addPoi( $vendorPoiId, $name, $vendor )
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
