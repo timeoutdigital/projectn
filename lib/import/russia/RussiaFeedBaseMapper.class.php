@@ -48,9 +48,8 @@ class RussiaFeedBaseMapper extends DataMapper
         if( !isset( $vendor ) || !$vendor )
           throw new Exception( 'Vendor not found.' );
 
-        //$this->dataMapperHelper     = new projectNDataMapperHelper( $vendor );
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
-        //$this->vendor               = $vendor;
+        $this->vendor               = $vendor;
         $this->xml                  = $xml;
     }
 

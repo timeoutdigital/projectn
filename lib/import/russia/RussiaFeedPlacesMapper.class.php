@@ -23,7 +23,9 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
 
             if( !isset( $vendor_venue_id ) || !is_numeric( $vendor_venue_id ) ) break;
 
-            $poi = $this->dataMapperHelper->getPoiRecord( $vendor_venue_id );
+            $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( $vendor_poi_id, 'ru' );
+            if( !$poi )
+              $poi = new Poi();
 
             // Column Mapping
             $poi['vendor_poi_id']                 = (string) $vendor_venue_id;

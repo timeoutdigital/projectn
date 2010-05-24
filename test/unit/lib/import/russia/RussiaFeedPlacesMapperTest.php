@@ -63,7 +63,7 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
     
     $pois = Doctrine::getTable('Poi')->findAll();
-    $this->assertEquals( 45, $pois->count() );
+    $this->assertEquals( 3, $pois->count() );
     $poi = $pois[0];
 
     $this->assertEquals( 1,  $poi['vendor_poi_id'] );
