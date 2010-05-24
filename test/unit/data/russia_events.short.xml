@@ -18,7 +18,7 @@
 				<end_date><![CDATA[2010-05-21]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5528]]></venue>
+				<venue><![CDATA[1]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -47,7 +47,7 @@
 				<end_date><![CDATA[2010-06-01]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5528]]></venue>
+				<venue><![CDATA[2]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -55,7 +55,6 @@
 			<category><![CDATA[Театр]]></category>
 		</categories>
 		<medias>
-			<media><![CDATA[http://pix.timeout.ru/63556.jpeg]]></media>
 		</medias>
 	</event>
 	<event id="378">
@@ -76,7 +75,7 @@
 				<end_date><![CDATA[2010-06-09]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5528]]></venue>
+				<venue><![CDATA[3]]></venue>
 			</occurrence>
 			<occurrence id="4630346">
 				<booking_url><![CDATA[]]></booking_url>
@@ -85,7 +84,7 @@
 				<end_date><![CDATA[2010-05-14]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5528]]></venue>
+				<venue><![CDATA[3]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -93,7 +92,6 @@
 			<category><![CDATA[Театр]]></category>
 		</categories>
 		<medias>
-			<media><![CDATA[http://pix.timeout.ru/63553.jpeg]]></media>
 		</medias>
 	</event>
 	<event id="379">
@@ -114,7 +112,7 @@
 				<end_date><![CDATA[2010-06-30]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5528]]></venue>
+				<venue><![CDATA[4]]></venue>
 			</occurrence>
 			<occurrence id="4630352">
 				<booking_url><![CDATA[]]></booking_url>
@@ -123,7 +121,7 @@
 				<end_date><![CDATA[2010-05-27]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5528]]></venue>
+				<venue><![CDATA[4]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -131,7 +129,6 @@
 			<category><![CDATA[Театр]]></category>
 		</categories>
 		<medias>
-			<media><![CDATA[http://pix.timeout.ru/63373.jpeg]]></media>
 		</medias>
 	</event>
 	<event id="380">
@@ -152,7 +149,7 @@
 				<end_date><![CDATA[2010-06-24]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5528]]></venue>
+				<venue><![CDATA[5]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -160,7 +157,6 @@
 			<category><![CDATA[Театр]]></category>
 		</categories>
 		<medias>
-			<media><![CDATA[http://pix.timeout.ru/63364.jpeg]]></media>
 		</medias>
 	</event>
 	<event id="383">
@@ -181,7 +177,7 @@
 				<end_date><![CDATA[2010-05-24]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[3818]]></venue>
+				<venue><![CDATA[6]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -209,7 +205,7 @@
 				<end_date><![CDATA[2010-05-28]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5452]]></venue>
+				<venue><![CDATA[7]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -237,7 +233,7 @@
 				<end_date><![CDATA[2010-05-22]]></end_date>
 				<end_time><![CDATA[18:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5427]]></venue>
+				<venue><![CDATA[2]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -265,7 +261,7 @@
 				<end_date><![CDATA[2010-06-10]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5599]]></venue>
+				<venue><![CDATA[3]]></venue>
 			</occurrence>
 			<occurrence id="4775608">
 				<booking_url><![CDATA[]]></booking_url>
@@ -274,7 +270,7 @@
 				<end_date><![CDATA[2010-06-23]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5599]]></venue>
+				<venue><![CDATA[3]]></venue>
 			</occurrence>
 			<occurrence id="4629681">
 				<booking_url><![CDATA[]]></booking_url>
@@ -283,7 +279,7 @@
 				<end_date><![CDATA[2010-05-13]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5599]]></venue>
+				<venue><![CDATA[3]]></venue>
 			</occurrence>
 			<occurrence id="4629682">
 				<booking_url><![CDATA[]]></booking_url>
@@ -292,157 +288,7 @@
 				<end_date><![CDATA[2010-05-19]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5599]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/148311.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="420">
-		<name><![CDATA[День выборов]]></name>
-		<description><![CDATA[&lt;p&gt;Самая масштабная постановка театра, продолжение истории о&amp;nbsp;сотрудниках &amp;laquo;Как бы&amp;nbsp;радио&amp;raquo;, которым теперь предстоит осуществить предвыборную компанию.&lt;/p&gt;&lt;p&gt;Коллектив &amp;laquo;Радио&amp;raquo; получает от&amp;nbsp;владельца задание: провести агитацию за&amp;nbsp;абсолютно бесперспективного кандидата в&amp;nbsp;губернаторы. Цель &amp;mdash; пощекотать нервы действующему губернатору, отобрав у&amp;nbsp;него энное количество голосов.&lt;/p&gt;&lt;p&gt;Телевизионщики, диджеи, креативщики, секретари, администраторы, звукооператоры и&amp;nbsp;музыканты плывут на&amp;nbsp;теплоходе, проводят пресс-конференции, устраивают митинги, дают концерты, попадают в&amp;nbsp;комические, а&amp;nbsp;порой и&amp;nbsp;в&amp;nbsp;криминальные ситуации. А&amp;nbsp;сам кандидат, человек далекий от&amp;nbsp;политики, на&amp;nbsp;протяжении всей предвыборной кампании решает кроссворд.&lt;/p&gt;&lt;p&gt;Но, несмотря на&amp;nbsp;все сложности политической борьбы, пиарщикам удается обойти все подводные камни и&amp;nbsp;с&amp;nbsp;невероятным результатом справиться с&amp;nbsp;поставленной задачей. &lt;/p&gt;]]></description>
-		<short_description><![CDATA[Самая масштабная постановка театра, продолжение истории о сотрудниках &quot;Как бы радио&quot;, которым теперь предстоит осуществить предвыборную компанию.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/420/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[4]]></rating>
-		<review_date><![CDATA[2009-04-22]]></review_date>
-		<occurrences>
-			<occurrence id="4775613">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-30]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-30]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5599]]></venue>
-			</occurrence>
-			<occurrence id="4629686">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-30]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-30]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5599]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/64867.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="423">
-		<name><![CDATA[ПроЯвлениЯ Любви]]></name>
-		<description><![CDATA[&lt;p&gt;Действие заявленной &amp;laquo;лирической комедии&amp;raquo; происходит в&amp;nbsp;театре; в&amp;nbsp;нем работают два молодых актера (Павел Майков, Евгений Стычкин) и&amp;nbsp;юная монтировщица (Амалия&amp;nbsp;Гольданская). Рабочая сцены тонет в&amp;nbsp;комбинезоне, размахивает руками и&amp;nbsp;прыгает по&amp;nbsp;сцене, как малолетка. В&amp;nbsp;нее влюбляется герой Майкова; она в&amp;nbsp;свою очередь&amp;nbsp;&amp;mdash; в&amp;nbsp;героя Стычкина. На&amp;nbsp;этом лирика прерывается, и&amp;nbsp;начинается капустник&amp;nbsp;&amp;mdash; демон насмешки над своей профессией живет в&amp;nbsp;любом актере. Зал хохочет на&amp;nbsp;репетициях детского утренника, где режиссер прыгает на&amp;nbsp;четвереньках и&amp;nbsp;показывает, как должен передвигаться игрушечный заяц; а&amp;nbsp;уж&amp;nbsp;во&amp;nbsp;время представления &amp;laquo;Сна&amp;nbsp;в&amp;nbsp;летнюю ночь&amp;raquo; просто стонет. Но&amp;nbsp;страсти в&amp;nbsp;любовном треугольнике разыгрываются нешуточные: девушка по&amp;nbsp;ходу дела&amp;nbsp;гибнет в&amp;nbsp;автокатастрофе; герой Стычкина (в&amp;nbsp;программке перечислены только исполнители, имен у&amp;nbsp;персонажей нет) после&amp;nbsp;ее&amp;nbsp;смерти надолго&amp;nbsp;погружается в&amp;nbsp;депрессию. То&amp;nbsp;есть все-таки не&amp;nbsp;совсем комедия. Или&amp;nbsp;не&amp;nbsp;комедия совсем.&lt;/p&gt;&lt;p&gt;Пока два актера не&amp;nbsp;заняты своими любовями, они репетируют фрагменты из&amp;nbsp;Белля, Достоевского и&amp;nbsp;Пастернака. Примеряют на&amp;nbsp;себя потрепанные шинели&amp;nbsp;проигравших войну немцев, костюмы Мышкина, Рогожина и&amp;nbsp;доктора Живаго. Ксения Драгунская и&amp;nbsp;Ольга Субботина попытались передать туберкулезно-романтическую интонацию, создать ощущение зыбкого мира, в&amp;nbsp;котором люди ищут друг в&amp;nbsp;друге не&amp;nbsp;тела, но&amp;nbsp;голые, ободранные души. Актеры, кстати, прекрасно выдерживают эту тревожную, напряженную линию&amp;nbsp;&amp;mdash; в&amp;nbsp;отличие от&amp;nbsp;бодро-комической. Но, даже уморив девушку и&amp;nbsp;целиком доверившись артистам, драматург и&amp;nbsp;режиссер не&amp;nbsp;решились на&amp;nbsp;романтическую драму. Видимо, посчитали, что антреприза&amp;nbsp;не&amp;nbsp;имеет права &amp;laquo;грузить&amp;raquo; зрителя. Поэтому в&amp;nbsp;конце спектакля&amp;nbsp;на&amp;nbsp;сцене взрывается натуральный фейерверк, а&amp;nbsp;покойная монтировщица поет нежную песенку.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[Драматург Ксения Драгунская и режиссер Ольга Субботина попытались создать ощущение зыбкого мира, в котором люди ищут друг в друге не тела, но голые, ободранные души.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/423/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[2]]></rating>
-		<review_date><![CDATA[2009-10-16]]></review_date>
-		<occurrences>
-			<occurrence id="4775618">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-20]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-20]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[15520]]></venue>
-			</occurrence>
-			<occurrence id="4629668">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-21]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-21]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[15520]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/63267.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="437">
-		<name><![CDATA[Безумный день, или Женитьба Фигаро]]></name>
-		<description><![CDATA[&lt;p&gt;&amp;laquo;Женитьба Фигаро&amp;raquo; принадлежит перу знаменитого французскому драматургу и&amp;nbsp;комедиографу П. Бомарше.&lt;/p&gt;&lt;p&gt;Веселым сюжетом пьесы Бомарше завуалировал ненависть к&amp;nbsp;французской буржуазии и&amp;nbsp;восславил простого буржуа, с&amp;nbsp;успехом выпутывающегося из&amp;nbsp;любой ситуации. Марк Захаров и&amp;nbsp;Юрий Макеев поставили историю одного безумного дня, приключения авантюриста, ловеласа, цирюльника &amp;mdash; Фигаро.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[&quot;Женитьба Фигаро&quot; принадлежит перу знаменитого французскому драматургу и комедиографу П. Бомарше.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/437/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[4]]></rating>
-		<review_date><![CDATA[2009-04-22]]></review_date>
-		<occurrences>
-			<occurrence id="4772037">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-07]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-07]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772038">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-12]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-12]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772039">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-16]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-16]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772040">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-30]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-30]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609963">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-17]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-17]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609964">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-27]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-27]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
+				<venue><![CDATA[3]]></venue>
 			</occurrence>
 		</occurrences>
 		<categories>
@@ -452,812 +298,32 @@
 		<medias>
 		</medias>
 	</event>
-	<event id="440">
-		<name><![CDATA[Город миллионеров]]></name>
-		<description><![CDATA[Новая редакция знаменитого спектакля&amp;nbsp;с&amp;nbsp;Геннадием Хазановым, успешно вписавшимся в&amp;nbsp;роль&amp;nbsp;Армена Джигарханяна.]]></description>
-		<short_description><![CDATA[]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/440/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2008-09-12]]></review_date>
-		<occurrences>
-			<occurrence id="4772051">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-26]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-26]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772052">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-27]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-27]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609967">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-28]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-28]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609968">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-29]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-29]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-		</medias>
-	</event>
-	<event id="442">
-		<name><![CDATA[Королевские игры]]></name>
-		<description><![CDATA[&lt;p&gt;Сюжет, связанный с&amp;nbsp;жизнью английского короля Генриха VIII, актуален и&amp;nbsp;в&amp;nbsp;наши дни, когда политика бесцеремонно атакует нашу жизнь и&amp;nbsp;вторгается в&amp;nbsp;глубоко интимные сферы нашего бытия и&amp;nbsp;духа.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[Сюжет, связанный с жизнью английского короля Генриха VIII, актуален и в наши дни, когда политика бесцеремонно атакует нашу жизнь и вторгается в глубоко интимные сферы нашего бытия и духа.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/442/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-01-14]]></review_date>
-		<occurrences>
-			<occurrence id="4772053">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-28]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-28]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609965">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-21]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-21]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-		</medias>
-	</event>
-	<event id="444">
-		<name><![CDATA[Юнона и Авось]]></name>
-		<description><![CDATA[Легендарный советский мюзикл до&amp;nbsp;сих пор&amp;nbsp;собирает полные залы: трагическую историю любви русского графа и&amp;nbsp;заморской красавицы украшают экспрессивные, подчеркнуто театральные мизансцены и&amp;nbsp;как минимум три оригинальных шлягера.]]></description>
-		<short_description><![CDATA[Легендарный советский мюзикл до сих пор собирает полные залы: трагическую историю любви русского графа и заморской красавицы украшают экспрессивные, подчеркнуто театральные мизансцены и как минимум три оригинальных шлягера.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/444/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[4]]></rating>
-		<review_date><![CDATA[2009-02-05]]></review_date>
-		<occurrences>
-			<occurrence id="4805685">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-14]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-14]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772029">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-02]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-02]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772030">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-08]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-08]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772031">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-14]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-14]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772032">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-18]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-18]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772033">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-23]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-23]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4766620">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-13]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-13]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609945">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-18]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-18]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609946">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-26]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-26]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Мюзиклы]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/41862.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="446">
-		<name><![CDATA[Шут Балакирев]]></name>
-		<description><![CDATA[&lt;p&gt;Несмотря на&amp;nbsp;то&amp;nbsp;что билет в&amp;nbsp;&amp;laquo;Ленком&amp;raquo; по-прежнему трудно достать, а&amp;nbsp;перед каждым спектаклем около входа в&amp;nbsp;театр стоят толпы страждущих увидеть его звезд, кажется, что из&amp;nbsp;здания на&amp;nbsp;Малой Дмитровке что-то&amp;nbsp;безвозвратно ушло&amp;hellip;&lt;/p&gt;&lt;p&gt;Какая-то&amp;nbsp;беспечная легкость и&amp;nbsp;радость бытия, которая окрыляла не&amp;nbsp;только актеров на&amp;nbsp;сцене, но&amp;nbsp;и&amp;nbsp;зрителей, выходящих непременно с&amp;nbsp;улыбкой после любой постановки Марка Захарова. В&amp;nbsp;прошлом сезоне художественныйруководитель выпустил &amp;laquo;Женитьбу&amp;raquo; Гоголя с&amp;nbsp;ведущими актерами труппы. Огромного резонанса, как в&amp;nbsp;свое время &amp;laquo;Мистификация&amp;raquo;, спектакль не&amp;nbsp;получил, но&amp;nbsp;и&amp;nbsp;ругалине&amp;nbsp;сильно. В&amp;nbsp;отличие от&amp;nbsp;большинства столичных театров планы на&amp;nbsp;этот сезон &amp;laquo;Ленком&amp;raquo; не&amp;nbsp;спешит оглашать. Откроется сезон спектаклем &amp;laquo;Шут Балакирев&amp;raquo;. По&amp;nbsp;слухам,Александр Морфов, поставивший здесь несколько лет назад &amp;laquo;Затмение&amp;raquo; с&amp;nbsp;Александром Абдуловым, репетирует &amp;laquo;Визит старой дамы&amp;raquo; Дюрренматта. Главную роль в&amp;nbsp;спектакле должна сыграть Мария Миронова, которая в&amp;nbsp;последнеевремя смело идет на&amp;nbsp;различные эксперименты. Что выйдет из&amp;nbsp;этого &amp;mdash; покажет время, сложно делать прогнозы на&amp;nbsp;будущее, хочется только пожелать: улыбайтесь,господа!&lt;/p&gt;]]></description>
-		<short_description><![CDATA[За последние два года один из ведущих театров Москвы -
-&quot;Ленком&quot; - сменил разноцветный наряд Арлекина на белый костюм Пьеро и стал жить замкнуто и очень тихо.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/446/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[4]]></rating>
-		<review_date><![CDATA[2010-02-09]]></review_date>
-		<occurrences>
-			<occurrence id="4772041">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-09]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-09]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772042">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-19]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-19]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4772043">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-20]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-20]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609960">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-15]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-15]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609961">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-24]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-24]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609962">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-25]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-25]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Трагикомедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-		</medias>
-	</event>
-	<event id="447">
-		<name><![CDATA[Tout payе, или Все оплачено]]></name>
-		<description><![CDATA[Крепкий спектакль по&amp;nbsp;хорошо сделанной пьесе поставлен известным эстонским режиссером Эльмо Нюганеном, имеющим у&amp;nbsp;себя на&amp;nbsp;родине репутацию блестящего специалиста по&amp;nbsp;русской классике.]]></description>
-		<short_description><![CDATA[Крепкий спектакль по&amp;nbsp;хорошо сделанной пьесе поставлен известным эстонским режиссером Эльмо Нюганеном, имеющим у&amp;nbsp;себя на&amp;nbsp;родине репутацию блестящего специалиста по&amp;nbsp;русской классике.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/447/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[3]]></rating>
-		<review_date><![CDATA[2009-07-20]]></review_date>
-		<occurrences>
-			<occurrence id="4772047">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-13]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-13]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-			<occurrence id="4609956">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-23]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-23]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[6630]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/107907.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="448">
-		<name><![CDATA[Горе от ума]]></name>
-		<description><![CDATA[Хрестоматийный Женовач, легкий и&amp;nbsp;остроумный, с&amp;nbsp;вниманием к&amp;nbsp;словам и&amp;nbsp;блестящим дуэтом Глеба Подгородинского и&amp;nbsp;Юрия Соломина &amp;mdash; Чацкого и&amp;nbsp;Фамусова.]]></description>
-		<short_description><![CDATA[В простом и абсолютно не пафосном спектакле Сергея Женовача по хрестоматийному тексту прекрасно играет любимец публики Глеб Подгородинский.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/448/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[4]]></rating>
-		<review_date><![CDATA[2009-04-22]]></review_date>
-		<occurrences>
-			<occurrence id="4644992">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-29]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-29]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5254]]></venue>
-			</occurrence>
-			<occurrence id="4644982">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-18]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-18]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5254]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66263.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="450">
-		<name><![CDATA[Волки и овцы]]></name>
-		<description><![CDATA[&lt;p&gt;Перед нами старая, как мир, историю о&amp;nbsp;том, что одним людям суждено быть простодушными и&amp;nbsp;кроткими, как овечки, а&amp;nbsp;другим &amp;mdash; хищными и&amp;nbsp;опасными, как волки. Но&amp;nbsp;порою и&amp;nbsp;матерый хищник попадает впросак&amp;hellip; А&amp;nbsp;сюжет пьесы &amp;mdash; аферы с&amp;nbsp;векселями &amp;mdash; подается так остро и&amp;nbsp;современно, что, подчас напоминает о&amp;nbsp;современности и&amp;nbsp;вызывает современные реакции.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[Перед нами старая, как мир, историю о том, что одним людям суждено быть простодушными и кроткими, как овечки, а другим - хищными и опасными, как волки.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/450/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-04-22]]></review_date>
-		<occurrences>
-			<occurrence id="4645004">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-19]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-19]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66312.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="453">
-		<name><![CDATA[На всякого мудреца довольно простоты]]></name>
-		<description><![CDATA[&lt;p&gt;&amp;laquo;На&amp;nbsp;всякого мудреца довольно простоты&amp;raquo; &amp;mdash; одна из&amp;nbsp;тех пьес А. Н. Островского, которые во&amp;nbsp;все времена звучат остро и&amp;nbsp;злободневно.&lt;/p&gt;&lt;p&gt;Каким путем, каким способом можно сделать карьеру и&amp;nbsp;выбиться в&amp;nbsp;люди? Как создаются и&amp;nbsp;гибнут человеческие репутации? &lt;/p&gt;&lt;p&gt;Спектакль отвечает на&amp;nbsp;эти вопросы, рассказывая историю молодого человека по&amp;nbsp;фамилии Глумов, который решился во&amp;nbsp;что бы&amp;nbsp;то&amp;nbsp;ни&amp;nbsp;стало добиться высокого положения в&amp;nbsp;обществе.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[&quot;На всякого мудреца довольно простоты&quot; - одна из тех пьес А. Н. Островского, которые во все времена звучат остро и злободневно.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/453/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-04-22]]></review_date>
-		<occurrences>
-			<occurrence id="4644990">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-27]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-27]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5254]]></venue>
-			</occurrence>
-			<occurrence id="4644985">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-21]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-21]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5254]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66278.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="458">
-		<name><![CDATA[Таинственный ящик]]></name>
-		<description><![CDATA[]]></description>
-		<short_description><![CDATA[]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/458/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-05-05]]></review_date>
-		<occurrences>
-			<occurrence id="4644991">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-28]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-28]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5254]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66294.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="460">
-		<name><![CDATA[Царь Борис]]></name>
-		<description><![CDATA[&lt;p&gt;Трагедия Алексея Толстого &amp;mdash; спектакль о&amp;nbsp;судьбе царя, высшей власти, которая совершает путь к&amp;nbsp;собственной гибели и&amp;nbsp;разорению державы.&lt;/p&gt; &lt;p&gt;Царь мудр, искренне покаялся, пытается &amp;laquo;устроить&amp;raquo; Русь, но&amp;nbsp;ничто не&amp;nbsp;смоет с&amp;nbsp;его рук кровь убитого царевича. Борис умирает, а&amp;nbsp;на&amp;nbsp;троне остается растерянный Федор, который предчувствует близкую гибель. &lt;/p&gt;]]></description>
-		<short_description><![CDATA[Трагедия Алексея Толстого - спектакль о судьбе царя, высшей власти, которая совершает путь к собственной гибели и разорению державы.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/460/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-04-22]]></review_date>
-		<occurrences>
-			<occurrence id="4644986">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-22]]></start_date>
-				<start_time><![CDATA[18:00]]></start_time>
-				<end_date><![CDATA[2010-05-22]]></end_date>
-				<end_time><![CDATA[18:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5254]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Трагедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66300.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="463">
-		<name><![CDATA[Бешеные деньги]]></name>
-		<description><![CDATA[&lt;p&gt;&amp;laquo;Бешеные деньги&amp;raquo; &amp;mdash; это история избалованной красотки, которая создана пускать на&amp;nbsp;ветер чужие состояния. &lt;/p&gt;&lt;p&gt;Вдовушка-мать спешит пристроить смазливую дочь под надежное крылышко, пока еще есть спрос на&amp;nbsp;ее&amp;nbsp;скоропортящиеся прелести. И&amp;nbsp;тут в&amp;nbsp;сети попадает неотесанный миллионер. Но&amp;nbsp;он&amp;nbsp;хоть и&amp;nbsp;миллионер, и&amp;nbsp;не&amp;nbsp;скупердяй, а&amp;nbsp;деньги считать умеет, потому что усвоил одно правило &amp;mdash; деньги идут к&amp;nbsp;деньгам, когда с&amp;nbsp;ними обращаются по-умному.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[&quot;Бешеные деньги&quot; - это история избалованной красотки, которая создана пускать на ветер чужие состояния.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/463/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-04-23]]></review_date>
-		<occurrences>
-			<occurrence id="4645013">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-25]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-25]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-			<occurrence id="4645000">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-14]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-14]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66309.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="469">
-		<name><![CDATA[Свадьба, свадьба, свадьба!]]></name>
-		<description><![CDATA[&lt;p&gt; Говоря: &amp;laquo;это Малый театр&amp;raquo; (в&amp;nbsp;театральной среде нередко пользуются подобной терминологией), подразумевают неторопливый и&amp;nbsp;подробный сценическийязык, музейный трепет в&amp;nbsp;отношении к&amp;nbsp;традициям и&amp;nbsp;отсутствие современного культурного контекста.&lt;/p&gt;&lt;p&gt;Веселое расположение духапроходит, как только узнаешь,что ассорти по&amp;nbsp;&amp;laquo;шуткам&amp;raquo; Чеховаидет три часа. Зачем было соединять пьесы &amp;laquo;Предложение&amp;raquo;, &amp;laquo;Медведь&amp;raquo; и&amp;nbsp;&amp;laquo;Свадьба&amp;raquo; в&amp;nbsp;один спектакль до&amp;nbsp;конца не&amp;nbsp;ясно. Режиссер Виталий Иванов словно решил поставить на&amp;nbsp;&amp;laquo;три в&amp;nbsp;одном&amp;raquo;.После каждой части закрываетсязанавес, актеры выходят на&amp;nbsp;поклон, и&amp;nbsp;меняется вся декорация.Но&amp;nbsp;и&amp;nbsp;каждая часть в&amp;nbsp;отдельности это всего лишь этюд, набросок, не&amp;nbsp;более. Такие живые картины.Представление пьес А.П. Чехова.&lt;/p&gt;&lt;p&gt;Сценография Александра Глазунова как будто сделана по&amp;nbsp;эскизам непризнанного театральногооформителя XIX века: живописные задники, деревянная беседка,декор ресторации. Все остальноебутафория.&lt;/p&gt;&lt;p&gt; Весь спектакль не&amp;nbsp;покидаетощущение, что артисты играют не&amp;nbsp;ироничного тихого Чехова, а&amp;nbsp;морализаторского громкого Островского (возможно, сказываетсяобилие пьес последнего в&amp;nbsp;репертуаре Малого театра). Они истоворазмахивают руками, ногами и&amp;nbsp;головами с&amp;nbsp;наклеенными усами,громко кричат, смеются, плачути&amp;nbsp;поют. Широкими жестами иллюстрируют речь, широкими шагами меряют сцену, широко открывают рты.&lt;/p&gt;&lt;p&gt;Из маленьких радостей: смешной Глеб Подгородинский (Чубуков) в&amp;nbsp;первом акте и&amp;nbsp;печальныйАнатолий Топоров (капитан 2-го&amp;nbsp;ранга в&amp;nbsp;отставке) во&amp;nbsp;втором.Остальное &amp;laquo;Малый театр&amp;raquo;.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/469/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2008-11-25]]></review_date>
-		<occurrences>
-			<occurrence id="4645007">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-22]]></start_date>
-				<start_time><![CDATA[18:00]]></start_time>
-				<end_date><![CDATA[2010-05-22]]></end_date>
-				<end_time><![CDATA[18:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-			<occurrence id="4645002">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-16]]></start_date>
-				<start_time><![CDATA[18:00]]></start_time>
-				<end_date><![CDATA[2010-05-16]]></end_date>
-				<end_time><![CDATA[18:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66336.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="470">
-		<name><![CDATA[Свои люди - сочтемся!]]></name>
-		<description><![CDATA[&lt;p&gt;История, рассказанная А. Н. Островским, написана &amp;laquo;вчера&amp;raquo;, но&amp;nbsp;не&amp;nbsp;теряет, к&amp;nbsp;сожалению, своей актуальности и&amp;nbsp;сегодня.&lt;/p&gt;&lt;p&gt;Очень хитромудро поступил купец Большов, объявив себя банкротом и&amp;nbsp;положившись во&amp;nbsp;всем на&amp;nbsp;своего преданного приказчика.&lt;/p&gt;&lt;p&gt; Да&amp;nbsp;только как не&amp;nbsp;перехитрить самого себя? А&amp;nbsp;ведь случается, что плут сталкивается с&amp;nbsp;еще более искусным плутом. &lt;/p&gt;]]></description>
-		<short_description><![CDATA[История, рассказанная А. Н. Островским, написана &quot;вчера&quot;, но не теряет, к сожалению, своей актуальности и сегодня.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/470/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-01-29]]></review_date>
-		<occurrences>
-			<occurrence id="4645016">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-29]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-29]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-			<occurrence id="4645003">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-18]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-18]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66354.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="471">
-		<name><![CDATA[Тайны мадридского двора]]></name>
-		<description><![CDATA[&lt;p&gt;Эжен Скриб и&amp;nbsp;Малый театр рассказывают увлекательную историю о&amp;nbsp;том, как в&amp;nbsp;ХVI веке французская принцесса Маргарита освободила из&amp;nbsp;испанского плена своего брата-короля&lt;/p&gt;.&lt;p&gt;Все герои этой блестящей комедии влюблены, и&amp;nbsp;у&amp;nbsp;каждого есть своя тайна, а&amp;nbsp;актеры, избавленные от&amp;nbsp;необходимости изображать аристократов крови, чувствуют себя свободно и&amp;nbsp;уверенно.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[Эжен Скриб и Малый театр рассказывают увлекательную историю о том, как в ХVI веке французская принцесса Маргарита освободила из испанского плена своего брата-короля.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/471/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-04-27]]></review_date>
-		<occurrences>
-			<occurrence id="4645014">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-26]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-26]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-			<occurrence id="4645001">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-15]]></start_date>
-				<start_time><![CDATA[18:00]]></start_time>
-				<end_date><![CDATA[2010-05-15]]></end_date>
-				<end_time><![CDATA[18:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-			<occurrence id="4645005">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-20]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-20]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66362.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="473">
-		<name><![CDATA[Усилия любви...]]></name>
-		<description><![CDATA[&lt;p&gt;Король Наварры и&amp;nbsp;французская принцесса дают обет никогда не&amp;nbsp;влюбляться.&lt;/p&gt;&lt;p&gt;И, конечно же, влюбляются друг в&amp;nbsp;друга.&lt;/p&gt; &lt;p&gt;Примеру царственной пары следуют приближенные короля и&amp;nbsp;фрейлины принцессы, а&amp;nbsp;также слуги рангом пониже.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[Король Наварры и французская принцесса дают обет никогда не влюбляться.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/473/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2009-04-22]]></review_date>
-		<occurrences>
-			<occurrence id="4644994">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-27]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-27]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[5688]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Комедия]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/66370.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="475">
-		<name><![CDATA[Белые ночи]]></name>
-		<description><![CDATA[]]></description>
-		<short_description><![CDATA[]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/475/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[]]></rating>
-		<review_date><![CDATA[2008-12-10]]></review_date>
-		<occurrences>
-			<occurrence id="4776495">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-08]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-08]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[2470]]></venue>
-			</occurrence>
-			<occurrence id="4776496">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-17]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-17]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[2470]]></venue>
-			</occurrence>
-			<occurrence id="4776497">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-18]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-18]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[2470]]></venue>
-			</occurrence>
-			<occurrence id="4776498">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-30]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-30]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[2470]]></venue>
-			</occurrence>
-			<occurrence id="4592325">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-20]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-20]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[2470]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/68925.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="476">
-		<name><![CDATA[Война и мир. Начало романа]]></name>
-		<description><![CDATA[&lt;p&gt;Милая, игривая компания молодых Ростовых, Болконских и&amp;nbsp;иже с&amp;nbsp;ними в&amp;nbsp;очаровательном исполнении звезд &amp;laquo;Мастерской&amp;raquo;.&lt;/p&gt; &lt;p&gt;Домашние забавы, балы, влюбленности и&amp;nbsp;никакой войны. Режиссер Петр Фоменко выбрал у&amp;nbsp;Толстого самое начало романа и&amp;nbsp;поставил спектакль о&amp;nbsp;начале всех романов его знаменитых главных героев.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[Война &quot;фоменок&quot; не интересует даже в описании Льва Толстого. Они отдаются очаровательным &quot;мирным&quot; играм молодых Ростовых и Болконских.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/476/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[4]]></rating>
-		<review_date><![CDATA[2010-02-12]]></review_date>
-		<occurrences>
-			<occurrence id="4776515">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-28]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-28]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[15884]]></venue>
-			</occurrence>
-			<occurrence id="4592323">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-17]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-17]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[15884]]></venue>
-			</occurrence>
-			<occurrence id="4592324">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-29]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-29]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[15884]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/51078.jpeg]]></media>
-		</medias>
-	</event>
-	<event id="480">
-		<name><![CDATA[Дом, где разбиваются сердца]]></name>
-		<description><![CDATA[&lt;p&gt;Пьеса Бернарда Шоу, оконченная в&amp;nbsp;1917 году, была&amp;nbsp;создана под&amp;nbsp;сильным влиянием Чехова. Этот факт общеизвестен, не&amp;nbsp;зря&amp;nbsp;же&amp;nbsp;в&amp;nbsp;подзаголовке Дома, где разбиваются сердца автор назвал свое произведение фантазией в&amp;nbsp;русском стиле. Так и&amp;nbsp;видишь, как драматург аккуратно переносит приметы чеховского стиля&amp;nbsp;на&amp;nbsp;британскую почву: во&amp;nbsp;времена, когда только началась Первая мировая война и&amp;nbsp;немецкие цеппелины бомбили&amp;nbsp;Англию, чтобы подорвать боевой дух противника. Вместо русского поместья&amp;nbsp;&amp;mdash; старая вилла&amp;nbsp;в&amp;nbsp;графстве Сассекс. Принцип если&amp;nbsp;ружье висит на&amp;nbsp;сцене, оно должно выстрелить воплощен буквально&amp;nbsp;&amp;mdash; в&amp;nbsp;финале&amp;nbsp;сумбурной и&amp;nbsp;многословной пьесы Шоу погибают два персонажа, капиталист Менген и&amp;nbsp;случайный вор. Погибают нелепо: трусливо забираются в&amp;nbsp;песочную яму, где хозяин дома, капитан Шотовер, хранит динамит; немецкая бомба попадает прямо туда. Положительным героям (то&amp;nbsp;есть всем остальным обитателям&amp;nbsp;дома) дается шанс пожить еще. А&amp;nbsp;уж&amp;nbsp;наказание это или&amp;nbsp;счастье, им&amp;nbsp;предстоит решить самим.&lt;/p&gt;&lt;p&gt;В&amp;nbsp;спектакле&amp;nbsp;Евгения Каменьковича апокалиптический пафос Шоу присутствует, но&amp;nbsp;лишь в&amp;nbsp;качестве ноты горечи в&amp;nbsp;легкой и&amp;nbsp;прелестной истории с&amp;nbsp;многочисленными внутрисемейными интригами. Фоменки изящно и&amp;nbsp;со&amp;nbsp;вкусом раскусывают их, как орешки. Капитан Шотовер (Карэн Бадалов)&amp;nbsp;&amp;mdash; не&amp;nbsp;только красивый мужчина, но&amp;nbsp;и&amp;nbsp;мудрый старик: он, будто птица-вещун, время от&amp;nbsp;времени сообщает собравшимся в&amp;nbsp;его доме, что скоро грянет гроза&amp;nbsp;и&amp;nbsp;все переменится. Его будущая жена, юная мисс Элли&amp;nbsp;Дэн (Наталья&amp;nbsp;Мартынова) при&amp;nbsp;всем своем внешнем легкомыслии&amp;nbsp;оказывается девушкой суровой. Но&amp;nbsp;их&amp;nbsp;предсказания мало&amp;nbsp;волнуют окружающих&amp;nbsp;&amp;mdash; так, очередные чудачества. Дочки Шотовера, аристократка Ариадна (Полина Кутепова) и&amp;nbsp;домоседка Гесиона (Наталия&amp;nbsp;Курдюбова) куда больше озабочены простыми, но&amp;nbsp;жизненно важными делами. Первая думает, как бы&amp;nbsp;поискуснее пролавировать между старинным воздыхателем&amp;nbsp;(светского хлыща Рэндла&amp;nbsp;очень смешно играет Павел Баршак) и&amp;nbsp;мужем сестры (с&amp;nbsp;ролью&amp;nbsp;пожирателя&amp;nbsp;женских сердец прекрасно справляется другой красавец Мастерской&amp;nbsp;&amp;mdash; Илья&amp;nbsp;Любимов). Вторая пытается уберечь малютку Элли&amp;nbsp;от&amp;nbsp;брака по&amp;nbsp;расчету с&amp;nbsp;Менгеном (Максим Литовченко).&lt;/p&gt;&lt;p&gt;Весь спектакль&amp;nbsp;с&amp;nbsp;искренним наслаждением следишь, как на&amp;nbsp;крошечном, заваленном винными пробками планшете две обворожительные актрисы буквально купаются в&amp;nbsp;тексте. Чувство, что Шоу писал хорошо, но&amp;nbsp;слишком полагался&amp;nbsp;на&amp;nbsp;силу&amp;nbsp;и&amp;nbsp;выразительность слов, не&amp;nbsp;покидает и&amp;nbsp;после&amp;nbsp;окончания действа. Быть может потому, что артисты Мастерской и&amp;nbsp;их&amp;nbsp;режиссер просто не&amp;nbsp;умеют работать плохо: страшно подумать, они не&amp;nbsp;пропустили&amp;nbsp;ни&amp;nbsp;слова.&lt;/p&gt;]]></description>
-		<short_description><![CDATA[Пьесу британского интеллектуала Бернарда Шоу режиссер Евгений Каменькович ставит как яркую семейную драму, без всякого политического контекста. За игрой артистов Мастерской на крохотном клочке сцены наблюдать крайне увлекательно.]]></short_description>
-		<booking_url><![CDATA[]]></booking_url>
-		<url><![CDATA[]]></url>
-		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/480/]]></timeout_url>
-		<price><![CDATA[]]></price>
-		<rating><![CDATA[4]]></rating>
-		<review_date><![CDATA[2009-04-15]]></review_date>
-		<occurrences>
-			<occurrence id="4776516">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-06-29]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-06-29]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[15884]]></venue>
-			</occurrence>
-			<occurrence id="4592331">
-				<booking_url><![CDATA[]]></booking_url>
-				<start_date><![CDATA[2010-05-28]]></start_date>
-				<start_time><![CDATA[19:00]]></start_time>
-				<end_date><![CDATA[2010-05-28]]></end_date>
-				<end_time><![CDATA[19:00]]></end_time>
-				<utc_offset><![CDATA[-3]]></utc_offset>
-				<venue><![CDATA[15884]]></venue>
-			</occurrence>
-		</occurrences>
-		<categories>
-			<category><![CDATA[Драма]]></category>
-			<category><![CDATA[Театр]]></category>
-		</categories>
-		<medias>
-			<media><![CDATA[http://pix.timeout.ru/68933.jpeg]]></media>
-		</medias>
-	</event>
+  <event id="420">
+      <name><![CDATA[Двое на качелях]]></name>
+      <description><![CDATA[Спектакль о&amp;nbsp;двух одиноких людях, потерявших опору в&amp;nbsp;жизни. Отношения их&amp;nbsp;складываются непросто, но&amp;nbsp;нахлынувшее чувство позволяет вновь обрести вкус к&amp;nbsp;жизни.]]></description>
+      <short_description><![CDATA[Спектакль о двух одиноких людях, потерявших опору в жизни. Отношения их складываются непросто, но нахлынувшее чувство позволяет вновь обрести вкус к жизни.]]></short_description>
+      <booking_url><![CDATA[]]></booking_url>
+      <url><![CDATA[]]></url>
+      <timeout_url><![CDATA[http://www.timeout.ru/theatre/event/373/]]></timeout_url>
+      <price><![CDATA[]]></price>
+      <rating><![CDATA[]]></rating>
+      <review_date><![CDATA[2008-10-27]]></review_date>
+      <occurrences>
+        <occurrence id="4630349">
+          <booking_url><![CDATA[]]></booking_url>
+          <start_date><![CDATA[2010-05-21]]></start_date>
+          <start_time><![CDATA[19:00]]></start_time>
+          <end_date><![CDATA[2010-05-21]]></end_date>
+          <end_time><![CDATA[19:00]]></end_time>
+          <utc_offset><![CDATA[-3]]></utc_offset>
+          <venue><![CDATA[3]]></venue>
+        </occurrence>
+      </occurrences>
+      <categories>
+        <category><![CDATA[Драма]]></category>
+        <category><![CDATA[Театр]]></category>
+      </categories>
+      <medias>
+      </medias>
+    </event>
 </events>
