@@ -108,7 +108,7 @@ class EventTable extends Doctrine_Table
 
     $event = $this
       ->createQuery( 'e' )
-      ->andWhere( 'e.vendor_event_id = ?', $vendorPoiId )
+      ->andWhere( 'e.vendor_event_id = ?', $vendorEventId )
       ->andWhereIn( 'e.vendor_id', $vendorIds )
       ->fetchOne()
       ;
