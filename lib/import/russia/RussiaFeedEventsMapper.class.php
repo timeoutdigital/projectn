@@ -25,13 +25,12 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
       try{
           // Get Venue Id
           $vendorEventId = (int) $eventElement['id'];
-          if( !isset( $vendorEventId ) || !is_numeric( $vendorEventId ) ) break;
-
+          
           $venueId = (string) $eventElement->occurrences->occurrence[0]->venue;
           $poi     = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( $venueId, 'ru' );
           if( !$poi )
           {
-            $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $venueId . ' in Russia.' ) );
+            $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $venueId . ' for Event ' . $vendorEventId . ' in Russia.' ) );
             continue;
           }
 
@@ -39,7 +38,6 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           if( !$event )
             $event = new Event();
 
-          $vendor = $poi['Vendor'];
           $event['Vendor'] = $poi['Vendor'];
 
           // Column Mapping
@@ -69,66 +67,38 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           // Create Occurences
           foreach( $eventElement->occurrences->occurrence as $xmlOccurrence )
           {
-              // Get Occurrence Id
-              foreach( $xmlOccurrence->attributes() as $k => $v )
-                  if( $k == "id" ) $vendor_occurence_id = (int) $v;
+             try
+             {
+                  // Get Occurrence Id
+                  $vendor_occurence_id = (int) $xmlOccurrence[ 'id' ];
 
-              if( !isset( $vendor_occurence_id ) || !is_numeric( $vendor_occurence_id ) ) break;
+                  $occurrence = new EventOccurrence();
+                  $occurrence[ 'vendor_event_occurrence_id' ]     = $vendor_occurence_id;
+                  $occurrence[ 'booking_url' ]                    = (string) $xmlOccurrence->booking_url;
+                  $occurrence[ 'start_date' ]                     = (string) $xmlOccurrence->start_date;
+                  $occurrence[ 'start_time' ]                     = (string) $xmlOccurrence->start_time;
+                  $occurrence[ 'end_date' ]                       = (string) $xmlOccurrence->end_date;
+                  $occurrence[ 'end_time' ]                       = (string) $xmlOccurrence->end_time;
+                  $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
+                  $occurrence[ 'Poi' ] = $poi;
 
-              $occurrence = new EventOccurrence();
-              $occurrence[ 'vendor_event_occurrence_id' ]     = $vendor_occurence_id;
-              $occurrence[ 'booking_url' ]                    = (string) $xmlOccurrence->booking_url;
-              $occurrence[ 'start_date' ]                     = (string) $xmlOccurrence->start_date;
-              $occurrence[ 'start_time' ]                     = (string) $xmlOccurrence->start_time;
-              $occurrence[ 'end_date' ]                       = (string) $xmlOccurrence->end_date;
-              $occurrence[ 'end_time' ]                       = (string) $xmlOccurrence->end_time;
-              $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
-              $occurrence[ 'Poi' ] = $poi;
+                  $event['Vendor'] = $poi['Vendor'];
 
-              $event['Vendor'] = $poi['Vendor'];
-
-              $event['EventOccurrence'][] = $occurrence;
+                  $event['EventOccurrence'][] = $occurrence;
+             }
+             catch( Exception $exception )
+             {
+                 $this->notifyImporterOfFailure( $exception, $occurrence );
+             }
           }
           
           $this->notifyImporter( $event );
       }
       catch( Exception $exception )
       {
-        echo 'foo';
-          $this->notifyImporterOfFailure( $exception );
+          $this->notifyImporterOfFailure( $exception, $event );
       }
     }
   }
-
-
-  /**
-   * Returns either an Event from Russia with matching $vendorEventId
-   * or a new Event
-   *
-   * @param $vendorEventId
-   */
-  private function getRussianEvent( $vendorEventId )
-  {
-    return Doctrine::getTable( 'Event' )
-      ->createQuery( 'e' )
-      ->andWhere( 'e.vendor_event_id = ?', $vendorEventId )
-      ->andWhereIn( 'e.vendor_id', $this->getRussianVendorIds() )
-      ->fetchOne()
-      ;
-  }
-
-  private function getRussianVendorIds()
-  {
-    if( is_null( $this->russianVendorsIds ) )
-    {
-      $russianVendors = Doctrine::getTable( 'Vendor' )->findByLanguage( 'ru' );
-
-      $russianVendorsIds = array();
-      foreach( $russianVendors as $vendor )
-        $russianVendorsIds[] = $vendor[ 'id' ];
-
-      $this->russianVendorsIds = $russianVendorsIds;
-    }
-    return $this->russianVendorsIds;
-  }
+  
 }
