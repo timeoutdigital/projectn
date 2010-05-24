@@ -36,6 +36,7 @@ class runnerTask extends sfBaseTask
                                     'lisbon' => array( 'poi', 'event', 'movie' ),
                                     'kuala lumpur' => array( 'poi', 'event', 'movie' ),
                                     'sydney' => array( 'poi', 'event', 'movie' ),
+                                    'russia' => array( 'poi', 'event', 'movie' ),
                     ),
                     'export' => array(
                                     'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
@@ -45,6 +46,7 @@ class runnerTask extends sfBaseTask
                                     'lisbon' => array( 'language' => 'pt', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'sydney' => array( 'language' => 'en-AU', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'russia' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                     ),
                  );
 
