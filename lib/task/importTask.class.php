@@ -371,12 +371,6 @@ class importTask extends sfBaseTask
             $xml = simplexml_load_string( $feedObj->getResponse() );
           
             $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'moscow' ) );
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'saint petersburg' ) );
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'omsk' ) );
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'almaty' ) );
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'novosibirsk' ) );
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'krasnoyarsk' ) );
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'tyumen' ) );
             break;
 
           case 'movie':
@@ -388,12 +382,6 @@ class importTask extends sfBaseTask
             $xml = simplexml_load_string( $feedObj->getResponse() );
 
             $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'moscow' ) );
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'saint petersburg' ) );
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'omsk' ) );
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'almaty' ) );
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'novosibirsk' ) );
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'krasnoyarsk' ) );
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'tyumen' ) );
             break;
         }
         break; //end russia
