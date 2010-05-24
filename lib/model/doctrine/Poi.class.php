@@ -256,8 +256,8 @@ class Poi extends BasePoi
         $this['street'] = str_replace( $vendorCityAlias, "", $this['street'] );
      }
 
-     // Clean all the rubbish off the beginning and end.
-     $this['street'] = trim( $this['street'], " ,." );
+     // Clean all the rubbish off the beginning and end, added weird protugese space.
+     $this['street'] = trim( $this['street'], "  ,." );
   }
 
   private function applyDefaultGeocodeLookupStringIfNull()

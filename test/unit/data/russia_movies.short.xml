@@ -161,6 +161,20 @@
 				<start_date><![CDATA[2010-05-27]]></start_date>
 				<end_date><![CDATA[2010-05-31]]></end_date>
 				<utc_offset><![CDATA[-3]]></utc_offset>
+			</venue>
+			<venue id="26192">
+				<booking_url><![CDATA[]]></booking_url>                   
+				<opening_times><![CDATA[]]></opening_times>
+				<start_date><![CDATA[2010-05-20]]></start_date>
+				<end_date><![CDATA[2010-05-26]]></end_date>
+				<utc_offset><![CDATA[-5]]></utc_offset>
+			</venue>
+			<venue id="28662">
+				<booking_url><![CDATA[]]></booking_url>                   
+				<opening_times><![CDATA[]]></opening_times>
+				<start_date><![CDATA[2010-05-22]]></start_date>
+				<end_date><![CDATA[2010-05-22]]></end_date>
+				<utc_offset><![CDATA[-3]]></utc_offset>
 			</venue>  
 		</venues>  
 		<categories>
@@ -186,6 +200,20 @@
 				<start_date><![CDATA[2010-05-20]]></start_date>
 				<end_date><![CDATA[2010-05-26]]></end_date>
 				<utc_offset><![CDATA[-3]]></utc_offset>
+			</venue>
+			<venue id="26192">
+				<booking_url><![CDATA[]]></booking_url>                   
+				<opening_times><![CDATA[]]></opening_times>
+				<start_date><![CDATA[2010-05-20]]></start_date>
+				<end_date><![CDATA[2010-05-26]]></end_date>
+				<utc_offset><![CDATA[-5]]></utc_offset>
+			</venue>
+			<venue id="28662">
+				<booking_url><![CDATA[]]></booking_url>                   
+				<opening_times><![CDATA[]]></opening_times>
+				<start_date><![CDATA[2010-05-22]]></start_date>
+				<end_date><![CDATA[2010-05-22]]></end_date>
+				<utc_offset><![CDATA[-3]]></utc_offset>
 			</venue>  
 		</venues>  
 		<categories>
@@ -194,6 +222,43 @@
 		</categories>
 		<medias>
 			<media><![CDATA[http://pix.timeout.ru/26747.jpeg]]></media>
+		</medias>
+	</movie>
+	<movie id="72867">
+		<name><![CDATA[Робин Гуд/Rob-B-Hood]]></name>
+		<plot><![CDATA[Чистейшая комедия с Джеки Чаном. Здесь жонглируют младенцами, метают грязные подгузники, а самым опасным оружием оказывается детское питание.]]></plot>
+		<review><![CDATA[&lt;p&gt; Два медвежатника (Джеки Чан и&amp;nbsp;Луис Ку) воруют что придется, не&amp;nbsp;чураясь даже дорогих лекарств. А&amp;nbsp;с&amp;nbsp;этого дела они ушли с&amp;hellip; пятимесячным младенцем. Сначала им&amp;nbsp;хочется положить на&amp;nbsp;орущего грудничка подушку, но&amp;nbsp;вскоре преступники втягиваются, греют молоко, покупают присыпки и&amp;nbsp;расстаться с&amp;nbsp;крохой уже не&amp;nbsp;могут. Тот, однако, стоит миллионы: демонический магнат, который хранит в&amp;nbsp;ледяном склепе труп сына, полагает, что украденное дитя &amp;mdash; его внук.&lt;/p&gt; &lt;p&gt; Чем чреват киднеппинг на&amp;nbsp;Дальнем Востоке, нам уже разъяснил Пак Чен Вук в&amp;nbsp;своей трилогии &amp;mdash; буквально реками крови. Но&amp;nbsp;в&amp;nbsp;&amp;laquo;Робин Гуде&amp;raquo; Бенни Чана нет и&amp;nbsp;намека на&amp;nbsp;мстительность: похожую семейную комедию могли бы&amp;nbsp;соорудить и&amp;nbsp;на&amp;nbsp;студии Disney, если бы&amp;nbsp;там работали сумасшедшие, которые понятия не&amp;nbsp;имеют о&amp;nbsp;прокатных рейтингах. Здесь жонглируют младенцами, грязные подгузники используют не&amp;nbsp;хуже метательных звезд, а&amp;nbsp;самым опасным оружием оказывается детское питание. &lt;/p&gt;&lt;p&gt; Эффект, разумеется, диковатый, как от&amp;nbsp;комедии с&amp;nbsp;Пьером Ришаром (например, &lt;a href=&quot;http://www.timeout.ru/text/film/54316/&quot;&gt;&amp;laquo;Игрушка&amp;raquo;&lt;/a&gt;), скрещенной с&amp;nbsp;китайским цирком. От&amp;nbsp;этой легкомысленности берет оторопь &amp;mdash; тем более что два года назад режиссер Бенни Чан пытался реанимировать Джеки в&amp;nbsp;&lt;a href=&quot;http://www.timeout.ru/text/film/270/&quot;&gt;&amp;laquo;Новой полицейской истории&amp;raquo;&lt;/a&gt; как серьезного экшен-героя. С&amp;nbsp;другой стороны, вертлявый гонконговец уже близок к&amp;nbsp;своей сотой роли, ему за&amp;nbsp;50, и&amp;nbsp;на&amp;nbsp;отчаянном прыгуне места живого нет. Так что теперь каждое его падение &amp;mdash; маленький подвиг. Даже если это символическое падение с&amp;nbsp;турника крутого боевика обратно в&amp;nbsp;лужу эксцентричной комедии. &lt;/p&gt;]]></review>
+		<url><![CDATA[]]></url>
+		<booking_url><![CDATA[]]></booking_url>
+		<timeout_url><![CDATA[http://www.timeout.ru/cinema/event/72867/]]></timeout_url>
+		<rating><![CDATA[3]]></rating>
+		<venues>
+			<venue id="26192">
+				<booking_url><![CDATA[]]></booking_url>                   
+				<opening_times><![CDATA[]]></opening_times>
+				<start_date><![CDATA[2010-05-20]]></start_date>
+				<end_date><![CDATA[2010-05-26]]></end_date>
+				<utc_offset><![CDATA[-5]]></utc_offset>
+			</venue>
+			<venue id="28662">
+				<booking_url><![CDATA[]]></booking_url>                   
+				<opening_times><![CDATA[]]></opening_times>
+				<start_date><![CDATA[2010-05-22]]></start_date>
+				<end_date><![CDATA[2010-05-22]]></end_date>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+			</venue>  
+		</venues>  
+		<categories>
+			<category><![CDATA[Приключения]]></category>
+			<category><![CDATA[Кино]]></category>
+		</categories>
+		<medias>
+			<media><![CDATA[http://pix.timeout.ru/34064.gif]]></media>
+			<media><![CDATA[http://pix.timeout.ru/34614.jpeg]]></media>
+			<media><![CDATA[http://pix.timeout.ru/34616.jpeg]]></media>
+			<media><![CDATA[http://pix.timeout.ru/34618.jpeg]]></media>
+			<media><![CDATA[http://pix.timeout.ru/34620.jpeg]]></media>
+			<media><![CDATA[http://pix.timeout.ru/34622.jpeg]]></media>
 		</medias>
 	</movie>
 </movies>

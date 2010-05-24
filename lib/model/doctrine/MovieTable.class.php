@@ -41,4 +41,14 @@ class MovieTable extends Doctrine_Table
     {
       return 'vendor_movie_id';
     }
+
+
+    public function findByVendorMovieIdAndVendorLanguage( $vendorMovieId, $vendorLanguage )
+    {
+      return $this->createQuery( 'm' )
+                  ->leftJoin('m.Vendor v')
+                  ->where( 'v.language = ?', $vendorLanguage )
+                  ->andWhere( 'm.vendor_movie_id = ?', $vendorMovieId )
+                  ->fetchOne();
+    }
 }
