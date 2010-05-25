@@ -234,7 +234,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 1, $vendor['Event']->count() );
     }
 
-    $event = Doctrine::getTable( 'Event' )->findByVendorPoiIdAndVendorLanguage( '1234', 'ru' );
+    $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( '1234', 'ru' );
     $this->assertEquals( 'moscow', $event['Vendor']['city'] );
    }
 
