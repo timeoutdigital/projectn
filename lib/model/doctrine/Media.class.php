@@ -18,7 +18,7 @@ class Media extends BaseMedia
     {
         // eg. http://projectn.s3.amazonaws.com/singapore/event/media/2e67b4c713718ea4583a2bb823bb1723.jpg
         $type = str_replace( 'Media', '', get_class( $this ) );
-        return "http://projectn.s3.amazonaws.com/" . $this[ $type ]['Vendor']['city'] . "/" . strtolower( $type ) . "/media/" . $this['ident'] . ".jpg";
+        return "http://projectn.s3.amazonaws.com/" . str_replace( ' ', '_', $this[ $type ]['Vendor']['city'] ) . "/" . strtolower( $type ) . "/media/" . $this['ident'] . ".jpg";
     }
 
     /**
@@ -37,6 +37,8 @@ class Media extends BaseMedia
         $curl = new Curl( $urlString );
 
         $type = strtolower( str_replace( 'Media', '', get_class( $this ) ) );
+
+        $vendorCity = str_replace( ' ', '_', $vendorCity );
 
         if ( $type == '')
         {

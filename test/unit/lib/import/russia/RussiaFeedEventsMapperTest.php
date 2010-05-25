@@ -20,9 +20,15 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 {
   /**
+   * @var SimpleXMLElement
+   */
+  protected $eventsXml;
+
+  /**
    * @var RussiaFeedEventsMapper
    */
   protected $dataMapper;
+
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -48,7 +54,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testImportsEventsToCorrectVendor()
   {
-    $this->createAVenueForEachVendorUsingFixtureXml();
+    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
 
     $importer = new Importer();
     $importer->addDataMapper( $this->dataMapper );
@@ -57,18 +63,18 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 10, Doctrine::getTable( 'Event' )->count(), 'Should have 10 events in total' );
 
     $russianVendor1 = Doctrine::getTable( 'Vendor' )->findOneById( 1 );
-    $this->assertEquals( 1, $russianVendor1['Event']->count(), $vendon['city'] . 'should have one Event.' );
+    $this->assertEquals( 1, $russianVendor1['Event']->count(), $russianVendor1['city'] . ' should have one Event.' );
 
     $russianVendor2 = Doctrine::getTable( 'Vendor' )->findOneById( 2 );
-    $this->assertEquals( 2, $russianVendor2['Event']->count(), $vendon['city'] . 'should have one Event.' );
+    $this->assertEquals( 2, $russianVendor2['Event']->count(), $russianVendor2['city'] . ' should have one Event.' );
 
     $russianVendor3 = Doctrine::getTable( 'Vendor' )->findOneById( 3 );
-    $this->assertEquals( 3, $russianVendor3['Event']->count(), $vendon['city'] . 'should have one Event.' );
+    $this->assertEquals( 3, $russianVendor3['Event']->count(), $russianVendor3['city'] . ' should have one Event.' );
   }
 
-  public function testMapPlaces()
+  public function testMapEvents()
   {
-    $this->createAVenueForEachVendorUsingFixtureXml();
+    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
 
     $importer = new Importer();
     $importer->addDataMapper( $this->dataMapper );
@@ -111,11 +117,6 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 7, Doctrine::getTable( 'Vendor' )->count() );
   }
 
-  private function createAVenueForEachVendorUsingFixtureXml()
-  {
-    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
-  }
-
   private function getVenueIdsFromXml()
   {
     $venues = $this->eventsXml->xpath('//venue');
@@ -125,6 +126,9 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
       $venueIds[] = (string) $venue;
 
     $venueIds = array_unique( $venueIds );
+
+    //make sure our keys are not missing a number
+    sort( $venueIds );
 
     $this->assertEquals( 7, count( $venueIds ), 
       'Should have 7 venues in the fixture, one for each Vendor.' );
@@ -140,7 +144,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     for( $i = 0; $i < count( $venueIds ); $i++ )
     {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-      $poi[ 'vendor_poi_id' ] = $i+1;
+      $poi[ 'vendor_poi_id' ] = $venueIds[ $i ];
       $poi[ 'Vendor' ] = $russianVendors[ $i ];
       $poi->save();
     }

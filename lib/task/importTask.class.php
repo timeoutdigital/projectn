@@ -312,7 +312,80 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
           break;
         }
-        break; //end lisbon
+        break; //end lisbon   
+    
+    
+      case 'russia':
+
+        switch( $options['type'] )
+        {
+          case 'poi':
+//            $vendorObj    = $this->getVendorByCityAndLanguage('moscow', 'ru');
+//            $loggerObj    = new logImport( $vendorObj );
+//            $loggerObj->setType( 'poi' );
+//            $importer->addLogger( $loggerObj );
+
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_msk.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'moscow' ) );
+
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_spb.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'saint petersburg' ) );
+
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_omks.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'omsk' ) );
+
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_almaty.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'almaty' ) );
+
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_novosibirsk.xmll' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'novosibirsk' ) );
+
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_krasnoyarsk.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'krasnoyarsk' ) );
+
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_tumen.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
+
+            break;
+
+          case 'event':
+//            $loggerObj->setType( 'event' );
+//            $importer->addLogger( $loggerObj );
+          
+            $feedObj = new Curl( 'http://www.timeout.ru/london/events.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+          
+            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'moscow' ) );
+            break;
+
+          case 'movie':
+//            $loggerObj->setType( 'movie' );
+//            $importer->addLogger( $loggerObj );
+          
+            $feedObj = new Curl( 'http://www.timeout.ru/london/movies.xml' );
+            $feedObj->exec();
+            $xml = simplexml_load_string( $feedObj->getResponse() );
+
+            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'moscow' ) );
+            break;
+        }
+        break; //end russia
+
 
       case 'london':
         $vendor = $this->getVendorByCityAndLanguage( 'london', 'en-GB' );
@@ -416,7 +489,6 @@ class importTask extends sfBaseTask
     case 'kuala lumpur':
         $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
         $loggerObj      = new logImport( $vendor );
-        $feedObj        = new curlImporter();
         $importer->addLogger( $loggerObj );
 
         if( $options['type'] == "event" || $options['type'] == "movie" )
@@ -433,7 +505,8 @@ class importTask extends sfBaseTask
             $feedObj->exec();
             $this->output( 'xml received' );
         }
-
+        else break;
+        
         switch( $options['type'] )
         {
           case 'poi':

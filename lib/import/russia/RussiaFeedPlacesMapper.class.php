@@ -21,9 +21,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             // Get Venue Id
             $vendor_venue_id = (string) $venueElement['id'];
 
-            if( !isset( $vendor_venue_id ) || !is_numeric( $vendor_venue_id ) ) break;
-
-            $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( $vendor_poi_id, 'ru' );
+            $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( $vendor_venue_id, 'ru' );
             if( !$poi )
               $poi = new Poi();
 
@@ -52,8 +50,12 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['public_transport_links']        = (string) $venueElement->public_transport;
             $poi['price_information']             = (string) $venueElement->price_information;
             $poi['openingtimes']                  = (string) $venueElement->opening_times;
-            $poi['star_rating']                   = (string) $venueElement->star_rating;
-            $poi['rating']                        = (string) $venueElement->rating;
+            $starRating =  (string) $venueElement->star_rating;
+            if ( !empty( $starRating ) ) 
+                $poi['star_rating'] = round( $starRating );
+            $rating =  (string) $venueElement->rating;
+            if ( !empty( $rating ) ) 
+                $poi['rating'] = round( $rating );
             $poi['provider']                      = (string) $venueElement->provider;
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = $this->vendor;

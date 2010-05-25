@@ -55,11 +55,8 @@ class RussiaFeedBaseMapper extends DataMapper
 
     protected function fixHtmlEntities( $string )
     {
-        $string = htmlspecialchars_decode( (string) $string );
-        $string = htmlspecialchars_decode( $string );
-        $string = html_entity_decode( $string );
-        $string = str_replace( "&mdash;", "-", $string );
-        $string = str_replace( "&hellip;", "...", $string );
+        $string = html_entity_decode( (string) $string, ENT_QUOTES, 'UTF-8' );
+
         return $string;
     }
 
