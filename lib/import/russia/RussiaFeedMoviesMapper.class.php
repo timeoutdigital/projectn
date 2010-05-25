@@ -50,39 +50,51 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
                 $processed_medias[] = $media_url;
             }
 
+            // Reset Cities Array
+            $cities = array();
+
             // Attach Venues
             foreach( $movieElement->venues->venue as $xmlVenue )
             {
-                // Get Occurrence Id
-                $vendor_venue_id = (int) $xmlVenue['id'];
-                if( !isset( $vendor_venue_id ) || !is_numeric( $vendor_venue_id ) ) break;
+                try {
+                    // Get Occurrence Id
+                    $vendor_venue_id = (int) $xmlVenue['id'];
+                    if( !isset( $vendor_venue_id ) || !is_numeric( $vendor_venue_id ) ) continue;
 
-                $poi = Doctrine::getTable("Poi")->findByVendorPoiIdAndVendorLanguage( $vendor_venue_id, 'ru' );
-                if( !$poi )
-                {
-                    $this->notifyImporterOfFailure( new Exception( "Could not find POI for Movie with Id: " . $vendor_movie_id ) );
-                    break;
+                    $poi = Doctrine::getTable("Poi")->findByVendorPoiIdAndVendorLanguage( $vendor_venue_id, 'ru' );
+                    if( !$poi )
+                    {
+                        $this->notifyImporterOfFailure( new Exception( "Could not find POI for Movie with Id: " . $vendor_movie_id ), isset( $movie ) ? $movie : null );
+                        continue;
+                    }
+
+                    // Only one Movie Per City
+                    if( in_array( $poi['Vendor']['city'], $cities ) ) continue;
+
+                    $movie['Vendor'] = $poi['Vendor'];
+                    $cities[] = $poi['Vendor']['city'];
+
+                    // Genres (Requires Vendor)
+                    foreach( $movieElement->categories->category as $category )
+                        $movie->addGenre( (string) $category, $movie['Vendor']['id'] );
+
+                    // UTC Offset (Requires Vendor)
+                    $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
+
+                    $this->notifyImporter( $movie );
+
+                    $movie = $movie->copy();
                 }
-
-                $movie['Vendor'] = $poi['Vendor'];
-
-                // Genres (Requires Vendor)
-                foreach( $movieElement->categories->category as $category )
-                    $movie->addGenre( (string) $category, $movie['Vendor']['id'] );
-
-                // UTC Offset (Requires Vendor)
-                $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
-                
-                $this->notifyImporter( $movie );
-
-                $movie = $movie->copy();
+                catch( Exception $exception )
+                {
+                    $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
+                }
             }
             unset( $movie );
         }
         catch( Exception $exception )
         {
-            echo $exception->getMessage() . PHP_EOL;
-            //$this->notifyImporterOfFailure( $exception );
+            $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
         }
     }
   }
