@@ -345,7 +345,7 @@ class importTask extends sfBaseTask
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'almaty' ) );
 
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_novosibirsk.xmll' );
+            $feedObj = new Curl( 'http://www.timeout.ru/london/places_novosibirsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'novosibirsk' ) );
