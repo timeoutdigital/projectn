@@ -53,7 +53,7 @@ EOF;
    */
   protected function getExporter( $options )
   {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language']);
+    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language'] );
 
     switch( strtolower($options['type']) )
     {

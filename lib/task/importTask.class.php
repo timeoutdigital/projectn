@@ -313,58 +313,112 @@ class importTask extends sfBaseTask
           break;
         }
         break; //end lisbon   
+
     
-    
-      case 'russia':
+      case 'moscow':
 
         switch( $options['type'] )
         {
           case 'poi':
-//            $vendorObj    = $this->getVendorByCityAndLanguage('moscow', 'ru');
-//            $loggerObj    = new logImport( $vendorObj );
-//            $loggerObj->setType( 'poi' );
-//            $importer->addLogger( $loggerObj );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_msk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'moscow' ) );
+            break;
+        }
+        break; //end moscow
+
+      case 'saint petersburg':
+
+        switch( $options['type'] )
+        {
+          case 'poi':
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_spb.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'saint petersburg' ) );
+            break;
+        }
+        break; //end saint petersburg
+
+      case 'omsk':
+
+        switch( $options['type'] )
+        {
+          case 'poi':
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_omsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'omsk' ) );
+            break;
+        }
+        break; //end omsk
+
+      case 'almaty':
+
+        switch( $options['type'] )
+        {
+          case 'poi':
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_almaty.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'almaty' ) );
+            break;
+        }
+        break; //end almaty
+
+      case 'novosibirsk':
+
+        switch( $options['type'] )
+        {
+          case 'poi':
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_novosibirsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'novosibirsk' ) );
+            break;
+        }
+        break; //end novosibirsk
+
+      case 'krasnoyarsk':
+
+        switch( $options['type'] )
+        {
+          case 'poi':
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_krasnoyarsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'krasnoyarsk' ) );
+            break;
+        }
+        break; //end krasnoyarsk
+
+      case 'tyumen':
+
+        switch( $options['type'] )
+        {
+          case 'poi':
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_tumen.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
-
             break;
+        }
+        break; //end tyumen
+    
 
+      case 'russia':
+
+        switch( $options['type'] )
+        {
           case 'event':
-//            $loggerObj->setType( 'event' );
-//            $importer->addLogger( $loggerObj );
           
             $feedObj = new Curl( 'http://www.timeout.ru/london/events.xml' );
             $feedObj->exec();
@@ -374,8 +428,6 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-//            $loggerObj->setType( 'movie' );
-//            $importer->addLogger( $loggerObj );
           
             $feedObj = new Curl( 'http://www.timeout.ru/london/movies.xml' );
             $feedObj->exec();
