@@ -56,10 +56,15 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           foreach( $eventElement->categories->category as $category ) $categories[] = (string) $category;
           $event->addVendorCategory( $categories, $this->vendor->id );
 
-          // Add First Image Only
-          $medias = array();
-          foreach( $eventElement->medias->media as $media ) $medias[] = (string) $media;
-          if( !empty( $medias ) ) $this->addImageHelper( $event, $medias[0] );
+          // Add Images
+          $processed_medias = array();
+          foreach( $eventElement->medias->media as $media )
+          {
+              $media_url = (string) $media;
+              if( !in_array( $media_url, $processed_medias ) )
+                  $this->addImageHelper( $event, $media_url );
+              $processed_medias[] = $media_url;
+          }
 
           // Delete Occurences
           $event['EventOccurrence']->delete();

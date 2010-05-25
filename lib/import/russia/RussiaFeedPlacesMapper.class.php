@@ -69,10 +69,15 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             if( (string) $venueElement->timeout_url != "" )
                 $poi['TimeoutLinkProperty'] = (string) $venueElement->timeout_url;
 
-            // Add First Image Only
-            $medias = array();
-            foreach( $venueElement->medias->media as $media ) $medias[] = (string) $media;
-            if( !empty( $medias ) ) $this->addImageHelper( $poi, $medias[0] );
+            // Add Images
+            $processed_medias = array();
+            foreach( $venueElement->medias->media as $media )
+            {
+                $media_url = (string) $media;
+                if( !in_array( $media_url, $processed_medias ) )
+                    $this->addImageHelper( $poi, $media_url );
+                $processed_medias[] = $media_url;
+            }
             
             $this->notifyImporter( $poi );
         }

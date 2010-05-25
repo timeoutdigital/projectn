@@ -40,10 +40,15 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
             if( (string) $movieElement->timeout_url != "" )
                 $movie->addProperty( "Timeout_link", (string) (string) $movieElement->timeout_url );
 
-            // Add First Image Only
-            $medias = array();
-            foreach( $movieElement->medias->media as $media ) $medias[] = (string) $media;
-            if( !empty( $medias ) ) $this->addImageHelper( $movie, $medias[0] );
+            // Add Images
+            $processed_medias = array();
+            foreach( $movieElement->medias->media as $media )
+            {
+                $media_url = (string) $media;
+                if( !in_array( $media_url, $processed_medias ) )
+                    $this->addImageHelper( $movie, $media_url );
+                $processed_medias[] = $media_url;
+            }
 
             // Attach Venues
             foreach( $movieElement->venues->venue as $xmlVenue )
