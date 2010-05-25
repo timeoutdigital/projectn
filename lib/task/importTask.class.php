@@ -321,6 +321,11 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
+            $vendor = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
+
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_msk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
@@ -334,6 +339,11 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
+
+            $vendor = $this->getVendorByCityAndLanguage( 'saint petersburg', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_spb.xml' );
             $feedObj->exec();
@@ -349,6 +359,11 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
+            $vendor = $this->getVendorByCityAndLanguage( 'omsk', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
+
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_omsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
@@ -362,6 +377,11 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
+
+            $vendor = $this->getVendorByCityAndLanguage( 'almaty', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_almaty.xml' );
             $feedObj->exec();
@@ -377,6 +397,11 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
+            $vendor = $this->getVendorByCityAndLanguage( 'novosibirsk', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
+
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_novosibirsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
@@ -391,6 +416,11 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
+            $vendor = $this->getVendorByCityAndLanguage( 'krasnoyarsk', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
+
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_krasnoyarsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
@@ -404,6 +434,11 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
+
+            $vendor = $this->getVendorByCityAndLanguage( 'tyumen', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'poi' );
+            $importer->addLogger( $loggerObj );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_tumen.xml' );
             $feedObj->exec();
@@ -420,6 +455,11 @@ class importTask extends sfBaseTask
         {
           case 'event':
           
+            $vendor = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'event' );
+            $importer->addLogger( $loggerObj );
+
             $feedObj = new Curl( 'http://www.timeout.ru/london/events.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
@@ -429,6 +469,11 @@ class importTask extends sfBaseTask
 
           case 'movie':
           
+            $vendor = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
+            $loggerObj = new logImport( $vendor );
+            $loggerObj->setType( 'movie' );
+            $importer->addLogger( $loggerObj );
+
             $feedObj = new Curl( 'http://www.timeout.ru/london/movies.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
