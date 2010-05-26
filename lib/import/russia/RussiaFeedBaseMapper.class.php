@@ -67,9 +67,8 @@ class RussiaFeedBaseMapper extends DataMapper
 
     protected function addAmPm( $string )
     {
-        $exp = explode( ":", $string );
-        $hour = (int) $exp[ 0 ];
-        return $hour > 11 ? $string : $string . "am";
+        $date = DateTime::createFromFormat( 'H-i-s', $string );
+        return $date->format('G-i-sa');
     }
 
     /**
