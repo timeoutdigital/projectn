@@ -307,10 +307,7 @@ class Poi extends BasePoi
       return;
 
     if( $this->geoCodeIsValid() )
-    {
-      echo "alrrady set buddy" . PHP_EOL;
       return;
-    }
 
     if( empty( $this['geocode_look_up'] ) )
     {
@@ -323,8 +320,6 @@ class Poi extends BasePoi
 
     $this['longitude'] = $geoEncoder->getLongitude();
     $this['latitude']  = $geoEncoder->getLatitude();
-
-    echo $geoEncoder->getAccuracy() . PHP_EOL;
     
     if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
     {
