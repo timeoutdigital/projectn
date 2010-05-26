@@ -65,6 +65,13 @@ class RussiaFeedBaseMapper extends DataMapper
         return is_numeric( (string) $string ) ? round( (string) $string ) : null;
     }
 
+    protected function addAmPm( $string )
+    {
+        $exp = explode( ":", $string );
+        $hour = (int) $exp[ 0 ];
+        return $hour > 11 ? $string . "pm" : $string . "am";
+    }
+
     /**
      * helper function to add images
      *
