@@ -67,8 +67,14 @@ class RussiaFeedBaseMapper extends DataMapper
 
     protected function addAmPm( $string )
     {
-        $date = DateTime::createFromFormat( 'H-i-s', $string );
-        return $date->format('G-i-sa');
+        $date = DateTime::createFromFormat( 'H:i', $string );
+        if( $date === false )
+        {
+            echo "Failed to create DateTime: '" . $string . "'" . PHP_EOL;
+            return null;
+        }
+        else echo "Niiiiice: " . $date->format('h:i:sa') . PHP_EOL;
+        return $date->format('h:i:sa');
     }
 
     /**
