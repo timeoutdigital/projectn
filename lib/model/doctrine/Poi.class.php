@@ -24,6 +24,19 @@ class Poi extends BasePoi
    */
   private $geoEncoder;
 
+  /**
+   *
+   * @var $minimumAccuracy
+   */
+  private $minimumAccuracy = 8;
+
+  
+  public function setMinimumAccuracy( $acc )
+  {
+      if( is_numeric( $acc ) )
+        $this->minimumAccuracy = $acc;
+  }
+
   public function setGeoEncodeLookUpString( $lookup )
   {
     $this['geocode_look_up'] = $lookup;
@@ -288,13 +301,16 @@ class Poi extends BasePoi
      }
   }
 
-  private function lookupAndApplyGeocodes()
+  public function lookupAndApplyGeocodes()
   {
     if( $this->geoEncodeByPass )
       return;
 
-    if( !$this->hasValidGeocode() )
+    if( $this->geoCodeIsValid() )
+    {
+      echo "alrrady set buddy" . PHP_EOL;
       return;
+    }
 
     if( empty( $this['geocode_look_up'] ) )
     {
@@ -308,20 +324,22 @@ class Poi extends BasePoi
     $this['longitude'] = $geoEncoder->getLongitude();
     $this['latitude']  = $geoEncoder->getLatitude();
 
-    if( $geoEncoder->getAccuracy() < 8 )
+    echo $geoEncoder->getAccuracy() . PHP_EOL;
+    
+    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
     {
       $this['longitude'] = null;
-      $this['latitude'] = null;
+      $this['latitude']  = null;
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
     }
   }
 
-  private function hasValidGeocode()
+  private function geoCodeIsValid()
   {
     $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
     $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );
 
-    return $isZero || $isNull;
+    return !$isZero && !$isNull;
   }
 
   private function truncateGeocodeLengthToMatchSchema()
