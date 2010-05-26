@@ -20,25 +20,19 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
 
   public function mapEvents()
   {
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // You need to find the Vendor From the POI via the venue ID.
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    $this->vendor = NULL;
+    
     foreach( $this->xml->event as $eventElement )
     {
       try{
           // Get Venue Id
           $vendorEventId = (int) $eventElement['id'];
-          
-          $venueId = (string) $eventElement->occurrences->occurrence[0]->venue;
-          $poi     = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( $venueId, 'ru' );
-          if( !$poi )
-          {
-            $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $venueId . ' for Event ' . $vendorEventId . ' in Russia.' ) );
-            continue;
-          }
 
           $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, 'ru' );
-          if( !$event )
-            $event = new Event();
-
-          $event['Vendor'] = $poi['Vendor'];
+          if( !$event ) $event = new Event();
 
           // Column Mapping
           $event['review_date']             = (string) $eventElement->review_date;
@@ -51,21 +45,6 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           $event['price']                   = (string) $eventElement->price;
           $event['rating']                  = $this->roundNumberOrReturnNull( (string) $eventElement->rating );
 
-          // Categories
-          $categories = array();
-          foreach( $eventElement->categories->category as $category ) $categories[] = (string) $category;
-          $event->addVendorCategory( $categories, $this->vendor->id );
-
-          // Add Images
-          $processed_medias = array();
-          foreach( $eventElement->medias->media as $media )
-          {
-              $media_url = (string) $media;
-              if( !in_array( $media_url, $processed_medias ) )
-                  $this->addImageHelper( $event, $media_url );
-              $processed_medias[] = $media_url;
-          }
-
           // Delete Occurences
           $event['EventOccurrence']->delete();
           
@@ -74,6 +53,15 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           {
              try
              {
+                  // This needs to be done in the for loop, as an event may have occurences at different POIs
+                  // DO NOT declare $poi before this loop!
+                  $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( (string) $xmlOccurrence->venue, 'ru' );
+                  if( !$poi )
+                  {
+                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $venueId . ' for Event ' . $vendorEventId . ' in Russia.' ) );
+                    continue;
+                  }
+
                   // Get Occurrence Id
                   $vendor_occurence_id = (int) $xmlOccurrence[ 'id' ];
 
@@ -88,6 +76,21 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                   $occurrence[ 'Poi' ] = $poi;
 
                   $event['Vendor'] = $poi['Vendor'];
+
+                  // Categories (Requires Vendor)
+                  $categories = array();
+                  foreach( $eventElement->categories->category as $category ) $categories[] = (string) $category;
+                  $event->addVendorCategory( $categories, $event['Vendor']['id'] );
+
+                  // Add Images (Requires Vendor)
+                  $processed_medias = array();
+                  foreach( $eventElement->medias->media as $media )
+                  {
+                      $media_url = (string) $media;
+                      if( !in_array( $media_url, $processed_medias ) )
+                          $this->addImageHelper( $event, $media_url );
+                      $processed_medias[] = $media_url;
+                  }
 
                   $event['EventOccurrence'][] = $occurrence;
              }
