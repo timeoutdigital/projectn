@@ -41,8 +41,8 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['latitude']                      = (string) $venueElement->lat;
             $poi['email']                         = (string) $venueElement->email;
             $poi['url']                           = (string) $venueElement->url;
-            $poi['phone']                         = trim( (string) $venueElement->phone, " . " );
-            $poi['phone2']                        = trim( (string) $venueElement->phone2, " . " );
+            $poi['phone']                         = trim( (string) $venueElement->phone, " ." );
+            $poi['phone2']                        = trim( (string) $venueElement->phone2, " ." );
             $poi['fax']                           = (string) $venueElement->fax;
             $poi['keywords']                      = (string) $venueElement->keywords;
             $poi['description']                   = $this->fixHtmlEntities( (string) $venueElement->description );
