@@ -207,9 +207,9 @@ class logImport implements loggable
         $errorObj['log']            = $log;
         $errorObj['type']           = get_class($error);
         $errorObj['message']        = $error->getMessage();
-        if ( $record !==  NULL)
+        if ( $record instanceof Doctrine_Record )
         {
-            //$errorObj['serialized_object']    = @serialize( $record );
+            $errorObj['serialized_object']    = serialize( $record->toArray( true ) );
         }
 
         $errorObj->save();
