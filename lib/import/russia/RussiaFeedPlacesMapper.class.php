@@ -50,12 +50,8 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['public_transport_links']        = (string) $venueElement->public_transport;
             $poi['price_information']             = (string) $venueElement->price_information;
             $poi['openingtimes']                  = (string) $venueElement->opening_times;
-            $starRating =  (string) $venueElement->star_rating;
-            if ( !empty( $starRating ) ) 
-                $poi['star_rating'] = round( $starRating );
-            $rating =  (string) $venueElement->rating;
-            if ( !empty( $rating ) ) 
-                $poi['rating'] = round( $rating );
+            $poi['star_rating']                   = $this->roundNumberOrReturnNull( (string) $venueElement->star_rating );
+            $poi['rating']                        = $this->roundNumberOrReturnNull( (string) $venueElement->rating );
             $poi['provider']                      = (string) $venueElement->provider;
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = $this->vendor;
@@ -78,6 +74,27 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
                     $this->addImageHelper( $poi, $media_url );
                 $processed_medias[] = $media_url;
             }
+
+            // Drop Accuracy, If Geo Not Set, Look Up
+            $poi->setMinimumAccuracy( 4 );
+            $poi->lookupAndApplyGeocodes();
+
+            // List of City Centre Geo CoOrds
+            $cityCentreGeoCoOrds = array();
+            $cityCentreGeoCoOrds['tyumen']           = array( '57.1549492', '65.5156404' );
+            $cityCentreGeoCoOrds['novosibirsk']      = array( '55.0392304', '82.9278181' );
+            $cityCentreGeoCoOrds['krasnoyarsk']      = array( '56.0012512', '92.8855896' );
+            $cityCentreGeoCoOrds['almaty']           = array( '43.2775',    '76.8958333' );
+            $cityCentreGeoCoOrds['omsk']             = array( '54.9709016', '73.3937532' );
+
+            // If Geo Still Not Set, use City Centre
+            if( array_key_exists( $this->vendor->city, $cityCentreGeoCoOrds ) )
+                if( !$poi['latitude'] || !$poi['longitude'] )
+                {
+                    $poi['latitude']  = $cityCentreGeoCoOrds[ $this->vendor->city ][ 0 ];
+                    $poi['longitude'] = $cityCentreGeoCoOrds[ $this->vendor->city ][ 1 ];
+                }
+
             
             $this->notifyImporter( $poi );
         }

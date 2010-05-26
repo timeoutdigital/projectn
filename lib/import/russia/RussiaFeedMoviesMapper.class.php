@@ -30,7 +30,7 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
             $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot );
             $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review );
             $movie['url']               = (string) $movieElement->url;
-            $movie['rating']            = (string) $movieElement->rating;
+            $movie['rating']            = $this->roundNumberOrReturnNull( (string) $movieElement->rating );
 
             // Booking Url
             if( (string) $movieElement->booking_url != "" )
@@ -39,16 +39,6 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
             // Timeout Link
             if( (string) $movieElement->timeout_url != "" )
                 $movie->addProperty( "Timeout_link", (string) (string) $movieElement->timeout_url );
-
-            // Add Images
-            $processed_medias = array();
-            foreach( $movieElement->medias->media as $media )
-            {
-                $media_url = (string) $media;
-                if( !in_array( $media_url, $processed_medias ) )
-                    $this->addImageHelper( $movie, $media_url );
-                $processed_medias[] = $media_url;
-            }
 
             // Reset Cities Array
             $cities = array();
@@ -80,6 +70,16 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
 
                     // UTC Offset (Requires Vendor)
                     $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
+
+                    // Add Images (Requires Vendor)
+                    $processed_medias = array();
+                    foreach( $movieElement->medias->media as $media )
+                    {
+                        $media_url = (string) $media;
+                        if( !in_array( $media_url, $processed_medias ) )
+                            $this->addImageHelper( $movie, $media_url );
+                        $processed_medias[] = $media_url;
+                    }
 
                     $this->notifyImporter( $movie );
 

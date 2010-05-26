@@ -49,7 +49,7 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           $event['booking_url']             = (string) $eventElement->booking_url;
           $event['url']                     = (string) $eventElement->url;
           $event['price']                   = (string) $eventElement->price;
-          $event['rating']                  = (string) $eventElement->rating;
+          $event['rating']                  = $this->roundNumberOrReturnNull( (string) $eventElement->rating );
 
           // Categories
           $categories = array();
