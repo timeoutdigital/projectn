@@ -58,7 +58,7 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                   $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( (string) $xmlOccurrence->venue, 'ru' );
                   if( !$poi )
                   {
-                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $venueId . ' for Event ' . $vendorEventId . ' in Russia.' ) );
+                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . (string) $xmlOccurrence->venue . ' for Event ' . $vendorEventId . ' in Russia.' ) );
                     continue;
                   }
 
