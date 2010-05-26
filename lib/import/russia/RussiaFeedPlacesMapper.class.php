@@ -80,7 +80,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             }
 
             // Drop Accuracy, If Geo Not Set, Look Up
-            $poi->setMinimumAccuracy( 6 );
+            $poi->setMinimumAccuracy( 4 );
             $poi->lookupAndApplyGeocodes();
 
             // List of City Centre Geo CoOrds
