@@ -50,12 +50,8 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['public_transport_links']        = (string) $venueElement->public_transport;
             $poi['price_information']             = (string) $venueElement->price_information;
             $poi['openingtimes']                  = (string) $venueElement->opening_times;
-            $starRating =  (string) $venueElement->star_rating;
-            if ( !empty( $starRating ) ) 
-                $poi['star_rating'] = round( $starRating );
-            $rating =  (string) $venueElement->rating;
-            if ( !empty( $rating ) ) 
-                $poi['rating'] = round( $rating );
+            $poi['star_rating']                   = $this->roundNumberOrReturnNull( (string) $venueElement->star_rating );
+            $poi['rating']                        = $this->roundNumberOrReturnNull( (string) $venueElement->rating );
             $poi['provider']                      = (string) $venueElement->provider;
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = $this->vendor;
