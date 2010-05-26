@@ -60,6 +60,11 @@ class RussiaFeedBaseMapper extends DataMapper
         return $string;
     }
 
+    protected function roundNumberOrReturnNull( $string )
+    {
+        return is_numeric( (string) $string ) ? round( (string) $string ) : null;
+    }
+
     /**
      * helper function to add images
      *
