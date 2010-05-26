@@ -69,7 +69,7 @@ class RussiaFeedBaseMapper extends DataMapper
     {
         $exp = explode( ":", $string );
         $hour = (int) $exp[ 0 ];
-        return $hour > 11 ? $string . "pm" : $string;
+        return $hour > 11 ? $string : $string . "am";
     }
 
     /**
