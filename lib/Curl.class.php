@@ -228,14 +228,15 @@ class Curl
    */
   public function setStorePath( $path )
   {
-
     $this->_storePath = rtrim( $path, '/' );
 
     if( ! file_exists( $this->_storePath ) )
     {
-      mkdir( $this->_storePath, 0777, true );
+      if ( ! mkdir( $this->_storePath, 0777, true ) )
+      {
+          throw new Exception( 'Curl Error, could not create store path' );
+      }
     }
-
   }
 
   /**
