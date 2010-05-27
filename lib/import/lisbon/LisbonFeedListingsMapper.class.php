@@ -26,37 +26,22 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $event = $this->getEventRecordFrom( $listingElement );
 
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
-
-      // -- Append band info to description as per #259 --
-      $band_info = explode( ",", (string) $listingElement['band'] );
-      foreach( $band_info as $k => $info )
-      {
-          $band_info[$k] = trim( $info, "  " ); // One of those is a weird portugese space
-      }
-      $band_info = (string) implode( "<br />", $band_info );
-
-      if( (string) trim( $event['description'] ) != "" )
-      {
-         $event['description'] .= "<br /><br />";
-      }
-      $event['description'] .= $band_info;
-      // --
-
-      $event['description'] = preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] );
-
-      $event['vendor_id'] = $this->vendor['id'];
-      $event['vendor_event_id'] = (int) $listingElement['RecurringListingID'];
-      $event['review_date'] = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
+      $this->appendBandInfoToDescription( $event, $listingElement );
+      
+      $event['description']                                 = preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] );
+      $event['price']                                       = str_replace( "?", "€", $event['price'] ); // Refs: #258b
+      $event['vendor_id']                                   = $this->vendor['id'];
+      $event['vendor_event_id']                             = (int) $listingElement['RecurringListingID'];
+      $event['review_date']                                 = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
 
       $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
-      $occurrence['vendor_event_occurrence_id'] = (int) $listingElement['musicid'];
 
+      $occurrence['vendor_event_occurrence_id']             = (int) $listingElement['musicid'];
       $start = $this->extractStartTimes( $listingElement );
-      $occurrence['start_date'] = $start['date'];
-      $occurrence['start_time'] = $start['time'];
-      $occurrence['utc_offset'] = $this->vendor->getUtcOffset( $start[ 'datetime' ] );
-
-      $occurrence['event_id'] = $event['id'];
+      $occurrence['start_date']                             = $start['date'];
+      $occurrence['start_time']                             = $start['time'];
+      $occurrence['utc_offset']                             = $this->vendor->getUtcOffset( $start[ 'datetime' ] );
+      $occurrence['event_id']                               = $event['id'];
       
       $placeid = (int) $listingElement['placeid'];
       $poi = $this->dataMapperHelper->getPoiRecord( $placeid, $this->vendor['id'] );
@@ -73,9 +58,9 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
       $this->notifyImporter( $poi );
 
-      $occurrence['Poi'] = $poi;
+      $occurrence['Poi']                                    = $poi;
       
-      $event['EventOccurrence'][] = $occurrence;
+      $event['EventOccurrence'][]                           = $occurrence;
 
       //try to find the event using name
       $eventName = (string) $listingElement['gigKey'];
@@ -103,6 +88,26 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $start[ 'datetime' ] = $startParts[ 0 ] . ' ' . '00:00:00'; //$startParts[ 1 ]; so we need to hard code a work around for now
 
       return $start;
+  }
+
+  /**
+   * Append band info to description as per #259
+   * @param <type> $event
+   * @param <type> $listingElement
+   */
+  private function appendBandInfoToDescription( $event, $listingElement )
+  {
+      $band_info = explode( ",", (string) $listingElement['band'] );
+
+      foreach( $band_info as $k => $info )
+          $band_info[$k] = trim( $info, "  " ); // One of those is a weird portugese space
+
+      $band_info = (string) implode( "<br />", $band_info );
+
+      if( (string) trim( $event['description'] ) != "" )
+         $event['description'] .= "<br /><br />";
+      
+      $event['description'] .= $band_info;
   }
 
   /**
