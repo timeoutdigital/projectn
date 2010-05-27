@@ -279,6 +279,18 @@ three
       }
   }
 
+  public function testToDBTimeByFormat()
+  {
+      $formatArray = array( 'H', 'h', 'ha', 'h', 'H:m' );
+      $beforeArray = array( '', '2', '2pm', '2pm', '14:00' );
+      $afterArray = array( '', '02:00:00', '14:00:00', '', '14:00:00' );
+
+      for ( $i=0; $i < count( $beforeArray ); $i++ )
+      {
+          $this->assertEquals( $afterArray[ $i ], stringTransform::toDBTimeByFormat( $formatArray[ $i ], $beforeArray[ $i ] ) );
+      }
+  }
+
   public function testExtractStartTime()
   {
       $beforeArray = array( 'Mondays-Fridays (12pm-7pm); Saturdays (10am-5pm).Closed Sundays and Public Holidays',
@@ -295,6 +307,7 @@ three
                             '12p',
                             'a12pm',
                             '12pmp',
+                            '12am',
                      );
       $afterArray = array( '',
                            '',
@@ -310,11 +323,33 @@ three
                            '12',
                            '',
                            '12pm',
+                           '12am',
+                         );
+      $afterArrayFormatted = array( '',
+                                    '',
+                                    '12:00:00',
+                                    '22:00:00',
+                                    '09:00:00',
+                                    '',
+                                    '14:30:00',
+                                    '21:00:00',
+                                    '12:00:00',
+                                    '20:00:00',
+                                    '18:00:00',
+                                    '',
+                                    '',
+                                    '12:00:00',
+                                    '00:00:00',
                          );
 
       for ( $i=0; $i < count( $beforeArray ); $i++ )
       {
-          $this->assertEquals( $afterArray[ $i ], stringTransform::extractStartTime( $beforeArray[ $i ] ) );
+          $this->assertEquals( $afterArray[ $i ], stringTransform::extractStartTime( $beforeArray[ $i ], false ) );
+      }
+
+      for ( $i=0; $i < count( $beforeArray ); $i++ )
+      {
+          $this->assertEquals( $afterArrayFormatted[ $i ], stringTransform::extractStartTime( $beforeArray[ $i ] ) );
       }
   }
 
