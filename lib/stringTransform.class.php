@@ -38,6 +38,7 @@ class stringTransform
   /**
    * Format string into a nice format, result is '09:00' for input of '9'.
    * @return array
+   * @todo is this function really needed, or should it be removed?
    */
   public static function formatAsTime( $subject )
   {
@@ -53,6 +54,7 @@ class stringTransform
    * Try to extract time information from a string.
    * eg '10:00', '9.15', '10h' or in the case of '10-12h', return 2 values
    * @return array
+   * @todo is this function really needed, or should it be removed?
    */
   public static function extractTimesFromText( $subject )
   {
@@ -68,6 +70,7 @@ class stringTransform
    * Try to extract time range information from a string.
    * eg '10-11' or '10.45-12h' or '9h-10h'
    * @return array
+   * @todo is this function really needed, or should it be removed?
    */
   public static function extractTimeRangesFromText( $subject )
   {
@@ -77,6 +80,41 @@ class stringTransform
       if( !empty( $returnArray[0] ) && array_key_exists( 0, $returnArray ) );
         return $returnArray[0];
       return array();
+  }
+
+  /**
+   * Parse about any English textual datetime description into a DB compatible
+   * time (H:i:s)
+   *
+   * @param string $string
+   * @return string (a formatted time string)
+   */
+  public static function toDBTime( $timeString )
+  {
+      $time = strtotime( $timeString );
+
+      if ( $time ) {
+          return date( 'H:i:s', $time );
+      }
+  }
+
+  /**
+   * Attempts to grab a start time out of a text blurb
+   *
+   * @param string $string
+   * @param boolena $returnTimeFormatted
+   * @return string
+   */
+  public static function extractStartTime( $string, $returnTimeFormatted = true )
+  {
+     $matches = array();
+     $pattern = '/^([0-9]{1,2}([\s]?[\:\.]{1}[0-9]{2})?[\s]?(am|pm)?)[\s]?(\-|to\s)?/';
+     preg_match( $pattern, trim( $string ), $matches );
+
+     if ( isset( $matches[ 1 ] ) )
+     {
+         return ($returnTimeFormatted) ? self::toDBTime( $matches[ 1 ] ) : $matches[ 1 ];
+     }
   }
 
   public static function extractEmailAddressesFromText( $subject )

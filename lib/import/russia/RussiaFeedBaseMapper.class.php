@@ -68,7 +68,19 @@ class RussiaFeedBaseMapper extends DataMapper
     protected function convertToTwleveHourTimeAndAddAmPm( $string )
     {
         $date = DateTime::createFromFormat( 'H:i', $string );
-        return (  $date !== false ) ? $date->format('h:i:sa') : null;
+
+        if ( $date === false )
+        {
+            echo 'time createion faild for: ' . $string . PHP_EOL;
+        }
+        else
+        {
+            echo $date->format('h:i:sa') . PHP_EOL;
+        }
+
+        return '07:00 pm';
+
+        //return (  $date !== false ) ? $date->format('h:i:s a') : null;
     }
 
     /**

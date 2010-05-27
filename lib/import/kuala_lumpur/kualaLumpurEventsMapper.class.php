@@ -56,6 +56,13 @@ class kualaLumpurEventsMapper extends DataMapper
           $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $record, $eventId );
           $occurrence[ 'vendor_event_occurrence_id' ] = $eventId;
           $occurrence['start_date'] = (string) $event->occurrences->start_date;
+
+          $occurrence['start_date'] = stringTransform::toDBTime( stringTransform::extractStartTime( (string) $event->occurrences->start_time ) );
+
+          
+
+
+
           $occurrence['utc_offset'] = $this->vendor->getUtcOffset( (string) $event->occurrences->start_date );
 
           $poi = $this->dataMapperHelper->getPoiRecord( (string) $event->occurrences->venue, $this->vendor['id'] );
@@ -86,4 +93,5 @@ class kualaLumpurEventsMapper extends DataMapper
         && (string) $event->categories->genre        != ''
         ;
   }
+
 }
