@@ -59,6 +59,20 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Test to make sure Question Marks are replaced with Euro Signs
+   */
+  public function testEuroSignsInsteadOfQuestionMarks()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $events = Doctrine::getTable('Event')->findAll();
+    foreach( $events as $event )
+        $this->assertEquals( false, strpos( $event['price'], "?" ), "Price should not contain a question mark." );
+  }
+
+  /**
    * Test to make sure 'start_time' property is present where time_info has start time info.
    */
   public function testDescriptionHtmlIsNotWrittenWithPerentheses()

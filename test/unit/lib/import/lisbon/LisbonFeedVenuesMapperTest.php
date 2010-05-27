@@ -54,6 +54,9 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * Test to make sure Question Marks are replaced with Euro Signs
+   */
   public function testEuroSignsInsteadOfQuestionMarks()
   {
     $importer = new Importer();
@@ -62,10 +65,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $pois = Doctrine::getTable('Poi')->findAll();
     foreach( $pois as $poi )
-    {
-        //echo $poi['price_information'] . PHP_EOL . PHP_EOL;
         $this->assertEquals( false, strpos( $poi['price_information'], "?" ), "Price info should not contain a question mark." );
-    }
   }
 
   public function testNoCommasAtEndOfStreet()
