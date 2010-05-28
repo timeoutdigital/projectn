@@ -93,16 +93,28 @@ class stringTransform
   {
       $time = strtotime( $timeString );
 
-      if ( $time ) {
-          return date( 'H:i:s', $time );
-      }
+      return ( $time === false ) ? null : date( 'H:i:s', $time );
+  }
+
+  /**
+   * Parse a time string with an fixed format to a DB compatible time string
+   *
+   * @param string $format
+   * @param string $timeString
+   * @return string (a formatted time string)
+   */
+  public static function toDBTimeByFormat( $format, $timeString )
+  {
+      $time = DateTime::createFromFormat( $format, $timeString );
+
+      return ( $time === false ) ? null : $time->format( 'H:i:s' );
   }
 
   /**
    * Attempts to grab a start time out of a text blurb
    *
    * @param string $string
-   * @param boolena $returnTimeFormatted
+   * @param boolean $returnTimeFormatted
    * @return string
    */
   public static function extractStartTime( $string, $returnTimeFormatted = true )
