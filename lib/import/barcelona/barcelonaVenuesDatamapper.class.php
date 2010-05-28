@@ -5,7 +5,7 @@
  * @package projectn
  * @subpackage
  *
- * @author Peter Johnson <peterjohnson@timout.com>
+ * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1
@@ -35,8 +35,8 @@ class barcelonaVenuesMapper extends barcelonaBaseDataMapper
             $poi['latitude']                      = (string) $venueElement->lat;
             $poi['email']                         = (string) $venueElement->email;
             $poi['url']                           = trim( (string) $venueElement->url );
-            $poi['phone']                         = trim( (string) $venueElement->phone, " . " );
-            //$poi['phone2']                        = trim( (string) $venueElement->phone2, " . " );
+            $poi['phone']                         = trim( (string) $venueElement->phone );
+            //$poi['phone2']                        = trim( (string) $venueElement->phone2 );
             //$poi['fax']                           = (string) $venueElement->fax;
             //$poi['keywords']                      = (string) $venueElement->keywords;
             $poi['description']                   = (string) $venueElement->description;
@@ -52,8 +52,9 @@ class barcelonaVenuesMapper extends barcelonaBaseDataMapper
             $poi['Vendor']                        = $this->vendor;
 
             // Categories
-            foreach( $venueElement->categories->category as $category )
-              $poi->addVendorCategory( $category, $this->vendor->id );
+            // Not Formalised Structure
+//            foreach( $venueElement->categories->category as $category )
+//              $poi->addVendorCategory( $category, $this->vendor->id );
 
             // Timeout Link
             if( (string) $venueElement->timeout_url != "" )
@@ -63,6 +64,7 @@ class barcelonaVenuesMapper extends barcelonaBaseDataMapper
             //$medias = array();
             //foreach( $venueElement->medias->media as $media ) $medias[] = (string) $media;
             //if( !empty( $medias ) ) $this->addImageHelper( $poi, $medias[0] );
+            
             $this->notifyImporter( $poi );
         }
         catch( Exception $exception )

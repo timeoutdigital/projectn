@@ -1,6 +1,6 @@
 <?php
 /**
- * Russia venues mapper
+ * Russia event mapper
  *
  * @package projectn
  * @subpackage russia.import.lib.unit
@@ -19,7 +19,8 @@ class barcelonaEventsMapper extends barcelonaBaseDataMapper
     foreach( $this->xml->event as $eventElement )
     {
       try{
-          $event['Vendor'] = $poi['Vendor'];
+          // Get Event Id
+          $vendorEventId                    = (int) $eventElement['id'];
 
           // Column Mapping
           $event['review_date']             = (string) $eventElement->review_date;
