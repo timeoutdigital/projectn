@@ -70,9 +70,9 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                   $occurrence[ 'vendor_event_occurrence_id' ]     = $vendor_occurence_id;
                   $occurrence[ 'booking_url' ]                    = (string) $xmlOccurrence->booking_url;
                   $occurrence[ 'start_date' ]                     = (string) $xmlOccurrence->start_date;
-                  $occurrence[ 'start_time' ]                     = $this->convertToTwleveHourTimeAndAddAmPm( (string) $xmlOccurrence->start_time );
+                  $occurrence[ 'start_time' ]                     = $this->extractTimeOrNull( (string) $xmlOccurrence->start_time );
                   $occurrence[ 'end_date' ]                       = (string) $xmlOccurrence->end_date;
-                  $occurrence[ 'end_time' ]                       = $this->convertToTwleveHourTimeAndAddAmPm( (string) $xmlOccurrence->end_time );
+                  $occurrence[ 'end_time' ]                       = $this->extractTimeOrNull( (string) $xmlOccurrence->end_time );
                   $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
                   $occurrence[ 'Poi' ] = $poi;
 

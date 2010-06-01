@@ -153,7 +153,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $venueElement['gaypriceexport'],
     );
     $concat = stringTransform::concatNonBlankStrings( ', ', $priceArray );
-    $concat = str_replace( "?", "€", $concat );
+    $concat = str_replace( "?", "€", $concat ); // Refs: #258b, Note this may not be required as ticket affects listings not venues.
     return $concat;
   }
 

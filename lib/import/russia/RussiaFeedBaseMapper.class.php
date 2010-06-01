@@ -65,10 +65,11 @@ class RussiaFeedBaseMapper extends DataMapper
         return is_numeric( (string) $string ) ? round( (string) $string ) : null;
     }
 
-    protected function convertToTwleveHourTimeAndAddAmPm( $string )
+    protected function extractTimeOrNull( $string )
     {
         $date = DateTime::createFromFormat( 'H:i', $string );
-        return (  $date !== false ) ? $date->format('h:i:sa') : null;
+
+        return ( $date === false ) ? null : $string;
     }
 
     /**

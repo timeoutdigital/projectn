@@ -74,10 +74,10 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
           $times = stringTransform::extractTimesFromText( trim( $item ) );
 
           if( ( count( $ranges ) == 1 && count( $times ) == 2 ) || count( $times ) == 1 )
-              $data[] = stringTransform::formatAsTime( trim( $times[0], " :-h." ) );
+              $data[] = stringTransform::toDBTime( trim( $times[0], " :-h." ) );
       }
       //print_r( $data );
-      print( "-- Found start time found for: " . count( $data ) . " of " . count( $import ) . " strings checked. --" . PHP_EOL );
+      //print( "-- Found start time found for: " . count( $data ) . " of " . count( $import ) . " strings checked. --" . PHP_EOL );
   }
 
   /**
@@ -267,5 +267,91 @@ three
       stringTransform::removeTrailingCommas( 'foo,' )
       );
   }
+
+  public function testToDBTime()
+  {
+      $beforeArray = array( '2', '2pm', '14:00' );
+      $afterArray = array( '', '14:00:00', '14:00:00' );
+
+      for ( $i=0; $i < count( $beforeArray ); $i++ )
+      {
+          $this->assertEquals( $afterArray[ $i ], stringTransform::toDBTime( $beforeArray[ $i ] ) );
+      }
+  }
+
+  public function testToDBTimeByFormat()
+  {
+      $formatArray = array( 'H', 'h', 'ha', 'h', 'H:m' );
+      $beforeArray = array( '', '2', '2pm', '2pm', '14:00' );
+      $afterArray = array( '', '02:00:00', '14:00:00', '', '14:00:00' );
+
+      for ( $i=0; $i < count( $beforeArray ); $i++ )
+      {
+          $this->assertEquals( $afterArray[ $i ], stringTransform::toDBTimeByFormat( $formatArray[ $i ], $beforeArray[ $i ] ) );
+      }
+  }
+
+  public function testExtractStartTime()
+  {
+      $beforeArray = array( 'Mondays-Fridays (12pm-7pm); Saturdays (10am-5pm).Closed Sundays and Public Holidays',
+                            'n/a',
+                            '12pm-8pm',
+                            '10 pm (Every Thursday)',
+                            '9am',
+                            '2-8pm',
+                            '2.30pm-5.30pm',
+                            '9pm to 12.45am on weekdays and 9pm to 1.30am on weekends.',
+                            '12pm to 6pm',
+                            '8pm to',
+                            '6pm-',
+                            '12p',
+                            'a12pm',
+                            '12pmp',
+                            '12am',
+                     );
+      $afterArray = array( '',
+                           '',
+                           '12pm',
+                           '10 pm',
+                           '9am',
+                           '2',
+                           '2.30pm',
+                           '9pm',
+                           '12pm',
+                           '8pm',
+                           '6pm',
+                           '12',
+                           '',
+                           '12pm',
+                           '12am',
+                         );
+      $afterArrayFormatted = array( '',
+                                    '',
+                                    '12:00:00',
+                                    '22:00:00',
+                                    '09:00:00',
+                                    '',
+                                    '14:30:00',
+                                    '21:00:00',
+                                    '12:00:00',
+                                    '20:00:00',
+                                    '18:00:00',
+                                    '',
+                                    '',
+                                    '12:00:00',
+                                    '00:00:00',
+                         );
+
+      for ( $i=0; $i < count( $beforeArray ); $i++ )
+      {
+          $this->assertEquals( $afterArray[ $i ], stringTransform::extractStartTime( $beforeArray[ $i ], false ) );
+      }
+
+      for ( $i=0; $i < count( $beforeArray ); $i++ )
+      {
+          $this->assertEquals( $afterArrayFormatted[ $i ], stringTransform::extractStartTime( $beforeArray[ $i ] ) );
+      }
+  }
+
 }
 ?>

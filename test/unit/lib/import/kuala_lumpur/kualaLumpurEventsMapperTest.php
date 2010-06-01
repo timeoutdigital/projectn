@@ -66,6 +66,21 @@ class kualaLumpurEventsMapperTest extends PHPUnit_Framework_TestCase
                          $this->events[0]['price'],
                          'Check price'
                          );
+
+    $this->assertEquals( '2010-05-07 00:00:00',
+                         $this->events[0]['EventOccurrence'][0]['start_date'],
+                         'Check start date'
+                         );
+
+    $this->assertEquals( '20:30:00',
+                         $this->events[0]['EventOccurrence'][0]['start_time'],
+                         'Check start time'
+                         );
+
+    $this->assertEquals( '2010-05-08 00:00:00',
+                         $this->events[0]['EventOccurrence'][0]['end_date'],
+                         'Check end date'
+                         );
   }
 
   public function testVendorCategories()
