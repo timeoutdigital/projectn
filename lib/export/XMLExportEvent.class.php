@@ -158,8 +158,8 @@ class XMLExportEvent extends XMLExport
       //event/version/property
       foreach( $event[ 'EventProperty' ] as $property )
       {
-        $isLisbonOrSingapore = ($this->vendor['city'] == 'lisbon' || $this->vendor['city'] == 'singapore'  );
-        if ( isset( $property[ 'lookup' ] ) && $property['lookup'] == 'timeinfo' &&  $isLisbonOrSingapore )
+        $isSingapore = ( $this->vendor['city'] == 'singapore'  );
+        if ( isset( $property[ 'lookup' ] ) && $property['lookup'] == 'timeinfo' &&  $isSingapore )
         {
           continue;
         }
