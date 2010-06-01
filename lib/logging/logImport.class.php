@@ -10,145 +10,142 @@
  * @subpackage import.lib
  *
  * @author Tim bowler <timbowler@timeout.com>
+ * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @copyright Timeout Communications Ltd
  *
  *
- * @version 1.0.0
+ * @version 1.0.1
  *
  * <b>Example</b>
  * <code>
  *
- * //Instaniate
- * $movieLoggerObj = new logger($vendorObj, 'movie');
- * $poiLoggerObj = new logger($vendorObj, 'poi');
+ * //Instantiate
+ * $this->object = new logImport( $this->vendorObj, logImport::TYPE_MOVIE );
  *
+ * //Log Error
+ * $movieLoggerObj->addError( $exceptionObject, $recordObject, 'Something went wrong here')
  *
- * //user
- * $movieLoggerObj->countNewInsert()
+ * //Log Successful DB operation
+ * $movieLoggerObj->addSuccess( $recordObject, logImport::OPERATION_INSERT, $changedFields )
  *
- * //Save the log
- * $movieLoggerObj->saveStats();
+ * //End Successfull
+ * $movieLoggerObj->endSuccessful();
+ *
+ * //In a try catch it can be ended as failure
+ * $movieLoggerObj->endFailed();
  *
  * </code>
  *
  */
 class logImport implements loggable
 {
+    // available operations constants
+    const OPERATION_INSERT = 'insert';
+    const OPERATION_UPDATE = 'update';
+    //const DELETE = 'delete';
 
-    const POI = 'poi';
-    const EVENT = 'event';
-    const MOVIE = 'movie';
-
-    /**
-     * @var integer
-     */
-    public $totalInserts = 0;
 
     /**
      * @var integer
      */
-    public $totalUpdates = 0;
-
+    private $_totalReceived = 0;
 
     /**
      *
-     * @var integer
+     * @var Vendor
      */
-    public $totalErrors = 0;
-
-    /**
-     *
-     * @var integer
-     */
-    public $totalExisting = 0;
-
-
-
-    /**
-     *
-     * @var Object
-     */
-    public $vendorObj;
+    private $_vendorObj;
 
     /**
      *
      * @var string
      */
-    public $type;
+    private $_timer;
 
     /**
      *
-     * @var Collection
+     * @var ImportLogger
      */
-    public $errorsCollection;
-
-    /**
-     *
-     * @var Collection
-     */
-    public $changesCollection;
-
-    /**
-     *
-     * @var string
-     */
-    public $timer;
-
-
-    public $finalTime;
-
-
-    public $_importObj;
+    private $_importLogger;
 
 
     /**
      *
      * Constructor
      *
-     * @todo some heavy refactoring needed
-     *       - get rid of public vars
-     *       - get rid of setType method
+     * @param Vendor $vendorObj
+     * @param log type $type
+     */
+    public function  __construct( Vendor $vendorObj )
+    {
+        $this->_vendorObj = $vendorObj;
+
+        $this->_importLogger = new ImportLogger;
+        //$this->_importLogger['total_received'] = $this->_totalReceived;
+        $this->_importLogger['Vendor']         = $this->_vendorObj;
+        $this->_importLogger['status']         = 'running';
+        $this->_importLogger['total_time']     = '00:00';
+        $this->_importLogger->save();
+
+        $this->_timer = new sfTimer( 'importTimer' );
+        $this->_timer->startTimer();
+    }    
+
+    /**
      *
-     * @param int $vendorId
+     * @param string $limitByModel
+     * @return integer
      */
-    public function  __construct( Vendor $vendorObj, $type = 'poi' )
+    public function getTotalInserts( $limitByModel = '' )
     {
-        $this->vendorObj = $vendorObj;
-        $this->errorsCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerError'));
-        $this->changesCollection = new Doctrine_Collection(Doctrine::getTable('ImportLoggerChange'));
-
-        $this->type = $type;
-
-        $this->_importObj = new ImportLogger;
-        $this->_importObj['total_inserts'] = $this->totalInserts;
-        $this->_importObj['total_updates'] = $this->totalUpdates;
-        $this->_importObj['type']          = $this->type;
-        $this->_importObj['total_errors']  = $this->totalErrors;
-        $this->_importObj['Vendor']        = $this->vendorObj;
-        $this->_importObj['total_existing'] = $this->totalExisting;
-        $this->_importObj['total_time']    = '00:00';
-        $this->_importObj->save();
-
-        $this->timer = sfTimerManager::getTimer('importTimer');
-     
+        return $this->_count( 'insert', $limitByModel );
     }
 
- 
     /**
-     * Count each new insert
+     *
+     * @param string $limitByModel
+     * @return integer
      */
-    public function countNewInsert()
+    public function getTotalUpdates( $limitByModel = '' )
     {
-        $this->totalInserts++;
+        return $this->_count( 'update', $limitByModel );
     }
 
+    /**
+     *
+     * @return integer
+     */
+    public function getTotalExisting( $limitByModel = '' )
+    {
+        return $this->_count( 'existing', $limitByModel  );
+    }
 
     /**
-     * count each record that already exists
+     *
+     * @param string $limitByModel
+     * @return integer
      */
-    public function countExisting()
+    public function getTotalDeletes( $limitByModel = '' )
     {
-        $this->totalExisting++;
+        return $this->_count( 'delete', $limitByModel );
+    }
+
+    /**
+     *
+     * @return integer
+     */
+    public function getTotalErrors()
+    {
+        return $this->_importLogger['ImportRecordErrorLogger']->count();
+    }
+
+    /**
+     *
+     * @return integer
+     */
+    public function getTotalReceived()
+    {
+        return $this->_totalReceived;
     }
 
     /**
@@ -156,44 +153,71 @@ class logImport implements loggable
      */
     public function save()
     {   
-        $this->_importObj['total_inserts']  = $this->totalInserts;
-        $this->_importObj['total_updates']  = $this->totalUpdates;
-        $this->_importObj['type']           = $this->type;
-        $this->_importObj['total_errors']   = $this->totalErrors;
-        $this->_importObj['Vendor']         = $this->vendorObj;
-        $this->_importObj['total_existing'] = $this->totalExisting;
+        //$this->_importLogger['total_received'] = $this->_totalReceived;
+        $this->_importLogger['total_time'] = $this->_getElapsedTime();
+        $this->_importLogger->save();
+    }
 
-        //Convert he time to mysql format
-        $totalTime = $this->timer->addTime();
-        $timeStamp = $this->convertTime($totalTime);
-  
-        $this->_importObj['total_time']    = $timeStamp;
-
-        $this->_importObj->save();
-
-        //Save all errors
-        /*foreach($this->errorsCollection as $error)
+    /**
+     *
+     * @param string $model
+     * @param integer $totalReceived
+     */
+    public function setTotalReceivedItems( $model, $totalReceived )
+    {
+        $importRecordErrorLogger = null;
+        
+        foreach ( $this->_importLogger[ 'ImportLoggerReceived' ] as $existingImportRecordErrorLogger )
         {
-            $error['ImportLogger'] = $importObj;
-            $error->save();
-        }*/
-
-        //Save all changes
-        /*foreach($this->changesCollection as $change)
+           if ( $existingImportRecordErrorLogger[ 'model' ] == $model )
+           {
+               $importRecordErrorLogger = $existingImportRecordErrorLogger;
+               break;
+           }
+        }
+        
+        if ( is_null( $importRecordErrorLogger  ) )
         {
-            $change['ImportLogger'] = $importObj;
-            $change->save();
-        }*/
+            $importRecordErrorLogger = new ImportLoggerReceived();
+            $importRecordErrorLogger['model'] = $this->_checkModel( $model );
+        }
 
-        //Set the timer with the correct time
-        $this->finalTime = $timeStamp;
-       
+        $importRecordErrorLogger['total_received'] = $totalReceived;
+
+        $this->_importLogger[ 'ImportLoggerReceived' ][] = $importRecordErrorLogger;
+        $this->save();
+    }
+
+    /**
+     * Log a successful database operation (insert and update implemented)
+     *
+     * @param Doctrine_Record $newObject
+     * @param string $operation ( logImport::INSERT or logImport::UPDATE )
+     * @param array $changedFields
+     *
+     * @todo implement delete
+     */
+    public function addSuccess( Doctrine_Record $newObject, $operation, $changedFields = array() )
+    {
+        $operation = $this->_checkOperation( $operation );
+
+        switch( $operation )
+        {
+            case logImport::OPERATION_INSERT :
+                $this->_addInsert( $newObject );
+                break;
+            case logImport::OPERATION_UPDATE :
+                $this->_addUpdate( $newObject, $changedFields );
+                break;            
+            //case logImport::OPERATION_DELETE :
+            //    break;
+        }
     }
 
     /**
      *
      * Add an error to be logged.
-     * 
+     *
      * @param Exception $error The exception thrown by the error
      * @param Doctrine_Record $record The record causeing the error
      * @param string $log Any extra details that can help someone solve this error
@@ -201,137 +225,167 @@ class logImport implements loggable
      */
     public function addError(Exception $error, Doctrine_Record $record = NULL, $log = '')
     {
-        $errorObj                   = new ImportLoggerError();
-        $errorObj['import_logger_id']   = $this->_importObj[ 'id' ];
-        $errorObj['trace']          = $error->__toString();
-        $errorObj['log']            = $log;
-        $errorObj['type']           = get_class($error);
-        $errorObj['message']        = $error->getMessage();
-        if ( $record instanceof Doctrine_Record )
+        $importRecordErrorLogger                     = new ImportRecordErrorLogger();
+        $importRecordErrorLogger['model']            = get_class( $record) ;
+        $importRecordErrorLogger['exception_class']  = get_class( $error );
+        $importRecordErrorLogger['trace']            = $error->__toString();
+        $importRecordErrorLogger['message']          = $error->getMessage();
+        $importRecordErrorLogger['log']              = $log;
+        
+        if ( $record !==  NULL)
         {
-            $errorObj['serialized_object']    = serialize( $record->toArray( true ) );
+            $importRecordErrorLogger['serialized_object']        = serialize( $record );
         }
 
-        $errorObj->save();
-
-        $this->errorsCollection[]    = $errorObj;
-
-        //Increment the error count
-        $this->totalErrors++;
-    }    
+        $this->_importLogger[ 'ImportRecordErrorLogger' ][] = $importRecordErrorLogger;
+        $this->save();
+    }
 
     /**
-     * Log a change
+     * ends a log and marks it as successful
+     * (the importLogger object will be destructed)
+     */
+    public function endSuccessful()
+    {
+        $this->_importLogger['status'] = 'success';
+        $this->save();
+        unset( $this->_importLogger );
+    }
+
+    /**
+     * ends a log and marks it as failed
+     * (the importLogger object will be destructed)
+     */
+    public function endFailed()
+    {
+        $this->_importLogger['status'] = 'failed';
+        $this->save();
+        unset( $this->_importLogger );
+    }
+
+    /**
+     * check if import logger is still running
      *
-     * @param string $type
+     * @return boolean
+     */
+    public function checkIfRunning()
+    {
+        return $this->_importLogger instanceof ImportLogger;
+    }
+
+     /**
+     * Log an insert
+     *
+     * @param object $record
+     */
+    private function _addInsert( Doctrine_Record $record )
+    {
+      $importRecordLogger = new ImportRecordLogger();
+      $importRecordLogger[ 'record_id' ] = $record[ 'id' ];
+      $importRecordLogger[ 'model' ] = get_class( $record );
+      $importRecordLogger['operation'] = 'insert';
+
+      $this->_importLogger[ 'ImportRecordLogger' ][] = $importRecordLogger;
+      $this->save();
+    }
+
+
+    /**
+     * Log an update
+     *
+     * @param object $record
      * @param string $log Log of all updates
      */
-    public function addChange( $type, $modifiedFieldsArray )
+    private function _addUpdate( Doctrine_Record $record, $modifiedFieldsArray )
     {
+      $importRecordLogger = new ImportRecordLogger();
+      $importRecordLogger[ 'record_id' ] = $record[ 'id' ];
+      $importRecordLogger[ 'model' ] = get_class( $record );
 
-      $log = "Updated Fields: \n";
-
-      //The item is modified therefore log as an update
-      foreach( $modifiedFieldsArray as $k => $v )
+      if ( count( $modifiedFieldsArray ) == 0 )
       {
-          $log .= "$k: $v \n";
+          $importRecordLogger['operation']   = 'existing';
+      }
+      else
+      {
+          $log = "Updated Fields: \n";
+
+          //The item is modified therefore log as an update
+          foreach( $modifiedFieldsArray as $k => $v )
+          {
+              $log .= "$k: $v \n";
+          }
+          $importRecordLogger['log']         = $log;
+          $importRecordLogger['operation']   = 'update';
       }
 
-      $changeObj                  = new ImportLoggerChange();
-      $changeObj['import_logger_id']   = $this->_importObj[ 'id' ];
-      $changeObj['log']           = $log;
-      $changeObj['type']          = $type;
-
-      $changeObj->save();
-
-      $this->changesCollection[] = $changeObj;
-
-      //count the change
-      $this->totalUpdates++;
+      $this->_importLogger[ 'ImportRecordLogger' ][] = $importRecordLogger;
+      $this->save();
     }
 
     /**
+     * Check if the log operation is valid
      *
-     * @param string $type
+     * @param string $operation
+     * @return string $operation
      */
-    public function setType($type)
+    private function _checkOperation( $operation )
     {
-        $this->checkType($type);
-    }
+        $availableOperations = array( logImport::OPERATION_INSERT, logImport::OPERATION_UPDATE );
 
-
-    /**
-     * Check the type going in
-     *
-     * @param <string> $type
-     */
-    public function checkType($type)
-    {
-        $availableTypes = array( logImport::POI, logImport::EVENT, logImport::MOVIE );
-     
-        if( !in_array( $type, $availableTypes ) )
+        if( !in_array( $operation, $availableOperations ) )
         {
-            throw new Exception('Incorrect Type. Must be on of: ' . implode( ',', $availableTypes ) );
+            throw new Exception('Incorrect Operation (' .$operation. '), must be : ' . implode( ',', $availableOperations ) );
         }
 
-        $this->type = $type;
-
+        return $operation;
     }
 
-    /**
-     * Convert the sfTimer to mysql format
-     *
-     * @param string $time
-     * @return string MySql formatted string
-     */
-    public function convertTime($time)
+    private function _checkModel( $model )
     {
-      $time = round($time, 0);
-
-      if(is_numeric($time)){
-        $value = array(
-          "years" => 0, "days" => 0, "hours" => 0,
-          "minutes" => 0, "seconds" => 0,
-        );
-
-        //Years
-        if($time >= 31556926){
-          $value["years"] = floor($time/31556926);
-          $time = ($time%31556926);
+        if( !Doctrine::isValidModelClass( $model ) )
+        {
+            throw new Exception('Incorrect Model (' .$model. ') specified' );
         }
 
-        //Days
-        if($time >= 86400){
-          $value["days"] = floor($time/86400);
-          $time = ($time%86400);
-        }
-
-        //Hours
-        if($time >= 3600){
-          $value["hours"] = floor($time/3600);
-          $time = ($time%3600);
-        }
-
-        //Minutes
-        if($time >= 60){
-          $value["minutes"] = floor($time/60);
-          $time = ($time%60);
-        }
-
-        //Seconds
-        $value["seconds"] = floor($time);
-
-
-        //Make the time stamp
-        $convertedTime =  (array) $value;
-        $timeStamp = mktime($convertedTime['hours'], $convertedTime['minutes'], $convertedTime['seconds'], date('d'), date('m'), date('Y'));
-        $timeStamp = date('H:i:s', $timeStamp);
-
-        return $timeStamp;
-      }else{
-        throw Exception('Incorrect Timer');
-      }
+        return $model;
     }
+    
+    /**
+     *
+     * @return time
+     */
+    private function _getElapsedTime()
+    {
+        $this->_timer->addTime();
+        $this->_timer->startTimer();
+        $seconds = $this->_timer->getElapsedTime();
 
+        $timeStamp = mktime( 0, 0, $seconds );
+
+        return date('H:i:s', $timeStamp);
+    }
+    
+    /**
+     * Count types ('integer', 'update', 'existing or 'delete')
+     * 
+     * @param string $operation
+     * @param string $limitByModel
+     * @return integer
+     */
+    private function _count( $operation, $limitByModel = '' )
+    {
+        $count = 0;
+        
+        foreach( $this->_importLogger[ 'ImportRecordLogger' ] as $success )
+        {
+            if ( $operation == $success['operation'] && ( $limitByModel == '' || $limitByModel == $success[ 'model' ] ) )
+            {
+                $count++;
+            }
+        }
+        
+        return $count;        
+    }
 }
 ?>

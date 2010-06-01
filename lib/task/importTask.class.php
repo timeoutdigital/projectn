@@ -212,7 +212,7 @@ class importTask extends sfBaseTask
             //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
             //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
-            $logger = new logImport($vendorObj, 'poi' );
+            $logger = new logImport( $vendorObj );
 
             echo "Starting Singapore Pois import \n";
             $curlImporterObj = new curlImporter();
@@ -226,10 +226,6 @@ class importTask extends sfBaseTask
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
             $this->object->insertPois( $xmlObj );
 
-            $logger->save();
-
-            $logger = new logImport($vendorObj, 'event' );
-
             echo "Starting Singapore Events import \n";
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
@@ -241,13 +237,13 @@ class importTask extends sfBaseTask
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
             $this->object->insertEvents( $xmlObj );
 
-            $logger->save();
+            $logger->endSuccessful();
             
             break;
 
           case 'movie':
             //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-            $logger = new logImport($vendorObj, 'movie' );
+            $logger = new logImport( $vendorObj );
 
             echo "Connecting to Singapore Movie Feed \n";
             $curlImporterObj = new curlImporter();
@@ -261,7 +257,7 @@ class importTask extends sfBaseTask
             $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
             $this->object->insertMovies( $xmlObj );
 
-            $logger->save();
+            $logger->endSuccessful();
             echo "Impored Singapores Movies \n";
             
           break;

@@ -13,10 +13,10 @@
  */
 interface loggable
 {
-  public function countNewInsert();
-  public function countExisting();
-  public function addChange( $type, $modifiedFieldsArray );
-  public function addError(Exception $exception, Doctrine_Record $record = null, $message = '');
+  public function addSuccess( Doctrine_Record $newObject, $operation, $changedFields = array() );
+  public function addError(Exception $error, Doctrine_Record $record = NULL, $log = '');
   public function save();
+  public function endSuccessful();
+  public function endFailed();
 }
 ?>

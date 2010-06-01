@@ -91,8 +91,8 @@ class singaporeImport
                 }
                 $this->insertPoi( $venueDetailObj );
             }
-            catch( Exception $e ) {
-                
+            catch( Exception $e )
+            {
                 $this->_logger->addError( $e );
             }            
         }
@@ -287,11 +287,22 @@ class singaporeImport
             //Save the object and log the changes
             //pre-save
             $logIsNew = $poi->isNew();
+
+
+            $poi->applyDataFixes();
+
+
             $logChangedFields = $poi->getModified();
+
+
+
+
+
+
             //save
             $poi->save();
             //post-save
-            ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
+            $this->_logger->addSuccess( $poi, ( $logIsNew ) ? 'insert' : 'update', $logChangedFields );
 
             return $poi;
 
@@ -397,7 +408,7 @@ class singaporeImport
             //save
             $event->save();
             //post-save
-            ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
+            $this->_logger->addSuccess( $poi, ( $logIsNew ) ? 'insert' : 'update', $logChangedFields );
 
             if ( count( $eventObj->venue->id ) == 1 && (string) $eventObj->date_start != '' )
             {
@@ -521,7 +532,7 @@ class singaporeImport
             //save
             $movieObj->save();
             //post-save
-            ( $logIsNew ) ? $this->_logger->countNewInsert() : $this->_logger->addChange( 'update', $logChangedFields );
+            $this->_logger->addSuccess( $poi, ( $logIsNew ) ? 'insert' : 'update', $logChangedFields );
 
             $movieId = $movieObj[ 'id' ];
             $movieObj->free();
@@ -571,7 +582,6 @@ class singaporeImport
 
         foreach( $datesArray as $date )
         {
-
             try {
                 $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventId, $poi[ 'id' ], $date[ 'start' ] );
                 $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
