@@ -3,7 +3,7 @@
 /**
  * Poi Model
  *
- * 
+ *
  * @package    projectn
  * @subpackage doctrine.model.lib
  *
@@ -212,7 +212,7 @@ class Poi extends BasePoi
   */
   public function addVendorCategory( $name, $vendorId )
   {
- 
+
     if ( is_array( $name ) )
     {
       $name = implode( ' | ', $name );
@@ -292,7 +292,7 @@ class Poi extends BasePoi
 
   private function applyDefaultGeocodeLookupStringIfNull()
   {
-     if( is_null( $this['geocode_look_up'] ) ) 
+     if( is_null( $this['geocode_look_up'] ) )
        $this['geocode_look_up'] = stringTransform::concatNonBlankStrings( ', ', array( $this['house_no'], $this['street'], $this['city'], $this['zips'], $this['country']) );
   }
 
@@ -332,12 +332,12 @@ class Poi extends BasePoi
     }
 
     $geoEncoder = $this->getGeoEncoder();
-    
+
     $geoEncoder->setAddress(  $this['geocode_look_up'], $this['Vendor']  );
 
     $this['longitude'] = $geoEncoder->getLongitude();
     $this['latitude']  = $geoEncoder->getLatitude();
-    
+
     if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
     {
       $this['longitude'] = null;
@@ -382,8 +382,8 @@ class Poi extends BasePoi
 
   /**
    * adds a poi media and invokes the download for it
-   * 
-   * @param string $urlString 
+   *
+   * @param string $urlString
    */
   public function addMediaByUrl( $urlString )
   {
@@ -414,6 +414,7 @@ class Poi extends BasePoi
     $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
     $this[ 'PoiMedia' ][] = $poiMediaObj;
   }
+
 
   /**
    * Sets the longitude and latitude of the object to null if it matches a default coordinate
