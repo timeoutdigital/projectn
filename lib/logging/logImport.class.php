@@ -23,10 +23,10 @@
  * $this->object = new logImport( $this->vendorObj, logImport::TYPE_MOVIE );
  *
  * //Log Error
- * $movieLoggerObj->addError( $exceptionObject, $recordObject, 'Something went wrong here')
+ * $movieLoggerObj->addError( $exceptionObject, $recordObject, 'Something went wrong here');
  *
  * //Log Successful DB operation
- * $movieLoggerObj->addSuccess( $recordObject, logImport::OPERATION_INSERT, $changedFields )
+ * $movieLoggerObj->addSuccess( $recordObject, logImport::OPERATION_INSERT, $changedFields );
  *
  * //End Successfull
  * $movieLoggerObj->endSuccessful();
@@ -37,12 +37,9 @@
  * </code>
  *
  */
-class logImport implements loggable
+class logImport
 {
-    // available operations constants
-    const OPERATION_INSERT = 'insert';
-    const OPERATION_UPDATE = 'update';
-    //const DELETE = 'delete';
+
 
 
     /**
@@ -151,11 +148,13 @@ class logImport implements loggable
     /**
      * Save the stats
      */
-    public function save()
+    public function save( $echoMessage = '' )
     {   
         //$this->_importLogger['total_received'] = $this->_totalReceived;
         $this->_importLogger['total_time'] = $this->_getElapsedTime();
         $this->_importLogger->save();
+
+        $this->_echo( $echoMessage );
     }
 
     /**
@@ -184,8 +183,13 @@ class logImport implements loggable
 
         $importRecordErrorLogger['total_received'] = $totalReceived;
 
+
+        //@todo make sure we dont duplicate here for existing ones
         $this->_importLogger[ 'ImportLoggerReceived' ][] = $importRecordErrorLogger;
-        $this->save();
+        
+        $echoMessage = 'set total received items for model ' . $model . ' to: ' .$totalReceived . 'items';
+
+        $this->save( $echoMessage );
     }
 
     /**
@@ -238,7 +242,10 @@ class logImport implements loggable
         }
 
         $this->_importLogger[ 'ImportRecordErrorLogger' ][] = $importRecordErrorLogger;
-        $this->save();
+
+        $echoMessage = 'error on model ' . $importRecordErrorLogger['model'] . ' trace: ' . $importRecordErrorLogger['trace'];
+
+        $this->save( $echoMessage );
     }
 
     /**
@@ -286,7 +293,10 @@ class logImport implements loggable
       $importRecordLogger['operation'] = 'insert';
 
       $this->_importLogger[ 'ImportRecordLogger' ][] = $importRecordLogger;
-      $this->save();
+
+      $echoMessage = 'insert into model ' . $importRecordLogger[ 'model' ] . ' id: ' . $record[ 'id'] .  ' / name: ' . $record[ 'name'] ;
+
+      $this->save( $echoMessage );
     }
 
 
@@ -320,7 +330,10 @@ class logImport implements loggable
       }
 
       $this->_importLogger[ 'ImportRecordLogger' ][] = $importRecordLogger;
-      $this->save();
+
+      $echoMessage = 'update on model ' . $importRecordLogger[ 'model' ] . ' id: ' . $record[ 'id'] .  ' / name: ' . $record[ 'name'] ;
+
+      $this->save( $echoMessage );
     }
 
     /**
@@ -387,5 +400,11 @@ class logImport implements loggable
         
         return $count;        
     }
+
+    private function _echo( $message )
+    {
+        echo 'IMPORT LOGGER: ' . $message . PHP_EOL;
+    }
+
 }
 ?>

@@ -376,12 +376,12 @@ Vendor:
 
 
 
-Logger:
+Log:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
-    vendor_id:                  {type: integer, notnull: true}
+    vendor_id:                  {type: integer, notnull: false}
     status:                     {type: enum, values: [running, failed, success], notnull: true}
     total_time:                 {type: time, notnull: true}
   relations:
@@ -389,41 +389,69 @@ Logger:
   indexes:
     status_index:               {fields: [status]}
 
-RecordLogger:
+LogImport:
+  connection: project_n
+  inheritance:
+    extends: Log
+    type: concrete
+
+LogExport:
+  connection: project_n
+  inheritance:
+    extends: Log
+    type: concrete
+
+
+LogCount:
   connection: project_n
   actAs:
     Timestampable:              ~
   columns:
-    record_id:                  {type: integer, notnull: true}
     model:                      {type: string(50), notnull: true}
+    count:                      {type: integer, notnull: true}
   indexes:
-    record_id_index:            {fields: [record_id]}
     model_index:                {fields: [model]}
 
-#ImportLogger main import stats table
-ImportLogger:
+LogImportCount:
   connection: project_n
   inheritance:
-    extends: Logger
-    type: concrete
-
-#ImportRecordLogger logs all successful db operations
-ImportRecordLogger:
-  connection: project_n
-  inheritance:
-    extends: RecordLogger
+    extends: LogCount
     type: concrete
   columns:
-    operation:                  {type: enum, values: [insert, update, existing, delete], notnull: true}
-    log:                        {type: string, notnull: false}
-    import_logger_id:           {type: integer, notnull: true}
+    log_import_id:            {type: integer, notnull: true}
+    operation:                {type: enum, values: [received, insert, existing, delete], notnull: true}
   relations:
-    ImportLogger:               {local: import_logger_id, foreign: id}
+    LogImport:                {local: log_import_id, foreign: id}
   indexes:
-    operation_index:            {fields: [operation]}
+    operation_index:          {fields: [operation]}
 
-#ImportRecordErrorLogger logs error
-ImportRecordErrorLogger:
+LogExportCount:
+  connection: project_n
+  inheritance:
+    extends: LogCount
+    type: concrete
+  columns:
+    log_export_id:            {type: integer, notnull: true}
+  relations:
+    LogExport:                {local: log_export_id, foreign: id}
+
+
+LogImportChange:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    model:                      {type: string(50), notnull: true}
+    record_id:                  {type: integer, notnull: true}
+    log:                        {type: string, notnull: true}
+    log_import_id:              {type: integer, notnull: true}
+  relations:
+    LogImport:                  {local: log_import_id, foreign: id}
+  indexes:
+    model_index:                {fields: [model]}
+
+
+LogImportError:
   connection: project_n
   actAs:
     Timestampable:              ~
@@ -435,50 +463,15 @@ ImportRecordErrorLogger:
     log:                        {type: string, notnull: true}
     serialized_object:          {type: string, notnull: false}
     resolved:                   {type: boolean, notnull: true, default: 0}
-    import_logger_id:           {type: integer, notnull: true}
+    log_import_id:              {type: integer, notnull: true}
   relations:
-    ImportLogger:               {local: import_logger_id, foreign: id}
+    LogImport:                  {local: log_import_id, foreign: id}
   indexes:
     model_index:                {fields: [model]}
     exception_class_index:      {fields: [exception_class]}
     resolved_index:             {fields: [resolved]}
 
-#ImportLoggerReceived keeps track of nodes we receive in our imports
-ImportLoggerReceived:
-  connection: project_n
-  actAs:
-    Timestampable:              ~
-  columns:
-    total_received:             {type: integer, notnull: true}
-    model:                      {type: string(50), notnull: true}
-    import_logger_id:           {type: integer, notnull: true}
-  relations:
-    ImportLogger:               {local: import_logger_id, foreign: id}
-  indexes:
-    model_index:                {fields: [model]}
-
-#ExportLogger main import stats table
-ExportLogger:
-  connection: project_n
-  inheritance:
-    extends: Logger
-    type: concrete
-
-#Export stats
-ExportRecordLogger:
-  connection: project_n
-  inheritance:
-    extends: Logger
-  columns:
-    vendor_record_id:             {type: integer, notnull: true}
-    export_logger_id:           {type: integer, notnull: true}
-  relations:
-    ExportLogger:               {local: export_logger_id, foreign: id}
-  indexes:
-    vendor_record_id_index:     {fields: [vendor_record_id]}
-
-#ExportLoggerSkippedItem logs skipped items
-ExportSkippedRecordLogger:
+LogExportError:
   connection: project_n
   actAs:
     Timestampable:              ~
@@ -487,25 +480,13 @@ ExportSkippedRecordLogger:
     model:                      {type: string(50), notnull: true}
     vendor_record_id:           {type: integer, notnull: true}
     log:                        {type: string, notnull: true}
-    export_logger_id:           {type: integer, notnull: true}
+    log_export_id:           {type: integer, notnull: true}
   relations:
-    ExportLogger:               {local: export_logger_id, foreign: id}
+    LogExport:                  {local: log_export_id, foreign: id}
   indexes:
     record_id_index:            {fields: [record_id]}
     model_index:                {fields: [model]}
     vendor_record_id_index:     {fields: [vendor_record_id]}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

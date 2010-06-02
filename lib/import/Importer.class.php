@@ -39,7 +39,7 @@ class Importer
    * 
    * @param logImport $logger
    */
-  public function addLogger( loggable $logger )
+  public function addLogger( $logger )
   {
     if( !in_array( $logger, $this->loggers ) )
     {
@@ -86,7 +86,7 @@ class Importer
 
     foreach( $this->loggers as $logger )
     {
-      $logger->save();
+      $logger->endSuccessful();
     }
   }
 
@@ -106,21 +106,30 @@ class Importer
         $recordModifications = $record->getModified();
 
         $record->save();
-        
+
+        foreach( $this->loggers as $logger )
+        {
+            if ( $recordIsNew )
+                $logger->addInsert( $record );
+            else
+                $logger->addUpdate( $record, $recordModifications);
+        }
+
+
         //if record is saved, notify the logger
         if( $recordIsNew )
         {
           foreach( $this->loggers as $logger )
           {
-            $logger->countNewInsert();
+            //$logger->countNewInsert();
           }
         }
         else if( !empty( $recordModifications ) )
         {
           foreach( $this->loggers as $logger )
           {
-            $logger->addChange( 'update', $recordModifications );
-            $logger->countExisting();
+            //$logger->addChange( 'update', $recordModifications );
+            //$logger->countExisting();
           }
         }
      }
@@ -134,7 +143,8 @@ class Importer
   {
      foreach( $this->loggers as $logger )
      {
-       $logger->addError( $exception ,$record , $message );
+       //$logger->addError( $exception ,$record , $message );
+       $logger->addError( $exception, $record, $message );
      }
   }
 
