@@ -30,7 +30,7 @@ class Poi extends BasePoi
    */
   private $minimumAccuracy = 8;
 
-  
+
   public function setMinimumAccuracy( $acc )
   {
       if( is_numeric( $acc ) )
@@ -56,8 +56,20 @@ class Poi extends BasePoi
   {
     $string = preg_replace( '/[, ]*$/', '', $string );
 
-
     $this->_set( 'poi_name', $string );
+  }
+
+  /**
+   * Fixes fields with HTML entities where we do not want them
+   */
+  public function fixHTMLEntities()
+  {
+    // We don't want HTML entities in our string
+    $fields = array( 'poi_name' );
+
+    foreach ( $fields as $field )
+        $this[$field] = html_entity_decode( $this[$field], ENT_QUOTES, 'UTF-8' );
+
   }
 
   public function getGeoEncoder()
@@ -248,6 +260,7 @@ class Poi extends BasePoi
      $this->truncateGeocodeLengthToMatchSchema();
      $this->cleanStreetField();
      $this->setDefaultLongLatNull();
+     $this->fixHTMLEntities();
      $this->applyOverrides();
   }
 

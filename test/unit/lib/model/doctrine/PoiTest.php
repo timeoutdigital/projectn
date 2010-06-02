@@ -282,6 +282,22 @@ class PoiTest extends PHPUnit_Framework_TestCase
       ) );
   }
 
+   /**
+   * test if setting the name of a Poi ensures HTML entities are decoded
+   */
+  public function testSetPoiName()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $poi['street'] = 'Parque Mayer - Av Liberdade, Lisboa ';
+      $poi['poi_name'] = "My &quot;name&quot; is";
+      $poi->save();
+
+      $this->assertTrue( preg_match( '/&quot;/', $poi['poi_name'] ) == 0, 'POI name cannot contain HTML entities' );
+      $this->assertEquals( $poi['poi_name'], 'My "name" is', 'POI name converts HTML entities to their appropriate characters' );
+
+  }
+
 }
 
 class MockGeoEncodeForPoiTest extends geoEncode
