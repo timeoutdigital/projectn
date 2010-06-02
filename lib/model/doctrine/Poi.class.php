@@ -62,7 +62,7 @@ class Poi extends BasePoi
   /**
    * Fixes fields with HTML entities where we do not want them
    */
-  public function fixHTMLEntities()
+  protected function fixHTMLEntities()
   {
     // We don't want HTML entities in our string
     $fields = array( 'poi_name' );
