@@ -285,7 +285,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    /**
    * test if setting the name of a Poi ensures HTML entities are decoded
    */
-  public function testSetPoiName()
+  public function testFixHtmlEntities()
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
