@@ -52,16 +52,22 @@ class Media extends BaseMedia
         if ( $this[ 'file_last_modified' ] === NULL || $this[ 'file_last_modified' ] == '' || !file_exists( $filename ) )
         {
             $curl->downloadTo(  $filename );
-
-            $this[ 'mime_type' ] = $curl->getContentType();
-            $this[ 'file_last_modified' ] = $curl->getLastModified();
-            $this[ 'etag' ] = $curl->getETag();
-            $this[ 'content_length' ] = $curl->getContentLength();
+            if( 'image/jpeg' == $curl->getContentType() )
+            {
+              unlink( $filename );
+              throw new Exception( 'Download failed, mime-type required is image/jpeg, got "'. $curl->getContentType() . '" from url: "'  . $urlString . '" with ident: "' . $identString . '"' );
+            }
         }
         else
         {
             $curl->downloadTo(  $filename, $this[ 'file_last_modified' ] );
         }
+
+        $this[ 'mime_type' ] = $curl->getContentType();
+        $this[ 'file_last_modified' ] = $curl->getLastModified();
+        $this[ 'etag' ] = $curl->getETag();
+        $this[ 'content_length' ] = $curl->getContentLength();
+
         if ( !file_exists( $filename ) || $this[ 'content_length' ] < 1 )
         {
             throw new Exception( 'Failed to successfully download / store media url: ' . $urlString . ' / ident: ' . $identString );

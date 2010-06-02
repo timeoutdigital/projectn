@@ -56,8 +56,20 @@ class Poi extends BasePoi
   {
     $string = preg_replace( '/[, ]*$/', '', $string );
 
-
     $this->_set( 'poi_name', $string );
+  }
+
+  /**
+   * Fixes fields with HTML entities where we do not want them
+   */
+  public function fixHTMLEntities()
+  {
+    // We don't want HTML entities in our string
+    $fields = array( 'poi_name' );
+
+    foreach ( $fields as $field )
+        $this[$field] = html_entity_decode( $this[$field], ENT_QUOTES, 'UTF-8' );
+
   }
 
   public function getGeoEncoder()
@@ -247,29 +259,34 @@ class Poi extends BasePoi
      $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->cleanStreetField();
+     $this->setDefaultLongLatNull();
+     $this->fixHTMLEntities();
      $this->applyOverrides();
   }
 
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
-
      // A list of City Name Aliases
      $vendorCityNameAliasMap = array();
      $vendorCityNameAliasMap[ "Lisbon" ] = array( "Lisbon", "Lisboa" );
+     $vendorCityNameAliasMap[ "ny" ] = array( 'ny', 'New York' );
 
      // Use aliases if they are available
      if( array_key_exists( $vendorCityName[0], $vendorCityNameAliasMap ) )
           $vendorCityName = $vendorCityNameAliasMap[ $vendorCityName[0] ];
 
+     // Clean all the rubbish off the beginning and end, added weird protugese space.
+     $this['street'] = trim( $this['street'], "  ,." );
+
      // Remove all City Name Aliases from street field
      foreach( $vendorCityName as $vendorCityAlias )
      {
-        $this['street'] = str_replace( ", " . $vendorCityAlias, "", $this['street'] );
-        $this['street'] = str_replace( $vendorCityAlias, "", $this['street'] );
+        $patt = '/,\s*' . $vendorCityAlias . '\s*$/i';
+        $this['street'] = preg_replace( $patt, '', $this['street'] );
      }
 
-     // Clean all the rubbish off the beginning and end, added weird protugese space.
+     // Clean all the rubbish off the beginning and end once more
      $this['street'] = trim( $this['street'], "  ,." );
   }
 
@@ -396,6 +413,28 @@ class Poi extends BasePoi
 
     $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
     $this[ 'PoiMedia' ][] = $poiMediaObj;
+  }
+
+
+  /**
+   * Sets the longitude and latitude of the object to null if it matches a default coordinate
+   * - Loads default coordinates from app.yml
+   */
+  public function setDefaultLongLatNull()
+  {
+    $pairs = sfConfig::get( 'app_poi_default_coordinates', array() );
+
+    foreach ( $pairs as $coordinate )
+    {
+        if ( isset( $coordinate[ 'long' ] ) && isset( $coordinate[ 'lat' ] ) )
+        {
+            if ( (float) $this['longitude'] == (float) $coordinate['long'] && (float) $this['latitude'] == (float) $coordinate['lat'] )
+            {
+                $this['longitude'] = null;
+                $this['latitude'] = null;
+            }
+        }
+    }
   }
 
 }

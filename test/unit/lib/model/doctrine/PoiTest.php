@@ -71,8 +71,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
-      $poi['street'] = "100 Easy Street, Lisbon, Lisboa, 5, ,,,,, , ";
-
+      $poi['street'] = 'Parque Mayer - Av Liberdade, Lisboa ';
       $poi->save();
       $this->assertNotEquals( " ", substr( $poi['street'], -1 ), "POI street cannot end in space" );
       $this->assertNotEquals( ",", substr( $poi['street'], -1 ), "POI street cannot end in comma" );
@@ -168,6 +167,36 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Test the long/lat is either valid or null
+   */
+  public function testDefaultLongLatIsSetToNull()
+  {
+      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
+      $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
+      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj->save();
+
+      $poiObj['longitude'] = '151.20711400';
+      $poiObj['latitude'] = '-33.86713900';
+
+      $poiObj->save();
+
+      $this->assertTrue( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude and latitude for Sydney is set to null' );
+
+      $poiObj['longitude'] = '151.20711400';
+      $poiObj['latitude'] = '-33.867138';
+      $poiObj->save();
+
+      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude but not latitude for Sydney are preserved' );
+      
+      $poiObj['longitude'] = '151.20711200';
+      $poiObj['latitude'] = '-33.867138';
+      $poiObj->save();
+      
+      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Non default longitude and latitude for Sydney are preserved' );
+  }
+
+  /**
    * longitude latitude needs to be truncated to fit the database (db was throwing errors)
    */
   public function testLongLatTruncatedToLengthDefinedInSchema()
@@ -251,6 +280,22 @@ class PoiTest extends PHPUnit_Framework_TestCase
         'longitude' => $longitude,
         'latitude'  => $latitude,
       ) );
+  }
+
+   /**
+   * test if setting the name of a Poi ensures HTML entities are decoded
+   */
+  public function testSetPoiName()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $poi['street'] = 'Parque Mayer - Av Liberdade, Lisboa ';
+      $poi['poi_name'] = "My &quot;name&quot; is";
+      $poi->save();
+
+      $this->assertTrue( preg_match( '/&quot;/', $poi['poi_name'] ) == 0, 'POI name cannot contain HTML entities' );
+      $this->assertEquals( $poi['poi_name'], 'My "name" is', 'POI name converts HTML entities to their appropriate characters' );
+
   }
 
 }
