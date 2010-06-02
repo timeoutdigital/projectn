@@ -379,7 +379,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'url',    $propertyElements->item(0)->nodeValue );
     }
 
-  public function testSuppressLisbonTimeinfoProperty()
+  public function testSuppressSingaporeTimeinfoProperty()
   {
     $this->addEventWithTimeInfoForVendor( 'singapore' );
     $this->doPoiExport( $this->vendor );
@@ -394,16 +394,6 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     //@todo why doesn't it work if I don't reset the db?
     ProjectN_Test_Unit_Factory::destroyDatabases();
     ProjectN_Test_Unit_Factory::createDatabases();
-
-    $this->addEventWithTimeInfoForVendor( 'lisbon' );
-    $this->doPoiExport( $this->vendor );
-    $this->export();
-
-    //should only get the 'other' property back
-    $this->assertEquals( 1, $this->xpath->query( '//property' )->length );
-    $node = $this->xpath->query( '//property' )->item(0);
-    $this->assertEquals( 'other', $node->attributes->item(0)->nodeValue );
-    $this->assertEquals( 'other', $node->nodeValue );
 
     //@todo why doesn't it work if I don't reset the db?
     ProjectN_Test_Unit_Factory::destroyDatabases();

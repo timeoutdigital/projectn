@@ -82,7 +82,5 @@ class logExport
 
         return date('H:i:s', $timeStamp);
     }
- 
-
 }
 ?>
