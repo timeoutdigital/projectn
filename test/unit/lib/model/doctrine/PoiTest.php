@@ -71,8 +71,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
-      $poi['street'] = "100 Easy Street, Lisbon, Lisboa, 5, ,,,,, , ";
-
+      $poi['street'] = 'Parque Mayer - Av Liberdade, Lisboa ';
       $poi->save();
       $this->assertNotEquals( " ", substr( $poi['street'], -1 ), "POI street cannot end in space" );
       $this->assertNotEquals( ",", substr( $poi['street'], -1 ), "POI street cannot end in comma" );

@@ -253,23 +253,26 @@ class Poi extends BasePoi
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
-
      // A list of City Name Aliases
      $vendorCityNameAliasMap = array();
      $vendorCityNameAliasMap[ "Lisbon" ] = array( "Lisbon", "Lisboa" );
+     $vendorCityNameAliasMap[ "ny" ] = array( 'ny', 'New York' );
 
      // Use aliases if they are available
      if( array_key_exists( $vendorCityName[0], $vendorCityNameAliasMap ) )
           $vendorCityName = $vendorCityNameAliasMap[ $vendorCityName[0] ];
 
+     // Clean all the rubbish off the beginning and end, added weird protugese space.
+     $this['street'] = trim( $this['street'], "  ,." );
+
      // Remove all City Name Aliases from street field
      foreach( $vendorCityName as $vendorCityAlias )
      {
-        $this['street'] = str_replace( ", " . $vendorCityAlias, "", $this['street'] );
-        $this['street'] = str_replace( $vendorCityAlias, "", $this['street'] );
+        $patt = '/,\s*' . $vendorCityAlias . '\s*$/i';
+        $this['street'] = preg_replace( $patt, '', $this['street'] );
      }
 
-     // Clean all the rubbish off the beginning and end, added weird protugese space.
+     // Clean all the rubbish off the beginning and end once more
      $this['street'] = trim( $this['street'], "  ,." );
   }
 
