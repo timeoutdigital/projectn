@@ -16,18 +16,23 @@ class Event extends BaseEvent
   /**
    * Attempts to fix and / or format fields, e.g. url
    */
+  public function applyFixes()
+  {
+     if( $this['url'] != '')
+        $this['url'] = stringTransform::formatUrl($this['url']);
+
+     if( $this['booking_url'] != '')
+        $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
+
+    $this->applyOverrides();
+  }
+
+  /**
+   * PreSave Method
+   */
   public function preSave( $event )
   {
-
-     if( $this['url'] != '')
-     {
-        $this['url'] = stringTransform::formatUrl($this['url']);
-     }
-     if( $this['booking_url'] != '')
-     {
-        $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
-     }     
-    $this->applyOverrides();
+     $this->applyFixes();
   }
 
   private function applyOverrides()

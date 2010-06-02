@@ -251,7 +251,7 @@ class Poi extends BasePoi
   /**
    * Attempts to fix and / or format fields, e.g. finds a lat long if none provided
    */
-  public function preSave( $event )
+  public function applyFixes()
   {
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
@@ -262,6 +262,14 @@ class Poi extends BasePoi
      $this->setDefaultLongLatNull();
      $this->fixHTMLEntities();
      $this->applyOverrides();
+  }
+
+  /**
+   * PreSave Method
+   */
+  public function preSave( $event )
+  {
+    $this->applyFixes();
   }
 
   private function cleanStreetField()
