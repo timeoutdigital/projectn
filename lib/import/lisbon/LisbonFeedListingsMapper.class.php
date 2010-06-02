@@ -23,6 +23,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
          continue;
       }
 
+      //print_r( $listingElement );
+
       $event = $this->getEventRecordFrom( $listingElement );
 
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
@@ -81,12 +83,17 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
   private function extractStartTimes( $listingElement )
   {
+      //print (string) $listingElement['ListingDate'] . ' :: ';
       $startParts = explode('T', (string) $listingElement['ListingDate'] );
 
       $start[ 'date' ] = $startParts[ 0 ];                        //@todo get start times for Lisbon
       $start[ 'time' ] = null;                                    //$startParts[ 1 ]; we don't seem to have times for Lisbon at the moment
       $start[ 'datetime' ] = $startParts[ 0 ] . ' ' . '00:00:00'; //$startParts[ 1 ]; so we need to hard code a work around for now
 
+      /*print_r( $start );
+      print "\n";
+      exit;
+*/
       return $start;
   }
 
@@ -204,5 +211,27 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       'band'
     );
   }
+
+  public function getTargetDate( $currentTarget )
+  {
+
+    foreach( $this->xml->listings as $listingElement )
+    {
+      if( (int) $listingElement['RecurringListingID'] == 0 )
+      {
+         continue;
+      }
+
+      $startParts = explode('T', (string) $listingElement['ProposedToDate'] );
+
+      $date = strtotime( $startParts[0] );
+
+      if ( $date > $currentTarget )
+        $currentTarget = $date;
+    }
+
+    return $currentTarget;
+  }
+
 }
 ?>

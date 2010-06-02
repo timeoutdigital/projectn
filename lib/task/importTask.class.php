@@ -272,39 +272,63 @@ class importTask extends sfBaseTask
 
         $vendorObj    = $this->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj      = new curlImporter();
+        $chunk        = 4;
         $url          = 'http://www.timeout.pt/';
         $today        = date( 'Y-m-d' );
-        $oneWeekLater = date_add( new DateTime(), new DateInterval( 'P4D' ) )->format( 'Y-m-d' );
+        $oneWeekLater = date_add( new DateTime(), new DateInterval( 'P' . $chunk . 'D' ) )->format( 'Y-m-d' );
+        $targetDate   = strtotime( date_add( new DateTime(), new DateInterval( 'P3M' ) )->format( 'Y-m-d' ) ); // Only look 3 months ahead
         $parameters   = array( 'from' => $today, 'to' => $oneWeekLater );//lisbon caps the request at 9 days
         $method       = 'POST';
-        $loggerObj    = new logImport( $vendorObj );
+        //$loggerObj    = new logImport( $vendorObj );
         
         switch( $options['type'] )
         {
           case 'poi':
             $request = 'xmlvenues.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'poi' );
+      //      $loggerObj->setType( 'poi' );
 
-            $importer->addLogger( $loggerObj );
+//            $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
             break;
 
           case 'event':
             $request = 'xmllist.asp';
-            $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'event' );
 
-            $importer->addLogger( $loggerObj );
-            $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
+            $startDate = $today;
+            $endDate = date_add( new DateTime(), new DateInterval( 'P4D' ) )->format( 'Y-m-d' );
+  //          $targetDate = strtotime( $endDate );
+
+            while ( strtotime( $startDate ) < $targetDate )
+            {
+              try
+              {
+                $feedObj->pullXml ( $url, $request, array( 'from' => $startDate, 'to' => $endDate ) , $method );
+                $mapper = new LisbonFeedListingsMapper( $feedObj->getXml() );
+              
+                $importer->addDataMapper( $mapper );
+              }
+              catch (Exception $e)
+              {
+                // Webservice / feed appears very unstable, so better to get what we can rather than be interrupted
+                print "Exception!\n";
+              }
+
+              $startDate = date_add( new DateTime( $endDate ), new DateInterval( 'P1D' ) )->format( 'Y-m-d' );
+              $endDate = date_add( new DateTime( $startDate ), new DateInterval( 'P' . $chunk . 'D' ) )->format( 'Y-m-d' );
+            }
+    
+    //        $loggerObj->setType( 'event' );
+
+  //          $importer->addLogger( $loggerObj );
           break;
 
           case 'movie':
             $request = 'xmlfilms.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'movie' );
+        //    $loggerObj->setType( 'movie' );
             
-            $importer->addLogger( $loggerObj );
+          //  $importer->addLogger( $loggerObj );
             $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
           break;
         }

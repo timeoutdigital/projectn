@@ -69,13 +69,14 @@ class PoiTest extends PHPUnit_Framework_TestCase
    */
   public function testCleanStreet()
   {
-      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
-      $poi['street'] = 'Parque Mayer - Av Liberdade, Lisboa ';
-      $poi->save();
-      $this->assertNotEquals( " ", substr( $poi['street'], -1 ), "POI street cannot end in space" );
-      $this->assertNotEquals( ",", substr( $poi['street'], -1 ), "POI street cannot end in comma" );
-      $this->assertEquals( false, strpos( $poi['street'], $poi['Vendor']['city'] ), "POI street cannot contain vendor city name" );
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+    $poi['street'] = 'Parque Mayer, Lisbon Street - Av Liberdade, Lisboa ';
+    $poi->save();
+    $this->assertNotEquals( " ", substr( $poi['street'], -1 ), "POI street cannot end in space" );
+    $this->assertNotEquals( ",", substr( $poi['street'], -1 ), "POI street cannot end in comma" );
+    $this->assertEquals( 0, preg_match( '/Lisboa\s$/', $poi['street'] ), 'POI street cannot end in city name' );
+    $this->assertEquals( 1, preg_match( '/Lisbon/', $poi['street'] ), 'POI street can contain city name' );
   }
 
   /*
