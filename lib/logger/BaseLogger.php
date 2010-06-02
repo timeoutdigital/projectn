@@ -17,12 +17,11 @@
 abstract class BaseLogger
 {
 
-    public function  __construct()
+    protected function  __construct()
     {
         $this->_timer = new sfTimer( 'loggerTimer' );
         $this->_timer->startTimer();
     }
-
 
     /**
      *
@@ -30,8 +29,6 @@ abstract class BaseLogger
      */
     protected $_timer;
 
-
-    
     /**
      *
      * @return time
