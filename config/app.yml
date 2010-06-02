@@ -1,0 +1,7 @@
+all:
+    poi:
+        default_coordinates:
+            sydney1: { long: '151.207114', lat: '-33.867139' }
+            newyork1: { long: '-78.835433', lat: '42.8917648' }
+            newyork2: { long: '-73.95', lat: '40.65' }
+            newyork3: { long: '-74.0059729', lat: '40.7142691' }

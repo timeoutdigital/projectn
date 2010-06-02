@@ -247,6 +247,7 @@ class Poi extends BasePoi
      $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->cleanStreetField();
+     $this->setDefaultLongLatNull();
      $this->applyOverrides();
   }
 
@@ -399,6 +400,27 @@ class Poi extends BasePoi
 
     $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
     $this[ 'PoiMedia' ][] = $poiMediaObj;
+  }
+
+  /**
+   * Sets the longitude and latitude of the object to null if it matches a default coordinate
+   * - Loads default coordinates from app.yml
+   */
+  public function setDefaultLongLatNull()
+  {
+    $pairs = sfConfig::get( 'app_poi_default_coordinates', array() );
+
+    foreach ( $pairs as $coordinate )
+    {
+        if ( isset( $coordinate[ 'long' ] ) && isset( $coordinate[ 'lat' ] ) )
+        {
+            if ( (float) $this['longitude'] == (float) $coordinate['long'] && (float) $this['latitude'] == (float) $coordinate['lat'] )
+            {
+                $this['longitude'] = null;
+                $this['latitude'] = null;
+            }
+        }
+    }
   }
 
 }

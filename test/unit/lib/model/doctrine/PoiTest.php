@@ -167,6 +167,36 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Test the long/lat is either valid or null
+   */
+  public function testDefaultLongLatIsSetToNull()
+  {
+      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
+      $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
+      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj->save();
+
+      $poiObj['longitude'] = '151.20711400';
+      $poiObj['latitude'] = '-33.86713900';
+
+      $poiObj->save();
+
+      $this->assertTrue( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude and latitude for Sydney is set to null' );
+
+      $poiObj['longitude'] = '151.20711400';
+      $poiObj['latitude'] = '-33.867138';
+      $poiObj->save();
+
+      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude but not latitude for Sydney are preserved' );
+      
+      $poiObj['longitude'] = '151.20711200';
+      $poiObj['latitude'] = '-33.867138';
+      $poiObj->save();
+      
+      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Non default longitude and latitude for Sydney are preserved' );
+  }
+
+  /**
    * longitude latitude needs to be truncated to fit the database (db was throwing errors)
    */
   public function testLongLatTruncatedToLengthDefinedInSchema()
