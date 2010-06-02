@@ -17,14 +17,22 @@ class Movie extends BaseMovie
   private $externalSearchClass = 'IMDB';
 
   /**
-  * Attempts to fix and / or format fields, e.g. url
-  */
-  public function preSave( $event )
+   * Attempts to fix and / or format fields, e.g. url
+   */
+  public function applyFixes()
   {
     $this->fixUrl();
     $this->reformatTitle();
     $this->requestImdbId();
     $this->applyOverrides();
+  }
+
+  /**
+  * PreSave Method
+  */
+  public function preSave( $event )
+  {
+    $this->applyFixes();
   }
 
   private function applyOverrides()

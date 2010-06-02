@@ -21,38 +21,12 @@ class Importer
   /**
    * @var array
    */
-  private $loggers = array();
-
-  /**
-   * @var array
-   */
   private $dataMapper = array();
   
   public function __construct( $printProgress = false )
   {
     $this->printProgress = $printProgress;
     $this->output( 'awaiting data ' );
-  }
-
-  /**
-   * Adds a logger
-   * 
-   * @param logImport $logger
-   */
-  public function addLogger( $logger )
-  {
-    if( !in_array( $logger, $this->loggers ) )
-    {
-      $this->loggers[] = $logger;
-    }
-  }
-
-  /**
-   * Retrieves all registered loggers
-   */
-  public function getLoggers()
-  {
-    return $this->loggers;
   }
 
   /**
@@ -83,15 +57,9 @@ class Importer
          $mapMethod->invoke( $dataSource );
       }
     }
-
-    foreach( $this->loggers as $logger )
-    {
-      $logger->endSuccessful();
-    }
   }
 
   /**
-   * @todo implement logger
    * 
    * Listens to DataMapper notifications
    * 
@@ -103,35 +71,15 @@ class Importer
      {
         //get the state of the record before save
         $recordIsNew = $record->isNew();
+        $record->applyFixes(); // @todo, don't call applyFixes every time we save a log.
         $recordModifications = $record->getModified();
 
         $record->save();
 
-        foreach( $this->loggers as $logger )
-        {
-            if ( $recordIsNew )
-                $logger->addInsert( $record );
-            else
-                $logger->addUpdate( $record, $recordModifications);
-        }
-
-
-        //if record is saved, notify the logger
-        if( $recordIsNew )
-        {
-          foreach( $this->loggers as $logger )
-          {
-            //$logger->countNewInsert();
-          }
-        }
-        else if( !empty( $recordModifications ) )
-        {
-          foreach( $this->loggers as $logger )
-          {
-            //$logger->addChange( 'update', $recordModifications );
-            //$logger->countExisting();
-          }
-        }
+        if ( $recordIsNew )
+            ImportLogger::getInstance()->addInsert( $record );
+        else
+            ImportLogger::getInstance()->addUpdate( $record, $recordModifications);
      }
      catch( Exception $e )
      {
@@ -141,11 +89,7 @@ class Importer
 
   public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )
   {
-     foreach( $this->loggers as $logger )
-     {
-       //$logger->addError( $exception ,$record , $message );
-       $logger->addError( $exception, $record, $message );
-     }
+    ImportLogger::getInstance()->addError( $exception, $record, $message );
   }
 
   /**

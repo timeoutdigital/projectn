@@ -50,25 +50,51 @@ class ImportLogger extends BaseLogger
      */
     private $_importLog;
 
+    /**
+     *
+     * @var instance
+     */
+    private static $instance;
+
+
+    /**
+     * Constructor (protected)
+     */
+    protected function  __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      *
-     * Constructor
-     *
-     * @param Vendor $vendorObj
-     * @param log type $type
      */
-    public function  __construct( Vendor $vendorObj )
+    public function start()
     {
-        parent::__construct();
-
-        $this->_vendorObj = $vendorObj;
-
         $this->_importLog = new LogImport;
         $this->_importLog['Vendor']         = $this->_vendorObj;
         $this->_importLog['status']         = 'running';
         $this->_importLog['total_time']     = '00:00';
         $this->_importLog->save();
+    }
+
+    /**
+     *
+     */
+    public function end()
+    {
+        $this->_importLog['status']         = 'success';
+        $this->save();
+    }
+
+    /**
+     *
+     * @param string $vendorObj
+     * @return $this
+     */
+    public function setVendor( Vendor $vendorObj )
+    {
+        $this->_vendorObj = $vendorObj;
+        return $this;
     }
 
     /**
@@ -219,7 +245,7 @@ class ImportLogger extends BaseLogger
           $this->_importLog[ 'LogImportChange' ][] = $logImportChange;
       }
       
-      $this->save( );
+      $this->save();
     }
 
 
@@ -293,7 +319,17 @@ class ImportLogger extends BaseLogger
         return $logImportCount;
     }
 
-
+    
+    // The singleton method
+    public static function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $c = __CLASS__;
+            self::$instance = new $c;
+        }
+        return self::$instance;
+    }
 
 }
 

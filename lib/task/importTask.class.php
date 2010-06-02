@@ -456,14 +456,19 @@ class importTask extends sfBaseTask
           case 'poi':
 
             $vendor = $this->getVendorByCityAndLanguage( 'tyumen', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
+            ImportLogger::getInstance()->setVendor( $vendor )->start();
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_tumen.xml' );
             $feedObj->exec();
+            
             $xml = simplexml_load_string( $feedObj->getResponse() );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
+
+            $importer->run();
+            
+            ImportLogger::getInstance()->end();
+            
+            die;
             break;
         }
         break; //end tyumen
