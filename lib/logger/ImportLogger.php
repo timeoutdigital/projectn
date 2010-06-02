@@ -37,10 +37,6 @@
 
 class ImportLogger extends BaseLogger
 {
-    /**
-     * @var integer
-     */
-    private $_totalReceived = 0;
 
     /**
      *
@@ -69,7 +65,6 @@ class ImportLogger extends BaseLogger
         $this->_vendorObj = $vendorObj;
 
         $this->_importLog = new LogImport;
-        //$this->_importLog['total_received'] = $this->_totalReceived;
         $this->_importLog['Vendor']         = $this->_vendorObj;
         $this->_importLog['status']         = 'running';
         $this->_importLog['total_time']     = '00:00';
@@ -139,7 +134,6 @@ class ImportLogger extends BaseLogger
      */
     public function save()
     {
-        //$this->_importLog['total_received'] = $this->_totalReceived;
         $this->_importLog['total_time'] = $this->_getElapsedTime();
         $this->_importLog->save();
     }
