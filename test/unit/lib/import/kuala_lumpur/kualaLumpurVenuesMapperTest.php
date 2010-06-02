@@ -43,6 +43,21 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testExtractInfoFromStreetField()
+  {
+    $file = file_get_contents(  TO_TEST_DATA_PATH . '/kl_street_fields.csv' );
+    $array = explode( '"'."\n".'"', $file );
+
+//    foreach( $array as $k => $val )
+//        $array[ $k ] = str_replace( "\n", "", $val );
+
+    foreach( $array as $k => $val )
+        $array[ $k ] = preg_replace( "/(,?\s?(KL))$/gm", "", $val );
+
+    print_r( $array[538] . PHP_EOL );
+    die;
+  }
+
   public function testMapping()
   {
     $this->assertEquals( count( $this->xml->venueDetails ),
