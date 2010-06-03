@@ -52,15 +52,15 @@ class Media extends BaseMedia
         if ( $this[ 'file_last_modified' ] === NULL || $this[ 'file_last_modified' ] == '' || !file_exists( $filename ) )
         {
             $curl->downloadTo(  $filename );
-            if( 'image/jpeg' == $curl->getContentType() )
+            if( !in_array( $curl->getContentType(),  array( 'image/jpeg' ) ) )
             {
               unlink( $filename );
-              throw new Exception( 'Download failed, mime-type required is image/jpeg, got "'. $curl->getContentType() . '" from url: "'  . $urlString . '" with ident: "' . $identString . '"' );
+              throw new MediaException( 'Download failed, mime-type required is image/jpeg, got "'. $curl->getContentType() . '" from url: "'  . $urlString . '" with ident: "' . $identString . '"' );
             }
         }
         else
         {
-            $curl->downloadTo(  $filename, $this[ 'file_last_modified' ] );
+            $curl->downloadTo( $filename, $this[ 'file_last_modified' ] );
         }
 
         $this[ 'mime_type' ] = $curl->getContentType();
@@ -70,8 +70,11 @@ class Media extends BaseMedia
 
         if ( !file_exists( $filename ) || $this[ 'content_length' ] < 1 )
         {
-            throw new Exception( 'Failed to successfully download / store media url: ' . $urlString . ' / ident: ' . $identString );
+            throw new MediaException( 'Failed to successfully download / store media url: ' . $urlString . ' / ident: ' . $identString );
         }
         return file_exists( $filename );
     }
 }
+
+
+class MediaException extends Exception {}
