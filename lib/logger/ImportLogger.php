@@ -46,9 +46,15 @@ class ImportLogger extends BaseLogger
 
     /**
      *
+     * @var UnknownVendor
+     */
+    private $_unknownVendor;
+
+    /**
+     *
      * @var ImportLogger
      */
-    private $_importLog;
+    private $_importLoggers = array();
 
     /**
      *
@@ -62,19 +68,24 @@ class ImportLogger extends BaseLogger
      */
     protected function  __construct()
     {
+        $this->_unknownVendor = Doctrine::getTable("Vendor")->findOneByCity( 'unknown' );
         parent::__construct();
     }
 
-    /**
-     *
-     */
-    public function start()
+    private function getLoggerByVendor()
     {
-        $this->_importLog = new LogImport;
-        $this->_importLog['Vendor']         = $this->_vendorObj;
-        $this->_importLog['status']         = 'running';
-        $this->_importLog['total_time']     = '00:00';
-        $this->_importLog->save();
+        if( !$this->_vendorObj ) $this->setVendorUnknown();
+                
+        $currentCity = $this->_vendorObj['city'];
+        
+        if( array_key_exists( $currentCity, $this->_importLoggers ) )
+            return $this->_importLoggers[ $currentCity ];
+        else {
+            $this->_importLoggers[ $currentCity ]                   = new LogImport;
+            $this->_importLoggers[ $currentCity ]['Vendor']         = $this->_vendorObj;
+            $this->_importLoggers[ $currentCity ]['status']         = 'running';
+            return $this->_importLoggers[ $currentCity ];
+        }
     }
 
     /**
@@ -82,8 +93,12 @@ class ImportLogger extends BaseLogger
      */
     public function end()
     {
-        $this->_importLog['status']         = 'success';
-        $this->save();
+        foreach( $this->_importLoggers as $importLogger )
+        {
+            $importLogger['status']         = 'success';
+            $importLogger['total_time']     = $this->_getElapsedTime();
+            $importLogger->save();
+        }
     }
 
     /**
@@ -94,6 +109,16 @@ class ImportLogger extends BaseLogger
     public function setVendor( Vendor $vendorObj )
     {
         $this->_vendorObj = $vendorObj;
+        return $this;
+    }
+
+    /**
+     *
+     * @return $this
+     */
+    public function setVendorUnknown()
+    {
+        $this->_vendorObj = $this->_unknownVendor;
         return $this;
     }
 
@@ -143,7 +168,8 @@ class ImportLogger extends BaseLogger
      */
     public function getTotalUpdates( $limitByModel = '' )
     {
-        return $this->_importLog['LogImportChange']->count();
+        $importLogger = $this->getLoggerByVendor();
+        return $importLogger['LogImportChange']->count();
     }
 
     /**
@@ -152,7 +178,8 @@ class ImportLogger extends BaseLogger
      */
     public function getTotalErrors()
     {
-        return $this->_importLog['LogImportError']->count();
+        $importLogger = $this->getLoggerByVendor();
+        return $importLogger['LogImportError']->count();
     }
 
     /**
@@ -160,8 +187,9 @@ class ImportLogger extends BaseLogger
      */
     public function save()
     {
-        $this->_importLog['total_time'] = $this->_getElapsedTime();
-        $this->_importLog->save();
+        $importLogger = $this->getLoggerByVendor();
+        $importLogger['total_time'] = $this->_getElapsedTime();
+        $importLogger->save();
     }
 
     /**
@@ -173,22 +201,24 @@ class ImportLogger extends BaseLogger
      * @param string $log Any extra details that can help someone solve this error
      *
      */
-    public function addError(Exception $error, Doctrine_Record $record = NULL, $log = '')
+    public function addError( Exception $error, $record = NULL, $log = '' )
     {
         $importRecordErrorLogger                     = new LogImportError();
-        $importRecordErrorLogger['model']            = get_class( $record) ;
         $importRecordErrorLogger['exception_class']  = get_class( $error );
         $importRecordErrorLogger['trace']            = $error->__toString();
         $importRecordErrorLogger['message']          = $error->getMessage();
-        $importRecordErrorLogger['log']              = $log;
+        $importRecordErrorLogger['log']              = $log == '' ? "@todo - no log message" : $log;
 
         if ( $record !==  NULL)
         {
-            $importRecordErrorLogger['serialized_object']        = serialize( $record );
+            $importRecordErrorLogger['model']        = get_class( $record );
+            $storeObject = method_exists( 'toArray', $record ) ? $record : $record->toArray();
+            $importRecordErrorLogger['serialized_object']        = serialize( $storeObject );
         }
 
-        $this->_importLog[ 'LogImportError' ][] = $importRecordErrorLogger;
-        $this->save( );
+        $importLogger = $this->getLoggerByVendor();
+        $importLogger[ 'LogImportError' ][] = $importRecordErrorLogger;
+        $this->save();
     }
 
      /**
@@ -199,9 +229,22 @@ class ImportLogger extends BaseLogger
     public function addInsert( Doctrine_Record $record )
     {
        $logImportCount = $this->_getLogImportCountObject( 'insert', get_class( $record ) );
-        $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
+       $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
        $this->save( );
     }
+
+     /**
+     * Log an failure
+     *
+     * @param object $record
+     */
+    public function addFailed( Doctrine_Record $record )
+    {
+       $logImportCount = $this->_getLogImportCountObject( 'failed', get_class( $record ) );
+       $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
+       $this->save( );
+    }
+
 
     /**
      *
@@ -223,7 +266,7 @@ class ImportLogger extends BaseLogger
      */
     public function addUpdate( Doctrine_Record $record, $modifiedFieldsArray )
     {  
-      if ( count( $modifiedFieldsArray ) == 0 )
+      if ( empty( $modifiedFieldsArray ) )
       {
          $logImportCount = $this->_getLogImportCountObject( 'existing', get_class( $record ) );
          $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
@@ -242,7 +285,8 @@ class ImportLogger extends BaseLogger
           $logImportChange[ 'model' ]     = get_class( $record );
           $logImportChange['log']         = $log;
 
-          $this->_importLog[ 'LogImportChange' ][] = $logImportChange;
+          $importLogger = $this->getLoggerByVendor();
+          $importLogger[ 'LogImportChange' ][] = $logImportChange;
       }
       
       $this->save();
@@ -255,9 +299,11 @@ class ImportLogger extends BaseLogger
      */
     public function endSuccessful()
     {
-        $this->_importLog['status'] = 'success';
+        $importLogger = $this->getLoggerByVendor();
+        $importLogger['status'] = 'success';
         $this->save();
-        unset( $this->_importLog );
+
+        unset( $this->_importLoggers[ $this->_vendorObj['city'] ] );
     }
 
     /**
@@ -266,9 +312,11 @@ class ImportLogger extends BaseLogger
      */
     public function endFailed()
     {
-        $this->_importLog['status'] = 'failed';
+        $importLogger = $this->getLoggerByVendor();
+        $importLogger['status'] = 'failed';
         $this->save();
-        unset( $this->_importLog );
+
+        unset( $this->_importLoggers[ $this->_vendorObj['city'] ] );
     }
 
     /**
@@ -280,7 +328,8 @@ class ImportLogger extends BaseLogger
      */
     private function _getCount( $operation, $limitByModel = '' )
     {
-
+        $importLogger = $this->getLoggerByVendor();
+        
         if ( $limitByModel != '' )
         {
             $logImportCount = $this->_getLogImportCountObject( $operation, $limitByModel );
@@ -290,7 +339,7 @@ class ImportLogger extends BaseLogger
         {
             $counter = 0;
 
-            foreach( $this->_importLog[ 'LogImportCount' ] as $logImportCount )
+            foreach( $importLogger[ 'LogImportCount' ] as $logImportCount )
             {
                 if ( $logImportCount[ 'operation' ] == $operation )
                     $counter += $logImportCount[ 'count' ];
@@ -304,7 +353,9 @@ class ImportLogger extends BaseLogger
 
     private function _getLogImportCountObject( $operation, $model  )
     {
-        foreach( $this->_importLog[ 'LogImportCount' ] as $logImportCount )
+        $importLogger = $this->getLoggerByVendor();
+        
+        foreach( $importLogger[ 'LogImportCount' ] as $logImportCount )
         {
             if ( $logImportCount[ 'model' ] == $model &&  $logImportCount[ 'operation' ] == $operation )
                 return $logImportCount;
@@ -314,7 +365,7 @@ class ImportLogger extends BaseLogger
         $logImportCount[ 'model' ] = $model;
         $logImportCount[ 'operation' ] = $operation;
         $logImportCount[ 'count' ] = 0;
-        $this->_importLog[ 'LogImportCount' ][] = $logImportCount;
+        $importLogger[ 'LogImportCount' ][] = $logImportCount;
 
         return $logImportCount;
     }

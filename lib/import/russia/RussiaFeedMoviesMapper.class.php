@@ -15,9 +15,12 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
 {
   public function mapMovies()
   {
-    foreach( $this->xml->movie as $movieElement )
+    foreach( $this->fixIteration( $this->xml->movie ) as $movieElement )
     {
         try {
+            // Set Vendor Unknown For Import Logger
+            ImportLogger::getInstance()->setVendorUnknown();
+
             // Get Movie Id
             $vendor_movie_id = (int) $movieElement['id'];
 
@@ -58,6 +61,9 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
                         continue;
                     }
 
+                    // Set Vendor For Import Logger
+                    ImportLogger::getInstance()->setVendor( $poi['Vendor'] );
+
                     // Only one Movie Per City
                     if( in_array( $poi['Vendor']['city'], $cities ) ) continue;
 
@@ -71,7 +77,7 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
                     // UTC Offset (Requires Vendor)
                     $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
 
-                    // Add Images (Requires Vendor)
+                    //Add Images (Requires Vendor)
                     $processed_medias = array();
                     foreach( $movieElement->medias->media as $media )
                     {

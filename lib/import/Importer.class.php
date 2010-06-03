@@ -69,17 +69,38 @@ class Importer
   {
      try
      {
+        // Empty Array to store field modification info.
+        $modified = array();
+         
         //get the state of the record before save
         $recordIsNew = $record->isNew();
-        $record->applyFixes(); // @todo, don't call applyFixes every time we save a log.
-        $recordModifications = $record->getModified();
 
+        if( !$recordIsNew )
+            $oldRecord = Doctrine::getTable( 'Poi' )->findOneById( $record->id, Doctrine::HYDRATE_ARRAY );
+        
         $record->save();
+
+        // If Record is not new, check to see which fields are modified.
+        // Do it like this because Doctrine lastModified function(s) mark fields as modified
+        // if they have been set and reset in the current script execution, regardless of their
+        // original database state.
+        if( !$recordIsNew )
+        {
+            $newRecord = $record->toArray( false );
+            
+            foreach( $newRecord as $key => $mod )
+                if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
+                    if( $newRecord[ $key ] != $oldRecord[ $key ] )
+                        $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
+
+            unset( $oldRecord, $newRecord );
+        }
 
         if ( $recordIsNew )
             ImportLogger::getInstance()->addInsert( $record );
-        else
-            ImportLogger::getInstance()->addUpdate( $record, $recordModifications);
+
+        else ImportLogger::getInstance()->addUpdate( $record, $modified );
+        
      }
      catch( Exception $e )
      {
@@ -89,6 +110,7 @@ class Importer
 
   public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )
   {
+    if( $record ) ImportLogger::getInstance()->addFailed( $record );
     ImportLogger::getInstance()->addError( $exception, $record, $message );
   }
 

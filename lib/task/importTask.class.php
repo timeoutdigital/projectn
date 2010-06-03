@@ -36,21 +36,13 @@ class importTask extends sfBaseTask
 
     $importer = new Importer();
 
-    if( $options['verbose'] == 'true' )
-    {
-      $importer->addLogger( new echoingLogger() );
-    }
-
     //Select the task
     switch( $options['city'] )
     {
       case 'ny':
 
-        //Set vendor and logger
+        //Set vendor
         $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
-        $importer->addLogger( new logImport($vendorObj) );
-        
-
 
         switch( $options['type'] )
         {
@@ -81,7 +73,11 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
+                ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                die;
             break;
 
           case 'eating-drinking':
@@ -151,7 +147,6 @@ class importTask extends sfBaseTask
 
         $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-US');
         $ftpClientObj = new FTPClient( 'ftp.timeoutchicago.com', 'timeout', 'y6fv2LS8', $vendorObj[ 'city' ] );
-       
 
         switch( $options['type'] )
         {
@@ -160,8 +155,11 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
-
+              ImportLogger::getInstance()->setVendor( $vendorObj );
+              $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+              $importer->run();
+              ImportLogger::getInstance()->end();
+              die;
           break;
 
           case 'eating-drinking':
@@ -190,8 +188,8 @@ class importTask extends sfBaseTask
              
                $this->importChicagoEvents($vendorObj, $ftpClientObj);
                $this->importChicagoMovies($vendorObj, $ftpClientObj);
-               $this->importChicagoBc($vendorObj, $ftpClientObj, $loggerObj);
-               $this->importChicagoEd($vendorObj, $ftpClientObj, $loggerObj);
+               $this->importChicagoBc($vendorObj, $ftpClientObj );
+               $this->importChicagoEd($vendorObj, $ftpClientObj );
                
            break;
 
@@ -212,8 +210,6 @@ class importTask extends sfBaseTask
             //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
             //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
-            $logger = new logImport( $vendorObj );
-
             echo "Starting Singapore Pois import \n";
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
@@ -223,27 +219,27 @@ class importTask extends sfBaseTask
             $xmlObj = $curlImporterObj->getXml();
 
             echo "Importing Singapores Pois \n\n";
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
             $this->object->insertPois( $xmlObj );
 
             echo "Starting Singapore Events import \n";
             $curlImporterObj = new curlImporter();
             $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
 
-             echo "Getting reading Singapore poi-event feed";
+            echo "Getting reading Singapore poi-event feed";
             $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
             $xmlObj = $curlImporterObj->getXml();
 
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
             $this->object->insertEvents( $xmlObj );
 
-            $logger->endSuccessful();
+            ImportLogger::getInstance()->end();
+            die;
             
             break;
 
           case 'movie':
             //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-            $logger = new logImport( $vendorObj );
 
             echo "Connecting to Singapore Movie Feed \n";
             $curlImporterObj = new curlImporter();
@@ -254,11 +250,12 @@ class importTask extends sfBaseTask
             $xmlObj = $curlImporterObj->getXml();
 
             echo "Importing Movie Data";
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, $logger );
+            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
             $this->object->insertMovies( $xmlObj );
 
-            $logger->endSuccessful();
             echo "Impored Singapores Movies \n";
+            ImportLogger::getInstance()->end();
+            die;
             
           break;
 
@@ -277,35 +274,42 @@ class importTask extends sfBaseTask
         $oneWeekLater = date_add( new DateTime(), new DateInterval( 'P4D' ) )->format( 'Y-m-d' );
         $parameters   = array( 'from' => $today, 'to' => $oneWeekLater );//lisbon caps the request at 9 days
         $method       = 'POST';
-        $loggerObj    = new logImport( $vendorObj );
         
         switch( $options['type'] )
         {
           case 'poi':
             $request = 'xmlvenues.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'poi' );
 
-            $importer->addLogger( $loggerObj );
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
-            break;
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+
+          break;
 
           case 'event':
             $request = 'xmllist.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'event' );
 
-            $importer->addLogger( $loggerObj );
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
           break;
 
           case 'movie':
             $request = 'xmlfilms.asp';
             $feedObj->pullXml ( $url, $request, $parameters, $method );
-            $loggerObj->setType( 'movie' );
-            
-            $importer->addLogger( $loggerObj );
+
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
           break;
         }
         break; //end lisbon   
@@ -317,15 +321,18 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $vendor = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
+            $vendorObj = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_msk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
+            
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'moscow' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
         }
         break; //end moscow
@@ -336,15 +343,18 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $vendor = $this->getVendorByCityAndLanguage( 'saint petersburg', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
+            $vendorObj = $this->getVendorByCityAndLanguage( 'saint petersburg', 'ru' );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_spb.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'saint petersburg' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
         }
         break; //end saint petersburg
@@ -355,15 +365,18 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $vendor = $this->getVendorByCityAndLanguage( 'omsk', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
+            $vendorObj = $this->getVendorByCityAndLanguage( 'omsk', 'ru' );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_omsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'omsk' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
         }
         break; //end omsk
@@ -374,15 +387,18 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $vendor = $this->getVendorByCityAndLanguage( 'almaty', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
+            $vendorObj = $this->getVendorByCityAndLanguage( 'almaty', 'ru' );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_almaty.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'almaty' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+
             break;
         }
         break; //end almaty
@@ -393,15 +409,18 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $vendor = $this->getVendorByCityAndLanguage( 'novosibirsk', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
+            $vendorObj = $this->getVendorByCityAndLanguage( 'novosibirsk', 'ru' );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_novosibirsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'novosibirsk' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
         }
         break; //end novosibirsk
@@ -412,15 +431,18 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $vendor = $this->getVendorByCityAndLanguage( 'krasnoyarsk', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
+            $vendorObj = $this->getVendorByCityAndLanguage( 'krasnoyarsk', 'ru' );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_krasnoyarsk.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'krasnoyarsk' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+
             break;
         }
         break; //end krasnoyarsk
@@ -431,20 +453,18 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $vendor = $this->getVendorByCityAndLanguage( 'tyumen', 'ru' );
-            ImportLogger::getInstance()->setVendor( $vendor )->start();
-
+            $vendorObj = $this->getVendorByCityAndLanguage( 'tyumen', 'ru' );
+            
             $feedObj = new Curl( 'http://www.timeout.ru/london/places_tumen.xml' );
             $feedObj->exec();
-            
             $xml = simplexml_load_string( $feedObj->getResponse() );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
 
+            ImportLogger::getInstance()->setVendor( $vendorObj );
+            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
             $importer->run();
-            
             ImportLogger::getInstance()->end();
-            
             die;
+
             break;
         }
         break; //end tyumen
@@ -455,70 +475,80 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'event':
-          
-            $vendor = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'event' );
-            $importer->addLogger( $loggerObj );
-
+            
             $feedObj = new Curl( 'http://www.timeout.ru/london/events.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
-          
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'moscow' ) );
-            break;
+
+            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'unknown' /*any vendor*/ ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+
+            die;
 
           case 'movie':
-          
-            $vendor = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
-            $loggerObj = new logImport( $vendor );
-            $loggerObj->setType( 'movie' );
-            $importer->addLogger( $loggerObj );
 
             $feedObj = new Curl( 'http://www.timeout.ru/london/movies.xml' );
             $feedObj->exec();
             $xml = simplexml_load_string( $feedObj->getResponse() );
 
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'moscow' ) );
-            break;
+            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'unknown' /*any vendor*/ ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+
+            die;
         }
         break; //end russia
 
 
       case 'london':
         $vendor = $this->getVendorByCityAndLanguage( 'london', 'en-GB' );
-        $loggerObj = new logImport( $vendor );
         switch( $options['type'] )
         {
           case 'poi':
             $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
-            $loggerObj->setType( 'poi' );
-            $importer->addLogger( $loggerObj );
 
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'poi' ) );
             $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
             $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
             $importer->addDataMapper( new LondonAPICinemasMapper() );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+
             break;
 
           case 'event':
             $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
-            $loggerObj->setType( 'event' );
-            $importer->addLogger( $loggerObj );
 
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
 
           case 'event-occurrence':
             $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
 
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event-occurrence' ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
 
           case 'movie':
-            $loggerObj->setType( 'movie' );
-            $importer->addLogger( $loggerObj );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendor ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
           break;
         }
         break; //end london
@@ -529,8 +559,6 @@ class importTask extends sfBaseTask
       //sydney is dirty I know... needs fixing bad, like the rest of this task
       case 'sydney':
         $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
-        $loggerObj = new logImport( $vendor );
-        $importer->addLogger( new logImport( $vendor ) );
 
         $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
         $ftpClient->setSourcePath( '/timeoutlondon/' );
@@ -555,30 +583,42 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
-            $loggerObj->setType( 'poi' );
-            $this->output( 'fetching sydney poi xml...' );
+
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'poi' ], 'venues.xml' );
-            $this->output( 'xml received' );
             $xml = simplexml_load_file( $downloadedFile );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new sydneyFtpVenuesMapper( $vendor, $xml ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
 
           case 'event':
-            $loggerObj->setType( 'event' );
-            $this->output( 'fetching sydney event xml...' );
+
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'event' ], 'event.xml' );
-            $this->output( 'xml received' );
             $xml = simplexml_load_file( $downloadedFile );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new sydneyFtpEventsMapper( $vendor, $xml ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
 
           case 'movie':
-            $loggerObj->setType( 'movie' );
-            $this->output( 'fetching sydney movie xml...' );
+
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'movie' ], 'movie.xml' );
-            $this->output( 'xml received' );
             $xml = simplexml_load_file( $downloadedFile );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $xml ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
         }
         break;
@@ -586,43 +626,52 @@ class importTask extends sfBaseTask
 
     case 'kuala lumpur':
         $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
-        $loggerObj      = new logImport( $vendor );
-        $importer->addLogger( $loggerObj );
 
         if( $options['type'] == "event" || $options['type'] == "movie" )
         {
-            $this->output( 'fetching KL event/movie xml...' );
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
             $feedObj->exec();
-            $this->output( 'xml received' );
         }
         elseif( $options['type'] == "poi" )
         {
-            $this->output( 'fetching KL poi xml...' );
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
             $feedObj->exec();
-            $this->output( 'xml received' );
         }
         else break;
         
         switch( $options['type'] )
         {
           case 'poi':
-            $loggerObj->setType( 'poi' );
             $xml = simplexml_load_string( $feedObj->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $xml ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
             break;
 
           case 'event':
-            $loggerObj->setType( 'event' );
             $xml = $this->removeKualaLumpurMoviesFromEventFeed( simplexml_load_string( $feedObj->getResponse() ) );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $xml ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
           break;
 
           case 'movie':
-            $loggerObj->setType( 'movie' );
             $xml = $this->returnKualaLumpurMoviesFromEventFeed( simplexml_load_string( $feedObj->getResponse() ) );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
             $importer->addDataMapper( new kualaLumpurMoviesMapper( $vendor, $xml ) );
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            die;
+            
           break;
         }
         unset( $xml );
@@ -649,8 +698,6 @@ class importTask extends sfBaseTask
 
 
     }//end switch
-
-    $importer->run();
 
     $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ') -- Peak memory used: ' . $this->byteToHumanReadable( memory_get_peak_usage( true ) ) );
   }

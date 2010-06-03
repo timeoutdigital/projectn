@@ -25,9 +25,12 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     $this->vendor = NULL;
     
-    foreach( $this->xml->event as $eventElement )
+    foreach( $this->fixIteration( $this->xml->event ) as $eventElement )
     {
       try{
+          // Set Vendor Unknown For Import Logger
+          ImportLogger::getInstance()->setVendorUnknown();
+
           // Get Venue Id
           $vendorEventId = (int) $eventElement['id'];
 
@@ -62,6 +65,9 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                     $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . (string) $xmlOccurrence->venue . ' for Event ' . $vendorEventId . ' in Russia.' ) );
                     continue;
                   }
+
+                  // Set Vendor For Import Logger
+                  ImportLogger::getInstance()->setVendor( $poi['Vendor'] );
 
                   // Get Occurrence Id
                   $vendor_occurence_id = (int) $xmlOccurrence[ 'id' ];
