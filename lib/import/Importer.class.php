@@ -70,16 +70,16 @@ class Importer
      try
      {
         //get the state of the record before save
-        $recordIsNew = $record->isNew();
-        $record->applyFixes(); // @todo, don't call applyFixes every time we save a log.
-        $recordModifications = $record->getModified();
+        //$recordIsNew = $record->isNew();
+        //$record->applyFixes(); // @todo, don't call applyFixes every time we save a log.
+        //$recordModifications = $record->getModified();
 
         $record->save();
 
-        if ( $recordIsNew )
-            ImportLogger::getInstance()->addInsert( $record );
-        else
-            ImportLogger::getInstance()->addUpdate( $record, $recordModifications);
+        //if ( $recordIsNew )
+        //    ImportLogger::getInstance()->addInsert( $record );
+        //else
+        //    ImportLogger::getInstance()->addUpdate( $record, $recordModifications);
      }
      catch( Exception $e )
      {
@@ -89,7 +89,7 @@ class Importer
 
   public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )
   {
-    ImportLogger::getInstance()->addError( $exception, $record, $message );
+    ///ImportLogger::getInstance()->addError( $exception, $record, $message );
   }
 
   /**
