@@ -272,7 +272,7 @@ class importTask extends sfBaseTask
 
         $vendorObj    = $this->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj      = new curlImporter();
-        $chunk        = 4;
+        $chunk        = 7;
         $url          = 'http://www.timeout.pt/';
         $today        = date( 'Y-m-d' );
         $oneWeekLater = date_add( new DateTime(), new DateInterval( 'P' . $chunk . 'D' ) )->format( 'Y-m-d' );

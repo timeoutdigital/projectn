@@ -39,7 +39,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     );
     $this->vendor = $vendor;
 
-    foreach( array( 833, 2844/*, 4109*/ ) as $placeid )
+    foreach( array( 833, 2844, 366, 4109 ) as $placeid )
     {
       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => $placeid ) );
     }
@@ -154,14 +154,14 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
 
     $events = Doctrine::getTable( 'Event' )->findAll();
-    $this->assertEquals( 3, $events->count() );
+    $this->assertEquals( 9, $events->count() );
 
     $event = $events[0];
 
     $this->assertEquals( '50805', $event['vendor_event_id'] );
     $this->assertEquals( 'Arquitecto José Santa-Rita, arquitecto: Obra, marcas e identidade(s) de um percu', $event['name'] );
     $this->assertEquals( 'Constituindo, pela primeira vez, uma homenagem póstuma, esta edição do Prémio Mu', $event['short_description'] );
-    $this->assertRegExp( '/^Constituindo,.*Exposições.$/', $event['description'] );
+    $this->assertRegExp( '/^Patrcia.*percurso$/', $event['description'] );
     $this->assertEquals( '', $event['booking_url'] );
     $this->assertEquals( '', $event['url'] );
     $this->assertEquals( '', $event['price'] );
@@ -179,11 +179,18 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
 
     $eventOccurrences = Doctrine::getTable( 'EventOccurrence' )->findAll();
-    $this->assertEquals( 6, $eventOccurrences->count() );
+    $this->assertEquals( 13, $eventOccurrences->count() );
     
     $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 50797 );
-     
     $this->assertEquals( 2 ,count( $event['EventOccurrence'] ), 'hooo'  );
+
+    $event = Doctrine::getTable( 'Event' )->createQuery( 'e' )->where( 'e.vendor_event_id = ?', 67337 )->andWhere( 'e.name = ?', 'Rozett 4 Tet')->fetchOne();
+    $this->assertEquals( 1 ,count( $event['EventOccurrence'] ), 'One event occurrence for Rozett 4 Tet'  );
+  
+    $event = Doctrine::getTable( 'Event' )->createQuery( 'e' )->where( 'e.vendor_event_id = ?', 67337 )->andWhere( 'e.name = ?', 'Galamataki')->fetchOne();
+    $this->assertEquals( 2 ,count( $event['EventOccurrence'] ), 'Two event occurrences for Galamataki'  );
+
+
   }
 
   public function testAddsCategoryToPoi()
@@ -244,7 +251,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $xml = simplexml_load_file( $file );
     $geocoder = $this->getMock( 'geoEncode' );
     $importer->addDataMapper( new LisbonFeedListingsMapper( $xml, $geocoder ) );
-    $importer->addLogger( $logger );
+    //$importer->addLogger( $logger );
     $importer->run();
   }
 }
