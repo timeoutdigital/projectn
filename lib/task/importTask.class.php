@@ -553,8 +553,8 @@ class importTask extends sfBaseTask
       //sydney is dirty I know... needs fixing bad, like the rest of this task
       case 'sydney':
         $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
-        $loggerObj = new logImport( $vendor );
-        $importer->addLogger( new logImport( $vendor ) );
+        //$loggerObj = new logImport( $vendor );
+        //$importer->addLogger( new logImport( $vendor ) );
 
         $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
         $ftpClient->setSourcePath( '/timeoutlondon/' );
@@ -579,7 +579,7 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
-            $loggerObj->setType( 'poi' );
+        //    $loggerObj->setType( 'poi' );
             $this->output( 'fetching sydney poi xml...' );
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'poi' ], 'venues.xml' );
             $this->output( 'xml received' );
@@ -588,7 +588,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'event':
-            $loggerObj->setType( 'event' );
+          //  $loggerObj->setType( 'event' );
             $this->output( 'fetching sydney event xml...' );
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'event' ], 'event.xml' );
             $this->output( 'xml received' );
@@ -597,7 +597,7 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-            $loggerObj->setType( 'movie' );
+            //$loggerObj->setType( 'movie' );
             $this->output( 'fetching sydney movie xml...' );
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'movie' ], 'movie.xml' );
             $this->output( 'xml received' );

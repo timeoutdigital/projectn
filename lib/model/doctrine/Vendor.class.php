@@ -50,4 +50,20 @@ class Vendor extends BaseVendor
     return $dateTimeObj->format( 'P' );
   }
 
+  /**
+   * Returns an array of address transformations appropriate to this lender
+   *
+   * @param array An array of all transformations, indexed by vendor ID. By default null, loads from app.yml
+   * @return array An array of transformations for this lender
+   */
+  public function getAddressTransformations( $transformations = null )
+  {
+
+    if ( $transformations == null || !is_array( $transformations ) )
+      $transformations = sfConfig::get( 'app_vendor_address_transformations', array() );
+
+    return ( isset( $transformations[ $this[ 'id' ] ] ) ) ? $transformations[ $this[ 'id' ] ] : array();
+
+  }
+
 }
