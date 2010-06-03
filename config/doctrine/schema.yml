@@ -435,7 +435,6 @@ LogExportCount:
   relations:
     LogExport:                {local: log_export_id, foreign: id}
 
-
 LogImportChange:
   connection: project_n
   actAs:
@@ -456,7 +455,7 @@ LogImportError:
   actAs:
     Timestampable:              ~
   columns:
-    model:                      {type: string(50), notnull: true}
+    model:                      {type: string(50), notnull: false}
     exception_class:            {type: string(255), notnull: true}
     trace:                      {type: string, notnull: true}
     message:                    {type: string, notnull: true}
@@ -476,18 +475,15 @@ LogExportError:
   actAs:
     Timestampable:              ~
   columns:
-    record_id:                  {type: integer, notnull: true}
-    model:                      {type: string(50), notnull: true}
-    vendor_record_id:           {type: integer, notnull: true}
+    record_id:                  {type: integer, notnull: false}
+    model:                      {type: string(50), notnull: false}
     log:                        {type: string, notnull: true}
-    log_export_id:           {type: integer, notnull: true}
+    log_export_id:              {type: integer, notnull: true}
   relations:
     LogExport:                  {local: log_export_id, foreign: id}
   indexes:
     record_id_index:            {fields: [record_id]}
     model_index:                {fields: [model]}
-    vendor_record_id_index:     {fields: [vendor_record_id]}
-
 
 
 
