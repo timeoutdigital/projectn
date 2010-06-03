@@ -100,7 +100,6 @@ class Importer
             ImportLogger::getInstance()->addInsert( $record );
 
         else ImportLogger::getInstance()->addUpdate( $record, $modified );
-        
      }
      catch( Exception $e )
      {

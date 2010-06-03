@@ -22,19 +22,45 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       {
          continue;
       }
+  
+      // Do we have the event occurrence already?
+      $musicId = (int) $listingElement['musicid'];
+      $occurrence = Doctrine::getTable( 'EventOccurrence' )->createQuery( 'o' )
+                                                           ->innerJoin( 'o.Event e' )
+                                                           ->where( 'e.vendor_id = ?', $this->vendor[ 'id' ] )
+                                                           ->andWhere( 'o.vendor_event_occurrence_id = ?', $musicId )
+                                                           ->fetchOne();
 
-      $event = $this->getEventRecordFrom( $listingElement );
+      if ( $occurrence )
+      {
+        $event = Doctrine::getTable( 'Event' )->find( $occurrence[ 'event_id' ] );
+      }
+      else
+      {
+        // Do we have an event with this RecurringListingId ?
+        $rlid = (int) $listingElement[ 'RecurringListingID' ];
+        $name = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
+        $event = Doctrine::getTable( 'Event' )->createQuery( 'e' )
+                                              ->where( 'e.vendor_event_id = ?', $rlid )
+                                              ->andWhere( 'e.name = ?', $name )
+                                              ->fetchOne();
+
+        if ( !$event )
+        {
+          $event = new Event();
+        }
+
+        $occurrence = new EventOccurrence();
+      }
 
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
       $this->appendBandInfoToDescription( $event, $listingElement );
-      
       $event['description']                                 = preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] );
       $event['price']                                       = str_replace( "?", "€", $event['price'] ); // Refs: #258b
       $event['vendor_id']                                   = $this->vendor['id'];
       $event['vendor_event_id']                             = (int) $listingElement['RecurringListingID'];
       $event['review_date']                                 = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
-
-      $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $event, (int) $listingElement['musicid'] );
+      $event['name']                                        = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
 
       $occurrence['vendor_event_occurrence_id']             = (int) $listingElement['musicid'];
       $start = $this->extractStartTimes( $listingElement );
@@ -42,7 +68,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $occurrence['start_time']                             = $start['time'];
       $occurrence['utc_offset']                             = $this->vendor->getUtcOffset( $start[ 'datetime' ] );
       $occurrence['event_id']                               = $event['id'];
-      
+     
       $placeid = (int) $listingElement['placeid'];
       $poi = $this->dataMapperHelper->getPoiRecord( $placeid, $this->vendor['id'] );
 
@@ -55,20 +81,10 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $category = array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] );
       $event->addVendorCategory( $category, $this->vendor['id'] );
       $poi->addVendorCategory(   $category, $this->vendor['id'] );
-
       $this->notifyImporter( $poi );
-
       $occurrence['Poi']                                    = $poi;
-      
       $event['EventOccurrence'][]                           = $occurrence;
-
-      //try to find the event using name
-      $eventName = (string) $listingElement['gigKey'];
-      if( !$event->exists() && Doctrine::getTable('Event')->findOneByNameAndVendorId( $eventName, $this->vendor['id'] ) )
-      {
-          $this->notifyImporterOfFailure( new Exception( 'An event of this name already exists; suspicious...' ) , $event );
-          continue;
-      }
+      
       $this->notifyImporter( $event );
     }
   }
@@ -87,6 +103,10 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $start[ 'time' ] = null;                                    //$startParts[ 1 ]; we don't seem to have times for Lisbon at the moment
       $start[ 'datetime' ] = $startParts[ 0 ] . ' ' . '00:00:00'; //$startParts[ 1 ]; so we need to hard code a work around for now
 
+/*    print_r( $start );
+      print "\n";
+      exit;
+*/
       return $start;
   }
 
@@ -204,5 +224,27 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       'band'
     );
   }
+
+  public function getTargetDate( $currentTarget )
+  {
+
+    foreach( $this->xml->listings as $listingElement )
+    {
+      if( (int) $listingElement['RecurringListingID'] == 0 )
+      {
+         continue;
+      }
+
+      $startParts = explode('T', (string) $listingElement['ProposedToDate'] );
+
+      $date = strtotime( $startParts[0] );
+
+      if ( $date > $currentTarget )
+        $currentTarget = $date;
+    }
+
+    return $currentTarget;
+  }
+
 }
 ?>
