@@ -71,5 +71,11 @@ abstract class DataMapper
             }
         }
     }
+
+  protected function fixIteration( $xml )
+  {
+      foreach( $xml as $fixSimpleXMLBug ) $data[] = $fixSimpleXMLBug;
+      return $data;
+  }
 }
 ?>

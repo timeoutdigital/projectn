@@ -56,19 +56,17 @@ class singaporeImport
      * @param $poiLookupUrl
      *
      */
-    public function  __construct( Vendor $vendorObj, curlImporter $curlImporterObj, logImport $loggerObj, $poiLookupUrl = '' )
-                {
+    public function  __construct( Vendor $vendorObj, curlImporter $curlImporterObj, $poiLookupUrl = '' )
+    {
         $this->_vendor = $vendorObj;
         $this->_curlImporter = $curlImporterObj;
-        $this->_logger = $loggerObj;
         $this->_poiLookupUrl = $poiLookupUrl;
+        $this->_logger = ImportLogger::getInstance()->setVendor( $this->_vendor );
 
         if ( ! $this->_vendor instanceof Vendor )
             throw new Exception( 'Invalid Vendor' );
         if ( ! $this->_curlImporter instanceof curlImporter )
             throw new Exception( 'Invalid curlImporter' );
-        if ( ! $this->_logger instanceof logImport )
-            throw new Exception( 'Invalid logger' );
     }
 
     /**
@@ -112,7 +110,7 @@ class singaporeImport
         {
             try
             {
-                $eventDetailObj = $this->fetchDetailUrl( (string)  $eventXmlObj->link  );
+                $eventDetailObj = $this->fetchDetailUrl( (string) $eventXmlObj->link  );
                 if ( !( $eventDetailObj instanceof SimpleXMLElement ) )
                 {
                     throw new Exception( 'could not retrieve valid venue node by url: ' . (string) $eventXmlObj->link );
@@ -139,7 +137,7 @@ class singaporeImport
         foreach( $moviesXmlObj as $movieXmlObj )
         {
             try {
-                $movieDetailObj = $this->fetchDetailUrl( (string)  $movieXmlObj->link  );
+                $movieDetailObj = $this->fetchDetailUrl( (string) $movieXmlObj->link  );
                 if ( !( $movieDetailObj instanceof SimpleXMLElement ) )
                 {
                     throw new Exception( 'could not retrieve valid venue node by url: ' . (string) $movieXmlObj->link );
@@ -284,25 +282,49 @@ class singaporeImport
             }
             // -- End Add Images --
 
-            //Save the object and log the changes
-            //pre-save
-            $logIsNew = $poi->isNew();
-
-
-            $poi->applyDataFixes();
-
-
-            $logChangedFields = $poi->getModified();
 
 
 
+            //-- Log Modifications (new logger 3-Jun-10 -pj)
 
+            // Empty Array to store field modification info.
+            $modified = array();
 
+            //get the state of the record before save
+            $recordIsNew = $poi->isNew();
 
-            //save
+            if( !$recordIsNew )
+                $oldRecord = Doctrine::getTable( 'Poi' )->findOneById( $poi->id, Doctrine::HYDRATE_ARRAY );
+
             $poi->save();
-            //post-save
-            $this->_logger->addSuccess( $poi, ( $logIsNew ) ? 'insert' : 'update', $logChangedFields );
+
+            // If Record is not new, check to see which fields are modified.
+            // Do it like this because Doctrine lastModified function(s) mark fields as modified
+            // if they have been set and reset in the current script execution, regardless of their
+            // original database state.
+
+            // NOTE, this is copied from Importer.class
+            if( !$recordIsNew )
+            {
+                $newRecord = $poi->toArray( false );
+
+                foreach( $newRecord as $key => $mod )
+                    if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
+                        if( $newRecord[ $key ] != $oldRecord[ $key ] )
+                            $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
+
+                unset( $oldRecord, $newRecord );
+            }
+
+            if ( $recordIsNew )
+                ImportLogger::getInstance()->addInsert( $poi );
+
+            else ImportLogger::getInstance()->addUpdate( $poi, $modified );
+
+            // -- End Log Modifications
+
+
+
 
             return $poi;
 
@@ -401,14 +423,50 @@ class singaporeImport
 
             //save to populate the id
 
-            //Save the object and log the changes
-            //pre-save
-            $logIsNew = $event->isNew();
-            $logChangedFields = $event->getModified();
-            //save
-            $event->save();
-            //post-save
-            $this->_logger->addSuccess( $poi, ( $logIsNew ) ? 'insert' : 'update', $logChangedFields );
+
+
+
+            //-- Log Modifications (new logger 3-Jun-10 -pj)
+
+            // Empty Array to store field modification info.
+            $modified = array();
+
+            //get the state of the record before save
+            $recordIsNew = $event->isNew();
+
+            if( !$recordIsNew )
+                $oldRecord = Doctrine::getTable( 'Event' )->findOneById( $event->id, Doctrine::HYDRATE_ARRAY );
+
+            $poi->save();
+
+            // If Record is not new, check to see which fields are modified.
+            // Do it like this because Doctrine lastModified function(s) mark fields as modified
+            // if they have been set and reset in the current script execution, regardless of their
+            // original database state.
+
+            // NOTE, this is copied from Importer.class
+            if( !$recordIsNew )
+            {
+                $newRecord = $event->toArray( false );
+
+                foreach( $newRecord as $key => $mod )
+                    if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
+                        if( $newRecord[ $key ] != $oldRecord[ $key ] )
+                            $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
+
+                unset( $oldRecord, $newRecord );
+            }
+
+            if ( $recordIsNew )
+                ImportLogger::getInstance()->addInsert( $event );
+
+            else ImportLogger::getInstance()->addUpdate( $event, $modified );
+
+            // -- End Log Modifications
+
+
+
+
 
             if ( count( $eventObj->venue->id ) == 1 && (string) $eventObj->date_start != '' )
             {
@@ -527,12 +585,48 @@ class singaporeImport
 
             //Save the object and log the changes
             //pre-save
-            $logIsNew = $movieObj->isNew();
-            $logChangedFields = $movieObj->getModified();
-            //save
+
+
+
+            //-- Log Modifications (new logger 3-Jun-10 -pj)
+
+            // Empty Array to store field modification info.
+            $modified = array();
+
+            //get the state of the record before save
+            $recordIsNew = $movieObj->isNew();
+
+            if( !$recordIsNew )
+                $oldRecord = Doctrine::getTable( 'Movie' )->findOneById( $movieObj->id, Doctrine::HYDRATE_ARRAY );
+
             $movieObj->save();
-            //post-save
-            $this->_logger->addSuccess( $poi, ( $logIsNew ) ? 'insert' : 'update', $logChangedFields );
+
+            // If Record is not new, check to see which fields are modified.
+            // Do it like this because Doctrine lastModified function(s) mark fields as modified
+            // if they have been set and reset in the current script execution, regardless of their
+            // original database state.
+
+            // NOTE, this is copied from Importer.class
+            if( !$recordIsNew )
+            {
+                $newRecord = $movieObj->toArray( false );
+
+                foreach( $newRecord as $key => $mod )
+                    if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
+                        if( $newRecord[ $key ] != $oldRecord[ $key ] )
+                            $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
+
+                unset( $oldRecord, $newRecord );
+            }
+
+            if ( $recordIsNew )
+                ImportLogger::getInstance()->addInsert( $movieObj );
+
+            else ImportLogger::getInstance()->addUpdate( $movieObj, $modified );
+
+            // -- End Log Modifications
+
+
 
             $movieId = $movieObj[ 'id' ];
             $movieObj->free();
@@ -542,7 +636,7 @@ class singaporeImport
         catch( Exception $e )
         {
             $log =  'Error processing Movie: \n Vendor = '. $this->_vendor['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
-            $this->_logger->addError($e, $movieObj, $log );
+            $this->_logger->addError( $e, $movieObj, $log );
         }
 
     }

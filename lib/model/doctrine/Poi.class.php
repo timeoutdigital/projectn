@@ -52,11 +52,9 @@ class Poi extends BasePoi
     $this->geoEncoder = $geoEncoder;
   }
 
-  public function setPoiName( $string )
+  public function fixPoiName()
   {
-    $string = preg_replace( '/[, ]*$/', '', $string );
-
-    $this->_set( 'poi_name', $string );
+    $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
   }
 
   /**
@@ -195,7 +193,7 @@ class Poi extends BasePoi
 
   public function setTimeoutLinkProperty( $url )
   {
-    if( empty($url) )
+    if( empty( $url ) )
       return; //@todo consider logging
 
     $this->addProperty( 'Timeout_link', $url );
@@ -303,6 +301,7 @@ class Poi extends BasePoi
    */
   public function applyFixes()
   {
+     $this->fixPoiName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();

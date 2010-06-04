@@ -12,10 +12,10 @@
  *
  */
 class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
-{
+{  
   public function mapPlaces()
   {
-    foreach( $this->xml->venue as $venueElement )
+    foreach( $this->fixIteration( $this->xml->venue ) as $venueElement )
     {
         try {
             // Get Venue Id
@@ -94,7 +94,6 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
                     $poi['latitude']  = $cityCentreGeoCoOrds[ $this->vendor->city ][ 0 ];
                     $poi['longitude'] = $cityCentreGeoCoOrds[ $this->vendor->city ][ 1 ];
                 }
-
             
             $this->notifyImporter( $poi );
         }
