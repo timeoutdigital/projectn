@@ -606,7 +606,6 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi':
-
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'poi' ], 'venues.xml' );
             $xml = simplexml_load_file( $downloadedFile );
 
@@ -619,7 +618,6 @@ class importTask extends sfBaseTask
             break;
 
           case 'event':
-
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'event' ], 'event.xml' );
             $xml = simplexml_load_file( $downloadedFile );
 
@@ -632,7 +630,6 @@ class importTask extends sfBaseTask
             break;
 
           case 'movie':
-
             $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'movie' ], 'movie.xml' );
             $xml = simplexml_load_file( $downloadedFile );
 

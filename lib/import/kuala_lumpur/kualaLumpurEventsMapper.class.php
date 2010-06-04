@@ -70,6 +70,7 @@ class kualaLumpurEventsMapper extends DataMapper
 
           $occurrence['Poi'] = $poi;
 
+          $record['EventOccurrence']->delete();          
           $record['EventOccurrence'][] = $occurrence;
 
           $this->notifyImporter( $record );

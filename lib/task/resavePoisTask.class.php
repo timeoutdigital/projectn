@@ -55,8 +55,8 @@ EOF;
     {
         $poi->save();
 
-        if ( $counter++ % 100 == 0 )
-            print "$counter / $total completed\n"; 
+/*        if ( $counter++ % 100 == 0 )
+            print "$counter / $total completed\n";  */
     }
 
     print "Done\n";
