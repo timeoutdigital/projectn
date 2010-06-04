@@ -70,6 +70,58 @@ class Poi extends BasePoi
 
   }
 
+  /**
+   * Applies vendor-specific address regexp transformations from app.yml
+   */
+  public function applyAddressTransformations( $transformations = null )
+  {
+    if ( $transformations == null || !is_array( $transformations ) ) {
+      // Get transformations
+      $transformations = $this[ 'Vendor' ]->getAddressTransformations();
+    }
+ 
+    if ( count( $transformations ) )
+    {
+      // Loop through transforms, applying them
+      foreach ( $transformations as $transform )
+      {
+        if ( !isset( $transform[ 'regexp' ] ) || !isset( $transform[ 'type' ] ) || !isset( $transform[ 'field' ] ) )
+          continue;
+        $regexp = $transform[ 'regexp' ];
+        $fieldName = $transform[ 'field' ];
+        $type = $transform[ 'type' ];
+        //print "$regexp $type $fieldName\n"; 
+        try
+        {
+          $value = $this[ $fieldName ];
+
+          switch ( $type )
+          {
+            case 'move':
+              // Match regexp
+             // print "Matching against '$value'...\n";
+              if ( preg_match( $regexp, $value, $matches ) )
+              {
+               // print "Matched\n";
+                $this[ $fieldName ] = trim( preg_replace( $regexp, '', $value ) );
+                $move = $matches[ 1 ];
+                $toField = $transform[ 'to' ];
+                $this[ $toField ] = $move;
+              }
+              break;
+            case 'remove':
+              if ( preg_match( $regexp, $value, $matches ) )
+              {
+                $this[ $fieldName ] = trim( preg_replace( $regexp, '', $value ) );
+              }
+              break;
+          }
+        }
+        catch ( Exception $e ) { } // Fail silently
+      }
+    }
+  }
+
   public function getGeoEncoder()
   {
     if( !$this->geoEncoder )
@@ -237,6 +289,14 @@ class Poi extends BasePoi
       $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
     }
 
+    // This is a possible fix to ticket #400
+//    $pc = new LinkingVendorPoiCategory();
+//    $pc['vendor_poi_category_id'] = $vendorPoiCategoryObj['id'];
+//    $pc['poi_id'] = $this['id'];
+//    $pc->save();
+//    // need to $vendorPoiCategoryObj save and remove line below,
+      // need to edit LisbonFeedListingsMapper, remove poi save.
+
     $this[ 'VendorPoiCategory' ][] = $vendorPoiCategoryObj;
   }
 
@@ -257,6 +317,7 @@ class Poi extends BasePoi
      $this->fixUrl();
      $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
+     $this->applyAddressTransformations();
      $this->cleanStreetField();
      $this->setDefaultLongLatNull();
      $this->fixHTMLEntities();
@@ -265,7 +326,7 @@ class Poi extends BasePoi
 
   /**
    * PreSave Method
-   */
+  */
   public function preSave( $event )
   {
     $this->applyFixes();

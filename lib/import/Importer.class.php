@@ -76,7 +76,7 @@ class Importer
         $recordIsNew = $record->isNew();
 
         if( !$recordIsNew )
-            $oldRecord = Doctrine::getTable( 'Poi' )->findOneById( $record->id, Doctrine::HYDRATE_ARRAY );
+            $oldRecord = Doctrine::getTable( get_class( $record ) )->findOneById( $record->id, Doctrine::HYDRATE_ARRAY );
         
         $record->save();
 
