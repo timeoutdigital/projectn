@@ -437,7 +437,7 @@ class singaporeImport
             if( !$recordIsNew )
                 $oldRecord = Doctrine::getTable( 'Event' )->findOneById( $event->id, Doctrine::HYDRATE_ARRAY );
 
-            $poi->save();
+            $event->save();
 
             // If Record is not new, check to see which fields are modified.
             // Do it like this because Doctrine lastModified function(s) mark fields as modified
