@@ -289,6 +289,14 @@ class Poi extends BasePoi
       $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
     }
 
+    // This is a possible fix to ticket #400
+//    $pc = new LinkingVendorPoiCategory();
+//    $pc['vendor_poi_category_id'] = $vendorPoiCategoryObj['id'];
+//    $pc['poi_id'] = $this['id'];
+//    $pc->save();
+//    // need to $vendorPoiCategoryObj save and remove line below,
+      // need to edit LisbonFeedListingsMapper, remove poi save.
+
     $this[ 'VendorPoiCategory' ][] = $vendorPoiCategoryObj;
   }
 
