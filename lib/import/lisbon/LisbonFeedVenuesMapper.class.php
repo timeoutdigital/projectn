@@ -42,8 +42,10 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
 
       $poi->setGeoEncodeLookUpString ( $this->getGeoEncodeData( $poi ) );
- 
+      $start = microtime( true ); 
        $this->notifyImporter( $poi );
+      $end = microtime( true );
+      print "Took " . ( $end - $start ) ."\n";
     }
   }
 

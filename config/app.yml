@@ -7,6 +7,15 @@ all:
       newyork3: { long: '-74.0059729', lat: '40.7142691' }
   vendor:
     address_transformations:
+      3: # Singapore
+        - { field: street, type: move, regexp: '%(#[-/0-9]+[A-Z]?,?\s)(?!(Dempsey|Frankel))%i', to: additional_address_details }
+        - { field: street, type: move, regexp: '%(#[-/0-9A-Z]+)%i', to: additional_address_details }
+        - { field: street, type: move, regecp: '%^([-/0-9]+[A-Z]?)%i', to: additional_address_details }
+#      4: # London
+#       - { field: street, type: move, regexp: '/(([0-9]+th|[0-9]+nd|[0-9]+st|[0-9]+rd|ground|second|third|fourth|fifth|mezzanine|lower ground|first and second)\sfloor,?)/i', to: additional_address_details }
+#        - { field: street, type: move, regexp: '/(unit\s([0-9]+[a-z]?),?)/i', to: additional_address_details }
+#        - { field: street, type: remove, regexp: '/([EWNS][CWE]?[0-9][A-Z]?\s[0-9][A-Z]+)/i' }
+#        - { field: street, type: move, regexp: '%([-/0-9]+[a-zA-Z]?),?%i', to: house_no }
       8: # Sydney
         - { field: street, type: move, regexp: '%((Level|Unit|Lvl|Shop|Pier|Suite)\s([\d]+|One|Two|Seven))[/,]?%i', to: additional_address_details }
         - { field: street, type: move, regexp: '%((Ground|First|[\d]+(st|th|rd|nd))\s(floor|Floor),?)%i', to: additional_address_details }

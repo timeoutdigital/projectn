@@ -73,11 +73,13 @@ class Poi extends BasePoi
   /**
    * Applies vendor-specific address regexp transformations from app.yml
    */
-  public function applyAddressTransformations()
+  public function applyAddressTransformations( $transformations = null )
   {
-    // Get transformations
-    $transformations = $this[ 'Vendor' ]->getAddressTransformations();
-    
+    if ( $transformations == null || !is_array( $transformations ) ) {
+      // Get transformations
+      $transformations = $this[ 'Vendor' ]->getAddressTransformations();
+    }
+ 
     if ( count( $transformations ) )
     {
       // Loop through transforms, applying them
@@ -101,7 +103,7 @@ class Poi extends BasePoi
               if ( preg_match( $regexp, $value, $matches ) )
               {
                // print "Matched\n";
-                $this[ $fieldName ] = preg_replace( $regexp, '', $value );
+                $this[ $fieldName ] = trim( preg_replace( $regexp, '', $value ) );
                 $move = $matches[ 1 ];
                 $toField = $transform[ 'to' ];
                 $this[ $toField ] = $move;
@@ -110,7 +112,7 @@ class Poi extends BasePoi
             case 'remove':
               if ( preg_match( $regexp, $value, $matches ) )
               {
-                $this[ $fieldName ] = preg_replace( $regexp, '', $value );
+                $this[ $fieldName ] = trim( preg_replace( $regexp, '', $value ) );
               }
               break;
           }
@@ -316,7 +318,7 @@ class Poi extends BasePoi
 
   /**
    * PreSave Method
-   */
+  */
   public function preSave( $event )
   {
     $this->applyFixes();
