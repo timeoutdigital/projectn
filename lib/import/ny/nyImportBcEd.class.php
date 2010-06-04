@@ -34,13 +34,6 @@ class nyImportBcEd {
     public $vendorObj;
 
     /**
-     * Logger
-     *
-     * @var logImport
-     */
-    public $loggerObj;
-
-    /**
      * @var string;
      */
     private $restaurantOrBar;
@@ -57,8 +50,7 @@ class nyImportBcEd {
         $this->bcObj = $bcObj;
         $this->vendorObj = $vendorObj;
         $this->restaurantOrBar = $restuarantOrBar;
-        $this->loggerObj = new logImport($vendorObj);
-        $this->loggerObj->setType('poi');
+        ImportLogger::getInstance()->setVendor( $vendorObj );
         Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     }
 
@@ -76,9 +68,6 @@ class nyImportBcEd {
                 $this->importPoi($poi);
             }
         }
-
-        //Save the logger
-        $this->loggerObj->save();
     }
 
     
@@ -98,8 +87,6 @@ class nyImportBcEd {
 
         if($currentPoi)
         {
-            //Count thisi as existing
-            $this->loggerObj->countExisting();
             return $currentPoi;
         }
         else
@@ -221,14 +208,8 @@ class nyImportBcEd {
            }
 
 
-           //Save the object and log the changes
-           //pre-save
-           $logIsNew = $poiObj->isNew();
-           $logChangedFields = $poiObj->getModified();
-           //save
-           $poiObj->save();
-           //post-save
-           ( $logIsNew ) ? $this->loggerObj->countNewInsert() : $this->loggerObj->addChange( 'update', $logChangedFields );
+            ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
+
 
            //Return Poi for testing
            return $poiObj;
@@ -238,7 +219,7 @@ class nyImportBcEd {
         catch(Doctrine_Validator_Exception $error)
         {           
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->loggerObj->addError($error, $poiObj, $log);
+           ImportLogger::getInstance()->addError($error, $poiObj, $log);
             
             return $poiObj;
         }
@@ -246,7 +227,7 @@ class nyImportBcEd {
         catch(Exception $e)
         {
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->loggerObj->addError($e, $poiObj, $log);
+           ImportLogger::getInstance()->addError($e, $poiObj, $log);
 
            return $poiObj;
         }

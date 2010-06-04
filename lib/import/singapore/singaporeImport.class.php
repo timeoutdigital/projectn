@@ -33,11 +33,6 @@ class singaporeImport
     private $_vendor;
 
     /*
-   * @var Vendor
-    */
-    private $_logger;
-
-    /*
    * @var curlImporter
     */
     protected $_curlImporter;
@@ -61,7 +56,7 @@ class singaporeImport
         $this->_vendor = $vendorObj;
         $this->_curlImporter = $curlImporterObj;
         $this->_poiLookupUrl = $poiLookupUrl;
-        $this->_logger = ImportLogger::getInstance()->setVendor( $this->_vendor );
+        ImportLogger::getInstance()->setVendor( $this->_vendor );
 
         if ( ! $this->_vendor instanceof Vendor )
             throw new Exception( 'Invalid Vendor' );
@@ -91,7 +86,7 @@ class singaporeImport
             }
             catch( Exception $e )
             {
-                $this->_logger->addError( $e );
+                ImportLogger::getInstance()->addError( $e );
             }            
         }
 
@@ -119,7 +114,7 @@ class singaporeImport
             }
             catch( Exception $e )
             {
-                $this->_logger->addError( $e );
+                ImportLogger::getInstance()->addError( $e );
             }            
         }
 
@@ -146,7 +141,7 @@ class singaporeImport
             }
             catch( Exception $e )
             {
-                $this->_logger->addError( $e );
+                ImportLogger::getInstance()->addError( $e );
             }            
         }
 
@@ -285,43 +280,7 @@ class singaporeImport
 
 
 
-            //-- Log Modifications (new logger 3-Jun-10 -pj)
-
-            // Empty Array to store field modification info.
-            $modified = array();
-
-            //get the state of the record before save
-            $recordIsNew = $poi->isNew();
-
-            if( !$recordIsNew )
-                $oldRecord = Doctrine::getTable( 'Poi' )->findOneById( $poi->id, Doctrine::HYDRATE_ARRAY );
-
-            $poi->save();
-
-            // If Record is not new, check to see which fields are modified.
-            // Do it like this because Doctrine lastModified function(s) mark fields as modified
-            // if they have been set and reset in the current script execution, regardless of their
-            // original database state.
-
-            // NOTE, this is copied from Importer.class
-            if( !$recordIsNew )
-            {
-                $newRecord = $poi->toArray( false );
-
-                foreach( $newRecord as $key => $mod )
-                    if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
-                        if( $newRecord[ $key ] != $oldRecord[ $key ] )
-                            $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
-
-                unset( $oldRecord, $newRecord );
-            }
-
-            if ( $recordIsNew )
-                ImportLogger::getInstance()->addInsert( $poi );
-
-            else ImportLogger::getInstance()->addUpdate( $poi, $modified );
-
-            // -- End Log Modifications
+            ImportLogger::saveRecordComputeChangesAndLog( $poi );
 
 
 
@@ -354,7 +313,7 @@ class singaporeImport
         catch( Exception $e )
         {
           $log =  'Error processing Poi: \n Vendor = '. $this->_vendor['city'].' \n vendor_poi_id = ' . (string) $poiObj->id . ' \n';
-          $this->_logger->addError($e, $poi, $log );
+          ImportLogger::getInstance()->addError($e, $poi, $log );
         }
 
     }
@@ -426,43 +385,7 @@ class singaporeImport
 
 
 
-            //-- Log Modifications (new logger 3-Jun-10 -pj)
-
-            // Empty Array to store field modification info.
-            $modified = array();
-
-            //get the state of the record before save
-            $recordIsNew = $event->isNew();
-
-            if( !$recordIsNew )
-                $oldRecord = Doctrine::getTable( 'Event' )->findOneById( $event->id, Doctrine::HYDRATE_ARRAY );
-
-            $event->save();
-
-            // If Record is not new, check to see which fields are modified.
-            // Do it like this because Doctrine lastModified function(s) mark fields as modified
-            // if they have been set and reset in the current script execution, regardless of their
-            // original database state.
-
-            // NOTE, this is copied from Importer.class
-            if( !$recordIsNew )
-            {
-                $newRecord = $event->toArray( false );
-
-                foreach( $newRecord as $key => $mod )
-                    if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
-                        if( $newRecord[ $key ] != $oldRecord[ $key ] )
-                            $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
-
-                unset( $oldRecord, $newRecord );
-            }
-
-            if ( $recordIsNew )
-                ImportLogger::getInstance()->addInsert( $event );
-
-            else ImportLogger::getInstance()->addUpdate( $event, $modified );
-
-            // -- End Log Modifications
+            ImportLogger::saveRecordComputeChangesAndLog( $event );
 
 
 
@@ -502,7 +425,7 @@ class singaporeImport
         catch(Exception $e)
         {
             $log =  'Error processing Event: \n Vendor = '. $this->_vendor['city'].' \n vendor_event_id = ' . (string) $eventObj->id . ' \n';
-            $this->_logger->addError($e, $event, $log );
+            ImportLogger::getInstance()->addError($e, $event, $log );
         }
     }
 
@@ -588,43 +511,7 @@ class singaporeImport
 
 
 
-            //-- Log Modifications (new logger 3-Jun-10 -pj)
-
-            // Empty Array to store field modification info.
-            $modified = array();
-
-            //get the state of the record before save
-            $recordIsNew = $movieObj->isNew();
-
-            if( !$recordIsNew )
-                $oldRecord = Doctrine::getTable( 'Movie' )->findOneById( $movieObj->id, Doctrine::HYDRATE_ARRAY );
-
-            $movieObj->save();
-
-            // If Record is not new, check to see which fields are modified.
-            // Do it like this because Doctrine lastModified function(s) mark fields as modified
-            // if they have been set and reset in the current script execution, regardless of their
-            // original database state.
-
-            // NOTE, this is copied from Importer.class
-            if( !$recordIsNew )
-            {
-                $newRecord = $movieObj->toArray( false );
-
-                foreach( $newRecord as $key => $mod )
-                    if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
-                        if( $newRecord[ $key ] != $oldRecord[ $key ] )
-                            $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
-
-                unset( $oldRecord, $newRecord );
-            }
-
-            if ( $recordIsNew )
-                ImportLogger::getInstance()->addInsert( $movieObj );
-
-            else ImportLogger::getInstance()->addUpdate( $movieObj, $modified );
-
-            // -- End Log Modifications
+            ImportLogger::saveRecordComputeChangesAndLog( $movieObj );
 
 
 
@@ -636,7 +523,7 @@ class singaporeImport
         catch( Exception $e )
         {
             $log =  'Error processing Movie: \n Vendor = '. $this->_vendor['city'].' \n vendor_movie_id = ' . (string) $movieObj->id . ' \n';
-            $this->_logger->addError( $e, $movieObj, $log );
+            ImportLogger::getInstance()->addError( $e, $movieObj, $log );
         }
 
     }
@@ -706,7 +593,7 @@ class singaporeImport
             catch( Exception $e )
             {
                 $log =  'Error processing EventOccurrence: \n Vendor = '. $this->_vendor['city'].' \n vendor_event_occurrence_id = ' . $vendorEventOccurrenceId . ' \n';
-                $this->_logger->addError($e, $eventOccurrence, $log );
+                ImportLogger::getInstance()->addError($e, $eventOccurrence, $log );
             }
         }
     }
@@ -782,7 +669,7 @@ class singaporeImport
             }
             catch( Exception $e )
             {
-                $this->_logger->addError( $e );
+                ImportLogger::getInstance()->addError( $e );
             }
         }
     }
@@ -880,7 +767,7 @@ class singaporeImport
             return $this->insertPoi( $venueDetailObj );
         }
         catch( Exception $e ) {
-            $this->_logger->addError( $e );
+            ImportLogger::getInstance()->addError( $e );
         }
 
     }

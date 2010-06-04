@@ -77,7 +77,7 @@ class importTask extends sfBaseTask
                 $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
                 $importer->run();
                 ImportLogger::getInstance()->end();
-                die;
+                $this->writeEndImportLogLine( $options );
             break;
 
           case 'eating-drinking':
@@ -159,7 +159,7 @@ class importTask extends sfBaseTask
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
               $importer->run();
               ImportLogger::getInstance()->end();
-              die;
+              $this->writeEndImportLogLine( $options );
           break;
 
           case 'eating-drinking':
@@ -234,7 +234,7 @@ class importTask extends sfBaseTask
             $this->object->insertEvents( $xmlObj );
 
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
 
@@ -255,7 +255,7 @@ class importTask extends sfBaseTask
 
             echo "Impored Singapores Movies \n";
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
           break;
 
@@ -287,7 +287,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
 
           break;
 
@@ -320,7 +320,7 @@ class importTask extends sfBaseTask
 
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
           break;
 
@@ -332,7 +332,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
           break;
         }
         break; //end lisbon   
@@ -354,7 +354,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'moscow' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
         }
@@ -376,7 +376,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'saint petersburg' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
         }
@@ -398,7 +398,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'omsk' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
         }
@@ -420,7 +420,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'almaty' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
 
             break;
         }
@@ -442,7 +442,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'novosibirsk' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
         }
@@ -464,7 +464,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'krasnoyarsk' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
 
             break;
         }
@@ -486,7 +486,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
 
             break;
         }
@@ -507,7 +507,7 @@ class importTask extends sfBaseTask
             $importer->run();
             ImportLogger::getInstance()->end();
 
-            die;
+            $this->writeEndImportLogLine( $options );
 
           case 'movie':
 
@@ -519,7 +519,7 @@ class importTask extends sfBaseTask
             $importer->run();
             ImportLogger::getInstance()->end();
 
-            die;
+            $this->writeEndImportLogLine( $options );
         }
         break; //end russia
 
@@ -538,7 +538,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LondonAPICinemasMapper() );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
 
             break;
 
@@ -549,7 +549,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
 
@@ -560,7 +560,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event-occurrence' ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
 
@@ -570,7 +570,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendor ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
           break;
         }
@@ -614,7 +614,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new sydneyFtpVenuesMapper( $vendor, $xml ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
 
@@ -627,7 +627,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new sydneyFtpEventsMapper( $vendor, $xml ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
 
@@ -640,7 +640,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $xml ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
         }
@@ -671,7 +671,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $xml ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
             break;
 
@@ -682,7 +682,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $xml ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
           break;
 
@@ -693,7 +693,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new kualaLumpurMoviesMapper( $vendor, $xml ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            die;
+            $this->writeEndImportLogLine( $options );
             
           break;
         }
@@ -722,10 +722,15 @@ class importTask extends sfBaseTask
 
     }//end switch
 
-    $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ') -- Peak memory used: ' . $this->byteToHumanReadable( memory_get_peak_usage( true ) ) );
+    $this->writeEndImportLogLine( $options );
   }
 
 
+  private function writeEndImportLogLine( $options )
+  {
+    $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ') -- Peak memory used: ' . $this->byteToHumanReadable( memory_get_peak_usage( true ) ) );
+    die;
+  }
 
 
   /********************************************************************************
@@ -1225,7 +1230,7 @@ class importTask extends sfBaseTask
 
   private function writeLogLine( $message )
   {
-      echo PHP_EOL . date( 'Y-m-d H:m:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL . PHP_EOL;
+      echo PHP_EOL . date( 'Y-m-d H:i:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL . PHP_EOL;
   }
 
   /**

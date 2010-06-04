@@ -67,44 +67,7 @@ class Importer
    */
   public function onRecordMapped( Doctrine_Record $record )
   {
-     try
-     {
-        // Empty Array to store field modification info.
-        $modified = array();
-         
-        //get the state of the record before save
-        $recordIsNew = $record->isNew();
-
-        if( !$recordIsNew )
-            $oldRecord = Doctrine::getTable( get_class( $record ) )->findOneById( $record->id, Doctrine::HYDRATE_ARRAY );
-        
-        $record->save();
-
-        // If Record is not new, check to see which fields are modified.
-        // Do it like this because Doctrine lastModified function(s) mark fields as modified
-        // if they have been set and reset in the current script execution, regardless of their
-        // original database state.
-        if( !$recordIsNew )
-        {
-            $newRecord = $record->toArray( false );
-            
-            foreach( $newRecord as $key => $mod )
-                if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
-                    if( $newRecord[ $key ] != $oldRecord[ $key ] )
-                        $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
-
-            unset( $oldRecord, $newRecord );
-        }
-
-        if ( $recordIsNew )
-            ImportLogger::getInstance()->addInsert( $record );
-
-        else ImportLogger::getInstance()->addUpdate( $record, $modified );
-     }
-     catch( Exception $e )
-     {
-         $this->onRecordMappingException( $e ,$record  );
-     }
+     ImportLogger::saveRecordComputeChangesAndLog( $record );
   }
 
   public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )
