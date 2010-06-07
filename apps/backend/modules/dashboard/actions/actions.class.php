@@ -17,23 +17,39 @@ class dashboardActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-        $this->city  = "singapore";
-        $this->model = "Poi";
+        $cities         = array();
+        $models         = array('Poi','Event','Movie');
+        $metrics        = array('insert','existing','failed','delete','received');
+        $this->data     = array();
+        
+        $vendors = Doctrine::getTable("Vendor")->findAll();
+        foreach( $vendors as $vendor ) $cities[] = $vendor['city'];
 
-        //$log = Doctrine::getTable("LogImport")->getLatestOneByCityName( "tyumen" );
-        $logs = Doctrine::getTable("LogImport")->getAllByCityName( $this->city );
-
-        $this->stats = '"';
-        $this->stats .= 'Date,'.$this->model.' Inserts,'.$this->model.' Failed\n';
-
-        foreach( $logs as $log )
+        foreach( $cities as $city )
         {
-            $this->stats .= $log->getDate() . ",";
-            $this->stats .= $log->getCountFor( $this->model, array('insert') ) . ",";
-            $this->stats .= $log->getCountFor( $this->model, array('failed') );
-            $this->stats .= '\n';
-        }
+            $logs = Doctrine::getTable("LogImport")->getAllByCityName( $city );
+            $this->data[ $city ] = array();
+            
+            foreach( $models as $model )
+            {
+                // Dont show stuff we don't have stats for
+                if( empty( $logs ) || ( method_exists( $logs, 'count' ) && $logs->count() == 0 ) ) continue;
+                
+                $csv = '"Date';
+                foreach( $metrics as $metric ) $csv .= "," . $model . ' ' . ucfirst( $metric );
+                $csv .= '\n';
 
-        $this->stats .= '"';
+                foreach( $logs as $log )
+                {
+                    $csv .= $log->getDate();
+                    foreach( $metrics as $metric )
+                        $csv .= "," . $log->getCountFor( $model, array( $metric ) );
+                    $csv .= '\n';
+                }
+
+                $csv .= '"';
+                $this->data[ $city ][ $model ] = $csv;
+            }
+       }
   }
 }
