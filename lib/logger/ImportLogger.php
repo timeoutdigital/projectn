@@ -473,7 +473,7 @@ class ImportLogger extends BaseLogger
         catch( Exception $e )
         {
             if( $record ) ImportLogger::getInstance()->addFailed( $record );
-            ImportLogger::getInstance()->addError( $e, $record, $message );
+            ImportLogger::getInstance()->addError( $e, $record, 'failed to save record' );
         }
     }
 }
