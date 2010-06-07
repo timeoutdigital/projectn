@@ -436,7 +436,7 @@ class ImportLogger extends BaseLogger
         try
         {
             if( !is_subclass_of( $record, "Doctrine_Record" ) )
-                throw new ImportLoggerException( "Record Passed To ImportLogger::saveRecordAndLog is not extended from Doctrine_Record" );
+                throw new ImportLoggerException( "Record Passed To ImportLogger::saveRecordComputeChangesAndLog is not extended from Doctrine_Record" );
 
             // Empty Array to store field modification info.
             $modified = array();
@@ -473,10 +473,9 @@ class ImportLogger extends BaseLogger
         catch( Exception $e )
         {
             if( $record ) ImportLogger::getInstance()->addFailed( $record );
-            ImportLogger::getInstance()->addError( $exception, $record, $message );
+            ImportLogger::getInstance()->addError( $e, $record, $message );
         }
     }
-
 }
 
 class ImportLoggerException extends Exception {}
