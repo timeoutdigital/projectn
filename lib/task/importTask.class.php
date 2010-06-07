@@ -305,18 +305,19 @@ class importTask extends sfBaseTask
                     'from' => date( 'Y-m-d', $startDate ),
                     'to' => date( 'Y-m-d', strtotime( "+$daysAhead day", $startDate ) ) // Query x days ahead
                 );
-                
-                echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . "-" . $parameters[ 'to' ] . PHP_EOL;
 
-                $feedObj->pullXml ( $url, $request, $parameters, 'POST' );
+                // Move start date ahead one day from last end date
+                $startDate = strtotime( "+".( $daysAhead +1 )." day", $startDate );
+                
+                echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . "-" . $parameters[ 'to' ] . PHP_EOL;                
+                $feedObj->pullXml( $url, $request, $parameters, 'POST' );
+                
                 $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
               }
               catch ( Exception $e )
               {
                 ImportLogger::getInstance()->addError( $e );
               }
-
-              $startDate = strtotime( "+".( $daysAhead +1 )." day", $startDate ); // Move start date ahead one day from last end date
             }
 
             $importer->run();
