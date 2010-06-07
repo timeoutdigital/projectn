@@ -12,4 +12,19 @@
  */
 class LogImport extends BaseLogImport
 {
+    public function getCountFor( $model, $operations = array('received','insert','existing','failed','delete') )
+    {
+        $count = 0;
+        
+        foreach( $this['LogImportCount'] as $stat )
+            if( $stat['model'] == $model && in_array( $stat['operation'], $operations ) )
+                $count += $stat['count'];
+
+        return $count;
+    }
+
+    public function getDate()
+    {
+        return substr( $this['created_at'], 0, 10 );
+    }
 }

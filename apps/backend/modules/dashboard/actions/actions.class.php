@@ -17,6 +17,23 @@ class dashboardActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-        
+        $this->city  = "singapore";
+        $this->model = "Poi";
+
+        //$log = Doctrine::getTable("LogImport")->getLatestOneByCityName( "tyumen" );
+        $logs = Doctrine::getTable("LogImport")->getAllByCityName( $this->city );
+
+        $this->stats = '"';
+        $this->stats .= 'Date,'.$this->model.' Inserts,'.$this->model.' Failed\n';
+
+        foreach( $logs as $log )
+        {
+            $this->stats .= $log->getDate() . ",";
+            $this->stats .= $log->getCountFor( $this->model, array('insert') ) . ",";
+            $this->stats .= $log->getCountFor( $this->model, array('failed') );
+            $this->stats .= '\n';
+        }
+
+        $this->stats .= '"';
   }
 }
