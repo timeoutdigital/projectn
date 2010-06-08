@@ -420,43 +420,50 @@ class importNyChicagoEvents
         //Loop throught the actual occurances now
         foreach ( $Occurrences as $occurrence )
         {
-            $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
-            $occurrenceObj = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
+            try {
+                $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
+                $occurrenceObj = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
 
-            if ( $occurrenceObj === false )
-            {
-                $occurrenceObj = new EventOccurrence();
-                $occurrenceObj[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
+                if ( $occurrenceObj === false )
+                {
+                    $occurrenceObj = new EventOccurrence();
+                    $occurrenceObj[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
+                }
+
+                $start = $this->extractStartDateTime( (string) $occurrence->start );
+                $occurrenceObj[ 'start_date' ] = $start['date'];
+
+                if ( $start['time'] != '00:00:00' )
+                {
+                    $occurrenceObj[ 'start_time' ] = $start['time'];
+                }
+                else
+                {
+                    $occurrenceObj[ 'start_time' ] = NULL;
+                }
+
+                $occurrenceObj[ 'utc_offset' ] = $this->_vendorObj->getUtcOffset( $start['datetime'] );
+
+                $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
+
+                //set poi id
+                $venueObj = Doctrine::getTable('Poi')->findOneByVendorIdAndVendorPoiId( $this->_vendorObj['id'], (string) $occurrence->venue[0]->address_id );
+
+                $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
+
+                ImportLogger::saveRecordComputeChangesAndLog( $occurrenceObj );
+
+                //Add event categories to the POI
+                $this->addEventCategoriesToPoi( $eventObj, $venueObj );
+
+                //Kill the object
+                $occurrenceObj->free();
             }
-
-            $start = $this->extractStartDateTime( (string) $occurrence->start );
-            $occurrenceObj[ 'start_date' ] = $start['date'];
-            
-            if ( $start['time'] != '00:00:00' )
+            catch( Exception $exception )
             {
-                $occurrenceObj[ 'start_time' ] = $start['time'];
+                if( $occurrenceObj ) ImportLogger::getInstance()->addFailed( $occurrenceObj );
+                ImportLogger::getInstance()->addError( $exception, $occurrenceObj, $message );
             }
-            else
-            {
-                $occurrenceObj[ 'start_time' ] = NULL;
-            }
-
-            $occurrenceObj[ 'utc_offset' ] = $this->_vendorObj->getUtcOffset( $start['datetime'] );
-
-            $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
-
-            //set poi id
-            $venueObj = Doctrine::getTable('Poi')->findOneByVendorIdAndVendorPoiId( $this->_vendorObj['id'], (string) $occurrence->venue[0]->address_id );
-
-            $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
-
-            ImportLogger::saveRecordComputeChangesAndLog( $occurrenceObj );
-
-            //Add event categories to the POI
-            $this->addEventCategoriesToPoi( $eventObj, $venueObj );
-
-            //Kill the object
-            $occurrenceObj->free();
         }//end foreach
     }
 
