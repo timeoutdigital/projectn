@@ -59,9 +59,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testEuroSignsInsteadOfQuestionMarks()
   {
-    $importer = new Importer();
-    $importer->addDataMapper( $this->object );
-    $importer->run();
+    $this->runImportFromFile();
 
     $pois = Doctrine::getTable('Poi')->findAll();
     foreach( $pois as $poi )
@@ -70,9 +68,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testNoCommasAtEndOfStreet()
   {
-    $importer = new Importer();
-    $importer->addDataMapper( $this->object );
-    $importer->run();
+    $this->runImportFromFile();
 
     $pois = Doctrine::getTable('Poi')->findAll();
     foreach( $pois as $poi )
@@ -84,13 +80,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testHasNoHouseNumberIfHouseNumberInStreet()
   {
-    $this->object = new LisbonFeedVenuesMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_venues.no_house_number_if_house_number_in_address.xml' )
-    );
-
-    $importer = new Importer();
-    $importer->addDataMapper( $this->object );
-    $importer->run();
+    $this->runImportFromFile( 'lisbon_venues.no_house_number_if_house_number_in_address.xml' );
 
     $pois = Doctrine::getTable('Poi')->findAll();
 
@@ -100,9 +90,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapVenues()
   {
-    $importer = new Importer();
-    $importer->addDataMapper( $this->object );
-    $importer->run();
+    $this->runImportFromFile();
     
     $pois = Doctrine::getTable('Poi')->findAll();
     $this->assertGreaterThan( 1, $pois->count() );
@@ -140,6 +128,17 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $this->vendor['id'], $poi['vendor_id'] );
 
     $this->assertGreaterThan( 0, $poi[ 'PoiProperty' ]->count() );
+  }
+
+  private function runImportFromFile( $filename = 'lisbon_venues.short.xml' )
+  {
+    $this->object = new LisbonFeedVenuesMapper(
+      simplexml_load_file( TO_TEST_DATA_PATH . '/' . $filename )
+    );
+
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
   }
 }
 ?>
