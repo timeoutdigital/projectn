@@ -82,6 +82,22 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     }
   }
 
+  public function testHasNoHouseNumberIfHouseNumberInStreet()
+  {
+    $this->object = new LisbonFeedVenuesMapper(
+      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_venues.no_house_number_if_house_number_in_address.xml' )
+    );
+
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $pois = Doctrine::getTable('Poi')->findAll();
+
+    foreach( $pois as $poi )
+      $this->assertNull( $poi['house_no'] );
+  }
+
   public function testMapVenues()
   {
     $importer = new Importer();
