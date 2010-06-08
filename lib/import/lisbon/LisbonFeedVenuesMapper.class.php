@@ -45,7 +45,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $start = microtime( true ); 
        $this->notifyImporter( $poi );
       $end = microtime( true );
-      print "Took " . ( $end - $start ) ."\n";
+      //print "Took " . ( $end - $start ) ."\n";
     }
   }
 
@@ -213,11 +213,19 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
    */
   private function extractHouseNumberAndName( $venueElement )
   {
+    $buildingno   = (string) $venueElement['buildingno'];
+    $buildingName = (string) $venueElement['buildingName'];
+
     $houseArray = array
     (
-      $venueElement['buildingno'],
-      $venueElement['buildingName'],
+      $buildingno,
+      $buildingName,
     );
+
+    $address = (string) $venueElement['address'];
+
+    if( strpos( $address, $buildingno ) !== false )
+      return null;
 
     return stringTransform::concatNonBlankStrings(' ', $houseArray );
   }

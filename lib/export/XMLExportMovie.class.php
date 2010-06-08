@@ -42,8 +42,17 @@ class XMLExportMovie extends XMLExport
 
     foreach( $movieCollection as $movie )
     {
-      if( empty( $movie[ 'imdb_id' ] ) || empty( $movie[ 'review' ] ) )
+      if( empty( $movie[ 'imdb_id' ] ) )
+      {
+        ExportLogger::getInstance()->addError( 'no imdb id available', 'Movie', $movie[ 'id' ] );
         continue;
+      }
+
+      if( empty( $movie[ 'review' ] ) )
+      {
+        ExportLogger::getInstance()->addError( 'no review available', 'Movie', $movie[ 'id' ] );
+        continue;
+      }
 
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');
       $movieElement->setAttribute( 'id', $this->generateUID( $movie['id'] ) );
@@ -185,7 +194,7 @@ class XMLExportMovie extends XMLExport
         }
       }
       
-      //$this->logExport->addItem( $movie[ 'id' ], $movie[ 'vendor_movie_id' ] );
+      ExportLogger::getInstance()->addExport( 'Movie' );
     }
 
     return $domDocument;
