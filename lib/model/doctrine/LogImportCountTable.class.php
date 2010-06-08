@@ -2,4 +2,5 @@
 
 class LogImportCountTable extends LogCountTable
 {
+    
 }
