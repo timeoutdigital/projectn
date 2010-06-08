@@ -46,7 +46,10 @@ class XMLExportPOI extends XMLExport
     foreach( $data as $poi )
     {
       if( count( $poi[ 'VendorPoiCategory' ] ) == 0 )
+      {
+        ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );
         continue;
+      }
 
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );
@@ -153,7 +156,7 @@ class XMLExportPOI extends XMLExport
         }
       }
 
-      //$this->logExport->addItem( $poi[ 'id' ], $poi[ 'vendor_poi_id' ] );
+      ExportLogger::getInstance()->addExport( 'Poi' );
 
     }
 

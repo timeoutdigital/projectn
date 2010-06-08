@@ -2,6 +2,13 @@
 
 class exportTask extends sfBaseTask
 {
+
+  /**
+   *
+   * @var Vendor
+   */
+  private $_vendor;
+
   protected function configure()
   {
     // // add your own arguments here
@@ -39,7 +46,11 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
+    $this->_vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language'] );
+
+    ExportLogger::getInstance()->setVendor( $this->_vendor )->start();
     $this->getExporter( $options )->run();
+    ExportLogger::getInstance()->end();
 
     $timer->addTime();
     $totalTime = $timer->getElapsedTime();
@@ -53,8 +64,6 @@ EOF;
    */
   protected function getExporter( $options )
   {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language'] );
-
     switch( strtolower($options['type']) )
     {
       case 'poi':
@@ -63,14 +72,14 @@ EOF;
       case 'event':
 
         //The poi's xml file contain no spaces
-        $city = str_replace(' ', '_', $vendor['city']);
+        $city = str_replace(' ', '_', $this->_vendor['city']);
 
         if( $options[ 'poi-xml' ] == 'poop' )
 		      $location = 'export/export_'.date('Ymd').'/poi/'. $city .'.xml';
         else
           $location = $options[ 'poi-xml' ];
 
-        return new XMLExportEvent( $vendor, $options['destination'], $location );
+        return new XMLExportEvent( $this->_vendor, $options['destination'], $location );
         break;
       case 'movie':
         $exportClass = 'XMLExportMovie';
@@ -80,8 +89,8 @@ EOF;
         break;
     }
 
-    //$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
+    //$this->_vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
 
-    return new $exportClass( $vendor, $options['destination'] );
+    return new $exportClass( $this->_vendor, $options['destination'] );
   }
 }
