@@ -405,7 +405,7 @@ class importNyChicagoEvents
             $poiObj->addVendorCategory($categories['name'], $this->_vendorObj['id']);
         }
 
-        $poiObj->save();
+        ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
     }
 
 
