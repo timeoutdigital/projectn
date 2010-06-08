@@ -433,6 +433,7 @@ class ImportLogger extends BaseLogger
 
     public static function saveRecordComputeChangesAndLog( $record )
     {
+        echo "Saving " . get_class( $record ) . PHP_EOL;
         try
         {
             if( !is_subclass_of( $record, "Doctrine_Record" ) )
