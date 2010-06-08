@@ -68,7 +68,8 @@ class sydneyFtpMoviesMapper extends DataMapper
         //$movie['company']           = (string);
         //$movie['rating']            = (string);
         $movie['utf_offset']        = (string) $this->vendor->getUtcOffset();
-        $movie->save();
+
+        ImportLogger::saveRecordComputeChangesAndLog( $movie );
     }
   }
 
