@@ -28,17 +28,21 @@ class XMLExportEvent extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'event.xsd';
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
 
-
-
-    
-   // $this->poiXmlObj = simplexml_load_file('export/export_'.date('Ymd').'/pois/london.xml');
-
-    try{
-        $poiXmlObj = simplexml_load_file($poiXmlLocation);
-    }
-    catch (Exception $e)
+    if ( file_exists( $poiXmlLocation ) )
     {
-        echo "Failed to find POI XML" . $e->getMessage();
+        $poiXmlObj = simplexml_load_file($poiXmlLocation);
+
+        if( $poiXmlObj === false )
+        {
+            ExportLogger::getInstance()->addError( 'Failed to parse POI XML', 'Event' );
+            echo "Failed to parse POI XML";
+            exit;
+        }
+    }
+    else
+    {
+        ExportLogger::getInstance()->addError( 'Failed to find POI XML', 'Event' );
+        echo "Failed to find POI XML";
         exit;
     }
     
@@ -73,14 +77,17 @@ class XMLExportEvent extends XMLExport
 
     foreach( $data as $event )
     {
+
       //Check to see if this event has a corresponding poi
       if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
       {
+          ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
           continue;
       }
 
       if ( count( $event['VendorEventCategory'] ) < 1 )
       {
+          ExportLogger::getInstance()->addError( 'no corresponding VendorEventCategory found', 'Event', $event[ 'id' ] );
           continue;
       }
       
@@ -181,8 +188,11 @@ class XMLExportEvent extends XMLExport
       foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
         if( !$this->poiXmlExportHasPoiRelatedTo( $eventOccurrence )  )
-                continue;
- 
+        {
+            ExportLogger::getInstance()->addError( 'no corresponding Poi found in poi.xml for occurrence of event ' . $event[ 'id' ], 'EventOccurrence', $eventOccurrence[ 'id' ] );
+            continue;
+        }
+
         if ( $currentPoiId != $eventOccurrence[ 'poi_id' ] )
         {
           //event/showtimes/place
@@ -224,7 +234,7 @@ class XMLExportEvent extends XMLExport
         //$place->free();
       }
 
-     // $this->logExport->addItem( $event[ 'id' ], $event[ 'vendor_event_id' ] );
+      ExportLogger::getInstance()->addExport( 'Event' );
 
       //$event->free();
     }
