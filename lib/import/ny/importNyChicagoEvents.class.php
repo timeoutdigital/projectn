@@ -450,10 +450,10 @@ class importNyChicagoEvents
 
             $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
-            $occurrenceObj->save();
+            ImportLogger::saveRecordComputeChangesAndLog( $occurrenceObj );
 
             //Add event categories to the POI
-            $this->addEventCategoriesToPoi($eventObj, $venueObj);
+            $this->addEventCategoriesToPoi( $eventObj, $venueObj );
 
             //Kill the object
             $occurrenceObj->free();
