@@ -462,7 +462,7 @@ class importNyChicagoEvents
             catch( Exception $exception )
             {
                 if( $occurrenceObj ) ImportLogger::getInstance()->addFailed( $occurrenceObj );
-                ImportLogger::getInstance()->addError( $exception, $occurrenceObj, $message );
+                ImportLogger::getInstance()->addError( $exception, isset( $occurrenceObj ) ? $occurrenceObj : NULL, "New York / Chicago Event Occurence Failed to Save, possibly due to Event Occurence Object Not Found in DB." );
             }
         }//end foreach
     }
