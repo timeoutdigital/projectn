@@ -29,24 +29,14 @@ class chicagoImportBcEd {
      *
      * @var Vendor
      */
-    public $vendorObj;
-
-    /**
-     * Logger
-     *
-     * @var logImport
-     */
-    public $loggerObj;
-
-    
+    public $vendorObj;   
 
 
     public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj )
     {
         $this->bcObj = $bcObj;
         $this->vendorObj = $vendorObj;
-        $this->loggerObj = new logImport($vendorObj);
-        $this->loggerObj->setType('poi');
+        ImportLogger::getInstance()->setVendor( $vendorObj );
         Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     }
 
@@ -64,8 +54,6 @@ class chicagoImportBcEd {
                 $this->importPoi($poi);
             }
         }
-
-        $this->loggerObj->save();
     }
 
 
@@ -83,12 +71,7 @@ class chicagoImportBcEd {
         //Check database for existing Poi by vendor id
         $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId( (string) $poi->{'ID'}, $this->vendorObj['id'] );
 
-        if($currentPoi)
-        {
-            //Count this as existing
-            $this->loggerObj->countExisting();
-        }
-        else
+        if( !$currentPoi )
         {
             $currentPoi = new Poi();
         }
@@ -169,7 +152,7 @@ class chicagoImportBcEd {
                 $poiObj[ 'latitude' ]  = 0.00;
 
                 $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                $this->loggerObj->addError($e, $poiObj, $log);
+                ImportLogger::getInstance()->addError($e, $poiObj, $log);
             }
 
             /**
@@ -189,27 +172,9 @@ class chicagoImportBcEd {
             {
                 echo "Phone number error \n \n";
                 $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                $this->loggerObj->addError($e, $poiObj, $log);
+                ImportLogger::getInstance()->addError($e, $poiObj, $log);
             }
             
-
-
-             //Check the modified fields for an existing fiel
-            if($poiObj->isModified(true) && !$poiObj->isNew())
-            {
-                $log = "Updated Fields: \n";
-
-                //The item is modified therefore log as an update
-                foreach($poiObj->getModified() as $k => $v)
-                {
-                    $log.= "$k: $v \n";
-                }
-
-                $this->loggerObj->addChange('update', $log);
-                $isNew = false;
-
-            }
-
 
              //Add category
                if((string) $poi->{'category'})
@@ -254,7 +219,7 @@ class chicagoImportBcEd {
 
            
            //Save the object
-           $poiObj->save();
+           ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
 
         }
 
@@ -262,26 +227,17 @@ class chicagoImportBcEd {
         {
            echo "Validation error \n \n";
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->loggerObj->addError($error, $poiObj, $log);
-            return $poiObj;
+           ImportLogger::getInstance()->addError($error, $poiObj, $log);
+           return $poiObj;
         }
 
         catch(Exception $e)
         {
 
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           $this->loggerObj->addError($e, $poiObj, $log);
-
+           ImportLogger::getInstance()->addError($e, $poiObj, $log);
            return $poiObj;
         }
-
-
-        //Update the logger
-        if($isNew)
-        {
-            $this->loggerObj->countNewInsert();
-        }
-
 
         //Return Poi for testing
         return $poiObj;

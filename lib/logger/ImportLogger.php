@@ -46,6 +46,20 @@ class ImportLogger extends BaseLogger
 
     /**
      *
+     * @var Enabled
+     */
+    private $_enabled = true;
+
+    /**
+     *
+     * @var Progressive Save
+     * @desc Save Every Request (true)
+     * .. or just at the end (true && false)
+     */
+    private $_progressiveSave = false;
+
+    /**
+     *
      * @var UnknownVendor
      */
     private $_unknownVendor;
@@ -88,17 +102,28 @@ class ImportLogger extends BaseLogger
         }
     }
 
+    public function enabled( $bool = true )
+    {
+        if( is_bool( $bool ) ) $this->_enabled = $bool;
+    }
+
+    public function progressive( $bool = true )
+    {
+        if( is_bool( $bool ) ) $this->_progressiveSave = $bool;
+    }
+
     /**
      *
      */
     public function end()
     {
-        foreach( $this->_importLoggers as $importLogger )
-        {
-            $importLogger['status']         = 'success';
-            $importLogger['total_time']     = $this->_getElapsedTime();
-            $importLogger->save();
-        }
+        if( $this->_enabled )
+            foreach( $this->_importLoggers as $importLogger )
+            {
+                $importLogger['status']         = 'success';
+                $importLogger['total_time']     = $this->_getElapsedTime();
+                $importLogger->save();
+            }
     }
 
     /**
@@ -187,9 +212,12 @@ class ImportLogger extends BaseLogger
      */
     public function save()
     {
-        $importLogger = $this->getLoggerByVendor();
-        $importLogger['total_time'] = $this->_getElapsedTime();
-        $importLogger->save();
+        if( $this->_enabled )
+        {
+            $importLogger = $this->getLoggerByVendor();
+            $importLogger['total_time'] = $this->_getElapsedTime();
+            if( $this->_progressiveSave ) $importLogger->save();
+        }
     }
 
     /**
@@ -203,22 +231,25 @@ class ImportLogger extends BaseLogger
      */
     public function addError( Exception $error, $record = NULL, $log = '' )
     {
-        $importRecordErrorLogger                     = new LogImportError();
-        $importRecordErrorLogger['exception_class']  = get_class( $error );
-        $importRecordErrorLogger['trace']            = $error->__toString();
-        $importRecordErrorLogger['message']          = $error->getMessage();
-        $importRecordErrorLogger['log']              = $log == '' ? "@todo - no log message" : $log;
-
-        if ( $record !==  NULL)
+        if( $this->_enabled )
         {
-            $importRecordErrorLogger['model']        = get_class( $record );
-            $storeObject = method_exists( 'toArray', $record ) ? $record : $record->toArray();
-            $importRecordErrorLogger['serialized_object']        = serialize( $storeObject );
-        }
+            $importRecordErrorLogger                     = new LogImportError();
+            $importRecordErrorLogger['exception_class']  = get_class( $error );
+            $importRecordErrorLogger['trace']            = $error->__toString();
+            $importRecordErrorLogger['message']          = $error->getMessage();
+            $importRecordErrorLogger['log']              = $log == '' ? "@todo - no log message" : $log;
 
-        $importLogger = $this->getLoggerByVendor();
-        $importLogger[ 'LogImportError' ][] = $importRecordErrorLogger;
-        $this->save();
+            if ( $record !==  NULL)
+            {
+                $importRecordErrorLogger['model']        = get_class( $record );
+                $storeObject = method_exists( 'toArray', $record ) ? $record : $record->toArray();
+                $importRecordErrorLogger['serialized_object']        = serialize( $storeObject );
+            }
+
+            $importLogger = $this->getLoggerByVendor();
+            $importLogger[ 'LogImportError' ][] = $importRecordErrorLogger;
+            $this->save();
+        }
     }
 
      /**
@@ -228,9 +259,12 @@ class ImportLogger extends BaseLogger
      */
     public function addInsert( Doctrine_Record $record )
     {
-       $logImportCount = $this->_getLogImportCountObject( 'insert', get_class( $record ) );
-       $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
-       $this->save( );
+       if( $this->_enabled )
+       {
+           $logImportCount = $this->_getLogImportCountObject( 'insert', get_class( $record ) );
+           $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
+           $this->save();
+       }
     }
 
      /**
@@ -240,9 +274,12 @@ class ImportLogger extends BaseLogger
      */
     public function addFailed( Doctrine_Record $record )
     {
-       $logImportCount = $this->_getLogImportCountObject( 'failed', get_class( $record ) );
-       $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
-       $this->save( );
+       if( $this->_enabled )
+       {
+           $logImportCount = $this->_getLogImportCountObject( 'failed', get_class( $record ) );
+           $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
+           $this->save();
+       }
     }
 
 
@@ -253,9 +290,12 @@ class ImportLogger extends BaseLogger
      */
     public function addReceived( $model )
     {
-       $logImportCount = $this->_getLogImportCountObject( 'received', get_class( $record ) );
-       $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
-       $this->save( );
+       if( $this->_enabled )
+       {
+           $logImportCount = $this->_getLogImportCountObject( 'received', get_class( $record ) );
+           $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
+           $this->save();
+       }
     }
 
     /**
@@ -265,31 +305,34 @@ class ImportLogger extends BaseLogger
      * @param string $log Log of all updates
      */
     public function addUpdate( Doctrine_Record $record, $modifiedFieldsArray )
-    {  
-      if ( empty( $modifiedFieldsArray ) )
+    {
+      if( $this->_enabled )
       {
-         $logImportCount = $this->_getLogImportCountObject( 'existing', get_class( $record ) );
-         $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
-      }
-      else
-      {
-          $log = "Updated Fields: \n";
-
-          //The item is modified therefore log as an update
-          foreach( $modifiedFieldsArray as $k => $v )
+          if ( empty( $modifiedFieldsArray ) )
           {
-              $log .= "$k: $v \n";
+             $logImportCount = $this->_getLogImportCountObject( 'existing', get_class( $record ) );
+             $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
           }
-          $logImportChange = new LogImportChange();
-          $logImportChange[ 'record_id' ] = $record[ 'id' ];
-          $logImportChange[ 'model' ]     = get_class( $record );
-          $logImportChange['log']         = $log;
+          else
+          {
+              $log = "Updated Fields: \n";
 
-          $importLogger = $this->getLoggerByVendor();
-          $importLogger[ 'LogImportChange' ][] = $logImportChange;
+              //The item is modified therefore log as an update
+              foreach( $modifiedFieldsArray as $k => $v )
+              {
+                  $log .= "$k: $v \n";
+              }
+              $logImportChange = new LogImportChange();
+              $logImportChange[ 'record_id' ] = $record[ 'id' ];
+              $logImportChange[ 'model' ]     = get_class( $record );
+              $logImportChange['log']         = $log;
+
+              $importLogger = $this->getLoggerByVendor();
+              $importLogger[ 'LogImportChange' ][] = $logImportChange;
+          }
+
+          $this->save();
       }
-      
-      $this->save();
     }
 
 
@@ -299,9 +342,12 @@ class ImportLogger extends BaseLogger
      */
     public function endSuccessful()
     {
-        $importLogger = $this->getLoggerByVendor();
-        $importLogger['status'] = 'success';
-        $this->save();
+        if( $this->_enabled )
+        {
+            $importLogger = $this->getLoggerByVendor();
+            $importLogger['status'] = 'success';
+            $this->save();
+        }
 
         unset( $this->_importLoggers[ $this->_vendorObj['city'] ] );
     }
@@ -312,9 +358,12 @@ class ImportLogger extends BaseLogger
      */
     public function endFailed()
     {
-        $importLogger = $this->getLoggerByVendor();
-        $importLogger['status'] = 'failed';
-        $this->save();
+        if( $this->_enabled )
+        {
+            $importLogger = $this->getLoggerByVendor();
+            $importLogger['status'] = 'failed';
+            $this->save();
+        }
 
         unset( $this->_importLoggers[ $this->_vendorObj['city'] ] );
     }
@@ -382,6 +431,53 @@ class ImportLogger extends BaseLogger
         return self::$instance;
     }
 
+    public static function saveRecordComputeChangesAndLog( $record )
+    {
+        try
+        {
+            if( !is_subclass_of( $record, "Doctrine_Record" ) )
+                throw new ImportLoggerException( "Record Passed To ImportLogger::saveRecordComputeChangesAndLog is not extended from Doctrine_Record" );
+
+            // Empty Array to store field modification info.
+            $modified = array();
+
+            //get the state of the record before save
+            $recordIsNew = $record->isNew();
+
+            if( !$recordIsNew )
+                $oldRecord = Doctrine::getTable( get_class( $record ) )->findOneById( $record->id, Doctrine::HYDRATE_ARRAY );
+
+            $record->save();
+
+            // If Record is not new, check to see which fields are modified.
+            // Do it like this because Doctrine lastModified function(s) mark fields as modified
+            // if they have been set and reset in the current script execution, regardless of their
+            // original database state.
+            if( !$recordIsNew )
+            {
+                $newRecord = $record->toArray( false );
+
+                foreach( $newRecord as $key => $mod )
+                    if( $key != "updated_at" && array_key_exists( $key, $oldRecord ) )
+                        if( $newRecord[ $key ] != $oldRecord[ $key ] )
+                            $modified[ $key ] = "'" . $oldRecord[ $key ] . "'->'" . $newRecord[ $key ] . "'";
+
+                unset( $oldRecord, $newRecord );
+            }
+
+            if ( $recordIsNew )
+                ImportLogger::getInstance()->addInsert( $record );
+
+            else ImportLogger::getInstance()->addUpdate( $record, $modified );
+        }
+        catch( Exception $e )
+        {
+            if( $record ) ImportLogger::getInstance()->addFailed( $record );
+            ImportLogger::getInstance()->addError( $e, $record, 'failed to save record' );
+        }
+    }
 }
+
+class ImportLoggerException extends Exception {}
 
 ?>

@@ -41,20 +41,6 @@ class importNyChicagoEvents
      */
     private $_vendorObj;
 
-    /**
-     * Store a poi logger
-     *
-     * @var logImport
-     */
-    public $_poiLoggerObj;
-
-    /**
-     * Store a event logger
-     *
-     * @var logImport
-     */
-    private $_eventLoggerObj;
-
 
     /**
      * Store cageory mapper
@@ -79,10 +65,7 @@ class importNyChicagoEvents
         $this->_events = $this->_xmlFeed->getEvents();
         $this->_vendorObj = $vendorObj;
         $this->_categoryMap = new CategoryMap( false );
-        $this->_poiLoggerObj = new logImport($vendorObj);
-        $this->_eventLoggerObj = new logImport($vendorObj);
-        $this->_poiLoggerObj->setType('poi');
-        $this->_eventLoggerObj->setType('event');
+        ImportLogger::getInstance()->setVendor( $vendorObj );
     }
 
 
@@ -101,9 +84,6 @@ class importNyChicagoEvents
 
         //echo 'Pois done';
 
-        //Save the logger
-        $this->_poiLoggerObj->save();
-
         //Loop through each event to add to the category mappings
         /*foreach($this->_events as $event)
     {
@@ -117,9 +97,6 @@ class importNyChicagoEvents
         {
             $this->insertEvent( $event );
         }
-
-        $this->_eventLoggerObj->save();
-
     }
 
 
@@ -140,7 +117,6 @@ class importNyChicagoEvents
         if($currentPoi)
         {
             //Count thisi as existing
-            $this->_poiLoggerObj->countExisting();
             return $currentPoi;
         }
         else
@@ -165,8 +141,6 @@ class importNyChicagoEvents
 
         if($currentEvent)
         {
-            //Count thisi as existing
-            $this->_eventLoggerObj->countExisting();
             return $currentEvent;
         }
         else
@@ -240,21 +214,7 @@ class importNyChicagoEvents
             }
         }
 
-        //Check before save if Poi is new one
-        $logIsNew = $poiObj->isNew();
-        //Get all changed fields
-        $logChangedFields = $poiObj->getModified();
-        //save the object
-        try
-        {
-            $poiObj->save();
-        }
-        catch(Exception $e)
-        {
-            $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
-            $this->_poiLoggerObj->addError($e, $poiObj, $log);
-        }
-
+        // I deleted a $poiObj->save from here, not sure why there are 2 - pj 4-jun-10
 
         //Loop throught the prices node
         if ( isset( $poi->prices ) )
@@ -314,19 +274,7 @@ class importNyChicagoEvents
             }
         }
 
-        try
-        {
-            //save to database
-            $poiObj->save();
-        }
-        catch(Exception $e)
-        {
-            $log =  "Error processing Poi: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $poi->{'ID'}. " \n";
-            $this->_poiLoggerObj->addError($e, $poiObj, $log);
-        }
-
-        //Count the item
-        ( $logIsNew ) ? $this->_poiLoggerObj->countNewInsert() : $this->_poiLoggerObj->addChange( 'update', $logChangedFields );
+        ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
 
         //Kill the object
         $poiObj->free();
@@ -433,31 +381,10 @@ class importNyChicagoEvents
             }
         }
 
-        //save to database
-        try
-        {
-            //Check before save if Poi is new one
-            $logIsNew = $eventObj->isNew();
+        //Add the event occurances @todo can we not rely on the event id?
+        $this->addEventOccurance($event->{'date'}, $eventObj );
 
-            //Get all changed fields
-            $logChangedFields = $eventObj->getModified();
-
-            //save to database
-            $eventObj->save();
-
-            //Add the event occurances @todo can we not rely on the event id?
-            $this->addEventOccurance($event->{'date'}, $eventObj);
-            $eventObj->save();
-        }
-        catch(Exception $e)
-        {
-            $log =  "Error processing Event: \n Vendor = ". $this->_vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) $event['id'] . " \n";
-            $this->_eventLoggerObj->addError($e, $eventObj, $log);
-        }
-
-        ( $logIsNew ) ? $this->_eventLoggerObj->countNewInsert() : $this->_eventLoggerObj->addChange( 'update', $logChangedFields );
-
-
+        ImportLogger::saveRecordComputeChangesAndLog( $eventObj );
 
         //Kill the object
         $eventObj->free();
