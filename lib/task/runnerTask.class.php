@@ -76,7 +76,7 @@ class runnerTask extends sfBaseTask
                         echo 'running ' . $task . ' for ' . $cityName . ' (' . $type . ')' . PHP_EOL;
 
                         $logPath = $logRootDir . '/' . $task;
-                        $this->verifyAndCreatePath( $logPath );                        
+                        $this->verifyAndCreatePath( $logPath );
 
                         $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env="' . $options['env'] . '" --city="' . $cityName . '" --type="' . $type . '"';
                         $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
@@ -88,6 +88,7 @@ class runnerTask extends sfBaseTask
                 break;
 
             case 'export' :
+                $deleteOlderThanDays = '7 days';
                 $timestamp = date( 'Ymd' );
                 $exportPath = $exportRootDir . '/export_' . $timestamp;
                 $this->verifyAndCreatePath( $exportPath );
@@ -109,13 +110,50 @@ class runnerTask extends sfBaseTask
                     }
                 }
 
-                echo 'zipping it all up ' . PHP_EOL;               
-                $this->executeCommand( 'cd ' . $exportRootDir . ' && touch ' . $exportPath . '/upload.lock && tar zcvf ' . 'exports_' . $timestamp . '.tgz ' . 'export_' . $timestamp . '/*', $logPath . '/common.log' );
+                echo 'tar archive for export backup' . PHP_EOL;
+                $this->executeCommand( 'cd ' . $exportRootDir . ' && tar zcvf ' . 'exports_' . $timestamp . '.tgz ' . 'export_' . $timestamp . '/*', $logPath . '/common.log' );
+
+                echo 'create upload.lock file' . PHP_EOL;
+                $this->executeCommand( 'cd ' . $exportRootDir . ' && touch ' . $exportPath . '/upload.lock', $logPath . '/common.log' );
+
+                echo 'delete exports older than ' . $deleteOlderThanDays . ' (';
+                $deletedDirs = $this->_removeOldDirectoriesByPatternAndDaysInPast( $exportRootDir, '/^export_([0-9]{8})$/', $deleteOlderThanDays, $logPath . '/common.log' );
+                echo  implode( ',', $deletedDirs ) . ')' . PHP_EOL;
 
                 break;
         }
     }
 
+  }
+
+  private function _removeOldDirectoriesByPatternAndDaysInPast( $dir, $pattern, $daysInPast, $logFile )
+  {
+      $deletedDirs = array();
+
+      if ( is_dir( $dir ) )
+      {
+            $pathBeforeCall = getcwd();
+            chdir( $dir );
+
+            if ( $dh = opendir( $dir ) )
+            {
+                while ( ( $file = readdir( $dh ) ) !== false )
+                {
+                   if ( is_dir ( $file ) && preg_match( $pattern, $file, $matches ) )
+                   {
+                      if ( strtotime( $matches[ 1 ] ) < strtotime( '-' . $daysInPast )  )
+                      {
+                          $this->executeCommand( 'rm -r ' . $file, $logFile );
+                          $deletedDirs[] = $file;
+                      }
+                   }
+                }
+                closedir( $dh );
+            }
+            chdir( $pathBeforeCall );
+       }
+
+       return $deletedDirs;
   }
 
   private function verifyAndCreatePath( $path ) {
