@@ -431,7 +431,7 @@ class ImportLogger extends BaseLogger
         return self::$instance;
     }
 
-    public static function saveRecordComputeChangesAndLog( $record )
+    public static function saveRecordComputeChangesAndLog( &$record )
     {
         try
         {
@@ -469,11 +469,15 @@ class ImportLogger extends BaseLogger
                 ImportLogger::getInstance()->addInsert( $record );
 
             else ImportLogger::getInstance()->addUpdate( $record, $modified );
+
+            if( isset( $record ) ) $record->free( true );
         }
         catch( Exception $e )
         {
             if( $record ) ImportLogger::getInstance()->addFailed( $record );
             ImportLogger::getInstance()->addError( $e, $record, 'failed to save record' );
+            
+            if( isset( $record ) ) $record->free( true );
         }
     }
 }
