@@ -47,6 +47,19 @@ class PoiTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testStreetDoesNotContainPostCodde()
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $poi['street'] = '45 Some Street, SE1 9HG';
+
+    $london = ProjectN_Test_Unit_Factory::get('Vendor', array( 'id' => 4 ));
+    $poi['Vendor'] = $london;
+
+    $poi->save();
+    $this->assertEquals( $poi[ 'street' ], '45 Some Street' );
+  }
+
   public function testPoiNameDoesNotEndWIthCommaAndOrSpace()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );

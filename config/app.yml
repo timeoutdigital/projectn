@@ -20,3 +20,5 @@ all:
         - { field: street, type: move, regexp: '%((Level|Unit|Lvl|Shop|Pier|Suite)\s([\d]+|One|Two|Seven))[/,]?%i', to: additional_address_details }
         - { field: street, type: move, regexp: '%((Ground|First|[\d]+(st|th|rd|nd))\s(floor|Floor),?)%i', to: additional_address_details }
         - { field: street, type: move, regexp: "/([-–0-9]+[-–A-z]?)(?=(\s|-|–)[-–A-z0-9])/i", to: house_no }
+      4: # London
+        - { field: street, type: remove, regexp: "/([A-Z][A-Z]?[0-9][A-Z0-9]?\s[0-9][A-Z]+)$/" }
