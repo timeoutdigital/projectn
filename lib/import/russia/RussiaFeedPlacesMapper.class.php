@@ -54,7 +54,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['rating']                        = $this->roundNumberOrReturnNull( (string) $venueElement->rating );
             $poi['provider']                      = (string) $venueElement->provider;
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
-            $poi['Vendor']                        = $this->vendor;
+            $poi['Vendor']                        = clone $this->vendor;
 
             // Categories
             $categories = array();

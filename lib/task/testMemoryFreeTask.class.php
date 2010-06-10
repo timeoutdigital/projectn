@@ -58,7 +58,7 @@ EOF;
         $system_wide_references_to_objects[] = $collection;
         
         // Try to free memory
-        $this->free_memory( &$collection );
+        $this->free_memory( $collection );
         //unset( $collection );
 
         //echo get_class( $system_wide_references_to_objects[ $x ] ) . PHP_EOL;
@@ -67,16 +67,16 @@ EOF;
         //time_nanosleep(0, (int) $sleep * 100000000 );
     }
 
-//    foreach( $system_wide_references_to_objects as $c )
-//        echo $c->count() . PHP_EOL;
+    foreach( $system_wide_references_to_objects as $c )
+        echo $c->count() . PHP_EOL;
 
   }
 
-private function free_memory( &$collection )
+private function free_memory( $collection )
 {
     $collection->free( true );
-    //unset( $collection );
-    //gc_collect_cycles();
+    unset( $collection );
+    gc_collect_cycles();
 }
 
 private function convert($size)
