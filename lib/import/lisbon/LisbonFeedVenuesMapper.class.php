@@ -213,8 +213,8 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
    */
   private function extractHouseNumberAndName( $venueElement )
   {
-    $buildingno   = (string) $venueElement['buildingno'];
-    $buildingName = (string) $venueElement['buildingName'];
+    $buildingno   = (string) trim( $venueElement['buildingno'] );
+    $buildingName = (string) trim( $venueElement['buildingName'] );
 
     $houseArray = array
     (
