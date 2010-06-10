@@ -1,9 +1,9 @@
 <?php
 /**
- * Russia event mapper
+ * Barcelona event mapper
  *
  * @package projectn
- * @subpackage russia.import.lib.unit
+ * @subpackage barcelona.import.lib.unit
  *
  * @author Peter Johnson <peterjohnson@timout.com>
  * @copyright Timeout Communications Ltd
@@ -19,19 +19,29 @@ class barcelonaEventsMapper extends barcelonaBaseDataMapper
     foreach( $this->xml->event as $eventElement )
     {
       try{
-          // Get Event Id
-          $vendorEventId                    = (int) $eventElement['id'];
+
+          $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor['id'], (string) $eventElement['id'] );
+          if( $event === false )
+            $event = new Event();
 
           // Column Mapping
+          $event['vendor_event_id']         = (string) $eventElement['id'];
           $event['review_date']             = (string) $eventElement->review_date;
-          $event['vendor_event_id']         = (string) $vendorEventId;
           $event['name']                    = (string) $eventElement->name;
           $event['short_description']       = $this->fixHtmlEntities( (string) $eventElement->short_description );
           $event['description']             = $this->fixHtmlEntities( (string) $eventElement->description );
           $event['booking_url']             = (string) $eventElement->booking_url;
           $event['url']                     = (string) $eventElement->url;
           $event['price']                   = (string) $eventElement->price;
-          $event['rating']                  = (string) $eventElement->rating;
+          $event['rating']                  = (string) $event->rating;
+          $event['vendor']                  = $this->vendor;
+
+          // Timeout Link
+          if( (string) $event->timeout_url != "" )
+              $event->setTimeoutLinkProperty( trim( (string) $event->timeout_url ) );
+
+          //Critics Choice
+          $event->setCriticsChoiceProperty( ( $event->critics_choice == 'y' ) ? true : false );
 
           // Categories
           //$categories = array();
