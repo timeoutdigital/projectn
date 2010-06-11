@@ -327,6 +327,13 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $poi['poi_name'] = "My &quot;name&quot; is";
     $transformations = sfConfig::get( 'app_vendor_address_transformations', array() );
     $poi->save();
+
+    $savedPoiId = $poi->id;
+    $poi->free( true ); unset( $poi );
+    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
+    $poi['street'] = 'Level 1, 8 Victoria Street';
+    $poi['poi_name'] = "My &quot;name&quot; is";
+    
     $poi->save(); // Try Save Twice, make sure 'append' is not applied twice.
 
     $this->assertEquals( $poi[ 'additional_address_details' ], 'Level 1', 'Level <n> stripped from street and placed into additional_address_details' );
