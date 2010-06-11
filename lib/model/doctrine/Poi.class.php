@@ -97,16 +97,27 @@ class Poi extends BasePoi
 
           switch ( $type )
           {
-            case 'move':
-              // Match regexp
-             // print "Matching against '$value'...\n";
-              if ( preg_match( $regexp, $value, $matches ) )
+            case 'append':
+              if ( preg_match( $regexp, $value, $matches ) ) // Match regexp
               {
-               // print "Matched\n";
                 $this[ $fieldName ] = trim( preg_replace( $regexp, '', $value ) );
                 $move = $matches[ 1 ];
                 $toField = $transform[ 'to' ];
-                $this[ $toField ] = $move;
+
+                if( strpos( $this[ $toField ], $move ) !== false ) continue; // Already In $toField
+                if( !empty( $this[ $toField ] ) ) $this[ $toField ] .= ", ";
+                $this[ $toField ] .= $move;
+              }
+              break;
+            case 'prepend':
+              if ( preg_match( $regexp, $value, $matches ) ) // Match regexp
+              {
+                $this[ $fieldName ] = trim( preg_replace( $regexp, '', $value ) );
+                $move = $matches[ 1 ];
+                $toField = $transform[ 'to' ];
+
+                if( strpos( $this[ $toField ], $move ) !== false ) continue; // Already In $toField
+                $this[ $toField ] = $move . !empty( $this[ $toField ] ) ? ", " . $this[ $toField ] : $this[ $toField ];
               }
               break;
             case 'remove':
