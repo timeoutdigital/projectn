@@ -442,6 +442,8 @@ class importTask extends sfBaseTask
 
             ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'novosibirsk' ) );
+            unset( $xml, $feedObj );
+            
             $importer->run();
             ImportLogger::getInstance()->end();
             $this->writeEndImportLogLine( $options );
@@ -486,6 +488,8 @@ class importTask extends sfBaseTask
 
             ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
+            unset( $xml, $feedObj );
+            
             $importer->run();
             ImportLogger::getInstance()->end();
             $this->writeEndImportLogLine( $options );
