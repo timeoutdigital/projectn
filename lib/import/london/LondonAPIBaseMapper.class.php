@@ -142,7 +142,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['zips']              = (string) $xml->postcode;
     $poi['city']              = $this->deriveCity( $poi['latitude'], $poi['longitude'], $xml, $poi );
   
-    $poi['vendor_id']         = $this->vendor['id'];
+    $poi['Vendor']            = clone $this->vendor;
     $poi['vendor_poi_id']     = (string) $xml->uid;
     //$poi['vendor_category']    = $this->getApiType();
     $poi->addVendorCategory( $this->getApiType(), $this->vendor['id'] );
@@ -158,6 +158,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     {
         $poi->addProperty( "Timeout_link", (string) $xml->webUrl );
     }
+    
     $poi['phone']             = (string) $xml->phone;
     $poi['price_information'] = (string) $xml->price;
     $poi['openingtimes']      = (string) $xml->openingTimes;

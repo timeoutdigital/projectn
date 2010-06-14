@@ -18,7 +18,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   {
     foreach( $this->xml->venues as $venueElement )
     {
-      $poi = $this->dataMapperHelper->getPoiRecord($venueElement['placeid']);
+      $poi = $this->dataMapperHelper->getPoiRecord( $venueElement['placeid'] );
       $this->mapAvailableData($poi, $venueElement );
 
       $poi['review_date'] = '';
@@ -41,11 +41,8 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
 
-      $poi->setGeoEncodeLookUpString ( $this->getGeoEncodeData( $poi ) );
-      $start = microtime( true ); 
-       $this->notifyImporter( $poi );
-      $end = microtime( true );
-      //print "Took " . ( $end - $start ) ."\n";
+      $poi->setGeoEncodeLookUpString( $this->getGeoEncodeData( $poi ) );
+      $this->notifyImporter( $poi );
     }
   }
 
