@@ -190,6 +190,10 @@ abstract class LondonAPIBaseMapper extends DataMapper
       }
     }
 
+    // Refs: #412, We seem to be getting postcodes on the end of the address string, where we used to get the city name.
+    if( preg_match( "/[0-9]/", $city ) )
+        throw new LondonAPIBaseMapperException("City Name Should Not Contain a Number.");
+
     return $city;
   }
   
@@ -315,17 +319,17 @@ abstract class LondonAPIBaseMapper extends DataMapper
     else
     {
       return false;
-      //distance in miles from center point
-      $centerPoint = round( sqrt( pow( (69.1 * ( $latitude - 51.515927 ) ), 2) + pow((53 * ( $longitude - -0.129917 ) ), 2 ) ), 1);
-
-      if ( $centerPoint < 50 )
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+//      //distance in miles from center point
+//      $centerPoint = round( sqrt( pow( (69.1 * ( $latitude - 51.515927 ) ), 2) + pow((53 * ( $longitude - -0.129917 ) ), 2 ) ), 1);
+//
+//      if ( $centerPoint < 50 )
+//      {
+//        return true;
+//      }
+//      else
+//      {
+//        return false;
+//      }
     }
   }
 
@@ -388,4 +392,6 @@ abstract class LondonAPIBaseMapper extends DataMapper
     return( $baseUrl . $mediaId . "/i.jpg" );
   }
 }
+
+class LondonAPIBaseMapperException extends Exception {}
 ?>
