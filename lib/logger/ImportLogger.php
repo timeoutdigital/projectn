@@ -60,6 +60,20 @@ class ImportLogger extends BaseLogger
 
     /**
      *
+     * @var saveEvery
+     * @desc Save Every x Records
+     */
+    private $_maxInCache = 50;
+
+    /**
+     *
+     * @var recordsInCache
+     * @desc How Many Records Waiting to be Saveds
+     */
+    private $_recordsInCache = 0;
+
+    /**
+     *
      * @var UnknownVendor
      */
     private $_unknownVendor;
@@ -98,6 +112,7 @@ class ImportLogger extends BaseLogger
             $this->_importLoggers[ $currentCity ]                   = new LogImport;
             $this->_importLoggers[ $currentCity ]['Vendor']         = $this->_vendorObj;
             $this->_importLoggers[ $currentCity ]['status']         = 'running';
+            $this->save( true );
             return $this->_importLoggers[ $currentCity ];
         }
     }
@@ -210,13 +225,24 @@ class ImportLogger extends BaseLogger
     /**
      * Save the stats
      */
-    public function save()
+    public function save( $forceSaveNow = false )
     {
         if( $this->_enabled )
-        {
-            $importLogger = $this->getLoggerByVendor();
-            $importLogger['total_time'] = $this->_getElapsedTime();
-            if( $this->_progressiveSave ) $importLogger->save();
+        {            
+            $this->_recordsInCache++;
+            if( $this->_progressiveSave || $this->_recordsInCache > $this->_maxInCache || $forceSaveNow )
+            {
+                foreach( $this->_importLoggers as $importLoggerCity => $importLogger )
+                {
+                    $importLogger['total_time'] = $this->_getElapsedTime();
+                    $importLogger->save();
+
+                    // Reload Logger Object to remove old references from RAM
+                    $this->_importLoggers[ $importLoggerCity ] = Doctrine::getTable("LogImport")->findOneById( $importLogger['id'] );
+                }
+                
+                $this->_recordsInCache = 0;
+            }
         }
     }
 
@@ -446,7 +472,7 @@ class ImportLogger extends BaseLogger
 
             if( !$recordIsNew )
                 $oldRecord = Doctrine::getTable( get_class( $record ) )->findOneById( $record->id, Doctrine::HYDRATE_ARRAY );
-
+            
             $record->save();
 
             // If Record is not new, check to see which fields are modified.
@@ -464,20 +490,20 @@ class ImportLogger extends BaseLogger
 
                 unset( $oldRecord, $newRecord );
             }
-
+            
             if ( $recordIsNew )
                 ImportLogger::getInstance()->addInsert( $record );
 
             else ImportLogger::getInstance()->addUpdate( $record, $modified );
 
-            if( isset( $record ) ) $record->free( true );
+            //if( isset( $record ) ) $record->free( true );
         }
         catch( Exception $e )
         {
             if( $record ) ImportLogger::getInstance()->addFailed( $record );
             ImportLogger::getInstance()->addError( $e, $record, 'failed to save record' );
             
-            if( isset( $record ) ) $record->free( true );
+            //if( isset( $record ) ) $record->free( true );
         }
     }
 }
