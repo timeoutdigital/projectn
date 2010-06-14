@@ -337,7 +337,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
   {
 
     $event = $this->dataMapperHelper->getEventRecord( $item[ 'SLLEvent' ][ 'id' ] );
-    $event[ 'Vendor' ] = $this->vendor;
+    $event[ 'Vendor' ] = clone $this->vendor;
     $event[ 'vendor_event_id' ] = $item[ 'SLLEvent' ][ 'id' ];
     $event[ 'name' ]        = $item[ 'SLLEvent' ][ 'title' ];
     $event[ 'description' ] = $item[ 'SLLEvent' ][ 'annotation' ];
@@ -359,7 +359,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
   private function mapPoiFrom( $item )
   {
     $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'SLLVenue' ][ 'id' ] );
-    $poi[ 'Vendor' ]                 = $this->vendor;
+    $poi[ 'Vendor' ]                 = clone $this->vendor;
     $poi[ 'vendor_poi_id' ]          = $item[ 'SLLVenue' ][ 'id' ];
     $poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
 
