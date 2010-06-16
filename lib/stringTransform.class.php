@@ -36,6 +36,17 @@ class stringTransform
   }
 
   /**
+   * Format memory usage to human readable.
+   * @return string
+   * taken from http://uk2.php.net/manual/en/function.memory-get-usage.php
+   */
+  public static function byteToHumanReadable( $size )
+  {
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+  }
+
+  /**
    * Format string into a nice format, result is '09:00' for input of '9'.
    * @return array
    * @todo is this function really needed, or should it be removed?
