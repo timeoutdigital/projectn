@@ -42,9 +42,33 @@ class XMLExportPOI extends XMLExport
     $rootElement->setAttribute( 'vendor', XMLExport::VENDOR_NAME );
     $rootElement->setAttribute( 'modified', $this->modifiedTimeStamp );
 
+    try {
+        // Dont Do Dupe Lat Long Lookup for Russian Cities
+        $duplicateLatLongs = ( $this->vendor['language'] != 'ru' ) ?
+             Doctrine_Query::create()
+                 ->select("p.latitude, p.longitude, CONCAT( latitude, ', ', longitude ) as myString")
+                 ->from('Poi p')
+                 ->where('p.vendor_id = ?', $this->vendor['id'])
+                 ->groupBy('myString')
+                 ->having('count( myString ) > 1')
+                 ->execute( array(), Doctrine_Core::HYDRATE_ARRAY )
+        : array();
+    }
+    catch( Exception $e )
+    {
+        echo "FATAL Exception returned while finding duplicate lat/longs in export." . PHP_EOL;
+        echo $e->getMessage();
+        die;
+    }
+
     //entry
     foreach( $data as $poi )
     {
+      //Skip Export for Pois with Dupe Lat/Longs
+      foreach( $duplicateLatLongs as $dupe )
+          if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
+              continue 2;
+
       if( count( $poi[ 'VendorPoiCategory' ] ) == 0 )
       {
         ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );

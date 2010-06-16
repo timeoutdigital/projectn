@@ -74,7 +74,7 @@ class runnerTask extends sfBaseTask
                 {
                     foreach( $cityParams as $type )
                     {
-                        echo 'running ' . $task . ' for ' . $cityName . ' (' . $type . ')' . PHP_EOL;
+                        echo date( 'Y-m-d H:i:s' ) . ' - running ' . $task . ' for ' . $cityName . ' (' . $type . ')' . PHP_EOL;
 
                         $logPath = $logRootDir . '/' . $task;
                         $this->verifyAndCreatePath( $logPath );
@@ -98,7 +98,7 @@ class runnerTask extends sfBaseTask
                 {
                     foreach( $cityParams[ 'type' ] as $type )
                     {
-                        echo 'running ' . $task . ' for ' . $cityName . ' (' . $type . ')' . PHP_EOL;
+                        echo date( 'Y-m-d H:i:s' ) . ' - running ' . $task . ' for ' . $cityName . ' (' . $type . ')' . PHP_EOL;
 
                         $logPath = $logRootDir . '/' . $task;
                         $this->verifyAndCreatePath( $logPath );

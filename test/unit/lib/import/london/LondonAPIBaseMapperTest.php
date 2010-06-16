@@ -103,7 +103,7 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
     $criticsChoiceCount = 0;
     foreach( $poi['PoiProperty'] as $property )
     {
-      var_dump( $property['lookup'] );
+      //var_dump( $property['lookup'] );
       if( $property['lookup'] == 'Critics_choice' )
         $criticsChoiceCount++;
     }
