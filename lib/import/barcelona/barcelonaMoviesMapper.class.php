@@ -11,7 +11,7 @@
  * @version 1.0.1
  *
  */
-class barcelonaMoviesMapper extends barcelonaBaseDataMapper
+class barcelonaMoviesMapper extends barcelonaBaseMapper
 {
 
   public function mapMovies()

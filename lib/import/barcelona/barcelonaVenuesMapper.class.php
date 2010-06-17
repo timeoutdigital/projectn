@@ -11,11 +11,11 @@
  * @version 1.0.1
  *
  */
-class barcelonaVenuesMapper extends barcelonaBaseDataMapper
+class barcelonaVenuesMapper extends barcelonaBaseMapper
 {
   public function mapVenues()
   {
-    foreach( $this->xml->venue as $venueElement )
+    for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
     {
         try 
         {
@@ -25,7 +25,7 @@ class barcelonaVenuesMapper extends barcelonaBaseDataMapper
 
             $poi['vendor_poi_id']                 = (string) $venueElement['id'];
             $poi['review_date']                   = (string) $venueElement->review_date;
-            $poi['local_language']                = $this['vendor']['language'];
+            $poi['local_language']                = $this->vendor['language'];
             $poi['poi_name']                      = (string) $venueElement->name;
             $poi['house_no']                      = (string) $venueElement->house_no;
             $poi['street']                        = (string) $venueElement->street;
@@ -44,37 +44,29 @@ class barcelonaVenuesMapper extends barcelonaBaseDataMapper
             $poi['keywords']                      = (string) $venueElement->keywords;
             $poi['short_description']             = (string) $venueElement->short_description;
             $poi['description']                   = (string) $venueElement->description;
-
-            foreach ( $venueElement->public_transports as $pt )
-            {
-                $poi['public_transport_links']      = (string) $pt->public_transport;
-            }
-
+            $poi['public_transport_links']        = $this->extractPublicTransportInfo( $venueElement );
             $poi['price_information']             = (string) $venueElement->price_information;
             $poi['openingtimes']                  = (string) $venueElement->opening_times;
-
             //$poi['provider']                      = (string) $venueElement->provider;
-            $poi['geocode_look_up']               = 'to be added';
-            $poi['Vendor']                        = $this->vendor;
+            $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
+            $poi['Vendor']                        = clone $this->vendor;
 
             // Categories
-            // Not Formalised Structure
-//            foreach( $venueElement->categories->category as $category )
-//              $poi->addVendorCategory( $category, $this->vendor->id );
+            $pois->addVendorCategory( $this->extractCategories( $venueElement ), $this->vendor->id );
 
             // Timeout Link
             if( (string) $venueElement->timeout_url != "" )
                 $poi->setTimeoutLinkProperty( trim( (string) $venueElement->timeout_url ) );
 
             //Critics Choice
-            $poi->setCriticsChoiceProperty( ( $venueElement->critics_choice == 'y' ) ? true : false );
+            $poi->setCriticsChoiceProperty( strtolower( (string) $venueElement->critics_choice ) == 'y' ? true : false );
 
             //// Add First Image Only
             //$medias = array();
             //foreach( $venueElement->medias->media as $media ) $medias[] = (string) $media;
             //if( !empty( $medias ) ) $this->addImageHelper( $poi, $medias[0] );
             
-            $this->notifyImporter( $poi );
+            //$this->notifyImporter( $poi );
         }
         catch( Exception $exception )
         {

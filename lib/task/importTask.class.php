@@ -704,6 +704,47 @@ class importTask extends sfBaseTask
         break; //end kuala_lumpur
 
 
+    case 'barcelona':
+
+        $vendorObj = $this->getVendorByCityAndLanguage( 'barcelona', 'ca' );
+
+        switch( $options['type'] )
+        {
+          case 'poi':
+
+            $feedUrl = "http://projectn-pro.gnuinepath.com/venues.xml";
+            $mapperClass = "barcelonaVenuesMapper";
+            
+          break; //end Poi
+
+          case 'event':
+
+            $feedUrl = "http://projectn-pro.gnuinepath.com/events.xml";
+            $mapperClass = "barcelonaEventsMapper";
+
+          break; //end Event
+
+          case 'movie':
+
+            $feedUrl = "http://projectn-pro.gnuinepath.com/movies.xml";
+            $mapperClass = "barcelonaMoviesMapper";
+
+          break; //end Movie
+
+          //ToDo Add default case which calls Invalid Type Method;
+        }
+
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $mapperClass( $xml, null, 'barcelona' ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->writeEndImportLogLine( $options ); //ToDo Change to new end method
+
+    break; // end Barcelona
 
 
     case 'uae':

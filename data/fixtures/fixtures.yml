@@ -278,6 +278,14 @@ Vendor:
     airport_code:             'MOW'
     country_code:             'ru'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+  v18:
+    city:                     barcelona
+    language:                 ca
+    time_zone:                Europe/Madrid
+    inernational_dial_code:   '+3493'
+    airport_code:             'BCN'
+    country_code:             'es'
+    geo_boundries:            '27.6388168334961;-18.169641494751;43.7917251586914;4.31538963317871'
 
 EventCategory:
   c1:

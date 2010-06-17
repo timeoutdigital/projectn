@@ -11,12 +11,12 @@
  * @version 1.0.1
  *
  */
-class barcelonaEventsMapper extends barcelonaBaseDataMapper
+class barcelonaEventsMapper extends barcelonaBaseMapper
 {
 
   public function mapEvents()
   {
-    foreach( $this->xml->event as $eventElement )
+    for( $i=0, $eventElement = $this->xml->event[ 0 ]; $i<$this->xml->event->count(); $i++, $eventElement = $this->xml->event[ $i ] )
     {
       try{
 
@@ -34,19 +34,19 @@ class barcelonaEventsMapper extends barcelonaBaseDataMapper
           $event['url']                     = (string) $eventElement->url;
           $event['price']                   = (string) $eventElement->price;
           $event['rating']                  = (string) $event->rating;
-          $event['vendor']                  = $this->vendor;
+          $event['Vendor']                  = $this->vendor;
 
           // Timeout Link
-          if( (string) $event->timeout_url != "" )
-              $event->setTimeoutLinkProperty( trim( (string) $event->timeout_url ) );
+          if( (string) $eventElement->timeout_url != "" )
+              $event->setTimeoutLinkProperty( trim( (string) $eventElement->timeout_url ) );
 
           //Critics Choice
-          $event->setCriticsChoiceProperty( ( $event->critics_choice == 'y' ) ? true : false );
+          $event->setCriticsChoiceProperty( ( (string) $eventElement->critics_choice == 'y' ) ? true : false );
 
           // Categories
-          //$categories = array();
-          //foreach( $eventElement->categories->category as $category ) $categories[] = (string) $category;
-          //$event->addVendorCategory( $categories, $this->vendor->id );
+          $event->addVendorCategory( $this->extractCategories( $eventElement ), $this->vendor->id );
+            
+            print_r( array_unique( $categories ) );
 
           // Add First Image Only
           //$medias = array();
@@ -54,7 +54,7 @@ class barcelonaEventsMapper extends barcelonaBaseDataMapper
           //if( !empty( $medias ) ) $this->addImageHelper( $event, $medias[0] );
 
           // Delete Occurences
-          $event['EventOccurrence']->delete();
+          //$event['EventOccurrence']->delete();
           
           // Create Occurences
           //foreach( $eventElement->occurrences->occurrence as $xmlOccurrence )
@@ -84,10 +84,11 @@ class barcelonaEventsMapper extends barcelonaBaseDataMapper
           //   }
           //}
           
-          $this->notifyImporter( $event );
+          //$this->notifyImporter( $event );
       }
       catch( Exception $exception )
       {
+          echo $exception->getMessage();
           $this->notifyImporterOfFailure( $exception, $event );
       }
     }
