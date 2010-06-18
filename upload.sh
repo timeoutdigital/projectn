@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo $(date +"%Y%m%d")' [upload start]'
+
 cd /var/vhosts/projectn/httpdocs
 
 echo "Zipping Movies"
@@ -51,3 +53,5 @@ echo -e "Removing lock file\n"
 lftp -c 'open -e "rm upload.lock" -u $N_SERVER_USER,$N_SERVER_PASS $N_SERVER_HOST'
 
 echo "Job Done!!"
+
+echo $(date +"%Y%m%d")' [upload end]'
