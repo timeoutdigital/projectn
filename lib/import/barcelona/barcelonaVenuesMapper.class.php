@@ -19,54 +19,56 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
     {
         try 
         {
-            $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], (string) $venueElement['id'] );
+            $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $this->clean( (string) $venueElement['id'] ) );
             if( $poi === false )
               $poi = new Poi();
 
-            $poi['vendor_poi_id']                 = (string) $venueElement['id'];
-            $poi['review_date']                   = (string) $venueElement->review_date;
+            $poi['vendor_poi_id']                 = $this->clean( (string) $venueElement['id'] );
+            $poi['review_date']                   = $this->clean( (string) $venueElement->review_date );
             $poi['local_language']                = $this->vendor['language'];
-            $poi['poi_name']                      = (string) $venueElement->name;
-            $poi['house_no']                      = (string) $venueElement->house_no;
-            $poi['street']                        = (string) $venueElement->street;
-            $poi['city']                          = (string) $venueElement->city;
-            $poi['district']                      = (string) $venueElement->district;
+            $poi['poi_name']                      = $this->clean( (string) $venueElement->name );
+            $poi['house_no']                      = $this->clean( (string) $venueElement->house_no );
+            $poi['street']                        = $this->clean( (string) $venueElement->street );
+            $poi['city']                          = $this->clean( (string) $venueElement->city );
+            $poi['district']                      = $this->clean( (string) $venueElement->district );
             $poi['country']                       = "ESP";
-            $poi['additional_address_details']    = (string) $venueElement->additional_address_details;
-            $poi['zips']                          = (string) $venueElement->postcode;
-            $poi['longitude']                     = (string) $venueElement->long;
-            $poi['latitude']                      = (string) $venueElement->lat;
-            $poi['email']                         = (string) $venueElement->email;
-            $poi['url']                           = trim( (string) $venueElement->url );
-            $poi['phone']                         = trim( (string) $venueElement->phone );
-            $poi['phone2']                        = trim( (string) $venueElement->phone2 );
-            $poi['fax']                           = (string) $venueElement->fax;
-            $poi['keywords']                      = (string) $venueElement->keywords;
-            $poi['short_description']             = (string) $venueElement->short_description;
-            $poi['description']                   = (string) $venueElement->description;
+            $poi['additional_address_details']    = $this->clean( (string) $venueElement->additional_address_details );
+            $poi['zips']                          = $this->clean( (string) $venueElement->postcode );
+            $poi['longitude']                     = $this->clean( (string) $venueElement->long );
+            $poi['latitude']                      = $this->clean( (string) $venueElement->lat );
+            $poi['email']                         = $this->clean( (string) $venueElement->email );
+            $poi['url']                           = $this->clean( (string) $venueElement->url );
+            $poi['phone']                         = $this->clean( (string) $venueElement->phone );
+            $poi['phone2']                        = $this->clean( (string) $venueElement->phone2 );
+            $poi['fax']                           = $this->clean( (string) $venueElement->fax );
+            $poi['keywords']                      = $this->clean( (string) $venueElement->keywords );
+            $poi['short_description']             = $this->clean( (string) $venueElement->short_description );
+            $poi['description']                   = $this->clean( (string) $venueElement->description );
             $poi['public_transport_links']        = $this->extractPublicTransportInfo( $venueElement );
-            $poi['price_information']             = (string) $venueElement->price_information;
-            $poi['openingtimes']                  = (string) $venueElement->opening_times;
+            $poi['price_information']             = $this->clean( (string) $venueElement->price_information );
+            $poi['openingtimes']                  = $this->clean( (string) $venueElement->opening_times );
+            //$poi['star_rating']
+            //$poi['rating']
             //$poi['provider']                      = (string) $venueElement->provider;
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = clone $this->vendor;
 
             // Categories
-            $pois->addVendorCategory( $this->extractCategories( $venueElement ), $this->vendor->id );
+            $poi->addVendorCategory( $this->extractCategories( $venueElement ), $this->vendor->id );
 
             // Timeout Link
             if( (string) $venueElement->timeout_url != "" )
-                $poi->setTimeoutLinkProperty( trim( (string) $venueElement->timeout_url ) );
+                $poi->setTimeoutLinkProperty( $this->clean( (string) $venueElement->timeout_url ) );
 
             //Critics Choice
-            $poi->setCriticsChoiceProperty( strtolower( (string) $venueElement->critics_choice ) == 'y' ? true : false );
+            $poi->setCriticsChoiceProperty( strtolower( $this->clean( (string) $venueElement->critics_choice ) ) == 'y' ? true : false );
 
             //// Add First Image Only
             //$medias = array();
             //foreach( $venueElement->medias->media as $media ) $medias[] = (string) $media;
             //if( !empty( $medias ) ) $this->addImageHelper( $poi, $medias[0] );
             
-            //$this->notifyImporter( $poi );
+            $this->notifyImporter( $poi );
         }
         catch( Exception $exception )
         {

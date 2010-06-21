@@ -35,8 +35,15 @@ class barcelonaBaseMapper extends DataMapper
     * @param string $city
     */
     public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
-    {
+    {        
         $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'barcelona', 'ca' );
+
+        date_default_timezone_set( $this->vendor->time_zone );
+        setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
+
+        //var_dump( iconv_get_encoding() );
+        //die;
+        
         $this->geoEncoder = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
         $this->xml        = $xml;
     }
@@ -55,17 +62,30 @@ class barcelonaBaseMapper extends DataMapper
         $categories = array();
         foreach( $element->categories->category as $category )
         {
-            $categoryName = trim( (string) $category->name );
+            $categoryName = $this->clean( (string) $category->name );
 
             // Category has No Children
             if( count( $category->children->category ) === 0 ) $categories[] = $categoryName;
 
             // Catgeory has Children
             else foreach( $category->children->category as $subCategory )
-                $categories[] = stringTransform::concatNonBlankStrings( " | ", array( $categoryName, trim( (string) $subCategory->name ) ) );
+                $categories[] = stringTransform::concatNonBlankStrings( " | ", array( $categoryName, $this->clean( (string) $subCategory->name ) ) );
         }
         return array_unique( $categories );
     }
+
+    protected function clean( $string )
+    {
+        return $string;
+        return $this->mb_trim( $string );
+    }
+
+    protected function mb_trim( $string )
+    {
+        $string = ereg_replace( "^\s*", "", $string );
+        $string = ereg_replace( "\s*$", "", $string );
+        return $string;
+    } 
 
     protected function extractPublicTransportInfo( $element )
     {

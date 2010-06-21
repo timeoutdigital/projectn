@@ -739,7 +739,7 @@ class importTask extends sfBaseTask
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $mapperClass( $xml, null, 'barcelona' ) );
+        $importer->addDataMapper( new $mapperClass( $xml ) );
         $importer->run();
         ImportLogger::getInstance()->end();
         $this->writeEndImportLogLine( $options ); //ToDo Change to new end method
