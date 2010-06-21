@@ -221,7 +221,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
 
     $address = (string) $venueElement['address'];
 
-    if( strpos( $address, $buildingno ) !== false )
+    if( $buildingno == '' || strpos( $address, $buildingno ) !== false )
       return null;
 
     return stringTransform::concatNonBlankStrings(' ', $houseArray );
