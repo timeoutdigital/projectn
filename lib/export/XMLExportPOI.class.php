@@ -56,6 +56,7 @@ class XMLExportPOI extends XMLExport
     }
     catch( Exception $e )
     {
+        ExportLogger::getInstance()->addError( 'FATAL Exception returned while finding duplicate lat/longs in export.', 'Poi' );
         echo "FATAL Exception returned while finding duplicate lat/longs in export." . PHP_EOL;
         echo $e->getMessage();
         die;
@@ -66,8 +67,13 @@ class XMLExportPOI extends XMLExport
     {
       //Skip Export for Pois with Dupe Lat/Longs
       foreach( $duplicateLatLongs as $dupe )
+      {
           if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
+          {
+              ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
               continue 2;
+          }
+      }
 
       if( count( $poi[ 'VendorPoiCategory' ] ) == 0 )
       {
