@@ -154,14 +154,14 @@ class ExportLogger extends BaseLogger
      *
      * Add an error to be logged.
      *
-     * @param string $log Any extra details that can help someone solve this error
+     * @param string $message Any extra details that can help someone solve this error
      * @param Doctrine_Record $record The record causeing the error
      *
      */
-    public function addError( $log, $model = '', $id = '' )
+    public function addError( $message, $model = '', $id = '' )
     {
         $exportRecordErrorLogger                     = new LogExportError();
-        $exportRecordErrorLogger['log']              = $log;
+        $exportRecordErrorLogger['log']              = $message;
 
         if ( $model != '' )
            $exportRecordErrorLogger['model']         = $model;
@@ -177,6 +177,12 @@ class ExportLogger extends BaseLogger
      * Log an export
      *
      * @param string $model
+     *
+     * This function can deal with different types of models (thats what the
+     * loop is for). However at the moment we are not using this. It is still
+     * kept like that for the future as well its implemented similar on the
+     * import logger.
+     *
      */
     public function addExport( $model )
     {
