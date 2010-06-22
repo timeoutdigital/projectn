@@ -54,7 +54,8 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
             $poi['Vendor']                        = clone $this->vendor;
 
             // Categories
-            $poi->addVendorCategory( $this->extractCategories( $venueElement ), $this->vendor->id );
+            $cats = $this->extractCategories( $venueElement );
+            foreach( $cats as $cat ) $poi->addVendorCategory( $cat );
 
             // Timeout Link
             if( (string) $venueElement->timeout_url != "" )
