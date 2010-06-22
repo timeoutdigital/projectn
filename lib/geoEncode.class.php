@@ -58,10 +58,8 @@ class geoEncode
   /**
    * 
    */
-  public function  __construct( $apiKey=null, $curlClass='Curl' )
+  public function  __construct( $curlClass='Curl' )
   {
-    $this->apiKey = $apiKey;
-
     //this will is checked in setUpCurl();
     $this->curlClass = $curlClass;
   }
@@ -74,10 +72,20 @@ class geoEncode
    * @return void
    * 
    */
-  public function setAddress( $address )
+  final public function setAddress( $address )
   {
     $this->addressString = urlencode($address);
     $this->addressChanged = true;
+  }
+
+  /**
+   * Set the API key
+   *
+   * @param string $apiKey String
+   */
+  final public function setApiKey( $apiKey )
+  {
+    $this->apiKey = $apiKey;
   }
 
   /**
@@ -85,7 +93,7 @@ class geoEncode
    *
    * @param string $region String
    */
-  public function setRegion( $region )
+  final public function setRegion( $region )
   {
     $this->region = $region;
   }
@@ -95,7 +103,7 @@ class geoEncode
    *
    * @param string $bounds String
    */
-  public function setBounds( $bounds )
+  final public function setBounds( $bounds )
   {
     $this->bounds = $bounds;
   }
@@ -107,25 +115,22 @@ class geoEncode
    * @param string How to return the data. array | string
    *
    */
-  public function getGeoCode( $apiKey = NULL )
+  final public function getGeoCode()
   {
     if( !$this->addressChanged )
       return $this;
 
-     if( is_null( $apiKey ) )
-       $apiKey = $this->apiKey;
+    $this->setUpCurl();
+    $this->processResponse( $this->curl->exec() );
+   
+    $this->addressChanged = false;
+    return $this;
+  }
 
-     if( !is_string( $apiKey ) || strlen( $apiKey ) != 86 ) $apiKey = sfConfig::get('app_google_api_key');
+  protected function processResponse( $response )
+  {
+     $dataArray = explode(',', $response);
 
-     $this->setUpCurl();
-
-     //Create an array containing the data
-     $dataArray = explode(',', $this->response);
-
-
-     /**
-      * @todo re-implement exception handling
-      */
      switch($dataArray[0])
      {
          case '602': throw new GeoCodeException('G_GEO_UNKNOWN_ADDRESS');
@@ -144,13 +149,9 @@ class geoEncode
           unset($dataArray[3]);
      }
 
-     $this->setCoOrdinates($dataArray);
-
-     //print_r($dataArray);
-     //Set invidual co-ords
-   
-     $this->addressChanged = false;
-     return $this;
+    $this->longitude =  ( isset( $dataArray[3] ) ? (float) $dataArray[3]: null );
+    $this->latitude  =  ( isset( $dataArray[2] ) ? (float) $dataArray[2]: null );
+    $this->accuracy  =  ( isset( $dataArray[1] ) ? (int) $dataArray[1]: 0 );
   }
 
   private function setUpCurl()
@@ -162,34 +163,17 @@ class geoEncode
     $this->curl->setCurlOption(CURLOPT_HEADER,0); //Change this to a 1 to return headers
     $this->curl->setCurlOption(CURLOPT_FOLLOWLOCATION, 1);
     $this->curl->setCurlOption(CURLOPT_RETURNTRANSFER, 1);
-
-    $this->response = $this->curl->exec();
   }
 
-  public function getRawResponse()
+  final public function getRawResponse()
   {
       return $this->response;
-  }
-
-
-  /**
-   *  Break apart data and set class variables.
-   *
-   *  @param array $dataArray The geo co-ords
-   */
-  protected function setCoOrdinates($dataArray)
-  {
-
-    $this->longitude =  ( isset( $dataArray[3] ) ? (float) $dataArray[3]: null );
-    $this->latitude  =  ( isset( $dataArray[2] ) ? (float) $dataArray[2]: null );
-    $this->accuracy  =  ( isset( $dataArray[1] ) ? (int) $dataArray[1]: 0 );
-
   }
 
   /**
    * Get the longitude fo rthe address
    */
-  public function getLongitude()
+  final public function getLongitude()
   {
     $this->getGeoCode();
     return $this->longitude;
@@ -199,7 +183,7 @@ class geoEncode
   /**
    * Get the latitude of the address
    */
-  public function getLatitude()
+  final public function getLatitude()
   {
     $this->getGeoCode();
     return $this->latitude;
@@ -209,14 +193,23 @@ class geoEncode
   /**
    * Get the accuracy of the address
    */
-  public function getAccuracy()
+  final public function getAccuracy()
   {
     $this->getGeoCode();
     return $this->accuracy;
   }
 
+  protected function apiKeyIsValid( $apiKey )
+  {
+    return (!is_string( $apiKey ) || strlen( $apiKey ) != 86);
+  }
+
   public function getLookupUrl()
   {
+     $apiKey = $this->apiKey;
+
+     if( $this->apiKeyIsValid( $apiKey ) ) $apiKey = sfConfig::get('app_google_api_key');
+
      $url = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $apiKey;
 
      if( $this->region )

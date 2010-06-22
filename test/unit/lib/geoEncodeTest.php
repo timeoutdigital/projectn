@@ -29,7 +29,8 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
-    $this->object = new geoEncode( 'ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg', 'geoEncodeTestMockCurl' );
+    $this->object = new geoEncode( 'geoEncodeTestMockCurl' );
+    $this->object->setApiKey( 'ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg', 'geoEncodeTestMockCurl' );
      try {
 
       ProjectN_Test_Unit_Factory::createDatabases();
@@ -85,23 +86,24 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('foo', $stub->getGeoCode());
   }
 
-
-  public function testSetAddress()
+  public function testGetLookupUrl()
   {
-      include('Net/URL2.php');
+    $geocoder = new geoEncode();
 
-      $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
-      $urlObj = new Net_URL2($this->object->getLookupUrl());
-      $this->assertFalse(key_exists('region', $urlObj->getQueryVariables()), 'Testing that no region is appended');
+    $geocoder->setAddress( 'test_address' );
+    $this->assertRegExp(    '/test_address/', $geocoder->getLookupUrl() );
+    $this->assertNotRegExp( '/test_bounds/' , $geocoder->getLookupUrl() );
+    $this->assertNotRegExp( '/test_region/' , $geocoder->getLookupUrl() );
+    $this->assertNotRegExp( '/test_key/'    , $geocoder->getLookupUrl() );
 
-      //Test that a vendor region is added
-      $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-      $this->object->setAddress( 'Bermondsey Stree London SE1 3TQ' );
-      $this->object->setRegion( $vendorObj[ 'country_code' ] );
-      $this->object->setBounds( $vendorObj->getGoogleApiGeoBounds() );
-      $urlObj = new Net_URL2($this->object->getLookupUrl());
+    $geocoder->setBounds( 'test_bounds' );
+    $this->assertRegExp(    '/test_bounds/', $geocoder->getLookupUrl() );
 
-      $this->assertTrue(key_exists('region', $urlObj->getQueryVariables()), 'Testing that a region is appended');
+    $geocoder->setRegion( 'test_region' );
+    $this->assertRegExp(    '/test_region/', $geocoder->getLookupUrl() );
+
+    $geocoder->setApiKey( 'test_api_key_which_should_be_86_chars_long_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' );
+    $this->assertRegExp(    '/test_api_key_which_should_be_86_chars_long_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/', $geocoder->getLookupUrl() );
   }
 
 
