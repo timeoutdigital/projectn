@@ -29,7 +29,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
-    $this->object = new geoEncode( 'ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg', new geoEncodeTestMockCurl( null ) );
+    $this->object = new geoEncode( 'ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg', 'geoEncodeTestMockCurl' );
      try {
 
       ProjectN_Test_Unit_Factory::createDatabases();
@@ -111,7 +111,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
   public function testLongitude()
   {
     $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
-    $this->assertType('float', $this->object->getGeoCode()->getLongitude());
+    $this->assertEquals( 3, $this->object->getGeoCode()->getLongitude() );
   }
 
 
@@ -120,8 +120,8 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   public function testLatitude()
   {
-      $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
-    $this->assertType('float', $this->object->getGeoCode()->getLatitude());
+    $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
+    $this->assertEquals( 2, $this->object->getGeoCode()->getLatitude() );
   }
 
 
@@ -130,9 +130,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   public function testAccuracy()
   {
-
-      //print_r($this->object->getGeoCode()->getAccuracy());
-      $this->assertType('int', $this->object->getGeoCode()->getAccuracy());
+    $this->assertEquals(1, $this->object->getGeoCode()->getAccuracy());
   }
 }
 
@@ -140,6 +138,6 @@ class geoEncodeTestMockCurl extends Curl
 {
   public function exec()
   {
-    return '200, 1, 2, 3';
+    return '200, 1, 2, 3'; //http code, accuracy, lat, long
   }
 }
