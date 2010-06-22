@@ -41,15 +41,21 @@ class geoEncode
   private  $vendorObj;
   private  $lookupUrl;
   private  $response;
+  private  $curl;
+  private  $curlClass;
+  private  $apiKey;
 
 
   /**
    * 
    */
-  public function  __construct()
+  public function  __construct( $apiKey=null, $curlClass='Curl' )
   {
-  }
+    $this->apiKey = $apiKey;
 
+    //this will is checked in setUpCurl();
+    $this->curlClass = $curlClass;
+  }
 
   /**
    * Set the address
@@ -62,10 +68,7 @@ class geoEncode
   public function setAddress( $address, Vendor $vendorObj=null )
   {
     $this->addressString = urlencode($address);
-
     $this->vendorObj = $vendorObj;
-
-    $this->getGeoCode();
   }
 
 
@@ -78,6 +81,9 @@ class geoEncode
    */
   public function getGeoCode( $apiKey = NULL )
   {
+     if( is_null( $apiKey ) )
+       $apiKey = $this->apiKey;
+
      if( !is_string( $apiKey ) || strlen( $apiKey ) != 86 ) $apiKey = sfConfig::get('app_google_api_key');
      
      $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $apiKey;
@@ -91,18 +97,7 @@ class geoEncode
      //Set the string at a class level
      $this->lookupUrl = $geoCode;
 
-
-     //echo "\n".$geoCode . "\n";
-
-     //Setup curl
-     $ch = curl_init();
-     curl_setopt($ch, CURLOPT_URL, $geoCode);
-     curl_setopt($ch, CURLOPT_HEADER,0); //Change this to a 1 to return headers
-     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-     $this->response = curl_exec($ch);
-     curl_close($ch);
+     $this->setUpCurl();
 
      //Create an array containing the data
      $dataArray = explode(',', $this->response);
@@ -121,7 +116,6 @@ class geoEncode
 
          case '620': //throw new GeoCodeException('G_GEO_TOO_MANY_QUERIES');
              break;
-
      }
 
      if($dataArray[0] != '200')
@@ -138,6 +132,19 @@ class geoEncode
      return $this;
   }
 
+  private function setUpCurl()
+  {
+    if( is_null( $this->curl ) )
+      $this->curl = new $this->curlClass( $this->lookupUrl );
+
+    //$this->curl->setCurlOption(CURLOPT_URL, $geoCode);
+    $this->curl->setCurlOption(CURLOPT_HEADER,0); //Change this to a 1 to return headers
+    $this->curl->setCurlOption(CURLOPT_FOLLOWLOCATION, 1);
+    $this->curl->setCurlOption(CURLOPT_RETURNTRANSFER, 1);
+
+    $this->response = $this->curl->exec();
+  }
+
   public function getRawResponse()
   {
       return $this->response;
@@ -149,7 +156,7 @@ class geoEncode
    *
    *  @param array $dataArray The geo co-ords
    */
-  public function setCoOrdinates($dataArray)
+  protected function setCoOrdinates($dataArray)
   {
 
     $this->longitude =  ( isset( $dataArray[3] ) ? (float) $dataArray[3]: null );
@@ -163,6 +170,7 @@ class geoEncode
    */
   public function getLongitude()
   {
+    $this->getGeoCode();
     return $this->longitude;
   }
 
@@ -172,6 +180,7 @@ class geoEncode
    */
   public function getLatitude()
   {
+    $this->getGeoCode();
     return $this->latitude;
   }
 
@@ -181,6 +190,7 @@ class geoEncode
    */
   public function getAccuracy()
   {
+    $this->getGeoCode();
     return $this->accuracy;
   }
 
@@ -189,7 +199,4 @@ class geoEncode
     return $this->lookupUrl;
   }
 
-
 }
-
-?>
