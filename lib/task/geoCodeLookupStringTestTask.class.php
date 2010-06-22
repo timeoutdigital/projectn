@@ -98,6 +98,8 @@ EOF;
             $address = stringTransform::concatNonBlankStrings( ', ', $fields );
             $g = new geoEncode();
             $g->setAddress( $address, $poiObj->Vendor );
+            $g->setBounds( $poiObj->Vendor->getGoogleApiGeoBounds() );
+            $g->setRegion( $poiObj->Vendor['country_code'] );
             $g->getGeoCode( "ABQIAAAADCvbfZ1Y339Rd16PKF4k6BT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQj6XSAiXD_sPB9VI5lnTE0m8bWvQ" );
 
             $res = array( $g->getLatitude(), $g->getLongitude(), $g->getAccuracy(), $address, $g->getRawResponse(), $poiObj['id'] );

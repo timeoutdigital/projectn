@@ -44,7 +44,8 @@ class geoEncode
   private  $curl;
   private  $curlClass;
   private  $apiKey;
-
+  private  $region;
+  private  $bounds;
 
   /**
    * 
@@ -65,12 +66,21 @@ class geoEncode
    * @return void
    * 
    */
-  public function setAddress( $address, Vendor $vendorObj=null )
+  public function setAddress( $address )
   {
     $this->addressString = urlencode($address);
     $this->vendorObj = $vendorObj;
   }
 
+  public function setRegion( $region )
+  {
+    $this->region = $region;
+  }
+
+  public function setBounds( $bounds )
+  {
+    $this->bounds = $bounds;
+  }
 
   /**
    *
@@ -85,17 +95,6 @@ class geoEncode
        $apiKey = $this->apiKey;
 
      if( !is_string( $apiKey ) || strlen( $apiKey ) != 86 ) $apiKey = sfConfig::get('app_google_api_key');
-     
-     $geoCode = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $apiKey;
-
-     if( !is_null( $this->vendorObj ) )
-     {
-         $geoCode .= '&region='.$this->vendorObj['country_code'];
-         $geoCode .= '&bounds='.$this->vendorObj->getGoogleApiGeoBounds();
-     }
-     
-     //Set the string at a class level
-     $this->lookupUrl = $geoCode;
 
      $this->setUpCurl();
 
@@ -135,7 +134,7 @@ class geoEncode
   private function setUpCurl()
   {
     if( is_null( $this->curl ) )
-      $this->curl = new $this->curlClass( $this->lookupUrl );
+      $this->curl = new $this->curlClass( $this->getLookupUrl() );
 
     //$this->curl->setCurlOption(CURLOPT_URL, $geoCode);
     $this->curl->setCurlOption(CURLOPT_HEADER,0); //Change this to a 1 to return headers
@@ -196,7 +195,15 @@ class geoEncode
 
   public function getLookupUrl()
   {
-    return $this->lookupUrl;
+     $url = "http://maps.google.com/maps/geo?q=".$this->addressString."&output=csv&oe=utf8\&sensor=false&key=". $apiKey;
+
+     if( $this->region )
+       $url .= '&region='.$this->region;
+
+     if( $this->bounds )
+       $url .= '&bounds='.$this->bounds;
+
+     return $url;
   }
 
 }

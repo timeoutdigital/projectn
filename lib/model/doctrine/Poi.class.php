@@ -413,7 +413,9 @@ class Poi extends BasePoi
 
     $geoEncoder = $this->getGeoEncoder();
 
-    $geoEncoder->setAddress(  $this['geocode_look_up'], $this['Vendor']  );
+    $geoEncoder->setAddress(  $this['geocode_look_up']);
+    $geoEncoder->setBounds(  $this['Vendor']->getGoogleApiGeoBounds());
+    $geoEncoder->setRegion(  $this['Vendor']['country_code']);
 
     $this['longitude'] = $geoEncoder->getLongitude();
     $this['latitude']  = $geoEncoder->getLatitude();

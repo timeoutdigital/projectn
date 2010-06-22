@@ -95,8 +95,10 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
       $this->assertFalse(key_exists('region', $urlObj->getQueryVariables()), 'Testing that no region is appended');
 
       //Test that a vendor region is added
-      $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-      $this->object->setAddress('Bermondsey Stree London SE1 3TQ', $this->vendorObj);
+      $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+      $this->object->setAddress( 'Bermondsey Stree London SE1 3TQ' );
+      $this->object->setRegion( $vendorObj[ 'country_code' ] );
+      $this->object->setBounds( $vendorObj->getGoogleApiGeoBounds() );
       $urlObj = new Net_URL2($this->object->getLookupUrl());
 
       $this->assertTrue(key_exists('region', $urlObj->getQueryVariables()), 'Testing that a region is appended');
