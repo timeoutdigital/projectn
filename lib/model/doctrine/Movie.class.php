@@ -28,6 +28,41 @@ class Movie extends BaseMovie
   }
 
   /**
+   * Set Timeout Link
+   */
+  public function setTimeoutLinkProperty( $url )
+  {
+    if( empty( $url ) )
+      return; //@todo consider logging
+
+    $this->addProperty( 'Timeout_link', $url );
+  }
+
+  /**
+   * Set Critics Choice Link
+   */
+  public function setCriticsChoiceProperty( $isCriticsChoice )
+  {
+    if( !is_bool($isCriticsChoice))
+      throw new Exception( 'Parameter must be a boolean value.' );
+
+    if( $isCriticsChoice )
+      $this->addProperty( 'Critics_choice', 'Y' );
+    //@todo else removeProperty
+  }
+
+  public function getCriticsChoiceProperty()
+  {
+    foreach ( $this['MovieProperty'] as $property )
+    {
+      if ( $property[ 'lookup' ] == 'Critics_choice' )
+      {
+        return $property[ 'value' ];
+      }
+    }
+  }
+
+  /**
   * PreSave Method
   */
   public function preSave( $event )
