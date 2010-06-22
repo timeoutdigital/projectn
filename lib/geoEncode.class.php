@@ -48,6 +48,14 @@ class geoEncode
   private  $bounds;
 
   /**
+   * Is false if address changes, is true after a call to google
+   * This is so we don't make a request unnecessarily
+   *
+   * @var boolean
+   */
+  private  $addressChanged = false;
+
+  /**
    * 
    */
   public function  __construct( $apiKey=null, $curlClass='Curl' )
@@ -69,14 +77,24 @@ class geoEncode
   public function setAddress( $address )
   {
     $this->addressString = urlencode($address);
-    $this->vendorObj = $vendorObj;
+    $this->addressChanged = true;
   }
 
+  /**
+   * Set the region
+   *
+   * @param string $region String
+   */
   public function setRegion( $region )
   {
     $this->region = $region;
   }
 
+  /**
+   * Set the bounds
+   *
+   * @param string $bounds String
+   */
   public function setBounds( $bounds )
   {
     $this->bounds = $bounds;
@@ -91,6 +109,9 @@ class geoEncode
    */
   public function getGeoCode( $apiKey = NULL )
   {
+    if( !$this->addressChanged )
+      return $this;
+
      if( is_null( $apiKey ) )
        $apiKey = $this->apiKey;
 
@@ -128,6 +149,7 @@ class geoEncode
      //print_r($dataArray);
      //Set invidual co-ords
    
+     $this->addressChanged = false;
      return $this;
   }
 

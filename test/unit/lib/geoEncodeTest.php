@@ -130,6 +130,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   public function testAccuracy()
   {
+    $this->object->setAddress('Bermondsey Stree London SE1 3TQ');
     $this->assertEquals(1, $this->object->getGeoCode()->getAccuracy());
   }
 }
