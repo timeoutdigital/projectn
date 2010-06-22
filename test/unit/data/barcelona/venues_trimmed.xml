@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<venues>
+  <venue id="1">
+    <name><![CDATA[Museu de la Xocolata]]></name>
+    <house_no><![CDATA[36]]></house_no>
+    <street><![CDATA[Comerç]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Eixample]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[]]></description>
+    <price_information><![CDATA[3,80 €]]></price_information>
+    <opening_times><![CDATA[Dl. dc. dj. dv. i ds., de 10 a 19 h. Dg. i fest., de 10 a 15 h]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 268 78 78]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://www.pastisseria.com/es/PortadaMuseu]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Arc de Triomf (L1)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Museu]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+  <venue id="2">
+    <name><![CDATA[Museu Arqueologia de Catalunya]]></name>
+    <house_no><![CDATA[39-41]]></house_no>
+    <street><![CDATA[Pg. Santa Madrona]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Eixample]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[]]></description>
+    <price_information><![CDATA[3 €]]></price_information>
+    <opening_times><![CDATA[De dt. a ds., de 9.30 a 19 h. Dg. i fest., de 10 a 14.30 h]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 424 65 77]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://www.mac.cat]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Espanya (L1-L3-FGC)]]></public_transport>
+      <public_transport><![CDATA[Metro Poble Sec (L3)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Museu]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+  <venue id="3">
+    <name><![CDATA[Museu de l'Eròtica]]></name>
+    <house_no><![CDATA[96, bis]]></house_no>
+    <street><![CDATA[La Rambla, 96]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Ciutat Vella]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[]]></description>
+    <price_information><![CDATA[Adults 9 €. Reduïda 8 €]]></price_information>
+    <opening_times><![CDATA[De dl. a dg., de 10 a 21 h]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 318 98 65]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://www.erotica-museum.com]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Catalunya (L1-L3)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Museu]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+  <venue id="4">
+    <name><![CDATA[Museu de Ciències Naturals]]></name>
+    <house_no><![CDATA[]]></house_no>
+    <street><![CDATA[]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Eixample]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[]]></description>
+    <price_information><![CDATA[3,70 € (diumenge a la tarda gratuït)]]></price_information>
+    <opening_times><![CDATA[De dt, a ds., de 10 a 18.30 h. Dg., de 10 a 20 h]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 256 22 00]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://www.bcn.cat/museuciencies]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Arc de Triomf (L1)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Museu]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+  <venue id="5">
+    <name><![CDATA[Museu Egipci]]></name>
+    <house_no><![CDATA[284]]></house_no>
+    <street><![CDATA[València]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Eixample Esquerre]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[]]></description>
+    <price_information><![CDATA[Adults 11 €. Reduïda 8 €]]></price_information>
+    <opening_times><![CDATA[De dl. a ds., de 10 a 20 h. Dg., de 10 a 14 h]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 488 01 88]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://www.museuegipci.com]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Passeig de Gràcia (L2-L3-L4)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Museu]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+  <venue id="6">
+    <name><![CDATA[L'Aquàrium]]></name>
+    <house_no><![CDATA[s/n]]></house_no>
+    <street><![CDATA[Moll d'Espanya]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Eixample]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[Un centre marí lúdic i educatiu especialitzat en temàtica mediterrània. Compta amb 35 aquaris, 11.000 exemplars de 450 espècies diferents i un túnel submarí de 80 metres que permet veure d'aprop els taurons.]]></description>
+    <price_information><![CDATA[17 € (Adults)
+nens de 4 a 12 anys, 12,00 €
+adults més 60 anys, 14,00 €]]></price_information>
+    <opening_times><![CDATA[De dl. a dv., de 9 a 21 h.
+ds. dg., I festius fins a les 21.30 h]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 221 74 74]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://laquariumbcn.com]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Drassanes (L3)]]></public_transport>
+      <public_transport><![CDATA[Metro Barceloneta (L4)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Altres]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+  <venue id="7">
+    <name><![CDATA[Casa Amatller]]></name>
+    <house_no><![CDATA[41]]></house_no>
+    <street><![CDATA[Pg. de Gràcia]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Eixample]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[]]></description>
+    <price_information><![CDATA[7 €]]></price_information>
+    <opening_times><![CDATA[De dl. a ds. de 10 a  20.30 h. Dg. i fest. de 10 a 15 h]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 487 72 17]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://www.amatller.com]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Passeig de Gràcia (L2-L3-L4)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Museu]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+  <venue id="8">
+    <name><![CDATA[Centre de Cultura Contemporània de Barcelona]]></name>
+    <house_no><![CDATA[5]]></house_no>
+    <street><![CDATA[Montalegre]]></street>
+    <city><![CDATA[Barcelona]]></city>
+    <district><![CDATA[Eixample]]></district>
+    <additional_address_details/>
+    <country><![CDATA[Spain]]></country>
+    <postcode><![CDATA[]]></postcode>
+    <long/>
+    <lat/>
+    <short_description><![CDATA[]]></short_description>
+    <description><![CDATA[Un centre marí lúdic i educatiu especialitzat en temàtica mediterrània. Compta amb 35 aquaris, 11.000 exemplars de 450 espècies diferents i un túnel submarí de 80 metres que permet veure d'aprop els taurons.]]></description>
+    <price_information><![CDATA[4,50 €. Reduïda els dimecres no festius i per als jubilats i estudiants: 3,40 €. Gratis menors de 16 anys, aturats, dj. de 20 a 22 h i dg. de 15 h a 20 h]]></price_information>
+    <opening_times><![CDATA[De dt. a dg. i festius, d’11 a 20 h. Dj., d’11 a 22 h. Dl., tancat.]]></opening_times>
+    <email><![CDATA[]]></email>
+    <phone><![CDATA[93 306 41 00]]></phone>
+    <phone2/>
+    <fax/>
+    <url><![CDATA[http://www.cccb.org]]></url>
+    <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
+    <review_date/>
+    <public_transports>
+      <public_transport><![CDATA[Metro Catalunya (L1-L3)]]></public_transport>
+    </public_transports>
+    <critics_choice><![CDATA[n]]></critics_choice>
+    <keywords/>
+    <categories>
+      <category>
+        <name><![CDATA[A la Ciutat]]></name>
+      </category>
+      <category>
+        <name><![CDATA[Museu]]></name>
+      </category>
+    </categories>
+    <provider/>
+    <medias/>
+  </venue>
+</venues>

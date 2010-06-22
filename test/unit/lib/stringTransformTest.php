@@ -88,6 +88,16 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Test multibyte trim
+   */
+  public function testMbTrim()
+  {
+    // Using this weird portugese space --> <--
+    $trimmed = stringTransform::mb_trim( " \n.,.,.,\nMajor de Sarrià\n., \n  ", "., " );
+    $this->assertEquals( $trimmed, "Major de Sarrià" );
+  }
+
+  /**
    * Test to extract and email address from a field
    */
   public function testExtractEmailAddressesFromText() {
