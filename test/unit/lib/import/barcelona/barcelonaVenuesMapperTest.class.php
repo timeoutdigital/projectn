@@ -19,11 +19,6 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class barcelonaVenuesMapperTest extends PHPUnit_Framework_TestCase
 {
   /**
-   * @var barcelonaVenuesMapper
-   */
-  protected $venuesMapper;
-
-  /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
    */

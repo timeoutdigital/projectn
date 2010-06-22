@@ -16,61 +16,61 @@ class barcelonaMoviesMapper extends barcelonaBaseMapper
 
   public function mapMovies()
   {
-    foreach( $this->xml->movie as $movieElement )
+    for( $i=0, $movieElement = $this->xml->movie[ 0 ]; $i<$this->xml->movie->count(); $i++, $movieElement = $this->xml->movie[ $i ] )
     {
       try{
 
-          $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], (string) $movieElement['id'] );
+          $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $this->clean( (string) $movieElement['id'] ) );
           if( $movie === false )
             $movie = new Movie();
 
           // Column Mapping
-          $movie['vendor_movie_id']   = (string) $movieElement['id'];
-          $movie['name']              = (string) $movieElement->name;
-          $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot );
+          $movie['vendor_movie_id']   = $this->clean( (string) $movieElement['id'] );
+          $movie['name']              = $this->clean( (string) $movieElement->name );
+          $movie['plot']              = $this->fixHtmlEntities( $this->clean( (string) $movieElement->plot ) );
           //tag line
-          $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review );
-          $movie['url']               = (string) $movieElement->url;
+          $movie['review']            = $this->fixHtmlEntities( $this->clean( (string) $movieElement->review ) );
+          $movie['url']               = $this->clean( (string) $movieElement->url );
           //director
           //writer
-          $movie['cast']              = (string) $movieElement->other->cast;
+          $movie['cast']              = $this->clean( (string) $movieElement->other->cast );
           //age_rating
           //release_date
           //duration
-          $movie['country']           = (string) $movieElement->other->country;
-          $movie['language']          = (string) $movieElement->other->language;
+          $movie['country']           = $this->clean( (string) $movieElement->other->country );
+          $movie['language']          = $this->clean( (string) $movieElement->other->language );
           //aspect_ratio
           //sound_mix
           //company
           //rating
-          $movie[ 'utc_offset' ]      = $this->vendor->getUtcOffset();
+          $movie[ 'utf_offset' ]      = $this->vendor->getUtcOffset();
           //imdb_id
-          $movie['Vendor']            = $this->vendor;
+          $movie['Vendor']            = clone $this->vendor;
 
-          //genres
+          // Add Genres
           foreach ( $movieElement->genres as $gen )
-          {
-              $movie->addGenre( (string) $gen->genre );
-          }
+              $movie->addGenre( $this->clean( (string) $gen->genre ) );
 
           // Timeout Link
-          if( (string) $movie->timeout_url != "" )
-              $movie->setTimeoutLinkProperty( trim( (string) $movie->timeout_url ) );
+          if( (string) $movieElement->timeout_url != "" )
+              $movie->setTimeoutLinkProperty( $this->clean( (string) $movieElement->timeout_url ) );
 
           //Critics Choice
-          $movie->setCriticsChoiceProperty( ( $movie->critics_choice == 'y' ) ? true : false );
+          $movie->setCriticsChoiceProperty( strtolower( $this->clean( $movieElement->critics_choice ) ) == 'y' );
 
-          // add original_title as properyt
-          if( (string) $movie->original_title != "" )
-              $movie->addProperty( 'original_title', trim( (string) $movie->original_title ) );
+          // Add 'original_title' as a property
+          if( $this->clean( (string) $movieElement->other->original_title ) != "" )
+              $movie->addProperty( 'Original_title', $this->clean( (string) $movieElement->other->original_title ) );
 
-          //medias
+          // Add 'year' as a property
+          if( $this->clean( (string) $movieElement->other->year ) != "" )
+              $movie->addProperty( 'Year', $this->clean( (string) $movieElement->other->year ) );
 
           $this->notifyImporter( $movie );
       }
       catch( Exception $exception )
       {
-          $this->notifyImporterOfFailure( $exception, $event );
+          $this->notifyImporterOfFailure( $exception, $movie );
       }
     }
   }

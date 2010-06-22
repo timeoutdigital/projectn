@@ -14,7 +14,7 @@
 class barcelonaVenuesMapper extends barcelonaBaseMapper
 {
   public function mapVenues()
-  {
+  {    
     for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
     {
         try 
@@ -61,18 +61,18 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
                 $poi->setTimeoutLinkProperty( $this->clean( (string) $venueElement->timeout_url ) );
 
             //Critics Choice
-            $poi->setCriticsChoiceProperty( strtolower( $this->clean( (string) $venueElement->critics_choice ) ) == 'y' ? true : false );
+            $poi->setCriticsChoiceProperty( strtolower( $this->clean( (string) $venueElement->critics_choice ) ) == 'y' );
 
             //// Add First Image Only
             //$medias = array();
             //foreach( $venueElement->medias->media as $media ) $medias[] = (string) $media;
             //if( !empty( $medias ) ) $this->addImageHelper( $poi, $medias[0] );
-            
+
             $this->notifyImporter( $poi );
         }
         catch( Exception $exception )
         {
-            $this->notifyImporterOfFailure( $exception );
+            $this->notifyImporterOfFailure( $exception, $poi );
         }
     }
   }

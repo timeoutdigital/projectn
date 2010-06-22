@@ -38,11 +38,8 @@ class barcelonaBaseMapper extends DataMapper
     {        
         $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'barcelona', 'ca' );
 
-        date_default_timezone_set( $this->vendor->time_zone );
-        setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
-
-        //var_dump( iconv_get_encoding() );
-        //die;
+        //date_default_timezone_set( $this->vendor->time_zone );
+        //setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
         
         $this->geoEncoder = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
         $this->xml        = $xml;
@@ -51,7 +48,6 @@ class barcelonaBaseMapper extends DataMapper
     protected function fixHtmlEntities( $string )
     {
         $string = html_entity_decode( (string) $string, ENT_QUOTES, 'UTF-8' );
-
         return $string;
     }
 
@@ -76,16 +72,8 @@ class barcelonaBaseMapper extends DataMapper
 
     protected function clean( $string )
     {
-        return $string;
-        return $this->mb_trim( $string );
+        return stringTransform::mb_trim( $string );
     }
-
-    protected function mb_trim( $string )
-    {
-        $string = ereg_replace( "^\s*", "", $string );
-        $string = ereg_replace( "\s*$", "", $string );
-        return $string;
-    } 
 
     protected function extractPublicTransportInfo( $element )
     {
@@ -93,7 +81,7 @@ class barcelonaBaseMapper extends DataMapper
         $publicTransportArray = array();
         
         foreach ( $element->public_transports as $transportElement )
-            $publicTransportArray[]           = (string) $transportElement->public_transport;
+            $publicTransportArray[]           = $this->clean( (string) $transportElement->public_transport );
 
         return stringTransform::concatNonBlankStrings( ", ", $publicTransportArray );
     }
