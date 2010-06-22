@@ -113,7 +113,7 @@ class Curl
 
     if ( !isset( $this->_curlInfo[ 'http_code' ] ) || !in_array( $this->_curlInfo[ 'http_code' ], array( '200', '304' ) ) )
     {
-        throw new Exception( 'Curl Error, failed to fetch content (no http_code 200 or 304 received) for ' . $this->_requestUrl );
+        throw new Exception( 'Curl Error, failed to fetch content (no http_code 200 or 304 received, got ' . $this->_curlInfo['http_code'] . ') for ' . $this->_requestUrl );
     }
   }
 
