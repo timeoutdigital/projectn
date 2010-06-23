@@ -44,7 +44,8 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
           $event->setCriticsChoiceProperty( strtolower( $this->clean( (string) $eventElement->critics_choice ) ) == 'y' );
 
           // Categories
-          $event->addVendorCategory( $this->extractCategories( $eventElement ) );
+          $cats = $this->extractCategories( $eventElement );
+          foreach( $cats as $cat ) $event->addVendorCategory( $cat );
 
           // Add First Image Only
           //$medias = array();
@@ -73,14 +74,14 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
                   if( $end_date == 'ongoing' )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'Rejected Ongoing Event for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    break; // @todo, change this to continue 1, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
+                    break; // @todo, change this to continue, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
                   }
 
                   // Some Events Have Thousands of Occcurrences
                   if( strtotime( $end_date ) > strtotime( "+3 month") )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'Rejected Occurence Over 3 Months old for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    break; // @todo, change this to continue 1, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
+                    break; // @todo, change this to continue, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
                   }
 
                   // Get Start Date
@@ -117,6 +118,13 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
              {
                  $this->notifyImporterOfFailure( $exception, $occurrence );
              }
+          }
+
+          // If Event has No Occurrences, don't import it.
+          if( count( $event['EventOccurrence'] ) == 0 )
+          {
+              $this->notifyImporterOfFailure( new Exception( 'Could not find any reliable occurrences for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
+              continue;
           }
           
           $this->notifyImporter( $event );
