@@ -73,7 +73,7 @@ class geoEncode
    */
   final public function setAddress( $address )
   {
-    $this->addressString = urlencode($address);
+    $this->addressString = $address;
     $this->settingsChanged = true;
   }
 
@@ -206,17 +206,26 @@ class geoEncode
 
   public function getLookupUrl()
   {
-     $apiKey = $this->getApiKey();
+    $params = array();
+    $params[ 'q' ] = $this->getAddress();
+    $params[ 'output' ] = 'csv';
+    $params[ 'oe' ] = 'utf8';
+    $params[ 'sensor' ] = 'false';
 
-     if( $this->apiKeyIsValid( $apiKey ) ) $apiKey = sfConfig::get('app_google_api_key');
+    $apiKey = $this->getApiKey();
+    if( $this->apiKeyIsValid( $apiKey ) ) $apiKey = sfConfig::get('app_google_api_key');
+    $params[ 'key' ] = $apiKey;
 
-     $url = "http://maps.google.com/maps/geo?q=" . $this->getAddressString() . "&output=csv&oe=utf8\&sensor=false&key=". $apiKey;
+    if( $this->getRegion() )
+      $params[ 'region' ] = $this->getRegion();
 
-     if( $this->getRegion() )
-       $url .= '&region='.$this->getRegion();
+    if( $this->getBounds() )
+      $params[ 'bounds' ] = $this->getBounds();
 
-     if( $this->getBounds() )
-       $url .= '&bounds='.$this->getBounds();
+    $query = http_build_query( $params );
+
+    $url = "http://maps.google.com/maps/geo?" . $query;
+
 
      return $url;
   }

@@ -30,7 +30,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
     $this->object = new geoEncode( 'geoEncodeTestMockCurl' );
-    $this->object->setApiKey( 'ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg', 'geoEncodeTestMockCurl' );
+    $this->object->setApiKey( 'ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg' );
      try {
 
       ProjectN_Test_Unit_Factory::createDatabases();
@@ -64,7 +64,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
   {
     $address = 'foo&!"£';
     $this->object->setAddress( $address );
-    $this->assertEquals( urlencode( $address ), $this->object->getAddress() );
+    $this->assertEquals( $address, $this->object->getAddress() );
     $this->assertRegexp( ':' . urlencode( $address ) . ':', $this->object->getLookupUrl() );
   }
 
