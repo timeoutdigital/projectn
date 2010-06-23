@@ -37,10 +37,13 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    $this->addRussianVendors();
+    Doctrine::loadData('data/fixtures');
+
     $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . '/russia_events.short.xml' );
 
-    $this->dataMapper = new RussiaFeedEventsMapper( $this->eventsXml, null, "moscow" );
+    $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'moscow' );
+
+    $this->dataMapper = new RussiaFeedEventsMapper( $this->eventsXml, null, $this->vendor['city'] );
   }
 
   /**
@@ -50,26 +53,6 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
-  }
-
-  public function testImportsEventsToCorrectVendor()
-  {
-    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
-
-    $importer = new Importer();
-    $importer->addDataMapper( $this->dataMapper );
-    $importer->run();
-
-    $this->assertEquals( 10, Doctrine::getTable( 'Event' )->count(), 'Should have 10 events in total' );
-
-    $russianVendor1 = Doctrine::getTable( 'Vendor' )->findOneById( 1 );
-    $this->assertEquals( 1, $russianVendor1['Event']->count(), $russianVendor1['city'] . ' should have one Event.' );
-
-    $russianVendor2 = Doctrine::getTable( 'Vendor' )->findOneById( 2 );
-    $this->assertEquals( 2, $russianVendor2['Event']->count(), $russianVendor2['city'] . ' should have one Event.' );
-
-    $russianVendor3 = Doctrine::getTable( 'Vendor' )->findOneById( 3 );
-    $this->assertEquals( 3, $russianVendor3['Event']->count(), $russianVendor3['city'] . ' should have one Event.' );
   }
 
   public function testMapEvents()
@@ -102,21 +85,6 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 4630349, $event[ 'EventOccurrence' ][0]['vendor_event_occurrence_id'] );
   }
 
-  private function addRussianVendors()
-  {
-    foreach( array( 'tyumen', 'saint petersburg', 'omsk', 'almaty', 'novosibirsk', 'krasnoyarsk', 'moscow' ) as $city )
-    {
-        $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-          'city' => $city,
-          'language' => 'ru',
-          'time_zone' => 'Europe/Moscow',
-          )
-        );
-        $vendor->save();
-    }
-    $this->assertEquals( 7, Doctrine::getTable( 'Vendor' )->count() );
-  }
-
   private function getVenueIdsFromXml()
   {
     $venues = $this->eventsXml->xpath('//venue');
@@ -138,22 +106,14 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
   private function createVenuesFromVenueIds( $venueIds )
   {
-    $russianVendors = Doctrine::getTable( 'Vendor' )->findByLanguage( 'ru' );
-    $this->assertEquals( 7, $russianVendors->count(), 'Should have 7 Russian Vendors' );
-
     for( $i = 0; $i < count( $venueIds ); $i++ )
     {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'vendor_poi_id' ] = $venueIds[ $i ];
-      $poi[ 'Vendor' ] = $russianVendors[ $i ];
+      $poi[ 'Vendor' ] = $this->vendor;
       $poi->save();
     }
     $this->assertEquals( 7, Doctrine::getTable( 'Poi' )->count() );
-
-    foreach( $russianVendors as $vendor )
-    {
-      $this->assertEquals( 1, $vendor[ 'Poi' ]->count() );
-    }
   }
 
 }

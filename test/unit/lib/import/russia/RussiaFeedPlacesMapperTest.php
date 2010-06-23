@@ -79,7 +79,7 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '2010-04-06 15:28:25', $poi['review_date'] );
     $this->assertEquals( 'Строгино', $poi['public_transport_links'] );
     $this->assertNull( $poi['rating'] );
-    $this->assertNull( $poi['star_rating'] );
+    $this->assertEquals( 0, $poi['star_rating'] );
     
     $this->assertEquals( $this->vendor['id'], $poi['vendor_id'] );
     
