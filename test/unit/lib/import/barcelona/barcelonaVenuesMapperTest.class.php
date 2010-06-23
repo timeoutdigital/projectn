@@ -83,8 +83,9 @@ class barcelonaVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( $this->vendor['id'], $poi['vendor_id'] );
 
-    $this->assertGreaterThan( 0, $poi[ 'VendorPoiCategory' ]->count() );
-    $this->assertEquals( "A la Ciutat | Museu", $poi[ 'VendorPoiCategory' ][0]['name'] );
+    $this->assertGreaterThan( 1, $poi[ 'VendorPoiCategory' ]->count() );
+    $this->assertEquals( "A la Ciutat", $poi[ 'VendorPoiCategory' ][0]['name'] );
+    $this->assertEquals( "Museu", $poi[ 'VendorPoiCategory' ][1]['name'] );
   }
 }
 ?>
