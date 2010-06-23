@@ -271,8 +271,14 @@ class Poi extends BasePoi
   * @return boolean false if the name is null
   *
   */
-  public function addVendorCategory( $name, $vendorId )
+  public function addVendorCategory( $name, $vendorId = null )
   {
+
+    if( !$vendorId )
+      $vendorId = $this[ 'vendor_id' ];
+
+    if( !$vendorId )
+      throw new Exception( 'Cannot add a vendor category to an POI record without a vendor id.' );
 
     if ( is_array( $name ) )
     {
@@ -322,6 +328,7 @@ class Poi extends BasePoi
    */
   public function applyFixes()
   {
+     // NOTE - All Fixes MUST be Multibyte compatible.
      $this->fixPoiName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
@@ -356,17 +363,17 @@ class Poi extends BasePoi
           $vendorCityName = $vendorCityNameAliasMap[ $vendorCityName[0] ];
 
      // Clean all the rubbish off the beginning and end, added weird protugese space.
-     $this['street'] = trim( $this['street'], "  ,." );
+     $this['street'] = stringTransform::mb_trim( $this['street'], "  ,." );
 
      // Remove all City Name Aliases from street field
      foreach( $vendorCityName as $vendorCityAlias )
      {
         $patt = '/,\s*' . $vendorCityAlias . '\s*$/i';
-        $this['street'] = preg_replace( $patt, '', $this['street'] );
+        $this['street'] = mb_ereg_replace( $patt, '', $this['street'] );
      }
 
      // Clean all the rubbish off the beginning and end once more
-     $this['street'] = trim( $this['street'], "  ,." );
+     $this['street'] = stringTransform::mb_trim( $this['street'], "  ,." );
   }
 
   private function applyDefaultGeocodeLookupStringIfNull()

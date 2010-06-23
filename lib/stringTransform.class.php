@@ -13,6 +13,7 @@
  *
  *
  * @version 1.0.0
+ * 
  *
  *
  */
@@ -45,6 +46,25 @@ class stringTransform
     $unit=array('b','kb','mb','gb','tb','pb');
     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
   }
+  
+   /**
+   * Multibyte safe version of trim()
+   * Always strips whitespace characters (those equal to \s)
+   *
+   * @param $string The String to Trim
+   * @param $chars Optional list of chars to remove from the String ( as per trim() )
+   * @param $chars_array Optional array of preg_quote'd chars to be removed
+   * @return string
+   */
+    public static function mb_trim( $string, $chars = "", $chars_array = array() )
+    {
+        for( $x=0; $x<iconv_strlen( $chars ); $x++ ) $chars_array[] = preg_quote( iconv_substr( $chars, $x, 1 ) );
+        $encoded_char_list = implode( "|", array_merge( array( "\s" ), $chars_array ) );
+
+        $string = mb_ereg_replace( "^($encoded_char_list)*", "", $string );
+        $string = mb_ereg_replace( "($encoded_char_list)*$", "", $string );
+        return $string;
+    }
 
   /**
    * Format string into a nice format, result is '09:00' for input of '9'.

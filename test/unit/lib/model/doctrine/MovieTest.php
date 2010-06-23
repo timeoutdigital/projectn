@@ -43,6 +43,36 @@ class MovieTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testAddTimeoutUrl()
+  {
+    $this->assertEquals( 0, count( $this->object['MovieProperty'] ) );
+
+    $url = "http://www.example.com";
+    $this->object->setTimeoutLinkProperty( $url );
+
+    $this->assertEquals( 1, count( $this->object['MovieProperty'] ) );
+    $this->assertEquals( 'Timeout_link', $this->object['MovieProperty'][0]['lookup'] );
+    $this->assertEquals( $url, $this->object['MovieProperty'][0]['value'] );
+  }
+
+  /**
+   *
+   * test the  getter and setter functions for the Critics_choice flag
+   */
+  public function testSetterGetterCriticsChoiceFlag()
+  {
+    $this->object['CriticsChoiceProperty'] = true;
+    $this->assertEquals( 'Y', $this->object['CriticsChoiceProperty'] );
+
+    //see todo in subject class
+    //$this->object['CriticsChoiceProperty'] = false;
+    //$this->assertNull( $this->object['CriticsChoiceProperty'] );
+
+    $this->setExpectedException( 'Exception' );
+    $this->object->setCriticsChoiceProperty( 'not a boolean' );
+    $this->assertNull( $this->object->getCriticsChoiceProperty() );
+  }
+
   /**
    * 
    */
