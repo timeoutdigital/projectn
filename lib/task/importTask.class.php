@@ -469,7 +469,7 @@ class importTask extends sfBaseTask
 
         ImportLogger::getInstance()->setVendor( $vendor );
 
-        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
+        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl*nd)n', $vendor[ 'city' ] );
         $ftpClient->setSourcePath( '/timeoutlondon/' );
         $ftpFiles = $this->parseSydneyFtpDirectoryListing( $ftpClient->fetchRawDirListing() );
 
