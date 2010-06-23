@@ -62,28 +62,10 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    */
   public function testGetGeoCodeData()
   {
-    $this->markTestSkipped();
-    $this->assertType('array', $this->object->getGeoCode());
-    $this->assertType('string',$this->object->getGeoCode('string'));
-
-    $observer = $this->getMock('geoEncode' , array('getGeoCode'));
-    $observer
-      ->expects($this->once())
-      ->method('getGeoCode')
-      ->with(isType('string'));
-
-   
-    $subject = new Subject;
-    $subject->attach($observer);
-    $subject->doSomething();
-
-    $stub = $this->getMock('geoEncode');
-    $stub->expects($this->once())
-         ->method('getGeoCode')
-         ->will($this->returnValue('foo'));
-         //->will($this->returnCallback('callback'));
-
-    $this->assertEquals('foo', $stub->getGeoCode());
+    $address = 'foo&!"£';
+    $this->object->setAddress( $address );
+    $this->assertEquals( urlencode( $address ), $this->object->getAddress() );
+    $this->assertRegexp( ':' . urlencode( $address ) . ':', $this->object->getLookupUrl() );
   }
 
   public function testGetLookupUrl()
