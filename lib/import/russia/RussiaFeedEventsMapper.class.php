@@ -20,17 +20,9 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
 
   public function mapEvents()
   {
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // You need to find the Vendor From the POI via the venue ID.
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    $this->vendor = NULL;
-    
-    foreach( $this->fixIteration( $this->xml->event ) as $eventElement )
+    for( $i=0, $eventElement = $this->xml->event[ 0 ]; $i<$this->xml->event->count(); $i++, $eventElement = $this->xml->event[ $i ] )
     {
       try{
-          // Set Vendor Unknown For Import Logger
-          ImportLogger::getInstance()->setVendorUnknown();
-
           // Get Venue Id
           $vendorEventId = (int) $eventElement['id'];
 
@@ -59,15 +51,12 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
              {
                   // This needs to be done in the for loop, as an event may have occurences at different POIs
                   // DO NOT declare $poi before this loop!
-                  $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( (string) $xmlOccurrence->venue, 'ru' );
+                  $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( (string) $xmlOccurrence->venue, $this->vendor['id'] );
                   if( !$poi )
                   {
-                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . (string) $xmlOccurrence->venue . ' for Event ' . $vendorEventId . ' in Russia.' ) );
+                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . (string) $xmlOccurrence->venue . ' for Event ' . $vendorEventId . ' in ' . $this->vendor['city'] . "." ) );
                     continue;
                   }
-
-                  // Set Vendor For Import Logger
-                  ImportLogger::getInstance()->setVendor( $poi['Vendor'] );
 
                   // Get Occurrence Id
                   $vendor_occurence_id = (int) $xmlOccurrence[ 'id' ];
@@ -82,7 +71,7 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                   $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
                   $occurrence[ 'Poi' ] = $poi;
 
-                  $event['Vendor'] = $poi['Vendor'];
+                  $event['Vendor'] = $this->vendor;
 
                   // Categories (Requires Vendor)
                   $categories = array();

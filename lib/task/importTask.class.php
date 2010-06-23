@@ -369,7 +369,19 @@ class importTask extends sfBaseTask
 
             case 'event':
 
-                $feedUrl = 'http://www.timeout.ru/london/events.xml';
+                $feedName = array();
+                $feedName['moscow']              = 'events_msk.xml';
+                $feedName['saint petersburg']    = 'events_spb.xml';
+                $feedName['omsk']                = 'events_omsk.xml';
+                $feedName['almaty']              = 'events_almaty.xml';
+                $feedName['novosibirsk']         = 'events_novosibirsk.xml';
+                $feedName['krasnoyarsk']         = 'events_krasnoyarsk.xml';
+                $feedName['tyumen']              = 'events_tumen.xml';
+
+                if( !in_array( $city, array_keys( $feedName ) ) )
+                    $this->dieWithLogMessage( 'No Feed Available For City Named: ' . $city );
+
+                $feedUrl = 'http://www.timeout.ru/london/' . $feedName[ $city ];
                 $mapperClass = 'RussiaFeedEventsMapper';
 
             break; //End Event
