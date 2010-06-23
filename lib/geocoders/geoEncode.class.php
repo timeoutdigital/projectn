@@ -33,6 +33,65 @@
  */
 class geoEncode
 {
+  /**
+   * Unknown location
+   * @var integer
+   */
+  const ACCURACY_UNKNOWN = 0;
+  
+  /**
+   * Country level accuracy
+   * @var integer
+   */
+  const ACCURACY_COUNTRY = 1;
+  
+  /**
+   * Region (state, province, prefecture, etc.) level accuracy.
+   * @var integer
+   */
+  const ACCURACY_REGION = 2;
+  
+  /**
+   * Sub-region (county, municipality, etc.) level accuracy.
+   * @var integer
+   */
+  const ACCURACY_SUB_REGION = 3;
+  
+  /**
+   * Town (city, village) level accuracy.
+   * @var integer
+   */
+  const ACCURACY_TOWN = 4;
+  
+  /**
+   * Post code (zip code) level accuracy.
+   * @var integer
+   */
+  const ACCURACY_POSTCODE = 5;
+
+  /**
+   * Street level accuracy.
+   * @var integer
+   */
+  const ACCURACY_STREET = 6;
+  
+  /**
+   * Intersection level accuracy.
+   * @var integer
+   */
+  const ACCURACY_INTERSECTION = 7;
+  
+  /**
+   * Address level accuracy.
+   * @var integer
+   */
+  const ACCURACY_ADDRESS = 8;
+  
+  /**
+   * Premise (building name, property name, shopping center, etc.) level accuracy.
+   * @var integer
+   */
+  const ACCURACY_PREMISE = 9;
 
   private  $addressString;
   private  $vendorObj;
