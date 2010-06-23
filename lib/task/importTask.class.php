@@ -589,7 +589,7 @@ class importTask extends sfBaseTask
       case 'sydney':
         $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
 
-        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
+        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl*nd)n', $vendor[ 'city' ] );
         $ftpClient->setSourcePath( '/timeoutlondon/' );
 
         //map the files to our terms
