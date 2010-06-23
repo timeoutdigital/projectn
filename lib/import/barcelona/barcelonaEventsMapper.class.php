@@ -63,7 +63,7 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
                   if( !$xmlOccurrence )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'No Occurences in Feed for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    continue;
+                    break;
                   }
 
                   // Only Get End Date At The Moment (saves CPU,RAM?).
@@ -73,14 +73,14 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
                   if( $end_date == 'ongoing' )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'Rejected Ongoing Event for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    continue 2; // @todo, change this to continue 1, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
+                    break; // @todo, change this to continue 1, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
                   }
 
                   // Some Events Have Thousands of Occcurrences
                   if( strtotime( $end_date ) > strtotime( "+3 month") )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'Rejected Occurence Over 3 Months old for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    continue 2; // @todo, change this to continue 1, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
+                    break; // @todo, change this to continue 1, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
                   }
 
                   // Get Start Date
@@ -90,7 +90,7 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
                   if( $start_date != $end_date )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'Could not determine occurrence frequency for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    continue;
+                    break;
                   }
 
                   // Find POI

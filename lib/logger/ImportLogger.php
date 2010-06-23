@@ -48,7 +48,7 @@ class ImportLogger extends BaseLogger
      *
      * @var Enabled
      */
-    private $_enabled = true;
+    private $_enabled = false;
 
     /**
      *
