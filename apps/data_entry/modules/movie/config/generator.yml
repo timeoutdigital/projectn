@@ -1,0 +1,52 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           movie
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          movie
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display: [vendor_movie_id, name, imdb_id]
+      filter:
+        display: [vendor_movie_id, name, imdb_id, plot, review, release_date, movie_genres_list]
+      form:
+        class: MovieDataEntryForm
+        display:
+          Editable:
+            - vendor_id
+            - vendor_movie_id
+            - name
+            - plot
+            - tag_line
+            - review
+            - url
+            - director
+            - writer
+            - cast
+            - age_rating
+            - release_date
+            - duration
+            - country
+            - language
+            - aspect_ratio
+            - sound_mix
+            - company
+            - rating
+            - utf_offset
+            - imdb_id
+            - movie_genres_list
+          Info:
+            #- id
+            - created_at
+            - updated_at
+      edit:    ~
+      new:     ~

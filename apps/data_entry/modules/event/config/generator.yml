@@ -1,0 +1,41 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           event
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          event
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display: [ vendor_event_id, name ]
+      filter:
+        display: [ vendor_event_id, name, review_date, short_description, description, event_category_list, vendor_event_category_list ]
+      form:
+        class: EventDataEntryForm
+        display:
+          Editable:
+            - vendor_id
+            - vendor_event_id
+            - name
+            - review_date
+            - short_description
+            - description
+            - booking_url
+            - url
+            - price
+            - rating
+            - event_category_list
+            - vendor_event_category_list
+          Info:
+            - created_at
+            - updated_at
+      edit:    ~
+      new:     ~

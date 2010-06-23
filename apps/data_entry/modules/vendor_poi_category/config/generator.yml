@@ -1,0 +1,24 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           VendorPoiCategory
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          vendor_poi_category
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display:           [vendor_name, name]
+      filter:
+        display:           [vendor_id, name]
+      form:
+        display:           [vendor_id, name]
+      edit:    ~
+      new:     ~

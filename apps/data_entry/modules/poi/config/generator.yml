@@ -1,0 +1,63 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           poi
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          poi
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display: [vendor_poi_id, poi_name, house_no, street, city, district]
+      filter:
+        display: [vendor_poi_id, poi_name, house_no, street, zips, city, district, additional_address_details, keywords, poi_category_list, vendor_poi_category_list]
+      form:
+        class: PoiDataEntryForm
+        display:
+          Editable:
+            - vendor_id
+            - vendor_poi_id
+            - poi_name
+            - house_no
+            - street
+            - city
+            - district
+            - country
+            - additional_address_details
+            - zips
+            - longitude
+            - latitude
+            - email
+            - url
+            - phone
+            - phone2
+            - fax
+            - keywords
+            - short_description
+            - description
+            - public_transport_links
+            - price_information
+            - openingtimes
+            - star_rating
+            - rating
+            - provider
+            - review_date
+            - poi_category_list
+            - vendor_poi_category_list
+            - geocode_look_up
+          Info:
+            #- local_language
+            #- id
+            - created_at
+            - updated_at
+            #- vendor_category
+
+      edit:    ~
+      new:     ~

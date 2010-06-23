@@ -286,6 +286,30 @@ Vendor:
     airport_code:             'BCN'
     country_code:             'es'
     geo_boundries:            '27.6388168334961;-18.169641494751;43.7917251586914;4.31538963317871'
+  v19:
+    city:                     mumbai
+    language:                 en-GB
+    time_zone:                Asia/Calcutta
+    inernational_dial_code:   '+91'
+    airport_code:             'BOM'
+    country_code:             'in'
+    geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
+  v20:
+    city:                     dehli
+    language:                 en-GB
+    time_zone:                Asia/Calcutta
+    inernational_dial_code:   '+91'
+    airport_code:             'DEL'
+    country_code:             'in'
+    geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
+  v21:
+    city:                     bangalore
+    language:                 en-GB
+    time_zone:                Asia/Calcutta
+    inernational_dial_code:   '+91'
+    airport_code:             'BLR'
+    country_code:             'in'
+    geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
 
 EventCategory:
   c1:
