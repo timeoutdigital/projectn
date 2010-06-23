@@ -91,7 +91,7 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
                   if( $start_date != $end_date )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'Could not determine occurrence frequency for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    continue;
+                    break;
                   }
 
                   // Find POI

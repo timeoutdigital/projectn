@@ -73,8 +73,9 @@ class barcelonaEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Timeout_link', $event['EventProperty'][0]['lookup'] );
     $this->assertEquals( 'http://www.timeout.cat/barcelona/ca/s/viu-barcelona', $event['EventProperty'][0]['value'] );
 
-    $this->assertGreaterThan( 0, $event[ 'VendorEventCategory' ]->count() );
-    $this->assertEquals( "A la Ciutat | Artística | Exposicions", $event[ 'VendorEventCategory' ]['A la Ciutat | Artística | Exposicions']['name'] );
+    $this->assertGreaterThan( 1, $event[ 'VendorEventCategory' ]->count() );
+    $this->assertEquals( "A la Ciutat", $event[ 'VendorEventCategory' ]['A la Ciutat']['name'] );
+    $this->assertEquals( "Artística | Exposicions", $event[ 'VendorEventCategory' ]['Artística | Exposicions']['name'] );
 
     $this->assertGreaterThan( 0, $event[ 'EventOccurrence' ]->count() );
   }
