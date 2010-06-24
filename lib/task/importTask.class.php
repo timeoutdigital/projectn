@@ -547,7 +547,7 @@ class importTask extends sfBaseTask
 
     case 'barcelona':
 
-        $vendorObj = $this->getVendorByCityAndLanguage( 'barcelona', 'ca' );
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'barcelona', 'ca' );
 
         switch( $options['type'] )
         {
@@ -572,7 +572,7 @@ class importTask extends sfBaseTask
 
           break; //end Movie
 
-          //ToDo Add default case which calls Invalid Type Method;
+          default : $this->dieDueToInvalidTypeSpecified();
         }
 
         $feedObj = new Curl( $feedUrl );
@@ -583,7 +583,7 @@ class importTask extends sfBaseTask
         $importer->addDataMapper( new $mapperClass( $xml ) );
         $importer->run();
         ImportLogger::getInstance()->end();
-        $this->writeEndImportLogLine( $options ); //ToDo Change to new end method
+        $this->dieWithLogMessage();
 
     break; // end Barcelona
 

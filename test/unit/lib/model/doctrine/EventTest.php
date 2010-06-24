@@ -83,6 +83,32 @@ class EventTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+   /**
+   * test if setting the name of a Poi ensures HTML entities are decoded
+   */
+  public function testFixHtmlEntities()
+  {
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $event['name'] = "Movie &quot;name&quot; is";
+
+      // Add HTML Entities to all poi fields of type 'string'
+      foreach( Doctrine::getTable( "Event" )->getColumns() as $column_name => $column_info )
+        if( $column_info['type'] == 'string' )
+            if( is_string( @$event[ $column_name ] ) )
+                $event[ $column_name ] .= "&sect;";
+
+      $event->save();
+
+      $this->assertTrue( preg_match( '/&quot;/', $event['name'] ) == 0, 'POI name cannot contain HTML entities' );
+
+      // Check HTML Entities for all poi fields of type 'string'
+      foreach( Doctrine::getTable( "Event" )->getColumns() as $column_name => $column_info )
+        if( $column_info['type'] == 'string' )
+            if( is_string( @$event[ $column_name ] ) )
+                $this->assertTrue( preg_match( '/&sect;/', $event[ $column_name ] ) == 0, 'Failed to convert &sect; to correct symbol' );
+  }
+
   /*
    * test if the add property adds the properties
    */
