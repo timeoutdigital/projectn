@@ -44,7 +44,8 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
           $event->setCriticsChoiceProperty( strtolower( $this->clean( (string) $eventElement->critics_choice ) ) == 'y' );
 
           // Categories
-          $event->addVendorCategory( $this->extractCategories( $eventElement ) );
+          $cats = $this->extractCategories( $eventElement );
+          foreach( $cats as $cat ) $event->addVendorCategory( $cat );
 
           // Add First Image Only
           //$medias = array();
@@ -90,7 +91,7 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
                   if( $start_date != $end_date )
                   {
                     $this->notifyImporterOfFailure( new Exception( 'Could not determine occurrence frequency for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-                    continue;
+                    break;
                   }
 
                   // Find POI
@@ -117,6 +118,13 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
              {
                  $this->notifyImporterOfFailure( $exception, $occurrence );
              }
+          }
+
+          // If Event has No Occurrences, don't import it.
+          if( count( $event['EventOccurrence'] ) == 0 )
+          {
+              $this->notifyImporterOfFailure( new Exception( 'Could not find any reliable occurrences for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
+              continue;
           }
           
           $this->notifyImporter( $event );

@@ -37,6 +37,17 @@ class stringTransform
   }
 
   /**
+   * Format memory usage to human readable.
+   * @return string
+   * taken from http://uk2.php.net/manual/en/function.memory-get-usage.php
+   */
+  public static function byteToHumanReadable( $size )
+  {
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+  }
+  
+   /**
    * Multibyte safe version of trim()
    * Always strips whitespace characters (those equal to \s)
    *

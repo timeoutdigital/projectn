@@ -19,14 +19,12 @@ class importTask extends sfBaseTask
     $this->name             = 'import';
     $this->briefDescription = 'Import data files from vendors';
     $this->detailedDescription = '';
-
-
   }
 
   protected function execute($arguments = array(), $options = array())
   {
     $this->options = $options;
-
+    
     $this->writeLogLine( 'start import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
 
     //Connect to the database.
@@ -36,13 +34,12 @@ class importTask extends sfBaseTask
 
     $importer = new Importer();
 
-    //Select the task
+    // Select the City
     switch( $options['city'] )
     {
       case 'ny':
 
-        //Set vendor
-        $vendorObj = $this->getVendorByCityAndLanguage('ny', 'en-US');
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
 
         switch( $options['type'] )
         {
@@ -77,7 +74,7 @@ class importTask extends sfBaseTask
                 $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
                 $importer->run();
                 ImportLogger::getInstance()->end();
-                $this->writeEndImportLogLine( $options );
+                $this->dieWithLogMessage();
             break;
 
           case 'eating-drinking':
@@ -102,7 +99,7 @@ class importTask extends sfBaseTask
               $ftpClientObj->setSourcePath( '/NOKIA/' );
               $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
 
-              /*$vendor = $this->getVendorByCityAndLanguage('ny', 'en-US');
+              /*$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
               $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
               $nyEDImport =  new importNyED( $csv, $vendor );
               $nyEDImport->insertPois();*/
@@ -138,14 +135,14 @@ class importTask extends sfBaseTask
 
           break;
 
-          default: echo "Types available: \n bars-clubs \n";
+          default : $this->dieDueToInvalidTypeSpecified();
 
         }
         break; // end ny
 
       case 'chicago':
 
-        $vendorObj = $this->getVendorByCityAndLanguage('chicago', 'en-US');
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('chicago', 'en-US');
         $ftpClientObj = new FTPClient( 'ftp.timeoutchicago.com', 'timeout', 'y6fv2LS8', $vendorObj[ 'city' ] );
 
         switch( $options['type'] )
@@ -159,7 +156,7 @@ class importTask extends sfBaseTask
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
               $importer->run();
               ImportLogger::getInstance()->end();
-              $this->writeEndImportLogLine( $options );
+              $this->dieWithLogMessage();
           break;
 
           case 'eating-drinking':
@@ -183,22 +180,12 @@ class importTask extends sfBaseTask
             }
            break;
 
-
-           case 'all':
-             
-               $this->importChicagoEvents($vendorObj, $ftpClientObj);
-               $this->importChicagoMovies($vendorObj, $ftpClientObj);
-               $this->importChicagoBc($vendorObj, $ftpClientObj );
-               $this->importChicagoEd($vendorObj, $ftpClientObj );
-               
-           break;
-
-
+           default : $this->dieDueToInvalidTypeSpecified();
         }
         break; //end chicago
 
       case 'singapore':
-        $vendorObj = $this->getVendorByCityAndLanguage('singapore', 'en-US');
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
         //must be set for price range function
         //@todo get get this info out of vendor?!
@@ -234,7 +221,7 @@ class importTask extends sfBaseTask
             $this->object->insertEvents( $xmlObj );
 
             ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $this->dieWithLogMessage();
             
             break;
 
@@ -255,19 +242,21 @@ class importTask extends sfBaseTask
 
             echo "Impored Singapores Movies \n";
             ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $this->dieWithLogMessage();
             
           break;
 
           case 'eating-drinking':
           break;
+
+          default : $this->dieDueToInvalidTypeSpecified();
         }
 
         break; //end singapore
 
       case 'lisbon':
 
-        $vendorObj    = $this->getVendorByCityAndLanguage('lisbon', 'pt');
+        $vendorObj    = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj      = new curlImporter();
         
         $daysAhead    = 7; //lisbon caps the request at max 9 days
@@ -288,7 +277,7 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $this->dieWithLogMessage();
 
           break;
 
@@ -322,7 +311,7 @@ class importTask extends sfBaseTask
 
             $importer->run();
             ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $this->dieWithLogMessage();
             
           break;
 
@@ -334,374 +323,214 @@ class importTask extends sfBaseTask
             $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
             $importer->run();
             ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $this->dieWithLogMessage();
           break;
+
+          default : $this->dieDueToInvalidTypeSpecified();
         }
         break; //end lisbon   
 
-    
+
+      // Russian Cities
       case 'moscow':
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $vendorObj = $this->getVendorByCityAndLanguage( 'moscow', 'ru' );
-
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_msk.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
-            
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'moscow' ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
-        }
-        break; //end moscow
-
       case 'saint petersburg':
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $vendorObj = $this->getVendorByCityAndLanguage( 'saint petersburg', 'ru' );
-
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_spb.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'saint petersburg' ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
-        }
-        break; //end saint petersburg
-
       case 'omsk':
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $vendorObj = $this->getVendorByCityAndLanguage( 'omsk', 'ru' );
-
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_omsk.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'omsk' ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
-        }
-        break; //end omsk
-
       case 'almaty':
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $vendorObj = $this->getVendorByCityAndLanguage( 'almaty', 'ru' );
-
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_almaty.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'almaty' ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-
-            break;
-        }
-        break; //end almaty
-
       case 'novosibirsk':
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $vendorObj = $this->getVendorByCityAndLanguage( 'novosibirsk', 'ru' );
-
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_novosibirsk.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'novosibirsk' ) );
-            unset( $xml, $feedObj );
-            
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
-        }
-        break; //end novosibirsk
-
       case 'krasnoyarsk':
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $vendorObj = $this->getVendorByCityAndLanguage( 'krasnoyarsk', 'ru' );
-
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_krasnoyarsk.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'krasnoyarsk' ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-
-            break;
-        }
-        break; //end krasnoyarsk
-
       case 'tyumen':
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $vendorObj = $this->getVendorByCityAndLanguage( 'tyumen', 'ru' );
-            
-            $feedObj = new Curl( 'http://www.timeout.ru/london/places_tumen.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new RussiaFeedPlacesMapper( $xml, null, 'tyumen' ) );
-            unset( $xml, $feedObj );
-            
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-
-            break;
-        }
-        break; //end tyumen
-    
-
       case 'russia':
 
+        $city = $options['city'];
+        if( $city == 'russia' ) $city = 'unknown';
+
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, 'ru' );
+
         switch( $options['type'] )
         {
-          case 'event':
-            
-            $feedObj = new Curl( 'http://www.timeout.ru/london/events.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
+            case 'poi':
 
-            $importer->addDataMapper( new RussiaFeedEventsMapper( $xml, null, 'unknown' /*any vendor*/ ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
+                $feedName = array();
+                $feedName['moscow']              = 'places_msk.xml';
+                $feedName['saint petersburg']    = 'places_spb.xml';
+                $feedName['omsk']                = 'places_omsk.xml';
+                $feedName['almaty']              = 'places_almaty.xml';
+                $feedName['novosibirsk']         = 'places_novosibirsk.xml';
+                $feedName['krasnoyarsk']         = 'places_krasnoyarsk.xml';
+                $feedName['tyumen']              = 'places_tumen.xml';
 
-            $this->writeEndImportLogLine( $options );
+                if( !in_array( $city, array_keys( $feedName ) ) )
+                    $this->dieWithLogMessage( 'No Feed Available For City Named: ' . $city );
 
-          case 'movie':
+                $feedUrl = 'http://www.timeout.ru/london/' . $feedName[ $city ];
+                $mapperClass = 'RussiaFeedPlacesMapper';
 
-            $feedObj = new Curl( 'http://www.timeout.ru/london/movies.xml' );
-            $feedObj->exec();
-            $xml = simplexml_load_string( $feedObj->getResponse() );
+            break; //End Poi
 
-            $importer->addDataMapper( new RussiaFeedMoviesMapper( $xml, null, 'unknown' /*any vendor*/ ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
+            case 'event':
 
-            $this->writeEndImportLogLine( $options );
+                $feedUrl = 'http://www.timeout.ru/london/events.xml';
+                $mapperClass = 'RussiaFeedEventsMapper';
+
+            break; //End Event
+
+            case 'movie':
+
+                $feedUrl = 'http://www.timeout.ru/london/movies.xml';
+                $mapperClass = 'RussiaFeedMoviesMapper';
+
+            break; //End Movie
+
+            default : $this->dieDueToInvalidTypeSpecified();
         }
-        break; //end russia
+
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+        
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $mapperClass( $xml, null, $city ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        
+        $this->dieWithLogMessage();
+
+      break; //End Russian Cities
 
 
       case 'london':
-        $vendor = $this->getVendorByCityAndLanguage( 'london', 'en-GB' );
+        
+        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'london', 'en-GB' );
+        $databaseManager->getDatabase( 'searchlight_london' )->getConnection(); // Set sfDatabase        
+
         switch( $options['type'] )
         {
-          case 'poi':
-            $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
+          case 'poi-ev-mapper': $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'poi' ) );
+          break; //End EventsAndVenuesMapper
 
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'poi' ) );
-            $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
-            $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
-            $importer->addDataMapper( new LondonAPICinemasMapper() );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+          case 'poi-bars-pubs': $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
+          break; // End BarsAndPubsMapper
 
-            break;
+          case 'poi-restaurants': $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
+          break; // End RestaurantsMapper
 
-          case 'event':
-            $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
+          case 'poi-cinemas': $importer->addDataMapper( new LondonAPICinemasMapper() );
+          break; //End CinemasMapper
 
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event' ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
+          case 'event': $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event' ) );
+          break; //End Event
 
-          case 'event-occurrence':
-            $connection = $databaseManager->getDatabase( 'searchlight_london' )->getConnection();
+          case 'event-occurrence': $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event-occurrence' ) );
+          break; //End Event-Occurrence
 
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event-occurrence' ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
+          case 'movie': $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendor ) );
+          break; //End Movie
 
-          case 'movie':
-
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendor ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-          break;
+          default : $this->dieDueToInvalidTypeSpecified();
         }
-        break; //end london
 
+        ImportLogger::getInstance()->setVendor( $vendor );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
 
+      break; //end London
 
-
-      //sydney is dirty I know... needs fixing bad, like the rest of this task
+  
       case 'sydney':
-        $vendor = $this->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
-
-        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl0nd0n', $vendor[ 'city' ] );
-        $ftpClient->setSourcePath( '/timeoutlondon/' );
-
-        //map the files to our terms
-        $ftpFiles = array();
-        foreach( $ftpClient->fetchRawDirListing() as $fileListing )
-        {
-          //get rid of the date / other info from ls command
-          $filename = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
-
-          if( strpos( $filename, 'venue' ) !== false )
-            $ftpFiles[ 'poi' ] = $filename;
-
-          else if( strpos( $filename, 'event' ) !== false )
-            $ftpFiles[ 'event' ] = $filename;
-
-          else if( strpos( $filename, 'film' ) !== false )
-            $ftpFiles[ 'movie' ] = $filename;
-        }
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-            $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'poi' ], 'venues.xml' );
-            $xml = simplexml_load_file( $downloadedFile );
-
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new sydneyFtpVenuesMapper( $vendor, $xml ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
-
-          case 'event':
-            $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'event' ], 'event.xml' );
-            $xml = simplexml_load_file( $downloadedFile );
-
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new sydneyFtpEventsMapper( $vendor, $xml ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
-
-          case 'movie':
-            $downloadedFile = $ftpClient->fetchFile( $ftpFiles[ 'movie' ], 'movie.xml' );
-            $xml = simplexml_load_file( $downloadedFile );
-
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $xml ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
-            
-            break;
-        }
-        break;
-
-
-    case 'kuala lumpur':
-        $vendor         = $this->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
-
-        if( $options['type'] == "event" || $options['type'] == "movie" )
-        {
-            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
-            $feedObj->exec();
-        }
-        elseif( $options['type'] == "poi" )
-        {
-            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
-            $feedObj->exec();
-        }
-        else break;
+          
+        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
         
         switch( $options['type'] )
         {
           case 'poi':
-            $xml = simplexml_load_string( $feedObj->getResponse() );
 
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new kualaLumpurVenuesMapper( $vendor, $xml ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $targetFileName = 'venues.xml';
+            $mapperClass = 'sydneyFtpVenuesMapper';
             
-            break;
+          break; //End Poi
 
           case 'event':
-            $xml = $this->removeKualaLumpurMoviesFromEventFeed( simplexml_load_string( $feedObj->getResponse() ) );
 
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new kualaLumpurEventsMapper( $vendor, $xml ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $targetFileName = 'event.xml';
+            $mapperClass = 'sydneyFtpEventsMapper';
             
-          break;
+          break; //End Event
 
           case 'movie':
-            $xml = $this->returnKualaLumpurMoviesFromEventFeed( simplexml_load_string( $feedObj->getResponse() ) );
 
-            ImportLogger::getInstance()->setVendor( $vendor );
-            $importer->addDataMapper( new kualaLumpurMoviesMapper( $vendor, $xml ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->writeEndImportLogLine( $options );
+            $targetFileName = 'movie.xml';
+            $mapperClass = 'sydneyFtpMoviesMapper';
             
-          break;
+          break; //End Movie
+
+          default : $this->dieDueToInvalidTypeSpecified();
         }
-        unset( $xml );
-        break; //end kuala_lumpur
+
+        ImportLogger::getInstance()->setVendor( $vendor );
+
+        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl*nd)n', $vendor[ 'city' ] );
+        $ftpClient->setSourcePath( '/timeoutlondon/' );
+        $ftpFiles = $this->parseSydneyFtpDirectoryListing( $ftpClient->fetchRawDirListing() );
+
+        $xml = simplexml_load_file( $ftpClient->fetchFile( $ftpFiles[ $options['type'] ], $targetFileName ) );
+
+        $importer->addDataMapper( new $mapperClass( $vendor, $xml ) );
+        $importer->run();
+        
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
+
+     break; //end Sydney
+
+
+    case 'kuala lumpur':
+        
+        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
+
+        if( in_array( $options['type'], array( "event", "movie" ) ) )
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+        elseif( $options['type'] == "poi" )
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
+        else break;
+
+        $feedObj->exec();
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        switch( $options['type'] )
+        {
+          case 'poi':
+
+            $mapperClass = 'kualaLumpurVenuesMapper';
+            
+          break; //End Poi
+
+          case 'event':
+
+            $xml = $this->removeKualaLumpurMoviesFromEventFeed( $xml );
+            $mapperClass = 'kualaLumpurEventsMapper';
+            
+          break; //End Event
+
+          case 'movie':
+              
+            $xml = $this->returnKualaLumpurMoviesFromEventFeed( $xml );
+            $mapperClass = 'kualaLumpurMoviesMapper';
+            
+          break; //End Movie
+
+          default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        ImportLogger::getInstance()->setVendor( $vendor );
+        
+        $importer->addDataMapper( new $mapperClass( $vendor, $xml ) );
+        $importer->run();
+        
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
+        
+    break; //end Kuala Lumpur
 
 
     case 'barcelona':
@@ -750,30 +579,17 @@ class importTask extends sfBaseTask
     case 'uae':
         switch( $options['type'] )
         {
-          case 'poi': $this->importUaePois();
-            break;
-
-          case 'poi-event': $this->importUaeEvents();
-            break;
-
-          case 'movies': $this->importUaeMovies();
-            break;
+          case 'poi': $this->importUaePois(); break;
+          case 'poi-event': $this->importUaeEvents(); break;
+          case 'movies': $this->importUaeMovies(); break;
+          default : $this->dieDueToInvalidTypeSpecified();
         }
-    break; // end dubai
+    break; // end uae
 
 
-
+    default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
-
-    $this->writeEndImportLogLine( $options );
-  }
-
-
-  private function writeEndImportLogLine( $options )
-  {
-    $this->writeLogLine( 'end import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ') -- Peak memory used: ' . $this->byteToHumanReadable( memory_get_peak_usage( true ) ) );
-    die;
   }
 
 
@@ -1053,7 +869,7 @@ class importTask extends sfBaseTask
         {
             echo "Starting to import Dubai Bars  \n";
             echo "Downloading Dubai bars Feed \n";
-            $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
 
             $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
             $feed->exec();
@@ -1091,7 +907,7 @@ class importTask extends sfBaseTask
 
             echo "Starting to import Abu Dhab bars \n";
             echo "Downloading Abu Dhabis bars Feed \n";
-            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
 
             $feed = new Curl('http://www.timeoutabudhabi.com/nokia/bars');
             $feed->exec();
@@ -1107,7 +923,7 @@ class importTask extends sfBaseTask
 
 
             echo "Starting to Import Abu Dhab Resaurants \n";
-            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
 
             $feed = new Curl('http://www.timeoutabudhabi.com/nokia/restaurants');
             $feed->exec();
@@ -1134,7 +950,7 @@ class importTask extends sfBaseTask
         {
 
             echo "Starting Import of Dubai Events \n";
-            $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
 
             echo "Downloading Dubai Events feed \n";
             $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
@@ -1152,7 +968,7 @@ class importTask extends sfBaseTask
             echo " \n\n\n\n\n\n\n ";
 
             echo "Starting to import Abu Dhab Events \n";
-            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
 
             echo "Downloading Abu Dhab Events feed \n";
             $feed = new Curl('http://www.timeoutabudhabi.com/nokia/latestevents');
@@ -1180,7 +996,7 @@ class importTask extends sfBaseTask
      {
         try
         {
-            $vendorObj = $this->getVendorByCityAndLanguage('dubai', 'en-US');
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
 
             //Dubia
             $feed = new Curl('http://www.timeoutdubai.com/customfeed/nokia/films');
@@ -1194,7 +1010,7 @@ class importTask extends sfBaseTask
 
             echo "Dubai added \n\n";
 
-            $vendorObj = $this->getVendorByCityAndLanguage('abu dhabi', 'en-US');
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
 
             //Abu Dhabi
             $feed = new Curl('http://www.timeoutabudhabi.com/customfeed/nokia/films');
@@ -1242,50 +1058,28 @@ class importTask extends sfBaseTask
 
      }
 
-  /**
-   * Get the Vendor by its city and language
-   *
-   * @param string $city
-   * @param string $language
-   *
-   * @return object Result
-   */
-  private function getVendorByCityAndLanguage($city, $language)
+  private function dieDueToInvalidTypeSpecified()
   {
-    $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage($city, $language);
-
-    //Set the new vendor if one doens't exist
-    if(!$vendorObj){
-      $vendorObj = new Vendor();
-      $vendorObj->setCity($city);
-      $vendorObj->setLanguage($language);
-
-      $vendorObj->save();
-
-    }
-
-    return $vendorObj;
+      $this->dieWithLogMessage( 'FAILED IMPORT - INVALID TYPE SPECIFIED' );
   }
 
-  private function output( $message )
+  private function dieWithLogMessage( $custom_message = "" )
   {
-    if( $this->options['verbose'] ) echo $message . PHP_EOL ;
+    if( $custom_message ) $this->writeLogLine( $custom_message );
+
+    $message = "";
+    $message.= 'end import for ' . $this->options['city'];
+    $message.= ' (type: ' . $this->options['type'] . ', environment: ' . $this->options['env'] . ')';
+    $message.= ' -- Peak memory used: ' . stringTransform::byteToHumanReadable( memory_get_peak_usage( true ) );
+    $this->writeLogLine( $message );
+
+    echo PHP_EOL;
+    die;
   }
 
   private function writeLogLine( $message )
   {
-      echo PHP_EOL . date( 'Y-m-d H:i:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL . PHP_EOL;
-  }
-
-  /**
-   *
-   * taken from http://uk2.php.net/manual/en/function.memory-get-usage.php
-   */
-  private function byteToHumanReadable( $size )
-  {
-    $unit=array('b','kb','mb','gb','tb','pb');
-    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
-
+      echo PHP_EOL . date( 'Y-m-d H:i:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL;
   }
 
   private function returnKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
@@ -1341,4 +1135,23 @@ EOF;
 
     return new SimpleXMLElement( $xslProcessor->transformToXML( dom_import_simplexml( $feed ) ) );
   }
+
+    private function parseSydneyFtpDirectoryListing( $rawFtpListingOutput )
+    {
+        //map the files to our terms
+        $ftpFiles = array();
+        foreach( $rawFtpListingOutput as $fileListing )
+        {
+          //get rid of the date / other info from ls command
+          $filename = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
+          if( strpos( $filename, 'venue' ) !== false )         $ftpFiles[ 'poi' ]   = $filename; // If File Listing is For a POI
+          elseif( strpos( $filename, 'event' ) !== false )     $ftpFiles[ 'event' ] = $filename; // If File Listing is For an Event
+          elseif( strpos( $filename, 'film' ) !== false )      $ftpFiles[ 'movie' ] = $filename; // If File Listing is For a Movie
+        }
+        
+        if( !isset( $ftpFiles[ 'poi' ] ) || !isset( $ftpFiles[ 'event' ] ) || !isset( $ftpFiles[ 'movie' ] ) )
+            $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing." );
+        
+        return $ftpFiles;
+    }
 }

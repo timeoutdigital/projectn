@@ -35,4 +35,127 @@
     </categories>
     <medias/>
   </event>
+  <event id="4549">
+    <name>
+      <![CDATA[Museu d'Arqueologia de Catalunya]]>
+    </name>
+    <description>
+      <![CDATA[]]>
+    </description>
+    <short_description>
+      <![CDATA[]]>
+    </short_description>
+    <booking_url>
+      <![CDATA[]]>
+    </booking_url>
+    <url>
+      <![CDATA[http://www.mac.cat]]>
+    </url>
+    <timeout_url>
+      <![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]>
+    </timeout_url>
+    <price>
+      <![CDATA[3 €]]>
+    </price>
+    <critics_choice>
+      <![CDATA[n]]>
+    </critics_choice>
+    <review_date>
+      <![CDATA[]]>
+    </review_date>
+    <occurrences>
+      <occurrence id="">
+        <booking_url>
+          <![CDATA[]]>
+        </booking_url>
+        <start_date>
+          <![CDATA[2008-01-28]]>
+        </start_date>
+        <end_date>
+          <![CDATA[ongoing]]>
+        </end_date>
+        <times_string>
+          <![CDATA[]]>
+        </times_string>
+        <utc_offset>
+          <![CDATA[]]>
+        </utc_offset>
+        <venue>
+          <![CDATA[2]]>
+        </venue>
+      </occurrence>
+    </occurrences>
+    <categories>
+      <category>
+        <name>
+          <![CDATA[A la Ciutat]]>
+        </name>
+      </category>
+      <category>
+        <name>
+          <![CDATA[Artística]]>
+        </name>
+        <children>
+          <category>
+            <name>
+              <![CDATA[Exposicions]]>
+            </name>
+          </category>
+        </children>
+      </category>
+    </categories>
+    <medias></medias>
+  </event>
+  <event id="4550">
+    <name>
+      <![CDATA[Museu de l'Eròtica]]>
+    </name>
+    <description>
+      <![CDATA[]]>
+    </description>
+    <short_description>
+      <![CDATA[]]>
+    </short_description>
+    <booking_url>
+      <![CDATA[]]>
+    </booking_url>
+    <url>
+      <![CDATA[http://www.erotica-museum.com]]>
+    </url>
+    <timeout_url>
+      <![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]>
+    </timeout_url>
+    <price>
+      <![CDATA[Adults 9 €. Reduïda 8 €]]>
+    </price>
+    <critics_choice>
+      <![CDATA[n]]>
+    </critics_choice>
+    <review_date>
+      <![CDATA[]]>
+    </review_date>
+    <occurrences>
+    </occurrences>
+    <categories>
+      <category>
+        <name>
+          <![CDATA[A la Ciutat]]>
+        </name>
+      </category>
+      <category>
+        <name>
+          <![CDATA[Artística]]>
+        </name>
+        <children>
+          <category>
+            <name>
+              <![CDATA[Exposicions]]>
+            </name>
+          </category>
+        </children>
+      </category>
+    </categories>
+    <medias></medias>
+  </event>
+
 </events>

@@ -271,8 +271,14 @@ class Poi extends BasePoi
   * @return boolean false if the name is null
   *
   */
-  public function addVendorCategory( $name, $vendorId )
+  public function addVendorCategory( $name, $vendorId = null )
   {
+
+    if( !$vendorId )
+      $vendorId = $this[ 'vendor_id' ];
+
+    if( !$vendorId )
+      throw new Exception( 'Cannot add a vendor category to an POI record without a vendor id.' );
 
     if ( is_array( $name ) )
     {
