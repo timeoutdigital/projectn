@@ -56,7 +56,7 @@ class yandexGeocodeTest extends PHPUnit_Framework_TestCase
 
 class yandexGeocodeTestExactMockCurl extends Curl
 {
-  public function exec()
+  public function getResponse()
   {
     return file_get_contents( TO_TEST_DATA_PATH . '/yandex_ymapsml.xml' );
   }

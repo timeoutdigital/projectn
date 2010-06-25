@@ -121,7 +121,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
 
 class geoEncodeTestMockCurl extends Curl
 {
-  public function exec()
+  public function getResponse()
   {
     return '200, 1, 2, 3'; //http code, accuracy, lat, long
   }

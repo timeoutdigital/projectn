@@ -67,6 +67,7 @@ class yandexGeocoder extends geoEncode
   protected function processResponse( $response )
   {
     $xml = simplexml_load_string( $response );
+
     $geoObject = $xml->GeoObjectCollection
                      ->featureMember[0]
                      ->GeoObject

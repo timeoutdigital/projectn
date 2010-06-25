@@ -202,7 +202,8 @@ class geoEncode
       return $this;
 
     $this->setUpCurl();
-    $this->response = $this->curl->exec();
+    $this->curl->exec();
+    $this->response = $this->curl->getResponse();
     $this->processResponse( $this->response );
    
     $this->settingsChanged = false;
