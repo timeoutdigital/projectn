@@ -49,7 +49,7 @@ poi:
 # default rules
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: poi, action: index }
 
 # generic rules
 # please, remove them by adding more specific rules
