@@ -146,6 +146,17 @@ class geoEncode
    *
    * @param string $apiKey String
    */
+  final public function setCurlClass( $className )
+  {
+    $this->curlClass = $className;
+    $this->settingsChanged = true;
+  }
+
+  /**
+   * Set the API key
+   *
+   * @param string $apiKey String
+   */
   final public function setApiKey( $apiKey )
   {
     $this->apiKey = $apiKey;

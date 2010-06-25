@@ -77,7 +77,7 @@ class yandexGeocoder extends geoEncode
     $latLongString = $geoObject->Point
                                ->pos
                                ;
-    $latLongArray = split( ' ', $latLongString );
+    $latLongArray = explode( ' ', $latLongString );
 
     $this->latitude  = $latLongArray[ 1 ];
     $this->longitude = $latLongArray[ 0 ];
@@ -87,6 +87,9 @@ class yandexGeocoder extends geoEncode
                                    ->GeocoderMetaData
                                    ->precision
                                    ;
-    $this->accuracy = self::$accuracyMap[ $accuracy ];
+    if( key_exists( $accuracy, self::$accuracyMap ) )
+      $this->accuracy = self::$accuracyMap[ $accuracy ];
+    else
+      $this->accuracy = self::ACCURACY_UNKNOWN;
   }
 }
