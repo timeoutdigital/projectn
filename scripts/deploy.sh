@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Dev Deploys Branches
+# Prod Deploys Tags
+
 set -e
 GIT_USER=git
 GIT_ROOT=timeout.unfuddle.com:timeout
@@ -30,9 +33,11 @@ elif (($# == 2)); then      #check if 2 param (env, tag)
  
  REPO_TAG=$2
 
- if [ -z `git tag -l "$REPO_TAG"` ]; then
-   echo "Error: The specified tag: '$REPO_TAG' is not valid"
-   exit 1
+ if [ $DEPLOY_ENV == "prod" ]; then
+     if [ -z `git tag -l "$REPO_TAG"` ]; then
+       echo "Error: The specified tag: '$REPO_TAG' is not valid"
+       exit 1
+     fi
  fi
  
  echo "Deploying $APP_NAME (tag: $REPO_TAG ) to $DEPLOY_ENV environment."
