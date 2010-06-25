@@ -58,8 +58,8 @@ class widgetFormEventVendorCategoryChoice extends sfWidgetForm
   {
     $event = $this->options['record'];
 
-    if ( $event['Vendor']['id'] === NULL )
-        return array();
+//    if ( $event['Vendor']['id'] === NULL )
+//        return array();
 
     $relatedVendorCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( 19 );
 
