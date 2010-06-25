@@ -43,7 +43,7 @@ class validatorVendorEventCategoryChoice extends sfValidatorChoice
   private function getCategoriesForEvent()
   {
     $event = $this->options['event'];
-    return Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $event['Vendor']['id'] );
+    return Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( 19 );
   }
 
   private function removeRequiredOption( $option )

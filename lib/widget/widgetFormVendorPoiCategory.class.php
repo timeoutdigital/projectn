@@ -58,10 +58,10 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
   {
     $poi = $this->options['record'];
     
-    if ( $poi['Vendor']['id'] === NULL )
-        return array();
+//    if ( $poi['Vendor']['id'] === NULL )
+//        return array();
 
-    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $poi['Vendor']['id'] );
+    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( 19 );
 
     $choices = array();
     foreach( $relatedVendorCategories as $category )

@@ -43,7 +43,7 @@ class validatorVendorPoiCategoryChoice extends sfValidatorChoice
   private function getCategoriesForPoi()
   {
     $poi = $this->options['poi'];
-    return Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $poi['Vendor']['id'] );
+    return Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( 19 );
   }
 
   private function removeRequiredOption( $option )

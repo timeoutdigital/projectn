@@ -5,6 +5,12 @@
     <?php include_metas() ?>
     <?php include_title() ?>
     <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- temporary manual includes for login... -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/global.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/default.css" />
+    <!-- end temporary manual includes for login... -->
+
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
   </head>
@@ -18,6 +24,8 @@
           Project N Data Entry
         </h1>
       </div>
+
+      <?php if ($sf_user->isAuthenticated()): ?>
 
       <div id="menu">
         <ul>
@@ -34,10 +42,18 @@
             <?php echo link_to('Vendor Poi Category', '@vendor_poi_category') ?> /
           </li>
           <li>
-            <?php echo link_to('Vendor Event Category', '@vendor_event_category') ?>
+            <?php echo link_to('Vendor Event Category', '@vendor_event_category') ?> /
           </li>
+          <?php /* <li>
+            <?php echo link_to('Users', 'sf_guard_user') ?>
+          </li>*/ ?>
+          <li>
+            <?php echo link_to('Logout', 'sf_guard_signout') ?>
+          </li> 
         </ul>
       </div>
+      <?php endif ?>
+
       <div class="clear"></div>
       <div id="content">
         <?php echo $sf_content ?>

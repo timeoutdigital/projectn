@@ -33,3 +33,14 @@ all:
 
     # Enable the database manager
     use_database:           true
+
+    #enable the plugins
+    enabled_modules: [default, sfGuardAuth, sfGuardGroup, sfGuardPermission, sfGuardUser]
+
+  #set the login page
+  .actions:
+    login_module:    sfGuardAuth
+    login_action:    signin
+    secure_module:   sfGuardAuth
+    secure_action:   secure
+

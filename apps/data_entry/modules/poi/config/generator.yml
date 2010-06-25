@@ -17,7 +17,7 @@ generator:
       list:
         display: [vendor_poi_id, poi_name, house_no, street, city, district]
       filter:
-        display: [vendor_poi_id, poi_name, house_no, street, zips, city, district, additional_address_details, keywords, poi_category_list, vendor_poi_category_list]
+        display: [vendor_poi_id, poi_name, house_no, street, zips, city, district, additional_address_details, keywords, vendor_poi_category_list]
       form:
         class: PoiDataEntryForm
         display:
@@ -49,7 +49,6 @@ generator:
             - rating
             - provider
             - review_date
-            - poi_category_list
             - vendor_poi_category_list
             - geocode_look_up
           Info:

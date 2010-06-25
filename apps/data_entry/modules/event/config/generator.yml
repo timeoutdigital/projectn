@@ -17,7 +17,7 @@ generator:
       list:
         display: [ vendor_event_id, name ]
       filter:
-        display: [ vendor_event_id, name, review_date, short_description, description, event_category_list, vendor_event_category_list ]
+        display: [ vendor_event_id, name, review_date, short_description, description, vendor_event_category_list ]
       form:
         class: EventDataEntryForm
         display:
@@ -32,7 +32,6 @@ generator:
             - url
             - price
             - rating
-            - event_category_list
             - vendor_event_category_list
           Info:
             - created_at
