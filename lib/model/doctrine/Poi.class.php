@@ -30,6 +30,8 @@ class Poi extends BasePoi
    */
   private $minimumAccuracy = 8;
 
+  private $media = array();
+
 
   public function setMinimumAccuracy( $acc )
   {
@@ -79,7 +81,7 @@ class Poi extends BasePoi
       // Get transformations
       $transformations = $this[ 'Vendor' ]->getAddressTransformations();
     }
- 
+
     if ( count( $transformations ) )
     {
       // Loop through transforms, applying them
@@ -90,7 +92,7 @@ class Poi extends BasePoi
         $regexp = $transform[ 'regexp' ];
         $fieldName = $transform[ 'field' ];
         $type = $transform[ 'type' ];
-        //print "$regexp $type $fieldName\n"; 
+        //print "$regexp $type $fieldName\n";
         try
         {
           $value = $this[ $fieldName ];
@@ -340,6 +342,7 @@ class Poi extends BasePoi
      $this->setDefaultLongLatNull();
      $this->fixHTMLEntities();
      $this->applyOverrides();
+     $this->downloadMedia();
   }
 
   /**
@@ -465,6 +468,44 @@ class Poi extends BasePoi
     return $definition[$part];
   }
 
+  private function downloadMedia()
+  {
+    // if addMediaByUrl wasn't called, there is no change in media
+    if( count( $this->media) == 0 ) return;
+
+    $largestImg = $this->media[ 0 ] ;
+
+    //find the largest image
+    foreach ( $this->media as $img )
+    {
+       if( $img[ 'contentLength' ] > $largestImg[ 'contentLength' ]  )
+       {
+        $largestImg = $img;
+       }
+    }
+
+    var_dump( $largestImg );
+
+    // if there isn't any image attached to the POI or if there is only one img which is the same image with the $largestImg
+    if( count( $this[ 'PoiMedia' ] )  ==  0  || ( count( $this[ 'PoiMedia' ] )  == 1 && $largestImg[ 'ident' ] == $this[ 'PoiMedia' ] [0] ['ident'] ) )
+    {
+        $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $largestImg[ 'ident' ] );
+
+        if ( $poiMediaObj === false )
+        {
+            $poiMediaObj = new PoiMedia();
+        }
+
+        $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+
+        $collection = new Doctrine_Collection('PoiMedia');
+        $collection->add( $poiMediaObj );
+
+        $this[ 'PoiMedia' ] =  $collection;
+        var_dump( $poiMediaObj['poi_id'] );
+    }
+
+  }
 
   /**
    * adds a poi media and invokes the download for it
@@ -482,7 +523,23 @@ class Poi extends BasePoi
         throw new Exception('Failed to add Poi Media due to missing Vendor city');
     }
 
-    $identString = md5( $urlString );
+
+    $headers = get_headers( $urlString , 1);
+
+    // check the header if it's an image
+    if( $headers [ 'Content-Type' ] != 'image/jpeg' )
+    {
+        return ;
+    }
+
+    $this->media[] = array(
+        'url'           => $urlString,
+        'contentLength' => $headers[ 'Content-Length' ],
+        'lastModified'  => date("Y-m-d H:i:s" , strtotime( $headers[ 'Last-Modified' ] ) ),
+        'ident'         => md5( $urlString ),
+     );
+
+    /*$identString = md5( $urlString );
     $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $identString );
 
     if ( $poiMediaObj === false )
@@ -498,7 +555,7 @@ class Poi extends BasePoi
     }
 
     $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
-    $this[ 'PoiMedia' ][] = $poiMediaObj;
+    $this[ 'PoiMedia' ][] = $poiMediaObj;*/
   }
 
 

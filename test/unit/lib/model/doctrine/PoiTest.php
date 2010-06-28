@@ -116,7 +116,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->object->addProperty( 'test prop lookup', 'test prop value' );
     $this->object->addProperty( 'test prop lookup 2', 'test prop value 2' );
     $this->object->save();
-    
+
     $poi = Doctrine::getTable('Poi')->findOneById( $this->object['id'] );
 
     $this->assertEquals(2, count($poi['PoiProperty']) );
@@ -206,11 +206,11 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj->save();
 
       $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude but not latitude for Sydney are preserved' );
-      
+
       $poiObj['longitude'] = '151.20711200';
       $poiObj['latitude'] = '-33.867138';
       $poiObj->save();
-      
+
       $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Non default longitude and latitude for Sydney are preserved' );
   }
 
@@ -231,7 +231,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * 
+   *
    * test the  getter and setter functions for the Critics_choice flag
    */
   public function testSetterGetterCriticsChoiceFlag()
@@ -333,12 +333,46 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
     $poi['street'] = 'Level 1, 8 Victoria Street';
     $poi['poi_name'] = "My &quot;name&quot; is";
-    
+
     $poi->save(); // Try Save Twice, make sure 'append' is not applied twice.
 
     $this->assertEquals( $poi[ 'additional_address_details' ], 'Level 1', 'Level <n> stripped from street and placed into additional_address_details' );
     $this->assertEquals( $poi[ 'house_no' ], 8, 'House number stripped from street and placed into house_no' );
     $this->assertEquals( $poi[ 'street' ], 'Victoria Street', 'Street left in street field' );
+  }
+
+  /**
+   * Test to check if picking the largest image as media works
+   * 3 images with different sizes will be added to a poi
+   *
+   */
+  public function testDownloadTheLargestImage()
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $smallImageUrl  = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $mediumImageUrl = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
+    $largeImageUrl  = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $poi->addMediaByUrl( $smallImageUrl );
+    $poi->addMediaByUrl( $largeImageUrl );
+    $poi->addMediaByUrl( $mediumImageUrl );
+
+    $poi->save();
+
+    $savedPoiId = $poi->id;
+    $poi->free( true ); unset( $poi );
+    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
+
+    $media = $poi[ 'PoiMedia' ];
+    echo "result:".PHP_EOL;
+    foreach ( $poi[ 'PoiMedia' ] as $media)
+    {
+        echo $media['url'].PHP_EOL;
+    }
+    //$this->assertEquals( count( $media ), 1,'poi should have only one image');
+    //$this->assertEquals( $media[0][ 'url'], $largeImageUrl ,'poi should pick the largest one to download' );
+
   }
 
 }
@@ -377,3 +411,4 @@ class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
   public function getLatitude() { }
   public function getAccuracy() { }
 }
+
