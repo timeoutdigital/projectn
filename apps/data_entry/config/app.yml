@@ -2,4 +2,11 @@
 # http://www.symfony-project.org/reference/1_4/en/11-App
 
 # default values
-#all:
+
+prod:
+  sf_guard_plugin:
+    # we manually specify this url as the default would point to port :8181
+    # which is the port the app is listening to on our server (london varnish
+    # points to)
+    success_signin_url: http://www.timeout.com/projectn/data_entry.php
+
