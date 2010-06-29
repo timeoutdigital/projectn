@@ -14,7 +14,7 @@ class Event extends BaseEvent
 {
 
   /**
-   * the media added to poi is stored in this array and the largest one will be downloaded in downloadMedia method
+   * the media added to event is stored in this array and the largest one will be downloaded in downloadMedia method
    *
    * @var $media
    */

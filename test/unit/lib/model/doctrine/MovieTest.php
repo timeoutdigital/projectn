@@ -74,7 +74,7 @@ class MovieTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * 
+   *
    */
   public function testShouldNotLookupImdbIfImdbIdExists()
   {
@@ -136,5 +136,91 @@ class MovieTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'The Wolfman', $movie[ 'name' ] );
   }
+
+   public function testAddMediaByUrlandSavePickLargerImage()
+   {
+    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+    $movie[ 'Vendor' ] = $vendor;
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $mediumImageUrl   = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $movie->addMediaByUrl( $smallImageUrl );
+    $movie->addMediaByUrl( $largeImageUrl );
+    $movie->addMediaByUrl( $mediumImageUrl );
+
+    $movie->save();
+
+    $savedMovieId = $movie->id;
+    $movie->free( true ); unset( $movie );
+    $movie = Doctrine::getTable( "Movie" )->findOneById( $savedMovieId );
+
+    // after adding 3 images we expect to have only one image and it should be the large image
+    $this->assertEquals( count( $movie[ 'MovieMedia' ]) ,1 , 'there should be only one MovieMedia attached to a Poi after saving' );
+    $this->assertEquals( $movie[ 'MovieMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to POI when adding more than one' );
+
+   }
+
+   /**
+    * if there is an image attached to Movie and a smaller one is being added, it should keep the larger image
+    *
+    */
+   public function  testAddMediaByUrlandSaveSkipSmallerImage()
+   {
+    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+    $movie[ 'Vendor' ] = $vendor;
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $movie->addMediaByUrl( $largeImageUrl );
+    $movie->save();
+
+    $savedMovieId = $movie->id;
+    $movie->free( true ); unset( $movie );
+    $movie = Doctrine::getTable( "Movie" )->findOneById( $savedMovieId );
+
+    // adding a smaller size imahe
+    $movie->addMediaByUrl( $smallImageUrl );
+    $movie->save();
+
+    $this->assertEquals( count( $movie[ 'MovieMedia' ]) ,1 , 'there should be only one MovieMedia attached to a Poi after saving' );
+    $this->assertEquals( $movie[ 'MovieMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
+
+   }
+
+    /**
+    * if there is an image attached to Movie and a larger one is being added, it should remove the existing image with the larger one
+    *
+    */
+   public function  testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
+   {
+    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+    $movie[ 'Vendor' ] = $vendor;
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $movie->addMediaByUrl( $smallImageUrl );
+    $movie->save();
+
+    $savedMovieId = $movie->id;
+    $movie->free( true ); unset( $movie );
+    $movie = Doctrine::getTable( "Movie" )->findOneById( $savedMovieId );
+
+    // adding a smaller size imahe
+    $movie->addMediaByUrl( $largeImageUrl );
+    $movie->save();
+
+    $this->assertEquals( count( $movie[ 'MovieMedia' ]) ,1 , 'there should be only one MovieMedia attached to a Poi after saving' );
+    $this->assertEquals( $movie[ 'MovieMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
+
+   }
+
 }
 ?>
