@@ -30,6 +30,11 @@ class Poi extends BasePoi
    */
   private $minimumAccuracy = 8;
 
+  /**
+   * the media added to poi is stored in this array and the largest one will be downloaded in downloadMedia method
+   *
+   * @var $media
+   */
   private $media = array();
 
 
@@ -343,6 +348,7 @@ class Poi extends BasePoi
      $this->fixHTMLEntities();
      $this->applyOverrides();
      $this->downloadMedia();
+     $this->removeMultipleImages();
   }
 
   /**
@@ -468,10 +474,47 @@ class Poi extends BasePoi
     return $definition[$part];
   }
 
+  /**
+   * tidy up function for pois with more than one image attached to them
+   * read the headers of the images and select the largest one in size
+   * remove other images
+   *
+   */
+  private function removeMultipleImages()
+  {
+     // if there is more than 1 image for this POI we need to find the largest one and remove the rest
+     if( count( $this[ 'PoiMedia' ] ) > 1 )
+     {
+        $largestImg = $this[ 'PoiMedia' ][ 0 ] ;
+        $largestSize = 0;
+
+        foreach ($this[ 'PoiMedia' ] as $poiMedia )
+        {
+             $headers = get_headers( $poiMedia['url'] , 1);
+
+             if( $headers[ 'Content-Length' ] >  $largestSize)
+             {
+                $largestSize = $headers[ 'Content-Length' ];
+                $largestImg = $poiMedia;
+             }
+        }
+
+        $this['PoiMedia'] = new Doctrine_Collection( 'PoiMedia' );
+
+        $this['PoiMedia'] [] = $largestImg;
+
+     }
+  }
+
+  /**
+   * selects the largest image in media array and downloads the image
+   *
+   *
+   */
   private function downloadMedia()
   {
     // if addMediaByUrl wasn't called, there is no change in media
-    if( count( $this->media) == 0 ) return;
+    if( count( $this->media) == 0 )  return;
 
     $largestImg = $this->media[ 0 ] ;
 
@@ -484,37 +527,39 @@ class Poi extends BasePoi
        }
     }
 
-    var_dump( $largestImg );
-
-    // if there isn't any image attached to the POI or if there is only one img which is the same image with the $largestImg
-    if( count( $this[ 'PoiMedia' ] )  ==  0  || ( count( $this[ 'PoiMedia' ] )  == 1 && $largestImg[ 'ident' ] == $this[ 'PoiMedia' ] [0] ['ident'] ) )
+    // check if the largestImg is larger than the one attached already if any
+    foreach ($this[ 'PoiMedia' ] as $poiMedia )
     {
-        $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $largestImg[ 'ident' ] );
 
-        if ( $poiMediaObj === false )
+        if( $poiMedia['content_length']  > $largestImg[ 'contentLength' ]  )
         {
-            $poiMediaObj = new PoiMedia();
+            //we already have a larger image so ignore this
+            return;
         }
-
-        $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-        $collection = new Doctrine_Collection('PoiMedia');
-        $collection->add( $poiMediaObj );
-
-        $this[ 'PoiMedia' ] =  $collection;
-        var_dump( $poiMediaObj['poi_id'] );
     }
+
+    $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $largestImg[ 'ident' ] );
+
+    if ( $poiMediaObj === false )
+    {
+        $poiMediaObj = new PoiMedia( );
+    }
+
+    $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+
+    // add the poiMediaObj to the Poi
+    $this[ 'PoiMedia' ] [] =  $poiMediaObj;
 
   }
 
+
   /**
-   * adds a poi media and invokes the download for it
+   * adds a poi media to the media array and the largest one will be downloaded by downloadMedia method
    *
    * @param string $urlString
    */
   public function addMediaByUrl( $urlString )
   {
-    //@todo log missing images
     if( empty( $urlString ) )
       return;
 
@@ -522,7 +567,6 @@ class Poi extends BasePoi
     {
         throw new Exception('Failed to add Poi Media due to missing Vendor city');
     }
-
 
     $headers = get_headers( $urlString , 1);
 
@@ -535,27 +579,8 @@ class Poi extends BasePoi
     $this->media[] = array(
         'url'           => $urlString,
         'contentLength' => $headers[ 'Content-Length' ],
-        'lastModified'  => date("Y-m-d H:i:s" , strtotime( $headers[ 'Last-Modified' ] ) ),
         'ident'         => md5( $urlString ),
      );
-
-    /*$identString = md5( $urlString );
-    $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $identString );
-
-    if ( $poiMediaObj === false )
-    {
-      foreach( $this['PoiMedia'] as $poiMedia )
-      {
-        if( $identString == $poiMedia[ 'ident' ] )
-        {
-          return;
-        }
-      }
-      $poiMediaObj = new PoiMedia();
-    }
-
-    $poiMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
-    $this[ 'PoiMedia' ][] = $poiMediaObj;*/
   }
 
 

@@ -30,6 +30,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
+
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
@@ -44,7 +45,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroyDatabases();
+   ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   public function testStreetDoesNotContainPostCode()
@@ -341,18 +342,14 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], 'Victoria Street', 'Street left in street field' );
   }
 
-  /**
-   * Test to check if picking the largest image as media works
-   * 3 images with different sizes will be added to a poi
-   *
-   */
-  public function testDownloadTheLargestImage()
-  {
+
+   public function testAddMediaByUrlandSavePickLargerImage()
+   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
 
-    $smallImageUrl  = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $mediumImageUrl = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
-    $largeImageUrl  = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $mediumImageUrl   = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
 
     $poi->addMediaByUrl( $smallImageUrl );
     $poi->addMediaByUrl( $largeImageUrl );
@@ -364,16 +361,65 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $poi->free( true ); unset( $poi );
     $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
 
-    $media = $poi[ 'PoiMedia' ];
-    echo "result:".PHP_EOL;
-    foreach ( $poi[ 'PoiMedia' ] as $media)
-    {
-        echo $media['url'].PHP_EOL;
-    }
-    //$this->assertEquals( count( $media ), 1,'poi should have only one image');
-    //$this->assertEquals( $media[0][ 'url'], $largeImageUrl ,'poi should pick the largest one to download' );
+    // after adding 3 images we expect to have only one image and it should be the large image
+    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
+    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to POI when adding more than one' );
 
-  }
+   }
+
+   /**
+    * if there is an image attached to POI and a smaller one is being added, it should keep the larger image
+    *
+    */
+   public function testAddMediaByUrlandSaveSkipSmallerImage()
+   {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $poi->addMediaByUrl( $largeImageUrl );
+    $poi->save();
+
+    $savedPoiId = $poi->id;
+    $poi->free( true ); unset( $poi );
+    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
+
+    // adding a smaller size imahe
+    $poi->addMediaByUrl( $smallImageUrl );
+    $poi->save();
+
+    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
+    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
+
+   }
+
+    /**
+    * if there is an image attached to POI and a smaller one is being added, it should keep the larger image
+    *
+    */
+   public function testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
+   {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $poi->addMediaByUrl( $smallImageUrl );
+    $poi->save();
+
+    $savedPoiId = $poi->id;
+    $poi->free( true ); unset( $poi );
+    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
+
+    // adding a smaller size imahe
+    $poi->addMediaByUrl( $largeImageUrl );
+    $poi->save();
+
+    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
+    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
+
+   }
 
 }
 
