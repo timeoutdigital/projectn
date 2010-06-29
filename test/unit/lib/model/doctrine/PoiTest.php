@@ -309,11 +309,22 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
       $poi['street'] = 'Parque Mayer - Av Liberdade, Lisboa ';
       $poi['poi_name'] = "My &quot;name&quot; is";
+
+      // Add HTML Entities to all poi fields of type 'string'
+      foreach( Doctrine::getTable( "Poi" )->getColumns() as $column_name => $column_info )
+        if( $column_info['type'] == 'string' )
+            if( is_string( @$poi[ $column_name ] ) )
+                $poi[ $column_name ] .= "&sect;";
+        
       $poi->save();
 
       $this->assertTrue( preg_match( '/&quot;/', $poi['poi_name'] ) == 0, 'POI name cannot contain HTML entities' );
-      $this->assertEquals( $poi['poi_name'], 'My "name" is', 'POI name converts HTML entities to their appropriate characters' );
 
+      // Check HTML Entities for all poi fields of type 'string'
+      foreach( Doctrine::getTable( "Poi" )->getColumns() as $column_name => $column_info )
+        if( $column_info['type'] == 'string' )
+            if( is_string( @$poi[ $column_name ] ) )
+                $this->assertTrue( preg_match( '/&sect;/', $poi[ $column_name ] ) == 0, 'Failed to convert &sect; to correct symbol' );
   }
 
   /**

@@ -92,5 +92,25 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertGreaterThan( 0, $poi[ 'PoiMedia' ]->count() );
     $this->assertEquals( "http://pix.timeout.ru/2000.jpeg", $poi[ 'PoiMedia' ][0]['url'] );
   }
+
+  public function testQuotRemovedFromName()
+  {
+
+    $this->object = new RussiaFeedPlacesMapper(
+      simplexml_load_file( TO_TEST_DATA_PATH . '/moscow_place_with_quot_in_name.xml' ),
+      null,
+      "moscow"
+    );
+
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $pois = Doctrine::getTable('Poi')->findAll();
+    $this->assertEquals( 1, $pois->count() );
+    $poi = $pois[0];
+
+    $this->assertFalse( strpos( $poi[ 'poi_name' ], "&quot;" ) );
+  }
 }
 ?>

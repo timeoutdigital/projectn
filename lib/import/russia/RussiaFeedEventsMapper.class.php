@@ -33,8 +33,8 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           $event['review_date']             = (string) $eventElement->review_date;
           $event['vendor_event_id']         = (string) $vendorEventId;
           $event['name']                    = (string) $eventElement->name;
-          $event['short_description']       = $this->fixHtmlEntities( (string) $eventElement->short_description );
-          $event['description']             = $this->fixHtmlEntities( (string) $eventElement->description );
+          $event['short_description']       = $this->fixHtmlEntities( (string) $eventElement->short_description ); // Requires Double Entity Decoding
+          $event['description']             = $this->fixHtmlEntities( (string) $eventElement->description ); // Requires Double Entity Decoding
           $event['booking_url']             = (string) $eventElement->booking_url;
           $event['url']                     = (string) $eventElement->url;
           $event['price']                   = (string) $eventElement->price;
