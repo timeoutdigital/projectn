@@ -395,7 +395,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    }
 
     /**
-    * if there is an image attached to POI and a smaller one is being added, it should keep the larger image
+    * if there is an image attached to Poi and a larger one is being added, it should remove the existing image with the larger one
     *
     */
    public function testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
