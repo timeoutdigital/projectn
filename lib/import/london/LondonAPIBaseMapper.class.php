@@ -129,15 +129,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
    */
   protected function mapCommonPoiMappings(Poi $poi, SimpleXMLElement $xml )
   {
-    $poi[ 'latitude' ]  = (string) $xml->lat;
-    $poi[ 'longitude' ] = (string) $xml->lng;
+    $poi->applyFeedGeoCodesIfValid( (string) $xml->lat, (string) $xml->lng );
 
-    if( empty( $poi['latitude'] ) || empty( $poi['longitude'] ) )
-    {
-      $latLong = $this->deriveLatitudeLongitude( $xml );
-      $poi['longitude']         = $latLong['longitude'];
-      $poi['latitude']          = $latLong['latitude'];
-    }
+    $this->lookupAndApplyGeocodes(); //Needed for Derive City Below
 
     $poi['zips']              = (string) $xml->postcode;
     $poi['city']              = $this->deriveCity( $poi['latitude'], $poi['longitude'], $xml, $poi );
@@ -214,31 +208,6 @@ abstract class LondonAPIBaseMapper extends DataMapper
     }
     
     return trim( $city );
-  }
-
-  /**
-   * Use data from xml to derive the longitude and latitude
-   *
-   * @returns array
-   */
-  protected function deriveLatitudeLongitude( $detailsXml )
-  {
-    $latitude  = $detailsXml->latitude;
-    $longitude = $detailsXml->longitude;
-
-    if( empty( $latitude ) || empty( $longitude ) )
-    {
-      $this->geoEncoder->setAddress( $detailsXml->postcode. ', United Kingdom' );
-      $latitude  = $this->geoEncoder->getLatitude();
-      $longitude = $this->geoEncoder->getLongitude();
-    }
-
-    $latLong = array(
-      'latitude'  => $latitude,
-      'longitude' => $longitude,
-    );
-
-    return $latLong;
   }
 
   /**

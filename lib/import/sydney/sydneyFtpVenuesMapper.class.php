@@ -46,8 +46,9 @@ class sydneyFtpVenuesMapper extends DataMapper
 
       $poi['Vendor']            = $this->vendor;
       $poi['vendor_poi_id']     = (string) $venue->VenueID;
-      $poi['latitude']          = (float)  $venue->Latitude;
-      $poi['longitude']         = (float)  $venue->Longitude;
+      
+      $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
+
       $poi['poi_name']          = (string) $venue->Name;
       $poi['street']            = (string) $venue->Address;
       $poi['city']              = ucfirst( (string) $this->vendor['city'] );

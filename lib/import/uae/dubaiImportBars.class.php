@@ -112,19 +112,8 @@ class dubaiImportBars{
           $poiObj['phone'] = (string) $restaurant->telephone;
 
 
-          if($restaurant->longitude == '' || $restaurant->latitude == '')
-          {
-              $geoObj = new geoEncode();
-              $geoObj->setAddress( $restaurant->location );
-              $poiObj['longitude'] = $geoObj->getLongitude();
-              $poiObj['latitude'] = $geoObj->getLatitude();
-
-          }
-          else
-          {
-              $poiObj['longitude'] = (float)  $restaurant->longitude;
-              $poiObj['latitude'] = (float)  $restaurant->latitude;
-          }
+          $poiObj->applyFeedGeoCodesIfValid( (float) $restaurant->latitude, (float) $restaurant->longitude );
+          
        
           //Get the address
           /**
@@ -135,7 +124,8 @@ class dubaiImportBars{
           $poiObj['city'] = $addressArray[1];
           $poiObj['country'] = 'ARE';
 
-
+          // Added this while not using dubai, have not tested.
+          $poiObj['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( @$poi['house_no'], @$poi['street'], @$poi['zips'], @$poi['city'] ) );
 
           //Associate the vendor to the poi
           $poiObj['Vendor'] = $this->vendorsObj;

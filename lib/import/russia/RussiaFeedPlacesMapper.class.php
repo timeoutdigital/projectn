@@ -41,8 +41,9 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['country']                       = "RUS";
             $poi['additional_address_details']    = (string) $venueElement->additional_address_details;
             $poi['zips']                          = (string) $venueElement->postcode;
-            $poi['longitude']                     = (string) $venueElement->long;
-            $poi['latitude']                      = (string) $venueElement->lat;
+            
+            $poi->applyFeedGeoCodesIfValid( (string) $venueElement->lat, (string) $venueElement->long );
+
             $poi['email']                         = (string) $venueElement->email;
             $poi['url']                           = (string) $venueElement->url;
             $poi['phone']                         = trim( (string) $venueElement->phone, " ." );
