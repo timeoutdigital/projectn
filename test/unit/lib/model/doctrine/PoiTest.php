@@ -47,6 +47,33 @@ class PoiTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testGeoCodeIsValid()
+  {
+      $poi = new Poi;
+
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = 1;
+      $poi['longitude'] = 1;
+      $this->assertTrue( $poi->geoCodeIsValid() );
+      
+      $poi['latitude'] = NULL;
+      $poi['longitude'] = 1;
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = 1;
+      $poi['longitude'] = NULL;
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = NULL;
+      $poi['longitude'] = NULL;
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = 0.000001;
+      $poi['longitude'] = 0.00020;
+      $this->assertTrue( $poi->geoCodeIsValid() );
+  }
+
   public function testStreetDoesNotContainPostCode()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );

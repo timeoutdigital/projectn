@@ -428,9 +428,9 @@ class Poi extends BasePoi
 
     $geoEncoder = $this->getGeoEncoder();
 
-    $geoEncoder->setAddress(  $this['geocode_look_up']);
-    $geoEncoder->setBounds(  $this['Vendor']->getGoogleApiGeoBounds());
-    $geoEncoder->setRegion(  $this['Vendor']['country_code']);
+    $geoEncoder->setAddress( $this['geocode_look_up'] );
+    $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
+    $geoEncoder->setRegion( $this['Vendor']['country_code'] );
 
     $this['longitude'] = $geoEncoder->getLongitude();
     $this['latitude']  = $geoEncoder->getLatitude();
@@ -443,7 +443,7 @@ class Poi extends BasePoi
     }
   }
 
-  private function geoCodeIsValid()
+  public function geoCodeIsValid()
   {
     $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
     $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );
