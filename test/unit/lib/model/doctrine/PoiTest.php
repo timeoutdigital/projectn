@@ -47,6 +47,65 @@ class PoiTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testGeoCodesSaveProperly()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['latitude'] = NULL;
+      $poi['longitude'] = NULL;
+      $poi->save();
+
+      $save_poi_id = $poi->id;
+      $poi->free();
+      unset( $poi );
+      gc_collect_cycles();
+
+      $poi = Doctrine::getTable("Poi")->findOneById( $save_poi_id );
+
+      $this->assertFalse( $poi->geoCodeIsValid() );
+      
+      $poi['latitude'] = 1;
+      $poi['longitude'] = 1;
+      
+      $this->assertTrue( $poi->geoCodeIsValid() );
+      
+      $poi->save();
+
+      $poi->free();
+      unset( $poi );
+      gc_collect_cycles();
+
+      $poi = Doctrine::getTable("Poi")->findOneById( $save_poi_id );
+
+      $this->assertTrue( $poi->geoCodeIsValid() );
+  }
+
+  public function testGeoCodeIsValid()
+  {
+      $poi = new Poi;
+
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = 1;
+      $poi['longitude'] = 1;
+      $this->assertTrue( $poi->geoCodeIsValid() );
+      
+      $poi['latitude'] = NULL;
+      $poi['longitude'] = 1;
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = 1;
+      $poi['longitude'] = NULL;
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = NULL;
+      $poi['longitude'] = NULL;
+      $this->assertFalse( $poi->geoCodeIsValid() );
+
+      $poi['latitude'] = 0.000001;
+      $poi['longitude'] = 0.00020;
+      $this->assertTrue( $poi->geoCodeIsValid() );
+  }
+
   public function testStreetDoesNotContainPostCode()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -358,10 +417,6 @@ class MockGeoEncodeForPoiTest extends geoEncode
 {
   private $address;
 
-  public function setAddress( $address )
-  {
-    $this->address = $address;
-  }
   public function numCallCount()
   {
     return $this->callCount;
@@ -382,7 +437,6 @@ class MockGeoEncodeForPoiTest extends geoEncode
 
 class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
 {
-  public function setAddress( $address ) { }
   public function numCallCount() { }
   public function getLongitude() { }
   public function getLatitude() { }
