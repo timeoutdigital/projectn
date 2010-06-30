@@ -1,95 +1,174 @@
 #!/bin/bash
 
-# Dev Deploys Branches
-# Prod Deploys Tags
+###############
+# Get options #
+###############
+while getopts ':e:t:b:' flag
+do
+  case $flag in
+    e)   ENV=$OPTARG;;
+    b)   BRANCH=$OPTARG ;;
+    t)   TAG=$OPTARG ;;
+    [?]) echo "$OPTARG is not a recognised option."; exit 1 ;;
+    [:]) if [[ $OPTARG == 'b' ]]; then 
+           echo 'A branch name is required with the -b option.' 
+           exit
+         elif [[ $OPTARG == 't' ]]; then
+           TAG=`git tag | sort -n | tail -1`
+         fi;
+  esac
+done
 
-set -e
+#####################################
+# Make sure enviroment is specified #
+#####################################
+if [[ -z $ENV ]]; then
+  echo 'No enviroment defined. This should be specified after the -e flag. Example:'
+  echo 'deploy -e dev'
+  exit 1
+fi
+
+###############
+# Load config #
+###############
+
+CURRENT_DIR=`pwd`
+CONFIG=$CURRENT_DIR/scripts/$ENV.config
+if [[ -f $CONFIG ]]; then
+  source $CONFIG
+else
+  echo "Could not find deploy file for '$ENV' environment, it should be located in $CONFIG"
+  exit 1
+fi
+
+############################
+# Set defaults from config #
+############################
+
+#we use defaults only if not tag or branch is specified in the command call
+if [[ -z $TAG && -z $BRANCH ]]; then
+  TAG=$CONFIG_DEFAULT_TAG
+  BRANCH=$CONFIG_DEFAULT_BRANCH
+fi
+
+##################################
+# Tag, branch or config default? #
+##################################
+
+#tag
+if [[ -n $TAG && -z $BRANCH ]]; then
+  #make sure it exists
+  HAS_TAG=0
+  if [[ -z `git tag -l "$TAG"` ]]; then
+    echo "Error: The specified tag: '$TAG' does not exist."
+    for available_tag in `git tag -l`
+      do
+        echo $available_tag
+    done
+    exit 1
+  fi
+  GIT_CHECKOUT="git checkout $TAG &&"
+  REF_TYPE='tag'
+  REF=$TAG
+
+#branch
+elif [[ -z $TAG && -n $BRANCH ]]; then
+  
+  #check branch exists in origin (unfuddle)
+  HAS_BRANCH=0
+  for available_branch in `git branch -r`
+    do
+    if [[ $available_branch == "origin/$BRANCH"  ]]; then
+      HAS_BRANCH=1
+    fi
+  done
+
+  #if no branch exists in origin, list what branches we do have
+  if [[ $HAS_BRANCH == 0 ]]; then
+    echo ''
+    echo "Branch '$BRANCH' not found. Available branches are:"
+    for remote_branch_ref in `git branch -r`
+      do
+        #refs come back as 'origin/branch_name'. Don't need to show 'origin/'
+        remote_branch=${remote_branch_ref//origin\//}
+
+        #don't care for 'HEAD', 'master' or '->'
+        if [[ $remote_branch == 'HEAD' || $remote_branch == '->' || $remote_branch == 'master' ]]; then
+          continue
+        fi
+
+        echo $remote_branch
+    done
+    exit 1
+  fi
+
+  GIT_CHECKOUT="git checkout origin/$BRANCH &&"
+  REF_TYPE='branch'
+  REF=$BRANCH
+
+#both (causes error)
+elif [[ -n $TAG && -n $BRANCH ]]; then
+  echo 'Cannot deploy a tag and a branch at the same time.'
+  exit 1
+
+#or nothing (will default to master)
+else
+  GIT_CHECKOUT=""
+  REF_TYPE='HEAD'
+  REF='master'
+fi
+
+###############
+# Set details #
+###############
 GIT_USER=git
 GIT_ROOT=timeout.unfuddle.com:timeout
 APP_REPO=$GIT_ROOT/projectn.git
-CURRENT_DIR=`pwd`
 
-if (($# < 3)); then         #check if less than 3 parameters
-
- # Include .sh from the deploy folder
- DEPLOY_ENV=$1
- DEPLOY_FILE=$DEPLOY_ENV.config
-
- if [ -f $CURRENT_DIR/scripts/$DEPLOY_FILE ]; then
-   source $CURRENT_DIR/scripts/$DEPLOY_FILE
- else
-   echo "Could not find deploy file for $DEPLOY_ENV environment, it should be located in $DEPLOY_FILE"
-   exit 1
- fi
-
-fi
-
-
-if (($# == 1)); then        #check if 1 param (env)
- 
- echo "Deploying $APP_NAME (tag: $REPO_TAG ) to $DEPLOY_ENV environment."
-
-elif (($# == 2)); then      #check if 2 param (env, tag)
- 
- REPO_TAG=$2
-
- if [ $DEPLOY_ENV == "prod" ]; then
-     if [ -z `git tag -l "$REPO_TAG"` ]; then
-       echo "Error: The specified tag: '$REPO_TAG' is not valid"
-       exit 1
-     fi
- fi
- 
- echo "Deploying $APP_NAME (tag: $REPO_TAG ) to $DEPLOY_ENV environment."
-
-else                        #check throw error if not 1 or 2 params
- 
- echo "Usage: deploy.config <environment-name> [<tag>]"
- exit 1
-
-fi
-
-CURRENT_DIR=$DEPLOY_PATH/$APP_NAME/httpdocs
+DEPLOY_DIR=$CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/httpdocs
 RELEASE_NAME=`date +"%Y-%m-%d-%H%M%S"`
-CURRENT_RELEASE=$DEPLOY_PATH/$APP_NAME/releases/$RELEASE_NAME
+CURRENT_RELEASE=$CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/$RELEASE_NAME
 
-if [ $DEPLOY_ENV == "prod" ]; then
 
- echo -n "You are about to deploy $APP_NAME (tag: $REPO_TAG ) to $DEPLOY_ENV environment do you really want to do this? (yes/no)"
- read -e CONFIRMATION
+#####################
+# Confirm with user #
+#####################
 
- if [ $CONFIRMATION != "yes" ]; then
-  echo "deployment aborted"
-  exit 1
- fi
+echo -n "You are about to deploy $CONFIG_APP_NAME ($REF_TYPE:$REF) to $ENV environment do you really want to do this? (yes/no)"
+read -e CONFIRMATION
 
+if [ $CONFIRMATION != "yes" ]; then
+ echo "deployment aborted"
+ exit 1
 fi
 
-DEPLOY_COMMAND="cd $DEPLOY_PATH/$APP_NAME/releases &&
+##########
+# Deploy #
+##########
+
+DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
                               git clone $GIT_USER@$APP_REPO $RELEASE_NAME &&
                               cd $RELEASE_NAME &&
                               $GIT_CHECKOUT
                               rm -rf export/ import/ log/ config/databases.yml &&
-                              ln -ns $DEPLOY_PATH/$APP_NAME/export export &&
-                              ln -ns $DEPLOY_PATH/$APP_NAME/import import &&
-                              ln -ns $DEPLOY_PATH/$APP_NAME/log log &&
-                              ln -ns $DEPLOY_PATH/$APP_NAME/config/databases.yml config/databases.yml &&
-                              rm $CURRENT_DIR &&
-                              ln -ns $CURRENT_RELEASE $CURRENT_DIR &&
+                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/export export &&
+                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/import import &&
+                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/log log &&
+                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/config/databases.yml config/databases.yml &&
+                              rm $DEPLOY_DIR &&
+                              ln -ns $CURRENT_RELEASE $DEPLOY_DIR &&
                               ./symfony project:permissions &&
                               ./symfony doctrine:build-model &&
                               ./symfony doctrine:build-filters &&
                               ./symfony doctrine:build-forms &&
                               ./symfony cc"
 
+echo "Deploying on $CONFIG_DEPLOY_SERVER"
+ssh -t $CONFIG_DEPLOY_USER@$CONFIG_DEPLOY_SERVER "$DEPLOY_COMMAND"
 
-
-for SERVER in ${DEPLOY_SERVER[@]}
-do
- echo "Deploying on $SERVER"
- ssh -t $DEPLOY_USER@$SERVER "$DEPLOY_COMMAND"
-
-done       
-
-
+#######
+# fin #
+#######
 echo "Finished successfully"
+
+exit
