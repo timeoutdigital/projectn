@@ -30,7 +30,7 @@ class Poi extends BasePoi
    */
   private $minimumAccuracy = 8;
 
-
+  
   public function setMinimumAccuracy( $acc )
   {
       if( is_numeric( $acc ) )
@@ -242,6 +242,24 @@ class Poi extends BasePoi
     $this->geoEncodeByPass = $geoEncodeByPass;
   }
 
+
+  /**
+   * Add the Poi Meta Data
+   *
+   * @param string $lookup
+   * @param string $value
+   * @return boolean if value is null or existing
+   */
+  public function addMeta( $lookup, $value )
+  {
+    $poiMetaObj = new PoiMeta();
+    $poiMetaObj[ 'lookup' ] = (string) $lookup;
+    $poiMetaObj[ 'value' ] = (string) $value;
+
+    $this[ 'PoiMeta' ][] = $poiMetaObj;
+  }
+
+
   /**
    * Add the Poi Properties
    *
@@ -343,12 +361,12 @@ class Poi extends BasePoi
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();
-     $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
      $this->cleanStreetField();
      $this->setDefaultLongLatNull();
      $this->applyOverrides();
+     $this->lookupAndApplyGeocodes();
   }
 
   /**
@@ -441,14 +459,17 @@ class Poi extends BasePoi
       $this['latitude']  = null;
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
     }
+
+    $this->addMeta( "Geo_Source", "Google" );
   }
 
   public function geoCodeIsValid()
   {
     $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
     $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );
+    $isEmpty = ( $this['longitude'] == ""  || $this['latitude'] == "" );
 
-    return !$isZero && !$isNull;
+    return !$isZero && !$isNull && !$isEmpty;
   }
 
   private function truncateGeocodeLengthToMatchSchema()
@@ -532,6 +553,21 @@ class Poi extends BasePoi
             }
         }
     }
+  }
+
+  /**
+   * Function to be used by importers, this ensures that feed lat/longs are valid before attaching them to a POI.
+   */
+  public function applyFeedGeoCodesIfValid( $lat = "", $long = "" )
+  {
+        if( is_numeric( $lat ) && is_numeric( $long ) )
+        {
+            if( $this['latitude'] != $lat || $this['longitude'] != $long )
+                $this->addMeta( "Geo_Source", "Feed" );
+
+            $this['latitude']                      = $lat;
+            $this['longitude']                     = $long;
+        }
   }
 
 }
