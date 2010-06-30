@@ -546,6 +546,8 @@ RecordFieldOverrideMovie:
     
 Meta:
   connection: project_n
+  actAs:
+    Timestampable:  ~
   columns:
     record_id:                {type: integer, notnull: true}
     lookup:                   {type: string, notnull: true}
