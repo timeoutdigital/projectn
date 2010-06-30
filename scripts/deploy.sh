@@ -163,10 +163,8 @@ DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
                               ./symfony doctrine:build-forms &&
                               ./symfony cc"
 
-echo "Deploying on $CONFIG_DEPlOY_SERVER"
-echo $DEPLOY_COMMAND
-exit
-#ssh -t $CONFIG_DEPLOY_USER@$SERVER "$DEPLOY_COMMAND"
+echo "Deploying on $CONFIG_DEPLOY_SERVER"
+ssh -t $CONFIG_DEPLOY_USER@$CONFIG_DEPLOY_SERVER "$DEPLOY_COMMAND"
 
 #######
 # fin #
