@@ -216,7 +216,9 @@ class geoEncode
     $this->curl->exec();
     $this->response = $this->curl->getResponse();
     $this->processResponse( $this->response );
-   
+
+    file_put_contents( sfConfig::get( 'sf_log_dir' ) . '/GoogleApiUsage.log', date( 'Y-m-d H:i:s' ) . PHP_EOL, FILE_APPEND );
+
     $this->settingsChanged = false;
     return $this;
   }
