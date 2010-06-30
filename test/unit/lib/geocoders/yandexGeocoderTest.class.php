@@ -63,6 +63,17 @@ class yandexGeocodeTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '40.361323', $this->object->getLongitude() );
     $this->assertEquals( '0', $this->object->getAccuracy() );
   }
+
+  public function testProcessResponseWithNone()
+  {
+    $this->object = new yandexGeocoder( 'yandexGeocodeTestNoneMockCurl' );
+    $this->apiKey = 'ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==';
+    $this->object->setApiKey( $this->apiKey );
+    $this->object->setAddress( 'anything here will do. XML is mocked below' );
+    $this->assertNull( $this->object->getLatitude() );
+    $this->assertNull( $this->object->getLongitude() );
+    $this->assertNull( $this->object->getAccuracy() );
+  }
 }
 
 class yandexGeocodeTestExactMockCurl extends Curl
@@ -78,5 +89,13 @@ class yandexGeocodeTestOtherMockCurl extends Curl
   public function getResponse()
   {
     return file_get_contents( TO_TEST_DATA_PATH . '/yandex_ymapsml_other.xml' );
+  }
+}
+
+class yandexGeocodeTestNoneMockCurl extends Curl
+{
+  public function getResponse()
+  {
+    return file_get_contents( TO_TEST_DATA_PATH . '/yandex_ymapsml_none.xml' );
   }
 }

@@ -258,7 +258,9 @@ class geoEncode
 
 
   /**
-   * Get the accuracy of the address
+   * Get the accuracy of the geocode lookup
+   *
+   * @return int (null if no results)
    */
   final public function getAccuracy()
   {
