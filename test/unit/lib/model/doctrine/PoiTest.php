@@ -47,6 +47,38 @@ class PoiTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testGeoCodesSaveProperly()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['latitude'] = NULL;
+      $poi['longitude'] = NULL;
+      $poi->save();
+
+      $save_poi_id = $poi->id;
+      $poi->free();
+      unset( $poi );
+      gc_collect_cycles();
+
+      $poi = Doctrine::getTable("Poi")->findOneById( $save_poi_id );
+
+      $this->assertFalse( $poi->geoCodeIsValid() );
+      
+      $poi['latitude'] = 1;
+      $poi['longitude'] = 1;
+      
+      $this->assertTrue( $poi->geoCodeIsValid() );
+      
+      $poi->save();
+
+      $poi->free();
+      unset( $poi );
+      gc_collect_cycles();
+
+      $poi = Doctrine::getTable("Poi")->findOneById( $save_poi_id );
+
+      $this->assertTrue( $poi->geoCodeIsValid() );
+  }
+
   public function testGeoCodeIsValid()
   {
       $poi = new Poi;
