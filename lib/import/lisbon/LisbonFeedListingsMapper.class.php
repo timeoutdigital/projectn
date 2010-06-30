@@ -22,7 +22,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
     {
       $recurringListingId = (int) $listingElement[ 'RecurringListingID' ];
       $musicId = (int) $listingElement['musicid'];
-        
+
       if( $recurringListingId != 0)
       {
         if( !array_key_exists( $recurringListingId, $recurringListingIdArray ) || $recurringListingIdArray[ $recurringListingId ] < $musicId )
@@ -31,12 +31,12 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
         }
       }
     }
-    
+
     foreach( $this->xml->listings as $listingElement )
     {
       $recurringListingId = (int) $listingElement[ 'RecurringListingID' ];
       $musicId = (int) $listingElement['musicid'];
-      
+
       if( !array_key_exists( $recurringListingId, $recurringListingIdArray) )
       {
          continue;
@@ -98,7 +98,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
       $possibleDays = $this->extractDays( $listingElement );
 
-      $occurrenceDates = $this->getOcurrenceDates( $listingElement, $possibleDays );
+      $occurrenceDates = $this->getOccurrenceDates( $listingElement, $possibleDays );
 
       // @todo if we go with this variant it should be optimized, its a little inefficient
       $placeid = (int) $listingElement['placeid'];
@@ -130,10 +130,13 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
         $occurrence['Poi']                                    = $poi;
 
         $event['EventOccurrence'][]                           = $occurrence;
+
+
       }
 
       $this->notifyImporter( $event );
     }
+
   }
 
 //  private function getPoi( $placeid )
@@ -194,13 +197,13 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   private function extractDays( $listingElement )
   {
 
-      $weekDaysMap = array( 'Sunday' => array( 'Domingo', 'dom' ),
-                            'Monday' => array( 'segunda-feira', 'segunda', 'seg' ),
-                            'Tuesday' => array( 'terça-feira', 'terça', 'ter' ),
-                            'Wednesday' => array( 'quarta-feira', 'quarta', 'qua' ),
-                            'Thursday' => array( 'quinta-feira', 'quinta', 'qui' ),
-                            'Friday' => array( 'sexta-feira', 'sexta', 'sex' ),
-                            'Saturday' => array( 'sábado', 'sab', 'sáb' ),
+      $weekDaysMap = array( 'Sunday' => array( 'Domingo', 'dom' ,'domingos'),
+                            'Monday' => array( 'segunda-feira', 'segunda', 'seg' ,'segundas-feiras' ,'segunda-feiras' ),
+                            'Tuesday' => array( 'terça-feira', 'terça', 'ter' ,'Terças' ,'terças-feiras' ,'terça-feiras' ),
+                            'Wednesday' => array( 'quarta-feira', 'quarta', 'qua' ,'quartas' ,'quartas-feiras' , 'quarta-feiras' ),
+                            'Thursday' => array( 'quinta-feira', 'quinta', 'qui' ,'quintas', 'quintas-feiras' ),
+                            'Friday' => array( 'sexta-feira', 'sexta', 'sex' ,'sextas-feiras' ),
+                            'Saturday' => array( 'sábado', 'sab', 'sáb' ,'sábados' ),
                      );
 
       $weekDays = array();
@@ -208,7 +211,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       {
         $weekDays = array_merge( $weekDays, $weekday);
       }
-      
+
       $weekDaysOrString = implode( '|', $weekDays );
 
       //ranges
@@ -224,10 +227,10 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $daysWhenItHappens = array_merge($daysWhenItHappens, $matches );
 
       //single days
-      $singleDaysPattern = '/(' . $weekDaysOrString . ')\s/i';
-      $dayRanges = preg_match( $singleDaysPattern, $listingElement['timeinfo'], $matches );
+      $singleDaysPattern = '/(' . $weekDaysOrString . ')[\s,:]+/i';
+      $dayRanges = preg_match_all( $singleDaysPattern, $listingElement['timeinfo'], $matches );
       if ( 0 < count($matches) ) array_shift($matches);
-      $daysWhenItHappens = array_merge($daysWhenItHappens, $matches );
+      $daysWhenItHappens = array_merge($daysWhenItHappens, $matches[0] );
 
       //every day
       $everyDayPattern = '/(todos os dias)/i';
@@ -241,6 +244,28 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
         $daysWhenItHappens = array();
       }
 
+      //weekends
+      $weekendPattern = '/(Fins-de-semana)/i';
+
+      if ( preg_match( $weekendPattern, $listingElement['timeinfo'] ) )
+      {
+        $daysWhenItHappens [] = 'sábado';
+        $daysWhenItHappens [] = 'Domingo';
+      }
+
+      //working days
+      $workingdaysPattern = '/(Dias úteis)/i';
+
+      if ( preg_match( $workingdaysPattern, $listingElement['timeinfo'] ) )
+      {
+        $daysWhenItHappens [] = 'segunda-feira';
+        $daysWhenItHappens [] = 'terça-feira';
+        $daysWhenItHappens [] = 'quarta-feira';
+        $daysWhenItHappens [] = 'quinta-feira';
+        $daysWhenItHappens [] = 'sexta-feira';
+      }
+
+
       $daysWhenItHappensTranslated = array();
       foreach ( $weekDaysMap as $englishDay => $dayInForeignLangArray )
       {
@@ -251,7 +276,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
   }
 
 
-  private function getOcurrenceDates( $listingElement, $possibleDays )
+  private function getOccurrenceDates( $listingElement, $possibleDays )
   {
       $zone = new DateTimeZone( $this->vendor[ 'time_zone' ] );
       $zoneGB = new DateTimeZone( 'Europe/London' );
@@ -295,7 +320,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
       if( (string) trim( $event['description'] ) != "" )
          $event['description'] .= "<br /><br />";
-      
+
       $event['description'] .= $band_info;
   }
 
