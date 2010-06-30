@@ -47,6 +47,60 @@ class PoiTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testApplyFeedGeoCodesIfValid()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      $poi['latitude'] = NULL;
+      $poi['longitude'] = NULL;
+
+      $this->assertFalse( $poi->geoCodeIsValid() );
+      
+      $poi->applyFeedGeoCodesIfValid( 1, 1 );
+      $this->assertTrue( $poi->geoCodeIsValid() );
+      
+      $this->assertEquals( 1, $poi['latitude'] );
+      $this->assertEquals( 1, $poi['longitude'] );
+
+      $poi->applyFeedGeoCodesIfValid( "", 100 );
+      $this->assertTrue( $poi->geoCodeIsValid() );
+
+      $this->assertEquals( 1, $poi['latitude'] );
+      $this->assertEquals( 1, $poi['longitude'] );
+
+      $poi->applyFeedGeoCodesIfValid( 100, "" );
+      $this->assertTrue( $poi->geoCodeIsValid() );
+
+      $this->assertEquals( 1, $poi['latitude'] );
+      $this->assertEquals( 1, $poi['longitude'] );
+
+      $poi->applyFeedGeoCodesIfValid( NULL, 100 );
+      $this->assertTrue( $poi->geoCodeIsValid() );
+
+      $this->assertEquals( 1, $poi['latitude'] );
+      $this->assertEquals( 1, $poi['longitude'] );
+
+      $poi->applyFeedGeoCodesIfValid( 2, 2 );
+      $this->assertTrue( $poi->geoCodeIsValid() );
+
+      $this->assertEquals( 2, $poi['latitude'] );
+      $this->assertEquals( 2, $poi['longitude'] );
+
+      $poi->save();
+      $save_poi_id = $poi['id'];
+
+      $poi->free();
+      unset( $poi );
+      gc_collect_cycles();
+
+      $poi2 = Doctrine::getTable("Poi")->findOneById( $save_poi_id );
+
+      $this->assertTrue( $poi2->geoCodeIsValid() );
+      
+      $this->assertEquals( 2, $poi2['latitude'] );
+      $this->assertEquals( 2, $poi2['longitude'] );
+  }
+
   public function testGeoCodesSaveProperly()
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
