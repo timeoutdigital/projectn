@@ -240,7 +240,7 @@ class geoEncode
   /**
    * Get the longitude fo rthe address
    */
-  final public function getLongitude()
+  public function getLongitude()
   {
     $this->getGeoCode();
     return $this->longitude;
@@ -250,7 +250,7 @@ class geoEncode
   /**
    * Get the latitude of the address
    */
-  final public function getLatitude()
+  public function getLatitude()
   {
     $this->getGeoCode();
     return $this->latitude;
@@ -260,7 +260,7 @@ class geoEncode
   /**
    * Get the accuracy of the address
    */
-  final public function getAccuracy()
+  public function getAccuracy()
   {
     $this->getGeoCode();
     return $this->accuracy;

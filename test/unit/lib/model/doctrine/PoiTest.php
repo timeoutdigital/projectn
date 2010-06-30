@@ -358,10 +358,6 @@ class MockGeoEncodeForPoiTest extends geoEncode
 {
   private $address;
 
-  public function setAddress( $address )
-  {
-    $this->address = $address;
-  }
   public function numCallCount()
   {
     return $this->callCount;
@@ -382,7 +378,6 @@ class MockGeoEncodeForPoiTest extends geoEncode
 
 class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
 {
-  public function setAddress( $address ) { }
   public function numCallCount() { }
   public function getLongitude() { }
   public function getLatitude() { }
