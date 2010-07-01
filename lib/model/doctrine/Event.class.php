@@ -25,6 +25,8 @@ class Event extends BaseEvent
    */
   public function applyFixes()
   {
+     $this->fixHTMLEntities();
+     
      if( $this['url'] != '')
         $this['url'] = stringTransform::formatUrl($this['url']);
 
@@ -34,6 +36,28 @@ class Event extends BaseEvent
     $this->applyOverrides();
     $this->downloadMedia();
     $this->removeMultipleImages();
+  }
+
+  /**
+   * Return an Array of column names for which the column type is 'string'
+   */
+  protected function getStringColumns()
+  {
+    $column_names = array();
+    foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
+      if( $column_info['type'] == 'string' )
+          $column_names[] = $column_name;
+    return $column_names;
+  }
+
+  /**
+   * Removes HTML Entities for all fields of type 'string'
+   */
+  protected function fixHTMLEntities()
+  {
+    foreach ( $this->getStringColumns() as $field )
+        if( is_string( @$this[ $field ] ) )
+            $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
   }
 
   /**

@@ -195,8 +195,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
       $poiObj->save();
 
-      $poiObj['longitude'] = '151.20711400';
-      $poiObj['latitude'] = '-33.86713900';
+      $poiObj['longitude'] = '151.207114';
+      $poiObj['latitude'] = '-33.867139';
 
       $poiObj->save();
 
@@ -211,7 +211,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj['longitude'] = '151.20711200';
       $poiObj['latitude'] = '-33.867138';
       $poiObj->save();
-
+     // sydney1: { long: '151.207114', lat: '-33.867139' }
       $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Non default longitude and latitude for Sydney are preserved' );
   }
 
@@ -427,7 +427,7 @@ class MockGeoEncodeForPoiTest extends geoEncode
 {
   private $address;
 
-  public function setAddress( $address )
+  public function _setAddress( $address )
   {
     $this->address = $address;
   }
@@ -451,7 +451,7 @@ class MockGeoEncodeForPoiTest extends geoEncode
 
 class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
 {
-  public function setAddress( $address ) { }
+  public function _setAddress( $address ) { }
   public function numCallCount() { }
   public function getLongitude() { }
   public function getLatitude() { }

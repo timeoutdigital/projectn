@@ -119,41 +119,9 @@ class chicagoImportBcEd {
             $poiObj[ 'geocode_look_up' ]         = stringTransform::concatNonBlankStrings(',', array(
                 $poiObj['poi_name'],
                 $poiObj['street'],
-                $poiObj['city'],
                 $poiObj['zips'],
-                'Chicago',
+                $poiObj['city']
             ));
-
-            /**
-             * Try and get the longitude and latitude for POI
-             */
-            try{
-               //Add the problematic areas that can cause exceptions
-                $addressString = $poiObj[ 'poi_name' ].', ' . $poiObj[ 'street' ] .', ' . $poiObj[ 'city' ]  . ', '  . $poiObj[ 'country' ];
-
-                
-                if($poiObj[ 'longitude' ] == '' || $poiObj[ 'latitude' ] == '')
-                {
-                    //Get longitude and latitude for venue
-                    $geoEncode = new geoEncode();
-                    $geoEncode->setAddress( $addressString );
-
-                    //Set longitude and latitude
-                    $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
-                    $poiObj[ 'latitude' ]  = $geoEncode->getLatitude();
-                }
-            }
-            catch(Exception $e)
-            {
-                echo "long/lat error \n \n";
-
-                //Force a Long/Lat or validation will fail
-                $poiObj[ 'longitude' ] = 0.00;
-                $poiObj[ 'latitude' ]  = 0.00;
-
-                $log =  "Error processing Long/Lat for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-                ImportLogger::getInstance()->addError($e, $poiObj, $log);
-            }
 
             /**
              * Try to convert the phone number

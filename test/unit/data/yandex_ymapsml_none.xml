@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ymaps xmlns="http://maps.yandex.ru/ymaps/1.x" xmlns:x="http://www.yandex.ru/xscript">
+  <GeoObjectCollection>
+    <metaDataProperty xmlns="http://www.opengis.net/gml">
+      <GeocoderResponseMetaData xmlns="http://maps.yandex.ru/geocoder/1.x">
+        <request>272 6409, ул. Кабанбай батыра, 79., Алматы</request>
+        <found>0</found>
+        <results>10</results>
+      </GeocoderResponseMetaData>
+    </metaDataProperty>
+  </GeoObjectCollection>
+</ymaps>

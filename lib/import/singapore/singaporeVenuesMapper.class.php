@@ -76,8 +76,8 @@ class singaporeVenuesMapper extends DataMapper
       $address = $this->getAddressInfo( $poiXml );
       if ( $address )
       {
-          $poi[ 'longitude' ]                  = (string) $address->mm_lon;
-          $poi[ 'latitude' ]                   = (string) $address->mm_lat;
+          $poi->applyFeedGeoCodesIfValid( (string) $address->mm_lat, (string) $address->mm_lon );
+
           $poi[ 'public_transport_links' ]     = $this->extractPublicTransportLinks( $address );
           $poi[ 'phone' ]                      = '+65 ' .  (string) $address->phone;
           $poi[ 'additional_address_details' ] = (string) $address->location;

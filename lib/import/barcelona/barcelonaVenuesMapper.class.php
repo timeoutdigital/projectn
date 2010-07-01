@@ -23,6 +23,7 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
             if( $poi === false )
               $poi = new Poi();
 
+
             $poi['vendor_poi_id']                 = $this->clean( (string) $venueElement['id'] );
             $poi['review_date']                   = $this->clean( (string) $venueElement->review_date );
             $poi['local_language']                = $this->vendor['language'];
@@ -34,8 +35,9 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
             $poi['country']                       = "ESP";
             $poi['additional_address_details']    = $this->clean( (string) $venueElement->additional_address_details );
             $poi['zips']                          = $this->clean( (string) $venueElement->postcode );
-            $poi['longitude']                     = $this->clean( (string) $venueElement->long );
-            $poi['latitude']                      = $this->clean( (string) $venueElement->lat );
+
+            $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->lat ), $this->clean( (string) $venueElement->long ) );
+
             $poi['email']                         = $this->clean( (string) $venueElement->email );
             $poi['url']                           = $this->clean( (string) $venueElement->url );
             $poi['phone']                         = $this->clean( (string) $venueElement->phone );

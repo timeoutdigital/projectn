@@ -43,6 +43,32 @@ class MovieTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+   /**
+   * test if setting the name of a Poi ensures HTML entities are decoded
+   */
+  public function testFixHtmlEntities()
+  {
+      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+      $movie['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $movie['name'] = "Movie &quot;name&quot; is";
+
+      // Add HTML Entities to all poi fields of type 'string'
+      foreach( Doctrine::getTable( "Movie" )->getColumns() as $column_name => $column_info )
+        if( $column_info['type'] == 'string' )
+            if( is_string( @$movie[ $column_name ] ) )
+                $movie[ $column_name ] .= "&sect;";
+
+      $movie->save();
+
+      $this->assertTrue( preg_match( '/&quot;/', $movie['name'] ) == 0, 'POI name cannot contain HTML entities' );
+
+      // Check HTML Entities for all poi fields of type 'string'
+      foreach( Doctrine::getTable( "Movie" )->getColumns() as $column_name => $column_info )
+        if( $column_info['type'] == 'string' )
+            if( is_string( @$movie[ $column_name ] ) )
+                $this->assertTrue( preg_match( '/&sect;/', $movie[ $column_name ] ) == 0, 'Failed to convert &sect; to correct symbol' );
+  }
+
   public function testAddTimeoutUrl()
   {
     $this->assertEquals( 0, count( $this->object['MovieProperty'] ) );

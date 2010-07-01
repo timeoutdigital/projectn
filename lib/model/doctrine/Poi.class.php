@@ -29,7 +29,6 @@ class Poi extends BasePoi
    * @var $minimumAccuracy
    */
   private $minimumAccuracy = 8;
-
   /**
    * the media added to poi is stored in this array and the largest one will be downloaded in downloadMedia method
    *
@@ -65,16 +64,25 @@ class Poi extends BasePoi
   }
 
   /**
-   * Fixes fields with HTML entities where we do not want them
+   * Return an Array of column names for which the column type is 'string'
+   */
+  protected function getStringColumns()
+  {
+    $column_names = array();
+    foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
+      if( $column_info['type'] == 'string' )
+          $column_names[] = $column_name;
+    return $column_names;
+  }
+
+  /**
+   * Removes HTML Entities for all fields of type 'string'
    */
   protected function fixHTMLEntities()
   {
-    // We don't want HTML entities in our string
-    $fields = array( 'poi_name' );
-
-    foreach ( $fields as $field )
-        $this[$field] = html_entity_decode( $this[$field], ENT_QUOTES, 'UTF-8' );
-
+    foreach ( $this->getStringColumns() as $field )
+        if( is_string( @$this[ $field ] ) )
+            $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
   }
 
   /**
@@ -240,6 +248,24 @@ class Poi extends BasePoi
     $this->geoEncodeByPass = $geoEncodeByPass;
   }
 
+
+  /**
+   * Add the Poi Meta Data
+   *
+   * @param string $lookup
+   * @param string $value
+   * @return boolean if value is null or existing
+   */
+  public function addMeta( $lookup, $value )
+  {
+    $poiMetaObj = new PoiMeta();
+    $poiMetaObj[ 'lookup' ] = (string) $lookup;
+    $poiMetaObj[ 'value' ] = (string) $value;
+
+    $this[ 'PoiMeta' ][] = $poiMetaObj;
+  }
+
+
   /**
    * Add the Poi Properties
    *
@@ -336,17 +362,17 @@ class Poi extends BasePoi
   public function applyFixes()
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
+     $this->fixHTMLEntities();
      $this->fixPoiName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();
-     $this->lookupAndApplyGeocodes();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
      $this->cleanStreetField();
-     $this->setDefaultLongLatNull();
-     $this->fixHTMLEntities();
      $this->applyOverrides();
+     $this->lookupAndApplyGeocodes();
+     $this->setDefaultLongLatNull();
      $this->downloadMedia();
      $this->removeMultipleImages();
   }
@@ -428,7 +454,9 @@ class Poi extends BasePoi
 
     $geoEncoder = $this->getGeoEncoder();
 
-    $geoEncoder->setAddress(  $this['geocode_look_up'], $this['Vendor']  );
+    $geoEncoder->setAddress( $this['geocode_look_up'] );
+    $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
+    $geoEncoder->setRegion( $this['Vendor']['country_code'] );
 
     $this['longitude'] = $geoEncoder->getLongitude();
     $this['latitude']  = $geoEncoder->getLatitude();
@@ -439,14 +467,17 @@ class Poi extends BasePoi
       $this['latitude']  = null;
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
     }
+
+    $this->addMeta( "Geo_Source", "Google" );
   }
 
-  private function geoCodeIsValid()
+  public function geoCodeIsValid()
   {
     $isZero = ( $this['longitude'] == 0  || $this['latitude'] == 0 );
     $isNull = ( $this['longitude'] == null  || $this['latitude'] == null );
+    $isEmpty = ( $this['longitude'] == ""  || $this['latitude'] == "" );
 
-    return !$isZero && !$isNull;
+    return !$isZero && !$isNull && !$isEmpty;
   }
 
   private function truncateGeocodeLengthToMatchSchema()
@@ -603,6 +634,21 @@ class Poi extends BasePoi
             }
         }
     }
+  }
+
+  /**
+   * Function to be used by importers, this ensures that feed lat/longs are valid before attaching them to a POI.
+   */
+  public function applyFeedGeoCodesIfValid( $lat = "", $long = "" )
+  {
+        if( is_numeric( $lat ) && is_numeric( $long ) )
+        {
+            if( $this['latitude'] != $lat || $this['longitude'] != $long )
+                $this->addMeta( "Geo_Source", "Feed" );
+
+            $this['latitude']                      = $lat;
+            $this['longitude']                     = $long;
+        }
   }
 
 }
