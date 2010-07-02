@@ -19,7 +19,7 @@ class validatorVendorPoiCategoryChoice extends sfValidatorChoice
     $this->removeRequiredOption( 'choices' );
     $this->addOption( 'multiple' );
     $this->setOption( 'multiple', true );
-    $this->addRequiredOption( 'poi' );
+    $this->addRequiredOption('vendor_id');
   }
 
   protected function doClean($value)
@@ -29,8 +29,10 @@ class validatorVendorPoiCategoryChoice extends sfValidatorChoice
 
   public function getChoices()
   {
+    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $this->options['vendor_id'] );
+
     $choices = array();
-    foreach( $this->getCategoriesForPoi() as $category )
+    foreach( $relatedVendorCategories as $category )
     {
       $value   = $category['id'];
       $display = $category['name'];
@@ -38,12 +40,6 @@ class validatorVendorPoiCategoryChoice extends sfValidatorChoice
       $choices[] = $value;
     }
     return $choices;
-  }
-
-  private function getCategoriesForPoi()
-  {
-    $poi = $this->options['poi'];
-    return Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( 19 );
   }
 
   private function removeRequiredOption( $option )

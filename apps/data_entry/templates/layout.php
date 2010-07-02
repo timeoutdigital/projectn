@@ -11,6 +11,11 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/default.css" />
     <!-- end temporary manual includes for login... -->
 
+    <!-- include this a bit nicer too -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/data_entry.css" />
+    <!-- end include this a bit nicer too -->
+
+
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
   </head>
@@ -27,6 +32,12 @@
 
       <?php if ($sf_user->isAuthenticated()): ?>
 
+      <div id="infoBox">
+        You are logged in as: <?php echo $sf_user->getUsername() ?><br />
+        working on: <?php echo $sf_user->getCurrentVendorCity() ?><br />
+        <?php echo link_to('Logout', 'sf_guard_signout') ?>
+      </div>
+    
       <div id="menu">
         <ul>
           <li>
@@ -42,20 +53,26 @@
             <?php echo link_to('Vendor Poi Category', '@vendor_poi_category') ?> /
           </li>
           <li>
-            <?php echo link_to('Vendor Event Category', '@vendor_event_category') ?> /
+            <?php echo link_to('Vendor Event Category', '@vendor_event_category') ?>
           </li>
-          <?php /* <li>
-            <?php echo link_to('Users', 'sf_guard_user') ?>
-          </li>*/ ?>
+          <?php if ($sf_user->hasCredential( 'admin' )): ?>
           <li>
-            <?php echo link_to('Logout', 'sf_guard_signout') ?>
-          </li> 
+            //// <?php echo link_to('Users', 'sf_guard_user') ?> /
+          </li>
+          <li>
+            <?php echo link_to('Groups', 'sf_guard_group') ?> /
+          </li>
+          <li>
+            <?php echo link_to('Permissions', 'sf_guard_permission') ?> /
+          </li>
+          <?php endif ?>
         </ul>
       </div>
       <?php endif ?>
 
       <div class="clear"></div>
       <div id="content">
+
         <?php echo $sf_content ?>
       </div>
       <div id="footer"></div>

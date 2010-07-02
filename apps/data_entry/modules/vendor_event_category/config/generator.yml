@@ -13,12 +13,19 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        vendor_id: { attributes: { onchange: "document.forms[0].submit()" } }
       list:
-        display:           [vendor_name, name]
+        display:           [name]
       filter:
+        class: VendorEventCategoryDataEntryFormFilter
         display:           [vendor_id, name]
       form:
-        display:           [vendor_id, name]
+        class: VendorEventCategoryDataEntryForm
+        display:
+          Editable:
+            - name
+          Info:
+            - vendor_id
       edit:    ~
       new:     ~

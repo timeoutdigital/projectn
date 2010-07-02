@@ -5,14 +5,14 @@
  * @package symfony
  * @subpackage widget.lib
  *
- * @author Clarence Lee <clarencelee@timout.com>
+ * @author Ralph Schwaninger <ralphschwaninger@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.0
  *
  *
  */
-class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
+class widgetFormSelectRefresh extends sfWidgetForm
 {
  /**
    * Constructor.
@@ -28,15 +28,12 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addRequiredOption('vendor_id');
-
-    // to maintain BC with symfony 1.2
-    //$this->setOption('record', 'relation');
+    parent::configure($options, $attributes);
   }
 
   /**
    * @param  string $name        The element name
-   * @param  string $value       The value displayed in this widget
+   * @param  string $value       The value selected in this widget
    * @param  array  $attributes  An array of HTML attributes to be merged with the default HTML attributes
    * @param  array  $errors      An array of errors for the field
    *
@@ -46,26 +43,20 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $choices = $this->getChoices();
-    $renderer = new sfWidgetFormChoice( array(  
-      'choices'  => $choices,
-      'multiple' => true,
-      ) );
-    return $renderer->render( $name, $value, $attributes, $errors );
-  }
-
-  private function getChoices()
-  {
-    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $this->options['vendor_id'] );
-
-    $choices = array();
-    foreach( $relatedVendorCategories as $category )
+    if ($this->getOption('multiple'))
     {
-      $value   = $category[ 'id' ];
-      $display = $category[ 'name' ];
-      $choices[$value] = $display;
+      $attributes['multiple'] = 'multiple';
+
+      if ('[]' != substr($name, -2))
+      {
+        $name .= '[]';
+      }
     }
 
-    return $choices;
+    $choices = $this->getChoices();
+
+    return $this->renderContentTag('select', "\n".implode("\n", $this->getOptionsForSelect($value, $choices))."\n", array_merge(array('name' => $name), $attributes));
   }
+
+  
 }

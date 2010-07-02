@@ -13,4 +13,70 @@ require_once dirname(__FILE__).'/../lib/poiGeneratorHelper.class.php';
  */
 class poiActions extends autoPoiActions
 {
+
+  public function preExecute()
+  {
+     parent::preExecute();
+
+     $filters = $this->getFilters() ;
+     $user = $this->getUser();
+
+     if ( !isset( $filters['vendor_id'] ) || !$user->checkIfVendorIdIsAllowed( $filters['vendor_id'] ) )
+     {
+          $this->setFilters( array( 'vendor_id' => $user->getCurrentVendorId() ) );
+     }
+  }
+
+  public function executeEdit(sfWebRequest $request)
+  {
+    if ( $this->getUser()->checkIfRecordPermissionsByRequest( $request ) )
+    {
+        parent::executeEdit( $request );
+    }
+    else
+    {
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change this record' );
+        $this->redirect('@poi');
+    }
+  }
+
+  public function executeDelete(sfWebRequest $request)
+  {
+    if ( $this->getUser()->checkIfRecordPermissionsByRequest( $request ) )
+    {
+        parent::executeDelete( $request );
+    }
+    else
+    {
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );
+        $this->redirect('@poi');
+    }
+  }
+
+  public function executeBatch(sfWebRequest $request)
+  {
+    if ( $this->getUser()->checkIfMultipleRecordsPermissionsByRequest( $request ) )
+    {
+        parent::executeBatch( $request );
+    }
+    else
+    {
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );
+        $this->redirect('@poi');
+    }
+  }
+
+  protected function executeBatchDelete(sfWebRequest $request)
+  {
+    if ( $this->getUser()->checkIfMultipleRecordsPermissionsByRequest( $request ) )
+    {
+        parent::executeBatchDelete( $request );
+    }
+    else
+    {
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );
+        $this->redirect('@poi');
+    }
+  }
+
 }

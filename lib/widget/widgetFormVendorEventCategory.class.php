@@ -28,7 +28,7 @@ class widgetFormEventVendorCategoryChoice extends sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addRequiredOption('record');
+    $this->addRequiredOption('vendor_id');
 
     // to maintain BC with symfony 1.2
     //$this->setOption('record', 'relation');
@@ -56,12 +56,7 @@ class widgetFormEventVendorCategoryChoice extends sfWidgetForm
 
   private function getChoices()
   {
-    $event = $this->options['record'];
-
-//    if ( $event['Vendor']['id'] === NULL )
-//        return array();
-
-    $relatedVendorCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( 19 );
+    $relatedVendorCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $this->options['vendor_id'] );
 
     $choices = array();
     foreach( $relatedVendorCategories as $category )

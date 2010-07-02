@@ -1,0 +1,7 @@
+#infoBox {
+    float:right;
+    background-color: #fff;
+    border:#000 solid 1px;
+    padding:4px;
+    margin:20px 10px 10px 10px;
+}

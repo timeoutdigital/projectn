@@ -1,18 +1,19 @@
 <?php
 /**
- * widgetFormVendorPoiCategory
+ * sfWidgetFormInput represents an HTML text input tag.
  *
  * @package symfony
  * @subpackage widget.lib
  *
  * @author Clarence Lee <clarencelee@timout.com>
+ * @author Ralph Schwaninger <ralphschwaninger@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.0
  *
  *
  */
-class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
+class widgetFormFixedVendorText extends sfWidgetForm
 {
  /**
    * Constructor.
@@ -28,10 +29,8 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addRequiredOption('vendor_id');
-
-    // to maintain BC with symfony 1.2
-    //$this->setOption('record', 'relation');
+      $this->addRequiredOption('vendor_id');
+      $this->addRequiredOption('vendor_name');
   }
 
   /**
@@ -46,26 +45,12 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $choices = $this->getChoices();
-    $renderer = new sfWidgetFormChoice( array(  
-      'choices'  => $choices,
-      'multiple' => true,
-      ) );
-    return $renderer->render( $name, $value, $attributes, $errors );
-  }
+    $options = array_merge(array(
+      'type' => 'hidden', 
+      'name' => $name, 
+      'value' => $this->options['vendor_id']
+    ));
 
-  private function getChoices()
-  {
-    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $this->options['vendor_id'] );
-
-    $choices = array();
-    foreach( $relatedVendorCategories as $category )
-    {
-      $value   = $category[ 'id' ];
-      $display = $category[ 'name' ];
-      $choices[$value] = $display;
-    }
-
-    return $choices;
+    return $this->renderContentTag('div', $this->options['vendor_name'], $attributes) . $this->renderTag('input', $options, $attributes);
   }
 }

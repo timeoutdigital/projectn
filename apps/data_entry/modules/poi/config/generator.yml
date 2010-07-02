@@ -13,27 +13,28 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        vendor_id: { attributes: { onchange: "document.forms[0].submit()" } }
+        vendor_poi_id: { label: ID, help: Your unique identifier of the record }
+        poi_name: { label: Name }
+        star_rating: { help: "Your rating of the Poi (0-5, 5 being the highest rating)" }
+        provider: { label: Miscellaneous, help: Use this field for information you can provide but can not fit into any other fields }
       list:
         display: [vendor_poi_id, poi_name, house_no, street, city, district]
       filter:
-        display: [vendor_poi_id, poi_name, house_no, street, zips, city, district, additional_address_details, keywords, vendor_poi_category_list]
+        class: PoiDataEntryFormFilter
+        display: [vendor_id, vendor_poi_id, poi_name, house_no, street, zips, city, district, additional_address_details, keywords]
       form:
         class: PoiDataEntryForm
         display:
           Editable:
-            - vendor_id
             - vendor_poi_id
             - poi_name
             - house_no
             - street
-            - city
             - district
-            - country
             - additional_address_details
             - zips
-            - longitude
-            - latitude
             - email
             - url
             - phone
@@ -46,17 +47,18 @@ generator:
             - price_information
             - openingtimes
             - star_rating
-            - rating
             - provider
             - review_date
             - vendor_poi_category_list
-            - geocode_look_up
           Info:
-            #- local_language
-            #- id
+            - vendor_id
+            - city
+            - country
+            - geocode_look_up
+            - longitude
+            - latitude
+            - local_language
             - created_at
             - updated_at
-            #- vendor_category
-
       edit:    ~
       new:     ~

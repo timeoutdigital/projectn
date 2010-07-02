@@ -13,16 +13,19 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        vendor_id: { attributes: { onchange: "document.forms[0].submit()" } }
+        vendor_event_id: { label: ID, help: Your unique identifier of the record }
+        rating: { help: "Your rating of the Poi (0-5, 5 being the highest rating)" }
       list:
         display: [ vendor_event_id, name ]
       filter:
-        display: [ vendor_event_id, name, review_date, short_description, description, vendor_event_category_list ]
+        class: EventDataEntryFormFilter
+        display: [ vendor_id, vendor_event_id, name, review_date, short_description, description ]
       form:
         class: EventDataEntryForm
         display:
           Editable:
-            - vendor_id
             - vendor_event_id
             - name
             - review_date
@@ -34,6 +37,7 @@ generator:
             - rating
             - vendor_event_category_list
           Info:
+            - vendor_id
             - created_at
             - updated_at
       edit:    ~

@@ -12,27 +12,24 @@
  *
  *
  */
-class validatorVendorEventCategoryChoice extends sfValidatorChoice
+class validatorMovieGenreChoice extends sfValidatorChoice
 {
   protected function configure($options = array(), $messages = array())
   {
     $this->removeRequiredOption( 'choices' );
     $this->addOption( 'multiple' );
     $this->setOption( 'multiple', true );
-    $this->addRequiredOption('vendor_id');
   }
 
   protected function doClean($value)
   {
-      return parent::doClean($value);
+    return parent::doClean($value);
   }
 
   public function getChoices()
   {
-    $relatedVendorCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $this->options['vendor_id'] );
-
     $choices = array();
-    foreach( $relatedVendorCategories as $category )
+    foreach( $this->getGenres() as $category )
     {
       $value   = $category['id'];
       $display = $category['name'];
@@ -40,6 +37,11 @@ class validatorVendorEventCategoryChoice extends sfValidatorChoice
       $choices[] = $value;
     }
     return $choices;
+  }
+
+  private function getGenres()
+  {
+    return Doctrine::getTable( 'MovieGenre' )->findAll();
   }
 
   private function removeRequiredOption( $option )

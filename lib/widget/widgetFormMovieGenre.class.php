@@ -1,18 +1,18 @@
 <?php
 /**
- * widgetFormVendorPoiCategory
+ * widgetFormVendorEventCategory
  *
  * @package symfony
  * @subpackage widget.lib
  *
- * @author Clarence Lee <clarencelee@timout.com>
+ * @author Ralph Schwaninger <ralphschwaninger@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.0
  *
  *
  */
-class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
+class widgetFormMovieGenreChoice extends sfWidgetForm
 {
  /**
    * Constructor.
@@ -28,7 +28,7 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addRequiredOption('vendor_id');
+    $this->addRequiredOption('record');
 
     // to maintain BC with symfony 1.2
     //$this->setOption('record', 'relation');
@@ -56,7 +56,7 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
 
   private function getChoices()
   {
-    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $this->options['vendor_id'] );
+    $relatedVendorCategories = Doctrine::getTable( 'MovieGenre' )->findAll();
 
     $choices = array();
     foreach( $relatedVendorCategories as $category )
