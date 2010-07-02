@@ -30,6 +30,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
+
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
@@ -44,7 +45,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroyDatabases();
+   ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   public function testStreetDoesNotContainPostCode()
@@ -116,7 +117,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->object->addProperty( 'test prop lookup', 'test prop value' );
     $this->object->addProperty( 'test prop lookup 2', 'test prop value 2' );
     $this->object->save();
-    
+
     $poi = Doctrine::getTable('Poi')->findOneById( $this->object['id'] );
 
     $this->assertEquals(2, count($poi['PoiProperty']) );
@@ -194,8 +195,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
       $poiObj->save();
 
-      $poiObj['longitude'] = '151.20711400';
-      $poiObj['latitude'] = '-33.86713900';
+      $poiObj['longitude'] = '151.207114';
+      $poiObj['latitude'] = '-33.867139';
 
       $poiObj->save();
 
@@ -206,11 +207,11 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj->save();
 
       $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude but not latitude for Sydney are preserved' );
-      
+
       $poiObj['longitude'] = '151.20711200';
       $poiObj['latitude'] = '-33.867138';
       $poiObj->save();
-      
+     // sydney1: { long: '151.207114', lat: '-33.867139' }
       $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Non default longitude and latitude for Sydney are preserved' );
   }
 
@@ -231,7 +232,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * 
+   *
    * test the  getter and setter functions for the Critics_choice flag
    */
   public function testSetterGetterCriticsChoiceFlag()
@@ -333,7 +334,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
     $poi['street'] = 'Level 1, 8 Victoria Street';
     $poi['poi_name'] = "My &quot;name&quot; is";
-    
+
     $poi->save(); // Try Save Twice, make sure 'append' is not applied twice.
 
     $this->assertEquals( $poi[ 'additional_address_details' ], 'Level 1', 'Level <n> stripped from street and placed into additional_address_details' );
@@ -341,13 +342,92 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], 'Victoria Street', 'Street left in street field' );
   }
 
+
+   public function testAddMediaByUrlandSavePickLargerImage()
+   {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $mediumImageUrl   = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $poi->addMediaByUrl( $smallImageUrl );
+    $poi->addMediaByUrl( $largeImageUrl );
+    $poi->addMediaByUrl( $mediumImageUrl );
+
+    $poi->save();
+
+    $savedPoiId = $poi->id;
+    $poi->free( true ); unset( $poi );
+    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
+
+    // after adding 3 images we expect to have only one image and it should be the large image
+    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
+    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to POI when adding more than one' );
+
+   }
+
+   /**
+    * if there is an image attached to POI and a smaller one is being added, it should keep the larger image
+    *
+    */
+   public function testAddMediaByUrlandSaveSkipSmallerImage()
+   {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $poi->addMediaByUrl( $largeImageUrl );
+    $poi->save();
+
+    $savedPoiId = $poi->id;
+    $poi->free( true ); unset( $poi );
+    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
+
+    // adding a smaller size imahe
+    $poi->addMediaByUrl( $smallImageUrl );
+    $poi->save();
+
+    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
+    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
+
+   }
+
+    /**
+    * if there is an image attached to Poi and a larger one is being added, it should remove the existing image with the larger one
+    *
+    */
+   public function testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
+   {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $poi->addMediaByUrl( $smallImageUrl );
+    $poi->save();
+
+    $savedPoiId = $poi->id;
+    $poi->free( true ); unset( $poi );
+    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
+
+    // adding a smaller size imahe
+    $poi->addMediaByUrl( $largeImageUrl );
+    $poi->save();
+
+    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
+    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
+
+   }
+
 }
 
 class MockGeoEncodeForPoiTest extends geoEncode
 {
   private $address;
 
-  public function setAddress( $address )
+  public function _setAddress( $address )
   {
     $this->address = $address;
   }
@@ -371,9 +451,10 @@ class MockGeoEncodeForPoiTest extends geoEncode
 
 class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
 {
-  public function setAddress( $address ) { }
+  public function _setAddress( $address ) { }
   public function numCallCount() { }
   public function getLongitude() { }
   public function getLatitude() { }
   public function getAccuracy() { }
 }
+

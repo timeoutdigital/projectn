@@ -100,8 +100,9 @@ class ImportUaeEvents
         $poiObj['price_information']            = (string) $xmlObj->{'prices'};
         $poiObj['openingtimes']                 = (string) $xmlObj->{'hours'};
         $poiObj['public_transport_links']       = (string) $xmlObj->{'travel'};
-        $poiObj['longitude']                    = (float)  $xmlObj->coordinates->{'longitude'};
-        $poiObj['latitude']                     = (float)  $xmlObj->coordinates->{'latitude'};
+
+        $poi->applyFeedGeoCodesIfValid( (float) $xmlObj->coordinates->{'latitude'}, (float) $xmlObj->coordinates->{'longitude'} );
+
         $poiObj['city']                         = trim(ucwords($this->vendorObj['city']));
         $poiObj['country']                      = 'ARE';
         $poiObj['district']                     = trim(ucwords((string) $xmlObj->{'neighbourhood'}));

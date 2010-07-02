@@ -543,3 +543,39 @@ RecordFieldOverrideMovie:
     type: concrete
   relations:
     Movie:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}
+
+    
+Meta:
+  connection: project_n
+  actAs:
+    Timestampable:  ~
+  columns:
+    record_id:                {type: integer, notnull: true}
+    lookup:                   {type: string, notnull: true}
+    value:                    {type: string, notnull: false}
+  indexes:
+    record_id_index:          {fields: [record_id]}
+
+PoiMeta:
+  connection: project_n
+  inheritance:
+    extends: Meta
+    type: concrete
+  relations:
+    Poi:                      {local: record_id, foreign: id}
+
+EventMeta:
+  connection: project_n
+  inheritance:
+    extends: Meta
+    type: concrete
+  relations:
+    Event:                    {local: record_id, foreign: id}
+
+MovieMeta:
+  connection: project_n
+  inheritance:
+    extends: Meta
+    type: concrete
+  relations:
+    Movie:                    {local: record_id, foreign: id}

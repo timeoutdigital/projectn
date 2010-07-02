@@ -70,6 +70,11 @@ class Curl
   private $_tmpHeaderFile;
 
   /**
+   * @var string
+   */
+  private $_options = array();
+
+  /**
    *
    * @param string $url
    *
@@ -90,9 +95,6 @@ class Curl
     $this->_parameters    = $parameters;
     $this->_requestMethod = $requestMethod;
     $this->_returnHeaderSwitch = $returnHeaders;
-
-    $this->_curlHandle = curl_init();
-    $this->setCurlDefaultOptions();
   }
 
 
@@ -101,19 +103,19 @@ class Curl
    */
   public function exec()
   {
-    if ( $this->_returnHeaderSwitch )
-    {
-        $this->_tmpHeaderFile = tmpfile();
-        $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
-    }
+    $curlHandle = curl_init();
 
-    $this->_response= curl_exec( $this->_curlHandle );
-    $this->_curlInfo = curl_getinfo( $this->_curlHandle );
-    curl_close( $this->_curlHandle );
+    $this->setCurlDefaultOptions( $curlHandle );
+    $this->applyOptions( $curlHandle );
+
+    $this->_response= curl_exec( $curlHandle );
+    $this->_curlInfo = curl_getinfo( $curlHandle );
+
+    curl_close( $curlHandle );
 
     if ( !isset( $this->_curlInfo[ 'http_code' ] ) || !in_array( $this->_curlInfo[ 'http_code' ], array( '200', '304' ) ) )
     {
-        throw new Exception( 'Curl Error, failed to fetch content (no http_code 200 or 304 received) for ' . $this->_requestUrl );
+        throw new Exception( 'Curl Error, failed to fetch content (no http_code 200 or 304 received, got ' . $this->_curlInfo['http_code'] . ') for ' . $this->_requestUrl );
     }
   }
 
@@ -125,7 +127,19 @@ class Curl
    */
   public function setCurlOption( $option, $value )
   {
-      return curl_setopt( $this->_curlHandle, $option, $value );
+    $this->_options[ $option ] = $value;
+  }
+
+  private function applyOptions( $curlHandle )
+  {
+    if ( $this->_returnHeaderSwitch )
+    {
+        $this->_tmpHeaderFile = tmpfile();
+        $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
+    }
+
+    foreach( $this->_options as $key=>$value )
+      curl_setopt( $curlHandle, $key, $value );
   }
 
   /**
@@ -138,7 +152,7 @@ class Curl
       return $this->_curlInfo;
   }
   
-  private function setCurlDefaultOptions()
+  private function setCurlDefaultOptions( $curlHandle )
   {
     $url = $this->getUrl();
 
@@ -146,21 +160,21 @@ class Curl
     {
       $paramString = $this->getParametersString();
       $url .= ( empty( $paramString ) ? '' : '?' . $paramString );
-      curl_setopt( $this->_curlHandle, CURLOPT_HTTPGET, true );
+      curl_setopt( $curlHandle, CURLOPT_HTTPGET, true );
     }
     else
     {
-      curl_setopt( $this->_curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
-      curl_setopt( $this->_curlHandle, CURLOPT_POST, true );
+      curl_setopt( $curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
+      curl_setopt( $curlHandle, CURLOPT_POST, true );
     }
     
-    curl_setopt( $this->_curlHandle, CURLOPT_URL, $url );
+    curl_setopt( $curlHandle, CURLOPT_URL, $url );
     $this->_requestUrl = $url;
 
-    curl_setopt( $this->_curlHandle, CURLOPT_HEADER, $this->_returnHeaderSwitch );
-    curl_setopt( $this->_curlHandle, CURLOPT_FOLLOWLOCATION, true );
-    curl_setopt( $this->_curlHandle, CURLOPT_RETURNTRANSFER, 1 );
-    curl_setopt( $this->_curlHandle, CURLOPT_USERAGENT, "Mozilla/4.0" );
+    curl_setopt( $curlHandle, CURLOPT_HEADER, $this->_returnHeaderSwitch );
+    curl_setopt( $curlHandle, CURLOPT_FOLLOWLOCATION, true );
+    curl_setopt( $curlHandle, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt( $curlHandle, CURLOPT_USERAGENT, "Mozilla/4.0" );
   }
 
   /**

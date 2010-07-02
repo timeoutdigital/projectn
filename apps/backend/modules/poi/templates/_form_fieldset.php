@@ -32,9 +32,9 @@
 
              $unescapedPoi = $sf_data->getRaw('poi');
 
-            $geoCodeObj->setAddress($address, $unescapedPoi['Vendor']);
-
-
+            $geoCodeObj->setAddress($address);
+            $geoCodeObj->setBounds($unescapedPoi['Vendor']->getGoogleApiGeoBounds());
+            $geoCodeObj->setRegion($unescapedPoi['Vendor']['country_code']);
            ?>
 
            <a href="<?php echo $geoCodeObj->getLookupUrl(); ?>">Link</a>

@@ -50,8 +50,14 @@ class XMLExportMovie extends XMLExport
 
       if( empty( $movie[ 'review' ] ) )
       {
-        ExportLogger::getInstance()->addError( 'no review available', 'Movie', $movie[ 'id' ] );
-        continue;
+        // Refs: #364, #365, #366 -- Pepper/Sefi said to export Barcelona movies without reviews
+        // until reviews are available in their feed, est. August '10. Please remove when reviews are available.
+        if( $movie['Vendor']['city'] != 'barcelona' )
+        {
+            ExportLogger::getInstance()->addError( 'no review available', 'Movie', $movie[ 'id' ] );
+            continue;
+        }
+        else ExportLogger::getInstance()->addError( 'Warning -- Exporting Movie without review for Barcelona; as per executive order.', 'Movie', $movie[ 'id' ] );
       }
 
       $movieElement = $this->appendRequiredElement($rootTag, 'movie');

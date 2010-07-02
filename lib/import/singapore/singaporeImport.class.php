@@ -216,8 +216,7 @@ class singaporeImport
 
             if ( 0 < count( $addressArray ) )
             {
-                $poi[ 'longitude' ]                  = (string) $addressArray[0]->mm_lon;
-                $poi[ 'latitude' ]                   = (string) $addressArray[0]->mm_lat;
+                $poi->applyFeedGeoCodesIfValid( (string) $addressArray[0]->mm_lat, (string) $addressArray[0]->mm_lon );
 
                 $publicTransportString = ( (string) $addressArray[0]->near_station != '' ) ? 'Near station: ' . (string) $addressArray[0]->near_station: '';
                 if( ( (string) $addressArray[0]->buses != '' && strlen( $publicTransportString ) > 0 ) )

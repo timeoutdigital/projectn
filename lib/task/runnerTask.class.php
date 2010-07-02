@@ -1,5 +1,4 @@
 <?php
-//C's changes
 
 class runnerTask extends sfBaseTask
 {
@@ -33,18 +32,18 @@ class runnerTask extends sfBaseTask
                                     'singapore' => array( 'poi-event', 'movie' ),
                                     'ny' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
                                     'chicago' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
-                                    'london' => array( 'poi', 'event', 'event-occurrence', 'movie' ),
+                                    'london' => array( 'poi-ev-mapper', 'poi-bars-pubs', 'poi-restaurants', 'poi-cinemas', 'event', 'event-occurrence', 'movie' ),
                                     'lisbon' => array( 'poi', 'event', 'movie' ),
                                     'kuala lumpur' => array( 'poi', 'event', 'movie' ),
                                     'sydney' => array( 'poi', 'event', 'movie' ),
-                                    'moscow' => array( 'poi' ),
-                                    'saint petersburg' => array( 'poi' ),
-                                    'omsk' => array( 'poi' ),
-                                    'almaty' => array( 'poi' ),
-                                    'novosibirsk' => array( 'poi' ),
-                                    'krasnoyarsk' => array( 'poi' ),
-                                    'tyumen' => array( 'poi' ),
-                                    'russia' => array( 'event', 'movie' ),
+                                    'moscow' => array( 'poi', 'event' ),
+                                    'saint petersburg' => array( 'poi', 'event' ),
+                                    //'omsk' => array( 'poi', 'event' ),
+                                    'almaty' => array( 'poi', 'event' ),
+                                    //'novosibirsk' => array( 'poi', 'event' ),
+                                    //'krasnoyarsk' => array( 'poi', 'event' ),
+                                    //'tyumen' => array( 'poi', 'event' ),
+                                    'russia' => array( 'movie' ),
                                     'barcelona' => array( 'poi', 'event', 'movie' ),
                     ),
                     'export' => array(
@@ -57,11 +56,11 @@ class runnerTask extends sfBaseTask
                                     'sydney' => array( 'language' => 'en-AU', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'moscow' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'saint petersburg' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'omsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    //'omsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'almaty' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'novosibirsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'krasnoyarsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'tyumen' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    //'novosibirsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    //'krasnoyarsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    //'tyumen' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'barcelona' => array( 'language' => 'ca', 'type' => array( 'poi', 'event', 'movie' ) ),
                     ),
                  );

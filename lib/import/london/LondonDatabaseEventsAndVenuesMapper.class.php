@@ -370,8 +370,9 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
     $poi[ 'country' ]                = 'GBR';
     $poi[ 'local_language' ]         = $this->vendor[ 'language' ];//'en-GB';
-    $poi[ 'latitude' ]               = $item[ 'SLLVenue' ][ 'latitude' ];
-    $poi[ 'longitude' ]              = $item[ 'SLLVenue' ][ 'longitude' ];
+
+    $poi->applyFeedGeoCodesIfValid( $item[ 'SLLVenue' ][ 'latitude' ], $item[ 'SLLVenue' ][ 'longitude' ] );
+
     $poi[ 'email' ]                  = $item[ 'SLLVenue' ][ 'email' ];
     $poi[ 'url' ]                    = $item[ 'SLLVenue' ][ 'url' ];
     $poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];

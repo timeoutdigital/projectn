@@ -30,8 +30,8 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
             // Column Mapping
             $movie['vendor_movie_id']   = $vendor_movie_id;
             $movie['name']              = (string) $movieElement->name;
-            $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot );
-            $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review );
+            $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot ); // Requires Double Entity Decoding
+            $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review ); // Requires Double Entity Decoding
             $movie['url']               = (string) $movieElement->url;
             $movie['rating']            = $this->roundNumberOrReturnNull( (string) $movieElement->rating );
 
