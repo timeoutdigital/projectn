@@ -13,7 +13,7 @@
  *
  *
  * @version 1.0.0
- * 
+ *
  *
  *
  */
@@ -46,7 +46,7 @@ class stringTransform
     $unit=array('b','kb','mb','gb','tb','pb');
     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
   }
-  
+
    /**
    * Multibyte safe version of trim()
    * Always strips whitespace characters (those equal to \s)
@@ -80,7 +80,7 @@ class stringTransform
       $subject .= ":00";
     return $subject;
   }
-  
+
   /**
    * Try to extract time information from a string.
    * eg '10:00', '9.15', '10h' or in the case of '10-12h', return 2 values
@@ -209,7 +209,7 @@ class stringTransform
    */
   public static function formatPhoneNumber($subject, $internationalCode)
   {
-    
+
       if( empty( $subject ) ) return NULL;
 
       //return if not valid number is is passed in
@@ -251,13 +251,13 @@ class stringTransform
 
 
     $transformedSubject = '';
-    
+
 
     switch(strlen($subject))
     {
         case '7':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2", $subject);
         break;
-    
+
         case '8':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{1})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
         break;
 
@@ -287,7 +287,7 @@ class stringTransform
     }
     //var_dump(trim($transformedSubject));
      return $internationalCode. ' ' .trim($transformedSubject);
-   
+
   }
 
 
@@ -450,7 +450,7 @@ class stringTransform
    *   echo $clean;
    *   //outputs 'foo, bar, baz'
    * </code>
-   * 
+   *
    * @param string $delimiter
    * @param string $string
    * @return string
@@ -470,4 +470,32 @@ class stringTransform
     return trim( $string, ', ' );
   }
 
+
+  /**
+   * removes the "meet at" from the street names
+   * returns an array with "street" and "additional_address_details" keys
+   * if the street name has " at " the string after at is added to  "additional_address_details"
+   *
+   * @param string $street
+   * @return array()
+   */
+  static public function parseStreetName( $street )
+  {
+    //first remove 'meet at's
+    $street = str_replace( 'meet at', '', $street );
+
+    $parts = explode( ' at ', $street );
+
+    if( count( $parts ) == 2 )
+    {
+        return array( 'street' => ucfirst ( trim( $parts[0] ) ) ,
+                    'additional_address_details' => 'At ' .trim( $parts[1] ) );
+    }
+    else
+    {
+        return array( 'street' => ucfirst ( trim( $street ) ) ,
+                  'additional_address_details' => NULL );
+    }
+
+  }
 }

@@ -123,7 +123,7 @@ class nyImportBcEd {
                 $additionalAddressDetails = $betweenSection;
             }else
             {
-               $streetInfo = $this->parseStreetName( $streetAddress );
+               $streetInfo =  stringTransform::parseStreetName( $streetAddress );
                $streetAddress = $streetInfo[ 'street' ];
                $additionalAddressDetails = $streetInfo[ 'additional_address_details' ];
             }
@@ -271,32 +271,6 @@ class nyImportBcEd {
         return $category;
     }
 
-   /**
-   * removes the "meet at" from the street names
-   * returns an array with "street" and "additional_address_details" keys
-   * if the street name has " at " the string after at is added to  "additional_address_details"
-   *
-   * @param string $street
-   * @return array()
-   */
-  private function parseStreetName( $street )
-  {
-    //first remove 'meet at's
-    $street = str_replace( 'meet at', '', $street );
 
-    $parts = explode( ' at ', $street );
-
-    if( count( $parts ) == 2 )
-    {
-        return array( 'street' => ucfirst ( trim( $parts[0] ) ) ,
-                    'additional_address_details' => 'At ' .trim( $parts[1] ) );
-    }
-    else
-    {
-        return array( 'street' => ucfirst ( trim( $street ) ) ,
-                  'additional_address_details' => NULL );
-    }
-
-  }
 }
 ?>
