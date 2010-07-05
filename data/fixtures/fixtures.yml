@@ -722,3 +722,112 @@ LinkingEventCategoryMapping:
     VendorEventCategory:  c59
     EventCategory:        c13
 
+
+
+#### initial permissions for projectn_data_entry
+
+sfGuardUserPermission:
+  sfGuardUserPermission_1_1:
+    sfGuardUser: sfGuardUser_1
+    sfGuardPermission: sfGuardPermission_1
+    created_at: '2010-07-05 14:59:13'
+    updated_at: '2010-07-05 14:59:13'
+  sfGuardUserPermission_1_2:
+    sfGuardUser: sfGuardUser_1
+    sfGuardPermission: sfGuardPermission_2
+    created_at: '2010-07-05 14:59:18'
+    updated_at: '2010-07-05 14:59:18'
+  sfGuardUserPermission_1_3:
+    sfGuardUser: sfGuardUser_1
+    sfGuardPermission: sfGuardPermission_3
+    created_at: '2010-07-05 14:59:22'
+    updated_at: '2010-07-05 14:59:22'
+  sfGuardUserPermission_1_4:
+    sfGuardUser: sfGuardUser_1
+    sfGuardPermission: sfGuardPermission_4
+    created_at: '2010-07-05 14:59:27'
+    updated_at: '2010-07-05 14:59:27'
+  sfGuardUserPermission_1_5:
+    sfGuardUser: sfGuardUser_1
+    sfGuardPermission: sfGuardPermission_5
+    created_at: '2010-07-05 14:59:33'
+    updated_at: '2010-07-05 14:59:33'
+  sfGuardUserPermission_1_6:
+    sfGuardUser: sfGuardUser_1
+    sfGuardPermission: sfGuardPermission_6
+    created_at: '2010-07-05 14:59:36'
+    updated_at: '2010-07-05 14:59:36'
+sfGuardUserGroup:
+  sfGuardUserGroup_1_1:
+    sfGuardUser: sfGuardUser_1
+    sfGuardGroup: sfGuardGroup_1
+    created_at: '2010-07-05 14:58:10'
+    updated_at: '2010-07-05 14:58:10'
+  sfGuardUserGroup_1_2:
+    sfGuardUser: sfGuardUser_1
+    sfGuardGroup: sfGuardGroup_2
+    created_at: '2010-07-05 14:58:27'
+    updated_at: '2010-07-05 14:58:27'
+  sfGuardUserGroup_1_3:
+    sfGuardUser: sfGuardUser_1
+    sfGuardGroup: sfGuardGroup_3
+    created_at: '2010-07-05 14:58:32'
+    updated_at: '2010-07-05 14:58:32'
+sfGuardGroup:
+  sfGuardGroup_1:
+    name: ny
+    description: ''
+    created_at: '2010-07-05 14:58:10'
+    updated_at: '2010-07-05 14:58:10'
+  sfGuardGroup_2:
+    name: chicago
+    description: ''
+    created_at: '2010-07-05 14:58:27'
+    updated_at: '2010-07-05 14:58:27'
+  sfGuardGroup_3:
+    name: singapore
+    description: ''
+    created_at: '2010-07-05 14:58:32'
+    updated_at: '2010-07-05 14:58:32'
+sfGuardUser:
+  sfGuardUser_1:
+    username: admin
+    algorithm: sha1
+    salt: 1a3d7bac256c7fe1c10b2fe2c64be2f6
+    password: f230124c22dfcea8a12a0865e3c6c67c6033438d
+    is_active: true
+    is_super_admin: true
+    last_login: '2010-07-05 15:00:21'
+    created_at: '2010-07-05 14:56:19'
+    updated_at: '2010-07-05 15:00:21'
+sfGuardPermission:
+  sfGuardPermission_1:
+    name: admin
+    description: ''
+    created_at: '2010-07-05 14:59:13'
+    updated_at: '2010-07-05 14:59:13'
+  sfGuardPermission_2:
+    name: poi
+    description: ''
+    created_at: '2010-07-05 14:59:18'
+    updated_at: '2010-07-05 14:59:18'
+  sfGuardPermission_3:
+    name: event
+    description: ''
+    created_at: '2010-07-05 14:59:22'
+    updated_at: '2010-07-05 14:59:22'
+  sfGuardPermission_4:
+    name: movie
+    description: ''
+    created_at: '2010-07-05 14:59:27'
+    updated_at: '2010-07-05 14:59:27'
+  sfGuardPermission_5:
+    name: vendor_poi_category
+    description: ''
+    created_at: '2010-07-05 14:59:33'
+    updated_at: '2010-07-05 14:59:33'
+  sfGuardPermission_6:
+    name: vendor_event_category
+    description: ''
+    created_at: '2010-07-05 14:59:36'
+    updated_at: '2010-07-05 14:59:36'
