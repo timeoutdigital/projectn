@@ -332,6 +332,16 @@ Vendor:
     country_code_long:        'IND'
     geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
 
+  v22:
+    city:                     beijing
+    language:                 en-GB
+    time_zone:                Etc/GMT+8
+    inernational_dial_code:   '+86'
+    airport_code:             'PEK'
+    country_code:             'cn'
+    country_code_long:        'CHN'
+    geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
+
 EventCategory:
   c1:
     name:                movies
