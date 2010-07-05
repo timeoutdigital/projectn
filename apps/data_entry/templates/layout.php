@@ -24,7 +24,7 @@
       <div id="header">
         <h1>
           <a href="<?php echo url_for('@homepage') ?>">
-            <img id="logo" src="/images/logo.gif" alt="Timeout Project N Admin" />
+              <?php echo image_tag( '/images/logo.gif', array( 'id' => 'logo', 'alt' => 'Timeout Project N Admin' ) ) ?>
           </a>
           Project N Data Entry
         </h1>
@@ -40,31 +40,31 @@
     
       <div id="menu">
         <ul>
-          <li>
-            <?php echo link_to('Poi', '@poi') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Event', '@event') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Movie', '@movie') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Vendor Poi Category', '@vendor_poi_category') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Vendor Event Category', '@vendor_event_category') ?>
-          </li>
+          <?php if ($sf_user->hasCredential( 'poi' )): ?>
+            <li><?php echo link_to('Poi', '@poi') ?></li>
+          <?php endif ?>
+          <?php if ($sf_user->hasCredential( 'event' )): ?>
+            <li><?php echo link_to('Event', '@event') ?></li>
+          <?php endif ?>
+          <?php if ($sf_user->hasCredential( 'movie' )): ?>
+            <li><?php echo link_to('Movie', '@movie') ?></li>
+          <?php endif ?>
+          <?php if ($sf_user->hasCredential( 'vendor_poi_category' )): ?>
+            <li><?php echo link_to('Vendor Poi Category', '@vendor_poi_category') ?></li>
+          <?php endif ?>
+          <?php if ($sf_user->hasCredential( 'vendor_event_category' )): ?>
+            <li><?php echo link_to('Vendor Event Category', '@vendor_event_category') ?></li>
+          <?php endif ?>
           <?php if ($sf_user->hasCredential( 'admin' )): ?>
-          <li>
-            //// <?php echo link_to('Users', 'sf_guard_user') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Groups', 'sf_guard_group') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Permissions', 'sf_guard_permission') ?> /
-          </li>
+            <li>
+              //// <?php echo link_to('Users', 'sf_guard_user') ?> /
+            </li>
+            <li>
+              <?php echo link_to('Groups', 'sf_guard_group') ?> /
+            </li>
+            <li>
+              <?php echo link_to('Permissions', 'sf_guard_permission') ?> /
+            </li>
           <?php endif ?>
         </ul>
       </div>
