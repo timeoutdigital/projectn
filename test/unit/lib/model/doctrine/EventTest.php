@@ -147,7 +147,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->object->save();
 
     $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
-    
+
     $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategory' ][ 'test cat' ][ 'name' ] );
     $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 'test cat' ][ 'vendor_id' ] );
     $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategory' ][ 'test parent cat | test cat' ][ 'name' ] );
@@ -172,7 +172,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, $categoryTable->count() );
 
     $this->object->addVendorCategory( 'test cat 2', $vendor[ 'id' ] );
-    
+
     //@todo fix duplicate vendor categories
     $this->markTestIncomplete();
 
@@ -329,5 +329,99 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->object['TimeoutLinkProperty'] = $url;
     $this->assertEquals( $url, $this->object['TimeoutLinkProperty'] );
   }
+
+   public function testAddMediaByUrlandSavePickLargerImage()
+   {
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+
+    $event[ 'Vendor' ] = $vendor;
+
+    //$poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $mediumImageUrl   = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $event->addMediaByUrl( $smallImageUrl );
+    $event->addMediaByUrl( $largeImageUrl );
+    $event->addMediaByUrl( $mediumImageUrl );
+
+    $event->save();
+
+    $savedEventId = $event->id;
+    $event->free( true ); unset( $event );
+    $event = Doctrine::getTable( "Event" )->findOneById( $savedEventId );
+
+    // after adding 3 images we expect to have only one image and it should be the large image
+    $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
+    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to Event when adding more than one' );
+
+   }
+
+   /**
+    * if there is an image attached to Event and a smaller one is being added, it should keep the larger image
+    *
+    */
+   public function testAddMediaByUrlandSaveSkipSmallerImage()
+   {
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+
+    $event[ 'Vendor' ] = $vendor;
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $event->addMediaByUrl( $largeImageUrl );
+    $event->save();
+
+    $savedEventId = $event->id;
+    $event->free( true ); unset( $event );
+    $event = Doctrine::getTable( "Event" )->findOneById( $savedEventId );
+
+    // adding a smaller size imahe
+    $event->addMediaByUrl( $smallImageUrl );
+    $event->save();
+
+    $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
+    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
+
+   }
+
+    /**
+    * if there is an image attached to event and a larger one is being added, it should remove the existing image with the larger one
+    *
+    */
+   public function testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
+   {
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+
+    $event[ 'Vendor' ] = $vendor;
+
+    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
+    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
+
+    $event->addMediaByUrl( $smallImageUrl );
+    $event->save();
+
+    $savedEventId = $event->id;
+    $event->free( true ); unset( $event );
+    $event = Doctrine::getTable( "Event" )->findOneById( $savedEventId );
+
+    // adding a smaller size imahe
+    $event->addMediaByUrl( $largeImageUrl );
+    $event->save();
+
+    $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
+    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
+
+   }
+
 }
+
 ?>

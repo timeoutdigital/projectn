@@ -2,7 +2,7 @@
 
 /**
  * Custom Movie Model
- * 
+ *
  * @package    projectn
  * @subpackage model.doctrine.lib
  * @author     Tim Bowler <timbowler@timeout.com>
@@ -17,6 +17,13 @@ class Movie extends BaseMovie
   private $externalSearchClass = 'IMDB';
 
   /**
+   * the media added to movie is stored in this array and the largest one will be downloaded in downloadMedia method
+   *
+   * @var $media
+   */
+  private $media = array();
+
+  /**
    * Attempts to fix and / or format fields, e.g. url
    */
   public function applyFixes()
@@ -26,6 +33,9 @@ class Movie extends BaseMovie
     $this->reformatTitle();
     $this->requestImdbId();
     $this->applyOverrides();
+    $this->downloadMedia();
+    $this->removeMultipleImages();
+
   }
 
   /**
@@ -177,23 +187,23 @@ class Movie extends BaseMovie
     {
       $movieGenreObj = new MovieGenre();
       $movieGenreObj[ 'genre' ] = $genre;
-      
+
       // set key column to value to avoid duplicat adds
       // this line makes it unique alredy, no need for manual check with contains()
       $this[ 'MovieGenres' ]->setKeyColumn( 'genre' );
     }
 
-    $this[ 'MovieGenres' ][] = $movieGenreObj;            
+    $this[ 'MovieGenres' ][] = $movieGenreObj;
   }
 
+
   /**
-   * adds a movie media and invokes the download for it
+   * adds a movie media to the media array and the largest one will be downloaded by downloadMedia method
    *
    * @param string $urlString
    */
   public function addMediaByUrl( $urlString )
   {
-    //@todo log missing images
     if( empty( $urlString ) )
       return;
 
@@ -202,23 +212,97 @@ class Movie extends BaseMovie
         throw new Exception('Failed to add Movie Media due to missing Vendor city, set vendor on the object before calling addMediaUrl()');
     }
 
-    $identString = md5( $urlString );
-    $movieMediaObj = Doctrine::getTable( 'MovieMedia' )->findOneByIdent( $identString );
+    $headers = get_headers( $urlString , 1);
+
+    // check the header if it's an image
+    if( $headers [ 'Content-Type' ] != 'image/jpeg' )
+    {
+        return ;
+    }
+
+    $this->media[] = array(
+        'url'           => $urlString,
+        'contentLength' => $headers[ 'Content-Length' ],
+        'ident'         => md5( $urlString ),
+     );
+  }
+
+
+  /**
+   * tidy up function for movies with more than one image attached to them
+   * read the headers of the images and select the largest one in size
+   * remove other images
+   *
+   */
+  private function removeMultipleImages()
+  {
+     // if there is more than 1 image for this Movie we need to find the largest one and remove the rest
+     if( count( $this[ 'MovieMedia' ] ) > 1 )
+     {
+        $largestImg = $this[ 'MovieMedia' ][ 0 ] ;
+        $largestSize = 0;
+
+        foreach ($this[ 'MovieMedia' ] as $movieMedia )
+        {
+             $headers = get_headers( $movieMedia['url'] , 1);
+
+             if( $headers[ 'Content-Length' ] >  $largestSize)
+             {
+                $largestSize = $headers[ 'Content-Length' ];
+                $largestImg  = $movieMedia;
+             }
+        }
+
+        $this['MovieMedia'] = new Doctrine_Collection( 'MovieMedia' );
+
+        $this['MovieMedia'] [] = $largestImg;
+
+     }
+  }
+
+  /**
+   * selects the largest image in media array and downloads the image
+   *
+   *
+   */
+  private function downloadMedia()
+  {
+    // if addMediaByUrl wasn't called, there is no change in media
+    if( count( $this->media) == 0 )  return;
+
+    $largestImg = $this->media[ 0 ] ;
+
+    //find the largest image
+    foreach ( $this->media as $img )
+    {
+       if( $img[ 'contentLength' ] > $largestImg[ 'contentLength' ]  )
+       {
+        $largestImg = $img;
+       }
+    }
+
+    // check if the largestImg is larger than the one attached already if any
+    foreach ($this[ 'MovieMedia' ] as $movieMedia )
+    {
+
+        if( $movieMedia['content_length']  > $largestImg[ 'contentLength' ]  )
+        {
+            //we already have a larger image so ignore this
+            return;
+        }
+    }
+
+    $movieMediaObj = Doctrine::getTable( 'MovieMedia' )->findOneByIdent( $largestImg[ 'ident' ] );
 
     if ( $movieMediaObj === false )
     {
-      foreach( $this['MovieMedia'] as $movieMedia )
-      {
-        if( $identString == $movieMedia[ 'ident' ] )
-        {
-          return;
-        }
-      }
-      $movieMediaObj = new MovieMedia(); 
+        $movieMediaObj = new MovieMedia( );
     }
 
-    $movieMediaObj->populateByUrl( $identString, $urlString, $this[ 'Vendor' ][ 'city' ] );
-    $this[ 'MovieMedia' ][] = $movieMediaObj;
+    $movieMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+
+    $this[ 'MovieMedia' ] [] =  $movieMediaObj;
+
   }
 
 }
