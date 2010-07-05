@@ -48,14 +48,15 @@
             <li><?php echo link_to('Vendor Event Category', '@vendor_event_category') ?></li>
           <?php endif ?>
           <?php if ($sf_user->hasCredential( 'admin' )): ?>
+            <li>||</li>
             <li>
-              //// <?php echo link_to('Users', 'sf_guard_user') ?> /
+              <?php echo link_to('Users', 'sf_guard_user') ?>
             </li>
             <li>
-              <?php echo link_to('Groups', 'sf_guard_group') ?> /
+              <?php echo link_to('Groups', 'sf_guard_group') ?>
             </li>
             <li>
-              <?php echo link_to('Permissions', 'sf_guard_permission') ?> /
+              <?php echo link_to('Permissions', 'sf_guard_permission') ?>
             </li>
           <?php endif ?>
         </ul>
