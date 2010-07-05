@@ -689,3 +689,19 @@ LinkingEventCategoryMapping:
     VendorEventCategory:  c59
     EventCategory:        c13
 
+UiCategory:
+  ui1:
+    name:  Around Town
+  ui2:
+    name:  Film
+  ui3:
+    name:  Music
+  ui4:
+    name:  Art
+  ui5:
+    name:  Stage
+  ui6:
+    name:  Nightlife
+  ui7:
+    name:  Eating & Drinking
+
