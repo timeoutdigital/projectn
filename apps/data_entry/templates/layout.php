@@ -6,15 +6,7 @@
     <?php include_title() ?>
     <link rel="shortcut icon" href="/favicon.ico" />
 
-    <!-- temporary manual includes for login... -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/global.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/default.css" />
-    <!-- end temporary manual includes for login... -->
-
-    <!-- include this a bit nicer too -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/data_entry.css" />
-    <!-- end include this a bit nicer too -->
-
+  
 
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
