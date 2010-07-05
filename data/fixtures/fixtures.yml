@@ -94,6 +94,18 @@ PoiCategory:
   c28:
     name:   clothing-accessories-shop
     Parent: [c5]
+  c29:
+    name:    snacks-fast-food
+    Parent:  [c1]
+  c30:
+    name:    casino
+    Parent:  [c2]
+  c31:
+    name:    religious-place
+    Parent:  [c3]
+  c32:
+    name:    amusement-holiday-park
+    Parent:  [c18]
 
 
 VendorPoiCategory:
