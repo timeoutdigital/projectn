@@ -94,6 +94,18 @@ PoiCategory:
   c28:
     name:   clothing-accessories-shop
     Parent: [c5]
+  c29:
+    name:    snacks-fast-food
+    Parent:  [c1]
+  c30:
+    name:    casino
+    Parent:  [c2]
+  c31:
+    name:    religious-place
+    Parent:  [c3]
+  c32:
+    name:    amusement-holiday-park
+    Parent:  [c18]
 
 
 VendorPoiCategory:
@@ -732,6 +744,24 @@ LinkingEventCategoryMapping:
     VendorEventCategory:  c59
     EventCategory:        c13
 
+    
+UiCategory:
+  ui1:
+    name:  Around Town
+  ui2:
+    name:  Film
+  ui3:
+    name:  Music
+  ui4:
+    name:  Art
+  ui5:
+    name:  Stage
+  ui6:
+    name:  Nightlife
+  ui7:
+    name:  Eating & Drinking
+
+
 
 
 #### initial permissions for projectn_data_entry
@@ -841,3 +871,7 @@ sfGuardPermission:
     description: ''
     created_at: '2010-07-05 14:59:36'
     updated_at: '2010-07-05 14:59:36'
+
+
+
+

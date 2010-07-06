@@ -544,7 +544,6 @@ RecordFieldOverrideMovie:
   relations:
     Movie:   {local: record_id, foreign: id, foreignType: many, foreignAlias: RecordFieldOverride}
 
-    
 Meta:
   connection: project_n
   actAs:
@@ -579,3 +578,28 @@ MovieMeta:
     type: concrete
   relations:
     Movie:                    {local: record_id, foreign: id}
+
+#Ui Category
+UiCategory:
+  connection: project_n
+  columns:
+    name:                       {type: string(50), notnull: true}
+  relations:
+    VendorPoiCategory:          { class: VendorPoiCategory, refClass: LinkingVendorPoiCategoryUiCategory, foreignAlias: UiCategory, local: ui_category_id, foreign: vendor_poi_category_id }
+    VendorEventCategory:        { class: VendorEventCategory, refClass: LinkingVendorEventCategoryUiCategory, foreignAlias: UiCategory, local: ui_category_id, foreign: vendor_event_category_id }
+  indexes:
+    name_index:                 {fields: [name]}
+
+#Poi Ui Category (linking)
+LinkingVendorPoiCategoryUiCategory:
+  connection: project_n
+  columns:
+    vendor_poi_category_id:     {type: integer, notnull: true}
+    ui_category_id:             {type: integer, notnull: true}
+
+#Event Ui Category (linking)
+LinkingVendorEventCategoryUiCategory:
+  connection: project_n
+  columns:
+    vendor_event_category_id:   {type: integer, notnull: true}
+    ui_category_id:             {type: integer, notnull: true}
