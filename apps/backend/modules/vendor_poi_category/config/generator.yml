@@ -14,14 +14,14 @@ generator:
     config:
       fields:              ~
       list:
-        display:           [vendor_name, name, _poi_categories]
+        display:           [vendor_name, name, _poi_categories, _ui_categories]
         object_actions:    { _edit: ~ }
         actions:           ~
         batch_actions:     {}
       filter:
-        display:           [vendor_id, name, poi_category_list]
+        display:           [vendor_id, name, poi_category_list, ui_category_list]
       form:
-        display:           [vendor_id, name, poi_category_list]
+        display:           [vendor_id, name, poi_category_list, ui_category_list]
       edit:
         actions:           { _list: ~, _save_and_list: ~ }
         fields:            ~
