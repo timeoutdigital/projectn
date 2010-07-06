@@ -70,10 +70,11 @@ class kualaLumpurEventsMapper extends DataMapper
 
           $occurrence['Poi'] = $poi;
 
-          $record['EventOccurrence']->delete();          
+          $record['EventOccurrence']->delete();
           $record['EventOccurrence'][] = $occurrence;
 
           $this->notifyImporter( $record );
+
         }
         catch( Exception $exception )
         {
@@ -85,8 +86,7 @@ class kualaLumpurEventsMapper extends DataMapper
   private function isFilm( $event )
   {
     return (string) $event->categories->category     == 'Film'
-        && (string) $event->categories->subCategory  == 'Screenings'
-        && (string) $event->categories->genre        != ''
+        && ( (string) $event->categories->subCategory  == 'Screenings' || (string) $event->categories->subCategory  == 'Movies'  )
         ;
   }
 
