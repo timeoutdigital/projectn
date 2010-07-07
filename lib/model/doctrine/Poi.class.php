@@ -58,6 +58,23 @@ class Poi extends BasePoi
     $this->geoEncoder = $geoEncoder;
   }
 
+  public function fixStreetName()
+  {
+    $cityName =  $this[ 'city' ];
+
+    $this[ 'street' ] = str_ireplace( ','.$cityName , ', '.$cityName , trim( $this[ 'street' ] ) );
+    //remove the last word and comma if it's the city name
+    $streetNameParts = explode( ' ', $this[ 'street' ] );
+
+    if( strtolower( trim( end( $streetNameParts  ) ))  == strtolower ( $cityName ) )
+    {
+        unset( $streetNameParts [ count( $streetNameParts ) -1 ]  );
+        $this[ 'street' ] = implode( ' ',$streetNameParts );
+    }
+
+    $this[ 'street' ] = preg_replace( '/[, ]*$/', '', $this[ 'street' ] );
+  }
+
   public function fixPoiName()
   {
     $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
@@ -364,6 +381,7 @@ class Poi extends BasePoi
      // NOTE - All Fixes MUST be Multibyte compatible.
      $this->fixHTMLEntities();
      $this->fixPoiName();
+     $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();
