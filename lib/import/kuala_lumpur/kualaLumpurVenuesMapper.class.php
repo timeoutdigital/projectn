@@ -21,6 +21,7 @@ class kualaLumpurVenuesMapper extends DataMapper
 
   public function mapVenues()
   {
+
     foreach( $this->xml->venueDetails as $venue )
     {
         try
@@ -29,12 +30,22 @@ class kualaLumpurVenuesMapper extends DataMapper
 
           $poi['vendor_poi_id']       = (string) $venue->id;
           $poi['poi_name']            = (string) $venue->title;
-          $poi['street']              = (string) $venue->location->address;
+          $poi['street']              = (string) $venue->location->street;
           $poi['city']                = 'Kuala Lumpur';
           $poi['country']             = 'MYS';
-          $poi[ 'geocode_look_up' ]   = (string) $venue->location->address;
-          
-          $poi->applyFeedGeoCodesIfValid( $this->clean( $this->extractLatitude( $venue ), $this->extractLongitude( $venue ) ) );
+
+          $longlat  = (string) $venue->location->longlat;
+
+          if( !empty( $longlat  ) )
+          {
+            $longlat = explode( ',', $longlat );
+
+            $poi->applyFeedGeoCodesIfValid( $longlat[1], $longlat[0] ) ;
+          }
+          $poi[ 'geocode_look_up' ]    = (string) $venue->location->lot .' ';
+          $poi[ 'geocode_look_up' ]   .= (string) $venue->location->street .' ';
+          $poi[ 'geocode_look_up' ]   .= (string) $venue->location->zipcode .' ';
+          $poi[ 'geocode_look_up' ]   .= (string) $venue->location->state  ;
 
           $poi[ 'email' ]             = (string) $venue->contact_details->email;
           $poi[ 'url' ]               = (string) $venue->url;
@@ -42,9 +53,9 @@ class kualaLumpurVenuesMapper extends DataMapper
           $poi[ 'short_description' ] = (string) $venue->short_description;
           $poi[ 'description' ]       = (string) $venue->description;
           $poi[ 'Vendor' ]            = $this->vendor;
-          $poi[ 'geocode_look_up' ]   = (string) $venue->location->address;
 
-          $cat = (string) $venue->categories->category;
+
+          $cat  = (string) $venue->categories->category;
           $cat2 = (string) $venue->categories->subCategory;
 
           if( !empty( $cat ) && !empty( $cat2 ) )
@@ -57,38 +68,17 @@ class kualaLumpurVenuesMapper extends DataMapper
           }
           catch( Exception $exception )
           {
-            $this->notifyImporterOfFailure($exception);
+            $this->notifyImporterOfFailure( $exception );
           }
 
           $this->notifyImporter( $poi );
-          
+
         }
         catch( Exception $exception )
         {
-            $this->notifyImporterOfFailure($exception, $poi);
+            $this->notifyImporterOfFailure( $exception, $poi );
         }
     }
   }
 
-  private function extractLatitude( SimpleXMLElement $venue )
-  {
-		$latlongString = (string) $venue->location->longlat;
-
-		if( empty( $latlongString ) )
-			return;
-
-    $latlong = explode( ',', $latlongString );
-    return $latlong[0];
-  }
-
-  private function extractLongitude( SimpleXMLElement $venue )
-  {
-		$latlongString = (string) $venue->location->longlat;
-
-		if( empty( $latlongString ) )
-			return;
-
-    $latlong = explode( ',', $latlongString );
-    return $latlong[1];
-  }
 }
