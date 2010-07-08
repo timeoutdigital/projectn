@@ -44,11 +44,11 @@ class uploadTask extends sfBaseTask
     {
         $cmd = 'zip ' . $exportDir . $item . $DS. $item . '.zip ' . $exportDir   . $item . '/*';
 
-        $this->exec( $cmd , 'zip' );
+        $this->exec( $cmd , 'create zip file for ' . $item );
 
         $cmd = 'md5sum ' . $exportDir . $item . $DS. $item . '.zip > ' . $exportDir . $item  . $DS. $item .  '.zip.md5';
 
-        $this->exec( $cmd , 'md5sum' );
+        $this->exec( $cmd , 'create md5 file for ' . $item  );
     }
 
     //upload lock
@@ -62,11 +62,11 @@ class uploadTask extends sfBaseTask
     {
         $cmd = "lftp -c 'open -e \"rm {$item}/$item.zip\" -u {$userName},{$password} {$host}'";
 
-        $this->exec( $cmd , 'Remove remote files - zip' );
+        $this->exec( $cmd , 'Remove remote files : ' . $item . '.zip' );
 
         $cmd = "lftp -c 'open -e \"rm {$item}/$item.zip.md5\" -u {$userName},{$password} {$host}'";
 
-        $this->exec( $cmd , 'Remove remote files - md5' );
+        $this->exec( $cmd , 'Remove remote files : ' . $item . '.zip.md5' );
 
     }
 
