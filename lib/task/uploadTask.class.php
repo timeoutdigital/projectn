@@ -42,16 +42,14 @@ class uploadTask extends sfBaseTask
 
     foreach ($items as $item)
     {
-        $cmd = 'zip ' . $exportDir . $item . $DS. $item . '.zip ' . $exportDir   . $item . '/*';
+        $cmd = 'cd ' . $exportDir . $item . $DS .  ' && zip ' . $item . '.zip ./*';
 
         $this->exec( $cmd , 'create zip file for ' . $item );
 
-        $cmd = 'md5sum ' . $exportDir . $item . $DS. $item . '.zip > ' . $exportDir . $item  . $DS. $item .  '.zip.md5';
+        $cmd = 'cd ' . $exportDir . $item . $DS .  ' && md5sum '  . $item . '.zip >  '.$item .  '.zip.md5';
 
         $this->exec( $cmd , 'create md5 file for ' . $item  );
     }
-
-    //upload lock
 
     $cmd = "lftp -c 'open -e \"put {$exportDir}upload.lock\" -u {$userName},{$password} {$host}'";
 
