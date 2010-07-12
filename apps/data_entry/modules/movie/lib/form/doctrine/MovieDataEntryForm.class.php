@@ -12,6 +12,8 @@ class MovieDataEntryForm extends BaseMovieForm
 {
   private $user;
 
+  private $filePath = 'media/movie';
+
   public function configure()
   {
     $this->user = sfContext::getInstance()->getUser();
@@ -22,5 +24,47 @@ class MovieDataEntryForm extends BaseMovieForm
 
     $this->widgetSchema[ 'vendor_id' ]      = new widgetFormFixedVendorText( array( 'vendor_id'  => $this->user->getCurrentVendorId(), 'vendor_name'  => $this->user->getCurrentVendorCity()  ) );
     $this->validatorSchema[ 'vendor_id' ]   = new validatorSetCurrentVendorId( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
+
+    /* images */
+    $this->embedRelation('MovieMedia');
+
+    /* new movie media */
+    $movieMedia = new MovieMedia();
+    $movieMedia->Movie = $this->getObject();
+
+    $form = new MovieMediaForm( $movieMedia );
+
+    $form->setValidator('url', new sfValidatorFile(array(
+        'mime_types' => array( 'image/jpeg' ),
+        'path' => sfConfig::get('sf_upload_dir') . '/' . $this->filePath,
+        'required' => false,
+    )));
+
+    $form->setWidget('url', new sfWidgetFormInputFileEditable(array(
+        'file_src'    => '/uploads/' . $this->filePath . '/'.$this->getObject()->url,
+        'edit_mode'   => !$this->isNew(),
+        'is_image'    => true,
+        'with_delete' => false,
+    )));
+
+    $this->embedForm( 'newMovieMediaDataEntry', $form );
   }
+
+  public function saveEmbeddedForms($con = null, $forms = null)
+  {
+      if (null === $forms)
+      {
+        $forms = $this->embeddedForms;
+
+        $newMovieMediaDataEntry = $this->getValue('newMovieMediaDataEntry');
+        if ( !isset( $newMovieMediaDataEntry['url']) )
+        {
+            unset($forms['newMovieMediaDataEntry'] );
+        }
+
+      }
+
+      return parent::saveEmbeddedForms($con, $forms);
+  }
+
 }

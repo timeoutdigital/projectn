@@ -18,6 +18,8 @@ generator:
         vendor_movie_id: { label: ID, help: Your unique identifier of the record }
         rating: { help: "Your rating of the Poi (0-5, 5 being the highest rating)" }
         utf_offset: { label: UTC Offset }
+        MovieMediaDataEntry:          { label: Images }
+        newMovieMediaDataEntry:       { label: New image }
       list:
         display: [vendor_movie_id, name, imdb_id]
       filter:
@@ -47,6 +49,8 @@ generator:
             - rating
             - imdb_id
             - movie_genres_list
+            - MovieMedia
+            - newMovieMediaDataEntry
           Info:
             - vendor_id
             - utf_offset

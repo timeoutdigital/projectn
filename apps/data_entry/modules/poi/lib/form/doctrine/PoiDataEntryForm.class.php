@@ -13,6 +13,8 @@ class PoiDataEntryForm extends BasePoiForm
   
   private $user;
 
+  private $filePath = 'media/poi';
+
   public function configure()
   {
     $this->user = sfContext::getInstance()->getUser();
@@ -45,6 +47,47 @@ class PoiDataEntryForm extends BasePoiForm
     $this->validatorSchema[ 'review_date' ]      = new sfValidatorDate();
 
     $this->configureVendorPoiCategoryWidget();
+
+    /* images */
+    $this->embedRelation('PoiMedia');
+
+    /* new poi media */
+    $poiMedia = new PoiMedia();
+    $poiMedia->Poi = $this->getObject();
+
+    $form = new PoiMediaForm( $poiMedia );
+
+    $form->setValidator('url', new sfValidatorFile(array(
+        'mime_types' => array( 'image/jpeg' ),
+        'path' => sfConfig::get('sf_upload_dir') . '/' . $this->filePath,
+        'required' => false,
+    )));
+
+    $form->setWidget('url', new sfWidgetFormInputFileEditable(array(
+        'file_src'    => '/uploads/' . $this->filePath . '/'.$this->getObject()->url,
+        'edit_mode'   => !$this->isNew(),
+        'is_image'    => true,
+        'with_delete' => false,
+    )));
+
+    $this->embedForm( 'newPoiMediaDataEntry', $form );
+  }
+
+  public function saveEmbeddedForms($con = null, $forms = null)
+  {
+      if (null === $forms)
+      {
+        $forms = $this->embeddedForms;
+
+        $newPoiMediaDataEntry = $this->getValue('newPoiMediaDataEntry');
+        if ( !isset( $newPoiMediaDataEntry['url']) )
+        {
+            unset($forms['newPoiMediaDataEntry'] );
+        }
+
+      }
+
+      return parent::saveEmbeddedForms($con, $forms);
   }
 
 

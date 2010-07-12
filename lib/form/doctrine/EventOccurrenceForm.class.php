@@ -12,5 +12,8 @@ class EventOccurrenceForm extends BaseEventOccurrenceForm
 {
   public function configure()
   {
+      //@todo try to move this into app..
+      $this->useFields( array( 'start_date', 'start_time', 'end_date', 'end_time', 'poi_id', ) );
+      $this->mergePostValidator(new EventOccurrenceDataEntryValidatorSchema());
   }
 }
