@@ -355,6 +355,16 @@ Vendor:
     geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
 
   v23:
+    city:                     hong kong
+    language:                 en-HK
+    time_zone:                Asia/Hong_Kong
+    inernational_dial_code:   '+852'
+    airport_code:             'HKG'
+    country_code:             'hk'
+    country_code_long:        'HKG'
+    geo_boundries:            '22.153247833252;113.837738037109;22.5597801208496;114.434761047363'
+
+  v24:
     city:                     pune
     language:                 en-GB
     time_zone:                Asia/Calcutta
@@ -758,19 +768,19 @@ LinkingEventCategoryMapping:
     
 UiCategory:
   ui1:
-    name:  Around Town
-  ui2:
     name:  Film
+  ui2:
+    name:  Eating & Drinking
   ui3:
-    name:  Music
+    name:  Around Town
   ui4:
-    name:  Art
+    name:  Music
   ui5:
     name:  Stage
   ui6:
     name:  Nightlife
   ui7:
-    name:  Eating & Drinking
+    name:  Art
 
 
 
