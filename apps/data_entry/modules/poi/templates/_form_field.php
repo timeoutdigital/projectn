@@ -61,6 +61,7 @@
                   echo $PoiMedia['url']->render(array('width' => 200));
                   if ( $i < $mediaCount ) echo '<hr/>';
                 }
+                if ( 0 == $mediaCount ) echo 'no image available';
                 break;
             
             case 'newPoiMediaDataEntry' :

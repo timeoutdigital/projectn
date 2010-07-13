@@ -40,7 +40,7 @@ generator:
             - price
             - rating
             - vendor_event_category_list
-            - EventOccurrenceDataEntry
+            - EventOccurrence
             - newEventOccurrenceDataEntry
             - EventMedia
             - newEventMediaDataEntry

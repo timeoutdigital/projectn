@@ -42,9 +42,7 @@ class PoiDataEntryForm extends BasePoiForm
 
     $this->widgetSchema[ 'geocode_look_up' ] = new widgetFormFixedText( array( 'default' => 'not generated yet' ) );
     $this->validatorSchema[ 'geocode_look_up' ]   = new validatorGeocodeLookupString( array( 'poi' => $this->object, 'fields' => array( 'street', 'city', 'country' ) ) );
-
-    $this->widgetSchema[ 'review_date' ]      = new sfWidgetFormDate();
-    $this->validatorSchema[ 'review_date' ]      = new sfValidatorDate();
+    
 
     $this->configureVendorPoiCategoryWidget();
 

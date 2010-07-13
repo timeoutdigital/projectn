@@ -28,7 +28,7 @@ class EventDataEntryForm extends BaseEventForm
     $this->configureVendorEventCategoryWidget();
 
     /* occurrences */
-    $this->embedRelation('EventOccurrenceDataEntry');
+    $this->embedRelation('EventOccurrence');
 
     /* new event occurrence */
     $eventOccurrence = new EventOccurrence();

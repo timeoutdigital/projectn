@@ -54,7 +54,7 @@ PoiMedia:
   columns:
     poi_id:                     {type: integer, notnull: true}
   relations:
-    Poi:                        {local: poi_id, foreign: id, foreignAlias: PoiMediaDataEntry}
+    Poi:                        {local: poi_id, foreign: id}
 
 #Category available for Pois
 PoiCategory:
@@ -166,7 +166,7 @@ EventOccurrence:
     event_id:                   {type: integer, notnull: true}
     poi_id:                     {type: integer, notnull: true}
   relations:
-    Event:                      {local: event_id, foreign: id, foreignType: many, foreignAlias: EventOccurrenceDataEntry}
+    Event:                      {local: event_id, foreign: id, foreignType: many}
     Poi:                        {local: poi_id, foreign: id, foreignType: many}
   indexes:
     vendor_event_occurrence_id_index:      {fields: [vendor_event_occurrence_id]}
@@ -224,7 +224,7 @@ EventMedia:
   columns:
     event_id:                   {type: integer, notnull: true}
   relations:
-    Event:                      {local: event_id, foreign: id, foreignAlias: EventMediaDataEntry}
+    Event:                      {local: event_id, foreign: id}
 
 #Key value pairs for unmappable values on the Poi
 EventProperty:
@@ -304,7 +304,7 @@ MovieMedia:
   columns:
     movie_id:                   {type: integer, notnull: true}
   relations:
-    Movie:                      {local: movie_id, foreign: id, foreignAlias: MovieMediaDataEntry}
+    Movie:                      {local: movie_id, foreign: id}
 
 #Key value pairs for unmappable values on a Movie
 MovieProperty:

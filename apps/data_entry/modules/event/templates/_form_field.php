@@ -11,7 +11,7 @@
         <?php
         switch ( $name )
         {
-            case 'EventOccurrenceDataEntry' :
+            case 'EventOccurrence' :
                 $occurrenceCount = count( $form[$name] );
                 $i=0;
                 foreach ( $form[$name] as $EventOccurrence )
@@ -32,6 +32,7 @@
                   echo $EventOccurrence['poi_id']->render();
                   if ( $i < $occurrenceCount ) echo '<hr/>';
                 }
+                if ( 0 == $occurrenceCount ) echo 'no occurrence available';
                 break;
             
             case 'newEventOccurrenceDataEntry' :
@@ -61,6 +62,7 @@
                   echo $EventMedia['url']->render(array('width' => 200));
                   if ( $i < $mediaCount ) echo '<hr/>';
                 }
+                if ( 0 == $mediaCount ) echo 'no image available';
                 break;
             
             case 'newEventMediaDataEntry' :
