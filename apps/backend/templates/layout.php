@@ -34,7 +34,7 @@
             <?php echo link_to('Vendor Poi Categories', '@vendor_poi_category') ?> /
           </li>
           <li>
-            <?php echo link_to('Categories', '@vendor_event_category') ?>
+            <?php echo link_to('Vendor Event Categories', '@vendor_event_category') ?>
           </li>
         </ul>
       </div>
