@@ -30,12 +30,12 @@ class curlImporter
   private $_xmlRequest;
   private $_xmlResponseRaw;
   private $_simpleXml;
-  
+
   public function  __construct()
   {
-    
+
   }
-  
+
   /**
    * Build the query string
    *
@@ -43,7 +43,7 @@ class curlImporter
    */
   private function buildCurlParamString()
   {
-       
+
       if($this->_curlParameters != '')
       {
           $urlstring = '';
@@ -74,7 +74,7 @@ class curlImporter
        $urlstring=$this->buildCurlParamString();
 
        $ch=curl_init();
-       
+
        if ( $this->_requestMethod == 'POST' )
        {
          curl_setopt($ch, CURLOPT_URL, $this->_url.$this->_xmlRequest);
@@ -96,10 +96,10 @@ class curlImporter
        curl_setopt($ch, CURLOPT_HEADER, 0);
        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
        curl_setopt($ch, CURLOPT_POST, 1);
-       
+
        $data=curl_exec($ch);
        curl_close($ch);
-       
+
        return($data);
    }
 
@@ -129,12 +129,13 @@ class curlImporter
      $this->_curlParameters = $parameters;
      $this->_requestMethod = $requestMethod;
      $this->getFeed();
-   
+
      /**
       * @todo refactor line 109 into this - simple xml breaks due to html & in tags that are not surrounded by cdata
       */
      libxml_use_internal_errors(true);
-     $xmlString = stringTransform::stripEmptyLines( $this->_xmlResponseRaw );
+     $xmlString = trim( $this->_xmlResponseRaw );
+
 
      if ( $overrideCharset )
      {
@@ -143,7 +144,7 @@ class curlImporter
 
      // removes certain unwanted characters
      // @todo, replace this regular expression to replace ONLY non UTF-8 characters
-     
+
      // peter @ 14-May-2010, removed below as it was stripping accented characters.
      // $xmlString = preg_replace( "/[^\x9\xA\xD\x20-\x7F]/", "", $xmlString );
 
@@ -165,7 +166,7 @@ class curlImporter
        }
 
        throw new Exception( $errorString );
-     }    
+     }
 
      return $this;
    }
