@@ -316,7 +316,7 @@ class geoEncode
 
      switch($dataArray[0])
      {
-         case '602': throw new GeoCodeException('G_GEO_UNKNOWN_ADDRESS');
+         case '602': //throw new GeoCodeException('G_GEO_UNKNOWN_ADDRESS');
              break;
 
          case '603': //throw new GeoCodeException('G_GEO_UNAVAILABLE_ADDRESS');
