@@ -468,7 +468,7 @@ class Poi extends BasePoi
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
     }
 
-    $this->addMeta( "Geo_Source", "Google" );
+    $this->addMeta( "Geo_Source",  get_class( $geoEncoder ) );
   }
 
   public function geoCodeIsValid()
