@@ -367,6 +367,7 @@ class Poi extends BasePoi
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();
+     $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
      $this->cleanStreetField();
@@ -436,6 +437,15 @@ class Poi extends BasePoi
      if( $this['url'] != '')
      {
         $this['url'] = stringTransform::formatUrl($this['url']);
+     }
+  }
+
+
+  private function fixEmail()
+  {
+     if( ! stringTransform::isValidEmail ( $this['email'] ) )
+     {
+        $this['email'] = null;
      }
   }
 

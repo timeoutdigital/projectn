@@ -421,6 +421,18 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
    }
 
+   public function testValidateUrlAndEmail()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Barcelona" ) );
+      $poi['url'] = 'ccmatasiramis@bcn.cat'; //invalid url
+      $poi['email'] = 'info@botafumeiro'; //invalid email
+
+      $poi->save();
+      $this->assertEquals( '', $poi['url'] , 'invalid url should be saved as NULL' );
+      $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
+   }
+
 }
 
 class MockGeoEncodeForPoiTest extends geoEncode
