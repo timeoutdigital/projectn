@@ -13,8 +13,8 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  * @author Timmy Bowler <timbowler@timeout.com>
  *
  * @copyright Timeout Communications Ltd;
- * 
- * 
+ *
+ *
  */
 class nyImportBcEdTest extends PHPUnit_Framework_TestCase
 {
@@ -53,9 +53,11 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
           ProjectN_Test_Unit_Factory::createDatabases();
 
           Doctrine::loadData('data/fixtures');
-          $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+
+          $this->vendorObj = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 'city' => 'ny', 'language' => 'en-US', 'time_zone' => 'America/New_York' ) );
 
           $this->xmlObj = new processNyBcXml( TO_TEST_DATA_PATH . '/tony_bc_test.xml' );
+
           $this->loggerObj = new logImport($this->vendorObj, 'poi');
         }
         catch( Exception $e )
@@ -163,7 +165,7 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
     /**validationException
      * Test that an existing poi is not duplicated
      */
-    public function _testExistingSamePoiIsNotImported()
+    public function testExistingSamePoiIsNotImported()
     {
         $this->createExistingUnchangedPoi();
         $this->createObject();
@@ -177,7 +179,7 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
      * Test that a Poi that has changed is logged and updated.
      *
      */
-    public function _testExistingChangedPoiIsLoggedAndUpdated()
+    public function testExistingChangedPoiIsLoggedAndUpdated()
     {
         $this->markTestSkipped();
         $this->createExistingChangedPoi();
@@ -197,17 +199,64 @@ class nyImportBcEdTest extends PHPUnit_Framework_TestCase
     /**
      * Test that an extry not already in the database is saved.
      */
-    public function _testNonExistantPoiIsImported()
+    public function testNonExistantPoiIsImported()
     {
        $this->createNonExistingUnchangedPoi();
        $this->createObject();
-        
+
        //Check the DB for all entries
        $poi = Doctrine::getTable('Poi')->findByPoiName('Milanos Bar');
        $this->assertEquals(2, count($poi->toArray()), 'Test that there is only 1 in the DB');
     }
 
 
+    public function testPoiStreetNameParse()
+    {
+        $this->createObject();
+        $poi = Doctrine::getTable('Poi')->findOneByPoiName( 'Milanos Bar' );
+
+        // the address in the XML is : 51 E Houston St between Mott and Mulberry Sts
+        // the between part should be moved to additional_address_details
+
+        $this->assertEquals( $poi ['street'] ,  '51 E Houston St' , 'street name parsing should move between info to additional_address_details -test 1');
+        $this->assertEquals( $poi ['additional_address_details'] ,  'between Mott and Mulberry Sts' , 'street name parsing should move between info to additional_address_details -test 2');
+
+
+
+    }
+
+
+    public function testPoiStreetNameParsewithAt()
+    {
+        //change the streetname field to various combinations to see if parsing works
+        $xml = $this->getXMLString();
+        $node = 'location.0';
+        $xml->{$node} = '320 Amsterdam Ave at 75th St';
+
+        $this->object = new nyImportBcEd($this->xmlObj, $this->vendorObj, nyImportBcEd::RESTAURANT );
+        $this->object->importPoi( $xml  );
+        //retreive the poi
+        $poi = Doctrine::getTable('Poi')->findOneByPoiName( 'Milanos Bar' );
+
+        $this->assertEquals( $poi ['street'] ,  '320 Amsterdam Ave' , 'street name parsing should move at info to additional_address_details -test 1');
+        $this->assertEquals( $poi ['additional_address_details'] ,  'At 75th St' , 'street name parsing should move at info to additional_address_details -test 2');
+    }
+
+    public function testPoiStreetNameParseRemoveMeetAts()
+    {
+        //change the streetname field to various combinations to see if parsing works
+        $xml = $this->getXMLString();
+        $node = 'location.0';
+        $xml->{$node} = 'meet at Broadway and Murray St';
+
+        $this->object = new nyImportBcEd($this->xmlObj, $this->vendorObj, nyImportBcEd::RESTAURANT );
+        $this->object->importPoi( $xml  );
+        //retreive the poi
+        $poi = Doctrine::getTable('Poi')->findOneByPoiName( 'Milanos Bar' );
+
+        $this->assertEquals( $poi ['street'] ,  'Broadway and Murray St' , 'street name parsing remove "meet at" -test 1');
+        $this->assertEquals( $poi ['additional_address_details'] ,  '' , 'street name parsing  remove "meet at" - test 2');
+    }
 
 
     /**
