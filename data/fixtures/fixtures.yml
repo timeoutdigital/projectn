@@ -371,6 +371,7 @@ Vendor:
     country_code_long:        'IND'
     geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
 
+
 EventCategory:
   c1:
     name:                movies
