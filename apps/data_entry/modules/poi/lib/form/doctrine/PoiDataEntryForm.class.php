@@ -15,6 +15,9 @@ class PoiDataEntryForm extends BasePoiForm
 
   private $filePath = 'media/poi';
 
+  protected $poiMediasScheduledForDeletion = array();
+
+
   public function configure()
   {
     $this->user = sfContext::getInstance()->getUser();
@@ -22,9 +25,13 @@ class PoiDataEntryForm extends BasePoiForm
     $this->widgetSchema[ 'created_at' ]      = new widgetFormFixedText( array( 'default' => 'now' ) );
     $this->widgetSchema[ 'updated_at' ]      = new widgetFormFixedText( array( 'default' => 'now' ) );
 
-    $this->widgetSchema[ 'country' ]      = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCountryCodeLong() ) );
-    $this->widgetSchema[ 'local_language' ]      = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorLanguage() ) );
-    $this->widgetSchema[ 'city' ]      = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCity() ) );
+    $this->widgetSchema[ 'country' ]         = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCountryCodeLong() ) );
+    $this->widgetSchema[ 'local_language' ]  = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorLanguage() ) );
+    $this->widgetSchema[ 'city' ]            = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCity() ) );
+
+    //@todo maybe use the jquery calendar
+    $this->widgetSchema[ 'review_date' ]      = new sfWidgetFormDate(array());
+    $this->validatorSchema[ 'review_date' ]    = new sfValidatorDate(array( 'required' => false ));
 
     if ( $this->object[ 'latitude' ] === NULL || $this->object[ 'longitude' ] === NULL )
     {
@@ -50,6 +57,7 @@ class PoiDataEntryForm extends BasePoiForm
     $this->embedRelation('PoiMedia');
 
     /* new poi media */
+    //@todo find issue why more than 2 imgs failing to save
     $poiMedia = new PoiMedia();
     $poiMedia->Poi = $this->getObject();
 
@@ -63,7 +71,7 @@ class PoiDataEntryForm extends BasePoiForm
 
     $form->setWidget('url', new sfWidgetFormInputFileEditable(array(
         'file_src'    => '/uploads/' . $this->filePath . '/'.$this->getObject()->url,
-        'edit_mode'   => !$this->isNew(),
+        'edit_mode'   => false,
         'is_image'    => true,
         'with_delete' => false,
     )));

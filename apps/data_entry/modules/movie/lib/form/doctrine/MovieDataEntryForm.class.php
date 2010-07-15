@@ -14,6 +14,9 @@ class MovieDataEntryForm extends BaseMovieForm
 
   private $filePath = 'media/movie';
 
+  protected $movieMediasScheduledForDeletion = array();
+
+
   public function configure()
   {
     $this->user = sfContext::getInstance()->getUser();
@@ -29,6 +32,7 @@ class MovieDataEntryForm extends BaseMovieForm
     $this->embedRelation('MovieMedia');
 
     /* new movie media */
+    //@todo find issue why more than 2 imgs failing to save
     $movieMedia = new MovieMedia();
     $movieMedia->Movie = $this->getObject();
 
@@ -42,7 +46,7 @@ class MovieDataEntryForm extends BaseMovieForm
 
     $form->setWidget('url', new sfWidgetFormInputFileEditable(array(
         'file_src'    => '/uploads/' . $this->filePath . '/'.$this->getObject()->url,
-        'edit_mode'   => !$this->isNew(),
+        'edit_mode'   => false,
         'is_image'    => true,
         'with_delete' => false,
     )));
@@ -50,21 +54,83 @@ class MovieDataEntryForm extends BaseMovieForm
     $this->embedForm( 'newMovieMediaDataEntry', $form );
   }
 
+
+  protected function doBind(array $values)
+  {
+
+    if (isset($values['MovieMedia']))
+    {
+      foreach ($values['MovieMedia'] as $i => $movieMediaFields )
+      {
+        if ( isset($movieMediaFields['url_delete']) && $movieMediaFields['id'] )
+        {
+            $this->movieMediasScheduledForDeletion[$i] = $movieMediaFields['id'];
+        }
+      }
+    }
+
+    parent::doBind($values);
+  }
+
+
   public function saveEmbeddedForms($con = null, $forms = null)
   {
+      if (null === $con)
+      {
+        $con = $this->getConnection();
+      }
+
       if (null === $forms)
       {
         $forms = $this->embeddedForms;
+
+        $newMovieOccurrenceDataEntry = $this->getValue('newMovieOccurrenceDataEntry');
+        if ( !isset( $newMovieOccurrenceDataEntry['start_date'] ) || !isset( $newMovieOccurrenceDataEntry['poi_id'] ) )
+        {
+            unset($forms['newMovieOccurrenceDataEntry'] );
+        }
 
         $newMovieMediaDataEntry = $this->getValue('newMovieMediaDataEntry');
         if ( !isset( $newMovieMediaDataEntry['url']) )
         {
             unset($forms['newMovieMediaDataEntry'] );
         }
-
       }
 
-      return parent::saveEmbeddedForms($con, $forms);
+      foreach ($forms as $form)
+      {
+          if ($form instanceof sfFormObject)
+          {
+              if ( $form->getObject() instanceof MovieMedia )
+              {
+                  if ( !in_array($form->getObject()->getId(), $this->movieMediasScheduledForDeletion ))
+                  {
+                    $form->saveEmbeddedForms($con);
+                    $form->getObject()->save($con);
+                  }
+              }
+          }
+          else
+          {
+              $this->saveEmbeddedForms($con, $form->getEmbeddedForms());
+          }
+      }
   }
+
+ protected function doUpdateObject($values)
+  {
+    if ( count( $this->movieMediasScheduledForDeletion ) )
+     {
+       foreach ( $this->movieMediasScheduledForDeletion as $index => $id )
+       {
+         unset( $values['MovieMedia'][$index] );
+         unset( $this->object['MovieMedia'][$index] );
+         Doctrine::getTable('MovieMedia')->findOneById( $id )->delete();
+       }
+     }
+
+     $this->getObject()->fromArray( $values );
+  }
+
 
 }

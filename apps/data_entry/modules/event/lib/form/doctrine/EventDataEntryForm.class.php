@@ -15,6 +15,11 @@ class EventDataEntryForm extends BaseEventForm
 
   private $filePath = 'media/event';
 
+  protected $eventOccurencesScheduledForDeletion = array();
+
+  protected $eventMediasScheduledForDeletion = array();
+
+
   public function configure()
   {
     $this->user = sfContext::getInstance()->getUser();
@@ -24,6 +29,10 @@ class EventDataEntryForm extends BaseEventForm
 
     $this->widgetSchema[ 'vendor_id' ]      = new widgetFormFixedVendorText( array( 'vendor_id'  => $this->user->getCurrentVendorId(), 'vendor_name'  => $this->user->getCurrentVendorCity()  ) );
     $this->validatorSchema[ 'vendor_id' ]   = new validatorSetCurrentVendorId( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
+
+    //@todo maybe use the jquery calendar
+    $this->widgetSchema[ 'review_date' ]      = new sfWidgetFormDate(array());
+    $this->validatorSchema[ 'review_date' ]    = new sfValidatorDate(array( 'required' => false ));
 
     $this->configureVendorEventCategoryWidget();
 
@@ -45,6 +54,7 @@ class EventDataEntryForm extends BaseEventForm
     $this->embedRelation('EventMedia');
 
     /* new event media */
+    //@todo find issue why more than 2 imgs failing to save
     $eventMedia = new EventMedia();
     $eventMedia->Event = $this->getObject();
 
@@ -58,16 +68,51 @@ class EventDataEntryForm extends BaseEventForm
 
     $form->setWidget('url', new sfWidgetFormInputFileEditable(array(
         'file_src'    => '/uploads/' . $this->filePath . '/'.$this->getObject()->url,
-        'edit_mode'   => !$this->isNew(),
+        'edit_mode'   => false,
         'is_image'    => true,
         'with_delete' => false,
     )));
 
     $this->embedForm( 'newEventMediaDataEntry', $form );
+    
   }
+
+
+  protected function doBind(array $values)
+  {
+    if (isset($values['EventOccurrence']))
+    {
+      foreach ($values['EventOccurrence'] as $i => $eventOccurrenceFields )
+      {
+        if ( isset($eventOccurrenceFields['event_occurrence_delete']) && $eventOccurrenceFields['id'] )
+        {
+          $this->eventOccurencesScheduledForDeletion[$i] = $eventOccurrenceFields['id'];
+        }
+      }
+    }
+
+    if (isset($values['EventMedia']))
+    {
+      foreach ($values['EventMedia'] as $i => $eventMediaFields )
+      {
+        if ( isset($eventMediaFields['url_delete']) && $eventMediaFields['id'] )
+        {
+            $this->eventMediasScheduledForDeletion[$i] = $eventMediaFields['id'];
+        }
+      }
+    }
+
+    parent::doBind($values);
+  }
+
 
   public function saveEmbeddedForms($con = null, $forms = null)
   {
+      if (null === $con)
+      {
+        $con = $this->getConnection();
+      }
+
       if (null === $forms)
       {
         $forms = $this->embeddedForms;
@@ -83,92 +128,60 @@ class EventDataEntryForm extends BaseEventForm
         {
             unset($forms['newEventMediaDataEntry'] );
         }
-
-
-
-//        $eventMedias = $this->getValue('EventMedia');
-//
-//        foreach( $eventMedias as $eventMedia )
-//        {
-//            if ( isset ($eventMedia['url_delete']) && isset ($eventMedia['id']) )
-//            {
-//                foreach( $this->object->EventMedia as $eventMediaStored )
-//                {
-//                    if ( $eventMediaStored['id'] == $eventMedia['id'] )
-//                    {
-//                       $eventMediaStored->delete();
-//
-//                       echo $eventMediaStored['id'];
-//
-//                        //var_export(sfConfig::get('sf_upload_dir') . '/' . $this->filePath. '/' . sha1($eventMediaStored['url']) . $eventMediaStored->getUrl() );
-//
-////                        if ( $eventMediaStored['url'] != '' )
-////                        {
-////
-////
-////                            $file = sfConfig::get('sf_upload_dir') . '/' . $this->filePath. '/' . $eventMediaStored['url'];
-////                            if ( is_file( $file  ) )
-////                            {
-////                                unlink($file);
-////                            }
-////                        }
-////
-//                    }
-//                }
-//            }
-
-
-        
-
-        
-
       }
 
-      return parent::saveEmbeddedForms($con, $forms);
+      foreach ($forms as $form)
+      {
+          if ($form instanceof sfFormObject)
+          {
+              if ( $form->getObject() instanceof EventOccurrence )
+              {
+                  if ( !in_array($form->getObject()->getId(), $this->eventOccurencesScheduledForDeletion ))
+                  {
+                    $form->saveEmbeddedForms($con);
+                    $form->getObject()->save($con);
+                  }
+              }
+              else if ( $form->getObject() instanceof EventMedia )
+              {
+                  if ( !in_array($form->getObject()->getId(), $this->eventMediasScheduledForDeletion ))
+                  {
+                    $form->saveEmbeddedForms($con);
+                    $form->getObject()->save($con);
+                  }
+              }
+          }
+          else
+          {
+              $this->saveEmbeddedForms($con, $form->getEmbeddedForms());
+          }
+      }     
   }
 
-//  protected function doSave($con = null)
-//  {
-//
-//
-//      $eventMedias = $this->getValue('EventMedia');
-//
-//        foreach( $eventMedias as $eventMedia )
-//        {
-//            if ( isset ($eventMedia['url_delete']) && isset ($eventMedia['id']) )
-//            {
-//                foreach( $this->object->EventMedia as $eventMediaStored )
-//                {
-//                    if ( $eventMediaStored['id'] == $eventMedia['id'] )
-//                    {
-//                       $eventMediaStored->delete();
-//
-//                       echo $eventMediaStored['id'];
-//
-//                        var_export(sfConfig::get('sf_upload_dir') . '/' . $this->filePath. '/' . sha1($eventMediaStored['url']) . $eventMediaStored->getUrl() );
-//exit();
-//                        if ( $eventMediaStored['url'] != '' )
-//                        {
-//
-//
-//                            $file = sfConfig::get('sf_upload_dir') . '/' . $this->filePath. '/' . $eventMediaStored['url'];
-//                            if ( is_file( $file  ) )
-//                            {
-//                                unlink($file);
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
-//
-//      parent::doSave();
-//  }
+ protected function doUpdateObject($values)
+  {
+    if ( count( $this->eventOccurencesScheduledForDeletion ) )
+    {
+       foreach ( $this->eventOccurencesScheduledForDeletion as $index => $id )
+       {
+         unset( $values['EventOccurrence'][$index] );
+         unset( $this->object['EventOccurrence'][$index] );
+         Doctrine::getTable('EventOccurrence')->findOneById( $id )->delete();
+       }
+     }
 
+     if ( count( $this->eventMediasScheduledForDeletion ) )
+     {
+       foreach ( $this->eventMediasScheduledForDeletion as $index => $id )
+       {
+         unset( $values['EventMedia'][$index] );
+         unset( $this->object['EventMedia'][$index] );
+         Doctrine::getTable('EventMedia')->findOneById( $id )->delete();
+       }
+     }
 
-
-
+     $this->getObject()->fromArray( $values );
+  }
 
 
   private function configureVendorEventCategoryWidget()

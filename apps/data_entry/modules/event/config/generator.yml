@@ -17,7 +17,7 @@ generator:
         vendor_id:                    { attributes: { onchange: "document.forms[0].submit()" } }
         vendor_event_id:              { label: ID, help: Your unique identifier of the record }
         rating:                       { help: "Your rating of the Poi (0-5, 5 being the highest rating)" }
-        EventOccurrenceDataEntry:     { label: Occurrences }
+        EventOccurrence:              { label: Occurrences }
         newEventOccurrenceDataEntry:  { label: New occurrence }
         EventMediaDataEntry:          { label: Images }
         newEventMediaDataEntry:       { label: New image }

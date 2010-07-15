@@ -18,8 +18,8 @@ class MovieMediaForm extends BaseMovieMediaForm
         'file_src'    => '/uploads/' . $this->getFileStorePath() . '/'.$this->getObject()->url,
         'edit_mode'   => !$this->isNew(),
         'is_image'    => true,
-        'with_delete' => false,
-        'delete_label' => 'Delete Image',
+        'with_delete' => true,
+        'delete_label' => 'Delete',
       )));
 
       $this->setValidator('url', new sfValidatorFile(array(

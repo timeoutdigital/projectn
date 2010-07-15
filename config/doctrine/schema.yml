@@ -487,10 +487,6 @@ LogExportError:
     model_index:                {fields: [model]}
 
 
-
-
-
-
 #Master Media table, extended by PoiMedia, EventMedia and MovieMedia
 Media:
   connection: project_n
@@ -505,8 +501,6 @@ Media:
     content_length:       {type: integer, notnull: false}
   indexes:
     ident_index:          {fields: [ident]}
-
-
 
 
 RecordFieldOverride:

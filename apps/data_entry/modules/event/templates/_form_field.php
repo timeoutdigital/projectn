@@ -1,3 +1,5 @@
+<?php use_helper('jQuery'); ?>
+
 <?php if ($field->isPartial()): ?>
   <?php include_partial('event/'.$name, array('form' => $form, 'attributes' => $attributes instanceof sfOutputEscaper ? $attributes->getRawValue() : $attributes)) ?>
 <?php elseif ($field->isComponent()): ?>
@@ -30,11 +32,14 @@
                   echo '<br/>';
                   echo $EventOccurrence['poi_id']->renderLabel();
                   echo $EventOccurrence['poi_id']->render();
+                  echo '<br/>';
+                  echo $EventOccurrence['event_occurrence_delete']->renderLabel();
+                  echo $EventOccurrence['event_occurrence_delete']->render();
                   if ( $i < $occurrenceCount ) echo '<hr/>';
                 }
                 if ( 0 == $occurrenceCount ) echo 'no occurrence available';
                 break;
-            
+
             case 'newEventOccurrenceDataEntry' :
                   echo $form[$name]->renderHiddenFields();
                   echo $form[$name]['start_date']->renderLabel();
