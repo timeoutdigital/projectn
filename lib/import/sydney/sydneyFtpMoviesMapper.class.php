@@ -45,8 +45,9 @@ class sydneyFtpMoviesMapper extends DataMapper
     foreach( $this->feed->film as $film )
     {
         if( $this->insertedMoreThanThreeMonthsAgo( $film ) )
+        {
           continue;
-
+        }
         $movie = $this->dataMapperHelper->getMovieRecord( (string) $film->EventID );
         $movie['Vendor']            = $this->vendor;
         $movie['vendor_movie_id']   = (string) $film->EventID;
@@ -68,6 +69,16 @@ class sydneyFtpMoviesMapper extends DataMapper
         //$movie['company']           = (string);
         //$movie['rating']            = (string);
         $movie['utf_offset']        = (string) $this->vendor->getUtcOffset();
+
+        try
+        {
+            $movie->addMediaByUrl( (string) $film->ImagePath );
+        }
+        catch( Exception $exception )
+        {
+            $this->notifyImporterOfFailure($exception);
+        }
+
 
         ImportLogger::saveRecordComputeChangesAndLog( $movie );
     }
