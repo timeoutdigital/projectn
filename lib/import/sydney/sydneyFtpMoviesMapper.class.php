@@ -70,7 +70,15 @@ class sydneyFtpMoviesMapper extends DataMapper
         //$movie['rating']            = (string);
         $movie['utf_offset']        = (string) $this->vendor->getUtcOffset();
 
-        $movie->addMediaByUrl( (string) $film->ImagePath );
+        try
+        {
+            $movie->addMediaByUrl( (string) $film->ImagePath );
+        }
+        catch( Exception $exception )
+        {
+            $this->notifyImporterOfFailure($exception);
+        }
+
 
         ImportLogger::saveRecordComputeChangesAndLog( $movie );
     }

@@ -64,7 +64,14 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['star_rating']       = $this->extractRating( $venue );
       $poi['review_date']       = (string) $this->extractDate( $venue->DateUpdated );
 
-      $poi->addMediaByUrl( (string) $venue->ImagePath );
+      try
+      {
+        $poi->addMediaByUrl( (string) $venue->ImagePath );
+      }
+      catch( Exception $exception )
+      {
+        $this->notifyImporterOfFailure($exception);
+      }
 
       $cats = $this->extractVendorCategories( $venue );
       if( count( $cats ) )
