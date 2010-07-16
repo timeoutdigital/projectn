@@ -83,6 +83,46 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertGreaterThan( 0, $event[ 'EventOccurrence' ]->count() );
     $this->assertEquals( 4630349, $event[ 'EventOccurrence' ][0]['vendor_event_occurrence_id'] );
+
+    // validate Occurrences
+    $occurrence = $event[ 'EventOccurrence' ][0];
+    $this->assertEquals('2010-05-21' , $occurrence['start_date']);
+    $this->assertEquals('19:00' , $occurrence['start_time']);
+    
+    $this->assertEquals('2010-05-21' , $occurrence['end_date']);
+    $this->assertEquals('19:01' , $occurrence['end_time']);
+
+    // Empty Start / End Time
+    $occurrence = $event[ 'EventOccurrence' ][1];
+    $this->assertEquals('2010-05-21' , $occurrence['start_date']);
+    $this->assertEquals(null , $occurrence['start_time']);
+
+    $this->assertEquals('2010-05-21' , $occurrence['end_date']);
+    $this->assertEquals(null , $occurrence['end_time']);
+
+    // End Date Greater
+    $occurrence = $event[ 'EventOccurrence' ][2];
+    $this->assertEquals('2010-05-21' , $occurrence['start_date']);
+    $this->assertEquals('19:00' , $occurrence['start_time']);
+
+    $this->assertEquals('2010-05-22' , $occurrence['end_date']);
+    $this->assertEquals('19:00' , $occurrence['end_time']);
+
+    // No End Date but End Time = Start time
+    $occurrence = $event[ 'EventOccurrence' ][3];
+    $this->assertEquals('2010-05-21' , $occurrence['start_date']);
+    $this->assertEquals('19:00' , $occurrence['start_time']);
+
+    $this->assertEquals('' , $occurrence['end_date']);
+    $this->assertEquals(null , $occurrence['end_time']);
+
+    // No End date but End Time is Greater then Start time
+    $occurrence = $event[ 'EventOccurrence' ][4];
+    $this->assertEquals('2010-5-21' , $occurrence['start_date']); // 0 Removed from month to check DateTime Formating working when checking time
+    $this->assertEquals('19:00' , $occurrence['start_time']);
+
+    $this->assertEquals('' , $occurrence['end_date']);
+    $this->assertEquals('19:10' , $occurrence['end_time']);
   }
 
   private function getVenueIdsFromXml()

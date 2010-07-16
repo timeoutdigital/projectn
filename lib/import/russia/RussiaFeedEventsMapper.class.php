@@ -71,6 +71,9 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                   $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
                   $occurrence[ 'Poi' ] = $poi;
 
+                  // Fix for Start time = End Time / Only String Matching...
+                  $occurrence[ 'end_time' ] = $this->fixedEndTime($occurrence);
+
                   $event['Vendor'] = $this->vendor;
 
                   // Categories (Requires Vendor)
@@ -103,6 +106,29 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           $this->notifyImporterOfFailure( $exception, $event );
       }
     }
+  }
+
+  /**
+   * Compare Start DateTime and End Date to see that End Date is Greater or Return Null
+   *
+   * @param EventOccurrence $occurrence
+   * @return string (end TIME only or NULL)
+   */
+  private function fixedEndTime( $occurrence ){
+
+      // Check for EMPTY
+      if($occurrence[ 'start_time' ] == null || $occurrence[ 'end_time' ] == null) return null;
+
+      // Create Start Date & Time
+      $startDateTime = DateTime::createFromFormat('Y-m-d H:i', $occurrence[ 'start_date' ].$occurrence[ 'start_time' ]);
+
+      if($occurrence[ 'end_date' ] == null || trim($occurrence[ 'end_date' ]) == '')
+          $endDateTime = DateTime::createFromFormat('Y-m-d H:i', $occurrence[ 'start_date' ].$occurrence[ 'end_time' ]);
+      else
+          $endDateTime = DateTime::createFromFormat('Y-m-d H:i', $occurrence[ 'end_date' ].$occurrence[ 'end_time' ]);
+
+      // Compare Dates and Return End Time Value
+      return ($endDateTime > $startDateTime) ? $occurrence[ 'end_time' ] : null;
   }
   
 }
