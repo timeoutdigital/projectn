@@ -29,7 +29,7 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
 
             // Column Mapping
             $movie['vendor_movie_id']   = $vendor_movie_id;
-            $movie['name']              = (string) $movieElement->name;
+            $movie['name']              = $this->getRussianName((string) $movieElement->name);
             $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot ); // Requires Double Entity Decoding
             $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review ); // Requires Double Entity Decoding
             $movie['url']               = (string) $movieElement->url;
@@ -104,5 +104,19 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
         }
     }
   }
+
+  /**
+    * Split Movie Name by / and Return Russian names only
+    * @param string $movieName
+    * @return string Russian Movie name (or Null)
+    */
+  private function getRussianName($movieName){
+      if($movieName == null || stringTransform::mb_trim($movieName) =='' ) return null;
+
+      $movieName = mb_split('/', $movieName); // Split
+
+      return stringTransform::mb_trim($movieName[0]); // trim  spaces and Return
+  }
+
 }
 ?>
