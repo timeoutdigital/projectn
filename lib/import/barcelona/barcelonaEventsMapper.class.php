@@ -33,7 +33,7 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
           $event['description']             = $this->fixHtmlEntities( $this->clean( (string) $eventElement->description ) );
           $event['booking_url']             = $this->clean( (string) $eventElement->booking_url );
           $event['url']                     = $this->clean( (string) $eventElement->url );
-          $event['price']                   = $this->clean( (string) $eventElement->price );
+          $event['price']                   = $this->clean( str_replace(PHP_EOL, '', (string) $eventElement->price));
           $event['Vendor']                  = clone $this->vendor;
 
           // Timeout Link
