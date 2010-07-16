@@ -41,7 +41,6 @@ class DataEntryEventsMapper extends DataMapper
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
 
-
     }
 
     public function mapEvents()
@@ -112,11 +111,9 @@ class DataEntryEventsMapper extends DataMapper
                 $occurrence[ 'Poi' ] = $poi;
 
                 $event['Vendor'] = $this->vendor;
-
            }
            die("");
         }
-
 
     }
 }

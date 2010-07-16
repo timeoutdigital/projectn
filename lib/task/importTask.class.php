@@ -501,7 +501,7 @@ class importTask extends sfBaseTask
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
 
         if( in_array( $options['type'], array( "event", "movie" ) ) )
-            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
+            $feedObj = new Curl( 'http://192.9.1.220/kl/events_small.xml' );
         elseif( $options['type'] == "poi" )
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
         else break;
@@ -518,7 +518,6 @@ class importTask extends sfBaseTask
           break; //End Poi
 
           case 'event':
-
             $xml = $this->removeKualaLumpurMoviesFromEventFeed( $xml );
             $mapperClass = 'kualaLumpurEventsMapper';
             

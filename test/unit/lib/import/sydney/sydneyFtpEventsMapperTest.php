@@ -109,5 +109,17 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 1, $event['EventOccurrence']->count() );
   }
 
+<<<<<<< Updated upstream:test/unit/lib/import/sydney/sydneyFtpEventsMapperTest.php
   
+=======
+  public function testHasImage()
+  {
+    $event = $this->eventTable->findOneById( 1 );
+
+    $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
+                          $event['EventMedia'][0]['url']
+                          );
+  }
+
+>>>>>>> Stashed changes:test/unit/lib/import/sydney/sydneyFtpEventsMapperTest.php
 }
