@@ -17,9 +17,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var LisbonFeedVenuesMapper
-   */
+
   protected $object;
 
   /**
@@ -47,6 +45,8 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
     $londonPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7912 , 'vendor_id' => 1 ) ); //fixture event happens at this venue
+
+    $londonPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7913 , 'vendor_id' => 1 ) ); //fixture event happens at this venue
 
     DataEntryImportManager::setImportDir( $importDir );
 
@@ -80,7 +80,11 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '10', $event['price'] );
     $this->assertEquals( '1', $event['rating'] );
     $this->assertEquals( '1', $event['vendor_id'] );
-    $this->assertEquals( 'London | Around Town', $event['VendorEventCategory'] [ 'London | Around Town' ]['name'] );
+
+    $vendorCategories = $event['VendorEventCategory']->toArray();
+
+    $this->assertEquals( 'London', $vendorCategories[ 'London'] ['name'] );
+    $this->assertEquals( 'Around Town', $vendorCategories[ 'Around Town'] ['name'] );
     $eventOccurrence1 = $event['EventOccurrence'][0];
 
     $this->assertEquals( '2010-07-12', $eventOccurrence1['start_date'] );
@@ -93,5 +97,42 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '10:00:01', $eventOccurrence2['start_time'] );
     $this->assertEquals( '11:00:01', $eventOccurrence2['end_time'] );
     $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
+
+    $this->assertGreaterThan( 0, $event[ 'EventProperty' ]->count() );
+    $this->assertEquals( 'http://www.timeout.ru/cinema/event/15032/', $event[ 'EventProperty' ][0] ['value']  );
+    $this->assertEquals( 'Timeout_link', $event[ 'EventProperty' ][0] ['lookup']  );
+
+    $this->assertGreaterThan( 0, $event[ 'EventMedia' ]->count() );
+    $this->assertEquals( 'http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg', $event[ 'EventMedia' ][0] ['url']  );
+
+
+    $eventOccurrence3 = $event['EventOccurrence'][3];
+    $this->assertEquals( '2010-08-12', $eventOccurrence3['start_date'] );
+    $this->assertEquals( '10:00:01', $eventOccurrence3['start_time'] );
+    $this->assertEquals( '11:00:01', $eventOccurrence3['end_time'] );
+
+  }
+
+  public function testOccurrenceIdsAreSameAfterTwoImports()
+  {
+    $events = Doctrine::getTable('Event')->findAll();
+    $this->assertGreaterThan( 1, $events->count() );
+    $this->assertLessThan( 7, $events->count() );
+
+    $event = $events[ 0 ];
+
+    $occurrence = $event['EventOccurrence'][0];
+
+    //run the import again
+    DataEntryImportManager::importEvents( );
+
+    $events = Doctrine::getTable('Event')->findAll();
+    $event = $events[ 0 ];
+    $occurrence2 =$event['EventOccurrence'][0];
+
+    $this->assertEquals( $occurrence['vendor_event_occurrence_id'], $occurrence2['vendor_event_occurrence_id']);
+    $this->assertEquals( $occurrence['id'], $occurrence2['id']);
+    $this->assertEquals( $occurrence['event_id'], $occurrence2['event_id']);
+
   }
 }
