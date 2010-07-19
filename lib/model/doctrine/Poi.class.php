@@ -485,7 +485,6 @@ class Poi extends BasePoi
 
     $this['longitude'] = $long;// $geoEncoder->getLongitude();
     $this['latitude']  = $lat; //$geoEncoder->getLatitude();
-echo '#';
   }
 
   public function geoCodeIsValid()
