@@ -42,11 +42,12 @@ class sydneyFtpVenuesMapper extends DataMapper
   {
     foreach( $this->feed->venue as $venue )
     {
+
       $poi = $this->dataMapperHelper->getPoiRecord( (string) $venue->VenueID );
 
       $poi['Vendor']            = $this->vendor;
       $poi['vendor_poi_id']     = (string) $venue->VenueID;
-      
+
       $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
 
       $poi['poi_name']          = (string) $venue->Name;
@@ -63,7 +64,15 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['star_rating']       = $this->extractRating( $venue );
       $poi['review_date']       = (string) $this->extractDate( $venue->DateUpdated );
 
-      //$poi->addMediaByUrl(     (string) $venue->ImagePath );
+      try
+      {
+        $poi->addMediaByUrl( (string) $venue->ImagePath );
+      }
+      catch( Exception $exception )
+      {
+        $this->notifyImporterOfFailure($exception);
+      }
+
       $cats = $this->extractVendorCategories( $venue );
       if( count( $cats ) )
       {

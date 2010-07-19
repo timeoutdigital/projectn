@@ -53,7 +53,20 @@ class kualaLumpurEventsMapper extends DataMapper
             $this->notifyImporterOfFailure($exception);
           }
 
+
           $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $record, $eventId );
+
+          // occurrences of this event will be deleted and will be added again
+          // this causes auto_increment id's to increment each time, we may run out of ids at some point
+          // so we will keep the old id
+
+          if( $occurrence !== false )
+          {
+            $occurrenceId = $occurrence[ 'id' ];
+            $occurrence = new EventOccurrence( );
+            $occurrence[ 'id' ] = $occurrenceId;
+          }
+
           $occurrence[ 'vendor_event_occurrence_id' ] = $eventId;
           $occurrence['start_date'] = (string) $event->occurrences->start_date;
           $occurrence['start_time'] = stringTransform::extractStartTime( (string) $event->occurrences->start_time );

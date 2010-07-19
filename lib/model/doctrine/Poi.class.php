@@ -58,6 +58,23 @@ class Poi extends BasePoi
     $this->geoEncoder = $geoEncoder;
   }
 
+  public function fixStreetName()
+  {
+    $cityName =  $this[ 'city' ];
+
+    $this[ 'street' ] = str_ireplace( ','.$cityName , ', '.$cityName , trim( $this[ 'street' ] ) );
+    //remove the last word and comma if it's the city name
+    $streetNameParts = explode( ' ', $this[ 'street' ] );
+
+    if( strtolower( trim( end( $streetNameParts  ) ))  == strtolower ( $cityName ) )
+    {
+        unset( $streetNameParts [ count( $streetNameParts ) -1 ]  );
+        $this[ 'street' ] = implode( ' ',$streetNameParts );
+    }
+
+    $this[ 'street' ] = preg_replace( '/[, ]*$/', '', $this[ 'street' ] );
+  }
+
   public function fixPoiName()
   {
     $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
@@ -368,9 +385,11 @@ class Poi extends BasePoi
      // NOTE - All Fixes MUST be Multibyte compatible.
      $this->fixHTMLEntities();
      $this->fixPoiName();
+     $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();
+     $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
      $this->cleanStreetField();
@@ -443,6 +462,15 @@ class Poi extends BasePoi
      }
   }
 
+
+  private function fixEmail()
+  {
+     if( ! stringTransform::isValidEmail ( $this['email'] ) )
+     {
+        $this['email'] = null;
+     }
+  }
+
   public function lookupAndApplyGeocodes()
   {
     if( $this->geoEncodeByPass )
@@ -472,7 +500,7 @@ class Poi extends BasePoi
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
     }
 
-    $this->addMeta( "Geo_Source", "Google" );
+    $this->addMeta( "Geo_Source",  get_class( $geoEncoder ) );
   }
 
   public function geoCodeIsValid()

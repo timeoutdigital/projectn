@@ -65,7 +65,15 @@ class sydneyFtpEventsMapper extends DataMapper
           if ( (string) $eventNode->Free == 'True' )
             $event['FreeProperty'] = true;
 
-          //$event->addMediaByUrl( (string) $eventNode->ImagePath );
+
+          // Try Catch Erro's when getting Headers!
+          try {
+            $event->addMediaByUrl( (string) $eventNode->ImagePath );
+          }
+          catch( Exception $e )
+          {
+            $this->notifyImporterOfFailure($e);
+          }
 
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 
@@ -88,12 +96,15 @@ class sydneyFtpEventsMapper extends DataMapper
 
               $occurrence['end_date']                     = $this->extractDate( (string) $eventNode->DateTo, true );
               $occurrence['vendor_event_occurrence_id']   = Doctrine::getTable("EventOccurrence")
-                                                                ->generateVendorEventOccurrenceId( $event['id'], $poi['id'], $occurrence[ 'start_date' ] );
+                                                                ->generateVendorEventOccurrenceId( $event['vendor_event_id'], $poi['id'], $occurrence[ 'start_date' ] );
               $occurrence['utc_offset']                   = $this->vendor->getUtcOffset();
               $occurrence['Poi']                          = $poi;
 
               $event['EventOccurrence']->delete();
               $event['EventOccurrence'][] = $occurrence;
+          }else{
+              $this->notifyImporterOfFailure( new Exception( 'Could not find Sydney Poi with Vendor name of '. (string) $event['name']  ) );
+              continue;
           }
 
           $this->notifyImporter( $event );

@@ -327,8 +327,17 @@ class stringTransform
         exit;
       }
 
+      // check if the url is something like that : http://ccmatasiramis@bcn.cat
+      // see ticket : #464
+
+      $urlparts = parse_url( $subject );
+
+      if( !empty( $urlparts [ 'user' ] ) )
+      {
+        return null;
+      }
       //Check if domain is valid
-      $valid = $validate->uri($subject ,array("allowed_schemes"=>array('https', 'http'),"domain_check"=>true));
+      $valid = $validate->uri( $subject ,array( "allowed_schemes" => array( 'https', 'http' ), "domain_check "=> true ) );
 
       if($valid)
       {
@@ -338,6 +347,36 @@ class stringTransform
       {
           return null;
       }
+
+  }
+
+  /**
+   * validates email address using Pear validate
+   *
+   * @param unknown_type $email
+   * @return boolean
+   */
+  public static function isValidEmail( $email )
+  {
+     //Return if no email
+      if( empty( $email ) )
+      {
+        return false;
+      }
+
+     try
+      {
+        $validate = new Validate();
+      }
+      catch (Exception $e)
+      {
+        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
+        exit;
+      }
+       //Check if domain is valid
+     return $validate->email( $email ,array( "fullTLDValidation "=> true ,"domain_check" => true ) );
+
+
 
   }
 

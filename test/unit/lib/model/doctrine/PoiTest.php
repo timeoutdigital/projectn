@@ -421,6 +421,57 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
    }
 
+   public function testValidateUrlAndEmail()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Barcelona" ) );
+      $poi['url'] = 'ccmatasiramis@bcn.cat'; //invalid url
+      $poi['email'] = 'info@botafumeiro'; //invalid email
+
+      $poi->save();
+      $this->assertEquals( '', $poi['url'] , 'invalid url should be saved as NULL' );
+      $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
+   }
+
+  public function testStreetDoesNotEndWithCityName()
+  {
+
+    $streetNames = array(
+        'foo, '                                                 => 'foo',
+        'foo,'                                                  => 'foo',
+        '152-154  King\'s Road, London'                         => '152-154  King\'s Road',
+        '117 Commercial St Old Spitalfields Market , London'    => '117 Commercial St Old Spitalfields Market',
+        '88 Marylebone Lane London'                             => '88 Marylebone Lane',
+        'London'                                                => '',
+        '211a Clapham Rd London'                                => '211a Clapham Rd',
+        '5-7 Islington Studios London'                          => '5-7 Islington Studios',
+        'Between London Bridge and Tower Bridge'                => 'Between London Bridge and Tower Bridge',
+        '71-73 Torriano Av London'                              => '71-73 Torriano Av',
+        '5 Bishopsgate Churchyard, London'                      => '5 Bishopsgate Churchyard',
+        'Arch London, 50 Great Cumberland Place'                => 'Arch London, 50 Great Cumberland Place',
+        'Southern Terrace, Westfield London, Ariel Way'         => 'Southern Terrace, Westfield London, Ariel Way',
+        '5  Huguenot Place , 17a Heneage St , London '          => '5  Huguenot Place , 17a Heneage St',
+        '5  Huguenot Place , 17a Heneage St,London '            => '5  Huguenot Place , 17a Heneage St',
+        '5  Huguenot Place , 17a Heneage St,london'             => '5  Huguenot Place , 17a Heneage St'
+    );
+
+    $london = ProjectN_Test_Unit_Factory::get('Vendor', array( 'id' => 4 ));
+
+    foreach ($streetNames as $initialStreetName => $expectedStreetName)
+    {
+         $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+         $poi['street'] = $initialStreetName;
+         $poi[ 'city'] = 'London';
+         $poi['Vendor'] = $london;
+         $poi->save();
+
+         $this->assertEquals( $expectedStreetName, $poi[ 'street' ] );
+
+    }
+
+  }
+
 }
 
 class MockGeoEncodeForPoiTest extends geoEncode
