@@ -67,8 +67,16 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 2882,  $movie['vendor_movie_id'] );
     $this->assertEquals( 'Bright Star', $movie['name'] );
-    $this->assertEquals( 'Культовый в', mb_substr( $movie['review'],0 , 11, 'UTF-8' ) );
-    $this->assertEquals( '+04:00', $movie['utf_offset'] );
+    $this->assertEquals( 'Action movie addicts who do evil in this life should be forced to watch Bright Star over and over in the next.',  $movie['review'] );
+
+    $genres = $movie[ 'MovieGenres' ]->toArray();
+
+    $this->assertEquals( 2, count( $genres) );
+
+    $this->assertEquals( 'genre1' , $genres['genre1']['genre'] );
+    $this->assertEquals( 'genre2' , $genres['genre2']['genre'] );
+
+    $this->assertEquals( '+10:00', $movie['utf_offset'] );
 
     $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );
     $this->assertEquals( "Timeout_link", $movie[ 'MovieProperty' ][0]['lookup'] );
@@ -76,9 +84,28 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertGreaterThan( 0, $movie[ 'Vendor' ]->count() );
 
-    $this->assertGreaterThan( 0, $movie[ 'MovieGenres' ]->count() );
-    $this->assertEquals( "Драма", $movie[ 'MovieGenres' ]['Драма']['genre'] );
-    $this->assertEquals( "Кино", $movie[ 'MovieGenres' ]['Кино']['genre'] );
+    $this->assertEquals( 2, count( $movie[ 'MovieGenres' ] ) );
+    $this->assertEquals( 'sample tag-line string goes here', $movie[ 'tag_line' ] );
+    $this->assertEquals( 'sample plot string goes there', $movie[ 'plot' ] );
+    $this->assertEquals( '4', $movie[ 'rating' ] );
+    $this->assertEquals( 'Jane Campion', $movie[ 'director' ] );
+    $this->assertEquals( 'Anne-Marie Duff', $movie[ 'writer' ] );
+    $this->assertEquals( 'Abbie Cornish, Ben Whishaw', $movie[ 'cast' ] );
+
+    $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );
+    $this->assertEquals( 'http://www.timeout.ru/cinema/event/15032/', $movie[ 'MovieProperty' ][0] ['value']  );
+    $this->assertEquals( 'Timeout_link', $movie[ 'MovieProperty' ][0] ['lookup']  );
+
+    $this->assertGreaterThan( 0, count( $movie[ 'MovieMedia' ]->count() ) );
+    $this->assertEquals( 'http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg', $movie[ 'MovieMedia' ][0] ['url']  );
+
+    $this->assertEquals( 'http://www.google.com', $movie[ 'url' ] );
+    $this->assertEquals( 'PG', $movie[ 'age_rating' ] );
+    $this->assertEquals( '119 mins', $movie[ 'duration' ] );
+    $this->assertEquals( 'english', $movie[ 'language' ] );
+    $this->assertEquals( 'aspect-ratio-string', $movie[ 'aspect_ratio' ] );
+    $this->assertEquals( 'sound-mix-string', $movie[ 'sound_mix' ] );
+    $this->assertEquals( 'string-for-company-name', $movie[ 'company' ] );
 
   }
 }
