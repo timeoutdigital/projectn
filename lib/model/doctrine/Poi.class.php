@@ -466,6 +466,14 @@ class Poi extends BasePoi
     $long = $geoEncoder->getLongitude();
     $lat = $geoEncoder->getLatitude();
 
+    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
+    {
+      $this['longitude'] = null;
+      $this['latitude']  = null;
+    //  throw new GeoCodeException('Geo encode accuracy below 5' );
+      return;
+    }
+
     if( strlen( $long ) > $longitudeLength )
         $long = substr( (string) $long, 0, $longitudeLength );
 
@@ -477,13 +485,6 @@ class Poi extends BasePoi
 
     $this['longitude'] = $long;// $geoEncoder->getLongitude();
     $this['latitude']  = $lat; //$geoEncoder->getLatitude();
-
-    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
-    {
-      $this['longitude'] = null;
-      $this['latitude']  = null;
-    //  throw new GeoCodeException('Geo encode accuracy below 5' );
-    }
 
   }
 
