@@ -256,11 +256,13 @@ class Poi extends BasePoi
    * @param string $value
    * @return boolean if value is null or existing
    */
-  public function addMeta( $lookup, $value )
+  public function addMeta( $lookup, $value, $comment = null )
   {
     $poiMetaObj = new PoiMeta();
     $poiMetaObj[ 'lookup' ] = (string) $lookup;
     $poiMetaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $poiMetaObj[ 'comment' ] = (string) $comment;
 
     $this[ 'PoiMeta' ][] = $poiMetaObj;
   }
@@ -643,8 +645,17 @@ class Poi extends BasePoi
   {
         if( is_numeric( $lat ) && is_numeric( $long ) )
         {
+            $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+            $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
+
+            if( strlen( $long ) > $longitudeLength )
+                $long = substr( (string) $long, 0, $longitudeLength );
+
+            if( strlen( $lat ) > $latitudeLength )
+                $lat = substr( (string) $lat, 0, $latitudeLength );
+
             if( $this['latitude'] != $lat || $this['longitude'] != $long )
-                $this->addMeta( "Geo_Source", "Feed" );
+                $this->addMeta( "Geo_Source", "Feed", "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
 
             $this['latitude']                      = $lat;
             $this['longitude']                     = $long;
