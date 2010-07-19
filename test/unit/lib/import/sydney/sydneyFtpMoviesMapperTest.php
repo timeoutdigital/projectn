@@ -18,6 +18,19 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+
+    $feed     = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_films.xml' );
+    $vendor   = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
+                                                 'city'     => 'sydney',
+                                                 'language' => 'en-AU',
+                                                 'country'  => 'AUS',
+                                                 ) );
+
+    $importer = new Importer();
+    $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $feed ) );
+    $importer->run();
+
+
   }
 
   public function tearDown()
@@ -27,20 +40,21 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapping()
   {
-    $feed     = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_films.xml' );
-    $vendor   = ProjectN_Test_Unit_Factory::add( 'Vendor',  array( 
-                                                 'city'     => 'sydney', 
-                                                 'language' => 'en-AU', 
-                                                 'country'  => 'AUS', 
-                                                 ) );
-
-    $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $feed ) );
-    $importer->run();
 
     $this->assertEquals( 1,
                          Doctrine::getTable( 'Movie' )->count(),
                         'Database should have same number of Movies as feed after import'
                          );
   }
+
+  public function testHasImages()
+  {
+     $movies = Doctrine::getTable( 'Movie' )->findAll();
+
+     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
+                          $movies[0]['MovieMedia'][0]['url']
+                          );
+  }
+
+
 }

@@ -181,7 +181,7 @@ EventCategory:
     VendorEventCategory:        {class: VendorEventCategory, refClass: LinkingEventCategoryMapping}
   indexes:
     name_index:                 {fields: [name]}
-    
+
 #VendorEvent Category
 VendorEventCategory:
   connection: project_n
@@ -364,6 +364,7 @@ Vendor:
     inernational_dial_code:     {type: string(5)}
     airport_code:               {type: string(3), notnull: true}
     country_code:               {type: string(2), notnull: true}
+    country_code_long:          {type: string(3), notnull: true}
     geo_boundries:              {type: string(255), notnull: true}
   indexes:
     city_index:                 {fields: [city]}

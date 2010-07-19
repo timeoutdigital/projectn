@@ -53,14 +53,27 @@ class kualaLumpurEventsMapper extends DataMapper
             $this->notifyImporterOfFailure($exception);
           }
 
+
           $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $record, $eventId );
+
+          // occurrences of this event will be deleted and will be added again
+          // this causes auto_increment id's to increment each time, we may run out of ids at some point
+          // so we will keep the old id
+
+          if( $occurrence !== false )
+          {
+            $occurrenceId = $occurrence[ 'id' ];
+            $occurrence = new EventOccurrence( );
+            $occurrence[ 'id' ] = $occurrenceId;
+          }
+
           $occurrence[ 'vendor_event_occurrence_id' ] = $eventId;
           $occurrence['start_date'] = (string) $event->occurrences->start_date;
           $occurrence['start_time'] = stringTransform::extractStartTime( (string) $event->occurrences->start_time );
           $occurrence['end_date'] = (string) $event->occurrences->end_date;
           $occurrence['utc_offset'] = $this->vendor->getUtcOffset( (string) $event->occurrences->start_date );
 
-          $poi = $this->dataMapperHelper->getPoiRecord( (string) $event->occurrences->venue, $this->vendor['id'] );
+          $poi = $this->dataMapperHelper->getPoiRecord( (string) $event->address_details->venue_id  );
 
           if( !$poi->exists() )
           {
@@ -69,11 +82,11 @@ class kualaLumpurEventsMapper extends DataMapper
           }
 
           $occurrence['Poi'] = $poi;
-
-          $record['EventOccurrence']->delete();          
+          $record['EventOccurrence']->delete();
           $record['EventOccurrence'][] = $occurrence;
 
           $this->notifyImporter( $record );
+
         }
         catch( Exception $exception )
         {
@@ -85,8 +98,7 @@ class kualaLumpurEventsMapper extends DataMapper
   private function isFilm( $event )
   {
     return (string) $event->categories->category     == 'Film'
-        && (string) $event->categories->subCategory  == 'Screenings'
-        && (string) $event->categories->genre        != ''
+        && ( (string) $event->categories->subCategory  == 'Screenings' || (string) $event->categories->subCategory  == 'Movies'  )
         ;
   }
 
