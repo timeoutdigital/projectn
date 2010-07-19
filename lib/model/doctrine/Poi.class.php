@@ -463,7 +463,7 @@ class Poi extends BasePoi
     $long = $geoEncoder->getLongitude();
     $lat = $geoEncoder->getLatitude();
 
-    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy || ($long == null || $lat == null ))
+    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
     {
       $this['longitude'] = null;
       $this['latitude']  = null;
@@ -485,7 +485,7 @@ class Poi extends BasePoi
 
     $this['longitude'] = $long;// $geoEncoder->getLongitude();
     $this['latitude']  = $lat; //$geoEncoder->getLatitude();
-
+echo '#';
   }
 
   public function geoCodeIsValid()
