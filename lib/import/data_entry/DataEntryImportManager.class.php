@@ -5,7 +5,29 @@ class DataEntryImportManager
 
     static public function importPois()
     {
-        $files = self::getFileList( 'poi' );
+       self::runImport( 'poi' );
+    }
+
+    static public function importEvents()
+    {
+       self::runImport( 'event' );
+    }
+
+    static public function importMovies()
+    {
+       self::runImport( 'movie' );
+    }
+
+    static private function runImport( $type )
+    {
+        $validTypes = array( 'poi' ,'event','movie' );
+
+        if( !in_array( $type, $validTypes ) )
+        {
+            throw new Exception( 'invalid item type for DataEntryImportManager::getFileList' );
+        }
+
+        $files = self::getFileList( $type );
 
         foreach ( $files as $file)
         {
@@ -19,32 +41,28 @@ class DataEntryImportManager
 
             ImportLogger::getInstance()->setVendor( $vendorObj );
 
-            $importer->addDataMapper( new DataEntryPoisMapper( $xml, null, $cityName ) );
+            switch ( $type)
+            {
+                case 'poi':
+                    $importer->addDataMapper( new DataEntryPoisMapper( $xml, null, $cityName ) );
+                    break;
+
+                case 'event':
+                     $importer->addDataMapper( new DataEntryEventsMapper( $xml, null, $cityName ) );
+                     break;
+
+                case 'movie':
+                    $importer->addDataMapper( new DataEntryMoviesMapper( $xml, null, $cityName ) );
+                    break;
+            }
 
             $importer->run();
         }
     }
 
-    static public function importEvents()
+    static public function setImportDir( $dir )
     {
-        $files = self::getFileList( 'event' );
-
-        foreach ( $files as $file)
-        {
-            $importer = new Importer();
-
-            $xml = simplexml_load_file ( $file );
-
-            $cityName = basename( $file, ".xml" );
-
-            $vendorObj =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-
-            $importer->addDataMapper( new DataEntryEventsMapper( $xml, null, $cityName ) );
-
-            $importer->run();
-        }
+        self::$importDir = $dir;
     }
 
     static private function getLatestExportDir()
