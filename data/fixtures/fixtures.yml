@@ -370,6 +370,15 @@ Vendor:
     country_code:             'in'
     country_code_long:        'IND'
     geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
+  v23:
+    city:                     istanbul
+    language:                 tr
+    time_zone:                Asia/Istanbule
+    inernational_dial_code:   +90
+    airport_code:             IST
+    country_code:             tr
+    country_code_long:        TUR
+    geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
 
 
 EventCategory:
