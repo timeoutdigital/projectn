@@ -460,19 +460,19 @@ class Poi extends BasePoi
     $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
     $geoEncoder->setRegion( $this['Vendor']['country_code'] );
 
-    $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
-    $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
-
     $long = $geoEncoder->getLongitude();
     $lat = $geoEncoder->getLatitude();
 
-    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
+    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy || ($long == null || $lat == null ))
     {
       $this['longitude'] = null;
       $this['latitude']  = null;
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
       return;
     }
+
+    $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+    $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
 
     if( strlen( $long ) > $longitudeLength )
         $long = substr( (string) $long, 0, $longitudeLength );
