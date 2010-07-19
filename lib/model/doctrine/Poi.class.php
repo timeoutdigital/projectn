@@ -445,7 +445,7 @@ class Poi extends BasePoi
   {
     if( $this->geoEncodeByPass )
       return;
-
+      
     if( $this->geoCodeIsValid() )
       return;
 
@@ -460,8 +460,23 @@ class Poi extends BasePoi
     $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
     $geoEncoder->setRegion( $this['Vendor']['country_code'] );
 
-    $this['longitude'] = $geoEncoder->getLongitude();
-    $this['latitude']  = $geoEncoder->getLatitude();
+    $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+    $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
+
+    $long = $geoEncoder->getLongitude();
+    $lat = $geoEncoder->getLatitude();
+
+    if( strlen( $long ) > $longitudeLength )
+        $long = substr( (string) $long, 0, $longitudeLength );
+
+    if( strlen( $lat ) > $latitudeLength )
+        $lat = substr( (string) $lat, 0, $latitudeLength );
+
+    if( $this['latitude'] != $lat || $this['longitude'] != $long )
+        $this->addMeta( "Geo_Source", get_class( $geoEncoder ), "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
+
+    $this['longitude'] = $long;// $geoEncoder->getLongitude();
+    $this['latitude']  = $lat; //$geoEncoder->getLatitude();
 
     if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
     {
@@ -470,7 +485,6 @@ class Poi extends BasePoi
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
     }
 
-    $this->addMeta( "Geo_Source",  get_class( $geoEncoder ) );
   }
 
   public function geoCodeIsValid()
