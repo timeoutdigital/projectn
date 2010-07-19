@@ -18,6 +18,44 @@ class DataEntryImportManager
        self::runImport( 'movie' );
     }
 
+    static public function setImportDir( $dir )
+    {
+        self::$importDir = $dir;
+    }
+
+    static public function getFileList( $type )
+    {
+        $validTypes = array( 'poi' ,'event','movie' );
+
+        if( !in_array( $type, $validTypes ) )
+        {
+            throw new Exception( 'invalid item type for DataEntryImportManager::getFileList' );
+        }
+
+        $latestExportDir = self::getLatestExportDir();
+
+        $dir = $latestExportDir . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
+
+        $files = array();
+
+        if ( is_dir( $dir ) )
+        {
+            if ($dh = opendir( $dir ) )
+            {
+                while (($file = readdir( $dh )) !== false)
+                {
+                    if( filetype( $dir . $file) == 'file' && strpos( $file, '.xml' ) !== false)
+                    {
+                         $files [] = $dir .$file;
+                    }
+                }
+                closedir($dh);
+            }
+        }
+
+        return $files;
+    }
+
     static private function runImport( $type )
     {
         $validTypes = array( 'poi' ,'event','movie' );
@@ -60,11 +98,6 @@ class DataEntryImportManager
         }
     }
 
-    static public function setImportDir( $dir )
-    {
-        self::$importDir = $dir;
-    }
-
     static private function getLatestExportDir()
     {
         $subDirectories = array();
@@ -88,39 +121,4 @@ class DataEntryImportManager
 
          return self::$importDir . 'export_'. end( $subDirectories );
     }
-
-
-    static private function getFileList( $type )
-    {
-        $validTypes = array( 'poi' ,'event','movie' );
-
-        if( !in_array( $type, $validTypes ) )
-        {
-            throw new Exception( 'invalid item type for DataEntryImportManager::getFileList' );
-        }
-
-        $latestExportDir = self::getLatestExportDir();
-
-        $dir = $latestExportDir . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
-
-        $files = array();
-
-        if ( is_dir( $dir ) )
-        {
-            if ($dh = opendir( $dir ) )
-            {
-                while (($file = readdir( $dh )) !== false)
-                {
-                    if( filetype( $dir . $file) == 'file' && strpos( $file, '.xml' ) !== false)
-                    {
-                         $files [] = $dir .$file;
-                    }
-                }
-                closedir($dh);
-            }
-        }
-
-        return $files;
-    }
-
 }
