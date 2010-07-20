@@ -30,7 +30,8 @@ class DataEntryImportManager
 
         if( !in_array( $type, $validTypes ) )
         {
-            throw new Exception( 'invalid item type for DataEntryImportManager::getFileList' );
+            $this->notifyImporterOfFailure(   new Exception( 'invalid item type for DataEntryImportManager::getFileList' ) );
+            return;
         }
 
         $latestExportDir = self::getLatestExportDir();
@@ -63,7 +64,8 @@ class DataEntryImportManager
 
         if( !in_array( $type, $validTypes ) )
         {
-            throw new Exception( 'invalid item type for DataEntryImportManager::getFileList' );
+            $this->notifyImporterOfFailure(  new Exception( 'invalid item type for DataEntryImportManager::getFileList' ) );
+            return;
         }
 
         $files = self::getFileList( $type );
@@ -125,7 +127,8 @@ class DataEntryImportManager
             }
         }else
         {
-            throw new Exception( self::$importDir . ' is not a directory'  );
+             $this->notifyImporterOfFailure(  new Exception( self::$importDir . ' is not a directory'  ) );
+             return;
         }
          sort( $subDirectories );
 

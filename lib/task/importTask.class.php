@@ -24,7 +24,7 @@ class importTask extends sfBaseTask
   protected function execute($arguments = array(), $options = array())
   {
     $this->options = $options;
-    
+
     $this->writeLogLine( 'start import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
 
     //Connect to the database.
@@ -222,7 +222,7 @@ class importTask extends sfBaseTask
 
             ImportLogger::getInstance()->end();
             $this->dieWithLogMessage();
-            
+
             break;
 
           case 'movie':
@@ -243,7 +243,7 @@ class importTask extends sfBaseTask
             echo "Impored Singapores Movies \n";
             ImportLogger::getInstance()->end();
             $this->dieWithLogMessage();
-            
+
           break;
 
           case 'eating-drinking':
@@ -258,7 +258,7 @@ class importTask extends sfBaseTask
 
         $vendorObj    = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('lisbon', 'pt');
         $feedObj      = new curlImporter();
-        
+
         $daysAhead    = 7; //lisbon caps the request at max 9 days
 
         $url          = 'http://www.timeout.pt/';
@@ -266,7 +266,7 @@ class importTask extends sfBaseTask
             'from' => date( 'Y-m-d' ),
             'to' => date( 'Y-m-d', strtotime( "+$daysAhead day" ) )
         );
-        
+
         switch( $options['type'] )
         {
           case 'poi':
@@ -297,10 +297,10 @@ class importTask extends sfBaseTask
 
                 // Move start date ahead one day from last end date
                 $startDate = strtotime( "+".( $daysAhead +1 )." day", $startDate );
-                
-                echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . "-" . $parameters[ 'to' ] . PHP_EOL;                
+
+                echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . "-" . $parameters[ 'to' ] . PHP_EOL;
                 $feedObj->pullXml( $url, $request, $parameters, 'POST' );
-                
+
                 $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
               }
               catch ( Exception $e )
@@ -312,7 +312,7 @@ class importTask extends sfBaseTask
             $importer->run();
             ImportLogger::getInstance()->end();
             $this->dieWithLogMessage();
-            
+
           break;
 
           case 'movie':
@@ -328,7 +328,7 @@ class importTask extends sfBaseTask
 
           default : $this->dieDueToInvalidTypeSpecified();
         }
-        break; //end lisbon   
+        break; //end lisbon
 
 
       // Russian Cities
@@ -399,21 +399,21 @@ class importTask extends sfBaseTask
         $feedObj = new Curl( $feedUrl );
         $feedObj->exec();
         $xml = simplexml_load_string( $feedObj->getResponse() );
-        
+
         ImportLogger::getInstance()->setVendor( $vendorObj );
         $importer->addDataMapper( new $mapperClass( $xml, null, $city ) );
         $importer->run();
         ImportLogger::getInstance()->end();
-        
+
         $this->dieWithLogMessage();
 
       break; //End Russian Cities
 
 
       case 'london':
-        
+
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'london', 'en-GB' );
-        $databaseManager->getDatabase( 'searchlight_london' )->getConnection(); // Set sfDatabase        
+        $databaseManager->getDatabase( 'searchlight_london' )->getConnection(); // Set sfDatabase
 
         switch( $options['type'] )
         {
@@ -448,32 +448,32 @@ class importTask extends sfBaseTask
 
       break; //end London
 
-  
+
       case 'sydney':
-          
+
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
-        
+
         switch( $options['type'] )
         {
           case 'poi':
 
             $targetFileName = 'venues.xml';
             $mapperClass = 'sydneyFtpVenuesMapper';
-            
+
           break; //End Poi
 
           case 'event':
 
             $targetFileName = 'event.xml';
             $mapperClass = 'sydneyFtpEventsMapper';
-            
+
           break; //End Event
 
           case 'movie':
 
             $targetFileName = 'movie.xml';
             $mapperClass = 'sydneyFtpMoviesMapper';
-            
+
           break; //End Movie
 
           default : $this->dieDueToInvalidTypeSpecified();
@@ -489,7 +489,7 @@ class importTask extends sfBaseTask
 
         $importer->addDataMapper( new $mapperClass( $vendor, $xml ) );
         $importer->run();
-        
+
         ImportLogger::getInstance()->end();
         $this->dieWithLogMessage();
 
@@ -497,7 +497,7 @@ class importTask extends sfBaseTask
 
 
     case 'kuala lumpur':
-        
+
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
 
         if( in_array( $options['type'], array( "event", "movie" ) ) )
@@ -514,33 +514,33 @@ class importTask extends sfBaseTask
           case 'poi':
 
             $mapperClass = 'kualaLumpurVenuesMapper';
-            
+
           break; //End Poi
 
           case 'event':
             $xml = $this->removeKualaLumpurMoviesFromEventFeed( $xml );
             $mapperClass = 'kualaLumpurEventsMapper';
-            
+
           break; //End Event
 
           case 'movie':
-              
+
             $xml = $this->returnKualaLumpurMoviesFromEventFeed( $xml );
             $mapperClass = 'kualaLumpurMoviesMapper';
-            
+
           break; //End Movie
 
           default : $this->dieDueToInvalidTypeSpecified();
         }
 
         ImportLogger::getInstance()->setVendor( $vendor );
-        
+
         $importer->addDataMapper( new $mapperClass( $vendor, $xml ) );
         $importer->run();
-        
+
         ImportLogger::getInstance()->end();
         $this->dieWithLogMessage();
-        
+
     break; //end Kuala Lumpur
 
 
@@ -554,7 +554,7 @@ class importTask extends sfBaseTask
 
             $feedUrl = "http://projectn-pro.gnuinepath.com/venues.xml";
             $mapperClass = "barcelonaVenuesMapper";
-            
+
           break; //end Poi
 
           case 'event':
@@ -598,6 +598,15 @@ class importTask extends sfBaseTask
     break; // end uae
 
 
+    case 'data-entry':
+        switch( $options['type'] )
+        {
+          case 'poi'      : DataEntryImportManager::importPois();   break;
+          case 'poi-event': DataEntryImportManager::importEvents(); break;
+          case 'movies'   : DataEntryImportManager::importMovies(); break;
+          default : $this->dieDueToInvalidTypeSpecified();
+        }
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
@@ -637,7 +646,7 @@ class importTask extends sfBaseTask
 
           //$processXmlObj = new processNyXml('/var/workspace/projectn/import/chicago/toc_leo.xml');
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-          
+
           echo "Inserting Chicago's Events  \n";
           $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
           $nyImportObj->insertEventCategoriesAndEventsAndVenues();
@@ -654,9 +663,9 @@ class importTask extends sfBaseTask
 
   /**
    * Import Chicago's Movies
-   * 
+   *
    * @param <Vendor> $vendoObj
-   * @param <FTPClient> $ftpClientObj 
+   * @param <FTPClient> $ftpClientObj
    */
   private function importChicagoMovies($vendorObj, $ftpClientObj)
   {
@@ -705,7 +714,7 @@ class importTask extends sfBaseTask
             $importObj->import();
 
             echo "\n\n Chicago's B/C's Imported \n\n";
-                     
+
         }
         catch ( Exception $e )
         {
@@ -726,7 +735,7 @@ class importTask extends sfBaseTask
         {
             echo "Downloading Chicago's E/D feed \n";
             $fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
-            
+
             echo "Parsing Chicago's E/D's feed \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
 
@@ -746,7 +755,7 @@ class importTask extends sfBaseTask
         return $importObj;
 
   }
-  
+
 
   /***************************************************************************
    *
@@ -771,7 +780,7 @@ class importTask extends sfBaseTask
           $processXmlObj = new processNyXml( $fileNameString );
 
           //$processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
-          
+
           $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
 
           echo "Importing Ny's Event's \n";
@@ -839,7 +848,7 @@ class importTask extends sfBaseTask
         {
           echo "Exception caught in NY's B/C's import: " . $e->getMessage();
         }
-         
+
      }
 
 
@@ -888,8 +897,8 @@ class importTask extends sfBaseTask
             echo "Validating Dubai Bars XML \n";
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $xmlFeedObj = $xmlObj->getXmlFeed();
-            
-            
+
+
             echo "Importing Dubai Bars \n";
             $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
             $importDubaiBars->importPois();
@@ -1060,7 +1069,7 @@ class importTask extends sfBaseTask
 
                echo "Aahraain added \n\n";*/
 
-            
+
         }
         catch ( Exception $e )
         {
@@ -1159,10 +1168,10 @@ EOF;
           elseif( strpos( $filename, 'event' ) !== false )     $ftpFiles[ 'event' ] = $filename; // If File Listing is For an Event
           elseif( strpos( $filename, 'film' ) !== false )      $ftpFiles[ 'movie' ] = $filename; // If File Listing is For a Movie
         }
-        
+
         if( !isset( $ftpFiles[ 'poi' ] ) || !isset( $ftpFiles[ 'event' ] ) || !isset( $ftpFiles[ 'movie' ] ) )
             $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing." );
-        
+
         return $ftpFiles;
     }
 }

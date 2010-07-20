@@ -45,6 +45,7 @@ class runnerTask extends sfBaseTask
                                     //'tyumen' => array( 'poi', 'event' ),
                                     'russia' => array( 'movie' ),
                                     'barcelona' => array( 'poi', 'event', 'movie' ),
+                                    'data-entry' => array( 'poi', 'event', 'movie' )
                     ),
                     'export' => array(
                                     'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
