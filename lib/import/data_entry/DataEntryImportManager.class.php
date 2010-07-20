@@ -117,7 +117,7 @@ class DataEntryImportManager
             {
                 while (($file = readdir( $dh )) !== false)
                 {
-                    if( filetype( self::$importDir . $file) == 'dir' && strlen( $file ) > 3 )
+                    if( filetype( self::$importDir . $file) == 'dir' && strlen( $file ) > 3 && strpos( $file , 'export_' ) !== false )
                     {
                          //remove the export_ part to only get the dates
                          $subDirectories  [] = str_replace( 'export_' , '',$file );
