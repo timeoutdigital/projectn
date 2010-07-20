@@ -111,6 +111,15 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
 
     $trimmed = stringTransform::mb_trim( "\n.,Major de \nSarrià\n ,.\n", ".,\n" );
     $this->assertEquals( $trimmed, "Major de \nSarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\t.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n ,.\n", ".,\n\r" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
   }
 
   /**
