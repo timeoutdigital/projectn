@@ -65,7 +65,6 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapping()
   {
-    print_r( sfConfig::getAll() );
     $events = Doctrine::getTable('Event')->findAll();
     $this->assertGreaterThan( 1, $events->count() );
     $this->assertLessThan( 7, $events->count() );
