@@ -1,7 +1,8 @@
 <?php
 class DataEntryImportManager
 {
-    private static $importDir = '/home/emre/export/';
+
+    private static $importDir ;
 
     static public function importPois()
     {
@@ -102,6 +103,12 @@ class DataEntryImportManager
     {
         $subDirectories = array();
 
+        if( is_null( self::$importDir ) )
+        {
+           //set it to the default
+           self::$importDir = sfConfig::get('sf_root_dir') . '_data_entry' . DIRECTORY_SEPARATOR . 'export' .DIRECTORY_SEPARATOR;
+        }
+
         if ( is_dir( self::$importDir ) )
         {
             if ($dh = opendir( self::$importDir ) )
@@ -116,6 +123,9 @@ class DataEntryImportManager
                 }
                 closedir($dh);
             }
+        }else
+        {
+            throw new Exception( self::$importDir . ' is not a directory'  );
         }
          sort( $subDirectories );
 

@@ -65,7 +65,10 @@ class DataEntryEventsMapper extends DataMapper
                 }
                 $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
 
-                if( !$event ) $event = new Event();
+                if( !$event )
+                {
+                    $event = new Event();
+                }
 
                 $event[ 'review_date' ] = '';
                 $event[ 'vendor_event_id' ] = $vendorEventId;
@@ -83,14 +86,14 @@ class DataEntryEventsMapper extends DataMapper
 
                 foreach ( $eventElement->version->{$vendorCategory} as $vendorCategory)
                 {
-                 $event->addVendorCategory( trim( (string) $vendorCategory ) );
+                    $event->addVendorCategory( trim( (string) $vendorCategory ) );
                 }
 
                 // before deleting occurrences get the ids of the current occurrences and reuse them while creating occurrences.
                 // recyle the ids, save the planet!
                 $occurrenceIdsOld = array();
 
-                foreach ( $event['EventOccurrence'] as $occurrenceToDelete)
+                foreach ( $event['EventOccurrence'] as $occurrenceToDelete )
                 {
                     $occurrenceIdsOld[] = $occurrenceToDelete[ 'id' ];
                 }

@@ -64,7 +64,8 @@ class DataEntryPoisMapper extends DataMapper
 
                 if( !$vendorPoiId )
                 {
-                    continue;
+                     $this->notifyImporterOfFailure( new Exception( 'VendorPoiId not found for poi name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                     continue;
                 }
 
                 $poi = $this->dataMapperHelper->getPoiRecord( $vendorPoiId );
@@ -107,11 +108,14 @@ class DataEntryPoisMapper extends DataMapper
                 $poi['openingtimes'] =  (string) $venueElement->version->content->openingtimes;
                 $poi['star_rating'] =  (int) $venueElement->version->content->stars;
                 $poi['rating'] =  (int) $venueElement->version->content->rating;
-                $poi['geocode_look_up']  =  $poi['house_no'] .' ';
-                $poi['geocode_look_up'] .=  $poi['street'] .' ';
-                $poi['geocode_look_up'] .=  $poi['city'] .' ';
-                $poi['geocode_look_up'] .=  $poi['country'] .' ';
-                $poi['geocode_look_up'] .=  $poi['zips']  ;
+
+                $poi['geocode_look_up']  = stringTransform::concatNonBlankStrings(', ',
+                        array( $poi['house_no'] ,
+                               $poi['street'],
+                               $poi['city'],
+                               $poi['country'],
+                               $poi['zips']
+                        ) );
 
                 foreach ($venueElement->version->content->property as $property)
                 {

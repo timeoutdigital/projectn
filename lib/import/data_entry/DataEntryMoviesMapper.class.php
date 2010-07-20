@@ -64,7 +64,9 @@ class DataEntryMoviesMapper extends DataMapper
 
             $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieId );
             if( $movie === false )
+            {
                 $movie = new Movie();
+            }
 
             // version
             $movie['vendor_movie_id']   = $vendorMovieId ;

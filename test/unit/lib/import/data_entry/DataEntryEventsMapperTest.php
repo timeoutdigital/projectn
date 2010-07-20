@@ -65,6 +65,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapping()
   {
+    print_r( sfConfig::getAll() );
     $events = Doctrine::getTable('Event')->findAll();
     $this->assertGreaterThan( 1, $events->count() );
     $this->assertLessThan( 7, $events->count() );
@@ -128,7 +129,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $events = Doctrine::getTable('Event')->findAll();
     $event = $events[ 0 ];
-    $occurrence2 =$event['EventOccurrence'][0];
+    $occurrence2 = $event['EventOccurrence'][0];
 
     $this->assertEquals( $occurrence['vendor_event_occurrence_id'], $occurrence2['vendor_event_occurrence_id']);
     $this->assertEquals( $occurrence['id'], $occurrence2['id']);
