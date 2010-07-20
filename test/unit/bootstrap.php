@@ -197,6 +197,7 @@ class PoiFixture
         'longitude' => '1.1',
         'latitude' => '1.1',
         'geocode_look_up' => 'foo',
+
     );
   }
 }
@@ -253,6 +254,7 @@ class VendorFixture
       'inernational_dial_code' => '+44',
       'country_code' => 'gb',
       'geo_boundries' => '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179',
+       'country_code_long' =>  'GBR',
     );
   }
 }
