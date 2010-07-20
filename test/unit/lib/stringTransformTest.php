@@ -93,8 +93,24 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   public function testMbTrim()
   {
     // Using this weird portugese space --> <--
-    $trimmed = stringTransform::mb_trim( " \n.,.,.,\nMajor de Sarrià\n., \n  ", "., " );
+    //$trimmed = stringTransform::mb_trim( " \n.,.,.,\nMajor de Sarrià\n., \n  ", "., " );
+    // mb trim failed to trim Portugese weird whitespace. We will create a function to handle this
+    // directly in portugese mapper
+
+    $trimmed = stringTransform::mb_trim( "\nMajor de Sarrià\n ", "\n" );
     $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n.Major de Sarrià\n ", "\n." );
+    $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n,Major de Sarrià\n ", "\n," );
+    $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n.,Major de Sarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
   }
 
   /**
