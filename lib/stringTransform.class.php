@@ -13,7 +13,7 @@
  *
  *
  * @version 1.0.0
- * 
+ *
  *
  *
  */
@@ -46,7 +46,7 @@ class stringTransform
     $unit=array('b','kb','mb','gb','tb','pb');
     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
   }
-  
+
    /**
    * Multibyte safe version of trim()
    * Always strips whitespace characters (those equal to \s)
@@ -80,7 +80,7 @@ class stringTransform
       $subject .= ":00";
     return $subject;
   }
-  
+
   /**
    * Try to extract time information from a string.
    * eg '10:00', '9.15', '10h' or in the case of '10-12h', return 2 values
@@ -209,11 +209,18 @@ class stringTransform
    */
   public static function formatPhoneNumber($subject, $internationalCode)
   {
-    
+
       if( empty( $subject ) ) return NULL;
 
+      // if the phone is already prefixed with the international dial code
+      // we will remove it and it will be added later in this method
+      if( strpos( $subject , $internationalCode ) === 0 )
+      {
+        $subject = substr( $subject , strlen( $internationalCode ) );
+      }
+
       //return if not valid number is is passed in
-      if(strlen($subject) < 6)
+      if( strlen( $subject ) < 6)
       {
            //throw new PhoneNumberException('Phone number is incorrect - Less then 6 digits');
           return NULL;
@@ -251,13 +258,13 @@ class stringTransform
 
 
     $transformedSubject = '';
-    
+
 
     switch(strlen($subject))
     {
         case '7':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2", $subject);
         break;
-    
+
         case '8':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{1})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
         break;
 
@@ -287,7 +294,7 @@ class stringTransform
     }
     //var_dump(trim($transformedSubject));
      return $internationalCode. ' ' .trim($transformedSubject);
-   
+
   }
 
 
@@ -450,7 +457,7 @@ class stringTransform
    *   echo $clean;
    *   //outputs 'foo, bar, baz'
    * </code>
-   * 
+   *
    * @param string $delimiter
    * @param string $string
    * @return string
