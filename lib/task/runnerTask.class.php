@@ -62,7 +62,8 @@ class runnerTask extends sfBaseTask
                                     //'krasnoyarsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     //'tyumen' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'barcelona' => array( 'language' => 'ca', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) )
+                                    'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'mumbai' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) )
                     ),
                  );
 

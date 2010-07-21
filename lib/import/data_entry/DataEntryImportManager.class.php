@@ -127,7 +127,7 @@ class DataEntryImportManager
             }
         }else
         {
-             $this->notifyImporterOfFailure(  new Exception( self::$importDir . ' is not a directory'  ) );
+             throw  new Exception( self::$importDir . ' is not a directory'  ) ;
              return;
         }
          sort( $subDirectories );
