@@ -599,6 +599,7 @@ class importTask extends sfBaseTask
 
 
     case 'data-entry':
+        DataEntryImportManager::setImportDir( '/var/vhosts/projectn_data_entry/export/' );
         switch( $options['type'] )
         {
           case 'poi'      : DataEntryImportManager::importPois();   break;
