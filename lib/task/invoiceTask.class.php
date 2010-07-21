@@ -10,7 +10,8 @@ class invoiceTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'poi, event, movie', 'poi'),
-      new sfCommandOption('csv', null, sfCommandOption::PARAMETER_REQUIRED, 'produce as csv', 'false'),
+      new sfCommandOption('csv', null, sfCommandOption::PARAMETER_REQUIRED, 'Produce as csv', 'false'),
+      new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'Only for one city', ''),
       // add your own options here
     ));
 
@@ -99,14 +100,16 @@ EOF;
 
                 foreach( $poiFiles as $city_xml_file )
                 {
-                    $xml = simplexml_load_file( $baseDir."/".$folder."/poi/".$city_xml_file );
-                    $totalPois = count( $xml->xpath( '/vendor-pois/entry' ) );
-
                     $cutCityName = explode( ".", $city_xml_file );
                     $date = strtotime( str_replace( "export_", "", $folder ) );
 
-                    $uiCategories = array();
+                    if( strlen( $options['city'] ) > 0 && strtolower( $cutCityName[ 0 ] ) != $options['city'] ) continue;
 
+                    $xml = simplexml_load_file( $baseDir."/".$folder."/poi/".$city_xml_file );
+                    $totalPois = count( $xml->xpath( '/vendor-pois/entry' ) );
+
+                    $uiCategories = array();
+                    
                     if( !array_key_exists( $cutCityName[ 0 ], $this->existingPoiCount ) )
                         $this->existingPoiCount[ $cutCityName[ 0 ] ] = 0;
 
@@ -146,11 +149,13 @@ EOF;
 
                 foreach( $eventFiles as $city_xml_file )
                 {
-                    $xml = simplexml_load_file( $baseDir."/".$folder."/event/".$city_xml_file );
-                    $totalPois = count( $xml->xpath( '/vendor-events/event' ) );
-
                     $cutCityName = explode( ".", $city_xml_file );
                     $date = strtotime( str_replace( "export_", "", $folder ) );
+
+                    if( strlen( $options['city'] ) > 0 && strtolower( $cutCityName[ 0 ] ) != $options['city'] ) continue;
+
+                    $xml = simplexml_load_file( $baseDir."/".$folder."/event/".$city_xml_file );
+                    $totalPois = count( $xml->xpath( '/vendor-events/event' ) );
 
                     $uiCategories = array();
 
@@ -194,11 +199,13 @@ EOF;
 
                 foreach( $eventFiles as $city_xml_file )
                 {
-                    $xml = simplexml_load_file( $baseDir."/".$folder."/movie/".$city_xml_file );
-                    $totalPois = count( $xml->xpath( '/vendor-movies/movie' ) );
-
                     $cutCityName = explode( ".", $city_xml_file );
                     $date = strtotime( str_replace( "export_", "", $folder ) );
+
+                    if( strlen( $options['city'] ) > 0 && strtolower( $cutCityName[ 0 ] ) != $options['city'] ) continue;
+                    
+                    $xml = simplexml_load_file( $baseDir."/".$folder."/movie/".$city_xml_file );
+                    $totalPois = count( $xml->xpath( '/vendor-movies/movie' ) );
 
                     $uiCategories = array();
 
