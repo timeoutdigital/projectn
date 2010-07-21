@@ -49,6 +49,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $vendor['inernational_dial_code'] = '+44';
         $vendor['airport_code'] = 'XXX';
         $vendor['country_code'] = 'XX';
+        $vendor['country_code_long'] = 'XXX';
         $vendor['geo_boundries'] = '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179';
         $vendor->save();
 
@@ -59,6 +60,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->vendor2['inernational_dial_code'] = '+44';
         $this->vendor2['airport_code'] = 'XXX';
         $this->vendor2['country_code'] = 'XX';
+        $this->vendor2['country_code_long'] = 'XXX';
         $this->vendor2['geo_boundries'] = '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179';
         $this->vendor2->save();
 
@@ -70,6 +72,11 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         ProjectN_Test_Unit_Factory::add( 'VendorPoiCategory', array( 'name' => 'french restaurant', 'vendor_id' => 2 ), false );
         ProjectN_Test_Unit_Factory::add( 'VendorPoiCategory', array( 'name' => 'italian restaurant', 'vendor_id' => 2 ), false );
+
+        $uiCat = new UiCategory();
+        $uiCat['name'] = "Something";
+        $uiCat->link( "VendorPoiCategory", array( 1, 2 ) );
+        $uiCat->save();
 
         $poi = new Poi();
         $poi->setPoiName( 'test name' );
@@ -101,13 +108,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property = new PoiProperty();
         $property[ 'lookup' ] = 'poi key 1';
         $property[ 'value' ] = 'poi value 1';
-        $property->link( 'Poi', array( $poi['id'] ) );
+        $poi['PoiProperty'][] = $property;
         $property->save();
 
         $property2 = new PoiProperty();
         $property2[ 'lookup' ] = 'poi key 2';
         $property2[ 'value' ] = 'poi value 2';
-        $property2->link( 'Poi', array( $poi['id'] ) );
+        $poi['PoiProperty'][] = $property2;
         $property2->save();
 
 //        $property3 = new PoiProperty();
@@ -119,14 +126,14 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property4 = new PoiProperty();
         $property4[ 'lookup' ] = 'Critics_choice';
         $property4[ 'value' ] = 'Y';
-        $property4->link( 'Poi', array( $poi['id'] ) );
+        $poi['PoiProperty'][] = $property4;
         $property4->save();
 
         $media = new PoiMedia();
         $media[ 'ident' ] = 'md5 hash of the url';
         $media[ 'mime_type' ] = 'image/';
         $media[ 'url' ] = 'url';
-        $media->link( 'Poi', array( $poi['id'] ) );
+        $poi['PoiMedia'][] = $media;
         $media->save();
 
         $poi = new Poi();
@@ -165,6 +172,22 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     }
 
   /**
+   * 
+   */
+  public function testAddUiCategory()
+  {
+      $this->domDocument = new DOMDocument();
+      $this->domDocument->load( $this->destination );
+      $this->xpath = new DOMXPath( $this->domDocument );
+
+      //echo $this->domDocument->saveXML();
+
+      $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
+      
+      $this->assertEquals( 4, $uiCategories->length, "Should not be exporting property 'UI_CATEGORY'." );
+  }
+
+  /**
    * Check to make sure we don't export a property named 'Critics_choice' with a value which is not 'y'.
    */
   public function testOnlyYesForCriticsChoiceProperty()
@@ -181,6 +204,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     
     /**
      * @todo Someone didn't finish what they were doing.
+     * Don't git blame me, I just removed the windows end-of-line chars! -pj
      */
     public function testPoisWithoutVendorCategoriesAreNotExported()
     {
@@ -191,19 +215,22 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['latitude'] = 33.332;
       $poi['VendorPoiCategory'] = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
       $poi->save();
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
       $poi['poi_name'] = 'hello';
+      $poi['latitude'] = 33.333;
+      $poi->addVendorCategory( "moo", $this->vendor2->id );
       $poi->save();
 
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
 
       $this->runImport();
       $numEntries = $this->xml->xpath( '//entry' );
-
+      
       $this->assertEquals( 1, count( $numEntries ) );
     }
 
@@ -418,9 +445,11 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
+      //  print_r( Doctrine::getTable('PoiMedia')->findAll()->toArray() );
+      //echo $this->xml->entry[0]->asXML();
       $properties = $this->xml->entry[0]->version->content->media;
       $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
-      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/images/md5 hash of the url.jpg', (string) $properties[0] );
+      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
     }
 
     private function runImport()

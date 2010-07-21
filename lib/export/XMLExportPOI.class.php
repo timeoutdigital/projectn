@@ -20,6 +20,8 @@ class XMLExportPOI extends XMLExport
   {
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
     parent::__construct(  $vendor, $destination, 'Poi', $xsd );
+
+    ExportLogger::getInstance()->start();
   }
 
   protected function getData()
@@ -185,6 +187,15 @@ class XMLExportPOI extends XMLExport
           }
         }
       }
+
+      // UI Category Exports.
+      foreach( $poi['VendorPoiCategory'] as $vendorCat )
+        foreach( $vendorCat['UiCategory'] as $uiCat )
+           if( isset( $uiCat['name'] ) )
+           {
+                $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', (string) $uiCat['name'], XMLExport::USE_CDATA );
+                $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
+           }
 
       ExportLogger::getInstance()->addExport( 'Poi' );
 
