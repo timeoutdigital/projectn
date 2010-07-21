@@ -68,10 +68,12 @@ Review10rating8="0"
 ReviewToUse="4"
 FilmSort="Exército do Crime"
 FilmEvent="0"
-Highlight="0"><cinemaplacelink placeid="1153"/></films>
+Highlight="0"
+test="1"><cinemaplacelink placeid="1153"/></films>
 
-<films title="O Exército do Crime"
-aka="L&amp;#39;Armeé du Crime"
+<films title=" 
+L&amp;#39;Armeé du Crime"
+aka="O Exército do Crime"
 image=""
 Review1Rating="0"
 Director="Robert Guédiguian"
@@ -89,7 +91,7 @@ comments=""
 wordcount="0"
 date="2010-02-02T00:00:00"
 fg="0"
-filmID="11316"
+filmID="11317"
 ReleaseStatus="Current Release"
 Review2_=""
 Review3_=""
@@ -137,7 +139,7 @@ Review10rating8="0"
 ReviewToUse="1"
 FilmSort="Exército do Crime"
 FilmEvent="0"
-Highlight="0"><cinemaplacelink placeid="1153"/></films>
+Highlight="0"><cinemaplacelink placeid="115"/></films>
 
 <films title="Invictus"
 aka="Invictis"

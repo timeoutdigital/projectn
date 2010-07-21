@@ -65,8 +65,8 @@ class LisbonFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapMovies()
   {
-    $this->markTestSkipped();
-    /*$importer = new Importer();
+    //$this->markTestSkipped();
+    $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();
 
@@ -77,14 +77,17 @@ class LisbonFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( '11316', $movie['vendor_movie_id'] );
     $this->assertEquals( 'O Exército do Crime', $movie['name'] );
-    $this->assertEquals( '1', $movie['poi_id'] );
     //$this->assertEquals( '2.2', $movie['rating'] );
     $this->assertEquals( '', $movie['age_rating'] );
 
     $this->assertGreaterThan( 0, $movie['MovieProperty']->count() );
 
     $properties = $movie[ 'MovieProperty' ];
-    $this->assertGreaterThan( 0, $properties->count() );*/
+    $this->assertGreaterThan( 0, $properties->count() );
+
+    // Test Portuguese weird whitespace
+    $movie = $movies[1];
+    $this->assertEquals( "L'Armeé du Crime", $movie['name'] );
   }
 }
 ?>
