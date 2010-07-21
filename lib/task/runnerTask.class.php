@@ -65,6 +65,7 @@ class runnerTask extends sfBaseTask
                     ),
                  );
 
+
     foreach ( $taskArray as $task => $command )
     {
         switch( $task )
@@ -107,6 +108,9 @@ class runnerTask extends sfBaseTask
                         $this->verifyAndCreatePath( $currentExportPath );
 
                         $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city="' . $cityName . '" --language=' . $cityParams[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_", $cityName ) .'.xml';
+                        // When Events get-called, we pass POI XML destination
+                        if($type == 'event')
+                            $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_", $cityName ) .'.xml';
                         $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
                         $this->executeCommand( $taskCommand, $logCommand );
                     }
