@@ -40,83 +40,149 @@ class DataEntryEventsMapper extends DataMapper
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
-
-
     }
 
     public function mapEvents()
     {
         foreach ( $this->xml as $eventElement )
         {
-           // print_r( $eventElement );
-            foreach ( $eventElement->attributes() as $attribute => $value )
+            try
             {
-                if( $attribute == 'id' )
+                foreach ( $eventElement->attributes() as $attribute => $value )
                 {
-                    $vendorEventId = (int) substr( (string) $value,5) ;
-                }
-            }
-
-            foreach ( $eventElement->version->attributes() as $attribute => $value )
-            {
-                if( $attribute == 'lang' )
-                {
-                    $lang = (string) $value;
-                }
-            }
-
-          $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
-          if( !$event ) $event = new Event();
-
-           $event[ 'review_date' ] = '';
-           $event[ 'vendor_event_id' ] = $vendorEventId;
-           $event[ 'name' ] = (string) $eventElement->name;
-           $shortDescription = 'short-description';
-           $event[ 'short_description' ] = (string) $eventElement->version->{$shortDescription};
-           $event[ 'booking_url' ] = (string) $eventElement->version->booking_url;
-           $event[ 'url']  = (string) $eventElement->version->url;
-           $event[ 'price' ] = (string) $eventElement->version->price;
-           $event[ 'rating' ] = (string) $eventElement->version->rating;
-           $event[ 'vendor_id' ] =  $this->vendor[ 'id' ];
-
-           $event['EventOccurrence']->delete();
-
-           foreach ($eventElement->showtimes->place as $place)
-           {
-                foreach ($place->attributes() as $attribute => $value )
-                {
-                	if( $attribute == 'place-id' )
+                    if( $attribute == 'id' )
                     {
-                        $vendorPoiId = (int) substr( (string) $value,5) ;
+                        $vendorEventId = (int) substr( (string) $value,5) ;
                     }
                 }
 
-                $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( $vendorPoiId , $this->vendor['id'] );
-
-                if( !$poi )
+                foreach ( $eventElement->version->attributes() as $attribute => $value )
                 {
-                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . (string) $xmlOccurrence->venue . ' for Event ' . $vendorEventId . ' in ' . $this->vendor['city'] . "." ) );
-                    continue;
+                    if( $attribute == 'lang' )
+                    {
+                        $lang = (string) $value;
+                    }
                 }
-                /** @todo find a way to create unique occurrence ids **/
-                $vendor_occurence_id = 1;
+                $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
 
-                $occurrence = new EventOccurrence();
-                $occurrence[ 'vendor_event_occurrence_id' ]     = $vendor_occurence_id;
-                $occurrence[ 'booking_url' ]                    = (string) $xmlOccurrence->booking_url;
-                $occurrence[ 'start_date' ]                     = (string) $xmlOccurrence->start_date;
-                $occurrence[ 'start_time' ]                     = $this->extractTimeOrNull( (string) $xmlOccurrence->start_time );
-                $occurrence[ 'end_date' ]                       = (string) $xmlOccurrence->end_date;
-                $occurrence[ 'end_time' ]                       = $this->extractTimeOrNull( (string) $xmlOccurrence->end_time );
-                $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
-                $occurrence[ 'Poi' ] = $poi;
+                if( !$event )
+                {
+                    $event = new Event();
+                }
+
+                $event[ 'review_date' ] = '';
+                $event[ 'vendor_event_id' ] = $vendorEventId;
+                $event[ 'name' ] = (string) $eventElement->name;
+                $shortDescription = 'short-description';
+                $event[ 'short_description' ] = (string) $eventElement->version->{$shortDescription};
+                $event[ 'description' ] = (string) $eventElement->version->description;
+                $event[ 'booking_url' ] = (string) $eventElement->version->booking_url;
+                $event[ 'url']  = (string) $eventElement->version->url;
+                $event[ 'price' ] = (string) $eventElement->version->price;
+                $event[ 'rating' ] = (string) $eventElement->version->rating;
+                $event[ 'vendor_id' ] =  $this->vendor[ 'id' ];
+
+                $vendorCategory = 'vendor-category';
+
+                foreach ( $eventElement->version->{$vendorCategory} as $vendorCategory)
+                {
+                    $event->addVendorCategory( trim( (string) $vendorCategory ) );
+                }
+
+                // before deleting occurrences get the ids of the current occurrences and reuse them while creating occurrences.
+                // recyle the ids, save the planet!
+                $occurrenceIdsOld = array();
+
+                foreach ( $event['EventOccurrence'] as $occurrenceToDelete )
+                {
+                    $occurrenceIdsOld[] = $occurrenceToDelete[ 'id' ];
+                }
+
+                $occurrenceIdsOld = array_reverse( $occurrenceIdsOld );
+
+                $event['EventOccurrence']->delete();
 
                 $event['Vendor'] = $this->vendor;
 
-           }
-           die("");
+                foreach ($eventElement->version->property as $property)
+                {
+                    foreach ($property->attributes() as $attribute)
+                    {
+                        $event->addProperty( (string) $attribute, (string) $property );
+                    }
+                }
+
+                foreach ( $eventElement->version->media as $media )
+                {
+                    foreach ($media->attributes() as $key => $value)
+                    {
+                        if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                        {
+                            continue 2; //only add the images
+                        }
+                    }
+                    try
+                    {
+                        $event->addMediaByUrl( (string) $media );
+                    }
+                    catch ( Exception $exception )
+                    {
+                         $this->notifyImporterOfFailure( $exception );
+                    }
+                }
+
+                foreach ($eventElement->showtimes->place as $place)
+                {
+                    foreach ($place->attributes() as $attribute => $value )
+                    {
+                    	if( $attribute == 'place-id' )
+                        {
+                            $vendorPoiId = (int) substr( (string) $value,5) ;
+                        }
+                    }
+
+                    $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( $vendorPoiId , $this->vendor['id'] );
+
+                    if( !$poi )
+                    {
+                        $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi vendor poi id: ' . (string) $vendorPoiId . ' for Event ' . $vendorEventId . ' in ' . $this->vendor['city'] . "." ) );
+                        continue;
+                    }
+
+                    foreach ( $place->occurrence as $xmlOccurrence )
+                    {
+                        $vendorOccurenceId  = $vendorEventId . '_' ;
+                        $vendorOccurenceId .= $vendorPoiId . '_' ;
+                        $vendorOccurenceId .= date( 'Ymd' , strtotime( (string) $xmlOccurrence->time->start_date ) ) . '_' ;
+                        $vendorOccurenceId .= date( 'His' , strtotime( (string) $xmlOccurrence->time->event_time  ) ) ;
+
+                        $occurrence = new EventOccurrence();
+                        //reuse the id
+                        $occurrence[ 'id' ] = array_pop( $occurrenceIdsOld );
+
+                        $eventTime = ( string ) $xmlOccurrence->time->event_time ;
+                        $endTime   = ( string ) $xmlOccurrence->time->end_time ;
+
+                        $occurrence[ 'vendor_event_occurrence_id' ]     = $vendorOccurenceId;
+                        $occurrence[ 'booking_url' ]                    = (string) $xmlOccurrence->booking_url;
+                        $occurrence[ 'start_date' ]                     = (string) $xmlOccurrence->time->start_date;
+                        $occurrence[ 'start_time' ]                     = empty( $eventTime ) ? null : $eventTime;
+                        $occurrence[ 'end_date' ]                       = (string) $xmlOccurrence->time->end_date;
+                        $occurrence[ 'end_time' ]                       = empty( $endTime ) ? null : $endTime;
+                        $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
+                        $occurrence[ 'Poi' ] = $poi;
+
+                        $event['EventOccurrence'][] = $occurrence;
+                    }
+
+                }
+               $event->save();
+            }
+            catch ( Exception  $exception)
+            {
+                $this->notifyImporterOfFailure($exception, $event);
+            }
+
         }
-
-
     }
 }
