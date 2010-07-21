@@ -128,7 +128,7 @@ class runnerTask extends sfBaseTask
 
   }
 
-  private function _removeOldDirectoriesByPatternAndDaysInPast( $dir, $pattern, $daysInPast, $logFile )
+  protected function _removeOldDirectoriesByPatternAndDaysInPast( $dir, $pattern, $daysInPast, $logFile )
   {
       $deletedDirs = array();
 
@@ -158,13 +158,13 @@ class runnerTask extends sfBaseTask
        return $deletedDirs;
   }
 
-  private function verifyAndCreatePath( $path ) {
+  protected function verifyAndCreatePath( $path ) {
       if ( !file_exists( $path ) ) {
             mkdir( $path, 0777, true );
       }
   }
 
-  private function executeCommand( $cmd, $logfile )
+  protected function executeCommand( $cmd, $logfile )
   {
     $cmdOutput = shell_exec( $cmd . ' 2>&1' );
     file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
