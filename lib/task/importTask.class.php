@@ -607,7 +607,7 @@ class importTask extends sfBaseTask
           case 'movies'   : DataEntryImportManager::importMovies(); break;
           default : $this->dieDueToInvalidTypeSpecified();
         }
-
+    break;
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
