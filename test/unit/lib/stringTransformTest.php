@@ -256,6 +256,9 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   {
     $values = array( 'one', '', 'two', ' ', 'three' );
     $this->assertEquals( 'one, two, three', stringTransform::concatNonBlankStrings( ', ', $values ) );
+
+    $values = array( 'goo' );
+    $this->assertEquals( 'goo', stringTransform::concatNonBlankStrings( ', ', $values ) );
   }
 
   
