@@ -88,9 +88,10 @@ class EventTable extends Doctrine_Table
 
     $query = $this->createQuery( 'event' )
                   ->leftJoin( 'event.EventOccurrence occurrence' )
-                  ->leftJoin( 'event.EventProperty eventProperties' )
-                  ->leftJoin( 'event.EventMedia eventMedia' )
-                  ->leftJoin( 'event.VendorEventCategory' )
+                    ->leftJoin( 'event.EventProperty eventProperties' )
+                        ->leftJoin( 'event.EventMedia eventMedia' )
+                            ->leftJoin( 'event.VendorEventCategory vendorCat' )
+                                ->leftJoin( 'vendorCat.UiCategory' )
                   ->addWhere( 'event.vendor_id = ? ',  $vendor['id'] )
                   ->addWhere( 'occurrence.start_date >= ?', $dateString )
                   ->addOrderBy( 'occurrence.poi_id' );

@@ -172,7 +172,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     }
 
   /**
-   * 
+   * Add UI Category to Export.
    */
   public function testAddUiCategory()
   {
@@ -180,11 +180,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->domDocument->load( $this->destination );
       $this->xpath = new DOMXPath( $this->domDocument );
 
-      //echo $this->domDocument->saveXML();
-
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
-      
-      $this->assertEquals( 4, $uiCategories->length, "Should not be exporting property 'UI_CATEGORY'." );
+      $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
   /**
