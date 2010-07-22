@@ -43,8 +43,26 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * Check that the latitude & longitude values won't fail Nokia validation.
+   */
+  public function testLatLongAroundTheRightWay()
+  {
+      foreach( $this->pois as $poi )
+      {
+          $this->assertLessThan( 90, $poi['latitude'] );
+          $this->assertGreaterThan( -90, $poi['latitude'] );
+
+          $this->assertLessThan( 180, $poi['longitude'] );
+          $this->assertGreaterThan( -180, $poi['longitude'] );
+      }
+  }
+
   public function testExtractInfoFromStreetField()
   {
+    // Someone didn't finish waht they were doing.
+    $this->markTestIncomplete();
+    
     $file = file_get_contents(  TO_TEST_DATA_PATH . '/kl_street_fields.csv' );
     $array = explode( '"'."\n".'"', $file );
 
@@ -52,7 +70,7 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
 //        $array[ $k ] = str_replace( "\n", "", $val );
 
     foreach( $array as $k => $val )
-        $array[ $k ] = preg_replace( "/(,?\s?(KL))$/gm", "", $val );
+        $array[ $k ] = preg_replace( "/(,?\s?(KL))$/m", "", $val );
 
     print_r( $array[538] . PHP_EOL );
     die;
