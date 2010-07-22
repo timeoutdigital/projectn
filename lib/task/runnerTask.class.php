@@ -34,7 +34,6 @@ class runnerTask extends sfBaseTask
                                     'chicago' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
                                     'london' => array( 'poi-ev-mapper', 'poi-bars-pubs', 'poi-restaurants', 'poi-cinemas', 'event', 'event-occurrence', 'movie' ),
                                     'lisbon' => array( 'poi', 'event', 'movie' ),
-                                    'kuala lumpur' => array( 'poi', 'event', 'movie' ),
                                     'sydney' => array( 'poi', 'event', 'movie' ),
                                     'moscow' => array( 'poi', 'event' ),
                                     'saint petersburg' => array( 'poi', 'event' ),
@@ -45,6 +44,7 @@ class runnerTask extends sfBaseTask
                                     //'tyumen' => array( 'poi', 'event' ),
                                     'russia' => array( 'movie' ),
                                     'barcelona' => array( 'poi', 'event', 'movie' ),
+                                    'kuala lumpur' => array( 'poi', 'event', 'movie' )
                     ),
                     'export' => array(
                                     'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
@@ -52,7 +52,6 @@ class runnerTask extends sfBaseTask
                                     'chicago' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'london' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'lisbon' => array( 'language' => 'pt', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'sydney' => array( 'language' => 'en-AU', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'moscow' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'saint petersburg' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
@@ -62,6 +61,7 @@ class runnerTask extends sfBaseTask
                                     //'krasnoyarsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     //'tyumen' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'barcelona' => array( 'language' => 'ca', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) )
                     ),
                  );
 

@@ -30,11 +30,11 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->feed   = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_venues.xml' );
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor',  array( 
-                                                     'city'          => 'sydney', 
-                                                     'language'      => 'en-AU', 
-                                                     'country_code'  => 'AUS', 
-                                                     'inernational_dial_code'  => '+61', 
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
+                                                     'city'          => 'sydney',
+                                                     'language'      => 'en-AU',
+                                                     'country_code'  => 'AUS',
+                                                     'inernational_dial_code'  => '+61',
                                                      ) );
 
     $this->runImport();
@@ -65,7 +65,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('+61 2 9225 1700',                  $poi['phone'],         'Check phone field.' );
     $this->assertEquals('2000',                             $poi['zips'],          'Check zips field.' );
     $this->assertEquals('http://www.artgallery.nsw.gov.au', $poi['url'],           'Check url field.' );
-    $this->assertEquals('Mon & Tue 10am–5pm; Wed 10am–9pm; Thu–Sun 10am–5pm', 
+    $this->assertEquals('Mon & Tue 10am–5pm; Wed 10am–9pm; Thu–Sun 10am–5pm',
                                                             $poi['openingtimes'],  'Check openingtimes field.' );
 
     $this->assertEquals('Art Gallery of NSW, Art Gallery Road, The Domain, Sydney, 2000, AUS',
@@ -99,11 +99,11 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
   {
     $pois = $this->poiTable->findAll( );
 
-    $this->assertEquals( 'http://www.timeoutsydney.com.au/searchall/viewvenue.aspx?venueid=1', 
-                          $pois[0]['TimeoutLinkProperty'], 
+    $this->assertEquals( 'http://www.timeoutsydney.com.au/searchall/viewvenue.aspx?venueid=1',
+                          $pois[0]['TimeoutLinkProperty'],
                          'Check for Timeout_url' );
 
-    $this->assertNull(   $pois[1]['TimeoutLinkProperty'], 
+    $this->assertNull(   $pois[1]['TimeoutLinkProperty'],
                          'Check for absence of Timeout_url' );
 
     $this->assertNull(        $pois[0]['CriticsChoiceProperty'] , 'Check that Critics_choice flag is not present' );
@@ -122,7 +122,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testHasImages()
   {
-    $this->markTestSkipped();
+
     $pois = $this->poiTable->findAll( );
 
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
