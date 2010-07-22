@@ -329,6 +329,10 @@ class Poi extends BasePoi
 
     foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
+      // This will unlink all vendor category relationships that dont match the poi vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
+      
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 

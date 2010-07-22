@@ -198,6 +198,13 @@ class Event extends BaseEvent
         }
     }
 
+    foreach( $this[ 'VendorEventCategory' ] as $existingCategory )
+    {
+      // This will unlink all vendor category relationships that dont match the event vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorEventCategory', array( $existingCategory[ 'id' ] ) );
+    }
+
     $vendorEventCategoryObj = new VendorEventCategory();
     $vendorEventCategoryObj[ 'name' ] = $name;
     $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
