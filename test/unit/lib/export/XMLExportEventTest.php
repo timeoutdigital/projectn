@@ -65,6 +65,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    ExportLogger::getInstance()->start();
 
     $this->poiXmlLocation = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
     $this->destination = dirname( __FILE__ ) . '/../../export/event/eventtest.xml';

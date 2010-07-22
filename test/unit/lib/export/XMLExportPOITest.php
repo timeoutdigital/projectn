@@ -41,6 +41,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     {
       try {
         ProjectN_Test_Unit_Factory::createDatabases();
+        ExportLogger::getInstance()->start();
 
         $vendor = new Vendor();
         $vendor['city'] = 'test';
