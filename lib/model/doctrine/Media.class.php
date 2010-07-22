@@ -63,10 +63,24 @@ class Media extends BaseMedia
             $curl->downloadTo( $filename, $this[ 'file_last_modified' ] );
         }
 
-        $this[ 'mime_type' ] = $curl->getContentType();
-        $this[ 'file_last_modified' ] = $curl->getLastModified();
-        $this[ 'etag' ] = $curl->getETag();
-        $this[ 'content_length' ] = $curl->getContentLength();
+        // Get cURL info
+        $curlInfo = $curl->getCurlInfo();
+        
+        // Throw error when http code 200 or 304 not returned. validate http code  200 with mime/type
+        if( ( $curlInfo[ 'http_code' ] !== 200 && $curlInfo[ 'http_code' ] !== 304 ) ||
+                ( $curlInfo[ 'http_code' ] !== 200 && !in_array( $curl->getContentType(),  array( 'image/jpeg' ) ) ) )
+        {
+            unlink( $filename );
+            throw new MediaException( 'Download failed, mime-type required is image/jpeg, got "'. $curl->getContentType() . '" from url: "'  . $urlString . '" with ident: "' . $identString . '"' );
+        }
+        // update / add Only when 200 found
+        if($curlInfo[ 'http_code' ] === 200)
+        {
+            $this[ 'mime_type' ] = $curl->getContentType();
+            $this[ 'file_last_modified' ] = $curl->getLastModified();
+            $this[ 'etag' ] = $curl->getETag();
+            $this[ 'content_length' ] = $curl->getContentLength();
+        }
 
         if ( !file_exists( $filename ) || $this[ 'content_length' ] < 1 )
         {
