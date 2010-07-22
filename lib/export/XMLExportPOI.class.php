@@ -65,6 +65,16 @@ class XMLExportPOI extends XMLExport
     //entry
     foreach( $data as $poi )
     {
+      //Skip Export for Pois with lat/long outside vendor boundaries.
+      $bounds_array = explode( ";", $this->vendor['geo_boundries'] );
+
+      if( $poi['latitude'] < $bounds_array[0] || $poi['latitude'] > $bounds_array[2] ||
+          $poi['longitude'] < $bounds_array[1] || $poi['longitude'] > $bounds_array[3] )
+      {
+          ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
+          continue;
+      }
+
       //Skip Export for Pois with Dupe Lat/Longs
       foreach( $duplicateLatLongs as $dupe )
       {
