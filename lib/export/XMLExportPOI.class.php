@@ -187,13 +187,16 @@ class XMLExportPOI extends XMLExport
       }
 
       // UI Category Exports.
+      $avoidDuplicateUiCategories = array();
       foreach( $poi['VendorPoiCategory'] as $vendorCat )
         foreach( $vendorCat['UiCategory'] as $uiCat )
            if( isset( $uiCat['name'] ) )
-           {
+            if( !in_array( (string) $uiCat['name'], $avoidDuplicateUiCategories ) )
+            {
                 $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', (string) $uiCat['name'], XMLExport::USE_CDATA );
                 $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
-           }
+                $avoidDuplicateUiCategories[] = (string) $uiCat['name'];
+            }
 
       ExportLogger::getInstance()->addExport( 'Poi' );
 
