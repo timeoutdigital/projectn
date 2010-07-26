@@ -65,6 +65,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    ExportLogger::getInstance()->start();
 
     $this->poiXmlLocation = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
     $this->destination = dirname( __FILE__ ) . '/../../export/event/eventtest.xml';
@@ -79,6 +80,22 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+  }
+
+  /**
+   * Add UI Category to Export.
+   */
+  public function testAddUiCategory()
+  {
+        $this->domDocument = new DOMDocument();
+        $this->domDocument->load( $this->destination );
+        $this->xpath = new DOMXPath( $this->domDocument );
+
+        $this->populateDbWithLondonData();
+        $this->exportPoisAndEvents();
+
+        $uiCategories = $this->xpath->query( "/vendor-events/event/version/property[@key='UI_CATEGORY']" );
+        $this->assertEquals( 2, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
   /**
@@ -249,6 +266,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   {
     $this->populateDbWithLondonData();
     $this->exportPoisAndEvents();
+
     $versionTag = $this->xpath->query( '/vendor-events/event[1]/version' )->item(0);
 
     $vendorCategoryElements = $versionTag->getElementsByTagName( 'vendor-category' );
@@ -545,6 +563,13 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $vendorEventCategory = new VendorEventCategory();
     $vendorEventCategory['name'] = 'test vendor category';
     $vendorEventCategory['Vendor'] = $this->vendor;
+
+    $uiCat = new UiCategory();
+    $uiCat['name'] = "Something";
+    $uiCat->save();
+
+    $vendorEventCategory['UiCategory'][] = $uiCat;
+
     $event[ 'VendorEventCategory' ][] = $vendorEventCategory;
 
     $timeinfo = ProjectN_Test_Unit_Factory::get( 'EventProperty', array( 'lookup' => 'timeinfo', 'value' => 'foo' ) );
@@ -571,6 +596,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $vendorPoiCat->save();
 
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi['latitude'] = 2;
     $poi->link( 'Vendor', array( 1 ) );
     $poi->link( 'PoiCategory', array( 1 ) );
     $poi->link( 'VendorPoiCategory', array( 1 ) );
@@ -582,9 +608,14 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $poi2->link( 'VendorPoiCategory', array( 1 ) );
     $poi2->save();
 
+    $uiCat = new UiCategory();
+    $uiCat['name'] = "Something";
+    $uiCat->save();
+
     $vendorEventCategory = new VendorEventCategory();
     $vendorEventCategory['name'] = 'test vendor category';
     $vendorEventCategory['Vendor'] = $this->vendor;
+    $vendorEventCategory['UiCategory'][] = $uiCat;
     $vendorEventCategory->save();
 
     $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
@@ -650,13 +681,14 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $vendorEventCategory = new VendorEventCategory();
     $vendorEventCategory['name'] = 'test vendor category 2';
     $vendorEventCategory['Vendor'] = $this->vendor;
+    $vendorEventCategory['UiCategory'][] = $uiCat;
     $vendorEventCategory->save();
 
     $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
     $vendorEventCategories[] = $vendorEventCategory;
 
     $event2 = ProjectN_Test_Unit_Factory::get( 'Event' );
-    $event2->addVendorCategory( 'test vendor category');
+    $event2->addVendorCategory( 'test vendor category' );
     $event2['EventCategory'][] = $eventCat1;
     $event2['vendor_event_id'] = 1112;
     $event2->setName( 'xtest event2' . $this->specialChars );

@@ -36,6 +36,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    ExportLogger::getInstance()->start();
 
     $vendor = new Vendor();
     $vendor['city'] = 'test';
@@ -44,6 +45,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $vendor['inernational_dial_code'] = '+44';
     $vendor['airport_code'] = 'XXX';
     $vendor['country_code'] = 'XX';
+    $vendor['country_code_long'] = 'XXX';
     $vendor['geo_boundries'] = '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179';
     $vendor->save();
     $this->vendor = $vendor;
@@ -360,6 +362,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     public function testMediaTags()
     {
       $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/media' );
+
       $this->assertNotNull( $propertyElements->item(0), "Media element not present." );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/movie/images/md5 hash of the url.jpg', $propertyElements->item(0)->nodeValue );
