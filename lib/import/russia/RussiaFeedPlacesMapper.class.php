@@ -33,7 +33,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['vendor_poi_id']                 = (string) $vendor_venue_id;
             $poi['review_date']                   = (string) $venueElement->review_date;
             $poi['local_language']                = $this->vendor->language;
-            $poi['poi_name']                      = trim( (string) $venueElement->name, " ./" );
+            $poi['poi_name']                      = $this->clean( (string) $venueElement->name, " ./" );
             $poi['house_no']                      = (string) $venueElement->house_no;
             $poi['street']                        = (string) $venueElement->street;
             $poi['city']                          = (string) $venueElement->city;
@@ -50,8 +50,8 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['phone2']                        = trim( (string) $venueElement->phone2, " ." );
             $poi['fax']                           = (string) $venueElement->fax;
             $poi['keywords']                      = (string) $venueElement->keywords;
-            $poi['description']                   = $this->fixHtmlEntities( (string) $venueElement->description ); // Requires Double Entity Decoding
-            $poi['short_description']             = strip_tags( $this->fixHtmlEntities( (string) $venueElement->short_description ) ); // Requires Double Entity Decoding
+            $poi['description']                   = $this->clean( $this->fixHtmlEntities( (string) $venueElement->description ) ); // Requires Double Entity Decoding
+            $poi['short_description']             = $this->clean( strip_tags( $this->fixHtmlEntities( (string) $venueElement->short_description) ) ); // Requires Double Entity Decoding
             $poi['public_transport_links']        = (string) $venueElement->public_transport;
             $poi['price_information']             = (string) $venueElement->price_information;
             $poi['openingtimes']                  = (string) $venueElement->opening_times;

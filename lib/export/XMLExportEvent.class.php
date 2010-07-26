@@ -181,6 +181,15 @@ class XMLExportEvent extends XMLExport
         //$property->free();
       }
 
+      // UI Category Exports.
+      foreach( $event['VendorEventCategory'] as $vendorCat )
+        foreach( $vendorCat['UiCategory'] as $uiCat )
+           if( isset( $uiCat['name'] ) )
+           {
+                $propertyElement = $this->appendNonRequiredElement( $versionElement, 'property', (string) $uiCat['name'], XMLExport::USE_CDATA );
+                $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
+           }
+
       //event/showtimes
       $showtimeElement = $this->appendRequiredElement($eventElement, 'showtimes');
 

@@ -91,6 +91,12 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertGreaterThan( 0, $poi[ 'PoiMedia' ]->count() );
     $this->assertEquals( "http://pix.timeout.ru/2000.jpeg", $poi[ 'PoiMedia' ][0]['url'] );
+
+    // description / short description remove leading newline character
+    $poi = $pois[1];    
+    $this->assertEquals( "Большая игровая",  $poi['short_description'] );
+    $this->assertEquals( '', $poi['description'] );
+    
   }
 
   public function testQuotRemovedFromName()

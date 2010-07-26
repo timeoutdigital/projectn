@@ -47,8 +47,11 @@
 		<postcode><![CDATA[]]></postcode>
 		<long><![CDATA[37.855068]]></long>
 		<lat><![CDATA[55.684064]]></lat>
-		<short_description><![CDATA[Большая игровая комната, двухуровневый лабиринт, кафе, мульткафе, по субботам с 16.00 до18.00 пираты превращают детей в сказочных персонажей. Аквагрим - 30 р. Есть солевая пещера - лечебная комната, целиком состоящая из соли. Сеанс 10 мин. - 100 р., 25 мин. - 200 р.]]></short_description>
-		<description><![CDATA[]]></description>
+		<short_description><![CDATA[
+                Большая игровая
+                ]]></short_description>
+		<description><![CDATA[
+                 ]]></description>
 		<price_information><![CDATA[]]></price_information>
 		<opening_times><![CDATA[]]></opening_times>
 		<rating><![CDATA[]]></rating>

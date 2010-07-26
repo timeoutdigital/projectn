@@ -61,6 +61,32 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], '45 Some Street' );
   }
 
+  public function testApplyFeedGeoCodesIfValid()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      
+      $this->assertLessThan(1, $poi['PoiMeta']->count());
+
+      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975');
+
+      $poi->save();
+
+      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975'); // Same LONG / LAT Should Meta Should not be added
+      
+      $this->assertEquals(1, $poi['PoiMeta']->count());
+
+      $this->assertEquals('Geo_Source', $poi['PoiMeta'][0]['lookup']);
+
+      $this->assertEquals('Feed', $poi['PoiMeta'][0]['value']);
+      
+      $poi->applyFeedGeoCodesIfValid('15.1789464','-2.4975618975');
+
+      $poi->save();
+
+      $this->assertEquals(2, $poi['PoiMeta']->count());
+
+  }
+
   public function testPoiNameDoesNotEndWIthCommaAndOrSpace()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
