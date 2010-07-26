@@ -10,7 +10,8 @@ class invoiceTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'poi, event, movie', 'poi'),
-      new sfCommandOption('csv', null, sfCommandOption::PARAMETER_REQUIRED, 'produce as csv', 'false'),
+      new sfCommandOption('csv', null, sfCommandOption::PARAMETER_REQUIRED, 'Produce as csv', 'false'),
+      new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'Only for one city', ''),
       // add your own options here
     ));
 
@@ -23,10 +24,6 @@ Call it with:
 
   [php symfony invoice|INFO]
 EOF;
-
-    define( 'DIR_ALL', 'all' );
-    define( 'DIR_FILES', 'files' );
-    define( 'DIR_FOLDERS', 'folders' );
   }
 
   protected function execute($arguments = array(), $options = array())
@@ -82,7 +79,7 @@ EOF;
 
     $baseDir = "invoice-test/exports";
 
-    $folders = $this->readDir( $baseDir, DIR_FOLDERS );
+    $folders = DirectoryIteratorN::iterate( $baseDir, DirectoryIteratorN::DIR_FOLDERS );
 
     $this->reportHeader();
 
@@ -94,19 +91,21 @@ EOF;
         {
             case 'poi':
                 
-                $poiFiles = $this->readDir( $baseDir."/".$folder."/poi", DIR_FILES );
+                $poiFiles = DirectoryIteratorN::iterate( $baseDir."/".$folder."/poi", DirectoryIteratorN::DIR_FILES );
                 sort( $poiFiles );
 
                 foreach( $poiFiles as $city_xml_file )
                 {
-                    $xml = simplexml_load_file( $baseDir."/".$folder."/poi/".$city_xml_file );
-                    $totalPois = count( $xml->xpath( '/vendor-pois/entry' ) );
-
                     $cutCityName = explode( ".", $city_xml_file );
                     $date = strtotime( str_replace( "export_", "", $folder ) );
 
-                    $uiCategories = array();
+                    if( strlen( $options['city'] ) > 0 && strtolower( $cutCityName[ 0 ] ) != $options['city'] ) continue;
 
+                    $xml = simplexml_load_file( $baseDir."/".$folder."/poi/".$city_xml_file );
+                    $totalPois = count( $xml->xpath( '/vendor-pois/entry' ) );
+
+                    $uiCategories = array();
+                    
                     if( !array_key_exists( $cutCityName[ 0 ], $this->existingPoiCount ) )
                         $this->existingPoiCount[ $cutCityName[ 0 ] ] = 0;
 
@@ -141,16 +140,18 @@ EOF;
 
             case 'event':
                 
-                $eventFiles = $this->readDir( $baseDir."/".$folder."/event", DIR_FILES );
+                $eventFiles = DirectoryIteratorN::iterate( $baseDir."/".$folder."/event", DirectoryIteratorN::DIR_FILES );
                 sort( $eventFiles );
 
                 foreach( $eventFiles as $city_xml_file )
                 {
-                    $xml = simplexml_load_file( $baseDir."/".$folder."/event/".$city_xml_file );
-                    $totalPois = count( $xml->xpath( '/vendor-events/event' ) );
-
                     $cutCityName = explode( ".", $city_xml_file );
                     $date = strtotime( str_replace( "export_", "", $folder ) );
+
+                    if( strlen( $options['city'] ) > 0 && strtolower( $cutCityName[ 0 ] ) != $options['city'] ) continue;
+
+                    $xml = simplexml_load_file( $baseDir."/".$folder."/event/".$city_xml_file );
+                    $totalPois = count( $xml->xpath( '/vendor-events/event' ) );
 
                     $uiCategories = array();
 
@@ -189,16 +190,18 @@ EOF;
 
             case 'movie':
 
-                $eventFiles = $this->readDir( $baseDir."/".$folder."/movie", DIR_FILES );
+                $eventFiles = DirectoryIteratorN::iterate( $baseDir."/".$folder."/movie", DirectoryIteratorN::DIR_FILES );
                 sort( $eventFiles );
 
                 foreach( $eventFiles as $city_xml_file )
                 {
-                    $xml = simplexml_load_file( $baseDir."/".$folder."/movie/".$city_xml_file );
-                    $totalPois = count( $xml->xpath( '/vendor-movies/movie' ) );
-
                     $cutCityName = explode( ".", $city_xml_file );
                     $date = strtotime( str_replace( "export_", "", $folder ) );
+
+                    if( strlen( $options['city'] ) > 0 && strtolower( $cutCityName[ 0 ] ) != $options['city'] ) continue;
+                    
+                    $xml = simplexml_load_file( $baseDir."/".$folder."/movie/".$city_xml_file );
+                    $totalPois = count( $xml->xpath( '/vendor-movies/movie' ) );
 
                     $uiCategories = array();
 
@@ -297,39 +300,5 @@ EOF;
 
           echo substr( $buffer, 0, -1 ) . PHP_EOL;
       }
-  }
-
-  protected function readDir( $dir = ".", $which = DIR_ALL )
-  {
-    $filesArray = array();
-
-    $path = realpath( $dir );
-    if( $path === false || !is_dir( $path ) ) throw new Exception( "Folder Not Found '" . $dir . "'" );
-    
-    $d = dir( $path );
-
-    while ( false !== ( $entry = @$d->read() ) )
-    {
-        if( $entry == '.' || $entry == '..' )
-            continue;
-
-        if( $which === DIR_FOLDERS )
-        {
-            if( is_dir( realpath( $d->path . "/" . $entry ) ) )
-                $filesArray[] = $entry;
-        }
-                
-        elseif( $which === DIR_FILES )
-        {
-            if( is_file( realpath( $d->path . "/" . $entry ) ) )
-                $filesArray[] = $entry;
-        }
-
-        else $filesArray[] = $entry;
-    }
-        
-    $d->close();
-
-    return $filesArray;
   }
 }
