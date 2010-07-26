@@ -1,0 +1,1 @@
+<a href='javascript:getVenueDetails( "<?php echo $poi->getId(); ?> " )'> <?php echo $poi->getName();?> </a>

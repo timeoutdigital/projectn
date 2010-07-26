@@ -1,0 +1,29 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           poi
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          venue
+    with_doctrine_route:   1
+    actions_base_class:    sfActions
+
+    config:
+      actions: []
+      fields:  ~
+      list:
+        title: Venue Geocodes
+        sort:               [id, desc]
+        display:            [_name, _city, _address1, _geocode_accuracy, _import_date]
+        batch_actions: []
+        actions: []
+        object_actions: []
+
+      filter:
+         display: [ _city_list, name ]
+      form:    ~
+      edit:    ~
+      new:     ~

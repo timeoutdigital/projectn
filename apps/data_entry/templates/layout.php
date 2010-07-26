@@ -47,6 +47,9 @@
           <?php if ($sf_user->hasCredential( 'vendor_event_category' )): ?>
             <li><?php echo link_to('Vendor Event Category', '@vendor_event_category') ?></li>
           <?php endif ?>
+	 <?php if ($sf_user->hasCredential( 'poi' )): ?>
+            <li><?php echo link_to('Fix geocode', '@venue') ?></li>
+          <?php endif ?>
           <?php if ($sf_user->hasCredential( 'admin' )): ?>
             <li>||</li>
             <li>
