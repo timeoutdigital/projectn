@@ -34,13 +34,13 @@ class kualaLumpurVenuesMapper extends DataMapper
           $poi['city']                = 'Kuala Lumpur';
           $poi['country']             = 'MYS';
 
-          $longlat  = (string) $venue->location->longlat;
+          // NOTE. The element is erroneously called 'longlat' but data is provided as 'lat,long'
+          $latlong  = (string) $venue->location->longlat;
 
-          if( !empty( $longlat  ) )
+          if( !empty( $latlong ) )
           {
-            $longlat = explode( ',', $longlat );
-
-            $poi->applyFeedGeoCodesIfValid( $longlat[1], $longlat[0] ) ;
+            $latlong = explode( ',', $latlong );
+            $poi->applyFeedGeoCodesIfValid( $latlong[0], $latlong[1] ) ;
           }
           $poi[ 'geocode_look_up' ]    = (string) $venue->location->lot .' ';
           $poi[ 'geocode_look_up' ]   .= (string) $venue->location->street .' ';

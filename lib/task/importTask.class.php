@@ -1150,15 +1150,38 @@ EOF;
 
     private function parseSydneyFtpDirectoryListing( $rawFtpListingOutput )
     {
+        $fileListSorted = array();
+        //sort the files  so the newest file should be the first item in the list
+        foreach ($rawFtpListingOutput as $fileListing)
+        {
+            $fileName = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
+
+            preg_match( '/^.*_([0-9\-]+)\.xml$/', $fileName, $matches );
+
+            if( isset( $matches [1] ) )
+            {
+                $date = date( 'Y-m-d' ,strtotime($matches[1] ));
+                $fileListSorted[ $date . ' ' .$fileName ] =   $fileListing;
+            }else
+            {
+                 $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED" );
+                 return NULL;
+            }
+
+        }
+        ksort ( $fileListSorted );
+        $fileListSorted = array_reverse( $fileListSorted );
+        // sorting is done
+
         //map the files to our terms
         $ftpFiles = array();
-        foreach( $rawFtpListingOutput as $fileListing )
+        foreach( $fileListSorted as $fileListing )
         {
           //get rid of the date / other info from ls command
           $filename = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
-          if( strpos( $filename, 'venue' ) !== false )         $ftpFiles[ 'poi' ]   = $filename; // If File Listing is For a POI
-          elseif( strpos( $filename, 'event' ) !== false )     $ftpFiles[ 'event' ] = $filename; // If File Listing is For an Event
-          elseif( strpos( $filename, 'film' ) !== false )      $ftpFiles[ 'movie' ] = $filename; // If File Listing is For a Movie
+          if( strpos( $filename, 'venue' ) !== false  && ! isset( $ftpFiles[ 'poi' ] ) )       $ftpFiles[ 'poi' ]   = $filename; // If File Listing is For a POI
+          elseif( strpos( $filename, 'event' ) !== false   && ! isset( $ftpFiles[ 'event' ] )) $ftpFiles[ 'event' ] = $filename; // If File Listing is For an Event
+          elseif( strpos( $filename, 'film' ) !== false   && ! isset( $ftpFiles[ 'movie' ] ))  $ftpFiles[ 'movie' ] = $filename; // If File Listing is For a Movie
         }
 
         if( !isset( $ftpFiles[ 'poi' ] ) || !isset( $ftpFiles[ 'event' ] ) || !isset( $ftpFiles[ 'movie' ] ) )
@@ -1166,4 +1189,7 @@ EOF;
 
         return $ftpFiles;
     }
+
+
+
 }

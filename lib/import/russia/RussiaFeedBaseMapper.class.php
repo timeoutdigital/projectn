@@ -72,6 +72,11 @@ class RussiaFeedBaseMapper extends DataMapper
         return ( $date === false ) ? null : $string;
     }
 
+    protected function clean( $string , $chars = '' )
+    {
+        return stringTransform::mb_trim( $string, $chars );
+    }
+
     /**
      * helper function to add images
      *
