@@ -24,10 +24,6 @@ Call it with:
 
   [php symfony invoice|INFO]
 EOF;
-
-    define( 'DIR_ALL', 'all' );
-    define( 'DIR_FILES', 'files' );
-    define( 'DIR_FOLDERS', 'folders' );
   }
 
   protected function execute($arguments = array(), $options = array())
@@ -83,7 +79,7 @@ EOF;
 
     $baseDir = "invoice-test/exports";
 
-    $folders = $this->readDir( $baseDir, DIR_FOLDERS );
+    $folders = DirectoryIteratorN::iterate( $baseDir, DirectoryIteratorN::DIR_FOLDERS );
 
     $this->reportHeader();
 
@@ -95,7 +91,7 @@ EOF;
         {
             case 'poi':
                 
-                $poiFiles = $this->readDir( $baseDir."/".$folder."/poi", DIR_FILES );
+                $poiFiles = DirectoryIteratorN::iterate( $baseDir."/".$folder."/poi", DirectoryIteratorN::DIR_FILES );
                 sort( $poiFiles );
 
                 foreach( $poiFiles as $city_xml_file )
@@ -144,7 +140,7 @@ EOF;
 
             case 'event':
                 
-                $eventFiles = $this->readDir( $baseDir."/".$folder."/event", DIR_FILES );
+                $eventFiles = DirectoryIteratorN::iterate( $baseDir."/".$folder."/event", DirectoryIteratorN::DIR_FILES );
                 sort( $eventFiles );
 
                 foreach( $eventFiles as $city_xml_file )
@@ -194,7 +190,7 @@ EOF;
 
             case 'movie':
 
-                $eventFiles = $this->readDir( $baseDir."/".$folder."/movie", DIR_FILES );
+                $eventFiles = DirectoryIteratorN::iterate( $baseDir."/".$folder."/movie", DirectoryIteratorN::DIR_FILES );
                 sort( $eventFiles );
 
                 foreach( $eventFiles as $city_xml_file )
@@ -304,39 +300,5 @@ EOF;
 
           echo substr( $buffer, 0, -1 ) . PHP_EOL;
       }
-  }
-
-  protected function readDir( $dir = ".", $which = DIR_ALL )
-  {
-    $filesArray = array();
-
-    $path = realpath( $dir );
-    if( $path === false || !is_dir( $path ) ) throw new Exception( "Folder Not Found '" . $dir . "'" );
-    
-    $d = dir( $path );
-
-    while ( false !== ( $entry = @$d->read() ) )
-    {
-        if( $entry == '.' || $entry == '..' )
-            continue;
-
-        if( $which === DIR_FOLDERS )
-        {
-            if( is_dir( realpath( $d->path . "/" . $entry ) ) )
-                $filesArray[] = $entry;
-        }
-                
-        elseif( $which === DIR_FILES )
-        {
-            if( is_file( realpath( $d->path . "/" . $entry ) ) )
-                $filesArray[] = $entry;
-        }
-
-        else $filesArray[] = $entry;
-    }
-        
-    $d->close();
-
-    return $filesArray;
   }
 }
