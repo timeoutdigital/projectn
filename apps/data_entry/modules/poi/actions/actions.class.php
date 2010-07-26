@@ -44,13 +44,25 @@ class poiActions extends autoPoiActions
   {
     if ( $this->getUser()->checkIfRecordPermissionsByRequest( $request ) )
     {
-        parent::executeDelete( $request );
+        $request->checkCSRFProtection();
+
+        $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
+
+        $poi = $this->getRoute()->getObject();
+
+        $this->deleteRelations( $poi );
+
+        if ($poi->delete())
+        {
+          $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+        }
     }
     else
     {
-        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );
-        $this->redirect('@poi');
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );        
     }
+
+    $this->redirect('@poi');
   }
 
   public function executeBatch(sfWebRequest $request)
@@ -70,12 +82,50 @@ class poiActions extends autoPoiActions
   {
     if ( $this->getUser()->checkIfMultipleRecordsPermissionsByRequest( $request ) )
     {
-        parent::executeBatchDelete( $request );
+        $ids = $request->getParameter('ids');
+
+        $records = Doctrine_Query::create()
+          ->from('poi')
+          ->whereIn('id', $ids)
+          ->execute();
+
+        foreach ($records as $record)
+        {
+          $this->deleteRelations( $record );
+          $record->delete();
+        }
+
+        $this->getUser()->setFlash('notice', 'The selected items have been deleted successfully.');
     }
     else
     {
-        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );
-        $this->redirect('@poi');
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );        
+    }
+
+    $this->redirect('@poi');
+  }
+
+  private function deleteRelations( Poi $poi )
+  {
+    //delete vendor category references
+    $vendorCategoryIds = array();
+    foreach( $poi[ 'VendorPoiCategory' ] as $vendorCategory )
+    {
+        $vendorCategoryIds[] =  $vendorCategory['id'];
+    }
+    $poi->unlink( 'VendorPoiCategory', $vendorCategoryIds );
+    $poi->save();
+
+    //delete media
+    foreach( $poi[ 'PoiMedia' ] as $poiMedia )
+    {
+        $file = $poiMedia->getFileUploadStorePath() . '/' . $poiMedia[ 'url' ];
+
+        if ( is_file($file) )
+        {
+            unlink($file);
+        }
+        $poiMedia->delete();
     }
   }
 

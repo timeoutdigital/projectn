@@ -21,6 +21,16 @@ class Media extends BaseMedia
         return "http://projectn.s3.amazonaws.com/" . str_replace( ' ', '_', $this[ $type ]['Vendor']['city'] ) . "/" . strtolower( $type ) . "/media/" . $this['ident'] . ".jpg";
     }
 
+    public function getFileUploadStorePath()
+    {
+        return sfConfig::get('sf_upload_dir').'/media/' . strtolower( str_replace( 'Media', '', get_class( $this ) ) ) ;
+    }
+
+    public function getFileUploadStorePathWeb()
+    {
+        return '/uploads/media/' . strtolower( str_replace( 'Media', '', get_class( $this ) ) ) ;
+    }
+
     /**
      * populates the media table with media information and invokes the actual
      * file download

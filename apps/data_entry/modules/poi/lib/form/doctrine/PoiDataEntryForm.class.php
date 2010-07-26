@@ -79,8 +79,31 @@ class PoiDataEntryForm extends BasePoiForm
     $this->embedForm( 'newPoiMediaDataEntry', $form );
   }
 
+  protected function doBind(array $values)
+  {
+
+    if (isset($values['PoiMedia']))
+    {
+      foreach ($values['PoiMedia'] as $i => $poiMediaFields )
+      {
+        if ( isset($poiMediaFields['url_delete']) && $poiMediaFields['id'] )
+        {
+            $this->poiMediasScheduledForDeletion[$i] = $poiMediaFields['id'];
+        }
+      }
+    }
+
+    parent::doBind($values);
+  }
+
+
   public function saveEmbeddedForms($con = null, $forms = null)
   {
+      if (null === $con)
+      {
+        $con = $this->getConnection();
+      }
+
       if (null === $forms)
       {
         $forms = $this->embeddedForms;
@@ -90,10 +113,41 @@ class PoiDataEntryForm extends BasePoiForm
         {
             unset($forms['newPoiMediaDataEntry'] );
         }
-
       }
 
-      return parent::saveEmbeddedForms($con, $forms);
+      foreach ($forms as $form)
+      {
+          if ($form instanceof sfFormObject)
+          {
+              if ( $form->getObject() instanceof PoiMedia )
+              {
+                  if ( !in_array($form->getObject()->getId(), $this->poiMediasScheduledForDeletion ))
+                  {
+                    $form->saveEmbeddedForms($con);
+                    $form->getObject()->save($con);
+                  }
+              }
+          }
+          else
+          {
+              $this->saveEmbeddedForms($con, $form->getEmbeddedForms());
+          }
+      }
+  }
+
+ protected function doUpdateObject($values)
+  {
+    if ( count( $this->poiMediasScheduledForDeletion ) )
+     {
+       foreach ( $this->poiMediasScheduledForDeletion as $index => $id )
+       {
+         unset( $values['PoiMedia'][$index] );
+         unset( $this->object['PoiMedia'][$index] );
+         Doctrine::getTable('PoiMedia')->findOneById( $id )->delete();
+       }
+     }
+
+     $this->getObject()->fromArray( $values );
   }
 
 

@@ -19,6 +19,7 @@ class eventActions extends autoEventActions
   public function preExecute()
   {
      parent::preExecute();
+     
 
      $filters = $this->getFilters() ;
      $this->user = $this->getUser();
@@ -68,13 +69,25 @@ class eventActions extends autoEventActions
   {
     if ( $this->getUser()->checkIfRecordPermissionsByRequest( $request ) )
     {
-        parent::executeDelete( $request );
+        $request->checkCSRFProtection();
+
+        $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
+
+        $event = $this->getRoute()->getObject();
+
+        $this->deleteRelations( $event );
+
+        if ($event->delete())
+        {
+          $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+        }
     }
     else
     {
-        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );
-        $this->redirect('@event');
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );        
     }
+    
+    $this->redirect('@event');
   }
 
   public function executeBatch(sfWebRequest $request)
@@ -94,12 +107,53 @@ class eventActions extends autoEventActions
   {
     if ( $this->getUser()->checkIfMultipleRecordsPermissionsByRequest( $request ) )
     {
-        parent::executeBatchDelete( $request );
+        $ids = $request->getParameter('ids');
+
+        $records = Doctrine_Query::create()
+          ->from('event')
+          ->whereIn('id', $ids)
+          ->execute();
+
+        foreach ($records as $record)
+        {
+          $this->deleteRelations( $record );
+          $record->delete();
+        }
+
+        $this->getUser()->setFlash('notice', 'The selected items have been deleted successfully.');
     }
     else
     {
         $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );
-        $this->redirect('@event');
+    }
+
+    $this->redirect('@event');
+  }
+
+  private function deleteRelations( Event $event )
+  {
+    //delete vendor category references
+    $vendorCategoryIds = array();
+    foreach( $event[ 'VendorEventCategory' ] as $vendorCategory )
+    {
+        $vendorCategoryIds[] =  $vendorCategory['id'];
+    }
+    $event->unlink( 'VendorEventCategory', $vendorCategoryIds );
+    $event->save();
+
+    //delete occurrences
+    $event[ 'EventOccurrence' ]->delete();
+
+    //delete media
+    foreach( $event[ 'EventMedia' ] as $eventMedia )
+    {
+        $file = $eventMedia->getFileUploadStorePath() . '/' . $eventMedia[ 'url' ];
+
+        if ( is_file($file) )
+        {
+            unlink($file);
+        }
+        $eventMedia->delete();
     }
   }
 

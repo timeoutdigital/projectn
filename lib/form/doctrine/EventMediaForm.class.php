@@ -15,7 +15,7 @@ class EventMediaForm extends BaseEventMediaForm
       $this->useFields( array( 'url' ) );
 
       $this->setWidget('url', new sfWidgetFormInputFileEditable(array(
-        'file_src'    => '/uploads/' . $this->getFileStorePath() . '/'.$this->getObject()->url,
+        'file_src'    => $this->getObject()->getFileUploadStorePathWeb() . '/'.$this->getObject()->url,
         'edit_mode'   => !$this->isNew(),
         'is_image'    => true,
         'with_delete' => true,
@@ -24,7 +24,7 @@ class EventMediaForm extends BaseEventMediaForm
 
       $this->setValidator('url', new sfValidatorFile(array(
         'mime_types' => array( 'image/jpeg' ),
-        'path' => sfConfig::get('sf_upload_dir').'/' . $this->getFileStorePath(),
+        'path' => $this->getObject()->getFileUploadStorePath(),
         'required' => false,
       )));
 
@@ -33,8 +33,4 @@ class EventMediaForm extends BaseEventMediaForm
       $this->mergePostValidator(new EventMediaDataEntryValidatorSchema());
   }
 
-  private function getFileStorePath()
-  {
-    return 'media/' . strtolower( str_replace( 'Media', '', $this->getModelName() ) );
-  }
 }

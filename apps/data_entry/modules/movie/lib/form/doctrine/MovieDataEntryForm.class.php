@@ -84,12 +84,6 @@ class MovieDataEntryForm extends BaseMovieForm
       {
         $forms = $this->embeddedForms;
 
-        $newMovieOccurrenceDataEntry = $this->getValue('newMovieOccurrenceDataEntry');
-        if ( !isset( $newMovieOccurrenceDataEntry['start_date'] ) || !isset( $newMovieOccurrenceDataEntry['poi_id'] ) )
-        {
-            unset($forms['newMovieOccurrenceDataEntry'] );
-        }
-
         $newMovieMediaDataEntry = $this->getValue('newMovieMediaDataEntry');
         if ( !isset( $newMovieMediaDataEntry['url']) )
         {

@@ -70,12 +70,50 @@ class movieActions extends autoMovieActions
   {
     if ( $this->getUser()->checkIfMultipleRecordsPermissionsByRequest( $request ) )
     {
-        parent::executeBatchDelete( $request );
+        $ids = $request->getParameter('ids');
+
+        $records = Doctrine_Query::create()
+          ->from('movie')
+          ->whereIn('id', $ids)
+          ->execute();
+
+        foreach ($records as $record)
+        {
+            $this->deleteRelations( $record );
+            $record->delete();
+        }
+
+        $this->getUser()->setFlash('notice', 'The selected items have been deleted successfully.');
     }
     else
     {
-        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );
-        $this->redirect('@movie');
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );        
+    }
+    
+    $this->redirect('@movie');
+  }
+
+  private function deleteRelations( Movie $movie )
+  {
+    //delete vendor category references
+    $movieGenreIds = array();
+    foreach( $movie[ 'MovieGenres' ] as $movieGenre )
+    {
+        $movieGenreIds[] =  $movieGenre['id'];
+    }
+    $movie->unlink( 'MovieGenres', $movieGenreIds );
+    $movie->save();
+
+    //delete media
+    foreach( $movie[ 'MovieMedia' ] as $movieMedia )
+    {
+        $file = $movieMedia->getFileUploadStorePath() . '/' . $movieMedia[ 'url' ];
+
+        if ( is_file($file) )
+        {
+            unlink($file);
+        }
+        $movieMedia->delete();
     }
   }
 
