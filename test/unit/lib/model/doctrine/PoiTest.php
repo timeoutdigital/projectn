@@ -48,6 +48,14 @@ class PoiTest extends PHPUnit_Framework_TestCase
    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testDoesNotAddAddressAsAProperty()
+  {
+    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+    $poi->addProperty( 'address', 'foo' );
+    $poi->save();
+    $this->assertEquals( 0, $poi['PoiProperty']->count() );
+  }
+
   public function testStreetDoesNotContainPostCode()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
