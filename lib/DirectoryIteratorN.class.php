@@ -42,6 +42,7 @@ final class DirectoryIteratorN
         }
 
         $d->close();
+        sort( $filesArray );
         return $filesArray;
     }
 }

@@ -26,76 +26,60 @@ EOF;
     protected function execute($arguments = array(), $options = array())
     {
         $baseDir = "/n/export/";
+        chdir( $baseDir );
 
         $folders = DirectoryIteratorN::iterate( $baseDir, DirectoryIteratorN::DIR_FOLDERS );
-
-        sort( $folders );
 
         foreach( $folders as $folder )
             if( strpos( $folder, "export_" ) !== false )
                 $latestExportFolder = $folder;
 
-        if( !isset( $latestExportFolder ) ) throw new Exception( "Could not find latest export folder." );
+        if( !isset( $latestExportFolder ) )
+            throw new Exception( "Could not find latest export folder." );
 
-        $validationDir = $baseDir . str_replace( "export", "validation", $latestExportFolder ) . "/";
 
-        $modelFolder = $baseDir . $latestExportFolder . "/poi/";
+        $validationBaseDir = str_replace( "export_", "validation_", $latestExportFolder ) . "/";
+        is_dir( $validationBaseDir ) || mkdir( $validationBaseDir );
+        file_exists( $validationBaseDir . "digest.txt" ) || touch( $validationBaseDir . "digest.txt" );
+        $handle = fopen( $validationBaseDir . "digest.txt", "w" ); fclose( $handle ); // Wipe Digest File.
 
-        $poiFolder = DirectoryIteratorN::iterate( $modelFolder, DirectoryIteratorN::DIR_FILES, "xml" );
+        $modelsFolders = DirectoryIteratorN::iterate( $latestExportFolder, DirectoryIteratorN::DIR_FOLDERS );
 
-        foreach( $poiFolder as $file )
-            $this->validate( 'poi', $modelFolder . $file, "moo" );
+        foreach( $modelsFolders as $modelType )
+        {
+            $modelDir = $latestExportFolder . "/$modelType/";
+            $modelFiles = DirectoryIteratorN::iterate( $modelDir, DirectoryIteratorN::DIR_FILES, "xml" );
+
+            $validationModelDir = str_replace( "export_", "validation_", $modelDir );
+
+            is_dir( $validationModelDir ) || mkdir( $validationModelDir );
+            
+            foreach( $modelFiles as $file )
+                $this->validate( $modelType, $modelDir . $file, $validationModelDir . str_replace( ".xml", ".txt", $file ), $validationBaseDir . "digest.txt" );
+        }
     }
 
-    protected function validate( $type, $inputFile, $outputFile )
+    protected function validate( $type, $inputFile, $outputFile, $digestFile )
     {
         if( !is_readable( $inputFile ) )
             throw new Exception( "Cannot Open File For Upload." );
 
-        echo "CURL: " . $inputFile . PHP_EOL;
+        $cmd = "curl -N -F 'mptest=@$inputFile;type=text/xml' -# '". self::NOKIA_VALIDATOR_UPLOAD_URL . strtolower( $type ) ."' -o $outputFile";
+        $resp = shell_exec( $cmd );
 
-        $parameters = array();
-        $parameters['mptest'] = "@" . $inputFile . ";type=text/xml";
-        //$parameters['submit'] = 'Upload';
+        // -- Write Digest --
+        
+        $failedValidation = shell_exec( "grep 'does not validate against schema' $outputFile" );
+        $errorSummary = shell_exec( "grep 'Error type:' $outputFile | grep -v ': 0'" );
 
-        $c = curl_init();
-
-        curl_setopt( $c , CURLOPT_URL, self::NOKIA_VALIDATOR_UPLOAD_URL . strtolower( $type ) );
-        curl_setopt( $c , CURLOPT_HEADER, true );
-        curl_setopt( $c , CURLOPT_VERBOSE, true );
-        curl_setopt( $c , CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $c , CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-GB; rv:1.9.2.7) Gecko/20100715 Ubuntu/9.10 (karmic) Firefox/3.6.7' );
-        curl_setopt( $c , CURLOPT_REFERER, 'http://ics-master.msudev.noklab.net/self-validation/' );
-        //curl_setopt( $c , CURLOPT_COOKIE, 'JSESSIONID=ED1A493B4015742E36632EAECEDCB374' );
-
-        //curl_setopt( $c , CURLOPT_HTTPAUTH, CURLAUTH_ANY );
-        //curl_setopt( $c , CURLOPT_SSL_VERIFYPEER, false );
-        //curl_setopt( $c , CURLOPT_SSL_VERIFYHOST, false );
-        //curl_setopt( $c , CURLOPT_FOLLOWLOCATION, true );
-        curl_setopt( $c , CURLOPT_POST, true );
-        curl_setopt( $c , CURLOPT_POSTFIELDS, $parameters );
-        curl_setopt( $c , CURLOPT_INFILESIZE, filesize( $inputFile ) );
-
-
-
-//        curl_setopt( $c, CURLOPT_PROGRESSFUNCTION, 'onProgress' );
-//        
-//        function onProgress($download_size, $downloaded, $upload_size, $uploaded)
-//        {
-//            // do your progress stuff here
-//        }
-
-        $r = curl_exec( $c );
-
-        if( curl_errno($c) )
+        if( !is_null( $failedValidation ) || !is_null( $errorSummary ) )
         {
-            print curl_error($c);
-            print "<br>Unable to upload file.";
-            exit();
+            $digest = str_pad( " " . $inputFile . " ", 100, "-", STR_PAD_BOTH ) . PHP_EOL . PHP_EOL;
+            if( !is_null( $failedValidation ) ) $digest .= trim( $failedValidation ) . PHP_EOL;
+            if( !is_null( $errorSummary ) ) $digest .= trim( $errorSummary ) . PHP_EOL;
+            file_put_contents( $digestFile, PHP_EOL . $digest, FILE_APPEND );
         }
 
-        print_r( curl_getinfo( $c ) );
-
-        var_dump( $r );
+        return $resp;
     }
 }
