@@ -79,7 +79,7 @@ class DataEntryEventsMapper extends DataMapper
                 $event[ 'booking_url' ] = (string) $eventElement->version->booking_url;
                 $event[ 'url']  = (string) $eventElement->version->url;
                 $event[ 'price' ] = (string) $eventElement->version->price;
-                $event[ 'rating' ] = (string) $eventElement->version->rating;
+                $event[ 'rating' ] = (int) $eventElement->version->rating;
                 $event[ 'vendor_id' ] =  $this->vendor[ 'id' ];
 
                 $vendorCategory = 'vendor-category';
