@@ -17,7 +17,7 @@ require_once dirname(__FILE__).'/../../../bootstrap.php';
  *
  *
  */
-class MetaTest extends PHPUnit_Framework_TestCase
+class EventMetaTest extends PHPUnit_Framework_TestCase
 {
   /**
    * Sets up the fixture, for example, opens a network connection.
