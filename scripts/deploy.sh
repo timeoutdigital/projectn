@@ -10,8 +10,8 @@ do
     b)   BRANCH=$OPTARG ;;
     t)   TAG=$OPTARG ;;
     [?]) echo "$OPTARG is not a recognised option."; exit 1 ;;
-    [:]) if [[ $OPTARG == 'b' ]]; then 
-           echo 'A branch name is required with the -b option.' 
+    [:]) if [[ $OPTARG == 'b' ]]; then
+           echo 'A branch name is required with the -b option.'
            exit
          elif [[ $OPTARG == 't' ]]; then
            TAG=`git tag | sort -n | tail -1`
@@ -73,7 +73,7 @@ if [[ -n $TAG && -z $BRANCH ]]; then
 
 #branch
 elif [[ -z $TAG && -n $BRANCH ]]; then
-  
+
   #check branch exists in origin (unfuddle)
   HAS_BRANCH=0
   for available_branch in `git branch -r`
@@ -150,10 +150,11 @@ DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
                               git clone $GIT_USER@$APP_REPO $RELEASE_NAME &&
                               cd $RELEASE_NAME &&
                               $GIT_CHECKOUT
-                              rm -rf export/ import/ log/ config/databases.yml &&
+                              rm -rf export/ import/ log/ uploads/ config/databases.yml &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/export export &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/import import &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/log log &&
+                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/uploads uploads &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/config/databases.yml config/databases.yml &&
                               rm $DEPLOY_DIR &&
                               ln -ns $CURRENT_RELEASE $DEPLOY_DIR &&
