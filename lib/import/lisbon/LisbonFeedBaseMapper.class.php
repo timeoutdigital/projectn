@@ -95,14 +95,25 @@ class LisbonFeedBaseMapper extends DataMapper
       else if( key_exists( $key, $map ) )
       {
         $recordKey = $map[ $key ];
-        $record[ $recordKey ] = (string) $value;
+        $record[ $recordKey ] = $this->clean( (string) $value );
       }
       else
       {
         //this seems to cause elements to be looped twice
-        $record->addProperty( $key, $value );
+        $record->addProperty( $key, $this->clean( (string) $value ) );
       }
     }
+  }
+
+  /**
+   * Removes Portuguese weird whitespace and apply mb_trim()
+   * @param string $string
+   * @return string
+   */
+  protected function clean( $string , $chars = '' )
+  {
+      $string = preg_replace( "/ /u", ' ', $string );
+      return stringTransform::mb_trim( $string , $chars );
   }
 
   /**
