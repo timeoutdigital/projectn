@@ -12,7 +12,7 @@ Poi:
     vendor_poi_id:              {type: string(25), notnull: true}
     review_date:                {type: datetime, notnull: false}
     local_language:             {type: string(10), notnull: false}
-    poi_name:                   {type: string(80), notnull: false, minlength: 1 } # @todo should be 'name'
+    poi_name:                   {type: string(80), notnull: true, minlength: 1 } # @todo should be 'name'
     house_no:                   {type: string(32), notnull: false}
     street:                     {type: string(255), notnull: true, minlength: 1 }
     city:                       {type: string(32), notnull: true, minlength: 1}
@@ -487,10 +487,6 @@ LogExportError:
     model_index:                {fields: [model]}
 
 
-
-
-
-
 #Master Media table, extended by PoiMedia, EventMedia and MovieMedia
 Media:
   connection: project_n
@@ -505,8 +501,6 @@ Media:
     content_length:       {type: integer, notnull: false}
   indexes:
     ident_index:          {fields: [ident]}
-
-
 
 
 RecordFieldOverride:

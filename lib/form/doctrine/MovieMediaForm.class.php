@@ -12,5 +12,25 @@ class MovieMediaForm extends BaseMovieMediaForm
 {
   public function configure()
   {
+      $this->useFields( array( 'url' ) );
+
+      $this->setWidget('url', new sfWidgetFormInputFileEditable(array(
+        'file_src'    => $this->getObject()->getFileUploadStorePathWeb() . '/'.$this->getObject()->url,
+        'edit_mode'   => !$this->isNew(),
+        'is_image'    => true,
+        'with_delete' => true,
+        'delete_label' => 'Delete',
+      )));
+
+      $this->setValidator('url', new sfValidatorFile(array(
+        'mime_types' => array( 'image/jpeg' ),
+        'path' => $this->getObject()->getFileUploadStorePath(),
+        'required' => false,
+      )));
+
+      $this->setValidator( 'url_delete', new sfValidatorPass() );
+
+      $this->mergePostValidator(new MovieMediaDataEntryValidatorSchema());
   }
+  
 }

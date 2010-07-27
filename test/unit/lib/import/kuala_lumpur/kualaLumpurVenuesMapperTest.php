@@ -24,8 +24,8 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $importer = new Importer();
 
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
-      'city'=>'kuala lumpur', 
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+      'city'=>'kuala lumpur',
       'language'=>'en',
       'inernational_dial_code' => '+60',
       ) );
@@ -62,7 +62,7 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
   {
     // Someone didn't finish waht they were doing.
     $this->markTestIncomplete();
-    
+
     $file = file_get_contents(  TO_TEST_DATA_PATH . '/kl_street_fields.csv' );
     $array = explode( '"'."\n".'"', $file );
 

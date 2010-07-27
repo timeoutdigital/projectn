@@ -38,6 +38,8 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
                                                      ) );
 
     ProjectN_Test_Unit_Factory::add( 'Poi' );
+    ProjectN_Test_Unit_Factory::add( 'Poi' );
+   
 
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
@@ -105,12 +107,10 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testHasImage()
   {
-
     $event = $this->eventTable->findOneById( 1 );
 
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
                           $event['EventMedia'][0]['url']
                           );
   }
-
 }

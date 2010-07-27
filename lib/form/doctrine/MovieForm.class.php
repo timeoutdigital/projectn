@@ -16,6 +16,7 @@ class MovieForm extends BaseMovieForm
     $this->widgetSchema[ 'created_at' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'updated_at' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ]       = new widgetFormFixedText();
+    $this->configureMovieGenreWidget();
   }
 
   protected function doUpdateObject( $values = null )
@@ -26,4 +27,14 @@ class MovieForm extends BaseMovieForm
     $override = new recordFieldOverrideManager( $record );
     $override->saveRecordModificationsAsOverrides();
   }
+
+  private function configureMovieGenreWidget()
+  {
+    $widget = new widgetFormMovieGenreChoice( array( 'record' => $this->object ) );
+    $this->widgetSchema[ 'movie_genre_list' ] = $widget;
+
+    $validator = new validatorMovieGenreChoice();
+    $this->validatorSchema[ 'movie_genre_list' ] = $validator;
+  }
+
 }

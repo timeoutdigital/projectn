@@ -33,10 +33,10 @@ class PoiForm extends BasePoiForm
 
   private function configureVendorPoiCategoryWidget()
   {
-    $widget = new widgetFormPoiVendorCategoryChoice( array( 'record' => $this->object ) );
+    $widget = new widgetFormPoiVendorCategoryChoice( array( 'vendor_id' => $this->object[ 'vendor_id' ] ) );
     $this->widgetSchema[ 'vendor_poi_category_list' ] = $widget;
 
-    $validator = new validatorVendorPoiCategoryChoice( array( 'poi' => $this->object ) );
+    $validator = new validatorVendorPoiCategoryChoice( array( 'vendor_id' => $this->object[ 'vendor_id' ] ) );
     $this->validatorSchema[ 'vendor_poi_category_list' ] = $validator;
   }
 }
