@@ -76,11 +76,10 @@ class runnerTask extends sfBaseTask
     {
         $city =  $options[ 'city' ];
         $taskArray = array(
-            'import' => ( isset( $taskArray[ 'import' ] [ $city  ] ) ) ? $taskArray[ 'import' ] [ $city ]  : array(),
-            'export' => ( isset( $taskArray[ 'export' ] [ $city  ] ) ) ? $taskArray[ 'export' ] [ $city ]  : array()
+            'import' => ( isset( $taskArray[ 'import' ] [ $city  ] ) ) ? array( $taskArray[ 'import' ] [ $city ] )  : array(),
+            'export' => ( isset( $taskArray[ 'export' ] [ $city  ] ) ) ? array( $taskArray[ 'export' ] [ $city ] )  : array()
         );
     }
-
 
     if( empty( $taskArray[ 'import' ] ) )
     {
