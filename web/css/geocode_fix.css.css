@@ -1,0 +1,83 @@
+/* 
+    Document   : geocode_fix.css
+    Created on : 27-Jul-2010, 11:12:16
+    Author     : jeevan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.geocode_fix{
+    background-color:#fff;
+    padding: .5em;
+    margin: .5em;
+    border: 1px solid #e1e1e1;
+}
+.backendTabs{
+    display: block;
+    clear: both;
+    overflow: auto;
+    margin: 2em 0 1em;
+}
+.backendTabs ul , ul.backendTabs li{
+    list-style: none;
+    margin: 0; padding: 0;
+}
+.backendTabs li{
+    float: left;
+    display: inline;
+    margin-right: 1px;
+}
+.backendTabs  a{
+    padding: .5em;
+    display: block;
+    background-color: #eee !important;
+    border: 1px solid #ddd;
+    background-position: 2px 5px !important;
+}
+.backendTabs li.selected a{
+    background-color: #6699CC !important;
+    color: #fff !important;
+}
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.clearfix:after {
+	clear: both;
+	content: ' ';
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+.clearfix {
+	display: block;
+}

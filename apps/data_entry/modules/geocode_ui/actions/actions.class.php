@@ -1,53 +1,37 @@
 <?php
 
-require_once dirname(__FILE__).'/../lib/venueGeneratorConfiguration.class.php';
-require_once dirname(__FILE__).'/../lib/venueGeneratorHelper.class.php';
+require_once dirname(__FILE__).'/../lib/geocode_uiGeneratorConfiguration.class.php';
+require_once dirname(__FILE__).'/../lib/geocode_uiGeneratorHelper.class.php';
 
 /**
- * venue actions.
+ * geocode_ui actions.
  *
  * @package    sf_sandbox
- * @subpackage venue
+ * @subpackage vegeocode_uinue
  * @author
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
-class venueActions extends autoVenueActions
+class geocode_uiActions extends autoGeocode_uiActions
 {
-    public function preExecute()
-    {
-         parent::preExecute();
-         /*$filters = $this->getFilters() ;
-         $this->user = $this->getUser();
 
-         if ( !isset( $filters['vendor_id'] ) || !$this->user->checkIfVendorIdIsAllowed( $filters['vendor_id'] ) )
-         {
-              $this->setFilters( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
-         }*/
-         // Add Filters to Filter Vendor CITY fo
-         $filters = $this->getFilters();
-         //die( var_dump( $filters ) );
-         //var_dump( $filters );
-         
-    }
-    
     public function executeChooseList( sfWebRequest $request )
     {
         $list = $request->getParameter( 'list' );
         
-        $filters = $this->getUser()->getAttribute( 'venue.filters', array(), 'admin_module' );
+        $filters = $this->getUser()->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
 
         $filters[ 'list' ] = $list;
        
         //add list paramater into filters
-        $this->getUser()->setAttribute( 'venue.filters', $filters, 'admin_module' );
+        $this->getUser()->setAttribute( 'geocode_ui.filters', $filters, 'admin_module' );
 
         //reset the page to 1
-        $this->getUser()->setAttribute( 'venue.page', 1, 'admin_module' );
+        $this->getUser()->setAttribute( 'geocode_ui.page', 1, 'admin_module' );
 
         //default sort is created_at
-        $this->getUser()->setAttribute( 'venue.sort', array( 'created_at', 'asc' ), 'admin_module' );
+        $this->getUser()->setAttribute( 'geocode_ui.sort', array( 'created_at', 'asc' ), 'admin_module' );
 
-        $this->redirect( 'venue/index' );
+        $this->redirect( 'geocode_ui/index' );
     }
 
      /**
@@ -57,21 +41,21 @@ class venueActions extends autoVenueActions
      */
     public function executeIndex( sfWebRequest $request )
     {
-        $filters = $this->getUser()->getAttribute( 'venue.filters', array(), 'admin_module' );
+        $filters = $this->getUser()->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
 
         if ( !isset( $filters[ 'list' ] ) )
         {
             $filters[ 'list' ] = 'non-geocoded';
             
-            $this->getUser()->setAttribute( 'venue.filters', $filters, 'admin_module' );
+            $this->getUser()->setAttribute( 'geocode_ui.filters', $filters, 'admin_module' );
             
-            $this->getUser()->setAttribute( 'venue.sort', array( 'created_at', 'asc' ), 'admin_module' );
+            $this->getUser()->setAttribute( 'geocode_ui.sort', array( 'created_at', 'asc' ), 'admin_module' );
         }
 
         if(!isset($filters['vendor_id']) || $filters['vendor_id'] == null || empty($filters['vendor_id']))
         {
             $filters[ 'vendor_id' ] = 0;
-            $this->getUser()->setAttribute( 'venue.filters', $filters, 'admin_module' );
+            $this->getUser()->setAttribute( 'geocode_ui.filters', $filters, 'admin_module' );
         }
         parent::executeIndex( $request );
 
@@ -80,7 +64,7 @@ class venueActions extends autoVenueActions
     public function executeFilter( sfWebRequest $request )
     {
         
-        $filter = $this->getUser()->getAttribute( 'venue.filters', array(), 'admin_module' );
+        $filter = $this->getUser()->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
 
         $list = 'non-geocoded';
 
@@ -91,9 +75,9 @@ class venueActions extends autoVenueActions
         {
             $this->setFilters( $this->configuration->getFilterDefaults() );
 
-            $this->getUser()->setAttribute( 'venue.filters', array( 'list' => $list ), 'admin_module' );
+            $this->getUser()->setAttribute( 'geocode_ui.filters', array( 'list' => $list ), 'admin_module' );
 
-            $this->redirect( 'venue/index' );
+            $this->redirect( 'geocode_ui/index' );
         }
 
         parent::executeFilter( $request );
@@ -114,8 +98,8 @@ class venueActions extends autoVenueActions
         // validate
          if ( $venue && !$this->getUser()->checkIfVendorIdIsAllowed( $venue['vendor_id'] ) )
          {
-             $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to read this record ['.$venue['poi_name'].']' );
-             return array();
+             //$this->getUser()->setFlash ( 'error' , 'You don\' have permissions to read this record ['.$venue['poi_name'].']' );
+             return $this->renderText( json_encode( array('error' => sprintf('You don\' have permissions to read this record [%s]', $venue['poi_name'] ) ) ) );
          }
 
 
@@ -149,8 +133,8 @@ class venueActions extends autoVenueActions
        // validate
        if ( !$this->getUser()->checkRecordPermissions( 'poi', $venueId  ) )
        {
-           $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change this record' );
-           return $this->renderText(  'You don\' have permissions to change this record' );
+           //$this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change this record' );
+           return $this->renderText( json_encode( array('error' => sprintf('You don\' have permissions to change this record') ) ) );
        }
 
       
@@ -185,10 +169,10 @@ class venueActions extends autoVenueActions
 
         $poi->save(); // Save ALL
 
-        return $this->renderText( 'saved' );
+        return $this->renderText( json_encode( array('alert' => sprintf('Record Updated', $poi['poi_name'] ) ) ) );
       }else
-
-      return $this->renderText( 'venue not found' );
+          
+        return $this->renderText( json_encode( array('error' => sprintf('POI Not found!' ) ) ) );
    }
 
 }

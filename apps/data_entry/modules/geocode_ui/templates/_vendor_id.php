@@ -8,7 +8,7 @@ foreach ( $cities as $city ) { $cityNames [$city['id']] = $city['city'];  }
 
 // sort( $cityNames );
 
-$filter = $sf_user->getAttribute( 'venue.filters', array(), 'admin_module' );
+$filter = $sf_user->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
 ?>
 <tbody>
   <tr class="sf_admin_form_row sf_admin_text sf_admin_filter_field_name">

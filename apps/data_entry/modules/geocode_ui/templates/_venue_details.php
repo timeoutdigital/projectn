@@ -87,12 +87,18 @@ var oldId = '';
 function getVenueDetails( venueId )
 {
   $.ajax( {
-  url:  '<?php echo url_for( '@venue' ) ;?>/venueDetails/?venueId=' +  venueId ,
+  url:  '<?php echo url_for( '@geocode_ui' ) ;?>/venueDetails/?venueId=' +  venueId ,
 
   success: function(data)
   {
       var venue = eval('(' + data + ')');
-
+      
+      // Show error when Error Returned
+      if(venue.error && venue.error != '')
+      {
+          alert("Error:\n" + venue.error);
+          return false;
+      }
       $('#t_venue_details_name').val( venue.name );
       $('#venue_details_city').val( venue.city );
       $('#t_venue_details_address1').val( venue.address1 );
@@ -138,7 +144,7 @@ function getVenueDetails( venueId )
 function _saveVenue( venueId , latitude, longitude , geocode_override, geocode_accuracy , reloadDetails )
 {
     $.ajax( {
-        url:  '<?php echo url_for( '@venue') ;?>/saveVenueDetails/' ,
+        url:  '<?php echo url_for( '@geocode_ui') ;?>/saveVenueDetails/' ,
         data:
         {
             venueId:   venueId,
@@ -149,6 +155,16 @@ function _saveVenue( venueId , latitude, longitude , geocode_override, geocode_a
         },
         success: function( data )
         {
+            // Assume that Data is Returned in JSON format
+            var result = eval('(' + data + ')');
+
+            // Show error when Error Returned
+            if(result.error && result.error != '')
+            {
+              alert( "Error:\n" + result.error );
+              return false;
+            }
+
             if( reloadDetails == true ) getVenueDetails( venueId );
 
             $('#save_venue_details_btn').val( "Update"  );
@@ -156,9 +172,12 @@ function _saveVenue( venueId , latitude, longitude , geocode_override, geocode_a
             $('#save_venue_details_btn_infowindow').val( "Update"  );
 
             //$( '#geocode_accuracy_' + venueId.replace( ':', '_' ) ).html( '<strong>Verified</strong>' );
-            alert( data );
 
             clearForm();
+
+            // Show Alert when found
+            if(result.alert && result.alert != '')
+              alert( result.alert );
         }
    } );
 }
@@ -177,9 +196,7 @@ function saveCoordinates()
      var geocode_override = 1;
      var reloadDetails = false;
 
-    // _saveVenue( venueId, latitude, longitude, geocode_override, <? php echo toGeocoder::ACCURACY_MANUAL ; >, reloadDetails );
-
-    _saveVenue( venueId, latitude, longitude, geocode_override, 8, reloadDetails );
+    _saveVenue( venueId, latitude, longitude, geocode_override, <?php echo sfConfig::get('app_geocode_minimum_accuracy') ?>, reloadDetails );
 }
 
 function resetCoordinates()
@@ -190,8 +207,7 @@ function resetCoordinates()
      var geocode_override = 0;
      var reloadDetails = true;
 
-    //_saveVenue( venueId, latitude, longitude, geocode_override, <? php echo toGeocoder::ACCURACY_UNKNOWN ;, reloadDetails );
-    _saveVenue( venueId, latitude, longitude, geocode_override, 8, reloadDetails );
+    _saveVenue( venueId, latitude, longitude, geocode_override, <?php echo sfConfig::get('app_geocode_minimum_accuracy') ?>, reloadDetails );
 }
 
 //]]>

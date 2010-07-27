@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Venue filter form.
+ * geocode_ui filter form.
  *
  * @package    filters
- * @subpackage Venue *
+ * @subpackage geocode_ui *
  * @version    SVN: $Id: sfDoctrineFormFilterTemplate.php 11675 2008-09-19 15:21:38Z fabien $
  */
 class PoiDataEntryFormFilter extends BasePoiFormFilter
