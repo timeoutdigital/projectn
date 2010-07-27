@@ -76,8 +76,8 @@ class runnerTask extends sfBaseTask
     {
         $city =  $options[ 'city' ];
         $taskArray = array(
-            'import' => ( isset( $taskArray[ 'import' ] [ $city  ] ) ) ? array( $taskArray[ 'import' ] [ $city ] )  : array(),
-            'export' => ( isset( $taskArray[ 'export' ] [ $city  ] ) ) ? array( $taskArray[ 'export' ] [ $city ] )  : array()
+            'import' => ( isset( $taskArray[ 'import' ] [ $city  ] ) ) ? array( $city => $taskArray[ 'import' ] [ $city ] )  : array(),
+            'export' => ( isset( $taskArray[ 'export' ] [ $city  ] ) ) ? array( $city => $taskArray[ 'export' ] [ $city ] )  : array()
         );
     }
 
@@ -90,7 +90,6 @@ class runnerTask extends sfBaseTask
     {
         $this->logSection( 'Runner' , "Runner will not be running any EXPORT tasks!" );
     }
-
 
     foreach ( $taskArray as $task => $command )
     {
