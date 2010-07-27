@@ -156,7 +156,7 @@ class runnerTask extends sfBaseTask
                                 'barcelona' => array( 'language' => 'ca', 'type' => array( 'poi', 'event', 'movie' ) ),
                                 'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
                                 'mumbai' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'dehli' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                'delhi' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
                                 'bangalore' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
                                 'pune' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) )
                 ),

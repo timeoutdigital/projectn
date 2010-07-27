@@ -1,9 +1,9 @@
 # # Populate this file with data to be loaded by your ORM's *:data-load task.
 # # You can create multiple files in this directory (i.e. 010_users.yml,
 # # 020_articles.yml, etc) which will be loaded in alphabetical order.
-# # 
+# #
 # # See documentation for your ORM's *:data-load task for more information.
-# 
+#
 # User:
 #   fabien:
 #     username: fabien
@@ -15,8 +15,8 @@
 #     password: changeme
 #     name:     Kris Wallsmith
 #     email:    kris.wallsmith@symfony-project.com
-   
-    
+
+
 PoiCategory:
   c1:
     name:    eat-drink
@@ -326,7 +326,7 @@ Vendor:
     country_code_long:        'IND'
     geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
   v20:
-    city:                     dehli
+    city:                     delhi
     language:                 en-GB
     time_zone:                Asia/Calcutta
     inernational_dial_code:   '+91'
@@ -765,7 +765,7 @@ LinkingEventCategoryMapping:
     VendorEventCategory:  c59
     EventCategory:        c13
 
-    
+
 UiCategory:
   ui1:
     name:  Film
