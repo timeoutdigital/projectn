@@ -603,7 +603,7 @@ class importTask extends sfBaseTask
         switch( $options['type'] )
         {
           case 'poi'      : DataEntryImportManager::importPois();   break;
-          case 'poi-event': DataEntryImportManager::importEvents(); break;
+          case 'event': DataEntryImportManager::importEvents(); break;
           case 'movie'   : DataEntryImportManager::importMovies(); break;
           default : $this->dieDueToInvalidTypeSpecified();
         }
