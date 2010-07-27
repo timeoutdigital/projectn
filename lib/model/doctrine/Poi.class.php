@@ -315,17 +315,16 @@ class Poi extends BasePoi
     if( !$vendorId )
       throw new Exception( 'Cannot add a vendor category to an POI record without a vendor id.' );
 
-    if ( is_array( $name ) )
-    {
-      $name = implode( ' | ', $name );
-    }
-    else
-    {
-        if(strlen($name) == 0)
-        {
-            return false;
-        }
-    }
+    if(!is_array($name) && !is_string($name))
+        throw new Exception ('$name parameter must be string or array of strings');
+
+    if( !is_array($name) )
+        $name = array( $name );
+
+    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+
+    if( stringTransform::mb_trim($name) == '' )
+        return false;
 
     foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
