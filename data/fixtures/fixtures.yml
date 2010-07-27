@@ -161,6 +161,7 @@ Vendor:
     inernational_dial_code:   '+1'
     airport_code:             'JFK'
     country_code:             'us'
+    country_code_long:        'USA'
     geo_boundries:            '18.910839;-167.276413;72.896057;-66.687943'
   v2:
     city:                     chicago
@@ -169,6 +170,7 @@ Vendor:
     inernational_dial_code:   '+1'
     airport_code:             'ORD'
     country_code:             'us'
+    country_code_long:        'USA'
     geo_boundries:            '18.910839;-167.276413;72.896057;-66.687943'
   v3:
     city:                     singapore
@@ -177,6 +179,7 @@ Vendor:
     inernational_dial_code:   '+65'
     airport_code:             'SIN'
     country_code:             'sg'
+    country_code_long:        'SGP'
     geo_boundries:            '1.166440237201368;103.5977086672865;1.478535721771006;104.097382262637'
   v4:
     city:                     london
@@ -185,6 +188,7 @@ Vendor:
     inernational_dial_code:   '+44'
     airport_code:             'LHR'
     country_code:             'gb'
+    country_code_long:        'GBR'
     geo_boundries:            '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179'
   v5:
     city:                     abu dhabi
@@ -193,6 +197,7 @@ Vendor:
     inernational_dial_code:   '+971'
     airport_code:             'AUH'
     country_code:             'ae'
+    country_code_long:        'ARE'
     geo_boundries:            '22.6333274841309;51.583324432373;26.0841617584229;56.381664276123'
   v6:
     city:                     dubai
@@ -201,6 +206,7 @@ Vendor:
     inernational_dial_code:   '+971'
     airport_code:             'DXB'
     country_code:             'ae'
+    country_code_long:        'ARE'
     geo_boundries:            '22.6333274841309;51.583324432373;26.0841617584229;56.381664276123'
   v7:
     city:                     lisbon
@@ -209,6 +215,7 @@ Vendor:
     inernational_dial_code:   '+351'
     airport_code:             'LIS'
     country_code:             'pt'
+    country_code_long:        'PRT'
     geo_boundries:            '30.032881;-31.33763383378733;42.1456451416016;-6.182693481445309'
   v8:
     city:                     sydney
@@ -217,6 +224,7 @@ Vendor:
     inernational_dial_code:   '+61'
     airport_code:             'SYD'
     country_code:             'au'
+    country_code_long:        'AUS'
     geo_boundries:            '-43.74980833333333;112.91105;-9.212524999999999;153.6392833333333'
   v9:
     city:                     kuala lumpur
@@ -225,6 +233,7 @@ Vendor:
     inernational_dial_code:   '+60'
     airport_code:             'KUL'
     country_code:             'my'
+    country_code_long:        'MYS'
     geo_boundries:            '0.855221927165985;99.643440246582;7.36341762542725;119.267517089844'
   v10:
     city:                     moscow
@@ -233,6 +242,7 @@ Vendor:
     inernational_dial_code:   '+7495'
     airport_code:             'MOW'
     country_code:             'ru'
+    country_code_long:        'RUS'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v11:
     city:                     saint petersburg
@@ -241,6 +251,7 @@ Vendor:
     inernational_dial_code:   '+7812'
     airport_code:             'LED'
     country_code:             'ru'
+    country_code_long:        'RUS'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v12:
     city:                     omsk
@@ -249,6 +260,7 @@ Vendor:
     inernational_dial_code:   '+73812'
     airport_code:             'OMS'
     country_code:             'ru'
+    country_code_long:        'RUS'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v13:
     city:                     almaty
@@ -257,6 +269,7 @@ Vendor:
     inernational_dial_code:   '+7727'
     airport_code:             'ALA'
     country_code:             'kz'
+    country_code_long:        'KAZ'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v14:
     city:                     novosibirsk
@@ -265,6 +278,7 @@ Vendor:
     inernational_dial_code:   '+7383'
     airport_code:             'OVB'
     country_code:             'ru'
+    country_code_long:        'RUS'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v15:
     city:                     krasnoyarsk
@@ -273,6 +287,7 @@ Vendor:
     inernational_dial_code:   '+73912'
     airport_code:             'KJA'
     country_code:             'ru'
+    country_code_long:        'RUS'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v16:
     city:                     tyumen
@@ -281,6 +296,7 @@ Vendor:
     inernational_dial_code:   '+73452'
     airport_code:             'TJM'
     country_code:             'ru'
+    country_code_long:        'RUS'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v17:
     city:                     unknown
@@ -289,6 +305,7 @@ Vendor:
     inernational_dial_code:   '+7495'
     airport_code:             'MOW'
     country_code:             'ru'
+    country_code_long:        'RUS'
     geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
   v18:
     city:                     barcelona
@@ -297,6 +314,7 @@ Vendor:
     inernational_dial_code:   '+3493'
     airport_code:             'BCN'
     country_code:             'es'
+    country_code_long:        'ESP'
     geo_boundries:            '27.6388168334961;-18.169641494751;43.7917251586914;4.31538963317871'
   v19:
     city:                     mumbai
@@ -352,6 +370,7 @@ Vendor:
     country_code:             'in'
     country_code_long:        'IND'
     geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
+
 
 EventCategory:
   c1:

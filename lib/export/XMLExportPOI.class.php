@@ -186,6 +186,15 @@ class XMLExportPOI extends XMLExport
         }
       }
 
+      // UI Category Exports.
+      foreach( $poi['VendorPoiCategory'] as $vendorCat )
+        foreach( $vendorCat['UiCategory'] as $uiCat )
+           if( isset( $uiCat['name'] ) )
+           {
+                $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', (string) $uiCat['name'], XMLExport::USE_CDATA );
+                $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
+           }
+
       ExportLogger::getInstance()->addExport( 'Poi' );
 
     }
