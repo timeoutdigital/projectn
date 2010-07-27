@@ -16,6 +16,7 @@ class MovieDataEntryFormFilter extends BaseMovieFormFilter
   {
       $this->user = sfContext::getInstance()->getUser();
       $this->setVendorWidget();
+      $this->setMovieGenresList();
   }
 
   private function setVendorWidget()
@@ -25,6 +26,12 @@ class MovieDataEntryFormFilter extends BaseMovieFormFilter
       $this->widgetSchema ['vendor_id'] = new sfWidgetFormSelect( array( 'choices' => $permittedVendorCitiesChoices ) );
       $this->validatorSchema ['vendor_id'] = new sfValidatorChoice( array( 'choices' => array_keys( $permittedVendorCitiesChoices ), 'required' => true ) );
    }
+
+  private function setMovieGenresList()
+  {
+      $permittedVendorCitiesChoices = $this->user->getPermittedVendorCities( true );
+      $this->widgetSchema[ 'movie_genres_list' ] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'method' => 'getGenre', 'order_by' => array( 'genre', 'asc' ) ));
+  }
 
   public function addVendorIdColumnQuery($query, $field, $value)
   {
