@@ -13,7 +13,7 @@
            <input type="hidden" id="venue_details_id" />
            <input type="hidden" id="venue_details_city" />
            <input type="button" value="Saved" disabled="true" id="save_venue_details_btn" onclick="saveCoordinates();" />
-           <input type="button" value="Clear DB" id="reset_venue_details_btn" onclick="resetCoordinates();" />
+           <input type="button" value="Clear Lat / Long" id="reset_venue_details_btn" onclick="resetCoordinates();" />
           </td>
         </tr>
       </tfoot>
@@ -107,7 +107,7 @@ function getVenueDetails( venueId )
       $('#t_venue_details_longitude').val( venue.longitude );
       $('#venue_details_reverse_geocode').text( '' );
       $('#save_venue_details_btn').attr( "disabled", false );
-      $('#save_venue_details_btn').val( 'Update' );
+      $('#save_venue_details_btn').val( 'Save' );
       $('#venue_details_id').val( venue.id );
 
       $('#t_venue_details_searchurl').attr( 'href' ,  'http://www.google.com/#hl=en&source=hp&q=' + encodeURIComponent( venue.name)  + ' ' + encodeURIComponent( venue.address1 ) + ' ' + encodeURIComponent( venue.city )   );
@@ -136,12 +136,12 @@ function getVenueDetails( venueId )
      $( oldId ).attr( 'class', $( oldId ).attr( 'class' ) + ' highlight' );
 
      $('#save_venue_details_btn').attr( "disabled", false );
-     $('#save_venue_details_btn_infowindow').attr( "disabled", false );
+     // $('#save_venue_details_btn_infowindow').attr( "disabled", false );
   }
 });
 }
 
-function _saveVenue( venueId , latitude, longitude , geocode_override, geocode_accuracy , reloadDetails )
+function _saveVenue( venueId , latitude, longitude , rGeoCode, geocode_accuracy , reloadDetails )
 {
     $.ajax( {
         url:  '<?php echo url_for( '@geocode_ui') ;?>/saveVenueDetails/' ,
@@ -150,7 +150,7 @@ function _saveVenue( venueId , latitude, longitude , geocode_override, geocode_a
             venueId:   venueId,
             latitude:  latitude,
             longitude: longitude,
-            geocode_override: geocode_override,
+            geocode_lookup: rGeoCode,
             geocode_accuracy: geocode_accuracy
         },
         success: function( data )
@@ -167,9 +167,7 @@ function _saveVenue( venueId , latitude, longitude , geocode_override, geocode_a
 
             if( reloadDetails == true ) getVenueDetails( venueId );
 
-            $('#save_venue_details_btn').val( "Update"  );
-
-            $('#save_venue_details_btn_infowindow').val( "Update"  );
+            $('#save_venue_details_btn').val( "Updated"  );
 
             //$( '#geocode_accuracy_' + venueId.replace( ':', '_' ) ).html( '<strong>Verified</strong>' );
 
@@ -185,7 +183,6 @@ function _saveVenue( venueId , latitude, longitude , geocode_override, geocode_a
 function clearForm()
 {
     $('#save_venue_details_btn').attr( "disabled", true );
-    $('#save_venue_details_btn_infowindow').attr( "disabled", true );
 }
 
 function saveCoordinates()
@@ -193,21 +190,25 @@ function saveCoordinates()
      var venueId    = $('#venue_details_id').val();
      var latitude   = $('#t_venue_details_latitude').val();
      var longitude  = $('#t_venue_details_longitude').val();
-     var geocode_override = 1;
+     var rGeoCode   = $('#venue_details_reverse_geocode').val();
+     
      var reloadDetails = false;
 
-    _saveVenue( venueId, latitude, longitude, geocode_override, <?php echo sfConfig::get('app_geocode_minimum_accuracy') ?>, reloadDetails );
+    _saveVenue( venueId, latitude, longitude, rGeoCode, <?php echo sfConfig::get('app_geocode_minimum_accuracy') ?>, reloadDetails );
 }
 
 function resetCoordinates()
 {
+     if( !confirm( 'Do you want to clear Latitude and Longitude of this POI?' ) )
+         return;
+     
      var venueId    = $('#venue_details_id').val();
      var latitude   = '';
      var longitude  = '';
-     var geocode_override = 0;
+     var rGeoCode   = '';
      var reloadDetails = true;
 
-    _saveVenue( venueId, latitude, longitude, geocode_override, <?php echo sfConfig::get('app_geocode_minimum_accuracy') ?>, reloadDetails );
+    _saveVenue( venueId, latitude, longitude, rGeoCode, 0, reloadDetails );
 }
 
 //]]>

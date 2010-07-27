@@ -2,6 +2,6 @@ all:
   javascripts:
    - http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
    - http://maps.google.com/maps/api/js?sensor=false
-   - http://maps.google.com/maps/api/js?sensor=false&key=llkk
+   - http://maps.google.com/maps/api/js?sensor=false&key=<?php echo sfConfig::get('app_geocode_google_map_api_key');?>
    
   stylesheets:    [ geocode_fix.css ]

@@ -2,15 +2,8 @@
     Document   : geocode_fix.css
     Created on : 27-Jul-2010, 11:12:16
     Author     : jeevan
-    Description:
-        Purpose of the stylesheet follows.
+    Description: Geocode UI
 */
-
-/* 
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
-
 .geocode_fix{
     background-color:#fff;
     padding: .5em;
@@ -37,7 +30,7 @@
     display: block;
     background-color: #eee !important;
     border: 1px solid #ddd;
-    background-position: 2px 5px !important;
+    background-position: 2px 7px !important;
 }
 .backendTabs li.selected a{
     background-color: #6699CC !important;

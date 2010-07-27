@@ -1,7 +1,7 @@
 <?php use_helper('I18N', 'Date') ?>
 <?php include_partial('geocode_ui/assets') ?>
 <div id="sf_admin_container" class="geocode_fix">
-  <h1><?php echo __('POIs', array(), 'messages') ?></h1>
+  <h1><?php echo __('Geocode UI', array(), 'messages') ?></h1>
 
   <?php include_partial('geocode_ui/flashes') ?>
 

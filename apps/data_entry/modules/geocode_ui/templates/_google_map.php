@@ -19,11 +19,8 @@
     });
 
    function getControls( city )
-   {
-       var html  = '<br /> <input type="button" value="Update" id="save_venue_details_btn_infowindow" onclick="saveCoordinates();" > ';
-           html  += '<input type="button" value="Clear" id="reset_venue_details_btn_infowindow" onclick="resetCoordinates();" >';
-           html  += '<input type="button" value="' + city + '" id="city_center_venue_details_btn_infowindow" onclick="gotoCityCenter();" >';
-
+   {        
+       var html  = '<br /> <input type="button" value="' + city + '" id="city_center_venue_details_btn_infowindow" onclick="gotoCityCenter();" >';
        return html;
     }
 
@@ -45,7 +42,7 @@
         {
             infowindow.close();
         }
-        infoText = infotxt + getControls( $('#venue_details_city').val() );
+        infoText = infotxt + getControls( 'Go to ' + $('#venue_details_city').val() );
 
         var re= /<\S[^><]*>/g;
 
@@ -74,8 +71,6 @@
         infowindow.setContent( infoText );
 
         infowindow.open( map, marker );
-
-        $('#save_venue_details_btn_infowindow').val( $('#save_venue_details_btn').val( ) );
     }
 
     function updatePositition( )
@@ -84,12 +79,9 @@
 
         $('#t_venue_details_longitude').val( parseFloat( marker.getPosition().lng() ).toFixed( 6 ) );
 
-        $('#save_venue_details_btn').val( "Save" );
-
-        $('#save_venue_details_btn_infowindow').val( "Save" );
+        $('#save_venue_details_btn').val( "Save Changes" );
 
         $('#save_venue_details_btn').attr( "disabled", false );
-        $('#save_venue_details_btn_infowindow').attr( "disabled", false );
 
         getAddressReverseGeocode();
 
@@ -106,8 +98,6 @@
                 map.setCenter(results[0].geometry.location);
 
                 marker.setPosition( results[0].geometry.location );
-
-                $('#save_venue_details_btn_infowindow').val( "Save" );
             }
             else
             {

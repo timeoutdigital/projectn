@@ -29,5 +29,4 @@
 </ul>
 <?php
     $filters = $sf_user->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
-    //var_dump($filters);
 ?>

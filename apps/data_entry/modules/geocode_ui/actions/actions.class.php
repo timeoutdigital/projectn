@@ -54,6 +54,8 @@ class geocode_uiActions extends autoGeocode_uiActions
 
         if(!isset($filters['vendor_id']) || $filters['vendor_id'] == null || empty($filters['vendor_id']))
         {
+            // Filter [Hack] Permitted Cities for Authenticated User.
+            // See PoiDataEntryFormFilter.php addVendorIdColumnQuery().
             $filters[ 'vendor_id' ] = 0;
             $this->getUser()->setAttribute( 'geocode_ui.filters', $filters, 'admin_module' );
         }
@@ -98,7 +100,6 @@ class geocode_uiActions extends autoGeocode_uiActions
         // validate
          if ( $venue && !$this->getUser()->checkIfVendorIdIsAllowed( $venue['vendor_id'] ) )
          {
-             //$this->getUser()->setFlash ( 'error' , 'You don\' have permissions to read this record ['.$venue['poi_name'].']' );
              return $this->renderText( json_encode( array('error' => sprintf('You don\' have permissions to read this record [%s]', $venue['poi_name'] ) ) ) );
          }
 
@@ -133,20 +134,19 @@ class geocode_uiActions extends autoGeocode_uiActions
        // validate
        if ( !$this->getUser()->checkRecordPermissions( 'poi', $venueId  ) )
        {
-           //$this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change this record' );
            return $this->renderText( json_encode( array('error' => sprintf('You don\' have permissions to change this record') ) ) );
        }
 
       
       $latitude = $request->getParameter( 'latitude' );
       $longitude = $request->getParameter( 'longitude' );
-      $geocode_override = $request->getParameter( 'geocode_override' );
+      $geocode_lookup = $request->getParameter( 'geocode_lookup' );
       $geocode_accuracy = $request->getParameter( 'geocode_accuracy' );
 
       
       if( empty( $latitude ) ) $latitude = null;
       if( empty( $longitude ) ) $longitude = null;
-      if( empty( $geocode_accuracy ) ) $geocode_accuracy = null;
+      if( empty( $geocode_accuracy ) ) $geocode_accuracy = 0;
 
       $poi = Doctrine::getTable( 'Poi' )->find( $venueId );
 
@@ -158,13 +158,11 @@ class geocode_uiActions extends autoGeocode_uiActions
 
         $poi[ 'latitude' ] = $latitude;
         $poi[ 'longitude' ] = $longitude;
-        #$venue[ 'geocode_override' ] = $geocode_override;
-        #$venue[ 'geocode_accuracy' ] = $geocode_accuracy;
 
         // Add / Update GEO Source
         if($last_lat != $latitude || $last_long != $longitude)
         {
-            // todo: Add Geo_Source to Poi Meta
+            $poi->addMeta('Geo_Source', 'GeocodeUI', sprintf('Changed %s:%s - %s:%s - Accuracy:%s Geocode Lookup:%s', $last_lat, $last_long, $latitude, $longitude,$geocode_accuracy, $geocode_lookup ));
         }
 
         $poi->save(); // Save ALL
