@@ -46,7 +46,7 @@ class runnerTask extends sfBaseTask
                                     'russia' => array( 'movie' ),
                                     'barcelona' => array( 'poi', 'event', 'movie' ),
                                     'kuala lumpur' => array( 'poi', 'event', 'movie' ),
-                                    'data-entry' => array( 'poi', 'event', 'movie' )
+                                    'data-entry' => array( 'poi', 'poi-event', 'movie' )
                     ),
                     'export' => array(
                                     'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
@@ -64,10 +64,10 @@ class runnerTask extends sfBaseTask
                                     //'tyumen' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'barcelona' => array( 'language' => 'ca', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'mumbai' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'dehli' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'bangalore' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'pune' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) )
+                                    'mumbai' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'dehli' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'bangalore' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'pune' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) )
                     ),
                  );
 
@@ -193,6 +193,7 @@ class runnerTask extends sfBaseTask
   protected function executeCommand( $cmd, $logfile )
   {
     $cmdOutput = shell_exec( $cmd . ' 2>&1' );
+    echo $cmd.PHP_EOL;
     file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
   }
 
