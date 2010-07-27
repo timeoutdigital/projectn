@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -26,20 +26,25 @@ class fixIndiaGeoCodeTask extends sfBaseTask
       Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
       $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
-      $pois = Doctrine::getTable('Poi')->findByVendorId( 19 ); // 19 == Mumbai
+      $vendorIds = array( 19 ,20,21,24 ); //india cities
 
-      foreach($pois as $poi)
+      foreach ($vendorIds as $vendorId)
       {
-          try{
-              $poi['geocode_look_up'] = $poi['latitude'] = $poi['longitude'] = null; // Empty existing data
-              $poi->save(); // save them
-          }catch(Exception $exception)
+          $pois = Doctrine::getTable('Poi')->findByVendorId( $vendorId );
+
+          foreach($pois as $poi)
           {
-              print_r('Exception caught in fix-india-geocode : ' . $exception->getMessage() . PHP_EOL);
+              try{
+                  $poi['geocode_look_up'] = $poi['latitude'] = $poi['longitude'] = null; // Empty existing data
+                  $poi->save(); // save them
+              }catch(Exception $exception)
+              {
+                  print_r('Exception caught in fix-india-geocode : ' . $exception->getMessage() . PHP_EOL);
+              }
+              break; // test
           }
-          break; // test
-      } // foreach
-      
+
+        }
   }
 }
 

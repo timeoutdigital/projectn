@@ -27,7 +27,10 @@ class runnerDataEntryTask extends runnerTask
 
     $taskArray = array (
                     'export' => array(
-                            'mumbai' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) )
+                            'mumbai' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
+                            'dehli' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
+                            'bangalore' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
+                            'pune' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) )
                     ),
                  );
 
