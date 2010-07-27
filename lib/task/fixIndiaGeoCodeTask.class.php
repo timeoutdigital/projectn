@@ -26,7 +26,7 @@ class fixIndiaGeoCodeTask extends sfBaseTask
       Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
       $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
-      $vendorIds = array( 19 ,20,21,24 ); //india cities
+      $vendorIds = array( 19,20, 21, 24 ); //india cities
 
       foreach ($vendorIds as $vendorId)
       {
@@ -41,9 +41,7 @@ class fixIndiaGeoCodeTask extends sfBaseTask
               {
                   print_r('Exception caught in fix-india-geocode : ' . $exception->getMessage() . PHP_EOL);
               }
-              break; // test
           }
-
         }
   }
 }
