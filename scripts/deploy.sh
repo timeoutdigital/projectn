@@ -10,8 +10,8 @@ do
     b)   BRANCH=$OPTARG ;;
     t)   TAG=$OPTARG ;;
     [?]) echo "$OPTARG is not a recognised option."; exit 1 ;;
-    [:]) if [[ $OPTARG == 'b' ]]; then 
-           echo 'A branch name is required with the -b option.' 
+    [:]) if [[ $OPTARG == 'b' ]]; then
+           echo 'A branch name is required with the -b option.'
            exit
          elif [[ $OPTARG == 't' ]]; then
            TAG=`git tag | sort -n | tail -1`
@@ -73,7 +73,7 @@ if [[ -n $TAG && -z $BRANCH ]]; then
 
 #branch
 elif [[ -z $TAG && -n $BRANCH ]]; then
-  
+
   #check branch exists in origin (unfuddle)
   HAS_BRANCH=0
   for available_branch in `git branch -r`
