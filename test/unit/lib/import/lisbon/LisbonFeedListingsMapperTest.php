@@ -5,7 +5,9 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 
 /**
  * Test class for LisbonFeedListingsMapper.
- *
+ * Lisbon Gives event date range and the days of event occurrences, ]
+ * Mapper will only add events for next 7 days. Event dates are specified as #ProposedFromDate# = #ProposedToDate#
+ * and days of the event occurrences are mentioned in the #timeinfo# as text
  *
  * @package test
  * @subpackage lisbon.import.lib.unit
@@ -46,16 +48,15 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => $placeid ) );
     }
 
-    $this->object = new LisbonFeedListingsMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' )
-    );
+    // Load XML
+    $xmlData =  simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' );
 
+    // Simulate Dynamic Dates to test in future
+    // updating dates for First two nodes in the feed
+    $xmlData->listings[0]['ProposedFromDate'] = $xmlData->listings[1]['ProposedFromDate'] = date('Y-m-d\T00:00:00');
+    $xmlData->listings[0]['ProposedToDate'] = $xmlData->listings[1]['ProposedToDate'] = date('Y-m-d\T00:00:00', mktime(0,0,0, date('m'), date('d')+14, date('Y')));
 
-
-
-
-    
-
+    $this->object = new LisbonFeedListingsMapper( $xmlData );
 
   }
 
@@ -159,7 +160,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapListings()
   {
     $importer = new Importer();
-    //$importer->addLogger( new echoingLogger() );
     $importer->addDataMapper( $this->object );
     $importer->run();
 
@@ -169,7 +169,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $event = $events[0];
 
     $this->assertEquals( '50805', $event['vendor_event_id'] );
-    $this->assertEquals( 'Arquitecto José Santa-Rita, arquitecto: Obra, marcas e identidade(s) de um percu', $event['name'] );
+    $this->assertEquals( 'Arquitecto José Santa-Rita, arquitecto: Obra, marcas e identidade(s) de um percu', $event['name'] );
     $this->assertEquals( 'Constituindo, pela primeira vez, uma homenagem póstuma, esta edição do Prémio Mu', $event['short_description'] );
     $this->assertRegExp( '/^Patrcia.*percurso$/', $event['description'] );
     $this->assertEquals( '', $event['booking_url'] );
@@ -178,14 +178,19 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $event['rating'] );
     $this->assertEquals( '1', $event['vendor_id'] );
 
+    // Although we have 14 days of Events, We will only Add events within 7 Days from Today.
+    // hence, events occurrence should only have 2 Events in this case (Thursday & Friday as in XML Feed)
+    $this->assertEquals(2,  $event['EventOccurrence']->count());
     $eventOccurrence1 = $event['EventOccurrence'][0];
 
-    $this->assertEquals( '2010-06-17', $eventOccurrence1['start_date'] );
+    // This event occur Every Thursday & Friday of the week!
+    $this->assertEquals( date('Y-m-d', strtotime('next Thursday')), $eventOccurrence1['start_date'] );
     $this->assertEquals( null, $eventOccurrence1['start_time'] );
     $this->assertEquals( '+01:00', $eventOccurrence1['utc_offset'] );
 
+    // Check for Friday Event
     $eventOccurrence2 = $event['EventOccurrence'][1];
-    $this->assertEquals( '2010-06-18', $eventOccurrence2['start_date'] );
+    $this->assertEquals( date('Y-m-d', strtotime('next Friday')), $eventOccurrence2['start_date'] );
     $this->assertEquals( null, $eventOccurrence2['start_time'] );
     $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
 
@@ -211,14 +216,17 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
 
     $poi833Results = Doctrine::getTable('Poi')->findByVendorPoiId( 833 );
+
     $this->assertEquals( 1, $poi833Results->count() );
 
     $poi833 = $poi833Results[0];
+
     $poi833Categories = $poi833['VendorPoiCategory'];
-    //var_dump( $poi833['VendorPoiCategory']->toArray() );
+
     $this->assertEquals( 3, $poi833Categories->count() );
+
     $this->assertEquals( $poi833Categories[0]['name'], 'test name' );//autocreated by bootstrap
-    $this->assertEquals( $poi833Categories[1]['name'], 'Museus | Museus' );
+    $this->assertEquals($poi833Categories[1]['name'], 'Museus | Museus' );
     $this->assertEquals( $poi833Categories[2]['name'], 'Category | SubCategory' );
   }
 

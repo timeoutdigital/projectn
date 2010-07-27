@@ -25,16 +25,16 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
       $poi['country'] = 'PRT';
-      $poi['additional_address_details'] = $this->extractAddress( $venueElement );
+      $poi['additional_address_details'] = $this->clean( $this->extractAddress( $venueElement ) );
       $poi['phone'] =  (string) $venueElement[ 'phone' ];
       $poi->addVendorCategory( (string) $venueElement[ 'tipo' ], $this->vendor['id'] );
       $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
       $poi['vendor_id'] = $this->vendor['id'];
 
-      $poi['street']                     = trim( (string) $venueElement[ 'address' ], " ," );
+      $poi['street']                     = $this->clean( (string) $venueElement[ 'address' ], " ," );
       
-      $poi['description']                = $this->extractAnnotation( $venueElement );
-      $poi['additional_address_details'] = $this->extractAddress( $venueElement );
+      $poi['description']                = $this->clean( $this->extractAnnotation( $venueElement ) );
+      $poi['additional_address_details'] = $this->clean( $this->extractAddress( $venueElement ) );
       $poi['phone2']                     = $this->extractPhoneNumbers( $venueElement );
       $poi['public_transport_links']     = $this->extractTransportLinkInfo( $venueElement );
       $poi['price_information']          = $this->extractPriceInfo( $venueElement );
