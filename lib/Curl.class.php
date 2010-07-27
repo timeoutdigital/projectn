@@ -164,7 +164,7 @@ class Curl
     }
     else
     {
-      curl_setopt( $curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
+      //curl_setopt( $curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
       curl_setopt( $curlHandle, CURLOPT_POST, true );
     }
     
