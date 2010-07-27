@@ -193,7 +193,6 @@ class runnerTask extends sfBaseTask
   protected function executeCommand( $cmd, $logfile )
   {
     $cmdOutput = shell_exec( $cmd . ' 2>&1' );
-    echo $cmd.PHP_EOL;
     file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
   }
 
