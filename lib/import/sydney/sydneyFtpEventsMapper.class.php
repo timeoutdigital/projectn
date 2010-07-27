@@ -38,9 +38,9 @@ class sydneyFtpEventsMapper extends DataMapper
     $this->dataMapperHelper = new projectnDataMapperHelper( $vendor );
   }
 
-  public function mapVenues()
+  public function mapEvents()
   {
-      
+
     foreach( $this->feed->event as $eventNode )
     {
       try
@@ -65,7 +65,15 @@ class sydneyFtpEventsMapper extends DataMapper
           if ( (string) $eventNode->Free == 'True' )
             $event['FreeProperty'] = true;
 
-          //$event->addMediaByUrl( (string) $eventNode->ImagePath );
+
+          // Try Catch Erro's when getting Headers!
+          try {
+            $event->addMediaByUrl( (string) $eventNode->ImagePath );
+          }
+          catch( Exception $e )
+          {
+            $this->notifyImporterOfFailure($e);
+          }
 
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 
@@ -74,14 +82,29 @@ class sydneyFtpEventsMapper extends DataMapper
           {
               $occurrence = new EventOccurrence();
               $occurrence['start_date']                   = $this->extractDate( (string) $eventNode->DateFrom, true );
+
+              $timeInfo = $this->extractTime( (string) $eventNode->Time );
+              if( isset( $timeInfo[ 'startTime' ] ) )
+              {
+                $occurrence['start_time'] = $timeInfo[ 'startTime' ];
+              }
+
+              if( isset( $timeInfo[ 'endTime' ] ) )
+              {
+                $occurrence['end_time'] = $timeInfo[ 'endTime' ];
+              }
+
               $occurrence['end_date']                     = $this->extractDate( (string) $eventNode->DateTo, true );
               $occurrence['vendor_event_occurrence_id']   = Doctrine::getTable("EventOccurrence")
-                                                                ->generateVendorEventOccurrenceId( $event['id'], $poi['id'], $occurrence[ 'start_date' ] );
+                                                                ->generateVendorEventOccurrenceId( $event['vendor_event_id'], $poi['id'], $occurrence[ 'start_date' ] );
               $occurrence['utc_offset']                   = $this->vendor->getUtcOffset();
               $occurrence['Poi']                          = $poi;
 
               $event['EventOccurrence']->delete();
               $event['EventOccurrence'][] = $occurrence;
+          }else{
+              $this->notifyImporterOfFailure( new Exception( 'Could not find Sydney Poi with Vendor name of '. (string) $event['name']  ) );
+              continue;
           }
 
           $this->notifyImporter( $event );
@@ -93,11 +116,59 @@ class sydneyFtpEventsMapper extends DataMapper
     }
   }
 
+  private function  extractTime( $timeString )
+ {
+      $timeString = str_replace( '–', '-', $timeString );
+
+      $timeRangePattern = '/^([0-9.]+)(a|p)m-([0-9.]+)(a|p)m$/'; //catches  "9.30am-10pm"
+      preg_match( $timeRangePattern, $timeString, $matches );
+
+      //print_r($matches);
+      if( count( $matches ) == 5 )
+      {
+        if( strpos( $matches[1] , '.') ==false ) $matches[1] .= '.00'; //adding .00 to the start time if there isn't any
+        if( strpos( $matches[3] , '.') ==false ) $matches[3] .= '.00'; //adding .00 to the end time if there isn't any
+         //format the start and end times
+        $startTime = date("H:i:s", strtotime( $matches[ 1 ] . ' '.$matches[ 2 ] . 'm' ) );
+        $endTime = date("H:i:s", strtotime( $matches[ 3 ] . ' '.$matches[ 4 ] . 'm' ) ) ;
+        return array( 'startTime' => $startTime  , 'endTime' => $endTime );
+      }
+
+      //range of time
+      $timeRangePattern = '/^([0-9.]+)-([0-9.]+)(a|p)m$/'; //catches  "9.30-10pm"
+      preg_match( $timeRangePattern, $timeString, $matches );
+
+      if( count( $matches ) == 4 )
+      {
+        if( strpos( $matches[1] , '.') ==false ) $matches[1] .= '.00'; //adding .00 to the start time if there isn't any
+        if( strpos( $matches[2] , '.') ==false ) $matches[2] .= '.00'; //adding .00 to the end time if there isn't any
+         //format the start and end times
+        $startTime = date("H:i:s", strtotime( $matches[ 1 ] . ' '.$matches[ 3 ] . 'm' ) );
+        $endTime = date("H:i:s", strtotime( $matches[ 2 ] . ' '.$matches[ 3 ] . 'm' ) ) ;
+        return array( 'startTime' => $startTime  , 'endTime' => $endTime );
+      }
+
+
+      //single time
+      $singleTimePattern = '/^([0-9.]+)(a|p)m$/'; //catches  "9.30am"
+      preg_match( $singleTimePattern, $timeString, $matches );
+      if( count( $matches ) == 3 )
+      {
+        if( strpos( $matches[1] , '.') ==false ) $matches[1] .= '.00'; //adding .00 to the start time if there isn't any
+        $startTime = date("H:i:s", strtotime( $matches[ 1 ] . ' '.$matches[ 2 ] . 'm' ) );
+        return array( 'startTime' => $startTime );
+
+      }
+
+      return array();
+
+ }
+
   private function extractDate( $dateString, $dateOnly = false )
   {
     if ( empty( $dateString ) )
       return;
-    
+
     // swap 29/03/2010 9:59:00 AM  to   03/29/2010 9:59:00 AM
     $dateString = preg_replace( '/([0-9]+)\/([0-9]+)\/([0-9]{4} [0-9]+\:[0-9]{2}\:[0-9]{2} [AMP]{2})/', '$2/$1/$3', $dateString );
 

@@ -181,7 +181,7 @@ EventCategory:
     VendorEventCategory:        {class: VendorEventCategory, refClass: LinkingEventCategoryMapping}
   indexes:
     name_index:                 {fields: [name]}
-    
+
 #VendorEvent Category
 VendorEventCategory:
   connection: project_n
@@ -546,6 +546,7 @@ Meta:
     record_id:                {type: integer, notnull: true}
     lookup:                   {type: string, notnull: true}
     value:                    {type: string, notnull: false}
+    comment:                  {type: string, notnull: false}
   indexes:
     record_id_index:          {fields: [record_id]}
 
