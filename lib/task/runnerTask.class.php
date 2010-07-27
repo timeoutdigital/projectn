@@ -8,6 +8,7 @@ class runnerTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
+      new sfCommandOption('city', null, sfCommandOption::PARAMETER_OPTIONAL, 'The city to import')
     ));
 
     $this->namespace        = 'projectn';
@@ -63,9 +64,34 @@ class runnerTask extends sfBaseTask
                                     //'tyumen' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'barcelona' => array( 'language' => 'ca', 'type' => array( 'poi', 'event', 'movie' ) ),
                                     'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                    'mumbai' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) )
+                                    'mumbai' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'dehli' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'bangalore' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
+                                    'pune' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) )
                     ),
                  );
+
+
+   if( !empty( $options[ 'city' ] ) )
+    {
+        $city =  $options[ 'city' ];
+        $taskArray = array(
+            'import' => ( isset( $taskArray[ 'import' ] [ $city  ] ) ) ? $taskArray[ 'import' ] [ $city ]  : array(),
+            'export' => ( isset( $taskArray[ 'export' ] [ $city  ] ) ) ? $taskArray[ 'export' ] [ $city ]  : array()
+        );
+    }
+
+
+    if( empty( $taskArray[ 'import' ] ) )
+    {
+        $this->logSection( 'Runner' , "Runner will not be running any IMPORT tasks!" );
+    }
+
+    if( empty( $taskArray[ 'export' ] ) )
+    {
+        $this->logSection( 'Runner' , "Runner will not be running any EXPORT tasks!" );
+    }
+
 
     foreach ( $taskArray as $task => $command )
     {
