@@ -28,7 +28,14 @@ class Media extends BaseMedia
 
     public function getFileUploadStorePathWeb()
     {
-        return '/uploads/media/' . strtolower( str_replace( 'Media', '', get_class( $this ) ) ) ;
+        //generate url for uploads
+        $genUrlPath = sfContext::getInstance()->getController()->genUrl('uploads/media/');
+
+        //remove script name out of genereated url
+        $urlPath = preg_replace( '/(\/[^\/]*\.php\/)/', '/', $genUrlPath ) . '/';
+
+        //return url (incl. appended model folder
+        return $urlPath . strtolower( str_replace( 'Media', '', get_class( $this ) ) ) ;
     }
 
     /**
