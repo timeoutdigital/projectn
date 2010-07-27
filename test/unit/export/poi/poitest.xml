@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vendor-pois vendor="timeout" modified="2010-05-20T10:26:00">
-  <entry vpid="LHR000000000000000000000000000001" lang="en" modified="2010-05-20T10:26:00">
+<vendor-pois vendor="timeout" modified="2010-07-22T11:35:49">
+  <entry vpid="LHR000000000000000000000000000001" lang="en" modified="2010-07-22T11:35:49">
     <geo-position>
       <longitude>1.1</longitude>
-      <latitude>1.1</latitude>
+      <latitude>2</latitude>
     </geo-position>
     <name><![CDATA[test name]]></name>
     <category><![CDATA[theatre-music-culture]]></category>
     <address>
-      <street><![CDATA[street]]></street>
+      <street><![CDATA[test street]]></street>
       <city><![CDATA[test town]]></city>
       <country>GBR</country>
     </address>
@@ -16,7 +16,7 @@
     <version lang="en">
       <name><![CDATA[test name]]></name>
       <address>
-        <street><![CDATA[street]]></street>
+        <street><![CDATA[test street]]></street>
         <city><![CDATA[test town]]></city>
         <country>GBR</country>
       </address>
@@ -25,7 +25,7 @@
       </content>
     </version>
   </entry>
-  <entry vpid="LHR000000000000000000000000000002" lang="en" modified="2010-05-20T10:26:00">
+  <entry vpid="LHR000000000000000000000000000002" lang="en" modified="2010-07-22T11:35:49">
     <geo-position>
       <longitude>1.1</longitude>
       <latitude>1.1</latitude>
@@ -33,7 +33,7 @@
     <name><![CDATA[test name]]></name>
     <category><![CDATA[theatre-music-culture]]></category>
     <address>
-      <street><![CDATA[street]]></street>
+      <street><![CDATA[test street]]></street>
       <city><![CDATA[test town]]></city>
       <country>GBR</country>
     </address>
@@ -41,7 +41,7 @@
     <version lang="en">
       <name><![CDATA[test name]]></name>
       <address>
-        <street><![CDATA[street]]></street>
+        <street><![CDATA[test street]]></street>
         <city><![CDATA[test town]]></city>
         <country>GBR</country>
       </address>

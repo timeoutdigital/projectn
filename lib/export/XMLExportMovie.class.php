@@ -199,6 +199,10 @@ class XMLExportMovie extends XMLExport
             }
         }
       }
+
+      // Ui Category is Always 'Film'
+      $propertyTag = $this->appendNonRequiredElement( $versionElement, 'property', 'Film', XMLExport::USE_CDATA );
+      $propertyTag->setAttribute( 'key', 'UI_CATEGORY' );
       
       ExportLogger::getInstance()->addExport( 'Movie' );
     }

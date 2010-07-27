@@ -28,7 +28,7 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addRequiredOption('record');
+    $this->addRequiredOption('vendor_id');
 
     // to maintain BC with symfony 1.2
     //$this->setOption('record', 'relation');
@@ -56,8 +56,7 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
 
   private function getChoices()
   {
-    $poi = $this->options['record'];
-    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $poi['Vendor']['id'] );
+    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $this->options['vendor_id'] );
 
     $choices = array();
     foreach( $relatedVendorCategories as $category )

@@ -3,6 +3,14 @@ body {
     padding: 0 0 0 10px;
 }
 
+a {
+    color: #0C196E;
+}
+
+a:hover {
+    color: #545454;
+}
+
 #logo {
     height:45px;
 }
@@ -34,9 +42,21 @@ body {
     text-decoration: none;
 }
 
-#menu a:hover {
-    color: #555555;
+#menu a {
+    padding:2px;
+    color: #545454;
 }
+
+#menu a:hover {
+    color: #000;
+    background-color: #FFFFFF;
+}
+
+#sf_admin_container fieldset h2
+{
+  background-color: #69BAE9;
+}
+
 
 .clear {
     clear:both;
