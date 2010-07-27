@@ -104,6 +104,9 @@ class movieActions extends autoMovieActions
     $movie->unlink( 'MovieGenres', $movieGenreIds );
     $movie->save();
 
+    //delete meta
+    $movie[ 'MovieMeta' ]->delete();
+
     //delete media
     foreach( $movie[ 'MovieMedia' ] as $movieMedia )
     {

@@ -144,6 +144,9 @@ class eventActions extends autoEventActions
     //delete occurrences
     $event[ 'EventOccurrence' ]->delete();
 
+    //delete meta
+    $event[ 'EventMeta' ]->delete();
+
     //delete media
     foreach( $event[ 'EventMedia' ] as $eventMedia )
     {

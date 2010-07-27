@@ -116,6 +116,9 @@ class poiActions extends autoPoiActions
     $poi->unlink( 'VendorPoiCategory', $vendorCategoryIds );
     $poi->save();
 
+    //delete meta
+    $poi[ 'PoiMeta' ]->delete();
+
     //delete media
     foreach( $poi[ 'PoiMedia' ] as $poiMedia )
     {
