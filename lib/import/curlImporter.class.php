@@ -134,6 +134,7 @@ class curlImporter
       * @todo refactor line 109 into this - simple xml breaks due to html & in tags that are not surrounded by cdata
       */
      libxml_use_internal_errors(true);
+     //the line before was replaced instead of stripEmtryLines because some feeds are using new lines in description and even in address fields
      $xmlString = trim( $this->_xmlResponseRaw );
 
 
