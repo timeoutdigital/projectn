@@ -29,6 +29,8 @@ class PoiDataEntryForm extends BasePoiForm
     $this->widgetSchema[ 'local_language' ]  = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorLanguage() ) );
     $this->widgetSchema[ 'city' ]            = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCity() ) );
 
+    $this->widgetSchema[ 'poi_name' ] = new widgetFormInputTextJQueryAutocompleter( array( 'url' => sfContext::getInstance()->getRequest()->getScriptName() . '/poi/ajaxPoiList' ) );
+
     //@todo maybe use the jquery calendar
     $this->widgetSchema[ 'review_date' ]      = new sfWidgetFormDate(array());
     $this->validatorSchema[ 'review_date' ]    = new sfValidatorDate(array( 'required' => false ));

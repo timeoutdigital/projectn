@@ -22,7 +22,7 @@ class EventOccurrenceForm extends BaseEventOccurrenceForm
       $this->widgetSchema['poi_id']->setOption('renderer_class', 'sfWidgetFormDoctrineJQueryAutocompleter');
       $this->widgetSchema['poi_id']->setOption('renderer_options', array(
         'model' => 'Poi',
-        'url'   => sfContext::getInstance()->getRequest()->getScriptName() . '/event/ajax',
+        'url'   => sfContext::getInstance()->getRequest()->getScriptName() . '/event/ajaxPoiList',
       ));
 
       $this->useFields( array( 'start_date', 'start_time', 'end_date', 'end_time', 'poi_id', 'event_occurrence_delete' ) );
