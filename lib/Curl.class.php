@@ -171,7 +171,6 @@ class Curl
     curl_setopt( $curlHandle, CURLOPT_URL, $url );
     $this->_requestUrl = $url;
 
-    curl_setopt( $curlHandle, CURLOPT_HEADER, $this->_returnHeaderSwitch );
     curl_setopt( $curlHandle, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt( $curlHandle, CURLOPT_RETURNTRANSFER, 1 );
     curl_setopt( $curlHandle, CURLOPT_USERAGENT, "Mozilla/4.0" );
@@ -324,16 +323,6 @@ class Curl
   }
 
   /**
-   * switch the (custom) return header option on/off
-   * 
-   * @param boolean $returnHeader 
-   */
-  public function setReturnHeader( $returnHeader = true )
-  {
-    $this->_returnHeaderSwitch = $returnHeader;
-  }
-
-  /**
    * returns header
    *
    * @return string
@@ -448,8 +437,6 @@ class Curl
       {
           $lastModifiedInSec = strtotime( $lastModified );
       }
-
-      $this->setReturnHeader();
 
       //needs to be checked for false again as strtotime above could return
       //false too
