@@ -184,6 +184,52 @@ class EventTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Check to see if addVendorCategory add's Empty array value array('')
+   */
+  public function testAddVendorCategoryEmpty()
+  {
+      $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+      // Add String Category
+      $this->object->addVendorCategory( 'empty 1', $vendor[ 'id' ] );
+
+      // Empty string
+      $this->object->addVendorCategory( '', $vendor[ 'id' ] );
+
+      // array
+      $this->object->addVendorCategory( array('empty2 ', 'empty 3'), $vendor[ 'id' ] );
+
+      // array plus empty
+      $this->object->addVendorCategory( array( 'empty 4', '', ' ', ' empty 5' ), $vendor[ 'id' ] );
+
+      $this->object->save(); // Save to DB
+
+      // validate
+      $categoryTable = Doctrine::getTable( 'VendorEventCategory' )->findAll();
+
+      $this->assertEquals('empty 1' , $categoryTable[0]['name']);
+      $this->assertEquals('empty2  | empty 3' , $categoryTable[1]['name']);
+      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[2]['name']);
+
+      // Object Exception!
+      try{
+
+          $this->object->addVendorCategory($categoryTable, $vendor[ 'id' ] );
+          $this->assertEquals(false, true, 'Error: addVendorCategory should throw an exception when an object passed as parameter');
+
+      }catch(Exception $exception)
+      {
+          $this->assertEquals(false, false); // Exception captured
+          
+      }
+
+      // @todo: addVendorCategory do not removes whitespaces in parameter
+      $this->markTestIncomplete();
+
+  }
+
+
+  /**
    *
    */
   public function testGetPois()
