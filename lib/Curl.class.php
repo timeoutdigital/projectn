@@ -40,11 +40,6 @@ class Curl
   private $_requestUrl;
 
   /**
-   * @var boolean;
-   */
-  private $_returnHeaderSwitch;
-
-  /**
    * @var string
    */
   private $_storePath;
@@ -88,13 +83,11 @@ class Curl
    */
   public function __construct( $url,
                                $parameters     = array(),
-                               $requestMethod  = 'GET',
-                               $returnHeaders  = false )
+                               $requestMethod  = 'GET' )
   {
     $this->_url           = $url;
     $this->_parameters    = $parameters;
     $this->_requestMethod = $requestMethod;
-    $this->_returnHeaderSwitch = $returnHeaders;
   }
 
 
@@ -132,11 +125,8 @@ class Curl
 
   private function applyOptions( $curlHandle )
   {
-    if ( $this->_returnHeaderSwitch )
-    {
-        $this->_tmpHeaderFile = tmpfile();
-        $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
-    }
+    $this->_tmpHeaderFile = tmpfile();
+    $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
 
     foreach( $this->_options as $key=>$value )
       curl_setopt( $curlHandle, $key, $value );
