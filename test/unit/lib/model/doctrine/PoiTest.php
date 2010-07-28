@@ -48,14 +48,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-  public function testDoesNotAddAddressAsAProperty()
-  {
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-    $poi->addProperty( 'address', 'foo' );
-    $poi->save();
-    $this->assertEquals( 0, $poi['PoiProperty']->count() );
-  }
-
   public function testStreetDoesNotContainPostCode()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -72,7 +64,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   public function testApplyFeedGeoCodesIfValid()
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-      
+
       $this->assertLessThan(1, $poi['PoiMeta']->count());
 
       $poi->applyFeedGeoCodesIfValid('1','-2.4975618975');
@@ -80,13 +72,13 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poi->save();
 
       $poi->applyFeedGeoCodesIfValid('1','-2.4975618975'); // Same LONG / LAT Should Meta Should not be added
-      
+
       $this->assertEquals(1, $poi['PoiMeta']->count());
 
       $this->assertEquals('Geo_Source', $poi['PoiMeta'][0]['lookup']);
 
       $this->assertEquals('Feed', $poi['PoiMeta'][0]['value']);
-      
+
       $poi->applyFeedGeoCodesIfValid('15.1789464','-2.4975618975');
 
       $poi->save();

@@ -294,9 +294,6 @@ class Poi extends BasePoi
    */
   public function addProperty( $lookup, $value )
   {
-    // ignore address property
-    // unfuddle ticket #461
-    if( $lookup == 'address' ) return;
 
     if( $this->exists() )
     {
@@ -477,7 +474,7 @@ class Poi extends BasePoi
   {
     if( $this->geoEncodeByPass )
       return;
-      
+
     if( $this->geoCodeIsValid() )
       return;
 

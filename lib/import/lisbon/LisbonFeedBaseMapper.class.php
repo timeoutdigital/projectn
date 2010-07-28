@@ -91,7 +91,7 @@ class LisbonFeedBaseMapper extends DataMapper
     {
       $value = (string) $value;
 
-      if( in_array( $key, $ignoreMap ) || empty( $value ) )
+      if( in_array( $key, $ignoreMap ) || $value == '' )
       {
         continue;
       }
@@ -103,7 +103,7 @@ class LisbonFeedBaseMapper extends DataMapper
       else
       {
         // this seems to cause elements to be looped twice
-        $record->addProperty( $key, $value );
+         $record->addProperty( $key, $value );
       }
     }
 

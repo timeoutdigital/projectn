@@ -42,7 +42,9 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
 
       $poi->setGeoEncodeLookUpString( $this->getGeoEncodeData( $poi ) );
+
       $this->notifyImporter( $poi );
+
     }
   }
 
@@ -73,6 +75,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   protected function getIgnoreMap()
   {
     return array(
+      'address',
       'tubeinfo',
       'businfo',
       'railinfo',
