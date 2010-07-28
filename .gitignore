@@ -22,5 +22,6 @@ test/unit/data/downloaded_feeds/ny/[!.]*
 .sf
 *.swp
 *.swo
+*~
 lib/vendor/htmlpurifier-library/HTMLPurifier/DefinitionCache/*
 tags

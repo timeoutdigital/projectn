@@ -149,7 +149,7 @@ class myUser extends sfGuardSecurityUser
         return true;
     }
 
-    private function checkRecordPermissions( $moduleName, $recordId )
+    public function checkRecordPermissions( $moduleName, $recordId )
     {
         $permittedRecord = Doctrine::getTable( sfInflector::camelize( $moduleName ) )->find( $recordId );
 
