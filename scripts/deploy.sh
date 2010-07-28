@@ -150,11 +150,11 @@ DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
                               git clone $GIT_USER@$APP_REPO $RELEASE_NAME &&
                               cd $RELEASE_NAME &&
                               $GIT_CHECKOUT
-                              rm -rf export/ import/ log/ uploads/ config/databases.yml &&
+                              rm -rf export/ import/ log/ web/uploads/ config/databases.yml &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/export export &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/import import &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/log log &&
-                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/uploads uploads &&
+                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/uploads web/uploads &&
                               ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/config/databases.yml config/databases.yml &&
                               rm $DEPLOY_DIR &&
                               ln -ns $CURRENT_RELEASE $DEPLOY_DIR &&
