@@ -34,6 +34,7 @@
         <ul>
           <?php if ($sf_user->hasCredential( 'poi' )): ?>
             <li><?php echo link_to('Poi', '@poi') ?></li>
+            <li><?php echo link_to('Geocode UI', '@geocode_ui') ?></li>
           <?php endif ?>
           <?php if ($sf_user->hasCredential( 'event' )): ?>
             <li><?php echo link_to('Event', '@event') ?></li>
@@ -46,9 +47,6 @@
           <?php endif ?>
           <?php if ($sf_user->hasCredential( 'vendor_event_category' )): ?>
             <li><?php echo link_to('Vendor Event Category', '@vendor_event_category') ?></li>
-          <?php endif ?>
-	 <?php if ($sf_user->hasCredential( 'poi' )): ?>
-            <li><?php echo link_to('Geocode UI', '@geocode_ui') ?></li>
           <?php endif ?>
           <?php if ($sf_user->hasCredential( 'admin' )): ?>
             <li>||</li>
