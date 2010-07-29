@@ -145,6 +145,7 @@ EOF;
       $testFile = TO_TEST_ROOT_PATH . '/import/test/images/test.jpg';
 
       $this->object = new Curl( 'http://www.toimg.net/travel/images/logos/home.gif' );
+      $this->object->exec();
       $this->object->downloadTo( $testFile );
       $curlInfo = $this->object->getCurlInfo();
       $lastModified = $this->object->getLastModified() ;
@@ -152,6 +153,7 @@ EOF;
       $this->assertEquals( '200', $curlInfo[ 'http_code' ] );      
 
       $this->object = new Curl( 'http://www.toimg.net/travel/images/logos/home.gif' );
+      $this->object->exec();
       $this->object->downloadTo( $testFile, $lastModified );
       $curlInfo = $this->object->getCurlInfo();
       $lastModified = $this->object->getLastModified() ;
