@@ -1,11 +1,11 @@
 <?php
 /**
- * Description
+ * Istanbul DataMapper
  *
  * @package projectn
  * @subpackage
  *
- * @author Peter Johnson <peterjohnson@timout.com>
+ * @author Clarence Lee <clarencelee@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1

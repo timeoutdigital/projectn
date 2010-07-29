@@ -1,6 +1,6 @@
 <?php
 /**
- * Barcelona event mapper
+ * Istanbul event mapper
  *
  * @package projectn
  * @subpackage istanbul.import.lib.unit
