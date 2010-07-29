@@ -86,13 +86,16 @@ class LisbonFeedBaseMapper extends DataMapper
   {
     $map = $this->getMap();
     $ignoreMap = $this->getIgnoreMap();
+
     foreach( $element->attributes() as $key => $value )
     {
-      if( in_array( $key, $ignoreMap ) )
+      $value = (string) $value;
+
+      if( in_array( $key, $ignoreMap ) || $value == '' )
       {
         continue;
       }
-      else if( key_exists( $key, $map ) )
+      elseif( key_exists( $key, $map ) )
       {
         $recordKey = $map[ $key ];
         $record[ $recordKey ] = $this->clean( (string) $value );
@@ -101,8 +104,10 @@ class LisbonFeedBaseMapper extends DataMapper
       {
         //this seems to cause elements to be looped twice
         $record->addProperty( $key, $this->clean( (string) $value ) );
+
       }
     }
+
   }
 
   /**
