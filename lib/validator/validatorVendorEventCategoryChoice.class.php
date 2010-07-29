@@ -19,18 +19,20 @@ class validatorVendorEventCategoryChoice extends sfValidatorChoice
     $this->removeRequiredOption( 'choices' );
     $this->addOption( 'multiple' );
     $this->setOption( 'multiple', true );
-    $this->addRequiredOption( 'event' );
+    $this->addRequiredOption('vendor_id');
   }
 
   protected function doClean($value)
   {
-    return parent::doClean($value);
+      return parent::doClean($value);
   }
 
   public function getChoices()
   {
+    $relatedVendorCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $this->options['vendor_id'] );
+
     $choices = array();
-    foreach( $this->getCategoriesForEvent() as $category )
+    foreach( $relatedVendorCategories as $category )
     {
       $value   = $category['id'];
       $display = $category['name'];
@@ -38,12 +40,6 @@ class validatorVendorEventCategoryChoice extends sfValidatorChoice
       $choices[] = $value;
     }
     return $choices;
-  }
-
-  private function getCategoriesForEvent()
-  {
-    $event = $this->options['event'];
-    return Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $event['Vendor']['id'] );
   }
 
   private function removeRequiredOption( $option )

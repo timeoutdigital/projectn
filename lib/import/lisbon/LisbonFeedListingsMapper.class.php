@@ -80,13 +80,13 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       //event
       $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
       $this->appendBandInfoToDescription( $event, $listingElement );
-      $event['description']                                 = preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] );
-      $event['price']                                       = str_replace( "?", "€", $event['price'] ); // Refs: #258b
+      $event['description']                                 = $this->clean( preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] ) );
+      $event['price']                                       = $this->clean(str_replace( "?", "€", $event['price'] ) ); // Refs: #258b
       $event['vendor_id']                                   = $this->vendor['id'];
       $event['vendor_event_id']                             = $recurringListingId;
       $event['review_date']                                 = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
       $eventName = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
-      $event['name']                                        = $eventName;
+      $event['name']                                        = $this->clean($eventName);
       $event->addVendorCategory( $category, $this->vendor['id'] );
 
       //occurrence

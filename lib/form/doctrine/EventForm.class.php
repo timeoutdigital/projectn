@@ -30,10 +30,10 @@ class EventForm extends BaseEventForm
 
   private function configureVendorEventCategoryWidget()
   {
-    $widget = new widgetFormEventVendorCategoryChoice( array( 'record' => $this->object ) );
+    $widget = new widgetFormEventVendorCategoryChoice( array( 'vendor_id' => $this->object[ 'vendor_id'] ) );
     $this->widgetSchema[ 'vendor_event_category_list' ] = $widget;
 
-    $validator = new validatorVendorEventCategoryChoice( array( 'event' => $this->object ) );
+    $validator = new validatorVendorEventCategoryChoice( array( 'vendor_id' => $this->object[ 'vendor_id'] ) );
     $this->validatorSchema[ 'vendor_event_category_list' ] = $validator;
   }
 }
