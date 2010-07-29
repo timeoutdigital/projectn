@@ -38,7 +38,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['street']                        = (string) $venueElement->street;
             $poi['city']                          = (string) $venueElement->city;
             //$poi['district']                      = (string) $venueElement->district;
-            $poi['country']                       = "RUS";
+            $poi['country']                       = $this->vendor['country_code_long'];
             $poi['additional_address_details']    = (string) $venueElement->additional_address_details;
             $poi['zips']                          = (string) $venueElement->postcode;
             
