@@ -182,7 +182,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->xpath = new DOMXPath( $this->domDocument );
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
-      $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
+      $this->assertEquals( 2, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
   /**
