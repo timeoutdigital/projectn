@@ -40,6 +40,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+     date_default_timezone_set( 'Europe/London' );
      $timer = sfTimerManager::getTimer('importTimer');
 
     // initialize the database connection

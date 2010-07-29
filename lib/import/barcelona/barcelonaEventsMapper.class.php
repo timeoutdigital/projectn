@@ -53,8 +53,18 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
           //if( !empty( $medias ) ) $this->addImageHelper( $event, $medias[0] );
 
           // Delete Occurences
+          // occurrences of this event will be deleted and will be added again
+          // this causes auto_increment id's to increment each time, we may run out of ids at some point
+          // so we will keep the old ids
+          $oldIds = array();
+
+          foreach ($event['EventOccurrence'] as $oldOccurrence)
+          {
+            $oldIds[] = $oldOccurrence[ 'id' ];
+          }
+
           $event['EventOccurrence']->delete();
-          
+
           // Create Occurences
           for( $ii=0, $xmlOccurrence = $eventElement->occurrences->occurrence[ 0 ]; $ii<$eventElement->occurrences->occurrence->count(); $ii++, $xmlOccurrence = $eventElement->occurrences->occurrence[ $ii ] )
           {
@@ -101,8 +111,12 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
                     $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $this->clean( (string) $xmlOccurrence->venue ) . ' for Vendor Event ID ' . $vendorEventId . ' in Barcelona.' ) );
                     continue;
                   }
-                  
+
                   $occurrence = new EventOccurrence();
+
+                  //reusing the old id
+                  $occurrence['id'] = array_pop( $oldIds );
+
                   $occurrence[ 'vendor_event_occurrence_id' ]     = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId( $vendorEventId, $poi['id'], $this->clean( (string) $xmlOccurrence->start_date ) );
                   $occurrence[ 'booking_url' ]                    = $this->clean( (string) $xmlOccurrence->booking_url );
                   $occurrence[ 'start_date' ]                     = $start_date;
@@ -126,7 +140,7 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
               $this->notifyImporterOfFailure( new Exception( 'Could not find any reliable occurrences for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
               continue;
           }
-          
+
           $this->notifyImporter( $event );
       }
       catch( Exception $exception )
@@ -135,5 +149,5 @@ class barcelonaEventsMapper extends barcelonaBaseMapper
       }
     }
   }
-  
+
 }

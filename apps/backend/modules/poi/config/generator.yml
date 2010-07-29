@@ -16,8 +16,13 @@ generator:
       fields:  ~
       list:
         display: [=name, longitude, latitude, city]
+        object_actions:
+          _edit: ~
+        actions: {}
+        batch_actions: {}
       filter:  ~
       form:
+        actions: { _list: ~, _save: ~ }
         display:
           Editable:
             - poi_name

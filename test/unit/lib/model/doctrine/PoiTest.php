@@ -61,6 +61,32 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], '45 Some Street' );
   }
 
+  public function testApplyFeedGeoCodesIfValid()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      
+      $this->assertLessThan(1, $poi['PoiMeta']->count());
+
+      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975');
+
+      $poi->save();
+
+      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975'); // Same LONG / LAT Should Meta Should not be added
+      
+      $this->assertEquals(1, $poi['PoiMeta']->count());
+
+      $this->assertEquals('Geo_Source', $poi['PoiMeta'][0]['lookup']);
+
+      $this->assertEquals('Feed', $poi['PoiMeta'][0]['value']);
+      
+      $poi->applyFeedGeoCodesIfValid('15.1789464','-2.4975618975');
+
+      $poi->save();
+
+      $this->assertEquals(2, $poi['PoiMeta']->count());
+
+  }
+
   public function testPoiNameDoesNotEndWIthCommaAndOrSpace()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -162,6 +188,53 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
     $this->assertEquals( 1, $this->object[ 'VendorPoiCategory' ]->count() );
+  }
+
+  /**
+   * Check to see if addVendorCategory add's Empty array value array('')
+   */
+  public function testAddVendorCategoryEmpty()
+  {
+      $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+      // Add String Category
+      $this->object->addVendorCategory( 'empty 1', $vendor[ 'id' ] );
+
+      // Empty string
+      $this->object->addVendorCategory( '', $vendor[ 'id' ] );
+
+      // array
+      $this->object->addVendorCategory( array('empty2 ', 'empty 3'), $vendor[ 'id' ] );
+
+      // array plus empty
+      $this->object->addVendorCategory( array( 'empty 4', '', ' ', ' empty 5' ), $vendor[ 'id' ] );
+
+      $this->object->save(); // Save to DB
+
+      // validate
+      $categoryTable = Doctrine::getTable( 'VendorPoiCategory' )->findAll();
+
+      // Bootstrap adding a default 'test name' category as First
+      $this->assertEquals('empty 1' , $categoryTable[1]['name']);
+      $this->assertEquals('empty2  | empty 3' , $categoryTable[2]['name']);
+      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[3]['name']);
+
+      // Object Exception!
+      try{
+
+          $this->object->addVendorCategory($categoryTable, $vendor[ 'id' ] );
+          $this->assertEquals(false, true, 'Error: addVendorCategory should throw an exception when an object passed as parameter');
+
+      }catch(Exception $exception)
+      {
+          $this->assertEquals(false, false); // Exception captured
+
+      }
+
+      // @todo: addVendorCategory do not removes whitespaces in parameter
+      // 21-07-10: live database found few duplicate category for same vendor id!
+      $this->markTestIncomplete();
+
   }
 
   /**

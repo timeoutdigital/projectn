@@ -256,11 +256,13 @@ class Poi extends BasePoi
    * @param string $value
    * @return boolean if value is null or existing
    */
-  public function addMeta( $lookup, $value )
+  public function addMeta( $lookup, $value, $comment = null )
   {
     $poiMetaObj = new PoiMeta();
     $poiMetaObj[ 'lookup' ] = (string) $lookup;
     $poiMetaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $poiMetaObj[ 'comment' ] = (string) $comment;
 
     $this[ 'PoiMeta' ][] = $poiMetaObj;
   }
@@ -313,17 +315,16 @@ class Poi extends BasePoi
     if( !$vendorId )
       throw new Exception( 'Cannot add a vendor category to an POI record without a vendor id.' );
 
-    if ( is_array( $name ) )
-    {
-      $name = implode( ' | ', $name );
-    }
-    else
-    {
-        if(strlen($name) == 0)
-        {
-            return false;
-        }
-    }
+    if(!is_array($name) && !is_string($name))
+        throw new Exception ('$name parameter must be string or array of strings');
+
+    if( !is_array($name) )
+        $name = array( $name );
+
+    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+
+    if( stringTransform::mb_trim($name) == '' )
+        return false;
 
     foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
@@ -414,7 +415,7 @@ class Poi extends BasePoi
   private function applyDefaultGeocodeLookupStringIfNull()
   {
      if( is_null( $this['geocode_look_up'] ) )
-       $this['geocode_look_up'] = stringTransform::concatNonBlankStrings( ', ', array( $this['house_no'], $this['street'], $this['city'], $this['zips'], $this['country']) );
+       $this['geocode_look_up'] = stringTransform::concatNonBlankStrings( ', ', array( $this['house_no'], $this['street'], $this['city'], $this['zips'] ) );
   }
 
   private function applyOverrides()
@@ -458,17 +459,31 @@ class Poi extends BasePoi
     $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
     $geoEncoder->setRegion( $this['Vendor']['country_code'] );
 
-    $this['longitude'] = $geoEncoder->getLongitude();
-    $this['latitude']  = $geoEncoder->getLatitude();
+    $long = $geoEncoder->getLongitude();
+    $lat = $geoEncoder->getLatitude();
 
     if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
     {
       $this['longitude'] = null;
       $this['latitude']  = null;
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
+      return;
     }
 
-    $this->addMeta( "Geo_Source",  get_class( $geoEncoder ) );
+    $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+    $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
+
+    if( strlen( $long ) > $longitudeLength )
+        $long = substr( (string) $long, 0, $longitudeLength );
+
+    if( strlen( $lat ) > $latitudeLength )
+        $lat = substr( (string) $lat, 0, $latitudeLength );
+
+    if( $this['latitude'] != $lat || $this['longitude'] != $long )
+        $this->addMeta( "Geo_Source", get_class( $geoEncoder ), "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
+
+    $this['longitude'] = $long;// $geoEncoder->getLongitude();
+    $this['latitude']  = $lat; //$geoEncoder->getLatitude();
   }
 
   public function geoCodeIsValid()
@@ -643,8 +658,17 @@ class Poi extends BasePoi
   {
         if( is_numeric( $lat ) && is_numeric( $long ) )
         {
+            $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+            $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
+
+            if( strlen( $long ) > $longitudeLength )
+                $long = substr( (string) $long, 0, $longitudeLength );
+
+            if( strlen( $lat ) > $latitudeLength )
+                $lat = substr( (string) $lat, 0, $latitudeLength );
+
             if( $this['latitude'] != $lat || $this['longitude'] != $long )
-                $this->addMeta( "Geo_Source", "Feed" );
+                $this->addMeta( "Geo_Source", "Feed", "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
 
             $this['latitude']                      = $lat;
             $this['longitude']                     = $long;
