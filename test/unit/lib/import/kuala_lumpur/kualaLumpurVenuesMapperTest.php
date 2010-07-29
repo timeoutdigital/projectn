@@ -112,7 +112,7 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
                          'Checking phone'
                          );
 
-    $this->assertEquals( 'No 301, Jalan Bandar 11, Taman Melawati, KL',
+    $this->assertEquals( 'No 301, Jalan Bandar 11, Taman Melawati, Melaka',
                          $this->pois[0]['geocode_look_up'],
                          'Checking geocode_look_up'
                          );

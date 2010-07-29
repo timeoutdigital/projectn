@@ -16,6 +16,7 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
     protected function setUp() {
         ProjectN_Test_Unit_Factory::createDatabases();
         Doctrine::loadData('data/fixtures');
+        ImportLogger::getInstance()->enabled( true );
     }
 
     /**

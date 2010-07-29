@@ -99,12 +99,17 @@ Football fans are not left out, as the outlet also features three large televisi
             <url><![CDATA[http://www.munich.com.my]]></url>
             <operation_time><![CDATA[11am-1am Daily]]></operation_time>
             <location>
-                <area><![CDATA[Munich Gastro Bierhaus]]></area>
-                <lot><![CDATA[C-GF-46]]></lot>
-                <street><![CDATA[Ioi Boulevard, Jalan Kenari 5]]></street>
-                <zipcode><![CDATA[47170]]></zipcode>
-                <state><![CDATA[Bandar Puchong Jaya]]></state>
+                <area><![CDATA[Puchong]]></area>
+                <address><![CDATA[Munich Gastro Bierhaus , C-GF-46, Ioi Boulevard, Jalan Kenari 5, Bandar Puchong Jaya, 47170, Puchong]]></address>
                 <longlat><![CDATA[3.046304,101.621861]]></longlat>
+            </location>
+            <location>
+                <area><![CDATA[Puchong]]></area>
+                <lot><![CDATA[Stadt, No. 50 & 50-1]]></lot>
+                <street><![CDATA[Jalan Puteri 1/4]]></street>
+                <zipcode><![CDATA[T47100 Puchong]]></zipcode>
+                <state><![CDATA[Bandar Puteri]]></state>
+                <longlat><![CDATA[3.209707,101.746359]]></longlat>
             </location>
             <capacity><![CDATA[]]></capacity>
             <parking><![CDATA[]]></parking>
@@ -140,12 +145,9 @@ Non Halal</p>]]></description>
             <url><![CDATA[http://www.sichuandouhua.com]]></url>
             <operation_time><![CDATA[Mon-Sun, 12-2:30pm, 6.30-10.30pm.]]></operation_time>
             <location>
-                <area><![CDATA[Munich Gastro Bierhaus]]></area>
-                <lot><![CDATA[C-GF-46]]></lot>
-                <street><![CDATA[Ioi Boulevard, Jalan Kenari 5]]></street>
-                <zipcode><![CDATA[47170]]></zipcode>
-                <state><![CDATA[Bandar Puchong Jaya]]></state>
-                <longlat><![CDATA[3.046304,101.621861]]></longlat>
+                <area><![CDATA[KL City Centre]]></area>
+                <address><![CDATA[Lower Level, Parkroyal Kuala Lumpur, Jalan Sultan Ismail, KL]]></address>
+                <longlat><![CDATA[3.146194,101.712209]]></longlat>
             </location>
             <capacity><![CDATA[]]></capacity>
             <parking><![CDATA[]]></parking>
@@ -179,12 +181,9 @@ Non Halal</p>]]></description>
             <url><![CDATA[http://www.marriott.com]]></url>
             <operation_time><![CDATA[Open for lunch and dinner.]]></operation_time>
             <location>
-                <area><![CDATA[Munich Gastro Bierhaus]]></area>
-                <lot><![CDATA[C-GF-46]]></lot>
-                <street><![CDATA[Ioi Boulevard, Jalan Kenari 5]]></street>
-                <zipcode><![CDATA[47170]]></zipcode>
-                <state><![CDATA[Bandar Puchong Jaya]]></state>
-                <longlat><![CDATA[3.046304,101.621861]]></longlat>
+                <area><![CDATA[KL City Centre]]></area>
+                <address><![CDATA[JW Marriott, 183 Jalan Bukit Bintang, KL]]></address>
+                <longlat><![CDATA[3.147169,101.71369]]></longlat>
             </location>
             <capacity><![CDATA[]]></capacity>
             <parking><![CDATA[]]></parking>
