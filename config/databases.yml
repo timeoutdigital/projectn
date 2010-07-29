@@ -11,7 +11,7 @@ prod:
   project_n:
     class:                sfDoctrineDatabase
     param:
-      dsn:                mysql://root:outtime99@localhost/project_n_data_entry
+      dsn:                mysql://root:outtime99@localhost/project_n
       attributes:
         use_native_enum:  true
 
@@ -26,7 +26,7 @@ dev:
   project_n:
     class:                sfDoctrineDatabase
     param:
-      dsn:                mysql://root:outtime99@localhost/project_n_data_entry
+      dsn:                mysql://root:outtime99@localhost/project_n
       attributes:
         use_native_enum:  true
 
