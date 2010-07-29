@@ -343,11 +343,17 @@ class Curl
   {
       $matches = array();
 
-      preg_match( '/' . preg_quote( $field ) . '\:\s(.*)/',  $this->getHeader(), $matches );
+      // Used preg_match_all to get Re-directed header information as well..
+      preg_match_all( '/' . preg_quote( $field ) . '\:\s(.*)/',  $this->getHeader(), $matches );
 
-      if (isset( $matches[1] ) )
+      // When redirected, we will have second level as ARRAY(),
+      // This statement will get the Last Redirected Header Information
+      $lastMatch = ( is_array( $matches[0] ) ) ? array_pop( $matches ) : $matches;
+
+      // Matche should be in an Array
+      if ( is_array( $lastMatch ) )
       {
-        return $matches[ 1 ];
+        return array_pop( $lastMatch ); // Return the Last value in the Array
       }
 
       return '';
