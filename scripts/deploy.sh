@@ -163,7 +163,6 @@ DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
                               ./symfony doctrine:build-filters &&
                               ./symfony doctrine:build-forms &&
                               ./symfony cc &&
-                              cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/$RELEASE_NAME &&
                               ./scripts/clean_releases.sh -e $ENV"
 
 echo "Deploying on $CONFIG_DEPLOY_SERVER"
