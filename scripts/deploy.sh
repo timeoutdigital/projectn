@@ -162,10 +162,12 @@ DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
                               ./symfony doctrine:build-model &&
                               ./symfony doctrine:build-filters &&
                               ./symfony doctrine:build-forms &&
-                              ./symfony cc"
+                              ./symfony cc &&
+                              cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
+                              ./scripts/clean_releases.sh -e $ENV"
 
 echo "Deploying on $CONFIG_DEPLOY_SERVER"
-ssh -t $CONFIG_DEPLOY_USER@$CONFIG_DEPLOY_SERVER "$DEPLOY_COMMAND"
+ssh -t $CONFIG_DEPLOY_USER@$CONFIG_DEPLOY_SERVER "$DEPLOY_COMMAND
 
 #######
 # fin #
