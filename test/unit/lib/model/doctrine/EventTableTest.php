@@ -192,7 +192,7 @@ class EventTableTest extends PHPUnit_Framework_TestCase
      $this->addEventOccurrence( $vendor, $poi1, $event2, ProjectN_Test_Unit_Factory::today() );
      $this->addEventOccurrence( $vendor, $poi2, $event2, ProjectN_Test_Unit_Factory::today() );
 
-     $events = Doctrine::getTable( 'Event' )->findByVendorAndStartsFrom( $vendor, new DateTime );
+     $events = Doctrine::getTable( 'Event' )->findByVendorAndStartsFromAsArray( $vendor, new DateTime );
 
      $occurrences = $events[0]['EventOccurrence'];
      $this->assertEquals( 1, $occurrences[ 0 ][ 'poi_id' ] );
