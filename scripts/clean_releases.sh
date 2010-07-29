@@ -41,8 +41,10 @@ COUNTER=0
 for f in `ls -t $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/`
 do
     echo $COUNTER
+    echo "Delete $f"
     if [[ -d $f ]]; then
 
+        echo "x"
         if [[ "$COUNTER" -gt "$CONFIG_KEEP_OLD_RELEASES" ]]; then
 
         echo "Delete $f"
