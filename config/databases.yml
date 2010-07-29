@@ -20,7 +20,7 @@ dev:
   searchlight_london:
     class:                sfDoctrineDatabase
     param:
-      dsn:                mysql://timeout:65dali32@localhost/searchlight_london
+      dsn:                mysql://root:outtime99@localhost/searchlight_london
       attributes:
         use_native_enum:  true
   project_n:
