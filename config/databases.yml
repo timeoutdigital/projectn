@@ -44,3 +44,4 @@ test :
       dsn:                sqlite::memory:
       attributes:
         use_native_enum:  true
+
