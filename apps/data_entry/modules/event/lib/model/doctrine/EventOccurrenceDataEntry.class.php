@@ -25,18 +25,4 @@ class EventOccurrenceDataEntry extends BaseEventOccurrence
 
   }
 
-//  public function save( Doctrine_Connection $conn = null)
-//  {
-//    if( $this->isNew() && $this->equivalentExistsInDatabase() )
-//    {
-//      return;
-//    }
-//
-//    parent::save( $conn );
-//  }
-//
-//  public function equivalentExistsInDatabase()
-//  {
-//    return $this->getTable()->hasEquivalent( $this );
-//  }
 }
