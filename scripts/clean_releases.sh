@@ -44,7 +44,7 @@ do
 
         if [[ "$COUNTER" -gt "$CONFIG_KEEP_OLD_RELEASES" ]]; then
 
-        echo "Delete $f"
+            echo "Delete $f" #rm -rf $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/$f
 
         fi
     fi
