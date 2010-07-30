@@ -91,6 +91,9 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( "Мультфильм", $movie[ 'MovieGenres' ]['Мультфильм']['genre'] );
     $this->assertEquals( "Кино", $movie[ 'MovieGenres' ]['Кино']['genre'] );
 
+    $this->assertEquals( 2, $movie['MovieProperty']->count(), 'Movie Property should have Timeout_link and English_title' );
+    $this->assertEquals( 'Castle in the Sky', $movie['MovieProperty'][1]['value'], 'English name should be added to Movie Property' );
+
   }
 
   // fixtures should take care of this function now...
