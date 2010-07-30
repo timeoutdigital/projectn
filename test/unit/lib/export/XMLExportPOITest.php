@@ -76,8 +76,14 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $uiCat = new UiCategory();
         $uiCat['name'] = "Something";
-        $uiCat->link( "VendorPoiCategory", array( 1, 2 ) );
+        $uiCat->link( "VendorPoiCategory", array( 1 ) );
         $uiCat->save();
+
+        $uiCat = new UiCategory();
+        $uiCat['name'] = "Something2";
+        $uiCat->link( "VendorPoiCategory", array( 2 ) );
+        $uiCat->save();
+
 
         $poi = new Poi();
         $poi->setPoiName( 'test name' );
@@ -142,7 +148,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setStreet( 'test street2' . $this->specialChars );
         $poi->setHouseNo('13' . $this->specialChars );
         $poi->setZips('4321' );
-        $poi->setCity( 'test town2' . $this->specialChars );
+        $poi->setCity( 'test town two' . $this->specialChars );
         $poi->setDistrict( 'test district2' . $this->specialChars );
         $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
@@ -159,7 +165,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property3->link( 'Poi', array( $poi['id'] ) );
         $property3->save();
 
-        $this->runImport();
+        $this->runImportAndExport();
       }
       catch(PDOException $e)
       {
@@ -182,7 +188,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->xpath = new DOMXPath( $this->domDocument );
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
-      $this->assertEquals( 2, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
+      $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
   /**
@@ -193,13 +199,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->domDocument = new DOMDocument();
       $this->domDocument->load( $this->destination );
       $this->xpath = new DOMXPath( $this->domDocument );
-      
+
       //echo $this->domDocument->saveXML();
 
       $badCriticsChoice = $this->xpath->query( "/vendor-pois/entry/property[@key='Critics_choice' and lower-case(.) != 'y']" );
       $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
   }
-    
+
     /**
      * @todo Someone didn't finish what they were doing.
      * Don't git blame me, I just removed the windows end-of-line chars! -pj
@@ -226,9 +232,9 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
 
-      $this->runImport();
+      $this->runImportAndExport();
       $numEntries = $this->xml->xpath( '//entry' );
-      
+
       $this->assertEquals( 1, count( $numEntries ) );
     }
 
@@ -311,7 +317,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $xpathResult = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' );
       $longitude = (string) array_shift( $xpathResult );
       $this->assertEquals( '0.1', $longitude );
-      
+
       $xpathResult2 = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
       $latitude = (string) array_shift( $xpathResult2 );
       $this->assertEquals( '0.2', $latitude );
@@ -410,7 +416,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertRegExp( ':test name2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':test street2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':13' . $this->escapedSpecialChars . ':', $xmlString );
-      $this->assertRegExp( ':test town2' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':test town two' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':test district2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi key special' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi value special' . $this->escapedSpecialChars . ':', $xmlString );
@@ -450,13 +456,15 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
     }
 
-    private function runImport()
+    private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
       $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
 
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
+
+      ExportLogger::getInstance()->showErrors();
     }
 }
 ?>
