@@ -468,6 +468,24 @@ class EventTest extends PHPUnit_Framework_TestCase
 
    }
 
+   /**
+    * Check addMediaByUrl() get_header for array value.
+    */
+   public function testAddMediaByUrlMimeTypeCheck()
+   {
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $event[ 'Vendor' ] = $vendor;
+
+      // Valid URL with 302 Redirect
+      $this->assertTrue( $event->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
+      // 404 Error Url
+      $this->assertFalse( $event->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      // Valid URL - No redirect
+      $this->assertTrue( $event->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+
+   }
+
 }
 
 ?>

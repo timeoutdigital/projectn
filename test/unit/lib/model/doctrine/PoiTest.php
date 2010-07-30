@@ -494,6 +494,22 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
    }
 
+   /**
+    * Check addMediaByUrl() get_header for array value.
+    */
+   public function testAddMediaByUrlMimeTypeCheck()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // Valid URL with 302 Redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
+      // 404 Error Url
+      $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      // Valid URL - No redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      
+   }
+
 }
 
 class MockGeoEncodeForPoiTest extends geoEncode
