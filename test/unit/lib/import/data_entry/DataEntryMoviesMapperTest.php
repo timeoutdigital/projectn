@@ -44,9 +44,12 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
                   'data' .DIRECTORY_SEPARATOR .
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
-    DataEntryImportManager::setImportDir( $importDir );
+    
+    $this->object = new DataEntryImportManager();
 
-    DataEntryImportManager::importMovies( );
+    $this->object->setImportDir( $importDir );
+
+    $this->object->importMovies( );
   }
 
   /**

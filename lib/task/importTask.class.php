@@ -599,12 +599,14 @@ class importTask extends sfBaseTask
 
 
     case 'data-entry':
-        DataEntryImportManager::setImportDir( '/var/vhosts/projectn_data_entry/export/' );
+        $dataEntryImportManager = new DataEntryImportManager();
+
+        $dataEntryImportManager->setImportDir( '/var/vhosts/projectn_data_entry/export/' );
         switch( $options['type'] )
         {
-          case 'poi'      : DataEntryImportManager::importPois();   break;
-          case 'event': DataEntryImportManager::importEvents(); break;
-          case 'movie'   : DataEntryImportManager::importMovies(); break;
+          case 'poi'      : $dataEntryImportManager->importPois();   break;
+          case 'event': $dataEntryImportManager->importEvents(); break;
+          case 'movie'   : $dataEntryImportManager->importMovies(); break;
           default : $this->dieDueToInvalidTypeSpecified();
         }
     break;

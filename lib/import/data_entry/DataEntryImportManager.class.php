@@ -2,29 +2,36 @@
 class DataEntryImportManager
 {
 
-    private static $importDir ;
+    private $importDir;
 
-    static public function importPois()
+    private $vendor;
+
+
+
+    //public
+
+
+    public function importPois()
     {
-       self::runImport( 'poi' );
+       $this->runImport( 'poi' );
     }
 
-    static public function importEvents()
+    public function importEvents()
     {
-       self::runImport( 'event' );
+       $this->runImport( 'event' );
     }
 
-    static public function importMovies()
+    public function importMovies()
     {
-       self::runImport( 'movie' );
+       $this->runImport( 'movie' );
     }
 
-    static public function setImportDir( $dir )
+    public function setImportDir( $dir )
     {
-        self::$importDir = $dir;
+        $this->importDir = $dir;
     }
 
-    static public function getFileList( $type )
+    public function getFileList( $type )
     {
         $validTypes = array( 'poi' ,'event','movie' );
 
@@ -34,7 +41,7 @@ class DataEntryImportManager
             return;
         }
 
-        $latestExportDir = self::getLatestExportDir();
+        $latestExportDir = $this->getLatestExportDir();
 
         $dir = $latestExportDir . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
 
@@ -58,7 +65,7 @@ class DataEntryImportManager
         return $files;
     }
 
-    static private function runImport( $type )
+    private function runImport( $type )
     {
         $validTypes = array( 'poi' ,'event','movie' );
 
@@ -68,7 +75,7 @@ class DataEntryImportManager
             return;
         }
 
-        $files = self::getFileList( $type );
+        $files = $this->getFileList( $type );
 
         foreach ( $files as $file)
         {
@@ -101,23 +108,23 @@ class DataEntryImportManager
         }
     }
 
-    static private function getLatestExportDir()
+    private function getLatestExportDir()
     {
         $subDirectories = array();
 
-        if( is_null( self::$importDir ) )
+        if( is_null( $this->importDir ) )
         {
            //set it to the default
-           self::$importDir = sfConfig::get('sf_root_dir') . '_data_entry' . DIRECTORY_SEPARATOR . 'export' .DIRECTORY_SEPARATOR;
+           $this->importDir = sfConfig::get('sf_root_dir') . '_data_entry' . DIRECTORY_SEPARATOR . 'export' .DIRECTORY_SEPARATOR;
         }
 
-        if ( is_dir( self::$importDir ) )
+        if ( is_dir( $this->importDir ) )
         {
-            if ($dh = opendir( self::$importDir ) )
+            if ($dh = opendir( $this->importDir ) )
             {
                 while (($file = readdir( $dh )) !== false)
                 {
-                    if( filetype( self::$importDir . $file) == 'dir' && strlen( $file ) > 3 && strpos( $file , 'export_' ) !== false )
+                    if( filetype( $this->importDir . $file) == 'dir' && strlen( $file ) > 3 && strpos( $file , 'export_' ) !== false )
                     {
                          //remove the export_ part to only get the dates
                          $subDirectories  [] = str_replace( 'export_' , '',$file );
@@ -127,11 +134,11 @@ class DataEntryImportManager
             }
         }else
         {
-             throw  new Exception( self::$importDir . ' is not a directory'  ) ;
+             throw  new Exception( $this->importDir . ' is not a directory'  ) ;
              return;
         }
          sort( $subDirectories );
 
-         return self::$importDir . 'export_'. end( $subDirectories );
+         return $this->importDir . 'export_'. end( $subDirectories );
     }
 }

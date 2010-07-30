@@ -18,14 +18,24 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class DataEntryImportManagerTest extends PHPUnit_Framework_TestCase
 {
+  
+  protected $object;
+
   protected function setUp()
   {
+
+      
+      $this->object = new DataEntryImportManager(  );
+
+
   }
 
   protected function tearDown()
   {
 
   }
+
+  
 
   public function testGetFileList()
   {
@@ -65,16 +75,16 @@ class DataEntryImportManagerTest extends PHPUnit_Framework_TestCase
             }
         }
 
-        DataEntryImportManager::setImportDir( $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR  );
+        $this->object->setImportDir( $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR  );
 
-        $fileList = DataEntryImportManager::getFileList(  'poi' );
+        $fileList = $this->object->getFileList(  'poi' );
         //test if the importManager picked the latest folder with the right item subfolder (eg : event , movie)
         $this->assertEquals( $fileList [ 0 ],  $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR . 'export_20100710' . DIRECTORY_SEPARATOR .'poi' . DIRECTORY_SEPARATOR . 'test_city_2_poi.xml' , 'latest poi files should be selected' );
 
-        $fileList = DataEntryImportManager::getFileList(  'event' );
+        $fileList = $this->object->getFileList(  'event' );
         $this->assertEquals( $fileList [ 0 ],  $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR . 'export_20100710' . DIRECTORY_SEPARATOR .'event' . DIRECTORY_SEPARATOR . 'test_city_2_event.xml' , 'latest event files should be selected' );
 
-        $fileList = DataEntryImportManager::getFileList(  'movie' );
+        $fileList = $this->object->getFileList(  'movie' );
         $this->assertEquals( $fileList [ 0 ],  $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR . 'export_20100710' . DIRECTORY_SEPARATOR .'movie' . DIRECTORY_SEPARATOR . 'test_city_2_movie.xml' , 'latest movie files should be selected' );
 
         //delete the ramdomFolder

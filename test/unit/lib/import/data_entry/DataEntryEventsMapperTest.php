@@ -48,9 +48,10 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $londonPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7913 , 'vendor_id' => 1 ) ); //fixture event happens at this venue
 
-    DataEntryImportManager::setImportDir( $importDir );
+    $this->object = new DataEntryImportManager();
 
-    DataEntryImportManager::importEvents( );
+    $this->object->setImportDir( $importDir );
+    $this->object->importEvents( );
   }
 
   /**
@@ -124,7 +125,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $occurrence = $event['EventOccurrence'][0];
 
     //run the import again
-    DataEntryImportManager::importEvents( );
+    $this->object->importEvents( );
 
     $events = Doctrine::getTable('Event')->findAll();
     $event = $events[ 0 ];

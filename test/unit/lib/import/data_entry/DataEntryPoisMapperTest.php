@@ -44,9 +44,12 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
                   'data' .DIRECTORY_SEPARATOR .
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
-    DataEntryImportManager::setImportDir( $importDir );
 
-    DataEntryImportManager::importPois( );
+    $this->object = new DataEntryImportManager();
+
+    $this->object->setImportDir( $importDir );
+
+    $this->object->importPois( );
   }
 
   /**
