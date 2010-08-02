@@ -35,6 +35,7 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
       'city' => 'moscow',
       'language' => 'ru',
       'time_zone' => 'Europe/Moscow',
+      'country_code_long' => 'RUS'
       )
     );
     $vendor->save();
