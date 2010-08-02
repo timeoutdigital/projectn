@@ -391,7 +391,12 @@ class importNyChicagoEvents
         {
             $eventObj[ 'EventOccurrence' ][] = $occurrence;
 
-            $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
+            //The Poi gets its categories from the event if it doesn't have any
+            if( count( $occurrence['Poi']['VendorPoiCategory']) == 0)
+            {
+                $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
+            }
+
         }
 
         ImportLogger::saveRecordComputeChangesAndLog( $eventObj );
