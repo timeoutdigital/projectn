@@ -26,7 +26,7 @@ class Event extends BaseEvent
   public function applyFixes()
   {
      $this->fixHTMLEntities();
-     
+
      if( $this['url'] != '')
         $this['url'] = stringTransform::formatUrl($this['url']);
 
@@ -188,7 +188,7 @@ class Event extends BaseEvent
 
     if(!is_array($name) && !is_string($name))
         throw new Exception ('$name parameter must be string or array of strings');
-    
+
     if( !is_array($name) )
         $name = array( $name );
 
@@ -283,10 +283,17 @@ class Event extends BaseEvent
         $eventMediaObj = new EventMedia( );
     }
 
-    $eventMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+    try
+    {
+        $eventMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    // add the $eventMediaObj to the Event
-    $this[ 'EventMedia' ] [] =  $eventMediaObj;
+        // add the $eventMediaObj to the Event
+        $this[ 'EventMedia' ] [] =  $eventMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
   }
 
