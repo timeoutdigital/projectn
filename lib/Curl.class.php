@@ -100,24 +100,22 @@ class Curl
 
     $this->setCurlDefaultOptions( $curlHandle );
 
-    $tmpHeaderFile = tmpfile();
-    $this->setCurlOption( CURLOPT_WRITEHEADER, $tmpHeaderFile );
+    $this->_tmpHeaderFile = tmpfile();
+    $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
 
-    $this->applyOptions( $curlHandle );
-
+    foreach( $this->_options as $key=>$value )
+        curl_setopt( $curlHandle, $key, $value );
 
     $this->_response= curl_exec( $curlHandle );
     $this->_curlInfo = curl_getinfo( $curlHandle );
 
     curl_close( $curlHandle );
 
-    fseek( $tmpHeaderFile, 0);
+    fseek( $this->_tmpHeaderFile, 0);
     //get rid of charriage return character (ascii 13) as they mess up the further processing
-    $this->_headerString = str_replace( chr(13), '', fread( $tmpHeaderFile, 1024 ) ) ;
+    $this->_headerString = str_replace( chr(13), '', fread( $this->_tmpHeaderFile, 1024 ) ) ;
 
-    fclose($tmpHeaderFile);
-
-    
+    fclose( $this->_tmpHeaderFile ); // Need to close this!
 
     if ( !isset( $this->_curlInfo[ 'http_code' ] ) || !in_array( $this->_curlInfo[ 'http_code' ], array( '200', '304' ) ) )
     {
@@ -134,18 +132,6 @@ class Curl
   public function setCurlOption( $option, $value )
   {
     $this->_options[ $option ] = $value;
-  }
-
-  private function applyOptions( $curlHandle )
-  {
-<<<<<<< HEAD:lib/Curl.class.php
-=======
-    $this->_tmpHeaderFile = tmpfile();
-    $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
-
->>>>>>> 96486f95b36a9e32f2ed0673cad4d4f638784340:lib/Curl.class.php
-    foreach( $this->_options as $key=>$value )
-      curl_setopt( $curlHandle, $key, $value );
   }
 
   /**
