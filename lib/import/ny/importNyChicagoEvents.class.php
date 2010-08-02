@@ -385,9 +385,7 @@ class importNyChicagoEvents
             }
         }
 
-        //Add the event occurances @todo can we not rely on the event id?
-        //$this->addEventOccurance($event->{'date'}, $eventObj );
-        $occurrences = $this->getEventOccurances( $event->{'date'}, $eventObj  );
+        $occurrences = $this->getEventOccurences( $event->{'date'}, $eventObj  );
 
         foreach ($occurrences as $occurrence)
         {
@@ -427,7 +425,7 @@ class importNyChicagoEvents
      * @param SimpleXMLElement $Occurrences
      * @param Event The events
      */
-    public function getEventOccurances(SimpleXMLElement $Occurrences, Event &$eventObj)
+    public function getEventOccurences(SimpleXMLElement $Occurrences, Event &$eventObj)
     {
         //Loop throught the actual occurances now
         $retVal = array();
