@@ -40,11 +40,6 @@ class Curl
   private $_requestUrl;
 
   /**
-   * @var boolean;
-   */
-  private $_returnHeaderSwitch;
-
-  /**
    * @var string
    */
   private $_storePath;
@@ -88,13 +83,11 @@ class Curl
    */
   public function __construct( $url,
                                $parameters     = array(),
-                               $requestMethod  = 'GET',
-                               $returnHeaders  = false )
+                               $requestMethod  = 'GET' )
   {
     $this->_url           = $url;
     $this->_parameters    = $parameters;
     $this->_requestMethod = $requestMethod;
-    $this->_returnHeaderSwitch = $returnHeaders;
   }
 
 
@@ -145,6 +138,12 @@ class Curl
 
   private function applyOptions( $curlHandle )
   {
+<<<<<<< HEAD:lib/Curl.class.php
+=======
+    $this->_tmpHeaderFile = tmpfile();
+    $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
+
+>>>>>>> 96486f95b36a9e32f2ed0673cad4d4f638784340:lib/Curl.class.php
     foreach( $this->_options as $key=>$value )
       curl_setopt( $curlHandle, $key, $value );
   }
@@ -178,7 +177,6 @@ class Curl
     curl_setopt( $curlHandle, CURLOPT_URL, $url );
     $this->_requestUrl = $url;
 
-    curl_setopt( $curlHandle, CURLOPT_HEADER, $this->_returnHeaderSwitch );
     curl_setopt( $curlHandle, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt( $curlHandle, CURLOPT_RETURNTRANSFER, 1 );
     curl_setopt( $curlHandle, CURLOPT_USERAGENT, "Mozilla/4.0" );
@@ -331,16 +329,6 @@ class Curl
   }
 
   /**
-   * switch the (custom) return header option on/off
-   * 
-   * @param boolean $returnHeader 
-   */
-  public function setReturnHeader( $returnHeader = true )
-  {
-    $this->_returnHeaderSwitch = $returnHeader;
-  }
-
-  /**
    * returns header
    *
    * @return string
@@ -445,8 +433,6 @@ class Curl
       {
           $lastModifiedInSec = strtotime( $lastModified );
       }
-
-      $this->setReturnHeader();
 
       //needs to be checked for false again as strtotime above could return
       //false too

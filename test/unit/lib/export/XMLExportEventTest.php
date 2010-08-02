@@ -381,7 +381,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 2, $placesForEvent2->length );
     $this->assertEquals( 1, $placesForEvent2->item(0)->getElementsByTagName( 'occurrence' )->length );
-    $this->assertEquals( 2, $placesForEvent2->item(1)->getElementsByTagName( 'occurrence' )->length );
+    $this->assertEquals( 3, $placesForEvent2->item(1)->getElementsByTagName( 'occurrence' )->length );
   }
 
     /**
@@ -404,8 +404,9 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->export();
 
     //should only get the 'other' property back
-    $this->assertEquals( 1, $this->xpath->query( '//property' )->length );
-    $node = $this->xpath->query( '//property' )->item(0);
+    $this->assertEquals( 3, $this->xpath->query( '//property' )->length );
+    $node = $this->xpath->query( '//property' )->item(1);
+    
     $this->assertEquals( 'other', $node->attributes->item(0)->nodeValue );
     $this->assertEquals( 'other', $node->nodeValue );
 
@@ -422,7 +423,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->export();
 
     //should get both the 'other' and 'timeinfo' properties back
-    $this->assertEquals( 2, $this->xpath->query( '//property' )->length );
+    $this->assertEquals( 3, $this->xpath->query( '//property' )->length );
   }
 
     /**

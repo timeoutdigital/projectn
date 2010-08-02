@@ -30,7 +30,7 @@ class eventActions extends autoEventActions
      }
   }
 
-  public function executeAjax($request)
+  public function executeAjaxPoiList($request)
   {
     $this->getResponse()->setContentType('application/json');
     
@@ -43,6 +43,27 @@ class eventActions extends autoEventActions
     $result = $q->fetchArray();
     
     $pois = array();    
+    foreach ( $result as $poi )
+    {
+        $pois[ $poi['id'] ] = $poi['name'];
+    }
+
+    return $this->renderText(json_encode($pois));
+  }
+
+  public function executeAjaxEventList($request)
+  {
+    $this->getResponse()->setContentType('application/json');
+
+    $q = Doctrine_Query::create()
+                ->select( 'id, name' )
+                ->from('Event e')
+                ->where( 'vendor_id = ?', $this->user->getCurrentVendorId() )
+                ->andWhere( 'name LIKE ?', '%' . $request->getParameter('q') . '%' );
+
+    $result = $q->fetchArray();
+
+    $pois = array();
     foreach ( $result as $poi )
     {
         $pois[ $poi['id'] ] = $poi['name'];

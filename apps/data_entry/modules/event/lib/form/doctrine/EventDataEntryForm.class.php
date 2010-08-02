@@ -30,6 +30,8 @@ class EventDataEntryForm extends BaseEventForm
     $this->widgetSchema[ 'vendor_id' ]      = new widgetFormFixedVendorText( array( 'vendor_id'  => $this->user->getCurrentVendorId(), 'vendor_name'  => $this->user->getCurrentVendorCity()  ) );
     $this->validatorSchema[ 'vendor_id' ]   = new validatorSetCurrentVendorId( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
 
+    $this->widgetSchema[ 'name' ] = new widgetFormInputTextJQueryAutocompleter( array( 'url' => sfContext::getInstance()->getRequest()->getScriptName() . '/event/ajaxEventList' ) );
+
     //@todo maybe use the jquery calendar
     $this->widgetSchema[ 'review_date' ]      = new sfWidgetFormDate(array());
     $this->validatorSchema[ 'review_date' ]    = new sfValidatorDate(array( 'required' => false ));

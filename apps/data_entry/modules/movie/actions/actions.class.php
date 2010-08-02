@@ -14,17 +14,40 @@ require_once dirname(__FILE__).'/../lib/movieGeneratorHelper.class.php';
 class movieActions extends autoMovieActions
 {
 
+  private $user;
+
   public function preExecute()
   {
      parent::preExecute();
 
      $filters = $this->getFilters() ;
-     $user = $this->getUser();
+     $this->user = $this->getUser();
 
-     if ( !isset( $filters['vendor_id'] ) || !$user->checkIfVendorIdIsAllowed( $filters['vendor_id'] ) )
+     if ( !isset( $filters['vendor_id'] ) || !$this->user->checkIfVendorIdIsAllowed( $filters['vendor_id'] ) )
      {
-          $this->setFilters( array( 'vendor_id' => $user->getCurrentVendorId() ) );
+          $this->setFilters( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
      }
+  }
+
+  public function executeAjaxMovieList($request)
+  {
+    $this->getResponse()->setContentType('application/json');
+
+    $q = Doctrine_Query::create()
+                ->select( 'id, name' )
+                ->from('Movie m')
+                ->where( 'vendor_id = ?', $this->user->getCurrentVendorId() )
+                ->andWhere( 'name LIKE ?', '%' . $request->getParameter('q') . '%' );
+
+    $result = $q->fetchArray();
+
+    $pois = array();
+    foreach ( $result as $poi )
+    {
+        $pois[ $poi['id'] ] = $poi['name'];
+    }
+
+    return $this->renderText(json_encode($pois));
   }
 
   public function executeEdit(sfWebRequest $request)

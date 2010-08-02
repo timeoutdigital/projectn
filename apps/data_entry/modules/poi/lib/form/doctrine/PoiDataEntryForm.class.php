@@ -29,8 +29,11 @@ class PoiDataEntryForm extends BasePoiForm
     $this->widgetSchema[ 'local_language' ]  = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorLanguage() ) );
     $this->widgetSchema[ 'city' ]            = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCity() ) );
 
+    $this->widgetSchema[ 'poi_name' ] = new widgetFormInputTextJQueryAutocompleter( array( 'url' => sfContext::getInstance()->getRequest()->getScriptName() . '/poi/ajaxPoiList' ) );
+
     //@todo maybe use the jquery calendar
     $this->widgetSchema[ 'review_date' ]      = new sfWidgetFormDate(array());
+    
     $this->validatorSchema[ 'review_date' ]    = new sfValidatorDate(array( 'required' => false ));
 
     if ( $this->object[ 'latitude' ] === NULL || $this->object[ 'longitude' ] === NULL )
@@ -48,8 +51,6 @@ class PoiDataEntryForm extends BasePoiForm
     $this->validatorSchema[ 'vendor_id' ]   = new validatorSetCurrentVendorId( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
 
     $this->widgetSchema[ 'geocode_look_up' ] = new widgetFormFixedText( array( 'default' => 'not generated yet' ) );
-    $this->validatorSchema[ 'geocode_look_up' ]   = new validatorGeocodeLookupString( array( 'poi' => $this->object, 'fields' => array( 'street', 'city', 'country' ) ) );
-    
 
     $this->configureVendorPoiCategoryWidget();
 
@@ -77,6 +78,8 @@ class PoiDataEntryForm extends BasePoiForm
     )));
 
     $this->embedForm( 'newPoiMediaDataEntry', $form );
+
+    $this->mergePostValidator(new PoiDataEntryValidatorSchema());
   }
 
   protected function doBind(array $values)
