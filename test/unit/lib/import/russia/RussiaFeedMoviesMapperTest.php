@@ -54,8 +54,7 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $movies = Doctrine::getTable('Movie')->findAll();
 
-    //there are 9 movie nodes in the XML but one of them (<movie id="60029">) has 3 venues in total 11 movies in DB
-    $this->assertEquals( 11, $movies->count() );
+    $this->assertEquals( 14, $movies->count() );
 
     $movie = $movies->getFirst();
 
