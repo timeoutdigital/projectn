@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vendor-pois vendor="timeout" modified="2010-07-12T07:14:29">
-  <entry vpid="BCN000000000000000000000000051233" lang="ca" modified="2010-07-12T07:14:29">
+  <entry vpid="SYD000000000000000000000000050233" lang="en" modified="2010-07-12T07:14:29">
     <geo-position>
       <longitude>2.15708910</longitude>
       <latitude>41.37023910</latitude>
     </geo-position>
-    <name><![CDATA[Museu Arqueologia de Catalunya]]></name>
+    <name><![CDATA[Arqueologia de Catalunya]]></name>
     <category><![CDATA[landmark-attraction]]></category>
     <address>
       <street><![CDATA[Pg. Santa Madrona]]></street>
@@ -13,7 +13,7 @@
       <city><![CDATA[Barcelona]]></city>
       <district><![CDATA[Eixample]]></district>
       <zip><![CDATA[abcdefg]]></zip>
-      <country>ESP</country>
+      <country>SYD</country>
     </address>
     <contact>
       <phone>9 3424 6577</phone>
@@ -22,14 +22,14 @@
       <email>foo@hotmail.com</email>
       <fax>9 3424 6579</fax>
     </contact>
-    <version lang="ca">
+    <version lang="en">
       <name><![CDATA[Museu Arqueologia de Catalunya]]></name>
       <address>
         <street><![CDATA[Pg. Santa Madrona]]></street>
         <houseno><![CDATA[39-41]]></houseno>
         <city><![CDATA[Barcelona]]></city>
         <district><![CDATA[Eixample]]></district>
-        <country>ESP</country>
+        <country>SYD</country>
       </address>
       <content>
         <vendor-category><![CDATA[A la Ciutat]]></vendor-category>
