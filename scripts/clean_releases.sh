@@ -43,6 +43,7 @@ do
     if [[ -d $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/$f ]]; then
         if [[ "$COUNTER" -gt "$CONFIG_KEEP_OLD_RELEASES" ]]; then
             rm -rf $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/$f
+            echo "delete old release: $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/$f"
         fi
     fi
     let "COUNTER = $COUNTER + 1"
