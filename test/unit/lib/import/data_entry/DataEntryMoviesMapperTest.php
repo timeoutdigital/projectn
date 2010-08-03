@@ -94,7 +94,7 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Timeout_link', $movie[ 'MovieProperty' ][0] ['lookup']  );
 
     $this->assertGreaterThan( 0, count( $movie[ 'MovieMedia' ]->count() ) );
-    $this->assertEquals( 'http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg', $movie[ 'MovieMedia' ][0] ['url']  );
+    $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/movie/a0572eede1f29f5886f82655f34e4d9329f787b7.jpg', $movie[ 'MovieMedia' ][0] ['url']  );
 
     $this->assertEquals( 'http://www.google.com', $movie[ 'url' ] );
     $this->assertEquals( 'PG', $movie[ 'age_rating' ] );

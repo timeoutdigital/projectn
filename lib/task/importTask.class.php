@@ -584,7 +584,7 @@ class importTask extends sfBaseTask
     case 'dehli':
     case 'bangalore':
     case 'pune':
-        $dataEntryImportManager = new DataEntryImportManager( $options['city'], '/var/vhosts/projectn_data_entry/export/' );
+        $dataEntryImportManager = new DataEntryImportManager( $options['city'], sfConfig::get( 'sf_root_dir' ) . '/export/' );
         switch( $options['type'] )
         {
           case 'poi'   : $dataEntryImportManager->importPois();   break;

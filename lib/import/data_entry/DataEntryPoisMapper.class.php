@@ -115,30 +115,43 @@ class DataEntryPoisMapper extends DataMapper
                                $poi['zips']
                         ) );
 
-                foreach ($venueElement->version->content->property as $property)
+                if( isset( $venueElement->version->content->property ) )
                 {
-                    foreach ($property->attributes() as $attribute)
+                    foreach ($venueElement->version->content->property as $property)
                     {
-                        $poi->addProperty( (string) $attribute, (string) $property );
+                        foreach ($property->attributes() as $attribute)
+                        {
+                            $poi->addProperty( (string) $attribute, (string) $property );
+                        }
                     }
                 }
 
-                foreach ( $venueElement->version->content->media as $media )
+                if( isset( $venueElement->version->content->media ) )
                 {
-                    foreach ($media->attributes() as $key => $value)
+                    foreach ( $venueElement->version->content->media as $media )
                     {
-                        if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                        foreach ($media->attributes() as $key => $value)
                         {
-                            continue 2; //only add the images
+                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                            {
+                                continue 2; //only add the images
+                            }
                         }
-                    }
-                    try
-                    {
-                        $poi->addMediaByUrl( (string) $media );
-                    }
-                    catch ( Exception $exception )
-                    {
-                         $this->notifyImporterOfFailure( $exception );
+                        try
+                        {
+                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                            $urlArray = explode( '/', (string) $media );
+                            // Get the Last IDENT
+                            $imageFileName = array_pop( $urlArray );
+
+                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
+
+                            $poi->addMediaByUrl( $mediaURL );
+                        }
+                        catch ( Exception $exception )
+                        {
+                             $this->notifyImporterOfFailure( $exception );
+                        }
                     }
                 }
 

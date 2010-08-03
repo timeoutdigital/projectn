@@ -104,30 +104,43 @@ class DataEntryEventsMapper extends DataMapper
 
                 $event['Vendor'] = $this->vendor;
 
-                foreach ($eventElement->version->property as $property)
+                if( isset( $eventElement->version->property ) )
                 {
-                    foreach ($property->attributes() as $attribute)
+                    foreach ($eventElement->version->property as $property)
                     {
-                        $event->addProperty( (string) $attribute, (string) $property );
+                        foreach ($property->attributes() as $attribute)
+                        {
+                            $event->addProperty( (string) $attribute, (string) $property );
+                        }
                     }
                 }
 
-                foreach ( $eventElement->version->media as $media )
+                if( isset( $eventElement->version->media ))
                 {
-                    foreach ($media->attributes() as $key => $value)
+                    foreach ( $eventElement->version->media as $media )
                     {
-                        if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                        foreach ($media->attributes() as $key => $value)
                         {
-                            continue 2; //only add the images
+                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                            {
+                                continue 2; //only add the images
+                            }
                         }
-                    }
-                    try
-                    {
-                        $event->addMediaByUrl( (string) $media );
-                    }
-                    catch ( Exception $exception )
-                    {
-                         $this->notifyImporterOfFailure( $exception );
+                        try
+                        {
+                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                            $urlArray = explode( '/', (string) $media );
+                            // Get the Last IDENT
+                            $imageFileName = array_pop( $urlArray );
+
+                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
+
+                            $event->addMediaByUrl( $mediaURL );
+                        }
+                        catch ( Exception $exception )
+                        {
+                             $this->notifyImporterOfFailure( $exception );
+                        }
                     }
                 }
 

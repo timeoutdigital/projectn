@@ -101,7 +101,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Timeout_link', $event[ 'EventProperty' ][0] ['lookup']  );
 
     $this->assertGreaterThan( 0, $event[ 'EventMedia' ]->count() );
-    $this->assertEquals( 'http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg', $event[ 'EventMedia' ][0] ['url']  );
+    $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/event/ffadd72901dbc30f69330db7beb5fef6e2ccdcdc.jpg', $event[ 'EventMedia' ][0] ['url']  );
 
 
     $eventOccurrence3 = $event['EventOccurrence'][3];
