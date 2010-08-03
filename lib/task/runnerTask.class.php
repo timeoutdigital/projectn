@@ -141,7 +141,10 @@ class runnerTask extends sfBaseTask
                                 'russia' => array( 'movie' ),
                                 'barcelona' => array( 'poi', 'event', 'movie' ),
                                 'kuala lumpur' => array( 'poi', 'event', 'movie' ),
-                                'data-entry' => array( 'poi', 'event', 'movie' )
+                                'mumbai' => array( 'poi', 'event', 'movie' ),
+                                'delhi' => array( 'poi', 'event', 'movie' ),
+                                'bangalore' => array( 'poi', 'event', 'movie' ),
+                                'pune' => array( 'poi', 'event', 'movie' )
                 ),
                 'export' => array(
                                 'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
