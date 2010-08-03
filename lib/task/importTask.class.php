@@ -43,25 +43,6 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-          case 'poi-event-kids':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_kids_leo.xml' );
-
-              $processXmlObj = new processNyXml( $fileNameString );
-              $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-              $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-              $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            break;
-
           case 'poi-event':
                 //Setup NY FTP @todo refactor FTPClient to not connect in constructor
                 $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
@@ -501,7 +482,7 @@ class importTask extends sfBaseTask
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
 
         if( in_array( $options['type'], array( "event", "movie" ) ) )
-            $feedObj = new Curl( 'http://192.9.1.220/kl/events_small.xml' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
         elseif( $options['type'] == "poi" )
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
         else break;
