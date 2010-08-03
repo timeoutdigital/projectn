@@ -34,7 +34,7 @@ class DataEntryEventsMapper extends DataMapper
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
 
         if( !isset( $vendor ) || !$vendor )
-          throw new Exception( 'Vendor not found.' );
+          throw new Exception( 'DataEntryEventsMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
@@ -180,7 +180,7 @@ class DataEntryEventsMapper extends DataMapper
             }
             catch ( Exception  $exception)
             {
-                $this->notifyImporterOfFailure($exception, $event);
+                $this->notifyImporterOfFailure($exception, $event); 
             }
 
         }

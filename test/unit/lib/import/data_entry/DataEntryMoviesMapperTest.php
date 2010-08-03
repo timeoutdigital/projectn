@@ -30,14 +30,10 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'sydney',
-      'language' => 'en-AU',
-      'time_zone' => 'Australia/Sydney',
-      'inernational_dial_code' => '+61',
-      )
-    );
-    $vendor->save();
+    // Load Fixtures to create Vendors
+    Doctrine::loadData('data/fixtures');
+
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'sydney' );
 
     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
                   'unit' .DIRECTORY_SEPARATOR .
@@ -45,9 +41,7 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
     
-    $this->object = new DataEntryImportManager();
-
-    $this->object->setImportDir( $importDir );
+    $this->object = new DataEntryImportManager( 'sydney', $importDir );
 
     $this->object->importMovies( );
   }

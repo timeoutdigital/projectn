@@ -34,7 +34,7 @@ class DataEntryPoisMapper extends DataMapper
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
 
         if( !isset( $vendor ) || !$vendor )
-          throw new Exception( 'Vendor not found.' );
+          throw new Exception( 'DataEntryPoisMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;

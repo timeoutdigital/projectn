@@ -2,97 +2,116 @@
 class DataEntryImportManager
 {
 
+    /**
+     * Import Dir Path
+     * @var string
+     */
     private $importDir;
 
+    /**
+     * Vendor Object
+     * @var Doctrine_Record
+     */
     private $vendor;
-
 
 
     public function __construct( $cityName, $importDir)
     {
         $this->vendor =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
+
+        if( !isset( $this->vendor ) || !$this->vendor )
+        {
+            throw new Exception( 'DataEntryImportManager : No Vendor Found for City - ' . $cityName ) ;
+        }
         
         $this->importDir = $importDir;
     }
 
 
+    /**
+     * Import POI's
+     */
     public function importPois()
     {
        $this->runImport( 'poi' );
     }
 
+    /**
+     * Import Events
+     */
     public function importEvents()
     {
        $this->runImport( 'event' );
     }
 
+    /**
+     * Import Movie
+     */
     public function importMovies()
     {
        $this->runImport( 'movie' );
     }
 
-    public function getFileList( $type )
-    {
-        $validTypes = array( 'poi' ,'event','movie' );
-
-        if( !in_array( $type, $validTypes ) )
-        {
-            $this->notifyImporterOfFailure( new Exception( 'invalid item type for DataEntryImportManager::getFileList' ) );
-            return;
-        }
-
-        $latestExportDir = $this->getLatestExportDir();
-
-        $dir = $latestExportDir . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
-
-        $files = DirectoryIteratorN::iterate( $dir, DirectoryIteratorN::DIR_FILES, 'xml', '', true );
-
-        return $files;
-    }
-
+    /**
+     * Run Import for specific TYPE
+     * @param string Import Type [poi, event or movie]
+     * @return null
+     */
     private function runImport( $type )
     {
         $validTypes = array( 'poi' ,'event','movie' );
 
         if( !in_array( $type, $validTypes ) )
         {
-            $this->notifyImporterOfFailure(  new Exception( 'invalid item type for DataEntryImportManager::runImport' ) );
+            throw new Exception( 'invalid item type for DataEntryImportManager::runImport' );
+            return;
+        }
+        // Check for Vendor
+        if( !$this->vendor )
+        {
+            throw new Exception( 'DataEntryImportManager::runImport No Vendor Found for City - ' . $this->vendor['city'] );
             return;
         }
 
-        $files = $this->getFileList( $type );
+        // Get the Exported XML FILE
+        $filePath = $this->getLatestExportDir() . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace(' ', '_', strtolower( $this->vendor['city'] ) ) . '.xml';
 
-        foreach ( $files as $file)
+        // Check File Exists
+        if( !file_exists( $filePath ) )
         {
-            $importer = new Importer();
-
-            $xml = simplexml_load_file ( $file );
-
-            $cityName = basename( $file, ".xml" );
-
-            $this->vendor =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
-
-            ImportLogger::getInstance()->setVendor( $this->vendor );
-
-            switch ( $type)
-            {
-                case 'poi':
-                    $importer->addDataMapper( new DataEntryPoisMapper( $xml, null, $cityName ) );
-                    break;
-
-                case 'event':
-                     $importer->addDataMapper( new DataEntryEventsMapper( $xml, null, $cityName ) );
-                     break;
-
-                case 'movie':
-                    $importer->addDataMapper( new DataEntryMoviesMapper( $xml, null, $cityName ) );
-                    break;
-            }
-
-            $importer->run();
+            throw new Exception( 'DataEntryImportManager::runImport Export file for city ' . $this->vendor['city'] . ' is not found! Path location: ' . $filePath , 1);
+            return;
         }
+
+        // Start Import
+        ImportLogger::getInstance()->setVendor( $this->vendor );
+        $importer = new Importer();
+        $xml = simplexml_load_file ( $filePath ); // Load XML
+
+        switch ( $type)
+        {
+            case 'poi':
+                $importer->addDataMapper( new DataEntryPoisMapper( $xml, null, $this->vendor['city'] ) );
+                break;
+            case 'event':
+                $importer->addDataMapper( new DataEntryEventsMapper( $xml, null, $this->vendor['city'] ) );
+                break;
+            case 'movie':
+                $importer->addDataMapper( new DataEntryMoviesMapper( $xml, null, $this->vendor['city'] ) );
+                break;
+            default:
+                throw new Exception( 'DataEntryImportManager::runImport Invalid Type ' . $type ); return; // Exit
+                break;
+        }
+
+        // Start Importer
+        $importer->run();
     }
 
+    /**
+     *  get Latest Export Directory Path
+     * @return String ExportFilePath
+     */
     private function getLatestExportDir()
     {
         $subDirectories = array();
@@ -105,7 +124,8 @@ class DataEntryImportManager
 
         if ( is_dir( $this->importDir ) )
         {
-            if ($dh = opendir( $this->importDir ) )
+            $dh = opendir( $this->importDir );
+            if ( $dh )
             {
                 while (($file = readdir( $dh )) !== false)
                 {
@@ -120,7 +140,7 @@ class DataEntryImportManager
         }
         else
         {
-             throw  new Exception( $this->importDir . ' is not a directory'  ) ;
+             throw  new Exception( 'DataEntryImportManager::getLatestExportDir '. $this->importDir . ' is not a directory'  ) ;
              return;
         }
         sort( $subDirectories );

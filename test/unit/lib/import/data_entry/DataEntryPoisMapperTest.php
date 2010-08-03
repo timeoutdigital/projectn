@@ -28,16 +28,10 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'barcelona',
-      'language' => 'ca',
-      'time_zone' => 'Europe/Madrid',
-      'inernational_dial_code' => '+3493',
-      )
-    );
-    $vendor->save();
+    // Load Fixtures to create Vendors
+    Doctrine::loadData('data/fixtures');
 
-    $this->vendor = $vendor;
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'barcelona' );
 
     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
                   'unit' .DIRECTORY_SEPARATOR .
@@ -45,9 +39,7 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
 
-    $this->object = new DataEntryImportManager();
-
-    $this->object->setImportDir( $importDir );
+    $this->object = new DataEntryImportManager( 'barcelona', $importDir);
 
     $this->object->importPois( );
   }

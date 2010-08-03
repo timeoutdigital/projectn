@@ -39,7 +39,7 @@ class DataEntryMoviesMapper extends DataMapper
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
 
         if( !isset( $vendor ) || !$vendor )
-          throw new Exception( 'Vendor not found.' );
+          throw new Exception( 'DataEntryMoviesMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
         $this->vendor               = $vendor;

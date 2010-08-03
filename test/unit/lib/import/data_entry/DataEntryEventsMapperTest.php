@@ -28,29 +28,26 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'london',
-      'language' => 'en-GB',
-      'time_zone' => 'Europe/London',
-      'inernational_dial_code' => '+44',
-      )
-    );
-    $vendor->save();
+    // Load Fixtures to create Vendors
+    Doctrine::loadData('data/fixtures');
 
-    $this->vendor = $vendor;
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'london' );
 
     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
                   'unit' .DIRECTORY_SEPARATOR .
                   'data' .DIRECTORY_SEPARATOR .
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
-    $londonPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7912 , 'vendor_id' => 1 ) ); //fixture event happens at this venue
+    // For @#'#@# reason, this is not overriding the Vendor ID ??? it's always 1?
+    $londonPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7912, 'vendor_id' => 4  ) ); //fixture event happens at this venue
+    $londonPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7913 , 'vendor_id' => 4  ) ); //fixture event happens at this venue
 
-    $londonPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7913 , 'vendor_id' => 1 ) ); //fixture event happens at this venue
+    $londonPoi2['Vendor'] = $londonPoi['Vendor'] = $this->vendor; // overriding the Vendor
+    $londonPoi->save();
+    $londonPoi2->save();
 
-    $this->object = new DataEntryImportManager();
+    $this->object = new DataEntryImportManager( 'london',  $importDir );
 
-    $this->object->setImportDir( $importDir );
     $this->object->importEvents( );
   }
 
@@ -80,14 +77,14 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'http://www.timeout.com/london', $event['url'] );
     $this->assertEquals( '10', $event['price'] );
     $this->assertEquals( '1', $event['rating'] );
-    $this->assertEquals( '1', $event['vendor_id'] );
+    $this->assertEquals( '4', $event['vendor_id'] );
 
     $vendorCategories = $event['VendorEventCategory']->toArray();
 
     $this->assertEquals( 'London', $vendorCategories[ 'London'] ['name'] );
     $this->assertEquals( 'Around Town', $vendorCategories[ 'Around Town'] ['name'] );
     $eventOccurrence1 = $event['EventOccurrence'][0];
-
+//var_dump( $event['EventOccurrence']->toArray( false ) );
     $this->assertEquals( '2010-07-12', $eventOccurrence1['start_date'] );
     $this->assertEquals( '10:00:00', $eventOccurrence1['start_time'] );
     $this->assertEquals( '11:00:00', $eventOccurrence1['end_time'] );
