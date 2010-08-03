@@ -27,7 +27,7 @@ class PoiDataEntryForm extends BasePoiForm
 
     $this->widgetSchema[ 'country' ]         = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCountryCodeLong() ) );
     $this->widgetSchema[ 'local_language' ]  = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorLanguage() ) );
-    $this->widgetSchema[ 'city' ]            = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCity() ) );
+    $this->widgetSchema[ 'city' ]            = new widgetFormFixedText( array( 'default' => ucwords( $this->user->getCurrentVendorCity() ) ) );
 
     $this->widgetSchema[ 'poi_name' ] = new widgetFormInputTextJQueryAutocompleter( array( 'url' => sfContext::getInstance()->getRequest()->getScriptName() . '/poi/ajaxPoiList' ) );
 
