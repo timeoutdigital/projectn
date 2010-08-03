@@ -64,7 +64,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   public function testApplyFeedGeoCodesIfValid()
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-      
+
       $this->assertLessThan(1, $poi['PoiMeta']->count());
 
       $poi->applyFeedGeoCodesIfValid('1','-2.4975618975');
@@ -72,13 +72,13 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poi->save();
 
       $poi->applyFeedGeoCodesIfValid('1','-2.4975618975'); // Same LONG / LAT Should Meta Should not be added
-      
+
       $this->assertEquals(1, $poi['PoiMeta']->count());
 
       $this->assertEquals('Geo_Source', $poi['PoiMeta'][0]['lookup']);
 
       $this->assertEquals('Feed', $poi['PoiMeta'][0]['value']);
-      
+
       $poi->applyFeedGeoCodesIfValid('15.1789464','-2.4975618975');
 
       $poi->save();
@@ -188,6 +188,53 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
     $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
     $this->assertEquals( 1, $this->object[ 'VendorPoiCategory' ]->count() );
+  }
+
+  /**
+   * Check to see if addVendorCategory add's Empty array value array('')
+   */
+  public function testAddVendorCategoryEmpty()
+  {
+      $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+      // Add String Category
+      $this->object->addVendorCategory( 'empty 1', $vendor[ 'id' ] );
+
+      // Empty string
+      $this->object->addVendorCategory( '', $vendor[ 'id' ] );
+
+      // array
+      $this->object->addVendorCategory( array('empty2 ', 'empty 3'), $vendor[ 'id' ] );
+
+      // array plus empty
+      $this->object->addVendorCategory( array( 'empty 4', '', ' ', ' empty 5' ), $vendor[ 'id' ] );
+
+      $this->object->save(); // Save to DB
+
+      // validate
+      $categoryTable = Doctrine::getTable( 'VendorPoiCategory' )->findAll();
+
+      // Bootstrap adding a default 'test name' category as First
+      $this->assertEquals('empty 1' , $categoryTable[1]['name']);
+      $this->assertEquals('empty2  | empty 3' , $categoryTable[2]['name']);
+      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[3]['name']);
+
+      // Object Exception!
+      try{
+
+          $this->object->addVendorCategory($categoryTable, $vendor[ 'id' ] );
+          $this->assertEquals(false, true, 'Error: addVendorCategory should throw an exception when an object passed as parameter');
+
+      }catch(Exception $exception)
+      {
+          $this->assertEquals(false, false); // Exception captured
+
+      }
+
+      // @todo: addVendorCategory do not removes whitespaces in parameter
+      // 21-07-10: live database found few duplicate category for same vendor id!
+      $this->markTestIncomplete();
+
   }
 
   /**
@@ -446,6 +493,57 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
 
    }
+
+   public function testValidateUrlAndEmail()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Barcelona" ) );
+      $poi['url'] = 'ccmatasiramis@bcn.cat'; //invalid url
+      $poi['email'] = 'info@botafumeiro'; //invalid email
+
+      $poi->save();
+      $this->assertEquals( '', $poi['url'] , 'invalid url should be saved as NULL' );
+      $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
+   }
+
+  public function testStreetDoesNotEndWithCityName()
+  {
+
+    $streetNames = array(
+        'foo, '                                                 => 'foo',
+        'foo,'                                                  => 'foo',
+        '152-154  King\'s Road, London'                         => '152-154  King\'s Road',
+        '117 Commercial St Old Spitalfields Market , London'    => '117 Commercial St Old Spitalfields Market',
+        '88 Marylebone Lane London'                             => '88 Marylebone Lane',
+        'London'                                                => '',
+        '211a Clapham Rd London'                                => '211a Clapham Rd',
+        '5-7 Islington Studios London'                          => '5-7 Islington Studios',
+        'Between London Bridge and Tower Bridge'                => 'Between London Bridge and Tower Bridge',
+        '71-73 Torriano Av London'                              => '71-73 Torriano Av',
+        '5 Bishopsgate Churchyard, London'                      => '5 Bishopsgate Churchyard',
+        'Arch London, 50 Great Cumberland Place'                => 'Arch London, 50 Great Cumberland Place',
+        'Southern Terrace, Westfield London, Ariel Way'         => 'Southern Terrace, Westfield London, Ariel Way',
+        '5  Huguenot Place , 17a Heneage St , London '          => '5  Huguenot Place , 17a Heneage St',
+        '5  Huguenot Place , 17a Heneage St,London '            => '5  Huguenot Place , 17a Heneage St',
+        '5  Huguenot Place , 17a Heneage St,london'             => '5  Huguenot Place , 17a Heneage St'
+    );
+
+    $london = ProjectN_Test_Unit_Factory::get('Vendor', array( 'id' => 4 ));
+
+    foreach ($streetNames as $initialStreetName => $expectedStreetName)
+    {
+         $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+         $poi['street'] = $initialStreetName;
+         $poi[ 'city'] = 'London';
+         $poi['Vendor'] = $london;
+         $poi->save();
+
+         $this->assertEquals( $expectedStreetName, $poi[ 'street' ] );
+
+    }
+
+  }
 
 }
 

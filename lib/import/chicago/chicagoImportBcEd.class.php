@@ -29,7 +29,7 @@ class chicagoImportBcEd {
      *
      * @var Vendor
      */
-    public $vendorObj;   
+    public $vendorObj;
 
 
     public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj )
@@ -99,7 +99,23 @@ class chicagoImportBcEd {
             //Add the main details that should not change
             $poiObj[ 'vendor_poi_id' ]           = (string) (string) $poi->{'ID'};
 
-            $poiObj[ 'street' ]                  = (string) $poi->{'location'};
+            $streetAddress = (string) $poi->{'location'};
+            $pos = strpos( $streetAddress, "between" );
+
+            if( $pos !== false )
+            {
+                $betweenSection = substr( $streetAddress, $pos );
+                $streetAddress = substr( $streetAddress, 0, $pos );
+                $additionalAddressDetails = isset( $betweenSection ) ? $betweenSection . ", " . $poiData[ 'directions' ] : $poiData[ 'directions' ];
+            }else
+            {
+               $streetInfo = stringTransform::parseStreetName( $streetAddress );
+               $streetAddress = $streetInfo[ 'street' ];
+               $additionalAddressDetails = $streetInfo[ 'additional_address_details' ];
+            }
+
+            $poiObj[ 'street' ]                    = trim( $streetAddress );
+            $poiObj[ 'additional_address_details' ]   = $additionalAddressDetails;
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'cta'};
             $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
@@ -111,7 +127,7 @@ class chicagoImportBcEd {
 
 
             $stateCityArray                      = explode(',', (string) $poi->{'city.state'});
-            $poiObj[ 'city' ]                    = trim($stateCityArray[0]);
+            $poiObj[ 'city' ]                    = trim( $stateCityArray[0] );
             $poiObj[ 'district' ]                = (string) $poi->{'hood'};
             $poiObj[ 'country' ]                 = 'USA';
             $poiObj[ 'Vendor' ]                  = $this->vendorObj;
@@ -129,7 +145,7 @@ class chicagoImportBcEd {
             try{
 
                 $phoneNumber = strtolower((string) $poi->{'phone'});
-                
+
                 if( $phoneNumber != "no phone")
                 {
                     $poiObj[ 'phone' ] = stringTransform::formatPhoneNumber($phoneNumber , $this->vendorObj['inernational_dial_code']);
@@ -142,14 +158,14 @@ class chicagoImportBcEd {
                 $log =  "Error processing Phone number for Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
                 ImportLogger::getInstance()->addError($e, $poiObj, $log);
             }
-            
+
 
              //Add category
                if((string) $poi->{'category'})
                {
                    $poiObj->addVendorCategory((string) $poi->{'category'}, $this->vendorObj['id']);
                }
-               
+
 
            //Add the properties
            if((string) $poi->{'cuisine.1'})
@@ -176,22 +192,22 @@ class chicagoImportBcEd {
            if((string) $poi->{'features'} != '')
            {
                 $featuresString = (string) $poi->{'features'};
-                
+
                 // Clean up features property, to remove the string "Cheap (entrees under $10)" and
                 // ...associated new line characters, if you want to clean this up, feel free. refs #251
                 $featuresString = str_replace( "\nCheap (entrees under $10)", "", $featuresString );
                 $featuresString = str_replace( "Cheap (entrees under $10)", "", $featuresString );
-                
+
                 $poiObj->addProperty( 'features', trim( $featuresString, "\n " ) );
            }
 
-           
+
            //Save the object
            ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
 
         }
 
-        catch(Doctrine_Validator_Exception $error)
+        catch( Doctrine_Validator_Exception $error )
         {
            echo "Validation error \n \n";
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
@@ -210,5 +226,6 @@ class chicagoImportBcEd {
         //Return Poi for testing
         return $poiObj;
     }
+
 }
 ?>

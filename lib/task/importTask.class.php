@@ -43,25 +43,6 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-          case 'poi-event-kids':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_kids_leo.xml' );
-
-              $processXmlObj = new processNyXml( $fileNameString );
-              $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-              $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-              $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            break;
-
           case 'poi-event':
                 //Setup NY FTP @todo refactor FTPClient to not connect in constructor
                 $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
@@ -518,7 +499,6 @@ class importTask extends sfBaseTask
           break; //End Poi
 
           case 'event':
-
             $xml = $this->removeKualaLumpurMoviesFromEventFeed( $xml );
             $mapperClass = 'kualaLumpurEventsMapper';
 
@@ -599,6 +579,16 @@ class importTask extends sfBaseTask
     break; // end uae
 
 
+    case 'data-entry':
+        DataEntryImportManager::setImportDir( '/var/vhosts/projectn_data_entry/export/' );
+        switch( $options['type'] )
+        {
+          case 'poi'      : DataEntryImportManager::importPois();   break;
+          case 'event': DataEntryImportManager::importEvents(); break;
+          case 'movie'   : DataEntryImportManager::importMovies(); break;
+          default : $this->dieDueToInvalidTypeSpecified();
+        }
+    break;
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch

@@ -3,6 +3,20 @@ body {
     padding: 0 0 0 10px;
 }
 
+a {
+    color: #0C196E;
+}
+
+a:hover {
+    color: #545454;
+}
+
+hr {
+    border: none;
+    border-top:#DDDDDD solid 1px;
+    height:1px;
+}
+
 #logo {
     height:45px;
 }
@@ -34,8 +48,27 @@ body {
     text-decoration: none;
 }
 
+#menu a {
+    padding:2px;
+    color: #545454;
+}
+
 #menu a:hover {
-    color: #555555;
+    color: #000;
+    background-color: #FFFFFF;
+}
+
+#sf_admin_container fieldset h2
+{
+  background-color: #69BAE9;
+}
+
+#infoBox {
+    float:right;
+    background-color: #fff;
+    border:#000 solid 1px;
+    padding:4px;
+    margin:20px 10px 10px 10px;
 }
 
 .clear {
@@ -43,4 +76,3 @@ body {
     height:1px;
     overflow:hidden;
 }
-

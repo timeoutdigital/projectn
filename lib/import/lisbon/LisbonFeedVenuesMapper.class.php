@@ -25,16 +25,14 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['local_language'] = 'pt';
       $poi['city'] = 'Lisbon';
       $poi['country'] = 'PRT';
-      $poi['additional_address_details'] = $this->extractAddress( $venueElement );
+      $poi['additional_address_details'] = $this->clean( $this->extractAddress( $venueElement ) );
       $poi['phone'] =  (string) $venueElement[ 'phone' ];
       $poi->addVendorCategory( (string) $venueElement[ 'tipo' ], $this->vendor['id'] );
       $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
       $poi['vendor_id'] = $this->vendor['id'];
-
-      $poi['street']                     = trim( (string) $venueElement[ 'address' ], " ," );
-      
-      $poi['description']                = $this->extractAnnotation( $venueElement );
-      $poi['additional_address_details'] = $this->extractAddress( $venueElement );
+      $poi['street']                     = $this->clean( (string) $venueElement[ 'address' ], " ," );
+      $poi['description']                = $this->clean( $this->extractAnnotation( $venueElement ) );
+      $poi['additional_address_details'] = $this->clean( $this->extractAddress( $venueElement ) );
       $poi['phone2']                     = $this->extractPhoneNumbers( $venueElement );
       $poi['public_transport_links']     = $this->extractTransportLinkInfo( $venueElement );
       $poi['price_information']          = $this->extractPriceInfo( $venueElement );
@@ -42,7 +40,9 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
 
       $poi->setGeoEncodeLookUpString( $this->getGeoEncodeData( $poi ) );
+
       $this->notifyImporter( $poi );
+
     }
   }
 
@@ -56,7 +56,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
     return array(
       'placeid'      => 'vendor_poi_id',
       'name'         => 'poi_name',
-      'postcode'     => 'zips',  
+      'postcode'     => 'zips',
       'genmail'      => 'email',
       'url'          => 'url',
       'tipo'         => 'vendor_category',
@@ -73,10 +73,12 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   protected function getIgnoreMap()
   {
     return array(
+      'address',
       'tubeinfo',
       'businfo',
       'railinfo',
       'additional_address_details',
+      'venueinfo',
       'address1',
       'address2',
       'address3',
@@ -124,14 +126,32 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
    */
   private function extractAnnotation( $venueElement )
   {
+
+    $venueInfo = '';
+
+    //# 252 (Lisbon's POIs have "venueinfo" property, this value should be stored in the description tags)
+    foreach( $venueElement->attributes() as $key => $value )
+    {
+      $value = (string) $value;
+
+      if( $key == 'venueinfo' && !empty( $value ) )
+      {
+        $value = str_replace( PHP_EOL, ' ', $value );
+
+        $venueInfo = $value . '<br />';
+      }
+    }
+
     $annotationArray= array
     (
+      $venueInfo,
       $venueElement['gayannotation'],
       $venueElement['danceannotation'],
       $venueElement['nightlifeannotation'],
       $venueElement['comedyannotation'],
     );
-    return stringTransform::concatNonBlankStrings(', ', $annotationArray );
+
+    return trim ( stringTransform::concatNonBlankStrings(', ', $annotationArray ) , '<br />' );
   }
 
   /**
@@ -196,7 +216,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
 
     if( !empty( $venueElement['railinfo'] ) )
     {
-      $infoArray[] = 'Rail: ' . $venueElement['railinfo']; 
+      $infoArray[] = 'Rail: ' . $venueElement['railinfo'];
     }
 
     return implode( ', ', $infoArray );
@@ -278,7 +298,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
     $addressData = array
     (
       $poi['house_no'],
-      $poi['street'],      
+      $poi['street'],
     );
 
     return stringTransform::concatNonBlankStrings(', ', $addressData  ) . ', lisbon portugal';

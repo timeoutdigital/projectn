@@ -81,6 +81,16 @@ class XMLExportPOI extends XMLExport
         continue;
       }
 
+      // check the city name, if it has a number in it continue because
+      // city name could be set postcode or another wrong information
+      preg_match( '(\d)', $poi['city'], $numbersInCityName );
+      if( count( $numbersInCityName ) != 0  )
+      {
+        ExportLogger::getInstance()->addError( 'Skip Export for Pois with number in city name', 'Poi', $poi[ 'id' ] );
+        continue;
+      }
+
+
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );
       $langArray = explode('-',$this->vendor['language']);
@@ -160,9 +170,9 @@ class XMLExportPOI extends XMLExport
 
       //event/version/media
       foreach( $poi[ 'PoiMedia' ] as $medium )
-      {        
+      {
         $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
-        
+
         if ( $mediaElement instanceof DOMElement )
         {
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
@@ -185,6 +195,18 @@ class XMLExportPOI extends XMLExport
           }
         }
       }
+
+      // UI Category Exports.
+      $avoidDuplicateUiCategories = array();
+      foreach( $poi['VendorPoiCategory'] as $vendorCat )
+        foreach( $vendorCat['UiCategory'] as $uiCat )
+           if( isset( $uiCat['name'] ) )
+            if( !in_array( (string) $uiCat['name'], $avoidDuplicateUiCategories ) )
+            {
+                $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', (string) $uiCat['name'], XMLExport::USE_CDATA );
+                $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
+                $avoidDuplicateUiCategories[] = (string) $uiCat['name'];
+            }
 
       ExportLogger::getInstance()->addExport( 'Poi' );
 

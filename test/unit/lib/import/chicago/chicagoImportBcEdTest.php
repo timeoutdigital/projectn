@@ -51,7 +51,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
           ProjectN_Test_Unit_Factory::createDatabases();
 
           Doctrine::loadData('data/fixtures');
-          $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('chicago', 'en-US');
+          $this->vendorObj = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 'city' => 'chicago', 'language' => 'en-US', 'time_zone' => 'America/Chicago' ) );
 
           $this->xmlObj = new processNyBcXml( TO_TEST_DATA_PATH.'/toc_ed.xml' );
           $this->loggerObj = new logImport($this->vendorObj, 'poi');
@@ -158,7 +158,7 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
     {
        $this->createNonExistingUnchangedPoi();
        $this->createObject();
-       
+
        //Check the DB for all entries
        $poi = Doctrine::getTable('Poi')->findByPoiName('A La Turka');
        $this->assertEquals(2, count($poi->toArray()), 'Test that there is only 1 in the DB');
@@ -262,6 +262,50 @@ class chicagoImportBcEdTest extends PHPUnit_Framework_TestCase
            $this->existingPoiObj->save();
     }
 
+    public function testPoiStreetNameParse()
+    {
+        $this->createObject();
+
+        $poi = Doctrine::getTable('Poi')->findOneByPoiName( 'A La Turka' );
+
+        $this->assertEquals( $poi ['street'] ,  '3134 N Lincoln Ave' , 'street names without "between", "meet at" and " at " shouldn"t be changed  ');
+    }
+
+
+    public function testPoiStreetNameParsewithAt()
+    {
+        //change the streetname field to various combinations to see if parsing works
+        $xml = $this->getXMLString();
+        $node = 'location';
+
+        $xml->{$node} = '320 Amsterdam Ave at 75th St';
+
+        $this->object = new chicagoImportBcEd($this->xmlObj, $this->vendorObj,  $this->loggerObj);
+        $this->object->importPoi( $xml  );
+        //retreive the poi
+        $poi = Doctrine::getTable('Poi')->findOneByPoiName( 'A La Turka' );
+
+        $this->assertEquals( $poi ['street'] ,  '320 Amsterdam Ave' , 'street name parsing should move at info to additional_address_details -test 1');
+        $this->assertEquals( $poi ['additional_address_details'] ,  'At 75th St' , 'street name parsing should move at info to additional_address_details -test 2');
+    }
+
+    public function testPoiStreetNameParseRemoveMeetAts()
+    {
+        //change the streetname field to various combinations to see if parsing works
+        $xml = $this->getXMLString();
+        $node = 'location';
+        $xml->{$node} = 'meet at Broadway and Murray St';
+
+        $this->object = new chicagoImportBcEd($this->xmlObj, $this->vendorObj,  $this->loggerObj);
+        $this->object->importPoi( $xml  );
+        //retreive the poi
+        $poi = Doctrine::getTable('Poi')->findOneByPoiName( 'A La Turka' );
+
+        $this->assertEquals( $poi ['street'] ,  'Broadway and Murray St' , 'street name parsing remove "meet at" -test 1');
+        $this->assertEquals( $poi ['additional_address_details'] ,  '' , 'street name parsing  remove "meet at" - test 2');
+    }
+
+
     /**
      *
      * Create a simplexml object
@@ -327,7 +371,7 @@ Lunch</meals>
 		<winelist/>
 		<zip>60657</zip>
 	</ROW>
-	
+
 
 
 EOF;
