@@ -8,7 +8,12 @@ class DataEntryImportManager
 
 
 
-    //public
+    public function __construct( $cityName, $importDir)
+    {
+        $this->vendor =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
+        
+        $this->importDir = $importDir;
+    }
 
 
     public function importPois()
@@ -26,18 +31,13 @@ class DataEntryImportManager
        $this->runImport( 'movie' );
     }
 
-    public function setImportDir( $dir )
-    {
-        $this->importDir = $dir;
-    }
-
     public function getFileList( $type )
     {
         $validTypes = array( 'poi' ,'event','movie' );
 
         if( !in_array( $type, $validTypes ) )
         {
-            $this->notifyImporterOfFailure(   new Exception( 'invalid item type for DataEntryImportManager::getFileList' ) );
+            $this->notifyImporterOfFailure( new Exception( 'invalid item type for DataEntryImportManager::getFileList' ) );
             return;
         }
 
@@ -45,22 +45,7 @@ class DataEntryImportManager
 
         $dir = $latestExportDir . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
 
-        $files = array();
-
-        if ( is_dir( $dir ) )
-        {
-            if ($dh = opendir( $dir ) )
-            {
-                while (($file = readdir( $dh )) !== false)
-                {
-                    if( filetype( $dir . $file) == 'file' && strpos( $file, '.xml' ) !== false)
-                    {
-                         $files [] = $dir .$file;
-                    }
-                }
-                closedir($dh);
-            }
-        }
+        $files = DirectoryIteratorN::iterate( $dir, DirectoryIteratorN::DIR_FILES, 'xml', '', true );
 
         return $files;
     }
@@ -71,7 +56,7 @@ class DataEntryImportManager
 
         if( !in_array( $type, $validTypes ) )
         {
-            $this->notifyImporterOfFailure(  new Exception( 'invalid item type for DataEntryImportManager::getFileList' ) );
+            $this->notifyImporterOfFailure(  new Exception( 'invalid item type for DataEntryImportManager::runImport' ) );
             return;
         }
 
@@ -85,9 +70,9 @@ class DataEntryImportManager
 
             $cityName = basename( $file, ".xml" );
 
-            $vendorObj =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
+            $this->vendor =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
 
-            ImportLogger::getInstance()->setVendor( $vendorObj );
+            ImportLogger::getInstance()->setVendor( $this->vendor );
 
             switch ( $type)
             {
@@ -132,13 +117,14 @@ class DataEntryImportManager
                 }
                 closedir($dh);
             }
-        }else
+        }
+        else
         {
              throw  new Exception( $this->importDir . ' is not a directory'  ) ;
              return;
         }
-         sort( $subDirectories );
+        sort( $subDirectories );
 
-         return $this->importDir . 'export_'. end( $subDirectories );
+        return $this->importDir . 'export_'. end( $subDirectories );
     }
 }

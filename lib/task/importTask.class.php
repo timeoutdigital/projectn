@@ -598,18 +598,22 @@ class importTask extends sfBaseTask
     break; // end uae
 
 
-    case 'data-entry':
-        $dataEntryImportManager = new DataEntryImportManager();
-
-        $dataEntryImportManager->setImportDir( '/var/vhosts/projectn_data_entry/export/' );
+    // data entry imports
+    case 'mumbai':
+    case 'dehli':
+    case 'bangalore':
+    case 'pune':
+        $dataEntryImportManager = new DataEntryImportManager( $options['city'], '/var/vhosts/projectn_data_entry/export/' );
         switch( $options['type'] )
         {
-          case 'poi'      : $dataEntryImportManager->importPois();   break;
-          case 'event': $dataEntryImportManager->importEvents(); break;
-          case 'movie'   : $dataEntryImportManager->importMovies(); break;
+          case 'poi'   : $dataEntryImportManager->importPois();   break;
+          case 'event' : $dataEntryImportManager->importEvents(); break;
+          case 'movie' : $dataEntryImportManager->importMovies(); break;
           default : $this->dieDueToInvalidTypeSpecified();
         }
-    break;
+    break; //end data entry imports
+
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
