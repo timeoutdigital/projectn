@@ -592,6 +592,7 @@ class importTask extends sfBaseTask
           case 'movie' : $dataEntryImportManager->importMovies(); break;
           default : $this->dieDueToInvalidTypeSpecified();
         }
+        $this->dieWithLogMessage();
     break; //end data entry imports
 
 
