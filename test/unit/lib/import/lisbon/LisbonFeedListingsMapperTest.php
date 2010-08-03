@@ -45,7 +45,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
     foreach( array( 833, 2844, 366, 4109 ) as $placeid )
     {
-      ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => $placeid ) );
+        ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => $placeid ) );
     }
 
     // Load XML
@@ -66,7 +66,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-    ProjectN_Test_Unit_Factory::destroyDatabases();
+     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
@@ -184,13 +184,28 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $eventOccurrence1 = $event['EventOccurrence'][0];
 
     // This event occur Every Thursday & Friday of the week!
-    $this->assertEquals( date('Y-m-d', strtotime('next Thursday')), $eventOccurrence1['start_date'] );
+    if( date( 'l' ) != 'Thursday')
+    {
+        $this->assertEquals( date( 'Y-m-d', strtotime( 'next Thursday' ) ), $eventOccurrence1['start_date'] );
+    }else
+    {
+        $this->assertEquals( date( 'Y-m-d' ), $eventOccurrence1['start_date'] );
+    }
+
     $this->assertEquals( null, $eventOccurrence1['start_time'] );
     $this->assertEquals( '+01:00', $eventOccurrence1['utc_offset'] );
 
     // Check for Friday Event
     $eventOccurrence2 = $event['EventOccurrence'][1];
-    $this->assertEquals( date('Y-m-d', strtotime('next Friday')), $eventOccurrence2['start_date'] );
+    if( date( 'l' ) != 'Friday')
+    {
+         $this->assertEquals( date( 'Y-m-d', strtotime('next Friday') ), $eventOccurrence2['start_date'] );
+    }else
+    {
+         $this->assertEquals( date( 'Y-m-d' ), $eventOccurrence2['start_date'] );
+    }
+
+
     $this->assertEquals( null, $eventOccurrence2['start_time'] );
     $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
 
@@ -248,10 +263,55 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->importFrom(TO_TEST_DATA_PATH . '/lisbon_listings_testIsNotAffectedByEventsFromOtherVendors.xml', $logger);
   }
 
+  public function testTimeInfoParsingToCreateOccurrences()
+  {
+
+    $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' );
+
+    // the event in the fixture we are trying to import might be expired so set a new date in future and also set t random musicid and recurring id
+
+    $xml->listings[0]['ProposedFromDate'] = date( 'Y-m-d', strtotime( '-1 week' ) );
+    $xml->listings[0]['ProposedToDate']   = date( 'Y-m-d', strtotime( '+1 week' ) );
+    $xml->listings[0]['musicid'] =  555;
+    $xml->listings[0]['RecurringListingID'] =  333;
+    $xml->listings[0]['timeinfo'] =  "Ter-Sex 10-19h; Sab e Dom 14-19h. Encerra à 2ª feiras e feriados."; //should translate to Sunday,Tuesday,Friday,Saturday
+
+    $importer = new Importer();
+
+    $importer->addDataMapper( new LisbonFeedListingsMapper( $xml ) );
+
+    $importer->run();
+
+    $event  = Doctrine::getTable('Event')->findOneByVendorEventId( 333 );
+
+    $validDays = array( 'Sunday','Tuesday','Friday','Saturday' );
+
+    $occurrenceDates = array();
+    $occurrenceDatesInDB = array();
+    // find the occurrence dates
+    for ($i=0 ; $i < 7; $i++ )
+    {
+        $day = date( 'l', strtotime( '+' .$i . ' day'  ) );
+        if( in_array( $day, $validDays ) )
+        {
+            $occurrenceDates[] =date( 'Y-m-d' ,strtotime( '+' .$i . ' day'  ) );
+        }
+    }
+    // get the occurrence dates in database
+    foreach ( $event['EventOccurrence'] as $occurrence )
+    {
+        $occurrenceDatesInDB[] = $occurrence['start_date'];
+    }
+
+     $this->assertTrue(  count( array_diff( $occurrenceDates ,$occurrenceDatesInDB  ) ) == 0 , 'occurrence dates are valid' );
+     $this->assertTrue(  count( array_diff( $occurrenceDatesInDB , $occurrenceDates  ) ) == 0 , 'occurrence dates are valid' );
+
+  }
+
   private function addPoi( $name, $vendor )
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-    $poi['poi_name'] = $vendor;
+    $poi['poi_name'] = $name;
     $poi['Vendor'] = $vendor;
     $poi->save();
   }
@@ -273,5 +333,6 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     //$importer->addLogger( $logger );
     $importer->run();
   }
+
 }
 ?>

@@ -91,7 +91,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testMapVenues()
   {
     $this->runImportFromFile();
-    
+
     $pois = Doctrine::getTable('Poi')->findAll();
     $this->assertGreaterThan( 1, $pois->count() );
     $this->assertLessThan( 7, $pois->count() );
@@ -127,7 +127,7 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $poi['provider'] );
     $this->assertEquals( $this->vendor['id'], $poi['vendor_id'] );
 
-    $this->assertGreaterThan( 0, $poi[ 'PoiProperty' ]->count() );
+    $this->assertEquals( 0, $poi[ 'PoiProperty' ]->count() );
   }
 
   private function runImportFromFile( $filename = 'lisbon_venues.short.xml' )
@@ -140,5 +140,6 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     $importer->addDataMapper( $this->object );
     $importer->run();
   }
+
 }
 ?>

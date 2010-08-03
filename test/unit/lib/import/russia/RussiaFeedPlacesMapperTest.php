@@ -61,7 +61,7 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();
-    
+
     $pois = Doctrine::getTable('Poi')->findAll();
     $this->assertEquals( 3, $pois->count() );
     $poi = $pois[0];
@@ -80,9 +80,9 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Строгино', $poi['public_transport_links'] );
     $this->assertNull( $poi['rating'] );
     $this->assertEquals( 0, $poi['star_rating'] );
-    
+
     $this->assertEquals( $this->vendor['id'], $poi['vendor_id'] );
-    
+
     $this->assertGreaterThan( 0, $poi[ 'VendorPoiCategory' ]->count() );
     $this->assertEquals( "одежда | мода", $poi[ 'VendorPoiCategory' ][0]['name'] );
 
@@ -118,5 +118,18 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertFalse( strpos( $poi[ 'poi_name' ], "&quot;" ) );
   }
+
+  public function testShortDescriptionDoesNotHaveHTMLTags()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+    $pois = Doctrine::getTable('Poi')->findAll();
+    $this->assertEquals( 3, $pois->count() );
+    $poi = $pois[2];
+
+    $this->assertEquals( 'Большая игровая комната, двухуровневый лабиринт, кафе, мульткафе, по субботам с 16.00 до18.00 пираты превращают детей в сказочных персонажей', $poi['short_description'] );
+  }
+
 }
 ?>

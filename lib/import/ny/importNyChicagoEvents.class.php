@@ -229,7 +229,7 @@ class importNyChicagoEvents
                     }
                     else
                     {
-                        $priceInfoString = ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
+                        $priceInfoString =  ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
                         $priceInfoString .= ( (string) $price->currency != '' ) ? (string) $price->currency . ' ' : '';
                         $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
                         $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
@@ -272,6 +272,10 @@ class importNyChicagoEvents
 
                 $poiObj->addProperty( $attributeNameString, $attributeValueString );
             }
+        }
+        foreach ($categoryArray as $category)
+        {
+            $poiObj->addVendorCategory( trim ( $category ), $this->_vendorObj->getId()  );
         }
 
         ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
@@ -376,7 +380,7 @@ class importNyChicagoEvents
                 // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
                 if( $critics_choice_value == "yes" ) $critics_choice_value = "y";
                 if( $critics_choice_value == "no" ) $critics_choice_value = "n";
-                
+
                 $eventObj->addProperty( "Critics_choice", $critics_choice_value );
             }
         }
