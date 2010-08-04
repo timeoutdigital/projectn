@@ -80,4 +80,4 @@ fi
 
 # --------------------------------------------------------------------------------------------------------
 
-f_ok "OK: FTP fully checked, all tests successful"
+f_ok "OK: All imports finished"
