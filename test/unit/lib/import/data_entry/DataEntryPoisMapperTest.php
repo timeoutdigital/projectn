@@ -82,7 +82,7 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
     $this->assertNotNull( $poi['phone'] );
     $this->assertNotNull( $poi['phone2'] );
     $this->assertNotNull( $poi['fax'] );
-    $this->assertEquals( 'foo@hotmail.com', $poi['email'] );
+    $this->assertNull( $poi['email'] ); // refs #538
     $this->assertEquals( 'http://www.mac.cat', $poi['url'] );
     //contact node end
 
