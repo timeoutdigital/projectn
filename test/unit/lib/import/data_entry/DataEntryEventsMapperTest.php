@@ -71,7 +71,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( '7883', $event['vendor_event_id'] );
     $this->assertEquals( 'Footnotes Audio Walks', $event['name'] );
-    $this->assertEquals( 'some short description text goes here', $event['short_description'] );
+    $this->assertNull( $event['short_description'] ); // refs #538
     $this->assertEquals( 'Guided tours of 20 areas of London, including Spitalfields, Highgate and Mayfair, recorded on CD or available to download on to MP3 players. Each walk lasts two hours and comes with a map.', $event['description'] );
     $this->assertEquals( 'http://www.timeout.com', $event['booking_url'] );
     $this->assertEquals( 'http://www.timeout.com/london', $event['url'] );
