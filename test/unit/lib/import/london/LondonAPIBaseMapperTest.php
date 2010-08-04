@@ -14,7 +14,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  *
  * @version 1.0.1
  */
-class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
+class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
 {
 
   /**
@@ -24,9 +24,9 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
-      'city' => 'london', 
-      'language' => 'en-GB', 
+    ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+      'city' => 'london',
+      'language' => 'en-GB',
       ) );
   }
 
@@ -44,7 +44,7 @@ class LondonAPIBaseTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiUrlIsNotTimeoutUrlAndTimeoutLinkIsStoredAsAProperty()
   {
-    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geoEncode' ) );
+    $mock = new MockLondonAPIBaseMapper( null , $this->getMock( 'geoEncode' ) );
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl><lat>1</lat><lng>1</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
@@ -123,7 +123,7 @@ class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
     $this->mapCommonPoiMappings( $poi, $xml );
   }
   public function getDetailsUrl(){}
-  public function getApiType(){}
+  public function getApiType(){ return 'restaurant'; }
   public function doMapping( SimpleXMLElement $xml ){}
 }
 class MockLondonAPIBaseMapperCriticsChoice extends LondonAPIBaseMapper

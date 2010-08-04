@@ -93,13 +93,19 @@ class Poi extends BasePoi
   }
 
   /**
-   * Removes HTML Entities for all fields of type 'string'
+   * Clean all fields of type 'string', Removes HTML and Trim
    */
-  protected function fixHTMLEntities()
+  protected function cleanStringFields()
   {
     foreach ( $this->getStringColumns() as $field )
         if( is_string( @$this[ $field ] ) )
+        {
+            // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
+
+            // Refs #525 - Trim All Text fields on PreSave
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+        }
   }
 
   /**
@@ -346,6 +352,10 @@ class Poi extends BasePoi
 
     foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
+      // This will unlink all vendor category relationships that dont match the poi vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
+      
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 
@@ -381,7 +391,7 @@ class Poi extends BasePoi
   public function applyFixes()
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
-     $this->fixHTMLEntities();
+     $this->cleanStringFields();
      $this->fixPoiName();
      $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
@@ -390,7 +400,7 @@ class Poi extends BasePoi
      $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
-     $this->cleanStreetField();
+     $this->cleanStreetField();     
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
@@ -405,7 +415,7 @@ class Poi extends BasePoi
   {
     $this->applyFixes();
   }
-
+  
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
@@ -605,7 +615,6 @@ class Poi extends BasePoi
     // check if the largestImg is larger than the one attached already if any
     foreach ($this[ 'PoiMedia' ] as $poiMedia )
     {
-
         if( $poiMedia['content_length']  > $largestImg[ 'contentLength' ]  )
         {
             //we already have a larger image so ignore this
@@ -619,11 +628,17 @@ class Poi extends BasePoi
     {
         $poiMediaObj = new PoiMedia( );
     }
+    try
+    {
+        $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-    // add the poiMediaObj to the Poi
-    $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+        // add the poiMediaObj to the Poi
+        $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
   }
 
