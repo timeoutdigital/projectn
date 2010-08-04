@@ -84,7 +84,8 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'London', $vendorCategories[ 'London'] ['name'] );
     $this->assertEquals( 'Around Town', $vendorCategories[ 'Around Town'] ['name'] );
     $eventOccurrence1 = $event['EventOccurrence'][0];
-//var_dump( $event['EventOccurrence']->toArray( false ) );
+
+    $this->assertEquals( '7883_7912_20100712_100000', $eventOccurrence1['vendor_event_occurrence_id'] );
     $this->assertEquals( '2010-07-12', $eventOccurrence1['start_date'] );
     $this->assertEquals( '10:00:00', $eventOccurrence1['start_time'] );
     $this->assertEquals( '11:00:00', $eventOccurrence1['end_time'] );
