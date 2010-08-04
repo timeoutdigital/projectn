@@ -253,6 +253,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj->setGeoEncodeLookUpString(" ");
       $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTestWithoutAddress();
+
+      $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
       $poiObj->save();
 
       $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
@@ -375,9 +377,9 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
    /**
-   * test if setting the name of a Poi ensures HTML entities are decoded
+   * test if setting the name of a Poi ensures HTML entities are decoded and Trimmed
    */
-  public function testFixHtmlEntities()
+  public function testCleanStringFields()
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
@@ -387,6 +389,21 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertTrue( preg_match( '/&quot;/', $poi['poi_name'] ) == 0, 'POI name cannot contain HTML entities' );
       $this->assertEquals( $poi['poi_name'], 'My "name" is', 'POI name converts HTML entities to their appropriate characters' );
+
+      // test for Trim refs #525
+      $poiTrim = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      $poiTrim['poi_name'] = PHP_EOL . 'spaced poi name      ';
+      $poiTrim['street'] = '45 Some Street, SE1 9HG      '; // Postcode should be removed alongwith whitespace and tab space
+
+      $london = ProjectN_Test_Unit_Factory::get('Vendor', array( 'id' => 4 ));
+
+      $poiTrim['Vendor'] = $london;
+
+      $poiTrim->save();
+
+      $this->assertEquals( 'spaced poi name', $poiTrim[ 'poi_name' ] );
+      $this->assertEquals( '45 Some Street', $poiTrim[ 'street' ], 'Expected Street Name: 45 Some Street, SE1 9HG' );
 
   }
 
@@ -493,7 +510,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
 
    }
-
    public function testValidateUrlAndEmail()
    {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
