@@ -93,13 +93,19 @@ class Poi extends BasePoi
   }
 
   /**
-   * Removes HTML Entities for all fields of type 'string'
+   * Clean all fields of type 'string', Removes HTML and Trim
    */
-  protected function fixHTMLEntities()
+  protected function cleanStringFields()
   {
     foreach ( $this->getStringColumns() as $field )
         if( is_string( @$this[ $field ] ) )
+        {
+            // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
+
+            // Refs #525 - Trim All Text fields on PreSave
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+        }
   }
 
   /**
@@ -381,7 +387,7 @@ class Poi extends BasePoi
   public function applyFixes()
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
-     $this->fixHTMLEntities();
+     $this->cleanStringFields();
      $this->fixPoiName();
      $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
@@ -390,7 +396,7 @@ class Poi extends BasePoi
      $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
-     $this->cleanStreetField();
+     $this->cleanStreetField();     
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
@@ -405,7 +411,7 @@ class Poi extends BasePoi
   {
     $this->applyFixes();
   }
-
+  
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );

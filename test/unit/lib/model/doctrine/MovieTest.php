@@ -44,9 +44,9 @@ class MovieTest extends PHPUnit_Framework_TestCase
   }
 
    /**
-   * test if setting the name of a Poi ensures HTML entities are decoded
+   * test if setting the name of a Poi ensures HTML entities are decoded and Trimmed
    */
-  public function testFixHtmlEntities()
+  public function testCleanStringFields()
   {
       $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
       $movie['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
@@ -67,6 +67,27 @@ class MovieTest extends PHPUnit_Framework_TestCase
         if( $column_info['type'] == 'string' )
             if( is_string( @$movie[ $column_name ] ) )
                 $this->assertTrue( preg_match( '/&sect;/', $movie[ $column_name ] ) == 0, 'Failed to convert &sect; to correct symbol' );
+
+      // Refs #525 Trim
+      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+      $movie['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $movie['name'] = "Movie name is   ";
+
+      // Add HTML Entities to all poi fields of type 'string'
+      foreach( Doctrine::getTable( "Movie" )->getColumns() as $column_name => $column_info )
+        if( $column_info['type'] == 'string' )
+            if( is_string( @$movie[ $column_name ] ) )
+                $movie[ $column_name ] .= " ";
+      // Review
+      $movie['review'] = PHP_EOL . '    some review with lots of...   ';
+
+      // save
+      $movie->save();
+
+      // assert
+      $this->assertEquals('Movie name is', $movie['name']);
+      $this->assertEquals('some review with lots of...', $movie['review']);
+
   }
 
   public function testAddTimeoutUrl()
