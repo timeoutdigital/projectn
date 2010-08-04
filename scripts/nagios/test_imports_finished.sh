@@ -24,25 +24,21 @@ TODAYS_DATE=$(/bin/date +%Y-%m-%d)
 # --------------------------------------------------------------------------------------------------------
 
 function f_ok {
-    teardown
     echo ${1}
     exit 0
 }
 
 function f_war {
-    teardown
     echo ${1}
     exit 1
 }
 
 function f_cri {
-    teardown
     echo ${1}
     exit 2
 }
 
 function f_unk {
-    teardown
     echo ${1}
     exit 3
 }
@@ -57,9 +53,9 @@ FAILED_CITIES="";
 for LOG_FILE in $LOG_DIRECTORY/import/*
 do
     # Skip Certain Files, Feel Free to Add More.
-    if      [ "${LOG_FILE}" == "${LOG_DIRECTORY}/import/common.log" ];      then continue
+    if      [ `echo "${LOG_FILE}" | grep "disabled" | wc -l` -gt 0 ];       then continue
+    elif    [ "${LOG_FILE}" == "${LOG_DIRECTORY}/import/common.log" ];      then continue
     elif    [ "${LOG_FILE}" == "${LOG_DIRECTORY}/import/data-entry.log" ];  then continue
-    elif    [ "${LOG_FILE}" == "${LOG_DIRECTORY}/import/russia.log" ];      then continue
 
     else
         # Count How Many Times Todays Date Appears on the Same Line as 'end import'
