@@ -22,7 +22,7 @@ class PoiDataEntryValidatorSchema extends sfValidatorSchema
   protected function doClean($values)
   {
     //compose geocode_look_up string
-    $values[ 'geocode_look_up' ] = stringTransform::concatNonBlankStrings( ', ', array( $values[ 'street' ], $values[ 'city' ], $values[ 'country' ] ) );
+    $values[ 'geocode_look_up' ] = stringTransform::concatNonBlankStrings( ', ', array( $values['house_no'], $values['street'], $values['city'], $values['zips'] ) );
    
     return $values;
   }
