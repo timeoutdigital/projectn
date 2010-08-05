@@ -40,8 +40,6 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 
     Doctrine::loadData('data/fixtures');
 
-    $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'moscow' );
-
     //$this->connectToPDODB();
     $this->createDummyDB();
     
@@ -58,27 +56,6 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-  /**
-   * Connect to MySql Database
-   * @return Boolean
-   */
-  private function connectToPDODB()
-  {
-    try {
-
-        $this->pdoDB = new PDO("mysql:host=192.9.215.250;dbname=searchlight", 'projectn', 'outtime99');
-
-        echo 'Database Connection Estabilished' . PHP_EOL;
-
-        return true;
-    }
-    catch(PDOException $e)
-    {
-        echo 'PDO Connection Exception: ' . $e->getMessage() . PHP_EOL;
-    }
-    return false;
-  }
-
   public function testMapVenues()
   {
       $importer = new Importer();
@@ -88,7 +65,7 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       // Get All from 
       $pois = Doctrine::getTable('Poi')->findAll();
 
-      $this->assertEquals( 2, $pois->count(), 'Should be 2, as two dummy data Inserted' );
+      $this->assertEquals( 2, $pois->count(), 'Should be 2, as two dummy data Inserted for Beijing and 1 Other City' );
 
       $poi = $pois[0];
 
@@ -164,6 +141,8 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 
           $pdoDB->exec('INSERT INTO neighbourhood VALUES(1, 2, "The Centre");');
           $pdoDB->exec('INSERT INTO neighbourhood VALUES(2, 2, "Chaoyang");');
+          $pdoDB->exec('INSERT INTO neighbourhood VALUES(3, 1, "None Beijing City");');
+          $pdoDB->exec('INSERT INTO neighbourhood VALUES(4, 4, "None Beijing City 2");');
 
           $pdoDB->exec('INSERT INTO category VALUES(1, 0, 0, 1132, "Root" );');
           $pdoDB->exec('INSERT INTO category(id, parent_category_id, lft, rgt, name) VALUES(381, 1, 2, 233, "International" );');
@@ -177,9 +156,11 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 
           $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(1, 2, "Sofitel Wanda", "Wanda Plaza", "93 Jianguo Lu, Tower C Wanda Plaza, Chaoyang district", "", "", "", "http://www.theemperor.com.cn", "39.909988", "116.452393", "8599 6666", "", "", "<p>With three giant Swarovski peonies winking at you as soon as you enter and a daring mix of French chic and Tang dynasty chinoiserie characterising the decor throughout, this hotel is gorgeous. A fantastic French restaurant &ndash; Le Pre Lenotre &ndash; and a relaxing Le Spa add to the appeal.</p>");');
           $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(2,1, "Meli Melo", "", "Second Floor, Les Millésimes, 16 Yonganli (next to Building 15 Jianwai SOHO), Chaoyang district", "", "", "11am-2.30pm, 6-10.30pm daily", "", "0.000000", "0.000000", "8521 9988", "", "44494", "<p>This French fusion restaurant tends towards the whimsical in its eclectic d&eacute;cor of peach-coloured sofas, gilded screens and red chandelier covers made of an Issey Miyake inspired fabric. Yet when it comes to food, Meli Melo gets serious. Meli Melo belongs to the three-storey Les Mill&eacute;simes development, which includes a wine bar, cigar bar, private club and the French seafood restaurant La Maree, located on the same floor as Meli Melo. The two restaurants share a kitchen and a wine list. That the wines are currently available only by the bottle is unfortunate since it is nearly impossible to match one wine with the many flavours that Meli Melo combines on one plate. Staff are polite and professional yet unlike many new restaurants around town, Meli Melo does not add an extra service charge.</p>");');
+          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(3,4, "None Beijin", "", "Invaid Address", "", "", "11am-2.30pm, 6-10.30pm daily", "", "0.000000", "0.000000", "8521 9988", "", "44494", "<p>This shoudn\'t be in. Beijing???</p>");');
           
           $pdoDB->exec('INSERT INTO venue_category_mapping(venue_id, category_id) VALUES(1, 406);');
           $pdoDB->exec('INSERT INTO venue_category_mapping(venue_id, category_id) VALUES(2, 404);');
+          $pdoDB->exec('INSERT INTO venue_category_mapping(venue_id, category_id) VALUES(3, 561);');
 
           $pdoDB->commit();
 
