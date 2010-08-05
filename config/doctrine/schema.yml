@@ -493,7 +493,7 @@ Media:
   actAs:
     Timestampable: ~
   columns:
-    ident:                {type: string(32), notnull: true, unique:true}
+    ident:                {type: string(40), notnull: true, unique:true}
     url:                  {type: string(1024), notnull: true}
     mime_type:            {type: string(255), notnull: true}
     file_last_modified:   {type: string(255), notnull: false}
