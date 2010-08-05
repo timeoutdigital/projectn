@@ -96,7 +96,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
         $poi->setLongitude( '0.1' );
-        $poi->setLatitude( '0.2' );
+        $poi->setLatitude( '50' );
         $poi->setEmail( 'you@who.com' );
         $poi->setUrl( 'http://foo.com' );
         $poi->setPhone( '+44 208 123 1234' );
@@ -154,7 +154,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
         $poi->setLongitude( '0.3' );
-        $poi->setLatitude( '0.4' );
+        $poi->setLatitude( '50' );
         $poi->link('VendorPoiCategory', array( 1, 2 ) );
         $poi->link( 'Vendor', 2 );
         $poi->save();
@@ -177,6 +177,42 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     {
       ProjectN_Test_Unit_Factory::destroyDatabases();
     }
+
+  /**
+   * Skip on lat/long out of bounds.
+   */
+  public function testPoiLatLongOutofVendorBounds()
+  {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $this->vendor2['geo_boundries'] = "1;1;2;2";
+      $this->vendor2->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['latitude'] = 1.5;
+      $poi['longitude'] = 1.5;
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['latitude'] = 2.5;
+      $poi['longitude'] = 1.5;
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['latitude'] = 1.5;
+      $poi['longitude'] = 2.5;
+      $poi->save();
+
+      $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImport();
+      
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
+  }
 
   /**
    * Add UI Category to Export.
@@ -219,14 +255,14 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
-      $poi['latitude'] = 33.332;
+      $poi['latitude'] = 50;
       $poi['VendorPoiCategory'] = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
       $poi->save();
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
       $poi['poi_name'] = 'hello';
-      $poi['latitude'] = 33.333;
+      $poi['latitude'] = 51;
       $poi->addVendorCategory( "moo", $this->vendor2->id );
       $poi->save();
 
@@ -320,7 +356,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $xpathResult2 = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
       $latitude = (string) array_shift( $xpathResult2 );
-      $this->assertEquals( '0.2', $latitude );
+      $this->assertEquals( '50', $latitude );
     }
 
     /**

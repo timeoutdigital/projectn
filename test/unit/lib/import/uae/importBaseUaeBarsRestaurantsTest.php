@@ -60,7 +60,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
 
        // $this->categoryMap = new CategoryMap();
 
-        
+
     }
 
     /**
@@ -79,6 +79,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
      */
     public function testGetCurrentPois()
     {
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
         $this->createXMLObject();
         $this->createExistingUnchangedPoi();
         //$this->xmlObj = $this->getXMLString();
@@ -94,10 +95,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
      */
     public function testAddCommonElements()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
     }
 
 
@@ -112,7 +110,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
         {
             $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
             $feed->exec();
-                       
+
             $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
             $this->xmlObj = $xmlObj->getXmlFeed();
         }
@@ -120,13 +118,14 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
         $this->object = new importBaseUaeBarsRestaurants( $this->xmlObj , $this->vendorObj);
         $this->object->importPoi($this->xmlObj);
     }
-    
+
 
      /**
      * Creat an entry in the database that matches one from the feed
      */
     private function createExistingUnchangedPoi()
     {
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
           /**
            * This is a poi which is in the xml
            *
@@ -153,6 +152,7 @@ class importBaseUaeBarsRestaurantsTest extends PHPUnit_Framework_TestCase
      */
     private function createNonExistingUnchangedPoi()
     {
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
           /**
            * The vendor_poi_id has changed and therefore classed as a new entry
            *

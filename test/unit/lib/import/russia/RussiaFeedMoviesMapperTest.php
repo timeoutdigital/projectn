@@ -53,6 +53,7 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
 
     $movies = Doctrine::getTable('Movie')->findAll();
+
     $this->assertEquals( 14, $movies->count() );
 
     $movie = $movies->getFirst();
@@ -106,7 +107,7 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 7, $russianVendors->count(), 'Should have 7 Russian Vendors' );
 
     $vendorNumber = 0;
-    
+
     foreach( $venueIds as $venueId )
     {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -114,11 +115,11 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
       if( $vendorNumber >= $russianVendors->count() ) $vendorNumber = 0;
       else $vendorNumber++;
-      
+
       $poi[ 'Vendor' ] = $russianVendors[ $vendorNumber ];
       $poi->save();
     }
-    
+
     $this->assertEquals( count( $venueIds ), Doctrine::getTable( 'Poi' )->count() );
   }
 }

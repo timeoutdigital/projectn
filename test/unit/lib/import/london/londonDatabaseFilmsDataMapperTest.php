@@ -43,9 +43,20 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
   {
     $importer = new Importer();
 
-    $this->setExpectedException( Exception );
-    $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor, 'non/existient/path' ) );
-    $importer->run();
+    //config not found so, expecting an expection
+    try
+    {
+        $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor, 'non/existient/path' ) );
+        $importer->run();
+    }
+    catch (Exception $e )
+    {
+        $this->assertTrue( true );
+        return;
+    }
+    $this->fail( 'Expection was expected' );
+
+
   }
 
   public function testGetsFilmsFromLondonDatabase()
@@ -53,18 +64,18 @@ class LondonDatabaseMoviesDataMapperTest extends PHPUnit_Framework_TestCase
     $importer = new UnitTestNyMoviesImporter();
     $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $this->vendor ) );
     $importer->run();
-    
+
     $this->assertTrue( $importer->onRecordMappedCalled );
   }
-  
+
   public function testMappingValidatesAndSaves()
   {
     $this->runImport();
     $this->assertGreaterThan( 0, Doctrine::getTable( 'Movie' )->count() );
   }
-  
+
   /**
-   * 
+   *
    */
   public function testGenreFields()
   {
