@@ -73,11 +73,10 @@ class kualaLumpurEventsMapper extends DataMapper
           $occurrence['end_date'] = (string) $event->occurrences->end_date;
           $occurrence['utc_offset'] = $this->vendor->getUtcOffset( (string) $event->occurrences->start_date );
 
-          $poi = $this->dataMapperHelper->getPoiRecord( (string) $event->address_details->venue_id  );
-
-          if( !$poi->exists() )
+          $poi = $this->dataMapperHelper->getPoiRecord( (string)  $event->address_details->venue_id   );
+          if( is_null( $poi['id'] ) )
           {
-            $this->notifyImporterOfFailure( new Exception( 'Could not find Kuala Lumpur Poi with vendor_poi_id of '. (string) $event->occurrences->venue ), $occurrence );
+            $this->notifyImporterOfFailure( new Exception( 'Could not find Kuala Lumpur Poi with vendor_poi_id of '. (string)  $event->address_details->venue_id ), $occurrence );
             continue;
           }
 

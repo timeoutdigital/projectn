@@ -203,7 +203,7 @@ class singaporeVenuesMapper extends DataMapper
             }
             catch( Exception $e )
             {
-                $this->_logger->addError( $e );
+                 $this->notifyImporterOfFailure( $e );
             }
         }
     }

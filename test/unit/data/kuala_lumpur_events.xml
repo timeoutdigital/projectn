@@ -4,8 +4,8 @@
         	<id><![CDATA[5158]]></id>
 			<keyword><![CDATA[Deepak Menon Film Showing and Conversations, CHAI house,]]></keyword>
             <categories>
-                <category><![CDATA[Film]]></category>
-                <subCategory><![CDATA[Screenings]]></subCategory>
+                <category><![CDATA[foo]]></category>
+                <subCategory><![CDATA[bar]]></subCategory>
                 <genre><![CDATA[]]></genre>
             </categories>
             <title><![CDATA[Deepak Menon Film Showing and Conversations]]></title>
@@ -77,7 +77,7 @@ Featuring an awesome mash up of musical talents, the night will start will songs
                 <email><![CDATA[]]></email>
             </contact_details>
             <booking><![CDATA[Yes]]></booking>
-            <price><![CDATA[]]></price>
+            <price><![CDATA[free]]></price>
             <medias>
             	<small_image><![CDATA[http://www.timeoutkl.com/uploadfiles/image/Events/Music/Small/smlimg_MiriIntJazzFest_Preview.jpg]]></small_image>
                 <big_image><![CDATA[http://www.timeoutkl.com/uploadfiles/image/Events/Music/Big/bigimg_MiriIntJazzFest_Preview.jpg]]></big_image>
