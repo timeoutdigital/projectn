@@ -315,7 +315,7 @@ class importNyChicagoEvents
 
         foreach( $categoryArray as $category )
         {
-            $eventObj->addVendorCategory($category, $this->_vendorObj);
+            $eventObj->addVendorCategory($category, $this->_vendorObj['id']);
         }
 
         //deal with the "text-system" nodes
