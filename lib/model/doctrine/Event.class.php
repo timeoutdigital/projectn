@@ -186,6 +186,11 @@ class Event extends BaseEvent
 
   public function addVendorCategory( $name, $vendorId = null )
   {
+    if( $vendorId instanceof Vendor )
+    {
+        $vendorId = $vendorId[ 'id' ];
+    }
+
     if( !$vendorId )
       $vendorId = $this[ 'vendor_id' ];
 
