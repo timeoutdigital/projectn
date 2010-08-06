@@ -34,7 +34,7 @@ function f_war {
 }
 
 function f_cri {
-    echo -e ${1}
+    echo ${1}
     exit 2
 }
 
@@ -76,7 +76,7 @@ do
            FAILURES="true";
 
            # Add Failed City to List
-           FAILED_CITIES="${FAILED_CITIES} ${LOG_CITY}"
+           FAILED_CITIES="${FAILED_CITIES}\n\t${LOG_CITY}"
 
         else
 
@@ -144,8 +144,10 @@ do
     fi
 done
 
-if [ "${FAILURES}" == "true" ] || [ "${ERROR}" == "true" ] || [ "${WARNING}" == "true" ] || [ "${NOTICE}" == "true" ]; then
-    f_cri "FAILED:${FAILED_CITIES}\nERROR:${ERROR_CITIES}\nWARNING:${WARNING_CITIES}\nNOTICE:${NOTICE_CITIES}"
+if [ "${FAILURES}" == "true" ] || [ "${ERROR}" == "true" ]; then
+    f_cri "IMPORT REPORT:\n\nFAILED:${FAILED_CITIES}\nERROR:${ERROR_CITIES}\nWARNING:${WARNING_CITIES}\nNOTICE:${NOTICE_CITIES}"
+elif [ [ "${WARNING}" == "true" ] || [ "${NOTICE}" == "true" ]; then
+    f_war "IMPORT REPORT:\n\nFAILED:${FAILED_CITIES}\nERROR:${ERROR_CITIES}\nWARNING:${WARNING_CITIES}\nNOTICE:${NOTICE_CITIES}"
 fi
 
 # --------------------------------------------------------------------------------------------------------
