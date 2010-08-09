@@ -38,8 +38,8 @@ class ImportUaeEvents
      * @var logImport
      */
     public $eventLoggerObj;
-    
-    
+
+
     /* Class constuctor
      *
      * @param processNyBcXml Simple XML object containing the feed
@@ -85,7 +85,7 @@ class ImportUaeEvents
      */
     public function importPois(SimpleXMLElement $xmlObj)
     {
-   
+
         //Get the poi if it exists
         $poiObj = $this->getPoi($xmlObj);
 
@@ -101,7 +101,7 @@ class ImportUaeEvents
         $poiObj['openingtimes']                 = (string) $xmlObj->{'hours'};
         $poiObj['public_transport_links']       = (string) $xmlObj->{'travel'};
 
-        $poi->applyFeedGeoCodesIfValid( (float) $xmlObj->coordinates->{'latitude'}, (float) $xmlObj->coordinates->{'longitude'} );
+        $poiObj->applyFeedGeoCodesIfValid( (float) $xmlObj->coordinates->{'latitude'}, (float) $xmlObj->coordinates->{'longitude'} );
 
         $poiObj['city']                         = trim(ucwords($this->vendorObj['city']));
         $poiObj['country']                      = 'ARE';
@@ -118,18 +118,16 @@ class ImportUaeEvents
         $poiObj->AddProperty('timeout_link', (string) $xmlObj->{'landing_url'});
 
 
-
-
         //Set the vendors categories
         $category = trim((string) $xmlObj->{'mobile-section'}['value']);
 
-        
+
         if($category)
         {
             $poiObj->addVendorCategory($category, $this->vendorObj['id']);
         }
-          
-        
+
+
 
         $logChangedFields = $poiObj->getModified();
 
@@ -262,7 +260,7 @@ class ImportUaeEvents
     }//end foreach
   }
 
-    
+
     /**
      * Get a Poi object
      *

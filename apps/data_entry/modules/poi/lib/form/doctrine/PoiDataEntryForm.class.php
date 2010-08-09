@@ -27,7 +27,7 @@ class PoiDataEntryForm extends BasePoiForm
 
     $this->widgetSchema[ 'country' ]         = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCountryCodeLong() ) );
     $this->widgetSchema[ 'local_language' ]  = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorLanguage() ) );
-    $this->widgetSchema[ 'city' ]            = new widgetFormFixedText( array( 'default' => $this->user->getCurrentVendorCity() ) );
+    $this->widgetSchema[ 'city' ]            = new widgetFormFixedText( array( 'default' => ucwords( $this->user->getCurrentVendorCity() ) ) );
 
     $this->widgetSchema[ 'poi_name' ] = new widgetFormInputTextJQueryAutocompleter( array( 'url' => sfContext::getInstance()->getRequest()->getScriptName() . '/poi/ajaxPoiList' ) );
 
@@ -127,7 +127,16 @@ class PoiDataEntryForm extends BasePoiForm
                   if ( !in_array($form->getObject()->getId(), $this->poiMediasScheduledForDeletion ))
                   {
                     $form->saveEmbeddedForms($con);
-                    $form->getObject()->save($con);
+                    
+                    $media = $form->getObject();
+                    $urlParts = explode( '.', $media['url'] );
+
+                    if ( isset( $urlParts[0] ) && $urlParts[0] != '' )
+                        $media['ident'] = $urlParts[0];
+                    else
+                        unset( $media['ident'] );
+                    
+                    $media->save($con);
                   }
               }
           }

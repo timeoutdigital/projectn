@@ -39,7 +39,7 @@ class ImportUaeRestaurantsTest extends PHPUnit_Framework_TestCase
 
           ProjectN_Test_Unit_Factory::createDatabases();
           Doctrine::loadData('data/fixtures');
-          
+
 
         }
         catch( Exception $e )
@@ -48,7 +48,7 @@ class ImportUaeRestaurantsTest extends PHPUnit_Framework_TestCase
         }
 
 
-        
+
     }
 
     /**
@@ -59,7 +59,7 @@ class ImportUaeRestaurantsTest extends PHPUnit_Framework_TestCase
     {
        //Close DB connection
        ProjectN_Test_Unit_Factory::destroyDatabases();
-    
+
     }
 
     /**
@@ -67,6 +67,7 @@ class ImportUaeRestaurantsTest extends PHPUnit_Framework_TestCase
      */
     public function testPoiPropertyNamedCuisineDoesNotContainPriceInfo()
     {
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
         $this->createObject();
         $poiProperty = Doctrine::getTable('PoiProperty')->findByLookup('cuisine');
         $this->assertEquals( false, strpos( $poiProperty[0]['value'], ": $" ), "POI value for lookup 'cuisine' cannot contain string ': $'" );
@@ -77,6 +78,7 @@ class ImportUaeRestaurantsTest extends PHPUnit_Framework_TestCase
      */
     public function testPoiPropertyNamedCuisineHaveAPropertyCalledPriceGeneralRemarkWithPriceInfoInIt()
     {
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
         $this->createObject();
         $poiProperty = Doctrine::getTable('PoiProperty')->findByLookup('cuisine');
         $poi = Doctrine::getTable('Poi')->findOneById( $poiProperty[0]['Poi']['id'] );
@@ -100,10 +102,10 @@ class ImportUaeRestaurantsTest extends PHPUnit_Framework_TestCase
     {
 
         if( $this->xmlObj == '' || $this->vendorObj == '' )
-        {            
+        {
             $xmlFile = file_get_contents( TO_TEST_DATA_PATH . DIRECTORY_SEPARATOR . "dubai_restaurants_12-04-10.xml" );
             $xmlObj = new ValidateUaeXmlFeed( $xmlFile );
-            
+
             $this->xmlObj = $xmlObj->getXmlFeed();
             $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
         }

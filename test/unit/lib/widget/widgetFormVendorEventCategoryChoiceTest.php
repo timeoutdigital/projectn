@@ -52,7 +52,7 @@ class widgeFormVendorEventCategoryChoiceTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 6, Doctrine::getTable( 'VendorEventCategory' )->findAll()->count() );
 
-    $widget = new widgetFormEventVendorCategoryChoice( array( 'record' => $event1 ) );
+    $widget = new widgetFormEventVendorCategoryChoice( array( 'vendor_id' => $ny[ 'id' ]  ) );
     $html   = $widget->render( 'Name', '3');
 
     $this->assertRegexp( ':value="1".*?ny foo:', $html );
@@ -60,7 +60,7 @@ class widgeFormVendorEventCategoryChoiceTest extends PHPUnit_Framework_TestCase
     $this->assertRegexp( ':value="3".*?ny baz:', $html );
     $this->assertRegexp( ':selected="selected".*?ny baz:', $html );
 
-    $widget = new widgetFormEventVendorCategoryChoice( array( 'record' => $event2 ) );
+    $widget = new widgetFormEventVendorCategoryChoice( array( 'vendor_id' => $chicago[ 'id' ] ) );
     $html   = $widget->render( 'Name', '5');
 
     $this->assertRegexp( ':value="4".*?chicago foo:', $html );
