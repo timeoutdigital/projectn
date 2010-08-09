@@ -82,6 +82,8 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   /**
    * testPublicTransportDoesNotStartWithASpaceOrPipeCharacter
+   *
+   * @todo add test if fields mapped correctly
    */
   public function testPublicTransportDoesNotStartWithASpaceOrPipeCharacter()
   {
@@ -109,6 +111,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   /*
    * testInsertPoisAndInsertPoi
+   * @todo add test if fields mapped correctly
    */
   public function testInsertPoisAndInsertPoi()
   {
@@ -133,6 +136,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   /*
    * testInsertEventsAndInsertEvent
+   * @todo add test if fields mapped correctly
    */
   public function testInsertEventsAndInsertEvent()
   {
@@ -171,7 +175,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * testInsertMoviesAndInsertMovie
    *
    * test with empty data condition
-   *
+   * @todo add test if fields mapped correctly
    */
   public function testInsertMoviesAndInsertMovie()
   {
@@ -205,7 +209,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * testInsertMoviesAndInsertMovie
    *
    * test with -60 days condition (last day valid)
-   *
+   * @todo add test if fields mapped correctly
    */
   public function testInsertMoviesAndInsertMovie2()
   {
@@ -235,7 +239,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * testInsertMoviesAndInsertMovie
    *
    * test with -61 expired date condition
-   *
+   * @todo add test if fields mapped correctly
    */
   public function testInsertMoviesAndInsertMovie3()
   {
