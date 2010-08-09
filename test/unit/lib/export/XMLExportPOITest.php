@@ -209,8 +209,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $poi->save();
 
       $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
-      $this->runImport();
-      
+      $this->runImportAndExport();
+
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
   }
 
@@ -500,7 +500,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
 
-      ExportLogger::getInstance()->showErrors();
+      //ExportLogger::getInstance()->showErrors();
     }
 }
 ?>
