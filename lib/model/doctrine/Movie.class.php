@@ -219,18 +219,23 @@ class Movie extends BaseMovie
     }
 
     $headers = get_headers( $urlString , 1);
+    
+    // When Image redirected with 302/301 get_headers will return morethan one header array
+    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
+    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
 
     // check the header if it's an image
-    if( $headers [ 'Content-Type' ] != 'image/jpeg' )
+    if( $contentType != 'image/jpeg' )
     {
-        return ;
+        return false;
     }
 
     $this->media[] = array(
         'url'           => $urlString,
-        'contentLength' => $headers[ 'Content-Length' ],
+        'contentLength' => $contentLength,
         'ident'         => md5( $urlString ),
      );
+    return true;
   }
 
 
