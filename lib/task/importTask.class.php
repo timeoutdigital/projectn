@@ -607,6 +607,42 @@ class importTask extends sfBaseTask
           case 'movie'   : DataEntryImportManager::importMovies(); break;
           default : $this->dieDueToInvalidTypeSpecified();
         }
+     break;
+    case 'beijing':
+        
+        switch( $options['type'] )
+        {
+            case 'poi':
+                $pdoDB = null;
+                try {
+
+                    $pdoDB = new PDO("mysql:host=192.9.215.250;dbname=searchlight", 'projectn', 'outtime99', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+
+                    echo 'Database Connection Estabilished' . PHP_EOL;
+
+                    $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'beijing', 'en-GB' );
+
+                    ImportLogger::getInstance()->setVendor( $vendor );
+                    
+                    $importer->addDataMapper( new BeijingFeedVenueMapper( $pdoDB ) );
+                    $importer->run();
+                    ImportLogger::getInstance()->end();
+
+                }
+                catch(PDOException $e)
+                {
+                    echo 'PDO Connection Exception: ' . $e->getMessage() . PHP_EOL;
+                } catch( Exception $e)
+                {
+                    echo 'Beijing Import Error: ' . $e->getMessage();
+                }
+
+                $this->dieWithLogMessage();
+
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+        }
+
     break;
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
