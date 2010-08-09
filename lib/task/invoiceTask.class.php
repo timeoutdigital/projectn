@@ -12,6 +12,7 @@ class invoiceTask extends sfBaseTask
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'poi, event, movie', 'poi'),
       new sfCommandOption('csv', null, sfCommandOption::PARAMETER_REQUIRED, 'Produce as csv', 'false'),
       new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'Only for one city', ''),
+      new sfCommandOption('dump_ids', null, sfCommandOption::PARAMETER_REQUIRED, 'Only dump the ids', 'false'),
       // add your own options here
     ));
 
@@ -81,7 +82,8 @@ EOF;
 
     $folders = DirectoryIteratorN::iterate( $baseDir, DirectoryIteratorN::DIR_FOLDERS );
 
-    $this->reportHeader();
+    if( @$options['dump_ids'] == "false" )
+        $this->reportHeader();
 
     sort( $folders );
 
@@ -128,12 +130,15 @@ EOF;
                                 $this->storeVendorPoiIds[] = $vendorPoiId;
                                 $uiCategories[ $poiUiCategoryMap[ $catName ] ]++;
                                 $this->existingPoiCount[ $cutCityName[ 0 ] ]++;
+
+                                if( @$options['dump_ids'] == "true" ) echo $vendorPoiId . PHP_EOL;
                                 continue 2;
                             }
                         }
                     }
 
-                    echo $this->report( date( "Y-m-d", $date ), ucfirst( $cutCityName[0] ), $totalPois, $uiCategories, $this->existingPoiCount[ $cutCityName[ 0 ] ] );
+                    if( @$options['dump_ids'] == "false" )
+                        echo $this->report( date( "Y-m-d", $date ), ucfirst( $cutCityName[0] ), $totalPois, $uiCategories, $this->existingPoiCount[ $cutCityName[ 0 ] ] );
                 }
 
             break;
@@ -163,8 +168,9 @@ EOF;
                     foreach( $xml->event as $node )
                     {
                         $vendorEventId = (int) substr( $node['id'], 25 );
-
                         if( in_array( $vendorEventId, $this->storeVendorEventIds ) ) continue;
+
+                        if( @$options['dump_ids'] == "true" ) echo $vendorEventId . PHP_EOL;
 
                         foreach( $node->version->{'vendor-category'} as $cat )
                         {
@@ -183,7 +189,8 @@ EOF;
                         }
                     }
 
-                    echo $this->report( date( "Y-m-d", $date ), ucfirst( $cutCityName[0] ), $totalPois, $uiCategories, $this->existingEventCount[ $cutCityName[ 0 ] ] );
+                    if( @$options['dump_ids'] == "false" )
+                        echo $this->report( date( "Y-m-d", $date ), ucfirst( $cutCityName[0] ), $totalPois, $uiCategories, $this->existingEventCount[ $cutCityName[ 0 ] ] );
                 }
 
            break;
@@ -213,8 +220,9 @@ EOF;
                     foreach( $xml->movie as $node )
                     {
                         $vendorMovieId = (int) substr( $node['id'], 25 );
-
                         if( in_array( $vendorMovieId, $this->storeVendorMovieIds ) ) continue;
+
+                        if( @$options['dump_ids'] == "true" ) echo $vendorMovieId . PHP_EOL;
 
                         if( !array_key_exists( 'Film', $uiCategories ) ) $uiCategories[ 'Film' ] = 0;
                         $this->storeVendorMovieIds[] = $vendorMovieId;
@@ -222,7 +230,8 @@ EOF;
                         $this->existingMovieCount[ $cutCityName[ 0 ] ]++;
                     }
 
-                    echo $this->report( date( "Y-m-d", $date ), ucfirst( $cutCityName[0] ), $totalPois, $uiCategories, $this->existingMovieCount[ $cutCityName[ 0 ] ] );
+                    if( @$options['dump_ids'] == "false" )
+                        echo $this->report( date( "Y-m-d", $date ), ucfirst( $cutCityName[0] ), $totalPois, $uiCategories, $this->existingMovieCount[ $cutCityName[ 0 ] ] );
                 }
 
            break;
