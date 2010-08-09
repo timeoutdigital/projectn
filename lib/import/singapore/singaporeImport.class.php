@@ -573,7 +573,7 @@ class singaporeImport
 
             try {
                 //$eventOccurrence[ 'booking_url' ] ='';
-                $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( $date[ 'start' ] );
+                $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( date( 'Y-m-d', strtotime( $date[ 'start' ] ) ) );
 
                 //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
                 $eventOccurrence[ 'start_date' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );
