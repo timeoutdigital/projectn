@@ -109,7 +109,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
     $movie['MovieMedia'][] = $property;
     $movie->save();
-    
+
     $movie2 = new Movie();
     $movie2[ 'vendor_movie_id' ] = 1111;
     $movie2[ 'Vendor' ] = $vendor;
@@ -176,6 +176,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->export = new XMLExportMovie( $this->vendor, $this->destination );
 
     $this->export->run();
+    sleep( 1 );
     $this->domDocument = new DOMDocument();
     $this->domDocument->load( $this->destination );
     $this->xpath = new DOMXPath($this->domDocument);

@@ -36,7 +36,7 @@ class validatorVendorEventCategoryChoiceTest extends PHPUnit_Framework_TestCase
     $nyEvent->addVendorCategory( 'ny bar', $ny['id'] );
     $nyEvent->addVendorCategory( 'ny baz', $ny['id'] );
     $nyEvent->save();
-     
+
     $chicago    = $this->createVendorFor( 'chicago' );
     $chicagoEvent = $this->createEventFor(    $chicago );
     $chicagoEvent->addVendorCategory( 'chicago foo', $chicago['id'] );
@@ -44,12 +44,12 @@ class validatorVendorEventCategoryChoiceTest extends PHPUnit_Framework_TestCase
     $chicagoEvent->addVendorCategory( 'chicago baz', $chicago['id'] );
     $chicagoEvent->save();
 
-    $validatorNy = new validatorVendorEventCategoryChoice( array( 'event' => $nyEvent ) );
+    $validatorNy = new validatorVendorEventCategoryChoice( array( 'vendor_id' => $ny[ 'id' ] ) );
 
     $expectedValues = array( 1, 2, 3);
     $this->assertEquals( $expectedValues, $validatorNy->getChoices() );
 
-    $validatorChicago = new validatorVendorEventCategoryChoice( array( 'event' => $chicagoEvent ) );
+    $validatorChicago = new validatorVendorEventCategoryChoice( array( 'vendor_id' => $chicago[ 'id' ] ) );
 
     $expectedValues = array( 4, 5, 6);
     $this->assertEquals( $expectedValues, $validatorChicago->getChoices() );

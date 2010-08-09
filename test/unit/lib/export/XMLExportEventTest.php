@@ -452,6 +452,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
         $poiExport = new XMLExportPOI( $vendor, $this->poiXmlLocation );
         $poiExport->run();
+        sleep( 1 );
     }
 
     private function createLondonVendor()
