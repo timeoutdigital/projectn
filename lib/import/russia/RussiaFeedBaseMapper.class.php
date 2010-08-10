@@ -77,6 +77,12 @@ class RussiaFeedBaseMapper extends DataMapper
         return stringTransform::mb_trim( $string, $chars );
     }
 
+    protected function removeQuotAmp( $string )
+    {
+        
+        return mb_eregi_replace('&quot;|&amp;', '', $string);
+    }
+
     /**
      * helper function to add images
      *

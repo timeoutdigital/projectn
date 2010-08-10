@@ -12,27 +12,12 @@
  *
  */
 
-class DataEntryMoviesMapper extends DataMapper
+class DataEntryMoviesMapper extends DataEntryBaseMapper
 {
+    
   /**
-   * @var SimpleXMLElement
+   * @param SimpleXMLElement $xml
    */
-  private $feed;
-
-  /**
-   * @var projectnDataMapperHelper
-   */
-  private $dataMapperHelper;
-
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @param SimpleXMLElement $feed
-   */
-
     public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null, $city = false )
     {
         if( is_string( $city ) )
@@ -146,11 +131,14 @@ class DataEntryMoviesMapper extends DataMapper
 
             $movie[ 'utf_offset' ] = $this->vendor->getUtcOffset();
 
-            foreach ($movieElement->version->property as $property)
+            if( isset( $movieElement->version->property ) && $movieElement->version->property )
             {
-                foreach ($property->attributes() as $attribute)
+                foreach ($movieElement->version->property as $property)
                 {
-                    $movie->addProperty( (string) $attribute, (string) $property );
+                    foreach ($property->attributes() as $attribute)
+                    {
+                        $movie->addProperty( (string) $attribute, (string) $property );
+                    }
                 }
             }
 

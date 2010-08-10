@@ -43,11 +43,11 @@ class Event extends BaseEvent
    */
   protected function getStringColumns()
   {
-    $column_names = array();
+    $columns = array();
     foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
       if( $column_info['type'] == 'string' )
-          $column_names[] = $column_name;
-    return $column_names;
+          $columns[$column_name] = $column_info ;
+    return $columns;
   }
 
   /**
@@ -55,7 +55,7 @@ class Event extends BaseEvent
    */
   protected function cleanStringFields()
   {
-    foreach ( $this->getStringColumns() as $field )
+    foreach ( $this->getStringColumns() as $field => $field_info )
         if( is_string( @$this[ $field ] ) )
         {
             // fixHTMLEntities
@@ -63,6 +63,9 @@ class Event extends BaseEvent
 
             // Refs #525 - Trim All Text fields on PreSave
             if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+                
+            // Refs #538 - Nullify all Empty string that can be Null in database Schema
+            if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) =='' ) $this[ $field ] = null;
         }
   }
 

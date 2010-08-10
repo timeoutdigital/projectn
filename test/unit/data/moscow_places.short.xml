@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <venues>
 	<venue id="1">
-		<name><![CDATA[Одежда из Европы/]]></name>
+		<name><![CDATA[Одежда &amp;из &quot;Европы&quot;/]]></name>
 		<house_no><![CDATA[]]></house_no>
 		<street><![CDATA[Таллиннская, 17, корп. 1.]]></street>
 		<city><![CDATA[Москва]]></city>
