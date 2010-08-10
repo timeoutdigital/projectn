@@ -498,6 +498,21 @@ class EventTest extends PHPUnit_Framework_TestCase
       $this->assertTrue( $event->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
 
    }
+  /*
+   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
+   */
+  public function testMediaPopulateByUrlForRedirectingLink()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event[ 'Vendor' ] = $vendor;
+
+      $event->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
+      $event->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
+      $event->save();
+
+      $this->assertEquals(1, $event['EventMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+  }
 
 }
 

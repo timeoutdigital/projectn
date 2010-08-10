@@ -286,6 +286,21 @@ class MovieTest extends PHPUnit_Framework_TestCase
       $this->assertTrue( $movie->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
 
    }
+  /*
+   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
+   */
+  public function testMediaPopulateByUrlForRedirectingLink()
+  {
+      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $movie[ 'Vendor' ] = $vendor;
+      
+      $movie->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
+      $movie->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
+      $movie->save();
+
+      $this->assertEquals(1, $movie['MovieMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+  }
 
 }
 ?>
