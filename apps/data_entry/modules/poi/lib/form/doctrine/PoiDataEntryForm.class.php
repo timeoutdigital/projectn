@@ -127,7 +127,16 @@ class PoiDataEntryForm extends BasePoiForm
                   if ( !in_array($form->getObject()->getId(), $this->poiMediasScheduledForDeletion ))
                   {
                     $form->saveEmbeddedForms($con);
-                    $form->getObject()->save($con);
+                    
+                    $media = $form->getObject();
+                    $urlParts = explode( '.', $media['url'] );
+
+                    if ( isset( $urlParts[0] ) && $urlParts[0] != '' )
+                        $media['ident'] = $urlParts[0];
+                    else
+                        unset( $media['ident'] );
+                    
+                    $media->save($con);
                   }
               }
           }

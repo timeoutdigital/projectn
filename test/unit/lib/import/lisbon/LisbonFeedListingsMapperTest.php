@@ -184,7 +184,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $eventOccurrence1 = $event['EventOccurrence'][0];
 
     // This event occur Every Thursday & Friday of the week!
-    if( date( 'l' ) != 'Thursday')
+    if( date( 'l' ) != 'Thursday' && date( 'l' ) != 'Friday')
     {
         $this->assertEquals( date( 'Y-m-d', strtotime( 'next Thursday' ) ), $eventOccurrence1['start_date'] );
     }else
@@ -196,12 +196,15 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '+01:00', $eventOccurrence1['utc_offset'] );
 
     // Check for Friday Event
-    $eventOccurrence2 = $event['EventOccurrence'][1];
+
     if( date( 'l' ) != 'Friday')
-    {
+    {    //if today is not friday first occurrence should be next thursday and second should be friday
+         $eventOccurrence2 = $event['EventOccurrence'][1];
          $this->assertEquals( date( 'Y-m-d', strtotime('next Friday') ), $eventOccurrence2['start_date'] );
     }else
     {
+         //if today is Friday first occurrence should be todays
+         $eventOccurrence2 = $event['EventOccurrence'][0];
          $this->assertEquals( date( 'Y-m-d' ), $eventOccurrence2['start_date'] );
     }
 

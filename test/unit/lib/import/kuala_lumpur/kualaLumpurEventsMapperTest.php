@@ -22,8 +22,8 @@ class kualaLumpurEventsMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 
-      'city'=>'kuala lumpur', 
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+      'city'=>'kuala lumpur',
       'language'=>'en',
       'inernational_dial_code' => '+60',
       ) );
@@ -61,7 +61,7 @@ class kualaLumpurEventsMapperTest extends PHPUnit_Framework_TestCase
                          $this->events[0]['url'],
                          'Check url'
                          );
- 
+
     $this->assertEquals( 'FREE entry for Ladies / RM35 Men (Inc 1 drink)',
                          $this->events[0]['price'],
                          'Check price'
@@ -85,17 +85,23 @@ class kualaLumpurEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testVendorCategories()
   {
-    $this->assertEquals( 'Film | Screenings',
-                                                                //should be able to use integer index!
-                         $this->events[0]['VendorEventCategory']['Film | Screenings']['name'],
-                         'Check vendor category'
-                         );
 
-    $this->assertEquals( 'Music | Gigs',
-                                                                //should be able to use integer index!
-                         $this->events[1]['VendorEventCategory']['Music | Gigs']['name'],
-                         'Check vendor category'
-                         );
+
+    foreach ( $this->events[0]['VendorEventCategory'] as $vendorEventCategory)
+    {
+     $vendorCategory = $vendorEventCategory['name'] ;
+     break;
+    }
+
+    $this->assertEquals( 'foo | bar', $vendorCategory, 'Check vendor category' );
+
+
+    foreach ( $this->events[1]['VendorEventCategory'] as $vendorEventCategory)
+    {
+     $vendorCategory = $vendorEventCategory['name'] ;
+     break;
+    }
+    $this->assertEquals( 'Music | Gigs', $vendorCategory, 'Check vendor category' );
   }
 
   public function testDescriptions()
@@ -144,7 +150,6 @@ EOF;
   {
     $importer = new Importer();
     $importer->addDataMapper( new kualaLumpurEventsMapper( $this->vendor, $this->xml ) );
-    //$importer->addLogger( new echoingLogger( ));
     $importer->run();
   }
 

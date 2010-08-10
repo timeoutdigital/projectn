@@ -26,7 +26,7 @@ class Event extends BaseEvent
   public function applyFixes()
   {
      $this->cleanStringFields();
-     
+
      if( $this['url'] != '')
         $this['url'] = stringTransform::formatUrl($this['url']);
 
@@ -60,7 +60,7 @@ class Event extends BaseEvent
         {
             // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
-            
+
             // Refs #525 - Trim All Text fields on PreSave
             if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
                 
@@ -189,6 +189,11 @@ class Event extends BaseEvent
 
   public function addVendorCategory( $name, $vendorId = null )
   {
+    if( $vendorId instanceof Vendor )
+    {
+        $vendorId = $vendorId[ 'id' ];
+    }
+
     if( !$vendorId )
       $vendorId = $this[ 'vendor_id' ];
 
@@ -197,7 +202,7 @@ class Event extends BaseEvent
 
     if(!is_array($name) && !is_string($name))
         throw new Exception ('$name parameter must be string or array of strings');
-    
+
     if( !is_array($name) )
         $name = array( $name );
 
@@ -205,6 +210,13 @@ class Event extends BaseEvent
 
     if( stringTransform::mb_trim($name) == '' )
         return false;
+
+    foreach( $this[ 'VendorEventCategory' ] as $existingCategory )
+    {
+      // This will unlink all vendor category relationships that dont match the event vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorEventCategory', array( $existingCategory[ 'id' ] ) );
+    }
 
     $vendorEventCategoryObj = new VendorEventCategory();
     $vendorEventCategoryObj[ 'name' ] = $name;
@@ -292,10 +304,17 @@ class Event extends BaseEvent
         $eventMediaObj = new EventMedia( );
     }
 
-    $eventMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+    try
+    {
+        $eventMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    // add the $eventMediaObj to the Event
-    $this[ 'EventMedia' ] [] =  $eventMediaObj;
+        // add the $eventMediaObj to the Event
+        $this[ 'EventMedia' ] [] =  $eventMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
   }
 

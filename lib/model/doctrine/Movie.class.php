@@ -307,10 +307,17 @@ class Movie extends BaseMovie
     {
         $movieMediaObj = new MovieMedia( );
     }
+    try
+    {
+        $movieMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    $movieMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+        $this[ 'MovieMedia' ] [] =  $movieMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
-    $this[ 'MovieMedia' ] [] =  $movieMediaObj;
 
   }
 

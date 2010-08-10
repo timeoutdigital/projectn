@@ -212,8 +212,15 @@ class stringTransform
 
       if( empty( $subject ) ) return NULL;
 
+      // if the phone is already prefixed with the international dial code
+      // we will remove it and it will be added later in this method
+      if( strpos( $subject , $internationalCode ) === 0 )
+      {
+        $subject = substr( $subject , strlen( $internationalCode ) );
+      }
+
       //return if not valid number is is passed in
-      if(strlen($subject) < 6)
+      if( strlen( $subject ) < 6)
       {
            //throw new PhoneNumberException('Phone number is incorrect - Less then 6 digits');
           return NULL;

@@ -315,7 +315,7 @@ class importNyChicagoEvents
 
         foreach( $categoryArray as $category )
         {
-            $eventObj->addVendorCategory($category, $this->_vendorObj);
+            $eventObj->addVendorCategory($category, $this->_vendorObj['id']);
         }
 
         //deal with the "text-system" nodes
@@ -385,8 +385,19 @@ class importNyChicagoEvents
             }
         }
 
-        //Add the event occurances @todo can we not rely on the event id?
-        $this->addEventOccurance($event->{'date'}, $eventObj );
+        $occurrences = $this->getEventOccurences( $event->{'date'}, $eventObj  );
+
+        foreach ($occurrences as $occurrence)
+        {
+            $eventObj[ 'EventOccurrence' ][] = $occurrence;
+
+            //The Poi gets its categories from the event if it doesn't have any
+            if( count( $occurrence['Poi']['VendorPoiCategory']) == 0)
+            {
+                $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
+            }
+
+        }
 
         ImportLogger::saveRecordComputeChangesAndLog( $eventObj );
 
@@ -419,13 +430,16 @@ class importNyChicagoEvents
      * @param SimpleXMLElement $Occurrences
      * @param Event The events
      */
-    public function addEventOccurance(SimpleXMLElement $Occurrences, Event $eventObj)
+    public function getEventOccurences(SimpleXMLElement $Occurrences, Event &$eventObj)
     {
         //Loop throught the actual occurances now
+        $retVal = array();
+
         foreach ( $Occurrences as $occurrence )
         {
-            try {
-                $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( (string) $eventObj['id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
+            try
+            {
+                $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventObj['vendor_event_id'], (string) $occurrence->venue[0]->address_id, (string) $occurrence->start );
                 $occurrenceObj = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
 
                 if ( $occurrenceObj === false )
@@ -455,13 +469,8 @@ class importNyChicagoEvents
 
                 $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
-                ImportLogger::saveRecordComputeChangesAndLog( $occurrenceObj );
-
-                //Add event categories to the POI
-                $this->addEventCategoriesToPoi( $eventObj, $venueObj );
-
-                //Kill the object
-                $occurrenceObj->free();
+                //add the occurrence to the return array;
+                $retVal[] = $occurrenceObj;
             }
             catch( Exception $exception )
             {
@@ -469,6 +478,7 @@ class importNyChicagoEvents
                 ImportLogger::getInstance()->addError( $exception, isset( $occurrenceObj ) ? $occurrenceObj : NULL, "New York / Chicago Event Occurence Failed to Save, possibly due to Event Occurence Object Not Found in DB." );
             }
         }//end foreach
+        return $retVal;
     }
 
     /**

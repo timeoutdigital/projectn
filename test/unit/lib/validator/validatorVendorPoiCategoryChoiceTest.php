@@ -36,7 +36,7 @@ class validatorVendorPoiCategoryChoiceTest extends PHPUnit_Framework_TestCase
     $nyPoi->addVendorCategory( 'ny bar', $ny['id'] );
     $nyPoi->addVendorCategory( 'ny baz', $ny['id'] );
     $nyPoi->save();
-     
+
     $chicago    = $this->createVendorFor( 'chicago' );
     $chicagoPoi = $this->createPoiFor(    $chicago );
     $chicagoPoi->addVendorCategory( 'chicago foo', $chicago['id'] );
@@ -44,12 +44,12 @@ class validatorVendorPoiCategoryChoiceTest extends PHPUnit_Framework_TestCase
     $chicagoPoi->addVendorCategory( 'chicago baz', $chicago['id'] );
     $chicagoPoi->save();
 
-    $validatorNy = new validatorVendorPoiCategoryChoice( array( 'poi' => $nyPoi ) );
+    $validatorNy = new validatorVendorPoiCategoryChoice( array( 'vendor_id' => $ny[ 'id' ]  ) );
 
     $expectedValues = array( 1, 2, 3);
     $this->assertEquals( $expectedValues, $validatorNy->getChoices() );
 
-    $validatorChicago = new validatorVendorPoiCategoryChoice( array( 'poi' => $chicagoPoi ) );
+    $validatorChicago = new validatorVendorPoiCategoryChoice( array( 'vendor_id' => $chicago[ 'id' ] ) );
 
     $expectedValues = array( 4, 5, 6);
     $this->assertEquals( $expectedValues, $validatorChicago->getChoices() );

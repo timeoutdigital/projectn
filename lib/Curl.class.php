@@ -60,9 +60,9 @@ class Curl
   private $_curlHandle;
 
   /**
-   * @var file handle
+   * @var string
    */
-  private $_tmpHeaderFile;
+  private $_headerString;
 
   /**
    * @var string
@@ -99,12 +99,23 @@ class Curl
     $curlHandle = curl_init();
 
     $this->setCurlDefaultOptions( $curlHandle );
-    $this->applyOptions( $curlHandle );
+
+    $this->_tmpHeaderFile = tmpfile();
+    $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
+
+    foreach( $this->_options as $key=>$value )
+        curl_setopt( $curlHandle, $key, $value );
 
     $this->_response= curl_exec( $curlHandle );
     $this->_curlInfo = curl_getinfo( $curlHandle );
 
     curl_close( $curlHandle );
+
+    fseek( $this->_tmpHeaderFile, 0);
+    //get rid of charriage return character (ascii 13) as they mess up the further processing
+    $this->_headerString = str_replace( chr(13), '', fread( $this->_tmpHeaderFile, 1024 ) ) ;
+
+    fclose( $this->_tmpHeaderFile ); // Need to close this!
 
     if ( !isset( $this->_curlInfo[ 'http_code' ] ) || !in_array( $this->_curlInfo[ 'http_code' ], array( '200', '304' ) ) )
     {
@@ -121,15 +132,6 @@ class Curl
   public function setCurlOption( $option, $value )
   {
     $this->_options[ $option ] = $value;
-  }
-
-  private function applyOptions( $curlHandle )
-  {
-    $this->_tmpHeaderFile = tmpfile();
-    $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
-
-    foreach( $this->_options as $key=>$value )
-      curl_setopt( $curlHandle, $key, $value );
   }
 
   /**
@@ -319,17 +321,7 @@ class Curl
    */
   public function getHeader()
   {
-    if ( $this->_tmpHeaderFile === NULL )
-    {
-      throw new Exception( 'Curl Error, tried to access header information w/a setting the header option beforehand' );
-    }
-
-    fseek( $this->_tmpHeaderFile, 0);
-
-    //get rid of charriage return character (ascii 13) as they mess up the further processing
-    $headerString = str_replace( chr(13), '', fread( $this->_tmpHeaderFile, 1024 ) ) ;
-    
-    return $headerString;
+    return $this->_headerString;
 
   }
 

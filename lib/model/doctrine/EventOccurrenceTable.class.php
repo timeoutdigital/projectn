@@ -19,7 +19,18 @@ class EventOccurrenceTable extends Doctrine_Table
     }
     else
     {
-      throw new Exception( 'one or more of the passed parameters($eventId, $poiId, $startDate) is empty' );
+      if( empty( $eventId ) )
+      {
+        throw new Exception( 'EventOccurrenceTable::generateVendorEventOccurrenceId expects non-empty $eventId' );
+      }
+      elseif( empty( $poiId ) )
+      {
+        throw new Exception( 'EventOccurrenceTable::generateVendorEventOccurrenceId expects non-empty $poiId' );
+      }
+      elseif (  empty( $startDate ) )
+      {
+        throw new Exception( 'EventOccurrenceTable::generateVendorEventOccurrenceId expects non-empty $startDate' );
+      }
     }
   }
 

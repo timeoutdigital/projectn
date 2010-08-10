@@ -256,7 +256,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
       $poiObj->save();
-      
+
       $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
   }
 
@@ -560,6 +560,21 @@ class PoiTest extends PHPUnit_Framework_TestCase
     }
 
   }
+
+   public function testFormatPhoneWhenPhoneHasAlreadyPrefixedWithInternationalDialCode()
+   {
+
+      $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor' );
+      $vendor['inernational_dial_code'] = '+3493';
+      $vendor->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['phone'] = '+3493 9 3424 6577';
+      $poi[ 'Vendor' ] = $vendor;
+      $poi->save();
+
+      $this->assertEquals( '+3493 9 3424 6577', $poi['phone'], "formatPhone should'nt change the phone number if it's already prefixed with the dial code" );
+   }
 }
 
 class MockGeoEncodeForPoiTest extends geoEncode

@@ -30,10 +30,10 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     // load projectn data
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
-    
+
     // load london data
     Doctrine::loadData( dirname( __FILE__ ) . '/../../../../../plugins/toLondonPlugin/data/fixtures/searchlight_london.yml' );
-    
+
     $importer = new Importer();
     $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
     $importer->run();
@@ -91,10 +91,9 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testProcessEventsImportedVenue()
   {
     $this->assertEquals( 4, Doctrine::getTable('Poi')->count() );
-   
+
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
-    //$poi = Doctrine::getTable( 'Poi' )->findAll();
-    
+
     $this->assertTrue( $poi instanceof Doctrine_Record );
 
     $this->assertEquals( 'Dummy Building Name 1', $poi[ 'house_no' ]  );
@@ -107,7 +106,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     //$this->assertEquals( '',                      $poi[ 'extension' ] );
     $this->assertEquals( '51.0000000',            $poi[ 'latitude' ] );
     $this->assertEquals( '-0.10000000',           $poi[ 'longitude' ] );
-    $this->assertEquals( 'Dummy Email 1',         $poi[ 'email' ] );
+    $this->assertEquals( 'dummy@foobar.com',         $poi[ 'email' ] );
     $this->assertEquals( 'http://timeout.com',    $poi[ 'url' ] );
     $this->assertEquals( '+44 207 458 4569',     $poi[ 'phone' ] );
     $this->assertEquals( '',                      $poi[ 'phone2' ] );
@@ -166,7 +165,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedEvent()
   {
-    
+
     $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 1 );
 
     $this->assertTrue( $event instanceof Doctrine_Record );
@@ -180,7 +179,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedOccurrence()
   {
-     
+
     $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( 1 );
 
     $this->assertTrue( $occurrence instanceof Doctrine_Record );

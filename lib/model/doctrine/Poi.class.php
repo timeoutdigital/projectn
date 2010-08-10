@@ -355,6 +355,10 @@ class Poi extends BasePoi
 
     foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
+      // This will unlink all vendor category relationships that dont match the poi vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
+      
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 
@@ -614,7 +618,6 @@ class Poi extends BasePoi
     // check if the largestImg is larger than the one attached already if any
     foreach ($this[ 'PoiMedia' ] as $poiMedia )
     {
-
         if( $poiMedia['content_length']  > $largestImg[ 'contentLength' ]  )
         {
             //we already have a larger image so ignore this
@@ -628,11 +631,17 @@ class Poi extends BasePoi
     {
         $poiMediaObj = new PoiMedia( );
     }
+    try
+    {
+        $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-    // add the poiMediaObj to the Poi
-    $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+        // add the poiMediaObj to the Poi
+        $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
   }
 

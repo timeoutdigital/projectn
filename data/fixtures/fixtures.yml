@@ -243,7 +243,7 @@ Vendor:
     airport_code:             'MOW'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v11:
     city:                     saint petersburg
     language:                 ru
@@ -252,7 +252,7 @@ Vendor:
     airport_code:             'LED'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v12:
     city:                     omsk
     language:                 ru
@@ -261,7 +261,7 @@ Vendor:
     airport_code:             'OMS'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v13:
     city:                     almaty
     language:                 ru
@@ -270,7 +270,7 @@ Vendor:
     airport_code:             'ALA'
     country_code:             'kz'
     country_code_long:        'KAZ'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v14:
     city:                     novosibirsk
     language:                 ru
@@ -279,7 +279,7 @@ Vendor:
     airport_code:             'OVB'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v15:
     city:                     krasnoyarsk
     language:                 ru
@@ -288,7 +288,7 @@ Vendor:
     airport_code:             'KJA'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v16:
     city:                     tyumen
     language:                 ru
@@ -297,7 +297,7 @@ Vendor:
     airport_code:             'TJM'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v17:
     city:                     unknown
     language:                 ru
@@ -306,7 +306,7 @@ Vendor:
     airport_code:             'MOW'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v18:
     city:                     barcelona
     language:                 ca

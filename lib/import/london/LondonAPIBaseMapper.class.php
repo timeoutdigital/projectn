@@ -53,7 +53,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @var projectnDataMapperHelper
    */
   protected $dataMapperHelper;
-  
+
   /**
    * @param LondonAPICrawler $apiCrawler
    * @param geoEncode $geoEncoder
@@ -78,7 +78,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
     $this->dataMapperHelper = new projectNDataMapperHelper($this->vendor);
   }
-  
+
   /**
    * Limit the number of results to map
    * Set to zero (0) for no limit
@@ -131,11 +131,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
   {
     $poi->applyFeedGeoCodesIfValid( (string) $xml->lat, (string) $xml->lng );
 
-    $this->lookupAndApplyGeocodes(); //Needed for Derive City Below
+    $poi->lookupAndApplyGeocodes(); //Needed for Derive City Below
 
     $poi['zips']              = (string) $xml->postcode;
     $poi['city']              = $this->deriveCity( $poi['latitude'], $poi['longitude'], $xml, $poi );
-  
+
     $poi['Vendor']            = clone $this->vendor;
     $poi['vendor_poi_id']     = (string) $xml->uid;
     //$poi['vendor_category']    = $this->getApiType();
@@ -152,7 +152,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     {
         $poi->addProperty( "Timeout_link", (string) $xml->webUrl );
     }
-    
+
     $poi['phone']             = (string) $xml->phone;
     $poi['price_information'] = (string) $xml->price;
     $poi['openingtimes']      = (string) $xml->openingTimes;
@@ -191,10 +191,10 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
     return $city;
   }
-  
+
   /**
    * attempt to get city from address string
-   * 
+   *
    * @return string
    */
   protected function extractCityFromAddress( $addressString )
@@ -206,7 +206,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
     {
       $city = array_pop( $addressPieces );
     }
-    
+
     return trim( $city );
   }
 
@@ -245,7 +245,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected function extractAdministrativeAreaName( $firstAddressXml )
   {
     $administrativeAreaName = '';
-    
+
     try
     {
       $administrativeAreaName = (string) $firstAddressXml->Country
@@ -269,7 +269,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
         ->SubAdministrativeAreaName;
     }
     catch( Exception $exception ){}
-    
+
     return $subAdministrativeAreaName;
   }
 

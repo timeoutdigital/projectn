@@ -581,7 +581,7 @@ class importTask extends sfBaseTask
 
     // data entry imports
     case 'mumbai':
-    case 'dehli':
+    case 'delhi':
     case 'bangalore':
     case 'pune':
         $dataEntryImportManager = new DataEntryImportManager( $options['city'], '/var/vhosts/projectn_data_entry/export/' );
