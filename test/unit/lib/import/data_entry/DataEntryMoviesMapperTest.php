@@ -85,7 +85,7 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'sample tag-line string goes here', $movie[ 'tag_line' ] );
     $this->assertEquals( 'sample plot string goes there', $movie[ 'plot' ] );
     $this->assertEquals( '4', $movie[ 'rating' ] );
-    $this->assertEquals( 'Jane Campion', $movie[ 'director' ] );
+    $this->assertNull( $movie[ 'director' ] ); // refs #538
     $this->assertEquals( 'Anne-Marie Duff', $movie[ 'writer' ] );
     $this->assertEquals( 'Abbie Cornish, Ben Whishaw', $movie[ 'cast' ] );
 

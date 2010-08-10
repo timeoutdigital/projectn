@@ -1,27 +1,6 @@
 <?php
-class DataEntryPoisMapper extends DataMapper
+class DataEntryPoisMapper extends DataEntryBaseMapper
 {
-    /**
-    *
-    * @var projectNDataMapperHelper
-    */
-    protected $dataMapperHelper;
-
-    /**
-    * @var geoEncode
-    */
-    protected $geoEncoder;
-
-    /**
-    * @var Vendor
-    */
-    protected $vendor;
-
-    /**
-    * @var SimpleXMLElement
-    */
-    protected $xml;
-
     /**
     *
     * @param SimpleXMLElement $xml
@@ -48,6 +27,9 @@ class DataEntryPoisMapper extends DataMapper
         {
             try
             {
+                // Defaults
+                $lang = $this->vendor['language'];
+                
                 foreach ($venueElement->attributes() as $attribute => $value)
                 {
                     if( $attribute == 'vpid' )
@@ -73,11 +55,9 @@ class DataEntryPoisMapper extends DataMapper
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
 
                 $geoPosition = 'geo-position';
+                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
-                $poi[ 'longitude' ] = (string) $venueElement->{$geoPosition}->longitude;
-                $poi[ 'latitude' ] =  (string) $venueElement->{$geoPosition}->latitude;
-
-                $poi['review_date'] = '';
+                // $poi['review_date'] = '';
                 $poi['local_language'] = $lang;
                 $poi['street'] =  (string) $venueElement->address->street;
                 $poi['house_no'] =  (string) $venueElement->address->houseno;
@@ -87,7 +67,7 @@ class DataEntryPoisMapper extends DataMapper
                 $poi['country'] =  (string) $venueElement->address->country;
 
                 $poi['additional_address_details'] = '';
-                $poi['vendor_id'] = $this->vendor['id'];
+                $poi['Vendor'] = $this->vendor;
                 $poi['phone'] =   (string) $venueElement->contact->phone;
                 $poi['phone2'] =  (string) $venueElement->contact->phone2;
                 $poi['fax'] =  (string) $venueElement->contact->fax;
@@ -98,7 +78,10 @@ class DataEntryPoisMapper extends DataMapper
                 $vendorCategory = 'vendor-category';
                 $shortDescription = 'short-description';
                 $publicTransport = 'public-transport';
-                $poi->addVendorCategory( (string) $venueElement->version->content->{$vendorCategory}, $this->vendor['id'] );
+                if( $venueElement->version->content->{$vendorCategory} && isset( $venueElement->version->content->{$vendorCategory} ) )
+                {
+                    $poi->addVendorCategory( (string) $venueElement->version->content->{$vendorCategory}, $this->vendor['id'] );
+                }
                 $poi['keywords'] =  '';
                 $poi['short_description'] =  (string) $venueElement->version->content->{$shortDescription};
                 $poi['description'] =  (string) $venueElement->version->content->description;
