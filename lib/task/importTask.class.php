@@ -604,25 +604,22 @@ class importTask extends sfBaseTask
                 $pdoDB = null;
                 try {
 
-                    $pdoDB = new PDO("mysql:host=192.9.215.250;dbname=searchlight", 'projectn', 'outtime99', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+                    $pdoDB = new PDO("mysql:host=80.250.104.16;dbname=searchlight", 'projectn', 'outtime99', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
 
                     echo 'Database Connection Estabilished' . PHP_EOL;
 
-                    $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'beijing', 'en-GB' );
-
-                    ImportLogger::getInstance()->setVendor( $vendor );
-                    
                     $importer->addDataMapper( new BeijingFeedVenueMapper( $pdoDB ) );
                     $importer->run();
-                    ImportLogger::getInstance()->end();
 
                 }
                 catch(PDOException $e)
                 {
                     echo 'PDO Connection Exception: ' . $e->getMessage() . PHP_EOL;
+                    return;
                 } catch( Exception $e)
                 {
                     echo 'Beijing Import Error: ' . $e->getMessage();
+                    return;
                 }
 
                 $this->dieWithLogMessage();
