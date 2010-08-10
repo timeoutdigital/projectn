@@ -131,7 +131,7 @@ class singaporeVenuesMapperTestCurlImporter extends curlImporter
       => '/venue_detail.xml',
   );
 
-  public function pullXml( $url )
+  public function pullXml( $url ,$request, $parameters='', $requestMethod = 'GET', $overrideCharset = false  )
   {
     $file = $this->urlToTestFileMap[ $url ];
     $file = TO_TEST_DATA_PATH . '/singapore' . $file;
