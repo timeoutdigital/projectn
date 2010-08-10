@@ -98,7 +98,7 @@ class UnitTestNyMoviesImporter extends Importer
 {
   public $onRecordMappedCalled = false;
 
-  public function onRecordMapped()
+  public function onRecordMapped( Doctrine_Record $record )
   {
     $this->onRecordMappedCalled = true;
   }

@@ -33,7 +33,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['vendor_poi_id']                 = (string) $vendor_venue_id;
             $poi['review_date']                   = (string) $venueElement->review_date;
             $poi['local_language']                = $this->vendor->language;
-            $poi['poi_name']                      = $this->clean( (string) $venueElement->name, " ./" );
+            $poi['poi_name']                      = $this->clean( $this->removeQuotAmp( (string) $venueElement->name ) , " ./" );
             $poi['house_no']                      = (string) $venueElement->house_no;
             $poi['street']                        = (string) $venueElement->street;
             $poi['city']                          = (string) $venueElement->city;

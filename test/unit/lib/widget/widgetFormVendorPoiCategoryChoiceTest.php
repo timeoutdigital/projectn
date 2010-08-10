@@ -52,7 +52,7 @@ class widgeFormVendorPoiCategoryChoiceTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 6, Doctrine::getTable( 'VendorPoiCategory' )->findAll()->count() );
 
-    $widget = new widgetFormPoiVendorCategoryChoice( array( 'record' => $poi1 ) );
+    $widget = new widgetFormPoiVendorCategoryChoice( array( 'vendor_id' => $ny[ 'id' ] ) );
     $html   = $widget->render( 'Name', '3');
 
     $this->assertRegexp( ':value="1".*?ny foo:', $html );
@@ -60,7 +60,7 @@ class widgeFormVendorPoiCategoryChoiceTest extends PHPUnit_Framework_TestCase
     $this->assertRegexp( ':value="3".*?ny baz:', $html );
     $this->assertRegexp( ':selected="selected".*?ny baz:', $html );
 
-    $widget = new widgetFormPoiVendorCategoryChoice( array( 'record' => $poi2 ) );
+    $widget = new widgetFormPoiVendorCategoryChoice( array( 'vendor_id' => $chicago[ 'id' ] ) );
     $html   = $widget->render( 'Name', '5');
 
     $this->assertRegexp( ':value="4".*?chicago foo:', $html );
