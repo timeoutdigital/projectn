@@ -25,9 +25,14 @@ class barcelonaMoviesMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    Doctrine::loadData('data/fixtures');
 
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( "barcelona", "ca" );
+    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
+      'city' => 'barcelona',
+      'language' => 'ca',
+      'time_zone' => 'Europe/Madrid',
+      'inernational_dial_code' => '+3493',
+      )
+    );
     $vendor->save();
 
     $this->vendor = $vendor;

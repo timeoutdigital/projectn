@@ -84,9 +84,9 @@ class EventTest extends PHPUnit_Framework_TestCase
   }
 
    /**
-   * test if setting the name of a Poi ensures HTML entities are decoded
+   * test if setting the name of a Poi ensures HTML entities are decoded and Trimmed
    */
-  public function testFixHtmlEntities()
+  public function testCleanStringFields()
   {
       $event = ProjectN_Test_Unit_Factory::get( 'Event' );
       $event['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
@@ -107,6 +107,19 @@ class EventTest extends PHPUnit_Framework_TestCase
         if( $column_info['type'] == 'string' )
             if( is_string( @$event[ $column_name ] ) )
                 $this->assertTrue( preg_match( '/&sect;/', $event[ $column_name ] ) == 0, 'Failed to convert &sect; to correct symbol' );
+
+      // Refs #525 Trim test
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $event['name'] = "    This is event, Not a movie  ";
+      $event['description'] = "<p>a description with tab <br />and space ends</p>      ";
+      
+      $event->save();
+
+      // Assert
+      $this->assertEquals('This is event, Not a movie', $event['name']);
+      $this->assertEquals('<p>a description with tab <br />and space ends</p>', $event['description']);
+            
   }
 
   /*

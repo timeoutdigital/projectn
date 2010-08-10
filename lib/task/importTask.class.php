@@ -43,25 +43,6 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-          case 'poi-event-kids':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $fileNameString = $ftpClient->fetchLatestFileByPattern( 'tony_kids_leo.xml' );
-
-              $processXmlObj = new processNyXml( $fileNameString );
-              $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-              $nyImportMoviesObj = new importNy($processXmlObj,$vendorObj);
-              $nyImportMoviesObj->insertEventCategoriesAndEventsAndVenues();
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            break;
-
           case 'poi-event':
                 //Setup NY FTP @todo refactor FTPClient to not connect in constructor
                 $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
@@ -501,7 +482,7 @@ class importTask extends sfBaseTask
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
 
         if( in_array( $options['type'], array( "event", "movie" ) ) )
-            $feedObj = new Curl( 'http://192.9.1.220/kl/events_small.xml' );
+            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
         elseif( $options['type'] == "poi" )
             $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
         else break;
@@ -598,16 +579,23 @@ class importTask extends sfBaseTask
     break; // end uae
 
 
-    case 'data-entry':
-        DataEntryImportManager::setImportDir( '/var/vhosts/projectn_data_entry/export/' );
+    // data entry imports
+    case 'mumbai':
+    case 'delhi':
+    case 'bangalore':
+    case 'pune':
+        $dataEntryImportManager = new DataEntryImportManager( $options['city'], '/var/vhosts/projectn_data_entry/export/' );
         switch( $options['type'] )
         {
-          case 'poi'      : DataEntryImportManager::importPois();   break;
-          case 'event': DataEntryImportManager::importEvents(); break;
-          case 'movie'   : DataEntryImportManager::importMovies(); break;
+          case 'poi'   : $dataEntryImportManager->importPois();   break;
+          case 'event' : $dataEntryImportManager->importEvents(); break;
+          case 'movie' : $dataEntryImportManager->importMovies(); break;
           default : $this->dieDueToInvalidTypeSpecified();
         }
-    break;
+        $this->dieWithLogMessage();
+    break; //end data entry imports
+
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch

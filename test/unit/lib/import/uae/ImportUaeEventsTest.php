@@ -39,6 +39,8 @@ class ImportUaeEventsTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
          try {
+          // 'UAE import disabled right now. Tests are not up-to-date!'
+          return;
 
           ProjectN_Test_Unit_Factory::createDatabases();
           Doctrine::loadData('data/fixtures');
@@ -50,7 +52,7 @@ class ImportUaeEventsTest extends PHPUnit_Framework_TestCase
           echo $e->getMessage();
         }
 
-        
+
     }
 
     /**
@@ -66,8 +68,9 @@ class ImportUaeEventsTest extends PHPUnit_Framework_TestCase
      */
     public function testImport()
     {
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
         $this->createObject();
-        $this->object->import(); 
+        $this->object->import();
     }
 
     /**
@@ -141,7 +144,7 @@ class ImportUaeEventsTest extends PHPUnit_Framework_TestCase
         }
 
         $this->object = new ImportUaeEvents( $this->xmlObj , $this->vendorObj);
-        
+
     }
 }
 ?>

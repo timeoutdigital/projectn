@@ -39,7 +39,7 @@ class DataEntryMoviesMapper extends DataMapper
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
 
         if( !isset( $vendor ) || !$vendor )
-          throw new Exception( 'Vendor not found.' );
+          throw new Exception( 'DataEntryMoviesMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
         $this->vendor               = $vendor;
@@ -103,32 +103,45 @@ class DataEntryMoviesMapper extends DataMapper
 
             $actors = array();
 
-            foreach ( $movieElement->version->cast->actor as $actor)
+            if( isset( $movieElement->version->cast ) && isset( $movieElement->version->cast->actor ) )
             {
-                $actorName = 'actor-name';
-                $actors[] = trim( (string) $actor->$actorName );
+                foreach ( $movieElement->version->cast->actor as $actor)
+                {
+                    $actorName = 'actor-name';
+                    $actors[] = trim( (string) $actor->$actorName );
+                }
             }
 
             $movie['cast'] =  implode( ', ', $actors );
 
-            foreach ( $movieElement->version->media as $media )
+            if( isset( $movieElement->version->media ) )
             {
-                foreach ($media->attributes() as $key => $value)
+                foreach ( $movieElement->version->media as $media )
                 {
-                    if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                    foreach ($media->attributes() as $key => $value)
                     {
-                        continue 2; //only add the images
+                        if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                        {
+                            continue 2; //only add the images
+                        }
                     }
-                }
-                try
-                {
-                    $movie->addMediaByUrl( (string) $media );
-                }
-                catch ( Exception $exception )
-                {
-                     $this->notifyImporterOfFailure( $exception );
-                }
+                    try
+                    {
+                        // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                        $urlArray = explode( '/', (string) $media );
+                        // Get the Last IDENT
+                        $imageFileName = array_pop( $urlArray );
 
+                        $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/movie/%s', $imageFileName );
+
+                        $movie->addMediaByUrl( $mediaURL );
+                    }
+                    catch ( Exception $exception )
+                    {
+                         $this->notifyImporterOfFailure( $exception );
+                    }
+
+                }
             }
 
             $movie[ 'utf_offset' ] = $this->vendor->getUtcOffset();

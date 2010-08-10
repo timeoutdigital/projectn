@@ -199,7 +199,7 @@ protected function setUp()
   public function testAppendNonRequiredElement()
   {
     $this->markTestSkipped();
-    
+
     $expected = new DOMDocument('1.0', 'utf-8');
     $expected->loadXML('
       <root>
@@ -220,7 +220,7 @@ protected function setUp()
   public function testAppendRequiredElement()
   {
     $this->markTestSkipped();
-    
+
     $expected2 = new DOMDocument('1.0', 'utf-8');
     $expected2->loadXML('
       <root>
@@ -262,7 +262,7 @@ protected function setUp()
     $rootElement = $domDocument->appendChild( new DOMElement( 'root' ) );
 
     $testElement = $this->object->appendRequiredElement(
-      $rootElement, 'test', 'some content', XMLExport::USE_CDATA );
+    $rootElement, 'test', 'some content', XMLExport::USE_CDATA );
 
     $this->assertEquals( 'test', $testElement->nodeName );
     $this->assertEqualXMLStructure( $expected, $domDocument );
@@ -275,9 +275,7 @@ protected function setUp()
     $this->markTestSkipped();
     $testExporter = new UnitTestXMLExportTestObject( $this->vendor2, $this->destination, 'Poi' );
     $testExporter->run();
-
     $xmlString = file_get_contents( $this->destination );
-    echo $xmlString;
 
     $this->assertRegExp( '%<a href="http://www.foobar.com">foobar</a><b></b><b></b><i></i><i></i>&xx%', $xmlString );
   }

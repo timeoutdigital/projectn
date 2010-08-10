@@ -18,67 +18,98 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class DataEntryImportManagerTest extends PHPUnit_Framework_TestCase
 {
+  
+  protected $vendor;
+
   protected function setUp()
   {
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      // Load Fixtures to create Vendors
+      Doctrine::loadData('data/fixtures');
   }
 
   protected function tearDown()
   {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+  }
+
+  public function testImportMovies()
+  {
+      // Set vendor
+      $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'sydney' ); // fixtures Should created default vendors
+
+      $this->assertNotNull( $vendor );  // Check vendor Exists
+      
+      $dataEntryImportManager = new DataEntryImportManager( 'sydney', TO_TEST_DATA_PATH . DIRECTORY_SEPARATOR . 'data_entry' . DIRECTORY_SEPARATOR );
+
+      // Check Database for EMPTY
+      $movies = Doctrine::getTable( 'Movie' )->findAll();
+      $this->assertEquals( 0, $movies->count() );
+
+      // Import Movies
+      $dataEntryImportManager->importMovies();
+
+      // Check for Import SUCESS
+      $movies = Doctrine::getTable( 'Movie' )->findAll();
+      $this->assertEquals( 2, $movies->count(), 'There are 2 Movies in Sydney XML' );
+
+      // Check Values
+      $movie = $movies[0];
+
+      $this->assertEquals( 'Bright Star', $movie['name'] );
+      $this->assertEquals( 'sample plot string goes there', $movie['plot'] );
+
+      // Count MovieGenres
+      $this->assertEquals( 2 , $movie['MovieGenres']->count(), 'This movie has 2 Genres' );
+  }
+
+  public function testImportMoviesValidCityNoXmlFile()
+  {
+      // Set vendor
+      $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'moscow' ); // fixtures Should created default vendors
+
+      $this->assertNotNull( $vendor );  // Check vendor Exists
+
+      $dataEntryImportManager = new DataEntryImportManager( 'moscow', TO_TEST_DATA_PATH . DIRECTORY_SEPARATOR . 'data_entry' . DIRECTORY_SEPARATOR );
+
+      // Check Database for EMPTY
+      $movies = Doctrine::getTable( 'Movie' )->findAll();
+      $this->assertEquals( 0, $movies->count() );
+
+      // Set Expected Exception
+      $this->setExpectedException( 'Exception' );
+      
+      // Import Movies, This should Throw FileNotFound Exception as Moscow xml not exists
+      $dataEntryImportManager->importMovies();
 
   }
 
-  public function testGetFileList()
+  public function testImportPois()
   {
-       $baseDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
-                  'unit' .DIRECTORY_SEPARATOR .
-                  'data' .DIRECTORY_SEPARATOR .
-                  'data_entry' .DIRECTORY_SEPARATOR   ;
+      // Set vendor
+      $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'sydney' ); // fixtures Should created default vendors
 
-       $randomFolderName = substr( md5( date("YmdHis") ),0,10 );
+      $this->assertNotNull( $vendor );  // Check vendor Exists
 
-       $tempFiles = array(
-           'export_20100709' => array(
-                'event' => 'test_city_1_event.xml' ,
-                'poi'   => 'test_city_1_poi.xml' ,
-                'movie' => 'test_city_1_movie.xml'
-                 ),
-           'export_20100710' => array(
-                'event' => 'test_city_2_event.xml' ,
-                'poi'   => 'test_city_2_poi.xml' ,
-                'movie' => 'test_city_2_movie.xml'
-                 ),
-           'export_20100708' => array(
-                'event' => 'test_city_3_event.xml' ,
-                'poi'   => 'test_city_3_poi.xml' ,
-                'movie' => 'test_city_3_movie.xml'
-             )
-        );
+      $dataEntryImportManager = new DataEntryImportManager( 'barcelona', TO_TEST_DATA_PATH . DIRECTORY_SEPARATOR . 'data_entry' . DIRECTORY_SEPARATOR );
 
-        foreach ($tempFiles as $key => $value)
-        {
-            foreach ( $value as $item => $fileName)
-            {
-                $results = array();
-                $cmd = 'mkdir -p ' . $baseDir . $randomFolderName . DIRECTORY_SEPARATOR . $key . DIRECTORY_SEPARATOR . $item ;
-                exec( $cmd , $results );
-                file_put_contents( $baseDir . $randomFolderName . DIRECTORY_SEPARATOR . $key . DIRECTORY_SEPARATOR . $item . DIRECTORY_SEPARATOR . $fileName , '' );
-            }
-        }
+      // Check Database for EMPTY
+      $pois = Doctrine::getTable( 'Poi' )->findAll();
+      $this->assertEquals( 0, $pois->count() );
 
-        DataEntryImportManager::setImportDir( $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR  );
+      // Import Movies
+      $dataEntryImportManager->importPois();
 
-        $fileList = DataEntryImportManager::getFileList(  'poi' );
-        //test if the importManager picked the latest folder with the right item subfolder (eg : event , movie)
-        $this->assertEquals( $fileList [ 0 ],  $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR . 'export_20100710' . DIRECTORY_SEPARATOR .'poi' . DIRECTORY_SEPARATOR . 'test_city_2_poi.xml' , 'latest poi files should be selected' );
+      // Check for Import SUCESS
+      $pois = Doctrine::getTable( 'Poi' )->findAll();
+      $this->assertEquals( 3, $pois->count(), 'There are 3 Pois in Barcelona XML' );
 
-        $fileList = DataEntryImportManager::getFileList(  'event' );
-        $this->assertEquals( $fileList [ 0 ],  $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR . 'export_20100710' . DIRECTORY_SEPARATOR .'event' . DIRECTORY_SEPARATOR . 'test_city_2_event.xml' , 'latest event files should be selected' );
+      // Check Values
+      $poi = $pois[0];
 
-        $fileList = DataEntryImportManager::getFileList(  'movie' );
-        $this->assertEquals( $fileList [ 0 ],  $baseDir .   $randomFolderName .DIRECTORY_SEPARATOR . 'export_20100710' . DIRECTORY_SEPARATOR .'movie' . DIRECTORY_SEPARATOR . 'test_city_2_movie.xml' , 'latest movie files should be selected' );
-
-        //delete the ramdomFolder
-        exec( 'rm -rf ' .  $baseDir .   $randomFolderName  );
+      $this->assertEquals( 'Museu Arqueologia de Catalunya', $poi['poi_name'] );
+      $this->assertEquals( 'Pg. Santa Madrona', $poi['street'] );
 
   }
 }

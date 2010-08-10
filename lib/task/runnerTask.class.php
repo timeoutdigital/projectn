@@ -54,6 +54,7 @@ class runnerTask extends sfBaseTask
         $this->logSection( 'Runner' , "Runner will not be running any EXPORT tasks!" );
     }
 
+
     foreach ( $taskArray as $task => $command )
     {
         switch( $task )
@@ -96,6 +97,9 @@ class runnerTask extends sfBaseTask
                         $this->verifyAndCreatePath( $currentExportPath );
 
                         $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city="' . $cityName . '" --language=' . $cityParams[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_", $cityName ) .'.xml';
+                        // When Events get-called, we pass POI XML destination
+                        if($type == 'event')
+                            $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_", $cityName ) .'.xml';
                         $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
                         $this->executeCommand( $taskCommand, $logCommand );
                     }
@@ -137,7 +141,10 @@ class runnerTask extends sfBaseTask
                                 'russia' => array( 'movie' ),
                                 'barcelona' => array( 'poi', 'event', 'movie' ),
                                 'kuala lumpur' => array( 'poi', 'event', 'movie' ),
-                                'data-entry' => array( 'poi', 'event', 'movie' )
+                                'mumbai' => array( 'poi', 'event', 'movie' ),
+                                'delhi' => array( 'poi', 'event', 'movie' ),
+                                'bangalore' => array( 'poi', 'event', 'movie' ),
+                                'pune' => array( 'poi', 'event', 'movie' )
                 ),
                 'export' => array(
                                 'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
