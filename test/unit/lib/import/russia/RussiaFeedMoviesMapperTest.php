@@ -30,7 +30,8 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    $this->addRussianVendors();
+    Doctrine::loadData('data/fixtures'); // Add Initial data
+    //$this->addRussianVendors();
     $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/russia_movies.short.xml' );
     $this->dataMapper = new RussiaFeedMoviesMapper( $this->moviesXml, null, "moscow" );
   }
@@ -54,12 +55,12 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $movies = Doctrine::getTable('Movie')->findAll();
 
-    $this->assertEquals( 14, $movies->count() );
+    $this->assertEquals( 14, $movies->count() ); // 1 Movie have 3 Venues (14 Venues in 9 Movies = 14 movies should be added)
 
     $movie = $movies->getFirst();
 
     $this->assertEquals( 15032,  $movie['vendor_movie_id'] );
-    $this->assertEquals( 'Скины/Romper Stomper', $movie['name'] );
+    $this->assertEquals( 'Скины', $movie['name'] );
     $this->assertEquals( 'Культовый в', mb_substr( $movie['review'],0 , 11, 'UTF-8' ) );
     $this->assertEquals( '+04:00', $movie['utf_offset'] );
 
@@ -72,8 +73,30 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertGreaterThan( 0, $movie[ 'MovieGenres' ]->count() );
     $this->assertEquals( "Драма", $movie[ 'MovieGenres' ]['Драма']['genre'] );
     $this->assertEquals( "Кино", $movie[ 'MovieGenres' ]['Кино']['genre'] );
+
+    $movie = $movies[1];
+
+    $this->assertEquals( 41418,  $movie['vendor_movie_id'] );
+    $this->assertEquals( 'Небесный замок Лапута', $movie['name'] );
+    $this->assertEquals( 'Миядзаки среднего периода', mb_substr( $movie['review'],0 , 25, 'UTF-8' ) );
+    $this->assertEquals( '+07:00', $movie['utf_offset'] );
+
+    $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );
+    $this->assertEquals( "Timeout_link", $movie[ 'MovieProperty' ][0]['lookup'] );
+    $this->assertEquals( "http://www.timeout.ru/cinema/event/41418/", $movie[ 'MovieProperty' ][0]['value'] );
+
+    $this->assertGreaterThan( 0, $movie[ 'Vendor' ]->count() );
+
+    $this->assertGreaterThan( 0, $movie[ 'MovieGenres' ]->count() );
+    $this->assertEquals( "Мультфильм", $movie[ 'MovieGenres' ]['Мультфильм']['genre'] );
+    $this->assertEquals( "Кино", $movie[ 'MovieGenres' ]['Кино']['genre'] );
+
+    $this->assertEquals( 2, $movie['MovieProperty']->count(), 'Movie Property should have Timeout_link and English_title' );
+    $this->assertEquals( 'Castle in the Sky', $movie['MovieProperty'][1]['value'], 'English name should be added to Movie Property' );
+
   }
 
+  // fixtures should take care of this function now...
   private function addRussianVendors()
   {
     foreach( array( 'tyumen', 'saint petersburg', 'omsk', 'almaty', 'novosibirsk', 'krasnoyarsk', 'moscow' ) as $city )
@@ -104,7 +127,7 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
   private function createVenuesFromVenueIds( $venueIds )
   {
     $russianVendors = Doctrine::getTable( 'Vendor' )->findByLanguage( 'ru' );
-    $this->assertEquals( 7, $russianVendors->count(), 'Should have 7 Russian Vendors' );
+    $this->assertEquals( 8, $russianVendors->count(), 'Should have 8 Russian Vendors' );
 
     $vendorNumber = 0;
 
