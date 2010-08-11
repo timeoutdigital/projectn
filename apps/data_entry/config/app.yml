@@ -2,6 +2,34 @@
 # http://www.symfony-project.org/reference/1_4/en/11-App
 
 # default values
+all:
+  import:
+    cities:
+        -
+          name: beijing
+          type: [ poi ]
+  export:
+    cities:
+        -
+          name: mumbai
+          type: [ poi, event, movie ]
+          language: en-GB
+          validation: true
+        -
+          name: delhi
+          type: [ poi, event, movie ]
+          language: en-GB
+          validation: false
+        -
+          name: bangalore
+          type: [ poi, event, movie ]
+          language: en-GB
+          validation: true
+        -
+          name: pune
+          type: [ poi, event, movie ]
+          language: en-GB
+          validation: false
 
 prod:
   sf_guard_plugin:
@@ -9,4 +37,3 @@ prod:
     # which is the port the app is listening to on our server (london varnish
     # points to)
     success_signin_url: http://www.timeout.com/projectn/data_entry.php
-
