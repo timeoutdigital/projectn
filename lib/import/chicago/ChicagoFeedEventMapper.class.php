@@ -56,7 +56,7 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
         }
 
         for( $i = $this->startingPoint; $i < $this->endingPoint; $i++)
-        {echo '¦';
+        {
             $eventNode = $this->eventNodes[ $i ]; // Get the Current Index node
             
             try
@@ -158,9 +158,12 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
 
         $categoryArray = array();
         foreach( $categories as $category )
+        {
             if( stringTransform::mb_trim ( (string) $category ) != '' )
+            {
                 $categoryArray[] = (string) $category;
-
+            }
+        }
         return $categoryArray;
     }
 

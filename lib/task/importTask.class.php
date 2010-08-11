@@ -133,7 +133,7 @@ class importTask extends sfBaseTask
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
 
                 echo "Parsing Chicago's Poi/Events Feed \n";
-                $xmlData = simplexml_load_file( file_get_contents( $fileNameString ) );
+                $xmlData = simplexml_load_file( $fileNameString );
 
                 echo "Importing Chicago's Pois \n";
 
@@ -149,7 +149,7 @@ class importTask extends sfBaseTask
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
 
                 echo "Parsing Chicago's Poi/Events Feed \n";
-                $xmlData = simplexml_load_file( file_get_contents( $fileNameString ) );
+                $xmlData = simplexml_load_file( $fileNameString );
 
                 echo "Importing Chicago's Events \n";
 
