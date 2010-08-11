@@ -10,6 +10,9 @@ class runnerDataEntryTask extends runnerTask
     protected function getTaskArray()
     {
         $taskArray = array (
+                    'import' => array(
+                            'beijing' => array( 'poi' )
+                    ),
                     'export' => array(
                             'mumbai' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
                             'delhi' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),

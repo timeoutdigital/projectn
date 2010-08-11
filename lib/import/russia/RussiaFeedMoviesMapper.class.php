@@ -27,9 +27,12 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
             $movie = Doctrine::getTable("Movie")->findByVendorMovieIdAndVendorLanguage( $vendor_movie_id, 'ru' );
             if( !$movie ) $movie = new Movie();
 
+            // Seperate Russian / Foreign names
+            $movieName = $this->splitRussianName((string) $movieElement->name);
+            
             // Column Mapping
             $movie['vendor_movie_id']   = $vendor_movie_id;
-            $movie['name']              = (string) $movieElement->name;
+            $movie['name']              = stringTransform::mb_trim($movieName[0]); // 0 Alwasy Russian names
             $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot ); // Requires Double Entity Decoding
             $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review ); // Requires Double Entity Decoding
             $movie['url']               = (string) $movieElement->url;
@@ -41,7 +44,11 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
 
             // Timeout Link
             if( (string) $movieElement->timeout_url != "" )
-                $movie->addProperty( "Timeout_link", (string) (string) $movieElement->timeout_url );
+                $movie->addProperty( "Timeout_link", (string) $movieElement->timeout_url );
+
+            // add English Title IF not empty
+            if( count($movieName) > 1 && stringTransform::mb_trim($movieName[1]) != '' )
+                $movie->addProperty( "English_title", stringTransform::mb_trim($movieName[1]) );
 
             // Reset Cities Array
             $cities = array();
@@ -104,5 +111,19 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
         }
     }
   }
+
+  /**
+    * Split Movie Name by / and Return Russian names only
+    * @param string $movieName
+    * @return string Russian Movie name (or Null)
+    */
+  private function splitRussianName($movieName){
+      if($movieName == null || stringTransform::mb_trim($movieName) =='' ) return null;
+
+      $movieName = mb_split('/', $movieName); // Split
+
+      return $movieName; // Return BOTH
+  }
+
 }
 ?>
