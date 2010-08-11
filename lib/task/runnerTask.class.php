@@ -2,178 +2,193 @@
 
 class runnerTask extends sfBaseTask
 {
-  protected function configure()
-  {
-    $this->addOptions(array(
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
-      new sfCommandOption('city', null, sfCommandOption::PARAMETER_OPTIONAL, 'The city to import')
-    ));
+    protected $symfonyPath;
+    protected $logRootDir;
+    protected $exportRootDir;
+    protected $taskOptions;
+    const  TASK_IMPORT = 1;
+    const  TASK_EXPORT = 2;
 
-    $this->namespace        = 'projectn';
-    $this->name             = 'runner';
-    $this->briefDescription = 'wrapper task to run import and export tasks for projectn';
-    $this->detailedDescription = '';
-  }
-
-  protected function execute($arguments = array(), $options = array())
-  {
-    // initialize the database connection
-    //$databaseManager = new sfDatabaseManager($this->configuration);
-    //$connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
-
-    date_default_timezone_set( 'Europe/London' );
-
-    $symfonyPath = sfConfig::get( 'sf_root_dir' );
-    $logRootDir = sfConfig::get( 'sf_log_dir' );
-    $exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
-
-    $taskArray = $this->getTaskArray();
-
-    if( !empty( $options[ 'city' ] ) )
+    protected function configure()
     {
-        $city =  $options[ 'city' ];
-        $taskArray = array(
-            'import' => ( isset( $taskArray[ 'import' ] [ $city  ] ) ) ? array( $city => $taskArray[ 'import' ] [ $city ] )  : array(),
-            'export' => ( isset( $taskArray[ 'export' ] [ $city  ] ) ) ? array( $city => $taskArray[ 'export' ] [ $city ] )  : array()
-        );
+        $this->addOptions(array(
+          new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
+          new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
+          new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
+          new sfCommandOption('city', null, sfCommandOption::PARAMETER_OPTIONAL, 'The city to import',null)
+        ));
+
+        $this->namespace        = 'projectn';
+        $this->name             = 'runner';
+        $this->briefDescription = 'wrapper task to run import and export tasks for projectn';
+        $this->detailedDescription = '';
+        }
+
+    protected function execute($arguments = array(), $options = array())
+    {
+        date_default_timezone_set( 'Europe/London' );
+
+        $this->symfonyPath = sfConfig::get( 'sf_root_dir' );
+        $this->logRootDir = sfConfig::get( 'sf_log_dir' );
+        $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
+        $this->taskOptions = $options;
+
+        $this->runImportTasks( $options[ 'city' ] );
+        $this->runExportTasks( $options[ 'city' ] );
+
     }
 
-    if( empty( $taskArray[ 'export' ] ) && empty( $taskArray[ 'import' ] ) )
+    /**
+     * runs the import tasks
+     *
+     * @param string $city , if given runs imports for only this city
+     */
+    protected function runImportTasks( $city = null )
     {
-        $this->logSection( 'Runner' , "Invalid city given!", "ERROR" );
-        return;
-    }
-    elseif( empty( $taskArray[ 'import' ] ) )
-    {
-        $this->logSection( 'Runner' , "Runner will not be running any IMPORT tasks!" );
-    }
-    elseif( empty( $taskArray[ 'export' ] ) )
-    {
-        $this->logSection( 'Runner' , "Runner will not be running any EXPORT tasks!" );
-    }
+        $options = $this->taskOptions;
 
+        $importCities = $this->getCities( self::TASK_IMPORT, $city );
 
-    foreach ( $taskArray as $task => $command )
-    {
-        switch( $task )
+        if( empty( $importCities  ) )
         {
-            case 'import' :
+             $this->logSection( 'Runner' , "Runner will not be running any IMPORT tasks!" );
+             return;
+        }
 
-                foreach ( $command as $cityName => $cityParams )
-                {
-                    foreach( $cityParams as $type )
-                    {
-                        echo date( 'Y-m-d H:i:s' ) . ' - running ' . $task . ' for ' . $cityName . ' (' . $type . ')' . PHP_EOL;
+        foreach ( $importCities as $importCity )
+        {
+            $logPath = $this->logRootDir . '/import' ;
 
-                        $logPath = $logRootDir . '/' . $task;
-                        $this->verifyAndCreatePath( $logPath );
+            $this->verifyAndCreatePath( $logPath );
 
-                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env="' . $options['env'] . '" --city="' . $cityName . '" --type="' . $type . '"';
-                        $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
+            foreach ( $importCity['type'] as $type )
+            {
+                $this->logSection( 'import', date( 'Y-m-d H:i:s' ) . ' - running import  for ' . $importCity[ 'name' ] . ' (' . $type . ')') ;
 
-                        $this->executeCommand( $taskCommand, $logCommand );
-                    }
-                }
+                $taskCommand = $this->symfonyPath . '/./symfony projectn:import --env="' . $options['env'] . '" --application="' . $options['application'] . '" --city="' . $importCity[ 'name' ] . '" --type="' . $type . '"';
 
-                break;
+                $logCommand  = $logPath . '/' . strtr( $importCity[ 'name' ], ' ', '_' ) . '.log';
 
-            case 'export' :
-                $deleteOlderThanDays = '7 days';
-                $timestamp = date( 'Ymd' );
-                $exportPath = $exportRootDir . '/export_' . $timestamp;
-                $this->verifyAndCreatePath( $exportPath );
+                $this->executeCommand( $taskCommand, $logCommand );
+            }
 
-                foreach ( $command as $cityName => $cityParams )
-                {
-                    foreach( $cityParams[ 'type' ] as $type )
-                    {
-                        echo date( 'Y-m-d H:i:s' ) . ' - running ' . $task . ' for ' . $cityName . ' (' . $type . ')' . PHP_EOL;
-
-                        $logPath = $logRootDir . '/' . $task;
-                        $this->verifyAndCreatePath( $logPath );
-                        $currentExportPath = $exportPath .'/'.$type;
-                        $this->verifyAndCreatePath( $currentExportPath );
-
-                        $taskCommand = $symfonyPath . '/./symfony projectn:' . $task . '  --env=' . $options['env'] . ' --city="' . $cityName . '" --language=' . $cityParams[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_", $cityName ) .'.xml';
-                        // When Events get-called, we pass POI XML destination
-                        if($type == 'event')
-                            $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_", $cityName ) .'.xml';
-                        $logCommand  = $logPath . '/' . strtr( $cityName, ' ', '_' ) . '.log';
-                        $this->executeCommand( $taskCommand, $logCommand );
-                    }
-                }
-
-                echo 'tar archive for export backup' . PHP_EOL;
-                $this->executeCommand( 'cd ' . $exportRootDir . ' && tar zcvf ' . 'exports_' . $timestamp . '.tgz ' . 'export_' . $timestamp . '/*', $logPath . '/common.log' );
-
-                echo 'create upload.lock file' . PHP_EOL;
-                $this->executeCommand( 'cd ' . $exportRootDir . ' && touch ' . $exportPath . '/upload.lock', $logPath . '/common.log' );
-
-                echo 'delete exports older than ' . $deleteOlderThanDays . ' (';
-                $deletedDirs = $this->_removeOldDirectoriesByPatternAndDaysInPast( $exportRootDir, '/^export_([0-9]{8})$/', $deleteOlderThanDays, $logPath . '/common.log' );
-                echo  implode( ',', $deletedDirs ) . ')' . PHP_EOL;
-
-                break;
         }
     }
 
-  }
 
-    protected function getTaskArray()
+    /**
+     * runs the export tasks
+     *
+     * @param string $city , if given runs exports for only this city
+     */
+    protected function runExportTasks(  $city = null )
     {
-        $taskArray = array (
-                'import' => array(
-                                'singapore' => array( 'poi-event', 'movie' ),
-                                'ny' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
-                                'chicago' => array( 'poi-event', 'eating-drinking', 'bars-clubs', 'movie' ),
-                                'london' => array( 'poi-ev-mapper', 'poi-bars-pubs', 'poi-restaurants', 'poi-cinemas', 'event', 'event-occurrence', 'movie' ),
-                                'lisbon' => array( 'poi', 'event', 'movie' ),
-                                'sydney' => array( 'poi', 'event', 'movie' ),
-                                'moscow' => array( 'poi', 'event' ),
-                                'saint petersburg' => array( 'poi', 'event' ),
-                                //'omsk' => array( 'poi', 'event' ),
-                                'almaty' => array( 'poi', 'event' ),
-                                //'novosibirsk' => array( 'poi', 'event' ),
-                                //'krasnoyarsk' => array( 'poi', 'event' ),
-                                //'tyumen' => array( 'poi', 'event' ),
-                                'russia' => array( 'movie' ),
-                                'barcelona' => array( 'poi', 'event', 'movie' ),
-                                'kuala lumpur' => array( 'poi', 'event', 'movie' ),
-                                'mumbai' => array( 'poi', 'event', 'movie' ),
-                                'delhi' => array( 'poi', 'event', 'movie' ),
-                                'bangalore' => array( 'poi', 'event', 'movie' ),
-                                'pune' => array( 'poi', 'event', 'movie' )
-                ),
-                'export' => array(
-                                'singapore' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'ny' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'chicago' => array( 'language' => 'en-US', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'london' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'lisbon' => array( 'language' => 'pt', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'sydney' => array( 'language' => 'en-AU', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'moscow' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'saint petersburg' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                //'omsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'almaty' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                //'novosibirsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                //'krasnoyarsk' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                //'tyumen' => array( 'language' => 'ru', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'barcelona' => array( 'language' => 'ca', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'kuala lumpur' => array( 'language' => 'en-MY', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'mumbai' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'delhi' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'bangalore' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) ),
-                                'pune' => array( 'language' => 'en-GB', 'type' => array( 'poi', 'event', 'movie' ) )
-                ),
-             );
+        $exportCities = $this->getCities( self::TASK_EXPORT , $city );
 
-        return $taskArray;
+        $options = $this->taskOptions;
+
+        if( empty( $exportCities  ) )
+        {
+             $this->logSection( 'Runner' , "Runner will not be running any EXPORT tasks!" );
+             return;
+        }
+
+        $deleteOlderThanDays = '7 days';
+        $timestamp = date( 'Ymd' );
+        $exportPath = $this->exportRootDir . '/export_' . $timestamp;
+        $this->verifyAndCreatePath( $exportPath );
+
+        foreach ( $exportCities as $exportCity )
+        {
+
+            foreach ( $exportCity['type'] as $type )
+            {
+                $this->logSection( 'export', date( 'Y-m-d H:i:s' ) . ' - running export for ' . $exportCity[ 'name' ] . ' (' . $type . ')' );
+
+                $logPath = $this->logRootDir . '/export';
+                $this->verifyAndCreatePath( $logPath );
+                $currentExportPath = $exportPath .'/'.$type;
+                $this->verifyAndCreatePath( $currentExportPath );
+
+                $taskCommand = $this->symfonyPath . '/./symfony projectn:export --env=' . $options['env'] . ' --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                // When Events get-called, we pass POI XML destination
+                if($type == 'event')
+                {
+                    $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                }
+                if( isset( $exportCity['validation'] )  )
+                {
+                    if(  $exportCity[ 'validation' ] == '' )
+                    {
+                         $exportCity[ 'validation' ] = 0;
+                    }
+                    $taskCommand .= ' --validation=' .  $exportCity[ 'validation' ];
+                }
+
+                $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
+                $this->executeCommand( $taskCommand, $logCommand );
+            }
+
+        }
+
+        $this->logSection( 'Runner' ,'tar archive for export backup' );
+        $this->executeCommand( 'cd ' . $this->exportRootDir . ' && tar zcvf ' . 'exports_' . $timestamp . '.tgz ' . 'export_' . $timestamp . '/*', $logPath . '/common.log' );
+
+        $this->logSection( 'Runner' , 'create upload.lock file' );
+        $this->executeCommand( 'cd ' . $this->exportRootDir . ' && touch ' . $exportPath . '/upload.lock', $logPath . '/common.log' );
+
+        $this->logSection( 'Runner' ,'delete exports older than ' . $deleteOlderThanDays );
+
+        $deletedDirs = $this->_removeOldDirectoriesByPatternAndDaysInPast( $this->exportRootDir, '/^export_([0-9]{8})$/', $deleteOlderThanDays, $logPath . '/common.log' );
+        $this->logSection( 'Runner' ,implode( ',', $deletedDirs )  );
+
 
     }
-  protected function _removeOldDirectoriesByPatternAndDaysInPast( $dir, $pattern, $daysInPast, $logFile )
-  {
+
+    /**
+     * returns a list of cities to run the import/export
+     *
+     * @param integer $task
+     * @param string $city
+     * @return array
+     */
+    protected function getCities( $task, $city = null )
+    {
+        switch ( $task )
+        {
+        	case self::TASK_IMPORT:
+        	    $citiesConfig = sfConfig::get( 'app_import_cities' );
+                break;
+
+            case self::TASK_EXPORT:
+                $citiesConfig = sfConfig::get( 'app_export_cities' );
+        		break;
+
+        	default:
+        	   $citiesConfig = array();
+        	   break;
+        }
+
+        if( $city )
+        {
+            $selectedCity = array();
+            foreach ($citiesConfig as $cityConfig )
+            {
+                if( $cityConfig['name'] == $city )
+                {
+                    $selectedCity = array( $cityConfig );
+                }
+            }
+            $citiesConfig = $selectedCity;
+        }
+
+        return $citiesConfig;
+
+    }
+
+
+    protected function _removeOldDirectoriesByPatternAndDaysInPast( $dir, $pattern, $daysInPast, $logFile )
+    {
       $deletedDirs = array();
 
       if ( is_dir( $dir ) )
@@ -200,18 +215,33 @@ class runnerTask extends sfBaseTask
        }
 
        return $deletedDirs;
-  }
+    }
 
-  protected function verifyAndCreatePath( $path ) {
-      if ( !file_exists( $path ) ) {
+
+    /**
+     * Enter description here...
+     *
+     * @param unknown_type $path
+     */
+    protected function verifyAndCreatePath( $path )
+    {
+      if ( !file_exists( $path ) )
+      {
             mkdir( $path, 0777, true );
       }
-  }
+    }
 
-  protected function executeCommand( $cmd, $logfile )
-  {
-    $cmdOutput = shell_exec( $cmd . ' 2>&1' );
-    file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
-  }
+    /**
+     * Enter description here...
+     *
+     * @param unknown_type $cmd
+     * @param unknown_type $logfile
+     */
+    protected function executeCommand( $cmd, $logfile )
+    {
+        $this->logSection( 'EXEC', $cmd);
+        $cmdOutput = shell_exec( $cmd . ' 2>&1' );
+        file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
+    }
 
 }
