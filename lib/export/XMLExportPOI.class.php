@@ -100,6 +100,11 @@ class XMLExportPOI extends XMLExport
         continue;
       }
 
+      if( trim( $poi['street'] ) == '' )
+      {
+        ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty street', 'Poi', $poi[ 'id' ] );
+        continue;
+      }
 
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );

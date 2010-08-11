@@ -166,6 +166,23 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property3->link( 'Poi', array( $poi['id'] ) );
         $property3->save();
 
+        $poi = new Poi();
+        $poi->setPoiName( 'test name3' . $this->specialChars );
+        $poi->setStreet( ' ' );
+        $poi->setHouseNo('13' . $this->specialChars );
+        $poi->setZips('4321' );
+        $poi->setCity( 'test town two' . $this->specialChars );
+        $poi->setDistrict( 'test district2' . $this->specialChars );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '1234' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.0814899' );
+        $poi->setLatitude( '51.5245400' );
+
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->link( 'Vendor', 2 );
+        $poi->save();
+
         $this->runImportAndExport();
       }
       catch(PDOException $e)
@@ -226,6 +243,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->xpath = new DOMXPath( $this->domDocument );
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
+
       $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
@@ -324,6 +342,15 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //vendor-pois
       $this->assertEquals( XMLExport::VENDOR_NAME, (string) $this->xml['vendor'], 'Vendor should be "timeout"' );
       $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
+    }
+
+    /**
+     * test if poi with empty street is skipped
+     */
+    public function testIfPoiWithEmptyStreetIsSkipped()
+    {
+      //entry
+      $this->assertEquals( 2, count( $this->xml->entry ) );
     }
 
     /**
