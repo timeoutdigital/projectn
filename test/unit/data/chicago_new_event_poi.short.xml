@@ -170,52 +170,54 @@
 <status_file path="/Users/leoevent/export/online_export/" body="toc_leo_temp" suffix="xml">/Users/leoevent/export/online_export/toc_leo_temp.xml</status_file>
 </header>
 <event id="270989">
-<type>1</type>
-<released>1</released>
-<date>
-<start dd="21" mm="08" yyyy="2010" hh="21" nn="00" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2010-08-21 21:00:00</start>
-<venue>
-<address_id>100576</address_id>
-<secondary_venue_id></secondary_venue_id>
-</venue>
-</date>
-<date_start dd="21" mm="08" yyyy="2010" hh="21" nn="00" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2010-08-21 21:00:00</date_start>
-<date_end dd="21" mm="08" yyyy="2010" hh="21" nn="00" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2010-08-21 21:00:00</date_end>
-<website></website>
-<transformation>
-<address_id>100576</address_id>
-<secondary_venue_id></secondary_venue_id>
-<dynamic>
-<day dd="21" mm="08" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-08-21 00:00:00</day>
-<time>
-<from hh="21" nn="00" ss="00" hh12="9" ampm="pm">21:00:00</from>
-</time>
-</dynamic>
-</transformation>
-<main_event></main_event>
-<identifier>Dancing on the Deck</identifier>
-<description>Set sail at this third annual cruise featuring a buffet, open bar, DJ, dancing, sexy sailor boys (naturally) and scantilly clad mermaids. </description>
-<category_combi id="398">
-<category1 id="280">Gay &amp; Lesbian</category1>
-<category2 id="284">Events &amp; meetings</category2>
-<category3 id=""/></category_combi>
-<edition id="17">Time Out Chicago</edition>
-<text_system>
-<text>
-<text_type>Prices</text_type>
-<language>english</language>
-<content>$150</content>
-<author></author>
-<released>1</released>
-</text>
-</text_system>
-<attributes><attribute>
-<name>WebReady</name>
-<type>Yes/No</type>
-<value>Yes</value>
-</attribute>
-</attributes>
-<sort_string>Dancing on the Deck</sort_string>
+	<type>1</type>
+	<released>1</released>
+	<date>
+		<start dd="21" mm="08" yyyy="2010" hh="21" nn="00" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2010-08-21 21:00:00</start>
+		<venue>
+				<address_id>100576</address_id>
+				<secondary_venue_id></secondary_venue_id>
+		</venue>
+	</date>
+	<date_start dd="21" mm="08" yyyy="2010" hh="21" nn="00" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2010-08-21 21:00:00</date_start>
+	<date_end dd="21" mm="08" yyyy="2010" hh="21" nn="00" ss="00" dw="Sat" dwnum="6" hh12="9" ampm="pm">2010-08-21 21:00:00</date_end>
+	<website></website>
+	<transformation>
+		<address_id>100576</address_id>
+			<secondary_venue_id></secondary_venue_id>
+			<dynamic>
+				<day dd="21" mm="08" yyyy="2010" hh="0" nn="00" ss="00" dw="Sat" dwnum="6" hh12="12" ampm="am">2010-08-21 00:00:00</day>
+				<time>
+					<from hh="21" nn="00" ss="00" hh12="9" ampm="pm">21:00:00</from>
+				</time>
+			</dynamic>
+	</transformation>
+	<main_event></main_event>
+	<identifier>Dancing on the Deck</identifier>
+	<description>Set sail at this third annual cruise featuring a buffet, open bar, DJ, dancing, sexy sailor boys (naturally) and scantilly clad mermaids. </description>
+	<category_combi id="398">
+		<category1 id="280">Gay &amp; Lesbian</category1>
+		<category2 id="284">Events &amp; meetings</category2>
+		<category3 id=""/>
+	</category_combi>
+	<edition id="17">Time Out Chicago</edition>
+	<text_system>
+		<text>
+			<text_type>Prices</text_type>
+			<language>english</language>
+			<content>$150</content>
+			<author></author>
+			<released>1</released>
+		</text>
+	</text_system>
+	<attributes>
+		<attribute>
+			<name>WebReady</name>
+			<type>Yes/No</type>
+			<value>Yes</value>
+		</attribute>
+	</attributes>
+	<sort_string>Dancing on the Deck</sort_string>
 </event>
 <event id="268295">
 <type>1</type>

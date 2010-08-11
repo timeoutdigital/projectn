@@ -68,5 +68,12 @@ class ChicagoFeedBaseMapper extends DataMapper
 
         return $xml->xpath( $nodePath );
     }
+
+    protected function fixHtmlEntities( $string )
+    {
+        $string = html_entity_decode( (string) $string, ENT_QUOTES, 'UTF-8' );
+
+        return $string;
+    }
 }
 ?>
