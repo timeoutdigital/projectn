@@ -128,6 +128,51 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
+          case 'test-poi':
+                echo "Downloading Chicago's Poi/Events Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
+
+                echo "Parsing Chicago's Poi/Events Feed \n";
+                $xmlData = simplexml_load_file( file_get_contents( $fileNameString ) );
+
+                echo "Importing Chicago's Pois \n";
+
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedPoiMapper($vendorObj, $xmlData) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+
+              break;
+          case 'test-event':
+                echo "Downloading Chicago's Poi/Events Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
+
+                echo "Parsing Chicago's Poi/Events Feed \n";
+                $xmlData = simplexml_load_file( file_get_contents( $fileNameString ) );
+
+                echo "Importing Chicago's Events \n";
+
+                // @todo Wrap in try catch
+                // We are to Run two Import on Events to Manage Memory!
+                $eventsNode = $xmlData->xpath( '/body/event' );
+                $totalCount = count($eventsNode); 
+                $splitAt = round( $totalCount / 2 );
+                
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, 0, $splitAt) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+
+                // Run the Second one
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, $splitAt, $totalCount ) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                
+                $this->dieWithLogMessage();
+                
+              break;
           case 'poi-event':
               $this->importChicagoEvents($vendorObj, $ftpClientObj);
             break;
