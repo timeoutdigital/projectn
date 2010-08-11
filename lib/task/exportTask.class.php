@@ -16,7 +16,7 @@ class exportTask extends sfBaseTask
     //   new sfCommandArgument('my_arg', sfCommandArgument::REQUIRED, 'My argument'),
     // ));
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name' ,'backend'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'The type of data we want to export (e.g. poi, event, movies'),
       new sfCommandOption('destination', null, sfCommandOption::PARAMETER_REQUIRED, 'The destination file where the output is written into'),
       new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'The city which we want to export'),
@@ -24,6 +24,7 @@ class exportTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('poi-xml', null, sfCommandOption::PARAMETER_REQUIRED, 'Location of poi xml to check this export against', 'poop'),
+      new sfCommandOption('validation', null, sfCommandOption::PARAMETER_REQUIRED, 'switch to decide if the exports will be validated', true),
       // add your own options here
     ));
 
@@ -80,7 +81,7 @@ EOF;
         else
           $location = $options[ 'poi-xml' ];
 
-        return new XMLExportEvent( $this->_vendor, $options['destination'], $location );
+        return new XMLExportEvent( $this->_vendor, $options['destination'], $location , (boolean) $options[ 'validation' ]);
         break;
       case 'movie':
         $exportClass = 'XMLExportMovie';
@@ -92,6 +93,6 @@ EOF;
 
     //$this->_vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
 
-    return new $exportClass( $this->_vendor, $options['destination'] );
+    return new $exportClass( $this->_vendor, $options['destination'], (boolean) $options[ 'validation' ] );
   }
 }
