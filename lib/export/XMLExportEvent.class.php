@@ -6,7 +6,7 @@
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @author Tim Bowler <timbowler@timeout.com>
- * 
+ *
  * @copyright Timeout Communications Ltd 2009
  *
  *
@@ -23,7 +23,7 @@ class XMLExportEvent extends XMLExport
    * @param String $destination Path to the file the export writes to
    * @param String $poiXmlLocation The location to the POI XML file
    */
-  public function __construct( $vendor, $destination, $poiXmlLocation )
+  public function __construct( $vendor, $destination, $poiXmlLocation, $validation = true )
   {
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'event.xsd';
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
@@ -45,7 +45,9 @@ class XMLExportEvent extends XMLExport
         echo "Failed to find POI XML";
         exit;
     }
-    
+
+    $this->validation = $validation;
+
     //Get all of the ID's from the Poi export
     $poiIdXmlArray = $poiXmlObj->xpath('//@vpid');
 
@@ -54,6 +56,7 @@ class XMLExportEvent extends XMLExport
     {
         $this->poiIdsArray[] = (string) $idObj['vpid'];
     }
+    $this->validation = $validation;
   }
 
   protected function getData()
@@ -82,15 +85,22 @@ class XMLExportEvent extends XMLExport
       if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
       {
           ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
-          continue;
+          if( $this->validation == true )
+          {
+            continue;
+          }
+
       }
 
       if ( count( $event['VendorEventCategory'] ) < 1 )
       {
           ExportLogger::getInstance()->addError( 'no corresponding VendorEventCategory found', 'Event', $event[ 'id' ] );
-          continue;
+          if( $this->validation == true )
+          {
+            continue;
+          }
       }
-      
+
       //event
       $eventElement = $this->appendRequiredElement( $rootElement, 'event' );
       $eventElement->setAttribute( 'id', $this->generateUID( $event['id'] ) );
@@ -145,16 +155,16 @@ class XMLExportEvent extends XMLExport
 
       //event/version/price
       $this->appendNonRequiredElement($versionElement, 'price', $event['price'], XMLExport::USE_CDATA);
-      
+
       //event/version/media
       foreach( $event[ 'EventMedia' ] as $medium )
       {
         $em = new EventMedia();
         $em->merge( $medium );
-          
+
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $em->getAwsUrl(), XMLExport::USE_CDATA );
         unset( $em );
-        
+
         if ( $mediaElement instanceof DOMElement )
         {
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
@@ -202,7 +212,10 @@ class XMLExportEvent extends XMLExport
         if( !$this->poiXmlExportHasPoiRelatedTo( $eventOccurrence )  )
         {
             ExportLogger::getInstance()->addError( 'no corresponding Poi found in poi.xml for occurrence of event ' . $event[ 'id' ], 'EventOccurrence', $eventOccurrence[ 'id' ] );
-            continue;
+            if( $this->validation == true )
+            {
+                continue;
+            }
         }
 
         if ( $currentPoiId != $eventOccurrence[ 'poi_id' ] )

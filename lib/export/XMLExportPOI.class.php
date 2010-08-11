@@ -16,10 +16,11 @@ class XMLExportPOI extends XMLExport
    *
    * @param Vendor $vendor
    */
-  public function __construct( $vendor, $destination )
+  public function __construct( $vendor, $destination ,$validation =true )
   {
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
-    parent::__construct(  $vendor, $destination, 'Poi', $xsd );
+    parent::__construct(  $vendor, $destination, 'Poi', $xsd , $validation);
+
   }
 
   protected function getData()
@@ -72,7 +73,11 @@ class XMLExportPOI extends XMLExport
           $poi['longitude'] < $bounds_array[1] || $poi['longitude'] > $bounds_array[3] )
       {
           ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
-          continue;
+          if( $this->validation == true )
+          {
+            continue;
+          }
+
       }
 
       //Skip Export for Pois with Dupe Lat/Longs
@@ -81,14 +86,20 @@ class XMLExportPOI extends XMLExport
           if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
           {
               ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
-              continue 2;
+              if( $this->validation == true )
+              {
+                continue 2;
+              }
           }
       }
 
       if( count( $poi[ 'VendorPoiCategory' ] ) == 0 )
       {
-        ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );
-        continue;
+          ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );
+          if( $this->validation == true )
+          {
+            continue;
+          }
       }
 
       // check the city name, if it has a number in it continue because
@@ -96,8 +107,11 @@ class XMLExportPOI extends XMLExport
       preg_match( '(\d)', $poi['city'], $numbersInCityName );
       if( count( $numbersInCityName ) != 0  )
       {
-        ExportLogger::getInstance()->addError( 'Skip Export for Pois with number in city name', 'Poi', $poi[ 'id' ] );
-        continue;
+          ExportLogger::getInstance()->addError( 'Skip Export for Pois with number in city name', 'Poi', $poi[ 'id' ] );
+          if( $this->validation == true )
+          {
+            continue;
+          }
       }
 
 
@@ -221,7 +235,7 @@ class XMLExportPOI extends XMLExport
       ExportLogger::getInstance()->addExport( 'Poi' );
 
     }
-
+//    ExportLogger::getInstance()->showErrors();
     return $domDocument;
   }
 
