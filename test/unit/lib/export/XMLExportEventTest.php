@@ -109,7 +109,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
   }
 
-    public function testCategoryTagsAreUnique()
+  public function testCategoryTagsAreUnique()
     {
         $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
         $poi 	= ProjectN_Test_Unit_Factory::add( 'Poi' );
@@ -224,6 +224,52 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
        $this->assertEquals(1, $this->xpath->query('//event')->length, 'Testing that no Events w/a VendorEventCategories are exported' );
    }
 
+   public function testExportWithValidationOff()
+   {
+       $this->createLondonVendor();
+       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+       $poi->save();
+       $eventCategory = ProjectN_Test_Unit_Factory::get( 'EventCategory' );
+       $eventCategory->save();
+       $vendorEventCategory = ProjectN_Test_Unit_Factory::get( 'VendorEventCategory' );
+       $vendorEventCategory->save();
+       $event = new Event();
+       $event['vendor_event_id'] = 1113;
+       $event->setName( 'test event2' );
+       $event->link( 'Vendor', array( 1 ) );
+       $event->link( 'VendorEventCategory', array( 1 ) );
+       $event->link( 'EventCategory', array( 1 ) );
+       $event->save();
+
+       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
+       $occurrence['vendor_event_occurrence_id'] = 1111;
+       $occurrence->link( 'Event', array( 1 ) );
+       $occurrence->link( 'Poi', array( 1 ) );
+       $occurrence->save();
+
+       $event = new Event();
+       $event['vendor_event_id'] = 1114;
+       $event->setName( 'test event2' );
+       $event->link( 'Vendor', array( 1 ) );
+       $event->link( 'EventCategory', array( 1 ) );
+       $event->save();
+
+       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
+       $occurrence['vendor_event_occurrence_id'] = 1111;
+       $occurrence->link( 'Event', array( 2 ) );
+       $occurrence->link( 'Poi', array( 1 ) );
+       $occurrence->save();
+
+       $cats = Doctrine::getTable('VendorEventCategory')->findAll();
+
+      $this->export = new XMLExportEvent( $this->vendor, $this->destination, $this->poiXmlLocation,false );
+      $this->export->run();
+      $this->domDocument = new DOMDocument();
+      $this->domDocument->load( $this->destination );
+      $this->xpath = new DOMXPath( $this->domDocument );
+
+      $this->assertEquals(2, $this->xpath->query('//event')->length, 'Testing that   Events without VendorEventCategories are exported when validation is off' );
+   }
 
    /**
    * test geneate if xml has at least one event with its required children
@@ -387,7 +433,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     /**
      * check properties tags
      */
-    public function testMediaTags()
+  public function testMediaTags()
     {
       $this->markTestSkipped();
       $this->populateDbWithLondonData();

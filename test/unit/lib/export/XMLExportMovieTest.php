@@ -211,6 +211,19 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 0, $movies_with_empty_reviews->length );
   }
 
+  public function testExportOnMissingReviewWhenExportIsCalledWithValidationOff()
+  {
+    $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
+    $this->export = new XMLExportMovie( $this->vendor, $this->destination ,false );
+    $this->export->run();
+    sleep( 1 );
+    $this->domDocument = new DOMDocument();
+    $this->domDocument->load( $this->destination );
+    $this->xpath = new DOMXPath($this->domDocument);
+    $movies_with_empty_reviews = $this->xpath->query( '/vendor-movies/movie/version[review="" or not(review)]' );
+    $this->assertEquals( 1, $movies_with_empty_reviews->length );
+  }
+
   /**
    * Test movies have a link-id if it exists (as imdb_id) in the data.
    */

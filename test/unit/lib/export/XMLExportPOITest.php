@@ -498,6 +498,42 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
     }
 
+    public function testExportWithValidationOff()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+
+      $poi['latitude'] = 11.52454700;
+      $poi['longitude'] = 170.081866800;
+      $poi['VendorPoiCategory'] = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['poi_name'] = 'hello';
+      $poi['latitude'] = 11.52453600;
+      $poi['longitude'] = -0.08148800;
+      $poi->addVendorCategory( "moo", $this->vendor2->id );
+      $poi->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+
+      $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+      $this->export = new XMLExportPOI( $this->vendor2, $this->destination, false );
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $this->destination );
+
+      $numEntries = $this->xml->xpath( '//entry' );
+
+      $this->assertEquals( 2, count( $numEntries ) );
+    }
+
     private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
