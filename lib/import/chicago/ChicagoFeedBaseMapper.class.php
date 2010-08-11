@@ -23,6 +23,8 @@ class ChicagoFeedBaseMapper extends DataMapper
     */
     protected $vendor;
 
+    protected $vendorID;
+
     /**
     * @var SimpleXMLElement
     */
@@ -50,6 +52,7 @@ class ChicagoFeedBaseMapper extends DataMapper
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
+        $this->vendorID             = $vendor['id'];
     }
 
     /**

@@ -35,8 +35,8 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
                     $poi = new Poi();
 
                 // Map Data
-                $poi[ 'Vendor' ]                        = clone $this->vendor;
-                $poi[ 'vendor_poi_id' ]                 = (string)  $poiNode['id'];
+                $poi[ 'vendor_id' ]                     = $this->vendorID;
+                $poi[ 'vendor_poi_id' ]                 = (string) $poiNode['id'];
                 $poi[ 'poi_name' ]                      = (string) $poiNode->identifier;
                 $poi[ 'street' ]                        = (string) $poiNode->street;
                 $poi[ 'city' ]                          = (string) $poiNode->town;
@@ -168,7 +168,6 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
 
                 // Save
                 $this->notifyImporter( $poi );
-                echo '¦';
 
                 //Kill the object
                 $poi->free();
@@ -177,8 +176,8 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
 
             }  catch ( Exception $exception)
             {
-                $this->notifyImporterOfFailure( new Exception( 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' .$poi['vendor_poi_id'] ) );
-                echo 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' .$poi['vendor_poi_id'] . PHP_EOL;
+                $this->notifyImporterOfFailure( new Exception( 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' .$poiNode['id'] ) );
+                echo 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' . $poiNode['id'] . PHP_EOL;
             }
         } // end foreach
     }
