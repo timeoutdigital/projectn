@@ -166,6 +166,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property3->link( 'Poi', array( $poi['id'] ) );
         $property3->save();
 
+        // poi with empty street
         $poi = new Poi();
         $poi->setPoiName( 'test name3' . $this->specialChars );
         $poi->setStreet( ' ' );
@@ -175,6 +176,23 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setDistrict( 'test district2' . $this->specialChars );
         $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '1234' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.0814899' );
+        $poi->setLatitude( '51.5245400' );
+
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->link( 'Vendor', 2 );
+        $poi->save();
+
+        //poi with not set street
+        $poi = new Poi();
+        $poi->setPoiName( 'test name4' . $this->specialChars );
+        $poi->setHouseNo('13' . $this->specialChars );
+        $poi->setZips('4321' );
+        $poi->setCity( 'test town two' . $this->specialChars );
+        $poi->setDistrict( 'test district2' . $this->specialChars );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '12345' );
         $poi->setLocalLanguage('en');
         $poi->setLongitude( '-0.0814899' );
         $poi->setLatitude( '51.5245400' );
@@ -345,7 +363,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test if poi with empty street is skipped
+     * test if poi with empty or no street is skipped
      */
     public function testIfPoiWithEmptyStreetIsSkipped()
     {
