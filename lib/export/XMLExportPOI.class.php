@@ -126,6 +126,7 @@ class XMLExportPOI extends XMLExport
           if( $this->validation == true )
           {
             ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty street', 'Poi', $poi[ 'id' ] );
+            continue;
           }
       }
 
