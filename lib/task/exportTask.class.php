@@ -24,19 +24,14 @@ class exportTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('poi-xml', null, sfCommandOption::PARAMETER_REQUIRED, 'Location of poi xml to check this export against', 'poop'),
-      new sfCommandOption('validation', null, sfCommandOption::PARAMETER_REQUIRED, 'switch to decide if the exports will be validated', true),
+      new sfCommandOption('validation', null, sfCommandOption::PARAMETER_REQUIRED, 'switch to decide if the exports will be validated, true|false', true),
       // add your own options here
     ));
 
     $this->namespace        = 'projectn';
     $this->name             = 'export';
     $this->briefDescription = '';
-    $this->detailedDescription = <<<EOF
-The [export|INFO] task does things.
-Call it with:
-
-  [php symfony export|INFO]
-EOF;
+    $this->detailedDescription =  '';
   }
 
   protected function execute($arguments = array(), $options = array())
@@ -49,6 +44,9 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     $this->_vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language'] );
+
+    //to reduce the user error only string "false" is false and all other values are true
+    $options[ 'validation' ] = !( strtolower( $options[ 'validation' ] ) == 'false') ;
 
     ExportLogger::getInstance()->setVendor( $this->_vendor )->start();
     $this->getExporter( $options )->run();
@@ -93,6 +91,6 @@ EOF;
 
     //$this->_vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $options['city'], $options['language']);
 
-    return new $exportClass( $this->_vendor, $options['destination'], (boolean) $options[ 'validation' ] );
+    return new $exportClass( $this->_vendor, $options['destination'], $options[ 'validation' ] );
   }
 }

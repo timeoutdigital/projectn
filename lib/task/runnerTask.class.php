@@ -118,10 +118,9 @@ class runnerTask extends sfBaseTask
                 }
                 if( isset( $exportCity['validation'] )  )
                 {
-                    if(  $exportCity[ 'validation' ] == '' )
-                    {
-                         $exportCity[ 'validation' ] = 0;
-                    }
+                    //convert boolean validation values into string "true" or "false"
+                    $exportCity[ 'validation' ] = ( $exportCity[ 'validation' ] == 1 ) ? "true" : "false";
+
                     $taskCommand .= ' --validation=' .  $exportCity[ 'validation' ];
                 }
 

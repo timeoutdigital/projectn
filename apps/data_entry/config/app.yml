@@ -14,7 +14,7 @@ all:
           name: mumbai
           type: [ poi, event, movie ]
           language: en-GB
-          validation: true
+          validation: false
         -
           name: delhi
           type: [ poi, event, movie ]
@@ -24,7 +24,7 @@ all:
           name: bangalore
           type: [ poi, event, movie ]
           language: en-GB
-          validation: true
+          validation: false
         -
           name: pune
           type: [ poi, event, movie ]
