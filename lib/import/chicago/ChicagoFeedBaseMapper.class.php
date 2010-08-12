@@ -69,11 +69,64 @@ class ChicagoFeedBaseMapper extends DataMapper
         return $xml->xpath( $nodePath );
     }
 
+    /**
+     * HTML entity decode
+     * @param string $string
+     * @return string
+     */
     protected function fixHtmlEntities( $string )
     {
         $string = html_entity_decode( (string) $string, ENT_QUOTES, 'UTF-8' );
 
         return $string;
+    }
+
+    /**
+     * This is create for Chicago Bars / Clubs and Eating / Dining... Data have Weird characters that need to be cleaned before pharsing as XML
+     * @param String $fileName
+     * @return String File contents after Cleaning
+     */
+    protected function openAndCleanData( $fileName )
+    {
+        $contents = file_get_contents( $fileName );
+        
+        $contents = mb_ereg_replace( '–', '-', $contents); // Replace m-dash "–" with normal dash
+        
+        return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $contents);
+    }
+
+    /**
+     * Convert new Lines into Array of strings
+     * @param string $string
+     * @return Array
+     */
+    protected function nl2Array( $string )
+    {
+        $stringArray = explode( PHP_EOL , $string );
+        
+        return ( is_array( $stringArray) && count( $stringArray >= 1) ) ? $stringArray : array( $string );
+    }
+
+    /**
+     * Implode New lines into Comma seperated string
+     * @param string $string
+     * @return string
+     */
+    protected function nl2Comma( $string )
+    {
+        $stringArray     = $this->nl2Array( $string );
+
+        return implode(', ', $stringArray );
+    }
+
+    /**
+     * Search / Replace SemiColon (;) with Comma (,)
+     * @param string $string
+     * @return string
+     */
+    protected function semiColon2Comma( $string )
+    {
+        return mb_ereg_replace(';', ',', $string );
     }
 }
 ?>
