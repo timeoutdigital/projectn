@@ -44,9 +44,9 @@ class XMLExportMovie extends XMLExport
     {
       if( empty( $movie[ 'imdb_id' ] ) )
       {
-        ExportLogger::getInstance()->addError( 'no imdb id available', 'Movie', $movie[ 'id' ] );
         if( $this->validation == true )
         {
+            ExportLogger::getInstance()->addError( 'no imdb id available', 'Movie', $movie[ 'id' ] );
             continue;
         }
       }
@@ -57,9 +57,9 @@ class XMLExportMovie extends XMLExport
         // until reviews are available in their feed, est. August '10. Please remove when reviews are available.
         if( $movie['Vendor']['city'] != 'barcelona' )
         {
-            ExportLogger::getInstance()->addError( 'no review available', 'Movie', $movie[ 'id' ] );
             if( $this->validation == true )
             {
+                ExportLogger::getInstance()->addError( 'no review available', 'Movie', $movie[ 'id' ] );
                 continue;
             }
         }

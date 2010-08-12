@@ -72,9 +72,9 @@ class XMLExportPOI extends XMLExport
       if( $poi['latitude'] < $bounds_array[0] || $poi['latitude'] > $bounds_array[2] ||
           $poi['longitude'] < $bounds_array[1] || $poi['longitude'] > $bounds_array[3] )
       {
-          ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
           if( $this->validation == true )
           {
+            ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
             continue;
           }
 
@@ -85,9 +85,9 @@ class XMLExportPOI extends XMLExport
       {
           if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
           {
-              ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
               if( $this->validation == true )
               {
+                ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
                 continue 2;
               }
           }
@@ -95,9 +95,9 @@ class XMLExportPOI extends XMLExport
 
       if( count( $poi[ 'VendorPoiCategory' ] ) == 0 )
       {
-          ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );
           if( $this->validation == true )
           {
+            ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );
             continue;
           }
       }
@@ -107,9 +107,9 @@ class XMLExportPOI extends XMLExport
       preg_match( '(\d)', $poi['city'], $numbersInCityName );
       if( count( $numbersInCityName ) != 0  )
       {
-          ExportLogger::getInstance()->addError( 'Skip Export for Pois with number in city name', 'Poi', $poi[ 'id' ] );
           if( $this->validation == true )
           {
+            ExportLogger::getInstance()->addError( 'Skip Export for Pois with number in city name', 'Poi', $poi[ 'id' ] );
             continue;
           }
       }

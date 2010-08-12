@@ -84,9 +84,9 @@ class XMLExportEvent extends XMLExport
       //Check to see if this event has a corresponding poi
       if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
       {
-          ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
           if( $this->validation == true )
           {
+            ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
             continue;
           }
 
@@ -94,9 +94,9 @@ class XMLExportEvent extends XMLExport
 
       if ( count( $event['VendorEventCategory'] ) < 1 )
       {
-          ExportLogger::getInstance()->addError( 'no corresponding VendorEventCategory found', 'Event', $event[ 'id' ] );
           if( $this->validation == true )
           {
+            ExportLogger::getInstance()->addError( 'no corresponding VendorEventCategory found', 'Event', $event[ 'id' ] );
             continue;
           }
       }
@@ -211,9 +211,9 @@ class XMLExportEvent extends XMLExport
       {
         if( !$this->poiXmlExportHasPoiRelatedTo( $eventOccurrence )  )
         {
-            ExportLogger::getInstance()->addError( 'no corresponding Poi found in poi.xml for occurrence of event ' . $event[ 'id' ], 'EventOccurrence', $eventOccurrence[ 'id' ] );
             if( $this->validation == true )
             {
+                ExportLogger::getInstance()->addError( 'no corresponding Poi found in poi.xml for occurrence of event ' . $event[ 'id' ], 'EventOccurrence', $eventOccurrence[ 'id' ] );
                 continue;
             }
         }
