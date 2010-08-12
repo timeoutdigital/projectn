@@ -123,8 +123,10 @@ class XMLExportPOI extends XMLExport
 
       if( trim( $poi['street'] ) == '' )
       {
-        ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty street', 'Poi', $poi[ 'id' ] );
-        continue;
+          if( $this->validation == true )
+          {
+            ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty street', 'Poi', $poi[ 'id' ] );
+          }
       }
 
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
