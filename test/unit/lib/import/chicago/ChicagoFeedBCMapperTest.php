@@ -83,7 +83,7 @@ class ChicagoFeedBCMapperTest extends PHPUnit_Framework_TestCase
         $poi = $pois[2];
         $this->assertEquals( '1617', $poi['vendor_poi_id'], 'Vendor Poi ID missmatch');
         $this->assertEquals( 'The Boss Bar', $poi['poi_name'], 'Poi Name missmatch');
-        $this->assertEquals( 'Sun-Fri 11am-4am, Sat 11am-5am', $poi['openingtimes'], 'Opening hours missmatch');
+        $this->assertEquals( 'Sun–Fri 11am–4am, Sat 11am–5am', $poi['openingtimes'], 'Opening hours missmatch');
 
         // check Category
         $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'Should be only 1 Category');
