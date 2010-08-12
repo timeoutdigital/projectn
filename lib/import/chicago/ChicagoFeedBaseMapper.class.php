@@ -76,8 +76,7 @@ class ChicagoFeedBaseMapper extends DataMapper
      */
     protected function fixHtmlEntities( $string )
     {
-        $string = html_entity_decode( (string) $string, ENT_QUOTES, 'UTF-8' );
-
+        $string     = html_entity_decode( (string) $string, ENT_QUOTES, 'UTF-8' );   
         return $string;
     }
 
@@ -88,11 +87,12 @@ class ChicagoFeedBaseMapper extends DataMapper
      */
     protected function openAndCleanData( $fileName )
     {
+        mb_internal_encoding("UTF-8");
+        mb_regex_encoding("UTF-8");
+        
         $contents = file_get_contents( $fileName );
         
-        $contents = mb_ereg_replace( '–', '-', $contents); // Replace m-dash "–" with normal dash
-        
-        return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $contents);
+        return mb_ereg_replace( "[^\x9\xA\xD\x20-\x7E\xA0-\xFF]", "", $contents );
     }
 
     /**
