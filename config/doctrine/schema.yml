@@ -14,7 +14,7 @@ Poi:
     local_language:             {type: string(10), notnull: false}
     poi_name:                   {type: string(80), notnull: true, minlength: 1 } # @todo should be 'name'
     house_no:                   {type: string(32), notnull: false}
-    street:                     {type: string(255), notnull: true, minlength: 1 }
+    street:                     {type: string(255), notnull: false}
     city:                       {type: string(32), notnull: true, minlength: 1}
     district:                   {type: string(128), notnull: false}
     country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }

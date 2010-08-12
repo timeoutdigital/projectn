@@ -58,7 +58,7 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
             $poi['vendor_poi_id']               = $venue['id'];
             $poi['poi_name']                    = $venue['name'];
 
-            $poi['street']                      = '[invalid]' ; //$venue['address'];
+            //$poi['street']                      = '[invalid]' ; //$venue['address'];
             $poi['provider']                    = $venue['address'];
             $poi['additional_address_details']  = stringTransform::concatNonBlankStrings( ', ' , array( $venue['building_name'], $venue['neighbourhood_cityname'] ) );
             $poi['city']                        = $this->vendor['city'];
