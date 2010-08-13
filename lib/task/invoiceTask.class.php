@@ -2,17 +2,27 @@
 
 class invoiceTask extends sfBaseTask
 {
+  // Arrays that hold the category mappings.
+  private $poiUiCategoryMap = array();
+  private $eventUiCategoryMap = array();
+
+  // Arrays that hold ids of entries that have
+  // already been included in a bill.
   private $storeVendorPoiIds = array();
   private $storeVendorEventIds = array();
   private $storeVendorMovieIds = array();
+
+  // Return CSV format.
   private $csv = false;
   private $delim = ',';
+
+  // When in CSV mode, output a pretty table to STDERR.
+  private $useSTDERR = true;
+
+  // Counters, these keep an individual count per city.
   private $existingPoiCount = array();
   private $existingEventCount = array();
   private $existingMovieCount = array();
-  private $useSTDERR = true;
-  private $poiUiCategoryMap = array();
-  private $eventUiCategoryMap = array();
 
   protected function configure()
   {
@@ -42,12 +52,15 @@ EOF;
 
   protected function setUp( $options = array() )
   {
+    // Set Options.
     $this->csv       = (bool)( $options['csv'] === 'true' );
     $this->useSTDERR = (bool)( $options['STDERR'] === 'true' );
 
+    // Configure Database.
     $databaseManager = new sfDatabaseManager( $this->configuration );
     $connection = $databaseManager->getDatabase( $options['connection'] ? $options['connection'] : null )->getConnection();
-    
+
+    // Get mapping data from external database (usually prod).
     foreach( Doctrine::getTable('UiCategory')->findAll() as $map )
     {
         $this->uiCatsSimpleArrayNamesOnly[] = $map['name'];
@@ -55,176 +68,244 @@ EOF;
         foreach( $map['VendorEventCategory'] as $m ) $this->eventUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
     }
     
-    // Output Header
+    // Output Header.
     if( $options['dump_ids'] == 'false' ) $this->reportHeader();
+  }
+
+  private function getDateFromFolderName( $folderName )
+  {
+      return strtotime( str_replace( 'export_', '', $folderName ) );
+  }
+
+  private function getCityNameFromFileName( $fileName )
+  {
+      $cutCityName = explode( '.', $fileName );
+      return $cutCityName[ 0 ];
+  }
+
+  private function tidyCategoryName( $catName )
+  {
+      return str_replace( PHP_EOL, ' ', html_entity_decode( stringTransform::mb_trim( (string) $catName ) ) );
   }
 
   protected function execute($arguments = array(), $options = array())
   {
     $this->setUp( $options );
 
+    // Cycle through directories.
     foreach( DirectoryIteratorN::iterate( $options['path'], DirectoryIteratorN::DIR_FOLDERS ) as $folder )
     {
         switch( $options['type'] )
         {
             case 'poi':
-                
+
+                // Get a list of files in directory.
                 $poiFiles = DirectoryIteratorN::iterate( $options['path'].'/'.$folder.'/poi', DirectoryIteratorN::DIR_FILES, 'xml' );
-                
+
+                // Cycle through poi files.
                 foreach( $poiFiles as $city_xml_file )
-                {
-                    $uiCategories = $noVendorCats = array();
-                    
-                    $cutCityName = explode( '.', $city_xml_file );
-                    $date = strtotime( str_replace( 'export_', '', $folder ) );
-                    $cityName = $cutCityName[ 0 ];
+                {                   
+                    $date = $this->getDateFromFolderName( $folder );
+                    $city = $this->getCityNameFromFileName( $city_xml_file );
 
-                    if( strlen( $options['city'] ) > 0 && strtolower( $cityName ) != $options['city'] ) continue;
+                    // Skip if we specified only one city and this isn't it.
+                    if( strlen( $options['city'] ) > 0 && strtolower( $city ) != $options['city'] ) continue;
 
+                    // Array to hold counts for each UI category
+                    $uiCategories = array();
+
+                    // Array to hold count of entries with invalid categories.
+                    $noVendorCats = array();
+
+                    // Load XML file.
                     $xml = simplexml_load_file( $options['path'].'/'.$folder.'/poi/'.$city_xml_file );
                     $totalPois = count( $xml->xpath( '/vendor-pois/entry' ) );
-                    
-                    if( !array_key_exists( $cityName, $this->existingPoiCount ) )
-                        $this->existingPoiCount[ $cityName ] = 0;
 
+                    // Initialise existingPoiCount for this city (only happens once per city).
+                    if( !array_key_exists( $city, $this->existingPoiCount ) ) $this->existingPoiCount[ $city ] = 0;
+
+                    // Cycle through entries.
                     foreach( $xml->entry as $node )
                     {
+                        // Extract vpid and continue if we've previously billed for it.
                         $vendorPoiId = (int) substr( $node['vpid'], 25 );
                         if( in_array( $vendorPoiId, $this->storeVendorPoiIds ) ) continue;
 
+                        // Cycle through categories.
                         foreach( $node->version->content->{'vendor-category'} as $cat )
                         {
-                            $catName = str_replace( PHP_EOL, ' ', html_entity_decode( stringTransform::mb_trim( (string) $cat ) ) );
+                            // Get category name
+                            $catName = $this->tidyCategoryName( (string) $cat );
 
+                            // Check that we have the category in the mapping array.
                             if( in_array( $catName, array_keys( $this->poiUiCategoryMap ) ) )
                             {
+                                // Initialise uiCategories for this UI category (only happens once per UI category).
+                                // Eg. This sets uiCategories['Film'] to 0, where the key 'Film' did not previously exist.
                                 if( !array_key_exists( $this->poiUiCategoryMap[ $catName ], $uiCategories ) )
                                     $uiCategories[ $this->poiUiCategoryMap[ $catName ] ] = 0;
 
-                                $this->storeVendorPoiIds[] = $vendorPoiId;
+                                // Increment the UI category count. Eg. poiUiCategoryMap['Film']++
                                 $uiCategories[ $this->poiUiCategoryMap[ $catName ] ]++;
-                                $this->existingPoiCount[ $cityName ]++;
 
+                                // Mark this vpid as billed for.
+                                $this->storeVendorPoiIds[] = $vendorPoiId;
+
+                                // Increment the count of total billed for per city.
+                                $this->existingPoiCount[ $city ]++;
+
+                                // Dump id to screen if option enabled.
                                 if( $options['dump_ids'] == 'true' ) echo $vendorPoiId . PHP_EOL;
+
+                                // Continue to next entry.
                                 continue 2;
                             }
                         }
 
+                        // We couldn't find a single matching UI category for this entry.
                         $noVendorCats[] = $vendorPoiId;
                     }
 
+                    // Write new report line.
                     if( $options['dump_ids'] == 'false' )
-                        echo $this->report( date( 'Y-m-d', $date ), ucfirst( $cityName ), $totalPois, $uiCategories, $this->existingPoiCount[ $cityName ], count( $noVendorCats ) );
+                        echo $this->report( date( 'Y-m-d', $date ), ucfirst( $city ), $totalPois, $uiCategories, $this->existingPoiCount[ $city ], count( $noVendorCats ) );
                 }
 
             break;
 
             case 'event':
-                
+
+                // Get a list of files in directory.
                 $eventFiles = DirectoryIteratorN::iterate( $options['path'].'/'.$folder.'/event', DirectoryIteratorN::DIR_FILES, 'xml' );
 
+                // Cycle through event files.
                 foreach( $eventFiles as $city_xml_file )
                 {
-                    $cutCityName = explode( '.', $city_xml_file );
-                    $date = strtotime( str_replace( 'export_', '', $folder ) );
-                    $cityName = $cutCityName[ 0 ];
+                    $date = $this->getDateFromFolderName( $folder );
+                    $city = $this->getCityNameFromFileName( $city_xml_file );
 
-                    if( strlen( $options['city'] ) > 0 && strtolower( $cityName ) != $options['city'] ) continue;
+                    // Skip if we specified only one city and this isn't it.
+                    if( strlen( $options['city'] ) > 0 && strtolower( $city ) != $options['city'] ) continue;
 
+                    // Load XML file.
                     $xml = simplexml_load_file( $options['path'].'/'.$folder.'/event/'.$city_xml_file );
                     $totalPois = count( $xml->xpath( '/vendor-events/event' ) );
 
+                    // Array to hold counts for each UI category
                     $uiCategories = array();
 
-                    if( !array_key_exists( $cityName, $this->existingEventCount ) )
-                        $this->existingEventCount[ $cityName ] = 0;
+                    // Array to hold count of entries with invalid categories.
+                    $noVendorCats = array();
 
+                    // Initialise existingEventCount for this city (only happens once per city).
+                    if( !array_key_exists( $city, $this->existingEventCount ) ) $this->existingEventCount[ $city ] = 0;
+
+                    // Cycle through entries.
                     foreach( $xml->event as $node )
                     {
+                        // Extract vpid and continue if we've previously billed for it.
                         $vendorEventId = (int) substr( $node['id'], 25 );
                         if( in_array( $vendorEventId, $this->storeVendorEventIds ) ) continue;
 
-                        if( $options['dump_ids'] == 'true' ) echo $vendorEventId . PHP_EOL;
-
+                        // Cycle through categories.
                         foreach( $node->version->{'vendor-category'} as $cat )
                         {
-                            $catName = html_entity_decode( stringTransform::mb_trim( (string) $cat ) );
+                            // Get category name
+                            $catName = $this->tidyCategoryName( (string) $cat );
 
+                            // Check that we have the category in the mapping array.
                             if( in_array( $catName, array_keys( $this->eventUiCategoryMap ) ) )
                             {
+                                // Initialise uiCategories for this UI category (only happens once per UI category).
+                                // Eg. This sets uiCategories['Film'] to 0, where the key 'Film' did not previously exist.
                                 if( !array_key_exists( $this->eventUiCategoryMap[ $catName ], $uiCategories ) )
                                     $uiCategories[ $this->eventUiCategoryMap[ $catName ] ] = 0;
 
-                                $this->storeVendorEventIds[] = $vendorEventId;
+                                // Increment the UI category count. Eg. eventUiCategoryMap['Film']++
                                 $uiCategories[ $this->eventUiCategoryMap[ $catName ] ]++;
-                                $this->existingEventCount[ $cityName ]++;
+
+                                // Mark this vpid as billed for.
+                                $this->storeVendorEventIds[] = $vendorEventId;
+
+                                // Increment the count of total billed for per city.
+                                $this->existingEventCount[ $city ]++;
+
+                                // Dump id to screen if option enabled.
+                                if( $options['dump_ids'] == 'true' ) echo $vendorEventId . PHP_EOL;
+
+                                // Continue to next entry.
                                 continue 2;
                             }
                         }
 
-                        $moo = array_keys( $this->eventUiCategoryMap );
-                        sort( $moo );
-                        foreach( $moo as $cow )
-                        {
-                            if( strpos( $cow, 'Хип-хоп' ) !== false )
-                            {
-                                echo 'FOUND: ' . $cow . PHP_EOL;
-                            }
-                        }
-
-                        echo '*** CATEGORY "$catName" NOT FOUND ***' . PHP_EOL;
-                        die;
+                        // We couldn't find a single matching UI category for this entry.
+                        $noVendorCats[] = $vendorEventId;
                     }
 
+                    // Write new report line.
                     if( $options['dump_ids'] == 'false' )
-                        echo $this->report( date( 'Y-m-d', $date ), ucfirst( $cityName ), $totalPois, $uiCategories, $this->existingEventCount[ $cityName ] );
+                        echo $this->report( date( 'Y-m-d', $date ), ucfirst( $city ), $totalPois, $uiCategories, $this->existingEventCount[ $city ], count( $noVendorCats ) );
                 }
 
            break;
 
             case 'movie':
 
-                $eventFiles = DirectoryIteratorN::iterate( $options['path'].'/'.$folder.'/movie', DirectoryIteratorN::DIR_FILES, 'xml' );
+                // Get a list of files in directory.
+                $movieFiles = DirectoryIteratorN::iterate( $options['path'].'/'.$folder.'/movie', DirectoryIteratorN::DIR_FILES, 'xml' );
 
-                foreach( $eventFiles as $city_xml_file )
+                // Cycle through movie files.
+                foreach( $movieFiles as $city_xml_file )
                 {
-                    $cutCityName = explode( '.', $city_xml_file );
-                    $date = strtotime( str_replace( 'export_', '', $folder ) );
-                    $cityName = $cutCityName[ 0 ];
+                    $date = $this->getDateFromFolderName( $folder );
+                    $city = $this->getCityNameFromFileName( $city_xml_file );
 
-                    if( strlen( $options['city'] ) > 0 && strtolower( $cutCityName ) != $options['city'] ) continue;
-                    
+                    // Skip if we specified only one city and this isn't it.
+                    if( strlen( $options['city'] ) > 0 && strtolower( $city ) != $options['city'] ) continue;
+
+                    // Load XML file.
                     $xml = simplexml_load_file( $options['path'].'/'.$folder.'/movie/'.$city_xml_file );
                     $totalPois = count( $xml->xpath( '/vendor-movies/movie' ) );
 
+                    // Array to hold counts for each UI category
                     $uiCategories = array();
 
-                    if( !array_key_exists( $cityName, $this->existingMovieCount ) )
-                        $this->existingMovieCount[ $cityName ] = 0;
+                    // Initialise existingMovieCount for this city (only happens once per city).
+                    if( !array_key_exists( $city, $this->existingMovieCount ) ) $this->existingMovieCount[ $city ] = 0;
 
+                    // Cycle through entries.
                     foreach( $xml->movie as $node )
                     {
+                        // Extract vpid and continue if we've previously billed for it.
                         $vendorMovieId = (int) substr( $node['id'], 25 );
                         if( in_array( $vendorMovieId, $this->storeVendorMovieIds ) ) continue;
 
-                        if( $options['dump_ids'] == 'true' ) echo $vendorMovieId . PHP_EOL;
-
+                        // Initialise uiCategories['Film'] to 0, where the key 'Film' did not previously exist.
                         if( !array_key_exists( 'Film', $uiCategories ) ) $uiCategories[ 'Film' ] = 0;
-                        $this->storeVendorMovieIds[] = $vendorMovieId;
+
+                        // Increment the UI category count. Eg. eventUiCategoryMap['Film']++
                         $uiCategories[ 'Film' ]++;
-                        $this->existingMovieCount[ $cityName ]++;
+
+                        // Mark this vpid as billed for.
+                        $this->storeVendorMovieIds[] = $vendorMovieId;
+
+                        // Increment the count of total billed for per city.
+                        $this->existingMovieCount[ $city ]++;
+
+                        // Dump id to screen if option enabled.
+                        if( $options['dump_ids'] == 'true' ) echo $vendorMovieId . PHP_EOL;
                     }
 
+                    // Write new report line.
                     if( $options['dump_ids'] == 'false' )
-                        echo $this->report( date( 'Y-m-d', $date ), ucfirst( $cityName ), $totalPois, $uiCategories, $this->existingMovieCount[ $cityName ] );
+                        echo $this->report( date( 'Y-m-d', $date ), ucfirst( $city ), $totalPois, $uiCategories, $this->existingMovieCount[ $city ] );
                 }
 
            break;
+
+           default : throw new Exception( 'Invalid "type" specified.' );
         }
     }
-
-//    echo 'No Vendor Cats: ' . PHP_EOL;
-//    echo( implode( ',', $noVendorCats ) );
   }
 
   private function reportHeader()

@@ -58,13 +58,13 @@
       </content>
     </version>
   </entry>
-  <!-- No Vendor ID -->
+  <!-- No Vendor Category -->
   <entry vpid="EXA000000000000000000000000000008" lang="en" modified="2010-07-16T08:52:28">
     <version lang="en">
       <content />
     </version>
   </entry>
-  <!-- End No Vendor ID -->
+  <!-- End No Vendor Category -->
   <!-- Invalid Category -->
   <entry vpid="EXA000000000000000000000000000008" lang="en" modified="2010-07-16T08:52:28">
     <version lang="en">
