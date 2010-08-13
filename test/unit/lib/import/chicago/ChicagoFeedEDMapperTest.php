@@ -95,7 +95,7 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
 
         // Cuisine
         $this->assertEquals( 'cuisine', $poi['PoiProperty'][1]['lookup'], 'Wrong Cuisine lookup!');
-        $this->assertEquals( 'Classic American, Delis', $poi['PoiProperty'][1]['value'], 'Wrong Cuisine value');
+        $this->assertEquals( 'Classic American, Delis, Foo', $poi['PoiProperty'][1]['value'], 'Wrong Cuisine value');
 
     }
 }
