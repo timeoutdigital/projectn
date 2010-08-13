@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-07-16T07:44:12">
+  <event id="SIN000000000000000000000000050792" modified="2010-07-16T07:44:12">
+    <name><![CDATA[SYCO Concert - New Palette of Sounds]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[SYCO Concert - New Palette of Sounds]]></name>
+      <vendor-category><![CDATA[Music | Chamber music & recitals]]></vendor-category>
+      <description><![CDATA[Quek Ling Kiong conducts the talented young orchestra in Jasmine, The Good Old Days of Shun and Yao and Nam-do Arirang.]]></description>
+      <price><![CDATA[11.00]]></price>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000003749">
+        <occurrence>
+          <time>
+            <start_date>2010-07-24</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000051844" modified="2010-07-16T07:44:12">
+    <name><![CDATA[13th TheatreWorks Writers' Laboratory]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[13th TheatreWorks Writers' Laboratory]]></name>
+      <vendor-category><![CDATA[Performance | Workshops]]></vendor-category>
+      <description><![CDATA[The popular playwriting competition is back. First, they lock you out in a room close to the sea. Next, they make you write a play within 24 hours. The workshop is limited to 100 participants and divided into two categories: Youth (15-18 years old; registration fee $25) and Open (19 and above; registration fee $35). Deadline of registration: 10 Jul.]]></description>
+      <url><![CDATA[http://www.theatreworks.org.sg]]></url>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000006354">
+        <occurrence>
+          <time>
+            <start_date>2010-07-23</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050881" modified="2010-07-16T07:44:12">
+    <name><![CDATA[HortPark Butterfly Garden Tour ]]></name>
+    <category>tours</category>
+    <version lang="en">
+      <name><![CDATA[HortPark Butterfly Garden Tour ]]></name>
+      <vendor-category><![CDATA[Around Town | Walks & tours]]></vendor-category>
+      <description><![CDATA[  A visual feast of tropical plants and nearly 20 species of native butterflies, the Butterfly Garden allows visitors to get up close to observe pupae transform into adult butterflies before they take their maiden flight.<i>Butterfly Garden enclosure </i>]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007150">
+        <occurrence>
+          <time>
+            <start_date>2010-07-30</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000043722" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Living Room]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Living Room]]></name>
+      <vendor-category><![CDATA[Performance | Dance]]></vendor-category>
+      <description><![CDATA[Local contemporary dance company ECNAD, which turns 15 this year, re-creates a retro living room for this production that presents artistic co-director Lim Chin Huat and newly appointed associate dancers Eileen Lee and Esther Kong.]]></description>
+      <url><![CDATA[http://www.ecnad.org/]]></url>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007289">
+        <occurrence>
+          <time>
+            <start_date>2010-07-31</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050805" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Shell-MOE School Band Fiesta]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Shell-MOE School Band Fiesta]]></name>
+      <vendor-category><![CDATA[Around Town | Zoos and gardens]]></vendor-category>
+      <description><![CDATA[Gold awardwinning school bands will perform, giving the audience an opportunity to develop a greater appreciation for nature and musi. <i>(Shaw Foundation Symphony Stage).</i>]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007359">
+        <occurrence>
+          <time>
+            <start_date>2010-07-17</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-07-25</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050806" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Wind Bands Association of Singapore]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Wind Bands Association of Singapore]]></name>
+      <vendor-category><![CDATA[Around Town | Zoos and gardens]]></vendor-category>
+      <description><![CDATA[A non-profit organisation that aims to enhance the quality of wind bands in Singapore through concerts, workshops and masterclasses (Shaw Foundation Symphony Stage).]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007359">
+        <occurrence>
+          <time>
+            <start_date>2010-07-23</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000039491" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Upstairs in the Sky]]></name>
+    <category>family</category>
+    <version lang="en">
+      <name><![CDATA[Upstairs in the Sky]]></name>
+      <vendor-category><![CDATA[Kids | Booking ahead]]></vendor-category>
+      <vendor-category><![CDATA[Kids | Things to watch]]></vendor-category>
+      <description><![CDATA[In this play about friendship, adventure and creativity, the audience is asked to participate in the outcome of the story. Ideal for three- to six-year-olds and the child at heart.]]></description>
+      <url><![CDATA[http://www.sistic.com.sg]]></url>
+      <price><![CDATA[between $19.00 and $22.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/11be5ce96e3f661dfe777bffbfe2c8a4.jpg]]></media>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007438">
+        <occurrence>
+          <time>
+            <start_date>2010-08-04</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050828" modified="2010-07-16T07:44:12">
+    <name><![CDATA[The Kundanmal Brothers]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[The Kundanmal Brothers]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[This coming-of-age journey for brothers Jai and Shiv Kundanmal is told through music, words, dance and laughter. Everything goes smoothly until the evil side of money surfaces]]></description>
+      <price><![CDATA[between 52.00 and 100.00]]></price>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007438">
+        <occurrence>
+          <time>
+            <start_date>2010-07-30</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050855" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Melbourne International Comedy Festival Roadshow 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Melbourne International Comedy Festival Roadshow 2010]]></name>
+      <vendor-category><![CDATA[Performance | Comedy]]></vendor-category>
+      <description><![CDATA[Making its only international stop outside of Australia, the Melbourne International Comedy Festival is back in Singapore for its sixth consecutive year with MC Cal Wilson, seasoned Brit Jeff Green, Josh Earl, Justin Hamilton and Sam Simmons.]]></description>
+      <price><![CDATA[between 46.00 and 69.00]]></price>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007438">
+        <occurrence>
+          <time>
+            <start_date>2010-07-20</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000053717" modified="2010-07-16T07:44:12">
+    <name><![CDATA[The Coffin is Too Big for the Hole & No Parking on Odd Days]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[The Coffin is Too Big for the Hole & No Parking on Odd Days]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[This years graduates performs two works by Singapores most famous playwright and theatre pioneer, Kuo Pau Kun. ]]></description>
+      <url><![CDATA[http://www.srt.com.sg]]></url>
+      <price><![CDATA[between 20.00 and 25.00]]></price>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007438">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050800" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Trippy Factory Webstore Launch]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Trippy Factory Webstore Launch]]></name>
+      <vendor-category><![CDATA[Books | Events]]></vendor-category>
+      <description><![CDATA[Trippy Factory, the distributor of Swedish music label Labrador Records, will be launching its latest online venture at BooksActually. Two bands will be performing at the event and CDs will be for sale at the bookstore. Go to www.trippyfactory.com for more information.]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007467">
+        <occurrence>
+          <time>
+            <start_date>2010-07-29</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000053714" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Visualise: Reloaded]]></name>
+    <category>family</category>
+    <version lang="en">
+      <name><![CDATA[Visualise: Reloaded]]></name>
+      <vendor-category><![CDATA[Kids | Things to watch]]></vendor-category>
+      <description><![CDATA[Now here's a fun way to learn science. An hour-long children's theatre filled with psychedelic colours and  music from everyday objects that make this event appealing to both kids and adults.]]></description>
+      <price><![CDATA[between 5.00 and 9.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/36c1301bc4eba4ce16b87eb62d95626b.jpg]]></media>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007603">
+        <occurrence>
+          <time>
+            <start_date>2010-07-30</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000056165" modified="2010-07-16T07:44:12">
+    <name><![CDATA[RAW ART - Undiscovered]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[RAW ART - Undiscovered]]></name>
+      <vendor-category><![CDATA[Arts | Events]]></vendor-category>
+      <description><![CDATA[Discover  and collect  the works of twenty upcoming artists in the fields of painting, sculpture, prints and installations. The works have been pre-selected by a jury and will be available for under $2500. On 17 Jul, an on-site graffiti performance is scheduled at 4pm, to be followed by a panel discussion on 'The Passionate Collector'  at 5pm.]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007619">
+        <occurrence>
+          <time>
+            <start_date>2010-07-16</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050795" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Taste Exhibition]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Taste Exhibition]]></name>
+      <vendor-category><![CDATA[Arts | Other spaces]]></vendor-category>
+      <description><![CDATA[Artist Yuri Kim gives expression to notions of memory through the innovative use of watercolour on wax mediums.]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007622">
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050830" modified="2010-07-16T07:44:12">
+    <name><![CDATA[The Cabinet]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[The Cabinet]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[Censorship issues have a theatre company stuck  how can they put together a racy, yet non-sleazy, monologue about a man and his cabinet? And can they do it before the curtain opens? In Mandarin and English with subtitles.]]></description>
+      <price><![CDATA[between 28.00 and 33.00]]></price>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007622">
+        <occurrence>
+          <time>
+            <start_date>2010-07-20</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000051847" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Hong Kong Children’s Choir (HKCC) (in aid of NAFA Student Relief Fund)]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Hong Kong Children’s Choir (HKCC) (in aid of NAFA Student Relief Fund)]]></name>
+      <vendor-category><![CDATA[Music | Chamber music & recitals]]></vendor-category>
+      <description><![CDATA[The HKCC makes a long-awaited return to Singapore with pieces by Kodály, Rimsky- Korsakov and popular folk songs from Chinas Xinjiang, Anhui, Guishou, Jiangsu and modern songs from Hong Kong.]]></description>
+      <url><![CDATA[http://www.gatecrash.com.sg]]></url>
+      <price><![CDATA[between 20.00 and 40.00]]></price>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007698">
+        <occurrence>
+          <time>
+            <start_date>2010-07-18</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000043363" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Show off your 'Happy Skin' with Simple!]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Show off your 'Happy Skin' with Simple!]]></name>
+      <vendor-category><![CDATA[Shopping | Malls]]></vendor-category>
+      <description><![CDATA[UK-brand Simple cranks up their presence in the island with their 'Happy Skin' campaign. Get your bare face photographed and they'll upload it to the Simple Happy Skin Challenge website where netizens will vote for their favourite bare-skinned face. Simple products will be sold at more than 30% off during the roadshow; you can also trade-in a used cleanser at an unbelievable  price.<br /><i><br />Plaza Singapura Main Atrium (Level 1)</i>]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000014655">
+        <occurrence>
+          <time>
+            <start_date>2010-07-16</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050814" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Pushin’ On]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Pushin’ On]]></name>
+      <vendor-category><![CDATA[Clubs | DJ gigs]]></vendor-category>
+      <description><![CDATA[Old-school, weekend-friendly soul, jazz, funk and disco at this cool, long-running monthly party with DJs Shellsuit and Chunk at the helm.]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000020760">
+        <occurrence>
+          <time>
+            <start_date>2010-07-29</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050897" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Camp Pong ]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Camp Pong ]]></name>
+      <vendor-category><![CDATA[Around Town | Events]]></vendor-category>
+      <description><![CDATA[Singapores first ever pop-up ping-pong bar combines the well-loved sport with an eclectic mix of music, UV lights and a well-stocked bar. Dressing up is highly encouraged. Email for reservations.<i>camppong@presentpurpose.com</i><br /><i>$10 per half-hour slot.</i>]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/11dee1aef60189bc89cf31118c2232c4.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/7f1a56dab86c8ea786835ca089f1238c.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/30799ae73a035d88185b45f66211882b.jpg]]></media>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000023257">
+        <occurrence>
+          <time>
+            <start_date>2010-07-17</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000053716" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Playing with Intimacy]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Playing with Intimacy]]></name>
+      <vendor-category><![CDATA[Arts | Other spaces]]></vendor-category>
+      <description><![CDATA[Known for his meticulous works using ink on canvas, Fernan Escora from the Philippines shows ten deeply personal works focusing on the dynamics of human relationships.]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/905302d6ecf6f9a33edd70c09d2ba557.jpg]]></media>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000051007">
+        <occurrence>
+          <time>
+            <start_date>2010-07-21</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000050884" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Community in Bloom Library Talk: Gardening Recipes!]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Community in Bloom Library Talk: Gardening Recipes!]]></name>
+      <vendor-category><![CDATA[Around Town | Talks]]></vendor-category>
+      <description><![CDATA[Wish you could cook delicious meals with fruits from your garden? Madam Normala will show you how. With a little practice and determination, you too can whip up a sumptuous meal with fruits and veggies from your own backyard.]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000053950">
+        <occurrence>
+          <time>
+            <start_date>2010-07-30</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000051851" modified="2010-07-16T07:44:12">
+    <name><![CDATA[Netballuxion]]></name>
+    <category>sport</category>
+    <version lang="en">
+      <name><![CDATA[Netballuxion]]></name>
+      <vendor-category><![CDATA[Sports | Things to watch]]></vendor-category>
+      <description><![CDATA[NUS Netball Clubs annual open netball tournament with mixed and all-gal teams battling it out for the goodies on offer.]]></description>
+      <url><![CDATA[http://www.netballux10n.blogspot.com]]></url>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000053999">
+        <occurrence>
+          <time>
+            <start_date>2010-07-16</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

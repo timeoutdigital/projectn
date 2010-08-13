@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-07-16T08:51:31">
+  <event id="LIS000000000000000000000000007717" modified="2010-07-16T08:51:31">
+    <name><![CDATA[A Bíblia - Toda a Palavra de Deus (d'uma assentada)]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[A Bíblia - Toda a Palavra de Deus (d'uma assentada)]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Versão condensada e cómica dos principais episódios dos livros bíblicos, do dilú]]></short-description>
+      <description><![CDATA[Versão condensada e cómica dos principais episódios dos livros bíblicos, do dilúvio e da Arca de Noé aos Dez Mandamentos enunciados por Moisés.<br />A Bíblia - Toda a Palavra de Deus (d'uma assentada)]]></description>
+      <price><![CDATA[20€]]></price>
+      <property key="timeinfo"><![CDATA[Dom 21.00. De Adam Long, Reed Martim e Austin Tichenor, encenao de Juvenal Garcs, com Pedro Saavedra, Pedro Luzindro e Ricardo Cruz]]></property>
+      <property key="timeinfo"><![CDATA[Dom 21.00. De Adam Long, Reed Martim e Austin Tichenor, encenação de Juvenal Garcês, com Pedro Saavedra, Pedro Luzindro e Ricardo Cruz]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001322">
+        <occurrence>
+          <time>
+            <start_date>2010-07-18</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000034266" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Amor Com Amor Se Paga (Um Acto Teatral Para Mário Viegas!)]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Amor Com Amor Se Paga (Um Acto Teatral Para Mário Viegas!)]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Vinte anos após o nascimento da CTC, Juvenal Garcês quis dedicar uma peça ao act]]></short-description>
+      <description><![CDATA[Vinte anos após o nascimento da CTC, Juvenal Garcês quis dedicar uma peça ao actor e encenador que com ele fundou a companhia, figura maior das artes do espectáculo em Portugal, falecido em 1996: Mário Viegas. Para isso, pôs em cima da mesa os textos que fizeram durante 20 anos, e que incluem obras de Tchekov (O <i>Pedido de Casamento</i>, <i>A Gaivota</i> e <i>A Corista</i>), Karl Valentin (<i>O Chapeleiro</i>, <i>O Aquário</i> e <i>Vende-se Casa</i>), e excertos de <i>O Sonho </i>de Strindberg e de <i>Hedda Gabler</i> de Ibsen. Uma sequência destas pequenas histórias é apresentada num palco negro, indo do humor à tragédia. Pelo meio faz-se uma caricatura do quotidiano.<br />Amor Com Amor Se Paga (Um Acto Teatral Para Mário Viegas!)]]></description>
+      <price><![CDATA[25€ (Inclui um copo de vinho, para brindar ao actor Mário Viegas)]]></price>
+      <property key="timeinfo"><![CDATA[Sex 22.00. A partir de vários autores, adaptação de Mário Viegas, encenação de Juvenal Garcês, com Alexandra Sargento, Emanuel Arada e João Carracedo]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001322">
+        <occurrence>
+          <time>
+            <start_date>2010-07-16</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000042913" modified="2010-07-16T08:51:31">
+    <name><![CDATA[As Obras Completas de William Shakespeare em 97 Minutos ]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[As Obras Completas de William Shakespeare em 97 Minutos ]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[O ritmo é alucinante. São as 37 obras de William Shakespeare em 97 minutos, o qu]]></short-description>
+      <description><![CDATA[O ritmo é alucinante. São as 37 obras de William Shakespeare em 97 minutos, o que dá pouco mais de dois minutos para cada uma delas, mais coisa menos coisa. E passa-se de tragédias para comédias, de peças históricas para sonetos, em vertigem. É a peça há mais tempo em cena em Portugal - está há 12 anos em representação.<br />As Obras Completas de William Shakespeare em 97 Minutos]]></description>
+      <price><![CDATA[20€]]></price>
+      <property key="timeinfo"><![CDATA[Qua e Ter 21.00. De Adam Long, Jess Borgeson e Daniel Singer, encenação de Juvenal Garcês, com João Carracedo, Manuel Mendes e Simão Rubim]]></property>
+      <property key="timeinfo"><![CDATA[Seg Ter 21.00. De Adam Long, Jess Borgeson e Daniel Singer, encenação de Juvenal Garcês, com João Carracedo, Manuel Mendes e Simão Rubim]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001322">
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007679" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Os Improváveis]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Os Improváveis]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Os Improváveis é uma comédia de improvisação em que os actores interagem com o p]]></short-description>
+      <description><![CDATA[Os Improváveis é uma comédia de improvisação em que os actores interagem com o público e competem entre si. É como se fosse um jogo, num género baptizado de Teatro Desporto. Toda a informação em www.teatrodesporto.com.<br />Os Improváveis]]></description>
+      <price><![CDATA[8€. Reservas: 96 382 1542]]></price>
+      <property key="timeinfo"><![CDATA[Dom 21.30. Direcção de Sanne Leijenaar, com João Pinto Dias, João Villas-Boas, Mário Bomba, Marta Borges, Pedro Borges e Telmo Ramalho]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001373">
+        <occurrence>
+          <time>
+            <start_date>2010-07-18</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000052571" modified="2010-07-16T08:51:31">
+    <name><![CDATA[U, Due, Três]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[U, Due, Três]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Um português, um catalão e um italiano encontram-se numa trincheira. Não é uma a]]></short-description>
+      <description><![CDATA[Um português, um catalão e um italiano encontram-se numa trincheira. Não é uma anedota, é o ponto de partida de <i>U, Due, Três</i>, um espectáculo que se passa num espaço indefinido que vai ganhando vida à medida que a acção avança. Nela, três actores vêem-se imersos numa situação surreal: uma guerra sem um inimigo identificável. O espaço, um quadrado vazio marcado apenas por fita adesiva branca, transforma-se assim em pátio, trincheira, campo de jogos e arena onde cada um dos actores tem um momento para falar de si e da sua terra. O espectáculo é falado em italiano, português e catalão.<br />U<br />Due<br />Três]]></description>
+      <price><![CDATA[5€ a 10€]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Dom 22.00. De Companhia Jogijo, com Jordi Arqués, Rui Pedro Cardoso, Stefano Panzeri ]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001426">
+        <occurrence>
+          <time>
+            <start_date>2010-07-18</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025416" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Memória do Campo de Concentração do Tarrafal]]></name>
+    <category>arts-museums</category>
+    <version lang="pt">
+      <name><![CDATA[Memória do Campo de Concentração do Tarrafal]]></name>
+      <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      <short-description><![CDATA[Esta exposição procura analisar e compreender o que o denominado "campo da morte]]></short-description>
+      <description><![CDATA[Esta exposição procura analisar e compreender o que o denominado "campo da morte lenta" significou para os muitos portugueses (mais de 360 opositores ao regime, nos primeiros 18 anos de existência do Campo, entre os anos de 1936 a 1954) e africanos que lutaram pela independência durante o Estado Novo, e que nele conheceram condições infra-humanas de existência, acrescidas do completo impedimento a defesa. Muitos foram os que não resistiram à fome, à doença e aos maus-tratos. Encerrado em 1974, o Campo foi planeado para desterrar os que se opunham ao regime de Salazar, mentor da sua criação.<br />Memória do Campo de Concentração do Tarrafal]]></description>
+      <property key="timeinfo"><![CDATA[Tera a sexta-feira, das 10.00 s 19.00. Sbados, das 15.00 s 22.00, domingos das 11.00 s 18.00. Encerra aos Feriados.]]></property>
+      <property key="timeinfo"><![CDATA[Terça a sexta-feira, das 10.00 às 19.00. Sábados, das 15.00 às 22.00, domingos das 11.00 às 18.00. Encerra aos Feriados.]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000003199">
+        <occurrence>
+          <time>
+            <start_date>2010-07-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000050416" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Cineconchas]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Cineconchas]]></name>
+      <vendor-category><![CDATA[Eventos | Outros]]></vendor-category>
+      <short-description><![CDATA[Pelo terceiro ano consecutivo é possível assistir a várias sessões de Cinema ao ]]></short-description>
+      <description><![CDATA[Pelo terceiro ano consecutivo é possível assistir a várias sessões de Cinema ao ar livre num dos renovados espaços verdes de Lisboa, o Parque das Conchas.<br />Cineconchas]]></description>
+      <property key="timeinfo"><![CDATA[Quinta, sexta e sábado, às 21.45.]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000005155">
+        <occurrence>
+          <time>
+            <start_date>2010-07-16</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-07-17</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000029431" modified="2010-07-16T08:51:31">
+    <name><![CDATA[O Jogo da Política Moderna: Desenho Humorístico e Caricatura na I República]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[O Jogo da Política Moderna: Desenho Humorístico e Caricatura na I República]]></name>
+      <vendor-category><![CDATA[Eventos | Exposies]]></vendor-category>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[A I República fez explodir as práticas de humor social e político. O fenómeno fo]]></short-description>
+      <description><![CDATA[A I República fez explodir as práticas de humor social e político. O fenómeno foi alimentadopelo teatro de revista, pela comédia de costumes, mas sobretudo pela imprensa humorística epela caricatura, que conheceram então um novo fôlego. O quadro político, de permanenteinstabilidade, fornece a melhor matéria-prima para um desenho humorístico com estéticasdiferentes. Esta exposição, integrada nas Comemorações do Centenário da República, constitui uma excelente oportunidade para, a partir das colecções municipais da CML, mergulhar no "O Jogo da Política Moderna!" da I República Portuguesa.<br />O Jogo da Política Moderna: Desenho Humorístico e Caricatura na I República]]></description>
+      <property key="timeinfo"><![CDATA[Segunda a sexta das 10-20h, Domingos das 10-18h]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000013397">
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000056266" modified="2010-07-16T08:51:31">
+    <name><![CDATA[A Nossa Cidade]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[A Nossa Cidade]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Os alunos finalistas da Escola Profissional de Teatro de Cascais compõem o elenc]]></short-description>
+      <description><![CDATA[Os alunos finalistas da Escola Profissional de Teatro de Cascais compõem o elenco de <i>A Nossa Cidade</i>, a peça de Thornton Wilder que acompanha a vida quotidiana dos habitantes de Grover's Corners, uma pequena cidade imaginária de New Hampshire, no início do séc. XX, para assim falar do ciclo da existência (nascimento, amor e morte) e da nossa pouca ou nenhuma capacidade de apreciar a beleza da vida. O espectáculo, com encenação de Carlos Avilez, é apresentado no âmbito da prova de aptidão profissional do Curso de Interpretação da Escola Profissional de Teatro de Cascais.<br />A Nossa Cidade]]></description>
+      <price><![CDATA[6€ e 12,50€]]></price>
+      <property key="timeinfo"><![CDATA[De Thornton Wilder, encenação de Carlos Avilez. Seg-Sáb 21.00, Dom 16.00 e 21.00]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000013401">
+        <occurrence>
+          <time>
+            <start_date>2010-07-17</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000050907" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Um Dia Dancei SÓ Dancei Um Dia (FA)]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Um Dia Dancei SÓ Dancei Um Dia (FA)]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Daniel Gorjão andava há demasiado tempo com uma pergunta na cabeça, e a pergunta]]></short-description>
+      <description><![CDATA[Daniel Gorjão andava há demasiado tempo com uma pergunta na cabeça, e a pergunta não era nada simples: "o porquê do amor". Com um texto que venceu o projecto Emergentes ? Ciclo Novos Criadores / Novas Linguagens, do Teatro D. Maria II, resolveu fazer um espectáculo para tentar responder a essa questão, e pediu ajuda a uma série de mulheres, dos cinco aos 83 anos, para falarem sobre a sua experiência e o que pensam do amor. Os testemunhos foram filmados e alguns excertos desse vídeo podem ser vistos no espectáculo, que tem uma estrutura fragmentada e onde duas actrizes se servem de material relacionado com o assunto. <br />Um Dia Dancei SÓ Dancei Um Dia (FA)]]></description>
+      <price><![CDATA[6€ e 10€]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Sex 19.00, Sáb 16.00, Dom 15.00. A partir de cartas de amor, criação e direcção de Daniel Gorjão, com Katrin Kaasa e Teresa Tavares]]></property>
+      <property key="timeinfo"><![CDATA[Qua-Dom 21.30. A partir de cartas de amor, criação e direcção de Daniel Gorjão, com Katrin Kaasa e Teresa Tavares]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000013449">
+        <occurrence>
+          <time>
+            <start_date>2010-07-18</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000056263" modified="2010-07-16T08:51:31">
+    <name><![CDATA[5 Tangos]]></name>
+    <category>dance</category>
+    <version lang="pt">
+      <name><![CDATA[5 Tangos]]></name>
+      <vendor-category><![CDATA[Dança | Dança]]></vendor-category>
+      <short-description><![CDATA[A Companhia Nacional de Bailado leva a dança ao Festival ao Largo com uma noite ]]></short-description>
+      <description><![CDATA[A Companhia Nacional de Bailado leva a dança ao Festival ao Largo com uma noite da qual fazem parte três coreografias:<i> Lento para Quarteto de Cordas</i>, de Vasco Wellenkamp, a partir de música de Anton Webern; <i>À Flor da Pele</i>, uma coreografia de Rui Lopes Graça que fala de emoções através da obra <i>Estudos para piano</i> de Philip Glass; e por último <i>5 Tangos</i>, onde Hans Van Manen recupera a dança argentina ao som do incontornável Astor Piazzolla.<br />5 Tangos]]></description>
+      <property key="timeinfo"><![CDATA[Ter e Qua (dia 21) 22.00]]></property>
+      <property key="timeinfo"><![CDATA[Qua 22.00]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000013616">
+        <occurrence>
+          <time>
+            <start_date>2010-07-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000043697" modified="2010-07-16T08:51:31">
+    <name><![CDATA[O Burguês Fidalgo]]></name>
+    <category>concerts</category>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[O Burguês Fidalgo]]></name>
+      <vendor-category><![CDATA[Musicais | Musicais]]></vendor-category>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Cheio de dinheiro, o senhor Jordão só quer saber da legitimidade de ser tu-cá-tu]]></short-description>
+      <description><![CDATA[Cheio de dinheiro, o senhor Jordão só quer saber da legitimidade de ser tu-cá-tu-lá com a nobreza, que dele se aproveita à fartazana, ora desdenhando a ambição e o esforço por pura diversão, ora aproveitando a generosidade do comerciante iludido. No original <i>O Burguês Fidalgo</i> é uma comédia satírica, mas a encenação de Cláudio Hochman tornou a peça uma farsa de enganos sem sequer cuidar de aproveitar o cenário. Aparte esta opção de preguiça criativa ? e um elenco satisfeito com a rotina ?, a peça vê-se sem grande dor graças à desenvoltura da composição de João Didelet (outra vez envolvido em produção que não merece o seu talento), capaz de ser hilariante na sua presunção e terno na sua ingenuidade e ilusão. (RM)<br />O Burguês Fidalgo]]></description>
+      <price><![CDATA[A entrada é livre mas é necessário reservar: info@cassefaz.com / 21 774 0892 / 96 188 0401 / 91 973 2693]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Dom 20.00, nos jardins do palácio. De Molière, encenação de Claudio Hochman, com Alexandre Ferreira, Catarina Guerreiro, Fernanda Paulo, Joana Duarte Silva, João Didelet, Marina Albuquerque, Miguel Sopas, Paulo Duarte Ribeiro e Sílvia Filipe. Música original de Daniel Schvetz tocada ao vivo por Ana Mendes, Pedro Silva e Rui França]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000013630">
+        <occurrence>
+          <time>
+            <start_date>2010-07-18</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-07-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000029275" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Espectáculo da Escola Portuguesa de Arte Equestre]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Espectáculo da Escola Portuguesa de Arte Equestre]]></name>
+      <vendor-category><![CDATA[Eventos | Outros]]></vendor-category>
+      <short-description><![CDATA[A Escola Portuguesa de Arte Equestre (EPAE) conserva e dá a conhecer o patrimóni]]></short-description>
+      <description><![CDATA[A Escola Portuguesa de Arte Equestre (EPAE) conserva e dá a conhecer o património cultural equestre único no mundo através da prática, divulgação e ensino da arte equestre. A época de espectáculos de Gala da EPAE decorre entre os meses de Maio e Outubro, excepto Agosto. Sempre às quartas-feiras, às 11.00 nos Jardins do Palácio Nacional de Queluz. Os cavalos utilizados na EPAE são Lusitanos da antiga Coudelaria Real de Alter fundada em 1748 por El-Rei D. João V. <br />Espectáculo da Escola Portuguesa de Arte Equestre]]></description>
+      <price><![CDATA[Preços: Palácio e Jardim 4€; descontos jovens e reformados. Crianças até aos 14 anos, Domingos e Feriados até às 14.00 é gratuito. Jardins: 1,5€]]></price>
+      <property key="timeinfo"><![CDATA[Espectculos: Quartas s 11.00. Treinos no jardim: Seg a Sex, 9.30-13.00]]></property>
+      <property key="timeinfo"><![CDATA[Espectáculos: Quartas às 11.00. Treinos no jardim: Seg a Sex, 9.30-13.00]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014108">
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000050908" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Estamos no mesmo sítio 1970-2010]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Estamos no mesmo sítio 1970-2010]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[Exposição que comemora 40 anos de fotojornalismo de Alfredo Cunha e assinala a d]]></short-description>
+      <description><![CDATA[Exposição que comemora 40 anos de fotojornalismo de Alfredo Cunha e assinala a doação do seu espólio à Câmara Municipal de Lisboa. As fotografias expostas foram seleccionadas pelo autor como as mais representativas da sua carreira.<br />Estamos no mesmo sítio 1970-2010]]></description>
+      <property key="timeinfo"><![CDATA[De terça-feira a sexta-feira, das 10.00 às 18.30 - 1.º e 3.º Sábados de cada mês das 10.00h às 17.15. Encerrado: segundas, domingos e feriados]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014165">
+        <occurrence>
+          <time>
+            <start_date>2010-07-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000056262" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Feira Medieval de Sintra]]></name>
+    <category>festivals-fairs</category>
+    <version lang="pt">
+      <name><![CDATA[Feira Medieval de Sintra]]></name>
+      <vendor-category><![CDATA[Eventos | Feiras]]></vendor-category>
+      <short-description><![CDATA[De sexta a domingo, o Largo D. Fernando II recebe a recriação de uma feira de 14]]></short-description>
+      <description><![CDATA[De sexta a domingo, o Largo D. Fernando II recebe a recriação de uma feira de 1481, por altura da aclamação de D. João II. Nela os visitantes podem encontrar à venda bijuteria, tanoaria, chás e plantas, frutos secos, mel, artigos em cabedal, pão, bolos secos, fogaças, tabernas, aloé vera, especiarias e muitas outras coisas. Para entreter há espectáculos teatrais e musicais, malabarismos, animação musical permanente, jogos infantis e uma exposição de ferramentas do campo.<br />Feira Medieval de Sintra]]></description>
+      <property key="timeinfo"><![CDATA[Horário: sexta-feira das 17.00 às 23.30; sábado e domingo das 15.00 às 23.30]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014315">
+        <occurrence>
+          <time>
+            <start_date>2010-07-16</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000050406" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Oficina de Batik]]></name>
+    <category>educational</category>
+    <version lang="pt">
+      <name><![CDATA[Oficina de Batik]]></name>
+      <vendor-category><![CDATA[Eventos | Workshops]]></vendor-category>
+      <short-description><![CDATA[Nesta oficina experimenta-se uma das técnicas mais antigas de pintar em tecido. ]]></short-description>
+      <description><![CDATA[Nesta oficina experimenta-se uma das técnicas mais antigas de pintar em tecido. Primeiro desenha-se com cera no tecido e depois tinge-se com cores. As partes que não levaram cera ficam coloridas. A proposta é que os participantes se inspirem nos azulejos do museu para executarem as suas obras.<br />Oficina de Batik]]></description>
+      <property key="timeinfo"><![CDATA[De quarta a sexta, das 14-17h. Domingos (18 e 25) das 10-13h.]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014519">
+        <occurrence>
+          <time>
+            <start_date>2010-07-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000034278" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Inkie]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Inkie]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[Inkie é um dos mais notáveis artistas a sair da cena do graffiti de Bristol nos ]]></short-description>
+      <description><![CDATA[Inkie é um dos mais notáveis artistas a sair da cena do graffiti de Bristol nos anos 80. Pintando ao lado de 3D e Banksy, ficou em segundo no World Street Art Championships em 1989, tendo sido preso como o líder de 72 outros artistas na maior rusga anti-graffiti de sempre no Reino Unido, a Operação Anderson. Desde então, Inkie tem trabalhado como responsável de design, para a SEGA, Xbox, entre outros, e é actualmente artista residente no estúdio de Londres de Jade Jagger, onde desenvolve pintura, design de prints e acriação de ilustrações e vestuário. Para além da beleza com que cria peças de grande dimensão, Inkie, inspira-se na arquitectura Maia, em William Morris, em Alfons Mucha e na geometria islâmica.<br />Inkie]]></description>
+      <property key="timeinfo"><![CDATA[Sábado das 11.00 às 18.00. Segunda a sexta: visitas por marcação.]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014552">
+        <occurrence>
+          <time>
+            <start_date>2010-07-17</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000041003" modified="2010-07-16T08:51:31">
+    <name><![CDATA[A primeira República na Génese da Banda Desenhada e no Olhar do século XXI ]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[A primeira República na Génese da Banda Desenhada e no Olhar do século XXI ]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[A Câmara Municipal da Amadora e a Comissão Nacional para as Comemorações do Cent]]></short-description>
+      <description><![CDATA[A Câmara Municipal da Amadora e a Comissão Nacional para as Comemorações do Centenário da República apresentam uma exposição com pranchas originais, reproduções, jornais e revistas da época e outros materiais que, no seu conjunto, revelam a produção artística na área da Banda Desenhada e artes próximas (cartoon, caricatura, ilustração e cinema de animação) surgida com a Implantação da República.<br />A primeira República na Génese da Banda Desenhada e no Olhar do século XXI]]></description>
+      <property key="timeinfo"><![CDATA[Segunda a sexta das 9.30 às 12.30 e das 14.00 às 17.30]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014553">
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025399" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Nexgym]]></name>
+    <category>festivals-fairs</category>
+    <version lang="pt">
+      <name><![CDATA[Nexgym]]></name>
+      <vendor-category><![CDATA[Listas | Brincadeiras]]></vendor-category>
+      <short-description><![CDATA[Já imaginou um sítio onde os videojogos possam ajudar os seus filhos a mexer-se?]]></short-description>
+      <description><![CDATA[Já imaginou um sítio onde os videojogos possam ajudar os seus filhos a mexer-se? Esse sítio existe no mundo terreno e chama-se Nexgym. O conceito nasceu nos Estados Unidos para ajudar a combater a obesidade infantil (e as crianças deles bem precisam, coitadas) e já chegou a Lisboa. Neste espaço, a gente miúda vão pode jogar com a tecnologia mais avançada ao mesmo tempo que fazem exercício.<br />Nexgym]]></description>
+      <price><![CDATA[Mensalidade: 39€ (dá direito a 2h/dia durante toda a semana)]]></price>
+      <property key="timeinfo"><![CDATA[De Seg a Sex, das 14h s 20h; Fins-de-semana: das 10h s 20h]]></property>
+      <property key="timeinfo"><![CDATA[De Seg a Sex, das 14h às 20h; Fins-de-semana: das 10h às 20h]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000020411">
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000047081" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Sardinha Romana]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Sardinha Romana]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[Para assinalar 15 anos de actividade, o NARC inaugura uma nova área temática ded]]></short-description>
+      <description><![CDATA[Para assinalar 15 anos de actividade, o NARC inaugura uma nova área temática dedicada à sardinha, peixe muito consumido em Lisboa desde o período romano e que serve de mote às Festas de Lisboa 2010. Além dos vestígios arqueológicos de um peixe tão importante na alimentação dos olisiponenses durante a ocupação romana, em exposição estão também as ânforas que fizeram chegar a todos os pontos do império romano as conservas de peixe e a popular pasta de sardinha.<br />Sardinha Romana]]></description>
+      <property key="timeinfo"><![CDATA[Qui 15-17h, Sab 10-13h/ 15-17h, escolas Quarta.]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000020893">
+        <occurrence>
+          <time>
+            <start_date>2010-07-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000047083" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Workshop de fotografia digital e Photoshop]]></name>
+    <category>educational</category>
+    <version lang="pt">
+      <name><![CDATA[Workshop de fotografia digital e Photoshop]]></name>
+      <vendor-category><![CDATA[Eventos | Workshops]]></vendor-category>
+      <short-description><![CDATA[Um curso indicado para todos aqueles que, tendo já um conhecimento básico de fot]]></short-description>
+      <description><![CDATA[Um curso indicado para todos aqueles que, tendo já um conhecimento básico de fotografia, sentem a necessidade de captar os momentos de uma forma rápida e eficaz através do conhecimento da máquina e do aproveitamento total das potencialidades da mesma. Formador: Carlos Vasconcellos e Sá.<br />Workshop de fotografia digital e Photoshop]]></description>
+      <price><![CDATA[Preço: 384€]]></price>
+      <property key="timeinfo"><![CDATA[Horário: segunda a quarta das 10.30 às 12.30 ou de segunda a quarta das 18.30 às 20.30. Duração: 16 sessões de 2h cada (8 semanas)]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000023116">
+        <occurrence>
+          <time>
+            <start_date>2010-07-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000047082" modified="2010-07-16T08:51:31">
+    <name><![CDATA[Espaço Eco-Ruca]]></name>
+    <category>festivals-fairs</category>
+    <version lang="pt">
+      <name><![CDATA[Espaço Eco-Ruca]]></name>
+      <vendor-category><![CDATA[Listas | Brincadeiras]]></vendor-category>
+      <short-description><![CDATA[Acabou de abrir portas mas vai ficar assim até ao final do ano. No Espaço Ruca o]]></short-description>
+      <description><![CDATA[Acabou de abrir portas mas vai ficar assim até ao final do ano. No Espaço Ruca os miúdos vão poder brincar e pular muito mas também irão aprender coisas muito úteis, como separar o lixo, experimentar actividades <i>paper free</i>, colorir dicas ecológicas, brincar com puzzles educativos do Ruca (que dá nome ao espaço) e muito mais.<br />Espaço Eco-Ruca]]></description>
+      <property key="timeinfo"><![CDATA[De Ter a Sex, das 10.00 às 13.00 e das 14.00 às 17.00; Fins-de-semana, das 10.00 às 13.00 e das 14.00 às 18.00. Feriados, das 14.00 às 17.00.]]></property>
+      <property key="timeinfo"><![CDATA[e Ter a Sex, das 10.00 às 13.00 e das 14.00 às 17.00; Fins-de-semana, das 10.00 às 13.00 e das 14.00 às 18.00. Feriados, das 14.00 às 17.00.]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000053772">
+        <occurrence>
+          <time>
+            <start_date>2010-07-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

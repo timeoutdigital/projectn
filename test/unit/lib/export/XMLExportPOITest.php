@@ -214,6 +214,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->runImportAndExport();
 
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
+
+      echo 'eeeaaasy now';
   }
 
     /**
@@ -268,7 +270,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $poi['poi_name'] = 'hello';
       $poi['latitude'] = 51.52453600;
       $poi['longitude'] = -0.08148800;
-      $poi->addVendorCategory( "moo", $this->vendor2->id );
+      $poi->addVendorCategory( "moose", $this->vendor2->id );
       $poi->save();
 
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
@@ -277,6 +279,16 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $numEntries = $this->xml->xpath( '//entry' );
 
       $this->assertEquals( 1, count( $numEntries ) );
+
+      $moo =  Doctrine::getTable( 'Poi' )->findAll();
+
+//      foreach( $moo as $cow )
+//      {
+//        print_r( $cow->toArray() );
+//        //var_dump( count( $cow[ 'VendorPoiCategory' ] ) == 0 );
+//      }
+
+      echo $this->xml->saveXML();
     }
 
     public function testCategoryTagsAreUnique()

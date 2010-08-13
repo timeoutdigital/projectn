@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-pois vendor="timeout" modified="2010-07-16T08:52:28">
+  <entry vpid="EXA000000000000000000000000000001" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[A]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <!-- Duplicate -->
+  <entry vpid="EXA000000000000000000000000000001" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[A]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <!-- End Duplicate -->
+  <entry vpid="EXA000000000000000000000000000002" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[B]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="EXA000000000000000000000000000003" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[C]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="EXA000000000000000000000000000004" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[D]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="EXA000000000000000000000000000005" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[E]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="EXA000000000000000000000000000006" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[F]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="EXA000000000000000000000000000007" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[G]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <!-- No Vendor ID -->
+  <entry vpid="EXA000000000000000000000000000008" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content />
+    </version>
+  </entry>
+  <!-- End No Vendor ID -->
+  <!-- Invalid Category -->
+  <entry vpid="EXA000000000000000000000000000008" lang="en" modified="2010-07-16T08:52:28">
+    <version lang="en">
+      <content>
+        <vendor-category><![CDATA[-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <!-- End Invalid Category -->
+</vendor-pois>
