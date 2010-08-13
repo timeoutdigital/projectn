@@ -36,6 +36,7 @@ class Event extends BaseEvent
     $this->applyOverrides();
     $this->downloadMedia();
     $this->removeMultipleImages();
+    $this->removeMultipleOccurrences();
   }
 
   /**
@@ -63,7 +64,7 @@ class Event extends BaseEvent
 
             // Refs #525 - Trim All Text fields on PreSave
             if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
-                
+
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) =='' ) $this[ $field ] = null;
         }
@@ -230,8 +231,6 @@ class Event extends BaseEvent
     $this[ 'VendorEventCategory' ][ $name ] = $uniqueRecord;
   }
 
-
-
   /**
    * tidy up function for events with more than one image attached to them
    * read the headers of the images and select the largest one in size
@@ -334,11 +333,11 @@ class Event extends BaseEvent
     }
 
     $headers = get_headers( $urlString , 1);
-    
+
     // When Image redirected with 302/301 get_headers will return morethan one header array
     $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
     $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
-    
+
     // check the header if it's an image
     if( $contentType != 'image/jpeg' )
     {
@@ -383,6 +382,33 @@ class Event extends BaseEvent
     }
 
     return $categories;
+  }
+
+  public function removeMultipleOccurrences()
+  {
+    $occurrences = array();
+
+    foreach ( $this[ 'EventOccurrence' ] as $occurrence )
+    {
+        $date = $occurrence[ 'start_date' ];
+        $poiId = $occurrence[ 'poi_id' ];
+        $startTime = $occurrence[ 'start_time' ];
+
+        //if two occurrences have the same date, startTime and poiId we should only use one of them
+        //using a combination of those as a key in an array will provide unique occurrences
+        $uniqueId = $date . $startTime . $poiId;
+
+        $occurrences [ $uniqueId  ] = $occurrence;
+    }
+    //reset the occurrences
+    $this['EventOccurrence'] = new Doctrine_Collection( 'EventOccurrence' );
+
+    //add the unique occurrences
+    foreach ($occurrences as $occurrence)
+    {
+        $this['EventOccurrence'] [] =$occurrence;
+    }
+
   }
 
 }
