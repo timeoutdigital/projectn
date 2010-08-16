@@ -6,10 +6,122 @@ all:
   #matches url: http://projectn.local/
   google_api_key : ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg
 
+  import:
+    cities:
+        -
+          name: singapore
+          type: [ poi-event, movie ]
+        -
+          name: ny
+          type: [ poi-event, eating-drinking, bars-clubs, movie ]
+        -
+          name: chicago
+          type: [ poi-event, eating-drinking, bars-clubs, movie]
+        -
+          name: london
+          type: [ poi-ev-mapper, poi-bars-pubs, poi-restaurants, poi-cinemas ,event ,event-occurrence ,movie  ]
+        -
+          name: lisbon
+          type: [ poi, event, movie ]
+        -
+          name: sydney
+          type: [ poi, event, movie ]
+        -
+          name: moscow
+          type: [ poi, event ]
+        -
+          name: saint petersburg
+          type: [ poi, event ]
+        -
+          name: almaty
+          type: [ poi, event ]
+        -
+          name: russia
+          type: [ movie ]
+        -
+          name: barcelona
+          type: [ poi, event, movie ]
+        -
+          name: kuala lumpur
+          type: [ poi, event, movie ]
+        -
+          name: mumbai
+          type: [ poi, event, movie ]
+        -
+          name: delhi
+          type: [ poi, event, movie ]
+        -
+          name: bangalore
+          type: [ poi, event, movie ]
+        -
+          name: pune
+          type: [ poi, event, movie ]
+
+  export:
+    cities:
+        -
+          name: singapore
+          type: [ poi, event, movie ]
+          language: en-US
+        -
+          name: ny
+          type: [ poi, event, movie ]
+          language: en-US
+        -
+          name: chicago
+          type: [ poi, event, movie ]
+          language: en-US
+        -
+          name: london
+          type: [ poi, event, movie ]
+          language: en-GB
+        -
+          name: lisbon
+          type: [ poi, event, movie ]
+          language: pt
+        -
+          name: sydney
+          type: [ poi, event, movie ]
+          language: en-AU
+        -
+          name: moscow
+          type: [ poi, event, movie ]
+          language: ru
+        -
+          name: saint petersburg
+          type: [ poi, event, movie ]
+          language: ru
+        -
+          name: almaty
+          type: [ poi, event, movie ]
+          language: ru
+        -
+          name: barcelona
+          type: [ poi, event, movie ]
+          language: ca
+        -
+          name: kuala lumpur
+          type: [ poi, event, movie ]
+          language: en-MY
+        -
+          name: mumbai
+          type: [ poi, event, movie ]
+          language: en-GB
+        -
+          name: delhi
+          type: [ poi, event, movie ]
+          language: en-GB
+        -
+          name: bangalore
+          type: [ poi, event, movie ]
+          language: en-GB
+        -
+          name: pune
+          type: [ poi, event, movie ]
+          language: en-GB
 
 
 prod:
   #matches url: http://projectn.live/
   google_api_key : ABQIAAAA_FL2s5FUf4LMO_mUYDXUABSveoBGowI7nqh6kHEuOnD_thDOzhQRISkLudF55CGQjHRYPqfn429wzw
-
 

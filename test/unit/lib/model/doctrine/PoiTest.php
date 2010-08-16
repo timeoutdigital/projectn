@@ -522,6 +522,19 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
    }
 
+   /**
+   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
+   */
+  public function testMediaPopulateByUrlForRedirectingLink()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
+      $poi->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
+      $poi->save();
+
+      $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+  }
+  
   public function testStreetDoesNotEndWithCityName()
   {
 
@@ -574,6 +587,22 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poi->save();
 
       $this->assertEquals( '+3493 9 3424 6577', $poi['phone'], "formatPhone should'nt change the phone number if it's already prefixed with the dial code" );
+   }
+
+   /**
+    * Check addMediaByUrl() get_header for array value.
+    */
+   public function testAddMediaByUrlMimeTypeCheck()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // Valid URL with 302 Redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
+      // 404 Error Url
+      $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      // Valid URL - No redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      
    }
 }
 

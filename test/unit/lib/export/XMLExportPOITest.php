@@ -166,6 +166,41 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property3->link( 'Poi', array( $poi['id'] ) );
         $property3->save();
 
+        // poi with empty street
+        $poi = new Poi();
+        $poi->setPoiName( 'test name3' . $this->specialChars );
+        $poi->setStreet( ' ' );
+        $poi->setHouseNo('13' . $this->specialChars );
+        $poi->setZips('4321' );
+        $poi->setCity( 'test town two' . $this->specialChars );
+        $poi->setDistrict( 'test district2' . $this->specialChars );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '1234' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.0814899' );
+        $poi->setLatitude( '51.5245400' );
+
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->link( 'Vendor', 2 );
+        $poi->save();
+
+        //poi with not set street
+        $poi = new Poi();
+        $poi->setPoiName( 'test name4' . $this->specialChars );
+        $poi->setHouseNo('13' . $this->specialChars );
+        $poi->setZips('4321' );
+        $poi->setCity( 'test town two' . $this->specialChars );
+        $poi->setDistrict( 'test district2' . $this->specialChars );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '12345' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.0814899' );
+        $poi->setLatitude( '51.5245400' );
+
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->link( 'Vendor', 2 );
+        $poi->save();
+
         $this->runImportAndExport();
       }
       catch(PDOException $e)
@@ -228,6 +263,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->xpath = new DOMXPath( $this->domDocument );
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
+
       $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
@@ -336,6 +372,15 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //vendor-pois
       $this->assertEquals( XMLExport::VENDOR_NAME, (string) $this->xml['vendor'], 'Vendor should be "timeout"' );
       $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
+    }
+
+    /**
+     * test if poi with empty or no street is skipped
+     */
+    public function testIfPoiWithEmptyStreetIsSkipped()
+    {
+      //entry
+      $this->assertEquals( 2, count( $this->xml->entry ) );
     }
 
     /**
@@ -508,6 +553,42 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $properties = $this->xml->entry[0]->version->content->media;
       $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
       $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
+    }
+
+    public function testExportWithValidationOff()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+
+      $poi['latitude'] = 11.52454700;
+      $poi['longitude'] = 170.081866800;
+      $poi['VendorPoiCategory'] = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['poi_name'] = 'hello';
+      $poi['latitude'] = 11.52453600;
+      $poi['longitude'] = -0.08148800;
+      $poi->addVendorCategory( "moo", $this->vendor2->id );
+      $poi->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+
+      $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+      $this->export = new XMLExportPOI( $this->vendor2, $this->destination, false );
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $this->destination );
+
+      $numEntries = $this->xml->xpath( '//entry' );
+
+      $this->assertEquals( 2, count( $numEntries ) );
     }
 
     private function runImportAndExport()

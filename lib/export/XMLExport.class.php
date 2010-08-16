@@ -52,11 +52,16 @@ abstract class XMLExport
   protected $logExport;
 
   /**
+   * @var validation
+   */
+  protected $validation;
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
    */
-  public function __construct( $vendor, $destination, $model, $xsdFilename=null )
+  public function __construct( $vendor, $destination, $model, $xsdFilename=null, $validation = true )
   {
     if( !( $vendor instanceof Vendor ) )
     {
@@ -69,13 +74,14 @@ abstract class XMLExport
       throw new ExportException( 'Destination is not writeable: ' . $destination );
     }
     $this->destination = $destination;
-    
+
     $this->model = $model;
 
     if( !is_null( $xsdFilename ) )
     {
       $this->xsdPath = $xsdFilename;
     }
+    $this->validation = $validation;
   }
 
   /**
@@ -115,7 +121,7 @@ abstract class XMLExport
         foreach ( libxml_get_errors() as $error )
         {
             $error_message = (string) date( "Y-m-d H:i:s" ) . " -- libxml XSD validation for '".$this->xsdPath."' -- ";
-            
+
             switch ($error->level)
             {
                 case LIBXML_ERR_WARNING:
@@ -205,7 +211,7 @@ abstract class XMLExport
     }
     return null;
   }
-  
+
   /**
    *
    */
@@ -255,7 +261,7 @@ abstract class XMLExport
 
   /**
    * @param integer $recordId
-   * 
+   *
    * @todo consider putting this in its own class
    */
   protected function generateUID( $recordId )
