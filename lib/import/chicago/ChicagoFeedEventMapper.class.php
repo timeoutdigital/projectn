@@ -138,10 +138,7 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
                 // Save the Records
                 $this->notifyImporter( $event );
 
-                $event['EventOccurrences']->free( true );
-                $event['EventProperty']->free( true );
-                
-                $event->free( );
+                $event->free( true );
 
                 unset($event, $textSystem);
 
