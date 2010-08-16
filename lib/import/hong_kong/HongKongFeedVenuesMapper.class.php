@@ -54,12 +54,12 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
 
               // Done and Save
               $this->notifyImporter( $poi );
-              echo '.'; // Went OK
+              //echo '.'; // Went OK
 
           }catch(Exception $exception)
           {
               $this->notifyImporterOfFailure($exception);
-              echo '#'; // Exception
+              //echo '#'; // Exception
               //print_r($exception->getMessage() . ' - VENDOR POI ID@ '.$poi['vendor_poi_id'].PHP_EOL);
           }
 
