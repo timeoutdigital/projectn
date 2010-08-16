@@ -348,7 +348,7 @@ class Poi extends BasePoi
     if( !is_array($name) )
         $name = array( $name );
 
-    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
 
     if( stringTransform::mb_trim($name) == '' )
         return false;
@@ -358,7 +358,7 @@ class Poi extends BasePoi
       // This will unlink all vendor category relationships that dont match the poi vendor.
       if( $existingCategory[ 'vendor_id' ] != $vendorId )
           $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
-      
+
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 
@@ -403,7 +403,7 @@ class Poi extends BasePoi
      $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
-     $this->cleanStreetField();     
+     $this->cleanStreetField();
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
@@ -418,7 +418,7 @@ class Poi extends BasePoi
   {
     $this->applyFixes();
   }
-  
+
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
@@ -662,7 +662,7 @@ class Poi extends BasePoi
     }
     // Get Header Contents
     $headers = get_headers( $urlString , 1);
-    
+
     // When Image redirected with 302/301 get_headers will return morethan one header array
     $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
     $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];

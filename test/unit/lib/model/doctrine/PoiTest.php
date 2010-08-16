@@ -534,7 +534,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
   }
-  
+
   public function testStreetDoesNotEndWithCityName()
   {
 
@@ -602,7 +602,17 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
       // Valid URL - No redirect
       $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
-      
+   }
+
+   public function testAddVendorCategoryHTMLDecode()
+   {
+    $vendorCategory = "Neighborhood &amp; pubs";
+    //$vendorCategory = "Neighborhood pubs | Pick-up joints";
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+    $this->object->addVendorCategory( $vendorCategory, $vendor[ 'id' ] );
+    $this->object->save();
+
+    $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorPoiCategory' ][0]['name'] );
    }
 }
 
