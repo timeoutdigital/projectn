@@ -150,14 +150,27 @@ class stringTransform
    */
   public static function extractStartTime( $string, $returnTimeFormatted = true )
   {
-     $matches = array();
-     $pattern = '/^([0-9]{1,2}([\s]?[\:\.]{1}[0-9]{2})?[\s]?(am|pm)?)[\s]?(\-|to\s)?/';
-     preg_match( $pattern, trim( $string ), $matches );
+    $matches = array();
 
-     if ( isset( $matches[ 1 ] ) )
-     {
-         return ($returnTimeFormatted) ? self::toDBTime( $matches[ 1 ] ) : $matches[ 1 ];
-     }
+    $timeRangePattern = '/^([0-9:]+)-([0-9.:]+)(a|p|A|P)(m|M)$/'; //catches "3:00-7:00pm"
+
+    preg_match( $timeRangePattern, $string, $matches );
+
+    if( count( $matches ) > 0 )
+    {
+        $string = $matches[1] . strtolower( $matches[3] ) .'m' ; //convert "3:00-7:00pm" to "3:00pm"
+    }
+
+    $matches = array();
+
+    $pattern = '/^([0-9]{1,2}([\s]?[\:\.]{1}[0-9]{2})?[\s]?(am|pm|AM|PM)?)[\s]?(\-|to\s)?/';
+
+    preg_match( $pattern, trim( $string ), $matches );
+
+    if ( isset( $matches[ 1 ] ) )
+    {
+        return ($returnTimeFormatted) ? self::toDBTime( $matches[ 1 ] ) : $matches[ 1 ];
+    }
   }
 
   public static function extractEmailAddressesFromText( $subject )
