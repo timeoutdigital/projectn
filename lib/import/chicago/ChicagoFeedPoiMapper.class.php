@@ -166,8 +166,14 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
                     $poi['openingtimes'] = $this->getOpeningHours( $poiNode->opening_hours );
                 }
 
-                // Save
-                $this->notifyImporter( $poi );
+                // Check This is CLOSED at the end and SKIP
+                if(mb_ereg_match('.*CLOSED$', $poi['poi_name']))
+                {
+                    $this->notifyImporterOfFailure( new Exception( 'ChicagoFeedPoiMapper:: CLOSED tag Found in poi Name' ), $poi);
+                } else {
+                    // Save
+                    $this->notifyImporter( $poi );
+                }
 
                 //Kill the object
                 $poi->free();

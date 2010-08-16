@@ -3540,7 +3540,7 @@
 	<released>1</released>
 	<name></name>
 	<first_name></first_name>
-	<identifier>Angels &amp; Kings</identifier>
+	<identifier>CLOSED Angels &amp; Kings</identifier>
 	<country_symbol>USA</country_symbol>
 	<country>United States of America</country>
 	<country_code>+1</country_code>
@@ -3577,7 +3577,51 @@
 	<released>1</released>
 	<name></name>
 	<first_name></first_name>
-	<identifier>Japanese Spa Zen</identifier>
+	<identifier>Japanese closed Spa Zen</identifier>
+	<country_symbol>USA</country_symbol>
+	<country>United States of America</country>
+	<country_code>+1</country_code>
+	<postcode>0</postcode>
+	<town>Chicago</town>
+	<district>Chicago</district>
+	<community></community>
+	<state>IL</state>
+	<suburb>South Side/South Chicago/Engle</suburb>
+	<street>1380 E 53rd St</street>
+	<house_number></house_number>
+	<cross_streets>at Dorchester Ave</cross_streets>
+	<website>japanesespa-zen.com</website>
+	<telephone>
+		<function id="0">Information Desk</function>
+		<area_code>773</area_code>
+		<number>955-5353</number>
+	</telephone>
+	<text_system>
+		<text>
+			<text_type>Approach Descriptions</text_type>
+			<language>english</language>
+			<content>Bus: 6, 10</content>
+			<author></author>
+			<released>1</released>
+		</text>
+		<text>
+			<text_type>Venue Blurb</text_type>
+			<language>english</language>
+			<content>While nudity-shy spagoers will appreciate the ankle-length kimono provided by Japanese Spa Zen, anyone with a knotted back or an empty wallet will love the moderately priced relief provided by the Amma Massage ($65 for 60 minutes). The traditional Asian style of massage uses kneading, pressing and pulling (rather than surface strokes) to remove energy blockages. Naoko Luppescu, who co-owns the spa with her husband, Stuart, learned the technique in her native Japan. She begins the treatment at the feet and ends at the base of the skull, skimming the body with a soothing combination of firm pressing and gentle squeezing. The environs aren't cushy and we recommend skipping the nail services (our pedi was done in lukewarm water and the aesthetician couldn't be bothered with smudges), but for a massage, it's worth a try.</content>
+			<author></author>
+			<released>1</released>
+		</text>
+	</text_system>
+	<attributes></attributes>
+	<sort_string>Japanese Spa Zen</sort_string>
+</address>
+<address id="404932">
+	<address_type>S</address_type>
+	<address_type_ext>-VEN-</address_type_ext>
+	<released>1</released>
+	<name></name>
+	<first_name></first_name>
+	<identifier>Japanese Spa Zen - CLOSED</identifier>
 	<country_symbol>USA</country_symbol>
 	<country>United States of America</country>
 	<country_code>+1</country_code>

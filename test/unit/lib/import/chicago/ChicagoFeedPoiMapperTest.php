@@ -59,7 +59,7 @@ class ChicagoFeedPoiMapperTest extends PHPUnit_Framework_TestCase
 
         $pois = Doctrine::getTable( 'Poi' )->findAll();
 
-        $this->assertEquals(40, $pois->count(), 'Should be 40 Pois as XML has 40 Address');
+        $this->assertEquals(40, $pois->count(), 'Should be 40 Pois as XML has 40 Address'); // Should account for CLOSED tag
 
         // asert FIRST
         $poi = $pois[0];
