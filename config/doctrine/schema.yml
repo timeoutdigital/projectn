@@ -24,9 +24,9 @@ Poi:
     latitude:                   {type: decimal(11), scale: 8, notnull: false}
     email:                      {type: string(128), notnull: false}
     url:                        {type: string(1024), notnull: false}
-    phone:                      {type: string(32), notnull: false, regexp: '/^\+*[ 0-9]*[0-9]+$/'}
-    phone2:                     {type: string(32), notnull: false, regexp: '/^\+*[ 0-9]*[0-9]+$/'}
-    fax:                        {type: string(32), notnull: false, regexp: '/^\+*[ 0-9]*[0-9]+$/'}
+    phone:                      {type: string(32), notnull: false}
+    phone2:                     {type: string(32), notnull: false}
+    fax:                        {type: string(32), notnull: false}
     vendor_category:            {type: string(128), notnull: false}
     keywords:                   {type: string(512), notnull: false}
     short_description:          {type: string(2048), notnull: false}
