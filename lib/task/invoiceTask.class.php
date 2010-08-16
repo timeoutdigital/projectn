@@ -67,6 +67,8 @@ EOF;
         foreach( $map['VendorPoiCategory'] as $m )   $this->poiUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
         foreach( $map['VendorEventCategory'] as $m ) $this->eventUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
     }
+
+    if( empty( $this->uiCatsSimpleArrayNamesOnly ) ) throw new Exception( 'Could not get category mappings from database, please specify a live data source.' );
     
     // Output Header.
     if( $options['dump_ids'] == 'false' ) $this->reportHeader();
