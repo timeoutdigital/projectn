@@ -16,6 +16,8 @@ class MovieForm extends BaseMovieForm
     $this->widgetSchema[ 'created_at' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'updated_at' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ]       = new widgetFormFixedText();
+
+    $this->widgetSchema[ 'movie_genres_list' ] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'method' => 'getGenre', 'order_by' => array( 'genre', 'asc' ) ));
   }
 
   protected function doUpdateObject( $values = null )
@@ -26,4 +28,5 @@ class MovieForm extends BaseMovieForm
     $override = new recordFieldOverrideManager( $record );
     $override->saveRecordModificationsAsOverrides();
   }
+
 }

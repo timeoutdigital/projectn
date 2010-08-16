@@ -61,6 +61,32 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], '45 Some Street' );
   }
 
+  public function testApplyFeedGeoCodesIfValid()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      $this->assertLessThan(1, $poi['PoiMeta']->count());
+
+      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975');
+
+      $poi->save();
+
+      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975'); // Same LONG / LAT Should Meta Should not be added
+
+      $this->assertEquals(1, $poi['PoiMeta']->count());
+
+      $this->assertEquals('Geo_Source', $poi['PoiMeta'][0]['lookup']);
+
+      $this->assertEquals('Feed', $poi['PoiMeta'][0]['value']);
+
+      $poi->applyFeedGeoCodesIfValid('15.1789464','-2.4975618975');
+
+      $poi->save();
+
+      $this->assertEquals(2, $poi['PoiMeta']->count());
+
+  }
+
   public function testPoiNameDoesNotEndWIthCommaAndOrSpace()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -165,6 +191,53 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * Check to see if addVendorCategory add's Empty array value array('')
+   */
+  public function testAddVendorCategoryEmpty()
+  {
+      $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+
+      // Add String Category
+      $this->object->addVendorCategory( 'empty 1', $vendor[ 'id' ] );
+
+      // Empty string
+      $this->object->addVendorCategory( '', $vendor[ 'id' ] );
+
+      // array
+      $this->object->addVendorCategory( array('empty2 ', 'empty 3'), $vendor[ 'id' ] );
+
+      // array plus empty
+      $this->object->addVendorCategory( array( 'empty 4', '', ' ', ' empty 5' ), $vendor[ 'id' ] );
+
+      $this->object->save(); // Save to DB
+
+      // validate
+      $categoryTable = Doctrine::getTable( 'VendorPoiCategory' )->findAll();
+
+      // Bootstrap adding a default 'test name' category as First
+      $this->assertEquals('empty 1' , $categoryTable[1]['name']);
+      $this->assertEquals('empty2  | empty 3' , $categoryTable[2]['name']);
+      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[3]['name']);
+
+      // Object Exception!
+      try{
+
+          $this->object->addVendorCategory($categoryTable, $vendor[ 'id' ] );
+          $this->assertEquals(false, true, 'Error: addVendorCategory should throw an exception when an object passed as parameter');
+
+      }catch(Exception $exception)
+      {
+          $this->assertEquals(false, false); // Exception captured
+
+      }
+
+      // @todo: addVendorCategory do not removes whitespaces in parameter
+      // 21-07-10: live database found few duplicate category for same vendor id!
+      $this->markTestIncomplete();
+
+  }
+
+  /**
    * Test the long/lat is either valid or null
    */
   public function testLongLatIsFoundOrNull()
@@ -180,6 +253,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj->setGeoEncodeLookUpString(" ");
       $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTestWithoutAddress();
+
+      $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
       $poiObj->save();
 
       $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
@@ -302,9 +377,9 @@ class PoiTest extends PHPUnit_Framework_TestCase
   }
 
    /**
-   * test if setting the name of a Poi ensures HTML entities are decoded
+   * test if setting the name of a Poi ensures HTML entities are decoded and Trimmed
    */
-  public function testFixHtmlEntities()
+  public function testCleanStringFields()
   {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
@@ -314,6 +389,21 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertTrue( preg_match( '/&quot;/', $poi['poi_name'] ) == 0, 'POI name cannot contain HTML entities' );
       $this->assertEquals( $poi['poi_name'], 'My "name" is', 'POI name converts HTML entities to their appropriate characters' );
+
+      // test for Trim refs #525
+      $poiTrim = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      $poiTrim['poi_name'] = PHP_EOL . 'spaced poi name      ';
+      $poiTrim['street'] = '45 Some Street, SE1 9HG      '; // Postcode should be removed alongwith whitespace and tab space
+
+      $london = ProjectN_Test_Unit_Factory::get('Vendor', array( 'id' => 4 ));
+
+      $poiTrim['Vendor'] = $london;
+
+      $poiTrim->save();
+
+      $this->assertEquals( 'spaced poi name', $poiTrim[ 'poi_name' ] );
+      $this->assertEquals( '45 Some Street', $poiTrim[ 'street' ], 'Expected Street Name: 45 Some Street, SE1 9HG' );
 
   }
 
@@ -420,7 +510,100 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
 
    }
+   public function testValidateUrlAndEmail()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Barcelona" ) );
+      $poi['url'] = 'ccmatasiramis@bcn.cat'; //invalid url
+      $poi['email'] = 'info@botafumeiro'; //invalid email
 
+      $poi->save();
+      $this->assertEquals( '', $poi['url'] , 'invalid url should be saved as NULL' );
+      $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
+   }
+
+   /**
+   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
+   */
+  public function testMediaPopulateByUrlForRedirectingLink()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
+      $poi->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
+      $poi->save();
+
+      $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+  }
+  
+  public function testStreetDoesNotEndWithCityName()
+  {
+
+    $streetNames = array(
+        'foo, '                                                 => 'foo',
+        'foo,'                                                  => 'foo',
+        '152-154  King\'s Road, London'                         => '152-154  King\'s Road',
+        '117 Commercial St Old Spitalfields Market , London'    => '117 Commercial St Old Spitalfields Market',
+        '88 Marylebone Lane London'                             => '88 Marylebone Lane',
+        'London'                                                => '',
+        '211a Clapham Rd London'                                => '211a Clapham Rd',
+        '5-7 Islington Studios London'                          => '5-7 Islington Studios',
+        'Between London Bridge and Tower Bridge'                => 'Between London Bridge and Tower Bridge',
+        '71-73 Torriano Av London'                              => '71-73 Torriano Av',
+        '5 Bishopsgate Churchyard, London'                      => '5 Bishopsgate Churchyard',
+        'Arch London, 50 Great Cumberland Place'                => 'Arch London, 50 Great Cumberland Place',
+        'Southern Terrace, Westfield London, Ariel Way'         => 'Southern Terrace, Westfield London, Ariel Way',
+        '5  Huguenot Place , 17a Heneage St , London '          => '5  Huguenot Place , 17a Heneage St',
+        '5  Huguenot Place , 17a Heneage St,London '            => '5  Huguenot Place , 17a Heneage St',
+        '5  Huguenot Place , 17a Heneage St,london'             => '5  Huguenot Place , 17a Heneage St'
+    );
+
+    $london = ProjectN_Test_Unit_Factory::get('Vendor', array( 'id' => 4 ));
+
+    foreach ($streetNames as $initialStreetName => $expectedStreetName)
+    {
+         $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+         $poi['street'] = $initialStreetName;
+         $poi[ 'city'] = 'London';
+         $poi['Vendor'] = $london;
+         $poi->save();
+
+         $this->assertEquals( $expectedStreetName, $poi[ 'street' ] );
+
+    }
+
+  }
+
+   public function testFormatPhoneWhenPhoneHasAlreadyPrefixedWithInternationalDialCode()
+   {
+
+      $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor' );
+      $vendor['inernational_dial_code'] = '+3493';
+      $vendor->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['phone'] = '+3493 9 3424 6577';
+      $poi[ 'Vendor' ] = $vendor;
+      $poi->save();
+
+      $this->assertEquals( '+3493 9 3424 6577', $poi['phone'], "formatPhone should'nt change the phone number if it's already prefixed with the dial code" );
+   }
+
+   /**
+    * Check addMediaByUrl() get_header for array value.
+    */
+   public function testAddMediaByUrlMimeTypeCheck()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // Valid URL with 302 Redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
+      // 404 Error Url
+      $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      // Valid URL - No redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      
+   }
 }
 
 class MockGeoEncodeForPoiTest extends geoEncode

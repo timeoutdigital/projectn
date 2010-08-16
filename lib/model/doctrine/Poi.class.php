@@ -58,6 +58,23 @@ class Poi extends BasePoi
     $this->geoEncoder = $geoEncoder;
   }
 
+  public function fixStreetName()
+  {
+    $cityName =  $this[ 'city' ];
+
+    $this[ 'street' ] = str_ireplace( ','.$cityName , ', '.$cityName , trim( $this[ 'street' ] ) );
+    //remove the last word and comma if it's the city name
+    $streetNameParts = explode( ' ', $this[ 'street' ] );
+
+    if( strtolower( trim( end( $streetNameParts  ) ))  == strtolower ( $cityName ) )
+    {
+        unset( $streetNameParts [ count( $streetNameParts ) -1 ]  );
+        $this[ 'street' ] = implode( ' ',$streetNameParts );
+    }
+
+    $this[ 'street' ] = preg_replace( '/[, ]*$/', '', $this[ 'street' ] );
+  }
+
   public function fixPoiName()
   {
     $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
@@ -68,21 +85,30 @@ class Poi extends BasePoi
    */
   protected function getStringColumns()
   {
-    $column_names = array();
+    $column = array();
     foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
       if( $column_info['type'] == 'string' )
-          $column_names[] = $column_name;
-    return $column_names;
+          $column[$column_name] = $column_info;
+    return $column;
   }
 
   /**
-   * Removes HTML Entities for all fields of type 'string'
+   * Clean all fields of type 'string', Removes HTML and Trim
    */
-  protected function fixHTMLEntities()
+  protected function cleanStringFields()
   {
-    foreach ( $this->getStringColumns() as $field )
+    foreach ( $this->getStringColumns() as $field => $field_info )
         if( is_string( @$this[ $field ] ) )
+        {
+            // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
+
+            // Refs #525 - Trim All Text fields on PreSave
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+
+            // Refs #538 - Nullify all Empty string that can be Null in database Schema
+            if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
+        }
   }
 
   /**
@@ -256,11 +282,13 @@ class Poi extends BasePoi
    * @param string $value
    * @return boolean if value is null or existing
    */
-  public function addMeta( $lookup, $value )
+  public function addMeta( $lookup, $value, $comment = null )
   {
     $poiMetaObj = new PoiMeta();
     $poiMetaObj[ 'lookup' ] = (string) $lookup;
     $poiMetaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $poiMetaObj[ 'comment' ] = (string) $comment;
 
     $this[ 'PoiMeta' ][] = $poiMetaObj;
   }
@@ -275,6 +303,7 @@ class Poi extends BasePoi
    */
   public function addProperty( $lookup, $value )
   {
+
     if( $this->exists() )
     {
       foreach( $this['PoiProperty'] as $property )
@@ -313,20 +342,23 @@ class Poi extends BasePoi
     if( !$vendorId )
       throw new Exception( 'Cannot add a vendor category to an POI record without a vendor id.' );
 
-    if ( is_array( $name ) )
-    {
-      $name = implode( ' | ', $name );
-    }
-    else
-    {
-        if(strlen($name) == 0)
-        {
-            return false;
-        }
-    }
+    if(!is_array($name) && !is_string($name))
+        throw new Exception ('$name parameter must be string or array of strings');
+
+    if( !is_array($name) )
+        $name = array( $name );
+
+    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+
+    if( stringTransform::mb_trim($name) == '' )
+        return false;
 
     foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
+      // This will unlink all vendor category relationships that dont match the poi vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
+      
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 
@@ -362,14 +394,16 @@ class Poi extends BasePoi
   public function applyFixes()
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
-     $this->fixHTMLEntities();
+     $this->cleanStringFields();
      $this->fixPoiName();
+     $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhone();
      $this->fixUrl();
+     $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
-     $this->cleanStreetField();
+     $this->cleanStreetField();     
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
@@ -384,7 +418,7 @@ class Poi extends BasePoi
   {
     $this->applyFixes();
   }
-
+  
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
@@ -414,7 +448,7 @@ class Poi extends BasePoi
   private function applyDefaultGeocodeLookupStringIfNull()
   {
      if( is_null( $this['geocode_look_up'] ) )
-       $this['geocode_look_up'] = stringTransform::concatNonBlankStrings( ', ', array( $this['house_no'], $this['street'], $this['city'], $this['zips'], $this['country']) );
+       $this['geocode_look_up'] = stringTransform::concatNonBlankStrings( ', ', array( $this['house_no'], $this['street'], $this['city'], $this['zips'] ) );
   }
 
   private function applyOverrides()
@@ -439,6 +473,15 @@ class Poi extends BasePoi
      }
   }
 
+
+  private function fixEmail()
+  {
+     if( ! stringTransform::isValidEmail ( $this['email'] ) )
+     {
+        $this['email'] = null;
+     }
+  }
+
   public function lookupAndApplyGeocodes()
   {
     if( $this->geoEncodeByPass )
@@ -458,17 +501,31 @@ class Poi extends BasePoi
     $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
     $geoEncoder->setRegion( $this['Vendor']['country_code'] );
 
-    $this['longitude'] = $geoEncoder->getLongitude();
-    $this['latitude']  = $geoEncoder->getLatitude();
+    $long = $geoEncoder->getLongitude();
+    $lat = $geoEncoder->getLatitude();
 
     if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
     {
       $this['longitude'] = null;
       $this['latitude']  = null;
     //  throw new GeoCodeException('Geo encode accuracy below 5' );
+      return;
     }
 
-    $this->addMeta( "Geo_Source",  get_class( $geoEncoder ) );
+    $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+    $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
+
+    if( strlen( $long ) > $longitudeLength )
+        $long = substr( (string) $long, 0, $longitudeLength );
+
+    if( strlen( $lat ) > $latitudeLength )
+        $lat = substr( (string) $lat, 0, $latitudeLength );
+
+    if( $this['latitude'] != $lat || $this['longitude'] != $long )
+        $this->addMeta( "Geo_Source", get_class( $geoEncoder ), "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
+
+    $this['longitude'] = $long;// $geoEncoder->getLongitude();
+    $this['latitude']  = $lat; //$geoEncoder->getLatitude();
   }
 
   public function geoCodeIsValid()
@@ -561,7 +618,6 @@ class Poi extends BasePoi
     // check if the largestImg is larger than the one attached already if any
     foreach ($this[ 'PoiMedia' ] as $poiMedia )
     {
-
         if( $poiMedia['content_length']  > $largestImg[ 'contentLength' ]  )
         {
             //we already have a larger image so ignore this
@@ -575,11 +631,17 @@ class Poi extends BasePoi
     {
         $poiMediaObj = new PoiMedia( );
     }
+    try
+    {
+        $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-    // add the poiMediaObj to the Poi
-    $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+        // add the poiMediaObj to the Poi
+        $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
   }
 
@@ -598,20 +660,24 @@ class Poi extends BasePoi
     {
         throw new Exception('Failed to add Poi Media due to missing Vendor city');
     }
-
+    // Get Header Contents
     $headers = get_headers( $urlString , 1);
+    
+    // When Image redirected with 302/301 get_headers will return morethan one header array
+    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
+    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
 
     // check the header if it's an image
-    if( $headers [ 'Content-Type' ] != 'image/jpeg' )
+    if( $contentType != 'image/jpeg' )
     {
-        return ;
+        return false;
     }
-
     $this->media[] = array(
         'url'           => $urlString,
-        'contentLength' => $headers[ 'Content-Length' ],
+        'contentLength' => $contentLength,
         'ident'         => md5( $urlString ),
      );
+    return true;
   }
 
 
@@ -643,8 +709,17 @@ class Poi extends BasePoi
   {
         if( is_numeric( $lat ) && is_numeric( $long ) )
         {
+            $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
+            $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
+
+            if( strlen( $long ) > $longitudeLength )
+                $long = substr( (string) $long, 0, $longitudeLength );
+
+            if( strlen( $lat ) > $latitudeLength )
+                $lat = substr( (string) $lat, 0, $latitudeLength );
+
             if( $this['latitude'] != $lat || $this['longitude'] != $long )
-                $this->addMeta( "Geo_Source", "Feed" );
+                $this->addMeta( "Geo_Source", "Feed", "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
 
             $this['latitude']                      = $lat;
             $this['longitude']                     = $long;

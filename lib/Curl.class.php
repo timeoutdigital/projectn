@@ -40,11 +40,6 @@ class Curl
   private $_requestUrl;
 
   /**
-   * @var boolean;
-   */
-  private $_returnHeaderSwitch;
-
-  /**
    * @var string
    */
   private $_storePath;
@@ -65,9 +60,9 @@ class Curl
   private $_curlHandle;
 
   /**
-   * @var file handle
+   * @var string
    */
-  private $_tmpHeaderFile;
+  private $_headerString;
 
   /**
    * @var string
@@ -88,13 +83,11 @@ class Curl
    */
   public function __construct( $url,
                                $parameters     = array(),
-                               $requestMethod  = 'GET',
-                               $returnHeaders  = false )
+                               $requestMethod  = 'GET' )
   {
     $this->_url           = $url;
     $this->_parameters    = $parameters;
     $this->_requestMethod = $requestMethod;
-    $this->_returnHeaderSwitch = $returnHeaders;
   }
 
 
@@ -106,12 +99,23 @@ class Curl
     $curlHandle = curl_init();
 
     $this->setCurlDefaultOptions( $curlHandle );
-    $this->applyOptions( $curlHandle );
+
+    $this->_tmpHeaderFile = tmpfile();
+    $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
+
+    foreach( $this->_options as $key=>$value )
+        curl_setopt( $curlHandle, $key, $value );
 
     $this->_response= curl_exec( $curlHandle );
     $this->_curlInfo = curl_getinfo( $curlHandle );
 
     curl_close( $curlHandle );
+
+    fseek( $this->_tmpHeaderFile, 0);
+    //get rid of charriage return character (ascii 13) as they mess up the further processing
+    $this->_headerString = str_replace( chr(13), '', fread( $this->_tmpHeaderFile, 1024 ) ) ;
+
+    fclose( $this->_tmpHeaderFile ); // Need to close this!
 
     if ( !isset( $this->_curlInfo[ 'http_code' ] ) || !in_array( $this->_curlInfo[ 'http_code' ], array( '200', '304' ) ) )
     {
@@ -128,18 +132,6 @@ class Curl
   public function setCurlOption( $option, $value )
   {
     $this->_options[ $option ] = $value;
-  }
-
-  private function applyOptions( $curlHandle )
-  {
-    if ( $this->_returnHeaderSwitch )
-    {
-        $this->_tmpHeaderFile = tmpfile();
-        $this->setCurlOption( CURLOPT_WRITEHEADER, $this->_tmpHeaderFile );
-    }
-
-    foreach( $this->_options as $key=>$value )
-      curl_setopt( $curlHandle, $key, $value );
   }
 
   /**
@@ -164,14 +156,13 @@ class Curl
     }
     else
     {
-      curl_setopt( $curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
+      //curl_setopt( $curlHandle, CURLOPT_POSTFIELDS, $this->getQueryString() );
       curl_setopt( $curlHandle, CURLOPT_POST, true );
     }
     
     curl_setopt( $curlHandle, CURLOPT_URL, $url );
     $this->_requestUrl = $url;
 
-    curl_setopt( $curlHandle, CURLOPT_HEADER, $this->_returnHeaderSwitch );
     curl_setopt( $curlHandle, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt( $curlHandle, CURLOPT_RETURNTRANSFER, 1 );
     curl_setopt( $curlHandle, CURLOPT_USERAGENT, "Mozilla/4.0" );
@@ -324,33 +315,13 @@ class Curl
   }
 
   /**
-   * switch the (custom) return header option on/off
-   * 
-   * @param boolean $returnHeader 
-   */
-  public function setReturnHeader( $returnHeader = true )
-  {
-    $this->_returnHeaderSwitch = $returnHeader;
-  }
-
-  /**
    * returns header
    *
    * @return string
    */
   public function getHeader()
   {
-    if ( $this->_tmpHeaderFile === NULL )
-    {
-      throw new Exception( 'Curl Error, tried to access header information w/a setting the header option beforehand' );
-    }
-
-    fseek( $this->_tmpHeaderFile, 0);
-
-    //get rid of charriage return character (ascii 13) as they mess up the further processing
-    $headerString = str_replace( chr(13), '', fread( $this->_tmpHeaderFile, 1024 ) ) ;
-    
-    return $headerString;
+    return $this->_headerString;
 
   }
 
@@ -364,11 +335,17 @@ class Curl
   {
       $matches = array();
 
-      preg_match( '/' . preg_quote( $field ) . '\:\s(.*)/',  $this->getHeader(), $matches );
+      // Used preg_match_all to get Re-directed header information as well..
+      preg_match_all( '/' . preg_quote( $field ) . '\:\s(.*)/',  $this->getHeader(), $matches );
 
-      if (isset( $matches[1] ) )
+      // When redirected, we will have second level as ARRAY(),
+      // This statement will get the Last Redirected Header Information
+      $lastMatch = ( is_array( $matches[0] ) ) ? array_pop( $matches ) : $matches;
+
+      // Matche should be in an Array
+      if ( is_array( $lastMatch ) )
       {
-        return $matches[ 1 ];
+        return array_pop( $lastMatch ); // Return the Last value in the Array
       }
 
       return '';
@@ -448,8 +425,6 @@ class Curl
       {
           $lastModifiedInSec = strtotime( $lastModified );
       }
-
-      $this->setReturnHeader();
 
       //needs to be checked for false again as strtotime above could return
       //false too

@@ -1,0 +1,68 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           poi
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          poi
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        vendor_id: { attributes: { onchange: "document.forms[0].submit()" } }
+        vendor_poi_id: { label: ID, help: Your unique identifier of the record }
+        poi_name: { label: Name }
+        star_rating: { help: "Your rating of the Poi (0-5, 5 being the highest rating)" }
+        provider: { label: Miscellaneous, help: Use this field for information you can provide but can not fit into any other fields }
+        PoiMediaDataEntry:          { label: Images }
+        newPoiMediaDataEntry:       { label: New image }
+      list:
+        display: [vendor_poi_id, poi_name, house_no, street, city, district]
+      filter:
+        class: PoiDataEntryFormFilter
+        display: [vendor_id, vendor_poi_id, poi_name, house_no, street, zips, city, district, additional_address_details, keywords]
+      form:
+        class: PoiDataEntryForm
+        display:
+          Editable:
+            - vendor_poi_id
+            - poi_name
+            - house_no
+            - street
+            - district
+            - additional_address_details
+            - zips
+            - email
+            - url
+            - phone
+            - phone2
+            - fax
+            - keywords
+            - short_description
+            - description
+            - public_transport_links
+            - price_information
+            - openingtimes
+            - star_rating
+            - provider
+            - review_date
+            - vendor_poi_category_list
+            - PoiMedia
+            - newPoiMediaDataEntry
+          Info:
+            - vendor_id
+            - city
+            - country
+            - geocode_look_up
+            - longitude
+            - latitude
+            - local_language
+            - created_at
+            - updated_at
+      edit:    ~
+      new:     ~

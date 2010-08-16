@@ -16,8 +16,13 @@ generator:
       fields:  ~
       list:
         display: [=name, imdb_id]
+        object_actions:
+          _edit: ~
+        actions: {}
+        batch_actions: {}
       filter:  ~
       form:
+        actions: { _list: ~, _save: ~ }
         display:
           Editable:
             - name

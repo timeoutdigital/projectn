@@ -160,6 +160,7 @@ class ExportLogger extends BaseLogger
      */
     public function addError( $message, $model = '', $id = '' )
     {
+
         $exportRecordErrorLogger                     = new LogExportError();
         $exportRecordErrorLogger['log']              = $message;
 
@@ -168,7 +169,7 @@ class ExportLogger extends BaseLogger
 
         if ( $id != '' )
            $exportRecordErrorLogger['record_id']     = $id;
- 
+
         $this->_exportLog[ 'LogExportError' ][] = $exportRecordErrorLogger;
         $this->save( );
     }
@@ -215,6 +216,18 @@ class ExportLogger extends BaseLogger
     {
         $this->_exportLog['total_time'] = $this->_getElapsedTime();
         $this->_exportLog->save();
+    }
+
+    /**
+     * Outputs the export errors
+     *
+     */
+    public function showErrors()
+    {
+        foreach ($this->_exportLog[ 'LogExportError' ] as $logExportError)
+        {
+            echo "EXPORT : " . $logExportError[ 'model' ] . ' : ' . $logExportError[ 'log' ] .PHP_EOL;
+        }
     }
 }
 

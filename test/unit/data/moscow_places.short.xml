@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <venues>
 	<venue id="1">
-		<name><![CDATA[Одежда из Европы/]]></name>
+		<name><![CDATA[Одежда &amp;из &quot;Европы&quot;/]]></name>
 		<house_no><![CDATA[]]></house_no>
 		<street><![CDATA[Таллиннская, 17, корп. 1.]]></street>
 		<city><![CDATA[Москва]]></city>
@@ -12,7 +12,8 @@
 		<long><![CDATA[37.4029402]]></long>
 		<lat><![CDATA[55.8000225]]></lat>
 		<short_description><![CDATA[Этот магазин известен давно. Здесь много вещей неизвестных марок, на которых значится - Made in Turkey, Made in Ukraine.., они-то и представляют основной интерес.]]></short_description>
-		<description><![CDATA[&lt;p&gt;Этот магазин известен давно. Здесь много вещей неизвестных марок, на&amp;nbsp;которых значится &amp;mdash; Made in&amp;nbsp;Turkey, Made in&amp;nbsp;Ukraine.., они-то&amp;nbsp;и&amp;nbsp;представляют основной интерес.&lt;/p&gt;&lt;p&gt;Так, на&amp;nbsp;входе висят мужские темно-зеленые штаны с&amp;nbsp;боковыми карманами Franco Benussi (750 р.). Есть две очень женственные рубашки MaxAzria Collection, одна черная, другая белая. Обе с&amp;nbsp;присборенными рукавами и&amp;nbsp;вышивкой-ришелье по&amp;nbsp;передней планке, по&amp;nbsp;750 р. Продаются каштанового цвета кофты, украшенные вышивкой, бисером и&amp;nbsp;пайетками (от&amp;nbsp;450 р. до&amp;nbsp;700 р.), мужские толстовки с&amp;nbsp;капюшоном, украшенные затейливыми нашивками (450 р.). А&amp;nbsp;еще имеются джинсы разнообразнейших фасонов, есть даже такая экзотика, как джинсы-бананы за&amp;nbsp;600 р. Но&amp;nbsp;безусловный хит отдела second-hand&amp;nbsp;&amp;mdash; это винтажный полушубок из&amp;nbsp;шкуры неродившегося теленка за&amp;nbsp;3200 рублей. В&amp;nbsp;магазине попадаются и&amp;nbsp;достаточно известные марки. Например, утепленный плащ Miss Etam (390 р.), новые джинсы Chevignon (700 р.); &amp;quot;завозят&amp;quot; Levis и, как всегда, много вещей H&amp;amp;M&amp;nbsp;и&amp;nbsp;Marks &amp;amp; Spencer.&lt;/p&gt;]]></description>
+		<description><![CDATA[&lt;p&gt;Этот магазин известен давно. Здесь много вещей неизвестных марок, на&amp;nbsp;которых значится &amp;mdash; Made in&amp;nbsp;Turkey, Made in&amp;nbsp;Ukraine.., они-то&amp;nbsp;и&amp;nbsp;представляют основной интерес.&lt;/p&gt;
+&lt;p&gt;Так, на&amp;nbsp;входе висят мужские темно-зеленые штаны с&amp;nbsp;боковыми карманами Franco Benussi (750 р.). Есть две очень женственные рубашки MaxAzria Collection, одна черная, другая белая. Обе с&amp;nbsp;присборенными рукавами и&amp;nbsp;вышивкой-ришелье по&amp;nbsp;передней планке, по&amp;nbsp;750 р. Продаются каштанового цвета кофты, украшенные вышивкой, бисером и&amp;nbsp;пайетками (от&amp;nbsp;450 р. до&amp;nbsp;700 р.), мужские толстовки с&amp;nbsp;капюшоном, украшенные затейливыми нашивками (450 р.). А&amp;nbsp;еще имеются джинсы разнообразнейших фасонов, есть даже такая экзотика, как джинсы-бананы за&amp;nbsp;600 р. Но&amp;nbsp;безусловный хит отдела second-hand&amp;nbsp;&amp;mdash; это винтажный полушубок из&amp;nbsp;шкуры неродившегося теленка за&amp;nbsp;3200 рублей. В&amp;nbsp;магазине попадаются и&amp;nbsp;достаточно известные марки. Например, утепленный плащ Miss Etam (390 р.), новые джинсы Chevignon (700 р.); &amp;quot;завозят&amp;quot; Levis и, как всегда, много вещей H&amp;amp;M&amp;nbsp;и&amp;nbsp;Marks &amp;amp; Spencer.&lt;/p&gt;]]></description>
 		<price_information><![CDATA[]]></price_information>
 		<opening_times><![CDATA[]]></opening_times>
 		<rating><![CDATA[]]></rating>
@@ -46,8 +47,11 @@
 		<postcode><![CDATA[]]></postcode>
 		<long><![CDATA[37.855068]]></long>
 		<lat><![CDATA[55.684064]]></lat>
-		<short_description><![CDATA[Большая игровая комната, двухуровневый лабиринт, кафе, мульткафе, по субботам с 16.00 до18.00 пираты превращают детей в сказочных персонажей. Аквагрим - 30 р. Есть солевая пещера - лечебная комната, целиком состоящая из соли. Сеанс 10 мин. - 100 р., 25 мин. - 200 р.]]></short_description>
-		<description><![CDATA[]]></description>
+		<short_description><![CDATA[
+                Большая игровая
+                ]]></short_description>
+		<description><![CDATA[
+                 ]]></description>
 		<price_information><![CDATA[]]></price_information>
 		<opening_times><![CDATA[]]></opening_times>
 		<rating><![CDATA[]]></rating>
@@ -80,7 +84,7 @@
 		<postcode><![CDATA[]]></postcode>
 		<long><![CDATA[37.4501609802]]></long>
 		<lat><![CDATA[55.6469380214]]></lat>
-		<short_description><![CDATA[]]></short_description>
+		<short_description><![CDATA[<P>Большая игровая комната, <br />двухуровневый лабиринт, <br />кафе, мульткафе, по субботам с 16.00 до18.00 пираты превращают детей в сказочных персонажей</p>]]></short_description>
 		<description><![CDATA[Работает 4&amp;nbsp;склона, длина трасс от&amp;nbsp;213 до&amp;nbsp;660 метров. Есть учебные трассы.]]></description>
 		<price_information><![CDATA[]]></price_information>
 		<opening_times><![CDATA[]]></opening_times>

@@ -60,48 +60,5 @@ class EventOccurrenceTableTest extends PHPUnit_Framework_TestCase
     $eventOccurrenceId = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId( 1, 1, '08.02.2010 04:20' );
     $this->assertEquals('1_1_20100208042000', $eventOccurrenceId);
   }
-
-	public function testFindEquivalent()
-	{
-		$event = ProjectN_Test_Unit_Factory::get( 'Event' );
-		$event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-		$event->save();
-
-		$occurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-
-		$equivalents = Doctrine::getTable( 'EventOccurrence' )->findEquivalents( $occurrence2 );
-		$this->assertEquals( 0, $equivalents->count() );
-
-		$event[ 'EventOccurrence' ][] = $occurrence2;
-
-		$equivalents = Doctrine::getTable( 'EventOccurrence' )->findEquivalents( $occurrence2 );
-		$this->assertEquals( 1, $equivalents->count() );
-
-		$event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-		$event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-		$event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-		$event->save();
-
-		$equivalents = Doctrine::getTable( 'EventOccurrence' )->findEquivalents( $occurrence2 );
-		$this->assertEquals( 1, $equivalents->count() );
-		//you'll never get more than one because EventOccurrence doesn't save equivalent objects
-	}
-
-	public function testHasEquivalent()
-	{
-		$event = ProjectN_Test_Unit_Factory::get( 'Event' );
-		$event[ 'EventOccurrence' ][] = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-		$event->save();
-
-		$occurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
-
-		$equivalent = Doctrine::getTable( 'EventOccurrence' )->hasEquivalent( $occurrence2 );
-		$this->assertFalse( $equivalent );
-
-		$event[ 'EventOccurrence' ][] = $occurrence2;
-
-		$equivalent = Doctrine::getTable( 'EventOccurrence' )->hasEquivalent( $occurrence2 );
-		$this->assertTrue( $equivalent );
-	}
 }
 ?>

@@ -16,15 +16,23 @@ class XMLExportPOI extends XMLExport
    *
    * @param Vendor $vendor
    */
-  public function __construct( $vendor, $destination )
+  public function __construct( $vendor, $destination ,$validation =true )
   {
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
-    parent::__construct(  $vendor, $destination, 'Poi', $xsd );
+    parent::__construct(  $vendor, $destination, 'Poi', $xsd , $validation);
+
   }
 
   protected function getData()
   {
-    $data = Doctrine::getTable( $this->model )->findAllValidByVendorId( $this->vendor->getId() );
+    if( $this->validation)
+    {
+        $data = Doctrine::getTable( $this->model )->findAllValidByVendorId( $this->vendor->getId() );
+    }else
+    {
+        $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
+    }
+
     return $data;
   }
   /**
@@ -65,20 +73,61 @@ class XMLExportPOI extends XMLExport
     //entry
     foreach( $data as $poi )
     {
+      //Skip Export for Pois with lat/long outside vendor boundaries.
+      $bounds_array = explode( ";", $this->vendor['geo_boundries'] );
+
+      if( $poi['latitude'] < $bounds_array[0] || $poi['latitude'] > $bounds_array[2] ||
+          $poi['longitude'] < $bounds_array[1] || $poi['longitude'] > $bounds_array[3] )
+      {
+          if( $this->validation == true )
+          {
+            ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
+            continue;
+          }
+
+      }
+
       //Skip Export for Pois with Dupe Lat/Longs
       foreach( $duplicateLatLongs as $dupe )
       {
           if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
           {
-              ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
-              continue 2;
+              if( $this->validation == true )
+              {
+                ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
+                continue 2;
+              }
           }
       }
 
       if( count( $poi[ 'VendorPoiCategory' ] ) == 0 )
       {
-        ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );
-        continue;
+          if( $this->validation == true )
+          {
+            ExportLogger::getInstance()->addError( 'Vendor Poi Category not found', 'Poi', $poi[ 'id' ] );
+            continue;
+          }
+      }
+
+      // check the city name, if it has a number in it continue because
+      // city name could be set postcode or another wrong information
+      preg_match( '(\d)', $poi['city'], $numbersInCityName );
+      if( count( $numbersInCityName ) != 0  )
+      {
+          if( $this->validation == true )
+          {
+            ExportLogger::getInstance()->addError( 'Skip Export for Pois with number in city name', 'Poi', $poi[ 'id' ] );
+            continue;
+          }
+      }
+
+      if( trim( $poi['street'] ) == '' )
+      {
+          if( $this->validation == true )
+          {
+            ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty street', 'Poi', $poi[ 'id' ] );
+            continue;
+          }
       }
 
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
@@ -160,9 +209,9 @@ class XMLExportPOI extends XMLExport
 
       //event/version/media
       foreach( $poi[ 'PoiMedia' ] as $medium )
-      {        
+      {
         $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
-        
+
         if ( $mediaElement instanceof DOMElement )
         {
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
@@ -186,10 +235,22 @@ class XMLExportPOI extends XMLExport
         }
       }
 
+      // UI Category Exports.
+      $avoidDuplicateUiCategories = array();
+      foreach( $poi['VendorPoiCategory'] as $vendorCat )
+        foreach( $vendorCat['UiCategory'] as $uiCat )
+           if( isset( $uiCat['name'] ) )
+            if( !in_array( (string) $uiCat['name'], $avoidDuplicateUiCategories ) )
+            {
+                $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', (string) $uiCat['name'], XMLExport::USE_CDATA );
+                $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
+                $avoidDuplicateUiCategories[] = (string) $uiCat['name'];
+            }
+
       ExportLogger::getInstance()->addExport( 'Poi' );
 
     }
-
+//    ExportLogger::getInstance()->showErrors();
     return $domDocument;
   }
 

@@ -52,7 +52,7 @@ class singaporeVenuesMapperTest extends PHPUnit_Framework_TestCase {
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
    */
-  protected function setUp() 
+  protected function setUp()
   {
     setlocale(LC_MONETARY, 'en_US.UTF-8');
 
@@ -70,7 +70,7 @@ class singaporeVenuesMapperTest extends PHPUnit_Framework_TestCase {
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
    */
-  protected function tearDown() 
+  protected function tearDown()
   {
     //$this->logger->save();
     ProjectN_Test_Unit_Factory::destroyDatabases();
@@ -93,7 +93,7 @@ class singaporeVenuesMapperTest extends PHPUnit_Framework_TestCase {
     $description = '<excerpt>Enviro-minded eaters should get moving to this new vegetarian restaurant that uses foodstuffs free of pesticides and chemicals, sourced from Australia, Thailand and the US, and served in a space furnished with recycled materials. We recommend the healthy, greens-filled Sichuan sour spicy noodles.<br /><br /><em>Main courses $6.50-$9.</em>';
     $website     = 'http://www.timeout.com';
     $transport   = 'Near station: Little India';
-    $phone       = '+65 656 392 0369';
+    $phone       = '+65 6 392 0369';
     $street      = '#01-24-26 The Verge 2 Serangoon Rd';
     $price       = 'between $1.00 and $2.00';
     $this->assertEquals( 2154         , $mappedPoi['vendor_poi_id'] );
@@ -124,14 +124,14 @@ class singaporeVenuesMapperTestCurlImporter extends curlImporter
 
   private $urlToTestFileMap = array
   (
-    'http://www.timeoutsingapore.com/xmlapi/venues/' 
+    'http://www.timeoutsingapore.com/xmlapi/venues/'
       => '/all_of_singapore_full_venues_list.xml',
 
     'http://www.timeoutsingapore.com/xmlapi/xml_detail/'
       => '/venue_detail.xml',
   );
 
-  public function pullXml( $url )
+  public function pullXml( $url ,$request, $parameters='', $requestMethod = 'GET', $overrideCharset = false  )
   {
     $file = $this->urlToTestFileMap[ $url ];
     $file = TO_TEST_DATA_PATH . '/singapore' . $file;

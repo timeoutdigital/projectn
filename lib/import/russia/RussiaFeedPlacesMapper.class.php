@@ -12,7 +12,7 @@
  *
  */
 class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
-{  
+{
   public function mapPlaces()
   {
     for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
@@ -20,7 +20,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
         try {
             // Get Venue Id
             $vendor_venue_id = (string) $venueElement['id'];
-            
+
             $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( $vendor_venue_id, 'ru' );
             if( !$poi )
               $poi = new Poi();
@@ -33,15 +33,15 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['vendor_poi_id']                 = (string) $vendor_venue_id;
             $poi['review_date']                   = (string) $venueElement->review_date;
             $poi['local_language']                = $this->vendor->language;
-            $poi['poi_name']                      = trim( (string) $venueElement->name, " ./" );
+            $poi['poi_name']                      = $this->clean( $this->removeQuotAmp( (string) $venueElement->name ) , " ./" );
             $poi['house_no']                      = (string) $venueElement->house_no;
             $poi['street']                        = (string) $venueElement->street;
             $poi['city']                          = (string) $venueElement->city;
             //$poi['district']                      = (string) $venueElement->district;
-            $poi['country']                       = "RUS";
+            $poi['country']                       = $this->vendor['country_code_long'];
             $poi['additional_address_details']    = (string) $venueElement->additional_address_details;
             $poi['zips']                          = (string) $venueElement->postcode;
-            
+
             $poi->applyFeedGeoCodesIfValid( (string) $venueElement->lat, (string) $venueElement->long );
 
             $poi['email']                         = (string) $venueElement->email;
@@ -50,8 +50,8 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['phone2']                        = trim( (string) $venueElement->phone2, " ." );
             $poi['fax']                           = (string) $venueElement->fax;
             $poi['keywords']                      = (string) $venueElement->keywords;
-            $poi['description']                   = $this->fixHtmlEntities( (string) $venueElement->description ); // Requires Double Entity Decoding
-            $poi['short_description']             = $this->fixHtmlEntities( (string) $venueElement->short_description ); // Requires Double Entity Decoding
+            $poi['description']                   = $this->clean( $this->fixHtmlEntities( (string) $venueElement->description ) ); // Requires Double Entity Decoding
+            $poi['short_description']             = $this->clean( strip_tags( $this->fixHtmlEntities( (string) $venueElement->short_description) ) ); // Requires Double Entity Decoding
             $poi['public_transport_links']        = (string) $venueElement->public_transport;
             $poi['price_information']             = (string) $venueElement->price_information;
             $poi['openingtimes']                  = (string) $venueElement->opening_times;
@@ -86,7 +86,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
         {
             $this->notifyImporterOfFailure( $exception );
         }
-        
+
         unset( $poi, $venueElement, $vendor_venue_id, $categories, $processed_medias );
     }
   }
