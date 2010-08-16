@@ -39,11 +39,6 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
 
-    $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . '/russia_events.short.xml' );
-
-    $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'moscow' );
-
-    $this->dataMapper = new RussiaFeedEventsMapper( $this->eventsXml, null, $this->vendor['city'] );
   }
 
   /**
@@ -57,11 +52,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapEvents()
   {
-    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
-
-    $importer = new Importer();
-    $importer->addDataMapper( $this->dataMapper );
-    $importer->run();
+    $this->importFileAndAddRequiredPois();
 
     $events = Doctrine::getTable('Event')->findAll();
     $this->assertEquals( 10, $events->count(), 'Should have same number of events imported as in the feed received.' );
@@ -72,9 +63,9 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Двое на качелях', $event['name'] );
     $this->assertEquals( 'Спектакль о двух одиноких людях, потерявших опору в жизни. Отношения их складываются непросто, но нахлынувшее чувство позволяет вновь обрести вкус к жизни.', $event['short_description'] );
     $this->assertEquals( 'Спектакль', mb_substr( $event['description'], 0, 9, "UTF-8" ) );
-    
+
     $this->assertEquals( 'ru', $event->Vendor->language );
-    
+
     $this->assertGreaterThan( 0, $event[ 'VendorEventCategory' ]->count(), 'Should have more that one VendorEventCategory' );
     $this->assertEquals( "Драма | Театр", $event[ 'VendorEventCategory' ][ 'Драма | Театр' ][ 'name' ], 'Check event category' );
 
@@ -90,19 +81,94 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $venues = $this->eventsXml->xpath('//venue');
     $venueIds = array();
 
-    foreach( $venues as $venue ) 
+    foreach( $venues as $venue )
+    {
       $venueIds[] = (string) $venue;
+    }
 
     $venueIds = array_unique( $venueIds );
 
     //make sure our keys are not missing a number
     sort( $venueIds );
 
-    $this->assertEquals( 7, count( $venueIds ), 
-      'Should have 7 venues in the fixture, one for each Vendor.' );
-
     return $venueIds;
   }
+
+  public function testVenueIdsCreated()
+  {
+    $this->importFileAndAddRequiredPois();
+    $this->assertEquals( 7, Doctrine::getTable( 'Poi' )->count() );
+  }
+
+  public function testThereIsNoRepeatedOccurrences ()
+  {
+    $this->importFileAndAddRequiredPois( 'russia_events_multiple_occurrences.short.xml' );
+    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
+
+    //check that event with the id 128382 is imported
+    //this is the event that has duplicated occurrences. two occurrence2 for 2010-09-14
+    //test for same star
+     $event = Doctrine::getTable('Event')->findOneByVendorEventId( 128382 );
+
+     $occurrenceDates = array();
+
+     foreach ($event[ 'EventOccurrence' ] as $occurrence)
+     {
+        $occurrenceDates [] = $occurrence[ 'start_date' ];
+     }
+
+     $this->assertEquals( count( $occurrenceDates ), 6  );
+     //occurrence_dates array shouldn't have any duplicate values even tho the feed has a duplicate occurrence!
+     $this->assertEquals( count( $occurrenceDates ), count( array_unique( $occurrenceDates )  ) ,'Duplicate occurrences should be removed while saving an event. check event model'  );
+
+     //test for same date and time but different venues
+     $event = Doctrine::getTable('Event')->findOneByVendorEventId( 128388 );
+
+     $occurrenceDates = array();
+
+     foreach ($event[ 'EventOccurrence' ] as $occurrence)
+     {
+        $occurrenceDates [  ] = $occurrence[ 'start_date' ];
+     }
+
+     $this->assertEquals( count( $event[ 'EventOccurrence' ]  ), 3 , '3 occurrences' );
+     $this->assertEquals( count( array_unique( $occurrenceDates ) ), 2 , '3 occurrences but happening in 2 days ' );
+     $this->assertEquals( $event[ 'EventOccurrence' ][0]['start_date'], $event[ 'EventOccurrence' ][2]['start_date'] , '1st and 3rd one happining in the same day' );
+
+
+     //test for same date and venue but different times
+     $event = Doctrine::getTable('Event')->findOneByVendorEventId( 128389 );
+
+     $occurrenceDates = array();
+
+     foreach ($event[ 'EventOccurrence' ] as $occurrence)
+     {
+        $occurrenceDates [  ] = $occurrence[ 'start_date' ];
+     }
+
+     $this->assertEquals( count( $event[ 'EventOccurrence' ]  ), 3 , '3 occurrences' );
+     $this->assertEquals( count( array_unique( $occurrenceDates ) ), 2 , '3 occurrences but happening in 2 days ' );
+     $this->assertEquals( $event[ 'EventOccurrence' ][0]['start_date'], $event[ 'EventOccurrence' ][2]['start_date'] , '1st and 3rd one happining in the same day' );
+     $this->assertNotEquals( $event[ 'EventOccurrence' ][0]['start_time'], $event[ 'EventOccurrence' ][2]['start_time'] , '1st and 3rd one happining in the same day  but different times' );
+     $this->assertEquals( $event[ 'EventOccurrence' ][0]['poi_id'], $event[ 'EventOccurrence' ][2]['poi_id'] , '1st and 3rd one happining in the same poi' );
+
+  }
+
+
+  private function importFileAndAddRequiredPois( $file = 'russia_events.short.xml' )
+  {
+    $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . DIRECTORY_SEPARATOR . $file );
+
+    $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'moscow' );
+
+    $this->dataMapper = new RussiaFeedEventsMapper( $this->eventsXml, null, $this->vendor['city'] );
+    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
+
+    $importer = new Importer();
+    $importer->addDataMapper( $this->dataMapper );
+    $importer->run();
+  }
+
 
   private function createVenuesFromVenueIds( $venueIds )
   {
@@ -113,7 +179,6 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
       $poi[ 'Vendor' ] = $this->vendor;
       $poi->save();
     }
-    $this->assertEquals( 7, Doctrine::getTable( 'Poi' )->count() );
   }
 
 }
