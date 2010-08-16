@@ -321,11 +321,16 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::createDatabases();
 
       $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $vendor['geo_boundries'] = "1;1;10;10";
+      $vendor->save();
 
       $poi    = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $vendor;
       $poi->addVendorCategory( 'foo', $vendor );
       $poi->addVendorCategory( 'bar', $vendor );
+      $poi['latitude'] = 5;
+      $poi['longitude'] = 5;
+
       $poi->save();
 
       $poiCategory = ProjectN_Test_Unit_Factory::get( 'PoiCategory' );
@@ -585,13 +590,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::createDatabases();
 
       $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-      $this->vendor2['geo_boundries'] = "1;1;2;2";
+      $this->vendor2['geo_boundries'] = "1;1;10;10";
       $this->vendor2->save();
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
-      $poi['latitude'] = 1;
-      $poi['longitude'] = 1;
+      $poi['latitude'] = 5;
+      $poi['longitude'] = 5;
       $poi['city'] = ''; //empty city name
       $poi->addVendorCategory( "moo", $this->vendor2->id );
       $poi->save();
@@ -609,6 +614,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 0, count( $numEntries ) , 'pois without city name should not be exported' );
 
     }
+
     private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';

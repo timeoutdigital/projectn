@@ -121,7 +121,7 @@ class XMLExportPOI extends XMLExport
           }
       }
 
-      if( trim( $poi['street'] ) == '' )
+      if( stringTransform::mb_trim ( $poi['street'] ) == '' )
       {
           if( $this->validation == true )
           {
@@ -130,7 +130,7 @@ class XMLExportPOI extends XMLExport
           }
       }
 
-      if( trim( $poi['city'] ) == '' )
+      if( stringTransform::mb_trim ( $poi['city'] ) == '' )
       {
           if( $this->validation == true )
           {
