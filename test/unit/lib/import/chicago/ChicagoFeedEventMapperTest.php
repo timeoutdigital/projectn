@@ -47,7 +47,7 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
     public function testMapEvents()
     {
         // Load XML and Data Mapper
-        $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/chicago_new_event_poi.short.xml' );
+        $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/chicago/chicago_new_event_poi.short.xml' );
 
         $xml = $this->setupPoisAndDates( $xml ); // Setup Dummy POIs and update DATEs
 

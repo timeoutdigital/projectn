@@ -45,7 +45,7 @@ class ChicagoFeedBCMapperTest extends PHPUnit_Framework_TestCase
     public function testMapBC()
     {
         // Load XML and Data Mapper
-        $fileName =  TO_TEST_DATA_PATH . '/short_toc_bc.xml';
+        $fileName =  TO_TEST_DATA_PATH . '/chicago/short_toc_bc.xml';
         $dataMapper = new ChicagoFeedBCMapper( $this->vendor, $fileName );
 
         // Run Test Import

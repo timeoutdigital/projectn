@@ -49,7 +49,7 @@ class ChicagoFeedPoiMapperTest extends PHPUnit_Framework_TestCase
     {
 
         // Load XML and Data Mapper
-        $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/chicago_new_event_poi.short.xml' );
+        $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/chicago/chicago_new_event_poi.short.xml' );
         $dataMapper = new ChicagoFeedPoiMapper( $this->vendor, $xml );
 
         // Run Test Import
