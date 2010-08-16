@@ -128,6 +128,32 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
+            case 'test-bc':
+                echo "Downloading Chicago's BC Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_bc.xml' );
+
+                echo "Importing Chicago's BC \n";
+
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedBCMapper($vendorObj, $fileNameString) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+
+              break;
+            case 'test-ed':
+                echo "Downloading Chicago's ED Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_ed.xml' );
+
+                echo "Importing Chicago's ED \n";
+
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedEDMapper($vendorObj, $fileNameString) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+
+              break;
           case 'test-poi':
                 echo "Downloading Chicago's Poi/Events Feed \n";
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
