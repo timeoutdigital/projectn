@@ -574,6 +574,24 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
   }
 
+  public function testFixPhoneNumbers()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor' );
+      $vendor['inernational_dial_code'] = '+3493';
+      $vendor->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['phone'] = ' + &amp; *12 34 5 6 7 8  !"  & $ ';
+      $poi['phone2'] = ' + &amp; *12 34 5 6 7 8  !"  & $ ';
+      $poi['fax'] = ' + &amp; *12 34 5 6 7 8  !"  & $ ';
+      $poi[ 'Vendor' ] = $vendor;
+      $poi->save();
+
+      $this->assertEquals( '+3493 1 234 5678', $poi['phone'], "there seems something wrong with the phone number cleaning for field phone" );
+      $this->assertEquals( '+3493 1 234 5678', $poi['phone2'], "there seems something wrong with the phone number cleaning for field phone2" );
+      $this->assertEquals( '+3493 1 234 5678', $poi['fax'], "there seems something wrong with the phone number cleaning for field fax" );
+  }
+
    public function testFormatPhoneWhenPhoneHasAlreadyPrefixedWithInternationalDialCode()
    {
 
