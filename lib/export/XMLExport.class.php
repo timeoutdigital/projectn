@@ -207,7 +207,7 @@ abstract class XMLExport
     }
     else
     {
-      return $node->appendChild( new DOMElement( $elementName, htmlentities( $elementContent, ENT_COMPAT, 'UTF-8' ) ) );
+      return $node->appendChild( new DOMElement( $elementName, $elementContent ) );
     }
     return null;
   }
