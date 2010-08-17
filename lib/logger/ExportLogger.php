@@ -175,6 +175,24 @@ class ExportLogger extends BaseLogger
     }
 
     /**
+     * Initalize an Export
+     *
+     * @param string $model
+     *
+     * This function initializes a the export count to 0.
+     *
+     */
+    public function initExport( $model )
+    {
+        $logExportCount = new LogExportCount();
+        $logExportCount[ 'model' ] = $model;
+        $logExportCount[ 'count' ] = 0;
+
+        $this->_exportLog[ 'LogExportCount' ][] = $logExportCount;
+        $this->save( );
+    }
+
+    /**
      * Log an export
      *
      * @param string $model
@@ -189,24 +207,19 @@ class ExportLogger extends BaseLogger
     {
         if ( $this->_exportLog[ 'LogExportCount' ] instanceof Doctrine_Collection )
         {
-            foreach( $this->_exportLog[ 'LogExportCount' ] as $logExportCount )
+            foreach( $this->_exportLog[ 'LogExportCount' ] as $k => $logExportCount )
             {
-                if ( $logExportCount[ 'model' ] == $model  )
+                if ( $this->_exportLog[ 'LogExportCount' ][ $k ][ 'model' ] == $model  )
                 {
-                    $logExportCount[ 'count' ] = $logExportCount[ 'count' ] + 1;
+                    $this->_exportLog[ 'LogExportCount' ][ $k ][ 'count' ] += 1;
                     $this->save( );
                     return;
                 }
             }
         }
 
-        $logExportCount = new LogExportCount();
-        $logExportCount[ 'model' ] = $model;
-        $logExportCount[ 'count' ] = 1;
-
-        $this->_exportLog[ 'LogExportCount' ][] = $logExportCount;
-
-        $this->save( );
+        $this->initExport( $model ); // Initalize a new export count to 0.
+        $this->addExport( $model ); // Recurse to add Export.
     }
 
     /**
