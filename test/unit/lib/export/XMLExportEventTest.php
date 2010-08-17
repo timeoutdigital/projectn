@@ -80,6 +80,18 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+
+    if( file_exists( $this->destination ) )
+    {
+        unlink( $this->destination );
+    }
+
+    if( file_exists( $this->poiXmlLocation ) )
+    {
+        unlink( $this->poiXmlLocation );
+    }
+    //give some timefor tests before the files will be recreated
+    sleep(0.1);
   }
 
   /**
@@ -87,12 +99,12 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
    */
   public function testAddUiCategory()
   {
+        $this->populateDbWithLondonData();
+        $this->exportPoisAndEvents();
+
         $this->domDocument = new DOMDocument();
         $this->domDocument->load( $this->destination );
         $this->xpath = new DOMXPath( $this->domDocument );
-
-        $this->populateDbWithLondonData();
-        $this->exportPoisAndEvents();
 
         $uiCategories = $this->xpath->query( "/vendor-events/event/version/property[@key='UI_CATEGORY']" );
         $this->assertEquals( 2, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
@@ -139,6 +151,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
         $this->destination = dirname( __FILE__ ) . '/../../export/event/eventtest.xml';
         $this->export = new XMLExportEvent( $vendor, $this->destination, dirname( __FILE__ ) . '/../../export/poi/poitest.xml' );
 
+        $this->assertTrue( file_exists( $this->poiXmlLocation ) , 'POIXML should be created ' );
         $this->export->run();
         $this->xml = simplexml_load_file( $this->destination );
 
@@ -219,6 +232,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
        $cats = Doctrine::getTable('VendorEventCategory')->findAll();
 
+       $this->doPoiExport();
        $this->export();
 
        $this->assertEquals(1, $this->xpath->query('//event')->length, 'Testing that no Events w/a VendorEventCategories are exported' );
@@ -262,7 +276,9 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
        $cats = Doctrine::getTable('VendorEventCategory')->findAll();
 
+       $this->doPoiExport();
       $this->export = new XMLExportEvent( $this->vendor, $this->destination, $this->poiXmlLocation,false );
+
       $this->export->run();
       $this->domDocument = new DOMDocument();
       $this->domDocument->load( $this->destination );
@@ -279,6 +295,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     $this->createLondonVendor();
     $this->addAnEventWithEventCategories( 'concerts', 'theater', 'sport' );
     $this->addAnEventWithEventCategories( 'family' );
+    $this->doPoiExport();
     $this->export();
 
     $categoryElements1 = $this->xpath->query( '/vendor-events/event[1]/category' );
@@ -437,7 +454,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     {
       $this->markTestSkipped();
       $this->populateDbWithLondonData();
-    $this->exportPoisAndEvents();
+      $this->exportPoisAndEvents();
       $propertyElements = $this->xpath->query( '/vendor-events/event[1]/version/media' );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'url',    $propertyElements->item(0)->nodeValue );
@@ -471,13 +488,14 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     /**
      * get today's date
      */
-    private function today()
+  private function today()
     {
       return date( 'Y-m-d' );
     }
 
-    private function export()
+  private function export()
     {
+      $this->assertTrue( file_exists( $this->poiXmlLocation ) , 'POIXML should be created ' );
       $this->export = new XMLExportEvent( $this->vendor, $this->destination, $this->poiXmlLocation );
       $this->export->run();
       $this->domDocument = new DOMDocument();
@@ -485,7 +503,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->xpath = new DOMXPath( $this->domDocument );
     }
 
-    private function doPoiExport( $vendor = NULL )
+  private function doPoiExport( $vendor = NULL )
     {
         if ( $vendor === NULL )
         {
@@ -494,7 +512,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
         $poiExport = new XMLExportPOI( $vendor, $this->poiXmlLocation );
         $poiExport->run();
-        sleep( 1 );
+
     }
 
     private function createLondonVendor()
