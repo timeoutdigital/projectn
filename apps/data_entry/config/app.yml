@@ -30,6 +30,11 @@ all:
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+        -
+          name: beijing
+          type: [ poi ]
+          language: en-GB
+          validation: false
 
 prod:
   sf_guard_plugin:
