@@ -62,7 +62,7 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
             try
             {
                 // Get the existing Event
-                $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndVendorId( $eventNode['id'], $this->vendorID );
+                $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndVendorId( (string)$eventNode['id'], $this->vendorID );
 
                 if( !$event )
                     $event = new Event();
@@ -138,13 +138,13 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
                 // Save the Records
                 $this->notifyImporter( $event );
 
-                $event->free( true );
+                // $event->free( true );
 
                 unset($event, $textSystem);
 
             }  catch ( Exception $exception)
             {
-                $this->notifyImporterOfFailure( new Exception( 'Event Exception: ' . $exception->getMessage() . ' | Vendor Event ID: ' . $eventNode['id'] ) );
+                $this->notifyImporterOfFailure( new Exception( 'Event Exception: ' . $exception->getMessage() . ' | Vendor Event ID: ' . (string)$eventNode['id'] ) );
             }
         } // for loop
     }
@@ -254,7 +254,7 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
 
             if( !$poi )
             {
-                $this->notifyImporterOfFailure( new Exception( 'Event ' . $event['name'] . ' POI not found. Poi ID: ' . $venueID ) ); echo $venueID;
+                $this->notifyImporterOfFailure( new Exception( 'Event ' . $event['name'] . ' POI not found. Poi ID: ' . $venueID ) );
                 continue;
             }
 
