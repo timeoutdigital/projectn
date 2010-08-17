@@ -46,7 +46,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
         $poi[ 'Vendor' ] = $this->vendor;
         $poi->save();
     }
-
+    setlocale(LC_MONETARY, 'en_US.UTF-8');
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
     $importer->run();

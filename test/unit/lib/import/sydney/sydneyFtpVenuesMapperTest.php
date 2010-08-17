@@ -150,6 +150,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function runImport()
   {
+    setlocale(LC_MONETARY, 'en_US.UTF-8');
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpVenuesMapper( $this->vendor, $this->feed ) );
     $importer->run();
