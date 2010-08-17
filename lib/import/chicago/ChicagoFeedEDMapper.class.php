@@ -89,10 +89,11 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 }
                 // geocode lookup string
                 $poi[ 'geocode_look_up' ]                       = stringTransform::concatNonBlankStrings(',', array(
-                                                                                                                $poi['poi_name'],
-                                                                                                                $poi['street'],
-                                                                                                                $poi['zips'],
-                                                                                                                $poi['city']
+                                                                                                                $poi[ 'poi_name' ],
+                                                                                                                $poi[ 'street' ],
+                                                                                                                $poi[ 'city' ],
+                                                                                                                $poi[ 'zips' ],
+                                                                                                                $poi[ 'country' ],
                                                                                                                     ));
                 // Add Category
                 if( trim( (string)$xmlNode->category ) != '' )

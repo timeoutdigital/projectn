@@ -55,11 +55,9 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
                 $geoCodeLookup = stringTransform::concatNonBlankStrings( ', ', array(
                                                                                     $poi[ 'poi_name' ],
                                                                                     $poi[ 'street' ],
-                                                                                    (string) $poiNode->district,
-                                                                                    (string) $poiNode->suburb,
-                                                                                    (string) $poiNode->town,
-                                                                                    (string) $poiNode->country_symbol,
-                                                                                    (string) $poiNode->state,
+                                                                                    $poi[ 'city' ],
+                                                                                    $poi[ 'zips' ],
+                                                                                    $poi[ 'country' ],
                                                                                     ) );
                 $poi->setGeoEncodeLookUpString( $geoCodeLookup );
 
