@@ -128,7 +128,7 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-            case 'test-bc':
+            case 'poi-bc':
                 echo "Downloading Chicago's BC Feed \n";
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_bc.xml' );
 
@@ -141,7 +141,7 @@ class importTask extends sfBaseTask
                 $this->dieWithLogMessage();
 
               break;
-            case 'test-ed':
+            case 'poi-ed':
                 echo "Downloading Chicago's ED Feed \n";
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_ed.xml' );
 
@@ -154,7 +154,7 @@ class importTask extends sfBaseTask
                 $this->dieWithLogMessage();
 
               break;
-          case 'test-poi':
+          case 'poi':
                 echo "Downloading Chicago's Poi/Events Feed \n";
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
 
@@ -170,7 +170,7 @@ class importTask extends sfBaseTask
                 $this->dieWithLogMessage();
 
               break;
-          case 'test-event':
+          case 'event':
                 echo "Downloading Chicago's Poi/Events Feed \n";
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
 
@@ -179,7 +179,7 @@ class importTask extends sfBaseTask
 
                 echo "Importing Chicago's Events \n";
 
-                // @todo Wrap in try catch
+                // @todo Wrap in try catch & change this to XSLT like new NY
                 // We are to Run two Import on Events to Manage Memory!
                 $eventsNode = $xmlData->xpath( '/body/event' );
                 $totalCount = count($eventsNode); 
@@ -190,6 +190,10 @@ class importTask extends sfBaseTask
                 $importer->run();
                 ImportLogger::getInstance()->end();
 
+                // Reset Importer
+                unset( $importer );
+                $importer = new Importer(); // Create new Importer
+                echo "Importing Chicago's Events - 2 \n";
                 // Run the Second one
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, $splitAt, $totalCount ) );
@@ -199,10 +203,7 @@ class importTask extends sfBaseTask
                 $this->dieWithLogMessage();
                 
               break;
-          case 'poi-event':
-              $this->importChicagoEvents($vendorObj, $ftpClientObj);
-            break;
-
+          
           case 'movie':
               ImportLogger::getInstance()->setVendor( $vendorObj );
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -211,28 +212,7 @@ class importTask extends sfBaseTask
               $this->dieWithLogMessage();
           break;
 
-          case 'eating-drinking':
-            try
-            {
-              $importObj = $this->importChicagoEd($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-           break;
-          case 'bars-clubs':
-            try
-            {
-              $importObj = $this->importChicagoBc($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-           break;
-
-           default : $this->dieDueToInvalidTypeSpecified();
+          default : $this->dieDueToInvalidTypeSpecified();
         }
         break; //end chicago
 
