@@ -116,7 +116,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $pois = $this->poiTable->findAll( );
 
     $this->assertEquals( '',                       $pois[0]['price_information'] );
-    $this->assertEquals( '1.00',                   $pois[1]['price_information'] );
+    $this->assertEquals( '$1.00',                   $pois[1]['price_information'] );
     $this->assertEquals( 'between 2.00 and 10.00', $pois[2]['price_information'] );
   }
 
