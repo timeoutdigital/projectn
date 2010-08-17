@@ -111,6 +111,15 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Y', $pois[2]['CriticsChoiceProperty'] , 'Check Critics_choice flag is present' );
   }
 
+  public function testPriceInfo()
+  {
+    $pois = $this->poiTable->findAll( );
+
+    $this->assertEquals( '',                       $pois[0]['price_information'] );
+    $this->assertEquals( '1.00',                   $pois[1]['price_information'] );
+    $this->assertEquals( 'between 2.00 and 10.00', $pois[2]['price_information'] );
+  }
+
   public function testHasImages()
   {
 

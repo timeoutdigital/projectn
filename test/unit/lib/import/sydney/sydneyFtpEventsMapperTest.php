@@ -74,6 +74,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('1891484e2', $event['vendor_event_id'], 'Check vendor_event_id field.' );
     $this->assertEquals('Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.', $event['description'], 'Check description field.' );
     $this->assertEquals('http://www.somewebsite.com', $event['url'], 'Check url field.' );
+    $this->assertEquals('30.00', $event['price'], 'Check price field.' );
     $this->assertEquals('1', $event['rating'], 'Check rating field.' );
     $this->assertEquals('1', $event['vendor_id'], 'Check vendor_id field.' );
   }
