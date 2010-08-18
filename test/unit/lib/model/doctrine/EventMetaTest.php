@@ -37,17 +37,23 @@ class EventMetaTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-  public function testSave()
-  {
-      $meta = new EventMeta();
-      $this->setExpectedException("Doctrine_Connection_Sqlite_Exception");
-      $meta->save();
 
-      $meta = new Meta();
-      $meta['record_id'] = 1;
-      $meta['lookup'] = 'foo';
-      $meta['value'] = 'bar';
+
+  public function testSaveWithoutLookupAndValue()
+  {
+    try
+    {
+      $meta = new EventMeta();
       $meta->save();
+    }catch (Exception $e)
+    {
+        $this->assertTrue( true );
+        return;
+    }
+
+    $this->fail('An expected exception has not been raised.');
+
   }
+
 
 }
