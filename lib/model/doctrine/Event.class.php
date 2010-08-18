@@ -36,7 +36,7 @@ class Event extends BaseEvent
     $this->applyOverrides();
     $this->downloadMedia();
     $this->removeMultipleImages();
-    $this->removeMultipleOccurrences();
+    //$this->removeMultipleOccurrences();
   }
 
   /**
