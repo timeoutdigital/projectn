@@ -29,14 +29,14 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
         {
             try
             {
-                $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( $poiNode['id'], $this->vendor['id'] );
+                $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( trim( (string) $poiNode['id'] ), $this->vendor['id'] );
 
                 if( !$poi )
                     $poi = new Poi();
 
                 // Map Data
                 $poi[ 'vendor_id' ]                     = $this->vendorID;
-                $poi[ 'vendor_poi_id' ]                 = (string) $poiNode['id'];
+                $poi[ 'vendor_poi_id' ]                 = trim( (string) $poiNode['id'] );
                 $poi[ 'poi_name' ]                      = (string) $poiNode->identifier;
                 $poi[ 'street' ]                        = (string) $poiNode->street;
                 $poi[ 'city' ]                          = (string) $poiNode->town;

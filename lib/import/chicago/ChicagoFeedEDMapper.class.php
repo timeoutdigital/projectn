@@ -49,14 +49,14 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
 
             try{
                 // Get Existing POI
-                $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( (string) $xmlNode->ID, $this->vendorID );
+                $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( trim( (string) $xmlNode->ID ) , $this->vendorID );
 
                 if( !$poi ) // Create new POI
                     $poi = new Poi();
 
                 // Map Data
                 $poi['vendor_id']                               = $this->vendorID;
-                $poi['vendor_poi_id']                           = (string) $xmlNode->ID;
+                $poi['vendor_poi_id']                           = trim( (string) $xmlNode->ID );
                 $poi['poi_name']                                = (string) $xmlNode->name;
                 $poi['description']                             = $this->fixHtmlEntities( (string) $xmlNode->body );
                 $poi['local_language']                          = $poi['Vendor']['language'];
@@ -96,9 +96,10 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                                                                                                                 $poi[ 'country' ],
                                                                                                                     ));
                 // Add Category
+                $categoryArray[]                                = 'Eating & Drinking'; // Default and irst category for ED as many don;t have cat and many don't mean anything?
                 if( trim( (string)$xmlNode->category ) != '' )
                 {
-                    $categoryArray                              = $this->nl2Array( (string)$xmlNode->category );
+                    $categoryArray                              = array_merge( $categoryArray, $this->nl2Array( (string)$xmlNode->category ) );
 
                     if( is_array( $categoryArray ) && count( $categoryArray ) > 0 )
                     {
