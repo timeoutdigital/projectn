@@ -18,7 +18,7 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
   /**
    * @param SimpleXMLElement $xml
    */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null, $city = false )
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false )
     {
         if( is_string( $city ) )
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );

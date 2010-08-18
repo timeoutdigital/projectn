@@ -85,7 +85,7 @@ class singaporeVenuesMapper extends DataMapper
           $poi[ 'street' ]                     = trim( (string) $address->address, ", " );
           $poi[ 'city' ]                       = $this->_vendor['city'];
 
-          $poi->setGeoEncodeLookUpString( $this->extractGeoEncodeLookupString( $poi ) );
+          $poi->setgeocoderLookUpString( $this->extractgeocoderLookupString( $poi ) );
       }
 
       //@todo test the rest of this function
@@ -128,7 +128,7 @@ class singaporeVenuesMapper extends DataMapper
       return $address;
     }
 
-    private function extractGeoEncodeLookupString( Poi $poi )
+    private function extractgeocoderLookupString( Poi $poi )
     {
       return stringTransform::concatNonBlankStrings( ', ', array( $poi[ 'street' ], $poi[ 'additional_address_details' ], $poi[ 'zips' ], $poi[ 'city' ]  ) );
     }

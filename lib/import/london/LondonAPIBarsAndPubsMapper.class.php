@@ -21,11 +21,11 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
   /**
    *
    * @param LondonAPICrawler $apiCrawler
-   * @param geoEncode $geoEncoder
+   * @param geocoder $geocoderr
    */
-  public function __construct( LondonAPICrawler $apiCrawler=null, geoEncode $geoEncoder=null )
+  public function __construct( LondonAPICrawler $apiCrawler=null, geocoder $geocoderr=null )
   {
-    parent::__construct($apiCrawler, $geoEncoder);
+    parent::__construct($apiCrawler, $geocoderr);
     $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'bar-pub' );
   }
 

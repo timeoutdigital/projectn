@@ -183,9 +183,9 @@ class PoiFixture
 
     $poi->fromArray( $defaults );
 
-    $mockGeoEncoder = new mockGeoEncode();
+    $mockgeocoderr = new mockgeocoder();
 
-    $poi->setGeoEncoder( $mockGeoEncoder );
+    $poi->setgeocoderr( $mockgeocoderr );
 
     return $poi;
   }
@@ -505,7 +505,7 @@ class VendorPoiCategoryFixture
 }
 
 
-class mockGeoEncode extends geoEncode
+class mockgeocoder extends geocoder
 {
 
   public function getAddress()

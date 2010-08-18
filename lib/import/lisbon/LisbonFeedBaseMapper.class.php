@@ -29,9 +29,9 @@ class LisbonFeedBaseMapper extends DataMapper
   protected $vendor;
 
   /**
-   * @var geoEncode
+   * @var geocoder
    */
-  protected $geoEncoder;
+  protected $geocoderr;
 
   /**
    * @var SimpleXMLElement
@@ -47,9 +47,9 @@ class LisbonFeedBaseMapper extends DataMapper
   /**
    *
    * @param SimpleXMLElement $xml
-   * @param geoEncode $geoEncoder
+   * @param geocoder $geocoderr
    */
-  public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
+  public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null )
   {
     $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
 
@@ -64,11 +64,11 @@ class LisbonFeedBaseMapper extends DataMapper
     $this->dateTimeZoneLondon = new DateTimeZone( 'Europe/London' );
     $this->dateTimeZoneLisbon = new DateTimeZone( 'Europe/Lisbon' );
 
-    if( is_null( $geoEncoder ) )
+    if( is_null( $geocoderr ) )
     {
-      $geoEncoder = new geoEncode();
+      $geocoderr = new googleGeocoder();
     }
-    $this->geoEncoder = $geoEncoder;
+    $this->geocoderr = $geocoderr;
   }
 
   /**

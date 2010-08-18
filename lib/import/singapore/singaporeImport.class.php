@@ -235,8 +235,8 @@ class singaporeImport
                 $poi[ 'street' ]                     = (string) $addressArray[0]->address;
                 $poi[ 'city' ]                       = 'Singapore';
                 //$poi[ 'district' ]                   = '';
-                $geoEncodeLookupString = stringTransform::concatNonBlankStrings( ', ', array( $poi[ 'street' ], $poi[ 'additional_address_details' ], $poi[ 'zips' ], $poi[ 'city' ]  ) );
-                $poi->setGeoEncodeLookUpString( $geoEncodeLookupString );
+                $geocoderLookupString = stringTransform::concatNonBlankStrings( ', ', array( $poi[ 'street' ], $poi[ 'additional_address_details' ], $poi[ 'zips' ], $poi[ 'city' ]  ) );
+                $poi->setgeocoderLookUpString( $geocoderLookupString );
             }
 
             
