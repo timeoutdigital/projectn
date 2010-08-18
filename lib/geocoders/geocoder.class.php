@@ -1,11 +1,11 @@
 <?php
 /**
- * Gets geo data using Google.
+ * Base geocoder class
  *
  * @package projectn
  * @subpackage lib
  *
- * @author Tim Bowler <timbowler@timeout.com>
+ * @author Clarence Lee <clarencelee@timeout.com>
  * @copyright Timeout Communication Ltd &copyright; 2009
  *
  * @version 1.0.0
@@ -14,55 +14,43 @@
  *
  * The addressString must contain as much address info as possible
  *  <code>
- *
- *  $geoEncode = new geoEncode();
- *  $geoEncode->setAddress( $addressString );
- *
- *  //Set longitude and latitude
- *  $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
- *  $poiObj[ 'latitude' ]  = $geoEncode->getLatitude();
+
  * </code>
- *
- * If a geocode cannot be found then an Exception is thrown
- *
- *
- * Google Documentation
- * @link http://code.google.com/apis/maps/documentation/services.html#Geocoding
- * @link http://code.google.com/apis/maps/documentation/reference.html#GGeoStatusCode.G_GEO_SUCCESS
  * 
  */
-class geoEncode
+
+abstract class geocoder
 {
-  /**
+    /**
    * Unknown location
    * @var integer
    */
   const ACCURACY_UNKNOWN = 0;
-  
+
   /**
    * Country level accuracy
    * @var integer
    */
   const ACCURACY_COUNTRY = 1;
-  
+
   /**
    * Region (state, province, prefecture, etc.) level accuracy.
    * @var integer
    */
   const ACCURACY_REGION = 2;
-  
+
   /**
    * Sub-region (county, municipality, etc.) level accuracy.
    * @var integer
    */
   const ACCURACY_SUB_REGION = 3;
-  
+
   /**
    * Town (city, village) level accuracy.
    * @var integer
    */
   const ACCURACY_TOWN = 4;
-  
+
   /**
    * Post code (zip code) level accuracy.
    * @var integer
@@ -74,19 +62,19 @@ class geoEncode
    * @var integer
    */
   const ACCURACY_STREET = 6;
-  
+
   /**
    * Intersection level accuracy.
    * @var integer
    */
   const ACCURACY_INTERSECTION = 7;
-  
+
   /**
    * Address level accuracy.
    * @var integer
    */
   const ACCURACY_ADDRESS = 8;
-  
+
   /**
    * Premise (building name, property name, shopping center, etc.) level accuracy.
    * @var integer
@@ -114,7 +102,7 @@ class geoEncode
   private  $settingsChanged = false;
 
   /**
-   * 
+   *
    */
   public function  __construct( $curlClass='Curl' )
   {
@@ -128,7 +116,7 @@ class geoEncode
    * @param string $address String
    *
    * @return void
-   * 
+   *
    */
   final public function setAddress( $address )
   {
@@ -275,67 +263,11 @@ class geoEncode
     return $this->addressString;
   }
 
-  /***************************************************/
-  /* methods below should be overriden in subclasses */
-  /***************************************************/
 
-  public function getLookupUrl()
-  {
-    $params = array();
-    $params[ 'q' ] = $this->getAddress();
-    $params[ 'output' ] = 'csv';
-    $params[ 'oe' ] = 'utf8';
-    $params[ 'sensor' ] = 'false';
+  abstract public function getLookupUrl();
 
-    $apiKey = $this->getApiKey();
-    if( $this->apiKeyIsValid( $apiKey ) ) $apiKey = sfConfig::get('app_google_api_key');
-    $params[ 'key' ] = $apiKey;
+  abstract protected function apiKeyIsValid( $apiKey );
 
-    if( $this->getRegion() )
-      $params[ 'region' ] = $this->getRegion();
-
-    if( $this->getBounds() )
-      $params[ 'bounds' ] = $this->getBounds();
-
-    $query = http_build_query( $params );
-
-    $url = "http://maps.google.com/maps/geo?" . $query;
-
-
-     return $url;
-  }
-
-  protected function apiKeyIsValid( $apiKey )
-  {
-    return (!is_string( $apiKey ) || strlen( $apiKey ) != 86);
-  }
-
-  protected function processResponse( $response )
-  {
-     $dataArray = explode(',', $response);
-
-     switch($dataArray[0])
-     {
-         case '602': //throw new GeoCodeException('G_GEO_UNKNOWN_ADDRESS');
-             break;
-
-         case '603': //throw new GeoCodeException('G_GEO_UNAVAILABLE_ADDRESS');
-             break;
-
-         case '620': //throw new GeoCodeException('G_GEO_TOO_MANY_QUERIES');
-             break;
-     }
-
-     if($dataArray[0] != '200')
-     {
-          unset($dataArray[2]);
-          unset($dataArray[3]);
-     }
-
-    $this->longitude =  ( isset( $dataArray[3] ) ? (float) $dataArray[3]: null );
-    $this->latitude  =  ( isset( $dataArray[2] ) ? (float) $dataArray[2]: null );
-    $this->accuracy  =  ( isset( $dataArray[1] ) ? (int) $dataArray[1]: 0 );
-  }
-
+  abstract protected function processResponse( $response );
 
 }
