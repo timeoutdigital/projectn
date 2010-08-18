@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<events>
+	  <event id="128382">
+		<name><![CDATA[event with duplicate occurrences - same date-time and venue]]></name>
+		<description><![CDATA[occurrence id 5161649 and 5161648888 are same]]></description>
+		<short_description><![CDATA[ÐžÑ‚Ð»Ð¸Ñ‡Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‚Ð° Ñ…ÑƒÐ´Ð¾Ð¶Ð½Ð¸ÐºÐ° Ð¸ Ð¾ÑÐ²ÐµÑ‚Ð¸Ñ‚ÐµÐ»Ñ Ð½Ðµ Ð¿Ñ€Ð¾Ð»Ð¸Ð²Ð°ÑŽÑ‚ ÑÐ²ÐµÑ‚ Ð½Ð° Ð¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ñ Ð³Ð»Ð°Ð²Ð½Ñ‹Ñ… Ð³ÐµÑ€Ð¾ÐµÐ².]]></short_description>
+		<booking_url><![CDATA[]]></booking_url>
+		<url><![CDATA[]]></url>
+		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/128382/]]></timeout_url>
+		<price><![CDATA[]]></price>
+		<rating><![CDATA[3]]></rating>
+		<review_date><![CDATA[2008-12-26]]></review_date>
+		<occurrences>
+			<occurrence id="5161648">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-07]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-10]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161649">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-14]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-17]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161650">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-11]]></start_date>
+				<start_time><![CDATA[13:00]]></start_time>
+				<end_date><![CDATA[2010-09-11]]></end_date>
+				<end_time><![CDATA[18:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161651">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-12]]></start_date>
+				<start_time><![CDATA[13:00]]></start_time>
+				<end_date><![CDATA[2010-09-12]]></end_date>
+				<end_time><![CDATA[18:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161652">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-18]]></start_date>
+				<start_time><![CDATA[13:00]]></start_time>
+				<end_date><![CDATA[2010-09-18]]></end_date>
+				<end_time><![CDATA[18:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161653">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-19]]></start_date>
+				<start_time><![CDATA[13:00]]></start_time>
+				<end_date><![CDATA[2010-09-19]]></end_date>
+				<end_time><![CDATA[18:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161648888">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-14]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-17]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+		</occurrences>
+		<categories>
+			<category><![CDATA[ÐœÑŽÐ·Ð¸ÐºÐ»Ñ‹]]></category>
+			<category><![CDATA[Ð¢ÐµÐ°Ñ‚Ñ€]]></category>
+		</categories>
+		<medias>
+			<media><![CDATA[http://pix.timeout.ru/71461.jpeg]]></media>
+		</medias>
+	</event>
+
+	  <event id="128388">
+		<name><![CDATA[event with duplicate occurrences - same date-time and  but different venue]]></name>
+		<description><![CDATA[occurrence id 5161648 and 5161650  have same date and start time but different venues]]></description>
+		<short_description><![CDATA[ÐžÑ‚Ð»Ð¸Ñ‡Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‚Ð° Ñ…ÑƒÐ´Ð¾Ð¶Ð½Ð¸ÐºÐ° Ð¸ Ð¾ÑÐ²ÐµÑ‚Ð¸Ñ‚ÐµÐ»Ñ Ð½Ðµ Ð¿Ñ€Ð¾Ð»Ð¸Ð²Ð°ÑŽÑ‚ ÑÐ²ÐµÑ‚ Ð½Ð° Ð¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ñ Ð³Ð»Ð°Ð²Ð½Ñ‹Ñ… Ð³ÐµÑ€Ð¾ÐµÐ².]]></short_description>
+		<booking_url><![CDATA[]]></booking_url>
+		<url><![CDATA[]]></url>
+		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/128382/]]></timeout_url>
+		<price><![CDATA[]]></price>
+		<rating><![CDATA[3]]></rating>
+		<review_date><![CDATA[2008-12-26]]></review_date>
+		<occurrences>
+			<occurrence id="5161648">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-07]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-10]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161649">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-14]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-17]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161650">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-07]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-07]]></end_date>
+				<end_time><![CDATA[18:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6735]]></venue>
+			</occurrence>
+
+		</occurrences>
+		<categories>
+			<category><![CDATA[ÐœÑŽÐ·Ð¸ÐºÐ»Ñ‹]]></category>
+			<category><![CDATA[Ð¢ÐµÐ°Ñ‚Ñ€]]></category>
+		</categories>
+		<medias>
+			<media><![CDATA[http://pix.timeout.ru/71461.jpeg]]></media>
+		</medias>
+	</event>
+	  <event id="128389">
+		<name><![CDATA[event with duplicate occurrences - same venue and  but start times ]]></name>
+		<description><![CDATA[occurrence id 5161648 and 5161650  have same date and start time but different venues]]></description>
+		<short_description><![CDATA[ÐžÑ‚Ð»Ð¸Ñ‡Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‚Ð° Ñ…ÑƒÐ´Ð¾Ð¶Ð½Ð¸ÐºÐ° Ð¸ Ð¾ÑÐ²ÐµÑ‚Ð¸Ñ‚ÐµÐ»Ñ Ð½Ðµ Ð¿Ñ€Ð¾Ð»Ð¸Ð²Ð°ÑŽÑ‚ ÑÐ²ÐµÑ‚ Ð½Ð° Ð¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ñ Ð³Ð»Ð°Ð²Ð½Ñ‹Ñ… Ð³ÐµÑ€Ð¾ÐµÐ².]]></short_description>
+		<booking_url><![CDATA[]]></booking_url>
+		<url><![CDATA[]]></url>
+		<timeout_url><![CDATA[http://www.timeout.ru/theatre/event/128382/]]></timeout_url>
+		<price><![CDATA[]]></price>
+		<rating><![CDATA[3]]></rating>
+		<review_date><![CDATA[2008-12-26]]></review_date>
+		<occurrences>
+			<occurrence id="5161648">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-07]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-10]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161649">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-14]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-09-17]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+			<occurrence id="5161650">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-09-07]]></start_date>
+				<start_time><![CDATA[16:00]]></start_time>
+				<end_date><![CDATA[2010-09-07]]></end_date>
+				<end_time><![CDATA[16:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[6734]]></venue>
+			</occurrence>
+
+		</occurrences>
+		<categories>
+			<category><![CDATA[ÐœÑŽÐ·Ð¸ÐºÐ»Ñ‹]]></category>
+			<category><![CDATA[Ð¢ÐµÐ°Ñ‚Ñ€]]></category>
+		</categories>
+		<medias>
+			<media><![CDATA[http://pix.timeout.ru/71461.jpeg]]></media>
+		</medias>
+	</event>
+</events>
