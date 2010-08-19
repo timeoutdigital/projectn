@@ -10,12 +10,6 @@
  *
  * @version 1.0.0
  *
- * <b>Example of usage:</b>
- *
- * The addressString must contain as much address info as possible
- *  <code>
-
- * </code>
  * 
  */
 
@@ -211,17 +205,6 @@ abstract class geocoder
     return $this;
   }
 
-  private function setUpCurl()
-  {
-    if( is_null( $this->curl ) )
-      $this->curl = new $this->curlClass( $this->getLookupUrl() );
-
-    //$this->curl->setCurlOption(CURLOPT_URL, $geoCode);
-    $this->curl->setCurlOption(CURLOPT_HEADER,0); //Change this to a 1 to return headers
-    $this->curl->setCurlOption(CURLOPT_FOLLOWLOCATION, 1);
-    $this->curl->setCurlOption(CURLOPT_RETURNTRANSFER, 1);
-  }
-
   public function getRawResponse()
   {
       return $this->response;
@@ -258,16 +241,75 @@ abstract class geocoder
     return $this->accuracy;
   }
 
-  final protected function getAddressString()
+
+  private function setUpCurl()
   {
-    return $this->addressString;
+    if( is_null( $this->curl ) )
+      $this->curl = new $this->curlClass( $this->getLookupUrl() );
+
+    //$this->curl->setCurlOption(CURLOPT_URL, $geoCode);
+    $this->curl->setCurlOption(CURLOPT_HEADER,0); //Change this to a 1 to return headers
+    $this->curl->setCurlOption(CURLOPT_FOLLOWLOCATION, 1);
+    $this->curl->setCurlOption(CURLOPT_RETURNTRANSFER, 1);
   }
 
 
+  /**
+   * Get the url to do the geo code lookup
+   *
+   * @return string
+   */
   abstract public function getLookupUrl();
 
+  /**
+   * Check if API key is valid
+   *
+   * @param string API key
+   * @return boolean
+   */
   abstract protected function apiKeyIsValid( $apiKey );
 
+  /**
+   * Process the response from curl call to geocoding service
+   * You'll need to set the latitude, longitude and accuracy here.
+   *
+   * <b>Example of usage (from Google maps):</b>
+   *
+   * The addressString must contain as much address info as possible
+   *  <code>
+   *
+   *  $dataArray = explode(',', $response);
+   *
+   *  switch($dataArray[0])
+   *  {
+   *      case '602':
+   *         throw new GeoCodeException('G_GEO_UNKNOWN_ADDRESS');
+   *         break;
+   *
+   *      case '603':
+   *          throw new GeoCodeException('G_GEO_UNAVAILABLE_ADDRESS');
+   *          break;
+   *
+   *      case '620':
+   *          throw new GeoCodeException('G_GEO_TOO_MANY_QUERIES');
+   *          break;
+   *  }
+   *
+   *  if($dataArray[0] != '200')
+   *
+   *  {
+   *       unset($dataArray[2]);
+   *       unset($dataArray[3]);
+   *  }
+   *
+   *  $this->longitude =  ( isset( $dataArray[3] ) ? (float) $dataArray[3]: null );
+   *  $this->latitude  =  ( isset( $dataArray[2] ) ? (float) $dataArray[2]: null );
+   *  $this->accuracy  =  ( isset( $dataArray[1] ) ? (int) $dataArray[1]: 0 );
+   * </code>
+   *
+   * @param string API key
+   * @return boolean
+   */
   abstract protected function processResponse( $response );
 
 }

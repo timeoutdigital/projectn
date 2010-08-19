@@ -33,11 +33,6 @@
  */
 class googleGeocoder extends geocoder
 {
-  
-
-  /***************************************************/
-  /* methods below should be overriden in subclasses */
-  /***************************************************/
 
   public function getLookupUrl()
   {
@@ -96,6 +91,5 @@ class googleGeocoder extends geocoder
     $this->latitude  =  ( isset( $dataArray[2] ) ? (float) $dataArray[2]: null );
     $this->accuracy  =  ( isset( $dataArray[1] ) ? (int) $dataArray[1]: 0 );
   }
-
 
 }
