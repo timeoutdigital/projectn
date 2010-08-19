@@ -30,12 +30,12 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->feed   = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' );
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
+    $this->vendor =  ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
                                                      'city'          => 'sydney',
                                                      'language'      => 'en-AU',
-                                                     'country_code'  => 'AUS',
+                                                     'country_code'  => 'au',
+                                                     'country_code_long'  => 'AUS',
                                                      'inernational_dial_code'  => '+61',
-                                                     'country_code_long'  => '+61',
                                                      ) );
 
     //event feed has pois with vendor_poi_id 1,2 and 3
@@ -46,7 +46,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
         $poi[ 'Vendor' ] = $this->vendor;
         $poi->save();
     }
-
+    setlocale(LC_MONETARY, 'en_US.UTF-8');
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
     $importer->run();
@@ -74,7 +74,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('1891484e2', $event['vendor_event_id'], 'Check vendor_event_id field.' );
     $this->assertEquals('Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.', $event['description'], 'Check description field.' );
     $this->assertEquals('http://www.somewebsite.com', $event['url'], 'Check url field.' );
-    $this->assertEquals('30.00', $event['price'], 'Check price field.' );
+    $this->assertEquals('$30.00', $event['price'], 'Check price field.' );
     $this->assertEquals('1', $event['rating'], 'Check rating field.' );
     $this->assertEquals('1', $event['vendor_id'], 'Check vendor_id field.' );
   }

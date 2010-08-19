@@ -37,17 +37,20 @@ class MovieMetaTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-  public function testSave()
+
+  public function testSaveWithoutLookupAndValue()
   {
+    try
+    {
       $meta = new MovieMeta();
-      $this->setExpectedException("Doctrine_Connection_Sqlite_Exception");
       $meta->save();
+    }catch (Exception $e)
+    {
+        $this->assertTrue( true );
+        return;
+    }
 
-      $meta = new Meta();
-      $meta['record_id'] = 1;
-      $meta['lookup'] = 'foo';
-      $meta['value'] = 'bar';
-      $meta->save();
+    $this->fail('An expected exception has not been raised.');
+
   }
-
 }

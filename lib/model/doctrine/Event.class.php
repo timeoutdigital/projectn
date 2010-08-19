@@ -42,6 +42,7 @@ class Event extends BaseEvent
     $this->applyOverrides();
     $this->downloadMedia();
     $this->removeMultipleImages();
+    //$this->removeMultipleOccurrences();
   }
 
   /**
@@ -402,6 +403,33 @@ class Event extends BaseEvent
     }
 
     return $categories;
+  }
+
+  public function removeMultipleOccurrences()
+  {
+    $occurrences = array();
+
+    foreach ( $this[ 'EventOccurrence' ] as $occurrence )
+    {
+        $date = $occurrence[ 'start_date' ];
+        $poiId = $occurrence[ 'poi_id' ];
+        $startTime = $occurrence[ 'start_time' ];
+
+        //if two occurrences have the same date, startTime and poiId we should only use one of them
+        //using a combination of those as a key in an array will provide unique occurrences
+        $uniqueId = $date . $startTime . $poiId;
+
+        $occurrences [ $uniqueId  ] = $occurrence;
+    }
+    //reset the occurrences
+    $this['EventOccurrence'] = new Doctrine_Collection( 'EventOccurrence' );
+
+    //add the unique occurrences
+    foreach ($occurrences as $occurrence)
+    {
+        $this['EventOccurrence'] [] =$occurrence;
+    }
+
   }
 
 }

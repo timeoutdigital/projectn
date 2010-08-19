@@ -398,7 +398,7 @@ class Poi extends BasePoi
      $this->fixPoiName();
      $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
-     $this->fixPhone();
+     $this->fixPhoneNumbers();
      $this->fixUrl();
      $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
@@ -457,11 +457,16 @@ class Poi extends BasePoi
     $override->applyOverridesToRecord();
   }
 
-  private function fixPhone()
+  private function fixPhoneNumbers()
   {
-     if(strlen($this['phone']) > 0)
+     $phoneFields = array( 'phone', 'phone2', 'fax' );
+
+     foreach ( $phoneFields as $phoneField )
      {
-       $this['phone'] = stringTransform::formatPhoneNumber( trim($this['phone']), $this['Vendor']['inernational_dial_code'] );
+        if(strlen($this[$phoneField]) > 0)
+        {
+            $this[$phoneField] = stringTransform::formatPhoneNumber( trim($this[$phoneField]), $this['Vendor']['inernational_dial_code'] );
+        }
      }
   }
 

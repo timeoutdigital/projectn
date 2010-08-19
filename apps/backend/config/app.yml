@@ -16,7 +16,7 @@ all:
           type: [ poi-event, eating-drinking, bars-clubs, movie ]
         -
           name: chicago
-          type: [ poi-event, eating-drinking, bars-clubs, movie]
+          type: [ poi, poi-bc, poi-ed, event, movie]
         -
           name: london
           type: [ poi-ev-mapper, poi-bars-pubs, poi-restaurants, poi-cinemas ,event ,event-occurrence ,movie  ]
@@ -56,6 +56,9 @@ all:
         -
           name: pune
           type: [ poi, event, movie ]
+        -
+          name: beijing
+          type: [ poi ]
 
   export:
     cities:

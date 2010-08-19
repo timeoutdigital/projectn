@@ -321,11 +321,16 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::createDatabases();
 
       $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $vendor['geo_boundries'] = "1;1;10;10";
+      $vendor->save();
 
       $poi    = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $vendor;
       $poi->addVendorCategory( 'foo', $vendor );
       $poi->addVendorCategory( 'bar', $vendor );
+      $poi['latitude'] = 5;
+      $poi['longitude'] = 5;
+
       $poi->save();
 
       $poiCategory = ProjectN_Test_Unit_Factory::get( 'PoiCategory' );
