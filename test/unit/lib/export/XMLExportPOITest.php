@@ -584,37 +584,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 2, count( $numEntries ) );
     }
 
-    public function testDontExportPoisWithoutCityName()
-    {
-      ProjectN_Test_Unit_Factory::destroyDatabases();
-      ProjectN_Test_Unit_Factory::createDatabases();
-
-      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-      $this->vendor2['geo_boundries'] = "1;1;10;10";
-      $this->vendor2->save();
-
-      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-      $poi[ 'Vendor' ] = $this->vendor2;
-      $poi['latitude'] = 5;
-      $poi['longitude'] = 5;
-      $poi['city'] = ''; //empty city name
-      $poi->addVendorCategory( "moo", $this->vendor2->id );
-      $poi->save();
-
-      $this->assertEquals( 1, Doctrine::getTable( 'Poi' )->count() );
-
-      $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
-      $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
-
-      $this->export->run();
-      $this->xml = simplexml_load_file( $this->destination );
-
-      $numEntries = $this->xml->xpath( '//entry' );
-
-      $this->assertEquals( 0, count( $numEntries ) , 'pois without city name should not be exported' );
-
-    }
-
     private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
