@@ -128,6 +128,9 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
     {
         $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
         $poi 	= ProjectN_Test_Unit_Factory::add( 'Poi' );
+        $poi['latitude'] = 51.52637000;
+        $poi['longitude'] = -0.07851000;
+        $poi->save();
         $this->doPoiExport( $vendor, $poi );
 
         $event  = ProjectN_Test_Unit_Factory::get( 'Event' );

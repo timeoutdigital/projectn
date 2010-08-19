@@ -33,7 +33,8 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
                                                      'city'          => 'sydney',
                                                      'language'      => 'en-AU',
-                                                     'country_code'  => 'AUS',
+                                                     'country_code'  => 'au',
+                                                     'country_code_long'  => 'AUS',
                                                      'inernational_dial_code'  => '+61',
                                                      ) );
 

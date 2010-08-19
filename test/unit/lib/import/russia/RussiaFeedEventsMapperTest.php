@@ -102,6 +102,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testThereIsNoRepeatedOccurrences ()
   {
+    $this->markTestSkipped( 'cleaning duplicated occurrences is disabled in Event model' );
     $this->importFileAndAddRequiredPois( 'russia_events_multiple_occurrences.short.xml' );
     $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
 
