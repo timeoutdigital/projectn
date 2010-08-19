@@ -107,6 +107,15 @@ class MovieTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('Movie name is', $movie['name']);
       $this->assertEquals('some review with lots of...', $movie['review']);
 
+      // make sure leading and trailing commas get removed
+      $movie['name'] = ',Movie name is ,';
+
+      // save
+      $movie->save();
+
+      // assert
+      $this->assertEquals('Movie name is', $movie['name'], 'trim failed to remove leading and/or trailing comma(s)');
+
   }
 
   public function testAddTimeoutUrl()

@@ -119,7 +119,15 @@ class EventTest extends PHPUnit_Framework_TestCase
       // Assert
       $this->assertEquals('This is event, Not a movie', $event['name']);
       $this->assertEquals('<p>a description with tab <br />and space ends</p>', $event['description']);
-            
+      
+      // make sure leading and trailing commas get removed
+      $event['name'] = ',Event name is ,';
+
+      // save
+      $event->save();
+
+      // assert
+      $this->assertEquals('Event name is', $event['name'], 'trim failed to remove leading and/or trailing comma(s)');
   }
 
   /*

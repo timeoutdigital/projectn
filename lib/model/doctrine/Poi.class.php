@@ -71,13 +71,6 @@ class Poi extends BasePoi
         unset( $streetNameParts [ count( $streetNameParts ) -1 ]  );
         $this[ 'street' ] = implode( ' ',$streetNameParts );
     }
-
-    $this[ 'street' ] = preg_replace( '/[, ]*$/', '', $this[ 'street' ] );
-  }
-
-  public function fixPoiName()
-  {
-    $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
   }
 
   /**
@@ -104,7 +97,7 @@ class Poi extends BasePoi
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
 
             // Refs #525 - Trim All Text fields on PreSave
-            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ], ',' );
 
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
@@ -395,7 +388,6 @@ class Poi extends BasePoi
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
      $this->cleanStringFields();
-     $this->fixPoiName();
      $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhoneNumbers();
