@@ -15,7 +15,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
 {
-  
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -23,7 +23,6 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    Doctrine_Manager::connection()->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
 
     ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
@@ -44,10 +43,10 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapPoi()
   {
     $limit = 11;
-    
+
     $this->setExpectedException( 'Exception' );
     $this->runImportWithLimit( $limit );
-    
+
     $poiResults = Doctrine::getTable('Poi')->findAll();
 
     $this->assertEquals( $limit, $poiResults->count() );
