@@ -20,11 +20,13 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $feed     = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_films.xml' );
-    $vendor   = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
-                                                 'city'     => 'sydney',
-                                                 'language' => 'en-AU',
-                                                 'country'  => 'AUS',
-                                                 ) );
+    $vendor   =  ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
+                                                     'city'          => 'sydney',
+                                                     'language'      => 'en-AU',
+                                                     'country_code'  => 'au',
+                                                     'country_code_long'  => 'AUS',
+                                                     'inernational_dial_code'  => '+61',
+                                                     ) );
 
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpMoviesMapper( $vendor, $feed ) );
