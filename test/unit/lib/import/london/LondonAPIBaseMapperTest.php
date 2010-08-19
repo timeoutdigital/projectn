@@ -44,7 +44,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiUrlIsNotTimeoutUrlAndTimeoutLinkIsStoredAsAProperty()
   {
-    $mock = new MockLondonAPIBaseMapper( null , $this->getMock( 'geocoder' ) );
+    $mock = new MockLondonAPIBaseMapper( null , $this->getMock( 'googleGeocoder' ) );
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl><lat>1</lat><lng>1</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
@@ -60,7 +60,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testCommaLondonNotInEndOfAddressField()
   {
-    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geocoder' ));
+    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'googleGeocoder' ));
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><address>foo, London </address><lat>51.5079</lat><lng>-0.3049</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
@@ -85,7 +85,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
 
   public function testCriticsChoiceFlagIsSavedAsNormalisedProperty()
   {
-    $mock = new MockLondonAPIBaseMapperCriticsChoice( null, $this->getMock( 'geocoder' ));
+    $mock = new MockLondonAPIBaseMapperCriticsChoice( null, $this->getMock( 'googleGeocoder' ));
     $mock->setImporter( new Importer() );
     $poi = new Poi();
     $xml = simplexml_load_string( '

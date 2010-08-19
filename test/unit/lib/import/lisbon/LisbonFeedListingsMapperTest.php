@@ -331,7 +331,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   {
     $importer = new importer();
     $xml = simplexml_load_file( $file );
-    $geocoder = $this->getMock( 'geocoder' );
+    $geocoder = $this->getMock( 'googleGeocoder' );
     $importer->addDataMapper( new LisbonFeedListingsMapper( $xml, $geocoder ) );
     //$importer->addLogger( $logger );
     $importer->run();

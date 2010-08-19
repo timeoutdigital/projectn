@@ -554,4 +554,12 @@ class mockgeocoder extends geocoder
      return 'mock geo encoder lookup url';
   }
 
+  protected function apiKeyIsValid($apiKey) {
+    return true;
+  }
+
+  protected function processResponse($response) {
+    return true;
+  }
+
 }

@@ -46,7 +46,7 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
 
     $crawler = new MockLondonAPIBarsAndPubsMapperCrawler();
 
-    $mockgeocoderr = $this->getMock('geocoder', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
+    $mockgeocoderr = $this->getMock('googleGeocoder', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
     //we have the geocodes so geocoder shouldn't be used
     $mockgeocoderr->expects( $this->exactly( 0 ) )
                ->method( 'setAddress' )

@@ -648,6 +648,15 @@ class MockgeocoderForPoiTest extends geocoder
   {
     return 9;
   }
+
+  public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  protected function apiKeyIsValid( $apiKey ) { }
+
+  protected function processResponse( $response ) { }
 }
 
 class MockgeocoderForPoiTestWithoutAddress extends geocoder
@@ -657,5 +666,13 @@ class MockgeocoderForPoiTestWithoutAddress extends geocoder
   public function getLongitude() { }
   public function getLatitude() { }
   public function getAccuracy() { }
+
+   public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  protected function apiKeyIsValid( $apiKey ) { }
+  protected function processResponse( $response ) { }
 }
 
