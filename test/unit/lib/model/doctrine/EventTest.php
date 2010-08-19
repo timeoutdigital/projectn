@@ -172,28 +172,63 @@ class EventTest extends PHPUnit_Framework_TestCase
    */
   public function testAddVendorCategoryDoesntAddDuplicateCategories()
   {
-    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+    ProjectN_Test_Unit_Factory::destroyDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
-    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
-    $this->object->save();
+    //we need a vendor for our events and categories
+    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+    $this->assertEquals( 0, Doctrine::getTable( 'VendorEventCategory' )->count() );
 
-    $this->object->addVendorCategory( 'test cat', $vendor[ 'id' ] );
-    $this->object->save();
 
-    $categoryTable = Doctrine::getTable( 'VendorEventCategory' );
-    $this->assertEquals( 1, $categoryTable->count() );
+    //Start with a category named 'Category One' to the database
+    $this->addVendorEventCategory( 'Category One', $vendor );
+    $this->assertEquals( 1, Doctrine::getTable( 'VendorEventCategory' )->count() );
 
-    $this->object->addVendorCategory( 'test cat 2', $vendor[ 'id' ] );
 
-    //@todo fix duplicate vendor categories
-    $this->markTestIncomplete();
+    //Adding an event with a category named 'Category One'...
+    $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+    $event[ 'Vendor' ] = $vendor;
+    $event->addVendorCategory( 'Category One', $vendor );
+    $event->save();
 
-    $this->object->addVendorCategory( 'test cat 2', $vendor[ 'id' ] );
-    $this->object->save();
+    //must not create a new category...
+    $this->assertEquals( 1, Doctrine::getTable( 'VendorEventCategory' )->count() );
 
-    $categoryTable = Doctrine::getTable( 'VendorEventCategory' );
-    $this->assertEquals( 2, $categoryTable->count() );
+    //must reuse existing instead
+    $this->assertEquals( 'Category One', $event['VendorEventCategory'][0]['name'] );
+
+
+    //Adding category named 'Category Two' to the event...
+    $event->addVendorCategory( 'Category Two', $vendor );
+    $event->save();
+
+    //should create a new category
+    $this->assertEquals( 2, Doctrine::getTable( 'VendorEventCategory' )->count() );
+    $this->assertEquals( 'Category Two', $event['VendorEventCategory'][1]['name'] );
+
+    //Adding category named 'Category Two' to another event...
+    $event2 = ProjectN_Test_Unit_Factory::add( 'Event' );
+    $event2[ 'Vendor' ] = $vendor;
+    $event2->addVendorCategory( 'Category Two', $vendor );
+    $event2->save();
+
+    //should not add 'Category Two' again...
+    $this->assertEquals( 2, Doctrine::getTable( 'VendorEventCategory' )->count() );
+
+    //event should reuse 'Category Two'
+    $this->assertEquals( 'Category Two', $event2['VendorEventCategory'][0]['name'] );
+
+    $vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+    $eventForVendor2 = ProjectN_Test_Unit_Factory::add( 'Event' );
+    $eventForVendor2['Vendor'] = $vendor2;
+  }
+
+  private function addVendorEventCategory( $name, Vendor $vendor )
+  {
+    $categoryOne = new VendorEventCategory();
+    $categoryOne['name'] = $name;
+    $categoryOne['Vendor'] = $vendor;
+    $categoryOne->save();
   }
 
   /**
@@ -513,6 +548,16 @@ class EventTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals(1, $event['EventMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
   }
+
+   public function testAddVendorCategoryHTMLDecode()
+   {
+    $vendorCategory = "Neighborhood &amp; pubs";
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+    $this->object->addVendorCategory( $vendorCategory, $vendor[ 'id' ] );
+    $this->object->save();
+
+    $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorEventCategory' ][0]['name'] );
+   }
 
 }
 

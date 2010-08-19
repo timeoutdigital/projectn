@@ -12,6 +12,12 @@
  */
 class Event extends BaseEvent
 {
+  /**
+   * cache for vendorCategories
+   *
+   * @var array
+   */
+  private $vendorCategories;
 
   /**
    * the media added to event is stored in this array and the largest one will be downloaded in downloadMedia method
@@ -218,19 +224,32 @@ class Event extends BaseEvent
           $this->unlinkInDb( 'VendorEventCategory', array( $existingCategory[ 'id' ] ) );
     }
 
-    $vendorEventCategoryObj = new VendorEventCategory();
-    $vendorEventCategoryObj[ 'name' ] = $name;
-    $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
+    if( is_null( $this->vendorCategories ) )
+    {
+      $this->vendorCategories = array();
+      $vendorEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findAll();
+      foreach( $vendorEventCategories as $vendorCategory )
+      {
+        $vendorCategoryName = $vendorCategory['name'];
+        $this->vendorCategories[ $vendorCategoryName ] = $vendorCategory;
+      }
+    }
 
-    $recordFinder = new recordFinder();
-    $uniqueRecord = $recordFinder->findEquivalentOf( $vendorEventCategoryObj )
-                                     ->comparingAllFieldsExcept( 'id' )
-                                     ->getUniqueRecord();
+    if( key_exists( $name, $this->vendorCategories ) )
+    {
+      $category = $this->vendorCategories[ $name ];
+    }
+    else
+    {
+      $category = new VendorEventCategory();
+      $category[ 'name' ] = $name;
+      $category[ 'vendor_id' ] = $vendorId;
+      $this->vendorCategories[ $name ] = $category;
+    }
 
-    $this[ 'VendorEventCategory' ][ $name ] = $uniqueRecord;
+    $this->vendorCategories[] = $category['name'];
+    $this[ 'VendorEventCategory' ][] = $category;
   }
-
-
 
   /**
    * tidy up function for events with more than one image attached to them
