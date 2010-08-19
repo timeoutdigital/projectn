@@ -228,7 +228,7 @@ class Event extends BaseEvent
     if( is_null( $this->vendorCategories ) )
     {
       $this->vendorCategories = array();
-      $vendorEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findAll();
+      $vendorEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $vendorId );
       foreach( $vendorEventCategories as $vendorCategory )
       {
         $vendorCategoryName = $vendorCategory['name'];
