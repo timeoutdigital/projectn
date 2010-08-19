@@ -90,6 +90,30 @@ EOF;
       return str_replace( PHP_EOL, ' ', html_entity_decode( stringTransform::mb_trim( (string) $catName ) ) );
   }
 
+  /**
+   * Pick UI Category with highest business value.
+   * @return string of highest UI Category or false on failure.
+   */
+
+  protected function pickHighestValueCategory( array $cats )
+  {
+    if( empty( $cats ) ) return false;
+
+    $priority = array( 'Eating & Drinking', 'Film', 'Art', 'Around Town', 'Nightlife', 'Music', 'Stage' );
+    $highestCategory = 99999;
+
+    foreach( $cats as $cat )
+    {
+        $priorityValue = array_search( $cat, $priority );
+        if( is_numeric( $priorityValue ) && $priorityValue < $highestCategory )
+            $highestCategory = $priorityValue;
+
+        if( $highestCategory === 0 ) break;
+    }
+
+    return ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : false;
+  }
+
   protected function execute($arguments = array(), $options = array())
   {
     $this->setUp( $options );
@@ -133,6 +157,9 @@ EOF;
                         $vendorPoiId = (int) substr( $node['vpid'], 25 );
                         if( in_array( $vendorPoiId, $this->storeVendorPoiIds ) ) continue;
 
+                        // Store a list of matching UI Categories
+                        $thisRecordUiCats = array();
+
                         // Cycle through categories.
                         foreach( $node->version->content->{'vendor-category'} as $cat )
                         {
@@ -147,25 +174,32 @@ EOF;
                                 if( !array_key_exists( $this->poiUiCategoryMap[ $catName ], $uiCategories ) )
                                     $uiCategories[ $this->poiUiCategoryMap[ $catName ] ] = 0;
 
-                                // Increment the UI category count. Eg. poiUiCategoryMap['Film']++
-                                $uiCategories[ $this->poiUiCategoryMap[ $catName ] ]++;
-
-                                // Mark this vpid as billed for.
-                                $this->storeVendorPoiIds[] = $vendorPoiId;
-
-                                // Increment the count of total billed for per city.
-                                $this->existingPoiCount[ $city ]++;
-
-                                // Dump id to screen if option enabled.
-                                if( $options['dump_ids'] == 'true' ) echo $vendorPoiId . PHP_EOL;
-
-                                // Continue to next entry.
-                                continue 2;
+                                // List of matching UI Categories.
+                                $thisRecordUiCats[] = $this->poiUiCategoryMap[ $catName ];
                             }
                         }
 
+                        // If at least UI Category was matched.
+                        if( count( $thisRecordUiCats ) > 0 )
+                        {
+                            // Find category with highest business value.
+                            $highestCat = $this->pickHighestValueCategory( array_unique( $thisRecordUiCats ) );
+
+                            // Increment the UI category count. Eg. poiUiCategoryMap['Film']++
+                            $uiCategories[ $highestCat ]++;
+
+                            // Mark this vpid as billed for.
+                            $this->storeVendorPoiIds[] = $vendorPoiId;
+
+                            // Increment the count of total billed for per city.
+                            $this->existingPoiCount[ $city ]++;
+
+                            // Dump id to screen if option enabled.
+                            if( $options['dump_ids'] == 'true' ) echo $vendorPoiId . PHP_EOL;
+                        }
+
                         // We couldn't find a single matching UI category for this entry.
-                        $noVendorCats[] = $vendorPoiId;
+                        else $noVendorCats[] = $vendorPoiId;
                     }
 
                     // Write new report line.
@@ -209,6 +243,9 @@ EOF;
                         $vendorEventId = (int) substr( $node['id'], 25 );
                         if( in_array( $vendorEventId, $this->storeVendorEventIds ) ) continue;
 
+                        // Store a list of matching UI Categories
+                        $thisRecordUiCats = array();
+
                         // Cycle through categories.
                         foreach( $node->version->{'vendor-category'} as $cat )
                         {
@@ -223,25 +260,32 @@ EOF;
                                 if( !array_key_exists( $this->eventUiCategoryMap[ $catName ], $uiCategories ) )
                                     $uiCategories[ $this->eventUiCategoryMap[ $catName ] ] = 0;
 
-                                // Increment the UI category count. Eg. eventUiCategoryMap['Film']++
-                                $uiCategories[ $this->eventUiCategoryMap[ $catName ] ]++;
-
-                                // Mark this vpid as billed for.
-                                $this->storeVendorEventIds[] = $vendorEventId;
-
-                                // Increment the count of total billed for per city.
-                                $this->existingEventCount[ $city ]++;
-
-                                // Dump id to screen if option enabled.
-                                if( $options['dump_ids'] == 'true' ) echo $vendorEventId . PHP_EOL;
-
-                                // Continue to next entry.
-                                continue 2;
+                                // List of matching UI Categories.
+                                $thisRecordUiCats[] = $this->eventUiCategoryMap[ $catName ];
                             }
                         }
 
+                        // If at least UI Category was matched.
+                        if( count( $thisRecordUiCats ) > 0 )
+                        {
+                            // Find category with highest business value.
+                            $highestCat = $this->pickHighestValueCategory( array_unique( $thisRecordUiCats ) );
+
+                            // Increment the UI category count. Eg. eventUiCategoryMap['Film']++
+                            $uiCategories[ $highestCat ]++;
+
+                            // Mark this vpid as billed for.
+                            $this->storeVendorEventIds[] = $vendorEventId;
+
+                            // Increment the count of total billed for per city.
+                            $this->existingEventCount[ $city ]++;
+
+                            // Dump id to screen if option enabled.
+                            if( $options['dump_ids'] == 'true' ) echo $vendorEventId . PHP_EOL;
+                        }
+
                         // We couldn't find a single matching UI category for this entry.
-                        $noVendorCats[] = $vendorEventId;
+                        else $noVendorCats[] = $vendorEventId;
                     }
 
                     // Write new report line.
