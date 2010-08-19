@@ -100,12 +100,9 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 if( trim( (string)$xmlNode->category ) != '' )
                 {
                     $categoryArray                              = array_merge( $categoryArray, $this->nl2Array( (string)$xmlNode->category ) );
-
-                    if( is_array( $categoryArray ) && count( $categoryArray ) > 0 )
-                    {
-                        $poi->addVendorCategory( $categoryArray , $this->vendorID );
-                    }
                 }
+                
+                $poi->addVendorCategory( $categoryArray , $this->vendorID );
 
                 // Add Features to Property
                 if( trim( (string) $xmlNode->features ) != '')

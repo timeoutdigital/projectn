@@ -81,7 +81,7 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
 
         // category
         $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'Should be only 1 Category');
-        $this->assertEquals( 'New and noteworthy', $poi['VendorPoiCategory'][0]['name'], 'Category name should be Pick-up joints');
+        $this->assertEquals( 'Eating & Drinking | New and noteworthy', $poi['VendorPoiCategory'][0]['name'], 'Category name should be Eating & Drinking | New and noteworthy');
 
         // Check another
         $poi = $pois[6];
@@ -90,7 +90,7 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'Lunch, dinner - sun-wed 11am-midnight, thu, fri sat 11-2am', $poi['openingtimes'], 'Opening hours missmatch');
 
         // check Category
-        $this->assertEquals( 0, $poi['VendorPoiCategory']->count(), 'There is no Category for this POI ED');
+        $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'Default category should be Eating & Drinking');
         
 
         // Cuisine

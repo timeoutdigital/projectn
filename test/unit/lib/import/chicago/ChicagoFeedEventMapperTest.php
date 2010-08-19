@@ -118,7 +118,7 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
         $event = $events[2];
         $this->assertEquals( '270849', $event['vendor_event_id'], 'Vendor Event ID miss matching');
         $this->assertEquals( 'College of Complexes', $event['name'], 'Event Name miss matching');
-        $this->assertEquals( 'This free-speech forum dubbed “The Playground for People Who Think” tackles', mb_substr( $event['description'], 0, 79), 'Event Description miss matching');
+        $this->assertEquals( 'This free-speech forum dubbed “The Playground for People Who Think” tackles', substr( $event['description'], 0, 79), 'Event Description miss matching');
         $this->assertEquals( '$3, plus $5 food and drink minimum', $event['price'], 'Event Price miss matching');
         $this->assertEquals( 1, $event['VendorEventCategory']->count() , 'Category Count should be 1');
 
