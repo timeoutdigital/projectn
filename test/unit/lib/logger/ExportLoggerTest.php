@@ -31,11 +31,54 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
+    public function testAddDatestamp()
+    {
+        $startTime = time();
+        
+        ExportLogger::getInstance()->setVendor( $this->vendor )->start();
+        ExportLogger::getInstance()->addExport( 'Event', 1 );
+        ExportLogger::getInstance()->addExport( 'Event', 1 ); // Dupes allowed
+        ExportLogger::getInstance()->addExport( 'Event', 2 );
+        ExportLogger::getInstance()->addExport( 'Poi', 1 );
+        ExportLogger::getInstance()->addExport( 'Movie', 1 );
+        ExportLogger::getInstance()->end();
+
+        $endTime = time();
+
+        $exportDatestampRows = Doctrine::getTable( 'LogExportDate' )->findAll();
+        $this->assertEquals( 5, $exportDatestampRows->count() );
+
+        $this->assertEquals( 1, $exportDatestampRows[ 0 ][ 'record_id' ] );
+        $this->assertEquals( 'Event', $exportDatestampRows[ 0 ][ 'model' ] );
+        $this->assertGreaterThanOrEqual( $startTime, strtotime( $exportDatestampRows[ 0 ][ 'export_date' ] ) );
+        $this->assertLessThanOrEqual   ( $endTime,   strtotime( $exportDatestampRows[ 0 ][ 'export_date' ] ) );
+
+        $this->assertEquals( 1, $exportDatestampRows[ 1 ][ 'record_id' ] );
+        $this->assertEquals( 'Event', $exportDatestampRows[ 1 ][ 'model' ] );
+        $this->assertGreaterThanOrEqual( $startTime, strtotime( $exportDatestampRows[ 1 ][ 'export_date' ] ) );
+        $this->assertLessThanOrEqual   ( $endTime,   strtotime( $exportDatestampRows[ 1 ][ 'export_date' ] ) );
+
+        $this->assertEquals( 2, $exportDatestampRows[ 2 ][ 'record_id' ] );
+        $this->assertEquals( 'Event', $exportDatestampRows[ 2 ][ 'model' ] );
+        $this->assertGreaterThanOrEqual( $startTime, strtotime( $exportDatestampRows[ 2 ][ 'export_date' ] ) );
+        $this->assertLessThanOrEqual   ( $endTime,   strtotime( $exportDatestampRows[ 2 ][ 'export_date' ] ) );
+
+        $this->assertEquals( 1, $exportDatestampRows[ 3 ][ 'record_id' ] );
+        $this->assertEquals( 'Poi', $exportDatestampRows[ 3 ][ 'model' ] );
+        $this->assertGreaterThanOrEqual( $startTime, strtotime( $exportDatestampRows[ 3 ][ 'export_date' ] ) );
+        $this->assertLessThanOrEqual   ( $endTime,   strtotime( $exportDatestampRows[ 3 ][ 'export_date' ] ) );
+
+        $this->assertEquals( 1, $exportDatestampRows[ 4 ][ 'record_id' ] );
+        $this->assertEquals( 'Movie', $exportDatestampRows[ 4 ][ 'model' ] );
+        $this->assertGreaterThanOrEqual( $startTime, strtotime( $exportDatestampRows[ 4 ][ 'export_date' ] ) );
+        $this->assertLessThanOrEqual   (  $endTime,  strtotime( $exportDatestampRows[ 4 ][ 'export_date' ] ) );
+    }
+
     public function testInitExport()
     {
         ExportLogger::getInstance()->setVendor( $this->vendor )->start();
         ExportLogger::getInstance()->initExport( 'Poi' );
-        ExportLogger::getInstance()->addExport( 'Event' );
+        ExportLogger::getInstance()->addExport( 'Event', 1 );
         ExportLogger::getInstance()->end();
 
         $exportLogRows = Doctrine::getTable( 'LogExport' )->findAll();
@@ -51,7 +94,7 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
         ExportLogger::getInstance()->setVendor( $this->vendor )->start();
         ExportLogger::getInstance()->initExport( 'Poi' );
         ExportLogger::getInstance()->initExport( 'Event' ); // Added this line, just to be sure.
-        ExportLogger::getInstance()->addExport( 'Event' );
+        ExportLogger::getInstance()->addExport( 'Event', 1 );
         ExportLogger::getInstance()->end();
 
         $exportLogRows = Doctrine::getTable( 'LogExport' )->findAll();
@@ -68,12 +111,12 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
         
         for ( $i=0; $i < 15; $i++ )
         {
-            ExportLogger::getInstance()->addExport( 'Poi' );
+            ExportLogger::getInstance()->addExport( 'Poi', 1 );
         }
         
         for ( $i=0; $i < 10; $i++ )
         {
-            ExportLogger::getInstance()->addExport( 'Event' );
+            ExportLogger::getInstance()->addExport( 'Event', 1 );
         }
 
         $exportLogRows = Doctrine::getTable( 'LogExport' )->findAll();
@@ -135,12 +178,12 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
 
         for ( $i=0; $i < 15; $i++ )
         {
-            ExportLogger::getInstance()->addExport( 'Poi' );
+            ExportLogger::getInstance()->addExport( 'Poi', 1 );
         }
 
         for ( $i=0; $i < 10; $i++ )
         {
-            ExportLogger::getInstance()->addExport( 'Event' );
+            ExportLogger::getInstance()->addExport( 'Event', 1 );
         }
         
         ExportLogger::getInstance()->end();

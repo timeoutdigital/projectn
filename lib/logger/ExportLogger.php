@@ -175,6 +175,36 @@ class ExportLogger extends BaseLogger
     }
 
     /**
+     * Record a datestamp for Export
+     *
+     * @param string $model
+     * @param string $recordId
+     *
+     * This function records a datestamp for an export.
+     *
+     */
+    public function addDatestamp( $model, $recordId )
+    {
+        try {
+            // Create a new LogExportDate object.
+            $d = new LogExportDate();
+            $d['model'] = $model;
+            $d['record_id'] = $recordId;
+            $d['export_date'] = date("Y-m-d H:i:s");
+            $d->save( );
+        }
+        catch( Exception $e )
+        {
+            // Record Save Errors in Database.
+            $this->addError( 'Failed to save datestamp for export', $model, $recordId );
+        }
+
+        // Clean Up.
+        if( method_exists( $d, 'free' ) ) $d->free( true );
+        if( isset( $d ) ) unset( $d );
+    }
+
+    /**
      * Initalize an Export
      *
      * @param string $model
@@ -196,6 +226,7 @@ class ExportLogger extends BaseLogger
      * Log an export
      *
      * @param string $model
+     * @param string $recordId
      *
      * This function can deal with different types of models (thats what the
      * loop is for). However at the moment we are not using this. It is still
@@ -203,7 +234,7 @@ class ExportLogger extends BaseLogger
      * import logger.
      *
      */
-    public function addExport( $model )
+    public function addExport( $model, $recordId )
     {
         if ( $this->_exportLog[ 'LogExportCount' ] instanceof Doctrine_Collection )
         {
@@ -213,13 +244,15 @@ class ExportLogger extends BaseLogger
                 {
                     $this->_exportLog[ 'LogExportCount' ][ $k ][ 'count' ] += 1;
                     $this->save( );
+
+                    $this->addDatestamp( $model, $recordId );
                     return;
                 }
             }
         }
 
         $this->initExport( $model ); // Initalize a new export count to 0.
-        $this->addExport( $model ); // Recurse to add Export.
+        $this->addExport( $model, $recordId ); // Recurse to add Export.
     }
 
     /**
