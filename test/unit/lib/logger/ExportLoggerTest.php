@@ -31,6 +31,37 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
+    public function testInitExport()
+    {
+        ExportLogger::getInstance()->setVendor( $this->vendor )->start();
+        ExportLogger::getInstance()->initExport( 'Poi' );
+        ExportLogger::getInstance()->addExport( 'Event' );
+        ExportLogger::getInstance()->end();
+
+        $exportLogRows = Doctrine::getTable( 'LogExport' )->findAll();
+
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 0 ][ 'model' ], 'Poi' );
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 0 ][ 'count' ], 0 );
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 1 ][ 'model' ], 'Event' );
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 1 ][ 'count' ], 1 );
+
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+
+        ExportLogger::getInstance()->setVendor( $this->vendor )->start();
+        ExportLogger::getInstance()->initExport( 'Poi' );
+        ExportLogger::getInstance()->initExport( 'Event' ); // Added this line, just to be sure.
+        ExportLogger::getInstance()->addExport( 'Event' );
+        ExportLogger::getInstance()->end();
+
+        $exportLogRows = Doctrine::getTable( 'LogExport' )->findAll();
+
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 0 ][ 'model' ], 'Poi' );
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 0 ][ 'count' ], 0 );
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 1 ][ 'model' ], 'Event' );
+        $this->assertEquals( $exportLogRows[ 0 ][ 'LogExportCount' ][ 1 ][ 'count' ], 1 ); 
+    }
+
     public function testAddExport()
     {
         ExportLogger::getInstance()->setVendor( $this->vendor )->start();
