@@ -31,6 +31,38 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
+    /**
+     * Remove duplicate metric for the same day.
+     * Refs: #606
+     */
+    public function testNoDuplicateMetricPerDay()
+    {
+        ExportLogger::getInstance()->setVendor( $this->vendor )->start();
+        ExportLogger::getInstance()->addExport( 'Event', 1 );
+        ExportLogger::getInstance()->addError( 'Failed to save datestamp for export', 'Event', 1 );
+        ExportLogger::getInstance()->end();
+        ExportLogger::getInstance()->unsetSingleton();
+
+        ExportLogger::getInstance()->setVendor( $this->vendor )->start();
+        ExportLogger::getInstance()->addExport( 'Event', 1 );
+        ExportLogger::getInstance()->addError( 'Failed to save datestamp for export', 'Event', 1 );
+        ExportLogger::getInstance()->end();
+
+        // Query DB
+        $exportDatestampRows = Doctrine::getTable( 'LogExportDate' )->findAll();
+        $exportCountRows = Doctrine::getTable( 'LogExportCount' )->findAll();
+        $exportErrorRows = Doctrine::getTable( 'LogExportError' )->findAll();
+        $logExportRows = Doctrine::getTable( 'LogExport' )->findAll();
+
+        // Should only have one row in each table for today.
+        $this->assertEquals( 1, $exportDatestampRows->count() );
+        $this->assertEquals( 1, $exportCountRows->count() );
+        $this->assertEquals( 1, $exportErrorRows->count() );
+
+        // We should still have 2 total LogExport rows.
+        $this->assertEquals( 2, $logExportRows->count() );
+    }
+
     public function testAddDatestamp()
     {
         $startTime = time();

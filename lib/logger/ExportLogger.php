@@ -65,6 +65,16 @@ class ExportLogger extends BaseLogger
     }
 
     /**
+     * unsetSingleton()
+     * Used by Unit Tests to reset singleton object between tests.
+     */
+    public function unsetSingleton()
+    {
+        $c = __CLASS__;
+        self::$_instance = new $c;
+    }
+
+    /**
      *  The singleton method
      */
     public static function getInstance()
@@ -78,10 +88,35 @@ class ExportLogger extends BaseLogger
     }
 
     /**
+     * Delete Duplicate Metrics for the Same Day.
+     * refs: #606
+     */
+
+    public function deleteDuplicateMetricsForToday()
+    {
+        Doctrine::getTable( 'LogExportDate' )
+            ->createQuery()->delete()
+            ->where( 'export_date > DATE( NOW() )' )
+            ->execute();
+
+        Doctrine::getTable( 'LogExportCount' )
+            ->createQuery()->delete()
+            ->where( 'created_at > DATE( NOW() )' )
+            ->execute();
+
+        Doctrine::getTable( 'LogExportError' )
+            ->createQuery()->delete()
+            ->where( 'created_at > DATE( NOW() )' )
+            ->execute();
+    }
+
+    /**
      * start the logger
      */
     public function start()
     {
+        $this->deleteDuplicateMetricsForToday();
+
         $this->_exportLog = new LogExport;
         $this->_exportLog['Vendor']         = $this->_vendorObj;
         $this->_exportLog['status']         = 'running';
