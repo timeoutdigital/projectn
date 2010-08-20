@@ -28,6 +28,8 @@ class XMLExportEvent extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'event.xsd';
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
 
+    ExportLogger::getInstance()->initExport( 'Event' );
+
     if ( file_exists( $poiXmlLocation ) )
     {
         $poiXmlObj = simplexml_load_file($poiXmlLocation);
