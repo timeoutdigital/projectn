@@ -142,7 +142,7 @@ function getVenueDetails( venueId )
 }
 
 function _saveVenue( venueId , latitude, longitude , rGeoCode, geocode_accuracy , reloadDetails )
-{
+{ 
     $.ajax( {
         url:  '<?php echo url_for( '@geocode_ui') ;?>/saveVenueDetails/' ,
         data:
@@ -194,7 +194,7 @@ function saveCoordinates()
      
      var reloadDetails = false;
 
-    _saveVenue( venueId, latitude, longitude, rGeoCode, <?php echo sfConfig::get('app_geocode_minimum_accuracy') ?>, reloadDetails );
+    _saveVenue( venueId, latitude, longitude, rGeoCode, <?php echo sfConfig::get('app_geocode_override_accuracy'); ?>, reloadDetails );
 }
 
 function resetCoordinates()
