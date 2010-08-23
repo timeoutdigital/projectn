@@ -85,6 +85,12 @@ class xmlDataFixer
 
         return new SimpleXMLElement( $xslProcessor->transformToXML( dom_import_simplexml( $this->getSimpleXML() ) ) );
     }
+
+    public function removeHtmlEntiryEncoding()
+    {
+        $ignore = '(ndash|rsquo|lsquo|laquo|raquo|nbsp|amp|lt|gt|quot|apos|#[0-9]+);';
+        $this->xmlStringData = preg_replace( "/&(?!$ignore)/", '&amp;', $this->xmlStringData );
+    }
    
 }
 ?>

@@ -680,6 +680,52 @@ class importTask extends sfBaseTask
         }
 
     break;
+    case 'hong kong':
+
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'hong kong', 'en-HK' );
+        
+        $dataMapper = null;
+        $fileUrl = '';
+        
+        switch( $options['type'] )
+        {    
+            case 'poi':
+                    $dataMapper = 'HongKongFeedVenuesMapper';
+                    $fileUrl    = 'http://tohk.testpilotweb.com/rss/venues/';
+                break;
+            case 'movie':
+                    $dataMapper = 'HongKongFeedMoviesMapper';
+                    $fileUrl    = 'http://tohk.testpilotweb.com/rss/movies/';
+                break;
+            case 'event':
+                    $dataMapper = 'HongKongFeedEventsMapper';
+                    $fileUrl    = 'http://tohk.testpilotweb.com/rss/events/';
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+                break;
+        }
+        if(!$dataMapper || trim($fileUrl) == '' || !$vendorObj )
+        {
+            throw new Exception('HongKong:: Invalid value!');
+        }
+
+        // Download XML Feed
+        $feedObj = new Curl( $fileUrl );
+        $feedObj->exec();
+
+        // Clean XML Feed & Pharse the data
+        $xmlFixer = new xmlDataFixer( $feedObj->getResponse() );
+        
+        $xmlFixer->removeHtmlEntiryEncoding();
+        
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $dataMapper( $xmlFixer->getSimpleXML() ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+
+        $this->dieWithLogMessage();
+        
+        break;
 
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
