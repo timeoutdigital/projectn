@@ -5,51 +5,44 @@
  *
  * @package    sf_sandbox
  * @subpackage dashboard
- * @author     Your name here
+ * @author     Peter Johnson
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class dashboardActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeIndex(sfWebRequest $request)
-  {
-        $cities         = array();
-        $models         = array('Poi','Event','Movie');
-        $metrics        = array('insert','existing','failed','delete','received');
-        $this->data     = array();
-        
-        $vendors = Doctrine::getTable("Vendor")->findAll();
-        foreach( $vendors as $vendor ) $cities[] = $vendor['city'];
+    public function executeIndex( sfWebRequest $request)
+    {
+        $startDate  = strtotime("-60 days");
+        $endDate    = time();
 
-        foreach( $cities as $city )
+        $this->graphData = array();
+
+        foreach( Doctrine::getTable('Vendor')->findAll() as $vendor )
         {
-            $logs = Doctrine::getTable("LogImport")->getAllByCityName( $city );
-            $this->data[ $city ] = array();
+            $this->graphData[ $vendor['city'] ] = array();
             
-            foreach( $models as $model )
+            for( $timestamp=$startDate+86400; $timestamp<=$endDate; $timestamp+=86400 )
             {
-                // Dont show stuff we don't have stats for
-                if( empty( $logs ) || ( method_exists( $logs, 'count' ) && $logs->count() == 0 ) ) continue;
-                
-                $csv = '"Date';
-                foreach( $metrics as $metric ) $csv .= "," . $model . ' ' . ucfirst( $metric );
-                $csv .= '\n';
-
-                foreach( $logs as $log )
-                {
-                    $csv .= $log->getDate();
-                    foreach( $metrics as $metric )
-                        $csv .= "," . $log->getCountFor( $model, array( $metric ) );
-                    $csv .= '\n';
-                }
-
-                $csv .= '"';
-                $this->data[ $city ][ $model ] = $csv;
+                $this->graphData[ $vendor['city'] ][ date( 'Y-m-d', $timestamp ) ] = array( 'Poi' => 0, 'Event' => 0, 'Movie' => 0 );
             }
-       }
-  }
+        }
+
+        $logs = Doctrine::getTable('LogExport')
+            ->createQuery('l')
+                ->leftJoin('l.Vendor v ON l.vendor_id = v.id')
+                ->leftJoin('l.LogExportCount c ON l.id = c.log_export_id')
+            ->where('UNIX_TIMESTAMP( l.created_at ) BETWEEN ? AND ?', array( $startDate, $endDate ) )
+            ->execute( array(), Doctrine::HYDRATE_ARRAY );
+
+        foreach( $logs as $log )
+        {
+            $logDate    = date( 'Y-m-d', strtotime( $log['created_at'] ) );
+            $logVendor  = $log['Vendor']['city'];
+            
+            foreach( $log['LogExportCount'] as $logCount )
+            {
+                $this->graphData[ $logVendor ][ $logDate ][ $logCount['model'] ] = $logCount['count'];
+            }
+        }
+    }
 }
