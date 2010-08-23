@@ -31,7 +31,7 @@
         var newZoom = parseInt( ( accuracy / 10 ) * 25 );
         if ( newZoom == 0 )
         {
-            newZoom = 6;
+            newZoom = 16;
         }
         
         if( marker )

@@ -51,12 +51,19 @@ class MovieTest extends PHPUnit_Framework_TestCase
       $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
       $movie['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
       $movie['name'] = "Movie &quot;name&quot; is";
+      $movie['utf_offset'] = "+04:00";
 
       // Add HTML Entities to all poi fields of type 'string'
       foreach( Doctrine::getTable( "Movie" )->getColumns() as $column_name => $column_info )
+      {
         if( $column_info['type'] == 'string' )
+        {
             if( is_string( @$movie[ $column_name ] ) )
+            {
                 $movie[ $column_name ] .= "&sect;";
+            }
+        }
+      }
 
       $movie->save();
 
@@ -64,9 +71,15 @@ class MovieTest extends PHPUnit_Framework_TestCase
 
       // Check HTML Entities for all poi fields of type 'string'
       foreach( Doctrine::getTable( "Movie" )->getColumns() as $column_name => $column_info )
+      {
         if( $column_info['type'] == 'string' )
+        {
             if( is_string( @$movie[ $column_name ] ) )
+            {
                 $this->assertTrue( preg_match( '/&sect;/', $movie[ $column_name ] ) == 0, 'Failed to convert &sect; to correct symbol' );
+            }
+        }
+      }
 
       // Refs #525 Trim
       $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
@@ -75,9 +88,15 @@ class MovieTest extends PHPUnit_Framework_TestCase
 
       // Add HTML Entities to all poi fields of type 'string'
       foreach( Doctrine::getTable( "Movie" )->getColumns() as $column_name => $column_info )
+      {
         if( $column_info['type'] == 'string' )
+        {
             if( is_string( @$movie[ $column_name ] ) )
+            {
                 $movie[ $column_name ] .= " ";
+            }
+        }
+      }
       // Review
       $movie['review'] = PHP_EOL . '    some review with lots of...   ';
 
@@ -294,7 +313,7 @@ class MovieTest extends PHPUnit_Framework_TestCase
       $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
       $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
       $movie[ 'Vendor' ] = $vendor;
-      
+
       $movie->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
       $movie->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
       $movie->save();

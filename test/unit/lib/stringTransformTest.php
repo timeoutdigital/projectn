@@ -126,13 +126,13 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    * Test to extract and email address from a field
    */
   public function testExtractEmailAddressesFromText() {
-    
+
     $expectedOutput = array( 'email@address.com',
                              'email2@address.co.uk',
                              'anotheremail@address.com' );
 
     $emailAddressesArray = stringTransform::extractEmailAddressesFromText( $this->input );
-    
+
     $this->assertEquals( $expectedOutput, $emailAddressesArray );
   }
 
@@ -158,7 +158,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
                              'http://google.com/#this' );
 
     $urlArray = stringTransform::extractUrlsFromText( $this->input );
-    
+
     $this->assertEquals( $expectedOutput, $urlArray );
   }
 
@@ -169,7 +169,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   {
   }
 
-  
+
   /**
    * Test that a valid E.123 number is returned
    */
@@ -181,13 +181,13 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
 
       $transform = stringTransform::formatPhoneNumber('212 633-2229, ext 2' , '+1');
       $this->assertEquals('+1 212 633 2229', $transform, 'Testing American number type 2');
-      
+
       $transform = stringTransform::formatPhoneNumber('718 499-YOGA' , '+1');
       $this->assertEquals('+1 718 499 9642', $transform, 'Testing American number type 3');
-      
+
       $transform = stringTransform::formatPhoneNumber('212 777- 6800' , '+1');
       $this->assertEquals('+1 212 777 6800', $transform, 'Testing American number type 4');
-      
+
       $transform = stringTransform::formatPhoneNumber('212 582-6050,ext207' , '+1');
       $this->assertEquals('+1 212 582 6050', $transform, 'Testing American number type 5');
 
@@ -221,7 +221,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
       $transform = stringTransform::formatPhoneNumber('', '+971');
       $this->assertEquals(null, $transform, 'No number type 2');
 
-     
+
   }
 
   /**
@@ -261,7 +261,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals( 'goo', stringTransform::concatNonBlankStrings( ', ', $values ) );
   }
 
-  
+
   /**
    * Test xml fixing
    */
@@ -275,7 +275,7 @@ two
 three
 ';
    $expected = 'onetwothree';
-   
+
    $this->assertEquals( $expected, stringTransform::stripEmptyLines( $string ) );
   }
 
@@ -352,7 +352,7 @@ three
                            '12pm',
                            '10 pm',
                            '9am',
-                           '2',
+                           '2pm',
                            '2.30pm',
                            '9pm',
                            '12pm',
@@ -368,7 +368,7 @@ three
                                     '12:00:00',
                                     '22:00:00',
                                     '09:00:00',
-                                    '',
+                                    '14:00:00',
                                     '14:30:00',
                                     '21:00:00',
                                     '12:00:00',

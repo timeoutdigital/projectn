@@ -183,6 +183,10 @@ class PoiFixture
 
     $poi->fromArray( $defaults );
 
+    $mockGeoEncoder = new mockGeoEncode();
+
+    $poi->setGeoEncoder( $mockGeoEncoder );
+
     return $poi;
   }
 
@@ -500,3 +504,54 @@ class VendorPoiCategoryFixture
   }
 }
 
+
+class mockGeoEncode extends geoEncode
+{
+
+  public function getAddress()
+  {
+    return 'mock geo encoder address';
+  }
+
+  public function getApiKey()
+  {
+    return 'mock geo encoder api key';
+  }
+
+  public function getRegion()
+  {
+    return 'mock geo encoder region';
+  }
+
+  public function getBounds()
+  {
+    return 'mock geo encoder bounds';
+  }
+
+  public function getRawResponse()
+  {
+      return 'mock geo encoder raw response';
+  }
+
+  public function getLongitude()
+  {
+    return rand( 0, 180 );
+  }
+
+  public function getLatitude()
+  {
+    return rand( 0, 180 );
+  }
+
+  public function getAccuracy()
+  {
+      // address level accurace (google)
+      return 8;
+  }
+
+  public function getLookupUrl()
+  {
+     return 'mock geo encoder lookup url';
+  }
+
+}

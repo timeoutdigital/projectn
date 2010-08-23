@@ -42,7 +42,14 @@ class PoiDataEntryFormFilter extends BasePoiFormFilter
                 break;
 
             case 'geocoded':
+                    $query->leftJoin( $query->getRootAlias() . '.PoiMeta m WITH m.lookup = "Geocode_accuracy"' );
                     $query->andWhere( '(latitude is NOT NULL AND longitude is NOT NULL) AND (latitude != 0 AND longitude != 0) ' );
+                    $query->andWhere( '(m.value is null OR m.value != 10)' );
+                break;
+           case 'manual':
+                    $query->innerJoin( $query->getRootAlias() . '.PoiMeta m WITH m.lookup = "Geocode_accuracy"' );
+                    $query->andWhere( '(latitude is NOT NULL AND longitude is NOT NULL) AND (latitude != 0 AND longitude != 0) ' );
+                    $query->andWhere( 'm.value = 10 ' );
                 break;
         }
 
