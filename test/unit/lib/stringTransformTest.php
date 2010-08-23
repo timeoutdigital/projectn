@@ -1,5 +1,4 @@
 <?php
-setlocale(LC_ALL, array('en_US.UTF-8', ));
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../bootstrap.php';
@@ -238,15 +237,12 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatPriceRange()
   {
-    setlocale(LC_MONETARY, 'en_GB.UTF-8');
-
-    $this->assertEquals( '', stringTransform::formatPriceRange( '0', '0.00' ) );
-    $this->assertEquals( '£ 1.00', stringTransform::formatPriceRange( '1', '0.00' ) );
-    $this->assertEquals( 'between £ 1.00 and £ 5.00', stringTransform::formatPriceRange( '1', '5' ) );
-    $this->assertEquals( 'between £ 1.50 and £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00' ) );
-    $this->assertEquals( '£ 1.50 - £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
-    setlocale(LC_ALL, array('en_US.UTF-8', ));
-    $this->assertEquals( '$1.50 - $3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
+    $this->assertEquals( '', stringTransform::formatPriceRange( '0', '0.00', '£ ' ) );
+    $this->assertEquals( '£ 1.00', stringTransform::formatPriceRange( '1', '0.00', '£ ' ) );
+    $this->assertEquals( 'between £ 1.00 and £ 5.00', stringTransform::formatPriceRange( '1', '5', '£ ' ) );
+    $this->assertEquals( 'between £ 1.50 and £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', '£ ' ) );
+    $this->assertEquals( '£ 1.50 - £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', '£ ', 'short' ) );
+    $this->assertEquals( '$1.50 - $3.00', stringTransform::formatPriceRange( '1.50', '3.00', '$', 'short' ) );
   }
 
   /**

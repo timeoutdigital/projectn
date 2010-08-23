@@ -219,10 +219,6 @@ class importTask extends sfBaseTask
       case 'singapore':
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
-        //must be set for price range function
-        //@todo get get this info out of vendor?!
-        setlocale(LC_MONETARY, 'en_US.UTF-8');
-
         switch( $options['type'] )
         {
           case 'poi-event':
