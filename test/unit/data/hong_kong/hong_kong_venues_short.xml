@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <rss xmlns:content="http://purl.org/rss/1.0/modules/content/"
+             xmlns:tohk="http://www.timeout.com.hk/custom.xsd" version="2.0">
+        	<channel>
+            <title><![CDATA[Venues]]></title>
+            <link>http://www.timeout.com.hk</link>
+            <description><![CDATA[TOHK Venues]]></description>
+            <pubDate>Wed, 14 Jul 2010</pubDate>
+            <managingEditor>admin@timeout.com.hk (timeout.com.hk)</managingEditor>
+            <copyright>timeout.com.hk</copyright>
+            <image>
+              <url>http://www.timeout.com.hk/images/logo.gif</url>
+              <title><![CDATA[TOHK Venues]]></title>
+              <link>http://www.timeout.com.hk</link>
+            </image>
+            <language>en</language>
+            <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+            <venues>
+                
+        	<venue id='2'>
+                <name><![CDATA[The Rotunda]]></name>
+                <street><![CDATA[Exchange Square]]></street>
+                <city><![CDATA[Central]]></city>
+                <district><![CDATA[Central]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+                
+                <categories>
+                    <category><![CDATA[Story 2]]></category>
+                </categories>
+                
+                
+        	</venue>
+        	
+        	<venue id='3'>
+                <name><![CDATA[Piazza Area]]></name>
+                <street><![CDATA[]]></street>
+                <city><![CDATA[Discovery Bay]]></city>
+                <district><![CDATA[Discovery Bay]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+                
+                <categories>
+                    <category><![CDATA[Story 3]]></category>
+                </categories>
+                
+                
+        	</venue>
+        	
+        	<venue id='4'>
+                <name><![CDATA[Soccer pitch of Pak Tai Temple Playground]]></name>
+                <street><![CDATA[Shop M, Roof Viewing Deck, Pier 7, Star Ferry]]></street>
+                <city><![CDATA[Cheung Chau]]></city>
+                <district><![CDATA[Cheung Chau]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+                
+                <categories>
+                    <category><![CDATA[Story 4]]></category>
+                </categories>
+                
+                
+        	</venue>
+        	
+            </venues>
+           </channel>
+        </rss>

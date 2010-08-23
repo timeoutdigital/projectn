@@ -32,10 +32,8 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
    
-    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong_movies_short.xml' );
+    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong/hong_kong_movies_short.xml' );
     $this->dataMapper = new HongKongFeedMoviesMapper( $this->moviesXml, null, "hong kong" );
-
-    //echo $this->moviesXml->saveXML();
 
   }
 
@@ -72,7 +70,6 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( "http://www.timeout.com.hk/film/features/1739/the-savages.html", $movie[ 'MovieProperty' ][0]['value'] );
 
     $this->assertGreaterThan( 0, $movie[ 'Vendor' ]->count() );
-    echo 'Vendor Name:' . $movie[ 'Vendor' ]['name'] . "\n";
     
     $filename = sfConfig::get( 'sf_root_dir' ) . '/import/hong_kong/movie/media/' . md5('http://www.timeout.com.hk/media/content/normal/1739_savages1.jpg') . '.jpg';
     $this->assertEquals(true,file_exists($filename));
@@ -83,9 +80,6 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1741,  $movie['vendor_movie_id'] );
     $this->assertEquals( 'Over Her Dead Body', $movie['name'] );
     $this->assertEquals( '<p class="MsoNormal">Overplanning bride-to-be Kate (Longoria Parker) goes apeshit when the angel-shaped ice sculpture she ordered', mb_substr( $movie['review'],0 , 129, 'UTF-8' ) );
-
-
-//$this->assertEquals( '1 star', mb_substr($movie['plot'],0,6,'UTF-8' ) );
 
     $this->assertEquals( '+08:00', $movie['utf_offset'] );
     $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );

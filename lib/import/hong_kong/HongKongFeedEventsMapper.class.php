@@ -87,14 +87,11 @@ class HongKongFeedEventsMapper extends HongKongFeedBaseMapper
               } // Foreach Events occurrences
 
               // Save Event
-              //$this->notifyImporter( $event );
-              $event->save(); // Debug
-
+              $this->notifyImporter( $event );
               unset($event);
 
           }catch(Exception $exception){
-              //$this->notifyImporterOfFailure($exception, $event);
-              // DEBUG
+              $this->notifyImporterOfFailure($exception, $event);
               print_r($exception->getMessage() . ' - failed to add Event for vendor event id@'. $event['vendor_event_id'].PHP_EOL);
           }
       }// END foreach

@@ -32,7 +32,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
 
-    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong_venues_short.xml' );
+    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong/hong_kong_venues_short.xml' );
     $this->dataMapper = new HongKongFeedVenuesMapper( $this->moviesXml, null );
   }
 
@@ -54,7 +54,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $pois = Doctrine::getTable('Poi')->findAll();
 
       // Check IMPORTED COUNT
-      $this->assertEquals( 7, $pois->count() );
+      $this->assertEquals( 3, $pois->count() );
 
       $poi = $pois[0];
 
@@ -77,7 +77,6 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('',$poi['url']);
 
       // Category Check
-      //echo 'Category Name@'.$poi[ 'LinkingVendorPoiCategory' ][0]['VendorPoiCategory']['id'].PHP_EOL;
       $this->assertGreaterThan( 0, $poi[ 'LinkingVendorPoiCategory' ]->count() );
 
       // Not Provided in XML
@@ -97,24 +96,23 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       // Check for the SECOND ONE
       $poi = $pois[1];
 
-      $this->assertEquals(3229, $poi['vendor_poi_id']);
-      $this->assertEquals('Graze', $poi['name']);
+      $this->assertEquals(3, $poi['vendor_poi_id']);
+      $this->assertEquals('Piazza Area', $poi['name']);
 
-      $this->assertEquals('G/F, Chaoâs Bldg, 143-145 Bonham Strand, Sheung Wan', $poi['street']);
-      $this->assertEquals('Sheung Wan', $poi['city']);
-      $this->assertEquals('Sheung Wan', $poi['district']);
+      $this->assertEquals('', $poi['street']);
+      $this->assertEquals('Discovery Bay', $poi['city']);
+      $this->assertEquals('Discovery Bay', $poi['district']);
       $this->assertEquals('HKG',$poi['country']);
       
       $this->assertNull($poi['rating']);
-      $this->assertEquals('CHEAP EATS This quaint cafÃ',  mb_substr( $poi['description'],0,27, 'UTF-8'));
+      $this->assertEquals('',   $poi['description'] );
       $this->assertEquals('',$poi['openingtimes']);
       
-      $this->assertEquals('+852 2 850 7766', $poi['phone']);
+      $this->assertEquals('', $poi['phone']);
       $this->assertEquals('',$poi['url']);
       
       // Category Check
-      //echo 'Category Name@'.$poi[ 'LinkingVendorPoiCategory' ][0]['VendorPoiCategory']['id'].PHP_EOL;
-      $this->assertLessThan( 1, $poi[ 'LinkingVendorPoiCategory' ]->count() );
+      $this->assertGreaterThan( 0, $poi[ 'LinkingVendorPoiCategory' ]->count() );
 
       // Not Provided in XML
         $this->assertEquals( '', $poi['email'] );
@@ -133,23 +131,23 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       // Check for the THIRD ONE
       $poi = $pois[2];
 
-      $this->assertEquals(3585, $poi['vendor_poi_id']);
-      $this->assertEquals('Pier 7', $poi['name']);
+      $this->assertEquals(4, $poi['vendor_poi_id']);
+      $this->assertEquals('Soccer pitch of Pak Tai Temple Playground', $poi['name']);
 
       $this->assertEquals('Shop M, Roof Viewing Deck, Pier 7, Star Ferry', $poi['street']);
-      $this->assertEquals('Central', $poi['city']);
-      $this->assertEquals('Central', $poi['district']);
+      $this->assertEquals('Cheung Chau', $poi['city']);
+      $this->assertEquals('Cheung Chau', $poi['district']);
       $this->assertEquals('HKG',$poi['country']);
       
       $this->assertNull($poi['rating']);
       //$this->assertEquals('',$poi['description']);
       $this->assertEquals('',$poi['openingtimes']);
       
-      $this->assertEquals('+852 2 167 8377',$poi['phone']);
+      $this->assertEquals('',$poi['phone']);
       $this->assertEquals('',$poi['url']);
 
       // Category Check
-      $this->assertLessThan( 1, $poi[ 'LinkingVendorPoiCategory' ]->count() );
+      $this->assertGreaterThan(0, $poi[ 'LinkingVendorPoiCategory' ]->count() );
 
       // Not Provided in XML
         $this->assertEquals( '', $poi['email'] );

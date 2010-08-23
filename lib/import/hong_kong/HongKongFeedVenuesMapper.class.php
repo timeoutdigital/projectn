@@ -48,19 +48,13 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               foreach( $venueElement->categories->category as $category ) stringTransform::mb_trim($categories[] = (string) $category); // TRIM as addVendorCategory Don't Trim!
               $poi->addVendorCategory( $categories, $this->vendor->id );
                   
-              // Timeout Link
-              //if( (string) $venueElement->timeout_url != "" )
-                      //$poi['TimeoutLinkProperty'] = (string) $venueElement->timeout_url;
-
               // Done and Save
               $this->notifyImporter( $poi );
-              //echo '.'; // Went OK
 
           }catch(Exception $exception)
           {
               $this->notifyImporterOfFailure($exception);
-              //echo '#'; // Exception
-              //print_r($exception->getMessage() . ' - VENDOR POI ID@ '.$poi['vendor_poi_id'].PHP_EOL);
+              print_r($exception->getMessage() . ' - VENDOR POI ID@ '.$poi['vendor_poi_id'].PHP_EOL);
           }
 
           unset($poi, $categories, $vendor_venue_id);

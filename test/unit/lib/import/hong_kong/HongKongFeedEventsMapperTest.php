@@ -37,7 +37,7 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
 
-    $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hongkong_events.short.xml' );
+    $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong/hongkong_events.short.xml' );
 
     $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'hong kong' );
 
@@ -104,14 +104,6 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( "Clubs | Nightlife", $event[ 'VendorEventCategory' ][ 'Clubs | Nightlife' ][ 'name' ], 'Check event category' );
 
-    /*$cat_id = $event[ 'LinkingVendorEventCategory' ][ 0 ][ 'vendor_event_category_id' ];
-    echo $cat_id.PHP_EOL;
-    $eventCategory = Doctrine::getTable('VendorEventCategory')->findOneById($cat_id);
-
-    $this->assertEquals('Clubs |  Nightlife', $eventCategory['name']);
-     */
-    // Check Categories added
-    //$this->assertEquals( "Clubs", $event[ 'VendorEventCategory' ][ 'name' ], 'Check event category' );
     
   }
 

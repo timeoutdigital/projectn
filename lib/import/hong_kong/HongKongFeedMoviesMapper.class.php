@@ -65,14 +65,13 @@ class HongKongFeedMoviesMapper extends HongKongFeedBaseMapper
             
             // Import to DB
             $this->notifyImporter( $movie );
-            //$movie->save();
 
             unset( $movie ); // Done & Delete Movie Data
         }
         catch( Exception $exception )
         {
             $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
-            //print_r( $exception->getMessage() );
+            print_r( $exception->getMessage() );
         }
     }
   }
