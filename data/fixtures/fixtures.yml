@@ -376,7 +376,7 @@ Vendor:
   v25:
     city:                     istanbul
     language:                 tr
-    time_zone:                Asia/Istanbule
+    time_zone:                Asia/Istanbul
     inernational_dial_code:   +90
     airport_code:             IST
     country_code:             tr
