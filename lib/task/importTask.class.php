@@ -182,9 +182,9 @@ class importTask extends sfBaseTask
                 // @todo Wrap in try catch & change this to XSLT like new NY
                 // We are to Run two Import on Events to Manage Memory!
                 $eventsNode = $xmlData->xpath( '/body/event' );
-                $totalCount = count($eventsNode); 
+                $totalCount = count($eventsNode);
                 $splitAt = round( $totalCount / 2 );
-                
+
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, 0, $splitAt) );
                 $importer->run();
@@ -199,11 +199,11 @@ class importTask extends sfBaseTask
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, $splitAt, $totalCount ) );
                 $importer->run();
                 ImportLogger::getInstance()->end();
-                
+
                 $this->dieWithLogMessage();
-                
+
               break;
-          
+
           case 'movie':
               ImportLogger::getInstance()->setVendor( $vendorObj );
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -648,7 +648,7 @@ class importTask extends sfBaseTask
     break; //end data entry imports
 
     case 'beijing':
-        
+
         switch( $options['type'] )
         {
             case 'poi':
@@ -680,6 +680,47 @@ class importTask extends sfBaseTask
         }
 
     break;
+
+     case 'istanbul':
+
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'istanbul', 'tr' );
+
+        switch( $options['type'] )
+        {
+          case 'poi':
+
+            $feedUrl = "http://192.9.1.220/istanbul/venues.xml";
+            $mapperClass = "istanbulVenueMapper";
+
+          break; //end Poi
+
+          case 'event':
+
+            $feedUrl = "http://www.timeoutistanbul.com/content/n_xml/events.xml";
+            $mapperClass = "istanbulEventMapper";
+
+          break; //end Event
+
+          case 'movie':
+
+            $feedUrl = "http://www.timeoutistanbul.com/content/n_xml/movies.xml";
+            $mapperClass = "istanbulMovieMapper";
+
+          break; //end Movie
+
+          default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $mapperClass( $xml ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
+     break;
 
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 

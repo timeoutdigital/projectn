@@ -23,7 +23,9 @@ class istanbulEventMapper extends istanbulBaseMapper
 
           $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor['id'], $vendorEventId );
           if( $event === false )
+          {
             $event = new Event();
+          }
 
           // Column Mapping
           $event['vendor_event_id']         = $vendorEventId;
@@ -37,20 +39,32 @@ class istanbulEventMapper extends istanbulBaseMapper
 
           // Timeout Link
           if( $this->clean( (string) $eventElement->timeout_url ) != "" )
+          {
               $event->setTimeoutLinkProperty( $this->clean( (string) $eventElement->timeout_url ) );
+          }
 
           // Categories
           $cats = $this->extractCategories( $eventElement );
-          foreach( $cats as $cat ) $event->addVendorCategory( $cat );
+          foreach( $cats as $cat )
+          {
+            $event->addVendorCategory( $cat );
+          }
 
           // Add First Image Only
           $medias = array();
-          foreach( $eventElement->medias->media as $media ) $medias[] = (string) $media;
-          if( !empty( $medias ) ) $this->addImageHelper( $event, $medias[0] );
+          foreach( $eventElement->medias->media as $media )
+          {
+            $medias[] = (string) $media;
+          }
+
+          if( !empty( $medias ) )
+          {
+            $this->addImageHelper( $event, $medias[0] );
+          }
 
           // Delete Occurences
           //$event['EventOccurrence']->delete();
-          
+
           // Create Occurences
           //for( $ii=0, $xmlOccurrence = $eventElement->occurrences->occurrence[ 0 ]; $ii<$eventElement->occurrences->occurrence->count(); $ii++, $xmlOccurrence = $eventElement->occurrences->occurrence[ $ii ] )
           //{
@@ -97,7 +111,7 @@ class istanbulEventMapper extends istanbulBaseMapper
           //          $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $this->clean( (string) $xmlOccurrence->venue ) . ' for Vendor Event ID ' . $vendorEventId . ' in Barcelona.' ) );
           //          continue;
           //        }
-          //        
+          //
           //        $occurrence = new EventOccurrence();
           //        $occurrence[ 'vendor_event_occurrence_id' ]     = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId( $vendorEventId, $poi['id'], $this->clean( (string) $xmlOccurrence->start_date ) );
           //        $occurrence[ 'booking_url' ]                    = $this->clean( (string) $xmlOccurrence->booking_url );
@@ -122,7 +136,7 @@ class istanbulEventMapper extends istanbulBaseMapper
           //    $this->notifyImporterOfFailure( new Exception( 'Could not find any reliable occurrences for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
           //    continue;
           //}
-          
+
           $this->notifyImporter( $event );
       }
       catch( Exception $exception )
@@ -131,5 +145,5 @@ class istanbulEventMapper extends istanbulBaseMapper
       }
     }
   }
-  
+
 }

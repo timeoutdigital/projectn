@@ -20,7 +20,9 @@ class istanbulMovieMapper extends istanbulBaseMapper
     {
       $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $this->clean( (string) $movieElement['id'] ) );
       if( $movie === false )
+      {
         $movie = new Movie();
+      }
 
       try{
 
@@ -36,12 +38,26 @@ class istanbulMovieMapper extends istanbulBaseMapper
           $movie['Vendor']            = clone $this->vendor;
 
           // Add Genres
-          //foreach ( $movieElement->genres as $gen )
-          //    $movie->addGenre( $this->clean( (string) $gen->genre ) );
+          foreach ( $movieElement->genres->genre as $gen )
+          {
+            $genreName = $this->clean( (string) $gen->name );
+            if( !empty( $genreName ) )
+            {
+                var_dump( $genreName );
+                $movie->addGenre( $genreName );
+            }
+          }
 
           // Timeout Link
-          //if( (string) $movieElement->timeout_url != "" )
-          //    $movie->setTimeoutLinkProperty( $this->clean( (string) $movieElement->timeout_url ) );
+          if( (string) $movieElement->timeout_url != "" )
+          {
+            $movie->setTimeoutLinkProperty( $this->clean( (string) $movieElement->timeout_url ) );
+          }
+
+          foreach( $movieElement->medias->media as $media )
+          {
+             $movie->addMediaByUrl( (string) $media );
+          }
 
           //Critics Choice
           //$movie->setCriticsChoiceProperty( strtolower( $this->clean( $movieElement->critics_choice ) ) == 'y' );
@@ -54,10 +70,12 @@ class istanbulMovieMapper extends istanbulBaseMapper
           //if( $this->clean( (string) $movieElement->other->year ) != "" )
           //    $movie->addProperty( 'Year', $this->clean( (string) $movieElement->other->year ) );
 
-          $this->notifyImporter( $movie );
+          //$this->notifyImporter( $movie );
+          $movie->save();
       }
       catch( Exception $exception )
       {
+          var_dump($exception->getMessage());
           $this->notifyImporterOfFailure( $exception, $movie );
       }
     }
