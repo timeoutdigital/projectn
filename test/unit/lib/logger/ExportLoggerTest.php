@@ -41,6 +41,12 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
         ExportLogger::getInstance()->addExport( 'Event', 1 );
         ExportLogger::getInstance()->addError( 'Failed to save datestamp for export', 'Event', 1 );
         ExportLogger::getInstance()->end();
+
+        ExportLogger::getInstance()->setVendor( $this->vendor )->start();
+        ExportLogger::getInstance()->addExport( 'Poi', 1 );
+        ExportLogger::getInstance()->addError( 'Failed to save datestamp for export', 'Poi', 1 );
+        ExportLogger::getInstance()->end();
+        
         ExportLogger::getInstance()->unsetSingleton();
 
         ExportLogger::getInstance()->setVendor( $this->vendor )->start();
@@ -54,13 +60,17 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
         $exportErrorRows = Doctrine::getTable( 'LogExportError' )->findAll();
         $logExportRows = Doctrine::getTable( 'LogExport' )->findAll();
 
-        // Should only have one row in each table for today.
-        $this->assertEquals( 1, $exportDatestampRows->count() );
-        $this->assertEquals( 1, $exportCountRows->count() );
-        $this->assertEquals( 1, $exportErrorRows->count() );
+        // Should have one row in each table for Event and one row for Poi
+        $this->assertEquals( 2, $exportDatestampRows->count() );
+        $this->assertEquals( 2, $exportCountRows->count() );
+        $this->assertEquals( 2, $exportErrorRows->count() );
 
-        // We should still have 2 total LogExport rows.
-        $this->assertEquals( 2, $logExportRows->count() );
+        // Confirm that we didnt remove the 'Poi' metric when starting the second 'Event' export.
+        $this->assertEquals( 1    , $exportDatestampRows[ 0 ][ 'record_id' ] );
+        $this->assertEquals( 'Poi', $exportDatestampRows[ 0 ][ 'model' ] );
+
+        // We should still have 3 total LogExport rows (one for each export).
+        $this->assertEquals( 3, $logExportRows->count() );
     }
 
     public function testAddDatestamp()

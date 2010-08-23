@@ -92,21 +92,30 @@ class ExportLogger extends BaseLogger
      * refs: #606
      */
 
-    public function deleteDuplicateMetricsForToday()
+    public function deleteDuplicateMetricsForToday( $model )
     {
+        if( !in_array( $model, array( 'Poi', 'Event', 'Movie' ) ) )
+        {
+            $this->addError( "Model not found '$model'", $model );
+            return;
+        }
+
         Doctrine::getTable( 'LogExportDate' )
             ->createQuery()->delete()
             ->where( 'export_date > DATE( NOW() )' )
+            ->andWhere( 'model = ?', $model )
             ->execute();
 
         Doctrine::getTable( 'LogExportCount' )
             ->createQuery()->delete()
             ->where( 'created_at > DATE( NOW() )' )
+            ->andWhere( 'model = ?', $model )
             ->execute();
 
         Doctrine::getTable( 'LogExportError' )
             ->createQuery()->delete()
             ->where( 'created_at > DATE( NOW() )' )
+            ->andWhere( 'model = ?', $model )
             ->execute();
     }
 
@@ -115,8 +124,6 @@ class ExportLogger extends BaseLogger
      */
     public function start()
     {
-        $this->deleteDuplicateMetricsForToday();
-
         $this->_exportLog = new LogExport;
         $this->_exportLog['Vendor']         = $this->_vendorObj;
         $this->_exportLog['status']         = 'running';
@@ -249,6 +256,8 @@ class ExportLogger extends BaseLogger
      */
     public function initExport( $model )
     {
+        $this->deleteDuplicateMetricsForToday( $model );
+
         $logExportCount = new LogExportCount();
         $logExportCount[ 'model' ] = $model;
         $logExportCount[ 'count' ] = 0;
