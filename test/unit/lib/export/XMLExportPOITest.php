@@ -76,8 +76,14 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $uiCat = new UiCategory();
         $uiCat['name'] = "Something";
-        $uiCat->link( "VendorPoiCategory", array( 1, 2 ) );
+        $uiCat->link( "VendorPoiCategory", array( 1 ) );
         $uiCat->save();
+
+        $uiCat = new UiCategory();
+        $uiCat['name'] = "Something2";
+        $uiCat->link( "VendorPoiCategory", array( 2 ) );
+        $uiCat->save();
+
 
         $poi = new Poi();
         $poi->setPoiName( 'test name' );
@@ -89,8 +95,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
-        $poi->setLongitude( '0.1' );
-        $poi->setLatitude( '0.2' );
+        $poi->setLongitude( '-0.081888001' );
+        $poi->setLatitude( 51.52454601 );
         $poi->setEmail( 'you@who.com' );
         $poi->setUrl( 'http://foo.com' );
         $poi->setPhone( '+44 208 123 1234' );
@@ -142,13 +148,14 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->setStreet( 'test street2' . $this->specialChars );
         $poi->setHouseNo('13' . $this->specialChars );
         $poi->setZips('4321' );
-        $poi->setCity( 'test town2' . $this->specialChars );
+        $poi->setCity( 'test town two' . $this->specialChars );
         $poi->setDistrict( 'test district2' . $this->specialChars );
         $poi->setCountry( 'GBR' );
         $poi->setVendorPoiId( '123' );
         $poi->setLocalLanguage('en');
-        $poi->setLongitude( '0.3' );
-        $poi->setLatitude( '0.4' );
+        $poi->setLongitude( '-0.081899' );
+        $poi->setLatitude( '51.524500' );
+
         $poi->link('VendorPoiCategory', array( 1, 2 ) );
         $poi->link( 'Vendor', 2 );
         $poi->save();
@@ -159,7 +166,42 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $property3->link( 'Poi', array( $poi['id'] ) );
         $property3->save();
 
-        $this->runImport();
+        // poi with empty street
+        $poi = new Poi();
+        $poi->setPoiName( 'test name3' . $this->specialChars );
+        $poi->setStreet( ' ' );
+        $poi->setHouseNo('13' . $this->specialChars );
+        $poi->setZips('4321' );
+        $poi->setCity( 'test town two' . $this->specialChars );
+        $poi->setDistrict( 'test district2' . $this->specialChars );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '1234' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.0814899' );
+        $poi->setLatitude( '51.5245400' );
+
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->link( 'Vendor', 2 );
+        $poi->save();
+
+        //poi with not set street
+        $poi = new Poi();
+        $poi->setPoiName( 'test name4' . $this->specialChars );
+        $poi->setHouseNo('13' . $this->specialChars );
+        $poi->setZips('4321' );
+        $poi->setCity( 'test town two' . $this->specialChars );
+        $poi->setDistrict( 'test district2' . $this->specialChars );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '12345' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.0814899' );
+        $poi->setLatitude( '51.5245400' );
+
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->link( 'Vendor', 2 );
+        $poi->save();
+
+        $this->runImportAndExport();
       }
       catch(PDOException $e)
       {
@@ -172,34 +214,72 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
-  /**
+    /**
+    * Skip on lat/long out of bounds.
+    */
+    public function testPoiLatLongOutofVendorBounds()
+  {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $this->vendor2['geo_boundries'] = "1;1;2;2";
+      $this->vendor2->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+
+      $poi['latitude'] = 1.5;
+      $poi['longitude'] = 1.5;
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['latitude'] = 2.5;
+      $poi['longitude'] = 1.5;
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['latitude'] = 1.5;
+      $poi['longitude'] = 2.5;
+      $poi->save();
+
+      $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImportAndExport();
+
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
+  }
+
+    /**
    * Add UI Category to Export.
    */
-  public function testAddUiCategory()
+    public function testAddUiCategory()
   {
       $this->domDocument = new DOMDocument();
       $this->domDocument->load( $this->destination );
       $this->xpath = new DOMXPath( $this->domDocument );
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
+
       $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
-  /**
+    /**
    * Check to make sure we don't export a property named 'Critics_choice' with a value which is not 'y'.
    */
-  public function testOnlyYesForCriticsChoiceProperty()
+    public function testOnlyYesForCriticsChoiceProperty()
   {
       $this->domDocument = new DOMDocument();
       $this->domDocument->load( $this->destination );
       $this->xpath = new DOMXPath( $this->domDocument );
-      
+
       //echo $this->domDocument->saveXML();
 
       $badCriticsChoice = $this->xpath->query( "/vendor-pois/entry/property[@key='Critics_choice' and lower-case(.) != 'y']" );
       $this->assertEquals( 0, $badCriticsChoice->length, "Should not be exporting property 'Critics_choice' with value not equal to 'y'" );
   }
-    
+
     /**
      * @todo Someone didn't finish what they were doing.
      * Don't git blame me, I just removed the windows end-of-line chars! -pj
@@ -213,22 +293,25 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
-      $poi['latitude'] = 33.332;
+
+      $poi['latitude'] = 51.52454700;
+      $poi['longitude'] = -0.081866800;
       $poi['VendorPoiCategory'] = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
       $poi->save();
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
       $poi['poi_name'] = 'hello';
-      $poi['latitude'] = 33.333;
+      $poi['latitude'] = 51.52453600;
+      $poi['longitude'] = -0.08148800;
       $poi->addVendorCategory( "moo", $this->vendor2->id );
       $poi->save();
 
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
 
-      $this->runImport();
+      $this->runImportAndExport();
       $numEntries = $this->xml->xpath( '//entry' );
-      
+
       $this->assertEquals( 1, count( $numEntries ) );
     }
 
@@ -238,11 +321,16 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       ProjectN_Test_Unit_Factory::createDatabases();
 
       $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $vendor['geo_boundries'] = "1;1;10;10";
+      $vendor->save();
 
       $poi    = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $vendor;
       $poi->addVendorCategory( 'foo', $vendor );
       $poi->addVendorCategory( 'bar', $vendor );
+      $poi['latitude'] = 5;
+      $poi['longitude'] = 5;
+
       $poi->save();
 
       $poiCategory = ProjectN_Test_Unit_Factory::get( 'PoiCategory' );
@@ -261,6 +349,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->export = new XMLExportPOI( $vendor, $this->destination );
 
       $this->export->run();
+      sleep( 1 );
       $this->xml = simplexml_load_file( $this->destination );
 
       $this->assertEquals( 1, count( $this->xml->xpath( '//category' ) ) );
@@ -276,6 +365,15 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       //vendor-pois
       $this->assertEquals( XMLExport::VENDOR_NAME, (string) $this->xml['vendor'], 'Vendor should be "timeout"' );
       $this->assertRegExp( '/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/', (string) $this->xml['modified'] );
+    }
+
+    /**
+     * test if poi with empty or no street is skipped
+     */
+    public function testIfPoiWithEmptyStreetIsSkipped()
+    {
+      //entry
+      $this->assertEquals( 2, count( $this->xml->entry ) );
     }
 
     /**
@@ -310,11 +408,11 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $xpathResult = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/longitude' );
       $longitude = (string) array_shift( $xpathResult );
-      $this->assertEquals( '0.1', $longitude );
-      
+      $this->assertEquals( '-0.081888001', $longitude );
+
       $xpathResult2 = $this->xml->xpath( '/vendor-pois/entry[1]/geo-position/latitude' );
       $latitude = (string) array_shift( $xpathResult2 );
-      $this->assertEquals( '0.2', $latitude );
+      $this->assertEquals( '51.52454601', $latitude );
     }
 
     /**
@@ -410,7 +508,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertRegExp( ':test name2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':test street2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':13' . $this->escapedSpecialChars . ':', $xmlString );
-      $this->assertRegExp( ':test town2' . $this->escapedSpecialChars . ':', $xmlString );
+      $this->assertRegExp( ':test town two' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':test district2' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi key special' . $this->escapedSpecialChars . ':', $xmlString );
       $this->assertRegExp( ':poi value special' . $this->escapedSpecialChars . ':', $xmlString );
@@ -450,13 +548,51 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
     }
 
-    private function runImport()
+    public function testExportWithValidationOff()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+
+      $poi['latitude'] = 11.52454700;
+      $poi['longitude'] = 170.081866800;
+      $poi['VendorPoiCategory'] = new Doctrine_Collection( Doctrine::getTable( 'VendorPoiCategory' ) );
+      $poi->save();
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['poi_name'] = 'hello';
+      $poi['latitude'] = 11.52453600;
+      $poi['longitude'] = -0.08148800;
+      $poi->addVendorCategory( "moo", $this->vendor2->id );
+      $poi->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+
+      $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+      $this->export = new XMLExportPOI( $this->vendor2, $this->destination, false );
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $this->destination );
+
+      $numEntries = $this->xml->xpath( '//entry' );
+
+      $this->assertEquals( 2, count( $numEntries ) );
+    }
+
+    private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
       $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
 
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
+
+      //ExportLogger::getInstance()->showErrors();
     }
 }
 ?>

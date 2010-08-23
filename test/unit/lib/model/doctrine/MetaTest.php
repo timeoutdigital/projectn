@@ -40,7 +40,7 @@ class MetaTest extends PHPUnit_Framework_TestCase
   public function testValidationError()
   {
       $meta = new Meta();
-      $this->setExpectedException("Doctrine_Connection_Sqlite_Exception");
+      $this->setExpectedException("Doctrine_Validator_Exception");
       $meta->save();
   }
 

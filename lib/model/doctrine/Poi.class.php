@@ -58,6 +58,23 @@ class Poi extends BasePoi
     $this->geoEncoder = $geoEncoder;
   }
 
+  public function fixStreetName()
+  {
+    $cityName =  $this[ 'city' ];
+
+    $this[ 'street' ] = str_ireplace( ','.$cityName , ', '.$cityName , trim( $this[ 'street' ] ) );
+    //remove the last word and comma if it's the city name
+    $streetNameParts = explode( ' ', $this[ 'street' ] );
+
+    if( strtolower( trim( end( $streetNameParts  ) ))  == strtolower ( $cityName ) )
+    {
+        unset( $streetNameParts [ count( $streetNameParts ) -1 ]  );
+        $this[ 'street' ] = implode( ' ',$streetNameParts );
+    }
+
+    $this[ 'street' ] = preg_replace( '/[, ]*$/', '', $this[ 'street' ] );
+  }
+
   public function fixPoiName()
   {
     $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
@@ -68,21 +85,30 @@ class Poi extends BasePoi
    */
   protected function getStringColumns()
   {
-    $column_names = array();
+    $column = array();
     foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
       if( $column_info['type'] == 'string' )
-          $column_names[] = $column_name;
-    return $column_names;
+          $column[$column_name] = $column_info;
+    return $column;
   }
 
   /**
-   * Removes HTML Entities for all fields of type 'string'
+   * Clean all fields of type 'string', Removes HTML and Trim
    */
-  protected function fixHTMLEntities()
+  protected function cleanStringFields()
   {
-    foreach ( $this->getStringColumns() as $field )
+    foreach ( $this->getStringColumns() as $field => $field_info )
         if( is_string( @$this[ $field ] ) )
+        {
+            // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
+
+            // Refs #525 - Trim All Text fields on PreSave
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+
+            // Refs #538 - Nullify all Empty string that can be Null in database Schema
+            if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
+        }
   }
 
   /**
@@ -277,6 +303,7 @@ class Poi extends BasePoi
    */
   public function addProperty( $lookup, $value )
   {
+
     if( $this->exists() )
     {
       foreach( $this['PoiProperty'] as $property )
@@ -328,6 +355,10 @@ class Poi extends BasePoi
 
     foreach( $this[ 'VendorPoiCategory' ] as $existingCategory )
     {
+      // This will unlink all vendor category relationships that dont match the poi vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
+      
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 
@@ -363,14 +394,16 @@ class Poi extends BasePoi
   public function applyFixes()
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
-     $this->fixHTMLEntities();
+     $this->cleanStringFields();
      $this->fixPoiName();
+     $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
-     $this->fixPhone();
+     $this->fixPhoneNumbers();
      $this->fixUrl();
+     $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
-     $this->cleanStreetField();
+     $this->cleanStreetField();     
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
@@ -385,7 +418,7 @@ class Poi extends BasePoi
   {
     $this->applyFixes();
   }
-
+  
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
@@ -424,11 +457,16 @@ class Poi extends BasePoi
     $override->applyOverridesToRecord();
   }
 
-  private function fixPhone()
+  private function fixPhoneNumbers()
   {
-     if(strlen($this['phone']) > 0)
+     $phoneFields = array( 'phone', 'phone2', 'fax' );
+
+     foreach ( $phoneFields as $phoneField )
      {
-       $this['phone'] = stringTransform::formatPhoneNumber( trim($this['phone']), $this['Vendor']['inernational_dial_code'] );
+        if(strlen($this[$phoneField]) > 0)
+        {
+            $this[$phoneField] = stringTransform::formatPhoneNumber( trim($this[$phoneField]), $this['Vendor']['inernational_dial_code'] );
+        }
      }
   }
 
@@ -437,6 +475,15 @@ class Poi extends BasePoi
      if( $this['url'] != '')
      {
         $this['url'] = stringTransform::formatUrl($this['url']);
+     }
+  }
+
+
+  private function fixEmail()
+  {
+     if( ! stringTransform::isValidEmail ( $this['email'] ) )
+     {
+        $this['email'] = null;
      }
   }
 
@@ -576,7 +623,6 @@ class Poi extends BasePoi
     // check if the largestImg is larger than the one attached already if any
     foreach ($this[ 'PoiMedia' ] as $poiMedia )
     {
-
         if( $poiMedia['content_length']  > $largestImg[ 'contentLength' ]  )
         {
             //we already have a larger image so ignore this
@@ -590,11 +636,17 @@ class Poi extends BasePoi
     {
         $poiMediaObj = new PoiMedia( );
     }
+    try
+    {
+        $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-    // add the poiMediaObj to the Poi
-    $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+        // add the poiMediaObj to the Poi
+        $this[ 'PoiMedia' ] [] =  $poiMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
   }
 
@@ -613,20 +665,24 @@ class Poi extends BasePoi
     {
         throw new Exception('Failed to add Poi Media due to missing Vendor city');
     }
-
+    // Get Header Contents
     $headers = get_headers( $urlString , 1);
+    
+    // When Image redirected with 302/301 get_headers will return morethan one header array
+    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
+    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
 
     // check the header if it's an image
-    if( $headers [ 'Content-Type' ] != 'image/jpeg' )
+    if( $contentType != 'image/jpeg' )
     {
-        return ;
+        return false;
     }
-
     $this->media[] = array(
         'url'           => $urlString,
-        'contentLength' => $headers[ 'Content-Length' ],
+        'contentLength' => $contentLength,
         'ident'         => md5( $urlString ),
      );
+    return true;
   }
 
 

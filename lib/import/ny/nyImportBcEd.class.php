@@ -1,14 +1,14 @@
 <?php
 /**
  * Class that imports NY Bars and clubs
- * 
- * 
+ *
+ *
  * @package projectn
  * @subpackage ny.import.lib
- * 
+ *
  * @author Timmy Bowler <timbowler@timeout.com>
  * @copyright Timeout Comunications Ltd
- * 
+ *
  * @version 1.0.0
  *
  *
@@ -70,7 +70,7 @@ class nyImportBcEd {
         }
     }
 
-    
+
     /**
      *
      * Test if the poi already exists
@@ -97,7 +97,7 @@ class nyImportBcEd {
         return $currentPoi;
     }
 
-    
+
     /**
      * import the bars from the feed
      *
@@ -107,29 +107,35 @@ class nyImportBcEd {
     {
 
         //Get the POI object
-        $poiObj = $this->getPoi($poi);
-  
+        $poiObj = $this->getPoi( $poi );
 
         try {
             //Add the main details that should not change
             $poiObj[ 'vendor_poi_id' ]           = (string) $poi->{'ID'};
 
             $streetAddress = (string) $poi->{'location.0'};
+
             $pos = strpos( $streetAddress, "between" );
             if( $pos !== false )
             {
                 $betweenSection = substr( $streetAddress, $pos );
-                $poiObj[ 'additional_address_details' ] = $betweenSection;
                 $streetAddress = substr( $streetAddress, 0, $pos );
+                $additionalAddressDetails = $betweenSection;
+            }else
+            {
+               $streetInfo =  stringTransform::parseStreetName( $streetAddress );
+               $streetAddress = $streetInfo[ 'street' ];
+               $additionalAddressDetails = $streetInfo[ 'additional_address_details' ];
             }
 
+            $poiObj[ 'additional_address_details' ] = $additionalAddressDetails;
             $poiObj[ 'street' ]                  = (string) trim( $streetAddress );
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name.0'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
             $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
             $poiObj[ 'zips' ]                    = (string) $poi->{'zip.0'};
             $poiObj[ 'phone' ]                   = (string) $poi->{'phone.0'};
-            $poiObj[ 'url' ]                   = (string) $poi->{'url.0'};
+            $poiObj[ 'url' ]                     = (string) $poi->{'url.0'};
 
             //The B/C and E/D have different column names for the description
             if((string) $poi->{'BAR.body'})
@@ -161,10 +167,10 @@ class nyImportBcEd {
                 {
                     $city = 'New York';
                 }
-                
-                
+
+
                 $poiObj[ 'city' ]                 = $city;
-              
+
             }
 
 
@@ -217,10 +223,10 @@ class nyImportBcEd {
         }
 
         catch(Doctrine_Validator_Exception $error)
-        {           
+        {
            $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
            ImportLogger::getInstance()->addError($error, $poiObj, $log);
-            
+
             return $poiObj;
         }
 
@@ -245,7 +251,7 @@ class nyImportBcEd {
           case nyImportBcEd::BAR_CLUB:
             $category = 'Bar-club';
             break;
-          
+
           case nyImportBcEd::RESTAURANT:
             $category = 'Restaurant';
 
@@ -264,5 +270,7 @@ class nyImportBcEd {
 
         return $category;
     }
+
+
 }
 ?>

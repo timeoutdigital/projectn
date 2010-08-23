@@ -562,18 +562,18 @@ class singaporeImport
 
         foreach( $datesArray as $date )
         {
+            $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventId, $poi[ 'id' ], $date[ 'start' ] );
+            $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
+
+            if ( $eventOccurrence === false )
+            {
+                $eventOccurrence = new EventOccurrence();
+                $eventOccurrence[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
+            }
+
             try {
-                $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventId, $poi[ 'id' ], $date[ 'start' ] );
-                $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
-
-                if ( $eventOccurrence === false )
-                {
-                    $eventOccurrence = new EventOccurrence();
-                    $eventOccurrence[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
-                }
-
                 //$eventOccurrence[ 'booking_url' ] ='';
-                $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( $date[ 'start' ] );
+                $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( date( 'Y-m-d', strtotime( $date[ 'start' ] ) ) );
 
                 //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
                 $eventOccurrence[ 'start_date' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );

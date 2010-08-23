@@ -108,12 +108,14 @@ class geocode_uiActions extends autoGeocode_uiActions
 
         if( $venue )
         {
+            $geocodeAccuracy = $this->getPoiGeocodeAccuracyMeta( $venue );
+            
             $result [ 'name' ] = $venue[ 'poi_name' ];
-            $result [ 'address1' ] = $venue[ 'house_no' ];
+            $result [ 'address1' ] = !is_null( $venue[ 'house_no' ] ) ? $venue[ 'house_no' ] : '';
             $result [ 'address2' ] = $venue[ 'street' ];
             $result [ 'latitude' ] = $venue[ 'latitude' ];
 	    $result [ 'longitude' ] = $venue[ 'longitude' ];
-            $result [ 'geocode_accuracy' ] = 0;//$venue[ 'geocode_accuracy' ];
+            $result [ 'geocode_accuracy' ] = ( $geocodeAccuracy ) ? $geocodeAccuracy['value'] : 0;//$venue[ 'geocode_accuracy' ];
             $result [ 'city' ] = $venue[ 'city' ];
             $result [ 'id' ] = $venue[ 'id' ];
         }
@@ -141,7 +143,7 @@ class geocode_uiActions extends autoGeocode_uiActions
       $latitude = $request->getParameter( 'latitude' );
       $longitude = $request->getParameter( 'longitude' );
       $geocode_lookup = $request->getParameter( 'geocode_lookup' );
-      $geocode_accuracy = $request->getParameter( 'geocode_accuracy' );
+      $geocode_accuracy = (int)$request->getParameter( 'geocode_accuracy' );
 
       
       if( empty( $latitude ) ) $latitude = null;
@@ -165,12 +167,41 @@ class geocode_uiActions extends autoGeocode_uiActions
             $poi->addMeta('Geo_Source', 'GeocodeUI', sprintf('Changed %s:%s - %s:%s - Accuracy:%s Geocode Lookup:%s', $last_lat, $last_long, $latitude, $longitude,$geocode_accuracy, $geocode_lookup ));
         }
 
+        // Save Accuracy
+        if( $geocode_accuracy >= 0 )
+        {
+            $geocodeAccuracy = $this->getPoiGeocodeAccuracyMeta( $poi );
+
+            if( !$geocodeAccuracy )
+            {
+                $geocodeAccuracy    = new PoiMeta();
+                $poi['PoiMeta'][]   = $geocodeAccuracy;
+            }
+
+            $geocodeAccuracy['lookup']  = 'Geocode_accuracy';
+            $geocodeAccuracy['value']   = $geocode_accuracy;
+            
+        }
+
         $poi->save(); // Save ALL
 
         return $this->renderText( json_encode( array('alert' => sprintf('Record Updated', $poi['poi_name'] ) ) ) );
       }else
           
         return $this->renderText( json_encode( array('error' => sprintf('POI Not found!' ) ) ) );
+   }
+
+   private function getPoiGeocodeAccuracyMeta( Doctrine_Record $poi )
+   {
+        foreach ( $poi['PoiMeta'] as $meta )
+        {
+            if( $meta['lookup'] == 'Geocode_accuracy' )
+            {
+                return $meta;
+            }
+        }
+
+        return null;
    }
 
 }

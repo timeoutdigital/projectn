@@ -84,9 +84,9 @@ class EventTest extends PHPUnit_Framework_TestCase
   }
 
    /**
-   * test if setting the name of a Poi ensures HTML entities are decoded
+   * test if setting the name of a Poi ensures HTML entities are decoded and Trimmed
    */
-  public function testFixHtmlEntities()
+  public function testCleanStringFields()
   {
       $event = ProjectN_Test_Unit_Factory::get( 'Event' );
       $event['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
@@ -107,6 +107,19 @@ class EventTest extends PHPUnit_Framework_TestCase
         if( $column_info['type'] == 'string' )
             if( is_string( @$event[ $column_name ] ) )
                 $this->assertTrue( preg_match( '/&sect;/', $event[ $column_name ] ) == 0, 'Failed to convert &sect; to correct symbol' );
+
+      // Refs #525 Trim test
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event['Vendor'] = ProjectN_Test_Unit_Factory::get( 'Vendor', array( "city" => "Lisbon" ) );
+      $event['name'] = "    This is event, Not a movie  ";
+      $event['description'] = "<p>a description with tab <br />and space ends</p>      ";
+      
+      $event->save();
+
+      // Assert
+      $this->assertEquals('This is event, Not a movie', $event['name']);
+      $this->assertEquals('<p>a description with tab <br />and space ends</p>', $event['description']);
+            
   }
 
   /*
@@ -467,6 +480,39 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
 
    }
+
+   /**
+    * Check addMediaByUrl() get_header for array value.
+    */
+   public function testAddMediaByUrlMimeTypeCheck()
+   {
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $event[ 'Vendor' ] = $vendor;
+
+      // Valid URL with 302 Redirect
+      $this->assertTrue( $event->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
+      // 404 Error Url
+      $this->assertFalse( $event->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      // Valid URL - No redirect
+      $this->assertTrue( $event->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+
+   }
+  /*
+   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
+   */
+  public function testMediaPopulateByUrlForRedirectingLink()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event[ 'Vendor' ] = $vendor;
+
+      $event->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
+      $event->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
+      $event->save();
+
+      $this->assertEquals(1, $event['EventMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+  }
 
 }
 

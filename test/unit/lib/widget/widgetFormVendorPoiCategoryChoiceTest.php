@@ -4,7 +4,7 @@ require_once dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
 require_once dirname(__FILE__).'/../../bootstrap.php';
 
 /**
- * Test class for widgetFormEventVendorCategoryChoice
+ * Test class for widgetFormPoiVendorCategoryChoice
  *
  * @package test
  * @subpackage doctrine.form.lib.unit
@@ -16,7 +16,7 @@ require_once dirname(__FILE__).'/../../bootstrap.php';
  *
  *
  */
-class widgeFormVendorEventCategoryChoiceTest extends PHPUnit_Framework_TestCase
+class widgeFormVendorPoiCategoryChoiceTest extends PHPUnit_Framework_TestCase
 {
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -35,24 +35,24 @@ class widgeFormVendorEventCategoryChoiceTest extends PHPUnit_Framework_TestCase
   public function testWidget()
   {
     $ny   = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'ny' ) );
-    $event1 = ProjectN_Test_Unit_Factory::get( 'Event', null, false );
-    $event1[ 'Vendor' ] = $ny;
-    $event1->addVendorCategory( 'ny foo', $ny['id'] );
-    $event1->addVendorCategory( 'ny bar', $ny['id'] );
-    $event1->addVendorCategory( 'ny baz', $ny['id'] );
-    $event1->save();
+    $poi1 = ProjectN_Test_Unit_Factory::get( 'Poi', null, false );
+    $poi1[ 'Vendor' ] = $ny;
+    $poi1->addVendorCategory( 'ny foo', $ny['id'] );
+    $poi1->addVendorCategory( 'ny bar', $ny['id'] );
+    $poi1->addVendorCategory( 'ny baz', $ny['id'] );
+    $poi1->save();
 
     $chicago = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'chicago' ) );
-    $event2    = ProjectN_Test_Unit_Factory::get( 'Event', null, false );
-    $event2[ 'Vendor' ] = $chicago;
-    $event2->addVendorCategory( 'chicago foo', $chicago['id'] );
-    $event2->addVendorCategory( 'chicago bar', $chicago['id'] );
-    $event2->addVendorCategory( 'chicago baz', $chicago['id'] );
-    $event2->save();
+    $poi2    = ProjectN_Test_Unit_Factory::get( 'Poi', null, false );
+    $poi2[ 'Vendor' ] = $chicago;
+    $poi2->addVendorCategory( 'chicago foo', $chicago['id'] );
+    $poi2->addVendorCategory( 'chicago bar', $chicago['id'] );
+    $poi2->addVendorCategory( 'chicago baz', $chicago['id'] );
+    $poi2->save();
 
-    $this->assertEquals( 6, Doctrine::getTable( 'VendorEventCategory' )->findAll()->count() );
+    $this->assertEquals( 6, Doctrine::getTable( 'VendorPoiCategory' )->findAll()->count() );
 
-    $widget = new widgetFormEventVendorCategoryChoice( array( 'record' => $event1 ) );
+    $widget = new widgetFormPoiVendorCategoryChoice( array( 'vendor_id' => $ny[ 'id' ] ) );
     $html   = $widget->render( 'Name', '3');
 
     $this->assertRegexp( ':value="1".*?ny foo:', $html );
@@ -60,7 +60,7 @@ class widgeFormVendorEventCategoryChoiceTest extends PHPUnit_Framework_TestCase
     $this->assertRegexp( ':value="3".*?ny baz:', $html );
     $this->assertRegexp( ':selected="selected".*?ny baz:', $html );
 
-    $widget = new widgetFormEventVendorCategoryChoice( array( 'record' => $event2 ) );
+    $widget = new widgetFormPoiVendorCategoryChoice( array( 'vendor_id' => $chicago[ 'id' ] ) );
     $html   = $widget->render( 'Name', '5');
 
     $this->assertRegexp( ':value="4".*?chicago foo:', $html );

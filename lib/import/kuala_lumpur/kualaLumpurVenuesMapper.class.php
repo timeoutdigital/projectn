@@ -42,10 +42,12 @@ class kualaLumpurVenuesMapper extends DataMapper
             $latlong = explode( ',', $latlong );
             $poi->applyFeedGeoCodesIfValid( $latlong[0], $latlong[1] ) ;
           }
-          $poi[ 'geocode_look_up' ]    = (string) $venue->location->lot .' ';
-          $poi[ 'geocode_look_up' ]   .= (string) $venue->location->street .' ';
-          $poi[ 'geocode_look_up' ]   .= (string) $venue->location->zipcode .' ';
-          $poi[ 'geocode_look_up' ]   .= (string) $venue->location->state  ;
+          
+          $poi[ 'geocode_look_up' ]   = stringTransform::concatNonBlankStrings( ", ", array(
+                                            (string) $venue->location->lot,
+                                            (string) $venue->location->street,
+                                            (string) $venue->location->zipcode,
+                                            (string) $venue->location->state ));
 
           $poi[ 'email' ]             = (string) $venue->contact_details->email;
           $poi[ 'url' ]               = (string) $venue->url;

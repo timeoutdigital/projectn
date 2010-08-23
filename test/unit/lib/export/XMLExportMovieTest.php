@@ -106,8 +106,9 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $property[ 'ident' ] = 'md5 hash of the url';
     $property[ 'mime_type' ] = 'image/';
     $property[ 'url' ] = 'url';
-    $property->link( 'Movie', array( 1 ) );
-    $property->save();
+
+    $movie['MovieMedia'][] = $property;
+    $movie->save();
 
     $movie2 = new Movie();
     $movie2[ 'vendor_movie_id' ] = 1111;
@@ -170,10 +171,12 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $movie4->link( 'MovieGenres', array( 1, 2 ) );
     $movie4->save();
 
+
     $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
     $this->export = new XMLExportMovie( $this->vendor, $this->destination );
 
     $this->export->run();
+    sleep( 1 );
     $this->domDocument = new DOMDocument();
     $this->domDocument->load( $this->destination );
     $this->xpath = new DOMXPath($this->domDocument);
@@ -206,6 +209,19 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
   {
     $movies_with_empty_reviews = $this->xpath->query( '/vendor-movies/movie/version[review="" or not(review)]' );
     $this->assertEquals( 0, $movies_with_empty_reviews->length );
+  }
+
+  public function testExportOnMissingReviewWhenExportIsCalledWithValidationOff()
+  {
+    $this->destination = dirname( __FILE__ ) . '/../../export/movie/test.xml';
+    $this->export = new XMLExportMovie( $this->vendor, $this->destination ,false );
+    $this->export->run();
+    sleep( 1 );
+    $this->domDocument = new DOMDocument();
+    $this->domDocument->load( $this->destination );
+    $this->xpath = new DOMXPath($this->domDocument);
+    $movies_with_empty_reviews = $this->xpath->query( '/vendor-movies/movie/version[review="" or not(review)]' );
+    $this->assertEquals( 1, $movies_with_empty_reviews->length );
   }
 
   /**
@@ -365,7 +381,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
 
       $this->assertNotNull( $propertyElements->item(0), "Media element not present." );
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
-      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/movie/images/md5 hash of the url.jpg', $propertyElements->item(0)->nodeValue );
+      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/movie/media/md5 hash of the url.jpg', $propertyElements->item(0)->nodeValue );
     }
 
     public function testRatingRangeIsOneToFiveInclusive()

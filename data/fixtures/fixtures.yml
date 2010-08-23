@@ -243,7 +243,7 @@ Vendor:
     airport_code:             'MOW'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v11:
     city:                     saint petersburg
     language:                 ru
@@ -252,7 +252,7 @@ Vendor:
     airport_code:             'LED'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v12:
     city:                     omsk
     language:                 ru
@@ -261,7 +261,7 @@ Vendor:
     airport_code:             'OMS'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v13:
     city:                     almaty
     language:                 ru
@@ -270,7 +270,7 @@ Vendor:
     airport_code:             'ALA'
     country_code:             'kz'
     country_code_long:        'KAZ'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v14:
     city:                     novosibirsk
     language:                 ru
@@ -279,7 +279,7 @@ Vendor:
     airport_code:             'OVB'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v15:
     city:                     krasnoyarsk
     language:                 ru
@@ -288,7 +288,7 @@ Vendor:
     airport_code:             'KJA'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v16:
     city:                     tyumen
     language:                 ru
@@ -297,7 +297,7 @@ Vendor:
     airport_code:             'TJM'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v17:
     city:                     unknown
     language:                 ru
@@ -306,7 +306,7 @@ Vendor:
     airport_code:             'MOW'
     country_code:             'ru'
     country_code_long:        'RUS'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;-169.05'
+    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
   v18:
     city:                     barcelona
     language:                 ca
@@ -382,6 +382,36 @@ Vendor:
     country_code:             tr
     country_code_long:        TUR
     geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
+
+  v25:
+    city:                     jerusalem
+    language:                 he
+    time_zone:                Asia/Jerusalem
+    inernational_dial_code:   '+972'
+    airport_code:             'JRS'
+    country_code:             'il'
+    country_code_long:        'ISR'
+    geo_boundries:            '29.4966354370117;34.2304420471191;33.3401412963867;35.8768081665039'
+
+  v26:
+    city:                     tel aviv
+    language:                 he
+    time_zone:                Asia/Jerusalem
+    inernational_dial_code:   '+972'
+    airport_code:             'TLV'
+    country_code:             'il'
+    country_code_long:        'ISR'
+    geo_boundries:            '29.4966354370117;34.2304420471191;33.3401412963867;35.8768081665039'
+
+  v27:
+    city:                     amsterdam
+    language:                 en
+    time_zone:                Europe/Amsterdam
+    inernational_dial_code:   '+31'
+    airport_code:             'AMS'
+    country_code:             'nl'
+    country_code_long:        'NLD'
+    geo_boundries:            '50.74371291732712;3.36255574226379;53.56398423164796;7.227944850921628'
 
 
 EventCategory:

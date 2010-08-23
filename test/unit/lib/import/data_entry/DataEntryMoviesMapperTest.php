@@ -30,23 +30,20 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'sydney',
-      'language' => 'en-AU',
-      'time_zone' => 'Australia/Sydney',
-      'inernational_dial_code' => '+61',
-      )
-    );
-    $vendor->save();
+    // Load Fixtures to create Vendors
+    Doctrine::loadData('data/fixtures');
+
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'sydney' );
 
     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
                   'unit' .DIRECTORY_SEPARATOR .
                   'data' .DIRECTORY_SEPARATOR .
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
-    DataEntryImportManager::setImportDir( $importDir );
+    
+    $this->object = new DataEntryImportManager( 'sydney', $importDir );
 
-    DataEntryImportManager::importMovies( );
+    $this->object->importMovies( );
   }
 
   /**
@@ -88,7 +85,7 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'sample tag-line string goes here', $movie[ 'tag_line' ] );
     $this->assertEquals( 'sample plot string goes there', $movie[ 'plot' ] );
     $this->assertEquals( '4', $movie[ 'rating' ] );
-    $this->assertEquals( 'Jane Campion', $movie[ 'director' ] );
+    $this->assertNull( $movie[ 'director' ] ); // refs #538
     $this->assertEquals( 'Anne-Marie Duff', $movie[ 'writer' ] );
     $this->assertEquals( 'Abbie Cornish, Ben Whishaw', $movie[ 'cast' ] );
 
@@ -97,7 +94,7 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Timeout_link', $movie[ 'MovieProperty' ][0] ['lookup']  );
 
     $this->assertGreaterThan( 0, count( $movie[ 'MovieMedia' ]->count() ) );
-    $this->assertEquals( 'http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg', $movie[ 'MovieMedia' ][0] ['url']  );
+    $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/movie/a0572eede1f29f5886f82655f34e4d9329f787b7.jpg', $movie[ 'MovieMedia' ][0] ['url']  );
 
     $this->assertEquals( 'http://www.google.com', $movie[ 'url' ] );
     $this->assertEquals( 'PG', $movie[ 'age_rating' ] );

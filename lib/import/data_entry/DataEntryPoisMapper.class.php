@@ -1,27 +1,6 @@
 <?php
-class DataEntryPoisMapper extends DataMapper
+class DataEntryPoisMapper extends DataEntryBaseMapper
 {
-    /**
-    *
-    * @var projectNDataMapperHelper
-    */
-    protected $dataMapperHelper;
-
-    /**
-    * @var geoEncode
-    */
-    protected $geoEncoder;
-
-    /**
-    * @var Vendor
-    */
-    protected $vendor;
-
-    /**
-    * @var SimpleXMLElement
-    */
-    protected $xml;
-
     /**
     *
     * @param SimpleXMLElement $xml
@@ -34,7 +13,7 @@ class DataEntryPoisMapper extends DataMapper
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
 
         if( !isset( $vendor ) || !$vendor )
-          throw new Exception( 'Vendor not found.' );
+          throw new Exception( 'DataEntryPoisMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
@@ -48,6 +27,9 @@ class DataEntryPoisMapper extends DataMapper
         {
             try
             {
+                // Defaults
+                $lang = $this->vendor['language'];
+                
                 foreach ($venueElement->attributes() as $attribute => $value)
                 {
                     if( $attribute == 'vpid' )
@@ -73,11 +55,9 @@ class DataEntryPoisMapper extends DataMapper
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
 
                 $geoPosition = 'geo-position';
+                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
-                $poi[ 'longitude' ] = (string) $venueElement->{$geoPosition}->longitude;
-                $poi[ 'latitude' ] =  (string) $venueElement->{$geoPosition}->latitude;
-
-                $poi['review_date'] = '';
+                // $poi['review_date'] = '';
                 $poi['local_language'] = $lang;
                 $poi['street'] =  (string) $venueElement->address->street;
                 $poi['house_no'] =  (string) $venueElement->address->houseno;
@@ -87,7 +67,7 @@ class DataEntryPoisMapper extends DataMapper
                 $poi['country'] =  (string) $venueElement->address->country;
 
                 $poi['additional_address_details'] = '';
-                $poi['vendor_id'] = $this->vendor['id'];
+                $poi['Vendor'] = $this->vendor;
                 $poi['phone'] =   (string) $venueElement->contact->phone;
                 $poi['phone2'] =  (string) $venueElement->contact->phone2;
                 $poi['fax'] =  (string) $venueElement->contact->fax;
@@ -98,7 +78,10 @@ class DataEntryPoisMapper extends DataMapper
                 $vendorCategory = 'vendor-category';
                 $shortDescription = 'short-description';
                 $publicTransport = 'public-transport';
-                $poi->addVendorCategory( (string) $venueElement->version->content->{$vendorCategory}, $this->vendor['id'] );
+                if( $venueElement->version->content->{$vendorCategory} && isset( $venueElement->version->content->{$vendorCategory} ) )
+                {
+                    $poi->addVendorCategory( (string) $venueElement->version->content->{$vendorCategory}, $this->vendor['id'] );
+                }
                 $poi['keywords'] =  '';
                 $poi['short_description'] =  (string) $venueElement->version->content->{$shortDescription};
                 $poi['description'] =  (string) $venueElement->version->content->description;
@@ -115,30 +98,43 @@ class DataEntryPoisMapper extends DataMapper
                                $poi['zips']
                         ) );
 
-                foreach ($venueElement->version->content->property as $property)
+                if( isset( $venueElement->version->content->property ) )
                 {
-                    foreach ($property->attributes() as $attribute)
+                    foreach ($venueElement->version->content->property as $property)
                     {
-                        $poi->addProperty( (string) $attribute, (string) $property );
+                        foreach ($property->attributes() as $attribute)
+                        {
+                            $poi->addProperty( (string) $attribute, (string) $property );
+                        }
                     }
                 }
 
-                foreach ( $venueElement->version->content->media as $media )
+                if( isset( $venueElement->version->content->media ) )
                 {
-                    foreach ($media->attributes() as $key => $value)
+                    foreach ( $venueElement->version->content->media as $media )
                     {
-                        if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                        foreach ($media->attributes() as $key => $value)
                         {
-                            continue 2; //only add the images
+                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                            {
+                                continue 2; //only add the images
+                            }
                         }
-                    }
-                    try
-                    {
-                        $poi->addMediaByUrl( (string) $media );
-                    }
-                    catch ( Exception $exception )
-                    {
-                         $this->notifyImporterOfFailure( $exception );
+                        try
+                        {
+                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                            $urlArray = explode( '/', (string) $media );
+                            // Get the Last IDENT
+                            $imageFileName = array_pop( $urlArray );
+
+                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
+
+                            $poi->addMediaByUrl( $mediaURL );
+                        }
+                        catch ( Exception $exception )
+                        {
+                             $this->notifyImporterOfFailure( $exception );
+                        }
                     }
                 }
 

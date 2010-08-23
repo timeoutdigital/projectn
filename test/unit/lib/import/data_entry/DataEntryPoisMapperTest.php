@@ -28,25 +28,20 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'barcelona',
-      'language' => 'ca',
-      'time_zone' => 'Europe/Madrid',
-      'inernational_dial_code' => '+3493',
-      )
-    );
-    $vendor->save();
+    // Load Fixtures to create Vendors
+    Doctrine::loadData('data/fixtures');
 
-    $this->vendor = $vendor;
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'barcelona' );
 
     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
                   'unit' .DIRECTORY_SEPARATOR .
                   'data' .DIRECTORY_SEPARATOR .
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
-    DataEntryImportManager::setImportDir( $importDir );
 
-    DataEntryImportManager::importPois( );
+    $this->object = new DataEntryImportManager( 'barcelona', $importDir);
+
+    $this->object->importPois( );
   }
 
   /**
@@ -87,7 +82,7 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
     $this->assertNotNull( $poi['phone'] );
     $this->assertNotNull( $poi['phone2'] );
     $this->assertNotNull( $poi['fax'] );
-    $this->assertEquals( 'foo@hotmail.com', $poi['email'] );
+    $this->assertNull( $poi['email'] ); // refs #538
     $this->assertEquals( 'http://www.mac.cat', $poi['url'] );
     //contact node end
 
@@ -113,7 +108,7 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Timeout_link', $poi[ 'PoiProperty' ][0] ['lookup']  );
 
     $this->assertGreaterThan( 0, $poi[ 'PoiMedia' ]->count() );
-    $this->assertEquals( 'http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg', $poi[ 'PoiMedia' ][0] ['url']  );
+    $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/poi/30fb4afc231e21b0f88b35e410acfd0540f2c02b.jpg', $poi[ 'PoiMedia' ][0] ['url']  );
 
     $this->assertEquals(0, preg_match("/ESP/", $poi['geocode_look_up']));
     //content node end

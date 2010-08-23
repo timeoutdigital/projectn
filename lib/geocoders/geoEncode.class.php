@@ -234,7 +234,7 @@ class geoEncode
     $this->curl->setCurlOption(CURLOPT_RETURNTRANSFER, 1);
   }
 
-  final public function getRawResponse()
+  public function getRawResponse()
   {
       return $this->response;
   }

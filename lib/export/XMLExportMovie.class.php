@@ -13,10 +13,10 @@
  */
 class XMLExportMovie extends XMLExport
 {
-  public function __construct( $vendor, $destination )
+  public function __construct( $vendor, $destination , $validation = true)
   {
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'movie.xsd';
-    parent::__construct($vendor, $destination, 'Movie', $xsd );
+    parent::__construct($vendor, $destination, 'Movie', $xsd, $validation );
   }
 
   /**
@@ -25,7 +25,7 @@ class XMLExportMovie extends XMLExport
    * @param DOMDocument $domDocument
    * @param Doctrine_Collection $movieCollection
    * @return SimpleXMLElement
-   * 
+   *
    * @todo correct version@lang use real value
    * @todo correct movie@id to use real value
    * @todo correct movie/version/name to use real value
@@ -44,8 +44,11 @@ class XMLExportMovie extends XMLExport
     {
       if( empty( $movie[ 'imdb_id' ] ) )
       {
-        ExportLogger::getInstance()->addError( 'no imdb id available', 'Movie', $movie[ 'id' ] );
-        continue;
+        if( $this->validation == true )
+        {
+            ExportLogger::getInstance()->addError( 'no imdb id available', 'Movie', $movie[ 'id' ] );
+            continue;
+        }
       }
 
       if( empty( $movie[ 'review' ] ) )
@@ -54,8 +57,11 @@ class XMLExportMovie extends XMLExport
         // until reviews are available in their feed, est. August '10. Please remove when reviews are available.
         if( $movie['Vendor']['city'] != 'barcelona' )
         {
-            ExportLogger::getInstance()->addError( 'no review available', 'Movie', $movie[ 'id' ] );
-            continue;
+            if( $this->validation == true )
+            {
+                ExportLogger::getInstance()->addError( 'no review available', 'Movie', $movie[ 'id' ] );
+                continue;
+            }
         }
         else ExportLogger::getInstance()->addError( 'Warning -- Exporting Movie without review for Barcelona; as per executive order.', 'Movie', $movie[ 'id' ] );
       }
@@ -145,7 +151,7 @@ class XMLExportMovie extends XMLExport
 
       //movie/additional-details/sound-mix
       $this->appendNonRequiredElement($additionalDetailsElement, 'sound-mix', $movie['sound_mix'], XMLExport::USE_CDATA);
-      
+
       //movie/additional-details/company
       $this->appendNonRequiredElement($additionalDetailsElement, 'company', $movie['company'], XMLExport::USE_CDATA);
 
@@ -176,14 +182,14 @@ class XMLExportMovie extends XMLExport
       foreach( $movie[ 'MovieMedia' ] as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
-        
+
         if ( $mediaElement instanceof DOMElement )
         {
           $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
         }
         //$medium->free();
       }
-      
+
       foreach( $movie['MovieProperty'] as $property )
       {
         if( isset( $property['lookup'] ) )
@@ -203,7 +209,7 @@ class XMLExportMovie extends XMLExport
       // Ui Category is Always 'Film'
       $propertyTag = $this->appendNonRequiredElement( $versionElement, 'property', 'Film', XMLExport::USE_CDATA );
       $propertyTag->setAttribute( 'key', 'UI_CATEGORY' );
-      
+
       ExportLogger::getInstance()->addExport( 'Movie' );
     }
 

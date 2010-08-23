@@ -19,7 +19,6 @@
       <phone>9 3424 6577</phone>
       <phone2>9 3424 6578</phone2>
       <url>http://www.mac.cat</url>
-      <email>foo@hotmail.com</email>
       <fax>9 3424 6579</fax>
     </contact>
     <version lang="ca">
@@ -40,7 +39,7 @@
         <price><![CDATA[not free]]></price>
         <openingtimes><![CDATA[De dt. a ds., de 9.30 a 19 h. Dg. i fest., de 10 a 14.30 h]]></openingtimes>
         <property key="Timeout_link"><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></property>
-        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg]]></media>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/30fb4afc231e21b0f88b35e410acfd0540f2c02b.jpg]]></media>
       </content>
     </version>
   </entry>
