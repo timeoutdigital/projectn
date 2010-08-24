@@ -67,9 +67,10 @@ class istanbulEventMapper extends istanbulBaseMapper
           $event['EventOccurrence']->delete();
 
           // Create Occurences
-          for( $j=0, $xmlOccurrence = $eventElement->occurrences->occurrence[ 0 ]; $j < $eventElement->occurrences->occurrence->count(); $j++, $xmlOccurrence = $eventElement->occurrences->occurrence[ $j ] )
+          foreach ( $eventElement->occurrences  as $xmlOccurrences )
           {
-             try
+            $xmlOccurrence = $xmlOccurrences->occurrence;
+            try
              {
                   // Some Events Don't Have Occcurrences
                   if( !$xmlOccurrence )
