@@ -85,6 +85,30 @@ class xmlDataFixer
 
         return new SimpleXMLElement( $xslProcessor->transformToXML( dom_import_simplexml( $this->getSimpleXML() ) ) );
     }
+
+    /**
+     * Filter all HTML encoded entities from feed data and replace with &amp;
+     */
+    public function removeHtmlEntiryEncoding()
+    {
+        $ignore = '(laquo|raquo|nbsp|amp|lt|gt|quot|apos|#[0-9]+);'; //ndash|rsquo|lsquo|
+        $this->xmlStringData = preg_replace( "/&(?!$ignore)/", '&amp;', $this->xmlStringData );
+       // $this->xmlStringData = mb_ereg_replace( '\&#146;', '', $this->xmlStringData);
+    }
+
+    /**
+     * Get Nodes of given Xpath in $XML/getSimpleXML()
+     * @param string $nodePath
+     * @param SimpleXMLElement $xml
+     * @return Array
+     */
+    public function getXMLNodesByPath( $nodePath, SimpleXMLElement $xml = null )
+    {
+        if( !$xml )
+            $xml = $this->getSimpleXML();
+
+        return $xml->xpath( $nodePath );
+    }
    
 }
 ?>

@@ -43,6 +43,21 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
+            case 'test-poi-event':
+                // Load XML file
+                $xmlString      = file_get_contents( sfConfig::get( 'sf_root_dir' ) . '/import/ny/tony_leo_utf8.xml' );
+                $xmlDataFixer   = new xmlDataFixer( $xmlString );
+                //$xmlDataFixer->addRootElement( 'body' );
+                $xmlDataFixer->removeHtmlEntiryEncoding();
+                
+                $processXmlObj = new processNyXml( '' );
+                $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
+                $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
+                
+
+                $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+                $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+                break;
           case 'poi-event':
                 //Setup NY FTP @todo refactor FTPClient to not connect in constructor
                 $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
