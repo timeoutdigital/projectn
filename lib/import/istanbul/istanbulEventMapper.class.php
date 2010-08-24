@@ -28,14 +28,15 @@ class istanbulEventMapper extends istanbulBaseMapper
           }
 
           // Column Mapping
-          $event['vendor_event_id']         = $vendorEventId;
-          $event['name']                    = $this->clean( (string) $eventElement->name );
-          $event['short_description']       = $this->fixHtmlEntities( $this->clean( (string) $eventElement->short_description ) );
-          //$event['description']             = $this->fixHtmlEntities( $this->clean( (string) $eventElement->description ) );
-          //$event['booking_url']             = $this->clean( (string) $eventElement->booking_url );
-          $event['url']                     = $this->clean( (string) $eventElement->url );
-          $event['price']                   = $this->clean( (string) $eventElement->price );
-          $event['Vendor']                  = clone $this->vendor;
+          $event[ 'vendor_event_id' ]         = $vendorEventId;
+          $event[ 'name' ]                    = $this->clean( (string) $eventElement->name );
+          $event[ 'short_description' ]       = $this->fixHtmlEntities( $this->clean( (string) $eventElement->short_description  ) );
+          $event[ 'description' ]             = $this->fixHtmlEntities( $this->clean( (string) $eventElement->description  ) );
+          $event[ 'booking_url' ]             = $this->clean( (string) $eventElement->booking_url );
+          $event[ 'url' ]                     = $this->clean( (string) $eventElement->url );
+          $event[ 'price' ]                   = $this->clean( (string) $eventElement->price );
+          $event[ 'rating' ]                  = (int) $eventElement->rating;
+          $event[ 'Vendor' ]                  = clone $this->vendor;
 
           // Timeout Link
           if( $this->clean( (string) $eventElement->timeout_url ) != "" )
@@ -50,94 +51,84 @@ class istanbulEventMapper extends istanbulBaseMapper
             $event->addVendorCategory( $cat );
           }
 
-          // Add First Image Only
-          $medias = array();
           foreach( $eventElement->medias->media as $media )
           {
-            $medias[] = (string) $media;
+            $event->addMediaByUrl( (string) $media );
           }
 
-          if( !empty( $medias ) )
+          // Delete Occurences, but before deleting save the ids in an array to reuse
+          $oldIds = array();
+
+          foreach ($event['EventOccurrence'] as $oldOccurrence)
           {
-            $this->addImageHelper( $event, $medias[0] );
+            $oldIds[] = $oldOccurrence[ 'id' ];
           }
 
-          // Delete Occurences
-          //$event['EventOccurrence']->delete();
+          $event['EventOccurrence']->delete();
 
           // Create Occurences
-          //for( $ii=0, $xmlOccurrence = $eventElement->occurrences->occurrence[ 0 ]; $ii<$eventElement->occurrences->occurrence->count(); $ii++, $xmlOccurrence = $eventElement->occurrences->occurrence[ $ii ] )
-          //{
-          //   try
-          //   {
-          //        // Some Events Don't Have Occcurrences
-          //        if( !$xmlOccurrence )
-          //        {
-          //          $this->notifyImporterOfFailure( new Exception( 'No Occurences in Feed for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-          //          break;
-          //        }
+          for( $j=0, $xmlOccurrence = $eventElement->occurrences->occurrence[ 0 ]; $j < $eventElement->occurrences->occurrence->count(); $j++, $xmlOccurrence = $eventElement->occurrences->occurrence[ $j ] )
+          {
+             try
+             {
+                  // Some Events Don't Have Occcurrences
+                  if( !$xmlOccurrence )
+                  {
+                    $this->notifyImporterOfFailure( new Exception( 'No Occurences in Feed for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
+                    break;
+                  }
 
-          //        // Only Get End Date At The Moment (saves CPU,RAM?).
-          //        $end_date   = $this->clean( (string) $xmlOccurrence->end_date );
+                  // Find POI
+                  $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( $this->clean( (string) $xmlOccurrence->venue ),  $this->vendor[ 'id' ] );
+                  if( !$poi )
+                  {
+                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $this->clean( (string) $xmlOccurrence->venue ) . ' for Vendor Event ID ' . $vendorEventId . ' in Barcelona.' ) );
+                    continue;
+                  }
 
-          //        // Ignore Ongoing Events
-          //        if( $end_date == 'ongoing' )
-          //        {
-          //          $this->notifyImporterOfFailure( new Exception( 'Rejected Ongoing Event for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-          //          break; // @todo, change this to continue, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
-          //        }
+                  $occurrence = new EventOccurrence();
+                 //reusing the old id
+                  $occurrence['id']                               = array_pop( $oldIds );
+                  $occurrence[ 'vendor_event_occurrence_id' ]     = $vendorEventId . '_' .  $xmlOccurrence[ 'id' ];
+                  $occurrence[ 'booking_url' ]                    = $this->clean( (string) $xmlOccurrence->booking_url );
 
-          //        // Some Events Have Thousands of Occcurrences
-          //        if( strtotime( $end_date ) > strtotime( "+3 month") )
-          //        {
-          //          $this->notifyImporterOfFailure( new Exception( 'Rejected Occurence Over 3 Months old for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-          //          break; // @todo, change this to continue, just in case they come out of order, currently takes too long to get through 8000+ occurrences on one event.
-          //        }
+                  // Get Start Date and end date
 
-          //        // Get Start Date
-          //        $start_date = $this->clean( (string) $xmlOccurrence->start_date );
+                  $startDate = $this->clean( (string) $xmlOccurrence->start_date );
+                  if( !empty( $startDate ) )
+                  {
+                    //the date in the feed is in 03.09.2010 format , convert it to "Y-m-d"
+                    $startDate = date( "Y-m-d", strtotime(  $startDate ) );
+                  }
 
-          //        // Only Import Occurences from a Single Day at the Moment.
-          //        if( $start_date != $end_date )
-          //        {
-          //          $this->notifyImporterOfFailure( new Exception( 'Could not determine occurrence frequency for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-          //          break;
-          //        }
+                  $endDate = $this->clean( (string) $xmlOccurrence->end_date );
+                  if( !empty( $endDate ) )
+                  {
+                    //the date in the feed is in 03.09.2010 format , convert it to "Y-m-d"
+                    $endDate = date( "Y-m-d", strtotime(  $endDate ) );
+                  }
 
-          //        // Find POI
-          //        $poi = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( $this->clean( (string) $xmlOccurrence->venue ), 'ca' );
-          //        if( !$poi )
-          //        {
-          //          $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $this->clean( (string) $xmlOccurrence->venue ) . ' for Vendor Event ID ' . $vendorEventId . ' in Barcelona.' ) );
-          //          continue;
-          //        }
-          //
-          //        $occurrence = new EventOccurrence();
-          //        $occurrence[ 'vendor_event_occurrence_id' ]     = Doctrine::getTable('EventOccurrence')->generateVendorEventOccurrenceId( $vendorEventId, $poi['id'], $this->clean( (string) $xmlOccurrence->start_date ) );
-          //        $occurrence[ 'booking_url' ]                    = $this->clean( (string) $xmlOccurrence->booking_url );
-          //        $occurrence[ 'start_date' ]                     = $start_date;
-          //        $occurrence[ 'end_date' ]                       = $end_date;
-          //        $occurrence[ 'utc_offset' ]                     = $poi['Vendor']->getUtcOffset();
-          //        $occurrence[ 'Poi' ] = $poi;
+                  $occurrence[ 'start_date' ]                     = $startDate;
+                  $occurrence[ 'end_date' ]                       = $endDate;
+                  $occurrence[ 'utc_offset' ]                     = $this->vendor->getUtcOffset();
+                  $occurrence[ 'Poi' ] = $poi;
 
-          //        $event['Vendor'] = $poi['Vendor'];
+                  $event['EventOccurrence'][] = $occurrence;
 
-          //        $event['EventOccurrence'][] = $occurrence;
-          //   }
-          //   catch( Exception $exception )
-          //   {
-          //       $this->notifyImporterOfFailure( $exception, $occurrence );
-          //   }
-          //}
+             }
+             catch( Exception $exception )
+             {
+                 $this->notifyImporterOfFailure( $exception, $occurrence );
+             }
+          }
 
-          // If Event has No Occurrences, don't import it.
-          //if( count( $event['EventOccurrence'] ) == 0 )
-          //{
-          //    $this->notifyImporterOfFailure( new Exception( 'Could not find any reliable occurrences for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
-          //    continue;
-          //}
+        if( count( $event['EventOccurrence'] ) == 0 )
+        {
+            $this->notifyImporterOfFailure( new Exception( 'Could not find any reliable occurrences for Vendor Event ID: ' . $vendorEventId . ' in  Istanbul' ) );
+            continue;
+        }
+        $this->notifyImporter( $event );
 
-          $this->notifyImporter( $event );
       }
       catch( Exception $exception )
       {
