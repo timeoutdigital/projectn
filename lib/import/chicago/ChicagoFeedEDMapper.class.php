@@ -96,12 +96,12 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                                                                                                                 $poi[ 'country' ],
                                                                                                                     ));
                 // Add Category
-                $categoryArray[]                                = 'Eating & Drinking'; // Default and irst category for ED as many don;t have cat and many don't mean anything?
+                
+                $categoryArray = array('Eating & Drinking'); // Default and irst category for ED as many don;t have cat and many don't mean anything?
                 if( trim( (string)$xmlNode->category ) != '' )
                 {
                     $categoryArray                              = array_merge( $categoryArray, $this->nl2Array( (string)$xmlNode->category ) );
                 }
-                
                 $poi->addVendorCategory( $categoryArray , $this->vendorID );
 
                 // Add Features to Property
