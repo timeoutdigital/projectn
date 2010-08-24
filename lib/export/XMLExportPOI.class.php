@@ -21,6 +21,7 @@ class XMLExportPOI extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
     parent::__construct(  $vendor, $destination, 'Poi', $xsd , $validation);
 
+    ExportLogger::getInstance()->initExport( 'Poi' );
   }
 
   protected function getData()
