@@ -43,7 +43,6 @@ class istanbulMovieMapper extends istanbulBaseMapper
             $genreName = $this->clean( (string) $gen->name );
             if( !empty( $genreName ) )
             {
-                var_dump( $genreName );
                 $movie->addGenre( $genreName );
             }
           }
@@ -54,28 +53,17 @@ class istanbulMovieMapper extends istanbulBaseMapper
             $movie->setTimeoutLinkProperty( $this->clean( (string) $movieElement->timeout_url ) );
           }
 
+          //medias
           foreach( $movieElement->medias->media as $media )
           {
              $movie->addMediaByUrl( (string) $media );
           }
 
-          //Critics Choice
-          //$movie->setCriticsChoiceProperty( strtolower( $this->clean( $movieElement->critics_choice ) ) == 'y' );
+          $this->notifyImporter( $movie );
 
-          // Add 'original_title' as a property
-          //if( $this->clean( (string) $movieElement->other->original_title ) != "" )
-          //    $movie->addProperty( 'Original_title', $this->clean( (string) $movieElement->other->original_title ) );
-
-          // Add 'year' as a property
-          //if( $this->clean( (string) $movieElement->other->year ) != "" )
-          //    $movie->addProperty( 'Year', $this->clean( (string) $movieElement->other->year ) );
-
-          //$this->notifyImporter( $movie );
-          $movie->save();
       }
       catch( Exception $exception )
       {
-          var_dump($exception->getMessage());
           $this->notifyImporterOfFailure( $exception, $movie );
       }
     }
