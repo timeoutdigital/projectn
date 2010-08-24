@@ -59,7 +59,7 @@ class sydneyFtpVenuesMapper extends DataMapper
       $poi['description']       = (string) $venue->Description;
       $poi['phone']             = (string) $venue->Phone;
       $poi['url']               = (string) $venue->Website;
-      $poi['price_information'] = (string) stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo );
+      $poi['price_information'] = (string) stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo, '$' );
       $poi['openingtimes']      = (string) $venue->OpenTimes;
       $poi['star_rating']       = $this->extractRating( $venue );
       $poi['review_date']       = (string) $this->extractDate( $venue->DateUpdated );

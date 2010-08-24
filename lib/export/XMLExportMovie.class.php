@@ -17,6 +17,8 @@ class XMLExportMovie extends XMLExport
   {
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'movie.xsd';
     parent::__construct($vendor, $destination, 'Movie', $xsd, $validation );
+
+    ExportLogger::getInstance()->initExport( 'Movie' );
   }
 
   /**

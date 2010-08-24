@@ -52,6 +52,8 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
         $importer = new Importer();
         $importer->addDataMapper( $dataMapper );
         $importer->run();
+        
+        $importer->run();
 
         $pois = Doctrine::getTable( 'Poi' )->findAll();
 
@@ -91,7 +93,7 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
 
         // check Category
         $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'Default category should be Eating & Drinking');
-        
+        $this->assertEquals( 'Eating & Drinking', $poi['VendorPoiCategory'][0]['name'], 'Category name should be Eating & Drinking');
 
         // Cuisine
         $this->assertEquals( 'cuisine', $poi['PoiProperty'][1]['lookup'], 'Wrong Cuisine lookup!');
