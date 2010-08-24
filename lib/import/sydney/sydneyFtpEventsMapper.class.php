@@ -52,7 +52,7 @@ class sydneyFtpEventsMapper extends DataMapper
           $event['name']                    = (string) $eventNode->Name;
           $event['description']             = (string) $eventNode->Description;
           $event['url']                     = (string) $eventNode->Website;
-          $event['price']                   = stringTransform::formatPriceRange( (int) $eventNode->PriceFrom, (int) $eventNode->PriceTo );;
+          $event['price']                   = stringTransform::formatPriceRange( (int) $eventNode->PriceFrom, (int) $eventNode->PriceTo, '$' );
           $event['rating']                  = (string) $eventNode->Rating;
           $event['Vendor']                  = $this->vendor;
 
