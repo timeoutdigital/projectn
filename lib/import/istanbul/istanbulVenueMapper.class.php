@@ -19,8 +19,9 @@ class istanbulVenueMapper extends istanbulBaseMapper
     {
         $poi = Doctrine::getTable( 'poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $this->clean( (string) $venueElement['id'] ) );
         if( $poi === false )
+        {
           $poi = new Poi();
-
+        }
         try
         {
             $poi['vendor_poi_id']                 = $this->clean( (string) $venueElement['id'] );
@@ -34,11 +35,12 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $poi['country']                       = $this->clean( (string) $this->vendor['country_code_long'] );
             $poi['zips']                          = $this->clean( (string) $venueElement->postcode );
 
-            //opening times field has extra information in Turkish. example (eng translation) : “open between 10am – 7pm. Accepts Credit cards.Non-smoking section available”
+            //opening times field has extra information for example (eng translation) : “open between 10am – 7pm. Accepts Credit cards.Non-smoking section available”
             //so we don't import opening_times
             //$poi['opening_times']                 = null;
 
             $url = (string) $venueElement->url;
+            //some of the url's has only  "http://"
             if( $url == 'http://' )
             {
                 $url = null;
@@ -76,7 +78,6 @@ class istanbulVenueMapper extends istanbulBaseMapper
             foreach( $venueElement->medias->media as $media )
             {
                 $poi->addMediaByUrl( (string) $media );
-
             }
             $this->notifyImporter( $poi );
         }
