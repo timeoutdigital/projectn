@@ -115,7 +115,7 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
                         } // foreach $price_id->children()
                     } // $poiNode->prices->children()
 
-                    $poi['price_information']   = stringTransform::concatNonBlankStrings( ', ', $prices);
+                    $poi['price_information']   = stringTransform::concatNonBlankStrings( ', ', array_unique( $prices ) );
                 } // Pricing
 
                 // Category
