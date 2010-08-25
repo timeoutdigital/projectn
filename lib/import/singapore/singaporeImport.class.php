@@ -205,7 +205,7 @@ class singaporeImport
             //$poi[ 'keywords' ]                   = '';
             //$poi[ 'short_description' ]          = '';
             $poi[ 'description' ]                = (string) $poiObj->excerpt;
-            $poi[ 'price_information' ]          = stringTransform::formatPriceRange( $poiObj->min_price, $poiObj->max_price );
+            $poi[ 'price_information' ]          = stringTransform::formatPriceRange( $poiObj->min_price, $poiObj->max_price, '$' );
             $poi[ 'openingtimes' ]               = (string) $poiObj->opentime;
             //$poi[ 'star_rating' ]                = '';
             //$poi[ 'rating' ]                     = '';
@@ -343,7 +343,7 @@ class singaporeImport
             $event[ 'description' ] = (string)  $eventObj->excerpt;
             //$event[ 'booking_url' ] = '';
             $event[ 'url' ] = (string) $eventObj->website;
-            $event[ 'price' ] = stringTransform::formatPriceRange( (string) $eventObj->min_price, (string) $eventObj->max_price );
+            $event[ 'price' ] = stringTransform::formatPriceRange( (string) $eventObj->min_price, (string) $eventObj->max_price, '$' );
             //$event[ 'rating' ] = '';
             $event[ 'vendor_id' ] = $this->_vendor[ 'id' ];
 

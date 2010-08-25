@@ -1,8 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
-
-require_once dirname( __FILE__ ).'/../../../bootstrap.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ).'/../../../bootstrap.php';
 
 /**
  * Test singapore import.
@@ -54,8 +53,6 @@ class singaporeVenuesMapperTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp()
   {
-    setlocale(LC_MONETARY, 'en_US.UTF-8');
-
     ProjectN_Test_Unit_Factory::createDatabases();
     ProjectN_Test_Unit_Factory::add( 'Vendor', array(
       'city' => 'Singapore',

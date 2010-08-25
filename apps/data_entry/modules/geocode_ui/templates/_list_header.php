@@ -5,8 +5,9 @@
     $list = ( isset( $filter['list'] ) ) ? $filter['list'] : '';
 
     $tabs = array(
-        'non-geocoded' => 'non - geocoded',
-        'geocoded' => 'geocoded',
+        'non-geocoded' => 'non - Geocoded',
+        'geocoded' => 'Geocoded',
+        'manual' => 'Manually Geocoded',
 
         );
 

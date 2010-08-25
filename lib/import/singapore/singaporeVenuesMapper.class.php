@@ -113,8 +113,7 @@ class singaporeVenuesMapper extends DataMapper
 
     private function extractPriceInformation( $poiXml )
     {
-      setlocale(LC_MONETARY, 'en_US.UTF-8');
-      return stringTransform::formatPriceRange( (float) $poiXml->min_price, (float) $poiXml->max_price );
+      return stringTransform::formatPriceRange( (float) $poiXml->min_price, (float) $poiXml->max_price, '$' );
     }
 
     private function getAddressInfo( $poiXml )

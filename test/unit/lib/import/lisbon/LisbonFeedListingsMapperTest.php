@@ -134,8 +134,8 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
     foreach( $placeids as $placeid )
     {
-      $id = $placeid['placeid'];
-      ProjectN_Test_Unit_Factory::add('poi', array("vendor_poi_id"=>$id));
+      $id = (integer) $placeid['placeid'];
+      ProjectN_Test_Unit_Factory::add('poi', array( "vendor_poi_id" => $id ) );
     }
 
     $mapper = new LisbonFeedListingsMapper( $import );

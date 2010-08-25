@@ -21,6 +21,7 @@ class XMLExportPOI extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
     parent::__construct(  $vendor, $destination, 'Poi', $xsd , $validation);
 
+    ExportLogger::getInstance()->initExport( 'Poi' );
   }
 
   protected function getData()
@@ -121,11 +122,20 @@ class XMLExportPOI extends XMLExport
           }
       }
 
-      if( trim( $poi['street'] ) == '' )
+      if( stringTransform::mb_trim ( $poi['street'] ) == '' )
       {
           if( $this->validation == true )
           {
             ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty street', 'Poi', $poi[ 'id' ] );
+            continue;
+          }
+      }
+
+      if( stringTransform::mb_trim ( $poi['city'] ) == '' )
+      {
+          if( $this->validation == true )
+          {
+            ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty city', 'Poi', $poi[ 'id' ] );
             continue;
           }
       }

@@ -30,12 +30,12 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->feed   = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' );
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
+    $this->vendor =  ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
                                                      'city'          => 'sydney',
                                                      'language'      => 'en-AU',
-                                                     'country_code'  => 'AUS',
+                                                     'country_code'  => 'au',
+                                                     'country_code_long'  => 'AUS',
                                                      'inernational_dial_code'  => '+61',
-                                                     'country_code_long'  => '+61',
                                                      ) );
 
     //event feed has pois with vendor_poi_id 1,2 and 3
@@ -46,7 +46,6 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
         $poi[ 'Vendor' ] = $this->vendor;
         $poi->save();
     }
-    setlocale(LC_MONETARY, 'en_US.UTF-8');
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
     $importer->run();

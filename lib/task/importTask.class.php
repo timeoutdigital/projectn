@@ -128,10 +128,82 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-          case 'poi-event':
-              $this->importChicagoEvents($vendorObj, $ftpClientObj);
-            break;
+            case 'poi-bc':
+                echo "Downloading Chicago's BC Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_bc.xml' );
 
+                echo "Importing Chicago's BC \n";
+
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedBCMapper($vendorObj, $fileNameString) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+
+              break;
+            case 'poi-ed':
+                echo "Downloading Chicago's ED Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_ed.xml' );
+
+                echo "Importing Chicago's ED \n";
+
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedEDMapper($vendorObj, $fileNameString) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+
+              break;
+          case 'poi':
+                echo "Downloading Chicago's Poi/Events Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
+
+                echo "Parsing Chicago's Poi/Events Feed \n";
+                $xmlData = simplexml_load_file( $fileNameString );
+
+                echo "Importing Chicago's Pois \n";
+
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedPoiMapper($vendorObj, $xmlData) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+
+              break;
+          case 'event':
+                echo "Downloading Chicago's Poi/Events Feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
+
+                echo "Parsing Chicago's Poi/Events Feed \n";
+                $xmlData = simplexml_load_file( $fileNameString );
+
+                echo "Importing Chicago's Events \n";
+
+                // @todo Wrap in try catch & change this to XSLT like new NY
+                // We are to Run two Import on Events to Manage Memory!
+                $eventsNode = $xmlData->xpath( '/body/event' );
+                $totalCount = count($eventsNode); 
+                $splitAt = round( $totalCount / 2 );
+                
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, 0, $splitAt) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+
+                // Reset Importer
+                unset( $importer );
+                $importer = new Importer(); // Create new Importer
+                echo "Importing Chicago's Events - 2 \n";
+                // Run the Second one
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, $splitAt, $totalCount ) );
+                $importer->run();
+                ImportLogger::getInstance()->end();
+                
+                $this->dieWithLogMessage();
+                
+              break;
+          
           case 'movie':
               ImportLogger::getInstance()->setVendor( $vendorObj );
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -140,37 +212,12 @@ class importTask extends sfBaseTask
               $this->dieWithLogMessage();
           break;
 
-          case 'eating-drinking':
-            try
-            {
-              $importObj = $this->importChicagoEd($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-           break;
-          case 'bars-clubs':
-            try
-            {
-              $importObj = $this->importChicagoBc($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-           break;
-
-           default : $this->dieDueToInvalidTypeSpecified();
+          default : $this->dieDueToInvalidTypeSpecified();
         }
         break; //end chicago
 
       case 'singapore':
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
-
-        //must be set for price range function
-        //@todo get get this info out of vendor?!
-        setlocale(LC_MONETARY, 'en_US.UTF-8');
 
         switch( $options['type'] )
         {
@@ -634,151 +681,6 @@ class importTask extends sfBaseTask
 
     }//end switch
   }
-
-
-  /********************************************************************************
-   *
-   * CITY IMPORT FUNCTIONS
-   *
-   *
-   *
-   *
-   *
-   *    CHICAGO
-   *
-   */
-
-  /**
-   * Import Chicago's Events
-   *
-   *
-   * @param Vendor $vendoObj./
-   * @param FTPClient $ftpClientObj
-   *
-   */
-  private function importChicagoEvents($vendorObj, $ftpClientObj)
-  {
-      try
-        {
-
-          echo "Downloading Chicago's Events Feed \n";
-          $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_leo.xml' );
-
-          echo "Parsing Chicago's Events Feed \n";
-          $processXmlObj = new processNyXml( $fileNameString );
-
-          //$processXmlObj = new processNyXml('/var/workspace/projectn/import/chicago/toc_leo.xml');
-          $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
-          echo "Inserting Chicago's Events  \n";
-          $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
-          $nyImportObj->insertEventCategoriesAndEventsAndVenues();
-
-          echo "\n\n Chicago's Events imported \n\n";
-
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in chicago' . $e->getMessage();
-        }
-  }
-
-
-  /**
-   * Import Chicago's Movies
-   *
-   * @param <Vendor> $vendoObj
-   * @param <FTPClient> $ftpClientObj
-   */
-  private function importChicagoMovies($vendorObj, $ftpClientObj)
-  {
-    try
-    {
-
-      echo "Downloading Chicago's Movies feed \n";
-      $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'xffd_TOChicago_[0-9]+.xml' );
-
-      echo "Parsing Chicago's Movies \n";
-      $processXmlObj = new processNyMoviesXml( $fileNameString );
-      $processXmlObj->setMovies( '/xffd/movies/movie' );
-      $processXmlObj->setPoi( '/xffd/theaters/theater' );
-      $processXmlObj->setOccurances( '/xffd/showTimes/showTime' );
-
-      echo "Importing Chicago's Movies \n";
-      $nyImportMoviesObj = new importNyMovies( $processXmlObj, $vendorObj) ;
-      $nyImportMoviesObj->importMovies();
-
-      echo "\n\n Chicago's Movies Imported \n\n";
-
-    }
-    catch ( Exception $e )
-    {
-      echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-    }
-  }
-
- /**
-  * Import the Chicago Bars and clubs
-  *
-  * @return importBc Object
-  */
-  public function importChicagoBc($vendorObj, $ftpClientObj)
-  {
-        try
-        {
-            echo "Downloading Chicago's B/C feed \n";
-            $fileNameString = $ftpClientObj->fetchFile( 'toc_bc.xml' );
-
-            echo "Parsing Chicago's B/C's feed \n";
-            $processXmlObj = new processNyBcXml( $fileNameString );
-
-            echo "Importing Chicago's B/C's \n";
-            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj);
-            $importObj->import();
-
-            echo "\n\n Chicago's B/C's Imported \n\n";
-
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Chicago import: ' . $e->getMessage();
-        }
-        return $importObj;
-  }
-
-
-  /**
-  * Import the Chicago Bars and clubs
-  *
-  * @return importBc Object
-  */
-  public function importChicagoEd($vendorObj, $ftpClientObj)
-  {
-        try
-        {
-            echo "Downloading Chicago's E/D feed \n";
-            $fileNameString = $ftpClientObj->fetchFile( 'toc_ed.xml' );
-
-            echo "Parsing Chicago's E/D's feed \n";
-            $processXmlObj = new processNyBcXml( $fileNameString );
-
-            echo "Importing Chicago's E/D's \n";
-            $importObj = new chicagoImportBcEd($processXmlObj, $vendorObj);
-            $importObj->import();
-
-            echo "\n\n Chicago's E/D's Imported \n\n";
-
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Chicago import: ' . $e->getMessage();
-        }
-
-
-        return $importObj;
-
-  }
-
 
   /***************************************************************************
    *

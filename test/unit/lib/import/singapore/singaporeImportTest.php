@@ -1,8 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname( __FILE__ ).'/../../../bootstrap.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 spl_autoload_register(array('Doctrine', 'autoload'));
 
 /**
@@ -54,8 +54,6 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
-
-    setlocale(LC_MONETARY, 'en_US.UTF-8');
 
     ProjectN_Test_Unit_Factory::createDatabases();
 
