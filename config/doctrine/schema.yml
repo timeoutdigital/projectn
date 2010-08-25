@@ -499,7 +499,7 @@ Media:
     file_last_modified:   {type: string(255), notnull: false}
     etag:                 {type: string(255), notnull: false}
     content_length:       {type: integer, notnull: false}
-    status:               {type: enum, notnull: true, values: [new, valid, error, dead]}
+    status:               {type: enum, notnull: true, values: [new, valid, error, dead], default: 'new'}
     last_header_check:    {type: datetime, notnull: false}
   indexes:
     ident_index:          {fields: [ident]}
