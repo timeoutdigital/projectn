@@ -25,8 +25,8 @@ class Event extends BaseEvent
    */
   public function applyFixes()
   {
-     $this->fixHTMLEntities();
-     
+     $this->cleanStringFields();
+
      if( $this['url'] != '')
         $this['url'] = stringTransform::formatUrl($this['url']);
 
@@ -36,6 +36,7 @@ class Event extends BaseEvent
     $this->applyOverrides();
     $this->downloadMedia();
     $this->removeMultipleImages();
+    //$this->removeMultipleOccurrences();
   }
 
   /**
@@ -43,21 +44,30 @@ class Event extends BaseEvent
    */
   protected function getStringColumns()
   {
-    $column_names = array();
+    $columns = array();
     foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
       if( $column_info['type'] == 'string' )
-          $column_names[] = $column_name;
-    return $column_names;
+          $columns[$column_name] = $column_info ;
+    return $columns;
   }
 
   /**
-   * Removes HTML Entities for all fields of type 'string'
+   * Clean all fields of type 'string', Removes HTML and Trim
    */
-  protected function fixHTMLEntities()
+  protected function cleanStringFields()
   {
-    foreach ( $this->getStringColumns() as $field )
+    foreach ( $this->getStringColumns() as $field => $field_info )
         if( is_string( @$this[ $field ] ) )
+        {
+            // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
+
+            // Refs #525 - Trim All Text fields on PreSave
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+
+            // Refs #538 - Nullify all Empty string that can be Null in database Schema
+            if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) =='' ) $this[ $field ] = null;
+        }
   }
 
   /**
@@ -180,22 +190,33 @@ class Event extends BaseEvent
 
   public function addVendorCategory( $name, $vendorId = null )
   {
+    if( $vendorId instanceof Vendor )
+    {
+        $vendorId = $vendorId[ 'id' ];
+    }
+
     if( !$vendorId )
       $vendorId = $this[ 'vendor_id' ];
 
     if( !$vendorId )
       throw new Exception( 'Cannot add a vendor category to an Event record without a vendor id.' );
 
-    if ( is_array( $name ) )
+    if(!is_array($name) && !is_string($name))
+        throw new Exception ('$name parameter must be string or array of strings');
+
+    if( !is_array($name) )
+        $name = array( $name );
+
+    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+
+    if( stringTransform::mb_trim($name) == '' )
+        return false;
+
+    foreach( $this[ 'VendorEventCategory' ] as $existingCategory )
     {
-      $name = implode( ' | ', $name );
-    }
-    else
-    {
-        if(strlen($name) == 0)
-        {
-            return false;
-        }
+      // This will unlink all vendor category relationships that dont match the event vendor.
+      if( $existingCategory[ 'vendor_id' ] != $vendorId )
+          $this->unlinkInDb( 'VendorEventCategory', array( $existingCategory[ 'id' ] ) );
     }
 
     $vendorEventCategoryObj = new VendorEventCategory();
@@ -209,8 +230,6 @@ class Event extends BaseEvent
 
     $this[ 'VendorEventCategory' ][ $name ] = $uniqueRecord;
   }
-
-
 
   /**
    * tidy up function for events with more than one image attached to them
@@ -284,10 +303,17 @@ class Event extends BaseEvent
         $eventMediaObj = new EventMedia( );
     }
 
-    $eventMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+    try
+    {
+        $eventMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    // add the $eventMediaObj to the Event
-    $this[ 'EventMedia' ] [] =  $eventMediaObj;
+        // add the $eventMediaObj to the Event
+        $this[ 'EventMedia' ] [] =  $eventMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
   }
 
@@ -308,17 +334,22 @@ class Event extends BaseEvent
 
     $headers = get_headers( $urlString , 1);
 
+    // When Image redirected with 302/301 get_headers will return morethan one header array
+    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
+    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
+
     // check the header if it's an image
-    if( $headers [ 'Content-Type' ] != 'image/jpeg' )
+    if( $contentType != 'image/jpeg' )
     {
-        return ;
+        return false;
     }
 
     $this->media[] = array(
         'url'           => $urlString,
-        'contentLength' => $headers[ 'Content-Length' ],
+        'contentLength' => $contentLength,
         'ident'         => md5( $urlString ),
      );
+    return true;
   }
 
   public function getPois()
@@ -351,6 +382,33 @@ class Event extends BaseEvent
     }
 
     return $categories;
+  }
+
+  public function removeMultipleOccurrences()
+  {
+    $occurrences = array();
+
+    foreach ( $this[ 'EventOccurrence' ] as $occurrence )
+    {
+        $date = $occurrence[ 'start_date' ];
+        $poiId = $occurrence[ 'poi_id' ];
+        $startTime = $occurrence[ 'start_time' ];
+
+        //if two occurrences have the same date, startTime and poiId we should only use one of them
+        //using a combination of those as a key in an array will provide unique occurrences
+        $uniqueId = $date . $startTime . $poiId;
+
+        $occurrences [ $uniqueId  ] = $occurrence;
+    }
+    //reset the occurrences
+    $this['EventOccurrence'] = new Doctrine_Collection( 'EventOccurrence' );
+
+    //add the unique occurrences
+    foreach ($occurrences as $occurrence)
+    {
+        $this['EventOccurrence'] [] =$occurrence;
+    }
+
   }
 
 }

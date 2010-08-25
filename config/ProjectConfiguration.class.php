@@ -12,6 +12,9 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfDoctrinePlugin');
     //$this->enablePlugins('tmCsvPlugin');
     $this->enablePlugins('toLondonPlugin');
+    $this->enablePlugins('sfDoctrineGuardPlugin');
+    $this->enablePlugins('sfFormExtraPlugin');
+    $this->enablePlugins('sfJqueryReloadedPlugin');
   }
 
   static public function registerHTMLPurifier()

@@ -22,3 +22,6 @@ all:
         - { field: street, type: append, regexp: "/([-–0-9]+[-–A-z]?)(?=(\s|-|–)[-–A-z0-9])/i", to: house_no }
       4: # London
         - { field: street, type: remove, regexp: "/([A-Z][A-Z]?[0-9][A-Z0-9]?\s[0-9][A-Z]+)$/" }
+  geocode:
+    override_accuracy: 10
+    google_map_api_key: keyfromadmin

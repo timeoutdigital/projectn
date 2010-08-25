@@ -205,7 +205,7 @@ class singaporeImport
             //$poi[ 'keywords' ]                   = '';
             //$poi[ 'short_description' ]          = '';
             $poi[ 'description' ]                = (string) $poiObj->excerpt;
-            $poi[ 'price_information' ]          = stringTransform::formatPriceRange( $poiObj->min_price, $poiObj->max_price );
+            $poi[ 'price_information' ]          = stringTransform::formatPriceRange( $poiObj->min_price, $poiObj->max_price, '$' );
             $poi[ 'openingtimes' ]               = (string) $poiObj->opentime;
             //$poi[ 'star_rating' ]                = '';
             //$poi[ 'rating' ]                     = '';
@@ -343,7 +343,7 @@ class singaporeImport
             $event[ 'description' ] = (string)  $eventObj->excerpt;
             //$event[ 'booking_url' ] = '';
             $event[ 'url' ] = (string) $eventObj->website;
-            $event[ 'price' ] = stringTransform::formatPriceRange( (string) $eventObj->min_price, (string) $eventObj->max_price );
+            $event[ 'price' ] = stringTransform::formatPriceRange( (string) $eventObj->min_price, (string) $eventObj->max_price, '$' );
             //$event[ 'rating' ] = '';
             $event[ 'vendor_id' ] = $this->_vendor[ 'id' ];
 
@@ -562,18 +562,18 @@ class singaporeImport
 
         foreach( $datesArray as $date )
         {
+            $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventId, $poi[ 'id' ], $date[ 'start' ] );
+            $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
+
+            if ( $eventOccurrence === false )
+            {
+                $eventOccurrence = new EventOccurrence();
+                $eventOccurrence[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
+            }
+
             try {
-                $vendorEventOccurrenceId = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $eventId, $poi[ 'id' ], $date[ 'start' ] );
-                $eventOccurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorEventOccurrenceId );
-
-                if ( $eventOccurrence === false )
-                {
-                    $eventOccurrence = new EventOccurrence();
-                    $eventOccurrence[ 'vendor_event_occurrence_id' ] = $vendorEventOccurrenceId;
-                }
-
                 //$eventOccurrence[ 'booking_url' ] ='';
-                $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( $date[ 'start' ] );
+                $eventOccurrence[ 'utc_offset' ] = $this->_vendor->getUtcOffset( date( 'Y-m-d', strtotime( $date[ 'start' ] ) ) );
 
                 //the feeds do not provide an accurate time, therefore, just Y-m-d underneath
                 $eventOccurrence[ 'start_date' ] = date( 'Y-m-d', strtotime( $date[ 'start' ] ) );

@@ -30,15 +30,22 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
 
     $this->feed   = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' );
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
+    $this->vendor =  ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
                                                      'city'          => 'sydney',
                                                      'language'      => 'en-AU',
-                                                     'country_code'  => 'AUS',
+                                                     'country_code'  => 'au',
+                                                     'country_code_long'  => 'AUS',
                                                      'inernational_dial_code'  => '+61',
                                                      ) );
 
-    ProjectN_Test_Unit_Factory::add( 'Poi' );
-
+    //event feed has pois with vendor_poi_id 1,2 and 3
+    for ( $i =1; $i< 4; $i++ )
+    {
+        $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+        $poi[ 'vendor_poi_id' ] = $i;
+        $poi[ 'Vendor' ] = $this->vendor;
+        $poi->save();
+    }
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
     $importer->run();
@@ -53,19 +60,20 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapping()
   {
-    $this->assertEquals( 2,
+
+    $this->assertEquals( 3,
                          $this->eventTable->count(),
                         'Database should have same number of Events as feed after import'
                          );
 
     $event = $this->eventTable->findOneById( 1 );
 
-    $this->assertEquals('Ascension', $event['name'], 'Check name field.' );
+    $this->assertEquals('a good festival', $event['name'], 'Check name field.' );
     $this->assertEquals('2010-03-29 09:59:00', $event['review_date'], 'Check review_date field.' );
-    $this->assertEquals('a833570ea', $event['vendor_event_id'], 'Check vendor_event_id field.' );
+    $this->assertEquals('1891484e2', $event['vendor_event_id'], 'Check vendor_event_id field.' );
     $this->assertEquals('Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.', $event['description'], 'Check description field.' );
     $this->assertEquals('http://www.somewebsite.com', $event['url'], 'Check url field.' );
-    $this->assertEquals('30.00', $event['price'], 'Check price field.' );
+    $this->assertEquals('$30.00', $event['price'], 'Check price field.' );
     $this->assertEquals('1', $event['rating'], 'Check rating field.' );
     $this->assertEquals('1', $event['vendor_id'], 'Check vendor_id field.' );
   }
@@ -74,13 +82,14 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
   {
     $events = $this->eventTable->findAll( );
 
-    $this->assertEquals( 'Gay & Lesbian',
-                          $events[0]['VendorEventCategory']['Gay & Lesbian']['name']
-                          );
+    $this->assertEquals( 1, count(  $events[0]['VendorEventCategory'] ),'1st event in the feed has only one vendorCategory' );
 
-    $this->assertEquals( 'Gay & Lesbian | Club',
-                          $events[1]['VendorEventCategory']['Gay & Lesbian | Club']['name']
-                          );
+    $vendorCategory =  $events[0]['VendorEventCategory']->toArray();
+
+    $this->assertEquals( 'Gay & Lesbian',   $vendorCategory['Gay & Lesbian']['name']  );
+
+    $vendorCategory =  $events[1]['VendorEventCategory']->toArray();
+
   }
 
   public function testProperties()
@@ -105,12 +114,10 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testHasImage()
   {
-
     $event = $this->eventTable->findOneById( 1 );
 
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
                           $event['EventMedia'][0]['url']
                           );
   }
-
 }

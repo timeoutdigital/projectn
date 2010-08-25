@@ -23,7 +23,6 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    Doctrine_Manager::connection()->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
     ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
   }
@@ -47,34 +46,24 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
     $crawler = new MockLondonAPIBarsAndPubsMapperCrawler();
 
     $mockGeoEncoder = $this->getMock('geoEncode', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
-    $mockGeoEncoder->expects( $this->exactly( 1 ) )
+    //we have the geocodes so geocoder shouldn't be used
+    $mockGeoEncoder->expects( $this->exactly( 0 ) )
                ->method( 'setAddress' )
                ;
-    $mockGeoEncoder->expects( $this->exactly( 1 ) )
-               ->method( 'getLongitude' )
-               ->will( $this->returnValue( -0.0901 ) )
-               ;
-    $mockGeoEncoder->expects( $this->exactly( 1 ) )
-               ->method( 'getLatitude' )
-               ->will( $this->returnValue( 51.35736 ) )
-               ;
+    $mockGeoEncoder->expects( $this->exactly( 0 ) )
+               ->method( 'getLongitude' );
+    $mockGeoEncoder->expects( $this->exactly( 0 ) )
+               ->method( 'getLatitude' ) ;
 
     $mapper = new LondonAPIBarsAndPubsMapper( $crawler, $mockGeoEncoder );
 
     $importer->addDataMapper( $mapper );
 
-    $logger = $this->getMock( 'doNothingLogger' );
-    $logger->expects( $this->exactly( 0 ) )
-           ->method( 'addError' );
-    $logger->expects( $this->exactly( 11 ) )
-           ->method( 'countNewInsert' );
-
-    $importer->addLogger( $logger );
     $importer->run();
 
     $poiResults = Doctrine::getTable('Poi')->findAll();
 
-    $this->assertEquals( 11, $poiResults->count() );
+    $this->assertEquals( 10, $poiResults->count() );
 
     $poi = $poiResults[0];
 

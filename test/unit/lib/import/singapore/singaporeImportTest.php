@@ -1,8 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname( __FILE__ ).'/../../../bootstrap.php';
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 spl_autoload_register(array('Doctrine', 'autoload'));
 
 /**
@@ -55,36 +55,33 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
 
-    setlocale(LC_MONETARY, 'en_US.UTF-8');
-
     ProjectN_Test_Unit_Factory::createDatabases();
 
     Doctrine::loadData('data/fixtures');
-   
+
     $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
     $this->stubCurlImporter = $this->getMock( 'curlImporter' );
     $this->stubCurlImporter->expects( $this->any() )->method( 'pullXML' );
 
     $this->logger = new logImport( $this->vendorObj );
-    $this->logger->setType('poi');
 
-    $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, $this->logger, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
+    $this->object = new singaporeImportTestVersion( $this->vendorObj, $this->stubCurlImporter, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
   }
 
   /**
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
    */
-  protected function tearDown() {
-
-    $this->logger->save();
-
+  protected function tearDown()
+  {
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   /**
    * testPublicTransportDoesNotStartWithASpaceOrPipeCharacter
+   *
+   * @todo add test if fields mapped correctly
    */
   public function testPublicTransportDoesNotStartWithASpaceOrPipeCharacter()
   {
@@ -112,6 +109,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   /*
    * testInsertPoisAndInsertPoi
+   * @todo add test if fields mapped correctly
    */
   public function testInsertPoisAndInsertPoi()
   {
@@ -136,10 +134,10 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
 
   /*
    * testInsertEventsAndInsertEvent
+   * @todo add test if fields mapped correctly
    */
   public function testInsertEventsAndInsertEvent()
   {
-     $this->logger->setType('event');
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/venue_detail.xml' );
      $stubCurlImporterDetail = $this->getMock( 'curlImporter' );
@@ -175,11 +173,11 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * testInsertMoviesAndInsertMovie
    *
    * test with empty data condition
-   *
+   * @todo add test if fields mapped correctly
    */
   public function testInsertMoviesAndInsertMovie()
   {
-     $this->logger->setType('movie');
+     ;
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_movies_list.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
@@ -209,11 +207,11 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * testInsertMoviesAndInsertMovie
    *
    * test with -60 days condition (last day valid)
-   *
+   * @todo add test if fields mapped correctly
    */
   public function testInsertMoviesAndInsertMovie2()
   {
-     $this->logger->setType('movie');
+
 
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_movies_list.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
@@ -239,12 +237,10 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
    * testInsertMoviesAndInsertMovie
    *
    * test with -61 expired date condition
-   *
+   * @todo add test if fields mapped correctly
    */
   public function testInsertMoviesAndInsertMovie3()
   {
-     $this->logger->setType('movie');
-
      $stubReturnXMLObject = simplexml_load_file( dirname(__FILE__).'/../../../data/singapore/all_of_singapore_full_movies_list.xml' );
      $this->stubCurlImporter->expects( $this->any() )->method( 'getXml' )->will( $this->returnValue( $stubReturnXMLObject ) );
      $xmlObj = $this->stubCurlImporter->getXml();
@@ -353,7 +349,7 @@ class singaporeImportTest extends PHPUnit_Framework_TestCase {
      $this->object->insertPoi( $xmlObj );
 
      $poiObj = Doctrine::getTable('Poi')->findOneByVendorPoiId('2154');
-     
+
      $this->assertEquals( 'Critics_choice', $poiObj['PoiProperty'][0]['lookup'], "Use 'Critics_choice' instead of 'Critic's Pick' or whatever else.");
    }
 }

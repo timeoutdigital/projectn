@@ -28,7 +28,7 @@ class Movie extends BaseMovie
    */
   public function applyFixes()
   {
-    $this->fixHTMLEntities();
+    $this->cleanStringFields();
     $this->fixUrl();
     $this->reformatTitle();
     $this->requestImdbId();
@@ -43,21 +43,30 @@ class Movie extends BaseMovie
    */
   protected function getStringColumns()
   {
-    $column_names = array();
+    $column = array();
     foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
       if( $column_info['type'] == 'string' )
-          $column_names[] = $column_name;
-    return $column_names;
+          $column[$column_name] = $column_info;
+    return $column;
   }
 
   /**
-   * Removes HTML Entities for all fields of type 'string'
+   * Clean all fields of type 'string', Removes HTML and Trim
    */
-  protected function fixHTMLEntities()
+  protected function cleanStringFields()
   {
-    foreach ( $this->getStringColumns() as $field )
+    foreach ( $this->getStringColumns() as $field => $field_info )
         if( is_string( @$this[ $field ] ) )
+        {
+            // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
+            
+            // Refs #525 - Trim All Text fields on PreSave
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+
+            // Refs #538 - Nullify all Empty string that can be Null in database Schema
+            if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
+        }
   }
 
   /**
@@ -213,18 +222,23 @@ class Movie extends BaseMovie
     }
 
     $headers = get_headers( $urlString , 1);
+    
+    // When Image redirected with 302/301 get_headers will return morethan one header array
+    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
+    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
 
     // check the header if it's an image
-    if( $headers [ 'Content-Type' ] != 'image/jpeg' )
+    if( $contentType != 'image/jpeg' )
     {
-        return ;
+        return false;
     }
 
     $this->media[] = array(
         'url'           => $urlString,
-        'contentLength' => $headers[ 'Content-Length' ],
+        'contentLength' => $contentLength,
         'ident'         => md5( $urlString ),
      );
+    return true;
   }
 
 
@@ -298,10 +312,17 @@ class Movie extends BaseMovie
     {
         $movieMediaObj = new MovieMedia( );
     }
+    try
+    {
+        $movieMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
 
-    $movieMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
+        $this[ 'MovieMedia' ] [] =  $movieMediaObj;
+    }
+    catch ( Exception $e )
+    {
+        /** @todo : log this error */
+    }
 
-    $this[ 'MovieMedia' ] [] =  $movieMediaObj;
 
   }
 

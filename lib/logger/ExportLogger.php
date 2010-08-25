@@ -160,6 +160,7 @@ class ExportLogger extends BaseLogger
      */
     public function addError( $message, $model = '', $id = '' )
     {
+
         $exportRecordErrorLogger                     = new LogExportError();
         $exportRecordErrorLogger['log']              = $message;
 
@@ -168,8 +169,26 @@ class ExportLogger extends BaseLogger
 
         if ( $id != '' )
            $exportRecordErrorLogger['record_id']     = $id;
- 
+
         $this->_exportLog[ 'LogExportError' ][] = $exportRecordErrorLogger;
+        $this->save( );
+    }
+
+    /**
+     * Initalize an Export
+     *
+     * @param string $model
+     *
+     * This function initializes a the export count to 0.
+     *
+     */
+    public function initExport( $model )
+    {
+        $logExportCount = new LogExportCount();
+        $logExportCount[ 'model' ] = $model;
+        $logExportCount[ 'count' ] = 0;
+
+        $this->_exportLog[ 'LogExportCount' ][] = $logExportCount;
         $this->save( );
     }
 
@@ -188,24 +207,19 @@ class ExportLogger extends BaseLogger
     {
         if ( $this->_exportLog[ 'LogExportCount' ] instanceof Doctrine_Collection )
         {
-            foreach( $this->_exportLog[ 'LogExportCount' ] as $logExportCount )
+            foreach( $this->_exportLog[ 'LogExportCount' ] as $k => $logExportCount )
             {
-                if ( $logExportCount[ 'model' ] == $model  )
+                if ( $this->_exportLog[ 'LogExportCount' ][ $k ][ 'model' ] == $model  )
                 {
-                    $logExportCount[ 'count' ] = $logExportCount[ 'count' ] + 1;
+                    $this->_exportLog[ 'LogExportCount' ][ $k ][ 'count' ] += 1;
                     $this->save( );
                     return;
                 }
             }
         }
 
-        $logExportCount = new LogExportCount();
-        $logExportCount[ 'model' ] = $model;
-        $logExportCount[ 'count' ] = 1;
-
-        $this->_exportLog[ 'LogExportCount' ][] = $logExportCount;
-
-        $this->save( );
+        $this->initExport( $model ); // Initalize a new export count to 0.
+        $this->addExport( $model ); // Recurse to add Export.
     }
 
     /**
@@ -215,6 +229,18 @@ class ExportLogger extends BaseLogger
     {
         $this->_exportLog['total_time'] = $this->_getElapsedTime();
         $this->_exportLog->save();
+    }
+
+    /**
+     * Outputs the export errors
+     *
+     */
+    public function showErrors()
+    {
+        foreach ($this->_exportLog[ 'LogExportError' ] as $logExportError)
+        {
+            echo "EXPORT : " . $logExportError[ 'model' ] . ' : ' . $logExportError[ 'log' ] .PHP_EOL;
+        }
     }
 }
 

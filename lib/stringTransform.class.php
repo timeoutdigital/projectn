@@ -13,7 +13,7 @@
  *
  *
  * @version 1.0.0
- * 
+ *
  *
  *
  */
@@ -46,7 +46,7 @@ class stringTransform
     $unit=array('b','kb','mb','gb','tb','pb');
     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
   }
-  
+
    /**
    * Multibyte safe version of trim()
    * Always strips whitespace characters (those equal to \s)
@@ -59,7 +59,7 @@ class stringTransform
     public static function mb_trim( $string, $chars = "", $chars_array = array() )
     {
         for( $x=0; $x<iconv_strlen( $chars ); $x++ ) $chars_array[] = preg_quote( iconv_substr( $chars, $x, 1 ) );
-        $encoded_char_list = implode( "|", array_merge( array( "\s" ), $chars_array ) );
+        $encoded_char_list = implode( "|", array_merge( array( "\s","\t","\n","\r", "\0", "\x0B" ), $chars_array ) );
 
         $string = mb_ereg_replace( "^($encoded_char_list)*", "", $string );
         $string = mb_ereg_replace( "($encoded_char_list)*$", "", $string );
@@ -80,7 +80,7 @@ class stringTransform
       $subject .= ":00";
     return $subject;
   }
-  
+
   /**
    * Try to extract time information from a string.
    * eg '10:00', '9.15', '10h' or in the case of '10-12h', return 2 values
@@ -150,14 +150,27 @@ class stringTransform
    */
   public static function extractStartTime( $string, $returnTimeFormatted = true )
   {
-     $matches = array();
-     $pattern = '/^([0-9]{1,2}([\s]?[\:\.]{1}[0-9]{2})?[\s]?(am|pm)?)[\s]?(\-|to\s)?/';
-     preg_match( $pattern, trim( $string ), $matches );
+    $matches = array();
 
-     if ( isset( $matches[ 1 ] ) )
-     {
-         return ($returnTimeFormatted) ? self::toDBTime( $matches[ 1 ] ) : $matches[ 1 ];
-     }
+    $timeRangePattern = '/^([0-9:]+)-([0-9.:]+)(a|p|A|P)(m|M)$/'; //catches "3:00-7:00pm"
+
+    preg_match( $timeRangePattern, $string, $matches );
+
+    if( count( $matches ) > 0 )
+    {
+        $string = $matches[1] . strtolower( $matches[3] ) .'m' ; //convert "3:00-7:00pm" to "3:00pm"
+    }
+
+    $matches = array();
+
+    $pattern = '/^([0-9]{1,2}([\s]?[\:\.]{1}[0-9]{2})?[\s]?(am|pm|AM|PM)?)[\s]?(\-|to\s)?/';
+
+    preg_match( $pattern, trim( $string ), $matches );
+
+    if ( isset( $matches[ 1 ] ) )
+    {
+        return ($returnTimeFormatted) ? self::toDBTime( $matches[ 1 ] ) : $matches[ 1 ];
+    }
   }
 
   public static function extractEmailAddressesFromText( $subject )
@@ -209,11 +222,18 @@ class stringTransform
    */
   public static function formatPhoneNumber($subject, $internationalCode)
   {
-    
+
       if( empty( $subject ) ) return NULL;
 
+      // if the phone is already prefixed with the international dial code
+      // we will remove it and it will be added later in this method
+      if( strpos( $subject , $internationalCode ) === 0 )
+      {
+        $subject = substr( $subject , strlen( $internationalCode ) );
+      }
+
       //return if not valid number is is passed in
-      if(strlen($subject) < 6)
+      if( strlen( $subject ) < 6)
       {
            //throw new PhoneNumberException('Phone number is incorrect - Less then 6 digits');
           return NULL;
@@ -251,13 +271,13 @@ class stringTransform
 
 
     $transformedSubject = '';
-    
+
 
     switch(strlen($subject))
     {
         case '7':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2", $subject);
         break;
-    
+
         case '8':       $transformedSubject = preg_replace("/([0-9a-zA-Z]{1})([0-9a-zA-Z]{3})([0-9a-zA-Z]{4})/", "$1 $2 $3", $subject);
         break;
 
@@ -287,7 +307,7 @@ class stringTransform
     }
     //var_dump(trim($transformedSubject));
      return $internationalCode. ' ' .trim($transformedSubject);
-   
+
   }
 
 
@@ -327,8 +347,17 @@ class stringTransform
         exit;
       }
 
+      // check if the url is something like that : http://ccmatasiramis@bcn.cat
+      // see ticket : #464
+
+      $urlparts = parse_url( $subject );
+
+      if( !empty( $urlparts [ 'user' ] ) )
+      {
+        return null;
+      }
       //Check if domain is valid
-      $valid = $validate->uri($subject ,array("allowed_schemes"=>array('https', 'http'),"domain_check"=>true));
+      $valid = $validate->uri( $subject ,array( "allowed_schemes" => array( 'https', 'http' ), "domain_check "=> true ) );
 
       if($valid)
       {
@@ -341,19 +370,47 @@ class stringTransform
 
   }
 
-  /*
-   * formatPriceRange formats a from to price range, make sure the locale
-   * is set correctly
+  /**
+   * validates email address using Pear validate
    *
+   * @param unknown_type $email
+   * @return boolean
+   */
+  public static function isValidEmail( $email )
+  {
+     //Return if no email
+      if( empty( $email ) )
+      {
+        return false;
+      }
+
+     try
+      {
+        $validate = new Validate();
+      }
+      catch (Exception $e)
+      {
+        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
+        exit;
+      }
+       //Check if domain is valid
+     return $validate->email( $email ,array( "fullTLDValidation "=> true ,"domain_check" => true ) );
+
+
+
+  }
+
+  /*
    * @param mixed $minPrice
    * @param mixed $maxPrice
+   * @param mixed $currencyPrefix (e.g. currency Symbol)
    * @param string $format optional switch to choose between the formats
    *        supported 'short' and 'long' (default)
    *
    * @return string the price range string
    *
   */
-  public static function formatPriceRange( $minPrice, $maxPrice=0, $format='long' )
+  public static function formatPriceRange( $minPrice, $maxPrice=0, $currencyPrefix='', $format='long' )
   {
     $returnString = '';
     $pricesAreNumeric  = is_numeric( $minPrice ) &&  is_numeric( $maxPrice );
@@ -365,25 +422,22 @@ class stringTransform
 
       if ( (int) $maxPrice == 0 )
       {
-        $returnString = money_format( $moneyFormatString, $minPrice );
+        $returnString = $currencyPrefix . sprintf( '%.2F', $minPrice );
       }
       else
       {
         switch( $format )
         {
           case 'short':
-            $returnString = money_format( $moneyFormatString, $minPrice ) . ' - ' . money_format( $moneyFormatString, $maxPrice ) ;
+            $returnString = $currencyPrefix . sprintf( '%.2F', $minPrice ) . ' - ' . $currencyPrefix . sprintf( '%.2F', $maxPrice ) ;
             break;
           case 'long':
           default:
-            $returnString = 'between ' . money_format( $moneyFormatString, $minPrice ) . ' and ' . money_format( $moneyFormatString, $maxPrice ) ;
+            $returnString = 'between ' . $currencyPrefix . sprintf( '%.2F', $minPrice ) . ' and ' . $currencyPrefix . sprintf( '%.2F', $maxPrice ) ;
             break;
         }
       }
     }
-
-    //fix the issue with the missing space in front of £
-    $returnString = str_replace( '£', '£ ', $returnString );
 
     return $returnString;
   }
@@ -450,7 +504,7 @@ class stringTransform
    *   echo $clean;
    *   //outputs 'foo, bar, baz'
    * </code>
-   * 
+   *
    * @param string $delimiter
    * @param string $string
    * @return string
@@ -470,4 +524,32 @@ class stringTransform
     return trim( $string, ', ' );
   }
 
+
+  /**
+   * removes the "meet at" from the street names
+   * returns an array with "street" and "additional_address_details" keys
+   * if the street name has " at " the string after at is added to  "additional_address_details"
+   *
+   * @param string $street
+   * @return array()
+   */
+  static public function parseStreetName( $street )
+  {
+    //first remove 'meet at's
+    $street = str_replace( 'meet at', '', $street );
+
+    $parts = explode( ' at ', $street );
+
+    if( count( $parts ) == 2 )
+    {
+        return array( 'street' => ucfirst ( trim( $parts[0] ) ) ,
+                    'additional_address_details' => 'At ' .trim( $parts[1] ) );
+    }
+    else
+    {
+        return array( 'street' => ucfirst ( trim( $street ) ) ,
+                  'additional_address_details' => NULL );
+    }
+
+  }
 }

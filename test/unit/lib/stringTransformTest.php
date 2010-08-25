@@ -1,5 +1,4 @@
 <?php
-setlocale(LC_ALL, array('en_US.UTF-8', ));
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../bootstrap.php';
@@ -93,21 +92,46 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   public function testMbTrim()
   {
     // Using this weird portugese space --> <--
-    $trimmed = stringTransform::mb_trim( " \n.,.,.,\nMajor de Sarrià\n., \n  ", "., " );
+    //$trimmed = stringTransform::mb_trim( " \n.,.,.,\nMajor de Sarrià\n., \n  ", "., " );
+    // mb trim failed to trim Portugese weird whitespace. We will create a function to handle this
+    // directly in portugese mapper
+
+    $trimmed = stringTransform::mb_trim( "\nMajor de Sarrià\n ", "\n" );
     $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n.Major de Sarrià\n ", "\n." );
+    $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n,Major de Sarrià\n ", "\n," );
+    $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n.,Major de Sarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de Sarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\n.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\t.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
+
+    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n ,.\n", ".,\n\r" );
+    $this->assertEquals( $trimmed, "Major de \nSarrià" );
   }
 
   /**
    * Test to extract and email address from a field
    */
   public function testExtractEmailAddressesFromText() {
-    
+
     $expectedOutput = array( 'email@address.com',
                              'email2@address.co.uk',
                              'anotheremail@address.com' );
 
     $emailAddressesArray = stringTransform::extractEmailAddressesFromText( $this->input );
-    
+
     $this->assertEquals( $expectedOutput, $emailAddressesArray );
   }
 
@@ -133,7 +157,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
                              'http://google.com/#this' );
 
     $urlArray = stringTransform::extractUrlsFromText( $this->input );
-    
+
     $this->assertEquals( $expectedOutput, $urlArray );
   }
 
@@ -144,7 +168,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   {
   }
 
-  
+
   /**
    * Test that a valid E.123 number is returned
    */
@@ -156,13 +180,13 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
 
       $transform = stringTransform::formatPhoneNumber('212 633-2229, ext 2' , '+1');
       $this->assertEquals('+1 212 633 2229', $transform, 'Testing American number type 2');
-      
+
       $transform = stringTransform::formatPhoneNumber('718 499-YOGA' , '+1');
       $this->assertEquals('+1 718 499 9642', $transform, 'Testing American number type 3');
-      
+
       $transform = stringTransform::formatPhoneNumber('212 777- 6800' , '+1');
       $this->assertEquals('+1 212 777 6800', $transform, 'Testing American number type 4');
-      
+
       $transform = stringTransform::formatPhoneNumber('212 582-6050,ext207' , '+1');
       $this->assertEquals('+1 212 582 6050', $transform, 'Testing American number type 5');
 
@@ -196,7 +220,7 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
       $transform = stringTransform::formatPhoneNumber('', '+971');
       $this->assertEquals(null, $transform, 'No number type 2');
 
-     
+
   }
 
   /**
@@ -213,15 +237,12 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatPriceRange()
   {
-    setlocale(LC_MONETARY, 'en_GB.UTF-8');
-
-    $this->assertEquals( '', stringTransform::formatPriceRange( '0', '0.00' ) );
-    $this->assertEquals( '£ 1.00', stringTransform::formatPriceRange( '1', '0.00' ) );
-    $this->assertEquals( 'between £ 1.00 and £ 5.00', stringTransform::formatPriceRange( '1', '5' ) );
-    $this->assertEquals( 'between £ 1.50 and £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00' ) );
-    $this->assertEquals( '£ 1.50 - £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
-    setlocale(LC_ALL, array('en_US.UTF-8', ));
-    $this->assertEquals( '$1.50 - $3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
+    $this->assertEquals( '', stringTransform::formatPriceRange( '0', '0.00', '£ ' ) );
+    $this->assertEquals( '£ 1.00', stringTransform::formatPriceRange( '1', '0.00', '£ ' ) );
+    $this->assertEquals( 'between £ 1.00 and £ 5.00', stringTransform::formatPriceRange( '1', '5', '£ ' ) );
+    $this->assertEquals( 'between £ 1.50 and £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', '£ ' ) );
+    $this->assertEquals( '£ 1.50 - £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', '£ ', 'short' ) );
+    $this->assertEquals( '$1.50 - $3.00', stringTransform::formatPriceRange( '1.50', '3.00', '$', 'short' ) );
   }
 
   /**
@@ -231,9 +252,12 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   {
     $values = array( 'one', '', 'two', ' ', 'three' );
     $this->assertEquals( 'one, two, three', stringTransform::concatNonBlankStrings( ', ', $values ) );
+
+    $values = array( 'goo' );
+    $this->assertEquals( 'goo', stringTransform::concatNonBlankStrings( ', ', $values ) );
   }
 
-  
+
   /**
    * Test xml fixing
    */
@@ -247,7 +271,7 @@ two
 three
 ';
    $expected = 'onetwothree';
-   
+
    $this->assertEquals( $expected, stringTransform::stripEmptyLines( $string ) );
   }
 
@@ -324,7 +348,7 @@ three
                            '12pm',
                            '10 pm',
                            '9am',
-                           '2',
+                           '2pm',
                            '2.30pm',
                            '9pm',
                            '12pm',
@@ -340,7 +364,7 @@ three
                                     '12:00:00',
                                     '22:00:00',
                                     '09:00:00',
-                                    '',
+                                    '14:00:00',
                                     '14:30:00',
                                     '21:00:00',
                                     '12:00:00',

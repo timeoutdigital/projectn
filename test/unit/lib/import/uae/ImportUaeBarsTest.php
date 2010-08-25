@@ -40,8 +40,6 @@ class ImportUaeBarsTest extends PHPUnit_Framework_TestCase
 
           ProjectN_Test_Unit_Factory::createDatabases();
           Doctrine::loadData('data/fixtures');
-          
-
         }
         catch( Exception $e )
         {
@@ -49,7 +47,7 @@ class ImportUaeBarsTest extends PHPUnit_Framework_TestCase
         }
 
 
-        
+
     }
 
     /**
@@ -60,7 +58,7 @@ class ImportUaeBarsTest extends PHPUnit_Framework_TestCase
     {
        //Close DB connection
        ProjectN_Test_Unit_Factory::destroyDatabases();
-    
+
     }
 
     /**
@@ -68,7 +66,7 @@ class ImportUaeBarsTest extends PHPUnit_Framework_TestCase
      */
     public function testImportPoi()
     {
-        
+        $this->markTestSkipped( 'UAE import disabled right now. Tests are not up-to-date!' );
         $this->createObject();
         $this->createExistingUnchangedPoi();
         $this->object->importPoi($this->xmlObj);

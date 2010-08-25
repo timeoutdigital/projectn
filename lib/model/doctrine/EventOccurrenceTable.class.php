@@ -19,7 +19,18 @@ class EventOccurrenceTable extends Doctrine_Table
     }
     else
     {
-      throw new Exception( 'one or more of the passed parameters($eventId, $poiId, $startDate) is empty' );
+      if( empty( $eventId ) )
+      {
+        throw new Exception( 'EventOccurrenceTable::generateVendorEventOccurrenceId expects non-empty $eventId' );
+      }
+      elseif( empty( $poiId ) )
+      {
+        throw new Exception( 'EventOccurrenceTable::generateVendorEventOccurrenceId expects non-empty $poiId' );
+      }
+      elseif (  empty( $startDate ) )
+      {
+        throw new Exception( 'EventOccurrenceTable::generateVendorEventOccurrenceId expects non-empty $startDate' );
+      }
     }
   }
 
@@ -34,46 +45,5 @@ class EventOccurrenceTable extends Doctrine_Table
   public function getVendorUidFieldName()
   {
     return 'vendor_event_occurrence_id';
-  }
-
-  /**
-   * search table for an EventOccurence that's equivalent. i.e. the same:
-   * - vendor_event_occurrence_id
-   * - booking_url
-   * - start_date
-   * - start_time
-   * - end_date
-   * - end_time
-   * - utc_offset
-   * - event_id
-   * - poi_id
-   */
-  public function findEquivalents( EventOccurrence $record )
-  {
-    $query = $this->createQuery( 'e' );
-
-    $columns = $this->getColumnNames();
-
-    foreach( $columns as $column )
-    {
-      if( in_array( $column, array( 'id' ) ) )
-        continue;
-
-      if( $record[$column] )
-      {
-        $query->addWhere( "e.$column = ? " , $record[$column] );
-      }
-      else
-      {
-        $query->addWhere( "e.$column IS NULL" );
-      }
-    }
-
-    return $query->execute();
-  }
-
-  public function hasEquivalent( EventOccurrence $eventOccurrence )
-  {
-    return $this->findEquivalents( $eventOccurrence )->count() > 0;
   }
 }

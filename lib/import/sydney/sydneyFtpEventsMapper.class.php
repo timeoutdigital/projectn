@@ -52,7 +52,7 @@ class sydneyFtpEventsMapper extends DataMapper
           $event['name']                    = (string) $eventNode->Name;
           $event['description']             = (string) $eventNode->Description;
           $event['url']                     = (string) $eventNode->Website;
-          $event['price']                   = stringTransform::formatPriceRange( (int) $eventNode->PriceFrom, (int) $eventNode->PriceTo );;
+          $event['price']                   = stringTransform::formatPriceRange( (int) $eventNode->PriceFrom, (int) $eventNode->PriceTo, '$' );
           $event['rating']                  = (string) $eventNode->Rating;
           $event['Vendor']                  = $this->vendor;
 
@@ -77,10 +77,25 @@ class sydneyFtpEventsMapper extends DataMapper
 
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 
+          // Delete Occurences
+          // occurrences of this event will be deleted and will be added again
+          // this causes auto_increment id's to increment each time, we may run out of ids at some point
+          // so we will keep the old ids
+
+          $oldIds = array();
+          foreach ($event['EventOccurrence'] as $oldOccurrence)
+          {
+            $oldIds[] = $oldOccurrence[ 'id' ];
+          }
+
+          $event['EventOccurrence']->delete();
+
           // This assumes only one occurence per Event.
           if ( $poi !== false )
           {
               $occurrence = new EventOccurrence();
+              //reuse the old occurrence id
+              $occurrence[ 'id' ] = array_pop( $oldIds );
               $occurrence['start_date']                   = $this->extractDate( (string) $eventNode->DateFrom, true );
 
               $timeInfo = $this->extractTime( (string) $eventNode->Time );
@@ -99,10 +114,10 @@ class sydneyFtpEventsMapper extends DataMapper
                                                                 ->generateVendorEventOccurrenceId( $event['vendor_event_id'], $poi['id'], $occurrence[ 'start_date' ] );
               $occurrence['utc_offset']                   = $this->vendor->getUtcOffset();
               $occurrence['Poi']                          = $poi;
-
-              $event['EventOccurrence']->delete();
               $event['EventOccurrence'][] = $occurrence;
-          }else{
+          }else
+          {
+
               $this->notifyImporterOfFailure( new Exception( 'Could not find Sydney Poi with Vendor name of '. (string) $event['name']  ) );
               continue;
           }

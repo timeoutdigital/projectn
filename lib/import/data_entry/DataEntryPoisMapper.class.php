@@ -1,27 +1,6 @@
 <?php
-class DataEntryPoisMapper extends DataMapper
+class DataEntryPoisMapper extends DataEntryBaseMapper
 {
-    /**
-    *
-    * @var projectNDataMapperHelper
-    */
-    protected $dataMapperHelper;
-
-    /**
-    * @var geoEncode
-    */
-    protected $geoEncoder;
-
-    /**
-    * @var Vendor
-    */
-    protected $vendor;
-
-    /**
-    * @var SimpleXMLElement
-    */
-    protected $xml;
-
     /**
     *
     * @param SimpleXMLElement $xml
@@ -34,114 +13,138 @@ class DataEntryPoisMapper extends DataMapper
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
 
         if( !isset( $vendor ) || !$vendor )
-          throw new Exception( 'Vendor not found.' );
+          throw new Exception( 'DataEntryPoisMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
         $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
-       // echo $this->vendor['name'];
-
     }
 
     public function mapPois()
     {
         foreach ( $this->xml as $venueElement )
         {
-            foreach ($venueElement->attributes() as $attribute => $value)
+            try
             {
-                if( $attribute == 'vpid' )
+                // Defaults
+                $lang = $this->vendor['language'];
+                
+                foreach ($venueElement->attributes() as $attribute => $value)
                 {
-                    $vendorPoiId = (int) substr( (string) $value,5) ;
+                    if( $attribute == 'vpid' )
+                    {
+                        $vendorPoiId = (int) substr( (string) $value,5) ;
+                    }
+
+                    if( $attribute == 'lang' )
+                    {
+                        $lang = (string) $value;
+                    }
                 }
 
-                if( $attribute == 'lang' )
+                if( !$vendorPoiId )
                 {
-                    $lang = (string) $value;
+                     $this->notifyImporterOfFailure( new Exception( 'VendorPoiId not found for poi name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                     continue;
                 }
-            }
 
-            if( !$vendorPoiId )
-            {
-                continue;
-            }
+                $poi = $this->dataMapperHelper->getPoiRecord( $vendorPoiId );
 
-            $poi = $this->dataMapperHelper->getPoiRecord( $vendorPoiId );
+                $poi[ 'vendor_poi_id' ] = $vendorPoiId;
+                $poi[ 'poi_name' ] = (string) $venueElement->name;
 
-            $poi[ 'vendor_poi_id' ] = $vendorPoiId;
-            $poi[ 'poi_name' ] = (string) $venueElement->name;
+                $geoPosition = 'geo-position';
+                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
-            $geoPosition = 'geo-position';
+                // $poi['review_date'] = '';
+                $poi['local_language'] = $lang;
+                $poi['street'] =  (string) $venueElement->address->street;
+                $poi['house_no'] =  (string) $venueElement->address->houseno;
+                $poi['zips'] =  (string) $venueElement->address->zip;
+                $poi['district'] =  (string) $venueElement->address->district;
+                $poi['city'] =  (string) $venueElement->address->city;
+                $poi['country'] =  (string) $venueElement->address->country;
 
-            $poi[ 'longitude' ] = (string) $venueElement->{$geoPosition}->longitude;
-            $poi[ 'latitude' ] =  (string) $venueElement->{$geoPosition}->latitude;
+                $poi['additional_address_details'] = '';
+                $poi['Vendor'] = $this->vendor;
+                $poi['phone'] =   (string) $venueElement->contact->phone;
+                $poi['phone2'] =  (string) $venueElement->contact->phone2;
+                $poi['fax'] =  (string) $venueElement->contact->fax;
 
-            $poi['review_date'] = '';
-            $poi['local_language'] = $lang;
-            $poi['street'] =  (string) $venueElement->address->street;
-            $poi['house_no'] =  (string) $venueElement->address->houseno;
-            $poi['zips'] =  (string) $venueElement->address->zip;
-            $poi['district'] =  (string) $venueElement->contact->district;
-            $poi['city'] =  (string) $venueElement->address->city;
-            $poi['country'] =  (string) $venueElement->address->country;
+                $poi['url'] =  (string) $venueElement->contact->url;
+                $poi['email'] =  (string) $venueElement->contact->email;
 
-            $poi['additional_address_details'] = '';
-            $poi['vendor_id'] = $this->vendor['id'];
-            $poi['phone'] =   (string) $venueElement->contact->phone;
-            $poi['phone2'] =  (string) $venueElement->contact->phone2;
-            $poi['fax'] =  (string) $venueElement->contact->fax;
+                $vendorCategory = 'vendor-category';
+                $shortDescription = 'short-description';
+                $publicTransport = 'public-transport';
+                if( $venueElement->version->content->{$vendorCategory} && isset( $venueElement->version->content->{$vendorCategory} ) )
+                {
+                    $poi->addVendorCategory( (string) $venueElement->version->content->{$vendorCategory}, $this->vendor['id'] );
+                }
+                $poi['keywords'] =  '';
+                $poi['short_description'] =  (string) $venueElement->version->content->{$shortDescription};
+                $poi['description'] =  (string) $venueElement->version->content->description;
+                $poi['public_transport_links'] =  (string) $venueElement->version->content->{$publicTransport};
+                $poi['price_information'] =  (string) $venueElement->version->content->price;
+                $poi['openingtimes'] =  (string) $venueElement->version->content->openingtimes;
+                $poi['star_rating'] =  (int) $venueElement->version->content->stars;
+                $poi['rating'] =  (int) $venueElement->version->content->rating;
 
-            $poi['url'] =  (string) $venueElement->contact->url;
-            $poi['email'] =  (string) $venueElement->contact->email;
+                $poi['geocode_look_up']  = stringTransform::concatNonBlankStrings(', ',
+                        array( $poi['house_no'] ,
+                               $poi['street'],
+                               $poi['city'],
+                               $poi['zips']
+                        ) );
 
-            $vendorCategory = 'vendor-category';
-            $shortDescription = 'short-description';
-            $publicTransport = 'public-transport';
-            $poi->addVendorCategory( (string) $venueElement->content->{$vendorCategory}, $this->vendor['id'] );
-            $poi['keywords'] =  '';
-            $poi['short_description'] =  (string) $venueElement->content->{$shortDescription};
-            $poi['description'] =  (string) $venueElement->content->description;
-            $poi['public_transport_links'] =  (string) $venueElement->content->{$publicTransport};
-            $poi['price_information'] =  (string) $venueElement->content->price;
-            $poi['openingtimes'] =  (string) $venueElement->content->openingtimes;
-            $poi['star_rating'] =  (int) $venueElement->content->stars;
-            $poi['rating'] =  (int) $venueElement->content->rating;
-            $poi['geocode_look_up']  =  $poi['house_no'] .' ';
-            $poi['geocode_look_up'] .=  $poi['street'] .' ';
-            $poi['geocode_look_up'] .=  $poi['city'] .' ';
-            $poi['geocode_look_up'] .=  $poi['country'] .' ';
-            $poi['geocode_look_up'] .=  $poi['zips']  ;
+                if( isset( $venueElement->version->content->property ) )
+                {
+                    foreach ($venueElement->version->content->property as $property)
+                    {
+                        foreach ($property->attributes() as $attribute)
+                        {
+                            $poi->addProperty( (string) $attribute, (string) $property );
+                        }
+                    }
+                }
 
-            $poi->save();
+                if( isset( $venueElement->version->content->media ) )
+                {
+                    foreach ( $venueElement->version->content->media as $media )
+                    {
+                        foreach ($media->attributes() as $key => $value)
+                        {
+                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                            {
+                                continue 2; //only add the images
+                            }
+                        }
+                        try
+                        {
+                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                            $urlArray = explode( '/', (string) $media );
+                            // Get the Last IDENT
+                            $imageFileName = array_pop( $urlArray );
 
-            //$this->notifyImporter( $poi );
+                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
 
-            /*
-              $poi['review_date'] = '';
-              $poi['local_language'] = 'pt';
-              $poi['city'] = 'Lisbon';
-              $poi['country'] = 'PRT';
-              $poi['additional_address_details'] = $this->extractAddress( $venueElement );
-              $poi['phone'] =  (string) $venueElement[ 'phone' ];
-              $poi->addVendorCategory( (string) $venueElement[ 'tipo' ], $this->vendor['id'] );
-              $poi['public_transport_links'] = $this->extractTransportLinkInfo( $venueElement );
-              $poi['vendor_id'] = $this->vendor['id'];
+                            $poi->addMediaByUrl( $mediaURL );
+                        }
+                        catch ( Exception $exception )
+                        {
+                             $this->notifyImporterOfFailure( $exception );
+                        }
+                    }
+                }
 
-              $poi['street']                     = trim( (string) $venueElement[ 'address' ], " ," );
+               $this->notifyImporter( $poi );
 
-              $poi['description']                = $this->extractAnnotation( $venueElement );
-              $poi['additional_address_details'] = $this->extractAddress( $venueElement );
-              $poi['phone2']                     = $this->extractPhoneNumbers( $venueElement );
-              $poi['public_transport_links']     = $this->extractTransportLinkInfo( $venueElement );
-              $poi['price_information']          = $this->extractPriceInfo( $venueElement );
-              $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
-              $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
-
-              $poi->setGeoEncodeLookUpString( $this->getGeoEncodeData( $poi ) );
-              $this->notifyImporter( $poi );*/
-
-            //echo $poi['poi_name'];
-
+           }
+           catch (Exception  $exception )
+           {
+                $this->notifyImporterOfFailure($exception, $poi);
+           }
         }
     }
 

@@ -155,14 +155,7 @@ class PoiFixture
 {
   static public function create( $data=null, $autoCreateRelatedObjects=true )
   {
-    $defaults = PoiFixture::getDefaults();
-    if( is_array( $data ) )
-    {
-      $defaults = array_merge( $defaults, $data );
-    }
-
     $poi = new Poi();
-    $poi->fromArray( $defaults );
 
     if( $autoCreateRelatedObjects )
     {
@@ -182,11 +175,26 @@ class PoiFixture
       $poi->link( 'Vendor', array( 1 ) );
     }
 
+    $defaults = PoiFixture::getDefaults( Doctrine::getTable( 'Vendor' )->findOneById( 1 ) );
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $poi->fromArray( $defaults );
+
+    $mockGeoEncoder = new mockGeoEncode();
+
+    $poi->setGeoEncoder( $mockGeoEncoder );
+
     return $poi;
   }
 
-  static private function getDefaults()
+  static private function getDefaults( $vendor )
   {
+    // Poi Lat/Long must be in Vendor Bounds as per #497
+    $bounds_array = explode( ";", $vendor['geo_boundries'] );
+    
     return array(
         'poi_name' => 'test name',
         'street' => 'test street',
@@ -194,9 +202,10 @@ class PoiFixture
         'country' => 'GBR',
         'vendor_poi_id' => '1',
         'local_language' =>'aaa',
-        'longitude' => '1.1',
-        'latitude' => '1.1',
+        'longitude' => rand( $bounds_array[1]+0.1, $bounds_array[3]-0.1 ),
+        'latitude' => rand( $bounds_array[0]+0.1, $bounds_array[2]-0.1 ),
         'geocode_look_up' => 'foo',
+
     );
   }
 }
@@ -253,6 +262,7 @@ class VendorFixture
       'inernational_dial_code' => '+44',
       'country_code' => 'gb',
       'geo_boundries' => '49.1061889648438;-8.623556137084959;60.8458099365234;1.75900018215179',
+       'country_code_long' =>  'GBR',
     );
   }
 }
@@ -494,3 +504,54 @@ class VendorPoiCategoryFixture
   }
 }
 
+
+class mockGeoEncode extends geoEncode
+{
+
+  public function getAddress()
+  {
+    return 'mock geo encoder address';
+  }
+
+  public function getApiKey()
+  {
+    return 'mock geo encoder api key';
+  }
+
+  public function getRegion()
+  {
+    return 'mock geo encoder region';
+  }
+
+  public function getBounds()
+  {
+    return 'mock geo encoder bounds';
+  }
+
+  public function getRawResponse()
+  {
+      return 'mock geo encoder raw response';
+  }
+
+  public function getLongitude()
+  {
+    return rand( 0, 180 );
+  }
+
+  public function getLatitude()
+  {
+    return rand( 0, 180 );
+  }
+
+  public function getAccuracy()
+  {
+      // address level accurace (google)
+      return 8;
+  }
+
+  public function getLookupUrl()
+  {
+     return 'mock geo encoder lookup url';
+  }
+
+}

@@ -1,0 +1,31 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           VendorPoiCategory
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          vendor_poi_category
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        vendor_id: { attributes: { onchange: "document.forms[0].submit()" } }
+      list:
+        display:           [name]
+      filter:
+        class: VendorPoiCategoryDataEntryFormFilter
+        display:           [vendor_id, name]
+      form:
+        class: VendorPoiCategoryDataEntryForm
+        display:
+          Editable:
+            - name
+          Info:
+            - vendor_id
+      edit:    ~
+      new:     ~
