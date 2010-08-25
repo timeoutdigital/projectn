@@ -47,7 +47,7 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
             $poi['short_description']             = $this->clean( (string) $venueElement->short_description );
             $poi['description']                   = $this->clean( (string) $venueElement->description );
             $poi['public_transport_links']        = $this->extractPublicTransportInfo( $venueElement );
-            $poi['price_information']             = $this->clean( (string) $venueElement->price_information );
+            $poi['price_information']             = $this->clean( str_replace( PHP_EOL, '', (string) $venueElement->price_information ) );
             $poi['openingtimes']                  = $this->clean( (string) $venueElement->opening_times );
             //$poi['star_rating']
             //$poi['rating']
