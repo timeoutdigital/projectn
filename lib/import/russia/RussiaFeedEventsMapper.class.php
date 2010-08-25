@@ -72,7 +72,7 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                   $occurrence[ 'Poi' ] = $poi;
 
                   // Fix for Start time = End Time / Only String Matching...
-                  $occurrence[ 'end_time' ] = $this->fixedEndTime($occurrence);
+                  $this->fixedEndTime($occurrence);
 
                   $event['Vendor'] = $this->vendor;
 
@@ -117,7 +117,11 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
   private function fixedEndTime( $occurrence ){
 
       // Check for EMPTY
-      if($occurrence[ 'start_time' ] == null || $occurrence[ 'end_time' ] == null) return null;
+      if($occurrence[ 'start_time' ] == null || $occurrence[ 'end_time' ] == null)
+      {
+          $occurrence[ 'end_time' ] = null;
+          return;
+      }
 
       // Create Start Date & Time
       $startDateTime = DateTime::createFromFormat('Y-m-d H:i', $occurrence[ 'start_date' ].$occurrence[ 'start_time' ]);
@@ -128,7 +132,7 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           $endDateTime = DateTime::createFromFormat('Y-m-d H:i', $occurrence[ 'end_date' ].$occurrence[ 'end_time' ]);
 
       // Compare Dates and Return End Time Value
-      return ($endDateTime > $startDateTime) ? $occurrence[ 'end_time' ] : null;
+      $occurrence[ 'end_time' ] = ($endDateTime > $startDateTime) ? $occurrence[ 'end_time' ] : null;
   }
   
 }
