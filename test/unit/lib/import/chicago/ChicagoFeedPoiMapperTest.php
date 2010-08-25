@@ -73,7 +73,7 @@ class ChicagoFeedPoiMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'El: Red to Lake; Orange, Pink, Green, Brown, Purple (rush hrs) to Randolph. Bus: 3, 4, 6, 10, 14, 26, 143, 144, 145, 146, 147, 151, 157. Metra: Elec to Millennium Station', $poi['public_transport_links'], 'Public transport links provided as Approach text_type');
 
         // price
-        $this->assertEquals( 'USD 7.00, seniors USD 6.00', $poi['price_information'], 'Invalid price information');
+        $this->assertEquals( 'USD 7.00, Children USD 3.00 - 5.00, seniors USD 6.00', $poi['price_information'], 'Invalid price information');
 
         // assert Number 9
         $poi = $pois[8];

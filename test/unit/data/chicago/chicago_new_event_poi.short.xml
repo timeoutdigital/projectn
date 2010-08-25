@@ -1677,10 +1677,10 @@
 		</price>
 
 		<price>
-			<price_type></price_type>
+			<price_type>Children</price_type>
 			<currency>USD</currency>
-			<value integer="7" decimal_places="00">7.00</value>
-			<value_to integer="0" decimal_places="00">0.00</value_to>
+			<value integer="7" decimal_places="00">3.00</value>
+			<value_to integer="0" decimal_places="00">5.00</value_to>
 		</price>
 
 		<price>

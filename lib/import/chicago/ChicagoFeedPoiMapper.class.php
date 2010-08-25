@@ -102,7 +102,7 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
                             } else {
 
                                 $priceValue = ( (string) $price->value != '0.00' ) ? (string) $price->currency . ' ' . (string) $price->value : '';
-                                $priceValueTo = ( (string) $price->value_to != '0.00' ) ? (string) $price->currency . ' ' . (string) $price->value_to : '';
+                                $priceValueTo = ( (string) $price->value_to != '0.00' ) ? (string) $price->value_to : '';
 
                                 $priceInfoString = stringTransform::concatNonBlankStrings( ' - ', array( $priceValue, $priceValueTo ) ); // add Price from - to values
 
