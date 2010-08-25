@@ -495,12 +495,15 @@ Media:
   columns:
     ident:                {type: string(40), notnull: true, unique:true}
     url:                  {type: string(1024), notnull: true}
-    mime_type:            {type: string(255), notnull: true}
+    mime_type:            {type: string(255), notnull: false}
     file_last_modified:   {type: string(255), notnull: false}
     etag:                 {type: string(255), notnull: false}
     content_length:       {type: integer, notnull: false}
+    status:               {type: enum, notnull: true, values: [new, valid, error, dead]}
+    last_header_check:    {type: datetime, notnull: false}
   indexes:
     ident_index:          {fields: [ident]}
+    status_index:         {fields: [status]}
 
 
 RecordFieldOverride:
