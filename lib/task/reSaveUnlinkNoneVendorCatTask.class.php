@@ -37,14 +37,18 @@ class reSaveUnlinkNoneVendorCatTask extends sfBaseTask
         throw new Exception( 'Invalid model given! use --model=Poi/Event  ');
     }
 
-    if( $options['city'] )
+    if( !$options['city'] || trim($options['city']) == '' )
     {
-        $this->_vendor = Doctrine::getTable('Vendor')->findOneByCity( $options['city'] );
-        if( !$this->_vendor )
-        {
-             throw new Exception( "Vendor couldn't be found with the given city parameter. given : " . $options[ 'city' ] );
-        }
+        throw new Exception( 'City option must be specified! e.g: --city=chicago  ');
     }
+
+    // Get Vendor
+    $this->_vendor = Doctrine::getTable('Vendor')->findOneByCity( $options['city'] );
+    if( !$this->_vendor )
+    {
+         throw new Exception( "Vendor couldn't be found with the given city parameter. given : " . $options[ 'city' ] );
+    }
+    
 
     $this->reSaveModel( $options[ 'model' ] , $this->_vendor );
   }
@@ -83,12 +87,14 @@ class reSaveUnlinkNoneVendorCatTask extends sfBaseTask
                 // This will unlink all vendor category relationships that dont match the poi vendor.
                 if( $existingCategory[ 'vendor_id' ] != $vendor['id'] )
                 {
-                    $this->unlinkInDb( $vendorModelCategory, array( $existingCategory[ 'id' ] ) );
+                    $object->unlinkInDb( $vendorModelCategory, array( $existingCategory[ 'id' ] ) );
+                    echo PHP_EOL;
                     $this->logSection( $model , 'Unlinking Category for Model id: ' . $object['id'] );
                 }
-            }            
-            // Save
-            $object->save();
+            }
+            echo '.';
+            // No need to Save, unlinkInDb() should update the changes!
+            //$object->save();
         }
 
         $i++; // Next page
