@@ -182,9 +182,9 @@ class importTask extends sfBaseTask
                 // @todo Wrap in try catch & change this to XSLT like new NY
                 // We are to Run two Import on Events to Manage Memory!
                 $eventsNode = $xmlData->xpath( '/body/event' );
-                $totalCount = count($eventsNode); 
+                $totalCount = count($eventsNode);
                 $splitAt = round( $totalCount / 2 );
-                
+
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, 0, $splitAt) );
                 $importer->run();
@@ -199,11 +199,11 @@ class importTask extends sfBaseTask
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, $splitAt, $totalCount ) );
                 $importer->run();
                 ImportLogger::getInstance()->end();
-                
+
                 $this->dieWithLogMessage();
-                
+
               break;
-          
+
           case 'movie':
               ImportLogger::getInstance()->setVendor( $vendorObj );
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -219,10 +219,16 @@ class importTask extends sfBaseTask
       case 'singapore':
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
+        $dataSource = new singaporeDataSource( $options['type'] );
+
+        $xml = $dataSource->getXML();
+        print_r( $xml );
+        return;
         switch( $options['type'] )
         {
+
           case 'poi-event':
-            //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
+           /* //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
             //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
             echo "Starting Singapore Pois import \n";
@@ -249,7 +255,7 @@ class importTask extends sfBaseTask
             $this->object->insertEvents( $xmlObj );
 
             ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
+            $this->dieWithLogMessage();*/
 
             break;
 
@@ -644,7 +650,7 @@ class importTask extends sfBaseTask
     break; //end data entry imports
 
     case 'beijing':
-        
+
         switch( $options['type'] )
         {
             case 'poi':
