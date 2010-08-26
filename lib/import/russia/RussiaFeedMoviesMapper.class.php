@@ -15,101 +15,126 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
 {
   public function mapMovies()
   {
+      // Loop through each Movies in XML feed to add Movie for All Russian Cities
     foreach( $this->fixIteration( $this->xml->movie ) as $movieElement )
     {
-        try {
-            // Set Vendor Unknown For Import Logger
-            ImportLogger::getInstance()->setVendorUnknown();
+        // Set Vendor Unknown For Import Logger
+        ImportLogger::getInstance()->setVendorUnknown();
 
-            // Get Movie Id
-            $vendor_movie_id = (int) $movieElement['id'];
+        // Reset Cities Array
+        $cities = array();  // One movie should be added Once per City! N! only want Movie reviews not movie venue or show times
 
-            $movie = Doctrine::getTable("Movie")->findByVendorMovieIdAndVendorLanguage( $vendor_movie_id, 'ru' );
-            if( !$movie ) $movie = new Movie();
+        // Movie Node has Multiple Venues, each for each Cities
+        // wee need to Loop through venues to get Existing movie for that City and
+        // update or add New once!
+        foreach( $movieElement->venues->venue as $xmlVenue )
+        {
+            try {
+                // Get Occurrence Id
+                $vendor_venue_id = (int) $xmlVenue['id'];
+                if( !isset( $vendor_venue_id ) || !is_numeric( $vendor_venue_id ) )
+                {
+                    continue;
+                }
 
-            // Seperate Russian / Foreign names
-            $movieName = $this->splitRussianName((string) $movieElement->name);
-            
-            // Column Mapping
-            $movie['vendor_movie_id']   = $vendor_movie_id;
-            $movie['name']              = stringTransform::mb_trim($movieName[0]); // 0 Alwasy Russian names
-            $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot ); // Requires Double Entity Decoding
-            $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review ); // Requires Double Entity Decoding
-            $movie['url']               = (string) $movieElement->url;
-            $movie['rating']            = $this->roundNumberOrReturnNull( (string) $movieElement->rating );
+                // Get the POI
+                $poi = Doctrine::getTable("Poi")->findByVendorPoiIdAndVendorLanguage( $vendor_venue_id, 'ru' );
+                if( !$poi )
+                {
+                    $this->notifyImporterOfFailure( new Exception( "Could not find POI for Movie with Id: " . $vendor_movie_id ), isset( $movie ) ? $movie : null );
+                    continue;
+                }
 
-            // Booking Url
-            if( (string) $movieElement->booking_url != "" )
-                $movie->addProperty( "Booking_url" , (string) $movieElement->booking_url );
+                // Only one Movie Per City
+                if( in_array( $poi['Vendor']['city'], $cities ) )
+                {
+                    continue;
+                }
 
-            // Timeout Link
-            if( (string) $movieElement->timeout_url != "" )
-                $movie->addProperty( "Timeout_link", (string) $movieElement->timeout_url );
+                // Set Vendor For Import Logger
+                ImportLogger::getInstance()->setVendor( $poi['Vendor'] );
+                
+                // Get Movie Id
+                $vendor_movie_id = (int) $movieElement['id'];
 
-            // add English Title IF not empty
-            if( count($movieName) > 1 && stringTransform::mb_trim($movieName[1]) != '' )
-                $movie->addProperty( "English_title", stringTransform::mb_trim($movieName[1]) );
+                // Get oneMovie
+                $movie  = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $poi['Vendor']['id'], $vendor_movie_id );
+                
+                if( !$movie )
+                {
+                    $movie = new Movie();
+                }
 
-            // Reset Cities Array
-            $cities = array();
+                // Seperate Russian / Foreign names
+                $movieName                  = $this->splitRussianName((string) $movieElement->name);
 
-            // Attach Venues
-            foreach( $movieElement->venues->venue as $xmlVenue )
-            {
-                try {
-                    // Get Occurrence Id
-                    $vendor_venue_id = (int) $xmlVenue['id'];
-                    if( !isset( $vendor_venue_id ) || !is_numeric( $vendor_venue_id ) ) continue;
+                // Column Mapping
+                $movie['Vendor']            = $poi['Vendor'];
+                $movie['vendor_movie_id']   = $vendor_movie_id;
+                $movie['name']              = stringTransform::mb_trim($movieName[0]); // 0 Alwasy Russian names
+                $movie['plot']              = $this->fixHtmlEntities( (string) $movieElement->plot ); // Requires Double Entity Decoding
+                $movie['review']            = $this->fixHtmlEntities( (string) $movieElement->review ); // Requires Double Entity Decoding
+                $movie['url']               = (string) $movieElement->url;
+                $movie['rating']            = $this->roundNumberOrReturnNull( (string) $movieElement->rating );
 
-                    $poi = Doctrine::getTable("Poi")->findByVendorPoiIdAndVendorLanguage( $vendor_venue_id, 'ru' );
-                    if( !$poi )
-                    {
-                        $this->notifyImporterOfFailure( new Exception( "Could not find POI for Movie with Id: " . $vendor_movie_id ), isset( $movie ) ? $movie : null );
-                        continue;
-                    }
+                // Booking Url
+                if( (string) $movieElement->booking_url != "" )
+                {
+                    $movie->addProperty( "Booking_url" , (string) $movieElement->booking_url );
+                }
 
-                    // Set Vendor For Import Logger
-                    ImportLogger::getInstance()->setVendor( $poi['Vendor'] );
+                // Timeout Link
+                if( (string) $movieElement->timeout_url != "" )
+                {
+                    $movie->addProperty( "Timeout_link", (string) $movieElement->timeout_url );
+                }
 
-                    // Only one Movie Per City
-                    if( in_array( $poi['Vendor']['city'], $cities ) ) continue;
+                // add English Title IF not empty
+                if( count($movieName) > 1 && stringTransform::mb_trim($movieName[1]) != '' )
+                {
+                    $movie->addProperty( "English_title", stringTransform::mb_trim($movieName[1]) );
+                }
 
-                    $movie['Vendor'] = $poi['Vendor'];
-                    $cities[] = $poi['Vendor']['city'];
-
-                    // Genres (Requires Vendor)
+                // Genres (Requires Vendor)
+                if( isset( $movieElement->categories->category ) )
+                {
                     foreach( $movieElement->categories->category as $category )
+                    {
                         $movie->addGenre( (string) $category, $movie['Vendor']['id'] );
+                    }
+                }
 
-                    // UTC Offset (Requires Vendor)
-                    $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
+                // UTC Offset (Requires Vendor)
+                $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
 
-                    //Add Images (Requires Vendor)
+                //Add Images (Requires Vendor)
+                if( isset( $movieElement->medias->media ) )
+                {
                     $processed_medias = array();
                     foreach( $movieElement->medias->media as $media )
                     {
                         $media_url = (string) $media;
                         if( !in_array( $media_url, $processed_medias ) )
+                        {
                             $this->addImageHelper( $movie, $media_url );
+                        }
                         $processed_medias[] = $media_url;
                     }
-
-                    $this->notifyImporter( $movie );
-
-                    $movie = $movie->copy();
                 }
-                catch( Exception $exception )
-                {
-                    $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
-                }
+
+                $this->notifyImporter( $movie );
+
+                // Add to City list
+                $cities[] = $poi['Vendor']['city'];
+                
+                unset( $movie );
             }
-            unset( $movie );
-        }
-        catch( Exception $exception )
-        {
-            $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
-        }
-    }
+            catch( Exception $exception )
+            {
+                $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
+            }
+        } // foreach Venues
+    } // foreach Movies
   }
 
   /**

@@ -21,6 +21,7 @@ class XMLExportPOI extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
     parent::__construct(  $vendor, $destination, 'Poi', $xsd , $validation);
 
+    ExportLogger::getInstance()->initExport( 'Poi' );
   }
 
   protected function getData()
@@ -84,8 +85,20 @@ class XMLExportPOI extends XMLExport
             ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
             continue;
           }
-
       }
+
+     //skip the BEIJING pois if the status is not 10
+     if( $this->validation == true && $poi[ 'vendor_id' ] == 22 ) //beijing vendor_id
+     {
+         foreach ($poi[ 'PoiMeta' ] as $meta)
+         {
+            if(  $meta[ 'lookup' ] == 'status'  && $meta[ 'value' ] != 10 )
+            {
+                ExportLogger::getInstance()->addError( 'Skip Export for Beijing Pois status is not LIVE (10), ' . $meta[ 'value' ] . ' is given', 'Poi', $poi[ 'id' ] );
+                continue 2;
+            }
+         }
+     }
 
       //Skip Export for Pois with Dupe Lat/Longs
       foreach( $duplicateLatLongs as $dupe )

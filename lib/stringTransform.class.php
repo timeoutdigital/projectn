@@ -401,18 +401,16 @@ class stringTransform
   }
 
   /*
-   * formatPriceRange formats a from to price range, make sure the locale
-   * is set correctly
-   *
    * @param mixed $minPrice
    * @param mixed $maxPrice
+   * @param mixed $currencyPrefix (e.g. currency Symbol)
    * @param string $format optional switch to choose between the formats
    *        supported 'short' and 'long' (default)
    *
    * @return string the price range string
    *
   */
-  public static function formatPriceRange( $minPrice, $maxPrice=0, $format='long' )
+  public static function formatPriceRange( $minPrice, $maxPrice=0, $currencyPrefix='', $format='long' )
   {
     $returnString = '';
     $pricesAreNumeric  = is_numeric( $minPrice ) &&  is_numeric( $maxPrice );
@@ -424,25 +422,22 @@ class stringTransform
 
       if ( (int) $maxPrice == 0 )
       {
-        $returnString = money_format( $moneyFormatString, $minPrice );
+        $returnString = $currencyPrefix . sprintf( '%.2F', $minPrice );
       }
       else
       {
         switch( $format )
         {
           case 'short':
-            $returnString = money_format( $moneyFormatString, $minPrice ) . ' - ' . money_format( $moneyFormatString, $maxPrice ) ;
+            $returnString = $currencyPrefix . sprintf( '%.2F', $minPrice ) . ' - ' . $currencyPrefix . sprintf( '%.2F', $maxPrice ) ;
             break;
           case 'long':
           default:
-            $returnString = 'between ' . money_format( $moneyFormatString, $minPrice ) . ' and ' . money_format( $moneyFormatString, $maxPrice ) ;
+            $returnString = 'between ' . $currencyPrefix . sprintf( '%.2F', $minPrice ) . ' and ' . $currencyPrefix . sprintf( '%.2F', $maxPrice ) ;
             break;
         }
       }
     }
-
-    //fix the issue with the missing space in front of £
-    $returnString = str_replace( '£', '£ ', $returnString );
 
     return $returnString;
   }

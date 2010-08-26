@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<venues>
+ <venue id="01">
+    <name><![CDATA[Adem Baba]]></name>
+    <house_no><![CDATA[2]]></house_no>
+    <street><![CDATA[Satış Meydanı Sk.]]></street>
+    <city><![CDATA[İSTANBUL]]></city>
+    <district><![CDATA[Arnavutköy]]></district>
+    <additional_address_details></additional_address_details>
+    <country><![CDATA[TR]]></country>
+    <postcode></postcode>
+    <long></long>
+    <lat></lat>
+    <short_description><![CDATA[Karadenizli üç kardeş tarafından işletilen Adem Baba küçük bir balıkçı.]]></short_description>
+    <description><![CDATA[İşe ’94 yılında Bebek koyunda minik bir teknede başlayıp İstanbullulara deniz üzerinde balık yemenin keyfini yaşattıktan sonra lokantaya geçtiler. Burada yediğiniz tüm balıklar taze; içeriye kesinlikle buzhane balığı sokulmuyor. Balığın yanı sıra kalamar, midye dolma, midye tava, balık köftesi, çiroz ve kış aylarında balık çorbası bulmak da mümkün. Taze deniz mahsulleri, güler yüzlü personel ve hızlı servisle birleşince doğal olarak bir müdavim kitlesi de ortaya çıkmış. Artan müşteri talebini karşılamak için yolun karşısında bir de şube edinen Adem Baba Deniz Ürünlerinde içki servisi yok ancak fiyatlar çok makul. Lokantanın sadece paket servisi veren bir de şubesi var. Arabanızla gidebilirsiniz, vale servisleri var.]]></description>
+    <price_information></price_information>
+    <opening_times></opening_times>
+    <rating><![CDATA[3]]></rating>
+    <email></email>
+    <phone><![CDATA[(0212) 263 29 33]]></phone>
+    <phone2></phone2>
+    <fax></fax>
+    <url><![CDATA[http://www.adembaba.com]]></url>
+    <timeout_url><![CDATA[http://www.timeoutistanbul.com/p111/yemeicme/adem_baba]]></timeout_url>
+    <review_date></review_date>
+    <public_transport></public_transport>
+    <star_rating></star_rating>
+    <rating></rating>
+    <keywords></keywords>    
+        <categories>
+        <category>
+            <name><![CDATA[Yeme&İçme – Balık Restoranları]]></name>
+            <children>
+                <category></category>
+                <category></category>
+            </children>
+        </category>
+        <category></category>
+        <category></category>
+    </categories>
+    <provider></provider>
+    <medias>
+        <media></media>
+        </medias>
+ </venue>
+
+ <venue id="02">
+    <name><![CDATA[Bottega]]></name>
+    <house_no><![CDATA[3]]></house_no>
+    <street><![CDATA[Küçük Bebek Cd.]]></street>
+    <city><![CDATA[İSTANBUL]]></city>
+    <district><![CDATA[Bebek]]></district>
+    <additional_address_details></additional_address_details>
+    <country><![CDATA[TR]]></country>
+    <postcode></postcode>
+    <long></long>
+    <lat></lat>
+    <short_description><![CDATA[Küçük Bebek'in demirbaşlarından La Favorita'nın yerine açılan Bottega, Ege esintili bir İtalyan restoranı.]]></short_description>
+    <description><![CDATA[El yapımı makarnalar ve ekmekler tadabileceğiniz mekâna girer girmez ahşabın sıcaklığı insanı sarıveriyor. Buna beyazın sadeliği de eklenince ortaya oldukça rahatlatıcı ve dengeli bir dekorasyon çıkıyor. Bottega’nın anlamı da duvardaki kara tahtada yazıyor: Bir zanaatı ustasıyla beraber yaparak öğrenmek için gidilen atölye. La Favorita zamanını bilenler bilir, üç katlı mekânın giriş katında üç masa ve bar bulunuyor. Duvardaki aynaların çokluğu ise yağlıboya tablolar ile dengelenmiş. İkinci katta cam kenarındaki oturma grubu ise bütün günü dergi karıştırıp tembellik yaparak geçirmek isteyenler için oldukça ideal. En üst katta ise gruplar için ayrılmış büyük bir masa bulunuyor. Lila ve mor tonlarının bolca kullanıldığı bu katta 14 kişiye kadar hizmet verebiliyor. Yani La Favorita’dan bu yana çok da büyük bir değişiklik yok. Gelelim Bottega’nın asıl silahına yani yemeklerine. Klasik İtalyan lezzetlerine Egeli bir yorum katan mekânın şefi MSA’da eğitim almış ve Bologna’da da çalışmış. Ancak menüyü şefle beraber mekân sahipleri kendi sevdikleri yemeklerden oluşturmuşlar. İzmirli ve yemeğe meraklı olan bir ailenin çocuklarının işlettiği Bottega’nın deniz mahsulleri de Çeşme’den geliyor. Levrekli bruschetta’nın tadına doyamamamızın en büyük nedeni de bu olsa gerek. Başlangıçlarda en çok dikkati çekenler yine bruschetta’lar ve peynir tabağı olurken, makarnalardan camambert peynirli ravioli peynir aşıklarına tavsiye olunur. Pizzalardan; sarımsak püresi, istiridye mantarı ve bonfile dilimlerinin muhteşem uyumuna ev sahipliği yapan Bottega pizza ağızları sulandırırken, ana yemeklerde kuzu confit etseverleri coşturuyor. Tatlılardan Tiremelisu ılık sunumu ve çilek sosuyla ilgiyi hak ediyor. Şili, İspanyol ve İtalyan şaraplarına ev sahipliği yapan Bottega’nın kendine has kokteyli ise Bottega Karpuz.]]></description>
+    <price_information></price_information>
+    <opening_times></opening_times>
+    <rating><![CDATA[4]]></rating>
+    <email></email>
+    <phone><![CDATA[(0212) 265 02 66]]></phone>
+    <phone2></phone2>
+    <fax></fax>
+    <url><![CDATA[http://www.bottegabebek.com/]]></url>
+    <timeout_url><![CDATA[http://www.timeoutistanbul.com/p4916/yemeicme/bottega]]></timeout_url>
+    <review_date></review_date>
+    <public_transport></public_transport>
+    <star_rating></star_rating>
+    <rating></rating>
+    <keywords></keywords>    
+       <categories>
+        <category>
+            <name><![CDATA[Yeme&İçme - İtalyan Mutfağı]]></name>
+            <children>
+                <category></category>
+                <category></category>
+            </children>
+        </category>
+        <category></category>
+        <category></category>
+    </categories>
+    <provider></provider>
+    <medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/10064.jpg]]></media>
+        </medias>
+ </venue>
+
+<venue id="03">
+    <name><![CDATA[Çiya Sofrası]]></name>
+    <house_no><![CDATA[43]]></house_no>
+    <street><![CDATA[Caferağa Mh.Güneşlibahçe Sk.]]></street>
+    <city><![CDATA[İSTANBUL]]></city>
+    <district><![CDATA[Kadıköy]]></district>
+    <additional_address_details></additional_address_details>
+    <country><![CDATA[TR]]></country>
+    <postcode></postcode>
+    <long></long>
+    <lat></lat>
+        <short_description><![CDATA[Çiya’nın birbirinden lezzetli yemeklerinin yanı sıra envai çeşit otları da dillere destan.]]></short_description>
+    <description><![CDATA[Menüyü oluşturan Doğu Akdeniz ve Güneydoğu Anadolu ağırlıklı Anadolu’nun değişik yörelerinden alınan envai çeşit tarifle hazırladıkları yemeklerinde kullandıkları malzemeler de bu yörelerden sağlanıyor. İki katlı mekânda Şıhılmahşi, Mualle, Dövme, Unut Beni, Maş Çorbası, Malhıtalı Çorba, Lebeni Çorba, Firik Pilavı, Kömeç Aşı, Sitti Simidi, Yeşil Erik Tavası gibi ilginç yemekler var. İncir Tatlısı ve Melengiş Kahvesi ile yemek sonlandırılabilir. Günlük menüyü internet sitelerinden takip edebilirsiniz. Vitrine kurulmuş turşular ise hem görüntüleri hem de lezzetleri ile son derece başarılı. Tüm bu başarının arkasındaki Musa Bey ile eşinin tatlı sohbeti ise Çiya’ya uğrama sebeplerimizden bir başkası. Çiya’nın aynı sokakta iki dükkânı daha bulunuyor. Biri kebapçı, diğerinde ise hem yöresel yemekler hem de kebap var. Aynı telefon numarasından üç dükkâna da ulaşılabiliyor.]]></description>
+    <price_information></price_information>
+    <opening_times></opening_times>
+    <rating><![CDATA[3]]></rating>
+    <email></email>
+    <phone><![CDATA[(0216) 418 51 15]]></phone>
+    <phone2></phone2>
+    <fax></fax>
+    <url><![CDATA[http://www.ciya.com.tr/]]></url>
+    <timeout_url><![CDATA[http://www.timeoutistanbul.com/p460/yemeicme/ciya_sofrasi]]></timeout_url>
+    <review_date></review_date>
+    <public_transport></public_transport>
+    <star_rating></star_rating>
+    <rating></rating>
+    <keywords></keywords>    
+    <categories>
+        <category>
+            <name><![CDATA[Yeme&İçme - Türk-Osmanlı Mutfağı]]></name>
+            <children>
+                <category></category>
+                <category></category>
+            </children>
+        </category>
+        <category></category>
+        <category></category>
+    </categories>
+    <provider></provider>
+    <medias>
+        <media></media>
+        </medias>
+ </venue>
+
+ <venue id="04">
+    <name><![CDATA[Hardal]]></name>
+    <house_no><![CDATA[12]]></house_no>
+    <street><![CDATA[Minare Sk.]]></street>
+    <city><![CDATA[İSTANBUL]]></city>
+    <district><![CDATA[Asmalımescit]]></district>
+    <additional_address_details></additional_address_details>
+    <country><![CDATA[TR]]></country>
+    <postcode></postcode>
+    <long></long>
+    <lat></lat>
+        <short_description><![CDATA[Hem Asmalımescit'te, hem de kalabalıktan arınmış bir sokakta açılan Hardal'ın sloganı 'Eat, drink, play'.]]></short_description>
+    <description><![CDATA[Asmalımescit sosyalleşmenin neredeyse zorunlu adresi oldu olalı İstanbul'da mekân bolluğu yaşanmaya başladı. Havanın güzel olduğu akşamlarda sokaklarda adım atacak yer bulunmuyor. Hardal'ın dekorasyonu oyunbaz yanını sergiliyor. Sokağa adım atar atmaz gözü alan turuncu tente buraya ait. İçeriye girince sarılar, turuncular, morlar ve duvarlardaki Ümit Turgay Dursun eseri graffitiler eğlenceye davet ediyor. Oturarak 110, ayakta 400 kişi ağırlayabilen mekânda haftanın dört akşamı DJ performansı oluyor. Perşembeleri 'Oldies But Goldies' zamanı. Futbol, basketbol demeden canlı spor karşılaşmalarını izlemek isteyenler için dört bir yanda ekranlar var. Menü oldukça renkli. 17 farklı hamburger, salatalar, özel soslarla sunulan çeşit çeşit patates, wrap çeşitleri, fajita, makarnalar, ana yemekler ve atıştırma alternatifleri göze çarpanlar. Diyet ve çocuk menüleri mevcut. İki tip köfteyle hazırlanabilen hamburgerlerde iddialılar. Köftelerden biri Türk damak tadına uygun, baharatlı. Diğeri ise Amerikanvari, klasik hamburger köftesi. 40 gramlık ikişer köfteyle yapılan mini burgerler özellikle koskoca hamburgerle savaşmak istemeyen kibar hanımefendilerin gözdesi. Makarnalarda da çoktan seçme imkânı tanınıyor. İsteyene 'al dente', isteyene Türk usulü ‘al buono’ servis ediliyor. Adıyla yaşayan Hardal'da çeşit çeşit hardal olmasa olmazdı. Yaban mersinlisi de var, dijonu da vişnelisi de. Hardal'da kiloyla köfte ve kurabiye satışı da yapılıyor. Evde barbekü partisi vermek isteyenler için Hardal, özel ekip de sağlıyor. Bar menüsü zengin. Rengârenk kokteyller, özellikle içeriği devlet sırrı gibi saklanan Vanilla Sky, pek cazip. Dört-beş kişilik gruplar için kokteyller kovada servis ediliyor. İş çıkışı bir tek atmak için, maç izlemek, kalabalık gruplarla akşam yemeği yemek, doğum günü kutlamak için Hardal uygun ortam sağlıyor. Türlü kampanyalarla müdavim kitlesi oluşturmaya kararlılar. Mesela pazartesi ve salı günleri bir şişe şarap açtırana peynir tabağı müesseseden. Her çarşamba bir alkollü içki alana, ikincisi bedava. Hafta içi beş çayı saatinde, yani 17.00-19.00 arası tatlı sipariş edene çay ikram ediliyor. Cumaları 17.00-20.00 arası içeceklerde %20 indirim var. 15 Mayıs'ta açılacak terasın menüsü ve sürprizleri henüz belli değil. Haliç'ten Galata Kulesi'ne uzanan manzarasıyla epey rağbet görse gerek.]]></description>
+    <price_information></price_information>
+    <opening_times></opening_times>
+    <rating><![CDATA[3]]> </rating>
+    <email></email>
+    <phone><![CDATA[(0212) 243 83 60]]></phone>
+    <phone2></phone2>
+    <fax></fax>
+    <url><![CDATA[http://www.hardal.com.tr]]></url>
+    <timeout_url><![CDATA[http://www.timeoutistanbul.com/p4889/yemeicme/hardal]]></timeout_url>
+    <review_date></review_date>
+    <public_transport></public_transport>
+    <star_rating></star_rating>
+    <rating></rating>
+    <keywords></keywords>    
+    <categories>
+        <category>
+            <name><![CDATA[Yeme&İçme – Dünya Mutfakları]]></name>
+            <children>
+                <category></category>
+                <category></category>
+            </children>
+        </category>
+        <category></category>
+        <category></category>
+    </categories>
+    <provider></provider>
+    <medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/9727.jpg]]></media>
+        </medias>
+ </venue>
+
+ <venue id="05">
+    <name><![CDATA[Moda Teras]]></name>
+    <house_no><![CDATA[1]]></house_no>
+    <street><![CDATA[Mektep Sk.]]></street>
+    <city><![CDATA[İSTANBUL]]></city>
+    <district><![CDATA[Moda]]></district>
+    <additional_address_details></additional_address_details>
+    <country><![CDATA[TR]]></country>
+    <postcode></postcode>
+    <long></long>
+    <lat></lat>
+        <short_description><![CDATA[Moda İskelesi’ne yukarıdan bakan geniş bir açık alan ve daha çok kış aylarında rağbet gören kapalı mekanıyla semtin en sevilen mekanlarından Moda Teras.]]> 
+ </short_description>
+    <description><![CDATA[Özellikle pazar günleri zeytinyağlılar, tatlılar, meyvelerin de açık büfeye dahil olduğu brunch’ları ve cumartesi açık büfe kahvaltıları çok beğeniliyor. Eylül ayında başlayacak olan çay saati ise her gün 15.00-18.00 arasında. Moda Teras'ın, restoran bölümüne ek olarak bir de barı var. Solda boydan boya bar bölümü, duvarda dev ekranı, hoş aydınlatması ve göz yormayan oturma grubu ile abartıya kaçmadan zevkli bir ortam hazırlanmış. Menüde kahvaltı tabakları, salatalar, ana yemekler mevcut. Barda otururken restoran menüsünü kullanabiliyorsunuz. Yaz boyunca Cuma, cumartesi akşamları 22.30’dan sonra içki keyfinize club müzik eşlik ediyor. Bar için sadece cumartesileri giriş ücreti ödüyorsunuz.]]></description>
+    <price_information></price_information>
+    <opening_times></opening_times>
+    <rating><![CDATA[4]]></rating>
+    <email></email>
+    <phone><![CDATA[(0216) 338 70 40]]></phone>
+    <phone2></phone2>
+    <fax></fax>
+    <url><![CDATA[http://www.modateras.com.tr]]></url>
+    <timeout_url><![CDATA[http://www.timeoutistanbul.com/p67/yemeicme/moda_teras]]></timeout_url>
+    <review_date></review_date>
+    <public_transport></public_transport>
+    <star_rating></star_rating>
+    <rating></rating>
+    <keywords></keywords>    
+    <categories>
+        <category>
+            <name><![CDATA[Yeme&İçme – Dünya Mutfakları]]></name>
+            <children>
+                <category></category>
+                <category></category>
+            </children>
+        </category>
+        <category></category>
+        <category></category>
+    </categories>
+    <provider></provider>
+    <medias>
+        <media></media>
+        </medias>
+ </venue>
+</venues>
