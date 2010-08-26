@@ -89,16 +89,15 @@ class reSaveChicagoPoiPropertyCleanUpTask extends sfBaseTask
 
             if( count( $prices ) > 0 )
             {
+                array_unshift( $prices , $object['price_information'] );
                 // add to price Field
                 $object['price_information']    = stringTransform::concatNonBlankStrings( ', ', array_unique( $prices ) );
 
                 echo PHP_EOL;
                 $this->logSection('Poi' , 'Saving Poi : ' . $object['id'] . ' for price in Poi Property' );
-                
-                // Save changes
-                $object->save();
             }
-
+            // Save changes
+            $object->save();
             echo '.';
         }
 
