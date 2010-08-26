@@ -65,7 +65,7 @@ class reSaveChicagoPoiPropertyCleanUpTask extends sfBaseTask
         foreach ( $objects as $object )
         {
             $prices = array();
-            $propertyCollection = new Doctrine_Collection();
+            $propertyCollection = new Doctrine_Collection( Doctrine::getTable( 'PoiProperty' ) );
             
             foreach( $object[ 'PoiProperty' ] as $existingProperty)
             {
