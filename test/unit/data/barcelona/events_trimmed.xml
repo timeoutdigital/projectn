@@ -7,7 +7,9 @@
     <booking_url><![CDATA[]]></booking_url>
     <url><![CDATA[http://www.pastisseria.com/es/PortadaMuseu]]></url>
     <timeout_url><![CDATA[http://www.timeout.cat/barcelona/ca/s/viu-barcelona]]></timeout_url>
-    <price><![CDATA[3,80 €]]></price>
+    <price>
+    <![CDATA[3,80 €]]>
+    </price>
     <critics_choice><![CDATA[n]]></critics_choice>
     <review_date><![CDATA[]]></review_date>
     <occurrences>
