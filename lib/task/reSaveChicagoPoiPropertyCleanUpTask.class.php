@@ -65,6 +65,8 @@ class reSaveChicagoPoiPropertyCleanUpTask extends sfBaseTask
         foreach ( $objects as $object )
         {
             $prices = array();
+            $propertyCollection = new Doctrine_Collection();
+            
             foreach( $object[ 'PoiProperty' ] as $existingProperty)
             {
                 // Check for Price lookup
@@ -76,9 +78,14 @@ class reSaveChicagoPoiPropertyCleanUpTask extends sfBaseTask
                     }
 
                     // Delete from POI Property
-                    $existingProperty->delete(); // @todo: it may be a bad Idea to delete before Saving POI?
+                    //$existingProperty->delete(); // @todo: it may be a bad Idea to delete before Saving POI?
+                }
+                else
+                {
+                    $propertyCollection[] = $existingProperty;
                 }
             }
+            $object['PoiProperty'] = $propertyCollection;
 
             if( count( $prices ) > 0 )
             {
@@ -93,7 +100,6 @@ class reSaveChicagoPoiPropertyCleanUpTask extends sfBaseTask
             }
 
             echo '.';
-            
         }
 
         $i++; // Next page
