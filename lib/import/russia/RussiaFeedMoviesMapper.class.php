@@ -51,9 +51,6 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
                     continue;
                 }
 
-                // Add to City list
-                $cities[] = $poi['Vendor']['city'];
-
                 // Set Vendor For Import Logger
                 ImportLogger::getInstance()->setVendor( $poi['Vendor'] );
                 
@@ -126,6 +123,10 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
                 }
 
                 $this->notifyImporter( $movie );
+
+                // Add to City list
+                $cities[] = $poi['Vendor']['city'];
+                
                 unset( $movie );
             }
             catch( Exception $exception )
