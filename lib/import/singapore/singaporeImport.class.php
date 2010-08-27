@@ -87,7 +87,7 @@ class singaporeImport
             catch( Exception $e )
             {
                 ImportLogger::getInstance()->addError( $e );
-            }            
+            }
         }
 
     }
@@ -115,7 +115,7 @@ class singaporeImport
             catch( Exception $e )
             {
                 ImportLogger::getInstance()->addError( $e );
-            }            
+            }
         }
 
     }
@@ -142,7 +142,7 @@ class singaporeImport
             catch( Exception $e )
             {
                 ImportLogger::getInstance()->addError( $e );
-            }            
+            }
         }
 
     }
@@ -239,7 +239,7 @@ class singaporeImport
                 $poi->setGeoEncodeLookUpString( $geoEncodeLookupString );
             }
 
-            
+
             $poi->addProperty( 'Critics_choice', (string) $poiObj->critic_choice );
             $poi->addProperty( 'Timeout_link', (string) $poiObj->link );
 
@@ -329,7 +329,6 @@ class singaporeImport
     */
     public function insertEvent( $eventObj )
     {
-
         $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->_vendor[ 'id' ], (string) $eventObj->id );
 
         try
@@ -370,7 +369,7 @@ class singaporeImport
             // -- Add Images --
             // Fall back, process images, starting with first and working down the array.
             $priorityQueue = array( $eventObj->highres, $eventObj->large_image, $eventObj->size1, $eventObj->thumbnail );
-            
+
             // Add only one image, but try and get highest quality image.
             foreach( $priorityQueue as $queueItem )
             {
@@ -394,7 +393,7 @@ class singaporeImport
             {
                 $this->_createEventOccurrence( (string) $eventObj->venue->id, $event[ 'id' ], (string) $eventObj->date_start, (string) $eventObj->date_end );
             }
-            
+
             // deal with the alternative dates
             $alternativeDatesArray = $eventObj->xpath( 'alternative_dates' );
             $this->_addAlternativeDates( (string) $eventObj->venue->id, $event[ 'id' ], $alternativeDatesArray );
@@ -693,7 +692,7 @@ class singaporeImport
         {
             return $dates;
         }
-       
+
         $currentDate = $startDate;
 
         while( $currentDate <= $endDate )
@@ -762,7 +761,7 @@ class singaporeImport
             if ( !( $venueDetailObj instanceof SimpleXMLElement ) )
             {
                 throw new Exception( 'could not retrieve valid venue node by url: ' . $lookupUrl );
-            }       
+            }
             return $this->insertPoi( $venueDetailObj );
         }
         catch( Exception $e ) {

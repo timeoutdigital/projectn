@@ -222,12 +222,14 @@ class importTask extends sfBaseTask
         $dataSource = new singaporeDataSource( $options['type'] );
 
         $xml = $dataSource->getXML();
-        print_r( $xml );
-        return;
+         ImportLogger::getInstance()->setVendor( $vendorObj );
         switch( $options['type'] )
         {
 
-          case 'poi-event':
+          case 'poi':
+
+            $importer->addDataMapper( new singaporePoiMapper( $xml ) );
+
            /* //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
             //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
@@ -258,7 +260,9 @@ class importTask extends sfBaseTask
             $this->dieWithLogMessage();*/
 
             break;
-
+          case 'event':
+             $importer->addDataMapper( new singaporeEventMapper( $xml ) );
+            break;
           case 'movie':
             //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
@@ -285,6 +289,8 @@ class importTask extends sfBaseTask
 
           default : $this->dieDueToInvalidTypeSpecified();
         }
+            $importer->run();
+            ImportLogger::getInstance()->end();
 
         break; //end singapore
 

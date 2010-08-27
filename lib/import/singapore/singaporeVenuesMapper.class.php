@@ -122,7 +122,9 @@ class singaporeVenuesMapper extends DataMapper
 
       $addresses = $poiXml->xpath( '//addresses[1]/address_slot' );
       if( !empty( $addresses ) )
+      {
         $address = $addresses[0];
+      }
 
       return $address;
     }
