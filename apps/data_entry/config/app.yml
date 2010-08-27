@@ -38,7 +38,7 @@ all:
           type: [ poi ]
           language: en-GB
           validation: false
-   update:
+  update:
      cities:
         -
           name: mumbai
