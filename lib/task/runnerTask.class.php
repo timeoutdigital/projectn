@@ -135,11 +135,11 @@ class runnerTask extends sfBaseTask
         $deleteOlderThanDays = '7 days';
         $timestamp = date( 'Ymd' );
         $exportPath = $this->exportRootDir . '/export_' . $timestamp;
+        $exportPathDataEntry = $this->exportRootDir . '/export_data_entry_' . $timestamp;
         $this->verifyAndCreatePath( $exportPath );
 
         foreach ( $exportCities as $exportCity )
         {
-
             foreach ( $exportCity['type'] as $type )
             {
                 $this->logSection( 'export', date( 'Y-m-d H:i:s' ) . ' - running export for ' . $exportCity[ 'name' ] . ' (' . $type . ')' );
@@ -165,6 +165,18 @@ class runnerTask extends sfBaseTask
 
                 $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
                 $this->executeCommand( $taskCommand, $logCommand );
+
+                //export for the data entry forms
+                if( isset( $exportCity['exportForDataEntry'] ) &&  $exportCity['exportForDataEntry'] )
+                {
+                     $currentExportPathDataEntry = $exportPathDataEntry .'/'.$type;
+                     $taskCommand = $this->symfonyPath . '/./symfony projectn:prepareExportXMLsForDataEntry --env=' . $options['env'] . ' --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPathDataEntry . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+
+                     $taskCommand .= ' --xml=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+
+                    $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
+                    $this->executeCommand( $taskCommand, $logCommand );
+                }
             }
 
         }
