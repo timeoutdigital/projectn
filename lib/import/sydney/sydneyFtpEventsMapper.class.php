@@ -41,10 +41,19 @@ class sydneyFtpEventsMapper extends DataMapper
   public function mapEvents()
   {
 
+      $todays_date = time();
     foreach( $this->feed->event as $eventNode )
     {
       try
       {
+          // Skip Outdated Events #633
+          $start_date = $this->extractDate( (string) $eventNode->DateFrom, true );
+
+          if( $todays_date > strtotime( $start_date ) )
+          {
+              continue;
+          }
+
           $event = $this->dataMapperHelper->getEventRecord( substr( md5( (string) $eventNode->Name ), 0, 9 ) );
 
           $event['review_date']             = $this->extractDate( (string) $eventNode->DateUpdated );
