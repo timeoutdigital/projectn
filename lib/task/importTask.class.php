@@ -182,9 +182,9 @@ class importTask extends sfBaseTask
                 // @todo Wrap in try catch & change this to XSLT like new NY
                 // We are to Run two Import on Events to Manage Memory!
                 $eventsNode = $xmlData->xpath( '/body/event' );
-                $totalCount = count($eventsNode); 
+                $totalCount = count($eventsNode);
                 $splitAt = round( $totalCount / 2 );
-                
+
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, 0, $splitAt) );
                 $importer->run();
@@ -199,11 +199,11 @@ class importTask extends sfBaseTask
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, $splitAt, $totalCount ) );
                 $importer->run();
                 ImportLogger::getInstance()->end();
-                
+
                 $this->dieWithLogMessage();
-                
+
               break;
-          
+
           case 'movie':
               ImportLogger::getInstance()->setVendor( $vendorObj );
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -631,7 +631,7 @@ class importTask extends sfBaseTask
     case 'delhi':
     case 'bangalore':
     case 'pune':
-        $dataEntryImportManager = new DataEntryImportManager( $options['city'], '/var/vhosts/projectn_data_entry/export/' );
+        $dataEntryImportManager = new DataEntryImportManager( $options['city'],  sfConfig::get( 'app_data_entry_directory' ) );
         switch( $options['type'] )
         {
           case 'poi'   : $dataEntryImportManager->importPois();   break;
@@ -644,7 +644,7 @@ class importTask extends sfBaseTask
     break; //end data entry imports
 
     case 'beijing':
-        
+
         switch( $options['type'] )
         {
             case 'poi':

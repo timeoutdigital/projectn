@@ -3,11 +3,14 @@
 
 # default values
 all:
+  data_entry_directory: /var/vhosts/projectn/export/
   import:
     cities:
         -
           name: beijing
           type: [ poi ]
+
+
   export:
     cities:
         -
@@ -35,6 +38,23 @@ all:
           type: [ poi ]
           language: en-GB
           validation: false
+   update:
+     cities:
+        -
+          name: mumbai
+          type: [ poi, event, movie ]
+        -
+          name: delhi
+          type: [ poi, event, movie ]
+        -
+          name: bangalore
+          type: [ poi, event, movie ]
+        -
+          name: pune
+          type: [ poi, event, movie ]
+        -
+          name: beijing
+          type: [ poi ]
 
 prod:
   sf_guard_plugin:

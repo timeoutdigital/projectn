@@ -8,6 +8,7 @@ class runnerTask extends sfBaseTask
     protected $taskOptions;
     const  TASK_IMPORT = 1;
     const  TASK_EXPORT = 2;
+    const  TASK_UPDATE = 3;
 
     protected function configure()
     {
@@ -35,6 +36,7 @@ class runnerTask extends sfBaseTask
 
         $this->runImportTasks( $options[ 'city' ] );
         $this->runExportTasks( $options[ 'city' ] );
+        $this->runUpdateTasks( $options[ 'city' ] );
 
     }
 
@@ -48,6 +50,43 @@ class runnerTask extends sfBaseTask
         $options = $this->taskOptions;
 
         $importCities = $this->getCities( self::TASK_IMPORT, $city );
+
+        if( empty( $importCities  ) )
+        {
+             $this->logSection( 'Runner' , "Runner will not be running any IMPORT tasks!" );
+             return;
+        }
+
+        foreach ( $importCities as $importCity )
+        {
+            $logPath = $this->logRootDir . '/import' ;
+
+            $this->verifyAndCreatePath( $logPath );
+
+            foreach ( $importCity['type'] as $type )
+            {
+                $this->logSection( 'import', date( 'Y-m-d H:i:s' ) . ' - running import  for ' . $importCity[ 'name' ] . ' (' . $type . ')') ;
+
+                $taskCommand = $this->symfonyPath . '/./symfony projectn:import --env="' . $options['env'] . '" --application="' . $options['application'] . '" --city="' . $importCity[ 'name' ] . '" --type="' . $type . '"';
+
+                $logCommand  = $logPath . '/' . strtr( $importCity[ 'name' ], ' ', '_' ) . '.log';
+
+                $this->executeCommand( $taskCommand, $logCommand );
+            }
+
+        }
+    }
+
+    /**
+     * runs the update tasks
+     *
+     * @param string $city , if given runs imports for only this city
+     */
+    protected function runUpdateTasks( $city = null )
+    {
+        $options = $this->taskOptions;
+
+        $importCities = $this->getCities( self::TASK_UPDATE, $city );
 
         if( empty( $importCities  ) )
         {
@@ -161,6 +200,10 @@ class runnerTask extends sfBaseTask
 
             case self::TASK_EXPORT:
                 $citiesConfig = sfConfig::get( 'app_export_cities' );
+        		break;
+
+            case self::TASK_UPDATE:
+                $citiesConfig = sfConfig::get( 'app_update_cities' );
         		break;
 
         	default:
