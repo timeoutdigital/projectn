@@ -41,14 +41,14 @@ class sydneyFtpEventsMapper extends DataMapper
   public function mapEvents()
   {
 
-      $todays_date = time();
+      $todays_date = mktime( 0,0,0, date('m'), date('d'), date('Y') );
     foreach( $this->feed->event as $eventNode )
     {
       try
       {
           // Skip Outdated Events #633
           $start_date = $this->extractDate( (string) $eventNode->DateFrom, true );
-
+    
           if( $todays_date > strtotime( $start_date ) )
           {
               continue;
@@ -193,10 +193,8 @@ class sydneyFtpEventsMapper extends DataMapper
     if ( empty( $dateString ) )
       return;
 
-    // swap 29/03/2010 9:59:00 AM  to   03/29/2010 9:59:00 AM
-    $dateString = preg_replace( '/([0-9]+)\/([0-9]+)\/([0-9]{4} [0-9]+\:[0-9]{2}\:[0-9]{2} [AMP]{2})/', '$2/$1/$3', $dateString );
-
-    $date = new DateTime( $dateString );
+    $date = DateTime::createFromFormat( 'd/m/Y h:i:s A', $dateString); //new DateTime( $dateString );
+  
     if ($dateOnly)
     {
         return $date->format( 'Y-m-d' );

@@ -29,7 +29,8 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->feed   = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' );
+    $this->feed   = $this->setDynamicTime( simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' ) );
+    
     $this->vendor =  ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
                                                      'city'          => 'sydney',
                                                      'language'      => 'en-AU',
@@ -46,6 +47,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
         $poi[ 'Vendor' ] = $this->vendor;
         $poi->save();
     }
+    
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
     $importer->run();
@@ -61,9 +63,9 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapping()
   {
 
-    $this->assertEquals( 3,
+    $this->assertGreaterThan( 1,
                          $this->eventTable->count(),
-                        'Database should have same number of Events as feed after import'
+                        'Database should have same more then 1 Poi'
                          );
 
     $event = $this->eventTable->findOneById( 1 );
@@ -119,5 +121,14 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
                           $event['EventMedia'][0]['url']
                           );
+  }
+
+  private function setDynamicTime( SimpleXMLElement $xmlNodes )
+  {
+      
+      $xmlNodes->event[0]->DateFrom = date('d/m/Y h:i:s A');
+      $xmlNodes->event[0]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
+
+      return $xmlNodes;
   }
 }
