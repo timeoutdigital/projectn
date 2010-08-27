@@ -3,7 +3,10 @@
 
 # default values
 all:
-  data_entry_directory: /var/vhosts/projectn/export/
+  data_entry:
+    directory: /var/vhosts/projectn/export/
+    onUpdateFindById: true
+
   import:
     cities:
         -
