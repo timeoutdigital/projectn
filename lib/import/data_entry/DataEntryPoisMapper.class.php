@@ -29,7 +29,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
             {
                 // Defaults
                 $lang = $this->vendor['language'];
-                
+
                 foreach ($venueElement->attributes() as $attribute => $value)
                 {
                     if( $attribute == 'vpid' )
@@ -49,7 +49,24 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                      continue;
                 }
 
-                $poi = $this->dataMapperHelper->getPoiRecord( $vendorPoiId );
+                 //$poi = $this->dataMapperHelper->getPoiRecord( $vendorPoiId );
+
+                 if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
+                 {
+                     $poi = Doctrine::getTable( 'Poi' )->find( $vendorPoiId );
+                 }else
+                 {
+                     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $vendorPoiId );
+                     if( $poi === false )
+                     {
+                        $poi = new Poi();
+                     }
+                 }
+                 if( $poi === false )
+                 {
+                    $this->notifyImporterOfFailure( new Exception( '@todo write a messega here!' ) );
+                    continue;
+                 }
 
                 $poi[ 'vendor_poi_id' ] = $vendorPoiId;
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
