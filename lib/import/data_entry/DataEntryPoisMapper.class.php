@@ -69,6 +69,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                  }
 
                 $poi[ 'vendor_poi_id' ] = $vendorPoiId;
+                $poi->addMeta('vendor_poi_id' , $vendorPoiId);
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
 
                 $geoPosition = 'geo-position';
