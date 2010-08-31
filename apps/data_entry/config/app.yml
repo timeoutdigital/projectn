@@ -5,7 +5,7 @@
 all:
   data_entry:
     directory:
-        projectn:            /var/vhosts/projectn/export/
+        projectn:            /var/vhosts/projectn_data_entry/export/
         projectn_data_entry: /var/vhosts/projectn/export/data_entry/
     onUpdateFindById: true
 

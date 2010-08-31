@@ -633,9 +633,10 @@ class importTask extends sfBaseTask
     case 'bangalore':
     case 'pune':
         $sfRootDirectory = sfConfig::get( "sf_root_dir" );
-        $installation = (strpos( $sfRootDirectory , 'projectn_data_entry') === false) ? 'projectn' : 'projectn_data_entry';
+        $installation = ( strpos( $sfRootDirectory , 'projectn_data_entry' ) === false) ? 'projectn' : 'projectn_data_entry';
         $dataEntryDirectories  = sfConfig::get( 'app_data_entry_directory' );
         $dataEntryDirectory =  $dataEntryDirectories [ $installation ];
+
         if( !is_dir( $dataEntryDirectory ) )
         {
             throw new Exception( $dataEntryDirectory . ' is not a valid directory to fetch data-entry files' );
