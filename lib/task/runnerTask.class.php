@@ -169,7 +169,9 @@ class runnerTask extends sfBaseTask
                 //export for the data entry forms
                 if( isset( $exportCity['exportForDataEntry'] ) &&  $exportCity['exportForDataEntry'] )
                 {
+
                      $currentExportPathDataEntry = $exportPathDataEntry .'/'.$type;
+                     $this->executeCommand( 'mkdir -p '.$currentExportPathDataEntry , 'create data entry export folders' );
                      $taskCommand = $this->symfonyPath . '/./symfony projectn:prepareExportXMLsForDataEntry --env=' . $options['env'] . ' --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPathDataEntry . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
 
                      $taskCommand .= ' --xml=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
