@@ -29,12 +29,20 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
             {
                 // Defaults
                 $lang = $this->vendor['language'];
-                
+
                 foreach ( $eventElement->attributes() as $attribute => $value )
                 {
                     if( $attribute == 'id' )
                     {
-                        $vendorEventId = (int) substr( (string) $value,5) ;
+                         if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
+                         {
+                            $vendorEventId = (int) $value;
+                         }
+                         else
+                         {
+                            $vendorEventId = (int) substr( (string) $value,5) ;
+                         }
+
                     }
                 }
 
@@ -45,12 +53,29 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                         $lang = (string) $value;
                     }
                 }
-                $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
+
+                if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
+                {
+                     $event = Doctrine::getTable( 'Event' )->find( $vendorEventId );
+                }
+                else
+                {
+                    $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
+                    if( !$event )
+                    {
+                        $event = new Event();
+                    }
+
+                    $event[ 'vendor_event_id' ] = $vendorEventId;
+                    $event->addMeta('vendor_event_id' , $vendorEventId );
+                }
 
                 if( !$event )
                 {
-                    $event = new Event();
+                    $this->notifyImporterOfFailure( new Exception( '@event not found for update!' ) );
+                    continue;
                 }
+
 
                 $event[ 'review_date' ] = '';
                 $event[ 'vendor_event_id' ] = $vendorEventId;
@@ -181,10 +206,10 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
             }
             catch ( Exception  $exception)
             {
-                $this->notifyImporterOfFailure($exception, $event); 
+                $this->notifyImporterOfFailure($exception, $event);
             }
 
         }
     }
-    
+
 }

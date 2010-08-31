@@ -14,7 +14,7 @@
 
 class DataEntryMoviesMapper extends DataEntryBaseMapper
 {
-    
+
   /**
    * @param SimpleXMLElement $xml
    */
@@ -43,18 +43,41 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
             {
                 if( $attribute == 'id' )
                 {
-                    $vendorMovieId = (int) substr( (string) $value,5) ;
+                    if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
+                    {
+                        $vendorMovieId = (int) $value ;
+                    }
+                    else
+                    {
+                         $vendorMovieId = (int) substr( (string) $value,5) ;
+                    }
+
                 }
             }
 
-            $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieId );
+            if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
+            {
+                $movie = Doctrine::getTable( 'Movie' )->find( $vendorMovieId );
+            }
+            else
+            {
+                $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieId );
+                if( $movie === false )
+                {
+                    $movie = new Movie();
+                }
+                $movie['vendor_movie_id']   = $vendorMovieId ;
+                $movie->addMeta( 'vendor_movie_id' , $vendorMovieId );
+
+            }
             if( $movie === false )
             {
-                $movie = new Movie();
+                 $this->notifyImporterOfFailure( new Exception( 'movie not found for update!' ) );
+                 continue;
             }
 
             // version
-            $movie['vendor_movie_id']   = $vendorMovieId ;
+
             $movie['Vendor']            = $this->vendor;
             $movie['name']              = (string) $movieElement->version->name ;
 
