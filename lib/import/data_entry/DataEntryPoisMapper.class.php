@@ -34,7 +34,13 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                 {
                     if( $attribute == 'vpid' )
                     {
-                        $vendorPoiId = (int) substr( (string) $value,5) ;
+                       if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
+                        {
+                            $vendorPoiId =  (int) $value  ;
+                        }else
+                        {
+                            $vendorPoiId = (int) substr( (string) $value,5) ;
+                        }
                     }
 
                     if( $attribute == 'lang' )
