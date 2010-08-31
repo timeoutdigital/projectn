@@ -15,15 +15,24 @@
  */
 class singaporeDataSource extends baseDataSource
 {
+    private $curlClass;
     private $venuesUrl  = 'http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
     private $eventsUrl  = 'http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
 
     private $venueNodes = array();
 
-    public function __construct( $type )
+    public function __construct( $type, $curlClass = 'Curl', $venueURL= null, $eventURL = null )
     {
         parent::__construct( $type );
-        //$this->downloadFeed();
+
+        // set Curl Class
+        $this->curlClass    = ( !is_string( $curlClass ) ) ? 'Curl' : $curlClass;
+        
+        // Override URLs
+        $this->venuesUrl    = ( is_string( $venueURL ) && trim( $venueURL ) != '' ) ? $venueURL : $this->venuesUrl;
+        $this->eventsUrl    = ( is_string( $eventURL ) && trim( $eventURL ) != '' ) ? $eventURL : $this->eventsUrl;
+
+        // fetch XML from Feed
         $this->fetchXML();
 
     }
@@ -34,26 +43,24 @@ class singaporeDataSource extends baseDataSource
 
         switch ( $this->type )
         {
-        	case self::TYPE_EVENT:
+            case self::TYPE_EVENT:
                 $url = $this->eventsUrl;
-        		break;
+                break;
 
             case self::TYPE_POI:
                 $url = $this->venuesUrl;
-        		break;
+                break;
         }
 
-        $feedObj = new Curl( $url );
+        $feedObj = new $this->curlClass( $url );
 
         $feedObj->exec();
 
         $xml = simplexml_load_string( $feedObj->getResponse() );
-        $i=0;
+
         foreach ( $xml->channel->item as $item )
         {
-            $i++;
-            if( $i>1 ) continue;
-            $detailsFeedObj = new Curl( (string) $item->link );
+            $detailsFeedObj = new $this->curlClass( (string) $item->link );
 
             $detailsFeedObj->exec();
 

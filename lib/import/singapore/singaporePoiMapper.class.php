@@ -57,7 +57,7 @@ class singaporePoiMapper extends DataMapper
                 $poi->applyFeedGeoCodesIfValid( (string) $address->mm_lat, (string) $address->mm_lon );
 
                 $poi[ 'public_transport_links' ]     = $this->extractPublicTransportLinks( $address );
-                $poi[ 'phone' ]                      = '+65 ' .  (string) $address->phone;
+                $poi[ 'phone' ]                      = (string) $address->phone; // Phone number will be Formated on pre-save
                 $poi[ 'additional_address_details' ] = (string) $address->location;
                 $poi[ 'zips' ]                       = (string) $address->postcode;
                 $poi[ 'street' ]                     = trim( (string) $address->address, ", " );
@@ -67,8 +67,8 @@ class singaporePoiMapper extends DataMapper
             }
             //$poi->applyFeedGeoCodesIfValid( (string) address->mm_lat, (string) $address->mm_lon );
             //@todo test the rest of this function
-            $poi->addProperty( 'Critics_choice', (string) $venueElement->critic_choice );
-            $poi->addProperty( 'Timeout_link', (string) $venueElement->link );
+            $poi->setCriticsChoiceProperty( (trim( strtolower( (string) $venueElement->critic_choice ) ) == 'y') ? true : false );
+            $poi->setTimeoutLinkProperty( (string) $venueElement->link );
 
             $categoriesArray = array();
             if ( (string) $venueElement->section != '' )  $categoriesArray[] = (string) $venueElement->section;
@@ -101,13 +101,13 @@ class singaporePoiMapper extends DataMapper
     {
       $transportInfo = array();
 
-      if( isset(  $address->near_station ) )
+      if( isset(  $address->near_station ) && stringTransform::mb_trim( (string) $address->near_station ) != '' )
       {
         $nearStation = (string) $address->near_station;
         $transportInfo[] = 'Near station: ' . $nearStation;
       }
 
-      if( isset( $address->buses ) )
+      if( isset( $address->buses ) && stringTransform::mb_trim( (string) $address->buses ) != '' )
       {
           $buses = (string) $address->buses;
           $transportInfo[]= 'Buses: ' . $buses;
