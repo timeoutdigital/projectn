@@ -85,7 +85,7 @@ class prepareExportXMLsForDataEntryTask extends sfBaseTask
             continue;
         }
 
-        $element['vpid' ] = $vendorItemId;
+        $element[ $id ] = $vendorItemId;
 
     }
     file_put_contents( $options['destination' ] , $xml->asXML() );
