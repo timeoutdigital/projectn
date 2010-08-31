@@ -60,7 +60,7 @@ class Movie extends BaseMovie
         {
             // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
-            
+
             // Refs #525 - Trim All Text fields on PreSave
             if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
 
@@ -222,7 +222,7 @@ class Movie extends BaseMovie
     }
 
     $headers = get_headers( $urlString , 1);
-    
+
     // When Image redirected with 302/301 get_headers will return morethan one header array
     $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
     $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
@@ -324,6 +324,17 @@ class Movie extends BaseMovie
     }
 
 
+  }
+
+  public function addMeta( $lookup, $value, $comment = null )
+  {
+    $metaObj = new EventMeta();
+    $metaObj[ 'lookup' ] = (string) $lookup;
+    $metaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $metaObj[ 'comment' ] = (string) $comment;
+
+    $this[ 'MovieMeta' ][] = $metaObj;
   }
 
 }
