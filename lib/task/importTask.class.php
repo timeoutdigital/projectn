@@ -641,8 +641,8 @@ class importTask extends sfBaseTask
         {
             throw new Exception( $dataEntryDirectory . ' is not a valid directory to fetch data-entry files' );
         }
-        echo "Using : " . $dataEntryDirectory;
-        $dataEntryImportManager = new DataEntryImportManager( $options['city'],  sfConfig::get( 'app_data_entry_directory' ) );
+        echo "Using : " . $dataEntryDirectory .PHP_EOL;
+        $dataEntryImportManager = new DataEntryImportManager( $options['city'], $dataEntryDirectory );
 
         switch( $options['type'] )
         {
