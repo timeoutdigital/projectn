@@ -4,7 +4,9 @@
 # default values
 all:
   data_entry:
-    directory: /var/vhosts/projectn/export/
+    directory:
+        projectn:            /var/vhosts/projectn/export/
+        projectn_data_entry: /var/vhosts/projectn/export/data_entry/
     onUpdateFindById: true
 
   import:

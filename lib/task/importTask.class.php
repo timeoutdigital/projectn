@@ -23,6 +23,7 @@ class importTask extends sfBaseTask
 
   protected function execute($arguments = array(), $options = array())
   {
+
     $this->options = $options;
 
     $this->writeLogLine( 'start import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
@@ -631,7 +632,17 @@ class importTask extends sfBaseTask
     case 'delhi':
     case 'bangalore':
     case 'pune':
+        $sfRootDirectory = sfConfig::get( "sf_root_dir" );
+        $installation = (strpos( $sfRootDirectory , 'projectn_data_entry') === false) ? 'projectn' : 'projectn_data_entry';
+        $dataEntryDirectories  = sfConfig::get( 'app_data_entry_directory' );
+        $dataEntryDirectory =  $dataEntryDirectories [ $installation ];
+        if( !is_dir( $dataEntryDirectory ) )
+        {
+            throw new Exception( $dataEntryDirectory . ' is not a valid directory to fetch data-entry files' );
+        }
+        echo "Using : " . $dataEntryDirectory;
         $dataEntryImportManager = new DataEntryImportManager( $options['city'],  sfConfig::get( 'app_data_entry_directory' ) );
+
         switch( $options['type'] )
         {
           case 'poi'   : $dataEntryImportManager->importPois();   break;
