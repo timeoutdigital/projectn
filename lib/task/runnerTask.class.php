@@ -135,8 +135,9 @@ class runnerTask extends sfBaseTask
         $deleteOlderThanDays = '7 days';
         $timestamp = date( 'Ymd' );
         $exportPath = $this->exportRootDir . '/export_' . $timestamp;
-        $exportPathDataEntry = $this->exportRootDir . '/export_data_entry_' . $timestamp;
+        $exportPathDataEntry = $this->exportRootDir . '/data_entry/export_' . $timestamp;
         $this->verifyAndCreatePath( $exportPath );
+        $this->verifyAndCreatePath( $exportPathDataEntry );
 
         foreach ( $exportCities as $exportCity )
         {
@@ -295,7 +296,8 @@ class runnerTask extends sfBaseTask
      */
     protected function executeCommand( $cmd, $logfile )
     {
-        $this->logSection( 'EXEC', $cmd);
+        //$this->logSection( 'EXEC', $cmd);
+        echo  $cmd.PHP_EOL.PHP_EOL;
         $cmdOutput = shell_exec( $cmd . ' 2>&1' );
         file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
     }
