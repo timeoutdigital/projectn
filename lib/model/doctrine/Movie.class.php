@@ -328,7 +328,7 @@ class Movie extends BaseMovie
 
   public function addMeta( $lookup, $value, $comment = null )
   {
-    $metaObj = new EventMeta();
+    $metaObj = new MovieMeta();
     $metaObj[ 'lookup' ] = (string) $lookup;
     $metaObj[ 'value' ] = (string) $value;
     if(!is_null($comment) && !is_object($comment))
