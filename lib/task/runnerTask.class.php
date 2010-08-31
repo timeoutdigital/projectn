@@ -34,9 +34,9 @@ class runnerTask extends sfBaseTask
         $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
         $this->taskOptions = $options;
 
+        $this->runUpdateTasks( $options[ 'city' ] );
         $this->runImportTasks( $options[ 'city' ] );
         $this->runExportTasks( $options[ 'city' ] );
-        $this->runUpdateTasks( $options[ 'city' ] );
 
     }
 
