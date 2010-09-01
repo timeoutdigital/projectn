@@ -12,14 +12,6 @@
  */
 class Event extends BaseEvent
 {
-
-  /**
-   * the media added to event is stored in this array and the largest one will be downloaded in downloadMedia method
-   *
-   * @var $media
-   */
-  private $media = array();
-
   /**
    * Attempts to fix and / or format fields, e.g. url
    */
@@ -34,8 +26,6 @@ class Event extends BaseEvent
         $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
 
     $this->applyOverrides();
-    $this->downloadMedia();
-    $this->removeMultipleImages();
     //$this->removeMultipleOccurrences();
   }
 
@@ -232,124 +222,16 @@ class Event extends BaseEvent
   }
 
   /**
-   * tidy up function for events with more than one image attached to them
-   * read the headers of the images and select the largest one in size
-   * remove other images
+   * Add EventMedia to Event
    *
+   * @param string $url
+   *
+   * This function is deprecated in favour of Media::addMedia( $model, $url ).
+   * refs #626 -pj 31-Aug-10
    */
-  private function removeMultipleImages()
+  public function addMediaByUrl( $url = "" )
   {
-     // if there is more than 1 image for this Event we need to find the largest one and remove the rest
-     if( count( $this[ 'EventMedia' ] ) > 1 )
-     {
-        $largestImg = $this[ 'EventMedia' ][ 0 ] ;
-        $largestSize = 0;
-
-        foreach ($this[ 'EventMedia' ] as $eventMedia )
-        {
-             $headers = get_headers( $eventMedia['url'] , 1);
-
-             if( $headers[ 'Content-Length' ] >  $largestSize)
-             {
-                $largestSize = $headers[ 'Content-Length' ];
-                $largestImg  = $eventMedia;
-             }
-        }
-
-        $this['EventMedia'] = new Doctrine_Collection( 'EventMedia' );
-
-        $this['EventMedia'] [] = $largestImg;
-
-     }
-  }
-
-   /**
-   * selects the largest image in media array and downloads the image
-   *
-   *
-   */
-  private function downloadMedia()
-  {
-
-    // if addMediaByUrl wasn't called, there is no change in media
-    if( count( $this->media) == 0 )  return;
-
-    $largestImg = $this->media[ 0 ] ;
-
-    //find the largest image
-    foreach ( $this->media as $img )
-    {
-       if( $img[ 'contentLength' ] > $largestImg[ 'contentLength' ]  )
-       {
-        $largestImg = $img;
-       }
-    }
-
-    // check if the largestImg is larger than the one attached already if any
-    foreach ($this[ 'EventMedia' ] as $eventMedia )
-    {
-
-        if( $eventMedia['content_length']  > $largestImg[ 'contentLength' ]  )
-        {
-            //we already have a larger image so ignore this
-            return;
-        }
-    }
-
-    $eventMediaObj = Doctrine::getTable( 'EventMedia' )->findOneByIdent( $largestImg[ 'ident' ] );
-
-    if ( $eventMediaObj === false )
-    {
-        $eventMediaObj = new EventMedia( );
-    }
-
-    try
-    {
-        $eventMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-        // add the $eventMediaObj to the Event
-        $this[ 'EventMedia' ] [] =  $eventMediaObj;
-    }
-    catch ( Exception $e )
-    {
-        /** @todo : log this error */
-    }
-
-  }
-
-   /**
-   * adds a event media to the media array and the largest one will be downloaded by downloadMedia method
-   *
-   * @param string $urlString
-   */
-  public function addMediaByUrl( $urlString )
-  {
-    if( empty( $urlString ) )
-      return;
-
-    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
-    {
-        throw new Exception('Failed to add Event Media due to missing Vendor city');
-    }
-
-    $headers = get_headers( $urlString , 1);
-
-    // When Image redirected with 302/301 get_headers will return morethan one header array
-    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
-    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
-
-    // check the header if it's an image
-    if( $contentType != 'image/jpeg' )
-    {
-        return false;
-    }
-
-    $this->media[] = array(
-        'url'           => $urlString,
-        'contentLength' => $contentLength,
-        'ident'         => md5( $urlString ),
-     );
-    return true;
+    Media::addMedia( $this, $url );
   }
 
   public function getPois()

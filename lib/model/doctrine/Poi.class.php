@@ -401,7 +401,6 @@ class Poi extends BasePoi
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
-     $this->removeMultipleImages();
   }
 
   /**
@@ -564,32 +563,13 @@ class Poi extends BasePoi
    * Add PoiMedia to Poi
    *
    * @param string $url
+   *
+   * This function is deprecated in favour of Media::addMedia( $model, $url ).
+   * refs #626 -pj 31-Aug-10
    */
-  public function addMediaByUrl( $url )
+  public function addMediaByUrl( $url = "" )
   {
-    if( empty( $url ) ) return false;
-
-    Media::add( $this, $url );
-
-    $class      = get_class( $this );
-    $mediaClass = "{$class}Media";
-
-    if( !isset( $this[ 'Vendor' ][ 'city' ] ) || empty( $this[ 'Vendor' ][ 'city' ] ) )
-    {
-        throw new Exception( "Failed to add {$mediaClass}: missing Vendor city" );
-    }
-
-    $info['ident'] = md5( $url );
-    $info['url']   = $url;
-
-    $exists = Doctrine::getTable( $mediaClass )->findOneByIdent( $info['ident'], Doctrine::HYDRATE_ARRAY );
-
-    if( $exists === false )
-    {
-        $media = new $mediaClass;
-        $media->merge( $info );
-        $this[ $mediaClass ][] = $media;
-    }
+    Media::addMedia( $this, $url );
   }
 
 

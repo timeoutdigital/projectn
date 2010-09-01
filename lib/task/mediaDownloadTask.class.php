@@ -72,10 +72,22 @@ EOF;
     {
         if( $this->mediaIsNew( $media ) || $this->mediaHasChanged( $media ) )
         {
-            $this->download( $media );
+            try
+            {
+                $this->download( $media );
+            }
+
+            catch( Exception $e )
+            {
+                echo "MediaDownloadTask threw a " . get_class( $e ) . " Exception with message:" . PHP_EOL;
+                echo $e->getMessage() . str_repeat( PHP_EOL, 2 );
+            }
         }
     }
-    $collection->free( true );
+
+    if( method_exists( $collection, 'free' ) )
+        $collection->free( true );
+        
     unset( $collection );
   }
 
@@ -97,11 +109,13 @@ EOF;
 
   protected function download( Doctrine_Record $media )
   {
-      if( !isset( $media['Poi']['Vendor']['city'] ) || !isset( $media['ident'] ) || !isset( $media['url'] ) )
+      $parentClass  = str_replace( 'Media', '', get_class( $media ) );
+      
+      if( !isset( $media[ $parentClass ]['Vendor']['city'] ) || !isset( $media['ident'] ) || !isset( $media['url'] ) )
           return;
 
       $type         = strtolower( str_replace( 'Media', '', get_class( $media ) ) );
-      $city         = str_replace( ' ', '_', $media['Poi']['Vendor']['city'] );
+      $city         = str_replace( ' ', '_', $media[ $parentClass ]['Vendor']['city'] );
       $destination  = sfConfig::get( 'sf_root_dir' ) . "/import/{$city}/{$type}/media/{$media['ident']}.jpg";
       
       $curl = new Curl( $media['url'] );
