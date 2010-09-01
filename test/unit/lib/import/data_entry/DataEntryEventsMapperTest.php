@@ -149,7 +149,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
                   'updateXMLs' .DIRECTORY_SEPARATOR
                   ;
 
-    //setting to use the vendor_poi_id to actually update the poi NOT insert a new one!
+    //setting to use the vendor_event_id to actually update the event NOT insert a new one!
     sfConfig::set( 'app_data_entry_onUpdateFindById' ,true );
 
     $this->object = new DataEntryImportManager( 'london', $importDir);
@@ -162,4 +162,5 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'http://www.google.com' , $event[ 'url' ] );
   }
+
 }
