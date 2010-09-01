@@ -39,29 +39,35 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
     {
         try
         {
-            foreach ( $movieElement->attributes() as $attribute => $value )
-            {
-                if( $attribute == 'id' )
-                {
-                    if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
-                    {
-                        $vendorMovieId = (int) $value ;
-                    }
-                    else
-                    {
-                         $vendorMovieId = (int) substr( (string) $value,5) ;
-                    }
-
-                }
-            }
-
             if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
             {
-                $movie = Doctrine::getTable( 'Movie' )->find( $vendorMovieId );
+                 $vendorMovieId = (int) $movieElement[ 'id' ] ;
+
+                 if( !$vendorMovieId )
+                 {
+                    $this->notifyImporterOfFailure( new Exception( 'vendorMovieId not found for movie name: ' . (string) @$movieElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                    continue;
+                 }
+                 $movie = Doctrine::getTable( 'Movie' )->find( $vendorMovieId );
+
+                 if( $movie === false )
+                 {
+                     $this->notifyImporterOfFailure( new Exception( 'movie not found for update!' ) );
+                     continue;
+                 }
             }
             else
             {
+                $vendorMovieId = (int) substr( (string) $movieElement[ 'id' ], 5) ;
+
                 $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieId );
+
+                if( !$vendorMovieId )
+                {
+                   $this->notifyImporterOfFailure( new Exception( 'vendorMovieId not found for movie name: ' . (string) @$movieElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                   continue;
+                }
+
                 if( $movie === false )
                 {
                     $movie = new Movie();
@@ -69,11 +75,6 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
                 $movie['vendor_movie_id']   = $vendorMovieId ;
                 $movie->addMeta( 'vendor_movie_id' , $vendorMovieId );
 
-            }
-            if( $movie === false )
-            {
-                 $this->notifyImporterOfFailure( new Exception( 'movie not found for update!' ) );
-                 continue;
             }
 
             // version
