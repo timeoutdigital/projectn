@@ -30,52 +30,47 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                 // Defaults
                 $lang = $this->vendor['language'];
 
-                foreach ( $eventElement->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'id' )
-                    {
-                         if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
-                         {
-                            $vendorEventId = (int) $value;
-                         }
-                         else
-                         {
-                            $vendorEventId = (int) substr( (string) $value,5) ;
-                         }
-
-                    }
-                }
-
-                foreach ( $eventElement->version->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'lang' )
-                    {
-                        $lang = (string) $value;
-                    }
-                }
-
+                //update mode is on
                 if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
                 {
-                     $event = Doctrine::getTable( 'Event' )->find( $vendorEventId );
+                     $vendorEventId = (int) $eventElement[ 'id' ];
+
+                     if( !$vendorEventId )
+                     {
+                        $this->notifyImporterOfFailure( new Exception( 'vendorEventId not found for event name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                        continue;
+                     }
+
+                      $event = Doctrine::getTable( 'Event' )->find( $vendorEventId );
+
+                      if( !$event )
+                      {
+                        $this->notifyImporterOfFailure( new Exception( '@event not found for update!' ) );
+                        continue;
+                      }
+
                 }
                 else
                 {
-                    $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
+                    $vendorEventId = (int) substr( (string)  $eventElement[ 'id' ], 5) ;
+
+                    if( !$vendorEventId )
+                    {
+                        $this->notifyImporterOfFailure( new Exception( 'vendorEventId not found for event name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                        continue;
+                    }
+
+                    $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndVendorId( $vendorEventId, $this->vendor [ 'id' ] );
                     if( !$event )
                     {
                         $event = new Event();
                     }
 
                     $event[ 'vendor_event_id' ] = $vendorEventId;
+
                     $event->addMeta('vendor_event_id' , $vendorEventId );
-                }
 
-                if( !$event )
-                {
-                    $this->notifyImporterOfFailure( new Exception( '@event not found for update!' ) );
-                    continue;
                 }
-
 
                 $event[ 'review_date' ] = '';
                 $event[ 'vendor_event_id' ] = $vendorEventId;

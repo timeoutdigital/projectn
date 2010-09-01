@@ -134,4 +134,32 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $occurrence['event_id'], $occurrence2['event_id']);
 
   }
+
+   public function testDataEntryUpdate()
+  {
+
+    /** if this test doesn't make any sense please look into the test with the same name in DataEntryPoiMapperTest. there is some explanation there
+     * and it's basicly the same thing here
+     * in the update XML the name and the url is changed
+     **/
+     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
+                  'unit' .DIRECTORY_SEPARATOR .
+                  'data' .DIRECTORY_SEPARATOR .
+                  'data_entry' .DIRECTORY_SEPARATOR .
+                  'updateXMLs' .DIRECTORY_SEPARATOR
+                  ;
+
+    //setting to use the vendor_poi_id to actually update the poi NOT insert a new one!
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,true );
+
+    $this->object = new DataEntryImportManager( 'london', $importDir);
+
+    $this->object->importEvents( );
+
+    $event = Doctrine::getTable( 'Event' )->find( 1 );
+
+    $this->assertEquals( 'Footnotes Audio Walks - this event is cancelled' , $event[ 'name' ] );
+
+    $this->assertEquals( 'http://www.google.com' , $event[ 'url' ] );
+  }
 }
