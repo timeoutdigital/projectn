@@ -7,7 +7,7 @@ class baseDataSource
 
     const TYPE_POI   = 'poi';
     const TYPE_EVENT = 'event';
-    const TYPE_MOVIE = 'poi';
+    const TYPE_MOVIE = 'movie';
 
     public function __construct( $type )
     {

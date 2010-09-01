@@ -15,13 +15,12 @@
  */
 class singaporeDataSource extends baseDataSource
 {
-    private $curlClass;
+    private $curlClass; // Holds the Class for Curl, bcz, it require mocking when testing
     private $venuesUrl  = 'http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
     private $eventsUrl  = 'http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
+    private $movieUrl   = 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?movie=758&key=ffab6a24c60f562ecf705130a36c1d1e';
 
-    private $venueNodes = array();
-
-    public function __construct( $type, $curlClass = 'Curl', $venueURL= null, $eventURL = null )
+    public function __construct( $type, $curlClass = 'Curl', $venueURL= null, $eventURL = null, $movieUrl = null )
     {
         parent::__construct( $type );
 
@@ -31,12 +30,17 @@ class singaporeDataSource extends baseDataSource
         // Override URLs
         $this->venuesUrl    = ( is_string( $venueURL ) && trim( $venueURL ) != '' ) ? $venueURL : $this->venuesUrl;
         $this->eventsUrl    = ( is_string( $eventURL ) && trim( $eventURL ) != '' ) ? $eventURL : $this->eventsUrl;
+        $this->movieUrl     = ( is_string( $movieUrl ) && trim( $movieUrl ) != '' ) ? $movieUrl : $this->movieUrl;
 
         // fetch XML from Feed
         $this->fetchXML();
 
     }
 
+    /**
+     * fetch XML feed from URL and generate SimpleXMLElement
+     * @return SimpleXMLElement
+     */
     protected function fetchXML()
     {
         $nodes = array();
@@ -50,113 +54,35 @@ class singaporeDataSource extends baseDataSource
             case self::TYPE_POI:
                 $url = $this->venuesUrl;
                 break;
+
+            case self::TYPE_MOVIE:
+                $url = $this->movieUrl;
+                break;
         }
 
+        // Use Curl to download the List file, which lincking to detailed individual Nodes
         $feedObj = new $this->curlClass( $url );
-
         $feedObj->exec();
 
+        // Convert it to SimpleXML
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
+        // For each links, get the Detailed Nodes and Build Simple XML
         foreach ( $xml->channel->item as $item )
         {
             $detailsFeedObj = new $this->curlClass( (string) $item->link );
-
             $detailsFeedObj->exec();
 
             $nodeXML = $this->getNodeAsString( $detailsFeedObj->getResponse() );
-
             $nodes [] = $nodeXML ;
         }
 
+        // Add Root Element to this Detailed Node collection
         $xmlDataFixer = new xmlDataFixer( implode( '',$nodes ) );
-
         $xmlDataFixer->addRootElement();
-
         $this->xml = $xmlDataFixer->getSimpleXML();
-
 
     }
-
-
-   /* protected function fetchVenuesXml()
-    {
-        $venueNodes = array();
-        $feedObj = new Curl( $this->venuesUrl );
-        $feedObj->exec();
-        $xml = simplexml_load_string( $feedObj->getResponse() );
-
-        foreach ($xml->channel->item as $item)
-        {
-            $detailsFeedObj = new Curl( (string) $item->link );
-            $detailsFeedObj->exec();
-            $venueXML = $this->getVenueNodeAsString( $detailsFeedObj->getResponse());
-            $venueNodes [] = $venueXML ;
-        }
-
-        $xmlDataFixer = new xmlDataFixer( implode( '',$venueNodes ) );
-        $xmlDataFixer->addRootElement();
-        $this->xml = $xmlDataFixer->getSimpleXML();
-    }
-
-    protected function fetchEventsXml()
-    {
-        $eventNodes = array();
-        $feedObj = new Curl( $this->eventsUrl );
-        $feedObj->exec();
-        $xml = simplexml_load_string( $feedObj->getResponse() );
-
-        foreach ($xml->channel->item as $item)
-        {
-            $detailsFeedObj = new Curl( (string) $item->link );
-            $detailsFeedObj->exec();
-            $eventXML = $this->getEventNodeAsString( $detailsFeedObj->getResponse() );
-            $eventNodes [] = $eventXML ;
-        }
-
-        $xmlDataFixer = new xmlDataFixer( implode( '',$eventNodes ) );
-        $xmlDataFixer->addRootElement();
-        $this->xml = $xmlDataFixer->getSimpleXML();
-    }*/
-
-  /*  protected function _fetchVenueXml()
-    {
-
-        $feedObj = new Curl(  'http://192.9.1.220/singapore/venue.xml' );
-        $feedObj->exec();
-        $response = $feedObj->getResponse();
-        $venueNodeAsString = $this->getVenueNodeAsString( $response );
-
-        var_dump( $venueNodeAsString );
-        die("");
-        foreach ($this->xml as $venue)
-        {
-            print_r( $venue );
-        }
-
-    }*/
-
-   /* protected function downloadFeed()
-    {
-      switch ( $this->type )
-      {
-      	case self::TYPE_EVENT :
-      	    $this->fetchEventsXml();
-      		break;
-
-      	case self::TYPE_POI :
-            $this->fetchVenuesXml();
-      		break;
-
-      	case self::TYPE_MOVIE :
-            $feedObj = new Curl( $this->moviesUrl );
-      		break;
-
-      }
-    }*/
-
-
-
 
     /**
      * returns the eventNode (<venue.... </venue>)
@@ -170,17 +96,17 @@ class singaporeDataSource extends baseDataSource
 
         switch ($this->type)
         {
-          	case self::TYPE_EVENT :
-          	    $pattern = '/<event>.*?<\/event>/isU';
-          		break;
+            case self::TYPE_EVENT :
+                $pattern = '/<event>.*?<\/event>/isU';
+                break;
 
-          	case self::TYPE_POI :
+            case self::TYPE_POI :
                 $pattern = '/<venue>.*?<\/venue>/isU';
-          		break;
+                break;
 
-          	case self::TYPE_MOVIE :
-                $feedObj = new Curl( $this->moviesUrl );
-          		break;
+            case self::TYPE_MOVIE :
+                $pattern = '/<movie>.*?<\/movie>/isU';
+                break;
 
         }
 
