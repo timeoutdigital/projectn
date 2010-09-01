@@ -166,16 +166,16 @@ class singaporeDataSource extends baseDataSource
      */
     private function getNodeAsString( $xmlString  )
     {
-        $xmlString = str_replace( PHP_EOL, "", $xmlString );
+        //$xmlString = str_replace( PHP_EOL, "", $xmlString );
 
         switch ($this->type)
         {
           	case self::TYPE_EVENT :
-          	    $pattern = '/<event>.*?<\/event>/';
+          	    $pattern = '/<event>.*?<\/event>/isU';
           		break;
 
           	case self::TYPE_POI :
-                $pattern = '/<venue>.*?<\/venue>/';
+                $pattern = '/<venue>.*?<\/venue>/isU';
           		break;
 
           	case self::TYPE_MOVIE :
