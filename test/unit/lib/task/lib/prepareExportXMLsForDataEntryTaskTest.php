@@ -22,15 +22,18 @@ require_once dirname(__FILE__).'/../../../bootstrap.php';
 class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
 {
     private $testDirectory ;
+
     protected function setUp()
     {
         ProjectN_Test_Unit_Factory::createDatabases();
+
         $this->testDirectory =  sfConfig::get( 'sf_test_dir') .DIRECTORY_SEPARATOR . 'unit'.DIRECTORY_SEPARATOR.'data'. DIRECTORY_SEPARATOR . 'data_entry' .DIRECTORY_SEPARATOR;
     }
 
     protected function tearDown()
     {
         ProjectN_Test_Unit_Factory::destroyDatabases();
+
         $genetatedFiles = array(
             'poi.xml',
             'poi_updated.xml',
@@ -39,6 +42,7 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
             'movie.xml',
             'movie_updated.xml'
         );
+
         foreach ($genetatedFiles as $file)
         {
             if( file_exists( $this->testDirectory . $file ) )
@@ -153,6 +157,11 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
 
         $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
 
+        // some random number
+        // after running the task we are expecting
+        // that "<event id="BOM000000000000000000000000063906" modified="2010-09-01T11:10:55">" will be replaced by
+        // "<event id="666" modified="2010-09-01T11:10:55">"
+
         $vendorEventId = 666;
 
         $event  = ProjectN_Test_Unit_Factory::get( 'Event' , array( 'vendor_poi_id' => $vendorEventId ,'id' => 63906 ) );
@@ -162,11 +171,11 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
         $event->save();
 
 
-
         $sourceLocation       =   $this->testDirectory. 'event.xml' ;
 
         $destinationLocation  =   $this->testDirectory. 'event_updated.xml' ;
 
+        //saving the source XML to the file system
         file_put_contents( $sourceLocation , $xmlContent );
 
         $task = new prepareExportXMLsForDataEntryTask( $this->getEventDispatcher() ,new sfFormatter() );
@@ -182,7 +191,10 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
 
         $task->run( $arguments, $options);
 
+        //after the task is ran, we are expecting the modified XML in $destinationLocation
         $updatedXml = simplexml_load_file( $destinationLocation );
+
+        //check if the id is changed to 666
         $this->assertEquals( $vendorEventId , (string) $updatedXml->event [ 0 ][ 'id' ]);
 
     }
@@ -231,6 +243,7 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
         $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
 
         $vendorMovieId =999 ;
+
         $movie  = ProjectN_Test_Unit_Factory::get( 'Movie' , array( 'vendor_movie_id' => $vendorMovieId ,'id' => 6684 ) );
 
         $movie->addMeta( 'vendor_movie_id' , $vendorMovieId );
@@ -240,6 +253,7 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
         $sourceLocation       =   $this->testDirectory. 'movie.xml' ;
 
         $destinationLocation  =   $this->testDirectory. 'movie_updated.xml' ;
+
         file_put_contents( $sourceLocation , $xmlContent );
 
         $task = new prepareExportXMLsForDataEntryTask( $this->getEventDispatcher() ,new sfFormatter() );
@@ -256,18 +270,22 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
         $task->run( $arguments, $options);
 
         $updatedXml = simplexml_load_file( $destinationLocation );
+
         $this->assertEquals( $vendorMovieId , (string) $updatedXml->movie [ 0 ][ 'id' ]);
 
     }
 
+    /**
+     * returns dispatcher for the task
+     *
+     * @return EventDispatcher
+     */
     private function getEventDispatcher()
     {
-     $configuration = ProjectConfiguration::hasActive() ? ProjectConfiguration::getActive() : new ProjectConfiguration( realpath($_test_dir . "/.."));
-     return $configuration->getEventDispatcher();
+        $configuration = ProjectConfiguration::hasActive() ? ProjectConfiguration::getActive() : new ProjectConfiguration( realpath($_test_dir . "/.."));
+
+        return $configuration->getEventDispatcher();
 
     }
-
-
-
 
 }
