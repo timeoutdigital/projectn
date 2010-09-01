@@ -34,7 +34,7 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
         $genetatedFiles = array(
             'poi.xml',
             'poi_updated.xml',
-            'event.php',
+            'event.xml',
             'event_updated.xml',
             'movie.xml',
             'movie_updated.xml'
