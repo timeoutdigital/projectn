@@ -27,55 +27,47 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
         {
             try
             {
-                // Defaults
-                $lang = $this->vendor['language'];
+                $lang = (string) $venueElement[ 'lang' ];
 
-                foreach ($venueElement->attributes() as $attribute => $value)
+                if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
                 {
-                    if( $attribute == 'vpid' )
+                    $vendorPoiId = (int) $venueElement[ 'vpid' ]  ;
+
+                    if( !$vendorPoiId )
                     {
-                        if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
-                        {
-                            $vendorPoiId =  (int) $value  ;
-                        }else
-                        {
-                            $vendorPoiId = (int) substr( (string) $value,5) ;
-                        }
+                         $this->notifyImporterOfFailure( new Exception( 'VendorPoiId not found for poi name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                         continue;
+                    }
+                    $poi = Doctrine::getTable( 'Poi' )->find( $vendorPoiId );
+
+                    if( $poi === false )
+                    {
+                       $this->notifyImporterOfFailure( new Exception( 'Could not found Poi to update!' ) );
+                       continue;
                     }
 
-                    if( $attribute == 'lang' )
-                    {
-                        $lang = (string) $value;
-                    }
                 }
-
-                if( !$vendorPoiId )
+                else
                 {
-                     $this->notifyImporterOfFailure( new Exception( 'VendorPoiId not found for poi name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
-                     continue;
-                }
+                     $vendorPoiId = (int) substr( (string) $venueElement[ 'vpid' ], 5) ;
 
-                 //$poi = $this->dataMapperHelper->getPoiRecord( $vendorPoiId );
+                     if( !$vendorPoiId )
+                     {
+                         $this->notifyImporterOfFailure( new Exception( 'VendorPoiId not found for poi name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                         continue;
+                     }
 
-                 if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
-                 {
-                     $poi = Doctrine::getTable( 'Poi' )->find( $vendorPoiId );
-                 }else
-                 {
                      $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $vendorPoiId );
+
                      if( $poi === false )
                      {
                         $poi = new Poi();
                      }
 
-                    $poi[ 'vendor_poi_id' ] = $vendorPoiId;
-                    $poi->addMeta('vendor_poi_id' , $vendorPoiId);
-                 }
-                 if( $poi === false )
-                 {
-                    $this->notifyImporterOfFailure( new Exception( '@todo write a messega here!' ) );
-                    continue;
-                 }
+                     $poi[ 'vendor_poi_id' ] = $vendorPoiId;
+                     $poi->addMeta('vendor_poi_id' , $vendorPoiId);
+
+                }
 
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
 
