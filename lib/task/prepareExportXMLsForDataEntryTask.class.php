@@ -32,6 +32,7 @@ class prepareExportXMLsForDataEntryTask extends sfBaseTask
     date_default_timezone_set( 'Europe/London' );
 
     // initialize the database connection
+    $this->configuration = $this->createConfiguration( 'backend', $options[ 'env' ] );
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
@@ -73,6 +74,10 @@ class prepareExportXMLsForDataEntryTask extends sfBaseTask
 
         $record = Doctrine::getTable( $options[ 'type' ] )->find( $recordId );
 
+        if( !$record )
+        {
+            continue;
+        }
         foreach ( $record[ $metaClass ] as $meta)
         {
             if( $meta[ 'lookup' ] == $lookup )
