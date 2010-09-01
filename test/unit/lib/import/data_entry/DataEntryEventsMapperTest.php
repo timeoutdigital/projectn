@@ -39,7 +39,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
     // For @#'#@# reason, this is not overriding the Vendor ID ??? it's always 1?
-    $londonPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7912, 'vendor_id' => 4  ) ); //fixture event happens at this venue
+    $londonPoi  = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7912, 'vendor_id' => 4  ) ); //fixture event happens at this venue
     $londonPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7913 , 'vendor_id' => 4  ) ); //fixture event happens at this venue
 
     $londonPoi2['Vendor'] = $londonPoi['Vendor'] = $this->vendor; // overriding the Vendor
@@ -132,6 +132,18 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $occurrence['vendor_event_occurrence_id'], $occurrence2['vendor_event_occurrence_id']);
     $this->assertEquals( $occurrence['id'], $occurrence2['id']);
     $this->assertEquals( $occurrence['event_id'], $occurrence2['event_id']);
+
+  }
+
+  public function testImportUpdatingExistingRecords()
+  {
+     $events = Doctrine::getTable('Event')->findAll();
+     $this->assertEquals( 2,  count( $events ));
+
+     //running the import with the same data so the import should update the existing ones
+     $this->object->importEvents( );
+     $events = Doctrine::getTable('Event')->findAll();
+     $this->assertEquals( 2,  count( $events ) , 'after running the import twice in a row, the event count shouldn"t change');
 
   }
 }

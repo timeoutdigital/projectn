@@ -27,31 +27,15 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
         {
             try
             {
-                // Defaults
-                $lang = $this->vendor['language'];
-                
-                foreach ( $eventElement->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'id' )
-                    {
-                        $vendorEventId = (int) substr( (string) $value,5) ;
-                    }
-                }
+                $vendorEventId  =  (int) substr( (string) $eventElement[ 'id' ], 5 );
+                $lang           =  (string) $eventElement->version[ 'lang' ];
 
-                foreach ( $eventElement->version->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'lang' )
-                    {
-                        $lang = (string) $value;
-                    }
-                }
-                $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
+                $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndVendorId( $vendorEventId, $this->vendor [ 'id' ]);
 
                 if( !$event )
                 {
                     $event = new Event();
                 }
-
                 $event[ 'review_date' ] = '';
                 $event[ 'vendor_event_id' ] = $vendorEventId;
                 $event[ 'name' ] = (string) $eventElement->name;
@@ -181,10 +165,10 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
             }
             catch ( Exception  $exception)
             {
-                $this->notifyImporterOfFailure($exception, $event); 
+                $this->notifyImporterOfFailure($exception, $event);
             }
 
         }
     }
-    
+
 }
