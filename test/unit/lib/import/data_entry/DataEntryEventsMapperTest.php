@@ -139,11 +139,25 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
   {
      $events = Doctrine::getTable('Event')->findAll();
      $this->assertEquals( 2,  count( $events ));
+     $event1 = $events[ 0 ];
+     $updatedAt1 = $event1[ 'updated_at' ];
 
      //running the import with the same data so the import should update the existing ones
+     sleep( 1 ); //sleep for  a second, need to see the updated_at is changing
+
      $this->object->importEvents( );
      $events = Doctrine::getTable('Event')->findAll();
      $this->assertEquals( 2,  count( $events ) , 'after running the import twice in a row, the event count shouldn"t change');
+     $event2 = $events[ 0 ];
+     $updatedAt2 = $event2[ 'updated_at' ];
+
+     //check the event1 and event2 are same event
+     $this->assertNotEquals( $updatedAt1 , $updatedAt2   );
+     $this->assertEquals( $event1[ 'id' ],  $event2[ 'id' ] );
+     $this->assertEquals( $event1[ 'name' ],  $event2[ 'name' ] );
+     $this->assertEquals( $event1[ 'vendor_id' ],  $event2[ 'vendor_id' ] );
+     $this->assertEquals( count( $event1['EventOccurrence'] ),  count( $event2['EventOccurrence'] ) );
+
 
   }
 }
