@@ -27,7 +27,6 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
         {
             try
             {
-                // Defaults
                 $lang = $this->vendor['language'];
 
                 // This mapper class is used for
