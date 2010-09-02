@@ -36,26 +36,31 @@ all:
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: delhi
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: bangalore
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: pune
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: beijing
           type: [ poi ]
           language: en-GB
           validation: false
+          exportForNokia: true
   update:
      cities:
         -

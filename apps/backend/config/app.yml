@@ -84,66 +84,87 @@ all:
           name: singapore
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
         -
           name: ny
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
         -
           name: chicago
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
         -
           name: london
           type: [ poi, event, movie ]
           language: en-GB
+          exportForNokia: true
         -
           name: lisbon
           type: [ poi, event, movie ]
           language: pt
+          exportForNokia: true
         -
           name: sydney
           type: [ poi, event, movie ]
           language: en-AU
+          exportForNokia: true
         -
           name: moscow
           type: [ poi, event, movie ]
           language: ru
+          exportForNokia: true
         -
           name: saint petersburg
           type: [ poi, event, movie ]
           language: ru
+          exportForNokia: true
         -
           name: almaty
           type: [ poi, event, movie ]
           language: ru
+          exportForNokia: true
         -
           name: barcelona
           type: [ poi, event, movie ]
           language: ca
+          exportForNokia: true
         -
           name: kuala lumpur
           type: [ poi, event, movie ]
           language: en-MY
+          exportForNokia: true
         -
           name: mumbai
           type: [ poi, event, movie ]
           language: en-GB
           exportForDataEntry: true
+          exportForNokia: true
         -
           name: delhi
           type: [ poi, event, movie ]
           language: en-GB
           exportForDataEntry: true
+          exportForNokia: true
         -
           name: bangalore
           type: [ poi, event, movie ]
           language: en-GB
           exportForDataEntry: true
+          exportForNokia: true
         -
           name: pune
           type: [ poi, event, movie ]
           language: en-GB
           exportForDataEntry: true
+          exportForNokia: true
+        -
+          name: beijing
+          type: [ poi ]
+          language: en-GB
+          exportForDataEntry: true
+          exportForNokia: false
 
 
 

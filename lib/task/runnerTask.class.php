@@ -169,30 +169,34 @@ class runnerTask extends sfBaseTask
         {
             foreach ( $exportCity['type'] as $type )
             {
-                $this->logSection( 'export', date( 'Y-m-d H:i:s' ) . ' - running export for ' . $exportCity[ 'name' ] . ' (' . $type . ')' );
+
 
                 $logPath = $this->logRootDir . '/export';
                 $this->verifyAndCreatePath( $logPath );
                 $currentExportPath = $exportPath .'/'.$type;
                 $this->verifyAndCreatePath( $currentExportPath );
 
-                $taskCommand = $this->symfonyPath . '/./symfony projectn:export --env=' . $options['env'] . ' --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
-                // When Events get-called, we pass POI XML destination
-                if($type == 'event')
+                if( isset( $exportCity['exportForNokia'] ) &&  $exportCity['exportForNokia'] )
                 {
-                    $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                    $this->logSection( 'export', date( 'Y-m-d H:i:s' ) . ' - running export for ' . $exportCity[ 'name' ] . ' (' . $type . ')' );
+
+                    $taskCommand = $this->symfonyPath . '/./symfony projectn:export --env=' . $options['env'] . ' --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                    // When Events get-called, we pass POI XML destination
+                    if($type == 'event')
+                    {
+                        $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                    }
+                    if( isset( $exportCity['validation'] )  )
+                    {
+                        //convert boolean validation values into string "true" or "false"
+                        $exportCity[ 'validation' ] = ( $exportCity[ 'validation' ] == 1 ) ? "true" : "false";
+
+                        $taskCommand .= ' --validation=' .  $exportCity[ 'validation' ];
+                    }
+
+                    $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
+                    $this->executeCommand( $taskCommand, $logCommand );
                 }
-                if( isset( $exportCity['validation'] )  )
-                {
-                    //convert boolean validation values into string "true" or "false"
-                    $exportCity[ 'validation' ] = ( $exportCity[ 'validation' ] == 1 ) ? "true" : "false";
-
-                    $taskCommand .= ' --validation=' .  $exportCity[ 'validation' ];
-                }
-
-                $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
-                $this->executeCommand( $taskCommand, $logCommand );
-
 
                 if( isset( $exportCity['exportForDataEntry'] ) &&  $exportCity['exportForDataEntry'] )
                 {
