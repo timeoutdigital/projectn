@@ -39,12 +39,12 @@ class runnerTask extends sfBaseTask
 
         foreach ( $order as $taskType )
         {
-            $this->runTask( $taskType , $options[ 'city' ] );
+            $this->runTaskByType( $taskType , $options[ 'city' ] );
         }
 
     }
 
-    protected function runTask( $taskType , $city )
+    protected function runTaskByType( $taskType , $city )
     {
         switch ( $taskType )
         {
