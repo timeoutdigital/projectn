@@ -35,19 +35,18 @@ class singaporeMovieMapper extends DataMapper
                 }
 
                 // Map Data
-                $movie[ 'vendor_id' ] = $this->vendor[ 'id' ];
-                $movie[ 'vendor_movie_id' ] = (string) $movieNode->id;
-                $movie[ 'name' ] = (string) $movieNode->title;
-                $movie[ 'review' ] = (string) $movieNode->synopsis;
-                $movie[ 'url' ] = (string) (string) $movieNode->website;
-                $movie[ 'director' ] = (string) $movieNode->director;
-                $movie[ 'cast' ] = (string) $movieNode->cast;
-                $movie[ 'release_date' ] = (string) $movieNode->opens;
-                $movie[ 'duration' ] = (string) $movieNode->length;
-                $movie[ 'country' ] = (string) $movieNode->origin;
-                $movie[ 'age_rating' ] = $this->getAgeRatingCode( (string) $movieNode->certificate);
-
-                $movie[ 'utf_offset' ] = $this->vendor->getUtcOffset();
+                $movie[ 'vendor_id' ]           = $this->vendor[ 'id' ];
+                $movie[ 'vendor_movie_id' ]     = (string) $movieNode->id;
+                $movie[ 'name' ]                = (string) $movieNode->title;
+                $movie[ 'review' ]              = (string) $movieNode->synopsis;
+                $movie[ 'url' ]                 = (string) (string) $movieNode->website;
+                $movie[ 'director' ]            = (string) $movieNode->director;
+                $movie[ 'cast' ]                = (string) $movieNode->cast;
+                $movie[ 'release_date' ]        = (string) $movieNode->opens;
+                $movie[ 'duration' ]            = (string) $movieNode->length;
+                $movie[ 'country' ]             = (string) $movieNode->origin;
+                $movie[ 'age_rating' ]          = $this->getAgeRatingCode( (string) $movieNode->certificate);
+                $movie[ 'utf_offset' ]          = $this->vendor->getUtcOffset();
 
                 //genres
                 if ( (string) $movieNode->category != '' )
