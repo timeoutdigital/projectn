@@ -1,0 +1,6 @@
+HTTP/1.1 304 Not Modified
+X-Content-Type-Options: nosniff
+Date: Wed, 01 Sep 2010 14:29:41 GMT
+Server: sffe
+X-XSS-Protection: 1; mode=block
+
