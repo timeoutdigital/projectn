@@ -29,15 +29,41 @@ class runnerTask extends sfBaseTask
     {
         date_default_timezone_set( 'Europe/London' );
 
+
         $this->symfonyPath = sfConfig::get( 'sf_root_dir' );
         $this->logRootDir = sfConfig::get( 'sf_log_dir' );
         $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
         $this->taskOptions = $options;
 
-        $this->runUpdateTasks( $options[ 'city' ] );
-        $this->runImportTasks( $options[ 'city' ] );
-        $this->runExportTasks( $options[ 'city' ] );
+        $order = sfConfig::get( 'app_runner_order' );
 
+        foreach ( $order as $taskType )
+        {
+            $this->runTask( $taskType , $options[ 'city' ] );
+        }
+
+    }
+
+    protected function runTask( $taskType , $city )
+    {
+        switch ( $taskType )
+        {
+        	case 'import':
+        	   $this->runImportTasks( $city );
+        	   break;
+
+        	 case 'export':
+        	   $this->runExportTasks( $city );
+        	   break;
+
+        	 case 'update':
+        	   $this->runUpdateTasks( $city );
+        	   break;
+
+        	default:
+        	   throw new Exception( 'Invalid type specified in app_runner_order config' );
+        	break;
+        }
     }
 
     /**

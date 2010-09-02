@@ -22,7 +22,8 @@ all:
 #              TRUE and vpid field in the input XML is interpreted as the ID of the poi to be updated
 #.......................................................................
     onUpdateFindById: false
-
+  runner:
+    order: [ import, export ]
   import:
     cities:
         -
