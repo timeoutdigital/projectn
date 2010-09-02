@@ -631,7 +631,14 @@ class importTask extends sfBaseTask
     case 'mumbai':
     case 'delhi':
     case 'bangalore':
+    case 'beijing-data-entry':
     case 'pune':
+
+        if( $options['city'] == 'beijing-data-entry' )
+        {
+             $options['city'] = 'beijing';
+        }
+
         $sfRootDirectory = sfConfig::get( "sf_root_dir" );
         $installation = ( strpos( $sfRootDirectory , 'projectn_data_entry' ) === false) ? 'projectn' : 'projectn_data_entry';
         $dataEntryDirectories  = sfConfig::get( 'app_data_entry_directory' );

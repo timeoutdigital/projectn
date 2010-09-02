@@ -76,7 +76,7 @@ all:
           name: pune
           type: [ poi, event, movie ]
         -
-          name: beijing
+          name: beijing-data-entry
           type: [ poi ]
 
 prod:
