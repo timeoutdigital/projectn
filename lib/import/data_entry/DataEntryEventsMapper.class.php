@@ -30,7 +30,17 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                 // Defaults
                 $lang = $this->vendor['language'];
 
-                //update mode is on
+                // This mapper class is used for
+                //     * importing from data entry database:
+                //         - in this case, app_data_entry_onUpdateFindById is FALSE and vpid field in the input XML is interpreted as   vendor_event_id
+                //     * updating data_entry database
+                //         - steps for update :
+                //            * in projectn installation, we ran an export to create the XML files
+                //            * for some cities, the runner configuration has exportForDataEntry: true value, for those cities, prepareExportXMLsForDataEntryTask is called to create
+                //              new XML files with the modified IDs
+                //         - in data_entry instance the modified XML files are used to import the data back to data_entry database ,in this case, app_data_entry_onUpdateFindById is
+                //              TRUE and vpid field in the input XML is interpreted as the ID of the poi to be updated
+
                 if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
                 {
                      $vendorEventId = (int) $eventElement[ 'id' ];

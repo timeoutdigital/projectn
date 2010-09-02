@@ -7,6 +7,18 @@ all:
     directory:
         projectn:            /var/vhosts/projectn_data_entry/export/
         projectn_data_entry: /var/vhosts/projectn/export/data_entry/
+#.....................................................................................
+#     Data entry mappers are used for two different cases:
+#     1 : importing from data entry database:
+#         - in this case, onUpdateFindById is FALSE and vpid field in the input XML is interpreted as   vendor_event_id
+#     2 : updating data_entry database
+#         - steps for update :
+#            * in projectn installation, we ran an export to create the XML files
+#            * for some cities, the runner configuration has exportForDataEntry: true value, for those cities, prepareExportXMLsForDataEntryTask is called to create
+#              new XML files with the modified IDs
+#         - in data_entry instance the modified XML files are used to import the data back to data_entry database ,in this case, app_data_entry_onUpdateFindById is
+#              TRUE and vpid field in the input XML is interpreted as the ID of the poi to be updated
+#.......................................................................................
     onUpdateFindById: true
 
   import:
