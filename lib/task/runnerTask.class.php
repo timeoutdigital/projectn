@@ -193,18 +193,29 @@ class runnerTask extends sfBaseTask
                 $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
                 $this->executeCommand( $taskCommand, $logCommand );
 
-                //export for the data entry forms
+
                 if( isset( $exportCity['exportForDataEntry'] ) &&  $exportCity['exportForDataEntry'] )
                 {
+                   $currentExportPathDataEntry = $exportPathDataEntry .'/'.$type;
+                   $this->executeCommand( 'mkdir -p '.$currentExportPathDataEntry , 'create data entry export folders' );
+                   //run the exports for data_entry without validation!
 
-                     $currentExportPathDataEntry = $exportPathDataEntry .'/'.$type;
-                     $this->executeCommand( 'mkdir -p '.$currentExportPathDataEntry , 'create data entry export folders' );
-                     $taskCommand = $this->symfonyPath . '/./symfony projectn:prepareExportXMLsForDataEntry --env=' . $options['env'] . ' --application=' .  $options[ 'application' ]  . ' --type="' . $type . '" --destination=' . $currentExportPathDataEntry . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                   $destinationFile = $currentExportPathDataEntry . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                   $taskCommand = $this->symfonyPath . '/./symfony projectn:export --env=' . $options['env'] . ' --validation=false --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $destinationFile;
+                   // When Events get-called, we pass POI XML destination
+                   if($type == 'event')
+                   {
+                       $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                   }
 
-                     $taskCommand .= ' --xml=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                   $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '_export_for_data_entry.log';
+                   $this->executeCommand( $taskCommand, $logCommand );
+                   //run the exports for data_entry without validation done!
+                   $taskCommand = $this->symfonyPath . '/./symfony projectn:prepareExportXMLsForDataEntry --env=' . $options['env'] . ' --application=' .  $options[ 'application' ]  . ' --type="' . $type . '" --destination=' .$destinationFile;
+                   $taskCommand .= ' --xml=' .$destinationFile;
 
-                    $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
-                    $this->executeCommand( $taskCommand, $logCommand );
+                   $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '_prepareExportXMLsForDataEntry.log';
+                   $this->executeCommand( $taskCommand, $logCommand );
                 }
             }
 
