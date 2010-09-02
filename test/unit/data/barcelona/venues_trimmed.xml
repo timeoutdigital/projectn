@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <venues>
   <venue id="1">
     <name><![CDATA[Museu de la Xocolata]]></name>
@@ -13,7 +13,9 @@
     <lat/>
     <short_description><![CDATA[]]></short_description>
     <description><![CDATA[]]></description>
-    <price_information><![CDATA[3,80 €]]></price_information>
+    <price_information>
+        <![CDATA[3,80 €]]>
+    </price_information>
     <opening_times><![CDATA[Dl. dc. dj. dv. i ds., de 10 a 19 h. Dg. i fest., de 10 a 15 h]]></opening_times>
     <email><![CDATA[]]></email>
     <phone><![CDATA[93 268 78 78]]></phone>
