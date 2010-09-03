@@ -25,3 +25,12 @@ all:
   geocode:
     override_accuracy: 10
     google_map_api_key: keyfromadmin
+  beijing:
+      dns: "mysql:host=80.250.104.16;dbname=searchlight"
+      user: projectn
+      password: outtime99
+test:
+    beijing:
+      dns:  sqlite:/tmp/beijing.db:
+      user: projectn
+      password: outtime99

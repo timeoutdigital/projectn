@@ -670,7 +670,11 @@ class importTask extends sfBaseTask
                 $pdoDB = null;
                 try {
 
-                    $pdoDB = new PDO("mysql:host=80.250.104.16;dbname=searchlight", 'projectn', 'outtime99', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+                    $dns = sfConfig::get("app_beijing_dns");
+                    $user = sfConfig::get("app_beijing_user");
+                    $password = sfConfig::get("app_beijing_password");
+
+                    $pdoDB = new PDO( $dns , $user , $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
 
                     echo 'Database Connection Estabilished' . PHP_EOL;
 
