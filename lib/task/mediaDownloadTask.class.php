@@ -144,7 +144,8 @@ EOF;
       }
       catch( MediaException $exception )
       {
-        @unlink( $tmpDestination );
+        if( file_exists( $tmpDestination ) )
+            unlink( $tmpDestination );
         
         $media['mime_type']          = NULL;
         $media['file_last_modified'] = NULL;
@@ -156,8 +157,21 @@ EOF;
         throw $exception; // Re-throw Exception
       }
 
-      @copy( $tmpDestination, $destination );
-      @unlink( $tmpDestination );
+      // If Directory Doesn't Exist, Recursively Create It.
+      $pathinfo = pathinfo( $destination );
+      if( isset( $pathinfo['dirname'] ) && !file_exists( $pathinfo['dirname'] ) )
+          mkdir( $pathinfo['dirname'], 0777, true );
+
+      // If Downloaded Temp File Exists on Disk.
+      if( file_exists( $tmpDestination ) )
+      {
+        // Remove the Old Copy If We Have One.
+        if( file_exists( $destination ) )
+            unlink( $destination );
+        
+        // Move Temp File to Import Media Directory.
+        rename( $tmpDestination, $destination );
+      }
 
       $media->save();
   }
