@@ -14,7 +14,7 @@ else
     python setup.py install
 fi
 
-SETTINGS_FILE="/n/scripts/${SETTINGS_FILE}.s3cfg"
+SETTINGS_FILE="/n/scripts/.s3cfg"
 if ! [ -f ${SETTINGS_FILE} ]; then
     clear
     echo "Could Not Find s3cmd settings file. Please configure s3cmd manually."
