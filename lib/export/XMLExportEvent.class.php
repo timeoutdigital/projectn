@@ -63,7 +63,10 @@ class XMLExportEvent extends XMLExport
 
   protected function getData()
   {
-    return Doctrine::getTable( 'Event' )->findForExport( $this->vendor );
+    $events = Doctrine::getTable( 'Event' )->findForExport( $this->vendor );
+    $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], 'Event' );
+
+    return $events;
   }
 
   /**
@@ -159,7 +162,7 @@ class XMLExportEvent extends XMLExport
       $this->appendNonRequiredElement($versionElement, 'price', $event['price'], XMLExport::USE_CDATA);
 
       //event/version/media
-      foreach( $event[ 'EventMedia' ] as $medium )
+      foreach( $this->filterByExportPolicyAndVerifyMedia( $event[ 'EventMedia' ] ) as $medium )
       {
         $em = new EventMedia();
         $em->merge( $medium );
