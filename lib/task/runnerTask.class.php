@@ -272,9 +272,9 @@ class runnerTask extends sfBaseTask
             $selectedCity = array();
             foreach ($citiesConfig as $cityConfig )
             {
-                if( $cityConfig['name'] == $city )
+                if( $cityConfig['name'] == $city  || $cityConfig[ 'name' ] == $city.'-data-entry' )
                 {
-                    $selectedCity = array( $cityConfig );
+                    $selectedCity[] = $cityConfig ;
                 }
             }
             $citiesConfig = $selectedCity;
