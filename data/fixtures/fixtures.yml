@@ -433,6 +433,15 @@ Vendor:
     country_code_long:        'CHN'
     geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
 
+  v30:
+    city:                     budapest
+    language:                 hu
+    time_zone:                Europe/Budapest
+    inernational_dial_code:   '+36'
+    airport_code:             'BUD'
+    country_code:             'hu'
+    country_code_long:        'HUN'
+    geo_boundries:            '45.7436027526855;16.1118869781494;48.5856742858887;22.9060020446777'
 
 
 EventCategory:
