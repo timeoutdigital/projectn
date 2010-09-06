@@ -194,9 +194,23 @@ abstract class geocoder
     if( !$this->settingsChanged )
       return $this;
 
-    $this->setUpCurl();
-    $this->curl->exec();
-    $this->response = $this->curl->getResponse();
+    if( class_exists( 'SqliteGeoCache' ) && SqliteGeoCache::enabled() )
+    {
+        $this->response = SqliteGeoCache::get( $this->getLookupUrl() );
+    }
+
+    if( is_null( $this->response ) )
+    {
+        $this->setUpCurl();
+        $this->curl->exec();
+        $this->response = $this->curl->getResponse();
+
+        if( $this->response !== false && class_exists( 'SqliteGeoCache' ) && SqliteGeoCache::enabled() )
+        {
+            SqliteGeoCache::put( $this->getLookupUrl(), $this->response );
+        }
+    }
+        
     $this->processResponse( $this->response );
 
     file_put_contents( sfConfig::get( 'sf_log_dir' ) . '/GoogleApiUsage.log', date( 'Y-m-d H:i:s' ) . PHP_EOL, FILE_APPEND );
