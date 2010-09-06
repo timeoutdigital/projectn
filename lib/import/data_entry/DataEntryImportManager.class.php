@@ -178,6 +178,10 @@ class DataEntryImportManager
             return NULL;
         }
 
+        if( is_dir( $path .'/httpdocs' ) )
+        {
+            $path = $path.'/httpdocs';
+        }
         if( $installation == self::INSTALLATION_PROJECT_N_DATA_ENTRY  )
         {
             $path = $path.'/export/data_entry/';

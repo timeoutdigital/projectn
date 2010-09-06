@@ -232,8 +232,13 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
 
         if( $resultCount == 1 )
         {
-            return str_replace( '/config/databases.yml' , '/', $output[ 0 ] );
+            $path = str_replace( '/config/databases.yml' , '/', $output[ 0 ] );
+            if( is_dir( $path .'httpdocs' ) )
+            {
+                $path = $path.'httpdocs';
+            }
 
+            return $path;
         }else
         {
             return NULL;
