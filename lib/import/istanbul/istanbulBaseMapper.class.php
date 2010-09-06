@@ -86,6 +86,11 @@ class istanbulBaseMapper extends DataMapper
         return stringTransform::concatNonBlankStrings( ", ", $publicTransportArray );
     }
 
+    protected function roundNumberOrReturnNull( $string )
+    {
+        return is_numeric( (string) $string ) ? round( (string) $string ) : null;
+    }
+
     /**
      * helper function to add images
      *
