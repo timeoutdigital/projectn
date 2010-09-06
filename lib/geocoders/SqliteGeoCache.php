@@ -17,16 +17,14 @@ class SqliteGeoCache
         if( self::$persistent && !is_null( self::$pdo ) && get_class( self::$pdo ) === 'PDO' )
             return true;
         
-        if( file_exists( self::$sqlpath ) )
-        {
-            try {
-                self::$pdo = new PDO( 'sqlite:'. self::$sqlpath );
-                return true;
-            }
-            catch ( PDOException $e ) {
-                echo 'Failed to Connect to Sqlite Database: ' . $e->getMessage();
-            }
+        try {
+            self::$pdo = new PDO( 'sqlite:'. self::$sqlpath );
+            return true;
         }
+        catch ( PDOException $e ) {
+            echo 'Failed to Connect to Sqlite Database: ' . $e->getMessage();
+        }
+        
         return false;
     }
 
