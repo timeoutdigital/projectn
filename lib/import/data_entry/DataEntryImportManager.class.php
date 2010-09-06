@@ -14,8 +14,10 @@ class DataEntryImportManager
      */
     private $vendor;
 
+    const INSTALLATION_PROJECT_N = 'projectn';
+    const INSTALLATION_PROJECT_N_DATA_ENTRY = 'projectn_data_entry';
 
-    public function __construct( $cityName, $importDir)
+    public function __construct( $cityName )
     {
         $this->vendor =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
 
@@ -23,10 +25,8 @@ class DataEntryImportManager
         {
             throw new Exception( 'DataEntryImportManager : No Vendor Found for City - ' . $cityName ) ;
         }
-        
-        $this->importDir = $importDir;
-    }
 
+    }
 
     /**
      * Import POI's
@@ -74,6 +74,8 @@ class DataEntryImportManager
         }
 
         // Get the Exported XML FILE
+        var_dump( $this->getLatestExportDir() );
+        die("");
         $filePath = $this->getLatestExportDir() . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace(' ', '_', strtolower( $this->vendor['city'] ) ) . '.xml';
 
         // Check File Exists
@@ -116,12 +118,13 @@ class DataEntryImportManager
     {
         $subDirectories = array();
 
-        if( is_null( $this->importDir ) )
-        {
-           //set it to the default
-           $this->importDir = sfConfig::get('sf_root_dir') . '_data_entry' . DIRECTORY_SEPARATOR . 'export' .DIRECTORY_SEPARATOR;
-        }
+        $this->importDir = $this->locateImportDir();
 
+        if( is_null( $this->importDir )  || !is_dir($this->importDir ) )
+        {
+            throw new Exception( 'DataEntryImportManager couldnt locate the import directory' );
+        }
+        var_dump( $this->importDir );
         if ( is_dir( $this->importDir ) )
         {
             $dh = opendir( $this->importDir );
@@ -147,4 +150,50 @@ class DataEntryImportManager
 
         return $this->importDir . 'export_'. end( $subDirectories );
     }
+
+    private function locateImportDir()
+    {
+        $sfRootDirectory = sfConfig::get( "sf_root_dir" );
+
+        if( ( strpos( $sfRootDirectory , 'projectn_data_entry' ) === false)  )
+        {
+            $installation       = self::INSTALLATION_PROJECT_N ;
+            $targetInstallation = self::INSTALLATION_PROJECT_N_DATA_ENTRY ;
+
+        }
+        else
+        {
+            $installation       = self::INSTALLATION_PROJECT_N_DATA_ENTRY ;
+            $targetInstallation = self::INSTALLATION_PROJECT_N ;
+        }
+
+        exec( 'locate ' . $targetInstallation. '/config/databases.yml'  ,$output );
+
+        $resultCount = count( $output );
+
+        if( $resultCount == 1 )
+        {
+            $path = str_replace( '/config/databases.yml' , '', $output[ 0 ] );
+
+        }else
+        {
+            return NULL;
+        }
+
+        if( $installation == self::INSTALLATION_PROJECT_N_DATA_ENTRY  )
+        {
+            $path = $path.'/export/data_entry/';
+        }else
+        {
+            $path = $path. '/export/';
+        }
+
+        return $path;
+    }
+
+    public function getImportDir()
+    {
+        return $this->importDir;
+    }
+
 }

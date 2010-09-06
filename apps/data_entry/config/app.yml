@@ -5,8 +5,6 @@
 all:
   data_entry:
     directory:
-        projectn:            /var/vhosts/projectn_data_entry/export/
-        projectn_data_entry: /var/vhosts/projectn/export/data_entry/
 #.....................................................................................
 #     Data entry mappers are used for two different cases:
 #     1 : importing from data entry database:

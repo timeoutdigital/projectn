@@ -639,17 +639,11 @@ class importTask extends sfBaseTask
              $options['city'] = 'beijing';
         }
 
-        $sfRootDirectory = sfConfig::get( "sf_root_dir" );
-        $installation = ( strpos( $sfRootDirectory , 'projectn_data_entry' ) === false) ? 'projectn' : 'projectn_data_entry';
-        $dataEntryDirectories  = sfConfig::get( 'app_data_entry_directory' );
-        $dataEntryDirectory =  $dataEntryDirectories [ $installation ];
 
-        if( !is_dir( $dataEntryDirectory ) )
-        {
-            throw new Exception( $dataEntryDirectory . ' is not a valid directory to fetch data-entry files' );
-        }
-        echo "Using : " . $dataEntryDirectory .PHP_EOL;
-        $dataEntryImportManager = new DataEntryImportManager( $options['city'], $dataEntryDirectory );
+
+        $dataEntryImportManager = new DataEntryImportManager( $options['city']  );
+
+        echo "Using : " . $dataEntryImportManager->getImportDir();
 
         switch( $options['type'] )
         {
