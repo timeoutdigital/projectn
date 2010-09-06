@@ -94,7 +94,7 @@ class bootstrapTest extends PHPUnit_Framework_TestCase
   public function testAddPoiWithDataOverride()
   {
     $name = 'Episode V: The Vendor Strikes Back';
-    $country = 'GB';
+    $country = 'GBR';
     ProjectN_Test_Unit_Factory::add( 'poi', array(
       'poi_name' => $name,
       'country' => $country,
