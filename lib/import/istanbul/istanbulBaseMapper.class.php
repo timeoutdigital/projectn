@@ -34,14 +34,14 @@ class istanbulBaseMapper extends DataMapper
     * @param geoEncode $geoEncoder
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
+    public function __construct( SimpleXMLElement $xml, geocoder $geoEncoder = null )
     {        
         $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'istanbul', 'tr' );
 
         //date_default_timezone_set( $this->vendor->time_zone );
         //setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
         
-        $this->geoEncoder = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geoEncoder = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
         $this->xml        = $xml;
     }
 
