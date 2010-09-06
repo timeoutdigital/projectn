@@ -72,10 +72,8 @@ class DataEntryImportManager
             throw new Exception( 'DataEntryImportManager::runImport No Vendor Found for City - ' . $this->vendor['city'] );
             return;
         }
-
         // Get the Exported XML FILE
-        var_dump( $this->getLatestExportDir() );
-        die("");
+
         $filePath = $this->getLatestExportDir() . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace(' ', '_', strtolower( $this->vendor['city'] ) ) . '.xml';
 
         // Check File Exists
