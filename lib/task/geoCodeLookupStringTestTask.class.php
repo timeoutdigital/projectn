@@ -96,7 +96,7 @@ EOF;
                $fields[] = trim( $poiObj[ $field ], " ," );
 
             $address = stringTransform::concatNonBlankStrings( ', ', $fields );
-            $g = new geoEncode();
+            $g = new googleGeocoder();
             $g->setApiKey( "ABQIAAAADCvbfZ1Y339Rd16PKF4k6BT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQj6XSAiXD_sPB9VI5lnTE0m8bWvQ" );
             $g->setAddress( $address );
             $g->setBounds( $poiObj->Vendor->getGoogleApiGeoBounds() );

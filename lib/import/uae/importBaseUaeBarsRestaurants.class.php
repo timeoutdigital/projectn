@@ -145,16 +145,16 @@ class importBaseUaeBarsRestaurants{
              $poiObj['street'] = trim($addressArray[0]);
              $poiObj['district'] =trim($addressArray[1]);
              $poiObj['city'] = trim(ucwords($addressArray[2]));
-             $geoEncodeLookUpString = $poiObj['poi_name'] .  ', '. $poiObj['street'] . ', ' . $poiObj['district'] . ', '.$poiObj['city'] .', UAE' ;
+             $geocoderLookUpString = $poiObj['poi_name'] .  ', '. $poiObj['street'] . ', ' . $poiObj['district'] . ', '.$poiObj['city'] .', UAE' ;
         }
         else
         {
              $poiObj['street'] = trim(ucfirst($addressArray[0]));
              $poiObj['city'] = trim(ucfirst($addressArray[1]));
-             $geoEncodeLookUpString = $poiObj['poi_name'] . ', '.$poiObj['city']. ', UAE'  ;
+             $geocoderLookUpString = $poiObj['poi_name'] . ', '.$poiObj['city']. ', UAE'  ;
         }
 
-        $poiObj->setGeoEncodeLookUpString($geoEncodeLookUpString);
+        $poiObj->setgeocoderLookUpString($geocoderLookUpString);
         
         return $poiObj;
     }

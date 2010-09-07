@@ -16,7 +16,43 @@
 				<start_date><![CDATA[2010-05-21]]></start_date>
 				<start_time><![CDATA[19:00]]></start_time>
 				<end_date><![CDATA[2010-05-21]]></end_date>
+				<end_time><![CDATA[19:01]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[1]]></venue>
+			</occurrence>
+                        <occurrence id="4630349">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-05-21]]></start_date>
+				<start_time><![CDATA[]]></start_time>
+				<end_date><![CDATA[2010-05-21]]></end_date>
+				<end_time><![CDATA[]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[1]]></venue>
+			</occurrence>
+                        <occurrence id="4630349">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-05-21]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[2010-05-22]]></end_date>
 				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[1]]></venue>
+			</occurrence>
+                        <occurrence id="4630349">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-05-21]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[]]></end_date>
+				<end_time><![CDATA[19:00]]></end_time>
+				<utc_offset><![CDATA[-3]]></utc_offset>
+				<venue><![CDATA[1]]></venue>
+			</occurrence>
+                        <occurrence id="4630349">
+				<booking_url><![CDATA[]]></booking_url>
+				<start_date><![CDATA[2010-5-21]]></start_date>
+				<start_time><![CDATA[19:00]]></start_time>
+				<end_date><![CDATA[]]></end_date>
+				<end_time><![CDATA[19:10]]></end_time>
 				<utc_offset><![CDATA[-3]]></utc_offset>
 				<venue><![CDATA[1]]></venue>
 			</occurrence>
@@ -96,7 +132,8 @@
 	</event>
 	<event id="379">
 		<name><![CDATA[Убийство по-французски]]></name>
-		<description><![CDATA[Туго закрученный детективный сюжет тесно переплетен с&amp;nbsp;темой любви. В&amp;nbsp;основе истории&amp;nbsp;&amp;mdash; конфликт между следователем и&amp;nbsp;подозреваемой в&amp;nbsp;убийстве горничной.&lt;br /&gt;Возможно ли&amp;nbsp;в&amp;nbsp;этом мире торжество справедливости?]]></description>
+		<description><![CDATA[Туго закрученный детективный сюжет тесно переплетен с&amp;nbsp;темой любви. В&amp;nbsp;основе истории&amp;nbsp;&amp;mdash; конфликт между следователем и&amp;nbsp;подозреваемой в&amp;nbsp;убийстве горничной.&lt;br /&gt;
+Возможно ли&amp;nbsp;в&amp;nbsp;этом мире торжество справедливости?]]></description>
 		<short_description><![CDATA[Туго закрученный детективный сюжет тесно переплетен с темой любви.]]></short_description>
 		<booking_url><![CDATA[]]></booking_url>
 		<url><![CDATA[]]></url>

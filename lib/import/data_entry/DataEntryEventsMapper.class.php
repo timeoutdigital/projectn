@@ -4,10 +4,10 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
      /**
     *
     * @param SimpleXMLElement $xml
-    * @param geoEncode $geoEncoder
+    * @param geocoder $geocoderr
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null, $city = false )
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false )
     {
         if( is_string( $city ) )
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
@@ -16,7 +16,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
           throw new Exception( 'DataEntryEventsMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
-        $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geocoderr           = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
     }
@@ -27,31 +27,15 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
         {
             try
             {
-                // Defaults
-                $lang = $this->vendor['language'];
-                
-                foreach ( $eventElement->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'id' )
-                    {
-                        $vendorEventId = (int) substr( (string) $value,5) ;
-                    }
-                }
+                $vendorEventId  =  (int) substr( (string) $eventElement[ 'id' ], 5 );
+                $lang           =  (string) $eventElement->version[ 'lang' ];
 
-                foreach ( $eventElement->version->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'lang' )
-                    {
-                        $lang = (string) $value;
-                    }
-                }
-                $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
+                $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndVendorId( $vendorEventId, $this->vendor [ 'id' ]);
 
                 if( !$event )
                 {
                     $event = new Event();
                 }
-
                 $event[ 'review_date' ] = '';
                 $event[ 'vendor_event_id' ] = $vendorEventId;
                 $event[ 'name' ] = (string) $eventElement->name;
@@ -181,10 +165,10 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
             }
             catch ( Exception  $exception)
             {
-                $this->notifyImporterOfFailure($exception, $event); 
+                $this->notifyImporterOfFailure($exception, $event);
             }
 
         }
     }
-    
+
 }

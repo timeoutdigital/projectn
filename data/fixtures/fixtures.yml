@@ -373,6 +373,15 @@ Vendor:
     country_code:             'in'
     country_code_long:        'IND'
     geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
+  v25:
+    city:                     istanbul
+    language:                 tr
+    time_zone:                Asia/Istanbule
+    inernational_dial_code:   +90
+    airport_code:             IST
+    country_code:             tr
+    country_code_long:        TUR
+    geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
 
   v25:
     city:                     jerusalem
@@ -403,6 +412,36 @@ Vendor:
     country_code:             'nl'
     country_code_long:        'NLD'
     geo_boundries:            '50.74371291732712;3.36255574226379;53.56398423164796;7.227944850921628'
+
+  v28:
+    city:                     bucharest
+    language:                 ro
+    time_zone:                Europe/Bucharest
+    inernational_dial_code:   '+40'
+    airport_code:             'OTP'
+    country_code:             'ro'
+    country_code_long:        'ROU'
+    geo_boundries:            '43.62131064459927;20.25502972056884;48.2669525146484;29.6910572052002'
+    
+  v29:
+    city:                     beijing
+    language:                 zh-Hans
+    time_zone:                Etc/GMT+8
+    inernational_dial_code:   '+86'
+    airport_code:             'TSN'
+    country_code:             'cn'
+    country_code_long:        'CHN'
+    geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
+
+  v30:
+    city:                     budapest
+    language:                 hu
+    time_zone:                Europe/Budapest
+    inernational_dial_code:   '+36'
+    airport_code:             'BUD'
+    country_code:             'hu'
+    country_code_long:        'HUN'
+    geo_boundries:            '45.7436027526855;16.1118869781494;48.5856742858887;22.9060020446777'
 
 
 EventCategory:

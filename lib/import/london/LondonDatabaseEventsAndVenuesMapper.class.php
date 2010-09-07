@@ -378,7 +378,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
     $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
     $poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
-    $poi['geoEncodeLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
+    $poi['geocoderLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
 
     // Add Images
     if( isset( $item[ 'SLLVenue' ]['image_id'] ) && is_numeric( $item[ 'SLLVenue' ]['image_id'] ) )

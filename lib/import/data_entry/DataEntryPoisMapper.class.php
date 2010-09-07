@@ -4,10 +4,10 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
     /**
     *
     * @param SimpleXMLElement $xml
-    * @param geoEncode $geoEncoder
+    * @param geocoder $geocoderr
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null, $city = false )
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false )
     {
         if( is_string( $city ) )
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
@@ -16,7 +16,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
           throw new Exception( 'DataEntryPoisMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
-        $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geocoderr           = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
     }
