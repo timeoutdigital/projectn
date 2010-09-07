@@ -66,9 +66,10 @@ class mapNyVendorPoiId2NewId extends sfBaseTask
                     continue;
                 }
 
+                $oldID                      = $poi['vendor_poi_id'];
                 $poi['vendor_poi_id']       = (string)$poiNode['id'] ;
                 $poi->save();
-                echo "Changing: \t" . $poi['vendor_poi_id'] ." \t" . (string)$poiNode['id'] . "\t" . $poi['id'] . PHP_EOL;
+                echo "Changing: \t" . $oldID ." \t" . (string)$poiNode['id'] . "\t" . $poi['id'] . PHP_EOL;
 
             } catch ( Exception $e )
             {
