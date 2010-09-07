@@ -109,6 +109,14 @@ class xmlDataFixer
 
         return $xml->xpath( $nodePath );
     }
+
+    /**
+     * Encode String data to UTF-8 using utf8_encode()
+     */
+    public function encodeUTF8()
+    {
+        $this->xmlStringData = utf8_encode($this->xmlStringData);
+    }
    
 }
 ?>

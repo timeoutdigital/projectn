@@ -43,28 +43,33 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-            case 'test-poi-event':
+            case 'poi-event':
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                // Set FTP
+                $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+                $ftpClientObj->setSourcePath( '/NOKIA/' );
+
+                echo "Downloading NY's Event's feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
+
                 // Load XML file
-                $xmlString      = file_get_contents( sfConfig::get( 'sf_root_dir' ) . '/import/ny/tony_leo_utf8.xml' );
+                $xmlString      = file_get_contents( $fileNameString );
                 $xmlDataFixer   = new xmlDataFixer( $xmlString );
                 //$xmlDataFixer->addRootElement( 'body' );
                 $xmlDataFixer->removeHtmlEntiryEncoding();
+                $xmlDataFixer->encodeUTF8();
                 
                 $processXmlObj = new processNyXml( '' );
                 $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
                 $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
                 
-
+                echo "Importing NY Events / Poi  \n";
                 $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
                 $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+                
                 break;
-          case 'poi-event':
-                //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-                $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-                $ftpClientObj->setSourcePath( '/NOKIA/' );
-                $this->importNyEvents($vendorObj, $ftpClientObj);
-            break;
-
           case 'movie':
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
