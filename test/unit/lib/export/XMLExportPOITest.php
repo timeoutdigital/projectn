@@ -249,8 +249,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->runImportAndExport();
 
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
-
-      echo 'eeeaaasy now';
   }
 
     /**
@@ -315,16 +313,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $numEntries = $this->xml->xpath( '//entry' );
 
       $this->assertEquals( 1, count( $numEntries ) );
-
-      $moo =  Doctrine::getTable( 'Poi' )->findAll();
-
-//      foreach( $moo as $cow )
-//      {
-//        print_r( $cow->toArray() );
-//        //var_dump( count( $cow[ 'VendorPoiCategory' ] ) == 0 );
-//      }
-
-      echo $this->xml->saveXML();
     }
 
     public function testCategoryTagsAreUnique()
