@@ -34,3 +34,8 @@ test:
       dns:  sqlite:/tmp/beijing.db:
       user: projectn
       password: outtime99
+test-functional:
+    beijing:
+      dns:  sqlite:/tmp/beijing.db:
+      user: projectn
+      password: outtime99

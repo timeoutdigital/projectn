@@ -34,8 +34,8 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
   {
 
     //clear databases
-    $this->callCmd( './symfony doctrine:build --all --and-load --env=test --no-confirmation' );
-    $this->callCmd( './symfony doctrine:build --all --and-load --env=test --no-confirmation' ,
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation' );
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation' ,
         self::PROJECTN_DATA_ENTRY );
 
     //create a beijing database to mock live searchlight database,
@@ -43,7 +43,7 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
     $this->addBeijingData();
     //import venues into data_entry_instance
 
-    $this->callCmd( './symfony projectn:import --env=test --city=beijing --type=poi  --application=data_entry ',
+    $this->callCmd( './symfony projectn:import --env=test-functional --city=beijing --type=poi  --application=data_entry ',
         self::PROJECTN_DATA_ENTRY);
 
     $today = date('Ymd');
@@ -54,12 +54,12 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
     $this->callCmd( $cmd );
 
     //run the beijing import on data_entry
-    $this->callCmd( './symfony projectn:export --env=test --city=beijing --type=poi --validation=false  --application=data_entry --destination=export/export_' .$today.'/poi/beijing.xml' ,
+    $this->callCmd( './symfony projectn:export --env=test-functional --city=beijing --type=poi --validation=false  --application=data_entry --destination=export/export_' .$today.'/poi/beijing.xml' ,
         self::PROJECTN_DATA_ENTRY );
 
 
     //import the beijing venues from data_entry into main database
-    $this->callCmd( './symfony projectn:import --env=test --city=beijing-data-entry --type=poi' );
+    $this->callCmd( './symfony projectn:import --env=test-functional --city=beijing-data-entry --type=poi' );
 
     //now change a record and export it back to data _entry
 
@@ -69,21 +69,21 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
     $this->editPoi( );
 
     //export the beijing venues in main database
-    $this->callCmd( './symfony projectn:export --env=test --city=beijing --type=poi --validation=false --destination=export/export_' .$today.'/poi/beijing.xml' );
+    $this->callCmd( './symfony projectn:export --env=test-functional --city=beijing --type=poi --validation=false --destination=export/export_' .$today.'/poi/beijing.xml' );
 
     //create the data_entry export directory
     $this->callCmd(  'mkdir -p export/data_entry/export_' .$today.'/poi' );
 
     //fix the IDs for the beijng XML to it can be used to update the data_entry database
-    $this->callCmd( './symfony projectn:prepareExportXMLsForDataEntry --env=test --type=poi --xml=export/export_' .$today.'/poi/beijing.xml --destination=export/data_entry/export_' .$today.'/poi/beijing.xml'  );
+    $this->callCmd( './symfony projectn:prepareExportXMLsForDataEntry --env=test-functional --type=poi --xml=export/export_' .$today.'/poi/beijing.xml --destination=export/data_entry/export_' .$today.'/poi/beijing.xml'  );
 
     //run the beijing import in data_entry
     //please note that the mock beijing database is used in this stage
-    $this->callCmd( './symfony projectn:import --env=test --city=beijing --type=poi  --application=data_entry',
+    $this->callCmd( './symfony projectn:import --env=test-functional --city=beijing --type=poi  --application=data_entry',
         self::PROJECTN_DATA_ENTRY);
 
     //export the beijing venues in data_entry
-    $this->callCmd( './symfony projectn:export --env=test --city=beijing --type=poi --validation=false  --application=data_entry  --destination=export/export_' .$today.'/poi/beijing.xml',
+    $this->callCmd( './symfony projectn:export --env=test-functional --city=beijing --type=poi --validation=false  --application=data_entry  --destination=export/export_' .$today.'/poi/beijing.xml',
         self::PROJECTN_DATA_ENTRY);
 
 
@@ -95,11 +95,11 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
 
 
     //now run the update
-    $this->callCmd( './symfony projectn:import --env=test --city=beijing-data-entry --type=poi --application=data_entry' ,
+    $this->callCmd( './symfony projectn:import --env=test-functional --city=beijing-data-entry --type=poi --application=data_entry' ,
         self::PROJECTN_DATA_ENTRY );
 
     //export after update and test it if the update is applied in data_entry database
-    $this->callCmd( './symfony projectn:export --env=test --city=beijing --type=poi --validation=false  --application=data_entry  --destination=export/export_' .$today.'/poi/beijing.xml',
+    $this->callCmd( './symfony projectn:export --env=test-functional --city=beijing --type=poi --validation=false  --application=data_entry  --destination=export/export_' .$today.'/poi/beijing.xml',
         self::PROJECTN_DATA_ENTRY);
 
     $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
@@ -111,25 +111,25 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
   public function testDataEntryUpdateProcessWithRunner()
   {
     $today = date('Ymd');
-    $this->callCmd( './symfony doctrine:build --all --and-load --env=test --no-confirmation ' );
-    $this->callCmd( './symfony doctrine:build --all --and-load --env=test --no-confirmation ' , self::PROJECTN_DATA_ENTRY  );
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation ' );
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation ' , self::PROJECTN_DATA_ENTRY  );
 
     $this->addBeijingData();
 
-    $this->callCmd( './symfony projectn:runner --env=test --city=beijing --application=data_entry',
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
         self::PROJECTN_DATA_ENTRY  );
 
-    $this->callCmd( './symfony projectn:runner --env=test --city=beijing' );
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
 
     $this->editPoi( );
 
-    $this->callCmd( './symfony projectn:runner --env=test --city=beijing' );
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
 
     $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
     $poi = $xml->entry [0];
     $this->assertEquals( 'Sofitel Wanda' ,(string) $poi->name  );
 
-    $this->callCmd(  './symfony projectn:runner --env=test --city=beijing --application=data_entry',
+    $this->callCmd(  './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
         self::PROJECTN_DATA_ENTRY );
 
     $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
@@ -154,7 +154,7 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
   {
     $cmd =  'cd ' . $this->getRootPath( $installation ) . ' && ' . $cmd;
 
-    echo "RUNNING :" .$cmd . PHP_EOL.PHP_EOL;
+    echo "RUNNING : " .$cmd . PHP_EOL.PHP_EOL;
 
     exec( $cmd  );
 
