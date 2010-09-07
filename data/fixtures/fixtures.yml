@@ -424,7 +424,7 @@ Vendor:
     geo_boundries:            '43.62131064459927;20.25502972056884;48.2669525146484;29.6910572052002'
     
   v29:
-    city:                     beijing
+    city:                     beijing_zh
     language:                 zh-Hans
     time_zone:                Etc/GMT+8
     inernational_dial_code:   '+86'
