@@ -46,3 +46,21 @@ test :
       attributes:
         use_native_enum:  true
         validate:         all
+
+
+test-functional :
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                sqlite:%SF_DATA_DIR%/searchlight_london.db:
+      attributes:
+        use_native_enum:  true
+        validate:         all
+
+  project_n:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:               sqlite:%SF_DATA_DIR%/project_n.db:
+      attributes:
+        use_native_enum:  true
+        validate:         all
