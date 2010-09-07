@@ -146,6 +146,7 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Museu Arqueologia de Catalunya' , $poi[ 'poi_name' ] );
 
     $this->assertEquals( 'updated street' , $poi[ 'street' ] );
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,false );
   }
 
 }

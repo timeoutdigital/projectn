@@ -133,5 +133,6 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     //john Doe is new
     $this->assertEquals( 'Abbie Cornish, Ben Whishaw, john Doe' , $movie[ 'cast' ] );
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,false );
   }
 }

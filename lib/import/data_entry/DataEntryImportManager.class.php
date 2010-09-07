@@ -17,13 +17,21 @@ class DataEntryImportManager
     const INSTALLATION_PROJECT_N = 'projectn';
     const INSTALLATION_PROJECT_N_DATA_ENTRY = 'projectn_data_entry';
 
-    public function __construct( $cityName )
+    public function __construct( $cityName , $importDir = null)
     {
         $this->vendor =  Doctrine::getTable( 'Vendor' )->findOneByCity( $cityName );
 
         if( !isset( $this->vendor ) || !$this->vendor )
         {
             throw new Exception( 'DataEntryImportManager : No Vendor Found for City - ' . $cityName ) ;
+        }
+        if( !is_null( $importDir ) )
+        {
+            $this->importDir = $importDir;
+            if( !is_dir( $this->importDir ) )
+            {
+                throw new Exception( 'given importDir ' . $importDir . ' is not a valid directory' );
+            }
         }
 
     }
@@ -116,13 +124,16 @@ class DataEntryImportManager
     {
         $subDirectories = array();
 
-        $this->importDir = $this->locateImportDir();
+        if( !is_dir( $this->importDir ) )
+        {
+            $this->importDir = $this->locateImportDir();
+        }
+
 
         if( is_null( $this->importDir )  || !is_dir($this->importDir ) )
         {
             throw new Exception( 'DataEntryImportManager couldnt locate the import directory' );
         }
-        var_dump( $this->importDir );
         if ( is_dir( $this->importDir ) )
         {
             $dh = opendir( $this->importDir );
