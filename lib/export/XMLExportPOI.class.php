@@ -269,7 +269,7 @@ class XMLExportPOI extends XMLExport
                 $avoidDuplicateUiCategories[] = (string) $uiCat['name'];
             }
 
-      ExportLogger::getInstance()->addExport( 'Poi' );
+      ExportLogger::getInstance()->addExport( 'Poi', $poi['id'] );
 
     }
 //    ExportLogger::getInstance()->showErrors();

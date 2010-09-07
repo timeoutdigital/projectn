@@ -47,7 +47,7 @@ class istanbulVenueMapper extends istanbulBaseMapper
             //$poi['openingtimes']                  = $this->clean( (string) $venueElement->opening_times );
             //$poi['star_rating']
             //$poi['rating']
-            $poi['rating']                        = (string) $venueElement->rating;
+            $poi['rating']                        = $this->roundNumberOrReturnNull((string) $venueElement->rating);
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = clone $this->vendor;
 

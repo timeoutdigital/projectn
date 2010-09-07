@@ -61,7 +61,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'longitude' ] = null;
       $poi[ 'latitude' ]  = null;
-      $poi->setGeoEncodeByPass( true );
+      $poi->setgeocoderByPass( true );
       $poi->save();
      }
 
