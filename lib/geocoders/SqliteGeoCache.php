@@ -19,6 +19,8 @@ class SqliteGeoCache
         
         try {
             self::$pdo = new PDO( 'sqlite:'. self::$sqlpath );
+            self::$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            self::$pdo->exec( "CREATE TABLE IF NOT EXISTS cache ( 'url' VARCHAR PRIMARY KEY NOT NULL UNIQUE , 'response' TEXT )" );
             return true;
         }
         catch ( PDOException $e ) {
@@ -32,14 +34,19 @@ class SqliteGeoCache
     {
         if( self::connect() )
         {
-            $url = self::$pdo->quote( $url );
-            
-            $query = "SELECT response FROM cache WHERE url = {$url} LIMIT 1;";
-            $prep = self::$pdo->prepare( $query );
-            $prep->execute();
-            $response = $prep->fetch( PDO::FETCH_ASSOC );
+            try {
+                $url = self::$pdo->quote( $url );
 
-            return( $response !== false && isset( $response[ 'response' ] ) ) ? unserialize( $response[ 'response' ] ) : null;
+                $query = "SELECT response as r FROM cache WHERE url = {$url} LIMIT 1;";
+                $prep = self::$pdo->prepare( $query );
+                $prep->execute();
+                $response = $prep->fetch( PDO::FETCH_ASSOC );
+            }
+            catch ( PDOException $e ) {
+                return null;
+            }
+
+            return( $response !== false && isset( $response['r'] ) ) ? unserialize( $response['r'] ) : null;
         }
         return null;
     }
@@ -48,13 +55,56 @@ class SqliteGeoCache
     {
         if( self::connect() )
         {
-            $url = self::$pdo->quote( $url );
-            $response = self::$pdo->quote( serialize( $response ) );
-            
-            $query = "INSERT INTO cache ( url, response ) VALUES ( {$url}, {$response} );";
-            $count = self::$pdo->exec( $query );
+            try {
+                $url = self::$pdo->quote( $url );
+                $response = self::$pdo->quote( serialize( $response ) );
+
+                $query = "INSERT INTO cache ( url, response ) VALUES ( {$url}, {$response} );";
+                $count = self::$pdo->exec( $query );
+            }
+            catch ( PDOException $e ) {
+                return false;
+            }
 
             return( is_numeric( $count ) && $count > 0 );
+        }
+        return false;
+    }
+
+    public static function del( $url = 'NULL' )
+    {
+        if( self::connect() )
+        {
+            try {
+                $url = self::$pdo->quote( $url );
+
+                $query = "DELETE FROM cache WHERE url = {$url};";
+                $count = self::$pdo->exec( $query );
+            }
+            catch ( PDOException $e ) {
+                return false;
+            }
+
+            return( is_numeric( $count ) && $count > 0 );
+        }
+        return false;
+    }
+
+    public static function count()
+    {
+        if( self::connect() )
+        {
+            try {
+                $query = "SELECT COUNT(*) as c FROM cache;";
+                $prep = self::$pdo->prepare( $query );
+                $prep->execute();
+                $response = $prep->fetch( PDO::FETCH_ASSOC );
+            }
+            catch ( PDOException $e ) {
+                return false;
+            }
+
+            return( isset( $response['c'] ) && is_numeric( $response['c'] ) ) ? (int) $response['c'] : false;
         }
         return false;
     }
