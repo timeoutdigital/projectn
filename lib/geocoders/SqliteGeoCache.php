@@ -18,7 +18,7 @@ class SqliteGeoCache
             return true;
         
         try {
-            self::$sqlpath = sfConfig::get( 'sf_data_dir') . '/geocache.sqlite';
+            self::$sqlpath = sfConfig::get( 'sf_data_dir' ) . '/geocache.sqlite';
             self::$pdo = new PDO( 'sqlite:'. self::$sqlpath );
             self::$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
             self::$pdo->exec( "CREATE TABLE IF NOT EXISTS cache ( 'url' VARCHAR PRIMARY KEY NOT NULL UNIQUE , 'response' TEXT )" );
