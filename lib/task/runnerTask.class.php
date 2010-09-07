@@ -8,6 +8,7 @@ class runnerTask extends sfBaseTask
     protected $taskOptions;
     const  TASK_IMPORT = 1;
     const  TASK_EXPORT = 2;
+    const  TASK_UPDATE = 3;
 
     protected function configure()
     {
@@ -28,14 +29,41 @@ class runnerTask extends sfBaseTask
     {
         date_default_timezone_set( 'Europe/London' );
 
+
         $this->symfonyPath = sfConfig::get( 'sf_root_dir' );
         $this->logRootDir = sfConfig::get( 'sf_log_dir' );
         $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
         $this->taskOptions = $options;
 
-        $this->runImportTasks( $options[ 'city' ] );
-        $this->runExportTasks( $options[ 'city' ] );
+        $order = sfConfig::get( 'app_runner_order' );
 
+        foreach ( $order as $taskType )
+        {
+            $this->runTaskByType( $taskType , $options[ 'city' ] );
+        }
+
+    }
+
+    protected function runTaskByType( $taskType , $city )
+    {
+        switch ( $taskType )
+        {
+        	case 'import':
+        	   $this->runImportTasks( $city );
+        	   break;
+
+        	 case 'export':
+        	   $this->runExportTasks( $city );
+        	   break;
+
+        	 case 'update':
+        	   $this->runUpdateTasks( $city );
+        	   break;
+
+        	default:
+        	   throw new Exception( 'Invalid type specified in app_runner_order config' );
+        	break;
+        }
     }
 
     /**
@@ -48,6 +76,43 @@ class runnerTask extends sfBaseTask
         $options = $this->taskOptions;
 
         $importCities = $this->getCities( self::TASK_IMPORT, $city );
+
+        if( empty( $importCities  ) )
+        {
+             $this->logSection( 'Runner' , "Runner will not be running any IMPORT tasks!" );
+             return;
+        }
+
+        foreach ( $importCities as $importCity )
+        {
+            $logPath = $this->logRootDir . '/import' ;
+
+            $this->verifyAndCreatePath( $logPath );
+
+            foreach ( $importCity['type'] as $type )
+            {
+                $this->logSection( 'import', date( 'Y-m-d H:i:s' ) . ' - running import  for ' . $importCity[ 'name' ] . ' (' . $type . ')') ;
+
+                $taskCommand = $this->symfonyPath . '/./symfony projectn:import --env="' . $options['env'] . '" --application="' . $options['application'] . '" --city="' . $importCity[ 'name' ] . '" --type="' . $type . '"';
+
+                $logCommand  = $logPath . '/' . strtr( $importCity[ 'name' ], ' ', '_' ) . '.log';
+
+                $this->executeCommand( $taskCommand, $logCommand );
+            }
+
+        }
+    }
+
+    /**
+     * runs the update tasks
+     *
+     * @param string $city , if given runs imports for only this city
+     */
+    protected function runUpdateTasks( $city = null )
+    {
+        $options = $this->taskOptions;
+
+        $importCities = $this->getCities( self::TASK_UPDATE, $city );
 
         if( empty( $importCities  ) )
         {
@@ -96,36 +161,66 @@ class runnerTask extends sfBaseTask
         $deleteOlderThanDays = '7 days';
         $timestamp = date( 'Ymd' );
         $exportPath = $this->exportRootDir . '/export_' . $timestamp;
+        $exportPathDataEntry = $this->exportRootDir . '/data_entry/export_' . $timestamp;
         $this->verifyAndCreatePath( $exportPath );
+        $this->verifyAndCreatePath( $exportPathDataEntry );
 
         foreach ( $exportCities as $exportCity )
         {
-
             foreach ( $exportCity['type'] as $type )
             {
-                $this->logSection( 'export', date( 'Y-m-d H:i:s' ) . ' - running export for ' . $exportCity[ 'name' ] . ' (' . $type . ')' );
+
 
                 $logPath = $this->logRootDir . '/export';
                 $this->verifyAndCreatePath( $logPath );
                 $currentExportPath = $exportPath .'/'.$type;
                 $this->verifyAndCreatePath( $currentExportPath );
 
-                $taskCommand = $this->symfonyPath . '/./symfony projectn:export --env=' . $options['env'] . ' --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
-                // When Events get-called, we pass POI XML destination
-                if($type == 'event')
+                if( isset( $exportCity['exportForNokia'] ) &&  $exportCity['exportForNokia'] )
                 {
-                    $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                    $this->logSection( 'export', date( 'Y-m-d H:i:s' ) . ' - running export for ' . $exportCity[ 'name' ] . ' (' . $type . ')' );
+
+                    $taskCommand = $this->symfonyPath . '/./symfony projectn:export --env=' . $options['env'] . ' --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $currentExportPath . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                    // When Events get-called, we pass POI XML destination
+                    if($type == 'event')
+                    {
+                        $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                    }
+                    if( isset( $exportCity['validation'] )  )
+                    {
+                        //convert boolean validation values into string "true" or "false"
+                        $exportCity[ 'validation' ] = ( $exportCity[ 'validation' ] == 1 ) ? "true" : "false";
+
+                        $taskCommand .= ' --validation=' .  $exportCity[ 'validation' ];
+                    }
+
+                    $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
+                    $this->executeCommand( $taskCommand, $logCommand );
                 }
-                if( isset( $exportCity['validation'] )  )
+
+                if( isset( $exportCity['exportForDataEntry'] ) &&  $exportCity['exportForDataEntry'] )
                 {
-                    //convert boolean validation values into string "true" or "false"
-                    $exportCity[ 'validation' ] = ( $exportCity[ 'validation' ] == 1 ) ? "true" : "false";
+                   $currentExportPathDataEntry = $exportPathDataEntry .'/'.$type;
+                   $this->executeCommand( 'mkdir -p '.$currentExportPathDataEntry , 'create data entry export folders' );
+                   //run the exports for data_entry without validation!
 
-                    $taskCommand .= ' --validation=' .  $exportCity[ 'validation' ];
+                   $destinationFile = $currentExportPathDataEntry . '/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                   $taskCommand = $this->symfonyPath . '/./symfony projectn:export --env=' . $options['env'] . ' --validation=false --city="' .  $exportCity[ 'name' ] . '" --application="' .  $options[ 'application' ]  . '" --language=' . $exportCity[ 'language' ] . ' --type="' . $type . '" --destination=' . $destinationFile;
+                   // When Events get-called, we pass POI XML destination
+                   if($type == 'event')
+                   {
+                       $taskCommand .= ' --poi-xml=' . $exportPath .'/poi/' . str_replace( " ", "_",  $exportCity[ 'name' ] ) .'.xml';
+                   }
+
+                   $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '_export_for_data_entry.log';
+                   $this->executeCommand( $taskCommand, $logCommand );
+                   //run the exports for data_entry without validation done!
+                   $taskCommand = $this->symfonyPath . '/./symfony projectn:prepareExportXMLsForDataEntry --env=' . $options['env'] . ' --application=' .  $options[ 'application' ]  . ' --type="' . $type . '" --destination=' .$destinationFile;
+                   $taskCommand .= ' --xml=' .$destinationFile;
+
+                   $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '_prepareExportXMLsForDataEntry.log';
+                   $this->executeCommand( $taskCommand, $logCommand );
                 }
-
-                $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '.log';
-                $this->executeCommand( $taskCommand, $logCommand );
             }
 
         }
@@ -163,6 +258,10 @@ class runnerTask extends sfBaseTask
                 $citiesConfig = sfConfig::get( 'app_export_cities' );
         		break;
 
+            case self::TASK_UPDATE:
+                $citiesConfig = sfConfig::get( 'app_update_cities' );
+        		break;
+
         	default:
         	   $citiesConfig = array();
         	   break;
@@ -173,9 +272,9 @@ class runnerTask extends sfBaseTask
             $selectedCity = array();
             foreach ($citiesConfig as $cityConfig )
             {
-                if( $cityConfig['name'] == $city )
+                if( $cityConfig['name'] == $city  || $cityConfig[ 'name' ] == $city.'-data-entry' )
                 {
-                    $selectedCity = array( $cityConfig );
+                    $selectedCity[] = $cityConfig ;
                 }
             }
             $citiesConfig = $selectedCity;
@@ -238,7 +337,8 @@ class runnerTask extends sfBaseTask
      */
     protected function executeCommand( $cmd, $logfile )
     {
-        $this->logSection( 'EXEC', $cmd);
+        //$this->logSection( 'EXEC', $cmd);
+        echo  $cmd.PHP_EOL.PHP_EOL;
         $cmdOutput = shell_exec( $cmd . ' 2>&1' );
         file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
     }
