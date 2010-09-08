@@ -17,7 +17,7 @@ require_once TO_TEST_MOCKS . '/curl.mock.php';
  *
  *
  */
-class singaporePoiMapperTest extends PHPUnit_Framework_TestCase
+class singaporeMovieMapperTest extends PHPUnit_Framework_TestCase
 {
 
     /**
