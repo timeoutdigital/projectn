@@ -205,7 +205,7 @@ abstract class geocoder
         $this->curl->exec();
         $this->response = $this->curl->getResponse();
 
-        if( $this->response !== false && class_exists( 'SqliteGeoCache' ) && SqliteGeoCache::enabled() )
+        if( $this->responseIsValid() && class_exists( 'SqliteGeoCache' ) && SqliteGeoCache::enabled() )
         {
             SqliteGeoCache::put( $this->getLookupUrl(), $this->response );
         }
@@ -282,6 +282,13 @@ abstract class geocoder
    * @return boolean
    */
   abstract protected function apiKeyIsValid( $apiKey );
+
+  /**
+   * Check if Response is valid
+   *
+   * @return boolean
+   */
+  abstract protected function responseIsValid();
 
   /**
    * Process the response from curl call to geocoding service
