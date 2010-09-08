@@ -18,7 +18,7 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
     {
         $tmp = 0;
         $offset = 0; // current offset
-        $recordPerQuery = 1; // Get only 500 Records per Query
+        $recordPerQuery = 500; // Get only 500 Records per Query
 
         $results = $this->queryVenue( $offset, $recordPerQuery );
 

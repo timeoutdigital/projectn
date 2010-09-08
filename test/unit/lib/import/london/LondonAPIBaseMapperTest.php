@@ -44,7 +44,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiUrlIsNotTimeoutUrlAndTimeoutLinkIsStoredAsAProperty()
   {
-    $mock = new MockLondonAPIBaseMapper( null , $this->getMock( 'geoEncode' ) );
+    $mock = new MockLondonAPIBaseMapper( null , $this->getMock( 'googleGeocoder' ) );
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl><lat>1</lat><lng>1</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
@@ -60,7 +60,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testCommaLondonNotInEndOfAddressField()
   {
-    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'geoEncode' ));
+    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'googleGeocoder' ));
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><address>foo, London </address><lat>51.5079</lat><lng>-0.3049</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
@@ -85,7 +85,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
 
   public function testCriticsChoiceFlagIsSavedAsNormalisedProperty()
   {
-    $mock = new MockLondonAPIBaseMapperCriticsChoice( null, $this->getMock( 'geoEncode' ));
+    $mock = new MockLondonAPIBaseMapperCriticsChoice( null, $this->getMock( 'googleGeocoder' ));
     $mock->setImporter( new Importer() );
     $poi = new Poi();
     $xml = simplexml_load_string( '
@@ -114,9 +114,9 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
 
 class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
 {
-  public function __construct( $apiCrawler, $geoEncode )
+  public function __construct( $apiCrawler, $geocoder )
   {
-    parent::__construct( $apiCrawler, $geoEncode );
+    parent::__construct( $apiCrawler, $geocoder );
   }
   public function map( Poi $poi, SimpleXMLElement $xml )
   {
@@ -128,9 +128,9 @@ class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
 }
 class MockLondonAPIBaseMapperCriticsChoice extends LondonAPIBaseMapper
 {
-  public function __construct( $apiCrawler, $geoEncode )
+  public function __construct( $apiCrawler, $geocoder )
   {
-    parent::__construct( $apiCrawler, $geoEncode );
+    parent::__construct( $apiCrawler, $geocoder );
   }
   public function map( Poi $poi, SimpleXMLElement $xml )
   {

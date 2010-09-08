@@ -15,7 +15,7 @@ class reverseGeocode
 {
   /**
    * GoogleMaps API key
-   * @todo put the key in one place, currently in geoEncode class as well
+   * @todo put the key in one place, currently in geocoder class as well
    *
    * @var string
    */

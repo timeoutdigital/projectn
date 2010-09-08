@@ -23,6 +23,7 @@ class importTask extends sfBaseTask
 
   protected function execute($arguments = array(), $options = array())
   {
+
     $this->options = $options;
 
     $this->writeLogLine( 'start import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
@@ -598,8 +599,20 @@ class importTask extends sfBaseTask
     case 'mumbai':
     case 'delhi':
     case 'bangalore':
+    case 'beijing-data-entry':
     case 'pune':
-        $dataEntryImportManager = new DataEntryImportManager( $options['city'], '/var/vhosts/projectn_data_entry/export/' );
+
+        if( $options['city'] == 'beijing-data-entry' )
+        {
+             $options['city'] = 'beijing';
+        }
+
+
+
+        $dataEntryImportManager = new DataEntryImportManager( $options['city']  );
+
+        echo "Using : " . $dataEntryImportManager->getImportDir();
+
         switch( $options['type'] )
         {
           case 'poi'   : $dataEntryImportManager->importPois();   break;
@@ -619,7 +632,11 @@ class importTask extends sfBaseTask
                 $pdoDB = null;
                 try {
 
-                    $pdoDB = new PDO("mysql:host=80.250.104.16;dbname=searchlight", 'projectn', 'outtime99', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+                    $dns = sfConfig::get("app_beijing_dns");
+                    $user = sfConfig::get("app_beijing_user");
+                    $password = sfConfig::get("app_beijing_password");
+
+                    $pdoDB = new PDO( $dns , $user , $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
 
                     echo 'Database Connection Estabilished' . PHP_EOL;
 

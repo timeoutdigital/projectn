@@ -105,10 +105,15 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 		$currentPage = 1;
 		$resultsPerPage = 1000;
 
+                /*
+                 * the following query must use inner joins, as we only want
+                 * venues with actuall events (and occurrences) attached
+                 */
+
 		$query = Doctrine_Query::create( )->select( 'o.id, v.*, e.*' )
                                                   ->from( 'SLLOccurrence o' )
-		                                  ->leftJoin( 'o.SLLVenue v' )
-		                                  ->leftJoin( 'o.SLLEvent e' )
+		                                  ->innerJoin( 'o.SLLVenue v' )
+		                                  ->innerJoin( 'o.SLLEvent e' )
 		                                  ->where( 'o.date_start >= ?', $from )
 		                                  ->andWhere( 'o.date_start <= ?', $to )
                                                   ->groupBy( 'v.id, e.id' );
@@ -141,9 +146,14 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 		$currentPage = 1;
 		$resultsPerPage = 1000;
 
+                /*
+                 * the following query must use inner joins, as we only want
+                 * events with actuall occurrences attached
+                 */
+
 		$query = Doctrine_Query::create( )->select( 'o.id, e.*' )
 		                                  ->from( 'SLLOccurrence o' )
-		                                  ->leftJoin( 'o.SLLEvent e' )
+		                                  ->innerJoin( 'o.SLLEvent e' )
 		                                  ->where( 'o.date_start >= ?', $from )
 		                                  ->andWhere( 'o.date_start <= ?', $to )
                                                   ->groupBy( 'e.id' );
@@ -378,7 +388,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
     $poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
     $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
     $poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
-    $poi['geoEncodeLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
+    $poi['geocoderLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
 
     // Add Images
     if( isset( $item[ 'SLLVenue' ]['image_id'] ) && is_numeric( $item[ 'SLLVenue' ]['image_id'] ) )

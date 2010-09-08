@@ -411,4 +411,15 @@ class Event extends BaseEvent
 
   }
 
+  public function addMeta( $lookup, $value, $comment = null )
+  {
+    $eventMetaObj = new EventMeta();
+    $eventMetaObj[ 'lookup' ] = (string) $lookup;
+    $eventMetaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $eventMetaObj[ 'comment' ] = (string) $comment;
+
+    $this[ 'EventMeta' ][] = $eventMetaObj;
+  }
+
 }
