@@ -75,14 +75,14 @@ abstract class geocoder
    */
   const ACCURACY_PREMISE = 9;
 
-  private  $addressString;
-  private  $vendorObj;
-  private  $response;
-  private  $curl;
-  private  $curlClass;
-  private  $apiKey;
-  private  $region;
-  private  $bounds;
+  protected  $addressString;
+  protected  $vendorObj;
+  protected  $response;
+  protected  $curl;
+  protected  $curlClass;
+  protected  $apiKey;
+  protected  $region;
+  protected  $bounds;
   protected  $longitude;
   protected  $latitude;
   protected  $accuracy;
