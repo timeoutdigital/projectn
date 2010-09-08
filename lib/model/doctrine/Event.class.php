@@ -210,7 +210,7 @@ class Event extends BaseEvent
     $name = stringTransform::concatNonBlankStrings(' | ', $name);
 
     //#645 if the category is Film save it as Art
-    if( $name == 'Film' )
+    if( strtolower( $name ) == 'film' )
     {
         $name = 'Art';
     }
