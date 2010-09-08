@@ -10,7 +10,7 @@ all:
     cities:
         -
           name: singapore
-          type: [ poi-event, movie ]
+          type: [ poi, event, movie ]
         -
           name: ny
           type: [ poi-event, eating-drinking, bars-clubs, movie ]
