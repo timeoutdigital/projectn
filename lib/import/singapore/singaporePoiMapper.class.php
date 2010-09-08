@@ -16,10 +16,10 @@
 class singaporePoiMapper extends DataMapper
 {
 
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
+    public function __construct( SimpleXMLElement $xml, geocoder $geoEncoder = null )
     {
         $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'singapore', 'en-US' );
-        $this->geoEncoder = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geoEncoder = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
         $this->xml        = $xml;
     }
 
