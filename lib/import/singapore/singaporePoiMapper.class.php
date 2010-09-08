@@ -63,7 +63,7 @@ class singaporePoiMapper extends DataMapper
                 $poi[ 'street' ]                     = trim( (string) $address->address, ", " );
                 $poi[ 'city' ]                       = $this->vendor['city'];
 
-                $poi->setGeoEncodeLookUpString( $this->extractGeoEncodeLookupString( $poi ) );
+                $poi->setgeocoderLookUpString( $this->extractGeoEncodeLookupString( $poi ) );
             }
             //$poi->applyFeedGeoCodesIfValid( (string) address->mm_lat, (string) $address->mm_lon );
             //@todo test the rest of this function
