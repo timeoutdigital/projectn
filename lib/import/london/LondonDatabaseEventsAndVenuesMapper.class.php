@@ -407,7 +407,12 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
       $poi[ 'additional_address_details' ] = $building_name;
     }
 
-    $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
+    // refs #640 .. Should be array or string...
+    // @todo: Should wrap Mapper inti try-catch, otherwise this is could break all london imports for poi/events
+    if( $this->categories && ( is_array( $this->categories ) || is_string( $this->categories ) ) )
+    {
+        $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
+    }
 
     $this->notifyImporter( $poi );
   }
