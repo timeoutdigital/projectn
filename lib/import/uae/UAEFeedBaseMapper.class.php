@@ -13,11 +13,11 @@
  */
 class UAEFeedBaseMapper extends DataMapper
 {
-    private $vendor;
-    private $xml;
-    private $geocoder;
+    protected $vendor_id;
+    protected $xml;
+    protected $geocoder;
 
-    public function  __construct( SimpleXMLElement $xml, Doctrine_Record $vendor, geocoder $geocoder)
+    public function  __construct( Doctrine_Record $vendor, SimpleXMLElement $xml, geocoder $geocoder = null)
     {
         if( $vendor == null )
         {
@@ -30,7 +30,7 @@ class UAEFeedBaseMapper extends DataMapper
         }
 
         // Update Data
-        $this->vendor       = $vendor;
+        $this->vendor_id    = $vendor['id'];
         $this->xml          = $xml;
         $this->geocoder     = ( $geocoder == null ) ? new googleGeocoder( ) : $geocoder;
     }
