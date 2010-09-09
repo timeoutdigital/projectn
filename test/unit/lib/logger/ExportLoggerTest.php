@@ -21,6 +21,7 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
     protected function setUp() {
         ProjectN_Test_Unit_Factory::createDatabases();
         $this->vendor = ProjectN_Test_Unit_Factory::get( 'Vendor' );
+        $this->vendor2 = ProjectN_Test_Unit_Factory::get( 'Vendor', array( 'id' => 2, 'city' => 'second city' ) );
     }
 
     /**
@@ -39,38 +40,44 @@ class ExportLoggerTest extends PHPUnit_Framework_TestCase {
     {
         ExportLogger::getInstance()->setVendor( $this->vendor )->start();
         ExportLogger::getInstance()->addExport( 'Event', 1 );
-        ExportLogger::getInstance()->addError( 'Failed to save datestamp for export', 'Event', 1 );
+        ExportLogger::getInstance()->addError( 'An Error Occurred', 'Event', 1 );
         ExportLogger::getInstance()->end();
 
         ExportLogger::getInstance()->setVendor( $this->vendor )->start();
         ExportLogger::getInstance()->addExport( 'Poi', 1 );
-        ExportLogger::getInstance()->addError( 'Failed to save datestamp for export', 'Poi', 1 );
+        ExportLogger::getInstance()->addError( 'An Error Occurred', 'Poi', 1 );
+        ExportLogger::getInstance()->end();
+
+        ExportLogger::getInstance()->setVendor( $this->vendor2 )->start();
+        ExportLogger::getInstance()->addExport( 'Event', 1 );
+        ExportLogger::getInstance()->addError( 'An Error Occurred', 'Event', 1 );
         ExportLogger::getInstance()->end();
         
         ExportLogger::getInstance()->unsetSingleton();
 
         ExportLogger::getInstance()->setVendor( $this->vendor )->start();
         ExportLogger::getInstance()->addExport( 'Event', 1 );
-        ExportLogger::getInstance()->addError( 'Failed to save datestamp for export', 'Event', 1 );
+        ExportLogger::getInstance()->addError( 'An Error Occurred', 'Event', 1 );
         ExportLogger::getInstance()->end();
 
         // Query DB
+        $logExportRows = Doctrine::getTable( 'LogExport' )->findAll();
+
+        // We should still have 3 total LogExport rows (one for each export).
+        $this->assertEquals( 4, $logExportRows->count() );
+
         $exportDatestampRows = Doctrine::getTable( 'LogExportDate' )->findAll();
         $exportCountRows = Doctrine::getTable( 'LogExportCount' )->findAll();
         $exportErrorRows = Doctrine::getTable( 'LogExportError' )->findAll();
-        $logExportRows = Doctrine::getTable( 'LogExport' )->findAll();
 
         // Should have one row in each table for Event and one row for Poi
-        $this->assertEquals( 2, $exportDatestampRows->count() );
-        $this->assertEquals( 2, $exportCountRows->count() );
-        $this->assertEquals( 2, $exportErrorRows->count() );
+        $this->assertEquals( 3, $exportDatestampRows->count() );
+        $this->assertEquals( 3, $exportCountRows->count() );
+        $this->assertEquals( 3, $exportErrorRows->count() );
 
         // Confirm that we didnt remove the 'Poi' metric when starting the second 'Event' export.
         $this->assertEquals( 1    , $exportDatestampRows[ 0 ][ 'record_id' ] );
         $this->assertEquals( 'Poi', $exportDatestampRows[ 0 ][ 'model' ] );
-
-        // We should still have 3 total LogExport rows (one for each export).
-        $this->assertEquals( 3, $logExportRows->count() );
     }
 
     public function testAddDatestamp()
