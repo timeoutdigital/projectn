@@ -81,8 +81,7 @@ class UAEFeedBarsMapper extends UAEFeedBaseMapper
                 $poi->applyFeedGeoCodesIfValid( (string) $xmlNode->{'latitude'},  (string) $xmlNode->{'longitude'} );
 
                 // Save POI
-                //$this->notifyImporter( $poi );
-                $poi->save();
+                $this->notifyImporter( $poi );
                 
             } catch (Exception $exc) {
                 echo 'Exception UAEFeedBarsMapper::mapBars - ' . $exc->getMessage() . PHP_EOL;
