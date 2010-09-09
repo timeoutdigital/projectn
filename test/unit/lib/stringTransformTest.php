@@ -228,8 +228,22 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatUrl()
   {
-      $this->assertEquals('http://www.google.com', stringTransform::formatUrl('http://www.google.com'), 'Test that http is in string');
+      $this->assertEquals( 'http://www.google.com', stringTransform::formatUrl('http://www.google.com'), 'Test that http is in string' );
+      $this->assertEquals( 'http://www.google.com', stringTransform::formatUrl( 'www.google.com' ) );
+      $this->assertEquals( 'http://foo.com/', stringTransform::formatUrl( 'foo.com/' ) );
 
+      $this->assertNull( stringTransform::formatUrl( null ) );
+      $this->assertNull( stringTransform::formatUrl( 99 ) );
+      $this->assertNull( stringTransform::formatUrl( new stdClass ) );
+      $this->assertNull( stringTransform::formatUrl( new SimpleXMLElement( '<xml />' ) ) );
+      $this->assertNull( stringTransform::formatUrl( '' ) );
+      
+      $this->assertNull( stringTransform::formatUrl( 'http://' ) );
+      $this->assertNull( stringTransform::formatUrl( 'google' ) );
+      $this->assertNull( stringTransform::formatUrl( 'google.' ) );
+      $this->assertNull( stringTransform::formatUrl( 'www.invalid*&^#characters.org' ) );
+      $this->assertNull( stringTransform::formatUrl( 'google dot com' ) );
+      $this->assertNull( stringTransform::formatUrl( 'http:///www.google.com' ) );
   }
 
   /**
