@@ -25,6 +25,19 @@ all:
   geocode:
     override_accuracy: 10
     google_map_api_key: keyfromadmin
+  import_xslt:
+    uae_films: |
+      <?xml version="1.0" encoding="UTF-8"?>
+       <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="name landing_url landing_url full_review director cast cast" />
+        <xsl:template match="/">
+          <xsl:element name="films">
+            <xsl:for-each select="//films/film">
+                                  <xsl:copy-of select="." />
+            </xsl:for-each>
+          </xsl:element>
+        </xsl:template>
+      </xsl:stylesheet>
   beijing:
       dns: "mysql:host=80.250.104.16;dbname=searchlight"
       user: projectn
