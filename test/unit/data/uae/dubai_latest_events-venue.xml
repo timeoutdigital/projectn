@@ -46,11 +46,12 @@
 </day-occurences>
 <mobile-section value="Sport" />
 </event>
+
 <event id="7754">
 <name><![CDATA[Dubai Dolphinarium - 3pm show (Fri)]]></name>
 <landing_url><![CDATA[http://www.timeoutdubai.com/nightlife/events/7754-dubai-dolphinarium-3pm-show-fri]]></landing_url>
 <description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
-<phone>04 336 9773</phone>
+<phone></phone>
 <email><![CDATA[smo@dubaidolphinarium.ae]]></email>
 <prices>Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)</prices>
 <day-occurences>
@@ -59,9 +60,15 @@
 <start_date>2010-09-10</start_date>
 <venue_id>1717</venue_id>
 </day-occurence>
+<day-occurence>
+<times>3pm</times>
+<start_date>2010-09-10</start_date>
+<venue_id>1717</venue_id>
+</day-occurence>
 </day-occurences>
 <mobile-section value="Around Town" />
 </event>
+
 <event id="7755">
 <name><![CDATA[Dubai Dolphinarium - 6pm show (Fri)]]></name>
 <landing_url><![CDATA[http://www.timeoutdubai.com/nightlife/events/7755-dubai-dolphinarium-6pm-show-fri]]></landing_url>
