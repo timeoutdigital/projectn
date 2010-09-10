@@ -75,6 +75,12 @@ all:
         -
           name: beijing-data-entry
           type: [ poi ]
+        -
+          name: dubai
+          type: [ bar, restaurant, poi, event, movie ]
+        -
+          name: abu dhabi
+          type: [ bar, restaurant, poi, event, movie ]
 
   export:
     cities:
