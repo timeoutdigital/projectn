@@ -29,6 +29,7 @@ class mediaDownloadTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
+      new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'Only for one model type', false),
     ));
 
     $this->namespace        = 'projectn';
@@ -56,22 +57,28 @@ EOF;
   {
     $this->setUp( $options );
 
-    // Download new Media.
-    $this->batchProcess( Doctrine::getTable( 'PoiMedia'   )->findByStatus( 'new' ) );
-    $this->batchProcess( Doctrine::getTable( 'EventMedia' )->findByStatus( 'new' ) );
-    $this->batchProcess( Doctrine::getTable( 'MovieMedia' )->findByStatus( 'new' ) );
+    // Decided which models to use.
+    switch( $options['type'] )
+    {
+        case 'poi'  : $mediaTables = array( 'PoiMedia' );   break;
+        case 'event': $mediaTables = array( 'EventMedia' ); break;
+        case 'movie': $mediaTables = array( 'MovieMedia' ); break;
+        default : $mediaTables = array( 'PoiMedia', 'EventMedia', 'MovieMedia' );
+    }
 
-    $this->batchProcess( Doctrine::getTable( 'PoiMedia' )->createQuery()
-        ->where( 'id % 7 IN ( '. implode( ',', $this->schedule[ date('l') ] ) . ' )' )
-        ->execute() );
+    // Download New Media.
+    foreach( $mediaTables as $table )
+    {
+        $this->batchProcess( Doctrine::getTable( $table )->findByStatus( 'new' ) );
+    }
 
-    $this->batchProcess( Doctrine::getTable( 'EventMedia' )->createQuery()
-        ->where( 'id % 7 IN ( '. implode( ',', $this->schedule[ date('l') ] ) . ' )' )
-        ->execute() );
-
-    $this->batchProcess( Doctrine::getTable( 'MovieMedia' )->createQuery()
-        ->where( 'id % 7 IN ( '. implode( ',', $this->schedule[ date('l') ] ) . ' )' )
-        ->execute() );
+    // Update Existing Media
+    foreach( $mediaTables as $table )
+    {
+        $this->batchProcess( Doctrine::getTable( $table )->createQuery()
+            ->where( 'id % 7 IN ( '. implode( ',', $this->schedule[ date('l') ] ) . ' )' )
+            ->execute() );
+    }
   }
 
   protected function batchProcess( Doctrine_Collection $collection )
