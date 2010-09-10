@@ -112,7 +112,7 @@ class ImportUaeEvents
         $addressString = $poiObj['poi_name'] . ', ' .$poiObj['street'] . ', '. $poiObj['city'] . ', United Arab Emirates';
 
         //Set the geocode
-        $poiObj->setGeoEncodeLookUpString($addressString);
+        $poiObj->setgeocoderLookUpString($addressString);
 
         //Add properties
         $poiObj->AddProperty('timeout_link', (string) $xmlObj->{'landing_url'});

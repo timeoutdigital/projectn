@@ -55,7 +55,7 @@ print_r($poiObj->count());
                 {
                     $poi['longitude'] = null;
                     $poi['latitude']  = null;
-                    $poi->setGeoEncodeLookUpString($poi['street'].', '.$poi['city']);
+                    $poi->setgeocoderLookUpString($poi['street'].', '.$poi['city']);
                     $poi->save();
                     print_r($poi->toArray());
 

@@ -13,9 +13,9 @@ class DataEntryBaseMapper extends DataMapper
     protected $dataMapperHelper;
 
     /**
-    * @var geoEncode
+    * @var geocoder
     */
-    protected $geoEncoder;
+    protected $geocoderr;
 
     /**
     * @var Vendor

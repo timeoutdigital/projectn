@@ -36,7 +36,7 @@ class ChicagoFeedBaseMapper extends DataMapper
     * @param SimpleXMLElement $xml
     * @param geoEncode $geoEncoder
     */
-    public function __construct( Doctrine_Record $vendor, SimpleXMLElement $xml, geoEncode $geoEncoder = null)
+    public function __construct( Doctrine_Record $vendor, SimpleXMLElement $xml, geocoder $geoEncoder = null)
     {
 
         if( !$vendor )
@@ -49,7 +49,7 @@ class ChicagoFeedBaseMapper extends DataMapper
           throw new Exception( 'ChicagoFeedBaseMapper:: Vendor not found' );
 
         // Set data
-        $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geoEncoder           = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
         $this->vendorID             = $vendor['id'];

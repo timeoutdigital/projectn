@@ -199,6 +199,12 @@ class Event extends BaseEvent
 
     $name = stringTransform::concatNonBlankStrings(' | ', $name);
 
+    //#645 if the category is Film save it as Art
+    if( strtolower( $name ) == 'film' )
+    {
+        $name = 'Art';
+    }
+
     if( stringTransform::mb_trim($name) == '' )
         return false;
 
@@ -291,6 +297,17 @@ class Event extends BaseEvent
         $this['EventOccurrence'] [] =$occurrence;
     }
 
+  }
+
+  public function addMeta( $lookup, $value, $comment = null )
+  {
+    $eventMetaObj = new EventMeta();
+    $eventMetaObj[ 'lookup' ] = (string) $lookup;
+    $eventMetaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $eventMetaObj[ 'comment' ] = (string) $comment;
+
+    $this[ 'EventMeta' ][] = $eventMetaObj;
   }
 
 }

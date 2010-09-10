@@ -27,7 +27,7 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
      * @param <type> $startingPoint
      * @param <type> $endingPoint 
      */
-    public function __construct( Doctrine_Record $vendor, SimpleXMLElement $xml, geoEncode $geoEncoder = null, $eventsArray = null, $startingPoint = 0, $endingPoint = 0 )
+    public function __construct( Doctrine_Record $vendor, SimpleXMLElement $xml, googleGeocoder $geoEncoder = null, $eventsArray = null, $startingPoint = 0, $endingPoint = 0 )
     {
         if( !isset( $eventsArray ) )
         {

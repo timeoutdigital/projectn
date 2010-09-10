@@ -39,7 +39,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
       $poi['openingtimes']               = $this->extractTimeInfo( $venueElement );
       $poi['house_no']                   = $this->extractHouseNumberAndName( $venueElement );
 
-      $poi->setGeoEncodeLookUpString( $this->getGeoEncodeData( $poi ) );
+      $poi->setgeocoderLookUpString( $this->getgeocoderData( $poi ) );
 
       $this->notifyImporter( $poi );
 
@@ -288,12 +288,12 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
   }
 
   /**
-   * return address for geoEncoder
+   * return address for geocoderr
    *
    * @param Poi $poi
    * @return string
    */
-  private function getGeoEncodeData( $poi )
+  private function getgeocoderData( $poi )
   {
     $addressData = array
     (
