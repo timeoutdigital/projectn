@@ -85,7 +85,7 @@ class UAEFeedBarsMapper extends UAEFeedBaseMapper
                 
             } catch (Exception $exc) {
                 echo 'Exception UAEFeedBarsMapper::mapBars - ' . $exc->getMessage() . PHP_EOL;
-                $this->notifyImporterOfFailure( 'Exception UAEFeedBarsMapper::mapBars - ' . $exc->getMessage() );
+                $this->notifyImporterOfFailure( $exc );
             }
         } // foreach
     }
