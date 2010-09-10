@@ -103,7 +103,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processPois( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
 
                 /*
                  * the following query must use inner joins, as we only want
@@ -144,7 +144,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 	private function processEvents( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
 
                 /*
                  * the following query must use inner joins, as we only want
@@ -184,7 +184,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processEventOccurrences( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
 
 		$query = Doctrine_Query::create( )->select( 'o.*' )
 		                                  ->from( 'SLLOccurrence o' )

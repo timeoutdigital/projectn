@@ -176,7 +176,7 @@ class DataEntryImportManager
             $targetInstallation = self::INSTALLATION_PROJECT_N ;
         }
 
-        exec( 'locate ' . $targetInstallation. '/config/databases.yml'  ,$output );
+        exec( 'locate -e ' . $targetInstallation. '/config/databases.yml'  ,$output );
 
         $resultCount = count( $output );
 

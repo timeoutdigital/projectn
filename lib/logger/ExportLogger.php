@@ -100,23 +100,34 @@ class ExportLogger extends BaseLogger
             return;
         }
 
+        // Delete Export Date Stamps
         Doctrine::getTable( 'LogExportDate' )
-            ->createQuery()->delete()
+            ->createQuery()
+                ->delete()
             ->where( 'export_date > DATE( NOW() )' )
             ->andWhere( 'model = ?', $model )
+            ->andWhere( 'vendor_id = ?', $this->_vendorObj['id'] )
             ->execute();
 
+        // Delete Duplicate Export Counts.
         Doctrine::getTable( 'LogExportCount' )
-            ->createQuery()->delete()
-            ->where( 'created_at > DATE( NOW() )' )
+            ->createQuery('lc')
+                ->leftJoin( 'lc.LogExport l ON l.id = lc.log_export_id' )
+            ->where( 'lc.created_at > DATE( NOW() )' )
+            ->andWhere( 'vendor_id = ?', $this->_vendorObj['id'] )
             ->andWhere( 'model = ?', $model )
-            ->execute();
+            ->execute()
+            ->delete();
 
+        // Delete Duplicate Export Errors.
         Doctrine::getTable( 'LogExportError' )
-            ->createQuery()->delete()
-            ->where( 'created_at > DATE( NOW() )' )
+            ->createQuery('le')
+                ->leftJoin( 'le.LogExport l ON l.id = le.log_export_id' )
+            ->where( 'le.created_at > DATE( NOW() )' )
+            ->andWhere( 'vendor_id = ?', $this->_vendorObj['id'] )
             ->andWhere( 'model = ?', $model )
-            ->execute();
+            ->execute()
+            ->delete();
     }
 
     /**
@@ -230,6 +241,7 @@ class ExportLogger extends BaseLogger
         try {
             // Create a new LogExportDate object.
             $d = new LogExportDate();
+            $d['vendor_id'] = $this->_vendorObj['id'];
             $d['model'] = $model;
             $d['record_id'] = $recordId;
             $d['export_date'] = date("Y-m-d H:i:s");
