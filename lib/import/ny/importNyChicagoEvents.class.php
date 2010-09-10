@@ -191,7 +191,7 @@ class importNyChicagoEvents
         $addressString = "$name, $street, $district, $suburb, $town, $country, $state";
 
         //Set geocoding address string
-        $poiObj->setGeoEncodeLookUpString($addressString);
+        $poiObj->setgeocoderLookUpString($addressString);
 
 
         //deal with the "text-system" nodes

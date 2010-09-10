@@ -43,6 +43,22 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+
+  public function testImageNotDownloaded()
+  {
+    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kl_venue_image_failed_to_download.xml' );
+
+    $filename = sfConfig::get('sf_root_dir') . '/import/kuala_lumpur/poi/media/e78e2afe42ca1fbd0684a0a3aa6b8c8e.jpg';
+    @unlink( $filename );
+
+    $importer = new Importer();
+    $importer->addDataMapper( new kualaLumpurVenuesMapper( $this->vendor, $this->xml ) );
+    $importer->run();
+
+    $this->assertTrue( file_exists( $filename ) );
+  }
+
+
   /**
    * Check that the latitude & longitude values won't fail Nokia validation.
    */

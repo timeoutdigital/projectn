@@ -17,12 +17,12 @@ class Poi extends BasePoi
   /**
    * @var boolean
    */
-  private $geoEncodeByPass = false;
+  private $geocoderByPass = false;
 
   /**
-   * @var geoEncode
+   * @var geocoder
    */
-  private $geoEncoder;
+  private $geocoderr;
 
   /**
    *
@@ -37,19 +37,19 @@ class Poi extends BasePoi
         $this->minimumAccuracy = $acc;
   }
 
-  public function setGeoEncodeLookUpString( $lookup )
+  public function setgeocoderLookUpString( $lookup )
   {
     $this['geocode_look_up'] = $lookup;
   }
 
-  public function getGeoEncodeLookUpString()
+  public function getgeocoderLookUpString()
   {
     return $this['geocode_look_up'];
   }
 
-  public function setGeoEncoder( geoEncode $geoEncoder )
+  public function setgeocoderr( geocoder $geocoderr )
   {
-    $this->geoEncoder = $geoEncoder;
+    $this->geocoderr = $geocoderr;
   }
 
   public function fixStreetName()
@@ -168,12 +168,12 @@ class Poi extends BasePoi
     }
   }
 
-  public function getGeoEncoder()
+  public function getgeocoderr()
   {
-    if( !$this->geoEncoder )
-      $this->geoEncoder = new geoEncode();
+    if( !$this->geocoderr )
+      $this->geocoderr = new googleGeocoder();
 
-    return $this->geoEncoder;
+    return $this->geocoderr;
   }
 
   public function setCriticsChoiceProperty( $isCriticsChoice )
@@ -261,11 +261,11 @@ class Poi extends BasePoi
   /**
    * Set if Geoencoding is to be bypassed
    *
-   * @param boolean $geoEncodeByPass
+   * @param boolean $geocoderByPass
    */
-  public function setGeoEncodeByPass( $geoEncodeByPass = false )
+  public function setgeocoderByPass( $geocoderByPass = false )
   {
-    $this->geoEncodeByPass = $geoEncodeByPass;
+    $this->geocoderByPass = $geocoderByPass;
   }
 
 
@@ -481,7 +481,7 @@ class Poi extends BasePoi
 
   public function lookupAndApplyGeocodes()
   {
-    if( $this->geoEncodeByPass )
+    if( $this->geocoderByPass )
       return;
 
     if( $this->geoCodeIsValid() )
@@ -492,16 +492,16 @@ class Poi extends BasePoi
       throw new GeoCodeException( 'geocode_look_up is required to lookup a geoCode for this POI.' );
     }
 
-    $geoEncoder = $this->getGeoEncoder();
+    $geocoderr = $this->getgeocoderr();
 
-    $geoEncoder->setAddress( $this['geocode_look_up'] );
-    $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
-    $geoEncoder->setRegion( $this['Vendor']['country_code'] );
+    $geocoderr->setAddress( $this['geocode_look_up'] );
+    $geocoderr->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
+    $geocoderr->setRegion( $this['Vendor']['country_code'] );
 
-    $long = $geoEncoder->getLongitude();
-    $lat = $geoEncoder->getLatitude();
+    $long = $geocoderr->getLongitude();
+    $lat = $geocoderr->getLatitude();
 
-    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
+    if( $geocoderr->getAccuracy() < $this->minimumAccuracy )
     {
       $this['longitude'] = null;
       $this['latitude']  = null;
@@ -519,10 +519,10 @@ class Poi extends BasePoi
         $lat = substr( (string) $lat, 0, $latitudeLength );
 
     if( $this['latitude'] != $lat || $this['longitude'] != $long )
-        $this->addMeta( "Geo_Source", get_class( $geoEncoder ), "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
+        $this->addMeta( "Geo_Source", get_class( $geocoderr ), "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
 
-    $this['longitude'] = $long;// $geoEncoder->getLongitude();
-    $this['latitude']  = $lat; //$geoEncoder->getLatitude();
+    $this['longitude'] = $long;// $geocoderr->getLongitude();
+    $this['latitude']  = $lat; //$geocoderr->getLatitude();
   }
 
   public function geoCodeIsValid()

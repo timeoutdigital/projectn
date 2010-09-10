@@ -38,7 +38,7 @@ EOF;
 
     //print_r( $poiObj->toArray(true) );
     $address = stringTransform::concatNonBlankStrings( ', ', array( $poiObj[0][ 'street' ], $poiObj[0][ 'additional_address_details' ], $poiObj[0][ 'zips' ], $poiObj[0][ 'city' ]  ) );
-    $g = new geoEncode();
+    $g = new googleGeocoder();
     $g->setAddress( $address );
     $g->getGeoCode();
 

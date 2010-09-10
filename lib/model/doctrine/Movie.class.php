@@ -51,7 +51,7 @@ class Movie extends BaseMovie
         {
             // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
-            
+
             // Refs #525 - Trim All Text fields on PreSave
             if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
 
@@ -198,7 +198,7 @@ class Movie extends BaseMovie
 
 
   /**
-   * Add MovieMedia to Movie
+   * selects the largest image in media array and downloads the image
    *
    * @param string $url
    *
@@ -208,6 +208,17 @@ class Movie extends BaseMovie
   public function addMediaByUrl( $url = "" )
   {
     Media::addMedia( $this, $url );
+  }
+
+  public function addMeta( $lookup, $value, $comment = null )
+  {
+    $metaObj = new MovieMeta();
+    $metaObj[ 'lookup' ] = (string) $lookup;
+    $metaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $metaObj[ 'comment' ] = (string) $comment;
+
+    $this[ 'MovieMeta' ][] = $metaObj;
   }
 
 }

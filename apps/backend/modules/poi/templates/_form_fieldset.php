@@ -28,7 +28,7 @@
            
            
            <?php
-             $geoCodeObj = new geoEncode();
+             $geoCodeObj = new googleGeocoder();
 
              $unescapedPoi = $sf_data->getRaw('poi');
 

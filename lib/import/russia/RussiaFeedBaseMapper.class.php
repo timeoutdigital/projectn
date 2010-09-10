@@ -20,9 +20,9 @@ class RussiaFeedBaseMapper extends DataMapper
     protected $dataMapperHelper;
 
     /**
-    * @var geoEncode
+    * @var geocoder
     */
-    protected $geoEncoder;
+    protected $geocoderr;
 
     /**
     * @var Vendor
@@ -37,10 +37,10 @@ class RussiaFeedBaseMapper extends DataMapper
     /**
     *
     * @param SimpleXMLElement $xml
-    * @param geoEncode $geoEncoder
+    * @param geocoder $geocoderr
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null, $city = false )
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false )
     {
         if( is_string( $city ) )
             $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $city, 'ru' );
@@ -48,7 +48,7 @@ class RussiaFeedBaseMapper extends DataMapper
         if( !isset( $vendor ) || !$vendor )
           throw new Exception( 'Vendor not found.' );
 
-        $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geocoderr           = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
     }

@@ -402,6 +402,15 @@ LogExport:
     extends: Log
     type: concrete
 
+#Record Record ID and Export Date
+LogExportDate:
+  connection: project_n
+  columns:
+    record_id:                  {type: integer, notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+    model:                      {type: string(10), notnull: true}
+    export_date:                {type: datetime, notnull: true}
+
 
 LogCount:
   connection: project_n

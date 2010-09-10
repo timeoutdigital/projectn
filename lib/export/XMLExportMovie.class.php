@@ -212,7 +212,7 @@ class XMLExportMovie extends XMLExport
       $propertyTag = $this->appendNonRequiredElement( $versionElement, 'property', 'Film', XMLExport::USE_CDATA );
       $propertyTag->setAttribute( 'key', 'UI_CATEGORY' );
 
-      ExportLogger::getInstance()->addExport( 'Movie' );
+      ExportLogger::getInstance()->addExport( 'Movie', $movie['id'] );
     }
 
     return $domDocument;

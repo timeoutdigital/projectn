@@ -35,7 +35,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
     $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
     $this->object[ 'VendorPoiCategory' ] = new Doctrine_Collection( Doctrine::getTable( 'Poi' ) );
-    $this->object[ 'geoEncoder' ] = new MockGeoEncodeForPoiTest();
+    $this->object[ 'geocoderr' ] = new MockgeocoderForPoiTest();
     $this->object->save();
   }
 
@@ -244,15 +244,15 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
       $poiObj->save();
 
       $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
 
 
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj->setGeoEncodeLookUpString(" ");
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTestWithoutAddress();
+      $poiObj->setgeocoderLookUpString(" ");
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTestWithoutAddress();
 
       $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
       $poiObj->save();
@@ -267,7 +267,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
       $poiObj->save();
 
       $poiObj['longitude'] = '151.207114';
@@ -517,7 +517,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    }
 }
 
-class MockGeoEncodeForPoiTest extends geoEncode
+class MockgeocoderForPoiTest extends geocoder
 {
   private $address;
 
@@ -541,14 +541,31 @@ class MockGeoEncodeForPoiTest extends geoEncode
   {
     return 9;
   }
+
+  public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  protected function apiKeyIsValid( $apiKey ) { }
+
+  protected function processResponse( $response ) { }
 }
 
-class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
+class MockgeocoderForPoiTestWithoutAddress extends geocoder
 {
   public function _setAddress( $address ) { }
   public function numCallCount() { }
   public function getLongitude() { }
   public function getLatitude() { }
   public function getAccuracy() { }
+
+   public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  protected function apiKeyIsValid( $apiKey ) { }
+  protected function processResponse( $response ) { }
 }
 

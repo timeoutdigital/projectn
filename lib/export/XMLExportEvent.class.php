@@ -264,7 +264,7 @@ class XMLExportEvent extends XMLExport
         //$place->free();
       }
 
-      ExportLogger::getInstance()->addExport( 'Event' );
+      ExportLogger::getInstance()->addExport( 'Event', $event['id'] );
 
       //$event->free();
     }
