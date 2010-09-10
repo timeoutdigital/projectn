@@ -115,6 +115,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
   public function testOccurrenceIdsAreSameAfterTwoImports()
   {
     $events = Doctrine::getTable('Event')->findAll();
+
     $this->assertGreaterThan( 1, $events->count() );
     $this->assertLessThan( 7, $events->count() );
 
@@ -135,9 +136,12 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
 
   }
 
+
+
   public function testImportUpdatingExistingRecords()
   {
      $events = Doctrine::getTable('Event')->findAll();
+
      $this->assertEquals( 2,  count( $events ));
      $event1 = $events[ 0 ];
      $updatedAt1 = $event1[ 'updated_at' ];
@@ -159,5 +163,34 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
      $this->assertEquals( count( $event1['EventOccurrence'] ),  count( $event2['EventOccurrence'] ) );
 
 
+  }
+
+  public function  testDataEntryUpdate()
+  {
+
+    /** if this test doesn't make any sense please look into the test with the same name in DataEntryPoiMapperTest. there is some explanation there
+     * and it's basicly the same thing here
+     * in the update XML the name and the url is changed
+     **/
+     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
+                  'unit' .DIRECTORY_SEPARATOR .
+                  'data' .DIRECTORY_SEPARATOR .
+                  'data_entry' .DIRECTORY_SEPARATOR .
+                  'updateXMLs' .DIRECTORY_SEPARATOR
+                  ;
+
+    //setting to use the vendor_event_id to actually update the event NOT insert a new one!
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,true );
+
+    $this->object = new DataEntryImportManager( 'london', $importDir);
+
+    $this->object->importEvents( );
+
+    $event = Doctrine::getTable( 'Event' )->find( 1 );
+
+    $this->assertEquals( 'Footnotes Audio Walks - this event is cancelled' , $event[ 'name' ] );
+
+    $this->assertEquals( 'http://www.google.com' , $event[ 'url' ] );
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,false );
   }
 }

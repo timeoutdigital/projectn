@@ -103,12 +103,17 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processPois( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
+
+                /*
+                 * the following query must use inner joins, as we only want
+                 * venues with actuall events (and occurrences) attached
+                 */
 
 		$query = Doctrine_Query::create( )->select( 'o.id, v.*, e.*' )
                                                   ->from( 'SLLOccurrence o' )
-		                                  ->leftJoin( 'o.SLLVenue v' )
-		                                  ->leftJoin( 'o.SLLEvent e' )
+		                                  ->innerJoin( 'o.SLLVenue v' )
+		                                  ->innerJoin( 'o.SLLEvent e' )
 		                                  ->where( 'o.date_start >= ?', $from )
 		                                  ->andWhere( 'o.date_start <= ?', $to )
                                                   ->groupBy( 'v.id, e.id' );
@@ -139,11 +144,16 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 	private function processEvents( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
+
+                /*
+                 * the following query must use inner joins, as we only want
+                 * events with actuall occurrences attached
+                 */
 
 		$query = Doctrine_Query::create( )->select( 'o.id, e.*' )
 		                                  ->from( 'SLLOccurrence o' )
-		                                  ->leftJoin( 'o.SLLEvent e' )
+		                                  ->innerJoin( 'o.SLLEvent e' )
 		                                  ->where( 'o.date_start >= ?', $from )
 		                                  ->andWhere( 'o.date_start <= ?', $to )
                                                   ->groupBy( 'e.id' );
@@ -174,7 +184,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processEventOccurrences( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
 
 		$query = Doctrine_Query::create( )->select( 'o.*' )
 		                                  ->from( 'SLLOccurrence o' )

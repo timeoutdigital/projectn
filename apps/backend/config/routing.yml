@@ -61,6 +61,10 @@ poi_category:
     column:               id
     with_wildcard_routes: true
 
+dashboard:
+  url:   /dashboard
+  param: { module: dashboard, action: index }
+
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 

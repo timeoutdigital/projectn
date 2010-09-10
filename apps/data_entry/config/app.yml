@@ -3,11 +3,30 @@
 
 # default values
 all:
+  data_entry:
+    directory:
+#.....................................................................................
+#     Data entry mappers are used for two different cases:
+#     1 : importing from data entry database:
+#         - in this case, onUpdateFindById is FALSE and vpid field in the input XML is interpreted as   vendor_event_id
+#     2 : updating data_entry database
+#         - steps for update :
+#            * in projectn installation, we ran an export to create the XML files
+#            * for some cities, the runner configuration has exportForDataEntry: true value, for those cities, prepareExportXMLsForDataEntryTask is called to create
+#              new XML files with the modified IDs
+#         - in data_entry instance the modified XML files are used to import the data back to data_entry database ,in this case, app_data_entry_onUpdateFindById is
+#              TRUE and vpid field in the input XML is interpreted as the ID of the poi to be updated
+#.......................................................................................
+    onUpdateFindById: true
+  runner:
+    order: [ export, import,update ,export ]
   import:
     cities:
         -
           name: beijing
           type: [ poi ]
+
+
   export:
     cities:
         -
@@ -15,26 +34,48 @@ all:
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: delhi
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: bangalore
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: pune
           type: [ poi, event, movie ]
           language: en-GB
           validation: false
+          exportForNokia: true
         -
           name: beijing
           type: [ poi ]
           language: en-GB
           validation: false
+          exportForNokia: true
+  update:
+     cities:
+        -
+          name: mumbai
+          type: [ poi, event, movie ]
+        -
+          name: delhi
+          type: [ poi, event, movie ]
+        -
+          name: bangalore
+          type: [ poi, event, movie ]
+        -
+          name: pune
+          type: [ poi, event, movie ]
+        -
+          name: beijing-data-entry
+          type: [ poi ]
 
 prod:
   sf_guard_plugin:

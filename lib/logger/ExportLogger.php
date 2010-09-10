@@ -65,6 +65,16 @@ class ExportLogger extends BaseLogger
     }
 
     /**
+     * unsetSingleton()
+     * Used by Unit Tests to reset singleton object between tests.
+     */
+    public function unsetSingleton()
+    {
+        $c = __CLASS__;
+        self::$_instance = new $c;
+    }
+
+    /**
      *  The singleton method
      */
     public static function getInstance()
@@ -75,6 +85,49 @@ class ExportLogger extends BaseLogger
             self::$_instance = new $c;
         }
         return self::$_instance;
+    }
+
+    /**
+     * Delete Duplicate Metrics for the Same Day.
+     * refs: #606
+     */
+
+    public function deleteDuplicateMetricsForToday( $model )
+    {
+        if( !in_array( $model, array( 'Poi', 'Event', 'Movie' ) ) )
+        {
+            $this->addError( "Model not found '$model'", $model );
+            return;
+        }
+
+        // Delete Export Date Stamps
+        Doctrine::getTable( 'LogExportDate' )
+            ->createQuery()
+                ->delete()
+            ->where( 'export_date > DATE( NOW() )' )
+            ->andWhere( 'model = ?', $model )
+            ->andWhere( 'vendor_id = ?', $this->_vendorObj['id'] )
+            ->execute();
+
+        // Delete Duplicate Export Counts.
+        Doctrine::getTable( 'LogExportCount' )
+            ->createQuery('lc')
+                ->leftJoin( 'lc.LogExport l ON l.id = lc.log_export_id' )
+            ->where( 'lc.created_at > DATE( NOW() )' )
+            ->andWhere( 'vendor_id = ?', $this->_vendorObj['id'] )
+            ->andWhere( 'model = ?', $model )
+            ->execute()
+            ->delete();
+
+        // Delete Duplicate Export Errors.
+        Doctrine::getTable( 'LogExportError' )
+            ->createQuery('le')
+                ->leftJoin( 'le.LogExport l ON l.id = le.log_export_id' )
+            ->where( 'le.created_at > DATE( NOW() )' )
+            ->andWhere( 'vendor_id = ?', $this->_vendorObj['id'] )
+            ->andWhere( 'model = ?', $model )
+            ->execute()
+            ->delete();
     }
 
     /**
@@ -175,6 +228,37 @@ class ExportLogger extends BaseLogger
     }
 
     /**
+     * Record a datestamp for Export
+     *
+     * @param string $model
+     * @param string $recordId
+     *
+     * This function records a datestamp for an export.
+     *
+     */
+    public function addDatestamp( $model, $recordId )
+    {
+        try {
+            // Create a new LogExportDate object.
+            $d = new LogExportDate();
+            $d['vendor_id'] = $this->_vendorObj['id'];
+            $d['model'] = $model;
+            $d['record_id'] = $recordId;
+            $d['export_date'] = date("Y-m-d H:i:s");
+            $d->save( );
+        }
+        catch( Exception $e )
+        {
+            // Record Save Errors in Database.
+            $this->addError( 'Failed to save datestamp for export', $model, $recordId );
+        }
+
+        // Clean Up.
+        if( method_exists( $d, 'free' ) ) $d->free( true );
+        if( isset( $d ) ) unset( $d );
+    }
+
+    /**
      * Initalize an Export
      *
      * @param string $model
@@ -184,6 +268,8 @@ class ExportLogger extends BaseLogger
      */
     public function initExport( $model )
     {
+        $this->deleteDuplicateMetricsForToday( $model );
+
         $logExportCount = new LogExportCount();
         $logExportCount[ 'model' ] = $model;
         $logExportCount[ 'count' ] = 0;
@@ -196,6 +282,7 @@ class ExportLogger extends BaseLogger
      * Log an export
      *
      * @param string $model
+     * @param string $recordId
      *
      * This function can deal with different types of models (thats what the
      * loop is for). However at the moment we are not using this. It is still
@@ -203,7 +290,7 @@ class ExportLogger extends BaseLogger
      * import logger.
      *
      */
-    public function addExport( $model )
+    public function addExport( $model, $recordId )
     {
         if ( $this->_exportLog[ 'LogExportCount' ] instanceof Doctrine_Collection )
         {
@@ -213,13 +300,15 @@ class ExportLogger extends BaseLogger
                 {
                     $this->_exportLog[ 'LogExportCount' ][ $k ][ 'count' ] += 1;
                     $this->save( );
+
+                    $this->addDatestamp( $model, $recordId );
                     return;
                 }
             }
         }
 
         $this->initExport( $model ); // Initalize a new export count to 0.
-        $this->addExport( $model ); // Recurse to add Export.
+        $this->addExport( $model, $recordId ); // Recurse to add Export.
     }
 
     /**

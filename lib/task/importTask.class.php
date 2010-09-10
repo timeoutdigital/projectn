@@ -23,6 +23,7 @@ class importTask extends sfBaseTask
 
   protected function execute($arguments = array(), $options = array())
   {
+
     $this->options = $options;
 
     $this->writeLogLine( 'start import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
@@ -182,9 +183,9 @@ class importTask extends sfBaseTask
                 // @todo Wrap in try catch & change this to XSLT like new NY
                 // We are to Run two Import on Events to Manage Memory!
                 $eventsNode = $xmlData->xpath( '/body/event' );
-                $totalCount = count($eventsNode); 
+                $totalCount = count($eventsNode);
                 $splitAt = round( $totalCount / 2 );
-                
+
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, 0, $splitAt) );
                 $importer->run();
@@ -199,11 +200,11 @@ class importTask extends sfBaseTask
                 $importer->addDataMapper( new ChicagoFeedEventMapper($vendorObj, $xmlData, null, $eventsNode, $splitAt, $totalCount ) );
                 $importer->run();
                 ImportLogger::getInstance()->end();
-                
+
                 $this->dieWithLogMessage();
-                
+
               break;
-          
+
           case 'movie':
               ImportLogger::getInstance()->setVendor( $vendorObj );
               $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -630,8 +631,20 @@ class importTask extends sfBaseTask
     case 'mumbai':
     case 'delhi':
     case 'bangalore':
+    case 'beijing-data-entry':
     case 'pune':
-        $dataEntryImportManager = new DataEntryImportManager( $options['city'], '/var/vhosts/projectn_data_entry/export/' );
+
+        if( $options['city'] == 'beijing-data-entry' )
+        {
+             $options['city'] = 'beijing';
+        }
+
+
+
+        $dataEntryImportManager = new DataEntryImportManager( $options['city']  );
+
+        echo "Using : " . $dataEntryImportManager->getImportDir();
+
         switch( $options['type'] )
         {
           case 'poi'   : $dataEntryImportManager->importPois();   break;
@@ -644,14 +657,18 @@ class importTask extends sfBaseTask
     break; //end data entry imports
 
     case 'beijing':
-        
+
         switch( $options['type'] )
         {
             case 'poi':
                 $pdoDB = null;
                 try {
 
-                    $pdoDB = new PDO("mysql:host=80.250.104.16;dbname=searchlight", 'projectn', 'outtime99', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+                    $dns = sfConfig::get("app_beijing_dns");
+                    $user = sfConfig::get("app_beijing_user");
+                    $password = sfConfig::get("app_beijing_password");
+
+                    $pdoDB = new PDO( $dns , $user , $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
 
                     echo 'Database Connection Estabilished' . PHP_EOL;
 
