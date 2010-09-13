@@ -1,0 +1,22 @@
+HTTP/1.1 302 Found
+Location: http://www.google.co.uk/
+Cache-Control: private
+Content-Type: text/html; charset=UTF-8
+Set-Cookie: PREF=ID=ebe86e695dd57139:TM=1283351775:LM=1283351775:S=9aWHRN2Zch0EhaP0; expires=Fri, 31-Aug-2012 14:36:15 GMT; path=/; domain=.google.com
+Set-Cookie: NID=38=csej3OVjcL3Ws21INc8V5K4yLutnO-TeWcFoDJO6B5J8Vy4bh642ed2Rgr0g_Q_vDeRKHG2jXSCXC79rSZwcsTt8Mcn2045fuR_RbZYLO2awZZ3FReQdQWfgONYNJVQz; expires=Thu, 03-Mar-2011 14:36:15 GMT; path=/; domain=.google.com; HttpOnly
+Date: Wed, 01 Sep 2010 14:36:15 GMT
+Server: gws
+Content-Length: 221
+X-XSS-Protection: 1; mode=block
+
+HTTP/1.1 200 OK
+Date: Wed, 01 Sep 2010 14:36:15 GMT
+Expires: -1
+Cache-Control: private, max-age=0
+Content-Type: text/html; charset=ISO-8859-1
+Set-Cookie: PREF=ID=63cc1598b6e87c16:TM=1283351775:LM=1283351775:S=SNOxj3cyS3V7XdlK; expires=Fri, 31-Aug-2012 14:36:15 GMT; path=/; domain=.google.co.uk
+Set-Cookie: NID=38=B-b3Qgjb9X7JiDs-XMaoWADJ7UdAV4w9APg1ZH5EYUTzaMuYHztFCfAUTpah3JhKtGe4phdrtlIYIleYR4MNBfhSaTSiV9Ff6_cXVOJBpsCxzAltus74eI221BtY3lAi; expires=Thu, 03-Mar-2011 14:36:15 GMT; path=/; domain=.google.co.uk; HttpOnly
+Server: gws
+X-XSS-Protection: 1; mode=block
+Transfer-Encoding: chunked
+
