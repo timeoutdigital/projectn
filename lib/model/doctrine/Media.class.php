@@ -11,6 +11,46 @@
  */
 class Media extends BaseMedia
 {
+    public static function addMedia( Doctrine_Record $record, $url = "" )
+    {
+        if( empty( $url ) ) return false;
+
+        // Only accept jpg and jpeg file extensions.
+        if( !in_array( strtolower( pathinfo( $url, PATHINFO_EXTENSION ) ), array( 'jpg', 'jpeg' ) ) ) return false;
+
+        // Decide which classes we're dealing with.
+        $class      = get_class( $record );
+        $mediaClass = "{$class}Media";
+
+        // Verify vendor.
+        if( !isset( $record['Vendor']['city'] ) || empty( $record['Vendor']['city'] ) )
+        {
+            throw new MediaException( "Failed to add {$mediaClass}: missing Vendor city" );
+        }
+
+        // Create ident.
+        $info['ident'] = md5( $url );
+        $info['url']   = $url;
+
+        // Query if record exists in db.
+        $exists = Doctrine::getTable( $mediaClass )->findOneByIdent( $info['ident'], Doctrine::HYDRATE_ARRAY );
+
+        // If not; create a new record and link it.
+        if( $exists === false )
+        {
+            $media = new $mediaClass;
+            $media->merge( $info );
+            
+            $record[ $mediaClass ][] = $media;
+        }
+
+        // NOTE: This approach has a caveat, basically; consider the rare situation where the same image is provided
+        // for multiple records, the first time the url is seen, we associate the record, subsequent records do
+        // not link to that media. This is a problem with the database schema, as Media can only link to 1 Record.
+
+        // That's all folks, the rest is handled by the MediaDownloadTask
+    }
+
     /**
      *
      */

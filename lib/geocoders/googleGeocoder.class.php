@@ -65,6 +65,18 @@ class googleGeocoder extends geocoder
     return (!is_string( $apiKey ) || strlen( $apiKey ) != 86);
   }
 
+  protected function responseIsValid()
+  {
+    if( !is_string( $this->response ) || empty( $this->response ) || stripos( $this->response, ',' ) === false )
+        return false;
+
+    $dataArray = explode( ',', $this->response );
+    if( count( $dataArray ) !== 4 ) return false;
+
+    $responseCode = $dataArray[0];
+    return ( $responseCode == 200 );
+  }
+
   protected function processResponse( $response )
   {
      $dataArray = explode(',', $response);
