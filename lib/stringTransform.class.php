@@ -353,18 +353,20 @@ class stringTransform
       {
         return false;
       }
+      // @todo: Should format email and validate string is a valid email address format
+      return true;
 
-     try
-      {
-        $validate = new Validate();
-      }
-      catch (Exception $e)
-      {
-        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
-        exit;
-      }
-       //Check if domain is valid
-     return $validate->email( $email ,array( "fullTLDValidation "=> true ,"domain_check" => true ) );
+//     try
+//      {
+//        $validate = new Validate();
+//      }
+//      catch (Exception $e)
+//      {
+//        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
+//        exit;
+//      }
+//       //Check if domain is valid
+//     return $validate->email( $email ,array( "fullTLDValidation "=> true ,"domain_check" => true ) );
 
 
 
