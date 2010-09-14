@@ -10,7 +10,7 @@
  */
 class EventDataEntryForm extends BaseEventForm
 {
-  
+
   private $user;
 
   private $filePath = 'media/event';
@@ -22,6 +22,8 @@ class EventDataEntryForm extends BaseEventForm
 
   public function configure()
   {
+    var_dump( "CONFIGURE" );
+
     $this->user = sfContext::getInstance()->getUser();
 
     $this->widgetSchema[ 'created_at' ]      = new widgetFormFixedText( array( 'default' => 'now' ) );
@@ -39,18 +41,22 @@ class EventDataEntryForm extends BaseEventForm
     $this->configureVendorEventCategoryWidget();
 
     /* occurrences */
-    $this->embedRelation('EventOccurrence');
+    /* occurrences */
+    // $this->embedRelation('EventOccurrence');
 
     /* new event occurrence */
-    $eventOccurrence = new EventOccurrence();
-    $eventOccurrence->Event = $this->getObject();
 
-    $form = new EventOccurrenceForm( $eventOccurrence );
 
-    $form->validatorSchema['start_date']->setOption('required', false);
-    $form->validatorSchema['poi_id']->setOption('required', false);
+    //$form->validatorSchema['start_date']->setOption('required', false);
+    //$form->validatorSchema['poi_id']->setOption('required', false);
 
-    $this->embedForm( 'newEventOccurrenceDataEntry', $form );
+    //$this->embedForm( 'newEventOccurrenceDataEntry', $form );
+
+    /* images */
+    $this->embedRelation('EventMedia');
+
+    $this->embedForm( 'EventOccurrenceCollectionForm',  new EventOccurrenceCollectionForm( $this->getObject() ) );
+    $this->embedForm( 'AddEventOccurrenceForm',  new AddEventOccurrenceForm( $this->getObject() ) );
 
     /* images */
     $this->embedRelation('EventMedia');
@@ -76,7 +82,9 @@ class EventDataEntryForm extends BaseEventForm
     )));
 
     $this->embedForm( 'newEventMediaDataEntry', $form );
-    
+
+    //var_dump( $this[ 'EventOccurrenceCollectionForm' ] );
+
   }
 
 
@@ -110,6 +118,7 @@ class EventDataEntryForm extends BaseEventForm
 
   public function saveEmbeddedForms($con = null, $forms = null)
   {
+    var_dump( __FUNCTION__ );
       if (null === $con)
       {
         $con = $this->getConnection();
@@ -136,15 +145,19 @@ class EventDataEntryForm extends BaseEventForm
       {
           if ($form instanceof sfFormObject)
           {
-              if ( $form->getObject() instanceof EventOccurrence )
+            //don't save event occurrences
+             /*if ( $form->getObject() instanceof EventOccurrence )
               {
                   if ( !in_array($form->getObject()->getId(), $this->eventOccurencesScheduledForDeletion ))
                   {
                     $form->saveEmbeddedForms($con);
-                    $form->getObject()->save($con);
+                    var_dump( get_class( $form->getObject()) );
+
+                    //$form->getObject()->save($con);
                   }
               }
-              else if ( $form->getObject() instanceof EventMedia )
+              else */
+              if ( $form->getObject() instanceof EventMedia )
               {
                   if ( !in_array($form->getObject()->getId(), $this->eventMediasScheduledForDeletion ))
                   {
@@ -157,10 +170,11 @@ class EventDataEntryForm extends BaseEventForm
           {
               $this->saveEmbeddedForms($con, $form->getEmbeddedForms());
           }
-      }     
+      }
+
   }
 
- protected function doUpdateObject($values)
+  protected function doUpdateObject($values)
   {
     if ( count( $this->eventOccurencesScheduledForDeletion ) )
     {
