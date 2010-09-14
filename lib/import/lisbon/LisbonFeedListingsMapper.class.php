@@ -138,7 +138,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                 
             } catch ( Exception $exception )
             {
-                $this->notifyImporterOfFailure( 'Exception: LisbonFeedListingsMapper::mapListing - ' . $exception->getMessage() );
+                $this->notifyImporterOfFailure( new Exception( 'Exception: LisbonFeedListingsMapper::mapListing - ' . $exception->getMessage() ) );
             }
         }
     }

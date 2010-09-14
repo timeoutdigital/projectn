@@ -46,7 +46,7 @@ class LisbonFeedVenuesMapper extends LisbonFeedBaseMapper
 
         } catch ( Exception $exception )
         {
-            $this->notifyImporterOfFailure( 'Exception: LisbonFeedVenuesMapper::mapVenues - ' . $exception->getMessage() );
+            $this->notifyImporterOfFailure( new Exception('Exception: LisbonFeedVenuesMapper::mapVenues - ' . $exception->getMessage() ) );
         }
 
     }
