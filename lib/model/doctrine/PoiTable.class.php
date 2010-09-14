@@ -41,8 +41,17 @@ class PoiTable extends Doctrine_Table
       $query->addWhere( 'poi.vendor_id = ?', $vendorId  );
 
       $query = $this->addWhereLongitudeLatitudeNotNull( $query );
+      $query = $this->addWhereNotMarkedAsDuplicate( $query );
 
       return $query->execute();
+    }
+
+    private function addWhereNotMarkedAsDuplicate( Doctrine_Query $query )
+    {
+      $query
+        ->addWhere('poi.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
+        ;
+      return $query;
     }
 
     private function addWhereLongitudeLatitudeNotNull( Doctrine_Query $query )
