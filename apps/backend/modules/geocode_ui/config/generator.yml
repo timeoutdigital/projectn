@@ -17,14 +17,14 @@ generator:
       list:
         title: Poi Geocodes
         sort:               [created_at, desc]
-        display:            [_poi_name, _city, _street, _geocodeAccuracy, _created_at]
+        display:            [_edit_poi, _poi_name, _street, _city, latitude, longitude]
         batch_actions: []
         actions: []
         object_actions: []
 
       filter:
          class: PoiDataEntryFormFilter
-         display: [ _vendor_id, poi_name ]
+         display: [ _vendor_id, poi_name, latitude, longitude, _list_filter ]
       form:    ~
       edit:    ~
       new:     ~

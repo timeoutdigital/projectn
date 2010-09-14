@@ -1,8 +1,8 @@
 <?php 
 //$cities = Doctrine::getTable( 'Vendor')->findAll( );
-$cities = $sf_user->getPermittedVendorCities();
+$cities = Doctrine::getTable( 'Vendor' )->findAll();
 
-$cityNames = array( '' );
+$cityNames = array( );
 
 foreach ( $cities as $city ) { $cityNames [$city['id']] = $city['city'];  }
 

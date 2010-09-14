@@ -10,7 +10,7 @@
       </thead>
       <tfoot>
         <tr>
-          <th colspan="5">
+          <th colspan="6">
             <?php if ($pager->haveToPaginate()): ?>
               <?php include_partial('geocode_ui/pagination', array('pager' => $pager)) ?>
             <?php endif; ?>
@@ -23,8 +23,19 @@
         </tr>
       </tfoot>
       <tbody>
-        <?php foreach ($pager->getResults() as $i => $t_venue): $odd = fmod(++$i, 2) ? 'odd' : 'even' ?>
-          <tr class="sf_admin_row <?php echo $odd ?>" id="t_venue_row_<?php echo preg_replace( '/:/', '_', $t_venue[ 'id' ] ); ?>">
+        <?php
+        $lastLatLong = "";
+        $className = '';
+        foreach ($pager->getResults() as $i => $t_venue):
+            // Group Same LAT / LONG
+            if( $lastLatLong != ($t_venue['latitude'].$t_venue['longitude']) )
+            {
+                $lastLatLong    = ($t_venue['latitude'].$t_venue['longitude']);
+                $className      = ( $className == 'odd' ) ? 'even' : 'odd';
+            }
+            //$odd = fmod(++$i, 2) ? 'odd' : 'even'
+        ?>
+          <tr class="sf_admin_row <?php echo $className ?>" id="t_venue_row_<?php echo preg_replace( '/:/', '_', $t_venue[ 'id' ] ); ?>">
             <?php include_partial('geocode_ui/list_td_tabular', array('t_venue' => $t_venue)) ?>
           </tr>
         <?php endforeach; ?>

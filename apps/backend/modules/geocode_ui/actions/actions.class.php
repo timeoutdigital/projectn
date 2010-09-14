@@ -42,37 +42,33 @@ class geocode_uiActions extends autoGeocode_uiActions
     public function executeIndex( sfWebRequest $request )
     {
         $filters = $this->getUser()->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
-
+        // override vendor ID, vendor_id is allways required to Limit the Number of records queried!
+        if( !isset( $filters[ 'vendor_id' ] ) || !is_numeric( $filters[ 'list' ] ) || $filters[ 'list' ] <= 0)
+        {
+            $filters[ 'vendor_id' ]  = 1; // Set to NY vendor by Default
+        }
+        
         if ( !isset( $filters[ 'list' ] ) )
         {
-            $filters[ 'list' ] = 'non-geocoded';
-            
-            $this->getUser()->setAttribute( 'geocode_ui.filters', $filters, 'admin_module' );
-            
-            $this->getUser()->setAttribute( 'geocode_ui.sort', array( 'created_at', 'asc' ), 'admin_module' );
+            $filters[ 'list' ] = 'duplicate';                
+            $this->getUser()->setAttribute( 'geocode_ui.sort', array( 'poi_name', 'asc' ), 'admin_module' );
         }
-
-        if(!isset($filters['vendor_id']) || $filters['vendor_id'] == null || empty($filters['vendor_id']))
-        {
-            // Filter [Hack] Permitted Cities for Authenticated User.
-            // See PoiDataEntryFormFilter.php addVendorIdColumnQuery().
-            $filters[ 'vendor_id' ] = 0;
-            $this->getUser()->setAttribute( 'geocode_ui.filters', $filters, 'admin_module' );
-        }
+        
+        // Update Filter
+        $this->getUser()->setAttribute( 'geocode_ui.filters', $filters, 'admin_module' );
+        
         parent::executeIndex( $request );
-
     }
 
     public function executeFilter( sfWebRequest $request )
     {
         
         $filter = $this->getUser()->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
-
-        $list = 'non-geocoded';
+        $list = 'duplicate';
 
         if ( isset( $filter['list'] ) )
             $list = $filter['list'];
-
+        
         if ( $request->hasParameter( '_reset' ) )
         {
             $this->setFilters( $this->configuration->getFilterDefaults() );
@@ -81,7 +77,8 @@ class geocode_uiActions extends autoGeocode_uiActions
 
             $this->redirect( 'geocode_ui/index' );
         }
-
+        //reset the page to 1
+        $this->getUser()->setAttribute( 'geocode_ui.page', 1, 'admin_module' );
         parent::executeFilter( $request );
     }
 
@@ -96,13 +93,6 @@ class geocode_uiActions extends autoGeocode_uiActions
         $venueId = $request->getParameter( 'venueId' );
 
         $venue = Doctrine::getTable( 'poi' )->find( $venueId );
-
-        // validate
-         if ( $venue && !$this->getUser()->checkIfVendorIdIsAllowed( $venue['vendor_id'] ) )
-         {
-             return $this->renderText( json_encode( array('error' => sprintf('You don\' have permissions to read this record [%s]', $venue['poi_name'] ) ) ) );
-         }
-
 
         $result = array( );
 
@@ -131,15 +121,8 @@ class geocode_uiActions extends autoGeocode_uiActions
     */
    public function executeSaveVenueDetails( sfWebRequest $request )
    {
-       $venueId = $request->getParameter( 'venueId' );
 
-       // validate
-       if ( !$this->getUser()->checkRecordPermissions( 'poi', $venueId  ) )
-       {
-           return $this->renderText( json_encode( array('error' => sprintf('You don\' have permissions to change this record') ) ) );
-       }
-
-      
+      $venueId = $request->getParameter( 'venueId' );
       $latitude = $request->getParameter( 'latitude' );
       $longitude = $request->getParameter( 'longitude' );
       $geocode_lookup = $request->getParameter( 'geocode_lookup' );

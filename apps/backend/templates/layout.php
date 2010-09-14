@@ -37,7 +37,10 @@
             <?php echo link_to('Vendor Event Categories', '@vendor_event_category') ?> /
           </li>
           <li>
-            <?php echo link_to('Export Statistics', '@dashboard') ?>
+            <?php echo link_to('Export Statistics', '@dashboard') ?> /
+          </li>
+          <li>
+            <?php echo link_to('Geocode UI', '@geocode_ui') ?>
           </li>
         </ul>
       </div>
