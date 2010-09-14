@@ -138,8 +138,10 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $media = new PoiMedia();
         $media[ 'ident' ] = 'md5 hash of the url';
-        $media[ 'mime_type' ] = 'image/';
+        $media[ 'mime_type' ] = 'image/jpeg';
         $media[ 'url' ] = 'url';
+        $media[ 'status' ] = 'valid';
+        $media[ 'content_length' ] = 120;
         $poi['PoiMedia'][] = $media;
         $media->save();
 
@@ -573,11 +575,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
-      //  print_r( Doctrine::getTable('PoiMedia')->findAll()->toArray() );
-      //echo $this->xml->entry[0]->asXML();
       $properties = $this->xml->entry[0]->version->content->media;
-      $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
-      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
+      $this->assertEquals( 0, count( $properties ) );
     }
 
     public function testExportWithValidationOff()
