@@ -48,6 +48,41 @@ class PoiTest extends PHPUnit_Framework_TestCase
    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testMarkRecordAsDuplicate()
+  {
+    // Set False->False
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( NULL );
+    $this->object->save();
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set False->True
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( 'on' );
+    $this->object->save();
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set True->True
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( 'on' );
+    $this->object->save();
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set True->False
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( NULL );
+    $this->object->save();
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+  }
+
   public function testStreetDoesNotContainPostCode()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -521,6 +556,10 @@ class MockgeocoderForPoiTest extends geocoder
 {
   private $address;
 
+  public function responseIsValid()
+  {
+      return true;
+  }
   public function _setAddress( $address )
   {
     $this->address = $address;
@@ -560,9 +599,14 @@ class MockgeocoderForPoiTestWithoutAddress extends geocoder
   public function getLatitude() { }
   public function getAccuracy() { }
 
-   public function getLookupUrl()
+  public function getLookupUrl()
   {
       return 'mockgeocoder for poi lookup url';
+  }
+
+  public function responseIsValid()
+  {
+      return true;
   }
 
   protected function apiKeyIsValid( $apiKey ) { }
