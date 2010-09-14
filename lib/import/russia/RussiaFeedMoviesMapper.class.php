@@ -41,7 +41,7 @@ class RussiaFeedMoviesMapper extends RussiaFeedBaseMapper
                 $poi = Doctrine::getTable("Poi")->findByVendorPoiIdAndVendorLanguage( $vendor_venue_id, 'ru' );
                 if( !$poi )
                 {
-                    $this->notifyImporterOfFailure( new Exception( "Could not find POI for Movie with Id: " . $vendor_movie_id ), isset( $movie ) ? $movie : null );
+                    $this->notifyImporterOfFailure( new Exception( "Could not find Russian POI with Id: " . $vendor_venue_id ) );
                     continue;
                 }
 

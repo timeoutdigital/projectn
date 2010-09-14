@@ -18,10 +18,6 @@
  *
  */
 
-//Include PEAR Library
-require_once 'Validate.php';
-
-
 class stringTransform
 {
 
@@ -323,51 +319,25 @@ class stringTransform
    * stringTransform::formatUrl('myurl.com');
    * </code>
    */
-  public static function formatUrl($subject)
+  public static function formatUrl( $subject )
   {
-      //Return if no URL
-      if(empty($subject))
+      // Basic Validation
+      if( !is_string( $subject ) || empty( $subject ) || !is_numeric( strrpos( $subject, '.' ) ) )
       {
         return null;
       }
 
-      //Add http if not already
-      if(!preg_match('/^http/', $subject)){
-
+      // Add HTTP protocol prefix if not defined.
+      if( !preg_match( '/^http/', $subject ) )
+      {
           $subject =  'http://'.$subject;
       }
 
-      try
-      {
-        $validate = new Validate();
-      }
-      catch (Exception $e)
-      {
-        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
-        exit;
-      }
+      // Validate url
+      $validUrl = preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $subject );
 
-      // check if the url is something like that : http://ccmatasiramis@bcn.cat
-      // see ticket : #464
-
-      $urlparts = parse_url( $subject );
-
-      if( !empty( $urlparts [ 'user' ] ) )
-      {
-        return null;
-      }
-      //Check if domain is valid
-      $valid = $validate->uri( $subject ,array( "allowed_schemes" => array( 'https', 'http' ), "domain_check "=> true ) );
-
-      if($valid)
-      {
-          return $subject;
-      }
-      else
-      {
-          return null;
-      }
-
+      // Return Validated Url
+      return $validUrl ? $subject : null;
   }
 
   /**
@@ -383,18 +353,20 @@ class stringTransform
       {
         return false;
       }
+      // @todo: Should format email and validate string is a valid email address format
+      return true;
 
-     try
-      {
-        $validate = new Validate();
-      }
-      catch (Exception $e)
-      {
-        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
-        exit;
-      }
-       //Check if domain is valid
-     return $validate->email( $email ,array( "fullTLDValidation "=> true ,"domain_check" => true ) );
+//     try
+//      {
+//        $validate = new Validate();
+//      }
+//      catch (Exception $e)
+//      {
+//        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
+//        exit;
+//      }
+//       //Check if domain is valid
+//     return $validate->email( $email ,array( "fullTLDValidation "=> true ,"domain_check" => true ) );
 
 
 

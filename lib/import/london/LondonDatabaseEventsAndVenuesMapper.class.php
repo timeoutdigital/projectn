@@ -103,7 +103,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processPois( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
 
                 /*
                  * the following query must use inner joins, as we only want
@@ -144,7 +144,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 	private function processEvents( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
 
                 /*
                  * the following query must use inner joins, as we only want
@@ -184,7 +184,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         private function processEventOccurrences( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 1000;
+		$resultsPerPage = 100;
 
 		$query = Doctrine_Query::create( )->select( 'o.*' )
 		                                  ->from( 'SLLOccurrence o' )
@@ -368,48 +368,58 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
   private function mapPoiFrom( $item )
   {
-    $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'SLLVenue' ][ 'id' ] );
-    $poi[ 'Vendor' ]                 = clone $this->vendor;
-    $poi[ 'vendor_poi_id' ]          = $item[ 'SLLVenue' ][ 'id' ];
-    $poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
+      try {
 
-    $fix = new removeCommaLondonFromEndOfString($item[ 'SLLVenue' ][ 'address' ]);
-    $poi[ 'street' ]                 = $fix->getFixedString();
+        $poi = $this->dataMapperHelper->getPoiRecord( $item[ 'SLLVenue' ][ 'id' ] );
+        $poi[ 'Vendor' ]                 = clone $this->vendor;
+        $poi[ 'vendor_poi_id' ]          = $item[ 'SLLVenue' ][ 'id' ];
+        $poi[ 'poi_name' ]               = $item[ 'SLLVenue' ][ 'name' ];
 
-    $poi[ 'city' ]                   = 'London';
-    $poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
-    $poi[ 'country' ]                = 'GBR';
-    $poi[ 'local_language' ]         = $this->vendor[ 'language' ];//'en-GB';
+        $fix = new removeCommaLondonFromEndOfString($item[ 'SLLVenue' ][ 'address' ]);
+        $poi[ 'street' ]                 = $fix->getFixedString();
 
-    $poi->applyFeedGeoCodesIfValid( $item[ 'SLLVenue' ][ 'latitude' ], $item[ 'SLLVenue' ][ 'longitude' ] );
+        $poi[ 'city' ]                   = 'London';
+        $poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
+        $poi[ 'country' ]                = 'GBR';
+        $poi[ 'local_language' ]         = $this->vendor[ 'language' ];//'en-GB';
 
-    $poi[ 'email' ]                  = $item[ 'SLLVenue' ][ 'email' ];
-    $poi[ 'url' ]                    = $item[ 'SLLVenue' ][ 'url' ];
-    $poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
-    $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
-    $poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
-    $poi['geocoderLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
+        $poi->applyFeedGeoCodesIfValid( $item[ 'SLLVenue' ][ 'latitude' ], $item[ 'SLLVenue' ][ 'longitude' ] );
 
-    // Add Images
-    if( isset( $item[ 'SLLVenue' ]['image_id'] ) && is_numeric( $item[ 'SLLVenue' ]['image_id'] ) )
-    {
-        $imageUrl = "http://toimg.net/managed/images/". $item[ 'SLLVenue' ]['image_id'] ."/i.jpg";
-        $this->addImageHelper( $poi, $imageUrl );
+        $poi[ 'email' ]                  = $item[ 'SLLVenue' ][ 'email' ];
+        $poi[ 'url' ]                    = $item[ 'SLLVenue' ][ 'url' ];
+        $poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
+        $poi[ 'public_transport_links' ] = $item[ 'SLLVenue' ][ 'travel' ];
+        $poi[ 'openingtimes' ]           = $item[ 'SLLVenue' ][ 'opening_times' ];
+        $poi['geocoderLookUpString']    = stringTransform::concatNonBlankStrings(',', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'], 'UK' ) );
+
+        // Add Images
+        if( isset( $item[ 'SLLVenue' ]['image_id'] ) && is_numeric( $item[ 'SLLVenue' ]['image_id'] ) )
+        {
+            $imageUrl = "http://toimg.net/managed/images/". $item[ 'SLLVenue' ]['image_id'] ."/i.jpg";
+            $this->addImageHelper( $poi, $imageUrl );
+        }
+
+        $building_name                   = $item[ 'SLLVenue' ][ 'building_name' ];
+        if( strlen($building_name) <= 32 )
+        {
+          $poi[ 'house_no' ] = $building_name;
+        }
+        else
+        {
+          $poi[ 'additional_address_details' ] = $building_name;
+        }
+
+        // refs #640 .. Should be array or string...
+        if( $this->categories && ( is_array( $this->categories ) || is_string( $this->categories ) ) )
+        {
+            $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
+        }
+
+        $this->notifyImporter( $poi );
+        
+    } catch (Exception $exc) {
+          $this->notifyImporterOfFailure( $exc );
     }
-
-    $building_name                   = $item[ 'SLLVenue' ][ 'building_name' ];
-    if( strlen($building_name) <= 32 )
-    {
-      $poi[ 'house_no' ] = $building_name;
-    }
-    else
-    {
-      $poi[ 'additional_address_details' ] = $building_name;
-    }
-
-    $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
-
-    $this->notifyImporter( $poi );
   }
 
   private function extractCategoriesFrom( $item )
