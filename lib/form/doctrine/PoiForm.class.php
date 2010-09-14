@@ -19,7 +19,26 @@ class PoiForm extends BasePoiForm
     $this->widgetSchema[ 'updated_at' ]     = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'geocode_look_up' ]= new widgetFormFixedText();
+    $this->widgetSchema[ 'duplicate' ]      = new sfWidgetFormInputCheckbox();
+
+    $this->setDefault( 'duplicate', $this->getObject()->getDuplicate() );
+
+    $this->validatorSchema[ 'duplicate' ] = new sfValidatorPass();
+
     $this->configureVendorPoiCategoryWidget();
+  }
+
+//  protected function updateDuplicateColumn( $value )
+//  {
+//      $this->getObject()->setDuplicate( $value );
+//  }
+
+  public function save( $con = null )
+  {
+      $this->getObject()->setDuplicate( $this->values[ 'duplicate' ] );
+      unset( $this->values[ 'duplicate' ] );
+
+      parent::save( $con );
   }
 
   protected function doUpdateObject( $values = null )
@@ -28,6 +47,7 @@ class PoiForm extends BasePoiForm
 
     $record   = $this->getObject();
     $override = new recordFieldOverrideManager( $record );
+    
     $override->saveRecordModificationsAsOverrides();
   }
 

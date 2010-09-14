@@ -25,6 +25,7 @@ generator:
         actions: { _list: ~, _save: ~ }
         display:
           Editable:
+            - duplicate
             - poi_name
             - house_no
             - street

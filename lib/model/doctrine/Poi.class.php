@@ -31,6 +31,49 @@ class Poi extends BasePoi
   private $minimumAccuracy = 8;
 
 
+  public function getDuplicate()
+  {     
+      foreach( $this['PoiMeta'] as $meta )
+      {
+          if( isset( $meta['lookup'] ) && $meta['lookup'] == 'Duplicate' )
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+  public function setDuplicate( $value = NULL )
+  {
+      if( $value === 'on' )
+      {
+            if( $this->getDuplicate() )
+                return;
+
+            $pm = new PoiMeta();
+            $pm['lookup']   = 'Duplicate';
+            $pm['value']    = 'Duplicate';
+            $pm['comment']  = 'Producer Marked as Duplicate';
+            $this['PoiMeta'][] = $pm;
+      }
+      
+      elseif( is_null( $value ) )
+      {
+            if( !$this->getDuplicate() )
+                return;
+
+            foreach( $this['PoiMeta'] as $key => $meta )
+            {
+                if( isset( $meta['lookup'] ) && $meta['lookup'] == 'Duplicate' )
+                {
+                    unset( $this['PoiMeta'][ $key ] );
+                    $meta->delete();
+                }
+            }
+      }
+  }
+
   public function setMinimumAccuracy( $acc )
   {
       if( is_numeric( $acc ) )
