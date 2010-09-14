@@ -43,7 +43,7 @@ class geocode_uiActions extends autoGeocode_uiActions
     {
         $filters = $this->getUser()->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );
         // override vendor ID, vendor_id is allways required to Limit the Number of records queried!
-        if( !isset( $filters[ 'vendor_id' ] ) || !is_numeric( $filters[ 'list' ] ) || $filters[ 'list' ] <= 0)
+        if( !isset( $filters[ 'vendor_id' ] ) || !is_numeric( $filters[ 'vendor_id' ] ) || $filters[ 'vendor_id' ] <= 0)
         {
             $filters[ 'vendor_id' ]  = 1; // Set to NY vendor by Default
         }
