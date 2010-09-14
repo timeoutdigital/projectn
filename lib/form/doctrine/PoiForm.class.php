@@ -28,11 +28,6 @@ class PoiForm extends BasePoiForm
     $this->configureVendorPoiCategoryWidget();
   }
 
-//  protected function updateDuplicateColumn( $value )
-//  {
-//      $this->getObject()->setDuplicate( $value );
-//  }
-
   public function save( $con = null )
   {
       $this->getObject()->setDuplicate( $this->values[ 'duplicate' ] );
