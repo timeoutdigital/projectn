@@ -38,7 +38,7 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
             
         } catch ( Exception $exception )
         {
-            $this->notifyImporterOfFailure( new Exception('Exception: LisbonFeedMoviesMapper::mapMovies - ' . $exception->getMessage() ) );
+            $this->notifyImporterOfFailure( $exception, ( isset($movie) ) ? $movie : null, 'Exception: LisbonFeedMoviesMapper::mapMovies' );
         }
     }
   }
