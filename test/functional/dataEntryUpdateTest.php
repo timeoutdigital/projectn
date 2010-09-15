@@ -25,10 +25,12 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
 
   public function setUp()
   {
+    var_dump( __FUNCTION__ );
     $today = date('Ymd');
     @unlink($this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml');
     @unlink($this->getRootPath() .'export/export_' .$today.'/poi/beijing.xml');
     @unlink($this->getRootPath() .'export/data_entry/export_' .$today.'/poi/beijing.xml');
+
   }
   public function testDataEntryUpdateProcessWithImportAndExportTasks()
   {
@@ -66,7 +68,7 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
     //in the main database change a name of the venue
     //previously =>Sofitel Wanda
     //after running editPoi => Sofitel Wanda International
-    $this->editPoi( );
+    $this->editPoiInProjectN( );
 
     //export the beijing venues in main database
     $this->callCmd( './symfony projectn:export --env=test-functional --city=beijing --type=poi --validation=false --destination=export/export_' .$today.'/poi/beijing.xml' );
@@ -108,7 +110,7 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
 
   }
 
-  public function testDataEntryUpdateProcessWithRunner()
+  public function test1DataEntryUpdateProcessWithRunner()
   {
     $today = date('Ymd');
     $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation ' );
@@ -121,7 +123,7 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
 
     $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
 
-    $this->editPoi( );
+    $this->editPoiInProjectN( );
 
     $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
 
@@ -138,7 +140,126 @@ class dataEntryUpdateTest extends PHPUnit_Framework_TestCase
 
   }
 
-  protected function editPoi( )
+    public function test2DataEntryUpdateProcessWithRunnerBeijingDBModifiedButChangeShouldBeOverwritten()
+  {
+    $today = date('Ymd');
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation ' );
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation ' , self::PROJECTN_DATA_ENTRY  );
+
+    $this->addBeijingData();
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+        self::PROJECTN_DATA_ENTRY  );
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+    //edit the poi in projectN
+    //because we are editing the poi in ProjectN, changes coming from beijing database should be ignored!
+    $this->editPoiInProjectN( );
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+    $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
+    $poi = $xml->entry [0];
+    $this->assertEquals( 'Sofitel Wanda' ,(string) $poi->name  );
+
+    $this->callCmd(  './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+        self::PROJECTN_DATA_ENTRY );
+
+    $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
+    $poi = $xml->entry [0];
+    $this->assertEquals( 'Sofitel Wanda International' ,(string) $poi->name  );
+
+
+    //change poi info in beijing database
+    /******************/
+
+    $pdoDB = new PDO('sqlite:/tmp/beijing.db:' );
+
+    $pdoDB->exec("UPDATE venue set name= 'Sofitel Wanda Short Towers' where id = 1");
+
+    /*****************/
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+    self::PROJECTN_DATA_ENTRY  );
+
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+    self::PROJECTN_DATA_ENTRY  );
+
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+    $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
+    $poi = $xml->entry [0];
+    //change in the beijing database should NOT be visible !
+    $this->assertEquals( 'Sofitel Wanda International' ,(string) $poi->name  );
+
+
+  }
+
+    public function test3DataEntryUpdateProcessWithRunnerBeijingDBModifiedDataEntryShouldBeUpdated()
+  {
+    $today = date('Ymd');
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation ' );
+    $this->callCmd( './symfony doctrine:build --all --and-load --env=test-functional --no-confirmation ' , self::PROJECTN_DATA_ENTRY  );
+
+    $this->addBeijingData();
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+        self::PROJECTN_DATA_ENTRY  );
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+    $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
+    $poi = $xml->entry [0];
+    $this->assertEquals( 'Sofitel Wanda' ,(string) $poi->name  );
+
+    $this->callCmd(  './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+        self::PROJECTN_DATA_ENTRY );
+
+    $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
+    $poi = $xml->entry [0];
+    $this->assertEquals( 'Sofitel Wanda' ,(string) $poi->name  );
+
+
+    //change poi info in beijing database
+    /******************/
+
+    $pdoDB = new PDO('sqlite:/tmp/beijing.db:' );
+
+    $pdoDB->exec("UPDATE venue set name= 'Sofitel Wanda Short Towers' where id = 1");
+
+    /*****************/
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+    self::PROJECTN_DATA_ENTRY  );
+
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing --application=data_entry',
+    self::PROJECTN_DATA_ENTRY  );
+
+
+    $this->callCmd( './symfony projectn:runner --env=test-functional --city=beijing' );
+
+    $xml = simplexml_load_file( $this->getRootPath( self::PROJECTN_DATA_ENTRY  ) .'export/export_' .$today.'/poi/beijing.xml' );
+    $poi = $xml->entry [0];
+    //change in the beijing database should be visible right now!
+    $this->assertEquals( 'Sofitel Wanda Short Towers' ,(string) $poi->name  );
+
+
+  }
+
+  protected function editPoiInProjectN( )
   {
       $projectnDir = $this->getRootPath();
 
