@@ -59,6 +59,27 @@ class yandexGeocoder extends geocoder
     return (!is_string( $apiKey ) || strlen( $apiKey ) != 89);
   }
 
+  protected function responseIsValid()
+  {
+    if( !is_string( $this->response ) || empty( $this->response ) )
+        return false;
+
+    try {
+        $xml = simplexml_load_string( $this->response );
+        
+        $numFound = $xml->GeoObjectCollection
+                ->metaDataProperty
+                ->GeocoderResponseMetaData
+                ->found;
+    }
+    catch( Exception $e )
+    {
+        return false;
+    }
+
+    return ( $numFound > 0 );
+  }
+
   /**
    *
    * Example xml if no results found by Yandex

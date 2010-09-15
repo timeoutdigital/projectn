@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<venues>
+  <venue id="3422">
+    <name><![CDATA[Red Rooster]]></name>
+    <house_no><![CDATA[32]]></house_no>
+    <street><![CDATA[Magdelina Drive]]></street>
+    <city><![CDATA[New York]]></city>
+    <district><![CDATA[]]></district>
+    <additional_address_details><![CDATA[Near the Gap flagship store]]></additional_address_details>
+    <country><![CDATA[USA]]></country>
+    <postcode><![CDATA[92687]]></postcode>
+    <long><![CDATA[41.97493734]]></long>
+    <lat><![CDATA[50.42635409]]></lat>
+    <short_description><![CDATA[In recent years we’ve spotted Marcus Samuelsson mugging for the cameras more frequently than toiling behind a stove. But it looks like the celebutoque is finally getting back to work...]]></short_description>
+    <description><![CDATA[In recent years we’ve spotted Marcus Samuelsson mugging for the cameras more frequently than toiling behind a stove. But it looks like the celebutoque is finally getting back to work: This October he opens a 90-seat canteen in Harlem, and word is he’ll be back in whites, offering international twists on American comfort food. Look for dishes like grilled shrimp over tomato-laced grits, plus extensive beer and bourbon offerings to wash it all down.]]></description>
+    <price_information><![CDATA[Mains from $10, accepts credit cards]]></price_information>
+    <opening_times><![CDATA[Mon-Sat 12-11pm, Sun 1-10pm]]></opening_times>
+    <rating><![CDATA[4]]></rating>
+    <email><![CDATA[info@redrooster.com]]></email>
+    <phone><![CDATA[212-257-6446]]></phone>
+    <phone2><![CDATA[212-257-6447]]></phone2>
+    <fax><![CDATA[212-257-6448]]></fax>
+    <url><![CDATA[http://www.redrooster.com]]></url>
+    <timeout_url><![CDATA[http://newyork.timeout.com/articles/restaurants-bars/88352/fall-restaurant-and-bar-openings-in-ny]]></timeout_url>
+    <review_date><![CDATA[2010-08-29 14:32:42]]></review_date>
+    <public_transport><![CDATA[Buses: 42, 3. Metro: Harlem station]]></public_transport>
+    <categories>
+        <category>
+            <name><![CDATA[Restaurant]]></name>
+            <children>
+                <category><name><![CDATA[American]]></name></category>
+                <category><name><![CDATA[Classic]]></name></category>
+            </children>
+        </category>
+    </categories>
+    <medias>
+        <media>
+          <url><![CDATA[http://newyork.timeout.com/newyork/redrooster.jpg]]></url>
+          <copyright><![CDATA[AP Images, 2010]]></copyright>
+          <author><![CDATA[Carl Zeiss]]></author>
+          <caption><![CDATA[Fruit platter]]></caption>
+        </media>
+     </medias>
+  </venue>
+  <venue id="3435">
+    <name><![CDATA[American Museum of Natural History]]></name>
+    <house_no><![CDATA[]]></house_no>
+    <street><![CDATA[Central Park West]]></street>
+    <city><![CDATA[New York]]></city>
+    <district><![CDATA[Upper West Side]]></district>
+    <additional_address_details><![CDATA[On 79 Street and Central Park West]]></additional_address_details>
+    <country><![CDATA[USA]]></country>
+    <postcode><![CDATA[92685]]></postcode>
+    <long><![CDATA[41.74823709]]></long>
+    <lat><![CDATA[50.83094798]]></lat>
+    <short_description><![CDATA[Home to the largest and arguably most fabulous collection of dinosaur fossils in the world...]]></short_description>
+    <description><![CDATA[Home to the largest and arguably most fabulous collection of dinosaur fossils in the world, AMNHs fourth-floor dino halls have been blowing kids' minds for decades. Roughly 80 percent of the bones on display were actually dug out of the ground; the rest are casts. The thrills begin when you cross the threshold of the Theodore Roosevelt Rotunda, where youre confronted with a towering barosaurus rearing up on its hind legs to protect its young from an attacking allosaurus—an impressive welcome to the worlds largest museum of its kind. During the museums mid-1990s renovation, several specimens were remodeled to incorporate new discoveries. The Tyrannosaurus rex, for instance, was once believed to have walked upright, Godzilla-style; it now stalks prey with its head lowered and tail raised parallel to the ground. The rest of the museum is equally dramatic. The newly opened Hall of Human Origins boasts a fine display of your old cousins, the Neanderthals. The Hall of Biodiversity examines world ecosystems and environmental preservation, and a life-size model of a blue whale hangs from the ceiling of the Hall of Ocean Life. The impressive Hall of Meteorites was brushed up and reorganized in 2003. The spaces focal point is Ahnighito, the largest iron meteor on display anywhere in the world, weighing in at 34 tons (more than 30,000kg). The spectacular $210 million Rose Center for Earth & Space—dazzling at night—is a giant silvery globe where you can discover the universe via 3-D shows in the Hayden Planetarium and light shows in the Big Bang Theater. An IMAX theatre screens larger-than-life nature programs, and you can always learn something new from the innovative temporary exhibitions, an easily accessible research library (with vast photo and print archives), several cool gift shops and friendly, helpful staff.]]></description>
+    <price_information><![CDATA[Free]]></price_information>
+    <opening_times><![CDATA[Mon-Sat 10-8pm, Sun 11-5pm]]></opening_times>
+    <rating><![CDATA[4]]></rating>
+    <phone><![CDATA[212-769-5100]]></phone>
+    <url><![CDATA[http://www.amnh.org]]></url>
+    <timeout_url><![CDATA[http://newyork.timeout.com/venues/upper-west-side/1154/american-museum-of-natural-history#ixzz0zPHsSQok]]></timeout_url>
+    <review_date><![CDATA[2010-06-18 13:23:44]]></review_date>
+    <public_transport><![CDATA[Subway: B, C to 81st St–Museum of Natural History; 1 to 79th St]]></public_transport>
+    <categories>
+        <category>
+            <name><![CDATA[Museums]]></name>
+        </category>
+    </categories>
+    <medias>
+        <media>
+          <url><![CDATA[http://newyork.timeout.com/newyork/resizeImage/htdocs/export_images/722/722.ft.x100.cover.jpg]]></url>
+          <author><![CDATA[Ian Rankin]]></author>
+          <caption><![CDATA[Discus Thrower]]></caption>
+        </media>
+     </medias>
+  </venue>
+</venues>

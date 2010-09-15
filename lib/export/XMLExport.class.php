@@ -57,6 +57,11 @@ abstract class XMLExport
   protected $validation;
 
   /**
+   * @var amazonResources
+   */
+  protected $amazonResources = array();
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
@@ -153,6 +158,8 @@ abstract class XMLExport
   protected function getData()
   {
     $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
+    $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], $this->model );
+    
     return $data;
   }
 
@@ -269,5 +276,54 @@ abstract class XMLExport
     return $this->vendor['airport_code'] . str_pad( $recordId, 30, 0, STR_PAD_LEFT );
   }
 
+  /**
+   * Pull a list of available images for this city & record type off amazon via the API.
+   *
+   * @return array of Media File Names, such as 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.jpg'
+   */
+  protected function loadListOfMediaAvailableOnAmazon( $vendorCity, $recordClass )
+  {
+      // Note this requires the s3cmd utility 0.9.9.91 or greater. Available on prod, but maybe not on your comp.
+      if( strlen( trim( shell_exec( 's3cmd --version 2> /dev/null' ) ) ) < 1 )
+          throw new Exception( "Please Install & Configure the latest version of s3cmd. An installation script is available in /n/scripts" );
+
+      $vendorCity   = strtolower( $vendorCity );
+      $recordClass  = strtolower( $recordClass );
+      
+      $imageList    = trim( shell_exec( "s3cmd ls s3://projectn/{$vendorCity}/{$recordClass}/media/ | cut -d'/' -f7" ) );
+      $imageArray   = explode( "\n", $imageList );
+
+      $this->amazonResources = $imageArray;
+  }
+
+
+  /**
+   * Filter a list of media records down to just the biggest valid image.
+   */
+  protected function filterByExportPolicyAndVerifyMedia( $mediaRecords )
+  {
+    if( empty( $mediaRecords ) ) return $mediaRecords;
+
+    // Export Policy: Only Export the Largest Image.
+    $validRecords = array();
+
+    foreach( $mediaRecords as $media )
+    {
+        // Image MUST be valid (not error or new).
+        if( isset( $media['status'] ) && $media['status'] === 'valid' )
+        {
+            // Image MUST exist on Amazon.
+            if( in_array( "{$media['ident']}.jpg", $this->amazonResources ) )
+            {
+                // Select the largest Image.
+                if( empty( $validRecords ) || (int) $media['content_length'] > (int) $validRecords[0]['content_length'] )
+                {
+                    $validRecords[0] = $media;
+                }
+            }
+        }
+    }
+
+    return $validRecords;
+  }
 }
-?>
