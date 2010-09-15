@@ -300,7 +300,7 @@ abstract class XMLExport
   /**
    * Filter a list of media records down to just the biggest valid image.
    */
-  protected function filterByExportPolicyAndVerifyMedia( Doctrine_Collection $mediaRecords )
+  protected function filterByExportPolicyAndVerifyMedia( $mediaRecords )
   {
     if( empty( $mediaRecords ) ) return $mediaRecords;
 
