@@ -91,7 +91,7 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
 
          //add poi with the id  54800 and add a poiMeta for it
           $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-
+          
           $vendorPoiId =777;
 
           $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => $vendorPoiId, 'vendor_id' => 1  ,'id' => 54800 ) ); //fixture event happens at this venue
@@ -106,6 +106,15 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
 
           file_put_contents( $sourceLocation , $xmlContent );
 
+          // #658 Provide overide to update ID
+          $override = new RecordFieldOverridePoi();
+          $override[ 'record_id' ] = $poi['id'];
+          $override[ 'field' ] = 'provider';
+          $override[ 'received_value' ] = 'a';
+          $override[ 'edited_value' ] = 'b';
+          $override[ 'is_active' ] = true;
+          $override->save();
+          
           $task = new prepareExportXMLsForDataEntryTask( $this->getEventDispatcher() ,new sfFormatter() );
 
           $arguments = array();
@@ -178,6 +187,14 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
         //saving the source XML to the file system
         file_put_contents( $sourceLocation , $xmlContent );
 
+        // #658 Provide overide to update ID
+          $override = new RecordFieldOverrideEvent();
+          $override[ 'record_id' ] = $event['id'];
+          $override[ 'field' ] = 'provider';
+          $override[ 'received_value' ] = 'a';
+          $override[ 'edited_value' ] = 'b';
+          $override[ 'is_active' ] = true;
+          $override->save();
         $task = new prepareExportXMLsForDataEntryTask( $this->getEventDispatcher() ,new sfFormatter() );
 
         $arguments = array();
@@ -256,6 +273,14 @@ class prepareExportXMLsForDataEntryTaskTest extends PHPUnit_Framework_TestCase
 
         file_put_contents( $sourceLocation , $xmlContent );
 
+        // #658 Provide overide to update ID
+          $override = new RecordFieldOverrideMovie();
+          $override[ 'record_id' ] = $movie['id'];
+          $override[ 'field' ] = 'provider';
+          $override[ 'received_value' ] = 'a';
+          $override[ 'edited_value' ] = 'b';
+          $override[ 'is_active' ] = true;
+          $override->save();
         $task = new prepareExportXMLsForDataEntryTask( $this->getEventDispatcher() ,new sfFormatter() );
 
         $arguments = array();
