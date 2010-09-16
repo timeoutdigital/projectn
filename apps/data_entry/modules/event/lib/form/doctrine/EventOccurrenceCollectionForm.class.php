@@ -27,7 +27,7 @@ class EventOccurrenceCollectionForm extends BaseFormDoctrine
   {
     $this->setWidgets( array(
       'collection_data' => new sfWidgetFormInputHidden(),
-      'collection'      => new pnWidgetFormOccurrenceCollection( array( 'label' => '' ), array( 'event' => $this->event)  ),
+      'collection'      => new pnWidgetFormOccurrenceCollection( array( 'label' => '&nbsp;' ), array( 'event' => $this->event)  ),
     ));
 
     $this->setValidators( array(
