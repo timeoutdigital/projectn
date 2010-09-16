@@ -22,7 +22,6 @@ class EventDataEntryForm extends BaseEventForm
 
   public function configure()
   {
-    var_dump( "CONFIGURE" );
 
     $this->user = sfContext::getInstance()->getUser();
 
@@ -40,23 +39,13 @@ class EventDataEntryForm extends BaseEventForm
 
     $this->configureVendorEventCategoryWidget();
 
-    /* occurrences */
-    /* occurrences */
-    // $this->embedRelation('EventOccurrence');
-
-    /* new event occurrence */
-
-
-    //$form->validatorSchema['start_date']->setOption('required', false);
-    //$form->validatorSchema['poi_id']->setOption('required', false);
-
-    //$this->embedForm( 'newEventOccurrenceDataEntry', $form );
-
     /* images */
     $this->embedRelation('EventMedia');
 
     $this->embedForm( 'EventOccurrenceCollectionForm',  new EventOccurrenceCollectionForm( $this->getObject() ) );
+
     $this->embedForm( 'AddEventOccurrenceForm',  new AddEventOccurrenceForm( $this->getObject() ) );
+    $this->validatorSchema[ 'AddEventOccurrenceForm' ]   = new AddEventOccurrenceValidatorSchema( );
 
     /* images */
     $this->embedRelation('EventMedia');
@@ -83,7 +72,6 @@ class EventDataEntryForm extends BaseEventForm
 
     $this->embedForm( 'newEventMediaDataEntry', $form );
 
-    //var_dump( $this[ 'EventOccurrenceCollectionForm' ] );
 
   }
 
@@ -118,7 +106,7 @@ class EventDataEntryForm extends BaseEventForm
 
   public function saveEmbeddedForms($con = null, $forms = null)
   {
-    var_dump( __FUNCTION__ );
+
       if (null === $con)
       {
         $con = $this->getConnection();
@@ -145,18 +133,6 @@ class EventDataEntryForm extends BaseEventForm
       {
           if ($form instanceof sfFormObject)
           {
-            //don't save event occurrences
-             /*if ( $form->getObject() instanceof EventOccurrence )
-              {
-                  if ( !in_array($form->getObject()->getId(), $this->eventOccurencesScheduledForDeletion ))
-                  {
-                    $form->saveEmbeddedForms($con);
-                    var_dump( get_class( $form->getObject()) );
-
-                    //$form->getObject()->save($con);
-                  }
-              }
-              else */
               if ( $form->getObject() instanceof EventMedia )
               {
                   if ( !in_array($form->getObject()->getId(), $this->eventMediasScheduledForDeletion ))

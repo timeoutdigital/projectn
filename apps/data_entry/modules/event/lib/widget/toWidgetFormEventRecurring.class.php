@@ -47,18 +47,18 @@ class toWidgetFormEventRecurring extends sfWidgetForm
                 . $this->renderMonthlyPosition( '[recurring_monthly_position]', 'monthly parent-daily_weekly_monthly show-if-monthly child hidden' )
                 . $this->renderMonthlyWeekday(  '[recurring_monthly_weekday]',   'monthly parent-daily_weekly_monthly show-if-monthly child hidden' )
 
-                . $this->renderInformation(  '[recurring_freq_other]',  'other hidden parent-daily_weekly_monthly show-if-other child' )
-                . $this->renderEndDateInput( '[recurring_until]',        'daily weekly monthly other parent-daily_weekly_monthly show-if-daily-weekly-monthly child ' )
+                . $this->renderInformation(  '[recurring_freq_never]',  'never hidden parent-daily_weekly_monthly show-if-never child' )
+                . $this->renderEndDateInput( '[recurring_until]',        'daily weekly monthly never parent-daily_weekly_monthly show-if-daily-weekly-monthly child ' )
                 . '<script type="text/javascript">'
                 . '$( function() {'
                 . '  var dailyWeeklyMonthly = $( "#daily_weekly_monthly input[CHECKED]" ).val();'
                 . '  $( "#form-recurring_dates div.daily"   ).addClass( "hidden" );'
                 . '  $( "#form-recurring_dates div.weekly"  ).addClass( "hidden" );'
                 . '  $( "#form-recurring_dates div.monthly" ).addClass( "hidden" );'
-                . '  $( "#form-recurring_dates div.other"   ).addClass( "hidden" );'
+                . '  $( "#form-recurring_dates div.never"   ).addClass( "hidden" );'
                 . '  $( "#form-recurring_dates div." + dailyWeeklyMonthly ).removeClass( "hidden" );'
-                . '  if( dailyWeeklyMonthly == "other" )'
-                . '  $( "#form-recurring_dates div.other.date" ).addClass( "hidden" );'
+                . '  if( dailyWeeklyMonthly == "never" )'
+                . '  $( "#form-recurring_dates div.never.date" ).addClass( "hidden" );'
                 . '});'
                 . '</script>'
                 ;
@@ -71,7 +71,7 @@ class toWidgetFormEventRecurring extends sfWidgetForm
         $widget = new sfWidgetFormChoice(
             array (
                 'choices' => array (
-                    'other'  =>  "Never",
+                    'never'  =>  "Never",
                     'daily'   => 'Daily',
                     'weekly'  => 'Weekly',
                     'monthly' => 'Monthly',
@@ -81,7 +81,7 @@ class toWidgetFormEventRecurring extends sfWidgetForm
             )
         );
 
-        $widgetOutput = $widget->render( $this->widgetName . $name, $this->getWidgetDefault( $name, 'other' ) );
+        $widgetOutput = $widget->render( $this->widgetName . $name, $this->getWidgetDefault( $name, 'never' ) );
 
         return $this->divWrap( $widgetOutput, $group, 'daily_weekly_monthly' ) ;
     }
@@ -112,13 +112,13 @@ class toWidgetFormEventRecurring extends sfWidgetForm
         $widget = new sfWidgetFormChoice(
             array (
                 'choices' => array (
-                    'monday'    => 'Monday',
-                    'tuesday'   => 'Tuesday',
-                    'wednesday' => 'Wednesday',
-                    'thursday'  => 'Thursday',
-                    'friday'    => 'Friday',
-                    'saturday'  => 'Saturday',
-                    'sunday'    => 'Sunday',
+                    'monday'    => 'Mon',
+                    'tuesday'   => 'Tue',
+                    'wednesday' => 'Wed',
+                    'thursday'  => 'Thu',
+                    'friday'    => 'Fri',
+                    'saturday'  => 'Sat',
+                    'sunday'    => 'Sun',
                 ),
                 'multiple' => true,
                 'expanded' => true,
@@ -140,7 +140,7 @@ class toWidgetFormEventRecurring extends sfWidgetForm
 
         $group .= ' date';
 
-        return $this->divWrap( 'Event runs until ' . $widgetOutput . ' <span class="note below">(leave blank if event runs indefinitely)</span>', $group );
+        return $this->divWrap( 'Event runs until ' . $widgetOutput , $group );
     }
 
     private function renderMonthlyPosition( $name, $group = '' )

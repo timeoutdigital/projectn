@@ -19,7 +19,6 @@ class EventOccurrenceCollectionForm extends BaseFormDoctrine
 
    public function __construct( $event  = null )
     {
-        //var_dump( get_class( $event ) );
         $this->event = $event;
         parent::__construct( );
     }
@@ -28,7 +27,7 @@ class EventOccurrenceCollectionForm extends BaseFormDoctrine
   {
     $this->setWidgets( array(
       'collection_data' => new sfWidgetFormInputHidden(),
-      'collection'      => new pnWidgetFormOccurrenceCollection( array(), array( 'event' => $this->event)  ),
+      'collection'      => new pnWidgetFormOccurrenceCollection( array( 'label' => '' ), array( 'event' => $this->event)  ),
     ));
 
     $this->setValidators( array(
@@ -36,7 +35,7 @@ class EventOccurrenceCollectionForm extends BaseFormDoctrine
       'collection'      => new sfValidatorPass(array('required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('foobar[%s]');
+    $this->widgetSchema->setNameFormat('occurrence-collection[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
