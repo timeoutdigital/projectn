@@ -13,7 +13,7 @@
            <input type="hidden" id="venue_details_id" />
            <input type="hidden" id="venue_details_city" />
            <input type="button" value="Saved" disabled="true" id="save_venue_details_btn" onclick="saveCoordinates();" />
-           <input type="button" value="Clear Lat / Long" id="reset_venue_details_btn" onclick="resetCoordinates();" />
+           <!-- <input type="button" value="Clear Lat / Long" id="reset_venue_details_btn" onclick="resetCoordinates();" /> -->
           </td>
         </tr>
       </tfoot>

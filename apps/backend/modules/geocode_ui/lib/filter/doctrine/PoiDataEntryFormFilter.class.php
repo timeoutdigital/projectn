@@ -44,7 +44,7 @@ class PoiDataEntryFormFilter extends BasePoiFormFilter
             case 'geocoded':
                     $query->leftJoin( $query->getRootAlias() . '.RecordFieldOverride ov WITH ov.field = ? OR ov.field = ?', array('latitude', 'longitude') );
                     $query->andWhere( '(latitude is NOT NULL AND longitude is NOT NULL) AND (latitude != 0 AND longitude != 0) ' );
-                    $query->andWhere( '(ov.is_active IS NULl OR ov.is_active != 1)');
+                    $query->andWhere( 'ov.is_active IS NULL');
                 break;
            case 'manual':
                    $query->leftJoin( $query->getRootAlias() . '.RecordFieldOverride ov WITH ov.field = ? OR ov.field = ?', array('latitude', 'longitude') );
