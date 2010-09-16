@@ -95,8 +95,10 @@ class AddEventOccurrenceValidatorSchemaTest extends PHPUnit_Framework_TestCase
         //expecting exceptions for poi_id ,start_date start_time and end_time
         $poiIdExceptionThrown       = false;
         $startDateExceptionThrown   = false;
-        $endDateExceptionThrown     = false;    //we don't want this to be thrown because the end date is given in the data
+        //commented out because end_date and end_time are removed temporarily//
+       // $endDateExceptionThrown     = false;    //we don't want this to be thrown because the end date is given in the data
         $startTimeExceptionThrown   = false;
+        ////commented out because end_date and end_time are removed temporarily//
         $endTimeExceptionThrown     = false;
 
         $validator = new AddEventOccurrenceValidatorSchema();
@@ -122,17 +124,16 @@ class AddEventOccurrenceValidatorSchemaTest extends PHPUnit_Framework_TestCase
                 {
                     $startTimeExceptionThrown = true;
                 }
-
-                if( $key == 'end_time' )
+                //commented out because end_date and end_time are removed temporarily//
+             /* if( $key == 'end_time' )
                 {
                     $endTimeExceptionThrown = true;
                 }
-
+                //commented out because end_date and end_time are removed temporarily//
                 if( $key == 'end_date' )
                 {
-                    var_dump( $errorObj->__toString() );
                     $endDateExceptionThrown = true;
-                }
+                }*/
 
             }
         }
@@ -140,12 +141,15 @@ class AddEventOccurrenceValidatorSchemaTest extends PHPUnit_Framework_TestCase
         $this->assertTrue( $poiIdExceptionThrown , 'expecting exception due to missing poi_id' );
         $this->assertTrue( $startDateExceptionThrown , 'expecting exception due to missing start_date' );
         $this->assertTrue( $startTimeExceptionThrown , 'expecting exception due to missing start_time' );
-        $this->assertTrue( $endTimeExceptionThrown , 'expecting exception due to missing end_time' );
-        $this->assertFalse( $endDateExceptionThrown , 'not expecting exception for end date' );
+        //commented out because end_date and end_time are removed temporarily//
+        //$this->assertTrue( $endTimeExceptionThrown , 'expecting exception due to missing end_time' );
+        //$this->assertFalse( $endDateExceptionThrown , 'not expecting exception for end date' );
 
     }
     public function testValidationErrorIfStartDateAndEndDateAreDifferent()
     {
+        //test is skipped because end_date and end_time are removed temporarily//
+        $this->markTestSkipped( 'test is skipped because end_date and end_time are removed temporarily' );
         $data = array
         (
             'poi_id' => '1',
@@ -251,7 +255,7 @@ class AddEventOccurrenceValidatorSchemaTest extends PHPUnit_Framework_TestCase
         $this->assertTrue( $recurringDatesExceptionThrown , 'expecting recurring_dates validation error due missing recurring_until' );
     }
 
-        public function testValidationErrorWithRecurringUntillaterThanAYear()
+    public function testValidationErrorWithRecurringUntillaterThanAYear()
     {
         $data = array
         (
@@ -306,6 +310,8 @@ class AddEventOccurrenceValidatorSchemaTest extends PHPUnit_Framework_TestCase
 
     public function testValidationErrorWithEndTimeEarlierThanStartTime()
     {
+       //test is skipped because end_date and end_time are removed temporarily//
+        $this->markTestSkipped( ' test is skipped because end_date and end_time are removed temporarily ' );
         $data = array
         (
             'poi_id' => '1',

@@ -34,23 +34,27 @@ class AddEventOccurrenceValidatorSchema extends sfValidatorSchema
     {
         $values[ 'start_time' ][ 'minute'] = "00";
     }
-    if( $values[ 'end_time' ][ 'hour']  == "0" )
+   /* //commented out because end_date and end_time are removed temporarily//
+   if( $values[ 'end_time' ][ 'hour']  == "0" )
     {
         $values[ 'end_time' ][ 'hour'] = "00";
-    }
-    if( $values[ 'end_time' ][ 'minute']  == "0" )
+    }*/
+
+   //commented out because end_date and end_time are removed temporarily//
+    /* if( $values[ 'end_time' ][ 'minute']  == "0" )
     {
         $values[ 'end_time' ][ 'minute'] = "00";
-    }
+    }*/
 
     //if no data is given don't validate
    if(  empty( $values[ 'poi_id' ] ) &&
         empty( $values[ 'start_date' ] ) &&
-        empty( $values[ 'end_date' ] ) &&
+       // empty( $values[ 'end_date' ] ) &&
         empty( $values[ 'start_time' ][ 'hour'] ) &&
-        empty( $values[ 'start_time' ][ 'minute'] ) &&
-        empty( $values[ 'end_time' ][ 'hour'] ) &&
-        empty( $values[ 'end_time' ][ 'minute'] ) )
+        empty( $values[ 'start_time' ][ 'minute'] )
+       // empty( $values[ 'end_time' ][ 'hour'] ) &&
+       // empty( $values[ 'end_time' ][ 'minute'] )
+       )
     {
         return $values;
     }
@@ -65,35 +69,39 @@ class AddEventOccurrenceValidatorSchema extends sfValidatorSchema
         $errorSchema->addError(new sfValidatorError($this, 'Start date is required'), 'start_date');
     }
 
-    if( empty( $values[ 'end_date' ] ) )
+    //commented out because end_date and end_time are removed temporarily//
+   /* if( empty( $values[ 'end_date' ] ) )
     {
          $errorSchema->addError(new sfValidatorError($this, 'End date is required'), 'end_date');
-    }
+    }*/
 
     if( empty( $values[ 'start_time' ][ 'hour'] )   || empty( $values[ 'start_time' ][ 'minute'] ))
     {
         $errorSchema->addError(new sfValidatorError($this, 'Start time is required'), 'start_time');
     }
 
-    if( empty( $values[ 'end_time' ][ 'hour'] ) || empty( $values[ 'end_time' ][ 'minute'] ) )
+    //commented out because end_date and end_time are removed temporarily//
+   /* if( empty( $values[ 'end_time' ][ 'hour'] ) || empty( $values[ 'end_time' ][ 'minute'] ) )
     {
         $errorSchema->addError(new sfValidatorError($this, 'End time is required'), 'end_time');
-    }
+    }*/
 
-    if( count($errorSchema) == 0  &&
+   //commented out because end_date and end_time are removed temporarily//
+    /*  if( count($errorSchema) == 0  &&
         $values[ 'start_date' ] == $values[ 'end_date' ]  &&
         $values[ 'start_time' ][ 'hour'] > $values[ 'end_time' ][ 'hour']  )
     {
         $errorSchema->addError(new sfValidatorError($this, "Events start time is later than it's end time" ), 'end_time');
     }
-
+    */
 
     //If the form is valid so far and we want to add recurring occurrences but the start date != end_date
     //we can't do it
-    if ( count($errorSchema) == 0  && $values [ 'start_date' ] !=  $values [ 'end_date' ] &&  $values[ 'recurring_dates' ] [ 'recurring_freq' ] != 'never')
+    //commented out because end_date and end_time are removed temporarily//
+    /* if ( count($errorSchema) == 0  && $values [ 'start_date' ] !=  $values [ 'end_date' ] &&  $values[ 'recurring_dates' ] [ 'recurring_freq' ] != 'never')
     {
          $errorSchema->addError(new sfValidatorError($this, 'You can add multiple occurrences if only "Start date" and "End date" is same!'), 'recurring_dates');
-    }
+    }*/
 
     if( count($errorSchema) == 0  && $values[ 'recurring_dates' ] [ 'recurring_freq' ] != 'never')
     {
