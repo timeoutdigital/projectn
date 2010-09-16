@@ -3,6 +3,8 @@
 class importTask extends sfBaseTask
 {
 
+    protected $config;
+
   protected function configure()
   {
     $this->addOptions(array(
@@ -13,6 +15,7 @@ class importTask extends sfBaseTask
       new sfCommandOption('db-log', null, sfCommandOption::PARAMETER_OPTIONAL, 'Switch on/off saving log info to database', 'true'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
+      new sfCommandOption('configFolder', null, sfCommandOption::PARAMETER_OPTIONAL, 'The config file to be used (if other than default)'),
     ));
 
     $this->namespace        = 'projectn';
@@ -28,6 +31,13 @@ class importTask extends sfBaseTask
 
     $this->writeLogLine( 'start import for ' . $options['city'] . ' (type: ' . $options['type'] . ', environment: ' . $options['env'] . ')' );
 
+    //Load Config
+    if ( $this->options[ 'configFolder' ] === null )
+    {
+        $this->options[ 'configFolder' ] = sfConfig::get('sf_config_dir') . DIRECTORY_SEPARATOR . 'projectn';
+    }
+    
+    $this->config = sfYaml::load( $this->options['configFolder'] . DIRECTORY_SEPARATOR . $this->options['city'] . '.yml' );
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
     Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
@@ -443,39 +453,7 @@ class importTask extends sfBaseTask
 
       case 'london':
 
-        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'london', 'en-GB' );
-        $databaseManager->getDatabase( 'searchlight_london' )->getConnection(); // Set sfDatabase
-
-        switch( $options['type'] )
-        {
-          case 'poi-ev-mapper': $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'poi' ) );
-          break; //End EventsAndVenuesMapper
-
-          case 'poi-bars-pubs': $importer->addDataMapper( new LondonAPIBarsAndPubsMapper() );
-          break; // End BarsAndPubsMapper
-
-          case 'poi-restaurants': $importer->addDataMapper( new LondonAPIRestaurantsMapper() );
-          break; // End RestaurantsMapper
-
-          case 'poi-cinemas': $importer->addDataMapper( new LondonAPICinemasMapper() );
-          break; //End CinemasMapper
-
-          case 'event': $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event' ) );
-          break; //End Event
-
-          case 'event-occurrence': $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( 'event-occurrence' ) );
-          break; //End Event-Occurrence
-
-          case 'movie': $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendor ) );
-          break; //End Movie
-
-          default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-        ImportLogger::getInstance()->setVendor( $vendor );
-        $importer->run();
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage();
+          $this->newStyleImport( 'london', $options, $databaseManager, $importer );
 
       break; //end London
 
@@ -1027,7 +1005,7 @@ class importTask extends sfBaseTask
       $this->dieWithLogMessage( 'FAILED IMPORT - INVALID TYPE SPECIFIED' );
   }
 
-  private function dieWithLogMessage( $custom_message = "" )
+  private function dieWithLogMessage( $custom_message = "", $survive = false )
   {
     if( $custom_message ) $this->writeLogLine( $custom_message );
 
@@ -1038,7 +1016,7 @@ class importTask extends sfBaseTask
     $this->writeLogLine( $message );
 
     echo PHP_EOL;
-    die;
+    if( !$survive ) die;
   }
 
   private function writeLogLine( $message )
@@ -1142,6 +1120,67 @@ EOF;
         return $ftpFiles;
     }
 
+    public function newStyleImport( $city, $options, $databaseManager, $importer )
+    {
+
+        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('london', 'en-GB');
+        $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
+        
+        $type = $this->options['type'];
+        $mapperClassName = $this->config['import'][$type]['class']['name'];
+
+        $constructorParams = array();
+        if( isset( $this->config['import'][$type]['class']['params'] ) )
+        {
+            $constructorParams = $this->config['import'][$type]['class']['params'];
+        }
+
+        new $mapperClassName( $vendor, $constructorParams );
+
+        ImportLogger::getInstance()->setVendor($vendor);
+        //$importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
+
+
+
+
+
+//        $importer->run();
+//        ImportLogger::getInstance()->end();
+//        $this->dieWithLogMessage( '', true );
+        
+//        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('london', 'en-GB');
+//        $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
+//
+//        switch ($options['type']) {
+//            case 'poi-ev-mapper': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('poi'));
+//                break; //End EventsAndVenuesMapper
+//
+//            case 'poi-bars-pubs': $importer->addDataMapper(new LondonAPIBarsAndPubsMapper());
+//                break; // End BarsAndPubsMapper
+//
+//            case 'poi-restaurants': $importer->addDataMapper(new LondonAPIRestaurantsMapper());
+//                break; // End RestaurantsMapper
+//
+//            case 'poi-cinemas': $importer->addDataMapper(new LondonAPICinemasMapper());
+//                break; //End CinemasMapper
+//
+//            case 'event': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('event'));
+//                break; //End Event
+//
+//            case 'event-occurrence': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('event-occurrence'));
+//                break; //End Event-Occurrence
+//
+//            case 'movie': $importer->addDataMapper(new londonDatabaseFilmsDataMapper($vendor));
+//                break; //End Movie
+//
+//            default : $this->dieDueToInvalidTypeSpecified();
+//        }
+//
+//        ImportLogger::getInstance()->setVendor($vendor);
+//        $importer->run();
+//        ImportLogger::getInstance()->end();
+//        $this->dieWithLogMessage( '', true );
+    }
 
 
 }
