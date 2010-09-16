@@ -20,7 +20,6 @@ class eventActions extends autoEventActions
   {
      parent::preExecute();
 
-
      $filters = $this->getFilters() ;
      $this->user = $this->getUser();
 
@@ -28,6 +27,48 @@ class eventActions extends autoEventActions
      {
           $this->setFilters( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
      }
+  }
+
+  public function executeAjaxDeleteOccurrence( $request )
+  {
+
+    $output = array();
+
+    $occurrenceId = $request->getParameter( 'occurrenceId' );
+
+    $eventId = $request->getParameter( 'eventId' );
+
+    $occurrence =  Doctrine::getTable( 'EventOccurrence' )->findOneByIdAndEventId( $occurrenceId , $eventId );
+
+    if( !$occurrence )
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'occurrence couldn\t be found!';
+        return  $this->renderText( json_encode( $output ) );
+    }
+    //check if the user is registered with the right vendor
+    if( $occurrence[ 'Event' ]['vendor_id']  != $this->user->getCurrentVendorId() )
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'Please log in and try again!';
+        return  $this->renderText( json_encode( $output ) );
+
+    }
+    try
+    {
+        $occurrence->delete();
+    }
+    catch (Exception  $e)
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'Occurrence couldn\'t be deleted';
+        sfContext::getInstance()->getLogger()->err("executeAjaxDeleteOccurrence failed : Exception" . $e->getMessage() );
+        return  $this->renderText( json_encode( $output ) );
+    }
+
+    $output [ 'status' ] = 'success';
+
+    return $this->renderText( json_encode( $output) );
   }
 
   public function executeAjaxPoiList($request)
@@ -186,94 +227,33 @@ class eventActions extends autoEventActions
 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
-
-    echo "<pre>";
     $eventOccurrence = $request->getParameter( 'event' );
-   // print_r( $eventOccurrence );
 
-    print_r( $eventOccurrence ['AddEventOccurrenceForm'] );
-   // print_r( $eventOccurrence ['EventOccurrenceCollectionForm'] );
-
-    $occurrenceDates =  $this->getOccurrenceDates( $eventOccurrence ['AddEventOccurrenceForm'] ) ;
-
-   // print_r( $occurrenceDates );
-
-    //the form is sending extra parameters for event model,so after using the data in AddEventOccurrenceForm to get the dates
-    //we need to get rid of them
-    //unset(  $eventOccurrence ['AddEventOccurrenceForm']  );
-
-    //unset(  $eventOccurrence ['EventOccurrenceCollectionForm']  );
-
-    //$request->setParameter( 'event' ,$eventOccurrence );
-
-    $parameters = $request->getParameter($form->getName());
-
-    //$parameters[ 'EventOccurrence' ] = array();
-    $form->bind( $parameters , $request->getFiles($form->getName()));
-
-    $event[ 'EventOccurrence' ] = new Doctrine_Collection( 'EventOccurrence' );
-
-    var_dump( count(  $event [ 'EventOccurrence' ]  ) );
-
-    $occurrence = $event[ 'EventOccurrence' ][0];
-
-    var_dump( $occurrence[ 'vendor_event_occurrence_id' ] );
+    $form->bind( $request->getParameter ($form->getName() ) , $request->getFiles($form->getName()));
 
     if ( $form->isValid() )
     {
-      $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
+      $occurrenceDates =  $this->getOccurrenceDates( $eventOccurrence ['AddEventOccurrenceForm'] ) ;
 
+      $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
       try
       {
          $event = $form->save();
-         //lets create the occurrences if only Never option wasn't selected
+
          $addOccurrencesData = $eventOccurrence ['AddEventOccurrenceForm'];
          $eventId = $event[ 'id' ];
 
          $vendor =Doctrine::getTable( 'Vendor' )->find( $this->user->getCurrentVendorId() );
          $poiId = $addOccurrencesData[ 'poi_id' ];
 
-         if( $addOccurrencesData[ 'recurring_dates' ]['recurring_freq'] != 'other' )
+          //lets create the occurrences if only Never option wasn't selected
+         if( $addOccurrencesData[ 'recurring_dates' ]['recurring_freq'] != 'never' )
          {
-             if( $addOccurrencesData [ 'start_date' ] != $addOccurrencesData [ 'end_date' ] )
+             foreach ($occurrenceDates as $date)
              {
-                $this->getUser()->setFlash('error', "You can add multiple occurrences if only 'Start dat'e and 'End date' is same!Event is saved but occurrence(s) aren't saved ");
-
-             }
-             else
-             {
-                 foreach ($occurrenceDates as $date)
-                 {
-                      $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$date ;
-                      $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
-
-                      if( !$occurrence )
-                      {
-                        $occurrence = new EventOccurrence();
-                        $occurrence[ 'vendor_event_occurrence_id' ] = $vendorOccurrenceId;
-                      }
-                      $occurrence[ 'poi_id' ]       = $poiId;
-                      $occurrence[ 'Event' ]        = $event;
-                      $occurrence[ 'start_date' ]   = $date;
-                      $occurrence[ 'end_date' ]     = $date;
-                      $occurrence[ 'start_time' ]   = $addOccurrencesData[ 'start_time' ];
-                      $occurrence[ 'end_time' ]     = $addOccurrencesData[ 'end_time' ];
-                      $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
-                      $occurrence->save();
-                 }
-             }
-         }
-         else
-         {
-            //create only one occurrence if poi_id, start and end dates and times are given
-            if( !empty( $addOccurrencesData [ 'poi_id' ] ) &&
-                !empty( $addOccurrencesData [ 'start_date' ] ) &&
-                !empty( $addOccurrencesData [ 'end_date' ] ) &&
-                !empty( $addOccurrencesData [ 'start_time' ] ) &&
-                !empty( $addOccurrencesData [ 'end_time' ] ) )
-             {
-                  $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$addOccurrencesData [ 'start_date' ] ;
+                  $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$date ;
                   $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
+
                   if( !$occurrence )
                   {
                     $occurrence = new EventOccurrence();
@@ -281,14 +261,36 @@ class eventActions extends autoEventActions
                   }
                   $occurrence[ 'poi_id' ]       = $poiId;
                   $occurrence[ 'Event' ]        = $event;
-                  $occurrence[ 'start_date' ]   = $addOccurrencesData [ 'start_date' ];
-                  $occurrence[ 'end_date' ]     = $addOccurrencesData [ 'end_date' ];
-                  $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ];
-                  $occurrence[ 'end_time' ]     = $addOccurrencesData[  'end_time' ];
+                  $occurrence[ 'start_date' ]   = $date;
+                  $occurrence[ 'end_date' ]     = $date;
+                  $occurrence[ 'start_time' ]   = $addOccurrencesData[ 'start_time' ];
+                  $occurrence[ 'end_time' ]     = $addOccurrencesData[ 'end_time' ];
                   $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
                   $occurrence->save();
-
              }
+
+         }
+         else
+         {
+              $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$addOccurrencesData [ 'start_date' ] ;
+
+              $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
+
+              if( !$occurrence )
+              {
+                $occurrence = new EventOccurrence();
+                $occurrence[ 'vendor_event_occurrence_id' ] = $vendorOccurrenceId;
+              }
+              $occurrence[ 'poi_id' ]       = $poiId;
+              $occurrence[ 'Event' ]        = $event;
+              $occurrence[ 'start_date' ]   = $addOccurrencesData [ 'start_date' ];
+              $occurrence[ 'end_date' ]     = $addOccurrencesData [ 'end_date' ];
+              $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ];
+              $occurrence[ 'end_time' ]     = $addOccurrencesData[  'end_time' ];
+              $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
+              $occurrence->save();
+
+
          }
 
       }
@@ -333,37 +335,48 @@ class eventActions extends autoEventActions
 
     $event = $form->getObject();
 
-    var_dump( $event[ 'name' ] );
-
-    //print_r( $form->getErrorSchema( ) );
-    echo "</pre>";
-
   }
 
   protected function getOccurrenceDates(  $addEventOccurrenceFormParams = array() )
   {
+
         if( empty( $addEventOccurrenceFormParams [ 'start_date' ] ) )
         {
             return array();
         }
+
+        if( empty( $addEventOccurrenceFormParams [ 'poi_id' ] ) )
+        {
+            return array();
+        }
+
+        if( $addEventOccurrenceFormParams [ 'start_date' ] != $addEventOccurrenceFormParams [ 'end_date' ] )
+        {
+            return array();
+        }
+
         $occ = array();
 
         $occUTS = array();
 
         $ds = $addEventOccurrenceFormParams [ 'recurring_dates' ];
 
+        if( !isset( $ds['recurring_daily_except']  ) )
+        {
+           $ds['recurring_daily_except']  = array();
+        }
         if ( $ds === NULL || empty( $ds ) )
         {
             return null;
         }
 
-        //other is the value for the checkbox saying "Never"
-        $isRecurring = $ds [ 'recurring_freq' ] != 'other';
+        $isRecurring = $ds [ 'recurring_freq' ] != 'never';
 
         if( $isRecurring == false )
         {
             return array();
         }
+
         $dateStart = explode( '-', $addEventOccurrenceFormParams[ 'start_date' ] );
 
         $dateStartUTS = mktime( 0, 0, 0, $dateStart[1], $dateStart[2], $dateStart[0] );

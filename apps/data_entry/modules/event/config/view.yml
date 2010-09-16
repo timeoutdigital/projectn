@@ -2,8 +2,6 @@ all:
   javascripts:
     - jquery.toForm.js
     - plugins/jquery-ui-datepicker-1.7.2.min.js
-    - plugins/ui-timepickr/dist/jquery.timepickr.js
-    - plugins/ui-timepickr/dist/ui.timepickr.js
+    - plugins/jquery.autocomplete-1.0.2.js
   stylesheets:
-    - plugins/ui-timepickr/dist/themes/default/ui.core.css
-    - plugins/ui-timepickr/src/css/ui.timepickr.css
+    - jquery-ui-datepicker-1.7.2.css
