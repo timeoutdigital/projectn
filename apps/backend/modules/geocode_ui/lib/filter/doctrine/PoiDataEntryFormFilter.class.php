@@ -42,14 +42,14 @@ class PoiDataEntryFormFilter extends BasePoiFormFilter
                 break;
 
             case 'geocoded':
-                    $query->leftJoin( $query->getRootAlias() . '.PoiMeta m WITH m.lookup = "Geocode_accuracy"' );
+                    $query->leftJoin( $query->getRootAlias() . '.RecordFieldOverride ov WITH ov.field = ? OR ov.field = ?', array('latitude', 'longitude') );
                     $query->andWhere( '(latitude is NOT NULL AND longitude is NOT NULL) AND (latitude != 0 AND longitude != 0) ' );
-                    $query->andWhere( '(m.value is null OR m.value != 10)' );
+                    $query->andWhere( '(ov.is_active IS NULl OR ov.is_active != 1)');
                 break;
            case 'manual':
-                    $query->innerJoin( $query->getRootAlias() . '.PoiMeta m WITH m.lookup = "Geocode_accuracy"' );
-                    $query->andWhere( '(latitude is NOT NULL AND longitude is NOT NULL) AND (latitude != 0 AND longitude != 0) ' );
-                    $query->andWhere( 'm.value = 10 ' );
+                   $query->leftJoin( $query->getRootAlias() . '.RecordFieldOverride ov WITH ov.field = ? OR ov.field = ?', array('latitude', 'longitude') );
+                   $query->andWhere('ov.is_active = ? ', 1 );
+
                 break;
            case 'duplicate':
                 $filters = $this->user->getAttribute( 'geocode_ui.filters', array(), 'admin_module' );

@@ -163,11 +163,45 @@ class geocode_uiActions extends autoGeocode_uiActions
 
             $geocodeAccuracy['lookup']  = 'Geocode_accuracy';
             $geocodeAccuracy['value']   = $geocode_accuracy;
-            
+
         }
 
         $poi->save(); // Save ALL
 
+        // Diable All previous Overrides
+        $query = Doctrine_Query::create()
+                ->update( 'RecordFieldOverridePoi' )
+                ->set( 'is_active', 0)
+                ->andWhere( 'record_id = ?', $poi['id'] )
+                ->andWhere( 'is_active = ? ', 1 )
+                ->andWhere( 'field = ? OR field = ?', array('latitude', 'longitude') );
+               
+        $rows = $query->execute();
+//
+//        $query  = Doctrine::getTable( 'RecordFieldOverridePoi' )->createQuery()
+//                ->set( 'is_active', 0)
+//
+//                ->andWhere( 'record_id = ?', $poi['id'] )
+//                ->andWhere( 'field = ? OR field = ?', 'latitude', 'longitude' )
+//                ->andWhere( 'is_active = ? ', 1 );
+
+        // Save Override
+        $ov = new RecordFieldOverridePoi();
+        $ov['record_id'] = $poi['id'];
+        $ov['field'] = 'latitude';
+        $ov['received_value'] = $last_lat;
+        $ov['edited_value'] = $poi[ 'latitude' ];
+        $ov['is_active'] = 1;
+        $ov->save();
+        
+        $ov = new RecordFieldOverridePoi();
+        $ov['record_id'] = $poi['id'];
+        $ov['field'] = 'longitude';
+        $ov['received_value'] = $last_long;
+        $ov['edited_value'] = $poi[ 'longitude' ];
+        $ov['is_active'] = 1;
+        $ov->save();
+        
         return $this->renderText( json_encode( array('alert' => sprintf('Record Updated', $poi['poi_name'] ) ) ) );
       }else
           
