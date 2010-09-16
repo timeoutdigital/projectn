@@ -8,5 +8,5 @@ sed 's/\(<movie id="\)BOM\([0-9]\+" .*>\)/\1PNQ\2/g' mumbai.xml > pune.xml
 
 cd /var/vhosts/projectn/httpdocs/export/
 
-tar zcvf exports_$(date +"%Y%m%d").tgz export_$(date +"%Y%m%d")/*
+tar zcf exports_$(date +"%Y%m%d").tgz export_$(date +"%Y%m%d")/*
 
