@@ -207,3 +207,7 @@ hr {
 .hidden{
  display:none;
 }
+
+.clearer{
+ clear: left;
+}
