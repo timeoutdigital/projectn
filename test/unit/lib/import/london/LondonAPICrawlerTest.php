@@ -47,7 +47,7 @@ class LondonAPICrawlerTest extends PHPUnit_Framework_TestCase
   public function testo()
   {
       // #658 Getting XML Feed from london failed, This maybe an issue with London
-      $this->markTestSkipped( 'Gettig XML Failed, Issue with London?' );
+     // $this->markTestSkipped( 'Gettig XML Failed, Issue with London?' );
     $this->object->crawlApi();
     $this->assertEquals( 11, $this->mapper->getCount() );
   }
@@ -58,7 +58,7 @@ class UnitTestSomeLondonAPIMapper extends LondonAPIBaseMapper
   private $count = 0;
   public function getCount(){ return $this->count; }
   public function getDetailsUrl(){ return 'http://api.timeout.com/v1/getBar.xml'; }
-  public function getApiType(){ return 'Bars & Pubs'; }
+  public function getApiType(){ return 'Bars & pubs'; }
   public function doMapping( SimpleXMLElement $xml ){
     $this->count++;
   }
