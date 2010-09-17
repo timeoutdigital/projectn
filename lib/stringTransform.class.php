@@ -311,8 +311,8 @@ class stringTransform
   /**
    * Return a well formed url
    *
-   * @param string $subject The URL
-   * @return string The formatted URL
+   * @param unknown_type $subject The URL
+   * @return string | NULL The formatted URL
    *
    * <b>Example</b>
    * <code>
@@ -340,36 +340,62 @@ class stringTransform
       return $validUrl ? $subject : null;
   }
 
+  
   /**
-   * validates email address using Pear validate
+   * Validates email address using a validation strategy discussed at:
+   * http://www.linuxjournal.com/article/9585?page=0,3
    *
-   * @param unknown_type $email
+   * @param unknown_type $subject
    * @return boolean
    */
-  public static function isValidEmail( $email )
+  public static function isValidEmail( $subject )
   {
-     //Return if no email
-      if( empty( $email ) )
-      {
-        return false;
-      }
-      // @todo: Should format email and validate string is a valid email address format
-      return true;
+        // Basic Validation
+        if( !is_string( $subject ) || empty( $subject ) )
+        {
+            return false;
+        }
 
-//     try
-//      {
-//        $validate = new Validate();
-//      }
-//      catch (Exception $e)
-//      {
-//        echo "Please install PEAR Validate: sudo pear install Validate-0.8.3";
-//        exit;
-//      }
-//       //Check if domain is valid
-//     return $validate->email( $email ,array( "fullTLDValidation "=> true ,"domain_check" => true ) );
+        // Get location of @ symbol.
+        $atIndex = strrpos( $subject, "@" );
 
+        // If no @ symbol, return false
+        if( $atIndex === false )
+        {
+            return false;
+        }
 
+        // Cut up email
+        $alias        = substr( $subject, 0, $atIndex );
+        $domain       = substr( $subject, $atIndex+1 );
 
+        // Validate
+        switch( true )
+        {
+            // Check min and max lengths
+            case ( strlen( $alias )  < 1 || strlen( $alias )  > 64 ) :
+            case ( strlen( $domain ) < 3 || strlen( $domain ) > 255 ) :
+
+            // Check for alias or domain starting or finishing with a dot '.'
+            case ( substr( $alias,  0, 1 ) == '.' || substr( $alias,  -1, 1 ) == '.' ) :
+            case ( substr( $domain, 0, 1 ) == '.' || substr( $domain, -1, 1 ) == '.' ) :
+
+            // Domain must contain a dot '.'
+            case ( !is_numeric( strrpos( $domain, "." ) ) ) :
+
+            // Regex matching
+            case ( preg_match( '/\\.\\./', $alias ) ) :
+            case ( preg_match( '/\\.\\./', $domain ) ) :
+            case ( !preg_match( '/^[A-Za-z0-9\\-\\.]+$/', $domain ) ) :
+            case ( !preg_match( '/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace( "\\\\","", $alias ) ) )
+                  && ( !preg_match( '/^"(\\\\"|[^"])+"$/', str_replace( "\\\\","", $alias ) ) ) :
+
+            // DNS check
+            //case ( !( checkdnsrr( $domain, "MX" ) || checkdnsrr( $domain, "A" ) ) :
+                return false;
+
+            default : return true;
+        }
   }
 
   /*

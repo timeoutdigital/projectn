@@ -29,6 +29,7 @@ class mediaDownloadTest extends PHPUnit_Framework_TestCase
 
         $this->options['connection'] = 'project_n';
         $this->options['env'] = 'test';
+        $this->options['existing'] = 'true';
 
         $this->downloadDirectory = '/n/import/test_city/poi/media/';
 
@@ -131,7 +132,7 @@ class mediaDownloadTest extends PHPUnit_Framework_TestCase
         $poiMedia = Doctrine::getTable('PoiMedia')->findAll();
 
         $this->assertEquals( 'error',       $poiMedia[0]['status'] );
-        $this->assertEquals( '',            $poiMedia[0]['mime_type'] );
+        $this->assertEquals( 'image/gif',   $poiMedia[0]['mime_type'] );
 
         $this->assertEquals( 'valid',       $poiMedia[1]['status'] );
         $this->assertEquals( '88187',       $poiMedia[1]['content_length'] );
