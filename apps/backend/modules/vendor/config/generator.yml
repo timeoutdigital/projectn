@@ -14,7 +14,9 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display: [id, city, language, time_zone, country_code_long]
+        max_per_page:   50
       filter:  ~
       form:    ~
       edit:    ~
