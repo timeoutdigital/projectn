@@ -48,18 +48,21 @@ class prepareExportXMLsForDataEntryTask extends sfBaseTask
                 $metaClass  = 'PoiMeta';
                 $lookup     = 'vendor_poi_id';
                 $id         = 'vpid';
+                $recordFieldOverrideTable= 'RecordFieldOverridePoi';
         		break;
 
             case 'event':
                  $metaClass = 'EventMeta';
                  $lookup    = 'vendor_event_id';
                  $id        = 'id';
+                 $recordFieldOverrideTable= 'RecordFieldOverrideEvent';
         		break;
 
             case 'movie':
                  $metaClass = 'MovieMeta';
                  $lookup    = 'vendor_movie_id';
                  $id        = 'id';
+                 $recordFieldOverrideTable= 'RecordFieldOverrideMovie';
         		break;
 
         	default:
@@ -73,8 +76,16 @@ class prepareExportXMLsForDataEntryTask extends sfBaseTask
         $vendorItemId = null;
 
         $record = Doctrine::getTable( $options[ 'type' ] )->find( $recordId );
+        //only change the ids if there is an override
 
-        if( !$record )
+        $overrideRecord = Doctrine::getTable( $recordFieldOverrideTable  )->findByRecordId( $recordId );
+
+        if( count( $overrideRecord ) == 0 )
+        {
+            continue;
+        }
+
+        if( !$record   )
         {
             continue;
         }

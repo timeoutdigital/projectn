@@ -443,7 +443,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '', $poi['url'] , 'invalid url should be saved as NULL' );
       $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
    }
-  
+
   public function testStreetDoesNotEndWithCityName()
   {
 
@@ -547,6 +547,8 @@ class MockgeocoderForPoiTest extends geocoder
       return 'mockgeocoder for poi lookup url';
   }
 
+  protected function responseIsValid() {}
+
   protected function apiKeyIsValid( $apiKey ) { }
 
   protected function processResponse( $response ) { }
@@ -567,5 +569,6 @@ class MockgeocoderForPoiTestWithoutAddress extends geocoder
 
   protected function apiKeyIsValid( $apiKey ) { }
   protected function processResponse( $response ) { }
+  protected function responseIsValid() {}
 }
 

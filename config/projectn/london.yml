@@ -1,0 +1,37 @@
+import:
+
+  poi-ev-mapper:
+    class:
+      name: LondonDatabaseEventsAndVenuesMapper
+      params:
+        type: poi
+
+  poi-bars-and-pubs:
+    class:
+      name: LondonAPIBarsAndPubsMapper
+
+  poi-poi-restaurants:
+    class:
+      name: LondonAPIRestaurantsMapper
+
+  poi-cinemas:
+    class:
+      name: LondonAPICinemasMapper
+
+  event:
+    class:
+      name: LondonDatabaseEventsAndVenuesMapper
+      params:
+        type: event
+
+  event-occurrence:
+    class:
+      name: LondonDatabaseEventsAndVenuesMapper
+      params:
+        type: event-occurrence
+
+  movie:
+    class:
+      name: londonDatabaseFilmsDataMapper
+      params:
+        type: poi
