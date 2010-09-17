@@ -550,6 +550,11 @@ class mockgeocoder extends geocoder
       return 8;
   }
 
+  protected function responseIsValid()
+  {
+      return true;
+  }
+
   public function getLookupUrl()
   {
      return 'mock geo encoder lookup url';

@@ -34,6 +34,8 @@ class XMLExportPOI extends XMLExport
         $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
     }
 
+    $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], 'Poi' );
+
     return $data;
   }
   /**
@@ -230,9 +232,11 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       //event/version/media
-      foreach( $poi[ 'PoiMedia' ] as $medium )
+
+      // Finds Largest Media File that Exists on s3.
+      foreach( $this->filterByExportPolicyAndVerifyMedia( $poi[ 'PoiMedia' ] ) as $medium )
       {
-        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
+        $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA );
 
         if ( $mediaElement instanceof DOMElement )
         {

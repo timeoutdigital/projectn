@@ -372,18 +372,6 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'movie value 2', $propertyElements->item(1)->nodeValue );
   }
 
-    /**
-     * check properties tags
-     */
-    public function testMediaTags()
-    {
-      $propertyElements = $this->xpath->query( '/vendor-movies/movie[1]/version/media' );
-
-      $this->assertNotNull( $propertyElements->item(0), "Media element not present." );
-      $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
-      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/movie/media/md5 hash of the url.jpg', $propertyElements->item(0)->nodeValue );
-    }
-
     public function testRatingRangeIsOneToFiveInclusive()
     {
       $movies = $this->xpath->query( '//movie' );
