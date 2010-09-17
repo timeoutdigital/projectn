@@ -44,6 +44,12 @@ class singaporeDataSource extends baseDataSource
     protected function fetchXML()
     {
         $nodes = array();
+        // Get the Singapore vendor
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'singapore' );
+        if( $vendor == null )
+        {
+            throw new Exception( 'singapore vendor not found!' );
+        }
 
         switch ( $this->type )
         {
@@ -70,6 +76,34 @@ class singaporeDataSource extends baseDataSource
         // For each links, get the Detailed Nodes and Build Simple XML
         foreach ( $xml->channel->item as $item )
         {
+            // #666 Skip Hitting Singapore server when Published Date don't Change
+            $url = (string) $item->link;
+            $matches = array();
+
+            // Find the ID & Model
+            preg_match("/^http:\/\/.*\?(event|venue|movie)=(.*)&(?:amp;)?key=.*$/", $url, $matches); // Output ( [0] => FULL URL, [1] => model_name, [2] => ID )
+
+            if( $matches !== null && count( $matches ) == 3 )
+            {
+                $itemID             = $matches[2];
+                $pubDate            = date("Y-m-d H:i:s" , strtotime( (string) $item->pubDate ) );
+                // switch for Model
+                switch ( strtolower($matches[1]) )
+                {
+                    case 'venue': $model      = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiIdAndReviewDate( $vendor['id'], $itemID, $pubDate );
+                        break;
+                    case 'event': $model      = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventIdAndReviewDate( $vendor['id'], $itemID, $pubDate );
+                        break;
+
+                }
+
+                // Skip if Already Exists and Not Updated Since lastime seen
+                if( $model != null )
+                {
+                    continue; // Skip if Found!
+                }
+            }
+            
             $detailsFeedObj = new $this->curlClass( (string) $item->link );
             $detailsFeedObj->exec();
 
@@ -77,8 +111,10 @@ class singaporeDataSource extends baseDataSource
             $nodes [] = $nodeXML ;
         }
 
+        $dataImploded = implode( '',$nodes );
+        // file_put_contents( sfConfig::get( 'sf_root_dir' ) . '/import/singapore/' . $this->type . '-' . date('dMY') . '.xml.txt', $dataImploded ); // Save for DUBUG
         // Add Root Element to this Detailed Node collection
-        $xmlDataFixer = new xmlDataFixer( implode( '',$nodes ) );
+        $xmlDataFixer = new xmlDataFixer( $dataImploded );
         $xmlDataFixer->addRootElement();
         $this->xml = $xmlDataFixer->getSimpleXML();
 
