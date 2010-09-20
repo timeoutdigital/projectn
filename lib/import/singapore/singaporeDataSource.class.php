@@ -100,6 +100,7 @@ class singaporeDataSource extends baseDataSource
                 // Skip if Already Exists and Not Updated Since lastime seen
                 if( $model != null )
                 {
+                    unset( $model );
                     continue; // Skip if Found!
                 }
             }
@@ -112,7 +113,6 @@ class singaporeDataSource extends baseDataSource
         }
 
         $dataImploded = implode( '',$nodes );
-        // file_put_contents( sfConfig::get( 'sf_root_dir' ) . '/import/singapore/' . $this->type . '-' . date('dMY') . '.xml.txt', $dataImploded ); // Save for DUBUG
         // Add Root Element to this Detailed Node collection
         $xmlDataFixer = new xmlDataFixer( $dataImploded );
         $xmlDataFixer->addRootElement();
