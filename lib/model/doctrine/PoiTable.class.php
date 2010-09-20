@@ -20,8 +20,6 @@ class PoiTable extends Doctrine_Table
 
     /**
      * Get the name of the vendor's uid fieldname, this is a temporary solution
-     * @todo rename Poi, Events, Movies etc to have vendor_uid field instead
-     * of vendor_<model name>_id to allow polymorphism
      *
      * @return string
      */
@@ -69,7 +67,7 @@ class PoiTable extends Doctrine_Table
                      ->orderBy('p__3 DESC')
                      ->having('count(*) > 1');
 
-        
+
 
         return $query->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 
