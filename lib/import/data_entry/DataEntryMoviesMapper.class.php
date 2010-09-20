@@ -14,7 +14,7 @@
 
 class DataEntryMoviesMapper extends DataEntryBaseMapper
 {
-    
+
   /**
    * @param SimpleXMLElement $xml
    */
@@ -39,22 +39,56 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
     {
         try
         {
-            foreach ( $movieElement->attributes() as $attribute => $value )
+            // This mapper class is used for
+            //     * importing from data entry database:
+            //         - in this case, app_data_entry_onUpdateFindById is FALSE and vpid field in the input XML is interpreted as   vendor_movie_id
+            //     * updating data_entry database
+            //         - steps for update :
+            //            * in projectn installation, we ran an export to create the XML files
+            //            * for some cities, the runner configuration has exportForDataEntry: true value, for those cities, prepareExportXMLsForDataEntryTask is called to create
+            //              new XML files with the modified IDs
+            //         - in data_entry instance the modified XML files are used to import the data back to data_entry database ,in this case, app_data_entry_onUpdateFindById is
+            //              TRUE and vpid field in the input XML is interpreted as the ID of the poi to be updated
+            if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
             {
-                if( $attribute == 'id' )
-                {
-                    $vendorMovieId = (int) substr( (string) $value,5) ;
-                }
-            }
+                 $vendorMovieId = (int) $movieElement[ 'id' ] ;
 
-            $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieId );
-            if( $movie === false )
+                 if( !$vendorMovieId )
+                 {
+                    $this->notifyImporterOfFailure( new Exception( 'vendorMovieId not found for movie name: ' . (string) @$movieElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                    continue;
+                 }
+                 $movie = Doctrine::getTable( 'Movie' )->find( $vendorMovieId );
+
+                 if( $movie === false )
+                 {
+                     $this->notifyImporterOfFailure( new Exception( 'movie not found for update!' ) );
+                     continue;
+                 }
+            }
+            else
             {
-                $movie = new Movie();
+                $vendorMovieId = (int) substr( (string) $movieElement[ 'id' ], 5) ;
+
+                $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieId );
+
+                if( !$vendorMovieId )
+                {
+                   $this->notifyImporterOfFailure( new Exception( 'vendorMovieId not found for movie name: ' . (string) @$movieElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                   continue;
+                }
+
+                if( $movie === false )
+                {
+                    $movie = new Movie();
+                }
+                $movie['vendor_movie_id']   = $vendorMovieId ;
+                $movie->addMeta( 'vendor_movie_id' , $vendorMovieId );
+
             }
 
             // version
-            $movie['vendor_movie_id']   = $vendorMovieId ;
+
             $movie['Vendor']            = $this->vendor;
             $movie['name']              = (string) $movieElement->version->name ;
 

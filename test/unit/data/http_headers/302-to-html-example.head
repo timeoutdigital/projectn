@@ -1,0 +1,17 @@
+HTTP/1.1 302 Found
+Date: Wed, 01 Sep 2010 13:52:05 GMT
+Server: Apache
+Location: http://www.openshuffle.com
+Expires: Sat, 26 Jul 1997 05:00:00 GMT
+Last-Modified: Wed, 01 Sep 2010 13:52:05 GMT
+Cache-Control: no-store, no-cache, no-transform, must-revalidate
+Cache-Control: post-check=0, pre-check=0
+Pragma: no-cache
+Content-Type: text/xml; charset='UTF-8'
+
+HTTP/1.1 200 OK
+Date: Wed, 01 Sep 2010 13:52:05 GMT
+Server: Apache
+Vary: Accept-Encoding
+Content-Type: text/html
+

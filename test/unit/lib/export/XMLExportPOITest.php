@@ -140,8 +140,10 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $media[ 'ident' ] = 'md5 hash of the url';
         $media[ 'mime_type' ] = 'image/';
         $media[ 'url' ] = 'url';
+        $media[ 'status' ] = 'valid';
         $poi['PoiMedia'][] = $media;
         $media->save();
+       
 
         $poi = new Poi();
         $poi->setPoiName( 'test name2' . $this->specialChars );
@@ -249,8 +251,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->runImportAndExport();
 
       $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
-
-      echo 'eeeaaasy now';
   }
 
     /**
@@ -315,16 +315,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $numEntries = $this->xml->xpath( '//entry' );
 
       $this->assertEquals( 1, count( $numEntries ) );
-
-      $moo =  Doctrine::getTable( 'Poi' )->findAll();
-
-//      foreach( $moo as $cow )
-//      {
-//        print_r( $cow->toArray() );
-//        //var_dump( count( $cow[ 'VendorPoiCategory' ] ) == 0 );
-//      }
-
-      echo $this->xml->saveXML();
     }
 
     public function testCategoryTagsAreUnique()
@@ -600,11 +590,25 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
       $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
-
+      $this->export->setS3cmdClassName( 's3cmdTestMediaTags' );
+      
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
 
       //ExportLogger::getInstance()->showErrors();
+    }
+}
+/**
+ * Purpose of this mockup class to Make "testMediaTags" test pass..
+ * Since Image download task seperated and new status field added media tables,
+ * testMediaTags will fail as it don't have any valid image or the image exist on amazon server ( hope this makes sense ;)
+ */
+class s3cmdTestMediaTags extends s3cmd
+{
+    // Override parent function and return a list of static images
+    public function getListOfMediaAvailableOnAmazon( $vendorCity, $recordClass )
+    {
+        return array( 'md5 hash of the url.jpg' );
     }
 }
 ?>

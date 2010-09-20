@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Content-Length: 1150
+Content-Type: image/x-icon
+Last-Modified: Thu, 25 Mar 2010 09:42:43 GMT
+Date: Wed, 01 Sep 2010 13:54:27 GMT
+Expires: Wed, 01 Sep 2010 13:54:27 GMT
+Cache-Control: private, max-age=31536000
+X-Content-Type-Options: nosniff
+Server: sffe
+X-XSS-Protection: 1; mode=block
+
