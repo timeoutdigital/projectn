@@ -120,4 +120,14 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
                           $event['EventMedia'][0]['url']
                           );
   }
+
+  public function testFilmEventsAreSavedInArtCategory()
+  {
+      $event = $this->eventTable->findOneById( 3 );  //event's category is Film but we are expecting it to be saved as Art
+
+      $vendorCategory =  $event['VendorEventCategory']->toArray();
+
+      $this->assertEquals( 'Art', $vendorCategory[ 'Art' ][ 'name' ] );
+
+  }
 }

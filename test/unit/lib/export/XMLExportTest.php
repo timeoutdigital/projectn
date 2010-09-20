@@ -121,6 +121,45 @@ protected function setUp()
   }
 
   /**
+   * 
+   */
+  public function testFilterByExportPolicyAndVerifyMedia()
+  {
+      $p = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $v = ProjectN_Test_Unit_Factory::get( 'Vendor' );
+
+      $m = new PoiMedia;
+      $m['url']             = 'http://www.google.com';
+      $m['ident']           = md5( $m['url'] );
+      $m['content_length']  = 100;
+      $m['status']          = 'valid';
+      $p[ 'PoiMedia' ][] = $m;
+
+      $m = new PoiMedia;
+      $m['url']             = 'http://www.google.co.uk';
+      $m['ident']           = md5( $m['url'] );
+      $m['content_length']  = 110;
+      $m['status']          = 'valid';
+      $p[ 'PoiMedia' ][] = $m;
+
+      $p->save();
+
+      $this->assertEquals( 2, $p['PoiMedia']->count() );
+
+      $obj = new UnitTestXMLExportTestObject( $v, '/tmp/temp.tmp', 'Poi' );
+      $result = $obj->unitTestFilterByExportPolicyAndVerifyMedia( $p['PoiMedia'], 'Poi' );
+
+      $this->assertEquals( 0, count( $result ) );
+
+      $obj->amazonResources = array( "{$p['PoiMedia'][0]['ident']}.jpg", "{$p['PoiMedia'][1]['ident']}.jpg" );
+
+      $result = $obj->unitTestFilterByExportPolicyAndVerifyMedia( $p['PoiMedia'], 'Poi' );
+
+      $this->assertEquals( 1, count( $result ) );
+      $this->assertEquals( 110, $result[0]['content_length'] );
+  }
+
+  /**
    * Should throw error if
    * - first argument is not a Vendor
    * - destination is does not exist
@@ -283,6 +322,11 @@ protected function setUp()
 
 class UnitTestXMLExportTestObject extends XMLExport
 {
+  /**
+   * @var amazonResources
+   */
+  public $amazonResources = array();
+
   protected function mapDataToDOMDocument( $data, $domDocument )
   {
     //$dirtyHtml = '<a href="http://www.foobar.com">foobar</a><strong></strong><b random="purposeful"></b><em></em><i></i><iframe></iframe>&amp;amp;x&#146;x';
@@ -293,5 +337,9 @@ class UnitTestXMLExportTestObject extends XMLExport
     $domDocument->appendChild( $testTag );
     return $domDocument;
   }
+
+  public function unitTestFilterByExportPolicyAndVerifyMedia( $mediaRecords, $mediaClass )
+  {
+      return $this->filterByExportPolicyAndVerifyMedia( $mediaRecords, $mediaClass );
+  }
 }
-?>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timeout-data>
+<title>TimeOutDubai.com Latest Events And Venues</title>
+<category>events</category>
+<events>
+<event id="7753">
+<name><![CDATA[Dubai Dolphinarium - 11am show (Thu)]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/nightlife/events/7753-dubai-dolphinarium-11am-show-thu]]></landing_url>
+<description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+<phone>04 336 9773</phone>
+<email><![CDATA[smo@dubaidolphinarium.ae]]></email>
+<prices>Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)</prices>
+<day-occurences>
+<day-occurence>
+<times>11am</times>
+<start_date>2010-09-09</start_date>
+<venue_id>1717</venue_id>
+</day-occurence>
+</day-occurences>
+<mobile-section value="Around Town" />
+</event>
+
+<event id="7967">
+<name><![CDATA[Eid Cool Summer Nights]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/nightlife/events/7967-eid-cool-summer-nights]]></landing_url>
+<description><![CDATA[We're shaking up your Eid with Cool Summer Nights! Join us for our Brazilian Carnival at Aquaventure Waterpark.]]></description>
+<phone>04 426 1000</phone>
+<email><![CDATA[]]></email>
+<prices>Dhs120 - Child (3-11 years old), Dhs150 - Adult</prices>
+<day-occurences>
+<day-occurence>
+<times>6pm-midnight</times>
+<start_date>2010-09-12</start_date>
+<venue_id>1436</venue_id>
+</day-occurence>
+<day-occurence>
+<times>6pm-midnight</times>
+<start_date>2010-09-10</start_date>
+<venue_id>1436</venue_id>
+</day-occurence>
+<day-occurence>
+<times>6pm-midnight</times>
+<start_date>2010-09-11</start_date>
+<venue_id>1436</venue_id>
+</day-occurence>
+</day-occurences>
+<mobile-section value="Sport" />
+</event>
+
+<event id="7754">
+<name><![CDATA[Dubai Dolphinarium - 3pm show (Fri)]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/nightlife/events/7754-dubai-dolphinarium-3pm-show-fri]]></landing_url>
+<description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+<phone></phone>
+<email><![CDATA[smo@dubaidolphinarium.ae]]></email>
+<prices>Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)</prices>
+<day-occurences>
+<day-occurence>
+<times>3pm</times>
+<start_date>2010-09-10</start_date>
+<venue_id>1717</venue_id>
+</day-occurence>
+<day-occurence>
+<times>3pm</times>
+<start_date>2010-09-10</start_date>
+<venue_id>1717</venue_id>
+</day-occurence>
+</day-occurences>
+<mobile-section value="Around Town" />
+</event>
+
+<event id="7755">
+<name><![CDATA[Dubai Dolphinarium - 6pm show (Fri)]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/nightlife/events/7755-dubai-dolphinarium-6pm-show-fri]]></landing_url>
+<description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+<phone>04 336 9773</phone>
+<email><![CDATA[smo@dubaidolphinarium.ae]]></email>
+<prices>Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)</prices>
+<day-occurences>
+<day-occurence>
+<times></times>
+<start_date>2010-09-10</start_date>
+<venue_id>1717</venue_id>
+</day-occurence>
+</day-occurences>
+<mobile-section value="Around Town" />
+</event>
+</events>
+
+
+<venues>
+<venue id="1717">
+<name><![CDATA[Dubai Dolphinarium]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/aroundtown/details/1717-dubai-dolphinarium]]></landing_url>
+<description><![CDATA[A week's worth of fun for all the family, including ice-skating, lunch at Planet Hollywood and a blast on the dolphins]]></description>
+<phone>04 336 9773</phone>
+<email><![CDATA[smo@dubaidolphinarium.ae]]></email>
+<neighbourhood><![CDATA[Oud Metha]]></neighbourhood>
+<prices></prices>
+<hours>11am</hours>
+<travel><![CDATA[Al Riyadh Street]]></travel>
+<coordinates>
+<longitude>55.326775</longitude>
+<latitude>25.234642</latitude>
+</coordinates>
+<city><![CDATA[Dubai]]></city>
+<mobile-section value="Around Town" />
+</venue>
+<venue id="1717">
+<name><![CDATA[Dubai Dolphinarium]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/aroundtown/details/1717-dubai-dolphinarium]]></landing_url>
+<description><![CDATA[A week's worth of fun for all the family, including ice-skating, lunch at Planet Hollywood and a blast on the dolphins]]></description>
+<phone>04 336 9773</phone>
+<email><![CDATA[smo@dubaidolphinarium.ae]]></email>
+<neighbourhood><![CDATA[Oud Metha]]></neighbourhood>
+<prices></prices>
+<hours></hours>
+<travel><![CDATA[Al Riyadh Street]]></travel>
+<coordinates>
+<longitude>55.326775</longitude>
+<latitude>25.234642</latitude>
+</coordinates>
+<city><![CDATA[Dubai]]></city>
+<mobile-section value="Around Town" />
+</venue>
+<venue id="1436">
+<name><![CDATA[Aquaventure]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/sportandoutdoor/details/1436-aquaventure]]></landing_url>
+<description><![CDATA[]]></description>
+<phone>04 426 0000</phone>
+<email><![CDATA[]]></email>
+<neighbourhood><![CDATA[Palm Jumeirah]]></neighbourhood>
+<prices></prices>
+<hours>6pm-midnight</hours>
+<travel><![CDATA[Palm Jumeirah]]></travel>
+<mobile-section value="Sport" />
+</venue>
+<venue id="955">
+<name><![CDATA[JamBase]]></name>
+<landing_url><![CDATA[http://www.timeoutdubai.com/bars/details/955-jambase]]></landing_url>
+<description><![CDATA[JamBase switched music for comedy with the Laughter Factory]]></description>
+<phone>04 366 6914</phone>
+<email><![CDATA[mjrestaurants@jumeirah.com]]></email>
+<neighbourhood><![CDATA[Jumeirah]]></neighbourhood>
+<prices></prices>
+<hours>Show starts 9pm</hours>
+<travel><![CDATA[Al Sufouh Road]]></travel>
+<coordinates>
+<longitude>55.184669</longitude>
+<latitude>25.135183</latitude>
+</coordinates>
+<city><![CDATA[Dubai]]></city>
+<mobile-section value="Bar" />
+</venue>
+</venues>
+</timeout-data>

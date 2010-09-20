@@ -57,6 +57,16 @@ abstract class XMLExport
   protected $validation;
 
   /**
+   * @var amazonResources
+   */
+  protected $amazonResources = array();
+
+  /**
+   * @var amazon s3cmd access class, Marked for Mocking Purposes
+   */
+  protected $s3cmdClassName = 's3cmd';
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
@@ -153,6 +163,8 @@ abstract class XMLExport
   protected function getData()
   {
     $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
+    $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], $this->model );
+    
     return $data;
   }
 
@@ -269,5 +281,60 @@ abstract class XMLExport
     return $this->vendor['airport_code'] . str_pad( $recordId, 30, 0, STR_PAD_LEFT );
   }
 
+  /**
+   * Pull a list of available images for this city & record type off amazon via the API.
+   *
+   * @return array of Media File Names, such as 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.jpg'
+   */
+  protected function loadListOfMediaAvailableOnAmazon( $vendorCity, $recordClass )
+  {
+      $s3cmd = new $this->s3cmdClassName();
+      $this->amazonResources = $s3cmd->getListOfMediaAvailableOnAmazon( $vendorCity, $recordClass );
+      unset( $s3cmd ); // Free the class
+  }
+
+
+  /**
+   * Filter a list of media records down to just the biggest valid image.
+   */
+  protected function filterByExportPolicyAndVerifyMedia( $mediaRecords )
+  {
+    if( empty( $mediaRecords ) ) return $mediaRecords;
+
+    // Export Policy: Only Export the Largest Image.
+    $validRecords = array();
+
+    foreach( $mediaRecords as $media )
+    {
+        // Image MUST be valid (not error or new).
+        if( isset( $media['status'] ) && $media['status'] === 'valid' )
+        {
+            // Image MUST exist on Amazon.
+            if( in_array( "{$media['ident']}.jpg", $this->amazonResources ) )
+            {
+                // Select the largest Image.
+                if( empty( $validRecords ) || (int) $media['content_length'] > (int) $validRecords[0]['content_length'] )
+                {
+                    $validRecords[0] = $media;
+                }
+            }
+        }
+    }
+
+    return $validRecords;
+  }
+
+  /**
+   * Set the S3CMD class name for mockup...
+   * @param string $className
+   */
+  public function setS3cmdClassName( $className )
+  {
+      if( !class_exists( $className ) )
+      {
+          throw new Exception( $className . ' do not exists.' );
+      }
+      
+      $this->s3cmdClassName = $className;
+  }
 }
-?>
