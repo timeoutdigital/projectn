@@ -417,6 +417,8 @@ class importTask extends sfBaseTask
 
             case 'movie':
 
+                if( $options['city'] !== 'russia' ) $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
+                
                 $feedUrl = 'http://www.timeout.ru/london/movies.xml';
                 $mapperClass = 'RussiaFeedMoviesMapper';
 

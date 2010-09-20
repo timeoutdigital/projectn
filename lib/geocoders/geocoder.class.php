@@ -75,14 +75,14 @@ abstract class geocoder
    */
   const ACCURACY_PREMISE = 9;
 
-  private  $addressString;
-  private  $vendorObj;
-  private  $response;
-  private  $curl;
-  private  $curlClass;
-  private  $apiKey;
-  private  $region;
-  private  $bounds;
+  protected  $addressString;
+  protected  $vendorObj;
+  protected  $response;
+  protected  $curl;
+  protected  $curlClass;
+  protected  $apiKey;
+  protected  $region;
+  protected  $bounds;
   protected  $longitude;
   protected  $latitude;
   protected  $accuracy;
@@ -194,9 +194,23 @@ abstract class geocoder
     if( !$this->settingsChanged )
       return $this;
 
-    $this->setUpCurl();
-    $this->curl->exec();
-    $this->response = $this->curl->getResponse();
+    if( class_exists( 'SqliteGeoCache' ) && SqliteGeoCache::enabled() )
+    {
+        $this->response = SqliteGeoCache::get( $this->getLookupUrl() );
+    }
+
+    if( is_null( $this->response ) )
+    {
+        $this->setUpCurl();
+        $this->curl->exec();
+        $this->response = $this->curl->getResponse();
+
+        if( $this->responseIsValid() && class_exists( 'SqliteGeoCache' ) && SqliteGeoCache::enabled() )
+        {
+            SqliteGeoCache::put( $this->getLookupUrl(), $this->response );
+        }
+    }
+        
     $this->processResponse( $this->response );
 
     file_put_contents( sfConfig::get( 'sf_log_dir' ) . '/GoogleApiUsage.log', date( 'Y-m-d H:i:s' ) . PHP_EOL, FILE_APPEND );
@@ -268,6 +282,13 @@ abstract class geocoder
    * @return boolean
    */
   abstract protected function apiKeyIsValid( $apiKey );
+
+  /**
+   * Check if Response is valid
+   *
+   * @return boolean
+   */
+  abstract protected function responseIsValid();
 
   /**
    * Process the response from curl call to geocoding service

@@ -25,6 +25,15 @@ poi:
     column:               id
     with_wildcard_routes: true
 
+vendor:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Vendor
+    module:               vendor
+    prefix_path:          /vendor
+    column:               id
+    with_wildcard_routes: true
+
 vendor_event_category:
   class: sfDoctrineRouteCollection
   options:
