@@ -37,6 +37,7 @@ class UAEFeedPoiMapper extends UAEFeedBaseMapper
                 $poi['country']                         = $poi['Vendor']['country_code_long'];
                 $poi['district']                        = (string) $xmlNode->{'neighbourhood'};
                 $poi['street']                          = (string) $xmlNode->{'travel'};
+                $poi['local_language']                  = $poi['Vendor']['language'];
                 // $poi['public_transport_links']          = (string) $xmlNode->{'travel'};
                 $poi['description']                     = (string) $xmlNode->{'description'};
 
