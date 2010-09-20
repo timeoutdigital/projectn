@@ -643,6 +643,7 @@ class importTask extends sfBaseTask
             case 'movie':
                 $feedUrl            = 'http://www.timeoutdubai.com/customfeed/nokia/films';
                 $dataMapperClass    = 'UAEFeedFilmsMapper';
+                $xslt               = sfConfig::get('app_import_xslt_uae_films');
                 break;
             default : $this->dieDueToInvalidTypeSpecified();
         }
@@ -656,7 +657,7 @@ class importTask extends sfBaseTask
             $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
             
             ImportLogger::getInstance()->setVendor( $vendor );
-            if( in_array( $options['type'], array('poi', 'event') ) )
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
             {
                 $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
             }else{
@@ -694,6 +695,7 @@ class importTask extends sfBaseTask
             case 'movie':
                 $feedUrl            = 'http://www.timeoutabudhabi.com/customfeed/nokia/films';
                 $dataMapperClass    = 'UAEFeedFilmsMapper';
+                $xslt               = sfConfig::get('app_import_xslt_uae_films');
                 break;
             default : $this->dieDueToInvalidTypeSpecified();
         }
@@ -707,7 +709,7 @@ class importTask extends sfBaseTask
             $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
 
             ImportLogger::getInstance()->setVendor( $vendor );
-            if( in_array( $options['type'], array('poi', 'event') ) )
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
             {
                 $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
             }else{
