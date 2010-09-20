@@ -16,9 +16,6 @@
 class singaporeDataSource extends baseDataSource
 {
     private $curlClass; // Holds the Class for Curl, bcz, it require mocking when testing
-    private $venuesUrl  = 'http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
-    private $eventsUrl  = 'http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
-    private $movieUrl   = 'http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e';
     private $downloadURL;
 
     public function __construct( $type, $url, $curlClass = 'Curl' )
@@ -76,6 +73,7 @@ class singaporeDataSource extends baseDataSource
             {
                 $itemID             = $matches[2];
                 $pubDate            = date("Y-m-d H:i:s" , strtotime( (string) $item->pubDate ) );
+                $model              = null; // Create null model for movie!
                 // switch for Model
                 switch ( strtolower($matches[1]) )
                 {
