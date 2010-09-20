@@ -57,7 +57,7 @@ class singaporeDataSourceTest extends PHPUnit_Framework_TestCase
 
     public function testGetXML()
     {
-        $dataSource = new singaporeDataSource( 'poi', 'CurlMock', $this->tmpFile );
+        $dataSource = new singaporeDataSource( 'poi', $this->tmpFile, 'CurlMock' );
         $xml = $dataSource->getXML();
 
         $this->assertEquals( 2, count($xml), 'Venue Should have two XML nodes'); // Should have 2 XML Nodes

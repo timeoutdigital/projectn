@@ -57,7 +57,7 @@ class singaporePoiMapperTest extends PHPUnit_Framework_TestCase
     public function testMapPoi()
     {
         // Get the XML
-        $dataSource = new singaporeDataSource( 'poi', 'CurlMock', $this->tmpFile );
+        $dataSource = new singaporeDataSource( 'poi', $this->tmpFile, 'CurlMock' );
         $xml = $dataSource->getXML();
 
         // create Data Mapper

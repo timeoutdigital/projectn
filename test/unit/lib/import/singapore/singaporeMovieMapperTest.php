@@ -57,7 +57,7 @@ class singaporeMovieMapperTest extends PHPUnit_Framework_TestCase
     public function testMapMovie()
     {
         // Get the XML
-        $dataSource = new singaporeDataSource( 'movie', 'CurlMock', null, null, $this->tmpFile );
+        $dataSource = new singaporeDataSource( 'movie', $this->tmpFile, 'CurlMock' );
         $xml = $dataSource->getXML();
 
         // create Data Mapper

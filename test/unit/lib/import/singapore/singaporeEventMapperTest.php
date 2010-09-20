@@ -56,7 +56,7 @@ class singaporeEventMapperTest extends PHPUnit_Framework_TestCase
     public function testMapEvent()
     {
         // Get the XML
-        $dataSource = new singaporeDataSource( 'event', 'CurlMock', null, $this->tmpFile );
+        $dataSource = new singaporeDataSource( 'event', $this->tmpFile, 'CurlMock' );
         $xml = $this->setDynamicDateTime( $dataSource->getXML() );
 
         // create Data Mapper
