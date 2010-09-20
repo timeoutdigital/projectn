@@ -186,6 +186,7 @@ class EventDataEntryForm extends BaseEventForm
 
   public function save( $con = null )
   {
+
      $values = $this->getValues();
 
      $event = parent::save( $con );
@@ -195,6 +196,7 @@ class EventDataEntryForm extends BaseEventForm
      $eventId = $event[ 'id' ];
 
      $vendor =Doctrine::getTable( 'Vendor' )->find( $this->user->getCurrentVendorId() );
+
      $poiId = $addOccurrencesData[ 'poi_id' ];
 
       //lets create the occurrences if only Never option wasn't selected
@@ -216,7 +218,7 @@ class EventDataEntryForm extends BaseEventForm
               $occurrence[ 'Event' ]        = $event;
               $occurrence[ 'start_date' ]   = $date;
               //$occurrence[ 'end_date' ]     = $date;
-              $occurrence[ 'start_time' ]   = $addOccurrencesData[ 'start_time' ];
+              $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00';
               //$occurrence[ 'end_time' ]     = $addOccurrencesData[ 'end_time' ];
               $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
               $occurrence->save();
@@ -229,6 +231,7 @@ class EventDataEntryForm extends BaseEventForm
           {
               $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$addOccurrencesData [ 'start_date' ] ;
 
+
               $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
 
               if( !$occurrence )
@@ -240,10 +243,11 @@ class EventDataEntryForm extends BaseEventForm
               $occurrence[ 'Event' ]        = $event;
               $occurrence[ 'start_date' ]   = $addOccurrencesData [ 'start_date' ];
               //$occurrence[ 'end_date' ]     = $addOccurrencesData [ 'end_date' ];
-              $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ];
+              $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00' ;
               //$occurrence[ 'end_time' ]     = $addOccurrencesData[  'end_time' ];
               $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
               $occurrence->save();
+
           }
      }
 
