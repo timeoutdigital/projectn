@@ -19,18 +19,22 @@ class singaporeDataSource extends baseDataSource
     private $venuesUrl  = 'http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
     private $eventsUrl  = 'http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
     private $movieUrl   = 'http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e';
+    private $downloadURL;
 
-    public function __construct( $type, $curlClass = 'Curl', $venueURL= null, $eventURL = null, $movieUrl = null )
+    public function __construct( $type, $url, $curlClass = 'Curl' )
     {
         parent::__construct( $type );
 
+        if( empty($url) )
+        {
+            throw new Exception('No Download URL provided?');
+        }
+        
         // set Curl Class
         $this->curlClass    = ( !is_string( $curlClass ) ) ? 'Curl' : $curlClass;
         
         // Override URLs
-        $this->venuesUrl    = ( is_string( $venueURL ) && trim( $venueURL ) != '' ) ? $venueURL : $this->venuesUrl;
-        $this->eventsUrl    = ( is_string( $eventURL ) && trim( $eventURL ) != '' ) ? $eventURL : $this->eventsUrl;
-        $this->movieUrl     = ( is_string( $movieUrl ) && trim( $movieUrl ) != '' ) ? $movieUrl : $this->movieUrl;
+        $this->downloadURL  = $url;
 
         // fetch XML from Feed
         $this->fetchXML();
@@ -51,23 +55,8 @@ class singaporeDataSource extends baseDataSource
             throw new Exception( 'singapore vendor not found!' );
         }
 
-        switch ( $this->type )
-        {
-            case self::TYPE_EVENT:
-                $url = $this->eventsUrl;
-                break;
-
-            case self::TYPE_POI:
-                $url = $this->venuesUrl;
-                break;
-
-            case self::TYPE_MOVIE:
-                $url = $this->movieUrl;
-                break;
-        }
-
         // Use Curl to download the List file, which lincking to detailed individual Nodes
-        $feedObj = new $this->curlClass( $url );
+        $feedObj = new $this->curlClass( $this->downloadURL );
         $feedObj->exec();
 
         // Convert it to SimpleXML
