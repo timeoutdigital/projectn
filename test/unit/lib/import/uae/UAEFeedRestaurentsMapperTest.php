@@ -16,7 +16,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  *
  *
  */
-class UAEFeedRestaurentsMapperTest extends PHPUnit_Framework_TestCase
+class UAEFeedRestaurantsMapperTest extends PHPUnit_Framework_TestCase
 {
     private $vendor;
 
@@ -35,7 +35,7 @@ class UAEFeedRestaurentsMapperTest extends PHPUnit_Framework_TestCase
 
         // xml data fixer
         $xmlDataFixer = new xmlDataFixer( file_get_contents( $fileName ) );
-        $dataMapper = new UAEFeedRestaurentsMapper( $this->vendor, $xmlDataFixer->getSimpleXML() );
+        $dataMapper = new UAEFeedRestaurantsMapper( $this->vendor, $xmlDataFixer->getSimpleXML() );
         
         // Run Test Import
         $importer = new Importer();

@@ -11,7 +11,7 @@
  * @version 1.0.0
  *
  */
-class UAEFeedRestaurentsMapper extends UAEFeedBarsMapper
+class UAEFeedRestaurantsMapper extends UAEFeedBarsMapper
 {
     /* Since this extends: UAEFeedBarsMapper, map function should be taken care of
      * Only needed to overide the addvendorCategory() to Manipulate cuisine information
