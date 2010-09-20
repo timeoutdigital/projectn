@@ -38,6 +38,22 @@ class importTask extends sfBaseTask
     // Select the City
     switch( $options['city'] )
     {
+        case 'nyfix':
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+            
+            switch( $options['type'] )
+            {
+                case 'fixid':
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+
+                $task = new mapNyVendorPoiId2NewId( new sfEventDispatcher, new sfFormatter );
+                $task->runFromCLI( new sfCommandManager, array());
+
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+                break;
+            }
+            break;
       case 'ny':
 
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
@@ -1159,7 +1175,6 @@ EOF;
 
         return $ftpFiles;
     }
-
 
 
 }
