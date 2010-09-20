@@ -169,16 +169,6 @@ all:
           language: en-GB
           exportForDataEntry: true
           exportForNokia: false
-        -
-          name: dubai
-          type: [ bar, restaurant, poi, event, movie ]
-          language: en-US
-          exportForNokia: false
-        -
-          name: abu dhabi
-          type: [ bar, restaurant, poi, event, movie ]
-          language: en-US
-          exportForNokia: false
 
 
 
