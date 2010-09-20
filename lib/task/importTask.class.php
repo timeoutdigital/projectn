@@ -1135,16 +1135,13 @@ EOF;
             $constructorParams = $this->config['import'][$type]['class']['params'];
         }
 
-        new $mapperClassName( $vendor, $constructorParams );
+        //new $mapperClassName( $vendor, $constructorParams );
 
         ImportLogger::getInstance()->setVendor($vendor);
-        //$importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
+        $importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
+        $importer->run();
 
 
-
-
-
-//        $importer->run();
 //        ImportLogger::getInstance()->end();
 //        $this->dieWithLogMessage( '', true );
         

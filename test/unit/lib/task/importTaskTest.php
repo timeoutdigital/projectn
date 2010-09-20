@@ -44,16 +44,16 @@ class importTaskTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
     
-    protected function runTask( $trapResult = false )
+    protected function runTask()
     {
         foreach( $this->options as $k => $v )
         {
                 $options[] = "--$k=$v";
         }
 
-        if ( $trapResult ) ob_start();
+        ob_start();
         $this->task->runFromCLI( new sfCommandManager, $options );
-        if ( $trapResult ) return ob_get_clean();
+        return ob_get_clean();
     }
 
     public function testCorrectOptionAndClassOne()
@@ -74,41 +74,51 @@ class importTaskTest extends PHPUnit_Framework_TestCase
 
     public function testIfRunIsCalled()
     {
-        //check it
+        $this->options['type'] = 'mock-one';
+        $this->runTask();
+        $this->assertTrue( MockLondonClassOne::$mappFunctionCalled );
     }
 
-    public function testLogOutput()
+    public function testLogStartOutput()
     {
-        //test for log output if present
-        //2010-09-15 14:42:26 -- start import for london (type: mock-one, environment: test) --
-        //2010-09-15 14:53:37 -- start import for london (type: mock-two, environment: test) --
+        $this->options['type'] = 'mock-one';
+        $taskOutput = $this->runTask();
 
-        //test it by calling the runTask like this runTask( true ) --> to trap the result
+        $this->assertRegExp('/start import for ' . $this->options['city'] . '/', $taskOutput);
+        $this->assertRegExp('/type: ' . $this->options['type'] . '/', $taskOutput);
+        $this->assertRegExp('/env: ' . $this->options['env'] . '/', $taskOutput);
     }
+
+    public function testLogEndOutput()
+    {
+        $this->options['type'] = 'mock-one';
+        $taskOutput = $this->runTask();
+
+        $this->assertRegExp('/end import for ' . $this->options['city'] . '/', $taskOutput);
+        $this->assertRegExp('/type: ' . $this->options['type'] . '/', $taskOutput);
+        $this->assertRegExp('/env: ' . $this->options['env'] . '/', $taskOutput);
+    }
+
 }
 
-class MockLondonClassOne
+class MockLondonClassOne extends DataMapper
 {
     static public $constructParams;
+
+    static public $mappFunctionCalled = false;
     
     public function  __construct( $vendor, $type )
     {
         self::$constructParams = $type;
     }
 
-    public function run()
+    public function mapTest()
     {
-        echo 'yoooo';
+        self::$mappFunctionCalled = true;
     }
 
 }
 
-class MockLondonClassTwo
+class MockLondonClassTwo extends MockLondonClassOne
 {
-    static public $constructParams;
-
-    public function  __construct( $vendor, $type )
-    {
-        self::$constructParams = $type;
-    }
 }

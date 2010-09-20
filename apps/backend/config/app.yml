@@ -90,9 +90,9 @@ all:
         -
           name: london
           language: en-GB
-          type: 
+          type:
             poi-ev-mapper:
-              mapper: 
+              mapper:
                 class: LondonDatabaseEventsAndVenuesMapper
                 params:
                   type: poi
@@ -117,12 +117,11 @@ all:
           language: pt
           url: http://www.timeout.pt/
           days_ahead: 7
-          from: <?php echo date( 'Y-m-d' ) ?>
-          to:   <?php echo date( 'Y-m-d', strtotime( "+$daysAhead day" ) ) ?>
-          type: 
+          from: <?php echo date( 'Y-m-d' ) . PHP_EOL ?>
+          to:   <?php echo date( 'Y-m-d', strtotime( '+7 day' ) ) . PHP_EOL ?>
+          type:
             poi:
               class: LisbonFeedVenuesMapper
-              
             event:
               class: LondonDatabaseEventsAndVenuesMapper
             movie:
