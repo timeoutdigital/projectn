@@ -66,6 +66,7 @@ class UAEFeedBarsMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'The Walk, Jumeirah Beach Residence, Dubai Marina, Dubai', $poi['additional_address_details']);
         $this->assertEquals( '+971 4 428 3088', $poi['phone']);
         $this->assertEquals( 'Open daily 7.30pm-midnight', $poi['openingtimes']);
+        $this->assertEquals( 'The Walk, Jumeirah Beach Residence, Dubai Marina, Dubai',  $poi['geocode_look_up'] );
 
         // assert property
         $this->assertEquals( 1 , $poi['PoiProperty']->count() );
@@ -86,6 +87,7 @@ class UAEFeedBarsMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'Open daily noon-3am', $poi['openingtimes']);
         $this->assertEquals( 'http://www.krossroadsdubai.com', $poi['url']);
         $this->assertEquals( 'enquiries@krossroadsdubai.com', $poi['email']);
+        $this->assertEquals( 'Khalid Bin Walid Street, Bur Dubai, Dubai',  $poi['geocode_look_up'] );
 
         // Lat / Long
         $this->assertEquals( '25.256962', $poi['latitude']);
