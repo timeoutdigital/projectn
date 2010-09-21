@@ -38,19 +38,55 @@ class importTask extends sfBaseTask
     // Select the City
     switch( $options['city'] )
     {
+        case 'nyfix':
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+            
+            switch( $options['type'] )
+            {
+                case 'fixid':
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+
+                $task = new mapNyVendorPoiId2NewId( new sfEventDispatcher, new sfFormatter );
+                $task->runFromCLI( new sfCommandManager, array());
+
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+                break;
+            }
+            break;
       case 'ny':
 
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
 
         switch( $options['type'] )
         {
-          case 'poi-event':
-                //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+            case 'poi-event':
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                // Set FTP
                 $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
                 $ftpClientObj->setSourcePath( '/NOKIA/' );
-                $this->importNyEvents($vendorObj, $ftpClientObj);
-            break;
 
+                echo "Downloading NY's Event's feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
+
+                // Load XML file
+                $xmlString      = file_get_contents( $fileNameString );
+                $xmlDataFixer   = new xmlDataFixer( $xmlString );
+                //$xmlDataFixer->addRootElement( 'body' );
+                $xmlDataFixer->removeHtmlEntiryEncoding();
+                $xmlDataFixer->encodeUTF8();
+                
+                $processXmlObj = new processNyXml( '' );
+                $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
+                $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
+                
+                echo "Importing NY Events / Poi  \n";
+                $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+                $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+                
+                break;
           case 'movie':
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -1036,7 +1072,6 @@ EOF;
 
         return $ftpFiles;
     }
-
 
 
 }
