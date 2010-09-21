@@ -8,13 +8,20 @@
 
 <?php if ($sf_user->hasFlash('error_poi_category_delete')):?>
 
-<?php $poiList =json_decode( html_entity_decode( $sf_user->getFlash('error_poi_category_delete' , array(), 'sf_admin')) ,true );  ?>
-  <div class="error">Vendor Poi Category cannot be deleted because there are <?php echo count( $poiList ); ?> Poi(s) attached to this category:<br />
-  <?php $i = 0 ;?>
-  <?php foreach ($poiList as $id => $poiName) : ?>
-    <a href="poi/<?php echo $id;?>/edit" target="_blank" ><?php echo $poiName; ?> </a>
-    <?php if( ++$i != count( $poiList )) :?>, <?php endif;?>
-  <?php endforeach;?>
+<?php $errorData =json_decode( html_entity_decode( $sf_user->getFlash('error_poi_category_delete' , array(), 'sf_admin')) ,true );  ?>
+  <div class="error">
+  <p>
+    Vendor Poi Category "<?php echo $errorData[ 'vendorPoiCategoryName' ] ; ?>" cannot be deleted because there are <?php echo count( $errorData[ 'poiList'] ); ?> venue(s) attached to this category
+  </p>
+  <p>
+    You can change the name of the category or remove the unassociate the category from the venues below before deleting the category:
+  </p>
+      <?php $i = 0 ;?>
+      <?php foreach ($errorData[ 'poiList'] as $id => $poiName) : ?>
+        <a href="poi/<?php echo $id;?>/edit" target="_blank" ><?php echo $poiName ; ?> </a>
+        <?php if( ++$i != count( $errorData[ 'poiList'] )) :?>, <?php endif;?>
+      <?php endforeach;?>
+  </p>
    </div>
 <?php endif; ?>
 

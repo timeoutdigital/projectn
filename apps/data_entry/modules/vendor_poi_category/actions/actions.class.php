@@ -60,10 +60,14 @@ class vendor_poi_categoryActions extends autoVendor_poi_categoryActions
             $poiList [ $poi[ 'id' ] ] = $poi[ 'poi_name' ] ;
         }
 
+        $errorData = array(
+            'vendorPoiCategoryName' => $vendorPoiCategory[ 'name' ] ,
+            'poiList'               => $poiList );
+
         if( count( $poiList ) > 0 )
         {
              //note : serialize doesn't work for this case so instead json is used
-             $this->getUser()->setFlash('error_poi_category_delete', json_encode( $poiList ) );
+             $this->getUser()->setFlash('error_poi_category_delete', json_encode( $errorData ) );
         }
         else
         {
