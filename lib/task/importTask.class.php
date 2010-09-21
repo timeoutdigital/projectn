@@ -689,7 +689,7 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $feedUrl = "http://192.9.1.220/istanbul/venues.xml";
+            $feedUrl = "http://www.timeoutistanbul.com/content/n_xml/venues.xml";
             $mapperClass = "istanbulVenueMapper";
 
           break; //end Poi
