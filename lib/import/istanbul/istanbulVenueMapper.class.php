@@ -58,9 +58,13 @@ class istanbulVenueMapper extends istanbulBaseMapper
             //$poi['openingtimes']                  = $this->clean( (string) $venueElement->opening_times );
             //$poi['star_rating']
             //$poi['rating']
+            $poi['provider']                      = $this->clean( (string) $venueElement->provider );
             $poi['rating']                        = $this->roundNumberOrReturnNull((string) $venueElement->rating);
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = clone $this->vendor;
+
+            // Use Feed lat / Long
+            $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->lat ) , $this->clean( (string) $venueElement->long ) );
 
             // Categories
             $cats = $this->extractCategories( $venueElement );
