@@ -40,7 +40,7 @@ class importTask extends sfBaseTask
     {
         case 'nyfix':
             $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-            
+
             switch( $options['type'] )
             {
                 case 'fixid':
@@ -75,17 +75,17 @@ class importTask extends sfBaseTask
                 //$xmlDataFixer->addRootElement( 'body' );
                 $xmlDataFixer->removeHtmlEntiryEncoding();
                 $xmlDataFixer->encodeUTF8();
-                
+
                 $processXmlObj = new processNyXml( '' );
                 $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
                 $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
-                
+
                 echo "Importing NY Events / Poi  \n";
                 $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
                 $nyImportObj->insertEventCategoriesAndEventsAndVenues();
                 ImportLogger::getInstance()->end();
                 $this->dieWithLogMessage();
-                
+
                 break;
           case 'movie':
                 ImportLogger::getInstance()->setVendor( $vendorObj );
@@ -454,7 +454,7 @@ class importTask extends sfBaseTask
             case 'movie':
 
                 if( $options['city'] !== 'russia' ) $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
-                
+
                 $feedUrl = 'http://www.timeout.ru/london/movies.xml';
                 $mapperClass = 'RussiaFeedMoviesMapper';
 
@@ -655,7 +655,7 @@ class importTask extends sfBaseTask
 
     case 'dubai':
         $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('dubai', 'en-US');
-        
+
         switch( $options['type'] )
         {
             case 'bar':
@@ -669,17 +669,17 @@ class importTask extends sfBaseTask
             case 'poi':
                 $feedUrl            = 'http://www.timeoutdubai.com/nokia/latestevents';
                 $dataMapperClass    = 'UAEFeedPoiMapper';
-                $xslt               = sfConfig::get('app_import_xslt_uae_poi');
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
                 break;
             case 'event':
                 $feedUrl            = 'http://www.timeoutdubai.com/nokia/latestevents';
                 $dataMapperClass    = 'UAEFeedEventsMapper';
-                $xslt               = sfConfig::get('app_import_xslt_uae_events');
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
                 break;
             case 'movie':
                 $feedUrl            = 'http://www.timeoutdubai.com/customfeed/nokia/films';
                 $dataMapperClass    = 'UAEFeedFilmsMapper';
-                $xslt               = sfConfig::get('app_import_xslt_uae_films');
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' );
                 break;
             default : $this->dieDueToInvalidTypeSpecified();
         }
@@ -691,7 +691,7 @@ class importTask extends sfBaseTask
             $feedCurl->exec();
 
             $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
-            
+
             ImportLogger::getInstance()->setVendor( $vendor );
             if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
             {
@@ -721,17 +721,18 @@ class importTask extends sfBaseTask
             case 'poi':
                 $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/latestevents';
                 $dataMapperClass    = 'UAEFeedPoiMapper';
-                $xslt               = sfConfig::get('app_import_xslt_uae_poi');
+                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
                 break;
             case 'event':
                 $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/latestevents';
                 $dataMapperClass    = 'UAEFeedEventsMapper';
-                $xslt               = sfConfig::get('app_import_xslt_uae_events');
+
+                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
                 break;
             case 'movie':
                 $feedUrl            = 'http://www.timeoutabudhabi.com/customfeed/nokia/films';
                 $dataMapperClass    = 'UAEFeedFilmsMapper';
-                $xslt               = sfConfig::get('app_import_xslt_uae_films');
+                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' );
                 break;
             default : $this->dieDueToInvalidTypeSpecified();
         }
@@ -757,7 +758,7 @@ class importTask extends sfBaseTask
         }
 
         break;
-        
+
     // data entry imports
     case 'mumbai':
     case 'delhi':
