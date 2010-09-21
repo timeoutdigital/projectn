@@ -44,7 +44,37 @@ class vendor_poi_categoryActions extends autoVendor_poi_categoryActions
   {
     if ( $this->getUser()->checkIfRecordPermissionsByRequest( $request ) )
     {
-        parent::executeDelete( $request );
+        $request->checkCSRFProtection();
+
+        $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
+
+        //before trying to delete check if there are any pois attached to this category
+        $vendorPoiCategory = $this->getRoute()->getObject();
+
+        $pois = $vendorPoiCategory[ 'Poi' ]->toArray();
+
+        $poiList = array();
+
+        foreach ($pois as $poi)
+        {
+            $poiList [ $poi[ 'id' ] ] = $poi[ 'poi_name' ] ;
+        }
+
+        if( count( $poiList ) > 0 )
+        {
+             //note : serialize doesn't work for this case so instead json is used
+             $this->getUser()->setFlash('error_poi_category_delete', json_encode( $poiList ) );
+        }
+        else
+        {
+            if ($this->getRoute()->getObject()->delete())
+            {
+              $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+            }
+        }
+
+        $this->redirect('@vendor_poi_category');
+
     }
     else
     {
@@ -79,4 +109,55 @@ class vendor_poi_categoryActions extends autoVendor_poi_categoryActions
     }
   }
 
+  public function executeShow(sfWebRequest $request)
+  {
+    $this->redirect('@vendor_poi_category');
+  }
+
+ protected function processForm(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
+
+      try
+      {
+
+        $vendor_poi_category = $form->save();
+
+      } catch (Doctrine_Validator_Exception $e) {
+
+        $errorStack = $form->getObject()->getErrorStack();
+
+        $message = get_class($form->getObject()) . ' has ' . count($errorStack) . " field" . (count($errorStack) > 1 ?  's' : null) . " with validation errors: ";
+        foreach ($errorStack as $field => $errors) {
+            $message .= "$field (" . implode(", ", $errors) . "), ";
+        }
+        $message = trim($message, ', ');
+
+        $this->getUser()->setFlash('error', $message);
+        return sfView::SUCCESS;
+      }
+
+      $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $vendor_poi_category)));
+
+      if ($request->hasParameter('_save_and_add'))
+      {
+        $this->getUser()->setFlash('notice', $notice.' You can add another one below.');
+
+        $this->redirect('@vendor_poi_category_new');
+      }
+      else
+      {
+        $this->getUser()->setFlash('notice', $notice);
+
+        $this->redirect(array('sf_route' => 'vendor_poi_category_edit', 'sf_subject' => $vendor_poi_category));
+      }
+    }
+    else
+    {
+      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+    }
+  }
 }
