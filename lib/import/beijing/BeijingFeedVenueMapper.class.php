@@ -152,7 +152,6 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
         $results = null;
         $statusLive = 10;
         try{
-            // @query: SELECT v.*, n.name as ncityname FROM venue v left join neighbourhood n on n.id = v.neighbourhood_id WHERE n.city_id=2
             $sql = 'SELECT v.*, n.name as neighbourhood_cityname FROM venue v left join neighbourhood n on n.id = v.neighbourhood_id WHERE n.city_id= :city_id and v.status = :status LIMIT :offset, :limit';
 
             $query = $this->pdoDB->prepare( $sql );
