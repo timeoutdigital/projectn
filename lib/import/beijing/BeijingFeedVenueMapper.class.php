@@ -150,9 +150,10 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
             throw new Exception ('Invalid PDO Database object in queryVenue()');
         }
         $results = null;
+        $statusLive = 10;
         try{
             // @query: SELECT v.*, n.name as ncityname FROM venue v left join neighbourhood n on n.id = v.neighbourhood_id WHERE n.city_id=2
-            $sql = 'SELECT v.*, n.name as neighbourhood_cityname FROM venue v left join neighbourhood n on n.id = v.neighbourhood_id WHERE n.city_id= :city_id LIMIT :offset, :limit';
+            $sql = 'SELECT v.*, n.name as neighbourhood_cityname FROM venue v left join neighbourhood n on n.id = v.neighbourhood_id WHERE n.city_id= :city_id and v.status = :status LIMIT :offset, :limit';
 
             $query = $this->pdoDB->prepare( $sql );
             // PHP will throw error when SQL query above failed (like Invalid column / table )
@@ -162,6 +163,7 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
                 $query->bindParam(':city_id', $cityID, PDO::PARAM_INT);
                 $query->bindParam(':offset', $offset, PDO::PARAM_INT);
                 $query->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $query->bindParam(':status', $statusLive , PDO::PARAM_INT);
 
                 $query->execute();
 
