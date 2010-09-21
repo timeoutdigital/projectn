@@ -1,11 +1,11 @@
- <?xml version="1.0" encoding="UTF-8"?>
-       <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-        <xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="name landing_url description phone email neighbourhood prices hours city longitude longitude " />
-        <xsl:template match="/">
-          <xsl:element name="venues">
-            <xsl:for-each select="//timeout-data/venues/venue">
-                                  <xsl:copy-of select="." />
-            </xsl:for-each>
-          </xsl:element>
-        </xsl:template>
-      </xsl:stylesheet>
+<?xml version="1.0" encoding="UTF-8"?>
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="name landing_url description phone email neighbourhood prices hours city longitude longitude " />
+    <xsl:template match="/">
+      <xsl:element name="venues">
+        <xsl:for-each select="//timeout-data/venues/venue">
+                              <xsl:copy-of select="." />
+        </xsl:for-each>
+      </xsl:element>
+    </xsl:template>
+    </xsl:stylesheet>
