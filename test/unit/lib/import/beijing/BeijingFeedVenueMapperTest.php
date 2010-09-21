@@ -139,16 +139,16 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       $importer->run();
 
       $vendorPoiIdOfNonLiveVenueInDB = 4;
+
       $nonLiveVenueIsImported = false;
 
       $pois = Doctrine::getTable('Poi')->findAll();
       foreach ($pois as $poi)
       {
-        if( $poi[ 'vendor_poi_id' ] == 4 )
+        if( $poi[ 'vendor_poi_id' ] == $vendorPoiIdOfNonLiveVenueInDB )
         {
             $nonLiveVenueIsImported = true;
         }
-
       }
       $this->assertFalse($nonLiveVenueIsImported , 'non-live venues (if the status != 10) shouldnt be imported'  );
 
