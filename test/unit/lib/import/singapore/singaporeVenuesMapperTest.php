@@ -53,8 +53,6 @@ class singaporeVenuesMapperTest extends PHPUnit_Framework_TestCase {
    */
   protected function setUp()
   {
-    setlocale(LC_MONETARY, 'en_US.UTF-8');
-
     ProjectN_Test_Unit_Factory::createDatabases();
     ProjectN_Test_Unit_Factory::add( 'Vendor', array(
       'city' => 'Singapore',

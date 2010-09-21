@@ -18,7 +18,7 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
     {
         $tmp = 0;
         $offset = 0; // current offset
-        $recordPerQuery = 1; // Get only 500 Records per Query
+        $recordPerQuery = 500; // Get only 500 Records per Query
 
         $results = $this->queryVenue( $offset, $recordPerQuery );
 
@@ -27,7 +27,7 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
 
         // Loop through Paging [ Limit Query to 500 at a time ]
         while ( is_array($results) && count($results) > 0 )
-        { 
+        {
             // Loop through Results Rows
             foreach( $results as $venue)
             {
@@ -37,7 +37,7 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
             $offset += $recordPerQuery;
             $results = $this->queryVenue( $offset, $recordPerQuery );
         } // end WHILE*/
-       
+
     } // mapVenues()
 
     /**
@@ -78,6 +78,10 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
 
             $poi['Vendor']                      = clone $this->vendor;
             $poi['local_language']              = $this->vendor['language'];
+
+
+            $poi->addMeta( 'status' , $venue[ 'status' ] );
+
 
             // Map Category
             $categories = array();
@@ -192,7 +196,7 @@ class BeijingFeedVenueMapper extends BeijingFeedBaseMapper
             $query = $this->pdoDB->prepare( $sql );
 
             $query->bindParam(':venue_id', $venue_id, PDO::PARAM_INT);
-            
+
             $query->execute( );
 
         } catch ( Exception $exception )

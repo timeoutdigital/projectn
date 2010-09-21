@@ -59,7 +59,7 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
                                                                                     $poi[ 'zips' ],
                                                                                     $poi[ 'country' ],
                                                                                     ) );
-                $poi->setGeoEncodeLookUpString( $geoCodeLookup );
+                $poi->setgeocoderLookUpString( $geoCodeLookup );
 
                 // More Details
                 $textSystem = $this->getXMLNodesByPath( 'text_system/text', $poiNode );
@@ -89,6 +89,8 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
                 // Pricing
                 if( isset( $poiNode->prices ) )
                 {
+                    $prices = array();  // Hold the price to Build
+
                     foreach ( $poiNode->prices->children() as $price_id )
                     {
                         foreach ( $price_id->children() as $price )
@@ -99,14 +101,21 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
 
                             } else {
 
-                                $priceValue = ( (string) $price->value != '0.00' ) ? (string) $price->value : '';
-                                $priceValueTo = ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to : '';
-                                $priceInfoString = stringTransform::concatNonBlankStrings( ' - ', array( (string) $price->currency, $priceValue, $priceValueTo ) ); // add Price from - to values
-                                $priceInfoString = stringTransform::concatNonBlankStrings( ' ', array( (string) $price->price_type, $priceInfoString ) ); // add Money Sign
-                                $poi->addProperty( 'price', trim( $priceInfoString ) );
+                                $priceValue = ( (string) $price->value != '0.00' ) ? (string) $price->currency . ' ' . (string) $price->value : '';
+                                $priceValueTo = ( (string) $price->value_to != '0.00' ) ? (string) $price->value_to : '';
+
+                                $priceInfoString = stringTransform::concatNonBlankStrings( ' - ', array( $priceValue, $priceValueTo ) ); // add Price from - to values
+
+                                if( trim( $priceInfoString ) != '' )
+                                {
+                                    $priceInfoString = stringTransform::concatNonBlankStrings( ' ', array( (string) $price->price_type, $priceInfoString ) ); // add Type
+                                    $prices[] = $priceInfoString;
+                                }
                             }
                         } // foreach $price_id->children()
                     } // $poiNode->prices->children()
+
+                    $poi['price_information']   = stringTransform::concatNonBlankStrings( ', ', array_unique( $prices ) );
                 } // Pricing
 
                 // Category
@@ -181,7 +190,7 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
             }  catch ( Exception $exception)
             {
                 $this->notifyImporterOfFailure( new Exception( 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' .$poiNode['id'] ) );
-                echo 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' . $poiNode['id'] . PHP_EOL;
+                echo 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' . $poiNode['id'] . '::' . $exception->getTraceAsString() . PHP_EOL;
             }
         } // end foreach
     }

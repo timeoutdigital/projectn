@@ -21,17 +21,20 @@ class XMLExportPOI extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
     parent::__construct(  $vendor, $destination, 'Poi', $xsd , $validation);
 
+    ExportLogger::getInstance()->initExport( 'Poi' );
   }
 
   protected function getData()
   {
-    if( $this->validation)
+    if( $this->validation )
     {
         $data = Doctrine::getTable( $this->model )->findAllValidByVendorId( $this->vendor->getId() );
     }else
     {
         $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
     }
+
+    $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], 'Poi' );
 
     return $data;
   }
@@ -84,8 +87,20 @@ class XMLExportPOI extends XMLExport
             ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
             continue;
           }
-
       }
+
+     //skip the BEIJING pois if the status is not 10
+     if( $this->validation == true && $poi[ 'vendor_id' ] == 22 ) //beijing vendor_id
+     {
+         foreach ($poi[ 'PoiMeta' ] as $meta)
+         {
+            if(  $meta[ 'lookup' ] == 'status'  && $meta[ 'value' ] != 10 )
+            {
+                ExportLogger::getInstance()->addError( 'Skip Export for Beijing Pois status is not LIVE (10), ' . $meta[ 'value' ] . ' is given', 'Poi', $poi[ 'id' ] );
+                continue 2;
+            }
+         }
+     }
 
       //Skip Export for Pois with Dupe Lat/Longs
       foreach( $duplicateLatLongs as $dupe )
@@ -217,9 +232,11 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       //event/version/media
-      foreach( $poi[ 'PoiMedia' ] as $medium )
+
+      // Finds Largest Media File that Exists on s3.
+      foreach( $this->filterByExportPolicyAndVerifyMedia( $poi[ 'PoiMedia' ] ) as $medium )
       {
-        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
+        $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA );
 
         if ( $mediaElement instanceof DOMElement )
         {
@@ -256,7 +273,7 @@ class XMLExportPOI extends XMLExport
                 $avoidDuplicateUiCategories[] = (string) $uiCat['name'];
             }
 
-      ExportLogger::getInstance()->addExport( 'Poi' );
+      ExportLogger::getInstance()->addExport( 'Poi', $poi['id'] );
 
     }
 //    ExportLogger::getInstance()->showErrors();

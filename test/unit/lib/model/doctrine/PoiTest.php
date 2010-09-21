@@ -35,7 +35,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
     $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
     $this->object[ 'VendorPoiCategory' ] = new Doctrine_Collection( Doctrine::getTable( 'Poi' ) );
-    $this->object[ 'geoEncoder' ] = new MockGeoEncodeForPoiTest();
+    $this->object[ 'geocoderr' ] = new MockgeocoderForPoiTest();
     $this->object->save();
   }
 
@@ -244,15 +244,15 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
       $poiObj->save();
 
       $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
 
 
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj->setGeoEncodeLookUpString(" ");
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTestWithoutAddress();
+      $poiObj->setgeocoderLookUpString(" ");
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTestWithoutAddress();
 
       $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
       $poiObj->save();
@@ -267,7 +267,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
       $poiObj->save();
 
       $poiObj['longitude'] = '151.207114';
@@ -432,84 +432,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], 'Victoria Street', 'Street left in street field' );
   }
 
-
-   public function testAddMediaByUrlandSavePickLargerImage()
-   {
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $mediumImageUrl   = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $poi->addMediaByUrl( $smallImageUrl );
-    $poi->addMediaByUrl( $largeImageUrl );
-    $poi->addMediaByUrl( $mediumImageUrl );
-
-    $poi->save();
-
-    $savedPoiId = $poi->id;
-    $poi->free( true ); unset( $poi );
-    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
-
-    // after adding 3 images we expect to have only one image and it should be the large image
-    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
-    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to POI when adding more than one' );
-
-   }
-
-   /**
-    * if there is an image attached to POI and a smaller one is being added, it should keep the larger image
-    *
-    */
-   public function testAddMediaByUrlandSaveSkipSmallerImage()
-   {
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $poi->addMediaByUrl( $largeImageUrl );
-    $poi->save();
-
-    $savedPoiId = $poi->id;
-    $poi->free( true ); unset( $poi );
-    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
-
-    // adding a smaller size imahe
-    $poi->addMediaByUrl( $smallImageUrl );
-    $poi->save();
-
-    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
-    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
-
-   }
-
-    /**
-    * if there is an image attached to Poi and a larger one is being added, it should remove the existing image with the larger one
-    *
-    */
-   public function testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
-   {
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $poi->addMediaByUrl( $smallImageUrl );
-    $poi->save();
-
-    $savedPoiId = $poi->id;
-    $poi->free( true ); unset( $poi );
-    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
-
-    // adding a smaller size imahe
-    $poi->addMediaByUrl( $largeImageUrl );
-    $poi->save();
-
-    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
-    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
-
-   }
    public function testValidateUrlAndEmail()
    {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -522,19 +444,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
    }
 
-   /**
-   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
-   */
-  public function testMediaPopulateByUrlForRedirectingLink()
-  {
-      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-      $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
-      $poi->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
-      $poi->save();
-
-      $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
-  }
-  
   public function testStreetDoesNotEndWithCityName()
   {
 
@@ -606,25 +515,9 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals( '+3493 9 3424 6577', $poi['phone'], "formatPhone should'nt change the phone number if it's already prefixed with the dial code" );
    }
-
-   /**
-    * Check addMediaByUrl() get_header for array value.
-    */
-   public function testAddMediaByUrlMimeTypeCheck()
-   {
-      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-      // Valid URL with 302 Redirect
-      $this->assertTrue( $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
-      // 404 Error Url
-      $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
-      // Valid URL - No redirect
-      $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
-      
-   }
 }
 
-class MockGeoEncodeForPoiTest extends geoEncode
+class MockgeocoderForPoiTest extends geocoder
 {
   private $address;
 
@@ -648,14 +541,34 @@ class MockGeoEncodeForPoiTest extends geoEncode
   {
     return 9;
   }
+
+  public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  protected function responseIsValid() {}
+
+  protected function apiKeyIsValid( $apiKey ) { }
+
+  protected function processResponse( $response ) { }
 }
 
-class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
+class MockgeocoderForPoiTestWithoutAddress extends geocoder
 {
   public function _setAddress( $address ) { }
   public function numCallCount() { }
   public function getLongitude() { }
   public function getLatitude() { }
   public function getAccuracy() { }
+
+   public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  protected function apiKeyIsValid( $apiKey ) { }
+  protected function processResponse( $response ) { }
+  protected function responseIsValid() {}
 }
 

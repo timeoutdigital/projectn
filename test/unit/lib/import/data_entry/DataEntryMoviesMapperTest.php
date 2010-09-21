@@ -40,7 +40,7 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
                   'data' .DIRECTORY_SEPARATOR .
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
-    
+
     $this->object = new DataEntryImportManager( 'sydney', $importDir );
 
     $this->object->importMovies( );
@@ -104,5 +104,35 @@ class DataEntryMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'sound-mix-string', $movie[ 'sound_mix' ] );
     $this->assertEquals( 'string-for-company-name', $movie[ 'company' ] );
 
+  }
+
+  public function testDataEntryUpdate()
+  {
+
+    /** if this test doesn't make any sense please look into the test with the same name in DataEntryPoiMapperTest. there is some explanation there
+     * and it's basicly the same thing here
+     * in the update XML the name is changed and added a new actor to cast
+     **/
+     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
+                  'unit' .DIRECTORY_SEPARATOR .
+                  'data' .DIRECTORY_SEPARATOR .
+                  'data_entry' .DIRECTORY_SEPARATOR .
+                  'updateXMLs' .DIRECTORY_SEPARATOR
+                  ;
+
+    //setting to use the vendor_movie_id to actually update the movie NOT insert a new one!
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,true );
+
+    $this->object = new DataEntryImportManager( 'sydney', $importDir);
+
+    $this->object->importMovies( );
+
+    $movie = Doctrine::getTable( 'Movie' )->find( 1 );
+
+    $this->assertEquals( 'Bright Star - very bright' , $movie[ 'name' ] );
+
+    //john Doe is new
+    $this->assertEquals( 'Abbie Cornish, Ben Whishaw, john Doe' , $movie[ 'cast' ] );
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,false );
   }
 }

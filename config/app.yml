@@ -25,3 +25,54 @@ all:
   geocode:
     override_accuracy: 10
     google_map_api_key: keyfromadmin
+  import_xslt:
+    uae_films: |
+      <?xml version="1.0" encoding="UTF-8"?>
+       <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="name landing_url description full_review director cast website" />
+        <xsl:template match="/">
+          <xsl:element name="films">
+            <xsl:for-each select="//films/film">
+                                  <xsl:copy-of select="." />
+            </xsl:for-each>
+          </xsl:element>
+        </xsl:template>
+      </xsl:stylesheet>
+    uae_poi: |
+      <?xml version="1.0" encoding="UTF-8"?>
+       <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="name landing_url description phone email neighbourhood prices hours city longitude longitude " />
+        <xsl:template match="/">
+          <xsl:element name="venues">
+            <xsl:for-each select="//timeout-data/venues/venue">
+                                  <xsl:copy-of select="." />
+            </xsl:for-each>
+          </xsl:element>
+        </xsl:template>
+      </xsl:stylesheet>
+    uae_events: |
+      <?xml version="1.0" encoding="UTF-8"?>
+       <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="name landing_url description phone email times start_date " />
+        <xsl:template match="/">
+          <xsl:element name="events">
+            <xsl:for-each select="//timeout-data/events/event">
+                                  <xsl:copy-of select="." />
+            </xsl:for-each>
+          </xsl:element>
+        </xsl:template>
+      </xsl:stylesheet>
+  beijing:
+      dns: "mysql:host=80.250.104.16;dbname=searchlight"
+      user: projectn
+      password: outtime99
+test:
+    beijing:
+      dns:  sqlite:/tmp/beijing.db:
+      user: projectn
+      password: outtime99
+test-functional:
+    beijing:
+      dns:  sqlite:/tmp/beijing.db:
+      user: projectn
+      password: outtime99

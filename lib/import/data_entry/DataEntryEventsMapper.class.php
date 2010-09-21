@@ -4,10 +4,10 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
      /**
     *
     * @param SimpleXMLElement $xml
-    * @param geoEncode $geoEncoder
+    * @param geocoder $geocoderr
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null, $city = false )
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false )
     {
         if( is_string( $city ) )
             $vendor = Doctrine::getTable('Vendor')->findOneByCity( $city );
@@ -16,7 +16,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
           throw new Exception( 'DataEntryEventsMapper:: Vendor not found.' );
 
         $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
-        $this->geoEncoder           = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geocoderr           = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
         $this->vendor               = $vendor;
         $this->xml                  = $xml;
     }
@@ -27,29 +27,58 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
         {
             try
             {
-                // Defaults
                 $lang = $this->vendor['language'];
-                
-                foreach ( $eventElement->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'id' )
-                    {
-                        $vendorEventId = (int) substr( (string) $value,5) ;
-                    }
-                }
 
-                foreach ( $eventElement->version->attributes() as $attribute => $value )
-                {
-                    if( $attribute == 'lang' )
-                    {
-                        $lang = (string) $value;
-                    }
-                }
-                $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage( $vendorEventId, $lang );
+                // This mapper class is used for
+                //     * importing from data entry database:
+                //         - in this case, app_data_entry_onUpdateFindById is FALSE and vpid field in the input XML is interpreted as   vendor_event_id
+                //     * updating data_entry database
+                //         - steps for update :
+                //            * in projectn installation, we ran an export to create the XML files
+                //            * for some cities, the runner configuration has exportForDataEntry: true value, for those cities, prepareExportXMLsForDataEntryTask is called to create
+                //              new XML files with the modified IDs
+                //         - in data_entry instance the modified XML files are used to import the data back to data_entry database ,in this case, app_data_entry_onUpdateFindById is
+                //              TRUE and vpid field in the input XML is interpreted as the ID of the poi to be updated
 
-                if( !$event )
+                if( sfConfig::get( 'app_data_entry_onUpdateFindById' ) )
                 {
-                    $event = new Event();
+                     $vendorEventId = (int) $eventElement[ 'id' ];
+
+                     if( !$vendorEventId )
+                     {
+                        $this->notifyImporterOfFailure( new Exception( 'vendorEventId not found for event name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                        continue;
+                     }
+
+                      $event = Doctrine::getTable( 'Event' )->find( $vendorEventId );
+
+                      if( !$event )
+                      {
+                        $this->notifyImporterOfFailure( new Exception( '@event not found for update!' ) );
+                        continue;
+                      }
+
+                }
+                else
+                {
+                    $vendorEventId = (int) substr( (string)  $eventElement[ 'id' ], 5) ;
+
+                    if( !$vendorEventId )
+                    {
+                        $this->notifyImporterOfFailure( new Exception( 'vendorEventId not found for event name: ' . (string) @$venueElement->name . ' and city: ' . @$this->vendor['city'] ) );
+                        continue;
+                    }
+
+                    $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndVendorId( $vendorEventId, $this->vendor [ 'id' ] );
+                    if( !$event )
+                    {
+                        $event = new Event();
+                    }
+
+                    $event[ 'vendor_event_id' ] = $vendorEventId;
+
+                    $event->addMeta('vendor_event_id' , $vendorEventId );
+
                 }
 
                 $event[ 'review_date' ] = '';
@@ -181,10 +210,10 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
             }
             catch ( Exception  $exception)
             {
-                $this->notifyImporterOfFailure($exception, $event); 
+                $this->notifyImporterOfFailure($exception, $event);
             }
 
         }
     }
-    
+
 }

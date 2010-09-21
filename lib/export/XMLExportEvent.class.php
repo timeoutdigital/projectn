@@ -28,6 +28,8 @@ class XMLExportEvent extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'event.xsd';
     parent::__construct(  $vendor, $destination, 'Event', $xsd );
 
+    ExportLogger::getInstance()->initExport( 'Event' );
+
     if ( file_exists( $poiXmlLocation ) )
     {
         $poiXmlObj = simplexml_load_file($poiXmlLocation);
@@ -61,7 +63,10 @@ class XMLExportEvent extends XMLExport
 
   protected function getData()
   {
-    return Doctrine::getTable( 'Event' )->findForExport( $this->vendor );
+    $events = Doctrine::getTable( 'Event' )->findForExport( $this->vendor );
+    $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], 'Event' );
+
+    return $events;
   }
 
   /**
@@ -157,7 +162,7 @@ class XMLExportEvent extends XMLExport
       $this->appendNonRequiredElement($versionElement, 'price', $event['price'], XMLExport::USE_CDATA);
 
       //event/version/media
-      foreach( $event[ 'EventMedia' ] as $medium )
+      foreach( $this->filterByExportPolicyAndVerifyMedia( $event[ 'EventMedia' ] ) as $medium )
       {
         $em = new EventMedia();
         $em->merge( $medium );
@@ -259,7 +264,7 @@ class XMLExportEvent extends XMLExport
         //$place->free();
       }
 
-      ExportLogger::getInstance()->addExport( 'Event' );
+      ExportLogger::getInstance()->addExport( 'Event', $event['id'] );
 
       //$event->free();
     }

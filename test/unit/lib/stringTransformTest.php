@@ -1,5 +1,4 @@
 <?php
-setlocale(LC_ALL, array('en_US.UTF-8', ));
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../bootstrap.php';
@@ -80,6 +79,30 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
       //print( "-- Found start time found for: " . count( $data ) . " of " . count( $import ) . " strings checked. --" . PHP_EOL );
   }
 
+  /**
+   * Check if an email address is valid, returns boolean.
+   * Email addresses are a bit off a weird one, valid characters include _-/=!%
+   */
+  public function testIsValidEmail()
+  {
+      // Valid
+      $this->assertTrue( stringTransform::isValidEmail( 'peterjohnson@timeout.com' ) );
+      $this->assertTrue( stringTransform::isValidEmail( 'peter.johnson=cool@example.museum' ) );
+      $this->assertTrue( stringTransform::isValidEmail( 'a@a.a.ab' ) );
+
+      // Escaped Characters
+      $this->assertFalse( stringTransform::isValidEmail( 'Abc@def89@example.com' ) ); // Two @ symbols
+      $this->assertTrue( stringTransform::isValidEmail( 'Abc\@def89@example.com' ) ); // Apparently this IS a valid email address because the @ is quoted.
+
+      // Invalid
+      $this->assertFalse( stringTransform::isValidEmail( '@example.com' ) ); // Missing alias
+      $this->assertFalse( stringTransform::isValidEmail( 'a@example.' ) ); // Missing Domain 2LD
+      $this->assertFalse( stringTransform::isValidEmail( 'a@com' ) ); // Missing Domain
+      $this->assertFalse( stringTransform::isValidEmail( 'a@.com' ) ); // Missing Domain
+      $this->assertFalse( stringTransform::isValidEmail( 'www.google.com' ) ); // A domain name
+      $this->assertFalse( stringTransform::isValidEmail( 'peter.com@a' ) );
+  }
+  
   /**
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
@@ -229,8 +252,22 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatUrl()
   {
-      $this->assertEquals('http://www.google.com', stringTransform::formatUrl('http://www.google.com'), 'Test that http is in string');
+      $this->assertEquals( 'http://www.google.com', stringTransform::formatUrl('http://www.google.com'), 'Test that http is in string' );
+      $this->assertEquals( 'http://www.google.com', stringTransform::formatUrl( 'www.google.com' ) );
+      $this->assertEquals( 'http://foo.com/', stringTransform::formatUrl( 'foo.com/' ) );
 
+      $this->assertNull( stringTransform::formatUrl( null ) );
+      $this->assertNull( stringTransform::formatUrl( 99 ) );
+      $this->assertNull( stringTransform::formatUrl( new stdClass ) );
+      $this->assertNull( stringTransform::formatUrl( new SimpleXMLElement( '<xml />' ) ) );
+      $this->assertNull( stringTransform::formatUrl( '' ) );
+      
+      $this->assertNull( stringTransform::formatUrl( 'http://' ) );
+      $this->assertNull( stringTransform::formatUrl( 'google' ) );
+      $this->assertNull( stringTransform::formatUrl( 'google.' ) );
+      $this->assertNull( stringTransform::formatUrl( 'www.invalid*&^#characters.org' ) );
+      $this->assertNull( stringTransform::formatUrl( 'google dot com' ) );
+      $this->assertNull( stringTransform::formatUrl( 'http:///www.google.com' ) );
   }
 
   /**
@@ -238,15 +275,12 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
    */
   public function testFormatPriceRange()
   {
-    setlocale(LC_MONETARY, 'en_GB.UTF-8');
-
-    $this->assertEquals( '', stringTransform::formatPriceRange( '0', '0.00' ) );
-    $this->assertEquals( '£ 1.00', stringTransform::formatPriceRange( '1', '0.00' ) );
-    $this->assertEquals( 'between £ 1.00 and £ 5.00', stringTransform::formatPriceRange( '1', '5' ) );
-    $this->assertEquals( 'between £ 1.50 and £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00' ) );
-    $this->assertEquals( '£ 1.50 - £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
-    setlocale(LC_ALL, array('en_US.UTF-8', ));
-    $this->assertEquals( '$1.50 - $3.00', stringTransform::formatPriceRange( '1.50', '3.00', 'short' ) );
+    $this->assertEquals( '', stringTransform::formatPriceRange( '0', '0.00', '£ ' ) );
+    $this->assertEquals( '£ 1.00', stringTransform::formatPriceRange( '1', '0.00', '£ ' ) );
+    $this->assertEquals( 'between £ 1.00 and £ 5.00', stringTransform::formatPriceRange( '1', '5', '£ ' ) );
+    $this->assertEquals( 'between £ 1.50 and £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', '£ ' ) );
+    $this->assertEquals( '£ 1.50 - £ 3.00', stringTransform::formatPriceRange( '1.50', '3.00', '£ ', 'short' ) );
+    $this->assertEquals( '$1.50 - $3.00', stringTransform::formatPriceRange( '1.50', '3.00', '$', 'short' ) );
   }
 
   /**

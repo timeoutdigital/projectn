@@ -14,9 +14,9 @@
 class barcelonaBaseMapper extends DataMapper
 {
     /**
-    * @var geoEncode
+    * @var geocoder
     */
-    protected $geoEncoder;
+    protected $geocoderr;
 
     /**
     * @var Vendor
@@ -31,17 +31,17 @@ class barcelonaBaseMapper extends DataMapper
     /**
     *
     * @param SimpleXMLElement $xml
-    * @param geoEncode $geoEncoder
+    * @param geocoder $geocoderr
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null )
     {        
         $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'barcelona', 'ca' );
 
         //date_default_timezone_set( $this->vendor->time_zone );
         //setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
         
-        $this->geoEncoder = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geocoderr = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
         $this->xml        = $xml;
     }
 

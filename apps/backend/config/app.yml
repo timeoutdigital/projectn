@@ -5,12 +5,30 @@
 all:
   #matches url: http://projectn.local/
   google_api_key : ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg
-
+  data_entry:
+#.....................................................................
+#     Data entry mappers are used for two different cases:
+#     1 : importing from data entry database:
+#         - in this case, onUpdateFindById is FALSE and vpid field in the input XML is interpreted as   vendor_event_id
+#     2 : updating data_entry database
+#         - steps for update :
+#            * in projectn installation, we ran an export to create the XML files
+#            * for some cities, the runner configuration has exportForDataEntry: true value, for those cities, prepareExportXMLsForDataEntryTask is called to create
+#              new XML files with the modified IDs
+#         - in data_entry instance the modified XML files are used to import the data back to data_entry database ,in this case, app_data_entry_onUpdateFindById is
+#              TRUE and vpid field in the input XML is interpreted as the ID of the poi to be updated
+#.......................................................................
+    onUpdateFindById: false
+  runner:
+    order: [ import, export ]
   import:
     cities:
         -
           name: singapore
           type: [ poi-event, movie ]
+        -
+          name: nyfix
+          type: [ fixid ]
         -
           name: ny
           type: [ poi-event, eating-drinking, bars-clubs, movie ]
@@ -43,7 +61,8 @@ all:
           type: [ poi, event, movie ]
         -
           name: kuala lumpur
-          type: [ poi, event, movie ]
+# please note that POi import for KL is removed temporarily
+          type: [ event, movie ]
         -
           name: mumbai
           type: [ poi, event, movie ]
@@ -57,8 +76,14 @@ all:
           name: pune
           type: [ poi, event, movie ]
         -
-          name: beijing
+          name: beijing-data-entry
           type: [ poi ]
+        -
+          name: dubai
+          type: [ bar, restaurant, poi, event, movie ]
+        -
+          name: abu dhabi
+          type: [ bar, restaurant, poi, event, movie ]
 
   export:
     cities:
@@ -66,62 +91,88 @@ all:
           name: singapore
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
         -
           name: ny
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
         -
           name: chicago
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
         -
           name: london
           type: [ poi, event, movie ]
           language: en-GB
+          exportForNokia: true
         -
           name: lisbon
           type: [ poi, event, movie ]
           language: pt
+          exportForNokia: true
         -
           name: sydney
           type: [ poi, event, movie ]
           language: en-AU
+          exportForNokia: true
         -
           name: moscow
           type: [ poi, event, movie ]
           language: ru
+          exportForNokia: true
         -
           name: saint petersburg
           type: [ poi, event, movie ]
           language: ru
+          exportForNokia: true
         -
           name: almaty
           type: [ poi, event, movie ]
           language: ru
+          exportForNokia: true
         -
           name: barcelona
           type: [ poi, event, movie ]
           language: ca
+          exportForNokia: true
         -
           name: kuala lumpur
           type: [ poi, event, movie ]
           language: en-MY
+          exportForNokia: true
         -
           name: mumbai
           type: [ poi, event, movie ]
           language: en-GB
+          exportForDataEntry: true
+          exportForNokia: true
         -
           name: delhi
           type: [ poi, event, movie ]
           language: en-GB
+          exportForDataEntry: true
+          exportForNokia: true
         -
           name: bangalore
           type: [ poi, event, movie ]
           language: en-GB
+          exportForDataEntry: true
+          exportForNokia: true
         -
           name: pune
           type: [ poi, event, movie ]
           language: en-GB
+          exportForDataEntry: true
+          exportForNokia: true
+        -
+          name: beijing
+          type: [ poi ]
+          language: en-GB
+          exportForDataEntry: true
+          exportForNokia: false
+
 
 
 prod:

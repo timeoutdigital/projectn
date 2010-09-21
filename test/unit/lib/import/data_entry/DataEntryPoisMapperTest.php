@@ -114,4 +114,39 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
     //content node end
 
   }
+
+  public function testDataEntryUpdate()
+  {
+
+    /** the background of the story :
+     * the barcelona data entry import have been called in set up and the venue "Museu Arqueologia de Catalunya" inserted into test database
+     * the id of that venue in the database is 1 right?
+     * cool!  there is an update XML for updating this venue using dataEntry system the file is in updateXMLs/export_20100712/poi/barcelona.xml
+     * for the record, this update XMLs are being created by prepareExportXMLsForDataEntryTask
+     * please note that the id in this XML is 1, if  use dataEntryEventMapper with the right configuration  ( app_data_entry_onUpdateFindById = true )we can update the record.
+     * the only change is the street name in the update XML
+     * here we go!!
+     **/
+     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
+                  'unit' .DIRECTORY_SEPARATOR .
+                  'data' .DIRECTORY_SEPARATOR .
+                  'data_entry' .DIRECTORY_SEPARATOR .
+                  'updateXMLs' .DIRECTORY_SEPARATOR
+                  ;
+
+    //setting to use the vendor_poi_id to actually update the poi NOT insert a new one!
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,true );
+
+    $this->object = new DataEntryImportManager( 'barcelona', $importDir);
+
+    $this->object->importPois( );
+
+    $poi = Doctrine::getTable( 'Poi' )->find( 1 );
+
+    $this->assertEquals( 'Museu Arqueologia de Catalunya' , $poi[ 'poi_name' ] );
+
+    $this->assertEquals( 'updated street' , $poi[ 'street' ] );
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,false );
+  }
+
 }

@@ -46,7 +46,6 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
         $poi[ 'Vendor' ] = $this->vendor;
         $poi->save();
     }
-    setlocale(LC_MONETARY, 'en_US.UTF-8');
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
     $importer->run();
@@ -120,5 +119,15 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
                           $event['EventMedia'][0]['url']
                           );
+  }
+
+  public function testFilmEventsAreSavedInArtCategory()
+  {
+      $event = $this->eventTable->findOneById( 3 );  //event's category is Film but we are expecting it to be saved as Art
+
+      $vendorCategory =  $event['VendorEventCategory']->toArray();
+
+      $this->assertEquals( 'Art', $vendorCategory[ 'Art' ][ 'name' ] );
+
   }
 }

@@ -20,9 +20,9 @@ class BeijingFeedBaseMapper extends DataMapper
     protected $pdoDB;
 
     /**
-    * @var geoEncode
+    * @var geocoder
     */
-    protected $geoEncoder;
+    protected $geocoderr;
 
     /**
     * @var Vendor
@@ -32,9 +32,9 @@ class BeijingFeedBaseMapper extends DataMapper
     /**
      * Create Base Mapper
      * @param PDO $pdoDB (Connected object)
-     * @param geoEncode $geoEncoder
+     * @param geocoder $geocoderr
      */
-    public function  __construct( $pdoDB, geoEncode $geoEncoder = null ) {
+    public function  __construct( $pdoDB, geocoder $geocoderr = null ) {
 
         if( is_null($pdoDB) )
             throw new Exception ('Invalid PDO Database object');
@@ -48,7 +48,7 @@ class BeijingFeedBaseMapper extends DataMapper
 
         $this->pdoDB        = $pdoDB; // Set DB
         $this->vendor       = $vendor; // Set Vendor
-        $this->geoEncoder   = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geocoderr   = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
     }
 
     protected function query( $tableName, $offset = 0, $limit = 500, $cityID = 2 )

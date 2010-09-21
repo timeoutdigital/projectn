@@ -35,9 +35,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected $country = 'GBR';
 
   /**
-   * @var geoEncode
+   * @var geocoder
    */
-  protected $geoEncoder;
+  protected $geocoderr;
 
   /**
    * @var int
@@ -56,9 +56,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
   /**
    * @param LondonAPICrawler $apiCrawler
-   * @param geoEncode $geoEncoder
+   * @param geocoder $geocoderr
    */
-  public function  __construct( LondonAPICrawler $apiCrawler=null, geoEncode $geoEncoder = null )
+  public function  __construct( LondonAPICrawler $apiCrawler=null, geocoder $geocoderr = null )
   {
     $this->vendor = Doctrine::getTable('Vendor')
       ->findOneByCityAndLanguage( 'london', 'en-GB' );
@@ -70,11 +70,11 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $apiCrawler->setMapper( $this );
     $this->apiCrawler = $apiCrawler;
 
-    if( is_null( $geoEncoder ) )
+    if( is_null( $geocoderr ) )
     {
-      $geoEncoder = new geoEncode();
+      $geocoderr = new googleGeocoder();
     }
-    $this->geoEncoder = $geoEncoder;
+    $this->geocoderr = $geocoderr;
 
     $this->dataMapperHelper = new projectNDataMapperHelper($this->vendor);
   }
@@ -159,9 +159,9 @@ abstract class LondonAPIBaseMapper extends DataMapper
     $poi['public_transport_links'] = (string) $xml->travelInfo;
     $poi['description']       = (string) $xml->description;
 
-    $geoEncodeLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], "UK" ) );
+    $geocoderLookUpString = stringTransform::concatNonBlankStrings( ', ', array( $poi['poi_name'], $poi['street'] , $poi['city'] , $poi['zips'], "UK" ) );
 
-    $poi->setGeoEncodeLookUpString( $geoEncodeLookUpString );
+    $poi->setgeocoderLookUpString( $geocoderLookUpString );
   }
 
   /**
