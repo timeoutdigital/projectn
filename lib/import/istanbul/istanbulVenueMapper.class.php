@@ -65,7 +65,8 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $poi['Vendor']                        = clone $this->vendor;
 
             // Use Feed lat / Long
-            $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->lat ) , $this->clean( (string) $venueElement->long ) );
+            // ISTANBUL Sending Lat/Long wrongway around... Swap lat long and it's Good as of 22 Sep 2010
+            $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
 
             // Categories
             $cats = $this->extractCategories( $venueElement );
