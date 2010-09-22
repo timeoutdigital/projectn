@@ -4,7 +4,6 @@
 # default values
 all:
   #matches url: http://projectn.local/
-  google_api_key : ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg
   data_entry:
 #.....................................................................
 #     Data entry mappers are used for two different cases:
@@ -26,6 +25,9 @@ all:
         -
           name: singapore
           type: [ poi-event, movie ]
+        -
+          name: nyfix
+          type: [ fixid ]
         -
           name: ny
           type: [ poi-event, eating-drinking, bars-clubs, movie ]
