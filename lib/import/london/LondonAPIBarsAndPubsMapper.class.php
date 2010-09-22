@@ -56,7 +56,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    */
   public function getApiType()
   {
-    return 'Bars & Pubs';
+    return 'Bars & pubs';
   }
 
   /**

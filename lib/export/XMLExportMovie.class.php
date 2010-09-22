@@ -181,7 +181,7 @@ class XMLExportMovie extends XMLExport
       //implementation on hold
 
       //movie/version/media
-      foreach( $movie[ 'MovieMedia' ] as $medium )
+      foreach( $this->filterByExportPolicyAndVerifyMedia( $movie[ 'MovieMedia' ] ) as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
 
