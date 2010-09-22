@@ -71,14 +71,11 @@ class kualaLumpurVenuesMapper extends DataMapper
             $this->notifyImporterOfFailure( $exception );
           }
 
-          //$this->notifyImporter( $poi );
-          $poi->save();
-          echo '.';
+          $this->notifyImporter( $poi );
 
         }
         catch( Exception $exception )
         {
-            echo $exception->getMessage() . PHP_EOL;
             $this->notifyImporterOfFailure( $exception, $poi );
         }
     }
