@@ -471,7 +471,7 @@ Vendor:
     airport_code:             IST
     country_code:             tr
     country_code_long:        TUR
-    geo_boundries:            '6.74713850021362;68.1866760253906;35.5042304992676;97.4033126831055'
+    geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
 
 EventCategory:
   c1:
