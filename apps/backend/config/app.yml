@@ -60,8 +60,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: kuala lumpur
-# please note that POi import for KL is removed temporarily
-          type: [ event, movie ]
+          type: [ poi, event, movie ]
         -
           name: mumbai
           type: [ poi, event, movie ]

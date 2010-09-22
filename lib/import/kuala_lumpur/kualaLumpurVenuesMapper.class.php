@@ -56,14 +56,12 @@ class kualaLumpurVenuesMapper extends DataMapper
           $poi[ 'description' ]       = (string) $venue->description;
           $poi[ 'Vendor' ]            = $this->vendor;
 
+          // Add vendor POi Category
+          $category     = array();
+          $category[]   = (string) $venue->categories->category;
+          $category[]   = (string) $venue->categories->subCategory;
 
-          $cat  = (string) $venue->categories->category;
-          $cat2 = (string) $venue->categories->subCategory;
-
-          if( !empty( $cat ) && !empty( $cat2 ) )
-          {
-                $poi->addVendorCategory( array( $cat, $cat2 ), $this->vendor['id'] );
-          }
+          $poi->addVendorCategory( $category, $this->vendor['id'] );
 
           try {
             $poi->addMediaByUrl( (string) $venue->medias->big_image );
@@ -73,11 +71,14 @@ class kualaLumpurVenuesMapper extends DataMapper
             $this->notifyImporterOfFailure( $exception );
           }
 
-          $this->notifyImporter( $poi );
+          //$this->notifyImporter( $poi );
+          $poi->save();
+          echo '.';
 
         }
         catch( Exception $exception )
         {
+            echo $exception->getMessage() . PHP_EOL;
             $this->notifyImporterOfFailure( $exception, $poi );
         }
     }
