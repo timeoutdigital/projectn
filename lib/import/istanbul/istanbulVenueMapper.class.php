@@ -52,7 +52,8 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $poi['fax']                           = $this->clean( (string) $venueElement->fax );
             $poi['keywords']                      = $this->clean( (string) $venueElement->keywords );
             $poi['short_description']             = $this->clean( (string) $venueElement->short_description );
-            $poi['description']                   = $this->clean( (string) $venueElement->description );
+            $description                          = preg_replace("/\n{2,}/su","\n\n",(string) $venueElement->description );
+            $poi['description']                   = $this->clean( $description );
             //$poi['public_transport_links']        = $this->extractPublicTransportInfo( $venueElement );
             //$poi['price_information']             = $this->clean( (string) $venueElement->price_information );
             //$poi['openingtimes']                  = $this->clean( (string) $venueElement->opening_times );
