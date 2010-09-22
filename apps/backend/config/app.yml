@@ -4,8 +4,6 @@
 # default values
 all:
   #matches url: http://projectn.local/
-  google_api_key : ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg
-  yandex_api_key : ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==
   data_entry:
 #.....................................................................
 #     Data entry mappers are used for two different cases:
