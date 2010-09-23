@@ -254,11 +254,21 @@ class importTask extends sfBaseTask
         break; //end chicago
 
       case 'singapore':
+
+          // added here to ensure URL always return valid URL string
+          if( !in_array( $options['type'], array('poi', 'event', 'movie') ) )
+          {
+              $this->dieDueToInvalidTypeSpecified();
+              return;
+          }
           // Get Vendor
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
+        $singaporeURL['poi']    = 'http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
+        $singaporeURL['event']  = 'http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
+        $singaporeURL['movie']  = 'http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e';
         // Get XML
-        $dataSource = new singaporeDataSource( $options['type'] );
+        $dataSource = new singaporeDataSource( $options['type'], $singaporeURL[$options['type']] );
         $xml = $dataSource->getXML();
 
         // set vendor to logger

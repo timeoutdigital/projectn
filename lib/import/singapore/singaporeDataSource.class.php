@@ -16,21 +16,22 @@
 class singaporeDataSource extends baseDataSource
 {
     private $curlClass; // Holds the Class for Curl, bcz, it require mocking when testing
-    private $venuesUrl  = 'http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
-    private $eventsUrl  = 'http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
-    private $movieUrl   = 'http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e';
+    private $downloadURL;
 
-    public function __construct( $type, $curlClass = 'Curl', $venueURL= null, $eventURL = null, $movieUrl = null )
+    public function __construct( $type, $url, $curlClass = 'Curl' )
     {
         parent::__construct( $type );
 
+        if( empty($url) )
+        {
+            throw new Exception('No Download URL provided?');
+        }
+        
         // set Curl Class
         $this->curlClass    = ( !is_string( $curlClass ) ) ? 'Curl' : $curlClass;
         
         // Override URLs
-        $this->venuesUrl    = ( is_string( $venueURL ) && trim( $venueURL ) != '' ) ? $venueURL : $this->venuesUrl;
-        $this->eventsUrl    = ( is_string( $eventURL ) && trim( $eventURL ) != '' ) ? $eventURL : $this->eventsUrl;
-        $this->movieUrl     = ( is_string( $movieUrl ) && trim( $movieUrl ) != '' ) ? $movieUrl : $this->movieUrl;
+        $this->downloadURL  = $url;
 
         // fetch XML from Feed
         $this->fetchXML();
@@ -44,24 +45,15 @@ class singaporeDataSource extends baseDataSource
     protected function fetchXML()
     {
         $nodes = array();
-
-        switch ( $this->type )
+        // Get the Singapore vendor
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'singapore' );
+        if( $vendor == null )
         {
-            case self::TYPE_EVENT:
-                $url = $this->eventsUrl;
-                break;
-
-            case self::TYPE_POI:
-                $url = $this->venuesUrl;
-                break;
-
-            case self::TYPE_MOVIE:
-                $url = $this->movieUrl;
-                break;
+            throw new Exception( 'singapore vendor not found!' );
         }
 
         // Use Curl to download the List file, which lincking to detailed individual Nodes
-        $feedObj = new $this->curlClass( $url );
+        $feedObj = new $this->curlClass( $this->downloadURL );
         $feedObj->exec();
 
         // Fix UTF8 Encoding Issue
@@ -74,6 +66,36 @@ class singaporeDataSource extends baseDataSource
         // For each links, get the Detailed Nodes and Build Simple XML
         foreach ( $xml->channel->item as $item )
         {
+            // #666 Skip Hitting Singapore server when Published Date don't Change
+            $url = (string) $item->link;
+            $matches = array();
+
+            // Find the ID & Model
+            preg_match("/^http:\/\/.*\?(event|venue|movie)=(.*)&(?:amp;)?key=.*$/", $url, $matches); // Output ( [0] => FULL URL, [1] => model_name, [2] => ID )
+
+            if( $matches !== null && count( $matches ) == 3 )
+            {
+                $itemID             = $matches[2];
+                $pubDate            = date("Y-m-d H:i:s" , strtotime( (string) $item->pubDate ) );
+                $model              = null; // Create null model for movie!
+                // switch for Model
+                switch ( strtolower($matches[1]) )
+                {
+                    case 'venue': $model      = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiIdAndReviewDate( $vendor['id'], $itemID, $pubDate );
+                        break;
+                    case 'event': $model      = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventIdAndReviewDate( $vendor['id'], $itemID, $pubDate );
+                        break;
+
+                }
+
+                // Skip if Already Exists and Not Updated Since lastime seen
+                if( $model != null )
+                {
+                    unset( $model );
+                    continue; // Skip if Found!
+                }
+            }
+            
             $detailsFeedObj = new $this->curlClass( (string) $item->link );
             $detailsFeedObj->exec();
 
@@ -81,8 +103,9 @@ class singaporeDataSource extends baseDataSource
             $nodes [] = $nodeXML ;
         }
 
+        $dataImploded = implode( '',$nodes );
         // Add Root Element to this Detailed Node collection
-        $xmlDataFixer = new xmlDataFixer( implode( '',$nodes ) );
+        $xmlDataFixer = new xmlDataFixer( $dataImploded );
         $xmlDataFixer->addRootElement();
         $xmlDataFixer->encodeUTF8(); //#667 Fix Failing import
         $this->xml = $xmlDataFixer->getSimpleXML();
