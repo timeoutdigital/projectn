@@ -55,7 +55,7 @@ class singaporeDataSourceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetXML()
+    public function testFetchXML()
     {
         $dataSource = new singaporeDataSource( 'poi', $this->tmpFile, 'CurlMock' );
         $xml = $dataSource->getXML();
