@@ -78,9 +78,9 @@ class singaporeDataSource extends baseDataSource
         }
 
         // Add Root Element to this Detailed Node collection
-        file_put_contents( '/n/singapore_poi.xml', implode( '',$nodes ) ); // DEBUG ONLY
         $xmlDataFixer = new xmlDataFixer( implode( '',$nodes ) );
         $xmlDataFixer->addRootElement();
+        $xmlDataFixer->encodeUTF8(); //#667 Fix Failing import
         $this->xml = $xmlDataFixer->getSimpleXML();
 
     }
@@ -115,14 +115,6 @@ class singaporeDataSource extends baseDataSource
 
         return ( count( $matches )> 0 ) ? $matches[ 0 ] : '';
 
-    }
-
-    /**
-     * Clean the HTML Chars in feed that's Breaking the SimpleXML
-     */
-    private function cleanData()
-    {
-        
     }
 
 }
