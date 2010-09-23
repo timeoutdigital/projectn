@@ -64,8 +64,12 @@ class singaporeDataSource extends baseDataSource
         $feedObj = new $this->curlClass( $url );
         $feedObj->exec();
 
+        // Fix UTF8 Encoding Issue
+        $xmlDataFixer = new xmlDataFixer( $feedObj->getResponse() );
+        $xmlDataFixer->encodeUTF8(); //#667 Fix Failing import
+        //
         // Convert it to SimpleXML
-        $xml = simplexml_load_string( $feedObj->getResponse() );
+        $xml = $xmlDataFixer->getSimpleXML();
 
         // For each links, get the Detailed Nodes and Build Simple XML
         foreach ( $xml->channel->item as $item )
