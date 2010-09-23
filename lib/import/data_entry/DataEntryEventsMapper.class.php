@@ -79,6 +79,35 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
 
                     $event->addMeta('vendor_event_id' , $vendorEventId );
 
+                    if( isset( $eventElement->version->media ))
+                    {
+                        foreach ( $eventElement->version->media as $media )
+                        {
+                            foreach ($media->attributes() as $key => $value)
+                            {
+                                if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                                {
+                                    continue 2; //only add the images
+                                }
+                            }
+                            try
+                            {
+                                // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                                $urlArray = explode( '/', (string) $media );
+                                // Get the Last IDENT
+                                $imageFileName = array_pop( $urlArray );
+
+                                $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
+
+                                $event->addMediaByUrl( $mediaURL );
+                            }
+                            catch ( Exception $exception )
+                            {
+                                 $this->notifyImporterOfFailure( $exception );
+                            }
+                        }
+                    }
+
                 }
 
                 $event[ 'review_date' ] = '';
@@ -125,35 +154,6 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                         foreach ($property->attributes() as $attribute)
                         {
                             $event->addProperty( (string) $attribute, (string) $property );
-                        }
-                    }
-                }
-
-                if( isset( $eventElement->version->media ))
-                {
-                    foreach ( $eventElement->version->media as $media )
-                    {
-                        foreach ($media->attributes() as $key => $value)
-                        {
-                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
-                            {
-                                continue 2; //only add the images
-                            }
-                        }
-                        try
-                        {
-                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
-                            $urlArray = explode( '/', (string) $media );
-                            // Get the Last IDENT
-                            $imageFileName = array_pop( $urlArray );
-
-                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
-
-                            $event->addMediaByUrl( $mediaURL );
-                        }
-                        catch ( Exception $exception )
-                        {
-                             $this->notifyImporterOfFailure( $exception );
                         }
                     }
                 }
