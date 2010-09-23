@@ -75,13 +75,16 @@ all:
           type: [ poi, event, movie ]
         -
           name: beijing-data-entry
-          type: [ poi ]
+          type: [ poi, event, movie ]
         -
           name: dubai
           type: [ bar, restaurant, poi, event, movie ]
         -
           name: abu dhabi
           type: [ bar, restaurant, poi, event, movie ]
+        -
+          name: istanbul
+          type: [ poi, event, movie ]
 
   export:
     cities:
@@ -166,10 +169,25 @@ all:
           exportForNokia: true
         -
           name: beijing
-          type: [ poi ]
+          type: [ poi, event, movie ]
           language: en-GB
           exportForDataEntry: true
-          exportForNokia: false
+          exportForNokia: true
+        -
+          name: dubai
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
+        -
+          name: abu dhabi
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
+        -
+          name: istanbul
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
 
 
 
