@@ -57,9 +57,12 @@ class singaporeDataSourceTest extends PHPUnit_Framework_TestCase
 
     public function testFetchXML()
     {
+        // test #666
+        $this->createPubDatePoi(); // This will make the last & live url to skip!
         $dataSource = new singaporeDataSource( 'poi', $this->tmpFile, 'CurlMock' );
         $xml = $dataSource->getXML();
 
+        // Existing poi's matching Pubished Date should be skipped #666
         $this->assertEquals( 2, count($xml), 'Venue Should have two XML nodes'); // Should have 2 XML Nodes
     }
 
@@ -72,20 +75,38 @@ class singaporeDataSourceTest extends PHPUnit_Framework_TestCase
         {
             unlink ( $this->tmpFile );
         }
-
         // create new File
-        $fileData   = file_get_contents( TO_TEST_DATA_PATH . '/singapore/new_venue_list.xml' );
+        $fileData   = file_get_contents( TO_TEST_DATA_PATH . '/singapore/new_venue_list_old_pubdate.xml' );
 
         // Update Links
         $xml        = simplexml_load_string( $fileData );
 
-        $xml->channel->item[0]->link    = TO_TEST_DATA_PATH . '/singapore/' . (string) $xml->channel->item[0]->link;
-        $xml->channel->item[0]->guid    = TO_TEST_DATA_PATH . '/singapore/' . (string) $xml->channel->item[0]->guid;
-
-        $xml->channel->item[1]->link    = TO_TEST_DATA_PATH . '/singapore/' . (string) $xml->channel->item[1]->link;
-        $xml->channel->item[1]->guid    = TO_TEST_DATA_PATH . '/singapore/' . (string) $xml->channel->item[1]->guid;
+        for( $i = 0; $i < 2; $i++ ) // #666 - Third one is LIve URl which should never be requested
+        {
+            $xml->channel->item[$i]->link    = TO_TEST_DATA_PATH . '/singapore/' . (string) $xml->channel->item[$i]->link;
+            $xml->channel->item[$i]->guid    = TO_TEST_DATA_PATH . '/singapore/' . (string) $xml->channel->item[$i]->guid;
+        }
 
         file_put_contents( $this->tmpFile, $xml->saveXML() );
+    }
+
+    /**
+     * This will Create a POI that has the PUB date exactly same as in XML feed
+     * That should not be loaded in XMl feed when SingaporeDataSource is called
+     */
+    private function createPubDatePoi()
+    {
+        $poi = new Poi();
+        $poi['vendor_poi_id'] = '666';
+        $poi['poi_name'] = 'Test Poi Name';
+        $poi['street'] = 'Test street';
+        $poi['city'] = 'Singapore';
+        $poi['local_language'] = 'en-US';
+        $poi['country'] = 'SGP';
+        $poi['vendor_id'] = 3;
+        $poi['review_date'] = date("Y-m-d H:i:s" , strtotime( 'Thu, 26 Aug 10 07:10:01 +0000' ) );
+
+        $poi->save();
     }
     
 }
