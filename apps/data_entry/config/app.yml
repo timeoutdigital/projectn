@@ -55,7 +55,7 @@ all:
           exportForNokia: true
         -
           name: beijing
-          type: [ poi ]
+          type: [ poi, event, movie ]
           language: en-GB
           validation: false
           exportForNokia: true
