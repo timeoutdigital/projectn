@@ -254,68 +254,36 @@ class importTask extends sfBaseTask
         break; //end chicago
 
       case 'singapore':
+          // Get Vendor
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
 
+        // Get XML
+        $dataSource = new singaporeDataSource( $options['type'] );
+        $xml = $dataSource->getXML();
+
+        // set vendor to logger
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+
+        // Create Mapper class
         switch( $options['type'] )
         {
-          case 'poi-event':
-            //http://www.timeoutsingapore.com/xmlapi/events/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-            //http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
 
-            echo "Starting Singapore Pois import \n";
-            $curlImporterObj = new curlImporter();
-            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-
-            echo "Getting Singapore poi-event feed\n";
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/venues/', '', $parametersArray, 'GET', true );
-            $xmlObj = $curlImporterObj->getXml();
-
-            echo "Importing Singapores Pois \n\n";
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
-            $this->object->insertPois( $xmlObj );
-
-            echo "Starting Singapore Events import \n";
-            $curlImporterObj = new curlImporter();
-            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-
-            echo "Getting reading Singapore poi-event feed";
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/events/', '', $parametersArray, 'GET', true );
-            $xmlObj = $curlImporterObj->getXml();
-
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj, 'http://www.timeoutsingapore.com/xmlapi/xml_detail/?venue={venueId}&key=ffab6a24c60f562ecf705130a36c1d1e' );
-            $this->object->insertEvents( $xmlObj );
-
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-
+          case 'poi':
+            $importer->addDataMapper( new singaporePoiMapper( $xml ) );
             break;
-
+          case 'event':
+            $importer->addDataMapper( new singaporeEventMapper( $xml ) );
+            break;
           case 'movie':
-            //http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
-
-            echo "Connecting to Singapore Movie Feed \n";
-            $curlImporterObj = new curlImporter();
-            $parametersArray = array( 'section' => 'index', 'full' => '', 'key' => 'ffab6a24c60f562ecf705130a36c1d1e' );
-            $curlImporterObj->pullXml ('http://www.timeoutsingapore.com/xmlapi/movies/', '', $parametersArray, 'GET', true );
-
-            echo "Importing Singapore Feed \n";
-            $xmlObj = $curlImporterObj->getXml();
-
-            echo "Importing Movie Data";
-            $this->object = new singaporeImport( $vendorObj, $curlImporterObj );
-            $this->object->insertMovies( $xmlObj );
-
-            echo "Impored Singapores Movies \n";
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-
+            $importer->addDataMapper( new singaporeMovieMapper( $xml ) );
           break;
-
-          case 'eating-drinking':
-          break;
-
           default : $this->dieDueToInvalidTypeSpecified();
         }
+        
+        // Run Import
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
 
         break; //end singapore
 
