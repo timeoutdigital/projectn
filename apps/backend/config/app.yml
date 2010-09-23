@@ -24,7 +24,7 @@ all:
     cities:
         -
           name: singapore
-          type: [ poi-event, movie ]
+          type: [ poi, event, movie ]
         -
           name: nyfix
           type: [ fixid ]
