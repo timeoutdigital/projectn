@@ -4,11 +4,11 @@ class EventTable extends Doctrine_Table
 {
 
   /*
-   * @todo debug this function and possibly remove the 
+   * @todo debug this function and possibly remove the
    * following line in XmlExportEvent
-   * 
+   *
    * if ( $eventOccurrence[ 'Event' ] != $event ) continue;
-   * 
+   *
    * and use this function instead
    */
   public function findWithOccurrencesOrderedByPois()
@@ -22,9 +22,6 @@ class EventTable extends Doctrine_Table
   }
 
   /**
-   * Get the name of the vendor's uid fieldname, this is a temporary solution
-   * @todo rename Poi, Events, Movies etc to have vendor_uid field instead
-   * of vendor_<model name>_id to allow polymorphism
    *
    * @return string
    */
@@ -64,7 +61,7 @@ class EventTable extends Doctrine_Table
 
   public function customFindByVendorId( $vendorID, $hydrate=true)
   {
-      
+
       $query = $this->createQuery('event e')
                     ->leftJoin('e.EventCategory ec')
                     ->leftJoin('e.LinkingEventCategory')
@@ -78,7 +75,7 @@ class EventTable extends Doctrine_Table
       {
          return  $query->execute( array(), Doctrine_Core::HYDRATE_ARRAY);
       }
-     
+
   }
 
   public function findForExport( Vendor $vendor )
@@ -115,4 +112,14 @@ class EventTable extends Doctrine_Table
       ;
     return $event;
   }
+
+  public function getVendorEventCategoryByVendorId( $vendorID, $order = 'name ASC' )
+    {
+        $query = Doctrine_Query::create( )
+            ->from( 'VendorEventCategory v' )
+            ->andWhere( 'vendor_id = ?', $vendorID )
+            ->orderBy( $order );
+
+        return $query->execute();
+    }
 }

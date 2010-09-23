@@ -332,9 +332,8 @@ class stringTransform
       {
           $subject =  'http://'.$subject;
       }
-
       // Validate url
-      $validUrl = preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $subject );
+      $validUrl = preg_match( '|^http(s)?://[a-z0-9-]+(\.[a-z]+)*(:[0-9]+)?(/.*)?$|i', $subject );
 
       // Return Validated Url
       return $validUrl ? $subject : null;

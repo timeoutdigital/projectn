@@ -443,6 +443,35 @@ Vendor:
     country_code_long:        'HUN'
     geo_boundries:            '45.7436027526855;16.1118869781494;48.5856742858887;22.9060020446777'
 
+  v31:
+    city:                     bahrain
+    language:                 en-US
+    time_zone:                Asia/Bahrain
+    inernational_dial_code:   '+973'
+    airport_code:             'BAH'
+    country_code:             'bh'
+    country_code_long:        'BHR'
+    geo_boundries:            '25.53811928311912;50.43746944444443;26.30564166666667;50.82599022072657'
+
+  v32:
+    city:                     doha
+    language:                 en-US
+    time_zone:                Asia/Qatar
+    inernational_dial_code:   '+974'
+    airport_code:             'DOH'
+    country_code:             'qa'
+    country_code_long:        'QAT'
+    geo_boundries:            '24.47014067296245;50.72675061458525;26.18160941174351;51.75429425645682'
+
+  v33:
+    city:                     istanbul
+    language:                 tr
+    time_zone:                Asia/Istanbul
+    inernational_dial_code:   +90
+    airport_code:             IST
+    country_code:             tr
+    country_code_long:        TUR
+    geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
 
 EventCategory:
   c1:

@@ -38,19 +38,55 @@ class importTask extends sfBaseTask
     // Select the City
     switch( $options['city'] )
     {
+        case 'nyfix':
+            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+
+            switch( $options['type'] )
+            {
+                case 'fixid':
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+
+                $task = new mapNyVendorPoiId2NewId( new sfEventDispatcher, new sfFormatter );
+                $task->runFromCLI( new sfCommandManager, array());
+
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+                break;
+            }
+            break;
       case 'ny':
 
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
 
         switch( $options['type'] )
         {
-          case 'poi-event':
-                //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+            case 'poi-event':
+                ImportLogger::getInstance()->setVendor( $vendorObj );
+                // Set FTP
                 $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
                 $ftpClientObj->setSourcePath( '/NOKIA/' );
-                $this->importNyEvents($vendorObj, $ftpClientObj);
-            break;
 
+                echo "Downloading NY's Event's feed \n";
+                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
+
+                // Load XML file
+                $xmlString      = file_get_contents( $fileNameString );
+                $xmlDataFixer   = new xmlDataFixer( $xmlString );
+                //$xmlDataFixer->addRootElement( 'body' );
+                $xmlDataFixer->removeHtmlEntiryEncoding();
+                $xmlDataFixer->encodeUTF8();
+
+                $processXmlObj = new processNyXml( '' );
+                $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
+                $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
+
+                echo "Importing NY Events / Poi  \n";
+                $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+                $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+                ImportLogger::getInstance()->end();
+                $this->dieWithLogMessage();
+
+                break;
           case 'movie':
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
@@ -396,7 +432,7 @@ class importTask extends sfBaseTask
             case 'movie':
 
                 if( $options['city'] !== 'russia' ) $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
-                
+
                 $feedUrl = 'http://www.timeout.ru/london/movies.xml';
                 $mapperClass = 'RussiaFeedMoviesMapper';
 
@@ -595,17 +631,111 @@ class importTask extends sfBaseTask
 
     break; // end Barcelona
 
+    case 'dubai':
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('dubai', 'en-US');
 
-    case 'uae':
         switch( $options['type'] )
         {
-          case 'poi': $this->importUaePois(); break;
-          case 'poi-event': $this->importUaeEvents(); break;
-          case 'movies': $this->importUaeMovies(); break;
-          default : $this->dieDueToInvalidTypeSpecified();
+            case 'bar':
+                $feedUrl            = 'http://www.timeoutdubai.com/nokia/bars';
+                $dataMapperClass    = 'UAEFeedBarsMapper';
+                break;
+            case 'restaurant':
+                $feedUrl            = 'http://www.timeoutdubai.com/nokia/restaurants';
+                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
+                break;
+            case 'poi':
+                $feedUrl            = 'http://www.timeoutdubai.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedPoiMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
+                break;
+            case 'event':
+                $feedUrl            = 'http://www.timeoutdubai.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedEventsMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
+                break;
+            case 'movie':
+                $feedUrl            = 'http://www.timeoutdubai.com/customfeed/nokia/films';
+                $dataMapperClass    = 'UAEFeedFilmsMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' );
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
         }
-    break; // end uae
 
+        if( isset($feedUrl) && isset($dataMapperClass) )
+        {
+            // Download the File
+            $feedCurl           = new Curl( $feedUrl );
+            $feedCurl->exec();
+
+            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
+            {
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
+            }else{
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
+            }
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+        }
+
+        break;
+    case 'abu dhabi':
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('abu dhabi', 'en-US');
+
+        switch( $options['type'] )
+        {
+            case 'bar':
+                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/bars';
+                $dataMapperClass    = 'UAEFeedBarsMapper';
+                break;
+            case 'restaurant':
+                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/restaurants';
+                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
+                break;
+            case 'poi':
+                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedPoiMapper';
+                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
+                break;
+            case 'event':
+                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedEventsMapper';
+
+                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
+                break;
+            case 'movie':
+                $feedUrl            = 'http://www.timeoutabudhabi.com/customfeed/nokia/films';
+                $dataMapperClass    = 'UAEFeedFilmsMapper';
+                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' );
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        if( isset($feedUrl) && isset($dataMapperClass) )
+        {
+            // Download the File
+            $feedCurl           = new Curl( $feedUrl );
+            $feedCurl->exec();
+
+            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
+            {
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
+            }else{
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
+            }
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+        }
+
+        break;
 
     // data entry imports
     case 'mumbai':
@@ -800,205 +930,7 @@ class importTask extends sfBaseTask
 
 
 
-   /***************************************************************************
-   *
-   *    Dubai
-   *
-   * *************************************************************************/
-    private function importUaePois()
-     {
-        try
-        {
-            echo "Starting to import Dubai Bars  \n";
-            echo "Downloading Dubai bars Feed \n";
-            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
-
-            $feed = new Curl('http://www.timeoutdubai.com/nokia/bars');
-            $feed->exec();
-
-            echo "Validating Dubai Bars XML \n";
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-
-            echo "Importing Dubai Bars \n";
-            $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
-            $importDubaiBars->importPois();
-
-
-
-
-            echo "Starting to Import Dubhai Restaurants \n";
-            echo "Downloading Dubai restaurants Feed \n";
-            $feed = new Curl('http://www.timeoutdubai.com/nokia/restaurants');
-            $feed->exec();
-
-
-            echo "Validating Dubai restaurants XML \n";
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-            echo "Importing Dubai Restaurants \n";
-            $importDubaiRestaurants = new ImportUaeRestaurants($xmlFeedObj, $vendorObj);
-            $importDubaiRestaurants->importPois();
-
-
-            /**
-             * Abu Dhabi's imports
-             */
-
-            echo "Starting to import Abu Dhab bars \n";
-            echo "Downloading Abu Dhabis bars Feed \n";
-            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
-
-            $feed = new Curl('http://www.timeoutabudhabi.com/nokia/bars');
-            $feed->exec();
-
-            echo "Validating Abu Dhabis Bars XML \n";
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-            echo "Importing Abu Dhabi's Bars \n";
-            $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
-            $importDubaiBars->importPois();
-
-
-
-            echo "Starting to Import Abu Dhab Resaurants \n";
-            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
-
-            $feed = new Curl('http://www.timeoutabudhabi.com/nokia/restaurants');
-            $feed->exec();
-
-            echo "Validating Abu Dhabis Resaurants XML \n";
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-             echo "Importing Abu Dhabi's Resaurants \n";
-            $importDubaiBars = new ImportUaeBars($xmlFeedObj, $vendorObj);
-            $importDubaiBars->importPois();
-
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
-        }
-
-     }
-
-      private function importUaeEvents()
-     {
-        try
-        {
-
-            echo "Starting Import of Dubai Events \n";
-            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
-
-            echo "Downloading Dubai Events feed \n";
-            $feed = new Curl('http://www.timeoutdubai.com/nokia/latestevents');
-            $feed->exec();
-
-            echo "Validating Dubai Events feed \n";
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-             echo "Importint Dubai Events \n";
-            $importUaeEventsObj = new ImportUaeEvents($xmlFeedObj, $vendorObj);
-            $importUaeEventsObj->import();
-
-
-            echo " \n\n\n\n\n\n\n ";
-
-            echo "Starting to import Abu Dhab Events \n";
-            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
-
-            echo "Downloading Abu Dhab Events feed \n";
-            $feed = new Curl('http://www.timeoutabudhabi.com/nokia/latestevents');
-            $feed->exec();
-
-            echo "Validating Abu Dhab Events feed \n";
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-            echo "Importing Abu Dhab Events \n";
-            $importUaeEventsObj = new ImportUaeEvents($xmlFeedObj, $vendorObj);
-            $importUaeEventsObj->import();
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
-        }
-
-     }
-
-     /**
-      * Import the UAE movies
-      */
-     private function importUaeMovies()
-     {
-        try
-        {
-            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('dubai', 'en-US');
-
-            //Dubia
-            $feed = new Curl('http://www.timeoutdubai.com/customfeed/nokia/films');
-            $feed->exec();
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-
-            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
-            $importUaeMoviesObj->import();
-
-            echo "Dubai added \n\n";
-
-            $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('abu dhabi', 'en-US');
-
-            //Abu Dhabi
-            $feed = new Curl('http://www.timeoutabudhabi.com/customfeed/nokia/films');
-            $feed->exec();
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-
-            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
-            $importUaeMoviesObj->import();
-
-            echo "Abu Dhabi added \n\n";
-
-           /* //Doha
-            $feed = new Curl('http://www.timeoutdoha.com/customfeed/nokia/films');
-            $feed->exec();
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-
-            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
-            $importUaeMoviesObj->import();
-
-
-            echo "Doha \n\n";
-
-            //Doha
-            $feed = new Curl('http://www.timeoutbahrain.com/customfeed/nokia/films');
-            $feed->exec();
-            $xmlObj = new ValidateUaeXmlFeed($feed->getResponse());
-            $xmlFeedObj = $xmlObj->getXmlFeed();
-
-
-            $importUaeMoviesObj = new ImportUaeMovies($xmlFeedObj, $vendorObj);
-            $importUaeMoviesObj->import();
-
-               echo "Aahraain added \n\n";*/
-
-
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in Dubai Bars import: ' . $e->getMessage();
-        }
-
-     }
+     /* Common Function */
 
   private function dieDueToInvalidTypeSpecified()
   {
@@ -1119,7 +1051,6 @@ EOF;
 
         return $ftpFiles;
     }
-
 
 
 }
