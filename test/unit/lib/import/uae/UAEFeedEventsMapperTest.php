@@ -34,11 +34,11 @@ class UAEFeedEventsMapperTest extends PHPUnit_Framework_TestCase
         $fileName =  TO_TEST_DATA_PATH . '/uae/dubai_latest_events-venue.xml';
         // xml data fixer
         $xmlDataFixer = new xmlDataFixer( file_get_contents( $fileName ) );
-       
-        $xml =  $this->dynamicDates( $xmlDataFixer->getSimpleXMLUsingXSLT( sfConfig::get('app_import_xslt_uae_events')) );
+
+        $xml =  $this->dynamicDates( $xmlDataFixer->getSimpleXMLUsingXSLT( file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' )) );
 
         $dataMapper = new UAEFeedEventsMapper( $this->vendor,  $xml );
-        
+
         // Run Test Import
         $importer = new Importer();
         $importer->addDataMapper( $dataMapper );
@@ -78,7 +78,7 @@ class UAEFeedEventsMapperTest extends PHPUnit_Framework_TestCase
         // check Occurrences
         $this->assertEquals( 1, $event['EventOccurrence']->count() );
         $oc = $event['EventOccurrence'][0];
-        
+
         $this->assertEquals( date( 'Y-m-d', strtotime( '+5 day' ) ), $oc['start_date']);
 
         // Another validation
@@ -98,7 +98,7 @@ class UAEFeedEventsMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( date( 'Y-m-d', strtotime( '+2 day' ) ), $oc['start_date']);
         $oc = $event['EventOccurrence'][1];
         $this->assertEquals( date( 'Y-m-d', strtotime( '+3 day' ) ), $oc['start_date']);
-                
+
     }
 
     /**
@@ -108,10 +108,10 @@ class UAEFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     private function dynamicDates( SimpleXMLElement $xml )
     {
         $xml->event[0]->{'day-occurences'}->{'day-occurence'}[0]->start_date = date( 'Y-m-d', strtotime( '+5 day' ) );
-        
+
         $xml->event[2]->{'day-occurences'}->{'day-occurence'}[0]->start_date = date( 'Y-m-d', strtotime( '+2 day' ) );
         $xml->event[2]->{'day-occurences'}->{'day-occurence'}[1]->start_date = date( 'Y-m-d', strtotime( '+3 day' ) );
-        
+
         foreach( $xml->event as $event )
         {
             foreach( $event->{'day-occurences'}->{'day-occurence'} as $occurrence )
