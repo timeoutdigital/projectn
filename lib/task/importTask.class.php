@@ -96,20 +96,26 @@ class importTask extends sfBaseTask
             break;
 
           case 'eating-drinking':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $this->importNyEd($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
+              ImportLogger::getInstance()->setVendor( $vendorObj );
+              try
+              {
+                  //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+                  $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+                  $ftpClientObj->setSourcePath( '/NOKIA/' );
+                  $this->importNyEd($vendorObj, $ftpClientObj);
+
+              }
+              catch ( Exception $e )
+              {
+                  echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+              }
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+            
             break;
 
           case 'eating-drinking-kids':
+              ImportLogger::getInstance()->setVendor( $vendorObj );
             try
             {
               //Setup NY FTP @todo refactor FTPClient to not connect in constructor
@@ -117,18 +123,17 @@ class importTask extends sfBaseTask
               $ftpClientObj->setSourcePath( '/NOKIA/' );
               $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
 
-              /*$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-              $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
-              $nyEDImport =  new importNyED( $csv, $vendor );
-              $nyEDImport->insertPois();*/
             }
             catch ( Exception $e )
             {
               echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
             }
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
             break;
 
           case 'bars-clubs':
+               ImportLogger::getInstance()->setVendor( $vendorObj );
             try
             {
               //Setup NY FTP @todo refactor FTPClient to not connect in constructor
@@ -140,6 +145,8 @@ class importTask extends sfBaseTask
             {
               echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
             }
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
             break;
 
 
