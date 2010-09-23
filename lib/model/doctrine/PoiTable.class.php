@@ -91,4 +91,14 @@ class PoiTable extends Doctrine_Table
         ;
       return $poi;
     }
+
+    public function getVendorPoiCategoryByVendorId( $vendorID, $order = 'name ASC' )
+    {
+        $query = Doctrine_Query::create( )
+            ->from( 'VendorPoiCategory v' )
+            ->andWhere( 'vendor_id = ?', $vendorID )
+            ->orderBy( $order );
+
+        return $query->execute();
+    }
 }

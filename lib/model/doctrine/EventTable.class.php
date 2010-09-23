@@ -112,4 +112,14 @@ class EventTable extends Doctrine_Table
       ;
     return $event;
   }
+
+  public function getVendorEventCategoryByVendorId( $vendorID, $order = 'name ASC' )
+    {
+        $query = Doctrine_Query::create( )
+            ->from( 'VendorEventCategory v' )
+            ->andWhere( 'vendor_id = ?', $vendorID )
+            ->orderBy( $order );
+
+        return $query->execute();
+    }
 }

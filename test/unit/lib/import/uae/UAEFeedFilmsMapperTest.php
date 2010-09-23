@@ -34,9 +34,9 @@ class UAEFeedFilmsMapperTest extends PHPUnit_Framework_TestCase
         $fileName =  TO_TEST_DATA_PATH . '/uae/dubai_film.xml';
         // xml data fixer
         $xmlDataFixer = new xmlDataFixer( file_get_contents( $fileName ) );
-       
-        $dataMapper = new UAEFeedFilmsMapper( $this->vendor,   $xmlDataFixer->getSimpleXMLUsingXSLT( sfConfig::get('app_import_xslt_uae_films')) );
-        
+
+        $dataMapper = new UAEFeedFilmsMapper( $this->vendor,   $xmlDataFixer->getSimpleXMLUsingXSLT( file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' ) ) );
+
         // Run Test Import
         $importer = new Importer();
         $importer->addDataMapper( $dataMapper );
@@ -109,6 +109,6 @@ class UAEFeedFilmsMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 1, $movie['MovieProperty']->count());
         $this->assertEquals( 'Timeout_link', $movie['MovieProperty'][0]['lookup']);
 
-        
+
     }
 }
