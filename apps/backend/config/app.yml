@@ -186,7 +186,7 @@ all:
         -
           name: istanbul
           type: [ poi, event, movie ]
-          language: en-US
+          language: tr
           exportForNokia: true
 
 
