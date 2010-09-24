@@ -172,7 +172,7 @@ all:
           type: [ poi, event, movie ]
           language: en-GB
           exportForDataEntry: true
-          exportForNokia: true
+          exportForNokia: false
         -
           name: dubai
           type: [ poi, event, movie ]
