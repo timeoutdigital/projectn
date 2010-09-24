@@ -65,5 +65,48 @@ class IstanbulVenueMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('http://www.timeoutistanbul.com/images/uploadedimages/standart/10064.jpg',
                                        $secondPoi['PoiMedia'][0]['url'] );
     $this->assertEquals('4',           $secondPoi['rating'] );
+    
+    
+    $poiWithMSWordProblem = Doctrine::getTable( 'poi' )->findOneByVendorPoiId( 4632 );
+    $this->assertEquals( 'Vizyon Görüntüleme Merkezi',  $poiWithMSWordProblem['name'] );
+    $this->assertEquals( null,          $poiWithMSWordProblem['house_no'] );
+    $this->assertEquals( 'Hacı Emin Efendi Sokak Seçkin Apartmanı 48 , Nişantaşı',
+                                       $poiWithMSWordProblem['street'] );
+$description = <<<EOF
+TR
+X-NONE
+AR-SA
+
+/* Style Definitions */
+table.MsoNormalTable
+{mso-style-name:Table Normal;
+mso-tstyle-rowband-size:0;
+mso-tstyle-colband-size:0;
+mso-style-noshow:yes;
+mso-style-priority:99;
+mso-style-qformat:yes;
+mso-style-parent:;
+mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+mso-para-margin-top:0cm;
+mso-para-margin-right:0cm;
+mso-para-margin-bottom:10.0pt;
+mso-para-margin-left:0cm;
+line-height:115%;
+mso-pagination:widow-orphan;
+font-size:11.0pt;
+font-family:Calibri,sans-serif;
+mso-ascii-font-family:Calibri;
+mso-ascii-theme-font:minor-latin;
+mso-fareast-font-family:Times New Roman;
+mso-fareast-theme-font:minor-fareast;
+mso-hansi-font-family:Calibri;
+mso-hansi-theme-font:minor-latin;}
+
+Pazar hariç her gün 10.00-18.00 arasında açık.
+EOF;
+
+    $this->assertEquals( $description,          $poiWithMSWordProblem['description'] );
+
+
   }
 }

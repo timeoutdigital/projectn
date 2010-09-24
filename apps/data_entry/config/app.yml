@@ -19,7 +19,7 @@ all:
 #.......................................................................................
     onUpdateFindById: true
   runner:
-    order: [ export, import,update ,export ]
+    order: [ import ,export ]
   import:
     cities:
         -
@@ -55,7 +55,7 @@ all:
           exportForNokia: true
         -
           name: beijing
-          type: [ poi ]
+          type: [ poi, event, movie ]
           language: en-GB
           validation: false
           exportForNokia: true
