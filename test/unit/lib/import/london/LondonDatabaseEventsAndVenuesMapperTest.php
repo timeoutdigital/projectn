@@ -20,6 +20,8 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   protected $object;
 
+  protected $vendor;
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -34,9 +36,8 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     // load london data
     Doctrine::loadData( dirname( __FILE__ ) . '/../../../../../plugins/toLondonPlugin/data/fixtures/searchlight_london.yml' );
 
-    $importer = new Importer();
-    $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper() );
-    $importer->run();
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('london');
+
   }
 
   /**
@@ -59,7 +60,10 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMediaImports()
   {
-     $pois = Doctrine::getTable( 'PoiMedia' )->findAll();
+      // Run London Import
+      $this->runImport( 'poi');
+
+      $pois = Doctrine::getTable( 'PoiMedia' )->findAll();
      #568 Fix unite Test, Since Image download, we are adding All images to Database First
      $this->assertGreaterThan(1, $pois->count(), "Since Image download Task, Media should have All the Images" );
   }
@@ -70,6 +74,9 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testEventsHaveCategories()
   {
+      // Run London Import
+      $this->runImport( 'event');
+      
     //event1
     $event1 = Doctrine::getTable( 'Event' )->findOneById( 1 );
     $this->assertEquals( 'Dummy Title 1', $event1[ 'name' ] );
@@ -91,6 +98,9 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedVenue()
   {
+      // Run London Import
+      $this->runImport( 'poi');
+      
     $this->assertEquals( 4, Doctrine::getTable('Poi')->count() );
 
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
@@ -131,6 +141,9 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testCommaLondonNotInEndOfAddressField()
   {
+      // Run London Import
+      $this->runImport( 'poi');
+      
     $pois = Doctrine::getTable('Poi');
     $this->assertEquals( 4, $pois->count() );
     foreach( $pois as $poi )
@@ -141,12 +154,18 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testEventAndOccurrencesNotSavedIfPoiNotSaved()
   {
+      // Run London Import
+      $this->runImport( 'poi');
+
     $poiTable = Doctrine::getTable( 'Poi' );
     $this->assertEquals( 4, $poiTable->count() );
   }
 
   public function testVenueCategoryAssignment()
   {
+      // Run London Import
+      $this->runImport( 'poi');
+      
     $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiId( '1' );
     $this->assertEquals( 1, $poi['VendorPoiCategory']->count(), 'First POI should have 1 category' );
     $this->assertEquals( 'Root', $poi['VendorPoiCategory'][0]['name'] );
@@ -166,6 +185,8 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedEvent()
   {
+      // Run London Import
+      $this->runImport( 'event');
 
     $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( 1 );
 
@@ -180,7 +201,11 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testProcessEventsImportedOccurrence()
   {
-
+      // Run London Import
+      $this->runImport( 'poi');
+      $this->runImport( 'event');
+      $this->runImport( 'event-occurrence');
+      
     $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( 1 );
 
     $this->assertTrue( $occurrence instanceof Doctrine_Record );
@@ -196,6 +221,14 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue( $occurrence2 instanceof Doctrine_Record );
     $this->assertEquals( $offset, $occurrence2[ 'utc_offset' ]  );
+  }
+
+  private function runImport( $type )
+  {
+      // Run London Import
+      $importer = new Importer();
+      $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( $this->vendor, array( 'type' => $type )) );
+      $importer->run();
   }
 
 }

@@ -1076,7 +1076,7 @@ EOF;
 
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('london', 'en-GB');
         $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
-        
+
         $type = $this->options['type'];
         $mapperClassName = $this->config['import'][$type]['class']['name'];
 
@@ -1086,11 +1086,11 @@ EOF;
             $constructorParams = $this->config['import'][$type]['class']['params'];
         }
 
-        //new $mapperClassName( $vendor, $constructorParams );
-
         ImportLogger::getInstance()->setVendor($vendor);
         $importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
         $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage( '', true );
 
 
 //        ImportLogger::getInstance()->end();

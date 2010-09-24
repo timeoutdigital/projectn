@@ -24,10 +24,10 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
   protected $type;
 
-  public function __construct( $type = 'all' )
+  public function __construct( $vendor, $params )
   {
-    $this->type = $type;
-    $this->setVendor();
+    $this->type = $params['type'];
+    $this->vendor = $vendor;
     $this->setDefaultPoiCategory();
     $this->setDataMapperHelper();
   }
@@ -63,15 +63,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
   }
 
-  private function setVendor()
-  {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'london', 'en-GB' );
-    if( !$vendor )
-    {
-      throw new Exception( 'Vendor not found.' );
-    }
-    $this->vendor = $vendor;
-  }
+  
 
   private function setDataMapperHelper()
   {

@@ -86,7 +86,7 @@ class importTaskTest extends PHPUnit_Framework_TestCase
 
         $this->assertRegExp('/start import for ' . $this->options['city'] . '/', $taskOutput);
         $this->assertRegExp('/type: ' . $this->options['type'] . '/', $taskOutput);
-        $this->assertRegExp('/env: ' . $this->options['env'] . '/', $taskOutput);
+        $this->assertRegExp('/environment: ' . $this->options['env'] . '/', $taskOutput);
     }
 
     public function testLogEndOutput()
@@ -96,7 +96,7 @@ class importTaskTest extends PHPUnit_Framework_TestCase
 
         $this->assertRegExp('/end import for ' . $this->options['city'] . '/', $taskOutput);
         $this->assertRegExp('/type: ' . $this->options['type'] . '/', $taskOutput);
-        $this->assertRegExp('/env: ' . $this->options['env'] . '/', $taskOutput);
+        $this->assertRegExp('/environment: ' . $this->options['env'] . '/', $taskOutput);
     }
 
 }
