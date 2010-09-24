@@ -19,7 +19,7 @@ all:
 #.......................................................................................
     onUpdateFindById: true
   runner:
-    order: [ import ,export ]
+    order: [  export ]
   import:
     cities:
         -
