@@ -19,21 +19,27 @@ class LisbonFeedMoviesMapper extends LisbonFeedBaseMapper
 
     foreach( $this->xml->films as $filmElement )
     {
-      if( (string) $filmElement['title'] == $lastTitle )
-      {
-        continue;
-      }
-      $lastTitle = (string) $filmElement[ 'title' ];
+        try{
+            if( (string) $filmElement['title'] == $lastTitle )
+            {
+                continue;
+            }
+            $lastTitle = (string) $filmElement[ 'title' ];
 
-      $movie = $this->dataMapperHelper->getMovieRecord( $filmElement['filmID'] );
-      
-      $this->mapAvailableData($movie, $filmElement );
+            $movie = $this->dataMapperHelper->getMovieRecord( $filmElement['filmID'] );
 
-      $movie['vendor_id']  = $this->vendor[ 'id' ];
-      $movie['utf_offset'] = $this->vendor->getUtcOffset();
+            $this->mapAvailableData($movie, $filmElement );
 
-      $this->notifyImporter( $movie );
-      $movie->free();
+            $movie['vendor_id']  = $this->vendor[ 'id' ];
+            $movie['utf_offset'] = $this->vendor->getUtcOffset();
+
+            $this->notifyImporter( $movie );
+            $movie->free();
+            
+        } catch ( Exception $exception )
+        {
+            $this->notifyImporterOfFailure( $exception, ( isset($movie) ) ? $movie : null, 'Exception: LisbonFeedMoviesMapper::mapMovies' );
+        }
     }
   }
 

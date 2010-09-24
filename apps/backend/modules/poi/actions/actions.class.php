@@ -22,7 +22,25 @@ class poiActions extends autoPoiActions
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
 
       try {
+
+        $poi = $form->getObject();
+
+        // Add GEO Source.
+        if( isset( $poi[ 'id' ] ) && is_numeric( $poi[ 'id' ] ) )
+        {
+            // Get Old Poi.
+            $oldPoi = Doctrine::getTable( 'Poi' )->find( $poi[ 'id' ], Doctrine::HYDRATE_ARRAY );
+
+            // If latitude or longitude has changed.
+            if( isset( $oldPoi[ 'latitude' ] ) && isset( $oldPoi[ 'longitude' ] ) &&
+                ( $oldPoi[ 'latitude' ] != $poi[ 'latitude' ] || $oldPoi[ 'longitude' ] != $poi[ 'longitude' ] ) )
+            {
+                $poi->addMeta( 'Geo_Source', 'Producer', sprintf( 'Changed %s:%s - %s:%s', $oldPoi[ 'latitude' ], $oldPoi[ 'longitude' ], $poi[ 'latitude' ], $poi[ 'longitude' ] ));
+            }
+        }
+
         $poi = $form->save();
+        
       } catch (Doctrine_Validator_Exception $e) {
 
         $errorStack = $form->getObject()->getErrorStack();

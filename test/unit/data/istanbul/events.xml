@@ -10,17 +10,28 @@
         <price><![CDATA[sahne önü: 134 TL, 1. kategori: 102 TL, 2. kategori: 90 TL, 3. kategori: 78,50 TL, 4. kategori: 67,50 TL, öğrenci: 45 TL]]></price>
         <rating></rating>
     <review_date></review_date>
-        <occurrences>
-          <occurrence id="123">
-            <booking_url></booking_url>
-            <start_date><![CDATA[16.07.2010]]></start_date>
-            <start_time><![CDATA[21.00]]></start_time>
-            <end_date><![CDATA[16.07.2010]]></end_date>
-            <end_time></end_time>
-        <utc_offset></utc_offset>
-            <venue><![CDATA[22]]></venue>
-          </occurrence>
-        </occurrences>
+    <occurrences>
+    	<occurrence id="01_1">
+    	<booking_url>http://www.timeout.com</booking_url>
+    	<start_date><![CDATA[03.09.2010]]></start_date>
+    	<start_time><![CDATA[]]></start_time>
+    	<end_date></end_date>
+    	<end_time></end_time>
+    	<utc_offset></utc_offset>
+    	<venue><![CDATA[3588]]></venue>
+    	</occurrence>
+    </occurrences>
+    <occurrences>
+    	<occurrence id="01_2">
+    	<booking_url>http://www.facebook.com</booking_url>
+    	<start_date><![CDATA[04.09.2010]]></start_date>
+    	<start_time><![CDATA[]]></start_time>
+    	<end_date></end_date>
+    	<end_time></end_time>
+    	<utc_offset></utc_offset>
+    	<venue><![CDATA[3589]]></venue>
+    	</occurrence>
+    </occurrences>
     <categories>
         <category>
             <name><![CDATA[Alternatif]]></name>
@@ -48,17 +59,29 @@
         <price><![CDATA[oturmalı: 67,50 TL, ayakta: 45 TL, ayakta öğrenci: 34 TL]]></price>
         <rating></rating>
     <review_date></review_date>
-        <occurrences>
-          <occurrence id="123">
-            <booking_url></booking_url>
-            <start_date><![CDATA[13.07.2010]]></start_date>
-            <start_time><![CDATA[22.00]]></start_time>
-            <end_date><![CDATA[13.07.2010]]></end_date>
-            <end_time></end_time>
-        <utc_offset></utc_offset>
-            <venue><![CDATA[22]]></venue>
-          </occurrence>
-        </occurrences>
+       <occurrences>
+			<occurrence id="03_1">
+			<booking_url></booking_url>
+			<start_date><![CDATA[18.08.2010]]></start_date>
+			<start_time><![CDATA[21.00]]></start_time>
+			<end_date></end_date>
+			<end_time></end_time>
+			<utc_offset></utc_offset>
+			<venue><![CDATA[3766]]></venue>
+			</occurrence>
+		</occurrences>
+		<occurrences>
+			<occurrence id="03_2">
+			<booking_url></booking_url>
+			<start_date><![CDATA[28.08.2010]]></start_date>
+			<start_time><![CDATA[21.00]]></start_time>
+			<end_date></end_date>
+			<end_time></end_time>
+			<utc_offset></utc_offset>
+			<venue><![CDATA[3766]]></venue>
+			</occurrence>
+		</occurrences>
+
     <categories>
         <category>
             <name><![CDATA[Caz]]></name>
@@ -72,124 +95,6 @@
     </categories>
     <medias>
         <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/10142.jpg]]></media>
-        </medias>
-  </event>
-
-
-
-
-  <event id="03">
-    <name><![CDATA[Massive Attack]]></name>
-    <description></description>
-    <short_description><![CDATA[Trip-Hop olarak adlandırılan müzik türünün yaratıcısı, efsanevi grup Massive Attack, bu sene çıkardıkları 'Heligoland' albümünün tanıtım turnesi kapsamında İstanbul'da. Massive Attack'ın çekirdek kadrosunu oluşturan iki müzik dehası, Robert Del Naja ve Grantley Marshall, müzikal işbirliklerinden çok hoşlandıklarından beraberlerinde başka sürpriz sanatçıları da İstanbul sahnesine getirmeleri hiç şaşırtıcı olmaz. Massive Attack konserlerinin her birinin birer görsel şova dönüştüğü gerçeği bu konseri daha da cazip kılıyor.]]></short_description>
-        <booking_url></booking_url>
-        <url><![CDATA[http://massiveattack.com/]]></url>
-        <timeout_url><![CDATA[http://www.timeoutistanbul.com/e8701/muzik/massive_attack]]></timeout_url>
-        <price><![CDATA[Ayakta: 77.00 TL Sahne Önü: 160.00 TL]]></price>
-        <rating></rating>
-    <review_date></review_date>
-        <occurrences>
-          <occurrence id="123">
-            <booking_url></booking_url>
-            <start_date><![CDATA[13.07.2010]]></start_date>
-            <start_time><![CDATA[21.00]]></start_time>
-            <end_date><![CDATA[13.07.2010]]></end_date>
-            <end_time></end_time>
-        <utc_offset></utc_offset>
-            <venue><![CDATA[22]]></venue>
-          </occurrence>
-        </occurrences>
-    <categories>
-        <category>
-            <name><![CDATA[Elektronik]]></name>
-            <children>
-                <category></category>
-                <category></category>
-            </children>
-        </category>
-        <category></category>
-        <category></category>
-    </categories>
-    <medias>
-        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/10159.jpg]]></media>
-        </medias>
-
-
-  </event>
-
-  <event id="04">
-    <name><![CDATA[Natalie Cole]]></name>
-    <description></description>
-    <short_description><![CDATA[‘Unforgettable..With Love’  ve 2009 yılında çıkan ‘Still Unforgettable’ albümleriye sekiz Grammy kazandı Natalie Cole. Dünyanın en iyi caz sanatçılarından birisi olarak kabul ediliyor. Tüm dünyada 50 milyonu aşkın albüm satmayı da başardı. Rahatsızlığı nedeniyle bir süre müzikten uzak kaldı ancak hayranlarının sevgisi ve müziğe olan aşkıyla hayata bağlandığını söylüyor]]></short_description>
-        <booking_url></booking_url>
-        <url>><![CDATA[http://www.nataliecole.com/]]></url>
-        <timeout_url><![CDATA[http://www.timeoutistanbul.com/e8684/muzik/natalie_cole]]></timeout_url>
-        <price><![CDATA[1. kategori: 150 TL, 2. kategori: 120 TL, 3. kategori: 90 TL, ayakta: 60 TL, loca: 1575 TL (sekiz kişilik)]]></price>
-        <rating></rating>
-    <review_date></review_date>
-        <occurrences>
-          <occurrence id="123">
-            <booking_url></booking_url>
-            <start_date><![CDATA[30.07.2010]]></start_date>
-            <start_time><![CDATA[22.30]]></start_time>
-            <end_date><![CDATA[30.07.2010]]></end_date>
-            <end_time></end_time>
-        <utc_offset></utc_offset>
-            <venue><![CDATA[22]]></venue>
-          </occurrence>
-        </occurrences>
-    <categories>
-        <category>
-            <name><![CDATA[Caz]]></name>
-            <children>
-                <category></category>
-                <category></category>
-            </children>
-        </category>
-        <category></category>
-        <category></category>
-    </categories>
-    <medias>
-        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/10135.jpg]]></media>
-        </medias>
-
-
-  </event>
-
-  <event id="05">
-    <name><![CDATA[The Cranberries]]></name>
-    <description></description>
-    <short_description><![CDATA[Para kazanmak için yeniden bir araya gelen gruplar ne kadar samimi geliyor size bilmiyoruz, ama biz pek de pozitif şeyler düşünmüyoruz. The Cranberries 2001’den beri yeni albüm yapmıyor, Dolores O’Riordan nicedir çoluk çocuğa karıştı ve solo çalışmalara yöneldi. Ama The Cranberries adı hâlâ ilgi topluyor tabii, turneye bile çıkartıyor adamı. 90’larda ergenliğini yaşayanlar “The Cranberries dinlemedik” deseler hayatta inanmayız tabii, ama bu insanlar hâlâ The Cranberries dinliyorsa müzik zevklerinden şüphe edebiliriz. Yine de ‘Everybody Else Is Doing It, Why Can’t We?’, ‘No Need to Argue’ gibi albümlerin nostaljisini yapmak adına gidilebilir yazın en sık etkinlik düzenlenen mekânı Maçka Küçükçiftlik Parkı’na.]]></short_description>
-        <booking_url></booking_url>
-        <url><![CDATA[http://www.cranberries.com/]]></url>
-        <timeout_url><![CDATA[http://www.timeoutistanbul.com/e8686/muzik/the_cranberries]]></timeout_url>
-        <price><![CDATA[normal: 78 TL, sahne önü: 165 TL]]></price>
-        <rating></rating>
-    <review_date></review_date>
-        <occurrences>
-          <occurrence id="123">
-            <booking_url></booking_url>
-            <start_date><![CDATA[22.07.2010]]></start_date>
-            <start_time><![CDATA[20.00]]></start_time>
-            <end_date><![CDATA[22.07.2010]]></end_date>
-            <end_time></end_time>
-        <utc_offset></utc_offset>
-            <venue><![CDATA[22]]></venue>
-          </occurrence>
-        </occurrences>
-    <categories>
-        <category>
-            <name><![CDATA[Rock]]></name>
-            <children>
-                <category></category>
-                <category></category>
-            </children>
-        </category>
-        <category></category>
-        <category></category>
-    </categories>
-    <medias>
-        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/10140.jpg]]></media>
         </medias>
   </event>
 </events>

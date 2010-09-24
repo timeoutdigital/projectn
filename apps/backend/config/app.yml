@@ -4,7 +4,6 @@
 # default values
 all:
   #matches url: http://projectn.local/
-  google_api_key : ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg
   data_entry:
 #.....................................................................
 #     Data entry mappers are used for two different cases:
@@ -47,11 +46,11 @@ all:
 #                key: ffab6a24c60f562ecf705130a36c1d1e
               
 #        -
+#          name: nyfix
+#          type: [ fixid ]
+#        -
 #          name: ny
 #          type: [ poi-event, eating-drinking, bars-clubs, movie ]
-
-
-
 #        -
 #          name: chicago
 #          type: [ poi, poi-bc, poi-ed, event, movie]   
@@ -146,8 +145,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: kuala lumpur
-# please note that POi import for KL is removed temporarily
-          type: [ event, movie ]
+          type: [ poi, event, movie ]
         -
           name: mumbai
           type: [ poi, event, movie ]
@@ -162,7 +160,20 @@ all:
           type: [ poi, event, movie ]
         -
           name: beijing-data-entry
-          type: [ poi ]
+          type: [ poi, event, movie ]
+        -
+          name: dubai
+          type: [ bar, restaurant, poi, event, movie ]
+        -
+          name: abu dhabi
+          type: [ bar, restaurant, poi, event, movie ]
+        -
+          name: istanbul
+          type: [ poi, event, movie ]
+        -
+          name: singapore
+          type: [ poi, event, movie ]
+       
 
   export:
     cities:
@@ -247,10 +258,25 @@ all:
           exportForNokia: true
         -
           name: beijing
-          type: [ poi ]
+          type: [ poi, event, movie ]
           language: en-GB
           exportForDataEntry: true
           exportForNokia: false
+        -
+          name: dubai
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
+        -
+          name: abu dhabi
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
+        -
+          name: istanbul
+          type: [ poi, event, movie ]
+          language: tr
+          exportForNokia: true
 
 
 
