@@ -99,13 +99,13 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
                         try
                         {
                             // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
-                            $urlArray = explode( '/', (string) $media );
+                           // $urlArray = explode( '/', (string) $media );
                             // Get the Last IDENT
-                            $imageFileName = array_pop( $urlArray );
+                            //$imageFileName = array_pop( $urlArray );
 
-                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/movie/%s', $imageFileName );
+                           // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/movie/%s', $imageFileName );
 
-                            $movie->addMediaByUrl( $mediaURL );
+                            $movie->addMediaByUrl( (string) $media  );
                         }
                         catch ( Exception $exception )
                         {

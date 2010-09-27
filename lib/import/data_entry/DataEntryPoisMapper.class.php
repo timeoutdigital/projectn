@@ -93,13 +93,13 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                             try
                             {
                                 // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
-                                $urlArray = explode( '/', (string) $media );
+                                //$urlArray = explode( '/', (string) $media );
                                 // Get the Last IDENT
-                                $imageFileName = array_pop( $urlArray );
+                                //$imageFileName = array_pop( $urlArray );
 
-                                $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
+                               // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
 
-                                $poi->addMediaByUrl( $mediaURL );
+                                $poi->addMediaByUrl( (string) $media );
                             }
                             catch ( Exception $exception )
                             {

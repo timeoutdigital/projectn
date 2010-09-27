@@ -92,14 +92,13 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                             }
                             try
                             {
-                                // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
-                                $urlArray = explode( '/', (string) $media );
-                                // Get the Last IDENT
-                                $imageFileName = array_pop( $urlArray );
+                              // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                              // $urlArray = explode( '/', (string) $media );
+                              // Get the Last IDENT
+                              // $imageFileName = array_pop( $urlArray );
+                              // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
 
-                                $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
-
-                                $event->addMediaByUrl( $mediaURL );
+                                $event->addMediaByUrl( (string) $media  ) ;
                             }
                             catch ( Exception $exception )
                             {
