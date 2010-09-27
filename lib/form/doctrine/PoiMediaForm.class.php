@@ -16,7 +16,9 @@ class PoiMediaForm extends BasePoiMediaForm
 
       $poiMedia = $this->getObject();
 
-      $fileUrl = ( $poiMedia[ 'status']  == 'valid') ? 'http://projectn.s3.amazonaws.com/' .$poiMedia[ 'Poi' ][ 'Vendor' ][ 'city' ]. '/poi/media/' . $this->getObject()->url :  '/uploads/media/poi/'.   $this->getObject()->url;
+      $fileUrl = ( $poiMedia[ 'status']  == 'valid' ) ?
+        'http://projectn.s3.amazonaws.com/' . $poiMedia[ 'Poi' ][ 'Vendor' ][ 'city' ] . '/poi/media/' . $this->getObject()->url :
+        '/uploads/media/poi/'.   $this->getObject()->url;
 
       $this->setWidget('url', new sfWidgetFormInputFileEditable(array(
         'file_src'    =>  $fileUrl,
