@@ -77,6 +77,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                      }
 
                      $poi[ 'vendor_poi_id' ] = $vendorPoiId;
+                     $poi['Vendor'] = $this->vendor;
                      $poi->addMeta('vendor_poi_id' , $vendorPoiId);
 
                      if( isset( $venueElement->version->content->media ) )
@@ -125,7 +126,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                 $poi['country'] =  (string) $venueElement->address->country;
 
                 $poi['additional_address_details'] = '';
-                $poi['Vendor'] = $this->vendor;
+
                 $poi['phone'] =   (string) $venueElement->contact->phone;
                 $poi['phone2'] =  (string) $venueElement->contact->phone2;
                 $poi['fax'] =  (string) $venueElement->contact->fax;

@@ -83,6 +83,7 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
                     $movie = new Movie();
                 }
                 $movie['vendor_movie_id']   = $vendorMovieId ;
+                $movie['Vendor']            = $this->vendor;
                 $movie->addMeta( 'vendor_movie_id' , $vendorMovieId );
 
                 if( isset( $movieElement->version->media ) )
@@ -119,7 +120,7 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
 
             // version
 
-            $movie['Vendor']            = $this->vendor;
+
             $movie['name']              = (string) $movieElement->version->name ;
 
             $genreInfo  =  (string) $movieElement->version->genre;

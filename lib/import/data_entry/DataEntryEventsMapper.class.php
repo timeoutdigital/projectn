@@ -76,7 +76,8 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                     }
 
                     $event[ 'vendor_event_id' ] = $vendorEventId;
-
+                    $event[ 'vendor_id' ] =  $this->vendor[ 'id' ];
+                    $event['Vendor'] = $this->vendor;
                     $event->addMeta('vendor_event_id' , $vendorEventId );
 
                     if( isset( $eventElement->version->media ))
@@ -110,7 +111,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                 }
 
                 $event[ 'review_date' ] = '';
-                $event[ 'vendor_event_id' ] = $vendorEventId;
+
                 $event[ 'name' ] = (string) $eventElement->name;
                 $shortDescription = 'short-description'; // for some reason, ($eventElement->version->short-description) is not working ???
                 $event[ 'short_description' ] = (string) $eventElement->version->{$shortDescription};
@@ -119,7 +120,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                 $event[ 'url']  = (string) $eventElement->version->url;
                 $event[ 'price' ] = (string) $eventElement->version->price;
                 $event[ 'rating' ] = (int) $eventElement->version->rating;
-                $event[ 'vendor_id' ] =  $this->vendor[ 'id' ];
+
 
                 $vendorCategory = 'vendor-category';
 
@@ -144,7 +145,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
 
                 $event['EventOccurrence']->delete();
 
-                $event['Vendor'] = $this->vendor;
+
 
                 if( isset( $eventElement->version->property ) )
                 {
