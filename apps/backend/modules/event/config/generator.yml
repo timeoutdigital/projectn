@@ -20,7 +20,24 @@ generator:
           _edit: ~
         actions: {}
         batch_actions: {}
-      filter:  ~
+      filter:
+        class: EventBackendFormFilter
+        display:
+          - id
+          - vendor_event_id
+          - vendor_id
+          - name
+          - short_description
+          - description
+          - booking_url
+          - url
+          - price
+          - rating
+          - event_category_list
+          - vendor_event_category_list
+          - review_date
+          - created_at
+          - updated_at
       form:
         actions: { _list: ~, _save: ~ }
         display:

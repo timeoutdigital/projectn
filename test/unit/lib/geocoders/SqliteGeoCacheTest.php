@@ -56,23 +56,26 @@ class SqliteGeoCacheTest extends PHPUnit_Framework_TestCase
         $this->assertTrue( method_exists( 'SqliteGeoCache', 'del' ) );
         $this->assertTrue( method_exists( 'SqliteGeoCache', 'count' ) );
 
+        $initialCount = SqliteGeoCache::count();
+        // Apparently some of previous test are calling google and creating cache records, which mess with be bellow count...
+        // this initialCount should fix this issue...
         foreach( $this->testData as $url => $response )
         {
             // Test Count and Premature Get & Del
-            $this->assertEquals( 0, SqliteGeoCache::count() );
+            $this->assertEquals( ($initialCount + 0), SqliteGeoCache::count() );
             $this->assertFalse( SqliteGeoCache::del( $url ) );
             $this->assertNull( SqliteGeoCache::get( $url ) );
 
             // Test Put
             $this->assertTrue( SqliteGeoCache::put( $url, $response ) );
-            $this->assertEquals( 1, SqliteGeoCache::count() );
+            $this->assertEquals( ($initialCount + 1), SqliteGeoCache::count() );
 
             // Test Get
             $this->assertEquals( $response, SqliteGeoCache::get( $url ) );
 
             // Test Del
             $this->assertTrue( SqliteGeoCache::del( $url ) );
-            $this->assertEquals( 0, SqliteGeoCache::count() );
+            $this->assertEquals( ($initialCount + 0), SqliteGeoCache::count() );
 
             // Test Double Del
             $this->assertFalse( SqliteGeoCache::del( $url ) );
@@ -80,7 +83,7 @@ class SqliteGeoCacheTest extends PHPUnit_Framework_TestCase
             // Test Add Twice ( Must be a unique $url )
             $this->assertTrue( SqliteGeoCache::put( $url, $response ) );
             $this->assertFalse( SqliteGeoCache::put( $url, $response ) );
-            $this->assertEquals( 1, SqliteGeoCache::count() );
+            $this->assertEquals( ($initialCount + 1), SqliteGeoCache::count() );
 
             // Clean Up
             $this->assertTrue( SqliteGeoCache::del( $url ) );

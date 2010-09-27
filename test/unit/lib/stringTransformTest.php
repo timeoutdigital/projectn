@@ -80,6 +80,30 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Check if an email address is valid, returns boolean.
+   * Email addresses are a bit off a weird one, valid characters include _-/=!%
+   */
+  public function testIsValidEmail()
+  {
+      // Valid
+      $this->assertTrue( stringTransform::isValidEmail( 'peterjohnson@timeout.com' ) );
+      $this->assertTrue( stringTransform::isValidEmail( 'peter.johnson=cool@example.museum' ) );
+      $this->assertTrue( stringTransform::isValidEmail( 'a@a.a.ab' ) );
+
+      // Escaped Characters
+      $this->assertFalse( stringTransform::isValidEmail( 'Abc@def89@example.com' ) ); // Two @ symbols
+      $this->assertTrue( stringTransform::isValidEmail( 'Abc\@def89@example.com' ) ); // Apparently this IS a valid email address because the @ is quoted.
+
+      // Invalid
+      $this->assertFalse( stringTransform::isValidEmail( '@example.com' ) ); // Missing alias
+      $this->assertFalse( stringTransform::isValidEmail( 'a@example.' ) ); // Missing Domain 2LD
+      $this->assertFalse( stringTransform::isValidEmail( 'a@com' ) ); // Missing Domain
+      $this->assertFalse( stringTransform::isValidEmail( 'a@.com' ) ); // Missing Domain
+      $this->assertFalse( stringTransform::isValidEmail( 'www.google.com' ) ); // A domain name
+      $this->assertFalse( stringTransform::isValidEmail( 'peter.com@a' ) );
+  }
+  
+  /**
    * Tears down the fixture, for example, closes a network connection.
    * This method is called after a test is executed.
    */

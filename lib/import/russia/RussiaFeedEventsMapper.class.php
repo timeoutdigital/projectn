@@ -40,7 +40,6 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
           $event['price']                   = (string) $eventElement->price;
           $event['rating']                  = $this->roundNumberOrReturnNull( (string) $eventElement->rating );
 
-
           // Delete Occurences
           $event['EventOccurrence']->delete();
           
@@ -76,21 +75,6 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
 
                   $event['Vendor'] = $this->vendor;
 
-                  // Categories (Requires Vendor)
-                  $categories = array();
-                  foreach( $eventElement->categories->category as $category ) $categories[] = (string) $category;
-                  $event->addVendorCategory( $categories, $event['Vendor']['id'] );
-
-                  // Add Images (Requires Vendor)
-                  $processed_medias = array();
-                  foreach( $eventElement->medias->media as $media )
-                  {
-                      $media_url = (string) $media;
-                      if( !in_array( $media_url, $processed_medias ) )
-                          $this->addImageHelper( $event, $media_url );
-                      $processed_medias[] = $media_url;
-                  }
-
                   $event['EventOccurrence'][] = $occurrence;
              }
              catch( Exception $exception )
@@ -98,7 +82,26 @@ class RussiaFeedEventsMapper extends RussiaFeedBaseMapper
                  $this->notifyImporterOfFailure( $exception, $occurrence );
              }
           }
+
+          // Categories (Requires Vendor)
+          $categories = array();
+          foreach( $eventElement->categories->category as $category ) $categories[] = (string) $category;
+          $event->addVendorCategory( $categories, $event['Vendor']['id'] );
+
+          // Add Images (Requires Vendor)
+          if( isset( $eventElement->medias ))
+          {
+              $processed_medias = array();
+              foreach( $eventElement->medias->media as $media )
+              {
+                  $media_url = (string) $media;
+                  if( !in_array( $media_url, $processed_medias ) )
+                      $this->addImageHelper( $event, $media_url );
+                  $processed_medias[] = $media_url;
+              }
+          }
           
+
           $this->notifyImporter( $event );
       }
       catch( Exception $exception )
