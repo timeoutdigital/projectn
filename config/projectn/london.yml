@@ -6,13 +6,25 @@ import:
       params:
         type: poi
 
-  poi-bars-and-pubs:
+  poi-bars-pubs:
     class:
       name: LondonAPIBarsAndPubsMapper
+      params:
+        datasource:
+          classname: LondonAPICrawler
+          url: http://api.timeout.com/v1/search.xml
+          detailedurl: http://api.timeout.com/v1/getBar.xml
+          apitype: Bars & pubs
 
-  poi-poi-restaurants:
+  poi-restaurants:
     class:
       name: LondonAPIRestaurantsMapper
+      params:
+        datasource:
+          classname: LondonAPICrawler
+          url: http://api.timeout.com/v1/search.xml
+          detailedurl: http://api.timeout.com/v1/getRestaurant.xml
+          apitype: Restaurants & cafés
 
   poi-cinemas:
     class:

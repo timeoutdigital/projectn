@@ -1079,7 +1079,7 @@ EOF;
 
         $type = $this->options['type'];
         $mapperClassName = $this->config['import'][$type]['class']['name'];
-
+ 
         $constructorParams = array();
         if( isset( $this->config['import'][$type]['class']['params'] ) )
         {

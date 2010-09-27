@@ -96,7 +96,14 @@ all:
                 params:
                   type: poi
             poi-bars-pubs:
-              class: LondonAPIBarsAndPubsMapper
+              mapper:
+                class: LondonAPIBarsAndPubsMapper
+                params:
+                  datasource:
+                    classname: LondonAPICrawler
+                    url: http://api.timeout.com/v1/search.xml
+                    detailedurl: http://api.timeout.com/v1/getBar.xml
+                    apitype: Bars & pubs
             poi-restaurant:
               class: LondonAPIRestaurantsMapper
             poi-cinemas:
@@ -111,6 +118,7 @@ all:
                 type: event-occurrence
             movie:
               class: londonDatabaseFilmsDataMapper
+
         -
           name: lisbon
           language: pt
