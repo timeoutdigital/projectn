@@ -136,7 +136,7 @@ class XMLExportPOI extends XMLExport
           }
       }
 
-      if( stringTransform::mb_trim ( $poi['street'] ) == '' )
+      if( stringTransform::mb_trim ( $poi['street'] ) == '' || stringTransform::mb_trim ( $poi['street'] ) == '[invalid]')
       {
           if( $this->validation == true )
           {
