@@ -52,4 +52,9 @@ import:
     class:
       name: londonDatabaseFilmsDataMapper
       params:
-        type: poi
+        query: "c.country_id = '930'"
+        review_type_id: 2
+        database:
+          dsn: 'mysql:dbname=film_convert;host=80.250.104.16'
+          username: 'timeout'
+          password: '65dali32'
