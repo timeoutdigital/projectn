@@ -55,7 +55,7 @@ class Media extends BaseMedia
      *
      */
     public function getAwsUrl()
-    { ;
+    {
         // eg. http://projectn.s3.amazonaws.com/singapore/event/media/2e67b4c713718ea4583a2bb823bb1723.jpg
         $type = str_replace( 'Media', '', get_class( $this ) );
         return "http://projectn.s3.amazonaws.com/" . str_replace( ' ', '_', $this[ $type ]['Vendor']['city'] ) . "/" . strtolower( $type ) . "/media/" . $this['ident'] . ".jpg";
@@ -64,6 +64,7 @@ class Media extends BaseMedia
     public function getDataEntryUrl()
     {
         $type = strtolower( str_replace( 'Media', '', get_class( $this ) ) );
+
         if( file_exists( sfConfig::get('sf_upload_dir') .'/media/' . $type . '/' . $this['ident'] . '.jpg'   ) )
         {
              return 'http://www.timeout.com/projectn/uploads/media/' . $type . '/' . $this['ident'] . '.jpg';
@@ -75,7 +76,7 @@ class Media extends BaseMedia
 
     }
 
-    public function getUrl()
+    public function getMediaUrl()
     {
         if( sfConfig::get( 'sf_app' )  == 'data_entry')
         {
