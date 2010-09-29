@@ -60,7 +60,8 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testMediaImports()
   {
      $pois = Doctrine::getTable( 'PoiMedia' )->findAll();
-     $this->assertEquals( $pois->count(), 1, "Fixture data should contain one valid image url, and importer should import it correctly." );
+     #568 Fix unite Test, Since Image download, we are adding All images to Database First
+     $this->assertGreaterThan(1, $pois->count(), "Since Image download Task, Media should have All the Images" );
   }
 
   /**

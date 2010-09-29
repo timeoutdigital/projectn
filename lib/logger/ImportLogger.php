@@ -48,7 +48,7 @@ class ImportLogger extends BaseLogger
      *
      * @var Enabled
      */
-    private $_enabled = false;
+    private $_enabled = true;
 
     /**
      *
@@ -251,8 +251,8 @@ class ImportLogger extends BaseLogger
 
             if ( is_subclass_of( $record, "Doctrine_Record" ) )
             {
-                $importRecordErrorLogger['model']        = get_class( $record );
-                $storeObject = method_exists( 'toArray', $record ) ? $record : $record->toArray();
+                $importRecordErrorLogger['model']                    = get_class( $record );
+                $storeObject = method_exists( 'toArray', $record ) ? $record->toArray() : $record;
                 $importRecordErrorLogger['serialized_object']        = serialize( $storeObject );
             }
 
