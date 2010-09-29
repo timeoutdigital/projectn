@@ -22,6 +22,18 @@ import:
           username: timeout
           password: y6fv2LS8
           file: 'toc_bc.xml'
+          
+  poi-ed:
+    class:
+      name: ChicagoFeedEDMapper
+      params:
+        type: bar_club
+        ftp:
+          classname: FTPClient
+          ftp: ftp.timeoutchicago.com
+          username: timeout
+          password: y6fv2LS8
+          file: 'toc_ed.xml'
 
   bars-clubs:
     class:

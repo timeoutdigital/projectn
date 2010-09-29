@@ -15,28 +15,17 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
 {
 
     /**
-     * BC XML feed require cleaning before pharsing as XML, this overwrite should takecare of that issue
+     * Constructor
      * @param Doctrine_Record $vendor
-     * @param string $dataFileName
-     * @param SimpleXMLElement $xml
-     * @param geoEncode $geoEncoder
+     * @param array $params
      */
-    public function __construct( Doctrine_Record $vendor, $dataFileName, SimpleXMLElement $xml = null,  geocoder $geoEncoder = null )
-    {
-        if( !isset($xml) && !isset($dataFileName) )
-        {
-            throw new Exception( 'ChicagoFeedEDMapper:: No Data File name or XML feed provided!' );
-        }
+    public function  __construct(Doctrine_Record $vendor, $params) {
+        parent::__construct($vendor, $params);
 
-        // if No XML load file and Clean before pharsing as XML
-        if( !$xml )
-        {
-            $xml = simplexml_load_string( $this->openAndCleanData( $dataFileName ) );
-        }
-
-        parent::__construct($vendor, $xml, $geoEncoder);
+        // read file > clean and parse it as XML into $this->XML
+        $this->ftpGetDataAndCleanData( true );
     }
-
+   
     public function mapED()
     {
         foreach( $this->xml->ROW as $xmlNode)
@@ -136,7 +125,6 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 // Save POI
                 $this->notifyImporter( $poi );
 
-                $poi->free( true );
                 unset( $poi );
                 
             } catch (Exception $exception)
