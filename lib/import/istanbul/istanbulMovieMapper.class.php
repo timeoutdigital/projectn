@@ -20,7 +20,9 @@ class istanbulMovieMapper extends istanbulBaseMapper
     {
       $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $this->clean( (string) $movieElement['id'] ) );
       if( $movie === false )
+      {
         $movie = new Movie();
+      }
 
       try{
 
@@ -36,25 +38,29 @@ class istanbulMovieMapper extends istanbulBaseMapper
           $movie['Vendor']            = clone $this->vendor;
 
           // Add Genres
-          //foreach ( $movieElement->genres as $gen )
-          //    $movie->addGenre( $this->clean( (string) $gen->genre ) );
+          foreach ( $movieElement->genres->genre as $gen )
+          {
+            $genreName = $this->clean( (string) $gen->name );
+            if( !empty( $genreName ) )
+            {
+                $movie->addGenre( $genreName );
+            }
+          }
 
           // Timeout Link
-          //if( (string) $movieElement->timeout_url != "" )
-          //    $movie->setTimeoutLinkProperty( $this->clean( (string) $movieElement->timeout_url ) );
+          if( (string) $movieElement->timeout_url != "" )
+          {
+            $movie->setTimeoutLinkProperty( $this->clean( (string) $movieElement->timeout_url ) );
+          }
 
-          //Critics Choice
-          //$movie->setCriticsChoiceProperty( strtolower( $this->clean( $movieElement->critics_choice ) ) == 'y' );
-
-          // Add 'original_title' as a property
-          //if( $this->clean( (string) $movieElement->other->original_title ) != "" )
-          //    $movie->addProperty( 'Original_title', $this->clean( (string) $movieElement->other->original_title ) );
-
-          // Add 'year' as a property
-          //if( $this->clean( (string) $movieElement->other->year ) != "" )
-          //    $movie->addProperty( 'Year', $this->clean( (string) $movieElement->other->year ) );
+          //medias
+          foreach( $movieElement->medias->media as $media )
+          {
+             $movie->addMediaByUrl( (string) $media );
+          }
 
           $this->notifyImporter( $movie );
+
       }
       catch( Exception $exception )
       {
