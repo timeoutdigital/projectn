@@ -24,6 +24,135 @@ class importTask extends sfBaseTask
     $this->detailedDescription = '';
   }
 
+  public function newStyleImport( $city, $language, $options, $databaseManager, $importer )
+    {
+      // London DB Switch
+      if( $city == 'london')
+      {
+          $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
+      }
+        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, $language );
+
+        $type = $this->options['type'];
+        $mapperClassName = $this->config['import'][$type]['class']['name'];
+
+        $constructorParams = array();
+        if( isset( $this->config['import'][$type]['class']['params'] ) )
+        {
+            $constructorParams = $this->config['import'][$type]['class']['params'];
+        }
+
+        ImportLogger::getInstance()->setVendor($vendor);
+        $importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage( '', true );
+
+//        /case 'ny':
+//
+//        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+//
+//        switch( $options['type'] )
+//        {
+//            case 'poi-event':
+//                ImportLogger::getInstance()->setVendor( $vendorObj );
+//                // Set FTP
+//                $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+//                $ftpClientObj->setSourcePath( '/NOKIA/' );
+//
+//                echo "Downloading NY's Event's feed \n";
+//                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
+//
+//                // Load XML file
+//                $xmlString      = file_get_contents( $fileNameString );
+//                $xmlDataFixer   = new xmlDataFixer( $xmlString );
+//                //$xmlDataFixer->addRootElement( 'body' );
+//                $xmlDataFixer->removeHtmlEntiryEncoding();
+//                $xmlDataFixer->encodeUTF8();
+//
+//                $processXmlObj = new processNyXml( '' );
+//                $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
+//                $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
+//
+//                echo "Importing NY Events / Poi  \n";
+//                $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
+//                $nyImportObj->insertEventCategoriesAndEventsAndVenues();
+//                ImportLogger::getInstance()->end();
+//                $this->dieWithLogMessage();
+//
+//                break;
+//          case 'movie':
+//                ImportLogger::getInstance()->setVendor( $vendorObj );
+//                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
+//                $importer->run();
+//                ImportLogger::getInstance()->end();
+//                $this->dieWithLogMessage();
+//            break;
+//
+//          case 'eating-drinking':
+//            try
+//            {
+//              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+//              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+//              $ftpClientObj->setSourcePath( '/NOKIA/' );
+//              $this->importNyEd($vendorObj, $ftpClientObj);
+//            }
+//            catch ( Exception $e )
+//            {
+//              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+//            }
+//            break;
+//
+//          case 'eating-drinking-kids':
+//            try
+//            {
+//              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+//              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+//              $ftpClientObj->setSourcePath( '/NOKIA/' );
+//              $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
+//
+//              /*$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
+//              $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
+//              $nyEDImport =  new importNyED( $csv, $vendor );
+//              $nyEDImport->insertPois();*/
+//            }
+//            catch ( Exception $e )
+//            {
+//              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+//            }
+//            break;
+//
+//          case 'bars-clubs':
+//            try
+//            {
+//              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+//              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+//              $ftpClientObj->setSourcePath( '/NOKIA/' );
+//              $this->importNyBc($vendorObj, $ftpClientObj);
+//            }
+//            catch ( Exception $e )
+//            {
+//              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+//            }
+//            break;
+//
+//
+//          case 'all':
+//              //Import all events
+//              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+//              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+//              $ftpClientObj->setSourcePath( '/NOKIA/' );
+//              $this->importNyEvents($vendorObj, $ftpClientObj);
+//              $this->importNyMovies($vendorObj, $ftpClientObj);
+//
+//          break;
+//
+//          default : $this->dieDueToInvalidTypeSpecified();
+//
+//        }
+//        break; // end ny
+    }
+
   protected function execute($arguments = array(), $options = array())
   {
 
@@ -65,107 +194,7 @@ class importTask extends sfBaseTask
             }
             break;
       case 'ny':
-
-        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-
-        switch( $options['type'] )
-        {
-            case 'poi-event':
-                ImportLogger::getInstance()->setVendor( $vendorObj );
-                // Set FTP
-                $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-                $ftpClientObj->setSourcePath( '/NOKIA/' );
-
-                echo "Downloading NY's Event's feed \n";
-                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
-
-                // Load XML file
-                $xmlString      = file_get_contents( $fileNameString );
-                $xmlDataFixer   = new xmlDataFixer( $xmlString );
-                //$xmlDataFixer->addRootElement( 'body' );
-                $xmlDataFixer->removeHtmlEntiryEncoding();
-                $xmlDataFixer->encodeUTF8();
-
-                $processXmlObj = new processNyXml( '' );
-                $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
-                $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
-
-                echo "Importing NY Events / Poi  \n";
-                $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
-                $nyImportObj->insertEventCategoriesAndEventsAndVenues();
-                ImportLogger::getInstance()->end();
-                $this->dieWithLogMessage();
-
-                break;
-          case 'movie':
-                ImportLogger::getInstance()->setVendor( $vendorObj );
-                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
-                $importer->run();
-                ImportLogger::getInstance()->end();
-                $this->dieWithLogMessage();
-            break;
-
-          case 'eating-drinking':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $this->importNyEd($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            break;
-
-          case 'eating-drinking-kids':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
-
-              /*$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-              $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
-              $nyEDImport =  new importNyED( $csv, $vendor );
-              $nyEDImport->insertPois();*/
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            break;
-
-          case 'bars-clubs':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $this->importNyBc($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            break;
-
-
-          case 'all':
-              //Import all events
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $this->importNyEvents($vendorObj, $ftpClientObj);
-              $this->importNyMovies($vendorObj, $ftpClientObj);
-
-          break;
-
-          default : $this->dieDueToInvalidTypeSpecified();
-
-        }
+          $this->newStyleImport( 'ny', 'en-US', $options, $databaseManager, $importer );
         break; // end ny
 
       case 'chicago':
@@ -467,7 +496,7 @@ class importTask extends sfBaseTask
 
       case 'london':
 
-          $this->newStyleImport( 'london', $options, $databaseManager, $importer );
+          $this->newStyleImport( 'london', 'en-GB', $options, $databaseManager, $importer );
 
       break; //end London
 
@@ -1071,63 +1100,5 @@ EOF;
         return $ftpFiles;
     }
 
-    public function newStyleImport( $city, $options, $databaseManager, $importer )
-    {
-
-        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('london', 'en-GB');
-        $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
-
-        $type = $this->options['type'];
-        $mapperClassName = $this->config['import'][$type]['class']['name'];
- 
-        $constructorParams = array();
-        if( isset( $this->config['import'][$type]['class']['params'] ) )
-        {
-            $constructorParams = $this->config['import'][$type]['class']['params'];
-        }
-
-        ImportLogger::getInstance()->setVendor($vendor);
-        $importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
-        $importer->run();
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage( '', true );
-
-
-//        ImportLogger::getInstance()->end();
-//        $this->dieWithLogMessage( '', true );
-        
-//        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('london', 'en-GB');
-//        $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
-//
-//        switch ($options['type']) {
-//            case 'poi-ev-mapper': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('poi'));
-//                break; //End EventsAndVenuesMapper
-//
-//            case 'poi-bars-pubs': $importer->addDataMapper(new LondonAPIBarsAndPubsMapper());
-//                break; // End BarsAndPubsMapper
-//
-//            case 'poi-restaurants': $importer->addDataMapper(new LondonAPIRestaurantsMapper());
-//                break; // End RestaurantsMapper
-//
-//            case 'poi-cinemas': $importer->addDataMapper(new LondonAPICinemasMapper());
-//                break; //End CinemasMapper
-//
-//            case 'event': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('event'));
-//                break; //End Event
-//
-//            case 'event-occurrence': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('event-occurrence'));
-//                break; //End Event-Occurrence
-//
-//            case 'movie': $importer->addDataMapper(new londonDatabaseFilmsDataMapper($vendor));
-//                break; //End Movie
-//
-//            default : $this->dieDueToInvalidTypeSpecified();
-//        }
-//
-//        ImportLogger::getInstance()->setVendor($vendor);
-//        $importer->run();
-//        ImportLogger::getInstance()->end();
-//        $this->dieWithLogMessage( '', true );
-    }
 
 }
