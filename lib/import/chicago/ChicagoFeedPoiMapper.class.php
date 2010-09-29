@@ -13,6 +13,17 @@
  */
 class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
 {
+    /**
+     * Constructor
+     * @param Doctrine_Record $vendor
+     * @param array $params
+     */
+    public function  __construct(Doctrine_Record $vendor, $params) {
+        parent::__construct($vendor, $params);
+
+        $this->ftpGetDataAndCleanData( false ); // Don't Clean the Data
+    }
+
     public function mapPoi()
     {
         // Get List of POI's From Feed
