@@ -141,10 +141,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $media[ 'mime_type' ] = 'image/jpeg';
         $media[ 'url' ] = 'url';
         $media[ 'status' ] = 'valid';
-<<<<<<< HEAD:test/unit/lib/export/XMLExportPOITest.php
         $media[ 'content_length' ] = 120;
-=======
->>>>>>> d2efe9885f74a19d614a519a192b5288e2ffea55:test/unit/lib/export/XMLExportPOITest.php
+
         $poi['PoiMedia'][] = $media;
         $media->save();
        

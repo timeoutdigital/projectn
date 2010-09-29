@@ -586,8 +586,6 @@ class MockgeocoderForPoiTest extends geocoder
       return 'mockgeocoder for poi lookup url';
   }
 
-  protected function responseIsValid() {}
-
   protected function apiKeyIsValid( $apiKey ) { }
 
   protected function processResponse( $response ) { }
@@ -613,6 +611,5 @@ class MockgeocoderForPoiTestWithoutAddress extends geocoder
 
   protected function apiKeyIsValid( $apiKey ) { }
   protected function processResponse( $response ) { }
-  protected function responseIsValid() {}
 }
 
