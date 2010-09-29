@@ -18,35 +18,22 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
     private $startingPoint;
     private $endingPoint;
 
-    /**
-     * BaseMapper constructor is overwritten by Event constructor to take additional params like eventslist, start and ending points.
-     * @param Doctrine_Record $vendor
-     * @param SimpleXMLElement $xml
-     * @param geoEncode $geoEncoder
-     * @param <type> $eventsArray
-     * @param <type> $startingPoint
-     * @param <type> $endingPoint 
-     */
-    public function __construct( Doctrine_Record $vendor, SimpleXMLElement $xml, googleGeocoder $geoEncoder = null, $eventsArray = null, $startingPoint = 0, $endingPoint = 0 )
-    {
-        if( !isset( $eventsArray ) )
-        {
-            throw new Exception( 'ChicagoFeedEventMapper:: Require Events Array, Extracted from XML by xpath' );
-        }
+    public function  __construct(Doctrine_Record $vendor, $params) {
+        parent::__construct($vendor, $params);
 
-        if( $endingPoint <= 0)
-        {
-            throw new Exception( 'ChicagoFeedEventMapper:: Invalid Ending Point!' );
-        }
+        // Download Feed
+        $this->ftpGetDataAndCleanData( false );
+        $this->eventNodes = $this->getXMLNodesByPath( '/body/event' );
+        // Apply Split mapping
+        $split = $this->params['split'];
+        $total = count( $this->eventNodes );
+        $max = ceil( $total / $split['chunk'] );
 
-        // Set variables
-        $this->eventNodes       = $eventsArray;
-        $this->startingPoint    = $startingPoint;   // used for Looping Through the Data
-        $this->endingPoint      = $endingPoint; // used for Looping Through the Data
-
-        parent::__construct( $vendor, $xml, $geoEncoder );
+        $this->startingPoint    = ($split['index'] -1) * $max;
+        $this->endingPoint      = ( ( $max * $split['index'] ) > $total ) ? $total : ($max * $split['index']);
     }
 
+    
     public function mapEvents()
     {
         if( !isset( $this->eventNodes )  || !is_array( $this->eventNodes ) )
@@ -54,7 +41,8 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
             $this->notifyImporterOfFailure( new Exception( 'ChicagoFeedEventMapper::mapEvents - No Event Nodes found...' ) );
             return;
         }
-
+        echo 'Starting: ' . $this->startingPoint . PHP_EOL;
+        echo 'Ending: ' . $this->endingPoint . PHP_EOL;
         for( $i = $this->startingPoint; $i < $this->endingPoint; $i++)
         {
             $eventNode = $this->eventNodes[ $i ]; // Get the Current Index node
@@ -144,6 +132,7 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
 
             }  catch ( Exception $exception)
             {
+                echo 'Event Exception: ' . $exception->getMessage() . ' | Vendor Event ID: ' . (string)$eventNode['id'] . PHP_EOL;
                 $this->notifyImporterOfFailure( new Exception( 'Event Exception: ' . $exception->getMessage() . ' | Vendor Event ID: ' . (string)$eventNode['id'] ) );
             }
         } // for loop

@@ -34,52 +34,43 @@ import:
           username: timeout
           password: y6fv2LS8
           file: 'toc_ed.xml'
+#
+  event_1:
+    class:
+      name: ChicagoFeedEventMapper
+      params:
+        type: poi
+        ftp:
+          classname: FTPClient
+          ftp: ftp.timeoutchicago.com
+          username: timeout
+          password: y6fv2LS8
+          file: 'toc_leo.xml'
+        split:
+          chunk: 2
+          index: 1
 
-  bars-clubs:
+  event_2:
     class:
-      name: nyImportBcEd
+      name: ChicagoFeedEventMapper
       params:
-        type: bar_club
+        type: poi
         ftp:
           classname: FTPClient
-          ftp: ftp.timeoutny.com
-          username: london
-          password: timeout
-          dir: '/NOKIA/'
-          file: 'tony_bc.xml'
-
-  eating-drinking:
-    class:
-      name: nyImportBcEd
-      params:
-        type: restaurant
-        ftp:
-          classname: FTPClient
-          ftp: ftp.timeoutny.com
-          username: london
-          password: timeout
-          dir: '/NOKIA/'
-          file: 'tony_ed.xml'
-          
-  event:
-    class:
-      name: nyEventsAndPoiMapper
-      params:
-        type: event
-        ftp:
-          classname: FTPClient
-          ftp: ftp.timeoutny.com
-          username: london
-          password: timeout
-          dir: '/NOKIA/'
-          file: 'tony_leo.xml'
+          ftp: ftp.timeoutchicago.com
+          username: timeout
+          password: y6fv2LS8
+          file: 'toc_leo.xml'
+        split:
+          chunk: 2
+          index: 2
           
   movie:
     class:
       name: londonDatabaseFilmsDataMapper
       params:
-        query: "c.country_id = '931' AND  city_state LIKE '%NY'"
-        review_type_id: 3
+        query: "c.country_id = '931' AND  city_state LIKE '%IL'"
+        review_type_id: 4
         database:
           dsn: 'mysql:dbname=film_convert;host=80.250.104.16'
           username: 'timeout'
