@@ -31,7 +31,7 @@ class nyFeedBaseMapper extends DataMapper
      */
     protected function ftpGetXMLFile()
     {
-        $ftpClientObj = new FTPClient( $this->params['ftp']['ftp'], $this->params['ftp']['username'], $this->params['ftp']['password'] , $this->vendor[ 'city' ] );
+        $ftpClientObj = new $this->params['ftp']['classname']( $this->params['ftp']['ftp'], $this->params['ftp']['username'], $this->params['ftp']['password'] , $this->vendor[ 'city' ] );
         $ftpClientObj->setSourcePath( $this->params['ftp']['dir'] );
 
         // Downloading File

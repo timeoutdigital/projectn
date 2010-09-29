@@ -5,6 +5,7 @@ import:
       params:
         type: poi
         ftp:
+          classname: FTPClient
           ftp: ftp.timeoutny.com
           username: london
           password: timeout
