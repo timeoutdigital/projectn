@@ -142,8 +142,9 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $media[ 'url' ] = 'url';
         $media[ 'status' ] = 'valid';
         $poi['PoiMedia'][] = $media;
+
         $media->save();
-       
+
 
         $poi = new Poi();
         $poi->setPoiName( 'test name2' . $this->specialChars );
@@ -214,6 +215,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
       ProjectN_Test_Unit_Factory::destroyDatabases();
+
     }
 
     /**
@@ -576,7 +578,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
 
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
-      $this->export = new XMLExportPOI( $this->vendor2, $this->destination, false );
+      $this->export = new XMLExportPOI( $this->vendor2, $this->destination, false ); //validation is off!
 
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
@@ -586,12 +588,74 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 2, count( $numEntries ) );
     }
 
+    public function testGetMediaUrl()
+    {
+      $XMLExportDestination =  dirname( __FILE__ ) . '/../../export/poi/poitest.xml'  ;
+
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      @unlink( $XMLExportDestination );
+      //delete the dummy image file if it exists
+      @unlink( sfConfig::get('sf_upload_dir') .'/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' );
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['poi_name'] = 'hello';
+      $poi['latitude'] = 11.52453600;
+      $poi['longitude'] = -0.08148800;
+      $poi->addVendorCategory( "moo", $this->vendor->id );
+
+
+      $media = new PoiMedia();
+      $media[ 'ident' ] =   'e5f9ec048d1dbe19c70f720e002f9cb1';
+      $media[ 'mime_type' ] = 'image/';
+      $media[ 'url' ] =  'e5f9ec048d1dbe19c70f720e002f9cb1.jpg';
+      $media[ 'status' ] = 'new';
+      $poi['PoiMedia'][] = $media;
+
+      $poi->save();
+
+      //for default application
+      $this->export = new XMLExportPOI( $this->vendor2, $XMLExportDestination, false ); //validation is off!
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $XMLExportDestination );
+
+      $numEntries = $this->xml->xpath( '//entry' );
+
+      //because the default application is not data_entry
+      // we are expecting a url from AWS
+      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,(string) $numEntries[0]->version->content->media  );
+
+      //delete the export file and export it again with data_entry application
+      @unlink( $XMLExportDestination );
+      $application = sfConfig::get( 'sf_app' ); //store the default application , should restore it back when we are done,
+
+      sfConfig::set( 'sf_app' , 'data_entry' ); //now we are exporting in data_entry installation
+
+      //create file in upload folder . mimic data_entry form uploaded it
+      file_put_contents( sfConfig::get('sf_upload_dir') .'/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,'' );
+      //run data_entry export
+      $this->export = new XMLExportPOI( $this->vendor2, $XMLExportDestination, false ); //validation is off!
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $XMLExportDestination );
+
+      $numEntries = $this->xml->xpath( '//entry' );
+
+      //now we are expecting a timeout/upload url
+      $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,(string) $numEntries[0]->version->content->media  );
+      sfConfig::set( 'sf_app' , $application );  //put the application setting back, don't want to mess with the other tests
+
+    }
     private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
       $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
       $this->export->setS3cmdClassName( 's3cmdTestMediaTags' );
-      
+
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
 

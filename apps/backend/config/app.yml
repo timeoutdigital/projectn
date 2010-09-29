@@ -147,32 +147,27 @@ all:
           name: mumbai
           type: [ poi, event, movie ]
           language: en-GB
-          exportForDataEntry: true
           exportForNokia: true
         -
           name: delhi
           type: [ poi, event, movie ]
           language: en-GB
-          exportForDataEntry: true
           exportForNokia: true
         -
           name: bangalore
           type: [ poi, event, movie ]
           language: en-GB
-          exportForDataEntry: true
           exportForNokia: true
         -
           name: pune
           type: [ poi, event, movie ]
           language: en-GB
-          exportForDataEntry: true
           exportForNokia: true
         -
           name: beijing
           type: [ poi, event, movie ]
           language: en-GB
-          exportForDataEntry: true
-          exportForNokia: false
+          exportForNokia: true
         -
           name: dubai
           type: [ poi, event, movie ]

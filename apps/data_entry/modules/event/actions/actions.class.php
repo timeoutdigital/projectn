@@ -38,7 +38,8 @@ class eventActions extends autoEventActions
                 ->select( 'id, poi_name name' )
                 ->from('Poi p')
                 ->where( 'vendor_id = ?', $this->user->getCurrentVendorId() )
-                ->andWhere( 'poi_name LIKE ?', '%' . $request->getParameter('q') . '%' );
+                ->andWhere( '( poi_name LIKE ? OR vendor_poi_id LIKE ? )', array( '%' . $request->getParameter('q') . '%', $request->getParameter('q') . '%' ) );
+                // #679 Vendor can search POI by their ID (Vendor POI ID)
 
     $result = $q->fetchArray();
     

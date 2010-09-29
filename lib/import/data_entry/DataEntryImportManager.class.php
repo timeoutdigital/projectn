@@ -32,6 +32,9 @@ class DataEntryImportManager
             {
                 throw new Exception( 'given importDir ' . $importDir . ' is not a valid directory' );
             }
+        }else
+        {
+             $this->importDir = $this->locateImportDir();
         }
 
     }

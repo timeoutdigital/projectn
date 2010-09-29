@@ -77,7 +77,37 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                      }
 
                      $poi[ 'vendor_poi_id' ] = $vendorPoiId;
+                     $poi['Vendor'] = $this->vendor;
                      $poi->addMeta('vendor_poi_id' , $vendorPoiId);
+
+                     if( isset( $venueElement->version->content->media ) )
+                     {
+                        foreach ( $venueElement->version->content->media as $media )
+                        {
+                            foreach ($media->attributes() as $key => $value)
+                            {
+                                if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                                {
+                                    continue 2; //only add the images
+                                }
+                            }
+                            try
+                            {
+                                // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                                //$urlArray = explode( '/', (string) $media );
+                                // Get the Last IDENT
+                                //$imageFileName = array_pop( $urlArray );
+
+                               // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
+
+                                $poi->addMediaByUrl( (string) $media );
+                            }
+                            catch ( Exception $exception )
+                            {
+                                 $this->notifyImporterOfFailure( $exception );
+                            }
+                        }
+                    }
 
                 }
 
@@ -96,7 +126,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                 $poi['country'] =  (string) $venueElement->address->country;
 
                 $poi['additional_address_details'] = '';
-                $poi['Vendor'] = $this->vendor;
+
                 $poi['phone'] =   (string) $venueElement->contact->phone;
                 $poi['phone2'] =  (string) $venueElement->contact->phone2;
                 $poi['fax'] =  (string) $venueElement->contact->fax;
@@ -138,34 +168,6 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                     }
                 }
 
-                if( isset( $venueElement->version->content->media ) )
-                {
-                    foreach ( $venueElement->version->content->media as $media )
-                    {
-                        foreach ($media->attributes() as $key => $value)
-                        {
-                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
-                            {
-                                continue 2; //only add the images
-                            }
-                        }
-                        try
-                        {
-                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
-                            $urlArray = explode( '/', (string) $media );
-                            // Get the Last IDENT
-                            $imageFileName = array_pop( $urlArray );
-
-                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
-
-                            $poi->addMediaByUrl( $mediaURL );
-                        }
-                        catch ( Exception $exception )
-                        {
-                             $this->notifyImporterOfFailure( $exception );
-                        }
-                    }
-                }
 
                $this->notifyImporter( $poi );
 

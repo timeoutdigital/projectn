@@ -234,15 +234,29 @@ class XMLExportPOI extends XMLExport
       //event/version/media
 
       // Finds Largest Media File that Exists on s3.
-      foreach( $this->filterByExportPolicyAndVerifyMedia( $poi[ 'PoiMedia' ] ) as $medium )
+      if( $this->validation )
       {
-        $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA );
+          foreach( $this->filterByExportPolicyAndVerifyMedia( $poi[ 'PoiMedia' ] ) as $medium )
+          {
+            $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getMediaUrl(), XMLExport::USE_CDATA );
 
-        if ( $mediaElement instanceof DOMElement )
-        {
-          $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
-        }
-        //$medium->free();
+            if ( $mediaElement instanceof DOMElement )
+            {
+              $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+            }
+          }
+      }
+      else
+      {
+         foreach( $poi[ 'PoiMedia' ]  as $medium )
+          {
+            $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getMediaUrl(), XMLExport::USE_CDATA );
+
+            if ( $mediaElement instanceof DOMElement )
+            {
+              $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+            }
+          }
       }
 
       foreach( $poi[ 'PoiProperty' ] as $property )
