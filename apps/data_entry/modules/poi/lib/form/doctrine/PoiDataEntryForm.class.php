@@ -133,6 +133,7 @@ class PoiDataEntryForm extends BasePoiForm
                     if( $media->isNew() )
                     {
                         $media[ 'ident' ] = basename($media[ 'url' ], ".jpg") ;
+                        $media[ 'mime_type' ] =  'image/jpeg';
                     }
                     $media->save($con);
                   }
