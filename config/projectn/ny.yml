@@ -1,0 +1,13 @@
+import:
+  poi:
+    class:
+      name: importNyChicagoEvents
+      params:
+        type: poi
+        ftp:
+          ftp: ftp.timeoutny.com
+          username: london
+          password: timeout
+          dir: '/NOKIA/'
+          file: 'tony_leo.xml'
+          
