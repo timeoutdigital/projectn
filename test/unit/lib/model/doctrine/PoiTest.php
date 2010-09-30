@@ -440,6 +440,14 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'spaced poi name', $poiTrim[ 'poi_name' ] );
       $this->assertEquals( '45 Some Street', $poiTrim[ 'street' ], 'Expected Street Name: 45 Some Street, SE1 9HG' );
 
+      // make sure leading and trailing commas get removed
+      $poiTrim['poi_name'] = ',Poi name is ,';
+
+      // save
+      $poiTrim->save();
+
+      // assert
+      $this->assertEquals('Poi name is', $poiTrim['poi_name'], 'trim failed to remove leading and/or trailing comma(s)');
   }
 
   /**
