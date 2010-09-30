@@ -53,7 +53,7 @@ abstract class nagiosTask extends sfBaseTask
 
     private function postExecute()
     {
-        echo $this->name . ': ' . $this->description . PHP_EOL . PHP_EOL;
+        //echo $this->name . ': ' . $this->description . PHP_EOL . PHP_EOL;
         
         foreach( array_merge( $this->errors, $this->warnings ) as $message )
         {
