@@ -204,6 +204,34 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->link( 'Vendor', 2 );
         $poi->save();
 
+        // #687 Telephone Number Check
+        $poi = new Poi();
+        $poi->setPoiName( 'Invalid Telephone' );
+        $poi->setStreet( 'test street' );
+        $poi->setHouseNo('12' );
+        $poi->setZips('1234' );
+        $poi->setCity( 'test town' );
+        $poi->setDistrict( 'test district' );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '123' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.081888002' );
+        $poi->setLatitude( 51.524543601 );
+        $poi->setEmail( 'you@who.com' );
+        $poi->setUrl( 'http://foo.com' );
+        $poi->setPhone( '212 420 1934' );
+        $poi->setPhone2( '12 769 1212' ); // Valid
+        $poi->setFax( '444 1236' ); // Invalid no
+        $poi->setShortDescription( 'test short description' );
+        $poi->setDescription( 'test description' );
+        $poi->setPublicTransportLinks( 'test public transport' );
+        //$poi->setPrice( 'test price' );
+        $poi->setOpeningTimes( 'test opening times' );
+        $poi->link( 'Vendor', 2 );
+        $poi->link('PoiCategory', array( 1, 2 ) );
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->save();
+
         $this->runImportAndExport();
       }
       catch(PDOException $e)
@@ -660,6 +688,21 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->xml = simplexml_load_file( $this->destination );
 
       //ExportLogger::getInstance()->showErrors();
+    }
+
+    /**
+     * Test the Nokia RegEx validation for phone, Phone 2 and Fax numbers when exporting.
+     */
+    public function testIsValidTelephoneNo()
+    {
+        $xml= simplexml_load_file( $this->destination );
+
+        // Get the Last one to test for Invalid Number
+        $contact = $xml->entry[2]->contact;
+
+        $this->assertEquals( '+44 212 420 1934', (string) $contact->phone );
+        $this->assertEquals( '+44 1 2769 1212', (string) $contact->phone2 );
+        $this->assertEquals( '', (string) $contact->fax );
     }
 }
 /**

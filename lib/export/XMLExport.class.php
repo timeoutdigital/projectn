@@ -337,4 +337,24 @@ abstract class XMLExport
       
       $this->s3cmdClassName = $className;
   }
+
+  /**
+   * Validate phone Number using Nokia's RegEx
+   * @param string $phoneNo
+   * @return boolean
+   */
+  protected function isValidTelephoneNo( $phoneNo )
+  {
+      if( !is_string( $phoneNo ) )
+      {
+          return false;
+      }
+      
+      $phoneNo = str_replace( ' ', '', $phoneNo ); // Remove EMPTY spaces
+
+      // Validate using Nokia's Regex
+      $pattern = "/^\+(?:-?[0-9]\x20?){10,14}[0-9]$/"; // original Nokia one is /^\+(?:-?[0-9]\x20?){6,14}[0-9]$/', this is slightly modified
+
+      return preg_match( $pattern, $phoneNo );
+  }
 }
