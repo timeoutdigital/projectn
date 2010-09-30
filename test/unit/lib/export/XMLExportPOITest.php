@@ -138,9 +138,11 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $media = new PoiMedia();
         $media[ 'ident' ] = 'md5 hash of the url';
-        $media[ 'mime_type' ] = 'image/';
+        $media[ 'mime_type' ] = 'image/jpeg';
         $media[ 'url' ] = 'url';
         $media[ 'status' ] = 'valid';
+        $media[ 'content_length' ] = 120;
+
         $poi['PoiMedia'][] = $media;
 
         $media->save();
@@ -246,6 +248,39 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     }
 
+    public function testDuplicateRecordsDontCountTowardsDuplicateLatLong()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $this->vendor2['geo_boundries'] = "1;1;2;2";
+      $this->vendor2->save();
+
+      $poi1 = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi1[ 'Vendor' ] = $this->vendor2;
+      $poi1['latitude'] = 1.5;
+      $poi1['longitude'] = 1.5;
+      $poi1->save();
+
+      $poi2 = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi2[ 'Vendor' ] = $this->vendor2;
+      $poi2['latitude'] = 1.5;
+      $poi2['longitude'] = 1.5;
+      $poi2->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImportAndExport();
+      $this->assertEquals( 0, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
+
+      $poi2->setDuplicate( 'on' );
+      $poi2->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImportAndExport();
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
+    }
+
     /**
     * Skip on lat/long out of bounds.
     */
@@ -260,7 +295,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
-
       $poi['latitude'] = 1.5;
       $poi['longitude'] = 1.5;
       $poi->save();
@@ -573,11 +607,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
-      //  print_r( Doctrine::getTable('PoiMedia')->findAll()->toArray() );
-      //echo $this->xml->entry[0]->asXML();
       $properties = $this->xml->entry[0]->version->content->media;
-      $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
-      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
+      $this->assertEquals( 0, count( $properties ) );
     }
 
     public function testExportWithValidationOff()
