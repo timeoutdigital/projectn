@@ -57,14 +57,14 @@ class UAEFeedBarsMapper extends UAEFeedBaseMapper
                 {
                     $poi['street']                      = array_shift( $addressArray ); // First one is always Street
                     $poi['district']                    = array_shift( $addressArray ); // Second one is district
-                    $poi['city']                        = array_pop( $addressArray ); // Last one is City
+                    $poi['city']                        = array_shift( $addressArray ); // Last one is City
                     // Build Geocode Lookup String
                     $poi->setgeocoderLookUpString( stringTransform::concatNonBlankStrings( ',',  array($poi['street'],
                                                                                                         $poi['district'],
                                                                                                         $poi['city'] ) ) );
                 } else {
 
-                    $poi['city']                        = 'Dubai'; // required in validation
+                    $poi['city']                        = $poi['Vendor']['city']; // required in validation
                     $poi['additional_address_details']  = (string) $xmlNode->{'location'};
                     $poi->setgeocoderLookUpString( $poi['additional_address_details'] );
                 }
