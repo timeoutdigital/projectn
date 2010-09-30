@@ -83,6 +83,12 @@ all:
           name: abu dhabi
           type: [ bar, restaurant, poi, event, movie ]
         -
+          name: bahrain
+          type: [ bar, restaurant, poi, event ]
+        -
+          name: doha
+          type: [ bar, restaurant, poi, event ]
+        -
           name: istanbul
           type: [ poi, event, movie ]
 
@@ -175,6 +181,16 @@ all:
           exportForNokia: true
         -
           name: abu dhabi
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
+        -
+          name: bahrain
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
+        -
+          name: doha
           type: [ poi, event, movie ]
           language: en-US
           exportForNokia: true
