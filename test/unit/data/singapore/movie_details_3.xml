@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE movie [
+  <!ELEMENT movie (id,issue,title,director,cast,length,origin,year_production,synopsis,data_add,data_change,category,trailer_url,website,image,thumb,views,link)>
+  <!ELEMENT feature (id,issue,type,local,link,rating,excerpt,review,author,data_add,data_change,title,image,thumb,views)>
+  <!ELEMENT id (CDATA)>
+  <!ELEMENT issue (CDATA)>
+  <!ELEMENT title (CDATA)>
+  <!ELEMENT director (CDATA)>
+  <!ELEMENT cast (CDATA)>
+  <!ELEMENT length (CDATA)>
+  <!ELEMENT origin (CDATA)>
+
+  <!ELEMENT year_production (CDATA)>
+  <!ELEMENT synopsis (CDATA)>
+  <!ELEMENT data_add (CDATA)>
+  <!ELEMENT data_change (CDATA)>
+  <!ELEMENT category (CDATA)>
+  <!ELEMENT trailer_url (CDATA)>
+  <!ELEMENT website (CDATA)>
+  <!ELEMENT image (CDATA)>
+  <!ELEMENT thumb (CDATA)>
+
+  <!ELEMENT views (CDATA)>
+  
+  <!ELEMENT type (CDATA)>
+  <!ELEMENT local (CDATA)>
+  <!ELEMENT rating (CDATA)>
+  <!ELEMENT review (CDATA)>
+  <!ELEMENT author (CDATA)>
+  
+]>
+<movie>
+	<id>847</id>
+
+	<issue>43</issue>
+	<title>Wall Street: Money Never Sleeps</title>
+	<director>Oliver Stone</director>
+	<cast>Shia LaBeouf, Carey Mulligan, Josh Brolin, Charlie Sheen, Michael Douglas, Susan Sarandon</cast>
+	<length>136</length>
+	<origin>USA</origin>
+
+	<year_production>2010</year_production>
+	<synopsis>Oliver Stone is back on the trading floor and Michael Douglas is back in the sharp suits in this undisciplined attempt by the director of 'JFK' and 'W' at resurrecting his totemic &#146;80s fable, combining melodrama with up-to-the-minute social and economic commentary. The characterisations are so broad and the plotting so wild that this revival is best viewed as a camp comedy and a knowing in-joke &#150; albeit one that feels the need to plant economics lectures in the mouths of its cast so that it at least sounds like a serious attempt to take the pulse of our times.
+
+Jacob (Shia LaBeouf) is a mindful and smart young trader at a Wall Street bank, where he enjoys the support and mentorship of a banking boss of the old school (Frank Langella) and is on the verge of ploughing money into an eco-business he&#146;s identified as a safe, responsible investment. 
+
+But the good vibes can&#146;t last. There&#146;s a crash and an aggressive takeover by rival banking boss Bretton James (Josh Brolin, all cigars and motorbikes) sends his mentor tumbling onto the subway tracks, and Jacob into Bretton&#146;s more mercenary hands. The other hitch is that Jacob&#146;s &#145;leftie&#146; girlfriend is Winnie Gekko (Carey Mulligan), estranged daughter of Gordon (Michael Douglas), who&#146;s on his way out of jail and not necessarily the reformed character he might appear.
+
+Stone&#146;s lightweight and soapy film feels like he threw a whole load of newspaper clippings at a tired plot about estranged fathers and a clash of values. The problem with this film is that if you put it in front of a bunch of bankers, they&#146;d laugh their heads off and feel a swell of pride at the thought that they inhabit a world as glamorous as that suggested by Stone&#146;s indulging of the New York skyline and the trappings of excessive wealth. It&#146;s hardly satire. This is a pulp novelisation of the banking crisis and its pleas for relevance ring very hollow. Dave Calhoun</synopsis>
+
+	<critic_choice>N</critic_choice>
+	<certificate>PG - Parental guidance advised</certificate>
+	<opens>2010-09-23</opens>
+	<data_add>Mon, 23 Aug 2010 04:11:33 +0000</data_add>
+	<data_change>Tue, 31 Aug 2010 08:32:11 +0000</data_change>
+	<local></local>
+
+	<category>Drama</category>
+	<views>6</views>
+	<trailer_url></trailer_url>
+	<website>www.wallstreetmoneyneversleeps.com/</website>
+	<highres>http://www.timeoutsingapore.com/contentFiles/image/2010/september/film/23-film-wall-street.jpg</highres>
+	<thumbnail>http://www.timeoutsingapore.com/contentFiles/image/2010/september/film/23-film-wall-street-152x110.jpg</thumbnail>
+
+	<large_image>http://www.timeoutsingapore.com/contentFiles/image/2010/september/film/23-film-wall-street-482x298.jpg</large_image>
+	<link>http://www.timeoutsingapore.com/film/database/drama/wall-street-money-never-sleeps</link>
+<tags>
+	<tag></tag>
+	<tag>Fashion</tag>
+	<tag>Shopping</tag>
+</tags>
+</movie>
+
+

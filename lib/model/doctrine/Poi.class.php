@@ -17,25 +17,62 @@ class Poi extends BasePoi
   /**
    * @var boolean
    */
-  private $geoEncodeByPass = false;
+  private $geocoderByPass = false;
 
   /**
-   * @var geoEncode
+   * @var geocoder
    */
-  private $geoEncoder;
+  private $geocoderr;
 
   /**
    *
    * @var $minimumAccuracy
    */
   private $minimumAccuracy = 8;
-  /**
-   * the media added to poi is stored in this array and the largest one will be downloaded in downloadMedia method
-   *
-   * @var $media
-   */
-  private $media = array();
 
+
+  public function getDuplicate()
+  {     
+      foreach( $this['PoiMeta'] as $meta )
+      {
+          if( isset( $meta['lookup'] ) && $meta['lookup'] == 'Duplicate' )
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+  public function setDuplicate( $value = NULL )
+  {
+      if( $value === 'on' )
+      {
+            if( $this->getDuplicate() )
+                return;
+
+            $pm = new PoiMeta();
+            $pm['lookup']   = 'Duplicate';
+            $pm['value']    = 'Duplicate';
+            $pm['comment']  = 'Producer Marked as Duplicate';
+            $this['PoiMeta'][] = $pm;
+      }
+      
+      elseif( is_null( $value ) )
+      {
+            if( !$this->getDuplicate() )
+                return;
+
+            foreach( $this['PoiMeta'] as $key => $meta )
+            {
+                if( isset( $meta['lookup'] ) && $meta['lookup'] == 'Duplicate' )
+                {
+                    unset( $this['PoiMeta'][ $key ] );
+                    $meta->delete();
+                }
+            }
+      }
+  }
 
   public function setMinimumAccuracy( $acc )
   {
@@ -43,19 +80,19 @@ class Poi extends BasePoi
         $this->minimumAccuracy = $acc;
   }
 
-  public function setGeoEncodeLookUpString( $lookup )
+  public function setgeocoderLookUpString( $lookup )
   {
     $this['geocode_look_up'] = $lookup;
   }
 
-  public function getGeoEncodeLookUpString()
+  public function getgeocoderLookUpString()
   {
     return $this['geocode_look_up'];
   }
 
-  public function setGeoEncoder( geoEncode $geoEncoder )
+  public function setgeocoderr( geocoder $geocoderr )
   {
-    $this->geoEncoder = $geoEncoder;
+    $this->geocoderr = $geocoderr;
   }
 
   public function fixStreetName()
@@ -71,13 +108,6 @@ class Poi extends BasePoi
         unset( $streetNameParts [ count( $streetNameParts ) -1 ]  );
         $this[ 'street' ] = implode( ' ',$streetNameParts );
     }
-
-    $this[ 'street' ] = preg_replace( '/[, ]*$/', '', $this[ 'street' ] );
-  }
-
-  public function fixPoiName()
-  {
-    $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
   }
 
   /**
@@ -104,7 +134,7 @@ class Poi extends BasePoi
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
 
             // Refs #525 - Trim All Text fields on PreSave
-            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ], ',' );
 
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
@@ -174,12 +204,12 @@ class Poi extends BasePoi
     }
   }
 
-  public function getGeoEncoder()
+  public function getgeocoderr()
   {
-    if( !$this->geoEncoder )
-      $this->geoEncoder = new geoEncode();
+    if( !$this->geocoderr )
+      $this->geocoderr = new googleGeocoder();
 
-    return $this->geoEncoder;
+    return $this->geocoderr;
   }
 
   public function setCriticsChoiceProperty( $isCriticsChoice )
@@ -267,11 +297,11 @@ class Poi extends BasePoi
   /**
    * Set if Geoencoding is to be bypassed
    *
-   * @param boolean $geoEncodeByPass
+   * @param boolean $geocoderByPass
    */
-  public function setGeoEncodeByPass( $geoEncodeByPass = false )
+  public function setgeocoderByPass( $geocoderByPass = false )
   {
-    $this->geoEncodeByPass = $geoEncodeByPass;
+    $this->geocoderByPass = $geocoderByPass;
   }
 
 
@@ -348,7 +378,7 @@ class Poi extends BasePoi
     if( !is_array($name) )
         $name = array( $name );
 
-    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
 
     if( stringTransform::mb_trim($name) == '' )
         return false;
@@ -358,7 +388,7 @@ class Poi extends BasePoi
       // This will unlink all vendor category relationships that dont match the poi vendor.
       if( $existingCategory[ 'vendor_id' ] != $vendorId )
           $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
-      
+
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 
@@ -395,7 +425,6 @@ class Poi extends BasePoi
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
      $this->cleanStringFields();
-     $this->fixPoiName();
      $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhoneNumbers();
@@ -403,12 +432,10 @@ class Poi extends BasePoi
      $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
-     $this->cleanStreetField();     
+     $this->cleanStreetField();
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
-     $this->downloadMedia();
-     $this->removeMultipleImages();
   }
 
   /**
@@ -418,7 +445,7 @@ class Poi extends BasePoi
   {
     $this->applyFixes();
   }
-  
+
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
@@ -489,7 +516,7 @@ class Poi extends BasePoi
 
   public function lookupAndApplyGeocodes()
   {
-    if( $this->geoEncodeByPass )
+    if( $this->geocoderByPass )
       return;
 
     if( $this->geoCodeIsValid() )
@@ -500,16 +527,16 @@ class Poi extends BasePoi
       throw new GeoCodeException( 'geocode_look_up is required to lookup a geoCode for this POI.' );
     }
 
-    $geoEncoder = $this->getGeoEncoder();
+    $geocoderr = $this->getgeocoderr();
 
-    $geoEncoder->setAddress( $this['geocode_look_up'] );
-    $geoEncoder->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
-    $geoEncoder->setRegion( $this['Vendor']['country_code'] );
+    $geocoderr->setAddress( $this['geocode_look_up'] );
+    $geocoderr->setBounds( $this['Vendor']->getGoogleApiGeoBounds() );
+    $geocoderr->setRegion( $this['Vendor']['country_code'] );
 
-    $long = $geoEncoder->getLongitude();
-    $lat = $geoEncoder->getLatitude();
+    $long = $geocoderr->getLongitude();
+    $lat = $geocoderr->getLatitude();
 
-    if( $geoEncoder->getAccuracy() < $this->minimumAccuracy )
+    if( $geocoderr->getAccuracy() < $this->minimumAccuracy )
     {
       $this['longitude'] = null;
       $this['latitude']  = null;
@@ -527,10 +554,10 @@ class Poi extends BasePoi
         $lat = substr( (string) $lat, 0, $latitudeLength );
 
     if( $this['latitude'] != $lat || $this['longitude'] != $long )
-        $this->addMeta( "Geo_Source", get_class( $geoEncoder ), "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
+        $this->addMeta( "Geo_Source", get_class( $geocoderr ), "Changed: " . $this['latitude'] . ',' . $this['longitude'] . ' to ' . $lat . ',' . $long );
 
-    $this['longitude'] = $long;// $geoEncoder->getLongitude();
-    $this['latitude']  = $lat; //$geoEncoder->getLatitude();
+    $this['longitude'] = $long;// $geocoderr->getLongitude();
+    $this['latitude']  = $lat; //$geocoderr->getLatitude();
   }
 
   public function geoCodeIsValid()
@@ -568,123 +595,17 @@ class Poi extends BasePoi
   }
 
   /**
-   * tidy up function for pois with more than one image attached to them
-   * read the headers of the images and select the largest one in size
-   * remove other images
+   * Add PoiMedia to Poi
    *
+   * @param string $url
+   *
+   * This function is deprecated in favour of Media::addMedia( $model, $url ).
+   * refs #626 -pj 31-Aug-10
    */
-  private function removeMultipleImages()
+  public function addMediaByUrl( $url = "" )
   {
-     // if there is more than 1 image for this POI we need to find the largest one and remove the rest
-     if( count( $this[ 'PoiMedia' ] ) > 1 )
-     {
-        $largestImg = $this[ 'PoiMedia' ][ 0 ] ;
-        $largestSize = 0;
-
-        foreach ($this[ 'PoiMedia' ] as $poiMedia )
-        {
-             $headers = get_headers( $poiMedia['url'] , 1);
-
-             if( $headers[ 'Content-Length' ] >  $largestSize)
-             {
-                $largestSize = $headers[ 'Content-Length' ];
-                $largestImg = $poiMedia;
-             }
-        }
-
-        $this['PoiMedia'] = new Doctrine_Collection( 'PoiMedia' );
-
-        $this['PoiMedia'] [] = $largestImg;
-
-     }
+    Media::addMedia( $this, $url );
   }
-
-  /**
-   * selects the largest image in media array and downloads the image
-   *
-   *
-   */
-  private function downloadMedia()
-  {
-    // if addMediaByUrl wasn't called, there is no change in media
-    if( count( $this->media) == 0 )  return;
-
-    $largestImg = $this->media[ 0 ] ;
-
-    //find the largest image
-    foreach ( $this->media as $img )
-    {
-       if( $img[ 'contentLength' ] > $largestImg[ 'contentLength' ]  )
-       {
-        $largestImg = $img;
-       }
-    }
-
-    // check if the largestImg is larger than the one attached already if any
-    foreach ($this[ 'PoiMedia' ] as $poiMedia )
-    {
-        if( $poiMedia['content_length']  > $largestImg[ 'contentLength' ]  )
-        {
-            //we already have a larger image so ignore this
-            return;
-        }
-    }
-
-    $poiMediaObj = Doctrine::getTable( 'PoiMedia' )->findOneByIdent( $largestImg[ 'ident' ] );
-
-    if ( $poiMediaObj === false )
-    {
-        $poiMediaObj = new PoiMedia( );
-    }
-    try
-    {
-        $poiMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-        // add the poiMediaObj to the Poi
-        $this[ 'PoiMedia' ] [] =  $poiMediaObj;
-    }
-    catch ( Exception $e )
-    {
-        /** @todo : log this error */
-    }
-
-  }
-
-
-  /**
-   * adds a poi media to the media array and the largest one will be downloaded by downloadMedia method
-   *
-   * @param string $urlString
-   */
-  public function addMediaByUrl( $urlString )
-  {
-    if( empty( $urlString ) )
-      return;
-
-    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
-    {
-        throw new Exception('Failed to add Poi Media due to missing Vendor city');
-    }
-    // Get Header Contents
-    $headers = get_headers( $urlString , 1);
-    
-    // When Image redirected with 302/301 get_headers will return morethan one header array
-    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
-    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
-
-    // check the header if it's an image
-    if( $contentType != 'image/jpeg' )
-    {
-        return false;
-    }
-    $this->media[] = array(
-        'url'           => $urlString,
-        'contentLength' => $contentLength,
-        'ident'         => md5( $urlString ),
-     );
-    return true;
-  }
-
 
   /**
    * Sets the longitude and latitude of the object to null if it matches a default coordinate

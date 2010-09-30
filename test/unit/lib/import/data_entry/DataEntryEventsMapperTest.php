@@ -39,7 +39,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
                   'data_entry' .DIRECTORY_SEPARATOR
                   ;
     // For @#'#@# reason, this is not overriding the Vendor ID ??? it's always 1?
-    $londonPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7912, 'vendor_id' => 4  ) ); //fixture event happens at this venue
+    $londonPoi  = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7912, 'vendor_id' => 4  ) ); //fixture event happens at this venue
     $londonPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_poi_id' => 7913 , 'vendor_id' => 4  ) ); //fixture event happens at this venue
 
     $londonPoi2['Vendor'] = $londonPoi['Vendor'] = $this->vendor; // overriding the Vendor
@@ -115,6 +115,7 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
   public function testOccurrenceIdsAreSameAfterTwoImports()
   {
     $events = Doctrine::getTable('Event')->findAll();
+
     $this->assertGreaterThan( 1, $events->count() );
     $this->assertLessThan( 7, $events->count() );
 
@@ -133,5 +134,63 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $occurrence['id'], $occurrence2['id']);
     $this->assertEquals( $occurrence['event_id'], $occurrence2['event_id']);
 
+  }
+
+
+
+  public function testImportUpdatingExistingRecords()
+  {
+     $events = Doctrine::getTable('Event')->findAll();
+
+     $this->assertEquals( 2,  count( $events ));
+     $event1 = $events[ 0 ];
+     $updatedAt1 = $event1[ 'updated_at' ];
+
+     //running the import with the same data so the import should update the existing ones
+     sleep( 1 ); //sleep for  a second, need to see the updated_at is changing
+
+     $this->object->importEvents( );
+     $events = Doctrine::getTable('Event')->findAll();
+     $this->assertEquals( 2,  count( $events ) , 'after running the import twice in a row, the event count shouldn"t change');
+     $event2 = $events[ 0 ];
+     $updatedAt2 = $event2[ 'updated_at' ];
+
+     //check the event1 and event2 are same event
+     $this->assertNotEquals( $updatedAt1 , $updatedAt2   );
+     $this->assertEquals( $event1[ 'id' ],  $event2[ 'id' ] );
+     $this->assertEquals( $event1[ 'name' ],  $event2[ 'name' ] );
+     $this->assertEquals( $event1[ 'vendor_id' ],  $event2[ 'vendor_id' ] );
+     $this->assertEquals( count( $event1['EventOccurrence'] ),  count( $event2['EventOccurrence'] ) );
+
+
+  }
+
+  public function  testDataEntryUpdate()
+  {
+
+    /** if this test doesn't make any sense please look into the test with the same name in DataEntryPoiMapperTest. there is some explanation there
+     * and it's basicly the same thing here
+     * in the update XML the name and the url is changed
+     **/
+     $importDir = sfConfig::get( 'sf_test_dir' ) . DIRECTORY_SEPARATOR .
+                  'unit' .DIRECTORY_SEPARATOR .
+                  'data' .DIRECTORY_SEPARATOR .
+                  'data_entry' .DIRECTORY_SEPARATOR .
+                  'updateXMLs' .DIRECTORY_SEPARATOR
+                  ;
+
+    //setting to use the vendor_event_id to actually update the event NOT insert a new one!
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,true );
+
+    $this->object = new DataEntryImportManager( 'london', $importDir);
+
+    $this->object->importEvents( );
+
+    $event = Doctrine::getTable( 'Event' )->find( 1 );
+
+    $this->assertEquals( 'Footnotes Audio Walks - this event is cancelled' , $event[ 'name' ] );
+
+    $this->assertEquals( 'http://www.google.com' , $event[ 'url' ] );
+    sfConfig::set( 'app_data_entry_onUpdateFindById' ,false );
   }
 }

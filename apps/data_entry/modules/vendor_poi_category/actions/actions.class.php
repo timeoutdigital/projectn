@@ -44,7 +44,41 @@ class vendor_poi_categoryActions extends autoVendor_poi_categoryActions
   {
     if ( $this->getUser()->checkIfRecordPermissionsByRequest( $request ) )
     {
-        parent::executeDelete( $request );
+        $request->checkCSRFProtection();
+
+        $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
+
+        //before trying to delete check if there are any pois attached to this category
+        $vendorPoiCategory = $this->getRoute()->getObject();
+
+        $pois = $vendorPoiCategory[ 'Poi' ]->toArray();
+
+        $poiList = array();
+
+        foreach ($pois as $poi)
+        {
+            $poiList [ $poi[ 'id' ] ] = $poi[ 'poi_name' ] ;
+        }
+
+        $errorData = array(
+            'vendorPoiCategoryName' => $vendorPoiCategory[ 'name' ] ,
+            'poiList'               => $poiList );
+
+        if( count( $poiList ) > 0 )
+        {
+             //note : serialize doesn't work for this case so instead json is used
+             $this->getUser()->setFlash('error_poi_category_delete', json_encode( $errorData ) );
+        }
+        else
+        {
+            if ($this->getRoute()->getObject()->delete())
+            {
+              $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+            }
+        }
+
+        $this->redirect('@vendor_poi_category');
+
     }
     else
     {
@@ -77,6 +111,11 @@ class vendor_poi_categoryActions extends autoVendor_poi_categoryActions
         $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );
         $this->redirect('@vendor_poi_category');
     }
+  }
+
+  public function executeShow(sfWebRequest $request)
+  {
+    $this->redirect('@vendor_poi_category');
   }
 
 }

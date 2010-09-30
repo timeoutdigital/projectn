@@ -181,7 +181,7 @@ class XMLExportMovie extends XMLExport
       //implementation on hold
 
       //movie/version/media
-      foreach( $movie[ 'MovieMedia' ] as $medium )
+      foreach( $this->filterByExportPolicyAndVerifyMedia( $movie[ 'MovieMedia' ] ) as $medium )
       {
         $mediaElement = $this->appendNonRequiredElement($versionElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
 
@@ -212,7 +212,7 @@ class XMLExportMovie extends XMLExport
       $propertyTag = $this->appendNonRequiredElement( $versionElement, 'property', 'Film', XMLExport::USE_CDATA );
       $propertyTag->setAttribute( 'key', 'UI_CATEGORY' );
 
-      ExportLogger::getInstance()->addExport( 'Movie' );
+      ExportLogger::getInstance()->addExport( 'Movie', $movie['id'] );
     }
 
     return $domDocument;

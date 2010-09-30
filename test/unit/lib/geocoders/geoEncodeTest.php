@@ -17,9 +17,9 @@ require_once dirname(__FILE__).'/../../bootstrap.php';
  *
  *
  */
-class geoEncodeTest extends PHPUnit_Framework_TestCase {
+class googleGeocoderTest extends PHPUnit_Framework_TestCase {
   /**
-   * @var geoEncode
+   * @var geocoder
    */
   protected $object;
   protected $vendorObj;
@@ -29,7 +29,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
    * This method is called before a test is executed.
    */
   protected function setUp() {
-    $this->object = new geoEncode( 'geoEncodeTestMockCurl' );
+    $this->object = new googleGeocoder( 'googleGeocoderTestMockCurl' );
     $this->object->setApiKey( 'ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg' );
      try {
 
@@ -70,7 +70,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
 
   public function testGetLookupUrl()
   {
-    $geocoder = new geoEncode();
+    $geocoder = new googleGeocoder();
 
     $geocoder->setAddress( 'test_address' );
     $this->assertRegExp(    '/test_address/', $geocoder->getLookupUrl() );
@@ -119,7 +119,7 @@ class geoEncodeTest extends PHPUnit_Framework_TestCase {
   }
 }
 
-class geoEncodeTestMockCurl extends Curl
+class googleGeocoderTestMockCurl extends Curl
 {
   public function getResponse()
   {

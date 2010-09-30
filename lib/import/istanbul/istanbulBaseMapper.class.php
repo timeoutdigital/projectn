@@ -34,14 +34,14 @@ class istanbulBaseMapper extends DataMapper
     * @param geoEncode $geoEncoder
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geoEncode $geoEncoder = null )
+    public function __construct( SimpleXMLElement $xml, geocoder $geoEncoder = null )
     {        
         $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'istanbul', 'tr' );
 
         //date_default_timezone_set( $this->vendor->time_zone );
         //setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
         
-        $this->geoEncoder = is_null( $geoEncoder ) ? new geoEncode() : $geoEncoder;
+        $this->geoEncoder = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
         $this->xml        = $xml;
     }
 
@@ -61,11 +61,17 @@ class istanbulBaseMapper extends DataMapper
             $categoryName = $this->clean( (string) $category->name );
 
             // Category has No Children
-            if( count( $category->children->category ) === 0 ) $categories[] = $categoryName;
-
-            // Catgeory has Children
-            else foreach( $category->children->category as $subCategory )
+            if( count( $category->children->category ) === 0 )
+            {
+                $categories[] = $categoryName;
+            }else
+            {
+                foreach( $category->children->category as $subCategory )
+                {
                 $categories[] = stringTransform::concatNonBlankStrings( " | ", array( $categoryName, $this->clean( (string) $subCategory->name ) ) );
+                }
+            }
+
         }
         return array_unique( $categories );
     }
@@ -79,11 +85,16 @@ class istanbulBaseMapper extends DataMapper
     {
         // Public Transport Links
         $publicTransportArray = array();
-        
+
         foreach ( $element->public_transports as $transportElement )
             $publicTransportArray[]           = $this->clean( (string) $transportElement->public_transport );
 
         return stringTransform::concatNonBlankStrings( ", ", $publicTransportArray );
+    }
+
+    protected function roundNumberOrReturnNull( $string )
+    {
+        return is_numeric( (string) $string ) ? round( (string) $string ) : null;
     }
 
     /**

@@ -1,4 +1,6 @@
 all:
+  google_api_key : ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg
+  yandex_api_key : ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==
   poi:
     default_coordinates:
       sydney1: { long: '151.207114', lat: '-33.867139' }
@@ -25,3 +27,17 @@ all:
   geocode:
     override_accuracy: 10
     google_map_api_key: keyfromadmin
+  beijing:
+      dns: "mysql:host=80.250.104.16;dbname=searchlight"
+      user: projectn
+      password: outtime99
+test:
+    beijing:
+      dns:  sqlite:/tmp/beijing.db:
+      user: projectn
+      password: outtime99
+test-functional:
+    beijing:
+      dns:  sqlite:/tmp/beijing.db:
+      user: projectn
+      password: outtime99

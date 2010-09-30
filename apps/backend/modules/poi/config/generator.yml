@@ -20,11 +20,47 @@ generator:
           _edit: ~
         actions: {}
         batch_actions: {}
-      filter:  ~
+      filter:
+          class: PoiBackendFormFilter
+          display:
+            - id
+            - vendor_id
+            - vendor_poi_id
+            - poi_name
+            - street
+            - city
+            - zips
+            - longitude
+            - latitude
+            - geocode_look_up
+            - district
+            - country
+            - additional_address_details
+            - short_description
+            - description
+            - poi_category_list
+            - vendor_poi_category_list
+            - email
+            - url
+            - phone
+            - phone2
+            - fax
+            - keywords
+            - public_transport_links
+            - price_information
+            - openingtimes
+            - star_rating
+            - rating
+            - provider
+            - local_language
+            - review_date
+            - created_at
+            - updated_at
       form:
         actions: { _list: ~, _save: ~ }
         display:
           Editable:
+            - duplicate
             - poi_name
             - house_no
             - street

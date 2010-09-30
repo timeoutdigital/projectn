@@ -88,7 +88,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $vendorCategory =  $events[0]['VendorEventCategory']->toArray();
 
-    $this->assertEquals( 'Gay & Lesbian',   $vendorCategory['Gay & Lesbian']['name']  );
+    $this->assertEquals( 'Gay & Lesbian',   $vendorCategory[0]['name']  );
 
     $vendorCategory =  $events[1]['VendorEventCategory']->toArray();
 
@@ -123,12 +123,26 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
                           );
   }
 
+
   private function setDynamicTime( SimpleXMLElement $xmlNodes )
   {
       
       $xmlNodes->event[0]->DateFrom = date('d/m/Y h:i:s A');
       $xmlNodes->event[0]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
 
+      $xmlNodes->event[2]->DateFrom = date('d/m/Y h:i:s A');
+      $xmlNodes->event[2]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
+
       return $xmlNodes;
+  }
+
+  public function testFilmEventsAreSavedInArtCategory()
+  {
+      $event = $this->eventTable->findOneById( 3 );  //event's category is Film but we are expecting it to be saved as Art
+
+      $vendorCategory =  $event['VendorEventCategory']->toArray();
+
+      $this->assertEquals( 'Art', $vendorCategory[ 0 ][ 'name' ] );
+
   }
 }

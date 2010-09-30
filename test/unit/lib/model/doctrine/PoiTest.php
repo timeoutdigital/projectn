@@ -35,7 +35,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
     $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
     $this->object[ 'VendorPoiCategory' ] = new Doctrine_Collection( Doctrine::getTable( 'Poi' ) );
-    $this->object[ 'geoEncoder' ] = new MockGeoEncodeForPoiTest();
+    $this->object[ 'geocoderr' ] = new MockgeocoderForPoiTest();
     $this->object->save();
   }
 
@@ -46,6 +46,41 @@ class PoiTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
    ProjectN_Test_Unit_Factory::destroyDatabases();
+  }
+
+  public function testMarkRecordAsDuplicate()
+  {
+    // Set False->False
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( NULL );
+    $this->object->save();
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set False->True
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( 'on' );
+    $this->object->save();
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set True->True
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( 'on' );
+    $this->object->save();
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set True->False
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( NULL );
+    $this->object->save();
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
   }
 
   public function testStreetDoesNotContainPostCode()
@@ -244,15 +279,15 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
       $poiObj->save();
 
       $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
 
 
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj->setGeoEncodeLookUpString(" ");
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTestWithoutAddress();
+      $poiObj->setgeocoderLookUpString(" ");
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTestWithoutAddress();
 
       $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
       $poiObj->save();
@@ -267,7 +302,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geoEncoder'] = new MockGeoEncodeForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
       $poiObj->save();
 
       $poiObj['longitude'] = '151.207114';
@@ -405,6 +440,14 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'spaced poi name', $poiTrim[ 'poi_name' ] );
       $this->assertEquals( '45 Some Street', $poiTrim[ 'street' ], 'Expected Street Name: 45 Some Street, SE1 9HG' );
 
+      // make sure leading and trailing commas get removed
+      $poiTrim['poi_name'] = ',Poi name is ,';
+
+      // save
+      $poiTrim->save();
+
+      // assert
+      $this->assertEquals('Poi name is', $poiTrim['poi_name'], 'trim failed to remove leading and/or trailing comma(s)');
   }
 
   /**
@@ -432,84 +475,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], 'Victoria Street', 'Street left in street field' );
   }
 
-
-   public function testAddMediaByUrlandSavePickLargerImage()
-   {
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $mediumImageUrl   = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $poi->addMediaByUrl( $smallImageUrl );
-    $poi->addMediaByUrl( $largeImageUrl );
-    $poi->addMediaByUrl( $mediumImageUrl );
-
-    $poi->save();
-
-    $savedPoiId = $poi->id;
-    $poi->free( true ); unset( $poi );
-    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
-
-    // after adding 3 images we expect to have only one image and it should be the large image
-    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
-    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to POI when adding more than one' );
-
-   }
-
-   /**
-    * if there is an image attached to POI and a smaller one is being added, it should keep the larger image
-    *
-    */
-   public function testAddMediaByUrlandSaveSkipSmallerImage()
-   {
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $poi->addMediaByUrl( $largeImageUrl );
-    $poi->save();
-
-    $savedPoiId = $poi->id;
-    $poi->free( true ); unset( $poi );
-    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
-
-    // adding a smaller size imahe
-    $poi->addMediaByUrl( $smallImageUrl );
-    $poi->save();
-
-    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
-    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
-
-   }
-
-    /**
-    * if there is an image attached to Poi and a larger one is being added, it should remove the existing image with the larger one
-    *
-    */
-   public function testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
-   {
-    $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $poi->addMediaByUrl( $smallImageUrl );
-    $poi->save();
-
-    $savedPoiId = $poi->id;
-    $poi->free( true ); unset( $poi );
-    $poi = Doctrine::getTable( "Poi" )->findOneById( $savedPoiId );
-
-    // adding a smaller size imahe
-    $poi->addMediaByUrl( $largeImageUrl );
-    $poi->save();
-
-    $this->assertEquals( count( $poi[ 'PoiMedia' ]) ,1 , 'there should be only one PoiMedia attached to a Poi after saving' );
-    $this->assertEquals( $poi[ 'PoiMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
-
-   }
    public function testValidateUrlAndEmail()
    {
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -534,7 +499,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
   }
-  
+
   public function testStreetDoesNotEndWithCityName()
   {
 
@@ -620,14 +585,28 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
       // Valid URL - No redirect
       $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
-      
+   }
+
+   public function testAddVendorCategoryHTMLDecode()
+   {
+    $vendorCategory = "Neighborhood &amp; pubs";
+    //$vendorCategory = "Neighborhood pubs | Pick-up joints";
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+    $this->object->addVendorCategory( $vendorCategory, $vendor[ 'id' ] );
+    $this->object->save();
+
+    $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorPoiCategory' ][0]['name'] );
    }
 }
 
-class MockGeoEncodeForPoiTest extends geoEncode
+class MockgeocoderForPoiTest extends geocoder
 {
   private $address;
 
+  public function responseIsValid()
+  {
+      return true;
+  }
   public function _setAddress( $address )
   {
     $this->address = $address;
@@ -648,14 +627,36 @@ class MockGeoEncodeForPoiTest extends geoEncode
   {
     return 9;
   }
+
+  public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  protected function apiKeyIsValid( $apiKey ) { }
+
+  protected function processResponse( $response ) { }
 }
 
-class MockGeoEncodeForPoiTestWithoutAddress extends geoEncode
+class MockgeocoderForPoiTestWithoutAddress extends geocoder
 {
   public function _setAddress( $address ) { }
   public function numCallCount() { }
   public function getLongitude() { }
   public function getLatitude() { }
   public function getAccuracy() { }
+
+  public function getLookupUrl()
+  {
+      return 'mockgeocoder for poi lookup url';
+  }
+
+  public function responseIsValid()
+  {
+      return true;
+  }
+
+  protected function apiKeyIsValid( $apiKey ) { }
+  protected function processResponse( $response ) { }
 }
 
