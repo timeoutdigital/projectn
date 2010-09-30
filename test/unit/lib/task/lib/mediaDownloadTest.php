@@ -35,7 +35,7 @@ class mediaDownloadTest extends PHPUnit_Framework_TestCase
 
         $this->testUrls = array();
         $this->testUrls[] = 'http://www.toimg.net/travel/images/logos/home.gif'; // GIF of Timeout Logo
-        $this->testUrls[] = 'http://www.toimg.net/managed/images/10019813/w647/h298/image.jpg'; // JPEG from Timeout Home Page
+        $this->testUrls[] = 'http://www.timeout.com/images/502.jpg'; // JPEG from Timeout Home Page
     }
 
     protected function tearDown()
@@ -135,7 +135,7 @@ class mediaDownloadTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'image/gif',   $poiMedia[0]['mime_type'] );
 
         $this->assertEquals( 'valid',       $poiMedia[1]['status'] );
-        $this->assertEquals( '88187',       $poiMedia[1]['content_length'] );
+        $this->assertEquals( '52762',       $poiMedia[1]['content_length'] );
         $this->assertEquals( 'image/jpeg',  $poiMedia[1]['mime_type'] );
 
         $this->assertEquals( 2, Doctrine::getTable('PoiMedia')->findAll()->count() );
