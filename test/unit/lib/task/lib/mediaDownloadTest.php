@@ -31,7 +31,7 @@ class mediaDownloadTest extends PHPUnit_Framework_TestCase
         $this->options['env'] = 'test';
         $this->options['existing'] = 'true';
 
-        $this->downloadDirectory = '/n/import/test_city/poi/media/';
+        $this->downloadDirectory = sfConfig::get( 'sf_root_dir' ) . '/import/test_city/poi/media/';
 
         $this->testUrls = array();
         $this->testUrls[] = 'http://www.toimg.net/travel/images/logos/home.gif'; // GIF of Timeout Logo
