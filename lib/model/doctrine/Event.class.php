@@ -17,7 +17,7 @@ class Event extends BaseEvent
    *
    * @var array
    */
-  private $vendorCategories;
+  public static $vendorCategories;
 
 
 
@@ -224,30 +224,34 @@ class Event extends BaseEvent
           $this->unlinkInDb( 'VendorEventCategory', array( $existingCategory[ 'id' ] ) );
     }
 
-    if( is_null( $this->vendorCategories ) )
+    if( is_null( self::$vendorCategories ) || !isset( self::$vendorCategories[ $vendorId ]) )
     {
-      $this->vendorCategories = array();
-      $vendorEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $vendorId );
-      foreach( $vendorEventCategories as $vendorCategory )
-      {
-        $vendorCategoryName = $vendorCategory['name'];
-        $this->vendorCategories[ $vendorCategoryName ] = $vendorCategory;
-      }
+        if( is_null( self::$vendorCategories ) )
+        {
+            self::$vendorCategories = array();
+        }
+
+        self::$vendorCategories[ $vendorId ] = array();
+        $vendorEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $vendorId );
+        foreach( $vendorEventCategories as $vendorCategory )
+        {
+            $vendorCategoryName = $vendorCategory['name'];
+            self::$vendorCategories[ $vendorId ][ $vendorCategoryName ] = $vendorCategory;
+        }
     }
 
-    if( key_exists( $name, $this->vendorCategories ) )
+    if( key_exists( $name, self::$vendorCategories[ $vendorId ] ) )
     {
-      $category = $this->vendorCategories[ $name ];
+      $category = self::$vendorCategories[ $vendorId ][ $name ];
     }
     else
     {
       $category = new VendorEventCategory();
       $category[ 'name' ] = $name;
       $category[ 'vendor_id' ] = $vendorId;
-      $this->vendorCategories[ $name ] = $category;
+      self::$vendorCategories[ $vendorId ][ $name ] = $category;
     }
-
-    $this->vendorCategories[] = $category['name'];
+    
     $this[ 'VendorEventCategory' ][] = $category;
   }
 
