@@ -217,6 +217,9 @@ class Event extends BaseEvent
     if( stringTransform::mb_trim($name) == '' )
         return false;
 
+    // This will enable the ussage of String Index insted of numeric Index in Doctrine Collection array
+    $this[ 'VendorEventCategory' ]->setKeyColumn( 'name' );
+    
     foreach( $this[ 'VendorEventCategory' ] as $existingCategory )
     {
       // This will unlink all vendor category relationships that dont match the event vendor.
@@ -252,7 +255,7 @@ class Event extends BaseEvent
       self::$vendorCategories[ $vendorId ][ $name ] = $category;
     }
     
-    $this[ 'VendorEventCategory' ][] = $category;
+    $this[ 'VendorEventCategory' ][ $name ] = $category;
   }
 
   /**

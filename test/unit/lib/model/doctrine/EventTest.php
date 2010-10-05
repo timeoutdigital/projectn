@@ -190,10 +190,13 @@ class EventTest extends PHPUnit_Framework_TestCase
 
     $this->object = Doctrine::getTable('Event')->findOneById( $this->object['id'] );
 
-    $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategory' ][ 0 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 0 ][ 'vendor_id' ] );
-    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategory' ][1 ][ 'name' ] );
-    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 1 ][ 'vendor_id' ] );
+    $this->assertEquals( 'test cat', $this->object[ 'VendorEventCategory' ][ 'test cat' ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 'test cat' ][ 'vendor_id' ] );
+    $this->assertEquals( 'test parent cat | test cat', $this->object[ 'VendorEventCategory' ][ 'test parent cat | test cat' ][ 'name' ] );
+    $this->assertEquals( $vendor[ 'id' ], $this->object[ 'VendorEventCategory' ][ 'test parent cat | test cat' ][ 'vendor_id' ] );
+
+    $this->assertTrue( $this->object[ 'VendorEventCategory' ][ 'test cat' ]->exists() );
+    $this->assertTrue( $this->object[ 'VendorEventCategory' ][ 'test parent cat | test cat' ]->exists() );
   }
 
   /*
@@ -227,7 +230,8 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 1, $fetchedCategories->count() );
 
     //must reuse existing instead
-    $this->assertEquals( 'Category One', $event['VendorEventCategory'][0]['name'] );
+    $this->assertEquals( 'Category One', $event['VendorEventCategory'][ 'Category One' ]['name'] );
+    $this->assertTrue( $event['VendorEventCategory'][ 'Category One' ]->exists() );
 
 
     //Adding category named 'Category Two' to the event...
@@ -236,7 +240,8 @@ class EventTest extends PHPUnit_Framework_TestCase
 
     //should create a new category
     $this->assertEquals( 2, Doctrine::getTable( 'VendorEventCategory' )->count() );
-    $this->assertEquals( 'Category Two', $event['VendorEventCategory'][1]['name'] );
+    $this->assertEquals( 'Category Two', $event['VendorEventCategory'][ 'Category Two' ]['name'] );
+    $this->assertTrue( $event['VendorEventCategory'][ 'Category Two' ]->exists() );
 
     //Adding category named 'Category Two' to another event...
     $event2 = ProjectN_Test_Unit_Factory::add( 'Event' );
@@ -248,7 +253,8 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 2, Doctrine::getTable( 'VendorEventCategory' )->count() );
 
     //event should reuse 'Category Two'
-    $this->assertEquals( 'Category Two', $event2['VendorEventCategory'][0]['name'] );
+    $this->assertEquals( 'Category Two', $event2['VendorEventCategory'][ 'Category Two' ]['name'] );
+    $this->assertTrue( $event['VendorEventCategory'][ 'Category Two' ]->exists() );
 
     $vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
     $eventForVendor2 = ProjectN_Test_Unit_Factory::add( 'Event' );
@@ -618,7 +624,8 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->object->addVendorCategory( $vendorCategory, $vendor[ 'id' ] );
     $this->object->save();
 
-    $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorEventCategory' ][0]['name'] );
+    $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorEventCategory' ][ 'Neighborhood & pubs' ]['name'] );
+    $this->assertTrue( $this->object[ 'VendorEventCategory' ][ 'Neighborhood & pubs' ]->exists() );
    }
 
 }
