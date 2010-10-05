@@ -516,8 +516,8 @@ class EventTest extends PHPUnit_Framework_TestCase
     $event = Doctrine::getTable( "Event" )->findOneById( $savedEventId );
 
     // after adding 3 images we expect to have only one image and it should be the large image
-    $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
-    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to Event when adding more than one' );
+    $this->assertEquals( count( $event[ 'EventMedia' ]) ,3 , 'New Media Download task should have added All Images' );
+    $this->assertEquals( $event[ 'EventMedia' ][1][ 'url' ], $largeImageUrl , 'larger image should be attached to Event when adding more than one' );
 
    }
 
@@ -547,8 +547,8 @@ class EventTest extends PHPUnit_Framework_TestCase
     $event->addMediaByUrl( $smallImageUrl );
     $event->save();
 
-    $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
-    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
+    $this->assertEquals( count( $event[ 'EventMedia' ]) ,2 , 'All Images should be in Database' );
+    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , '1 is the Large Image' );
 
    }
 
@@ -578,8 +578,8 @@ class EventTest extends PHPUnit_Framework_TestCase
     $event->addMediaByUrl( $largeImageUrl );
     $event->save();
 
-    $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
-    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
+    $this->assertEquals( count( $event[ 'EventMedia' ]) ,2 , 'All Images should be in Database' );
+    $this->assertEquals( $event[ 'EventMedia' ][1][ 'url' ], $largeImageUrl , ' 1 larger should be saved' );
 
    }
 
@@ -588,6 +588,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     */
    public function testAddMediaByUrlMimeTypeCheck()
    {
+       $this->markTestSkipped( 'Since the New Image Download Task, This part of the test cannot be tested!' );
       $event = ProjectN_Test_Unit_Factory::get( 'Event' );
       $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
       $event[ 'Vendor' ] = $vendor;
@@ -613,7 +614,7 @@ class EventTest extends PHPUnit_Framework_TestCase
       $event->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
       $event->save();
 
-      $this->assertEquals(1, $event['EventMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+      $this->assertEquals(2, $event['EventMedia']->count(), 'addMediaByUrl() Should take Both URL and Store in DB');
   }
 
    public function testAddVendorCategoryHTMLDecode()
