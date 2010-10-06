@@ -34,12 +34,13 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
 
         $record = array();
         ImportLogger::saveRecordComputeChangesAndLog( $record );
-
+        
         $logger = Doctrine::getTable("LogImport")->findAll()->getFirst();
         $logger->refresh( true ); // Call this to clear Doctrine cache
 
         $this->assertEquals( 1, $logger->LogImportError->count(), "Expecting An Error (record not subclass of Doctrine_Record)" );
         $this->assertEquals( 'ImportLoggerException', $logger->LogImportError[0]['exception_class'], "Expecting exception_class to be ImportLoggerException" );
+        $this->assertEquals( 'Record Passed To ImportLogger::saveRecordComputeChangesAndLog is not extended from Doctrine_Record', $logger->LogImportError[0]['message'] );
         //print_r( $logger->toArray() );
     }
 

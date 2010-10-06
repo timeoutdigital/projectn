@@ -82,7 +82,7 @@ class poiActions extends autoPoiActions
     }
     else
     {
-        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );        
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );
     }
 
     $this->redirect('@poi');
@@ -122,7 +122,7 @@ class poiActions extends autoPoiActions
     }
     else
     {
-        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );        
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to change/delete some or all of the records selected' );
     }
 
     $this->redirect('@poi');
@@ -152,6 +152,12 @@ class poiActions extends autoPoiActions
             unlink($file);
         }
         $poiMedia->delete();
+    }
+
+    //delete properties
+    foreach( $poi[ 'PoiProperty' ] as $poiProperty )
+    {
+        $poiProperty->delete();
     }
   }
 

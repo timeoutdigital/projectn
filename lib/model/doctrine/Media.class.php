@@ -40,7 +40,7 @@ class Media extends BaseMedia
         {
             $media = new $mediaClass;
             $media->merge( $info );
-            
+
             $record[ $mediaClass ][] = $media;
         }
 
@@ -59,6 +59,33 @@ class Media extends BaseMedia
         // eg. http://projectn.s3.amazonaws.com/singapore/event/media/2e67b4c713718ea4583a2bb823bb1723.jpg
         $type = str_replace( 'Media', '', get_class( $this ) );
         return "http://projectn.s3.amazonaws.com/" . str_replace( ' ', '_', $this[ $type ]['Vendor']['city'] ) . "/" . strtolower( $type ) . "/media/" . $this['ident'] . ".jpg";
+    }
+
+    public function getDataEntryUrl()
+    {
+        $type = strtolower( str_replace( 'Media', '', get_class( $this ) ) );
+
+        if( file_exists( sfConfig::get('sf_upload_dir') .'/media/' . $type . '/' . $this['ident'] . '.jpg'   ) )
+        {
+             return 'http://www.timeout.com/projectn/uploads/media/' . $type . '/' . $this['ident'] . '.jpg';
+        }
+        else
+        {
+            return $this->getAwsUrl();
+        }
+
+    }
+
+    public function getMediaUrl()
+    {
+        if( sfConfig::get( 'sf_app' )  == 'data_entry')
+        {
+            return $this->getDataEntryUrl();
+        }
+        else
+        {
+            return $this->getAwsUrl();
+        }
     }
 
     public function getFileUploadStorePath()
@@ -122,7 +149,7 @@ class Media extends BaseMedia
 
         // Get cURL info
         $curlInfo = $curl->getCurlInfo();
-        
+
         // Throw error when http code 200 or 304 not returned. validate http code  200 with mime/type
         if( ( $curlInfo[ 'http_code' ] !== 200 && $curlInfo[ 'http_code' ] !== 304 ) ||
                 ( $curlInfo[ 'http_code' ] !== 200 && !in_array( $curl->getContentType(),  array( 'image/jpeg' ) ) ) )
