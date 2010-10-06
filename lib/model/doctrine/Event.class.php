@@ -13,6 +13,15 @@
 class Event extends BaseEvent
 {
   /**
+   * cache for vendorCategories
+   *
+   * @var array
+   */
+  private $vendorCategories;
+
+
+
+  /**
    * Attempts to fix and / or format fields, e.g. url
    */
   public function applyFixes()
@@ -53,7 +62,7 @@ class Event extends BaseEvent
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
 
             // Refs #525 - Trim All Text fields on PreSave
-            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ], ',' );
 
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) =='' ) $this[ $field ] = null;
@@ -197,7 +206,7 @@ class Event extends BaseEvent
     if( !is_array($name) )
         $name = array( $name );
 
-    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
 
     //#645 if the category is Film save it as Art
     if( strtolower( $name ) == 'film' )
@@ -215,16 +224,31 @@ class Event extends BaseEvent
           $this->unlinkInDb( 'VendorEventCategory', array( $existingCategory[ 'id' ] ) );
     }
 
-    $vendorEventCategoryObj = new VendorEventCategory();
-    $vendorEventCategoryObj[ 'name' ] = $name;
-    $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
+    if( is_null( $this->vendorCategories ) )
+    {
+      $this->vendorCategories = array();
+      $vendorEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $vendorId );
+      foreach( $vendorEventCategories as $vendorCategory )
+      {
+        $vendorCategoryName = $vendorCategory['name'];
+        $this->vendorCategories[ $vendorCategoryName ] = $vendorCategory;
+      }
+    }
 
-    $recordFinder = new recordFinder();
-    $uniqueRecord = $recordFinder->findEquivalentOf( $vendorEventCategoryObj )
-                                     ->comparingAllFieldsExcept( 'id' )
-                                     ->getUniqueRecord();
+    if( key_exists( $name, $this->vendorCategories ) )
+    {
+      $category = $this->vendorCategories[ $name ];
+    }
+    else
+    {
+      $category = new VendorEventCategory();
+      $category[ 'name' ] = $name;
+      $category[ 'vendor_id' ] = $vendorId;
+      $this->vendorCategories[ $name ] = $category;
+    }
 
-    $this[ 'VendorEventCategory' ][ $name ] = $uniqueRecord;
+    $this->vendorCategories[] = $category['name'];
+    $this[ 'VendorEventCategory' ][] = $category;
   }
 
   /**

@@ -76,13 +76,42 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                     }
 
                     $event[ 'vendor_event_id' ] = $vendorEventId;
-
+                    $event[ 'vendor_id' ] =  $this->vendor[ 'id' ];
+                    $event['Vendor'] = $this->vendor;
                     $event->addMeta('vendor_event_id' , $vendorEventId );
+
+                    if( isset( $eventElement->version->media ))
+                    {
+                        foreach ( $eventElement->version->media as $media )
+                        {
+                            foreach ($media->attributes() as $key => $value)
+                            {
+                                if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                                {
+                                    continue 2; //only add the images
+                                }
+                            }
+                            try
+                            {
+                              // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                              // $urlArray = explode( '/', (string) $media );
+                              // Get the Last IDENT
+                              // $imageFileName = array_pop( $urlArray );
+                              // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
+
+                                $event->addMediaByUrl( (string) $media  ) ;
+                            }
+                            catch ( Exception $exception )
+                            {
+                                 $this->notifyImporterOfFailure( $exception );
+                            }
+                        }
+                    }
 
                 }
 
                 $event[ 'review_date' ] = '';
-                $event[ 'vendor_event_id' ] = $vendorEventId;
+
                 $event[ 'name' ] = (string) $eventElement->name;
                 $shortDescription = 'short-description'; // for some reason, ($eventElement->version->short-description) is not working ???
                 $event[ 'short_description' ] = (string) $eventElement->version->{$shortDescription};
@@ -91,7 +120,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                 $event[ 'url']  = (string) $eventElement->version->url;
                 $event[ 'price' ] = (string) $eventElement->version->price;
                 $event[ 'rating' ] = (int) $eventElement->version->rating;
-                $event[ 'vendor_id' ] =  $this->vendor[ 'id' ];
+
 
                 $vendorCategory = 'vendor-category';
 
@@ -116,7 +145,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
 
                 $event['EventOccurrence']->delete();
 
-                $event['Vendor'] = $this->vendor;
+
 
                 if( isset( $eventElement->version->property ) )
                 {
@@ -125,35 +154,6 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                         foreach ($property->attributes() as $attribute)
                         {
                             $event->addProperty( (string) $attribute, (string) $property );
-                        }
-                    }
-                }
-
-                if( isset( $eventElement->version->media ))
-                {
-                    foreach ( $eventElement->version->media as $media )
-                    {
-                        foreach ($media->attributes() as $key => $value)
-                        {
-                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
-                            {
-                                continue 2; //only add the images
-                            }
-                        }
-                        try
-                        {
-                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
-                            $urlArray = explode( '/', (string) $media );
-                            // Get the Last IDENT
-                            $imageFileName = array_pop( $urlArray );
-
-                            $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
-
-                            $event->addMediaByUrl( $mediaURL );
-                        }
-                        catch ( Exception $exception )
-                        {
-                             $this->notifyImporterOfFailure( $exception );
                         }
                     }
                 }

@@ -840,24 +840,29 @@ EOF;
     private function parseSydneyFtpDirectoryListing( $rawFtpListingOutput )
     {
         $fileListSorted = array();
+
         //sort the files  so the newest file should be the first item in the list
         foreach ($rawFtpListingOutput as $fileListing)
         {
             $fileName = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
-
+            
             preg_match( '/^.*_([0-9\-]+)\.xml$/', $fileName, $matches );
 
             if( isset( $matches [1] ) )
             {
                 $date = date( 'Y-m-d' ,strtotime($matches[1] ));
                 $fileListSorted[ $date . ' ' .$fileName ] =   $fileListing;
-            }else
-            {
-                 $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED" );
-                 return NULL;
             }
 
         }
+
+        // Check if any files Exists
+        if( count($fileListSorted) <= 0 )
+        {
+            $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED" );
+            return null;
+        }
+        
         ksort ( $fileListSorted );
         $fileListSorted = array_reverse( $fileListSorted );
         // sorting is done
@@ -875,7 +880,7 @@ EOF;
 
         if( !isset( $ftpFiles[ 'poi' ] ) || !isset( $ftpFiles[ 'event' ] ) || !isset( $ftpFiles[ 'movie' ] ) )
             $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing." );
-
+        
         return $ftpFiles;
     }
 
