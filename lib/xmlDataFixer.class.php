@@ -118,6 +118,15 @@ class xmlDataFixer
     {
         $this->xmlStringData = utf8_encode($this->xmlStringData);
     }
+
+    /**
+     * This method will remove the MS Word Html tags
+     * (font|span|del|ins|w:|link|meta|xml|style)
+     */
+    public function removeMSWordHtmlTags()
+    {
+        $this->xmlStringData = mb_ereg_replace("<(/)?(font|span|del|ins|w:|link|meta|xml|style)[^>]*>", "", $this->xmlStringData );
+    }
    
 }
 ?>
