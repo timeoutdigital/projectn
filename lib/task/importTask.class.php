@@ -852,6 +852,25 @@ class importTask extends sfBaseTask
         $this->dieWithLogMessage();
      break;
 
+     case 'beijing_zh':
+         
+         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'beijing_zh', 'zh-Hans' );
+
+         switch( $options['type'] )
+         {
+             case 'poi':
+                 $params = array( 'datasource' => array( 'classname' => 'Curl', 'url' => 'http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
+                 ImportLogger::getInstance()->setVendor( $vendorObj );
+                 $importer->addDataMapper( new beijingZHFeedVenueMapper( $vendorObj, $params ) );
+                 $importer->run();
+                 ImportLogger::getInstance()->end();
+                 $this->dieWithLogMessage();
+                 break;
+             default : $this->dieDueToInvalidTypeSpecified();
+         }
+
+         break;
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
