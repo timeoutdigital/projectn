@@ -404,6 +404,85 @@ Vendor:
     country_code_long:        'NLD'
     geo_boundries:            '50.74371291732712;3.36255574226379;53.56398423164796;7.227944850921628'
 
+  v28:
+    city:                     bucharest
+    language:                 ro
+    time_zone:                Europe/Bucharest
+    inernational_dial_code:   '+40'
+    airport_code:             'OTP'
+    country_code:             'ro'
+    country_code_long:        'ROU'
+    geo_boundries:            '43.62131064459927;20.25502972056884;48.2669525146484;29.6910572052002'
+    
+  v29:
+    city:                     beijing_zh
+    language:                 zh-Hans
+    time_zone:                Etc/GMT+8
+    inernational_dial_code:   '+86'
+    airport_code:             'TSN'
+    country_code:             'cn'
+    country_code_long:        'CHN'
+    geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
+
+  v30:
+    city:                     budapest
+    language:                 hu
+    time_zone:                Europe/Budapest
+    inernational_dial_code:   '+36'
+    airport_code:             'BUD'
+    country_code:             'hu'
+    country_code_long:        'HUN'
+    geo_boundries:            '45.7436027526855;16.1118869781494;48.5856742858887;22.9060020446777'
+
+  v31:
+    city:                     bahrain
+    language:                 en-US
+    time_zone:                Asia/Bahrain
+    inernational_dial_code:   '+973'
+    airport_code:             'BAH'
+    country_code:             'bh'
+    country_code_long:        'BHR'
+    geo_boundries:            '25.53811928311912;50.43746944444443;26.30564166666667;50.82599022072657'
+
+  v32:
+    city:                     doha
+    language:                 en-US
+    time_zone:                Asia/Qatar
+    inernational_dial_code:   '+974'
+    airport_code:             'DOH'
+    country_code:             'qa'
+    country_code_long:        'QAT'
+    geo_boundries:            '24.47014067296245;50.72675061458525;26.18160941174351;51.75429425645682'
+
+  v33:
+    city:                     istanbul
+    language:                 tr
+    time_zone:                Asia/Istanbul
+    inernational_dial_code:   +90
+    airport_code:             IST
+    country_code:             tr
+    country_code_long:        TUR
+    geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
+
+  v34:
+    city:                     rio de janeiro
+    language:                 pt-br
+    time_zone:                Brazil/East
+    inernational_dial_code:   +55
+    airport_code:             GIG
+    country_code:             br
+    country_code_long:        BRA
+    geo_boundries:            '-33.7507133483887;-73.9855499267578;5.2648777961731;-32.392993927002'
+
+  v35:
+    city:                     sao paulo
+    language:                 pt-br
+    time_zone:                Brazil/East
+    inernational_dial_code:   +55
+    airport_code:             GIG
+    country_code:             br
+    country_code_long:        BRA
+    geo_boundries:            '-33.7507133483887;-73.9855499267578;5.2648777961731;-32.392993927002'
 
 EventCategory:
   c1:

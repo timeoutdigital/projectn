@@ -438,5 +438,29 @@ class Curl
       $this->storeResponse( $filepath );
   }
 
+  /**
+   * Get the last set of headers, removing redirect headers.
+   */
+  public static function fetchAuthoritativeHeader( $url, $headerArray = array() /* Optionally provide your own headers */ )
+  {
+      $headers = !empty( $headerArray ) ? $headerArray : get_headers( $url, 1 );
+      if( $headers === false ) return array();
+
+      foreach( $headers as $key => $value )
+      {
+          if( is_array( $value ) )
+          {
+            $headers[ $key ] = array_pop( $value );
+          }
+          if( is_numeric( $key ) )
+          {
+            preg_match( "/\s([0-9]{3})\s/", $value, $matches );
+            $headers[ 'Status-Code' ] = array_pop( $matches );
+            unset( $headers[ $key ] );
+          }
+      }
+      return $headers;
+  }
+
 }
 ?>

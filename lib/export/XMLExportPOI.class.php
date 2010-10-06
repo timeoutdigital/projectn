@@ -21,17 +21,20 @@ class XMLExportPOI extends XMLExport
     $xsd =  sfConfig::get( 'sf_data_dir') . DIRECTORY_SEPARATOR . 'xml_schemas'. DIRECTORY_SEPARATOR . 'poi.xsd';
     parent::__construct(  $vendor, $destination, 'Poi', $xsd , $validation);
 
+    ExportLogger::getInstance()->initExport( 'Poi' );
   }
 
   protected function getData()
   {
-    if( $this->validation)
+    if( $this->validation )
     {
         $data = Doctrine::getTable( $this->model )->findAllValidByVendorId( $this->vendor->getId() );
     }else
     {
         $data = Doctrine::getTable( $this->model )->findByVendorId( $this->vendor->getId() );
     }
+
+    $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], 'Poi' );
 
     return $data;
   }
@@ -56,7 +59,8 @@ class XMLExportPOI extends XMLExport
              Doctrine_Query::create()
                  ->select("p.latitude, p.longitude, CONCAT( latitude, ', ', longitude ) as myString")
                  ->from('Poi p')
-                 ->where('p.vendor_id = ?', $this->vendor['id'])
+                 ->where('p.vendor_id = ?', $this->vendor['id'] )
+                 ->addWhere('p.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
                  ->groupBy('myString')
                  ->having('count( myString ) > 1')
                  ->execute( array(), Doctrine_Core::HYDRATE_ARRAY )
@@ -84,8 +88,20 @@ class XMLExportPOI extends XMLExport
             ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
             continue;
           }
-
       }
+
+     //skip the BEIJING pois if the status is not 10
+     if( $this->validation == true && $poi[ 'vendor_id' ] == 22 ) //beijing vendor_id
+     {
+         foreach ($poi[ 'PoiMeta' ] as $meta)
+         {
+            if(  $meta[ 'lookup' ] == 'status'  && $meta[ 'value' ] != 10 )
+            {
+                ExportLogger::getInstance()->addError( 'Skip Export for Beijing Pois status is not LIVE (10), ' . $meta[ 'value' ] . ' is given', 'Poi', $poi[ 'id' ] );
+                continue 2;
+            }
+         }
+     }
 
       //Skip Export for Pois with Dupe Lat/Longs
       foreach( $duplicateLatLongs as $dupe )
@@ -121,7 +137,7 @@ class XMLExportPOI extends XMLExport
           }
       }
 
-      if( stringTransform::mb_trim ( $poi['street'] ) == '' )
+      if( stringTransform::mb_trim ( $poi['street'] ) == '' || stringTransform::mb_trim ( $poi['street'] ) == '[invalid]')
       {
           if( $this->validation == true )
           {
@@ -174,9 +190,19 @@ class XMLExportPOI extends XMLExport
 
       $contactElement = $this->appendRequiredElement( $entryElement, 'contact' );
 
-      $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
-      $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
-      $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
+      // #687 Validate phone number with Nokia's Regex
+      if( $this->isValidTelephoneNo( $poi['phone'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
+      }
+      if( $this->isValidTelephoneNo( $poi['fax'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
+      }
+      if( $this->isValidTelephoneNo( $poi['phone2'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
+      }
 
       $this->appendNonRequiredElement( $contactElement, 'email', $poi['email'], XMLExport::USE_CDATA );
 
@@ -217,15 +243,31 @@ class XMLExportPOI extends XMLExport
       $this->appendNonRequiredElement( $contentElement, 'openingtimes', $poi['openingtimes'], XMLExport::USE_CDATA);
 
       //event/version/media
-      foreach( $poi[ 'PoiMedia' ] as $medium )
-      {
-        $mediaElement = $this->appendNonRequiredElement($contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA);
 
-        if ( $mediaElement instanceof DOMElement )
-        {
-          $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
-        }
-        //$medium->free();
+      // Finds Largest Media File that Exists on s3.
+      if( $this->validation )
+      {
+          foreach( $this->filterByExportPolicyAndVerifyMedia( $poi[ 'PoiMedia' ] ) as $medium )
+          {
+            $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getMediaUrl(), XMLExport::USE_CDATA );
+
+            if ( $mediaElement instanceof DOMElement )
+            {
+              $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+            }
+          }
+      }
+      else
+      {
+         foreach( $poi[ 'PoiMedia' ]  as $medium )
+          {
+            $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getMediaUrl(), XMLExport::USE_CDATA );
+
+            if ( $mediaElement instanceof DOMElement )
+            {
+              $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+            }
+          }
       }
 
       foreach( $poi[ 'PoiProperty' ] as $property )
@@ -256,7 +298,7 @@ class XMLExportPOI extends XMLExport
                 $avoidDuplicateUiCategories[] = (string) $uiCat['name'];
             }
 
-      ExportLogger::getInstance()->addExport( 'Poi' );
+      ExportLogger::getInstance()->addExport( 'Poi', $poi['id'] );
 
     }
 //    ExportLogger::getInstance()->showErrors();

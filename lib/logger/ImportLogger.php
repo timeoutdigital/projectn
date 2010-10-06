@@ -48,7 +48,7 @@ class ImportLogger extends BaseLogger
      *
      * @var Enabled
      */
-    private $_enabled = false;
+    private $_enabled = true;
 
     /**
      *
@@ -136,18 +136,24 @@ class ImportLogger extends BaseLogger
      */
     private function getLoggerByVendor()
     {
-        if( !$this->_vendorObj ) $this->setVendorUnknown();
-                
-        $currentCity = $this->_vendorObj['city'];
-        
-        if( array_key_exists( $currentCity, $this->_importLoggers ) )
-            return $this->_importLoggers[ $currentCity ];
-        else {
-            $this->_importLoggers[ $currentCity ]                   = new LogImport;
-            $this->_importLoggers[ $currentCity ]['Vendor']         = $this->_vendorObj;
-            $this->_importLoggers[ $currentCity ]['status']         = 'running';
-            $this->save( true );
-            return $this->_importLoggers[ $currentCity ];
+        try {
+            if( !$this->_vendorObj ) $this->setVendorUnknown();
+            
+            $currentCity = $this->_vendorObj['city'];
+
+            if( array_key_exists( $currentCity, $this->_importLoggers ) )
+                return $this->_importLoggers[ $currentCity ];
+            else {
+                $this->_importLoggers[ $currentCity ]                   = new LogImport;
+                $this->_importLoggers[ $currentCity ]['Vendor']         = $this->_vendorObj;
+                $this->_importLoggers[ $currentCity ]['status']         = 'running';
+                $this->save( true );
+                return $this->_importLoggers[ $currentCity ];
+            }
+        }
+        catch( Exception $e )
+        {
+            throw new ImportLoggerException( 'Import Logger caught a '. get_class( $e ) .' with the message '. $e->getMessage() .'.', NULL, $e );
         }
     }
 
@@ -251,8 +257,8 @@ class ImportLogger extends BaseLogger
 
             if ( is_subclass_of( $record, "Doctrine_Record" ) )
             {
-                $importRecordErrorLogger['model']        = get_class( $record );
-                $storeObject = method_exists( 'toArray', $record ) ? $record : $record->toArray();
+                $importRecordErrorLogger['model']                    = get_class( $record );
+                $storeObject = method_exists( 'toArray', $record ) ? $record->toArray() : $record;
                 $importRecordErrorLogger['serialized_object']        = serialize( $storeObject );
             }
 
@@ -271,7 +277,7 @@ class ImportLogger extends BaseLogger
     {
        if( $this->_enabled )
        {
-           $logImportCount = $this->_getLogImportCountObject( 'insert', get_class( $record ) );
+           $logImportCount = $this->_getLogImportCountObject( 'insert', is_object( $record ) ? get_class( $record ) : NULL );
            $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
            $this->save();
        }
@@ -286,7 +292,7 @@ class ImportLogger extends BaseLogger
     {
        if( $this->_enabled )
        {
-           $logImportCount = $this->_getLogImportCountObject( 'failed', get_class( $record ) );
+           $logImportCount = $this->_getLogImportCountObject( 'failed', is_object( $record ) ? get_class( $record ) : NULL );
            $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
            $this->save();
        }
@@ -304,7 +310,7 @@ class ImportLogger extends BaseLogger
       {
           if ( empty( $modifiedFieldsArray ) )
           {
-             $logImportCount = $this->_getLogImportCountObject( 'existing', get_class( $record ) );
+             $logImportCount = $this->_getLogImportCountObject( 'existing', is_object( $record ) ? get_class( $record ) : NULL );
              $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
           }
           else
@@ -318,7 +324,7 @@ class ImportLogger extends BaseLogger
               }
               $logImportChange = new LogImportChange();
               $logImportChange[ 'record_id' ] = $record[ 'id' ];
-              $logImportChange[ 'model' ]     = get_class( $record );
+              $logImportChange[ 'model' ]     = is_object( $record ) ? get_class( $record ) : NULL;
               $logImportChange['log']         = $log;
 
               $importLogger = $this->getLoggerByVendor();

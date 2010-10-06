@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<venue>
+	<venueDetails>
+        	<id><![CDATA[1376]]></id>
+			<keyword><![CDATA[Hangout, Jonker, jonker street , melaka, malacca, backpacker,]]></keyword>
+            <categories>
+                <category><![CDATA[Travel]]></category>
+                <subCategory><![CDATA[Budget Hotel]]></subCategory>
+            </categories>
+            <title><![CDATA[hangout@jonker]]></title>
+            <short_description><![CDATA[hangout@jonker is a treasure find for savvy travellers looking for a fun yet fuss-free stay while they scour the quaint streets of Melaka...]]></short_description>
+            <description><![CDATA[<p>Just as stylish as the hotel in Singapore, 'hangout@jonker' is Hangout Hotel's second establishment which is strategically situated right in the middle of Jonker Street - the must-visit destination for all tourists visiting Malacca. The hotel is a treasure find for savvy travellers looking for a fun yet fuss-free stay whilst they enjoy discovering the streets of Malacca's famous old town. <br />
+<br />
+Designed with their signature "no frills, just fun" concept, the 22-room boutique hotel has been built without unnecessary amenities, with the exception of cushy, comfortable beds and immaculately clean bathrooms. The staff at Hangout Hotel are friendly and make you feel at home the second you step through their doors. It is the ultimate destination for sociable travellers who enjoy meeting fellow travellers and sharing adventure tales to enhance their understanding and experiences of Asia. Hangout Hotels promises a fun yet affordable stay in a clean environment, assured through their ISO certification. <br />
+<br />
+You can bask in the tropical sun all year round or watch the sunset every evening at Look Out on the rooftop. Hangout Hotel provides token-operated Laundromats and Dryers at Wash Out allowing you to travel light, making your trip that much more convenient. Hangout also offers both free WIFI and free local calls at their Call Out corners to tell everyone what a fabulous place Hangout is!<br />
+<br />
+Log on to <a target="_blank" href="http://www.hangouthotels.com">www.hangouthotels.com</a> or email <a href="mailto:enquiries_malacca@hangouthotels.com">enquiries_malacca@hangouthotels.com</a> to book rooms and find out more.</p>]]></description>
+            <url><![CDATA[http://www.hangouthotels.com]]></url>
+            <operation_time><![CDATA[]]></operation_time>
+            <location>
+                <area><![CDATA[]]></area>
+                <lot><![CDATA[19/21]]></lot>
+                <street><![CDATA[Lorong Hang Jebat]]></street>
+                <zipcode><![CDATA[75200 Melaka]]></zipcode>
+                <state><![CDATA[Melaka]]></state>
+                <longlat><![CDATA[2.194958,102.248275]]></longlat>
+            </location>
+            <capacity><![CDATA[]]></capacity>
+            <parking><![CDATA[]]></parking>
+            <lrt_station><![CDATA[]]></lrt_station>
+            <contact_details>
+                <tel_no><![CDATA[06 282 8318]]></tel_no>
+                <email><![CDATA[]]></email>
+            </contact_details>
+            <price>
+            	<entry_fee><![CDATA[]]></entry_fee>
+                <membership_fee><![CDATA[]]></membership_fee>
+                <treatment_fee><![CDATA[]]></treatment_fee>
+                <pershow_fee><![CDATA[]]></pershow_fee>
+            </price>
+            <treatment><![CDATA[]]></treatment>
+            <medias>
+            	<small_image><![CDATA[http://www.timeoutkl.com/uploadfiles/image/Venues/Travel/Small/smlimg_HangoutJonker.jpg]]></small_image>
+                <small_image_credit><![CDATA[hangout hotel]]></small_image_credit>
+                <big_image><![CDATA[http://www.timeoutkl.com/uploadfiles/image/Venues/Travel/Big/bigimg_HangoutJonker.jpg]]></big_image>
+                <big_image_credit><![CDATA[hangout hotel]]></big_image_credit>
+            </medias>
+	</venueDetails>
+</venue>

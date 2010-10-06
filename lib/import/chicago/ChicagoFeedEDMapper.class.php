@@ -21,7 +21,7 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
      * @param SimpleXMLElement $xml
      * @param geoEncode $geoEncoder
      */
-    public function __construct( Doctrine_Record $vendor, $dataFileName, SimpleXMLElement $xml = null,  geoEncode $geoEncoder = null )
+    public function __construct( Doctrine_Record $vendor, $dataFileName, SimpleXMLElement $xml = null,  geocoder $geoEncoder = null )
     {
         if( !isset($xml) && !isset($dataFileName) )
         {
@@ -96,12 +96,12 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                                                                                                                 $poi[ 'country' ],
                                                                                                                     ));
                 // Add Category
-                $categoryArray[]                                = 'Eating & Drinking'; // Default and irst category for ED as many don;t have cat and many don't mean anything?
+                
+                $categoryArray = array('Eating & Drinking'); // Default and irst category for ED as many don;t have cat and many don't mean anything?
                 if( trim( (string)$xmlNode->category ) != '' )
                 {
                     $categoryArray                              = array_merge( $categoryArray, $this->nl2Array( (string)$xmlNode->category ) );
                 }
-                
                 $poi->addVendorCategory( $categoryArray , $this->vendorID );
 
                 // Add Features to Property
@@ -136,7 +136,6 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 // Save POI
                 $this->notifyImporter( $poi );
 
-                $poi->free( true );
                 unset( $poi );
                 
             } catch (Exception $exception)

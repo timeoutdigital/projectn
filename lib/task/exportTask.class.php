@@ -46,7 +46,7 @@ class exportTask extends sfBaseTask
     $this->_vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $options['city'], $options['language'] );
 
     //to reduce the user error only string "false" is false and all other values are true
-    $options[ 'validation' ] = !( strtolower( $options[ 'validation' ] ) == 'false') ;
+    $options[ 'validation' ] = !( strtolower( $options[ 'validation' ] ) == 'false');
 
     ExportLogger::getInstance()->setVendor( $this->_vendor )->start();
     $this->getExporter( $options )->run();

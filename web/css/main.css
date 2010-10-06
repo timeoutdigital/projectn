@@ -76,3 +76,138 @@ hr {
     height:1px;
     overflow:hidden;
 }
+#poi_filters_vendor_poi_category_list, #poi_filters_poi_category_list, #event_filters_vendor_event_category_list{
+    width: 450px;
+}
+
+/* get-listed external data entry forms CSS */
+.get-listed h1 span.beta-flag {
+ font-size: 14px;
+ line-height: 18px;
+ vertical-align: top;
+ padding-left: 5px;
+ letter-spacing: -1px;
+}
+
+.get-listed form div.gray-box ul.radio_list li,
+.get-listed form div.gray-box ul.checkbox_list li {
+ display: block;
+ float: left;
+ width: 90px;
+}
+
+.get-listed form div.gray-box input {
+ margin-left: 0;
+ margin-top: 0;
+}
+
+.get-listed form .gray-box {
+ border: 1px solid #aaa;
+ background: #eee;
+ padding: 6px;
+}
+
+.get-listed form .gray-box span.note{
+ clear: left;
+ display: block;
+}
+
+.get-listed form span.note.above {
+ margin-bottom: 5px;
+}
+
+.get-listed  form span.note.below {
+ margin-top: 5px;
+}
+
+.get-listed form .gray-box div.field {
+ margin-bottom: 15px;
+}
+
+.get-listed form .gray-box div.field li{
+ margin-bottom: 10px;
+}
+
+.get-listed span.required {
+ color: #ed1b24;
+}
+
+.get-listed ul.bulleted {
+ list-style-type: disc;
+ margin-left: 1.2em;
+}
+
+.get-listed #sublisting_recurring_dates_recurring_monthly_month_number,
+.get-listed #sublisting_recurring_dates_recurring_weekly_week_number{
+ width: 2em;
+}
+
+.get-listed .introduction,
+.get-listed-thanks {
+ font-size: 1.166em;
+ line-height: 1.4;
+ padding-bottom: 10px;
+}
+
+.get-listed-thanks p {
+ margin-bottom: 18px;
+}
+
+.get-listed p {
+ margin: 14px 0;
+}
+
+.get-listed .introduction p.error-message {
+ color: #ed1b24;
+}
+
+.get-listed .and-or {
+ display: block;
+ float: left;
+ width: 30%;
+ text-align: right;
+ padding-top: 1em;
+}
+
+.get-listed input.readonly {
+  background: #eee;
+}
+
+.get-listed form .submit-button {
+ background: #fff url(/images/sprites/search.gif?v=2.0) no-repeat scroll left
+  -594px;
+ height: 24px;
+ width: 122px;
+}
+
+.get-listed li.newsletter_subscription input {
+ float: left;
+ margin-bottom: 12px;
+}
+
+.get-listed li.newsletter_subscription input {
+ float: left;
+ display: block;
+}
+
+#recurring_monthly_weekday_container,
+#recurring_monthly_position_container {
+ float:left;
+}
+
+#recurring_monthly_weekday_container {
+ margin-left: 10px;
+}
+
+#recurring_information_label {
+ float: left;
+ margin-right:5px;
+}
+
+.hidden{
+ display:none;
+}
+
+.clearer{
+ clear: left;
+}

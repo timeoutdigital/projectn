@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<events>
+  <event id="01">
+    <name><![CDATA[Grace Jones]]></name>
+    <description></description>
+    <short_description><![CDATA[Muazzam sesi ve sahne performansıyla tanınan, disco’dan rock’a, 70’lerden günümüze uzanan efsane bir kadın Grace Jones. Bu ilk İstanbul konseri, kaçmasın. Biletler önceden alınsın, kara borsaya gerek kalmasın.]]></short_description>
+        <booking_url></booking_url>
+        <url><![CDATA[http://www.gracejones.org/]]></url>
+        <timeout_url><![CDATA[http://www.timeoutistanbul.com/e8672/muzik/grace_jones]]></timeout_url>
+        <price><![CDATA[sahne önü: 134 TL, 1. kategori: 102 TL, 2. kategori: 90 TL, 3. kategori: 78,50 TL, 4. kategori: 67,50 TL, öğrenci: 45 TL]]></price>
+        <rating></rating>
+    <review_date></review_date>
+    <occurrences>
+    	<occurrence id="01_1">
+    	<booking_url>http://www.timeout.com</booking_url>
+    	<start_date><![CDATA[03.09.2010]]></start_date>
+    	<start_time><![CDATA[]]></start_time>
+    	<end_date></end_date>
+    	<end_time></end_time>
+    	<utc_offset></utc_offset>
+    	<venue><![CDATA[3588]]></venue>
+    	</occurrence>
+    </occurrences>
+    <occurrences>
+    	<occurrence id="01_2">
+    	<booking_url>http://www.facebook.com</booking_url>
+    	<start_date><![CDATA[04.09.2010]]></start_date>
+    	<start_time><![CDATA[]]></start_time>
+    	<end_date></end_date>
+    	<end_time></end_time>
+    	<utc_offset></utc_offset>
+    	<venue><![CDATA[3589]]></venue>
+    	</occurrence>
+    </occurrences>
+    <categories>
+        <category>
+            <name><![CDATA[Alternatif]]></name>
+            <children>
+                <category></category>
+                <category></category>
+            </children>
+        </category>
+        <category></category>
+        <category></category>
+    </categories>
+    <medias>
+  <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/10122.jpg]]></media>
+        </medias>
+  </event>
+
+
+  <event id="02">
+    <name><![CDATA[Lisa Ekdahl]]></name>
+    <description></description>
+    <short_description><![CDATA[İsveçli şarkıcı ve besteci Lisa Ekdahl, sıcak,  çocuksu vokali, caz, bossa nova ve folk müziğin birleştiği birbirinden güzel şarkılarıyla sizi başka diyarlara götürebilir.]]> </short_description>
+        <booking_url></booking_url>
+        <url></url>
+        <timeout_url><![CDATA[http://www.timeoutistanbul.com/e8688/muzik/lisa_ekdahl]]></timeout_url>
+        <price><![CDATA[oturmalı: 67,50 TL, ayakta: 45 TL, ayakta öğrenci: 34 TL]]></price>
+        <rating></rating>
+    <review_date></review_date>
+       <occurrences>
+			<occurrence id="03_1">
+			<booking_url></booking_url>
+			<start_date><![CDATA[18.08.2010]]></start_date>
+			<start_time><![CDATA[21.00]]></start_time>
+			<end_date></end_date>
+			<end_time></end_time>
+			<utc_offset></utc_offset>
+			<venue><![CDATA[3766]]></venue>
+			</occurrence>
+		</occurrences>
+		<occurrences>
+			<occurrence id="03_2">
+			<booking_url></booking_url>
+			<start_date><![CDATA[28.08.2010]]></start_date>
+			<start_time><![CDATA[21.00]]></start_time>
+			<end_date></end_date>
+			<end_time></end_time>
+			<utc_offset></utc_offset>
+			<venue><![CDATA[3766]]></venue>
+			</occurrence>
+		</occurrences>
+
+    <categories>
+        <category>
+            <name><![CDATA[Caz]]></name>
+            <children>
+                <category></category>
+                <category></category>
+            </children>
+        </category>
+        <category></category>
+        <category></category>
+    </categories>
+    <medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/standart/10142.jpg]]></media>
+        </medias>
+  </event>
+</events>

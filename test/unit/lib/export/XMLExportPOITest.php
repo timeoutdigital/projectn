@@ -138,10 +138,15 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $media = new PoiMedia();
         $media[ 'ident' ] = 'md5 hash of the url';
-        $media[ 'mime_type' ] = 'image/';
+        $media[ 'mime_type' ] = 'image/jpeg';
         $media[ 'url' ] = 'url';
+        $media[ 'status' ] = 'valid';
+        $media[ 'content_length' ] = 120;
+
         $poi['PoiMedia'][] = $media;
+
         $media->save();
+
 
         $poi = new Poi();
         $poi->setPoiName( 'test name2' . $this->specialChars );
@@ -201,6 +206,34 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->link( 'Vendor', 2 );
         $poi->save();
 
+        // #687 Telephone Number Check
+        $poi = new Poi();
+        $poi->setPoiName( 'Invalid Telephone' );
+        $poi->setStreet( 'test street' );
+        $poi->setHouseNo('12' );
+        $poi->setZips('1234' );
+        $poi->setCity( 'test town' );
+        $poi->setDistrict( 'test district' );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '123' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.081888002' );
+        $poi->setLatitude( 51.524543601 );
+        $poi->setEmail( 'you@who.com' );
+        $poi->setUrl( 'http://foo.com' );
+        $poi->setPhone( '212 420 1934' );
+        $poi->setPhone2( '12 769 1212' ); // Valid
+        $poi->setFax( '444 1236' ); // Invalid no
+        $poi->setShortDescription( 'test short description' );
+        $poi->setDescription( 'test description' );
+        $poi->setPublicTransportLinks( 'test public transport' );
+        //$poi->setPrice( 'test price' );
+        $poi->setOpeningTimes( 'test opening times' );
+        $poi->link( 'Vendor', 2 );
+        $poi->link('PoiCategory', array( 1, 2 ) );
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->save();
+
         $this->runImportAndExport();
       }
       catch(PDOException $e)
@@ -212,6 +245,40 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
       ProjectN_Test_Unit_Factory::destroyDatabases();
+
+    }
+
+    public function testDuplicateRecordsDontCountTowardsDuplicateLatLong()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $this->vendor2['geo_boundries'] = "1;1;2;2";
+      $this->vendor2->save();
+
+      $poi1 = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi1[ 'Vendor' ] = $this->vendor2;
+      $poi1['latitude'] = 1.5;
+      $poi1['longitude'] = 1.5;
+      $poi1->save();
+
+      $poi2 = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi2[ 'Vendor' ] = $this->vendor2;
+      $poi2['latitude'] = 1.5;
+      $poi2['longitude'] = 1.5;
+      $poi2->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImportAndExport();
+      $this->assertEquals( 0, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
+
+      $poi2->setDuplicate( 'on' );
+      $poi2->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImportAndExport();
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
     }
 
     /**
@@ -228,7 +295,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
-
       $poi['latitude'] = 1.5;
       $poi['longitude'] = 1.5;
       $poi->save();
@@ -262,7 +328,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
 
-      $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
+      $this->assertEquals( 6, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
     /**
@@ -304,7 +370,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $poi['poi_name'] = 'hello';
       $poi['latitude'] = 51.52453600;
       $poi['longitude'] = -0.08148800;
-      $poi->addVendorCategory( "moo", $this->vendor2->id );
+      $poi->addVendorCategory( "moose", $this->vendor2->id );
       $poi->save();
 
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
@@ -373,7 +439,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testIfPoiWithEmptyStreetIsSkipped()
     {
       //entry
-      $this->assertEquals( 2, count( $this->xml->entry ) );
+      $this->assertEquals( 3, count( $this->xml->entry ) );
     }
 
     /**
@@ -382,7 +448,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testGeneratedXMLHasEntryTagsWithRequiredAttribute()
     {
       //entry
-      $this->assertEquals( 2, count( $this->xml->entry ) );
+      $this->assertEquals( 3, count( $this->xml->entry ) );
 
       $prefix = 'XXX';
       $this->assertStringStartsWith( $prefix, (string) $this->xml->entry[0]['vpid'] );
@@ -541,11 +607,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
-      //  print_r( Doctrine::getTable('PoiMedia')->findAll()->toArray() );
-      //echo $this->xml->entry[0]->asXML();
       $properties = $this->xml->entry[0]->version->content->media;
-      $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
-      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
+      $this->assertEquals( 1, count( $properties ) );
     }
 
     public function testExportWithValidationOff()
@@ -574,7 +637,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
 
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
-      $this->export = new XMLExportPOI( $this->vendor2, $this->destination, false );
+      $this->export = new XMLExportPOI( $this->vendor2, $this->destination, false ); //validation is off!
 
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
@@ -584,15 +647,106 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 2, count( $numEntries ) );
     }
 
+    public function testGetMediaUrl()
+    {
+      $XMLExportDestination =  dirname( __FILE__ ) . '/../../export/poi/poitest.xml'  ;
+
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      @unlink( $XMLExportDestination );
+      //delete the dummy image file if it exists
+      @unlink( sfConfig::get('sf_upload_dir') .'/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' );
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['poi_name'] = 'hello';
+      $poi['latitude'] = 11.52453600;
+      $poi['longitude'] = -0.08148800;
+      $poi->addVendorCategory( "moo", $this->vendor->id );
+
+
+      $media = new PoiMedia();
+      $media[ 'ident' ] =   'e5f9ec048d1dbe19c70f720e002f9cb1';
+      $media[ 'mime_type' ] = 'image/';
+      $media[ 'url' ] =  'e5f9ec048d1dbe19c70f720e002f9cb1.jpg';
+      $media[ 'status' ] = 'new';
+      $poi['PoiMedia'][] = $media;
+
+      $poi->save();
+
+      //for default application
+      $this->export = new XMLExportPOI( $this->vendor2, $XMLExportDestination, false ); //validation is off!
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $XMLExportDestination );
+
+      $numEntries = $this->xml->xpath( '//entry' );
+
+      //because the default application is not data_entry
+      // we are expecting a url from AWS
+      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,(string) $numEntries[0]->version->content->media  );
+
+      //delete the export file and export it again with data_entry application
+      @unlink( $XMLExportDestination );
+      $application = sfConfig::get( 'sf_app' ); //store the default application , should restore it back when we are done,
+
+      sfConfig::set( 'sf_app' , 'data_entry' ); //now we are exporting in data_entry installation
+
+      //create file in upload folder . mimic data_entry form uploaded it
+      file_put_contents( sfConfig::get('sf_upload_dir') .'/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,'' );
+      //run data_entry export
+      $this->export = new XMLExportPOI( $this->vendor2, $XMLExportDestination, false ); //validation is off!
+
+      $this->export->run();
+      $this->xml = simplexml_load_file( $XMLExportDestination );
+
+      $numEntries = $this->xml->xpath( '//entry' );
+
+      //now we are expecting a timeout/upload url
+      $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,(string) $numEntries[0]->version->content->media  );
+      sfConfig::set( 'sf_app' , $application );  //put the application setting back, don't want to mess with the other tests
+
+    }
     private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
       $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
+      $this->export->setS3cmdClassName( 's3cmdTestMediaTags' );
 
       $this->export->run();
       $this->xml = simplexml_load_file( $this->destination );
 
       //ExportLogger::getInstance()->showErrors();
+    }
+
+    /**
+     * Test the Nokia RegEx validation for phone, Phone 2 and Fax numbers when exporting.
+     */
+    public function testIsValidTelephoneNo()
+    {
+        $xml= simplexml_load_file( $this->destination );
+
+        // Get the Last one to test for Invalid Number
+        $contact = $xml->entry[2]->contact;
+
+        $this->assertEquals( '+44 212 420 1934', (string) $contact->phone );
+        $this->assertEquals( '+44 1 2769 1212', (string) $contact->phone2 );
+        $this->assertEquals( '', (string) $contact->fax );
+    }
+}
+/**
+ * Purpose of this mockup class to Make "testMediaTags" test pass..
+ * Since Image download task seperated and new status field added media tables,
+ * testMediaTags will fail as it don't have any valid image or the image exist on amazon server ( hope this makes sense ;)
+ */
+class s3cmdTestMediaTags extends s3cmd
+{
+    // Override parent function and return a list of static images
+    public function getListOfMediaAvailableOnAmazon( $vendorCity, $recordClass )
+    {
+        return array( 'md5 hash of the url.jpg' );
     }
 }
 ?>

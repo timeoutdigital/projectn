@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE movie [
+  <!ELEMENT movie (id,issue,title,director,cast,length,origin,year_production,synopsis,data_add,data_change,category,trailer_url,website,image,thumb,views,link)>
+  <!ELEMENT feature (id,issue,type,local,link,rating,excerpt,review,author,data_add,data_change,title,image,thumb,views)>
+  <!ELEMENT id (CDATA)>
+  <!ELEMENT issue (CDATA)>
+  <!ELEMENT title (CDATA)>
+  <!ELEMENT director (CDATA)>
+  <!ELEMENT cast (CDATA)>
+  <!ELEMENT length (CDATA)>
+  <!ELEMENT origin (CDATA)>
+
+  <!ELEMENT year_production (CDATA)>
+  <!ELEMENT synopsis (CDATA)>
+  <!ELEMENT data_add (CDATA)>
+  <!ELEMENT data_change (CDATA)>
+  <!ELEMENT category (CDATA)>
+  <!ELEMENT trailer_url (CDATA)>
+  <!ELEMENT website (CDATA)>
+  <!ELEMENT image (CDATA)>
+  <!ELEMENT thumb (CDATA)>
+
+  <!ELEMENT views (CDATA)>
+  
+  <!ELEMENT type (CDATA)>
+  <!ELEMENT local (CDATA)>
+  <!ELEMENT rating (CDATA)>
+  <!ELEMENT review (CDATA)>
+  <!ELEMENT author (CDATA)>
+  
+]>
+<movie>
+	<id>853</id>
+
+	<issue>44</issue>
+	<title>Haunted Changi</title>
+	<director>Andrew Lau</director>
+	<cast></cast>
+	<length>80</length>
+	<origin>Singapore</origin>
+
+	<year_production>2010</year_production>
+	<synopsis>Set to be a huge cult hit, a young crew of local filmmakers explore Old Changi Hospital on a ghost-hunt in this Blair Witch-like POV docu-horror fright-fest.</synopsis>
+	<critic_choice>Y</critic_choice>
+	<certificate>PG - Parental guidance advised</certificate>
+	<opens>2010-09-02</opens>
+	<data_add>Tue, 31 Aug 2010 09:13:13 +0000</data_add>
+
+	<data_change>Tue, 31 Aug 2010 09:18:52 +0000</data_change>
+	<local></local>
+	<category>Horror</category>
+	<views>21</views>
+	<trailer_url></trailer_url>
+	<website>http://www.facebook.com/hauntedchangi</website>
+	<highres>http://www.timeoutsingapore.com/contentFiles/image/2010/september/film/31-haunted-changi-listing.jpg</highres>
+
+	<thumbnail>http://www.timeoutsingapore.com/contentFiles/image/2010/september/film/31-haunted-changi-listing-152x110.jpg</thumbnail>
+	<large_image>http://www.timeoutsingapore.com/contentFiles/image/2010/september/film/31-haunted-changi-listing-482x298.jpg</large_image>
+	<link>http://www.timeoutsingapore.com/film/database/horror/haunted-changi</link>
+<tags>
+	<tag>Shopping</tag>
+</tags>
+</movie>
+

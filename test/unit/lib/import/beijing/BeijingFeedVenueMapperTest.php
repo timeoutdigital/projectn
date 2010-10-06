@@ -42,7 +42,7 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 
     //$this->connectToPDODB();
     $this->createDummyDB();
-    
+
     $this->dataMapper = new BeijingFeedVenueMapper( $this->pdoDB );
   }
 
@@ -62,7 +62,7 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       $importer->addDataMapper( $this->dataMapper );
       $importer->run();
 
-      // Get All from 
+      // Get All from
       $pois = Doctrine::getTable('Poi')->findAll();
 
       $this->assertEquals( 2, $pois->count(), 'Should be 2, as two dummy data Inserted for Beijing and 1 Other City' );
@@ -79,14 +79,14 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '', $poi['email'] );
       $this->assertEquals( 'http://www.theemperor.com.cn', $poi['url'] );
       $this->assertEquals( '+86 8 599 6666', $poi['phone'] );
-      
+
       $this->assertEquals( '', $poi['openingtimes'] );
       $this->assertEquals( '', $poi['public_transport_links'] );
       $this->assertEquals( '<p>With three giant Swarovski peonies winking at you as soon', substr( $poi['description'], 0, 60 ) );
 
       $this->assertEquals( '39.909988', $poi['latitude'] );
       $this->assertEquals( '116.452393', $poi['longitude'] );
-      
+
       // check category
       $this->assertGreaterThan( 0 , $poi['VendorPoiCategory']->count() );
       $this->assertEquals( 'Restaurents | Chinese', $poi['VendorPoiCategory'][0]['name'] );
@@ -105,6 +105,19 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals( '11am-2.30pm, 6-10.30pm daily', $poi['openingtimes'] );
       $this->assertEquals( '', $poi['public_transport_links'] );
+
+      $statusMetaFound =false;
+
+      foreach ($poi['PoiMeta'] as $meta)
+      {
+        if( $meta[ 'lookup'] == 'status' )
+        {
+            $statusMetaFound = true;
+            $this->assertEquals( '10', $meta['value'] );
+        }
+      }
+      $this->assertTrue( $statusMetaFound ,'status meta not found' );
+
       $this->assertEquals( '<p>This French fusion restaurant tends towards the whimsical', substr( $poi['description'], 0, 60 ) );
 
       $this->assertNull( $poi['latitude'] );
@@ -116,9 +129,30 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 
       // Image Fails Refs : #516 Mime Type
       // $this->assertGreaterThan( 0 , $poi['PoiMedia']->count() );
-      
+
   }
 
+  public function testNonLiveVenuesAreNotImported()
+  {
+      $importer = new Importer();
+      $importer->addDataMapper( $this->dataMapper );
+      $importer->run();
+
+      $vendorPoiIdOfNonLiveVenueInDB = 4;
+
+      $nonLiveVenueIsImported = false;
+
+      $pois = Doctrine::getTable('Poi')->findAll();
+      foreach ($pois as $poi)
+      {
+        if( $poi[ 'vendor_poi_id' ] == $vendorPoiIdOfNonLiveVenueInDB )
+        {
+            $nonLiveVenueIsImported = true;
+        }
+      }
+      $this->assertFalse($nonLiveVenueIsImported , 'non-live venues (if the status != 10) shouldnt be imported'  );
+
+  }
   /**
    * Create Dummy SqLite3 Database in memoty and add Dummy Data
    * @return Boolean
@@ -129,7 +163,7 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
           $pdoDB = new PDO('sqlite::memory:');
 
           $pdoDB->beginTransaction();
-          
+
           $pdoDB->query('DROP TABLE IF EXISTS neighbourhood; DROP TABLE IF EXISTS category; DROP TABLE IF EXISTS venue; DROP TABLE IF EXISTS venue_category_mapping;');
 
 
@@ -154,20 +188,21 @@ class BeijingFeedVenueMapperTest extends PHPUnit_Framework_TestCase
           $pdoDB->exec('INSERT INTO category(id, parent_category_id, lft, rgt, name) VALUES(406, 404, 86, 127, "Chinese" );');
           $pdoDB->exec('INSERT INTO category(id, parent_category_id, lft, rgt, name) VALUES(561, 406, 123, 124, "Yunnan & SouthWest Minority" );');
 
-          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(1, 2, "Sofitel Wanda", "Wanda Plaza", "93 Jianguo Lu, Tower C Wanda Plaza, Chaoyang district", "", "", "", "http://www.theemperor.com.cn", "39.909988", "116.452393", "8599 6666", "", "", "<p>With three giant Swarovski peonies winking at you as soon as you enter and a daring mix of French chic and Tang dynasty chinoiserie characterising the decor throughout, this hotel is gorgeous. A fantastic French restaurant &ndash; Le Pre Lenotre &ndash; and a relaxing Le Spa add to the appeal.</p>");');
-          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(2,1, "Meli Melo", "", "Second Floor, Les Millésimes, 16 Yonganli (next to Building 15 Jianwai SOHO), Chaoyang district", "", "", "11am-2.30pm, 6-10.30pm daily", "", "0.000000", "0.000000", "8521 9988", "", "44494", "<p>This French fusion restaurant tends towards the whimsical in its eclectic d&eacute;cor of peach-coloured sofas, gilded screens and red chandelier covers made of an Issey Miyake inspired fabric. Yet when it comes to food, Meli Melo gets serious. Meli Melo belongs to the three-storey Les Mill&eacute;simes development, which includes a wine bar, cigar bar, private club and the French seafood restaurant La Maree, located on the same floor as Meli Melo. The two restaurants share a kitchen and a wine list. That the wines are currently available only by the bottle is unfortunate since it is nearly impossible to match one wine with the many flavours that Meli Melo combines on one plate. Staff are polite and professional yet unlike many new restaurants around town, Meli Melo does not add an extra service charge.</p>");');
-          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(3,4, "None Beijin", "", "Invaid Address", "", "", "11am-2.30pm, 6-10.30pm daily", "", "0.000000", "0.000000", "8521 9988", "", "44494", "<p>This shoudn\'t be in. Beijing???</p>");');
-          
+          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, status, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(1, 2, 10, "Sofitel Wanda", "Wanda Plaza", "93 Jianguo Lu, Tower C Wanda Plaza, Chaoyang district", "", "", "", "http://www.theemperor.com.cn", "39.909988", "116.452393", "8599 6666", "", "", "<p>With three giant Swarovski peonies winking at you as soon as you enter and a daring mix of French chic and Tang dynasty chinoiserie characterising the decor throughout, this hotel is gorgeous. A fantastic French restaurant &ndash; Le Pre Lenotre &ndash; and a relaxing Le Spa add to the appeal.</p>");');
+          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, status, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(2, 1, 10, "Meli Melo", "", "Second Floor, Les Millésimes, 16 Yonganli (next to Building 15 Jianwai SOHO), Chaoyang district", "", "", "11am-2.30pm, 6-10.30pm daily", "", "0.000000", "0.000000", "8521 9988", "", "44494", "<p>This French fusion restaurant tends towards the whimsical in its eclectic d&eacute;cor of peach-coloured sofas, gilded screens and red chandelier covers made of an Issey Miyake inspired fabric. Yet when it comes to food, Meli Melo gets serious. Meli Melo belongs to the three-storey Les Mill&eacute;simes development, which includes a wine bar, cigar bar, private club and the French seafood restaurant La Maree, located on the same floor as Meli Melo. The two restaurants share a kitchen and a wine list. That the wines are currently available only by the bottle is unfortunate since it is nearly impossible to match one wine with the many flavours that Meli Melo combines on one plate. Staff are polite and professional yet unlike many new restaurants around town, Meli Melo does not add an extra service charge.</p>");');
+          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, status, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(3, 4, 10, "None Beijin", "", "Invaid Address", "", "", "11am-2.30pm, 6-10.30pm daily", "", "0.000000", "0.000000", "8521 9988", "", "44494", "<p>This shoudn\'t be in. Beijing???</p>");');
+          $pdoDB->exec('INSERT INTO venue(id, neighbourhood_id, status, name, building_name, address, postcode, travel, opening_times, url, latitude, longitude, phone, email, image_id, annotation) VALUES(4, 1, 50, "not-live-venue", "", "Invaid Address", "", "", "11am-2.30pm, 6-10.30pm daily", "", "0.000001", "0.000002", "85221 99188", "", "442494", "<p>This ssadadhoudn\'t be in. Beijing???</p>");');
+
           $pdoDB->exec('INSERT INTO venue_category_mapping(venue_id, category_id) VALUES(1, 406);');
           $pdoDB->exec('INSERT INTO venue_category_mapping(venue_id, category_id) VALUES(2, 404);');
           $pdoDB->exec('INSERT INTO venue_category_mapping(venue_id, category_id) VALUES(3, 561);');
+          $pdoDB->exec('INSERT INTO venue_category_mapping(venue_id, category_id) VALUES(4, 561);');
 
           $pdoDB->commit();
 
-          echo 'Dummy Data Added to DB' . PHP_EOL;
           // Set Connection
           $this->pdoDB = $pdoDB;
-        
+
         }
         catch(PDOException $e)
         {

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<movies>
+  <movie id="01">
+    <name><![CDATA[Gezegen 51]]></name>
+    <plot></plot>
+    <review><![CDATA[Buradan çok uzakta, hayatın basit, çocukların mutlu ve herkesin her şeyden memnun olduğu bir yerde geçiyor film. Hep öcü olarak akıllarda yer etmiş uzaylıların yerine insan geçiyor bu sefer. Yani Gezegen 51’e insanlar geliyor. Normalde bu tarz filmlerde dünyayı uzaylıların istila etmesine alışığız, ‘Gezegen 51’de bunun tam tersi oluyor; Gezegen 51’i dünyalılar istila ediyor. Bunun akabinde de komik olaylar vuku buluyor. Film için ilk olarak ‘Planet One’ adı uygun görülmüş ancak daha sonra ‘Planet 51’ olarak değiştirilmiş. Çok taze bir film değil bu arada ‘Gezegen 51’, yurt dışında 2009’da gösterime girmiş bir film. Memleketteki animasyon meraklıları da filme ilgi gösterecektir diye tahmin ediyoruz. Ancak daha çok çocuklara yönelik bir film olduğunu belirtelim, zaten dublajlı olarak vizyona giriyor.]]></review>
+        <url><![CDATA[http://www.sonypictures.com/sonywonder/planet51/]]></url>
+        <booking_url></booking_url>
+        <timeout_url><![CDATA[http://www.timeoutistanbul.com/f751/film/gezegen_51]]></timeout_url>
+        <rating><![CDATA[4]]></rating>    
+        <genres>
+        <genre>
+            <name><![CDATA[Animasyon]]></name>
+            <children>
+                <genre></genre>
+                <genre></genre>
+            </children>
+        </genre>
+        <genre></genre>
+        <genre></genre>
+    	</genres>
+        <medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/large/10026.jpg]]></media>
+        </medias>
+  </movie>
+
+  <movie id="02">
+    <name><![CDATA[İlahların Aşkı]]></name>
+    <plot></plot>
+    <review><![CDATA[İrlandalı bir balıkçı olan Syracuse, bir gün çıktığı seferde ağına takılan güzel ve gizemli bir kadın olan Ondine'e rastlar. Syracuse'ın ağına takılan bu kadınla hayatı değişir. Kadını evine götürüp kardeşi Annie ile tanıştırır. Annie bu kadının büyülü bir varlık olduğuna inanmaktadır; ve bu düşüncesini abisine belirtir. Syracuse ise bu güzel kadına umutsuzca aşık olmuştur. Annie'nin bu söylemlerini ilk önce ciddiye almaz; ama şüphelenmekten de geri kalmaz. Tüm masallarda olduğu gibi mutluluk ve karanlık bu hikâyede de yan yana gidiyor. Senaryosu ve yönetmenliğini Neil Jordan’ın üstlendiği İrlanda kıyılarının büyülü dünyasında geçen filmin görüntü yönetmenliği Christopher Doyle'a ait.]]></review>
+        <url><![CDATA[http://www.paramountpicturesintl.com/intl/uk/ondine/index.html]]></url>
+        <booking_url></booking_url>
+        <timeout_url><![CDATA[http://www.timeoutistanbul.com/f756/film/ilahlarin_aski]]></timeout_url>
+        <rating><![CDATA[4]]></rating>    
+    <genres>
+        <genre>
+            <name><![CDATA[Dram]]></name>
+            <children>
+                <genre></genre>
+                <genre></genre>
+            </children>
+        </genre>
+        <genre></genre>
+        <genre></genre>
+    </genres>
+        <medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/large/10056.jpg]]></media>
+        </medias>
+  </movie>
+  <movie id="03">
+    <name><![CDATA[Ölümcül Takip]]></name>
+    <plot></plot>
+    <review><![CDATA['The Chaser’ bir Güney Kore filmi ve Na Hong-jin’in ilk yönetmenlik denemesi. Filmde Eom Joong-ho eski bir polis. Şimdilerde ise kadın satıcılığı yapıyor. Eski günlerin aksine artık paradan başka bir şey düşünmez olmuştur. Ofisine telefon geldikçe, elindeki kadınları bir bir işe yolluyor, Joong ho da parasını kazanıyor. Ancak bir süre sonra Joong ho’ya bağlı telekızlar bir bir kaybolmaya başlıyor ve Joong ho küplere biniyor. Çünkü kadınlarının kaçırılıp satılmaya başlandığını düşünüyor. Bu işin izini sürerken, en son işe gönderdiği Mi jin'in gittiği adamın diğer kaybolan telekızların gittiği adamla aynı adam olduğunu saptıyor ve kovalamaca başlıyor. Filmde seri cinayetler işleyen karakterin kim olduğunu en başından çaksanız bile, sonuna kadar nefes nefese izlemeye devam ediyorsunuz.]]></review>
+        <url><![CDATA[http://www.chaser-movie.com/]]></url>
+        <booking_url></booking_url>
+        <timeout_url><![CDATA[http://www.timeoutistanbul.com/f743/film/olumcul_takip]]></timeout_url>
+        <rating><![CDATA[3]]></rating>    
+       <genres>
+        <genre>
+            <name><![CDATA[Aksiyon]]></name>
+            <children>
+                <genre></genre>
+                <genre></genre>
+            </children>
+        </genre>
+        <genre></genre>
+        <genre></genre>
+    </genres>
+        <medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/large/9990.jpg]]></media>
+        </medias>
+  </movie>
+  <movie id="04">
+    <name><![CDATA[Sex and the City 2]]></name>
+    <plot></plot>
+    <review><![CDATA[Hayranlarının nicedir sıkı bir bekleyişte olduğundan şüphe yok. 2009 Ağustos’unda çekimleri başlayan ‘Sex and The City 2’. Film henüz yapım aşamasındayken oyuncu kadrosunda kimlerin yer alacağına dair dedikodularda gırla gidiyordu. Hatta bir ara Victoria Beckham’ın da ‘Sex and The City 2’de rol alacağı konuşulmaya başlandı. Daha sonra aslı astarı olmadığı açıklanan bu söylentinin çıkış noktası büyük ihtimalle Victoria Beckham’a ilk filmin oyuncu kadrosunda yer alması için bir teklif götürülmesi ve kendisinin bu teklifi Spice Girls ile turneye çıkacağından dolayı reddetmesiydi. Victoria Beckham olmasa da filmin oyuncu kadrosu şöhret magazin bombası kadınlar açısından zengin. Penélope Cruz, Mariah Carey ve Heidi Klum var örneğin. Filmle ilgili çılgınca bir tanıtım kampanyası da dünya çapında ilerliyor. Örneğin film gösterime girmeden iki ay önce biletleri bazı yerlerde satışa gitti, hatta birkaç saat içinde ilk günün biletlerinin tükendiği yerler oldu. Bazı sinemalar ise ilk önce ‘Sex and the City 1’i sonra da serinin ikincisini göstermek üzere programladılar kendini. Bizim buralardaki sinema salonları da buna benzer bir uygulamaya gidecektir diye tahmin ediyoruz.]]></review>
+        <url><![CDATA[http://www.sexandthecitymovie.com/]]></url>
+        <booking_url></booking_url>
+        <timeout_url><![CDATA[http://www.timeoutistanbul.com/f741/film/sex_and_the_city_2]]></timeout_url>
+        <rating><![CDATA[4]]></rating>    
+        <genres>
+        <genre>
+            <name><![CDATA[Komedi]]></name>
+            <children>
+                <genre></genre>
+                <genre></genre>
+            </children>
+        </genre>
+        <genre></genre>
+        <genre></genre>
+    </genres>
+<medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/large/9935.jpg]]></media>
+        </medias>
+  </movie>
+
+  <movie id="05">
+    <name><![CDATA[Şüphe]]></name>
+    <plot></plot>
+    <review><![CDATA[Lasonas evinde yakın arkadaşlarıyla verdiği bir yemekte Penelope ile tanışır. Her şey burada başlar ve birbirleriyle çok iyi anlaşmaya başlarlar. Bir süre sonra Penelope'nin Lasonas'ın yanına taşınmasıyla bağları daha da güçlenir. Bir sabah Lasonas, uyandığında yanında Penelope'yi görememenin tedirginliğiyle olan bitene anlam veremez. Yeni sahip olduğu sevgilisinin kayboluşu, içine kapanık olan Lasonas'ı çaresizliğe sürüklerken hassas olan akıl sağlığını onu karamsarlığa saplar. Yuna yapımı film, daha önce kısa filmler yapmış Atinalı yönetmen Alexis Alexiou imzalı.]]></review>
+        <url><![CDATA[http://www.tale52.gr/]]></url>
+        <booking_url></booking_url>
+        <timeout_url><![CDATA[http://www.timeoutistanbul.com/f755/film/suphe]]></timeout_url>
+        <rating><![CDATA[3]]></rating>    
+        <genres>
+        <genre>
+            <name><![CDATA[Gerilim]]></name>
+            <children>
+                <genre></genre>
+                <genre></genre>
+            </children>
+        </genre>
+        <genre></genre>
+        <genre></genre>
+    </genres>
+    <medias>
+        <media><![CDATA[http://www.timeoutistanbul.com/images/uploadedimages/large/10055.jpg]]></media>
+        </medias>
+  </movie>
+</movies>

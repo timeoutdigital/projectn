@@ -107,6 +107,15 @@ class MovieTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('Movie name is', $movie['name']);
       $this->assertEquals('some review with lots of...', $movie['review']);
 
+      // make sure leading and trailing commas get removed
+      $movie['name'] = ',Movie name is ,';
+
+      // save
+      $movie->save();
+
+      // assert
+      $this->assertEquals('Movie name is', $movie['name'], 'trim failed to remove leading and/or trailing comma(s)');
+
   }
 
   public function testAddTimeoutUrl()
@@ -202,124 +211,5 @@ class MovieTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'The Wolfman', $movie[ 'name' ] );
   }
-
-   public function testAddMediaByUrlandSavePickLargerImage()
-   {
-    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
-
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-    $movie[ 'Vendor' ] = $vendor;
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $mediumImageUrl   = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h217/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $movie->addMediaByUrl( $smallImageUrl );
-    $movie->addMediaByUrl( $largeImageUrl );
-    $movie->addMediaByUrl( $mediumImageUrl );
-
-    $movie->save();
-
-    $savedMovieId = $movie->id;
-    $movie->free( true ); unset( $movie );
-    $movie = Doctrine::getTable( "Movie" )->findOneById( $savedMovieId );
-
-    // after adding 3 images we expect to have only one image and it should be the large image
-    $this->assertEquals( count( $movie[ 'MovieMedia' ]) ,1 , 'there should be only one MovieMedia attached to a Poi after saving' );
-    $this->assertEquals( $movie[ 'MovieMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to POI when adding more than one' );
-
-   }
-
-   /**
-    * if there is an image attached to Movie and a smaller one is being added, it should keep the larger image
-    *
-    */
-   public function  testAddMediaByUrlandSaveSkipSmallerImage()
-   {
-    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-    $movie[ 'Vendor' ] = $vendor;
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $movie->addMediaByUrl( $largeImageUrl );
-    $movie->save();
-
-    $savedMovieId = $movie->id;
-    $movie->free( true ); unset( $movie );
-    $movie = Doctrine::getTable( "Movie" )->findOneById( $savedMovieId );
-
-    // adding a smaller size imahe
-    $movie->addMediaByUrl( $smallImageUrl );
-    $movie->save();
-
-    $this->assertEquals( count( $movie[ 'MovieMedia' ]) ,1 , 'there should be only one MovieMedia attached to a Poi after saving' );
-    $this->assertEquals( $movie[ 'MovieMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be kept adding a smaller sized one' );
-
-   }
-
-    /**
-    * if there is an image attached to Movie and a larger one is being added, it should remove the existing image with the larger one
-    *
-    */
-   public function  testAddMediaByUrlandSaveRemoveSmallerImageAndSaveLargerOne()
-   {
-    $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-    $movie[ 'Vendor' ] = $vendor;
-
-    $smallImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h117/image.jpg';
-    $largeImageUrl    = 'http://www.toimg.net/managed/images/bounded/10138709/w482/h317/image.jpg';
-
-    $movie->addMediaByUrl( $smallImageUrl );
-    $movie->save();
-
-    $savedMovieId = $movie->id;
-    $movie->free( true ); unset( $movie );
-    $movie = Doctrine::getTable( "Movie" )->findOneById( $savedMovieId );
-
-    // adding a smaller size imahe
-    $movie->addMediaByUrl( $largeImageUrl );
-    $movie->save();
-
-    $this->assertEquals( count( $movie[ 'MovieMedia' ]) ,1 , 'there should be only one MovieMedia attached to a Poi after saving' );
-    $this->assertEquals( $movie[ 'MovieMedia' ][0][ 'url' ], $largeImageUrl , 'larger should be saved' );
-
-   }
-
-   /**
-    * Check addMediaByUrl() get_header for array value.
-    */
-   public function testAddMediaByUrlMimeTypeCheck()
-   {
-      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
-      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-      $movie[ 'Vendor' ] = $vendor;
-
-      // Valid URL with 302 Redirect
-      $this->assertTrue( $movie->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
-      // 404 Error Url
-      $this->assertFalse( $movie->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
-      // Valid URL - No redirect
-      $this->assertTrue( $movie->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
-
-   }
-  /*
-   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
-   */
-  public function testMediaPopulateByUrlForRedirectingLink()
-  {
-      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
-      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-      $movie[ 'Vendor' ] = $vendor;
-
-      $movie->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
-      $movie->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
-      $movie->save();
-
-      $this->assertEquals(1, $movie['MovieMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
-  }
-
 }
 ?>

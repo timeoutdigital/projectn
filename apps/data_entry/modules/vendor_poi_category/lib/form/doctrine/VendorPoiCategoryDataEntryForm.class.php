@@ -21,5 +21,8 @@ class VendorPoiCategoryDataEntryForm extends BaseVendorPoiCategoryForm
 
     $this->widgetSchema[ 'vendor_id' ]      = new widgetFormFixedVendorText( array( 'vendor_id'  => $this->user->getCurrentVendorId(), 'vendor_name'  => $this->user->getCurrentVendorCity()  ) );
     $this->validatorSchema[ 'vendor_id' ]   = new validatorSetCurrentVendorId( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
+
+    unset( $this[ 'poi_list' ] );
   }
+
 }

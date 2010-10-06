@@ -21,7 +21,7 @@ class ChicagoFeedBCMapper extends ChicagoFeedBaseMapper
      * @param SimpleXMLElement $xml
      * @param geoEncode $geoEncoder
      */
-    public function __construct( Doctrine_Record $vendor, $dataFileName, SimpleXMLElement $xml = null,  geoEncode $geoEncoder = null )
+    public function __construct( Doctrine_Record $vendor, $dataFileName, SimpleXMLElement $xml = null,  geocoder $geoEncoder = null )
     {
         if( !isset($xml) && !isset($dataFileName) )
         {
@@ -107,7 +107,6 @@ class ChicagoFeedBCMapper extends ChicagoFeedBaseMapper
                 // Save POI
                 $this->notifyImporter( $poi );
 
-                $poi->free( true );
                 unset( $poi );
                 
             } catch (Exception $exception)

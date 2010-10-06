@@ -15,13 +15,13 @@
  * The addressString must contain as much address info as possible
  *  <code>
  *
- *  $geoEncode = new yandexGeocoder();
- *  $geoEncode->setApiKey( $apiKey );
- *  $geoEncode->setAddress( $addressString );
+ *  $geocoder = new yandexGeocoder();
+ *  $geocoder->setApiKey( $apiKey );
+ *  $geocoder->setAddress( $addressString );
  *
  *  //Set longitude and latitude
- *  $poiObj[ 'longitude' ] = $geoEncode->getLongitude();
- *  $poiObj[ 'latitude' ]  = $geoEncode->getLatitude();
+ *  $poiObj[ 'longitude' ] = $geocoder->getLongitude();
+ *  $poiObj[ 'latitude' ]  = $geocoder->getLatitude();
  * </code>
  *
  * Yandex Documentation
@@ -29,7 +29,7 @@
  * @link http://code.google.com/apis/maps/documentation/reference.html#GGeoStatusCode.G_GEO_SUCCESS
  * 
  */
-class yandexGeocoder extends geoEncode
+class yandexGeocoder extends geocoder
 {
   /**
    * An associative array that maps ymapml accuracy values to our accuracy values
@@ -42,11 +42,6 @@ class yandexGeocoder extends geoEncode
                              'street' => self::ACCURACY_STREET,
                              'near'   => self::ACCURACY_COUNTRY,
                            );
-
-  public function __construct( $curlClass='Curl' )
-  {
-    parent::__construct( $curlClass );
-  }
 
   public function getLookupUrl()
   {
@@ -62,6 +57,27 @@ class yandexGeocoder extends geoEncode
   protected function apiKeyIsValid( $apiKey )
   {
     return (!is_string( $apiKey ) || strlen( $apiKey ) != 89);
+  }
+
+  protected function responseIsValid()
+  {
+    if( !is_string( $this->response ) || empty( $this->response ) )
+        return false;
+
+    try {
+        $xml = simplexml_load_string( $this->response );
+        
+        $numFound = $xml->GeoObjectCollection
+                ->metaDataProperty
+                ->GeocoderResponseMetaData
+                ->found;
+    }
+    catch( Exception $e )
+    {
+        return false;
+    }
+
+    return ( $numFound > 0 );
   }
 
   /**

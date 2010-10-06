@@ -1,26 +1,29 @@
-<html>
-<head>
 <script type="text/javascript" src="/js/dygraph-combined.js"></script>
-</head>
-<body>
-<?php foreach( $data as $city => $models ){ ?>
-    <?php foreach( $models as $model => $csv ){ ?>
-        <?php if( !empty( $csv ) ){ ?>
-            <h1><?php echo ucfirst( $city ) . " " . $model . " Import Stats."; ?></h1>
-            <div id="<?php echo $city . "_" . $model; ?>" style="width:95%; height:350px;"></div>
-            <script type="text/javascript">
-              new Dygraph(
-                document.getElementById("<?php echo $city . "_" . $model; ?>"),
-                <?php echo $csv; ?>,
-                {
-                  rollPeriod: 7,
-                  showRoller: false
-                }
-              );
-            </script>
-        <?php } ?>
-    <?php } ?>
+<link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/global.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/default.css" />
+
+<?php foreach( $graphData as $cityName => $cityData ){ ?>
+    <?php
+        $csv = 'Date,Poi,Event,Movie\n';
+        foreach( $cityData as $dateStamp => $dateData ){
+            $csv .= $dateStamp . ',' . $dateData['Poi'] . ',' . $dateData['Event'] . ',' . $dateData['Movie'] . '\n';
+        }
+    ?>
+    <h1><?php echo ucfirst( $cityName ) . " Export Stats."; ?></h1>
+    <div id="<?php echo $cityName; ?>" style="width:95%; height:350px;"></div>
+    <script type="text/javascript">
+      new Dygraph(
+        document.getElementById("<?php echo $cityName; ?>"),
+        "<?php echo $csv; ?>",
+        {
+          rollPeriod: 1,
+          showRoller: false,
+          includeZero: true,
+          strokeWidth: 2,
+          drawPoints: 1,
+          pointSize: 4,
+        }
+      );
+    </script>
 <?php } ?>
 <br /><br />
-</body>
-</html>

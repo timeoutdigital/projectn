@@ -26,8 +26,8 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
               $poi = new Poi();
 
             $geocoder = new yandexGeocoder();
-            $geocoder->setApiKey( 'ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==' );
-            $poi->setGeoEncoder( $geocoder );
+            $geocoder->setApiKey( sfConfig::get('app_yandex_api_key') );
+            $poi->setgeocoderr( $geocoder );
 
             // Column Mapping
             $poi['vendor_poi_id']                 = (string) $vendor_venue_id;

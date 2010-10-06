@@ -17,7 +17,7 @@ require_once dirname(__FILE__).'/../../bootstrap.php';
  *
  *
  */
-class yandexGeocodeTest extends PHPUnit_Framework_TestCase 
+class yandexGeocodeTest extends PHPUnit_Framework_TestCase
 {
   /**
    * @var yandexGeocoder
@@ -29,10 +29,11 @@ class yandexGeocodeTest extends PHPUnit_Framework_TestCase
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
    */
-  protected function setUp() 
+  protected function setUp()
   {
+    ProjectN_Test_Unit_Factory::createDatabases(); // We need to create context to load keys.
     $this->object = new yandexGeocoder( 'yandexGeocodeTestExactMockCurl' );
-    $this->apiKey = 'ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==';
+    $this->apiKey = sfConfig::get('app_yandex_api_key');
     $this->object->setApiKey( $this->apiKey );
   }
 
@@ -56,9 +57,10 @@ class yandexGeocodeTest extends PHPUnit_Framework_TestCase
   public function testProcessResponseWithOther()
   {
     $this->object = new yandexGeocoder( 'yandexGeocodeTestOtherMockCurl' );
-    $this->apiKey = 'ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==';
+    $this->apiKey = sfConfig::get('app_yandex_api_key');
     $this->object->setApiKey( $this->apiKey );
     $this->object->setAddress( 'anything here will do. XML is mocked below' );
+
     $this->assertEquals( '49.938933', $this->object->getLatitude() );
     $this->assertEquals( '40.361323', $this->object->getLongitude() );
     $this->assertEquals( '0', $this->object->getAccuracy() );
@@ -67,12 +69,13 @@ class yandexGeocodeTest extends PHPUnit_Framework_TestCase
   public function testProcessResponseWithNone()
   {
     $this->object = new yandexGeocoder( 'yandexGeocodeTestNoneMockCurl' );
-    $this->apiKey = 'ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==';
+    $this->apiKey = sfConfig::get('app_yandex_api_key');
     $this->object->setApiKey( $this->apiKey );
     $this->object->setAddress( 'anything here will do. XML is mocked below' );
+    
     $this->assertNull( $this->object->getLatitude() );
     $this->assertNull( $this->object->getLongitude() );
-    $this->assertNull( $this->object->getAccuracy() );
+    $this->assertEquals( '0', $this->object->getAccuracy() );
   }
 }
 

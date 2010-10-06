@@ -17,13 +17,6 @@ class Movie extends BaseMovie
   private $externalSearchClass = 'IMDB';
 
   /**
-   * the media added to movie is stored in this array and the largest one will be downloaded in downloadMedia method
-   *
-   * @var $media
-   */
-  private $media = array();
-
-  /**
    * Attempts to fix and / or format fields, e.g. url
    */
   public function applyFixes()
@@ -33,8 +26,6 @@ class Movie extends BaseMovie
     $this->reformatTitle();
     $this->requestImdbId();
     $this->applyOverrides();
-    $this->downloadMedia();
-    $this->removeMultipleImages();
 
   }
 
@@ -60,9 +51,9 @@ class Movie extends BaseMovie
         {
             // fixHTMLEntities
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
-            
+
             // Refs #525 - Trim All Text fields on PreSave
-            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ], ',' );
 
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
@@ -207,123 +198,27 @@ class Movie extends BaseMovie
 
 
   /**
-   * adds a movie media to the media array and the largest one will be downloaded by downloadMedia method
-   *
-   * @param string $urlString
-   */
-  public function addMediaByUrl( $urlString )
-  {
-    if( empty( $urlString ) )
-      return;
-
-    if ( !isset($this[ 'Vendor' ][ 'city' ]) || $this[ 'Vendor' ][ 'city' ] == '' )
-    {
-        throw new Exception('Failed to add Movie Media due to missing Vendor city, set vendor on the object before calling addMediaUrl()');
-    }
-
-    $headers = get_headers( $urlString , 1);
-    
-    // When Image redirected with 302/301 get_headers will return morethan one header array
-    $contentType = ( is_array($headers [ 'Content-Type' ]) ) ? array_pop($headers [ 'Content-Type' ]) : $headers [ 'Content-Type' ];
-    $contentLength = ( is_array($headers [ 'Content-Length' ]) ) ? array_pop($headers [ 'Content-Length' ]) : $headers [ 'Content-Length' ];
-
-    // check the header if it's an image
-    if( $contentType != 'image/jpeg' )
-    {
-        return false;
-    }
-
-    $this->media[] = array(
-        'url'           => $urlString,
-        'contentLength' => $contentLength,
-        'ident'         => md5( $urlString ),
-     );
-    return true;
-  }
-
-
-  /**
-   * tidy up function for movies with more than one image attached to them
-   * read the headers of the images and select the largest one in size
-   * remove other images
-   *
-   */
-  private function removeMultipleImages()
-  {
-     // if there is more than 1 image for this Movie we need to find the largest one and remove the rest
-     if( count( $this[ 'MovieMedia' ] ) > 1 )
-     {
-        $largestImg = $this[ 'MovieMedia' ][ 0 ] ;
-        $largestSize = 0;
-
-        foreach ($this[ 'MovieMedia' ] as $movieMedia )
-        {
-             $headers = get_headers( $movieMedia['url'] , 1);
-
-             if( $headers[ 'Content-Length' ] >  $largestSize)
-             {
-                $largestSize = $headers[ 'Content-Length' ];
-                $largestImg  = $movieMedia;
-             }
-        }
-
-        $this['MovieMedia'] = new Doctrine_Collection( 'MovieMedia' );
-
-        $this['MovieMedia'] [] = $largestImg;
-
-     }
-  }
-
-  /**
    * selects the largest image in media array and downloads the image
    *
+   * @param string $url
    *
+   * This function is deprecated in favour of Media::addMedia( $model, $url ).
+   * refs #626 -pj 31-Aug-10
    */
-  private function downloadMedia()
+  public function addMediaByUrl( $url = "" )
   {
-    // if addMediaByUrl wasn't called, there is no change in media
-    if( count( $this->media) == 0 )  return;
+    Media::addMedia( $this, $url );
+  }
 
-    $largestImg = $this->media[ 0 ] ;
+  public function addMeta( $lookup, $value, $comment = null )
+  {
+    $metaObj = new MovieMeta();
+    $metaObj[ 'lookup' ] = (string) $lookup;
+    $metaObj[ 'value' ] = (string) $value;
+    if(!is_null($comment) && !is_object($comment))
+        $metaObj[ 'comment' ] = (string) $comment;
 
-    //find the largest image
-    foreach ( $this->media as $img )
-    {
-       if( $img[ 'contentLength' ] > $largestImg[ 'contentLength' ]  )
-       {
-        $largestImg = $img;
-       }
-    }
-
-    // check if the largestImg is larger than the one attached already if any
-    foreach ($this[ 'MovieMedia' ] as $movieMedia )
-    {
-
-        if( $movieMedia['content_length']  > $largestImg[ 'contentLength' ]  )
-        {
-            //we already have a larger image so ignore this
-            return;
-        }
-    }
-
-    $movieMediaObj = Doctrine::getTable( 'MovieMedia' )->findOneByIdent( $largestImg[ 'ident' ] );
-
-    if ( $movieMediaObj === false )
-    {
-        $movieMediaObj = new MovieMedia( );
-    }
-    try
-    {
-        $movieMediaObj->populateByUrl( $largestImg[ 'ident' ], $largestImg['url'], $this[ 'Vendor' ][ 'city' ] );
-
-        $this[ 'MovieMedia' ] [] =  $movieMediaObj;
-    }
-    catch ( Exception $e )
-    {
-        /** @todo : log this error */
-    }
-
-
+    $this[ 'MovieMeta' ][] = $metaObj;
   }
 
 }
