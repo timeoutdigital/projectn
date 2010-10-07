@@ -126,7 +126,9 @@ class xmlDataFixer
     public function removeMSWordHtmlTags()
     {
         $this->xmlStringData = mb_ereg_replace("<(/)?(font|span|del|ins|w:|link|meta|xml|style)[^>]*>", "", $this->xmlStringData );
+        $this->xmlStringData = mb_ereg_replace( '<!(?:--[\s\S]*?--\s*)?>\s*', "", $this->xmlStringData ); // Removes the <!-- Comments -->
     }
+
    
 }
 ?>
