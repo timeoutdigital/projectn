@@ -1,0 +1,3265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-pois vendor="timeout" modified="2010-04-20T08:00:31">
+  <entry vpid="LIS000000000000000000000000001175" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13204000</longitude>
+      <latitude>38.71229000</latitude>
+    </geo-position>
+    <name><![CDATA[Castelo de So Jorge]]></name>
+    <category><![CDATA[recreation]]></category>
+    <address>
+      <street><![CDATA[Castelo de S Jorge, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Castelo de So Jorge]]></name>
+      <address>
+        <street><![CDATA[Castelo de S Jorge, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Brincadeiras]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 12E, 28E, 37]]></public-transport>
+        <property key="venueinfo"><![CDATA[Rest Casa do Leo e Caf/Bar. 09-18h (Nov-Fev)]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001187" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14088600</longitude>
+      <latitude>38.71664400</latitude>
+    </geo-position>
+    <name><![CDATA[Coliseu dos Recreios]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R das Portas de Sto Anto, 92/96 ]]></street>
+      <houseno><![CDATA[92/96]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Coliseu dos Recreios]]></name>
+      <address>
+        <street><![CDATA[R das Portas de Sto Anto, 92/96 ]]></street>
+        <houseno><![CDATA[92/96]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Jazz & clssica | Clssica]]></vendor-category>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <public-transport><![CDATA[Tube: Restauradores/Rossio]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001208" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14683600</longitude>
+      <latitude>38.73364000</latitude>
+    </geo-position>
+    <name><![CDATA[Casa Museu Dr Anastcio Gonalves]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[Av 5 de Outubro, 6/8 ]]></street>
+      <houseno><![CDATA[6/8]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casa Museu Dr Anastcio Gonalves]]></name>
+      <address>
+        <street><![CDATA[Av 5 de Outubro, 6/8 ]]></street>
+        <houseno><![CDATA[6/8]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <public-transport><![CDATA[Tube: Saldanha]]></public-transport>
+        <property key="venueinfo"><![CDATA[Blog: http://blogdacmag.blogspot.com]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001214" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15822000</longitude>
+      <latitude>38.72285000</latitude>
+    </geo-position>
+    <name><![CDATA[Fundao Arpad Szenes - Vieira da Silva]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[P das Amoreiras, 56/58 ]]></street>
+      <houseno><![CDATA[56/58]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Fundao Arpad Szenes - Vieira da Silva]]></name>
+      <address>
+        <street><![CDATA[P das Amoreiras, 56/58 ]]></street>
+        <houseno><![CDATA[56/58]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <public-transport><![CDATA[Tube: Rato, Bus: Bus 6, 9, 58, 74, 720, 727, 738]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001226" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.23809000</longitude>
+      <latitude>38.69933000</latitude>
+    </geo-position>
+    <name><![CDATA[Museu Aqurio Vasco da Gama]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Direita do Dafundo, Cruz Quebrada ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu Aqurio Vasco da Gama]]></name>
+      <address>
+        <street><![CDATA[R Direita do Dafundo, Cruz Quebrada ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 15E, 76]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001229" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15189290</longitude>
+      <latitude>38.73951900</latitude>
+    </geo-position>
+    <name><![CDATA[Museu Calouste Gulbenkian]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[Av Berna, 45A ]]></street>
+      <houseno><![CDATA[45A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu Calouste Gulbenkian]]></name>
+      <address>
+        <street><![CDATA[Av Berna, 45A ]]></street>
+        <houseno><![CDATA[45A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <public-transport><![CDATA[Tube: Praa de Espanha/Campo Pequeno, Bus: Bus 16, 56, 726]]></public-transport>
+        <property key="venueinfo"><![CDATA[Encerra feriados de 1 Janeiro, Dom de Pscoa, 1 de Maio e 25 de Dezembro.]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001268" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15082880</longitude>
+      <latitude>38.71761390</latitude>
+    </geo-position>
+    <name><![CDATA[Museu de Cincia]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R da Escola Politcnica, 56 ]]></street>
+      <houseno><![CDATA[56]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu de Cincia]]></name>
+      <address>
+        <street><![CDATA[R da Escola Politcnica, 56 ]]></street>
+        <houseno><![CDATA[56]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+        <public-transport><![CDATA[Tube: Rato, Bus: Bus 58, 773]]></public-transport>
+        <property key="venueinfo"><![CDATA[Entrada por confirmar]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001272" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14323950</longitude>
+      <latitude>38.71328970</latitude>
+    </geo-position>
+    <name><![CDATA[Museu de So Roque]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[Lg da Trindade Coelho, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu de So Roque]]></name>
+      <address>
+        <street><![CDATA[Lg da Trindade Coelho, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 58, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[Actualmente, o Museu de So Roque encontra-se encerrado para obras de remodelao / ampliao, esperando reabrir ao pblico no final do 1 trimestre de 2008.]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001278" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.12803460</longitude>
+      <latitude>38.71133340</latitude>
+    </geo-position>
+    <name><![CDATA[Museu do Fado]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[Lg do Chafariz de Dentro, 1 ]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu do Fado]]></name>
+      <address>
+        <street><![CDATA[Lg do Chafariz de Dentro, 1 ]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Exposies]]></vendor-category>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <vendor-category><![CDATA[Eventos | Passeios]]></vendor-category>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 9, 28, 35, 746, 759, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[ltima entrada s 17.30. Encerra dias 1 de Jan, 1 Mai, 25 Dez]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001306" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13288030</longitude>
+      <latitude>38.70928710</latitude>
+    </geo-position>
+    <name><![CDATA[Museu dos Coches]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P Afonso Albuquerque, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu dos Coches]]></name>
+      <address>
+        <street><![CDATA[P Afonso Albuquerque, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eventos | Workshops]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 15E, 28, 714, 727, 729, 751]]></public-transport>
+        <property key="venueinfo"><![CDATA[Encerra 1 Jan, Dom Pscoa, 1 Mai, 25 Dez]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001322" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14198910</longitude>
+      <latitude>38.70926440</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro-Estdio Mrio Viegas]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg do Picadeiro, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro-Estdio Mrio Viegas]]></name>
+      <address>
+        <street><![CDATA[Lg do Picadeiro, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 58, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 105]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001323" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15779290</longitude>
+      <latitude>38.73772480</latitude>
+    </geo-position>
+    <name><![CDATA[Comuna - Teatro de Pesquisa CRL]]></name>
+    <category><![CDATA[library]]></category>
+    <address>
+      <street><![CDATA[P de Espanha, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Comuna - Teatro de Pesquisa CRL]]></name>
+      <address>
+        <street><![CDATA[P de Espanha, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Leituras | Leituras]]></vendor-category>
+        <vendor-category><![CDATA[Outros palcos | Performances]]></vendor-category>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Tube: Praa de Espanha, Bus: Bus 16, 56, 718, 726, 742, 746]]></public-transport>
+        <property key="venueinfo"><![CDATA[Bar 15.30]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001340" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14456330</longitude>
+      <latitude>38.71181470</latitude>
+    </geo-position>
+    <name><![CDATA[Galeria Z dos Bois]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R da Barroca, 59 ]]></street>
+      <houseno><![CDATA[59]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Galeria Z dos Bois]]></name>
+      <address>
+        <street><![CDATA[R da Barroca, 59 ]]></street>
+        <houseno><![CDATA[59]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <vendor-category><![CDATA[Jazz & clssica | Jazz]]></vendor-category>
+        <short-description><![CDATA[ZdB]]></short-description>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 28E, 58, 92, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao Concertos 150+Dana 50Concertos:Sex-Sab 22-23h,Negcio(teatro e dana)21.30h,Livraria 18-24h]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001365" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15331050</longitude>
+      <latitude>38.70869010</latitude>
+    </geo-position>
+    <name><![CDATA[Sociedade de Instruo Guilherme Cossoul]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av D Carlos I, 61 - 1 ]]></street>
+      <houseno><![CDATA[61 - 1]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Sociedade de Instruo Guilherme Cossoul]]></name>
+      <address>
+        <street><![CDATA[Av D Carlos I, 61 - 1 ]]></street>
+        <houseno><![CDATA[61 - 1]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Jazz & clssica | Jazz]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 25E, 28E, 6, 60, 713, 727]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao sala 80, Sala de Caf Concerto 50 Bar,sala de exposies]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001368" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15779290</longitude>
+      <latitude>38.73772480</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Aberto]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P de Espanha, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Aberto]]></name>
+      <address>
+        <street><![CDATA[P de Espanha, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Tube: Praa de Espanha, Bus: Bus 16, 56, 726, 746]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao Sala Vermelha 150Rest Pano de Boca EncerraTer-Sex12-15h,Aberto 19-00.30h,Dom 12.30-16h]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001371" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13406390</longitude>
+      <latitude>38.71984270</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Bocage]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Manuel Soares Guedes, 13A ]]></street>
+      <houseno><![CDATA[13A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Bocage]]></name>
+      <address>
+        <street><![CDATA[R Manuel Soares Guedes, 13A ]]></street>
+        <houseno><![CDATA[13A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <vendor-category><![CDATA[Teatro | Centro]]></vendor-category>
+        <public-transport><![CDATA[Tube: Intendente, Bus: Bus 28E, 34, 40, 708]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 120Cafetaria aberta em espectculos]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001373" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.16228800</longitude>
+      <latitude>38.70568700</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Casa da Comdia]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R S Francisco de Borja, 22 ]]></street>
+      <houseno><![CDATA[22]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Casa da Comdia]]></name>
+      <address>
+        <street><![CDATA[R S Francisco de Borja, 22 ]]></street>
+        <houseno><![CDATA[22]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 25E, 60, 713, 727]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 62Cursos,Bar quando h espectculos,Exposies]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001383" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14276130</longitude>
+      <latitude>38.71195990</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro da Trindade]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg da Trindade, 7A ]]></street>
+      <houseno><![CDATA[7A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro da Trindade]]></name>
+      <address>
+        <street><![CDATA[Lg da Trindade, 7A ]]></street>
+        <houseno><![CDATA[7A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Teatro]]></vendor-category>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <vendor-category><![CDATA[Musicais | Musicais]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 58, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao Sala Principal 495,2 Salas com 60Bar]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001421" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.11143000</longitude>
+      <latitude>38.72664000</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Ibrico]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R de Xabregas, 54 ]]></street>
+      <houseno><![CDATA[54]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Ibrico]]></name>
+      <address>
+        <street><![CDATA[R de Xabregas, 54 ]]></street>
+        <houseno><![CDATA[54]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 39, 718, 742, 759]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001432" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13874500</longitude>
+      <latitude>38.74595000</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Municipal Maria Matos]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Frei Miguel Contreiras, 52 ]]></street>
+      <houseno><![CDATA[52]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Municipal Maria Matos]]></name>
+      <address>
+        <street><![CDATA[Av Frei Miguel Contreiras, 52 ]]></street>
+        <houseno><![CDATA[52]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Tube: Roma, Bus: Bus 7, 35, 727, 767]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 447Caf-Bar 12-2h]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001436" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14148140</longitude>
+      <latitude>38.70898440</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Nacional de S Carlos]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Serpa Pinto, 9 ]]></street>
+      <houseno><![CDATA[9]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Nacional de S Carlos]]></name>
+      <address>
+        <street><![CDATA[R Serpa Pinto, 9 ]]></street>
+        <houseno><![CDATA[9]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Jazz & clssica | Clssica]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 28E, 58]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001437" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14088370</longitude>
+      <latitude>38.71662140</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Politeama]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Portas de Sto Anto, 109 ]]></street>
+      <houseno><![CDATA[109]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Politeama]]></name>
+      <address>
+        <street><![CDATA[R Portas de Sto Anto, 109 ]]></street>
+        <houseno><![CDATA[109]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Teatro]]></vendor-category>
+        <vendor-category><![CDATA[Musicais | Musicais]]></vendor-category>
+        <public-transport><![CDATA[Tube: Restauradores]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 732Bar, Salo de Ch]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001439" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13267050</longitude>
+      <latitude>38.71479980</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Taborda]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Costa do Castelo, 75 ]]></street>
+      <houseno><![CDATA[75]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Taborda]]></name>
+      <address>
+        <street><![CDATA[Costa do Castelo, 75 ]]></street>
+        <houseno><![CDATA[75]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 12E, 28E, 37]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 150Sala de exposies,Caf Taborda 218 879 484]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001445" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.42037330</longitude>
+      <latitude>38.69072610</latitude>
+    </geo-position>
+    <name><![CDATA[Farol Museu de Sta Marta]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R do Farol de Santa Marta, Cascais ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Farol Museu de Sta Marta]]></name>
+      <address>
+        <street><![CDATA[R do Farol de Santa Marta, Cascais ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eventos | Passeios]]></vendor-category>
+        <public-transport><![CDATA[Rail: Cascais]]></public-transport>
+        <property key="venueinfo"><![CDATA[Ter-Dom 10-18h (Out-Abr)]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001447" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.47809000</longitude>
+      <latitude>38.72058000</latitude>
+    </geo-position>
+    <name><![CDATA[Forte S. Jorge de Oitavos]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Estr do Guincho, Cascais ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Forte S. Jorge de Oitavos]]></name>
+      <address>
+        <street><![CDATA[Estr do Guincho, Cascais ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eventos | Passeios]]></vendor-category>
+        <vendor-category><![CDATA[Eventos | Outros]]></vendor-category>
+        <property key="venueinfo"><![CDATA[Entrada por confirmar. Ter-Dom 10-13h/ 14-17h (Inverno)]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001451" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.42213210</longitude>
+      <latitude>38.69274950</latitude>
+    </geo-position>
+    <name><![CDATA[Museu Condes de Castro Guimares]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Rei Humberto II de Itlia, Parque Marechal Carmona, Cascais ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu Condes de Castro Guimares]]></name>
+      <address>
+        <street><![CDATA[Av Rei Humberto II de Itlia, Parque Marechal Carmona, Cascais ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eventos | Workshops]]></vendor-category>
+        <public-transport><![CDATA[Rail: Cascais]]></public-transport>
+        <property key="venueinfo"><![CDATA[Entrada por confirmar]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001492" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14366000</longitude>
+      <latitude>38.70745000</latitude>
+    </geo-position>
+    <name><![CDATA[Transmission]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R de S Paulo, 27 ]]></street>
+      <houseno><![CDATA[27]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Transmission]]></name>
+      <address>
+        <street><![CDATA[R de S Paulo, 27 ]]></street>
+        <houseno><![CDATA[27]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <public-transport><![CDATA[Tube: Cais do Sodr]]></public-transport>
+        <property key="venueinfo"><![CDATA[Gotico,Alternativo,Metal,Industrial,80sDj residente:Van Archer]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001498" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14318000</longitude>
+      <latitude>38.70718000</latitude>
+    </geo-position>
+    <name><![CDATA[Europa Bar]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Nova Carvalho, 18 ]]></street>
+      <houseno><![CDATA[18]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Europa Bar]]></name>
+      <address>
+        <street><![CDATA[R Nova Carvalho, 18 ]]></street>
+        <houseno><![CDATA[18]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Sbado 27]]></vendor-category>
+        <public-transport><![CDATA[Tube: Cais do Sodr]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001500" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15336650</longitude>
+      <latitude>38.70868600</latitude>
+    </geo-position>
+    <name><![CDATA[Mini Mercado]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av D Carlos I, 67 ]]></street>
+      <houseno><![CDATA[67]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Mini Mercado]]></name>
+      <address>
+        <street><![CDATA[Av D Carlos I, 67 ]]></street>
+        <houseno><![CDATA[67]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Quinta 25]]></vendor-category>
+        <vendor-category><![CDATA[Agenda | Sexta 26]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 25E, 28E, 6, 60, 713, 727]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 120, Electro,Drum & Bass,Hip-Hop]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001501" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14501060</longitude>
+      <latitude>38.71288530</latitude>
+    </geo-position>
+    <name><![CDATA[Frgil]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R da Atalaia, 126 ]]></street>
+      <houseno><![CDATA[126]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Frgil]]></name>
+      <address>
+        <street><![CDATA[R da Atalaia, 126 ]]></street>
+        <houseno><![CDATA[126]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Quinta 8]]></vendor-category>
+        <vendor-category><![CDATA[Agenda | Sbado 10]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 28E, 58, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 200Hiphop, Funk, Dancehall,House, Detroit Techno,Broken Beats]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001505" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15086000</longitude>
+      <latitude>38.71086000</latitude>
+    </geo-position>
+    <name><![CDATA[Incgnito]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Poiais de S Bento, 37 ]]></street>
+      <houseno><![CDATA[37]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Incgnito]]></name>
+      <address>
+        <street><![CDATA[R Poiais de S Bento, 37 ]]></street>
+        <houseno><![CDATA[37]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Quinta 25]]></vendor-category>
+        <vendor-category><![CDATA[Agenda | Sexta 2]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 28E, 6, 713, 727]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 200, Alternativa, Electrnica]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001529" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.16269700</longitude>
+      <latitude>38.70532100</latitude>
+    </geo-position>
+    <name><![CDATA[Stone&#39;s]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R do Olival, 1 ]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Stone&#39;s]]></name>
+      <address>
+        <street><![CDATA[R do Olival, 1 ]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Sexta 26]]></vendor-category>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001559" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.38169170</longitude>
+      <latitude>38.80323740</latitude>
+    </geo-position>
+    <name><![CDATA[Sintra Museu de Arte Moderna]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Heliodoro Salgado, Sintra ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Sintra Museu de Arte Moderna]]></name>
+      <address>
+        <street><![CDATA[Av Heliodoro Salgado, Sintra ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+        <property key="venueinfo"><![CDATA[Entrada por confirmar]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001617" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15984000</longitude>
+      <latitude>38.68290000</latitude>
+    </geo-position>
+    <name><![CDATA[Casa da Cerca - Centro de Arte Contempornea]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[R da Cerca, 2 Almada ]]></street>
+      <houseno><![CDATA[2]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casa da Cerca - Centro de Arte Contempornea]]></name>
+      <address>
+        <street><![CDATA[R da Cerca, 2 Almada ]]></street>
+        <houseno><![CDATA[2]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Setbal]]></vendor-category>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001674" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15373060</longitude>
+      <latitude>38.73506870</latitude>
+    </geo-position>
+    <name><![CDATA[Gulbenkian - Centro de Arte Moderna Jos de Azeredo Perdigo]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[R Dr Nicolau de Bettencourt, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Gulbenkian - Centro de Arte Moderna Jos de Azeredo Perdigo]]></name>
+      <address>
+        <street><![CDATA[R Dr Nicolau de Bettencourt, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <public-transport><![CDATA[Tube: So Sebastio, Bus: Bus 718, 742, 746]]></public-transport>
+        <property key="venueinfo"><![CDATA[Encerra 2. Feira e nos dia 25 de Dezembro, 1 de Janeiro e 1 de Maio. Galerias esto fechadas para remodelao - data prevista para reabertura: talvez Novembro]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001684" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15243000</longitude>
+      <latitude>38.75345000</latitude>
+    </geo-position>
+    <name><![CDATA[Galeria 111]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Campo Grande, 113A ]]></street>
+      <houseno><![CDATA[113A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Galeria 111]]></name>
+      <address>
+        <street><![CDATA[Campo Grande, 113A ]]></street>
+        <houseno><![CDATA[113A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Galerias | Galerias]]></vendor-category>
+        <public-transport><![CDATA[Tube: Entre Campos, Bus: Bus 21, 36, 45, 701, 738]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001688" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15132590</longitude>
+      <latitude>38.72153030</latitude>
+    </geo-position>
+    <name><![CDATA[Galeria Antnio Prates]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Alexandre Herculano, 39A ]]></street>
+      <houseno><![CDATA[39A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Galeria Antnio Prates]]></name>
+      <address>
+        <street><![CDATA[R Alexandre Herculano, 39A ]]></street>
+        <houseno><![CDATA[39A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Galerias | Galerias]]></vendor-category>
+        <public-transport><![CDATA[Tube: Rato/Marqus de Pombal, Bus: Bus 6, 9, 74]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001790" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15503810</longitude>
+      <latitude>38.70721820</latitude>
+    </geo-position>
+    <name><![CDATA[A Barraca]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg de Santos, 2 ]]></street>
+      <houseno><![CDATA[2]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[A Barraca]]></name>
+      <address>
+        <street><![CDATA[Lg de Santos, 2 ]]></street>
+        <houseno><![CDATA[2]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 25E, 60, 713, 727]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 200, Africana, Jazz, Latino e Brasileira]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001817" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.43385000</longitude>
+      <latitude>38.74360000</latitude>
+    </geo-position>
+    <name><![CDATA[BA Bar do Hotel Bairro Alto]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R do Alecrim, 131 ]]></street>
+      <houseno><![CDATA[131]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[BA Bar do Hotel Bairro Alto]]></name>
+      <address>
+        <street><![CDATA[R do Alecrim, 131 ]]></street>
+        <houseno><![CDATA[131]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Jazz & clssica | Jazz]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 58, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[Lotao 60, Diversa]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001836" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14376000</longitude>
+      <latitude>38.71252000</latitude>
+    </geo-position>
+    <name><![CDATA[BedRoom]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R do Norte, 86 ]]></street>
+      <houseno><![CDATA[86]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[BedRoom]]></name>
+      <address>
+        <street><![CDATA[R do Norte, 86 ]]></street>
+        <houseno><![CDATA[86]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Sbado 27]]></vendor-category>
+        <vendor-category><![CDATA[Agenda | Sexta 2]]></vendor-category>
+        <vendor-category><![CDATA[Agenda | Sbado 10]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 28E, 58, 790]]></public-transport>
+        <property key="venueinfo"><![CDATA[Entrada por confirmar - Lotao 150, Hip-hop, 70-80`s e House.]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000001844" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14602390</longitude>
+      <latitude>38.71022100</latitude>
+    </geo-position>
+    <name><![CDATA[Bicaense Caf]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R da Bica de Duarte Belo, 42A ]]></street>
+      <houseno><![CDATA[42A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Bicaense Caf]]></name>
+      <address>
+        <street><![CDATA[R da Bica de Duarte Belo, 42A ]]></street>
+        <houseno><![CDATA[42A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Tera 6]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado]]></public-transport>
+        <property key="venueinfo"><![CDATA[Existe, dados por confirmar - Alternativa e Jazz.]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000002448" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15773000</longitude>
+      <latitude>38.68318000</latitude>
+    </geo-position>
+    <name><![CDATA[Incrvel Almadense]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Capito Leito, 3 - 2 Almada ]]></street>
+      <houseno><![CDATA[3 - 2]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Incrvel Almadense]]></name>
+      <address>
+        <street><![CDATA[R Capito Leito, 3 - 2 Almada ]]></street>
+        <houseno><![CDATA[3 - 2]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000002501" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15630380</longitude>
+      <latitude>38.75279140</latitude>
+    </geo-position>
+    <name><![CDATA[Aula Magna]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Al da Universidade, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Aula Magna]]></name>
+      <address>
+        <street><![CDATA[Al da Universidade, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Jazz & clssica | Clssica]]></vendor-category>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <public-transport><![CDATA[Tube: Cidade Universitria, Bus: Bus 31, 35, 738, 768]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000002704" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.17196040</longitude>
+      <latitude>38.74236470</latitude>
+    </geo-position>
+    <name><![CDATA[Jardim Zoolgico de Lisboa]]></name>
+    <category><![CDATA[recreation]]></category>
+    <address>
+      <street><![CDATA[Estr de Benfica, 158/160 ]]></street>
+      <houseno><![CDATA[158/160]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Jardim Zoolgico de Lisboa]]></name>
+      <address>
+        <street><![CDATA[Estr de Benfica, 158/160 ]]></street>
+        <houseno><![CDATA[158/160]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Brincadeiras]]></vendor-category>
+        <short-description><![CDATA[Zoo]]></short-description>
+        <public-transport><![CDATA[Tube: Jardim Zoolgico]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000003424" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14797290</longitude>
+      <latitude>38.70956540</latitude>
+    </geo-position>
+    <name><![CDATA[Noobai]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Miradouro de Sta Catarina, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Noobai]]></name>
+      <address>
+        <street><![CDATA[Miradouro de Sta Catarina, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <public-transport><![CDATA[Tube: Baixa-Chiado, Bus: Bus 28E]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000003561" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-8.77864070</longitude>
+      <latitude>39.12585890</latitude>
+    </geo-position>
+    <name><![CDATA[Centro Cultural Municipal do Cartaxo]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R 5 de Outubro, Cartaxo ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Centro Cultural Municipal do Cartaxo]]></name>
+      <address>
+        <street><![CDATA[R 5 de Outubro, Cartaxo ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Santarm]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000003683" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.34057400</longitude>
+      <latitude>38.70179800</latitude>
+    </geo-position>
+    <name><![CDATA[Palcio da Independncia]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg de So Domingos, 11 ]]></street>
+      <houseno><![CDATA[11]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Palcio da Independncia]]></name>
+      <address>
+        <street><![CDATA[Lg de So Domingos, 11 ]]></street>
+        <houseno><![CDATA[11]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <public-transport><![CDATA[Tube: Rossio]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004309" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.16868000</longitude>
+      <latitude>38.77399000</latitude>
+    </geo-position>
+    <name><![CDATA[Museu Nacional do Teatro]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Estrada do Lumiar, 10 ]]></street>
+      <houseno><![CDATA[10]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu Nacional do Teatro]]></name>
+      <address>
+        <street><![CDATA[Estrada do Lumiar, 10 ]]></street>
+        <houseno><![CDATA[10]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+        <public-transport><![CDATA[Tube: Lumiar, Bus: Bus 3]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004649" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.20214000</longitude>
+      <latitude>38.75118000</latitude>
+    </geo-position>
+    <name><![CDATA[Equincio - Cultura e Aco]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Estrada de Benfica, 467, 7. Fre. Benfica, ]]></street>
+      <houseno><![CDATA[467, 7. Fre.]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Equincio - Cultura e Aco]]></name>
+      <address>
+        <street><![CDATA[Estrada de Benfica, 467, 7. Fre. Benfica, ]]></street>
+        <houseno><![CDATA[467, 7. Fre.]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004712" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.23103000</longitude>
+      <latitude>38.80596000</latitude>
+    </geo-position>
+    <name><![CDATA[Auditrio Municipal da Pvoa de Varzim]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R D Maria I, 56 Pvoa do Varzim ]]></street>
+      <houseno><![CDATA[56]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Auditrio Municipal da Pvoa de Varzim]]></name>
+      <address>
+        <street><![CDATA[R D Maria I, 56 Pvoa do Varzim ]]></street>
+        <houseno><![CDATA[56]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+        <property key="venueinfo"><![CDATA[No Atendem]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004775" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.26414620</longitude>
+      <latitude>38.75506330</latitude>
+    </geo-position>
+    <name><![CDATA[Fundao de Serralves]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R D Joo Castro, 210 Porto ]]></street>
+      <houseno><![CDATA[210]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Fundao de Serralves]]></name>
+      <address>
+        <street><![CDATA[R D Joo Castro, 210 Porto ]]></street>
+        <houseno><![CDATA[210]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+        <vendor-category><![CDATA[Msica | Porto]]></vendor-category>
+        <vendor-category><![CDATA[Dana | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004789" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.32239000</longitude>
+      <latitude>38.68381000</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Nacional So Joo]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P da Batalha, Porto ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Nacional So Joo]]></name>
+      <address>
+        <street><![CDATA[P da Batalha, Porto ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+        <vendor-category><![CDATA[Msica | Porto]]></vendor-category>
+        <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+        <vendor-category><![CDATA[Outros Palcos | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004790" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.32174910</longitude>
+      <latitude>38.72852220</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Carlos Alberto]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R das Oliveiras, 43 Porto ]]></street>
+      <houseno><![CDATA[43]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Carlos Alberto]]></name>
+      <address>
+        <street><![CDATA[R das Oliveiras, 43 Porto ]]></street>
+        <houseno><![CDATA[43]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+        <vendor-category><![CDATA[Outros Palcos | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004807" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.19748840</longitude>
+      <latitude>38.74868810</latitude>
+    </geo-position>
+    <name><![CDATA[Auditrio Carlos Paredes]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Gomes Pereira, 17 Lisboa ]]></street>
+      <houseno><![CDATA[17]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Auditrio Carlos Paredes]]></name>
+      <address>
+        <street><![CDATA[Av Gomes Pereira, 17 Lisboa ]]></street>
+        <houseno><![CDATA[17]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004808" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15503810</longitude>
+      <latitude>38.70721820</latitude>
+    </geo-position>
+    <name><![CDATA[A Barraca]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg de Santos, 2 Lisboa ]]></street>
+      <houseno><![CDATA[2]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[A Barraca]]></name>
+      <address>
+        <street><![CDATA[Lg de Santos, 2 Lisboa ]]></street>
+        <houseno><![CDATA[2]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004809" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15779290</longitude>
+      <latitude>38.73772480</latitude>
+    </geo-position>
+    <name><![CDATA[Comuna]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P de Espanha, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Comuna]]></name>
+      <address>
+        <street><![CDATA[P de Espanha, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004812" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14963160</longitude>
+      <latitude>38.73440420</latitude>
+    </geo-position>
+    <name><![CDATA[Instituto Franco Portugus]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Lus Bivar, 91 Lisboa ]]></street>
+      <houseno><![CDATA[91]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Instituto Franco Portugus]]></name>
+      <address>
+        <street><![CDATA[Av Lus Bivar, 91 Lisboa ]]></street>
+        <houseno><![CDATA[91]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004817" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14276130</longitude>
+      <latitude>38.71195990</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro da Trindade]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg da Trindade, 7A Lisboa ]]></street>
+      <houseno><![CDATA[7A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro da Trindade]]></name>
+      <address>
+        <street><![CDATA[Lg da Trindade, 7A Lisboa ]]></street>
+        <houseno><![CDATA[7A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Outros Palcos | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004818" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13874500</longitude>
+      <latitude>38.74595000</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Maria Matos]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Frei Miguel Contreiras, 52 Lisboa ]]></street>
+      <houseno><![CDATA[52]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Maria Matos]]></name>
+      <address>
+        <street><![CDATA[Av Frei Miguel Contreiras, 52 Lisboa ]]></street>
+        <houseno><![CDATA[52]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004819" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.16022900</longitude>
+      <latitude>38.67632200</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Municipal de Almada]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Prof Egas Moniz, Almada ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Municipal de Almada]]></name>
+      <address>
+        <street><![CDATA[Av Prof Egas Moniz, Almada ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Dana | Setbal]]></vendor-category>
+        <vendor-category><![CDATA[Teatro | Setubal]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004820" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13942750</longitude>
+      <latitude>38.71396580</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Nacional D Maria II]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P D Pedro IV, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Nacional D Maria II]]></name>
+      <address>
+        <street><![CDATA[P D Pedro IV, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004822" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13267050</longitude>
+      <latitude>38.71479980</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Taborda]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Costa do Castelo, 75 Lisboa ]]></street>
+      <houseno><![CDATA[75]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Taborda]]></name>
+      <address>
+        <street><![CDATA[Costa do Castelo, 75 Lisboa ]]></street>
+        <houseno><![CDATA[75]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004824" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14199000</longitude>
+      <latitude>38.70929000</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro-Estdio Mrio Viegas]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg do Picadeiro, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro-Estdio Mrio Viegas]]></name>
+      <address>
+        <street><![CDATA[Lg do Picadeiro, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004825" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14710640</longitude>
+      <latitude>38.71766930</latitude>
+    </geo-position>
+    <name><![CDATA[Maxime]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P da Alegria, 58 Lisboa ]]></street>
+      <houseno><![CDATA[58]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Maxime]]></name>
+      <address>
+        <street><![CDATA[P da Alegria, 58 Lisboa ]]></street>
+        <houseno><![CDATA[58]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Outros Palcos | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004828" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14088370</longitude>
+      <latitude>38.71662140</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Politeama]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Portas de Sto Anto, 109 Lisboa ]]></street>
+      <houseno><![CDATA[109]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Politeama]]></name>
+      <address>
+        <street><![CDATA[R Portas de Sto Anto, 109 Lisboa ]]></street>
+        <houseno><![CDATA[109]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Outros Palcos | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004836" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.35811730</longitude>
+      <latitude>38.71225300</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro S da Bandeira]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R S da Bandeira, 108 Porto ]]></street>
+      <houseno><![CDATA[108]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro S da Bandeira]]></name>
+      <address>
+        <street><![CDATA[R S da Bandeira, 108 Porto ]]></street>
+        <houseno><![CDATA[108]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004868" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.38169170</longitude>
+      <latitude>38.80323740</latitude>
+    </geo-position>
+    <name><![CDATA[Sintra Museu de Arte Moderna]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Heliodoro Salgado, Sintra ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Sintra Museu de Arte Moderna]]></name>
+      <address>
+        <street><![CDATA[Av Heliodoro Salgado, Sintra ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004907" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.27293800</longitude>
+      <latitude>38.75939310</latitude>
+    </geo-position>
+    <name><![CDATA[Coliseu do Porto]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Passos Manuel, 137 Porto ]]></street>
+      <houseno><![CDATA[137]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Coliseu do Porto]]></name>
+      <address>
+        <street><![CDATA[R Passos Manuel, 137 Porto ]]></street>
+        <houseno><![CDATA[137]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Outros Palcos | Porto]]></vendor-category>
+        <vendor-category><![CDATA[Msica | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004937" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13702000</longitude>
+      <latitude>38.70903000</latitude>
+    </geo-position>
+    <name><![CDATA[MUDE - Museu Do Design e da Moda]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[R Augusta, 24 Lisboa ]]></street>
+      <houseno><![CDATA[24]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[MUDE - Museu Do Design e da Moda]]></name>
+      <address>
+        <street><![CDATA[R Augusta, 24 Lisboa ]]></street>
+        <houseno><![CDATA[24]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004943" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.18045810</longitude>
+      <latitude>39.02267500</latitude>
+    </geo-position>
+    <name><![CDATA[Casa da Msica]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av da Boavista, 604/610 Porto ]]></street>
+      <houseno><![CDATA[604/610]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casa da Msica]]></name>
+      <address>
+        <street><![CDATA[Av da Boavista, 604/610 Porto ]]></street>
+        <houseno><![CDATA[604/610]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004964" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.12653000</longitude>
+      <latitude>39.14758000</latitude>
+    </geo-position>
+    <name><![CDATA[Galeria 74]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R de Vilar, 74 Porto ]]></street>
+      <houseno><![CDATA[74]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Galeria 74]]></name>
+      <address>
+        <street><![CDATA[R de Vilar, 74 Porto ]]></street>
+        <houseno><![CDATA[74]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004973" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14237800</longitude>
+      <latitude>38.70942400</latitude>
+    </geo-position>
+    <name><![CDATA[So Luiz Teatro Municipal]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Antnio Maria Cardoso, 38/58 Lisboa ]]></street>
+      <houseno><![CDATA[38/58]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[So Luiz Teatro Municipal]]></name>
+      <address>
+        <street><![CDATA[R Antnio Maria Cardoso, 38/58 Lisboa ]]></street>
+        <houseno><![CDATA[38/58]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000004990" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14764000</longitude>
+      <latitude>38.71287000</latitude>
+    </geo-position>
+    <name><![CDATA[Carpe Diem Arte e Pesquisa]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R de O Sculo, 79 Lisboa ]]></street>
+      <houseno><![CDATA[79]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Carpe Diem Arte e Pesquisa]]></name>
+      <address>
+        <street><![CDATA[R de O Sculo, 79 Lisboa ]]></street>
+        <houseno><![CDATA[79]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Outros espaos | Outros espaos]]></vendor-category>
+        <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005039" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.40862000</longitude>
+      <latitude>38.70819000</latitude>
+    </geo-position>
+    <name><![CDATA[Casino de Espinho]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R 19, 85 Espinho ]]></street>
+      <houseno><![CDATA[85]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casino de Espinho]]></name>
+      <address>
+        <street><![CDATA[R 19, 85 Espinho ]]></street>
+        <houseno><![CDATA[85]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Dana | Aveiro]]></vendor-category>
+        <vendor-category><![CDATA[Outros Palcos | Aveiro]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005114" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.30899000</longitude>
+      <latitude>38.69319000</latitude>
+    </geo-position>
+    <name><![CDATA[Plano B]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Cndido dos Reis, 30 Porto ]]></street>
+      <houseno><![CDATA[30]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Plano B]]></name>
+      <address>
+        <street><![CDATA[R Cndido dos Reis, 30 Porto ]]></street>
+        <houseno><![CDATA[30]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005140" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.28089000</longitude>
+      <latitude>38.77261000</latitude>
+    </geo-position>
+    <name><![CDATA[AMIarte]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R da Lomba, 153 Porto ]]></street>
+      <houseno><![CDATA[153]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[AMIarte]]></name>
+      <address>
+        <street><![CDATA[R da Lomba, 153 Porto ]]></street>
+        <houseno><![CDATA[153]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005152" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14310200</longitude>
+      <latitude>38.70917690</latitude>
+    </geo-position>
+    <name><![CDATA[Alecrim 50]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R do Alecrim, 48/50 Lisboa ]]></street>
+      <houseno><![CDATA[48/50]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Alecrim 50]]></name>
+      <address>
+        <street><![CDATA[R do Alecrim, 48/50 Lisboa ]]></street>
+        <houseno><![CDATA[48/50]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005236" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.16575000</longitude>
+      <latitude>38.73857000</latitude>
+    </geo-position>
+    <name><![CDATA[Pavilho Multiusos de Guimares]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Al Cidade de Lisboa, Guimares ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Pavilho Multiusos de Guimares]]></name>
+      <address>
+        <street><![CDATA[Al Cidade de Lisboa, Guimares ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Braga]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005240" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.23524940</longitude>
+      <latitude>38.75832380</latitude>
+    </geo-position>
+    <name><![CDATA[Espao Cultural Recreios da Amadora]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Santos Mattos, 2 Amadora ]]></street>
+      <houseno><![CDATA[2]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Espao Cultural Recreios da Amadora]]></name>
+      <address>
+        <street><![CDATA[Av Santos Mattos, 2 Amadora ]]></street>
+        <houseno><![CDATA[2]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005245" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.26730000</longitude>
+      <latitude>38.72495000</latitude>
+    </geo-position>
+    <name><![CDATA[Estdio Zero]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Herosmo, 86 Porto ]]></street>
+      <houseno><![CDATA[86]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Estdio Zero]]></name>
+      <address>
+        <street><![CDATA[R Herosmo, 86 Porto ]]></street>
+        <houseno><![CDATA[86]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005308" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.09469860</longitude>
+      <latitude>38.77123860</latitude>
+    </geo-position>
+    <name><![CDATA[Pala do Pavilho de Portugal]]></name>
+    <category><![CDATA[leisure-outdoor]]></category>
+    <address>
+      <street><![CDATA[Parque das Naes, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Pala do Pavilho de Portugal]]></name>
+      <address>
+        <street><![CDATA[Parque das Naes, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Passeios]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005310" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15573000</longitude>
+      <latitude>38.71245000</latitude>
+    </geo-position>
+    <name><![CDATA[Jardim da Estrela]]></name>
+    <category><![CDATA[leisure-outdoor]]></category>
+    <address>
+      <street><![CDATA[Lg da Estrela, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Jardim da Estrela]]></name>
+      <address>
+        <street><![CDATA[Lg da Estrela, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Passeios]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005406" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14462250</longitude>
+      <latitude>38.71238880</latitude>
+    </geo-position>
+    <name><![CDATA[Clube Rua]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Rua da Barroca, 111, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Clube Rua]]></name>
+      <address>
+        <street><![CDATA[Rua da Barroca, 111, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Agenda | Quarta 31]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005416" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15779290</longitude>
+      <latitude>38.73772480</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Aberto]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P de Espanha, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Aberto]]></name>
+      <address>
+        <street><![CDATA[P de Espanha, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005469" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15145860</longitude>
+      <latitude>38.71774350</latitude>
+    </geo-position>
+    <name><![CDATA[Museus da Politcnica]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[R. da Escola Politcnica 56,58, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museus da Politcnica]]></name>
+      <address>
+        <street><![CDATA[R. da Escola Politcnica 56,58, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <vendor-category><![CDATA[Eventos | Workshops]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005487" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.39423300</longitude>
+      <latitude>38.71619480</latitude>
+    </geo-position>
+    <name><![CDATA[Casa das Histrias Paula Rego]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av da Repblica, 300 Cascais ]]></street>
+      <houseno><![CDATA[300]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casa das Histrias Paula Rego]]></name>
+      <address>
+        <street><![CDATA[Av da Repblica, 300 Cascais ]]></street>
+        <houseno><![CDATA[300]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eventos | Workshops]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005490" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13975940</longitude>
+      <latitude>38.71370770</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Nacional D. Maria II]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P D. Pedro IV, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Nacional D. Maria II]]></name>
+      <address>
+        <street><![CDATA[P D. Pedro IV, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+        <vendor-category><![CDATA[Teatro | Centro]]></vendor-category>
+        <public-transport><![CDATA[Tube: Restauradores / Rossio]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005520" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.16228820</longitude>
+      <latitude>38.70568710</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Casa da Comdia]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R So Francisco de Borja, 22 ]]></street>
+      <houseno><![CDATA[22]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Casa da Comdia]]></name>
+      <address>
+        <street><![CDATA[R So Francisco de Borja, 22 ]]></street>
+        <houseno><![CDATA[22]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+        <public-transport><![CDATA[Bus: Bus 25E, 60, 713, 727]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005572" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.31053000</longitude>
+      <latitude>38.69217000</latitude>
+    </geo-position>
+    <name><![CDATA[Centro Cultural Palcio do Egipto]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R lvaro Antnio dos Santos, Oeiras ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Centro Cultural Palcio do Egipto]]></name>
+      <address>
+        <street><![CDATA[R lvaro Antnio dos Santos, Oeiras ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eventos | Exposies]]></vendor-category>
+        <vendor-category><![CDATA[Jazz & clssica | Clssica]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005601" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.19544320</longitude>
+      <latitude>38.72451590</latitude>
+    </geo-position>
+    <name><![CDATA[Auditrio do Espao Monsanto]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Parque Florestal de Monsanto, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Auditrio do Espao Monsanto]]></name>
+      <address>
+        <street><![CDATA[Parque Florestal de Monsanto, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Teatro]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005698" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.39423300</longitude>
+      <latitude>38.71619480</latitude>
+    </geo-position>
+    <name><![CDATA[Casa das Histrias Paula Rego]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av da Repblica, 300 Cascais ]]></street>
+      <houseno><![CDATA[300]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casa das Histrias Paula Rego]]></name>
+      <address>
+        <street><![CDATA[Av da Repblica, 300 Cascais ]]></street>
+        <houseno><![CDATA[300]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005702" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15132590</longitude>
+      <latitude>38.72153030</latitude>
+    </geo-position>
+    <name><![CDATA[Galeria Antnio Prates]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Alexandre Herculano, 39A Lisboa ]]></street>
+      <houseno><![CDATA[39A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Galeria Antnio Prates]]></name>
+      <address>
+        <street><![CDATA[R Alexandre Herculano, 39A Lisboa ]]></street>
+        <houseno><![CDATA[39A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005704" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13766930</longitude>
+      <latitude>38.75809500</latitude>
+    </geo-position>
+    <name><![CDATA[Marz]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Reinaldo Ferreira, 20A Lisboa ]]></street>
+      <houseno><![CDATA[20A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Marz]]></name>
+      <address>
+        <street><![CDATA[R Reinaldo Ferreira, 20A Lisboa ]]></street>
+        <houseno><![CDATA[20A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005727" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13695520</longitude>
+      <latitude>38.70883790</latitude>
+    </geo-position>
+    <name><![CDATA[Carris Tour]]></name>
+    <category><![CDATA[leisure-outdoor]]></category>
+    <address>
+      <street><![CDATA[P do Comrcio, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Carris Tour]]></name>
+      <address>
+        <street><![CDATA[P do Comrcio, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Passeios]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005729" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.43010170</longitude>
+      <latitude>38.69141770</latitude>
+    </geo-position>
+    <name><![CDATA[Museu Conde de Castro Guimares]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Rei Humberto de Itlia, Cascais ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Museu Conde de Castro Guimares]]></name>
+      <address>
+        <street><![CDATA[Av Rei Humberto de Itlia, Cascais ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005741" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14725580</longitude>
+      <latitude>38.73572280</latitude>
+    </geo-position>
+    <name><![CDATA[Espao Nimas]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av 5 de Outubro, 42B Lisboa ]]></street>
+      <houseno><![CDATA[42B]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Espao Nimas]]></name>
+      <address>
+        <street><![CDATA[Av 5 de Outubro, 42B Lisboa ]]></street>
+        <houseno><![CDATA[42B]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005757" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13352280</longitude>
+      <latitude>38.72794590</latitude>
+    </geo-position>
+    <name><![CDATA[Kabuki - Centro de Arte]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Newton, 10B Lisboa ]]></street>
+      <houseno><![CDATA[10B]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Kabuki - Centro de Arte]]></name>
+      <address>
+        <street><![CDATA[R Newton, 10B Lisboa ]]></street>
+        <houseno><![CDATA[10B]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005760" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14333200</longitude>
+      <latitude>38.70715230</latitude>
+    </geo-position>
+    <name><![CDATA[MusicBox]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Nova do Carvalho, 24 Lisboa ]]></street>
+      <houseno><![CDATA[24]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[MusicBox]]></name>
+      <address>
+        <street><![CDATA[R Nova do Carvalho, 24 Lisboa ]]></street>
+        <houseno><![CDATA[24]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005769" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13166650</longitude>
+      <latitude>38.71106740</latitude>
+    </geo-position>
+    <name><![CDATA[Caf Teatro Santiago Alquimista]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Santiago, 19 Lisboa ]]></street>
+      <houseno><![CDATA[19]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Caf Teatro Santiago Alquimista]]></name>
+      <address>
+        <street><![CDATA[R Santiago, 19 Lisboa ]]></street>
+        <houseno><![CDATA[19]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005770" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.09469860</longitude>
+      <latitude>38.77123860</latitude>
+    </geo-position>
+    <name><![CDATA[Pavilho Atlntico]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Parque das Naes, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Pavilho Atlntico]]></name>
+      <address>
+        <street><![CDATA[Parque das Naes, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Outros Palcos | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005815" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15630380</longitude>
+      <latitude>38.75279140</latitude>
+    </geo-position>
+    <name><![CDATA[Aula Magna]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Al da Universidade, Lisboa ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Aula Magna]]></name>
+      <address>
+        <street><![CDATA[Al da Universidade, Lisboa ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005827" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.27293800</longitude>
+      <latitude>38.75939310</latitude>
+    </geo-position>
+    <name><![CDATA[Maus Hbitos]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Passos Manuel, 178 Porto ]]></street>
+      <houseno><![CDATA[178]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Maus Hbitos]]></name>
+      <address>
+        <street><![CDATA[R Passos Manuel, 178 Porto ]]></street>
+        <houseno><![CDATA[178]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005836" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13366410</longitude>
+      <latitude>38.71159270</latitude>
+    </geo-position>
+    <name><![CDATA[Chapit]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Costa do Castelo, 1/7 Lisboa ]]></street>
+      <houseno><![CDATA[1/7]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Chapit]]></name>
+      <address>
+        <street><![CDATA[R Costa do Castelo, 1/7 Lisboa ]]></street>
+        <houseno><![CDATA[1/7]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005848" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13440270</longitude>
+      <latitude>38.70914250</latitude>
+    </geo-position>
+    <name><![CDATA[Bacalhoeiro]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R dos Bacalhoeiros, 125 Lisboa ]]></street>
+      <houseno><![CDATA[125]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Bacalhoeiro]]></name>
+      <address>
+        <street><![CDATA[R dos Bacalhoeiros, 125 Lisboa ]]></street>
+        <houseno><![CDATA[125]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005850" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14155000</longitude>
+      <latitude>38.70972000</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Nacional de So Carlos]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Lg So Carlos, 17 Lisboa ]]></street>
+      <houseno><![CDATA[17]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Nacional de So Carlos]]></name>
+      <address>
+        <street><![CDATA[Lg So Carlos, 17 Lisboa ]]></street>
+        <houseno><![CDATA[17]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Outros Palcos | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005857" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14678000</longitude>
+      <latitude>38.73023000</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Villaret]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Fontes Pereira de Mello, 30A Lisboa ]]></street>
+      <houseno><![CDATA[30A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Villaret]]></name>
+      <address>
+        <street><![CDATA[Av Fontes Pereira de Mello, 30A Lisboa ]]></street>
+        <houseno><![CDATA[30A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Outros Palcos | Lisboa]]></vendor-category>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005859" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.38189100</longitude>
+      <latitude>38.80228370</latitude>
+    </geo-position>
+    <name><![CDATA[Espao Reflexo]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Heliodoro Salgado, 41 - 1 Sintra ]]></street>
+      <houseno><![CDATA[41 - 1]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Espao Reflexo]]></name>
+      <address>
+        <street><![CDATA[Av Heliodoro Salgado, 41 - 1 Sintra ]]></street>
+        <houseno><![CDATA[41 - 1]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005863" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13522410</longitude>
+      <latitude>38.71341700</latitude>
+    </geo-position>
+    <name><![CDATA[Casa da Achada ? Centro Mrio Dionsio]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R. da Achada, 11 r/c, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casa da Achada ? Centro Mrio Dionsio]]></name>
+      <address>
+        <street><![CDATA[R. da Achada, 11 r/c, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eventos | Outros]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005928" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14456330</longitude>
+      <latitude>38.71181470</latitude>
+    </geo-position>
+    <name><![CDATA[ZdB - Galeria Z dos Bois]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R da Barroca, 59 Lisboa ]]></street>
+      <houseno><![CDATA[59]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[ZdB - Galeria Z dos Bois]]></name>
+      <address>
+        <street><![CDATA[R da Barroca, 59 Lisboa ]]></street>
+        <houseno><![CDATA[59]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005932" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13888690</longitude>
+      <latitude>38.74337290</latitude>
+    </geo-position>
+    <name><![CDATA[Frum Lisboa]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Roma, 14L Lisboa ]]></street>
+      <houseno><![CDATA[14L]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Frum Lisboa]]></name>
+      <address>
+        <street><![CDATA[Av Roma, 14L Lisboa ]]></street>
+        <houseno><![CDATA[14L]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Msica | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000005984" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.09428800</longitude>
+      <latitude>38.75785600</latitude>
+    </geo-position>
+    <name><![CDATA[Tutor Time ]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R das Musas , 3.06.03  ]]></street>
+      <houseno><![CDATA[3.06.03 ]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Tutor Time ]]></name>
+      <address>
+        <street><![CDATA[R das Musas , 3.06.03  ]]></street>
+        <houseno><![CDATA[3.06.03 ]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000006012" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14723000</longitude>
+      <latitude>38.73563000</latitude>
+    </geo-position>
+    <name><![CDATA[Espao Nimas]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av 5 de Outubro, 42 B ]]></street>
+      <houseno><![CDATA[42 B]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Espao Nimas]]></name>
+      <address>
+        <street><![CDATA[Av 5 de Outubro, 42 B ]]></street>
+        <houseno><![CDATA[42 B]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <vendor-category><![CDATA[Jazz & clssica | Jazz]]></vendor-category>
+        <public-transport><![CDATA[Tube: Saldanha, Bus: 16, 718, 726, 742]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000006164" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.19372610</longitude>
+      <latitude>38.76206250</latitude>
+    </geo-position>
+    <name><![CDATA[Casa do Artista]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Estrada da Pontinha, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Casa do Artista]]></name>
+      <address>
+        <street><![CDATA[Estrada da Pontinha, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Dana | Dana]]></vendor-category>
+        <public-transport><![CDATA[Tube: Carnide]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000006244" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.35440400</longitude>
+      <latitude>38.68981130</latitude>
+    </geo-position>
+    <name><![CDATA[Galeria Fernando Santos]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Miguel Bombarda, 526/536 Porto ]]></street>
+      <houseno><![CDATA[526/536]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Galeria Fernando Santos]]></name>
+      <address>
+        <street><![CDATA[R Miguel Bombarda, 526/536 Porto ]]></street>
+        <houseno><![CDATA[526/536]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000006310" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.13406390</longitude>
+      <latitude>38.71984270</latitude>
+    </geo-position>
+    <name><![CDATA[Teatro Bocage]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[R Manuel Soares Guedes, 13A Lisboa ]]></street>
+      <houseno><![CDATA[13A]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Teatro Bocage]]></name>
+      <address>
+        <street><![CDATA[R Manuel Soares Guedes, 13A Lisboa ]]></street>
+        <houseno><![CDATA[13A]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000006325" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14374000</longitude>
+      <latitude>38.70788000</latitude>
+    </geo-position>
+    <name><![CDATA[Inda a Noite  Uma Criana]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[P das Flores, 8 ]]></street>
+      <houseno><![CDATA[8]]></houseno>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Inda a Noite  Uma Criana]]></name>
+      <address>
+        <street><![CDATA[P das Flores, 8 ]]></street>
+        <houseno><![CDATA[8]]></houseno>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+        <public-transport><![CDATA[Tube: Rato, Bus: 790]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000006339" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.14757870</longitude>
+      <latitude>38.71464090</latitude>
+    </geo-position>
+    <name><![CDATA[Convento dos Cardaes]]></name>
+    <category><![CDATA[museum]]></category>
+    <address>
+      <street><![CDATA[Rua do Sculo, 123, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Convento dos Cardaes]]></name>
+      <address>
+        <street><![CDATA[Rua do Sculo, 123, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+        <public-transport><![CDATA[Bus: Baixa-Chiado]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000006340" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.15036000</longitude>
+      <latitude>38.73873000</latitude>
+    </geo-position>
+    <name><![CDATA[Cmara dos Azuis]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av. Elias Garcia, 156 A/B, ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Cmara dos Azuis]]></name>
+      <address>
+        <street><![CDATA[Av. Elias Garcia, 156 A/B, ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Galerias | Galerias]]></vendor-category>
+        <public-transport><![CDATA[Bus: So Sebastio]]></public-transport>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="LIS000000000000000000000000019437" lang="pt" modified="2010-04-20T08:00:31">
+    <geo-position>
+      <longitude>-9.07803410</longitude>
+      <latitude>38.66468140</latitude>
+    </geo-position>
+    <name><![CDATA[Piscina Municipal do Barreiro]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Av Bento Gonalves, Barreiro ]]></street>
+      <city><![CDATA[Lisbon]]></city>
+      <country>PRT</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Piscina Municipal do Barreiro]]></name>
+      <address>
+        <street><![CDATA[Av Bento Gonalves, Barreiro ]]></street>
+        <city><![CDATA[Lisbon]]></city>
+        <country>PRT</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Concertos | Days]]></vendor-category>
+      </content>
+    </version>
+  </entry>
+</vendor-pois>

@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-pois vendor="timeout" modified="2010-10-05T05:54:35">
+  <entry vpid="AUH000000000000000000000000063092" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38204600</longitude>
+      <latitude>24.49758500</latitude>
+    </geo-position>
+    <name><![CDATA[Colosseum]]></name>
+    <category><![CDATA[dance-night-club]]></category>
+    <address>
+      <street><![CDATA[Abu Dhabi Marina & Yacht Club]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Tourist Club Area]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 644 0300</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Colosseum]]></name>
+      <address>
+        <street><![CDATA[Abu Dhabi Marina & Yacht Club]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Tourist Club Area]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Nightclub]]></vendor-category>
+        <description><![CDATA[A Roman-themed nightclub/restaurant that features a sunken, amphitheatre dancefloor. Different music every night. Always busy. A place to head when everywhere else has closed]]></description>
+        <openingtimes><![CDATA[Open daily 10pm-3.30am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/bars/reviews/4802-colosseum]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063112" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.57429500</longitude>
+      <latitude>24.43866200</latitude>
+    </geo-position>
+    <name><![CDATA[Al Raha Mall]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Abu Dhabi-Dubai Road]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Raha Beach]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 556 2229</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Al Raha Mall]]></name>
+      <address>
+        <street><![CDATA[Abu Dhabi-Dubai Road]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Raha Beach]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[There are those that believe the humble mall restaurant to be not worth anybody’s time. Time Out puts five of them to the test]]></description>
+        <openingtimes><![CDATA[Open Sun-Wed 10am-10pm; Thu-Sat 10am-11pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/16509-al-raha-mall]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063120" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36927800</longitude>
+      <latitude>24.49234400</latitude>
+    </geo-position>
+    <name><![CDATA[Kamayan Barrio Fiesta Restaurant]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Najda Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 672 6777</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Kamayan Barrio Fiesta Restaurant]]></name>
+      <address>
+        <street><![CDATA[Najda Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[We check out Kamayan Barrio Fiesta for Asian food off Najda Street...]]></description>
+        <openingtimes><![CDATA[Open daily 8am-11:30pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/14424-kamayan-barrio-fiesta-restaurant]]></property>
+        <property key="cuisine"><![CDATA[Filipino]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063121" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36564300</longitude>
+      <latitude>24.49089800</latitude>
+    </geo-position>
+    <name><![CDATA[Crowne Plaza Abu Dhabi]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Hamdan Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 621 0000</phone>
+      <email><![CDATA[cpauh@cpabudhabi.ae]]></email>
+      <url>http://www.ichotelsgroup.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Crowne Plaza Abu Dhabi]]></name>
+      <address>
+        <street><![CDATA[Hamdan Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Chef Lloyd Cremer takes Claire Carutthers on a trip to Spice Island]]></description>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/12948-crowne-plaza-abu-dhabi]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063142" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38173300</longitude>
+      <latitude>24.48948300</latitude>
+    </geo-position>
+    <name><![CDATA[Lebanese Flower]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Salam Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Tourist Club Area]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 645 6338</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Lebanese Flower]]></name>
+      <address>
+        <street><![CDATA[Salam Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Tourist Club Area]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <openingtimes><![CDATA[Open daily 7am-midnight]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/12386-lebanese-flower]]></property>
+        <property key="cuisine"><![CDATA[Arabic, Lebanese]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063180" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.37855900</longitude>
+      <latitude>24.47191600</latitude>
+    </geo-position>
+    <name><![CDATA[Hankook]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Defense Road]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Nahyan]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 642 3399</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Hankook]]></name>
+      <address>
+        <street><![CDATA[Defense Road]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Nahyan]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[South Korean food near the bus station]]></description>
+        <openingtimes><![CDATA[Open daily 11am-11pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/9839-hankook]]></property>
+        <property key="cuisine"><![CDATA[Korean]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063185" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38795900</longitude>
+      <latitude>24.57527500</latitude>
+    </geo-position>
+    <name><![CDATA[One to One Hotel-the Village]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Al Salam Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Nahyan]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 495 2000</phone>
+      <email><![CDATA[info.thevillage@onetoonehotels.com]]></email>
+      <url>http://www.onetoonehotels.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[One to One Hotel-the Village]]></name>
+      <address>
+        <street><![CDATA[Al Salam Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Nahyan]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[We've found a month's worth of cheap places to eat in Abu Dhabi...]]></description>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/9413-one-to-one-hotel-the-village]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063186" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38322400</longitude>
+      <latitude>24.59577900</latitude>
+    </geo-position>
+    <name><![CDATA[Abu Dhabi Mall]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[10th Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Tourist Club Area]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 645 4858</phone>
+      <email><![CDATA[info@abudhabi-mall.com]]></email>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Abu Dhabi Mall]]></name>
+      <address>
+        <street><![CDATA[10th Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Tourist Club Area]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[All breakfasts, no hotels. <i>Time Out</i> hits the streets in search of the best way to start a day in the capital]]></description>
+        <openingtimes><![CDATA[Open Sat-Wed 10am-10pm; Thu 10am-11pm; Fri 3.30pm-11pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/9041-abu-dhabi-mall]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063193" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36711100</longitude>
+      <latitude>24.49181600</latitude>
+    </geo-position>
+    <name><![CDATA[Just Falafel]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Hamdan Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 626 2099</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Just Falafel]]></name>
+      <address>
+        <street><![CDATA[Hamdan Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Just Falafel is a shoebox-sized rebel in the world of fast food. We find out if it is any good]]></description>
+        <openingtimes><![CDATA[Open Sat-Thu 9am-1am; Fri 12.30pm-1am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/8597-just-falafel]]></property>
+        <property key="cuisine"><![CDATA[Arabic, Lebanese]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063195" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36476100</longitude>
+      <latitude>24.48088100</latitude>
+    </geo-position>
+    <name><![CDATA[Beijing Restaurant]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Al Falah Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Madinat Zayed]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 621 0708</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Beijing Restaurant]]></name>
+      <address>
+        <street><![CDATA[Al Falah Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Madinat Zayed]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Authentic and in expensive Chinese food in Abu Dhabi]]></description>
+        <openingtimes><![CDATA[Open daily 11am-midnight]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/8130-beijing]]></property>
+        <property key="cuisine"><![CDATA[Chinese]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063201" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38253800</longitude>
+      <latitude>24.49032200</latitude>
+    </geo-position>
+    <name><![CDATA[Bandung]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[18th Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Tourist Club Area]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 645 2008</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Bandung]]></name>
+      <address>
+        <street><![CDATA[18th Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Tourist Club Area]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Unassuming and appealing Indonesian restaurant in Abu Dhabi's Tourist Club area<br />]]></description>
+        <openingtimes><![CDATA[Open Sat-Thu 11am-11pm; Fri 11am-1am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/6080-bandung]]></property>
+        <property key="cuisine"><![CDATA[Indonesian]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063202" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36782800</longitude>
+      <latitude>24.49332800</latitude>
+    </geo-position>
+    <name><![CDATA[Automatic Restaurant]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Hamdan Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 676 9677</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Automatic Restaurant]]></name>
+      <address>
+        <street><![CDATA[Hamdan Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Lebanese food chain popular throughout the UAE<br />]]></description>
+        <openingtimes><![CDATA[Open daily 11am-1am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/6079-automatic-restaurant]]></property>
+        <property key="cuisine"><![CDATA[Lebanese, Vegetarian]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063209" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.37675500</longitude>
+      <latitude>24.49285100</latitude>
+    </geo-position>
+    <name><![CDATA[India Palace]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Al Salam Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Meena]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 644 8777</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[India Palace]]></name>
+      <address>
+        <street><![CDATA[Al Salam Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Meena]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Authentic Indian food with entertaining surroundings]]></description>
+        <openingtimes><![CDATA[Open daily noon-midnight]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/4697-india-palace]]></property>
+        <property key="cuisine"><![CDATA[Indian, Vegetarian]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063224" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36026800</longitude>
+      <latitude>24.49180600</latitude>
+    </geo-position>
+    <name><![CDATA[Hanoi]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Khalifa Bin Zayed Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 626 1112</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Hanoi]]></name>
+      <address>
+        <street><![CDATA[Khalifa Bin Zayed Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Abu Dhabi’s original Vietnamese eatery maintains its authenticity, with pho, goi and other zingy, spicy national dishes served up in an unpretentious style by Vietnamese owners]]></description>
+        <openingtimes><![CDATA[Open daily 10am-11.30pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/4752-hanoi]]></property>
+        <property key="cuisine"><![CDATA[Vietnamese]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063227" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36377300</longitude>
+      <latitude>24.48739200</latitude>
+    </geo-position>
+    <name><![CDATA[The Curry House]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Electra Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 632 8860</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[The Curry House]]></name>
+      <address>
+        <street><![CDATA[Electra Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Technically, of course, The Curry House is Nepalese – it used to be called Kathmandu – but their weren’t enough restaurants from the mountain nation to merit a category of its own, so it’s lumped in with Indian]]></description>
+        <openingtimes><![CDATA[Open daily noon-midnight]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/4748-the-curry-house]]></property>
+        <property key="cuisine"><![CDATA[Chinese, Indian]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063258" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.52695100</longitude>
+      <latitude>24.42046400</latitude>
+    </geo-position>
+    <name><![CDATA[Casa Verde]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Abu Dhabi Golf Club]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Sas Al Nakhl]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 558 8990</phone>
+      <url>http://www.adgolfclub.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Casa Verde]]></name>
+      <address>
+        <street><![CDATA[Abu Dhabi Golf Club]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Sas Al Nakhl]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[The views at Case Verde of the verdant championship golf course are amazing, and the menu makes for a pleasant read – nothing too fancy; heart-warming soups, salads, seafood and meat entrees all feature]]></description>
+        <openingtimes><![CDATA[Open daily noon-midnight]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/4710-casa-verde]]></property>
+        <property key="cuisine"><![CDATA[Italian]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063265" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.36880500</longitude>
+      <latitude>24.49859000</latitude>
+    </geo-position>
+    <name><![CDATA[Russian Waterfalls Cafeteria]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Khalifa Bin Zayed Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 671 3687</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Russian Waterfalls Cafeteria]]></name>
+      <address>
+        <street><![CDATA[Khalifa Bin Zayed Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[There is much about Russian Waterfalls that is endearing]]></description>
+        <openingtimes><![CDATA[24 Hours]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/4700-russian-waterfalls-cafeteria]]></property>
+        <property key="cuisine"><![CDATA[Russian]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063282" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38205700</longitude>
+      <latitude>24.49767500</latitude>
+    </geo-position>
+    <name><![CDATA[Bam Bu!]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Abu Dhabi Marina & Yacht Club]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Tourist Club Area]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 645 6373</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Bam Bu!]]></name>
+      <address>
+        <street><![CDATA[Abu Dhabi Marina & Yacht Club]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Tourist Club Area]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[Standard Chinese food and excellent views across the water]]></description>
+        <openingtimes><![CDATA[Open daily noon-3pm, 7pm-11pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/4682-bam-bu]]></property>
+        <property key="cuisine"><![CDATA[Chinese]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063284" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38431900</longitude>
+      <latitude>24.44343800</latitude>
+    </geo-position>
+    <name><![CDATA[Sardinia]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Abu Dhabi Health & Fitness Club]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Mushrif]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 446 5455</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Sardinia]]></name>
+      <address>
+        <street><![CDATA[Abu Dhabi Health & Fitness Club]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Mushrif]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <description><![CDATA[The standards of Abu Dhabi’s culinary scene have just been raised a notch]]></description>
+        <openingtimes><![CDATA[Open daily noon-3pm, 7pm-11pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/restaurants/reviews/4680-sardinia]]></property>
+        <property key="cuisine"><![CDATA[Contemporary European]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063317" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.31134000</longitude>
+      <latitude>24.47810700</latitude>
+    </geo-position>
+    <name><![CDATA[Marina Royal Health Club]]></name>
+    <category><![CDATA[recreation]]></category>
+    <address>
+      <street><![CDATA[Corniche Road]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Ras Al Akhdar]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 6 668 6237</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Marina Royal Health Club]]></name>
+      <address>
+        <street><![CDATA[Corniche Road]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Ras Al Akhdar]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Sport]]></vendor-category>
+        <description><![CDATA[Further details soon.]]></description>
+        <openingtimes><![CDATA[Tuesday 7pm-10pm (from Sep 24)]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/sportandoutdoor/details/8150-marina-royal-health-club]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063318" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.38726000</longitude>
+      <latitude>24.45426000</latitude>
+    </geo-position>
+    <name><![CDATA[National Theatre]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[1st Zaid Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Manhal]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 621 5300</phone>
+      <email><![CDATA[info@ns1.cultural.org.ae]]></email>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[National Theatre]]></name>
+      <address>
+        <street><![CDATA[1st Zaid Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Manhal]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Around Town]]></vendor-category>
+        <description><![CDATA[The city’s creatives are emerging from their studios. International collective Fanaan are the first to brave the critics]]></description>
+        <openingtimes><![CDATA[7.30pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/aroundtown/details/2080-national-theatre]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000068200" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.43710700</longitude>
+      <latitude>24.41892100</latitude>
+    </geo-position>
+    <name><![CDATA[ADNEC Hall 12]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Al Khaleej Al Arabi Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Safraat]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 444 6900</phone>
+      <email><![CDATA[feedback@adnec.ae]]></email>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[ADNEC Hall 12]]></name>
+      <address>
+        <street><![CDATA[Al Khaleej Al Arabi Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Safraat]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Around Town]]></vendor-category>
+        <description><![CDATA[Further details soon.]]></description>
+        <openingtimes><![CDATA[10pm-4am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/aroundtown/details/8112-adnec-hall-12]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000068412" lang="en" modified="2010-10-05T05:54:35">
+    <geo-position>
+      <longitude>54.49126400</longitude>
+      <latitude>24.40871000</latitude>
+    </geo-position>
+    <name><![CDATA[Souk Qaryat Al Beri]]></name>
+    <category><![CDATA[dance-night-club]]></category>
+    <address>
+      <street><![CDATA[Between the Bridges]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Bain Al Jessrain]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 6 668 6237</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Souk Qaryat Al Beri]]></name>
+      <address>
+        <street><![CDATA[Between the Bridges]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Bain Al Jessrain]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Nightlife]]></vendor-category>
+        <description><![CDATA[Pool parties, Tiesto, digital art and more capital ideas]]></description>
+        <openingtimes><![CDATA[10.30pm- 3am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/nightlife/details/1922-souk-qaryat-al-beri]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+</vendor-pois>

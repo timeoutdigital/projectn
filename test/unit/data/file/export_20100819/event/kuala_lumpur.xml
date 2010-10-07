@@ -1,0 +1,2769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-08-19T08:50:27">
+  <event id="KUL000000000000000000000000067098" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fanboy & Chum Chum]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Fanboy & Chum Chum]]></name>
+      <vendor-category><![CDATA[Film | Animation]]></vendor-category>
+      <short-description><![CDATA[Fanboy and his best friend Chum Chum returns with more whacky adventures...]]></short-description>
+      <description><![CDATA[<p>Fanboy and his best friend Chum Chum returns with more whacky adventures. Find out what happens to them as they end up in the wrong playground and are mistaken for kindergarteners.</p>]]></description>
+      <url><![CDATA[http://www.astro.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000067099" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Estate Of Panic]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Estate Of Panic]]></name>
+      <vendor-category><![CDATA[Film | TV Show]]></vendor-category>
+      <short-description><![CDATA[From the producer of Fear Factor, Estate of Panic pushes phobias to the limit. Seven contestants compete against one another to win cash by facing their ultimate fears.]]></short-description>
+      <description><![CDATA[<p>From the producer of Fear Factor, Estate of Panic pushes phobias to the limit. Seven contestants compete against one another to win cash by facing their ultimate fears.</p>]]></description>
+      <url><![CDATA[http://www.astro.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-24</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000067100" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Barbie of Swan Lake]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Barbie of Swan Lake]]></name>
+      <vendor-category><![CDATA[Film | Animation]]></vendor-category>
+      <short-description><![CDATA[Based on the music of Tchaikovsky and original story of Pepitov...]]></short-description>
+      <description><![CDATA[<p>Based on the music of Tchaikovsky and original story of Pepitov, this movie features Barbie in the role of Odette, the young baker's daughter who is transformed into a swan by the evil wizard, Rothbart.</p>]]></description>
+      <url><![CDATA[http://www.astro.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000067101" modified="2010-08-19T08:50:27">
+    <name><![CDATA[The No.1 Ladies Detective Agency]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[The No.1 Ladies Detective Agency]]></name>
+      <vendor-category><![CDATA[Film | TV Show]]></vendor-category>
+      <short-description><![CDATA[Based on international bestselling novels by Alexander McCall Smith, this series features Grammy Award winner Jill Scott as heroine Precious Ramotswe..]]></short-description>
+      <description><![CDATA[<p>Based on international bestselling novels by Alexander McCall Smith, this series features Grammy Award winner Jill Scott as heroine Precious Ramotswe. Watch how Precious investigates cases, helps people solve problems and begins a special friendship with the owner of a garage.</p>]]></description>
+      <url><![CDATA[http://www.astro.com.my]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/b0267071fbcea3d769a2e2cda002a338.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <end_date>2010-08-30</end_date>
+            <event_time>23:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000067102" modified="2010-08-19T08:50:27">
+    <name><![CDATA[United States Of Tara]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[United States Of Tara]]></name>
+      <vendor-category><![CDATA[Film | TV Show]]></vendor-category>
+      <short-description><![CDATA[Suburban wife and mother Tara Gregson juggles her family and career while suffering from Dissociative Identity Disorder...]]></short-description>
+      <description><![CDATA[<p>Suburban wife and mother Tara Gregson juggles her family and career while suffering from Dissociative Identity Disorder. This new series on HBO stars Toni Collette in her Emmy-winning role as Tara Gregson. </p>]]></description>
+      <url><![CDATA[http://www.astro.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <end_date>2010-08-30</end_date>
+            <event_time>22:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066037" modified="2010-08-19T08:50:27">
+    <name><![CDATA[TWILIGHT - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[TWILIGHT - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Set to thrill your weekend with Warewolf Slave Show, Catwomen Hoop Shimmy, Vampire Fabric Stunt and other performances...]]></short-description>
+      <description><![CDATA[<p>Set to thrill your weekend with Warewolf Slave Show, Catwomen Hoop Shimmy, Vampire Fabric Stunt and other performance by The Opera Cirque Nouveau.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066053" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Kinky Boudoir - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Kinky Boudoir - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A naughty night with cheeky performance such as Office Chair Dance...]]></short-description>
+      <description><![CDATA[<p>A naughty night with cheeky performance such as Office Chair Dance, Bondage Rope Frolla, Whip Prance, Aerial Cocoon Act and performances by The Opera Cirque Nouveau.</p>]]></description>
+      <url><![CDATA[http://www.theopera.my/contact_us.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/7ca68ab1315ecc11784a101e622ce7ad.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066072" modified="2010-08-19T08:50:27">
+    <name><![CDATA[TWILIGHT - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[TWILIGHT - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Set to thrill your weekend with Warewolf Slave Show, Catwomen Hoop Shimmy, Vampire Fabric Stunt and other performances...]]></short-description>
+      <description><![CDATA[<p>Set to thrill your weekend with Warewolf Slave Show, Catwomen Hoop Shimmy, Vampire Fabric Stunt and other performance by The Opera Cirque Nouveau.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066101" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Moulin Rouge - 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Moulin Rouge - 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Set to bring burlesque to the clubbing scene every Friday night with Feather Dance, Aerial Hammack, Gypsy Tango, Burlesque Hoop...]]></short-description>
+      <description><![CDATA[<p>Set to bring burlesque to the clubbing scene every Friday night with  Feather Dance, Aerial Hammack, Gypsy Tango, Burlesque Hoop, Moulin Rouge  Dance, and aerial performances.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066104" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Moulin Rouge - 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Moulin Rouge - 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Set to bring burlesque to the clubbing scene every Friday night with Feather Dance, Aerial Hammack, Gypsy Tango, Burlesque Hoop...]]></short-description>
+      <description><![CDATA[<p>Set to bring burlesque to the clubbing scene every Friday night with  Feather Dance, Aerial Hammack, Gypsy Tango, Burlesque Hoop, Moulin Rouge  Dance, and aerial performances.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066540" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Cleopatra - 19th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Cleopatra - 19th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A night of mystique with Fire Dance, Cleopatra and Slave Show...]]></short-description>
+      <description><![CDATA[<p>A night of mystique with Fire Dance, Cleopatra and Slave Show, Aerial Fire Performance, Snake Charmer Stunt and performance by The Opera Cirque Nouveau.</p>]]></description>
+      <url><![CDATA[http://www.theopera.my/contact_us.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/ec39fc554039914afb37e18588b5a60f.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066546" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Cleopatra - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Cleopatra - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A night of mystique with Fire Dance, Cleopatra and Slave Show...]]></short-description>
+      <description><![CDATA[<p>A night of mystique with Fire Dance, Cleopatra and Slave Show, Aerial Fire Performance, Snake Charmer Stunt and performance by The Opera Cirque Nouveau.</p>]]></description>
+      <url><![CDATA[http://www.theopera.my/contact_us.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/0b25ed229073acc72cd39e31c0bbe331.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057961" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Ramadan Open House @ Raintree Café]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Ramadan Open House @ Raintree Café]]></name>
+      <vendor-category><![CDATA[Food | Food Promotions]]></vendor-category>
+      <short-description><![CDATA[Enjoy stalls serving Rojak Buah with Sweet and spicy sauce, Murtabak, Roti Jala, Mee Rebus, Laksa Sarawak...]]></short-description>
+      <description><![CDATA[<p>Enjoy stalls serving Rojak Buah with Sweet and spicy sauce, Murtabak, Roti Jala, Mee Rebus, Laksa Sarawak. Plus, main dishes like Nasi Impit with sayur lodeh, seafood spaghetti olio, and breaded sotong balls. Stick around for a sweet treat - dodol, wajip pulut, malay kuih and much more!</p>
+<p></p>]]></description>
+      <price><![CDATA[RM60 nett per person]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026791">
+        <occurrence>
+          <time>
+            <start_date>2010-09-19</start_date>
+            <end_date>2010-10-08</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057158" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Sesame Street Live: When Elmo Grows Up]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Sesame Street Live: When Elmo Grows Up]]></name>
+      <vendor-category><![CDATA[Performance | Musical]]></vendor-category>
+      <short-description><![CDATA[Get ready to sing cowboy songs, ride the rails and more with Sesame Street Live 'When Elmo Grows Up'. Its a musical show-and-tell...]]></short-description>
+      <description><![CDATA[<p>Get ready to sing cowboy songs, ride the rails and more with Sesame Street Live 'When Elmo Grows Up'. Its a musical show-and-tell as Bert dreams of becoming a forest ranger, Telly longs to be a cowboy and their newest friend, Abby Cadabby wants to be a fairy godmother while Elmo thinks about becoming a 'weather monster'.</p>
+<p>This fun event features nearly two dozen songs including classics that children will love to sing along with.<br /><br />
+Date : 3rd-5th September 2010<br />
+Time : 1pm, 4.30pm &amp; 8.30pm (Sat &amp; Sun), 8.30pm (Fri)<br />
+Venue: Stadium Putra, Bukit Jalil<br /><br />
+Ticket price : RM75, RM110, RM155 *discounts will be given to Toys R Us star card members<br /><br />
+For more information, please call 010 216 8551 or log on to www.nichej.com</p>]]></description>
+      <url><![CDATA[http://www.nichej.com]]></url>
+      <price><![CDATA[RM75, RM110, RM155]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/aade00b622b9099a1a4acd1962ec8faf.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026903">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-09-05</end_date>
+            <event_time>13:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000068592" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Wholesome & Quick Dining @ Sheraton Imperial KL]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Wholesome & Quick Dining @ Sheraton Imperial KL]]></name>
+      <vendor-category><![CDATA[Food | Food Promotions]]></vendor-category>
+      <short-description><![CDATA[Fancy a quickie? Good news then as Sheraton Imperial Kuala Lumpur is offering you a delicious meal served withing 45minutes and guess what?..]]></short-description>
+      <description><![CDATA[<p>Fancy a quickie? Good news then as Sheraton Imperial Kuala Lumpur is offering you a delicious meal served withing 45minutes and guess what? Its only at RM 55++. Diners can choose to put together their own choice of menu from a list of 4 items each for the starter, main course and dessert respectively. the set meal is inclusive of 1 choice of soft drink or chilled juice. <br /><br />
+Starters include Buffalo mozzarella caprese with grilled capsicum and marinated cherry tomato; Beef carpaccio with rucola, cherry tomato and balsamic vinegar reduction and/or Vegetable cream with garlic oil and croutons whereas desserts include Traditional tiramisu, Chocolate fondant with vanilla ice cream, Strawberry crème brulee or the Chef's refreshing fruit platter. <br /><br />
+Villa Danieli opens for lunch from 12 noon to 2.30pm from Mondays to Fridays and serves dinner from Mondays to Saturdays from 6.30pm to 10.30pm. The restaurant is closed on Sundays and Public Holidays.</p>]]></description>
+      <url><![CDATA[http://www.starwoodhotels.com/sheraton/property/dining/index.html?propertyID=129]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/766e38025fdff137d5db80563f86792c.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026911">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <end_date>2010-09-30</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066044" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Da Remix @ Pulse Ultra Club - 24th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Da Remix @ Pulse Ultra Club - 24th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Back by popular demand, Da-Remix is back and ready to perform...]]></short-description>
+      <description><![CDATA[<p>Back by popular demand, Da-Remix is back and ready to perform their repertoire of pop, souls, R&amp;B and rock classic ready to blow your mind away.</p>]]></description>
+      <url><![CDATA[http://www.millenniumhotels.com/my/millenniumkualalumpur/restaurant/thePulse.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/846cfa4f618e1485b0cc5cb5bd93f920.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026925">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-24</end_date>
+            <event_time>22:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066045" modified="2010-08-19T08:50:27">
+    <name><![CDATA[F&B Industry Night - 24th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[F&B Industry Night - 24th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Come and enjoy 30 per cent off bottle purchases...]]></short-description>
+      <description><![CDATA[<p>Tuesday is the day to party and save! Come and enjoy 30 per cent off  bottle purchases.</p>]]></description>
+      <url><![CDATA[http://www.millenniumhotels.com/my/millenniumkualalumpur/restaurant/thePulse.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/d6d86eebd98bbddfce03a8d744db8b08.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026925">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-24</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066050" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Classic Cocktail Night - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Classic Cocktail Night - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[From 9pm - 3am, enjoy one for one on classic cocktails...]]></short-description>
+      <description><![CDATA[<p>From 9pm - 3am, enjoy one for one on classic cocktails. Its wednesday and its time for some cocktail so head on down to Pulse Ultra Club.</p>]]></description>
+      <url><![CDATA[http://www.millenniumhotels.com/my/millenniumkualalumpur/restaurant/thePulse.html]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026925">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066082" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Da Remix @ Pulse Ultra Club - 31st Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Da Remix @ Pulse Ultra Club - 31st Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Back by popular demand, Da-Remix is back and ready to perform...]]></short-description>
+      <description><![CDATA[<p>Back by popular demand, Da-Remix is back and ready to perform their repertoire of pop, souls, R&amp;B and rock classic ready to blow your mind away.</p>]]></description>
+      <url><![CDATA[http://www.millenniumhotels.com/my/millenniumkualalumpur/restaurant/thePulse.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/c893972b8c296529252907931952bc70.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026925">
+        <occurrence>
+          <time>
+            <start_date>2010-08-31</start_date>
+            <end_date>2010-08-31</end_date>
+            <event_time>22:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066084" modified="2010-08-19T08:50:27">
+    <name><![CDATA[F&B Industry Night - 31st Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[F&B Industry Night - 31st Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Come and enjoy 30 per cent off bottle purchases...]]></short-description>
+      <description><![CDATA[<p>Tuesday is the day to party and save! Come and enjoy 30 per cent off  bottle purchases.</p>]]></description>
+      <url><![CDATA[http://www.millenniumhotels.com/my/millenniumkualalumpur/restaurant/thePulse.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/8a08a7cfe9868574a56e195ae883a82a.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026925">
+        <occurrence>
+          <time>
+            <start_date>2010-08-31</start_date>
+            <end_date>2010-07-31</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062960" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Four Hands Piano Recital]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Four Hands Piano Recital]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[This classical piano recital will be performed by Roberto Metro and Elvira Foti. They will be showcasing the works of Franz Liszt...]]></short-description>
+      <description><![CDATA[<p>This classical piano recital will be performed by Roberto Metro and Elvira Foti. They will be showcasing the works of Franz Liszt: The Hungarian Rhapsodies for piano four hands (original transcriptions by F. Liszt R.309).</p>]]></description>
+      <url><![CDATA[http://www.bentleymusic.com/auditorium.aspx]]></url>
+      <price><![CDATA[RM60 (student below 17) - RM75.]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026927">
+        <occurrence>
+          <time>
+            <start_date>2010-08-29</start_date>
+            <end_date>2010-08-29</end_date>
+            <event_time>04:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000068593" modified="2010-08-19T08:50:27">
+    <name><![CDATA[The Album Leaf Live in KL]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[The Album Leaf Live in KL]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[The music of The Album Leaf has been described as "celestial", "ethereal", "lustrous" and having a "calm ferocity"...]]></short-description>
+      <description><![CDATA[<p>The Album Leaf is the solo project of Jimmy LaValle, a San Diego-based songwriter who began recording solo material one year after forming the post-rock band Tristeza. Inspired by a number of genres -- classical, jazz, and post-rock among them -- LaValle constructed his own songs in a similarly eclectic manner, utilizing everything from ambient noise to field recordings to radio transmissions.<br /><br />
+The music of The Album Leaf has been described as "celestial", "ethereal", "lustrous" and having a "calm ferocity" in recordings. But performing live, the act creates a soundscape and vibe on a whole new level of experience.<br /><br />
+Now you can experience this yourself when they performs live in KL on 7 September. For further details, please contact booking@soundscape-records.com.</p>]]></description>
+      <url><![CDATA[http://www.soundscape-records.com/]]></url>
+      <price><![CDATA[RM98 (Pre-sale) - Before 5th Sept / RM120 (At the door). Available at participating Rock Corner outlets]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/0f430a4a8352a6f96264eac805577f13.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026927">
+        <occurrence>
+          <time>
+            <start_date>2010-09-07</start_date>
+            <end_date>2010-09-07</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000032047" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Critical Ingredients to Unlimited Success - CANCELLED]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Critical Ingredients to Unlimited Success - CANCELLED]]></name>
+      <vendor-category><![CDATA[Performance | Classes & Workshop]]></vendor-category>
+      <short-description><![CDATA[For the first time in Asia, revered management thinkers and best selling authors, James Suroweicki and Malcolm Gladwell, will challenge...]]></short-description>
+      <description><![CDATA[<p><b>UPDATE: EVENT CANCELLED. Go to the official website for more information.<br /></b></p>
+<p>For the first time in Asia, catch revered management thinkers and best selling authors, James Suroweicki and Malcolm Gladwell, who will challenge Malaysia audiences to think beyond their conventional views about leadership and success.<br />
+ <br />
+James Suroweicki will be discussing the 'Wisdom of Crowds' and 'The Future of Leadership', and explain how to get people to work better together, and strategies for turning collective knowledge into a true competitive advantage.<br />
+ <br />
+Malcolm Gladwell will then take you on a journey to the world of 'Outliers' which is the best and the brightest, the most famous and the most successful. Malcolm Gladwell will be examining what makes high achievers different and how you can learn from their experiences to achieve greatness in your own world.<br /><br />
+Through sharing remarkable insights and factors that contribute to high levels of success, both personally and professionally, this is going to be an enriching seminar for reflecting and charting of what people need to do in work and life.</p>]]></description>
+      <url><![CDATA[http://www.citus2010.com.my/]]></url>
+      <price><![CDATA[RM641, RM521, RM401]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/0fa437157aa6ce579be65b3baaf7db3e.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026964">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000032050" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fabulous Food 1Malaysia]]></name>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[Fabulous Food 1Malaysia]]></name>
+      <vendor-category><![CDATA[Around Town | Carnivals]]></vendor-category>
+      <short-description><![CDATA[This event allows food lovers from nationwide to savour not only the tropical Malaysian food but food all...]]></short-description>
+      <description><![CDATA[<p>This event allows food lovers from nationwide to savour not only the tropical Malaysian food but food all over the world. It also includes the Malaysian International Gourmet Festival, Asean Food Heritage Trail and Street Food Festival.</p>]]></description>
+      <url><![CDATA[http://www.fabfood1Malaysia.com]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026964">
+        <occurrence>
+          <time>
+            <start_date>2010-10-01</start_date>
+            <end_date>2010-12-31</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000069344" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Salsa lessons with Amar Singh]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Salsa lessons with Amar Singh]]></name>
+      <vendor-category><![CDATA[Performance | Dance]]></vendor-category>
+      <short-description><![CDATA[Amar is one of the most recognised and sought after Salsa instructor's and dancer's in the country...]]></short-description>
+      <description><![CDATA[<p>Presenting for the first time, at Laila's Cafe and Lounge, Salsa Lessons with Amar Singh. Amar is one of the most recognised and sought after Salsa instructor's and dancer's in the country<br /><br />
+Come and check out this Salsa King in person. Do not worry bout not having a partner. Come, meet, mingle and partner up. It's gonna be fun.<br /><br />
+Starting at 8pm, the entrance fee for this lesson is RM20 inclusive of first drink. 2 HOURS OF LESSONS!!</p>]]></description>
+      <url><![CDATA[http://lailascafelounge.blogspot.com/]]></url>
+      <price><![CDATA[RM20 inclusive of first drink]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/d92df29d5065bd46025194de52bd9d49.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026967">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000069913" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Girls & Guitar 3 - fundraiser for Pride Foundation]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Girls & Guitar 3 - fundraiser for Pride Foundation]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <short-description><![CDATA[Come and enjoy a night of fantastic folk, rock and acoustic rock music with the likes of...]]></short-description>
+      <description><![CDATA[<p>Girls &amp; Guitar is back at Laila's for the 3rd session. Come and enjoy a night of fantastic folk, rock and acoustic rock music with the likes of Suzie, Min'z, Jasmine and many more in an all girls gig. What's more is that proceeds from door charges goes to the PRIDE Foundation.<br /><br />
+PRIDE (Pink Ribbon Deeds) is a charity body that aims to enhance awareness efforts and improve accessibility to treatment and care of breast cancer. For more info, go to www.pride.org.my.<br /><br />
+Performances by 6 girls and their guitar:<br /><br />
+9.00pm: Wendy Wednesday<br />
+9.30pm: Suzie<br />
+10.00pm: EVE<br />
+10.30pm: Min'z<br />
+11.00pm: Jasmine<br />
+11.30pm: TBA<br /><br />
+Come early &amp; enjoy our home cooked dinner at just RM12+. Please call 012 292 8096 or email ramesh.vadiveloo@gmail.com to book a table or to book a slot.</p>]]></description>
+      <price><![CDATA[RM20]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/e34c9997b00d3ba2bd00255ca3262e45.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026967">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000031948" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Tokyo Naito Ladies Nite - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Tokyo Naito Ladies Nite - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A very Tokyo-inspired party night with guest DJs from Japan...]]></short-description>
+      <description><![CDATA[<p>Wasabe isn't the only Japanese thing with strong flavour; head down   to Quattro on Thursdays for a very Tokyo-inspired night. Music will be   rollercoaster-style with a Jap touch with Roundhead and Double D of   Traxx FM.</p>
+<p>Be englighten by the culture of land of the rising with guest DJs   from Japan.</p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/c9e86bca248809dadf48bdd30cba0f2e.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000031996" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Tokyo Naito Ladies Nite - 19th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Tokyo Naito Ladies Nite - 19th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A very Tokyo-inspired party night with guest DJs from Japan...]]></short-description>
+      <description><![CDATA[<p>Wasabe isn't the only Japanese thing with strong flavour; head down   to Quattro on Thursdays for a very Tokyo-inspired night. Music will be   rollercoaster-style with a Jap touch with Roundhead and Double D of   Traxx FM.</p>
+<p>Be englighten by the culture of land of the rising with guest DJs   from Japan.</p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/a85ea4f94f84001676dbf500bbb9b023.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056679" modified="2010-08-19T08:50:27">
+    <name><![CDATA[In Heat (Autumn Club) - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[In Heat (Autumn Club) - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Sizzling hip hop and R&amp;B beats with TJ da DJ and Mr Morelli will raise temperatures even further...]]></short-description>
+      <description><![CDATA[<p>Sizzling hip hop and R&amp;B beats with TJ da DJ and Mr Morelli will  raise temperatures even further.</p>
+<p>Every Wednesday</p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/005cf15598224a62d2a0465f701ab35a.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056961" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Winter Solstice @ Winter Bar - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Winter Solstice @ Winter Bar - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Be cool, stay cool (literally) at Quattro's Winter Solstice nights!...]]></short-description>
+      <description><![CDATA[<p>Be cool, stay cool (literally) at Quattro's Winter Solstice nights!</p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/bd66cdf486c976e2fa4fe1e86bd85aa9.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057114" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Winter Solstice @ Winter Bar - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Winter Solstice @ Winter Bar - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Be cool, stay cool (literally) at Quattro's Winter Solstice nights!...]]></short-description>
+      <description><![CDATA[<p>Be cool, stay cool (literally) at Quattro's Winter Solstice nights!</p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/520fa45cebac0dca0494a959d88d63bf.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066047" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Winter Chill Ladies - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Winter Chill Ladies - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Guys, you won't find a cooler place in town to check out the babes on ladies night...]]></short-description>
+      <description><![CDATA[<p>Ladies, don those suede boots and fur-trimmed coats and head down to  Quattro this Wednesday just to chill out. Literally. Guys, you won't  find a cooler place in town to check out the babes... trust us. Bring  your jackets.</p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/28cf46240eb0dbe94f6745a6b131e004.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066068" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Pop Universe - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Pop Universe - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Make Quattro your next stop. Celebrate pop culture with TJ da DJ and Double D with their multi genre musical offerings.]]></short-description>
+      <description><![CDATA[<p>Can't get enough pop? Celebrate pop culture with Prem and Double D.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056715" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Neubeats - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Neubeats - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Featuring DJ Goldilocks and Miss Eva T. Ladies get free entry and three free drinks before midnight....]]></short-description>
+      <description><![CDATA[<p>Featuring DJ Goldilocks and Miss Eva T. Ladies get free entry and three free drinks before midnight.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056834" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Blackspace - Mist Club - 24th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Blackspace - Mist Club - 24th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[An every Tuesday party with an attitude with purportedly the best DJs, music, performances and surprises...]]></short-description>
+      <description><![CDATA[<p>An every Tuesday party with an attitude with purportedly the best DJs,  music, performances and surprises. It's time for everyone to enjoy  themselves through the night and have all the fun they want.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-24</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056851" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Pink Martinee 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Pink Martinee 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Pink Martinee presents the sexiest ladies night ...]]></short-description>
+      <description><![CDATA[<p>Pink Martinee presents the sexiest ladies night which rewards you ladies  with FREE-FLOW of drinks until midnight. Party like there is no  tomorrow with K.C and DJ Chalie D on the decks spinning sexy R&amp;B  with a touch of seductive House.</p>]]></description>
+      <url><![CDATA[http://mistclub.com.my]]></url>
+      <price><![CDATA[RM35 Men (incl. 1 drink), FREE for ladies]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/eb8d0d0921b586463aaa5b5fab5bc555.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056934" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Lollipop - 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Lollipop - 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Get a dose of the finest Hip Hop night ever with a new lineup of Lollipop resident DJs...]]></short-description>
+      <description><![CDATA[<p>Get a dose of the finest Hip Hop night ever with a new lineup of Lollipop resident DJs, Funkzu &amp; Monkey and MC Terry T on the mic. A musical revolution of Urbanism for you pimps and babes out there.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <price><![CDATA[Gents RM40, ladies RM30 inclusive of one drink. FREE entry for ladies before 12midnight.]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056963" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Volume @ Mist Club - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Volume @ Mist Club - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[This is the night where everything converges into one. Come together and rock to this eclectic mash-up...]]></short-description>
+      <description><![CDATA[<p>A very special night for you music lovers out there. The new night in  town is armed with two radio station jocks to give you clubbers utter  mayhem. Showcasing radio friendly hits by DJs Double D (Traxx FM) and  Prem (Fly FM &amp; 8TV).</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <price><![CDATA[Gents RM40, ladies RM30 inclusive of one drink. FREE entry for ladies before 12midnight.]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/18c2b439750c30409c3d7185805ef5d4.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057096" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Lollipop - 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Lollipop - 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Get a dose of the finest Hip Hop night ever with a new lineup of Lollipop resident DJs...]]></short-description>
+      <description><![CDATA[<p>Get a dose of the finest Hip Hop night ever with a new lineup of Lollipop resident DJs, Funkzu &amp; Monkey and MC Terry T on the mic. A musical revolution of Urbanism for you pimps and babes out there.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <price><![CDATA[Gents RM40, ladies RM30 inclusive of one drink. FREE entry for ladies before 12midnight.]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057116" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Volume @ Mist Club - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Volume @ Mist Club - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[This is the night where everything converges into one. Come together and rock to this eclectic mash-up...]]></short-description>
+      <description><![CDATA[<p>A very special night for you music lovers out there. The new night in  town is armed with two radio station jocks to give you clubbers utter  mayhem. Showcasing radio friendly hits by DJs Double D (Traxx FM) and  Prem (Fly FM &amp; 8TV).</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <price><![CDATA[Gents RM40, ladies RM30 inclusive of one drink. FREE entry for ladies before 12midnight.]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/94c0fb70acd0d6354a476c8d58e00d43.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062941" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Lollipop All-While Party]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Lollipop All-While Party]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[The first installment of Lollipop theme party this month is going to be all white with plenty of white...]]></short-description>
+      <description><![CDATA[<p>The second installment of Lollipop theme party this month is going to be all white with plenty of white surprises awaits you. Come dress in white and stand a chance to win awesome prizes. Enjoy the party with DJs Funkzu, Monkey and MC Terry T.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <price><![CDATA[Gents RM40, ladies RM30, inclusive of one drink. FREE entry for ladies before 12midnight]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/d06bb03f49bb37939c36c0bcb8bc121d.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066032" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fly Club Access - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Fly Club Access - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Fly FMs Fly Club Access is happening at Mist Club every third Sat of the month where Fly FM invites their listeners to come and party VVIP style...]]></short-description>
+      <description><![CDATA[<p>Fly FM's 'Fly Club Access' is happening at Mist Club every third Sat of the month where Fly FM invites their listeners to come and party VVIP style. Come mingle and have a good laugh will all your favorite Fly FM snnouncers and celebrities. Enjoy the night with great company and music, ala VVIP. For more details check out their website at www.flyfm.com.my.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066066" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fly Club Access - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Fly Club Access - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Fly FMs Fly Club Access is happening at Mist Club every third Sat of the month where Fly FM invites their listeners to come and party VVIP style...]]></short-description>
+      <description><![CDATA[<p>Fly FM's 'Fly Club Access' is happening at Mist Club every third Sat of the month where Fly FM invites their listeners to come and party VVIP style. Come mingle and have a good laugh will all your favorite Fly FM snnouncers and celebrities. Enjoy the night with great company and music, ala VVIP. For more details check out their website at www.flyfm.com.my.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066081" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Blackspace - Mist Club - 31st Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Blackspace - Mist Club - 31st Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[An every Tuesday party with an attitude with purportedly the best DJs, music, performances and surprises.]]></short-description>
+      <description><![CDATA[<p>An every Tuesday party with an attitude with purportedly the best DJs,   music, performances and surprises. It's time for everyone to enjoy   themselves through the night and have all the fun they want.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-31</start_date>
+            <end_date>2010-08-31</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000071376" modified="2010-08-19T08:50:27">
+    <name><![CDATA[LMF The Wild Lazy Tour KL 2010]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[LMF The Wild Lazy Tour KL 2010]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[LMF will be delivering a full concert experience, featuring specially arranged new tracks for the KL show only...]]></short-description>
+      <description><![CDATA[<p>Hong Kong seminal hip hop group LMF will be storming KL as part of their "The Wild Lazy Tour" concert series. Come on down and listen to LMF's distinctive blend of hip-hop, hardcore rap, metal and funk to the KL Live concert hall on 4 September 2010.<br /><br />
+For the upcoming show, LMF will be delivering a full concert experience, featuring specially arranged new tracks for the KL show only as well as exclusive performances and collaborations. The line-up comprises of MC Yan, Phat, Kit, Prodip, Davy, Wah, Kevin, Jimmy and DJ Tommy.<br /><br />
+Joining the band on stage are homegrown hip-hop groups Manhand and Silent Prayer, both have gained accolades for their unique blend of rap, hip-hop and electronic.<br /><br />
+For further details, visit website or contact booking@soundscape-records.com.<br /><br />Ticket Prices:<br /><br />
+RM100 - Normal Price<br />
+RM140 - Free LMF The Wild Lazy Tour KL 2010 Limited Edition T-shirt.<br /><br />
+VIP Zone (Upper Level):<br />
+RM170 - Free 1st drink + LMF The Wild Lazy Tour KL 2010 Limited Edition T-shirt and stand a chance to win meet and greet passes.</p>]]></description>
+      <url><![CDATA[http://www.soundscape-records.com/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/e3291298e76138ac2b25b0786063c678.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026976">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-04</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056982" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Hakka The Best Ladies Night - 30th August 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Hakka The Best Ladies Night - 30th August 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[The incomparable Ben Manen and Jenny provide great music to dance to or just groove along to...]]></short-description>
+      <description><![CDATA[<p>The incomparable Ben Manen and Jenny provide great music to dance to  or just groove along to.</p>
+<p>Every Monday.</p>]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/da367a125233e5040c0c956cb205a205.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026978">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <end_date>2010-08-30</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062951" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Hakka The Best Ladies Night - 23rd August 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Hakka The Best Ladies Night - 23rd August 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[The incomparable Ben Manen and Jenny provide great music to dance to or just groove along to...]]></short-description>
+      <description><![CDATA[<p>The incomparable Ben Manen and Jenny provide great music to dance to or just groove along to.</p>
+<p>Every Monday.</p>]]></description>
+      <url><![CDATA[http://www.hakkarepublic.com/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/4aabad85c8ff2ca3d53724c42f7fbd71.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026978">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-23</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057155" modified="2010-08-19T08:50:27">
+    <name><![CDATA[My English Teachers 2]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[My English Teachers 2]]></name>
+      <vendor-category><![CDATA[Performance | Play]]></vendor-category>
+      <short-description><![CDATA[My English Teachers displays the EXTREME, the FUNNY and the WEIRD English teachers, through the eyes of three friends...]]></short-description>
+      <description><![CDATA[<p>My English Teachers displays the EXTREME, the FUNNY and the WEIRD  English teachers, through the eyes of three friends. Returning with part two, the show takes on a different turn (NOT a sequel).</p>
+<p>Synopsis: <br />
+2 friends, Akmal, who hails from some remote part of Kelantan and YY, who comes from a Chinese village, join a private college in KL for further education.<br /><br />
+They meet Micson, who makes fun of them because of their poor English. Micson teaches Akmal and YY dirty words and plays practical jokes on them.<br /><br />
+The boys also meet, Evon and Finaz, who look down upon the boys.<br /><br />
+One day, the 2 boys chance upon a magic lamp and they invoke a genie. The genie grants them a few wishes but the boys turn all the wishes down. They request that the genie teach them English and punish the bullies instead.<br /><br />
+The genie takes various forms and helps them master the English language and take revenge against Micson and the girls.</p>]]></description>
+      <url><![CDATA[http://axcess.com.my]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/967449c7b9339137628dcd9c7d319b76.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026980">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-22</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000069923" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Caipifruta Back from China]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Caipifruta Back from China]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[the Caipifruta will perform their competition programme for the Jazz and Pop categories which earned them Gold...]]></short-description>
+      <description><![CDATA[<p>Join singers Tracy Wong, Lai Suk Yin, Aaron Teoh, Joel Wong and jazz pianist Tay Cher Siang in their homecoming show after participating in the 6th World Choir Games in Shaoxing, China.<br /><br />
+They will perform their competition programme for the Jazz and Pop categories which earned them Gold diplomas during the Games and a few new favourites inspired by the experience of competing in China!<br /><br />
+Their debut EP, 'Introducing…Caipifruta' will also be on sale during the show.<br /><br />
+For enquiries, please call 03 2142 2009 / 2143 2009.</p>]]></description>
+      <price><![CDATA[Admission By min. donation of RM20]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/1a5d85b754229d9ca2c78ac884bbb602.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026980">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-29</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000070346" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Frozen Living Cell Therapy Promotion]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Frozen Living Cell Therapy Promotion]]></name>
+      <vendor-category><![CDATA[Shopping | Product Promotions]]></vendor-category>
+      <short-description><![CDATA[From 27th-29th 2010, IPL Skin Care is offering you their 'Frozen Living Cell Therapy' promotion...]]></short-description>
+      <description><![CDATA[<p>From 27th-29th 2010, IPL Skin Care is offering you their 'Frozen Living Cell Therapy' promotion. It protects skin's cellular composition, strengthens skin and helps restore damaged tissues. For only RM238 get a therapy and a free B3 Protective Beauty Booster!</p>]]></description>
+      <url><![CDATA[http://www.iplskincare.com/]]></url>
+      <price><![CDATA[RM238]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/1238d03af49ebc53de458de5f0677201.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027126">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-29</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066105" modified="2010-08-19T08:50:27">
+    <name><![CDATA['The Sharing' Photography Exhibition]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA['The Sharing' Photography Exhibition]]></name>
+      <vendor-category><![CDATA[Art | Art Exhibition]]></vendor-category>
+      <short-description><![CDATA[Join these young photographers and their teacher as they exhibit their artwork...]]></short-description>
+      <description><![CDATA[<p>Join these young photographers and their teacher as they exhibit their artwork. With acollection of photographs taken by 18 amateur photography students with their teacher, experience their passion for life through the lenses of their camera.</p>
+<p>Expect to see the beauty of the world captured and framed at this exhibition as they put their best work out for the world to see.</p>
+<p>Suitable for those who loves art and photography as well as all things abstract and beautiful. Details are as following :</p>
+<p><br />
+Date : 30th Aug - 5th Sept 2010<br />
+Time : 11am - 8pm<br />
+Venue: Annexe Gallery</p>]]></description>
+      <url><![CDATA[http://www.facebook.com/thesharing]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027210">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <end_date>2010-09-05</end_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056721" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Cozmix - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Cozmix - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Dj Joe Black, Musta K &amp; DJ B groove with R&amp;B abd hip hop mayhem.]]></short-description>
+      <description><![CDATA[<p>Ladies night. Dj Joe Black, Musta K &amp; DJ B groove with R&amp;B  abd hip hop mayhem.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027279">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056741" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Booty Pump- 20 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Booty Pump- 20 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Joe Black, Musta K and DJ B do their stuff.]]></short-description>
+      <description><![CDATA[<p>DJ Joe Black, Musta K and DJ B do their stuff.</p>]]></description>
+      <url><![CDATA[http://www.facebook.com/group.php?gid=154602463697]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027279">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056888" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Cozmix - 19th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Cozmix - 19th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Dj Joe Black, Musta K &amp; DJ B groove with R&amp;B abd hip hop mayhem.]]></short-description>
+      <description><![CDATA[<p>Ladies night. Dj Joe Black, Musta K &amp; DJ B groove with R&amp;B  abd hip hop mayhem.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027279">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062957" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Booty Pump - 27 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Booty Pump - 27 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Joe Black, Musta K and DJ B do their stuff.]]></short-description>
+      <description><![CDATA[<p>DJ Joe Black, Musta K and DJ B do their stuff.</p>]]></description>
+      <url><![CDATA[http://www.facebook.com/group.php?gid=154602463697]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027279">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000061870" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Mega Sale at Robinsons]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Mega Sale at Robinsons]]></name>
+      <vendor-category><![CDATA[Shopping | Mega Sales]]></vendor-category>
+      <short-description><![CDATA[Enjoy storewide discount up to 70 per cent with a selection of merchandises ranging from fashion to living...]]></short-description>
+      <description><![CDATA[<p>Enjoy storewide discount up to 70 per cent with a selection of merchandises ranging from fashion to living. Stroll along the fashion corner and look out for bargains from exclusive brands like Coast, Basic House and Marcelano. If you buy any cosmetic products at Beautyhall, redeem a RM10 voucher with every RM100 spent at this department. Homemakers will also be delighted with great rebates off bedding, bath and cookware collection.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027281">
+        <occurrence>
+          <time>
+            <start_date>2010-08-31</start_date>
+            <end_date>2010-08-31</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000031949" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Save The Robots - 19th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Save The Robots - 19th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Ministry of Sound (MOS) brings you a weekly robotic night out every Thursday....]]></short-description>
+      <description><![CDATA[<p>DJ Victor G and his guest DJs will bring a totally different club  night experience as innovative new sounds take centre stage. Pull off  some of your robotic moves on stage while grooving along.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/d6e6aa3292eedff9b569fa1717bc040c.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056711" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Mix Tape - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Mix Tape - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Open Format type of music with double styles creating something entirely different...]]></short-description>
+      <description><![CDATA[<p>Open Format type of music with double styles creating  something entirely different.</p>
+<p>Featured Resident DJ: Patrick Oliver from Miami, U.S.A.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/876368f99f190df2ed6ea75ebc3395b7.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056783" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fluid - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Fluid - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Short, sharp, remixes from R&amp;B, rock, indie, retro, funk...]]></short-description>
+      <description><![CDATA[<p>Short, sharp, remixes from R&amp;B, rock, indie, retro, funk.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM50 inclusive of one drink.]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/2e70ba553f9d58f5dccfac11f2aec9e8.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056819" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Pop! 30th August 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Pop! 30th August 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[Shake off those Monday blues as DJ Nesh spins some radio-friendly top 40 music from the 80s and 90s.]]></short-description>
+      <description><![CDATA[<p>Shake off those Monday blues as DJ Nesh spins some radio-friendly top 40 music from the '80s and '90s.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/f5703f59ae0f9ded439b2b0359302902.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <end_date>2010-08-30</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056878" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Mix Tape - 19th Aug  2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Mix Tape - 19th Aug  2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Open Format type of music with double styles creating something entirely different...]]></short-description>
+      <description><![CDATA[<p>Open Format type of music with double styles creating  something entirely different.</p>
+<p>Featured Resident DJ: Patrick Oliver from Miami, U.S.A.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/62f1a05fbffa66d77a5b3e65f21b491a.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056902" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Smoove 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Smoove 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[An urban legend in London, Smoove is the longest running and greatest showcase of UK and US R&amp;B grooves...]]></short-description>
+      <description><![CDATA[<p>An urban legend in London, Smoove is the longest running and greatest showcase of UK and US R&amp;B grooves.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my]]></url>
+      <price><![CDATA[RM50 inclusive of one drink]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/7ecb01760cbf4ad3d112635cd6ea23cf.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056906" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Move @ MOS - 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Move @ MOS - 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Victor will make your booty shake. Move to the beats of 4:4 beat, progressive, minimal, techno, trance, house and bassline...]]></short-description>
+      <description><![CDATA[<p>DJ Victor will make your booty shake. Move  to the beats of 4:4 beat, progressive, minimal, techno, trance, house  and bassline.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM50]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/115d827ba7d37f192b02cc07126d8b6c.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056924" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Trance Nation - 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Trance Nation - 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[A fully loaded night of euphoric rhythm and non-stop blows of supersonic mixes to satiate the appetite of trance music lovers.]]></short-description>
+      <description><![CDATA[<p>Experience the ultimate in trance - a fully loaded night of euphoric  rhythm and non-stop blows of supersonic mixes to satiate the appetite of  trance music lovers.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/7c17d7efa7f4025bf16754ef2f1765bb.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056950" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fluid - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Fluid - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Short, sharp, remixes from R&amp;B, rock, indie, retro, funk...]]></short-description>
+      <description><![CDATA[<p>Short, sharp, remixes from R&amp;B, rock, indie, retro, funk.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM50 inclusive of one drink.]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/5ff9d8923296bde0dba933f4b8ca14f8.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057026" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Frisky? @ The Deq - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Frisky? @ The Deq - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Ian Ross will spin some stylish and sexy vocals of house...]]></short-description>
+      <description><![CDATA[<p>Straight from Ministry of Sound, London, DJ Ian Ross will spin some  stylish and sexy vocals of house.</p>
+<p>Price : RM40 inclusive of one drink</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM40]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/cc44f159dfc00f3e8e0e0e7119ab3342.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057064" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Smoove 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Smoove 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[An urban legend in London, Smoove is the longest running and greatest showcase of UK and US R&amp;B grooves...]]></short-description>
+      <description><![CDATA[<p>An urban legend in London, Smoove is the longest running and greatest showcase of UK and US R&amp;B grooves.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my]]></url>
+      <price><![CDATA[RM50 inclusive of one drink]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/162358aa8ddfd27793cf9d50f21709d6.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057068" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Move @ MOS - 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Move @ MOS - 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Victor will make your booty shake. Move to the beats of 4:4 beat, progressive, minimal, techno, trance, house and bassline...]]></short-description>
+      <description><![CDATA[<p>DJ Victor will make your booty shake. Move  to the beats of 4:4 beat, progressive, minimal, techno, trance, house  and bassline.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM50]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/2644f5f89742d8d17d369da8a3796ed3.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057086" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Trance Nation - 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Trance Nation - 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[A fully loaded night of euphoric rhythm and non-stop blows of supersonic mixes to satiate the appetite of trance music lovers.]]></short-description>
+      <description><![CDATA[<p>Experience the ultimate in trance - a fully loaded night of euphoric  rhythm and non-stop blows of supersonic mixes to satiate the appetite of  trance music lovers.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/99795a78349bae5bfdc241d2495a03c3.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062950" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Eivissa - 22 August 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Eivissa - 22 August 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Spinning tunes that will fill your lazy Sundays with chill out music and relaxing rhythms...]]></short-description>
+      <description><![CDATA[<p>Spinning tunes that will fill your lazy Sundays with chill out music and relaxing rhythms.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <end_date>2010-08-22</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062952" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Pop! 23rd August 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Pop! 23rd August 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[Shake off those Monday blues as DJ Nesh spins some radio-friendly top 40 music from the 80s and 90s.]]></short-description>
+      <description><![CDATA[<p>Shake off those Monday blues as DJ Nesh spins some radio-friendly top 40 music from the '80s and '90s.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/e5014682eddffdc2e01ca6ca67eff7e2.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-23</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062961" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Eivissa - 29 August 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Eivissa - 29 August 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Spinning tunes that will fill your lazy Sundays with chill out music and relaxing rhythms...]]></short-description>
+      <description><![CDATA[<p>Spinning tunes that will fill your lazy Sundays with chill out music and relaxing rhythms.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-29</start_date>
+            <end_date>2010-08-29</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066030" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Electro Ballroom - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Electro Ballroom - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Appeals to a sophisticated Saturday night party crowd that want the friendlier side of house...]]></short-description>
+      <description><![CDATA[<p>Appeals to a sophisticated Saturday night party crowd that want the friendlier side of house.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM50 inclusive of one drink.]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066042" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Paradise 54 - 24th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Paradise 54 - 24th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[Somewhere between Studio 54 and Paradise Garage.]]></short-description>
+      <description><![CDATA[<p>Nothing like one club night to make you feel young again. Somewhere between Studio 54 and Paradise Garage.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/001cd42fdd9d6ab7fba3e91d7b9a2955.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-24</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066064" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Electro Ballroom - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Electro Ballroom - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Appeals to a sophisticated Saturday night party crowd that want the friendlier side of house...]]></short-description>
+      <description><![CDATA[<p>Appeals to a sophisticated Saturday night party crowd that want the friendlier side of house.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM50 inclusive of one drink.]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066078" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Paradise 54 - 31st Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Paradise 54 - 31st Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Live Music]]></vendor-category>
+      <short-description><![CDATA[Somewhere between Studio 54 and Paradise Garage.]]></short-description>
+      <description><![CDATA[<p>Nothing like one club night to make you feel young again. Somewhere between Studio 54 and Paradise Garage.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/1408c2ddb9d7e2b546edc0af1582407a.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-31</start_date>
+            <end_date>2010-08-31</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066517" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Save The Robots - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Save The Robots - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Ministry of Sound (MOS) brings you a weekly robotic night out every Thursday....]]></short-description>
+      <description><![CDATA[<p>DJ Victor G and his guest DJs will bring a totally different club  night experience as innovative new sounds take centre stage. Pull off  some of your robotic moves on stage while grooving along.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/36c3af490840f5bca86b5f4ff15eec85.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066544" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fifty Five Fridays - 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Fifty Five Fridays - 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[With their unique blend of euphoric house music, enjoy the ultimate experience alongside the ultimate 55 beverage...]]></short-description>
+      <description><![CDATA[<p>With their unique blend of euphoric house music, enjoy the ultimate  experience alongside the ultimate 55 beverage.</p>]]></description>
+      <price><![CDATA[RM 50 inclusive of one drink]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066550" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Fifty Five Fridays 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Fifty Five Fridays 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[With their unique blend of euphoric house music, enjoy the ultimate experience alongside the ultimate 55 beverage...]]></short-description>
+      <description><![CDATA[<p>With their unique blend of euphoric house music, enjoy the ultimate  experience alongside the ultimate 55 beverage.</p>]]></description>
+      <price><![CDATA[RM 50 inclusive of one drink]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062953" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ C Master & Guests - 23rd Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ C Master & Guests - 23rd Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Get ready to rock your socks off.]]></short-description>
+      <description><![CDATA[<p>Get ready to rock your socks off.</p>]]></description>
+      <url><![CDATA[http://www.shangri-la.com/en/property/kualalumpur/traders/dining/restaurant/skybar]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-23</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000062964" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ C Master & Guests - 30th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ C Master & Guests - 30th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Get ready to rock your socks off.]]></short-description>
+      <description><![CDATA[<p>Get ready to rock your socks off.</p>]]></description>
+      <url><![CDATA[http://www.shangri-la.com/en/property/kualalumpur/traders/dining/restaurant/skybar]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <end_date>2010-08-30</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066039" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Lounge brunch - 22 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Lounge brunch - 22 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Enjoy your sunday brunch with DJ JayPee and guests...]]></short-description>
+      <description><![CDATA[<p>Enjoy your sunday brunch with DJ JayPee and guests.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <end_date>2010-08-22</end_date>
+            <event_time>12:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066052" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Herb @ SkyBar - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Herb @ SkyBar - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Join DJ Herb as he plays sensual Hip Hop and R&amp;B at one of the highest places to chill out and relax in town...]]></short-description>
+      <description><![CDATA[<p>Join DJ Herb as he plays sensual Hip Hop and R&amp;B at one of the highest places to chill out and relax in town.</p>]]></description>
+      <url><![CDATA[http://www.shangri-la.com/en/property/kualalumpur/traders/dining/restaurant/skybar]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/2e0aea82454dcc9c63ce025db22f3e7d.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066075" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Lounge brunch - 29 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Lounge brunch - 29 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Enjoy your sunday brunch with DJ JayPee and guests...]]></short-description>
+      <description><![CDATA[<p>Enjoy your sunday brunch with DJ JayPee and guests.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-08-29</start_date>
+            <end_date>2010-08-29</end_date>
+            <event_time>12:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066541" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Deep House - 19th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Deep House - 19th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Come on down and let your self loose with Shahril Adnan...]]></short-description>
+      <description><![CDATA[<p>Come on down and let your self loose with Shahril Adnan.</p>]]></description>
+      <url><![CDATA[http://www.shangri-la.com/en/property/kualalumpur/traders/dining/restaurant/skybar]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066547" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Deep House - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Deep House - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Come on down and let your self loose with Shahril Adnan...]]></short-description>
+      <description><![CDATA[<p>Come on down and let your self loose with Shahril Adnan.</p>]]></description>
+      <url><![CDATA[http://www.shangri-la.com/en/property/kualalumpur/traders/dining/restaurant/skybar]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066029" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Niza Minx 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Niza Minx 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Sassy DJ Niza Minx spins as resident DJ...]]></short-description>
+      <description><![CDATA[<p>Sassy DJ Niza Minx spins as resident DJ.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027303">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066063" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Niza Minx - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Niza Minx - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Sassy DJ Niza Minx spins as resident DJ...]]></short-description>
+      <description><![CDATA[<p>Sassy DJ Niza Minx spins as resident DJ.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027303">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066542" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Club Z Night - 19th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Club Z Night - 19th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Ladies are entitled to complimentary drinks by Zetas mixologists from 8  10pm...]]></short-description>
+      <description><![CDATA[<p>Ladies are entitled to complimentary drinks by Zeta's mixologists from 8 - 10pm. Club Z members will be accorded 50 per cent for loose drinks tonight and 10 per cent off on weekends.</p>]]></description>
+      <url><![CDATA[http://www1.hilton.com/en_US/hi/hotel/KULHIHI-Hilton-Kuala-Lumpur-hotel/dining.do]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/eb4fbd04d2257d9e2e42f042f5767bde.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027307">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066548" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Club Z Night - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Club Z Night - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Ladies are entitled to complimentary drinks by Zetas mixologists from 8  10pm...]]></short-description>
+      <description><![CDATA[<p>Ladies are entitled to complimentary drinks by Zeta's mixologists from 8 - 10pm. Club Z members will be accorded 50 per cent for loose drinks tonight and 10 per cent off on weekends.</p>]]></description>
+      <url><![CDATA[http://www1.hilton.com/en_US/hi/hotel/KULHIHI-Hilton-Kuala-Lumpur-hotel/dining.do]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/52a669a27bbfc1c9121a4da464f3aa4c.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027307">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056674" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Jason - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Jason - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Its Jason on the decks, expect nothing but good vibrations with house, retro and roots sounds...]]></short-description>
+      <description><![CDATA[<p>Its Jason on the decks, expect nothing but good vibrations with  house, retro and roots sounds.</p>
+<p> </p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/63d58b83c680fa93648eb5b0124576d6.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056798" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Fuzz & Vickman - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Fuzz & Vickman - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Hip hop with the best of the best, DJ Fuzz the mixer, the spinner, the maestro of hip hop is on the decks...]]></short-description>
+      <description><![CDATA[<p>Hip hop with the best of the best, DJ Fuzz the mixer, the spinner, the  maestro of hip hop is on the decks.</p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net/]]></url>
+      <price><![CDATA[FREE]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/091e6684c851a39b5b3e41431478ae50.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056913" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Nesh @ Laundry - 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Nesh @ Laundry - 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Welcome home DJ Nesh! Nesh is back to set a benchmark for R&amp;B and Hip Hop junkies with a fusion of music and culture...]]></short-description>
+      <description><![CDATA[<p>Welcome home DJ Nesh! Nesh is back to set a benchmark for R&amp;B and  Hip Hop junkies with a fusion of music and culture.</p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/58183d3b79bfc3b1d174130e1bd71574.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056966" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Fuzz & Vickman - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Fuzz & Vickman - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Hip hop with the best of the best, DJ Fuzz the mixer, the spinner, the maestro of hip hop is on the decks...]]></short-description>
+      <description><![CDATA[<p>Hip hop with the best of the best, DJ Fuzz the mixer, the spinner, the  maestro of hip hop is on the decks.</p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net/]]></url>
+      <price><![CDATA[FREE]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/55f275b7137d5c03c62ade3ae2cec5b6.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057075" modified="2010-08-19T08:50:27">
+    <name><![CDATA[DJ Nesh @ Laundry - 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Nesh @ Laundry - 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Welcome home DJ Nesh! Nesh is back to set a benchmark for R&amp;B and Hip Hop junkies with a fusion of music and culture...]]></short-description>
+      <description><![CDATA[<p>Welcome home DJ Nesh! Nesh is back to set a benchmark for R&amp;B and  Hip Hop junkies with a fusion of music and culture.</p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net/]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/c03c8c07a6d5993a778218c7b621ef6b.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000070344" modified="2010-08-19T08:50:27">
+    <name><![CDATA[ApSci Live @ Laundry]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[ApSci Live @ Laundry]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <short-description><![CDATA[ApSci was born out of the experimental hip hop communities from New York and Sydney...]]></short-description>
+      <description><![CDATA[<p>Opening acts by Figure of Speech and Zalila Lee.<br /><br />
+ApSci was born out of the experimental hip hop communities from New York and Sydney by Raphael LaMotta and Dana Diaz-Tutaan in the late 1990's. The two met outside the well-loved club Baby Jupiter in the L.E.S. during a street cypher.<br /><br />
+ApSci toured Australia, playing clubs anywhere from 1,000 down to 200 capacity. The live set now included monster drummer Guy Licata (Hercules &amp; Love Affair, Santogold, Bill Laswell) on the stage.<br /><br />
+ApSci have performed music festivals like Austin's South by South-West Music Festival in 2008, France's Eurokeennes to 10,000 kids alongside Spank Rock, The Strokes and Depeche Mode; through to bringing in New Years Eve to a healthy crowd of 15,000 strong at Pyramid Rock Festival in Australia in 2008.</p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/ec7c3d1878240fb8039f865d26e1d8f8.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000043170" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Jeff Chang Happiness Choice World Tour]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Jeff Chang Happiness Choice World Tour]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[Known as the Prince of Love Ballads throughout Asia, Jeff Chang is a popular Taiwanese singer...]]></short-description>
+      <description><![CDATA[<p>Known as the 'Prince of Love Ballads' throughout Asia, Jeff Chang is a popular Taiwanese singer, who performs sentimental mandarin pop ballads. He has released a series of highly successful albums.</p>]]></description>
+      <url><![CDATA[http://www.axcess.com.my/]]></url>
+      <price><![CDATA[RM83-RM243]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/7b80dbcae458ab6cf082b6135c5b706f.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027336">
+        <occurrence>
+          <time>
+            <start_date>2010-10-02</start_date>
+            <end_date>2010-10-02</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000043187" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Ou Yang Fei Fei I'm The One World Concert]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Ou Yang Fei Fei I'm The One World Concert]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[A legend in Taiwan and Japan, Ou Yang Fei Fei has many fans and all from different age groups...]]></short-description>
+      <description><![CDATA[<p>Ou Yang Fei Fei, a Taiwanese singer and actress has produced plenty of hit songs such as 'Walking In The Rain' (雨中徘徊),'You And Me In Love' (爱的路上我和你), 'Hotty Desert' (热情的沙漠), 'Wish' (向往) and much more. <br /><br />
+A legend in Taiwan and Japan, Ou Yang Fei Fei has many fans and all from different age groups. As seen in her past concerts, Fei Fei has always managed to secure full house audiences for her concerts, no matter the location.</p>]]></description>
+      <price><![CDATA[RM103-RM343]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/2fe1654e53ab49aa1bbff0db5a1b4374.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027336">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000072647" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Lobo Live In Malaysia 2010]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Lobo Live In Malaysia 2010]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[As a part of his 'Lobo Asia Tour, Roland Kent Lavoie or better known as 'Lobo' is heading down to Malaysia....]]></short-description>
+      <description><![CDATA[<p>As a part of his 'Lobo Asia Tour, Roland Kent Lavoie or better known as 'Lobo' is heading down to Malaysia as one of his many Asian stops. Back in the 70s, this American singer-songwriter sang country tunes like 'Me and You and a Dog Named Boo', 'Dont Expect Me To Be Your Friend' and more. This will be his second visit to our beautiful country (first in 2006). catch him live at the Arena of Stars this 15th October, 8.30pm.<br /><br />
+Ticketing info here</p>]]></description>
+      <url><![CDATA[http://www.ticketpro.com.my/jnp/concert/pop/467292-lobo-live-in-malaysia-2010.html]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/7a858ae4290bd9c33e1e6ec50f5773ff.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027336">
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <end_date>2010-10-15</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056681" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Soul Candy - 25th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Soul Candy - 25th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Joe Black &amp; Musta K shake it and break it...]]></short-description>
+      <description><![CDATA[<p>DJ Joe Black &amp; Musta K shake it and break it.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056914" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Dirty Dutch Music - 20 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dirty Dutch Music - 20 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Marco doing a mixture of house, trance and dirty dash on the decks...]]></short-description>
+      <description><![CDATA[<p>DJ Marco doing a mixture of house, trance and dirty dash on the decks.</p>]]></description>
+      <url><![CDATA[http://www.asianheritagerow.com/loft-upstairs.asp]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/863276b8c421faacafa858ee70820de3.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057076" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Dirty Dutch Music - 27 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dirty Dutch Music - 27 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Marco doing a mixture of house, trance and dirty dash on the decks...]]></short-description>
+      <description><![CDATA[<p>DJ Marco doing a mixture of house, trance and dirty dash on the decks.</p>]]></description>
+      <url><![CDATA[http://www.asianheritagerow.com/loft-upstairs.asp]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/kuala_lumpur/event/media/1e2f05fd92280d378716b4d97eeca6ab.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066034" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Sinful Saturdays - 21 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Sinful Saturdays - 21 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Nite Sin spins a sinful night with R&amp;B, house and trance...]]></short-description>
+      <description><![CDATA[<p>DJ Nite Sin spins a sinful night with R&amp;B, house and trance.</p>]]></description>
+      <url><![CDATA[http://www.asianheritagerow.com/loft-upstairs.asp]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066069" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Sinful Saturdays - 28 Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Sinful Saturdays - 28 Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Nite Sin spins a sinful night with R&amp;B, house and trance...]]></short-description>
+      <description><![CDATA[<p>DJ Nite Sin spins a sinful night with R&amp;B, house and trance.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066543" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Delicious @ Upstairs - 19th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Delicious @ Upstairs - 19th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Charlie D doing hip hop and urban mash up...]]></short-description>
+      <description><![CDATA[<p>DJ Charlie D doing hip hop and urban mash up.</p>]]></description>
+      <url><![CDATA[http://www.asianheritagerow.com/loft-upstairs.asp]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066549" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Delicious @ Upstairs - 26th Aug 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Delicious @ Upstairs - 26th Aug 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Charlie D doing hip hop and urban mash up...]]></short-description>
+      <description><![CDATA[<p>DJ Charlie D doing hip hop and urban mash up.</p>]]></description>
+      <url><![CDATA[http://www.asianheritagerow.com/loft-upstairs.asp]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-08-26</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000043185" modified="2010-08-19T08:50:27">
+    <name><![CDATA[30 Hour Famine SS2 DIY Camp]]></name>
+    <category>community</category>
+    <version lang="en">
+      <name><![CDATA[30 Hour Famine SS2 DIY Camp]]></name>
+      <vendor-category><![CDATA[Around Town | Charity]]></vendor-category>
+      <short-description><![CDATA[30 Hour Famine SS2 DIY Camp is a charity event focusing on urban poverty. With the theme, 'Light Up Their Life!', this 30 hours campaign aims to raise RM1million and all donations will be channeled to local NGOs and World Vision partnerships that serves to decrease poverty...]]></short-description>
+      <description><![CDATA[<p>30 Hour Famine SS2 DIY Camp is a charity event focusing on urban poverty. With the theme, 'Light Up Their Life!', this 30 hours campaign aims to raise RM1million and all donations will be channeled to local NGOs and World Vision partnerships that serves to decrease poverty.<br /><br />
+What does 30 Hour Famine do?<br />
+Participants are required to fast for 26 hours while learning about global poverty issues and through games, activities and videos. The last 4 hours are spent at the Stadium Putra Bukit Jalil, Kuala Lumpur, where participants will have breakfast together. This is where all the other participants from all over the country will assemble and join in the Famine Countdown event.</p>
+<p>Date:  21st August 2010<br />
+Time: 9.30am<br />
+Venue: SJK(C)Puay Chai<br /><br />
+And<br /><br />
+Date: 22nd August 2010<br />
+Time: After the 26 hours<br />
+Venue: Stadium Bukit Jalil</p>
+<p>Registration fees for DIY Famine Camp is RM20. However, participants need to collect a minimum amount of donations (RM80-120) by using a booklet that will be given by the organiser.<br /><br />
+Registration fees for Kidz Famine Camp is RM15. Children are required to collect a minimum of RM50 by using a donation box which will be given by the organiser as well.</p>
+<p>For more detail, join them on www.facebook.com/group.php or forum.lowyat.net/topic/1440820</p>
+<p>Or call, Chee Hoe at 0173585576.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000050630">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-22</end_date>
+            <event_time>09:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057169" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Art Expo Malaysia 2010]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Art Expo Malaysia 2010]]></name>
+      <vendor-category><![CDATA[Around Town | Exhibitions]]></vendor-category>
+      <short-description><![CDATA[The International Art Expo Malaysia  is where Art's at. Old and New, East and West. Whatever forms, whatever styles, whatever media...]]></short-description>
+      <description><![CDATA[<p>The International Art Expo Malaysia  is where Art's at. Old and New, East and West. Whatever forms, whatever styles, whatever media. Paintings, Sculptures, Prints, Assemblages, Installations, New Media (Digital Art). Astonishing artworks from all over the world - Asia, Europe - Eastern and Western, the United States, Central America.<br /><br />
+Date : 28th Oct-1st Nov 2010<br />
+Venue: MATRADE Exhibition and Convention Centre<br /><br />
+For further details, please email info@artexpomalaysia.com</p>]]></description>
+      <url><![CDATA[http://www.artexpomalaysia.com/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000054351">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-01</end_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057170" modified="2010-08-19T08:50:27">
+    <name><![CDATA[International Art Expo Malaysia 2010]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[International Art Expo Malaysia 2010]]></name>
+      <vendor-category><![CDATA[Art | Art Exhibition]]></vendor-category>
+      <short-description><![CDATA[Art Expo Malaysia 2010 provides the opportunity for visitors to admire 2000 pieces of great artworks....]]></short-description>
+      <description><![CDATA[<p>Art Expo Malaysia 2010 provides the opportunity for visitors to admire 2000 pieces of great artworks (including paintings, sculptures, digital art, installation, photography and mural art) represented by more than 60 reputable art galleries from 20 countries at once, under one roof.</p>
+<p>Part of the 1 Malaysia Contemporary Arts Tourism Festival.<br />http://www.timeoutkl.com/art/events/1-Malaysia-Contemporary-Arts-Tourism-Festival</p>]]></description>
+      <url><![CDATA[http://www.artexpomalaysia.com/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000054351">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-01</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000072639" modified="2010-08-19T08:50:27">
+    <name><![CDATA[Cats And Dogs Carnival]]></name>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[Cats And Dogs Carnival]]></name>
+      <vendor-category><![CDATA[Around Town | Carnivals]]></vendor-category>
+      <short-description><![CDATA[Calling all pet lovers! This is definitely an event not to be missed...]]></short-description>
+      <description><![CDATA[<p>Calling all pet lovers! This is definitely an event not to be missed. Held in conjunction with the Cats and Dogs film, enjoy a fun-filled day at the Cats and Dogs Carnival this weekend!</p>]]></description>
+      <url><![CDATA[http://www.tropicanacitymall.com/events/catsdogs_carny_22aug.html]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000054352">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <end_date>2010-08-22</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

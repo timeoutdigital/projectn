@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-08-19T08:43:47">
+  <event id="ALA000000000000000000000000060901" modified="2010-08-19T08:43:47">
+    <name><![CDATA[Перснальная фотовыставка Жанны Умбетовой]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Перснальная фотовыставка Жанны Умбетовой]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043556">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-09-23</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000060902" modified="2010-08-19T08:43:47">
+    <name><![CDATA[Персональная выставка Алима Хайдарова]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Персональная выставка Алима Хайдарова]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043556">
+        <occurrence>
+          <time>
+            <start_date>2010-09-24</start_date>
+            <end_date>2010-10-14</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000060894" modified="2010-08-19T08:43:47">
+    <name><![CDATA[Выставка Елены и Зангара Бисембиновых]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Выставка Елены и Зангара Бисембиновых]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000044396">
+        <occurrence>
+          <time>
+            <start_date>2010-09-02</start_date>
+            <end_date>2010-10-02</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000063457" modified="2010-08-19T08:43:47">
+    <name><![CDATA[Презентация последнего альбома Григория Лепса "Водопад"]]></name>
+    <category>concerts</category>
+    <version lang="ru">
+      <name><![CDATA[Презентация последнего альбома Григория Лепса "Водопад"]]></name>
+      <vendor-category><![CDATA[Поп / Рок | Концерты]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000045268">
+        <occurrence>
+          <time>
+            <start_date>2010-09-27</start_date>
+            <end_date>2010-09-27</end_date>
+            <event_time>19:00:00</event_time>
+            <end_time>19:00:00</end_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

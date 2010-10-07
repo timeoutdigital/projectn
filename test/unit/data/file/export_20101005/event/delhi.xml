@@ -1,0 +1,2582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-10-05T05:50:40">
+  <event id="DEL000000000000000000000000107418" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Manta featuring MAP]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Manta featuring MAP]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Rock: Manta is a six-and-a-half-foot tall singer-songwriter and her backing band is called MAP. They perform easy-listening rock, which could be described as Dave Matthews-meets-John Lennon-meets-Sheryl Crow. The house band Toya also performs throughout the week]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055519">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107421" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Jim Morrison night]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Jim Morrison night]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[Get your mojo risin’ and pay tribute to the lizard king at a night dedicated to the music of Morrison and The Doors, at the bar named after the man himself]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055521">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000104971" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Shah Shabad]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Shah Shabad]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A solo exhibition by Geeta Vadhera depicting Shah Shabad – the words of Bulleh Shah. Visual Arts Gallery]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055522">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-11</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000104972" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Jena Kriti]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Jena Kriti]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A solo exhibition of paintings by Kashinath Jena depicting the various forms of Radha Krishna and Gautam Buddha. Open Palm Court Gallery]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055522">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106345" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Delhi Nama]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Delhi Nama]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition about the history of Delhi by Delhi Urban Arts Commission from the Palaeolithic Age to Master Plan 2021 through photographs, drawings, paintings, maps and audio-visuals. Delhi ‘O’ Delhi Foyer]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055522">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106347" modified="2010-10-05T05:50:40">
+    <name><![CDATA[India – Abode Of The Gods]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[India – Abode Of The Gods]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition by Tarun Chhabra]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055522">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106355" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Permanent collection]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Permanent collection]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[The gallery houses works by modern Indian painters, including Krishen Khanna, Manu Parekh, T Vaikuntam, GR Iranna, Ram Bali Chauhan, Phaneendra Nath Chaturvedi, Sudhanshu Sutar and Neeraj Goswami]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055524">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106360" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Various]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Various]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[Hindustani classical: A music and dance festival, in the memory of Pandit Kundanlal Gangani has been organised by Harish Gangani]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055526">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106361" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Various]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Various]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[Hindustani classical: A music and dance festival, in the memory of Pandit Kundanlal Gangani has been organised by Harish Gangani]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055526">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107423" modified="2010-10-05T05:50:40">
+    <name><![CDATA[In the Further Soil]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[In the Further Soil]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Musical: A musical theatre production inspired by a text by Rabindranath Tagore. Set in India and the UK, it explores the changing identities of today’s youth through music, dance and spoken word. Set to the sounds of jazz and afro-beat, mixed with Bengali baul music. Directed by Harmage Singh Kalirai and written by Satinder Kaur Chohan and a cast featuring Shelley King, Soweto Kinch, Anusha Subramanyam, Ratul Shankar Ghosh, Dibyendu Mukherji and Sanjukta Ray. Call venue for passes]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055526">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107424" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Ronkini Gupta + Subrata De + Anuradha Pal]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Ronkini Gupta + Subrata De + Anuradha Pal]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A vocal recital by Ronkini Gupta from Kolkata, winner of Zee Sa Re Ga Ma 2004, a sitar recital by Subrata De and a performance by tabla maestro Anuradha Pal from Mumbai]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055526">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107425" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Saptarshi Chakraborty]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Saptarshi Chakraborty]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A vocal recital by Saptarshi Chakraborty from Kolkata. He will be accompanied by Damodar Lal (harmonium), Nishith Kumar and Tansen Shrivastava (tabla).]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055526">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107428" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Media nights]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Media nights]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[TCs Adchini’s brought back media nights. Flash your press card or business card and get a flat 50 per cent off.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055528">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106342" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Khataak!]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Khataak!]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A mobile phone photo exhibition that called for submissions from all across the world will be exhibited in the lanes of Hauz Khas village. This is an attempt to re-place art in public, giving them the freedom to view it or disregard it. For location details, contact the studio]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000055561">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106343" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Faridkot]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Faridkot]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Rock: Rock with a Hindi flavour by Akshay Raheja (keys), Rajarshi Sanyal (guitar), Gavin Pacheco (bass), Reuben Narain (drums) and Inderpreet Singh (vocals).]]></description>
+      <price><![CDATA[Cover charge Rs.250]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056923">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107419" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The Circus]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[The Circus]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[The Circus’ grounds are in upscale Anand Niketan, a really quiet neighbourhood, the sort of place where the noisiest residents are presumably highly pedigreed dogs. Arsh Sharma’s home, where the band rehearses, is equally deceptive. You’d never guess that some of the most furious and unconventional music being made in the city (insane compositions about samurais who can’t swim, songs dripping with disdain for no-hope cover bands) is being made in here]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056923">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107420" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Time Out Be-the-Bartender Night]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Time Out Be-the-Bartender Night]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[Show off your barkeep skills and take a turn as guest bartender at the scarlet simian. Call ahead to hook it up]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056926">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107422" modified="2010-10-05T05:50:40">
+    <name><![CDATA[CWG special]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[CWG special]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[The Island Bar is feeling that Games spirit, and over this period will be decorated like a stadium, will serve drinks around the clock, telecast all the sporting events on huge screens and host “exclusive game attractions”. Choose cocktails from their specially themed CWG drinks]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056935">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106350" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Cuenta Cuentos]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Cuenta Cuentos]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Latin jazz: Cuenta Cuentos (which means “storyteller” in Spanish) mixes various genres, with somewhat of an acoustic approach. The band started off Spanish music and jazz at the Aman in Delhi last year. Currently, the band comprises Parvati M Krishnan (vocal), Mhaseve Tetseo (guitar), Clarence Gonsalves (bass) and Nikhil Mawkin (drums)]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056949">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106351" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Weaving Legacy]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Weaving Legacy]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition to mark the tenth anniversary of the gallery includes works by stalwarts such as MF Hussain, Anjolie Ela Menon and Rini Dhumal]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056962">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106352" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The Joy of a New Harvest]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[The Joy of a New Harvest]]></name>
+      <vendor-category><![CDATA[Art workshops]]></vendor-category>
+      <description><![CDATA[A solo show by Siddharta Shingade. Shingade uses reds, yellows and parrot greens to paint scenes from his native land Marathwada. The works, which fuse abstraction with figures, is part of a fundraiser that will support the treatment of critically-ill children]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056964">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>10:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>10:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>10:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>10:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106353" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Reverie]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Reverie]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A solo exhibition by Pankaj Mistry]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056964">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106354" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The Map is Not the Territory]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Map is Not the Territory]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A solo show by Sujith SN who paints a sad picture of chaotic cities going through a construction overdrive. Sound familiar?]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056965">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106356" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Permanent collection]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Permanent collection]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[This collection includes MF Husain, FN Souza, SH Raza and others]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056966">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106357" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Permanent collection]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Permanent collection]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Rahul &amp; Art has an excellent permanent collection, including works by MF Husain, Tyeb Mehta, Ram Kumar, SH Raza, Ganesh Pyne, Krishen Khanna and a heritage collection of Bengal masters such as Rabindranath Tagore, Mukul Dey, Gopal Ghosh, Gaganendranath Tagore’s Darjeeling series and a rare Shakuntala canvas by AH Muller]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056967">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106358" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Fortitude From Fragments]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Fortitude From Fragments]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A solo show by Rumanna Hussain]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056968">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107427" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Ladies’ night]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Ladies’ night]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[DJ Rahul plays and women get 50 per cent off on all drinks]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000056988">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>12:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107432" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Pandit Debu Chaudhuri + Sudha Raghunathan]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Pandit Debu Chaudhuri + Sudha Raghunathan]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[Chaudhuri is a leading sitarist, while Raghunathan is a renowned vocalist in the Carnatic tradition]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057006">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107433" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Pandit Ram Narayan + Gundecha Brothers]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Pandit Ram Narayan + Gundecha Brothers]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[Narayan is responsible for elevating the sarangi as a solo instrument and freeing it from its status as an accompanying instrument. Umakant and Ramakant are from Bhopal and are arguably the finest exponents of dhrupad singing today]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057006">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107434" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Bhajan Sopori + Pandit Chhannulal Mishra]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Bhajan Sopori + Pandit Chhannulal Mishra]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[Along with Shiv Kumar Sharma, Sopori is the most well-known santoor player today. He is credited with modifying the instrument to increase its range. Mishra is a classical singer from Varanasi and a noted exponent of the Kirana gharana. He is known for his renditions of khayal and the purab ang thumri]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057006">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107435" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Ustad Shujaat Khan + Wadali Brothers]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Ustad Shujaat Khan + Wadali Brothers]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[The son of the legendary Ustad Vilayat Khan, sitarist Shujaat Khan belongs to the famous Etawah gharana, which is also known as the Imdadkhani gharana, named after his ancestor Imdad Khan. The Wadali brothers are famous Sufi singers from Amritsar in Punjab]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057006">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107436" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Rashid Mustafa Thirakawa + Aruna Sairam]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Rashid Mustafa Thirakawa + Aruna Sairam]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[Thirakawa belongs to a family that has produced some of the finest tabla players in the country, including his father Mohammad Jan Khan and his uncle Ahmed Jan. Aruna Sairam is one of the foremost Carnatic vocalists today]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057006">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107437" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Pandit Hariprasad Chaurasia + Pandit Ajoy Chakraborty]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Pandit Hariprasad Chaurasia + Pandit Ajoy Chakraborty]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[Globally, Chaurasia is now synonymous with the sound of the bamboo flute in Hindustani classical music. Charaborty is one of the finest Hindustani classical vocalists today and belongs to the Patiala gharana]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057006">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107438" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Pandit Vishwa Mohan Bhatt + OS Arun]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Pandit Vishwa Mohan Bhatt + OS Arun]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[One of the best-known Indian musicians in the West after he won a Grammy Award with Ry Cooder, Bhatt is the inventor of the Mohan veena which combines elements of the guitar, sitar and the sarod. OS Arun is a rising young Carnatic vocalist.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057006">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106362" modified="2010-10-05T05:50:40">
+    <name><![CDATA[An Eye For an Eye]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[An Eye For an Eye]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition by Indian photographer Raghu Rai and Mexican photographer Graciela Iturbide to commemorate the bicentennary of the independence of Mexico, the centennary of the Mexican Revolution and 60 years of diplomatic relations between India and Mexico]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057007">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106363" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Neuronal Landscapes]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Neuronal Landscapes]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition of scientific images of the nervous system by Spanish neuroscientists and others. The variety of forms, the light effects of individual product markings and bright colours remind one of abstract paintings]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057007">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106365" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Lecture]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Lecture]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A lecture titled “Kunstverein Today” on the institutional model between local cultural affinity and a global context of art]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057009">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106367" modified="2010-10-05T05:50:40">
+    <name><![CDATA[In the Waves and Underneath]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[In the Waves and Underneath]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition by Pooja Iranna consisting of drawings, canvases, sculptures (using staple pins) and a video projection]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057015">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106368" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Dual Liquid]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Dual Liquid]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition of recent prints and sculptures by Sumedh Rajendran that deal with fear and anxieties in domestic life]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057017">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107439" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Media nights]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Media nights]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[Unlimited drinks and snacks]]></description>
+      <price><![CDATA[Rs. 500]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000057028">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106374" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Twinspotting]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Twinspotting]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition of photos of Patel twins from London and Gujarat by photographer Ketaki Sheth]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000058871">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>11:07:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107440" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Qilla Records]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Qilla Records]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[Gaurav (Qilla Records / BLOT) and Kohra (Qilla Records/Zenon) play their distinctive blend of minimal techno and tech-house. SQL (Germany) will join the Qilla boys for a monster tech set]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059294">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107441" modified="2010-10-05T05:50:40">
+    <name><![CDATA[In the Further Soil]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[In the Further Soil]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Musical: A musical theatre production inspired by a text by Rabindranath Tagore. Set in India and the UK, it explores the changing identities of today’s youth through music, dance and spoken word. Set to the sounds of jazz and afro-beat, mixed with Bengali baul music. Directed by Harmage Singh Kalirai and written by Satinder Kaur Chohan and a cast featuring Shelley King, Soweto Kinch, Anusha Subramanyam, Ratul Shankar Ghosh, Dibyendu Mukherji and Sanjukta Ray. Call venue for passes]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107442" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Word Perfect]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Word Perfect]]></name>
+      <vendor-category><![CDATA[Hobby Classes]]></vendor-category>
+      <description><![CDATA[Tips on being a better communicator. Ages 10-12. For Library members only]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107443" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The Number Game]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[The Number Game]]></name>
+      <vendor-category><![CDATA[Hobby Classes]]></vendor-category>
+      <description><![CDATA[This workshop by Manisha Verma helps kids develop the ability to understand and tackle the number series. Ages 8-10. For Library members only.]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>14:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107444" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Understanding Media]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Understanding Media]]></name>
+      <vendor-category><![CDATA[Awareness Programs]]></vendor-category>
+      <description><![CDATA[At this workshop by Nutan Chopra, participants will be exposed to the media world with a special focus on newspapers. Ages 12 +.For Library members only.]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107445" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The World of Innovations]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[The World of Innovations]]></name>
+      <vendor-category><![CDATA[Art workshops]]></vendor-category>
+      <description><![CDATA[Children learn the concepts behind smart innovations at this workshop. Ages 10-14. For Library members only]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107446" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Weave a Pattern]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Weave a Pattern]]></name>
+      <vendor-category><![CDATA[Art workshops]]></vendor-category>
+      <description><![CDATA[Simi Srivastava conducts a workshop on creating textures by developing patterns using a variety of materials. Ages 7-10. For Library members only.]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>14:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107447" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The Wild World]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[The Wild World]]></name>
+      <vendor-category><![CDATA[City Talk]]></vendor-category>
+      <description><![CDATA[Bhavna Saxena helps kids unravel the mysteries around animals to help them connect better with the natural world. Ages 6-8. For Library members only.]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107448" modified="2010-10-05T05:50:40">
+    <name><![CDATA[A Walk in the Future]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[A Walk in the Future]]></name>
+      <vendor-category><![CDATA[Education]]></vendor-category>
+      <description><![CDATA[The aim of Bhavna Saxena’s workshop is to create an atmosphere of inquisitiveness and logical thinking. Ages 8-11. For Library members only]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>14:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107449" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Enrich your Vocabulary]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Enrich your Vocabulary]]></name>
+      <vendor-category><![CDATA[Workshops]]></vendor-category>
+      <description><![CDATA[Monisha Gupta conducts this workshop where kids learn to speak confidently using well-chosen vocabulary. Ages 7-9. For Library members only.]]></description>
+      <price><![CDATA[Rs.300]]></price>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107450" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Super Shapes]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Super Shapes]]></name>
+      <vendor-category><![CDATA[Art workshops]]></vendor-category>
+      <description><![CDATA[Kids explore the fascinating world of shapes to create graphics at this session conducted by Monisha Gupta. Ages 3.5-5. For Library members only.]]></description>
+      <price><![CDATA[Rs.300]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>14:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107451" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Table Laying, the Japanese Way]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Table Laying, the Japanese Way]]></name>
+      <vendor-category><![CDATA[Art workshops]]></vendor-category>
+      <description><![CDATA[Sandhya Bansal shows kids how to lay the table, fold napkins and make colourful coasters, Japanese-style. Ages 8-12. For Library members only.]]></description>
+      <price><![CDATA[Rs.350]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107452" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Art and creative enquiry workshop]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Art and creative enquiry workshop]]></name>
+      <vendor-category><![CDATA[Apparel exhibitions]]></vendor-category>
+      <description><![CDATA[Katherine Rose and Eliza Hilton of Flow Associates, a UK company, conduct a workshop titled “Creatively Design your City”, to show kids fun, fast-paced and interactive techniques for collaborating creatively and presenting ideas. It will culminate in a collaborative design of a future city. Ages 11+.For Library members only.]]></description>
+      <price><![CDATA[Rs.500]]></price>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106375" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Butterflies, Birds + Spray Cans]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Butterflies, Birds + Spray Cans]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A solo exhibition by UK artist Xenz, who uses spray cans to paint graffiti filled with butterflies and flowers]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059479">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000104992" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Dhoul Dhool Dhappa]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Dhoul Dhool Dhappa]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A solo show by Kaushlesh. Triveni Gallery]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059483">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107453" modified="2010-10-05T05:50:40">
+    <name><![CDATA[News-making workshop]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[News-making workshop]]></name>
+      <vendor-category><![CDATA[Workshops]]></vendor-category>
+      <description><![CDATA[Select CityWalk and Mark 5 Films organize a news-making workshop which gives kids a chance to interact with professionals in this field. Ages 6-16. For details, call Harpreet Suri (99991-19414).]]></description>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000059604">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106376" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Creating Commonwealth]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Creating Commonwealth]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition by national and international artists on the theme of colonial rule]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000060423">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106377" modified="2010-10-05T05:50:40">
+    <name><![CDATA[10x10]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[10x10]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A exhibition including works by Satish Gujral, Manu Parekh and Arpana Caur.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000060424">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107454" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Bal Sangam]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Bal Sangam]]></name>
+      <vendor-category><![CDATA[Theatre performance]]></vendor-category>
+      <description><![CDATA[Performances by kids of traditional art forms from different parts of the country. Presented by Sanskar Rang Toli, or the Theatre in Education Company]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000063359">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107455" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Jashn-e-Bachpan]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Jashn-e-Bachpan]]></name>
+      <vendor-category><![CDATA[Theatre performance]]></vendor-category>
+      <description><![CDATA[The Theatre in Education Company presents a fortnight of 26 plays for children, performed by adults as well as children from around the world. Details not finalised when we went to print. Also see “Swine Flew” in Theatre.]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000063359">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107456" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Robotics camp]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Robotics camp]]></name>
+      <vendor-category><![CDATA[Technology talks]]></vendor-category>
+      <description><![CDATA[A robotics day camp where participants learn mechanical design, construction, programming and teamwork skills. Ages 7-11. For details, contact (98103-10278, 96543-48322).]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000063362">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>09:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>09:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>09:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>09:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000106379" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Solo show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition by Pakistani artist Amna Ilyas. She uses glass and acrylic for her work and most of her works give an illusion of transparency. Her artistic statement is, “I injured, I destroyed, I smeared and I covered transparency]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000068177">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107457" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Delhi Jazz Club]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Delhi Jazz Club]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Jazz: Drummer Nikhil Vasudevan hosts this show with guest artists]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000068519">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107458" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Lazy River]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Lazy River]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Rock: This jam band with influences ranging from blues and blues rock to funk comprises Farid Singh (drums), Meg D’souza (vocals), Jeff Laloo (bass) and Chaitanya Bhalla (guitar)]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000068519">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107459" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The Gas Meters]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[The Gas Meters]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Fusion: A progressive instrumental collective playing psychedelic jazz stoner rock. The band’s influences include Miles Davis, Queens of the Stone Age, Pearl Jam, Sonic Youth and Pink Floyd]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000068519">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107460" modified="2010-10-05T05:50:40">
+    <name><![CDATA[The Gas Meters]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[The Gas Meters]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Fusion: A progressive instrumental collective playing psychedelic jazz stoner rock. The band’s influences include Miles Davis, Queens of the Stone Age, Pearl Jam, Sonic Youth and Pink Floyd]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000068519">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DEL000000000000000000000000107461" modified="2010-10-05T05:50:40">
+    <name><![CDATA[Lazy River + DJ Pok-E]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Lazy River + DJ Pok-E]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[The four-piece indie-rock/funk blues outfit play a psychedelic jam-band oriented set at this Hauz Khas haunt, and Pok-E follows up with a minimal tech and techno set.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DEL000000000000000000000000068519">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

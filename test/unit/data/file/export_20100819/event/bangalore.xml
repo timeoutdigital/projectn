@@ -1,0 +1,2048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-08-19T08:50:53">
+  <event id="BLR000000000000000000000000072037" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Behind The Seen]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Behind The Seen]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A show curated by the artist Surekha]]></description>
+      <url><![CDATA[http://www.surekha.info]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000055500">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072832" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Behind The Seen]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Behind The Seen]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A show curated by the artist Surekha]]></description>
+      <url><![CDATA[http://www.surekha.info]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000055500">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000067024" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Slain]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Slain]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Judah Sandhy on vocals, Bryden Lewis and Manek D’Silva on guitars, Jared Sandhy on drums, Jonathan Wesley on keys, and Naresh Nathan on bass are Slain, a melodic and progressive rock and metal outfit]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000055501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072040" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Slain]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Slain]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Judah Sandhy on vocals, Bryden Lewis and Manek D’Silva on guitars, Jared Sandhy on drums, Jonathan Wesley on keys, and Naresh Nathan on bass are Slain, a melodic and progressive rock and metal outfit]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000055501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072835" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Slain]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Slain]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Judah Sandhy on vocals, Bryden Lewis and Manek D’Silva on guitars, Jared Sandhy on drums, Jonathan Wesley on keys, and Naresh Nathan on bass are Slain, a melodic and progressive rock and metal outfit]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000055501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000071991" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Solo show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Trupti Dave, an artist and architect based in Ahmedabad]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000071992" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Group show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Group show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Atul Ojhal Dubey and Chitra from Bangalore, Bhanumati and Gokul Gowder from Ooty, and Shibu Sridhar from Kerala]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-28</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000071993" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Group show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Group show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Kolkata-based artists Anjan Bhattacharya, Biswarup Haldar, Rajib Sur Roy, Subrato Ghosh and Utpal Ghosh]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058974">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <end_date>2010-09-05</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072786" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Solo show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Trupti Dave, an artist and architect based in Ahmedabad]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072787" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Group show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Group show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Atul Ojhal Dubey and Chitra from Bangalore, Bhanumati and Gokul Gowder from Ooty, and Shibu Sridhar from Kerala]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058974">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-28</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072788" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Group show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Group show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Kolkata-based artists Anjan Bhattacharya, Biswarup Haldar, Rajib Sur Roy, Subrato Ghosh and Utpal Ghosh]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058974">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <end_date>2010-09-05</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072078" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Sangeetha, Anjana and Shubhashini]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Sangeetha, Anjana and Shubhashini]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A selection of varnams – elaborate Carnatic compositions – composed by Muthaiah Bhagavathar and rendered by the vocalists]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>09:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072079" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Padma Gurudutt]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Padma Gurudutt]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the musician and musicologist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>10:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072080" modified="2010-08-19T08:50:53">
+    <name><![CDATA[The Bangalore Brothers]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[The Bangalore Brothers]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[MB Hariharan and S Ashok, will demonstrate an effective and rational approach to neraval – the extempore improvisation aspect of Carnatic music – at this concert, accompanied by BK Raghu on violin, and R Adamya on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>10:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072081" modified="2010-08-19T08:50:53">
+    <name><![CDATA[S Shankar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[S Shankar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the Carnatic vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>10:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072082" modified="2010-08-19T08:50:53">
+    <name><![CDATA[G Ravikiran]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[G Ravikiran]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will talk on Sangita Sampradaya Pradarshini, a tome on Carnatic concepts]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072083" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RK Padmanabha]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RK Padmanabha]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072084" modified="2010-08-19T08:50:53">
+    <name><![CDATA[V Vamshidhar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[V Vamshidhar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on Bhairavi, Mukhari, Huseini, Manji and other ragas by the flautist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072085" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RK Srikantan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RK Srikantan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>12:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072086" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Srimatha, Apeksha and Shikha]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Srimatha, Apeksha and Shikha]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The trio will present a concert on dying musical forms, like of the sooladis and mundige from Dasa Sahitya, or the Kannada literature of the bhakti movement]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <event_time>12:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072087" modified="2010-08-19T08:50:53">
+    <name><![CDATA[M Suryaprasad]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[M Suryaprasad]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the dance and music critic]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>12:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072088" modified="2010-08-19T08:50:53">
+    <name><![CDATA[S Ashok and Ranjani Venkatesh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[S Ashok and Ranjani Venkatesh]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The mridangam artists will present LayaVinyasa, a performance in the Chandas tala]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>13:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072089" modified="2010-08-19T08:50:53">
+    <name><![CDATA[BK Chandramouli]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[BK Chandramouli]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the mridangam artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>14:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072090" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Ashwini Satish]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Ashwini Satish]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[An analysis of musical compositions by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>14:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072091" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Sukanya Prabhakar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Sukanya Prabhakar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist and musicologist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>14:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072092" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Vrinda Acharya]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Vrinda Acharya]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will present a talk explaining aspects of laya, or rhythm, in raga alapana (melodic improvisation)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>15:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072093" modified="2010-08-19T08:50:53">
+    <name><![CDATA[TS Sathyavathy]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[TS Sathyavathy]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist and musicologist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>15:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072094" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Kanchana Ranjani Sisters]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Kanchana Ranjani Sisters]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[Sriranjani and Sruthiranjani, will present a Carnatic recital of tiruppugal – devotional songs in Tamil – accompanied by Shankar Rajan on violin, and Anirudh Bhat on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>15:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072095" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RA Ramamani]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RA Ramamani]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>16:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072096" modified="2010-08-19T08:50:53">
+    <name><![CDATA[N Rajkamal]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[N Rajkamal]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The flautist will present a talk on the elements of spontaneity and mathematics in swara kalpana (raga improvisation)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>16:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072097" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Mysore M Nagaraj]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Mysore M Nagaraj]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the violinist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>16:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072098" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Ravichandra Kulur]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Ravichandra Kulur]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A Carnatic concert, featuring the flautist, accompanied by HN Bhaskar on violin, Neyveli R Narayanan on mridangam, and SN Narayanamurthy on ghatam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>17:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072099" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Radhika Balakrishnan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Radhika Balakrishnan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on aspects of varnams in both abhyasa gaana (music for education) and sabha gaana (music meant for concerts) by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>09:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072100" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Kanaka Swamy]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Kanaka Swamy]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>10:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072101" modified="2010-08-19T08:50:53">
+    <name><![CDATA[NR Harini and NR Sharada]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[NR Harini and NR Sharada]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalists will be accompanied by Venkatesh Joshier on violin, and Sudarshan Chakravarthy on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>10:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072102" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Vidyabhushan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Vidyabhushan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>10:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072103" modified="2010-08-19T08:50:53">
+    <name><![CDATA[A Ashwin and G Ravikiran]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[A Ashwin and G Ravikiran]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A demonstration of pada – a kind of varnam – by the vocalists]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>11:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072104" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RN Taranathan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RN Taranathan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072105" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Shubha Santosh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Shubha Santosh]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The veena artist  will present a demonstration of tana (a kind of varnam)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>11:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072106" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Suma Sudhindra]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Suma Sudhindra]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the veena artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>12:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072107" modified="2010-08-19T08:50:53">
+    <name><![CDATA[S Ramani]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[S Ramani]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will present a demonstration of javalis (light compositions)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>12:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072108" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Mysore V Subramanya]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Mysore V Subramanya]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the music critic]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>12:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072109" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Malavika Ramaswamy and Sharada Mohan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Malavika Ramaswamy and Sharada Mohan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A concert of thillanas by composers from Mysore, rendered by the vocalists , accompanied by Phanindra Bhaskara on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>13:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072110" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RN Srilatha]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RN Srilatha]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>14:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072111" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Manasi Prasad]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Manasi Prasad]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on the Hindu god Krishna, as seen by different Carnatic composers, presented by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>14:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072112" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RN Thyagarajan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RN Thyagarajan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>14:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072113" modified="2010-08-19T08:50:53">
+    <name><![CDATA[BK Raghu]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[BK Raghu]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The violinist will present a demonstration of the violin as a solo and an accompanying instrument]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>15:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072114" modified="2010-08-19T08:50:53">
+    <name><![CDATA[D Balakrishna]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[D Balakrishna]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the veena artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>15:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072115" modified="2010-08-19T08:50:53">
+    <name><![CDATA[BS Arunkumar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[BS Arunkumar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on the global status of south-Indian percussion instruments by the percussionist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>15:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072116" modified="2010-08-19T08:50:53">
+    <name><![CDATA[TAS Mani]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[TAS Mani]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the mridangam artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>16:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072117" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Chandanabala Kalyan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Chandanabala Kalyan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will demonstrate the effective rendition of ragam thanam pallavi – an improvisational form of singing – in a short duration, accompanied by BK Raghu on violin, and R Adamya on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>16:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072118" modified="2010-08-19T08:50:53">
+    <name><![CDATA[MS Sheela]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[MS Sheela]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>16:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072119" modified="2010-08-19T08:50:53">
+    <name><![CDATA[TS Pattabhirama Pandit]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[TS Pattabhirama Pandit]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A concert led by the vocalist, accompanied by Balu Raghuraman on violin, Srimushnam V Raja Rao on mridangam, and GS Ramanujan on ghatam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>17:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072120" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[The Sree Krishna Kalakshetra will present the sisters Veena Nair and Dhanya Nair performing the dance ballet Vaasudevamupasmahe, a Muthuswami Dikshitar composition. The performance will take place at Yuva Chetana and is organised jointly by the Suswaralaya College of Music and ISKCON]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072870" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Sangeetha, Anjana and Shubhashini]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Sangeetha, Anjana and Shubhashini]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A selection of varnams – elaborate Carnatic compositions – composed by Muthaiah Bhagavathar and rendered by the vocalists]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>09:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072871" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Padma Gurudutt]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Padma Gurudutt]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the musician and musicologist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>10:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072872" modified="2010-08-19T08:50:53">
+    <name><![CDATA[The Bangalore Brothers]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[The Bangalore Brothers]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[MB Hariharan and S Ashok, will demonstrate an effective and rational approach to neraval – the extempore improvisation aspect of Carnatic music – at this concert, accompanied by BK Raghu on violin, and R Adamya on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>10:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072873" modified="2010-08-19T08:50:53">
+    <name><![CDATA[S Shankar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[S Shankar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the Carnatic vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>10:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072874" modified="2010-08-19T08:50:53">
+    <name><![CDATA[G Ravikiran]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[G Ravikiran]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will talk on Sangita Sampradaya Pradarshini, a tome on Carnatic concepts]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072875" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RK Padmanabha]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RK Padmanabha]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072876" modified="2010-08-19T08:50:53">
+    <name><![CDATA[V Vamshidhar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[V Vamshidhar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on Bhairavi, Mukhari, Huseini, Manji and other ragas by the flautist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072877" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RK Srikantan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RK Srikantan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>12:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072878" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Srimatha, Apeksha and Shikha]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Srimatha, Apeksha and Shikha]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The trio will present a concert on dying musical forms, like of the sooladis and mundige from Dasa Sahitya, or the Kannada literature of the bhakti movement]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <event_time>12:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072879" modified="2010-08-19T08:50:53">
+    <name><![CDATA[M Suryaprasad]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[M Suryaprasad]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the dance and music critic]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>12:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072880" modified="2010-08-19T08:50:53">
+    <name><![CDATA[S Ashok and Ranjani Venkatesh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[S Ashok and Ranjani Venkatesh]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The mridangam artists will present LayaVinyasa, a performance in the Chandas tala]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>13:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072881" modified="2010-08-19T08:50:53">
+    <name><![CDATA[BK Chandramouli]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[BK Chandramouli]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the mridangam artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>14:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072882" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Ashwini Satish]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Ashwini Satish]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[An analysis of musical compositions by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>14:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072883" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Sukanya Prabhakar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Sukanya Prabhakar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist and musicologist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>14:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072884" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Vrinda Acharya]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Vrinda Acharya]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will present a talk explaining aspects of laya, or rhythm, in raga alapana (melodic improvisation)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>15:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072885" modified="2010-08-19T08:50:53">
+    <name><![CDATA[TS Sathyavathy]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[TS Sathyavathy]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist and musicologist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>15:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072886" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Kanchana Ranjani Sisters]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Kanchana Ranjani Sisters]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[Sriranjani and Sruthiranjani, will present a Carnatic recital of tiruppugal – devotional songs in Tamil – accompanied by Shankar Rajan on violin, and Anirudh Bhat on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>15:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072887" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RA Ramamani]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RA Ramamani]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>16:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072888" modified="2010-08-19T08:50:53">
+    <name><![CDATA[N Rajkamal]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[N Rajkamal]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The flautist will present a talk on the elements of spontaneity and mathematics in swara kalpana (raga improvisation)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>16:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072889" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Mysore M Nagaraj]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Mysore M Nagaraj]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the violinist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>16:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072890" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Ravichandra Kulur]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Ravichandra Kulur]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A Carnatic concert, featuring the flautist, accompanied by HN Bhaskar on violin, Neyveli R Narayanan on mridangam, and SN Narayanamurthy on ghatam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>17:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072891" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Radhika Balakrishnan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Radhika Balakrishnan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on aspects of varnams in both abhyasa gaana (music for education) and sabha gaana (music meant for concerts) by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>09:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072892" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Kanaka Swamy]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Kanaka Swamy]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>10:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072893" modified="2010-08-19T08:50:53">
+    <name><![CDATA[NR Harini and NR Sharada]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[NR Harini and NR Sharada]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalists will be accompanied by Venkatesh Joshier on violin, and Sudarshan Chakravarthy on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>10:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072894" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Vidyabhushan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Vidyabhushan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>10:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072895" modified="2010-08-19T08:50:53">
+    <name><![CDATA[A Ashwin and G Ravikiran]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[A Ashwin and G Ravikiran]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A demonstration of pada – a kind of varnam – by the vocalists]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>11:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072896" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RN Taranathan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RN Taranathan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>11:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072897" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Shubha Santosh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Shubha Santosh]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The veena artist  will present a demonstration of tana (a kind of varnam)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>11:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072898" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Suma Sudhindra]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Suma Sudhindra]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the veena artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>12:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072899" modified="2010-08-19T08:50:53">
+    <name><![CDATA[S Ramani]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[S Ramani]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will present a demonstration of javalis (light compositions)]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>12:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072900" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Mysore V Subramanya]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Mysore V Subramanya]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the music critic]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>12:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072901" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Malavika Ramaswamy and Sharada Mohan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Malavika Ramaswamy and Sharada Mohan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A concert of thillanas by composers from Mysore, rendered by the vocalists , accompanied by Phanindra Bhaskara on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>13:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072902" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RN Srilatha]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RN Srilatha]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>14:15:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072903" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Manasi Prasad]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Manasi Prasad]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on the Hindu god Krishna, as seen by different Carnatic composers, presented by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>14:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072904" modified="2010-08-19T08:50:53">
+    <name><![CDATA[RN Thyagarajan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[RN Thyagarajan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>14:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072905" modified="2010-08-19T08:50:53">
+    <name><![CDATA[BK Raghu]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[BK Raghu]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The violinist will present a demonstration of the violin as a solo and an accompanying instrument]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>15:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072906" modified="2010-08-19T08:50:53">
+    <name><![CDATA[D Balakrishna]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[D Balakrishna]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the veena artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>15:35:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072907" modified="2010-08-19T08:50:53">
+    <name><![CDATA[BS Arunkumar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[BS Arunkumar]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A talk on the global status of south-Indian percussion instruments by the percussionist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>15:45:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072908" modified="2010-08-19T08:50:53">
+    <name><![CDATA[TAS Mani]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[TAS Mani]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the mridangam artist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>16:05:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072909" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Chandanabala Kalyan]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Chandanabala Kalyan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The vocalist will demonstrate the effective rendition of ragam thanam pallavi – an improvisational form of singing – in a short duration, accompanied by BK Raghu on violin, and R Adamya on mridangam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>16:25:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072910" modified="2010-08-19T08:50:53">
+    <name><![CDATA[MS Sheela]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[MS Sheela]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A lecture by the vocalist]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>16:55:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072911" modified="2010-08-19T08:50:53">
+    <name><![CDATA[TS Pattabhirama Pandit]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[TS Pattabhirama Pandit]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A concert led by the vocalist, accompanied by Balu Raghuraman on violin, Srimushnam V Raja Rao on mridangam, and GS Ramanujan on ghatam]]></description>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>17:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072912" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[The Sree Krishna Kalakshetra will present the sisters Veena Nair and Dhanya Nair performing the dance ballet Vaasudevamupasmahe, a Muthuswami Dikshitar composition. The performance will take place at Yuva Chetana and is organised jointly by the Suswaralaya College of Music and ISKCON]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072125" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Sangeeta K, a student at the Natya Institute of Kathak and Choreography, will perform items from a traditional margam – beginning with a pushpanjali, an invocatory piece, and ending with a thillana, a pure-dance sequence]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059111">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072126" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Apoorva C, a student of the bharatanatyam duo Kiran Subramanyam and Sandhya Kiran of the Rasika Academy of Performing Arts in Malleswaram, will showcase a traditional margam of bharatanatyam]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059111">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072917" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Sangeeta K, a student at the Natya Institute of Kathak and Choreography, will perform items from a traditional margam – beginning with a pushpanjali, an invocatory piece, and ending with a thillana, a pure-dance sequence]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059111">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000072918" modified="2010-08-19T08:50:53">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Apoorva C, a student of the bharatanatyam duo Kiran Subramanyam and Sandhya Kiran of the Rasika Academy of Performing Arts in Malleswaram, will showcase a traditional margam of bharatanatyam]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059111">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>
