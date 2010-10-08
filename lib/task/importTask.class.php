@@ -398,6 +398,10 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
+            case 'poi_1':
+            case 'poi_2':
+                    $this->importMoscow( $city, $options['type'] );
+                break;
             case 'poi':
 
                 $feedName = array();
@@ -1103,6 +1107,37 @@ EOF;
             $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing." );
         
         return $ftpFiles;
+    }
+
+    private function importMoscow( $city, $type )
+    {
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, 'ru' );
+
+        $feedUrl = 'http://www.timeout.ru/london/places_msk.xml';
+        $mapperClass = 'RussiaFeedPlacesMapper';
+
+        echo 'Downloading Feed' . PHP_EOL;
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        echo 'Starting Import' . PHP_EOL;
+        // SPlit 2 and Import based on City
+        $total = $xml->venue->count();
+        $splitMiddle = ceil( $total / 2 );
+
+        $startPoint = ( $type == 'poi_1' ) ? 0 : $splitMiddle;
+        $endPoint = ( $type == 'poi_1' ) ? $splitMiddle : $total;
+        
+        echo ' Total :' . $total . ' | Middle: '. $splitMiddle . ' | Start: ' . $startPoint . ' | End: ' . $endPoint . PHP_EOL;
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer = new Importer( );
+        $importer->addDataMapper( new $mapperClass( $xml, null, $city, $startPoint, $endPoint ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+
+        $this->dieWithLogMessage();
     }
 
 

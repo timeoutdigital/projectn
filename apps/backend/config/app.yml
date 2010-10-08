@@ -45,7 +45,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: moscow
-          type: [ poi, event ]
+          type: [ poi_1, poi_2, event ]
         -
           name: saint petersburg
           type: [ poi, event ]
