@@ -1124,7 +1124,7 @@ EOF;
         echo 'Starting Import' . PHP_EOL;
         // SPlit 2 and Import based on City
         $total = $xml->venue->count();
-        $splitMiddle = ceil( $total / 2 );
+        $splitMiddle = (int)ceil( $total / 2 );
 
         $startPoint = ( $type == 'poi_1' ) ? 0 : $splitMiddle;
         $endPoint = ( $type == 'poi_1' ) ? $splitMiddle : $total;
