@@ -182,7 +182,7 @@ class geocode_uiActions extends autoGeocode_uiActions
             $geocodeAccuracy['value']   = $geocode_accuracy;
             
         }
-
+        $poi->setgeocoderByPass( true ); // Stop Model from calling google geocode
         $poi->save(); // Save ALL
 
         return $this->renderText( json_encode( array('alert' => sprintf('Record Updated', $poi['poi_name'] ) ) ) );
