@@ -47,19 +47,42 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               $categories = array();
               foreach( $venueElement->categories->category as $category ) stringTransform::mb_trim($categories[] = (string) $category); // TRIM as addVendorCategory Don't Trim!
               $poi->addVendorCategory( $categories, $this->vendor->id );
+
+              // Extract and Apply Lat/Long
+              $mapCode                              = (string) $venueElement->mapcode;
+              if( stringTransform::mb_trim( $mapCode ) != '' )
+              {
+                  $regEx = '/\&amp;ll=(.*?)\&amp;/i';
+                  preg_match( $regEx, $mapCode, $geocodes );
+
+                  if( is_array( $geocodes ) && count( $geocodes ) == 2 )
+                  {
+                      $geolatLong = explode(',', $geocodes[1] );
+                      if( count( $geolatLong) == 2 )
+                      {
+                          $poi->applyFeedGeoCodesIfValid( $geolatLong[0], $geolatLong[1] );
+                      }
+                  }
+              }
                   
               // Done and Save
               $this->notifyImporter( $poi );
 
           }catch(Exception $exception)
           {
-              $this->notifyImporterOfFailure($exception);
+              $this->notifyImporterOfFailure($exception, isset($poi) ? $poi : null );
               print_r($exception->getMessage() . ' - VENDOR POI ID@ '.$poi['vendor_poi_id'].PHP_EOL);
           }
 
           unset($poi, $categories, $vendor_venue_id);
           
       } // END FOREACH
+  }
+
+  protected function  getXMLFeedCleanUp( xmlDataFixer $xmlDataFixer )
+  {
+      $xmlDataFixer->removeMSWordHtmlTags( 'description', true );
+      $xmlDataFixer->htmlEntitiesTag( 'description',  true );     
   }
 }
 
