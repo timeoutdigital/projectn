@@ -25,7 +25,10 @@ class poiActions extends autoPoiActions
 
      if ( !isset( $filters['vendor_id'] ) || !$this->user->checkIfVendorIdIsAllowed( $filters['vendor_id'] ) )
      {
-          $this->setFilters( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
+          // $this->setFilters( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
+          $permittedVendorCitiesChoices = $this->user->getPermittedVendorCities( true );
+          $permittedVendorCitiesChoices = array_keys( $permittedVendorCitiesChoices ); // Extract Keys
+          $this->setFilters( array( 'vendor_id' => array_shift($permittedVendorCitiesChoices) ) );
      }
   }
 
