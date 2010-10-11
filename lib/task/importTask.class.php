@@ -815,41 +815,35 @@ class importTask extends sfBaseTask
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'hong kong', 'en-HK' );
         
         $dataMapper = null;
-        $fileUrl = '';
+        $params = array( 'datasource' => array( 'classname' => 'Curl', 'url' => '' ) );
         
         switch( $options['type'] )
         {    
             case 'poi':
                     $dataMapper = 'HongKongFeedVenuesMapper';
-                    $fileUrl    = 'http://tohk.testpilotweb.com/rss/venues/';
+                    $params['datasource']['url']    = 'http://tohk.testpilotweb.com/rss/venues/';
+                //$params['datasource']['url']    = '/home/jeevan/Workspace/projectn/hk-venues.xml';
+                //$params['datasource']['classname']    = 'CurlMock';
+                require_once( '/home/jeevan/Workspace/projectn/test/unit/mocks/curl.mock.php' );
                 break;
             case 'movie':
                     $dataMapper = 'HongKongFeedMoviesMapper';
-                    $fileUrl    = 'http://tohk.testpilotweb.com/rss/movies/';
+                    $params['datasource']['url']    = 'http://tohk.testpilotweb.com/rss/movies/';
                 break;
             case 'event':
                     $dataMapper = 'HongKongFeedEventsMapper';
-                    $fileUrl    = 'http://tohk.testpilotweb.com/rss/events/';
+                    $params['datasource']['url']    = 'http://tohk.testpilotweb.com/rss/events/';
                 break;
             default : $this->dieDueToInvalidTypeSpecified();
                 break;
         }
-        if(!$dataMapper || trim($fileUrl) == '' || !$vendorObj )
+        if(!$dataMapper || !$vendorObj )
         {
             throw new Exception('HongKong:: Invalid value!');
         }
 
-        // Download XML Feed
-        $feedObj = new Curl( $fileUrl );
-        $feedObj->exec();
-
-        // Clean XML Feed & Pharse the data
-        $xmlFixer = new xmlDataFixer( $feedObj->getResponse() );
-        
-        $xmlFixer->removeHtmlEntiryEncoding();
-        
         ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $dataMapper( $xmlFixer->getSimpleXML() ) );
+        $importer->addDataMapper( new $dataMapper( $vendorObj, $params ) );
         $importer->run();
         ImportLogger::getInstance()->end();
 
