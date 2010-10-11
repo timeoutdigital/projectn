@@ -54,15 +54,17 @@ class HongKongFeedMoviesMapper extends HongKongFeedBaseMapper
             $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
 
             // Add Medias to movie
-            $processed_medias = array();
-            foreach( $movieElement->medias->media as $media )
+            if( isset( $movieElement->medias->media ) )
             {
-                $media_url = (string) $media->url;
-                if( !in_array( $media_url, $processed_medias ) )
-                    $this->addImageHelper( $movie, $media_url );
-                $processed_medias[] = $media_url;
+                $processed_medias = array();
+                foreach( $movieElement->medias->media as $media )
+                {
+                    $media_url = (string) $media->url;
+                    if( !in_array( $media_url, $processed_medias ) )
+                        $this->addImageHelper( $movie, $media_url );
+                    $processed_medias[] = $media_url;
+                }
             }
-            
             // Import to DB
             $this->notifyImporter( $movie );
 
