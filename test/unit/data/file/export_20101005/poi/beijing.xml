@@ -1,0 +1,2646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-pois vendor="timeout" modified="2010-10-05T05:51:30">
+  <entry vpid="PEK000000000000000000000000057256" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.38589859</longitude>
+      <latitude>39.94369968</latitude>
+    </geo-position>
+    <name><![CDATA[Lidai Diwang Miao (The Temple of Emperors of Successive Dynasties)]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Fuchengmennei Dajie]]></street>
+      <houseno><![CDATA[131]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Xicheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Lidai Diwang Miao (The Temple of Emperors of Successive Dynasties)]]></name>
+      <address>
+        <street><![CDATA[Fuchengmennei Dajie]]></street>
+        <houseno><![CDATA[131]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Xicheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Cafés & Snacks]]></vendor-category>
+        <vendor-category><![CDATA[Sightseeing | Temples & Religious Buildings]]></vendor-category>
+        <description><![CDATA[<p>Discover Beijing’s secret second Forbidden City</p><p>
+</p><p>Stumbling across the Lidai Diwang Miao temple will make you wonder what else you’ve been missing in Beijing. Surprisingly huge, several magnificent buildings on a par with those in the Forbidden City can be found within its 21,500-square-metre perimeter. Built in the Imperial style in 1530 during the reign of Jiajing as the place where emperors like himself could pay homage to past rulers, it was also the location for a memorial service for Sun Yat Sen several hundred years later. Only fully restored and reopened in 2004 and still relatively unknown by most tourists, we have one word of warning; don’t be duped into thinking that entrance costs 60RMB, that’s just the staff trying to get you to pay full price for an English speaking guide…</p><p></p>]]></description>
+        <openingtimes><![CDATA[9am-4.30pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/3dd9f0e85542da49917b2c831a2fc2c7.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057258" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.47602081</longitude>
+      <latitude>39.93922484</latitude>
+    </geo-position>
+    <name><![CDATA[Haiku]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Chaoyang Gongyuan Xi Lu]]></street>
+      <houseno><![CDATA[8]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Haiku]]></name>
+      <address>
+        <street><![CDATA[Chaoyang Gongyuan Xi Lu]]></street>
+        <houseno><![CDATA[8]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Cafés & Snacks]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Asian | Japanese]]></vendor-category>
+        <description><![CDATA[<p>Serves the same tasty California rolls as its sister restaurant Hatsune. Book ahead.</p><p></p>]]></description>
+        <openingtimes><![CDATA[5pm-3am daily.]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057259" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46924018</longitude>
+      <latitude>39.96113560</latitude>
+    </geo-position>
+    <name><![CDATA[Suboksung]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Xiaoyun Lu]]></street>
+      <houseno><![CDATA[38]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Suboksung]]></name>
+      <address>
+        <street><![CDATA[Xiaoyun Lu]]></street>
+        <houseno><![CDATA[38]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Cafés & Snacks]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Asian | Korean]]></vendor-category>
+        <description><![CDATA[<p>Authentic and inexpensive Korean. Hot pot noodles or barbeque especially recommended.</p><p></p>]]></description>
+        <openingtimes><![CDATA[11.30am-10pm]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/aa820b37f2abc64b9bd2d5060393cd82.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057263" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45645141</longitude>
+      <latitude>39.93409158</latitude>
+    </geo-position>
+    <name><![CDATA[Qeelin]]></name>
+    <category><![CDATA[sights-museums]]></category>
+    <address>
+      <street><![CDATA[Jianguomenwai Dajie]]></street>
+      <houseno><![CDATA[2]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Qeelin]]></name>
+      <address>
+        <street><![CDATA[Jianguomenwai Dajie]]></street>
+        <houseno><![CDATA[2]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Sightseeing | Parks & Gardens]]></vendor-category>
+        <description><![CDATA[<p>Hong Kong-based jewellery store with a handful of iconic pieces.</p>]]></description>
+        <openingtimes><![CDATA[10am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/bc307de689c30e31ed3b2106fcf9947d.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057265" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.39974951</longitude>
+      <latitude>39.85593044</latitude>
+    </geo-position>
+    <name><![CDATA[Laoying Silk]]></name>
+    <category><![CDATA[sights-museums]]></category>
+    <address>
+      <street><![CDATA[Zhongrenzhong Qingfang Shichang Bei Qu]]></street>
+      <houseno><![CDATA[A9 ]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Fengtai district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Laoying Silk]]></name>
+      <address>
+        <street><![CDATA[Zhongrenzhong Qingfang Shichang Bei Qu]]></street>
+        <houseno><![CDATA[A9 ]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Fengtai district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Sightseeing | Museums]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services]]></vendor-category>
+        <openingtimes><![CDATA[Open 8.30am-6pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057267" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46214809</longitude>
+      <latitude>39.92492206</latitude>
+    </geo-position>
+    <name><![CDATA[Beijing Hotel]]></name>
+    <category><![CDATA[sights-museums]]></category>
+    <address>
+      <street><![CDATA[East Changan Avenue]]></street>
+      <houseno><![CDATA[33]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Beijing Hotel]]></name>
+      <address>
+        <street><![CDATA[East Changan Avenue]]></street>
+        <houseno><![CDATA[33]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Sightseeing | Museums]]></vendor-category>
+        <vendor-category><![CDATA[Hotels | Expensive]]></vendor-category>
+        <openingtimes><![CDATA[All Year]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057271" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.53507232</longitude>
+      <latitude>40.05232201</latitude>
+    </geo-position>
+    <name><![CDATA[Beijing United Family Hospital and Clinics]]></name>
+    <category><![CDATA[religious-place]]></category>
+    <address>
+      <street><![CDATA[Pinnacle Plaza]]></street>
+      <houseno><![CDATA[818]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Shunyi district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.unitedfamilyhospitals.com/</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Beijing United Family Hospital and Clinics]]></name>
+      <address>
+        <street><![CDATA[Pinnacle Plaza]]></street>
+        <houseno><![CDATA[818]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Shunyi district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Sightseeing | Temples & Religious Buildings]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services]]></vendor-category>
+        <description><![CDATA[<p>Provides internationally accredited comprehensive medical service with three satellite clinics.  Staffed by over 60 multilingual internationally trained medical professionals.  Telephone translation service available in over 40 languages.  24-hour emergency room and blood bank.</p>]]></description>
+        <openingtimes><![CDATA[Clinic hours 7:30am-7:30pm Mon-Thu, 9:30am-4:30pm Frit, 9am-4pm Sat]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057274" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.40264999</longitude>
+      <latitude>39.94817808</latitude>
+    </geo-position>
+    <name><![CDATA[Zuiyuefang]]></name>
+    <category><![CDATA[sights-museums]]></category>
+    <address>
+      <street><![CDATA[Andingmen Xi Dajie]]></street>
+      <houseno><![CDATA[18]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <phone>+86 106 405 4482</phone>
+      <url>http://www.zuiyuefang.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Zuiyuefang]]></name>
+      <address>
+        <street><![CDATA[Andingmen Xi Dajie]]></street>
+        <houseno><![CDATA[18]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Sightseeing | Museums]]></vendor-category>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <vendor-category><![CDATA[Bars & Clubs | Live Music Venues]]></vendor-category>
+        <description><![CDATA[<p>This tiny bar run by musicians regularly hosts folk gigs.</p>]]></description>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057327" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.47301673</longitude>
+      <latitude>39.94271261</latitude>
+    </geo-position>
+    <name><![CDATA[Butterfly Lounge]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[Bar Street, Solana]]></street>
+      <houseno><![CDATA[6-2]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Butterfly Lounge]]></name>
+      <address>
+        <street><![CDATA[Bar Street, Solana]]></street>
+        <houseno><![CDATA[6-2]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <openingtimes><![CDATA[till late]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/ae8c72ee1751f1f92132eddabf3bd593.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057328" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.44241809</longitude>
+      <latitude>39.90084767</latitude>
+    </geo-position>
+    <name><![CDATA[Mongolian Restaurant]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[Jianguomenwai Dajie]]></street>
+      <houseno><![CDATA[18]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Mongolian Restaurant]]></name>
+      <address>
+        <street><![CDATA[Jianguomenwai Dajie]]></street>
+        <houseno><![CDATA[18]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <description><![CDATA[<p>Mongolian fare that yoru mum or grandma would make if she were from Ulan Batur. Beef dishes are recommended.</p>]]></description>
+        <openingtimes><![CDATA[Open 2-11pm，5-8pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/f96e6f522292be61eea5c814cf2c65f8.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057404" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.44737012</longitude>
+      <latitude>39.92638787</latitude>
+    </geo-position>
+    <name><![CDATA[Lan Na Thai]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Dongcaoyaun, Gongti Nan Lu]]></street>
+      <houseno><![CDATA[26]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Choayang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Lan Na Thai]]></name>
+      <address>
+        <street><![CDATA[Dongcaoyaun, Gongti Nan Lu]]></street>
+        <houseno><![CDATA[26]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Choayang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Pubs]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Asian | Thai]]></vendor-category>
+        <description><![CDATA[<p>Traditional Thai in a beautiful setting. </p><p></p>]]></description>
+        <openingtimes><![CDATA[6pm-10pm]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/ad825603537665b4590e4541fcc3092d.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057407" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46427273</longitude>
+      <latitude>39.97621573</latitude>
+    </geo-position>
+    <name><![CDATA[IKEA]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Futong Dong Lu]]></street>
+      <houseno><![CDATA[59]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.ikea.cn</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[IKEA]]></name>
+      <address>
+        <street><![CDATA[Futong Dong Lu]]></street>
+        <houseno><![CDATA[59]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Yunnan & Southwest Minority]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Furniture & Interiors]]></vendor-category>
+        <description><![CDATA[<p>A lively place by all accounts, where all the familiar homogenised furniture and interior accessories you've either come to love or loathe can be found in abundance. It's flat-pack fun from Sweden, plus meatballs!</p>]]></description>
+        <openingtimes><![CDATA[9am-9pm]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/166c7e40d8fbd0f1697f34ef79806f05.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057438" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.41078948</longitude>
+      <latitude>39.92578006</latitude>
+    </geo-position>
+    <name><![CDATA[Liu Zhai Shifu]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Meishuguan Dongjie]]></street>
+      <houseno><![CDATA[8]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng District]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Liu Zhai Shifu]]></name>
+      <address>
+        <street><![CDATA[Meishuguan Dongjie]]></street>
+        <houseno><![CDATA[8]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng District]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <description><![CDATA[<p>This little corner of Lao Beijing is hidden 20 metres down a hutong, the only landmark being the two big red lanterns with the owner’s name in characters. In stark contrast to the quiet alleway outside, the place is packed to the rafters nightly – many diners are regulars – and unless you’ve booked one of the 20 tables, think about dining elsewhere. The Liu family have lived in this courtyard house for over 100 years, but decided to turn it into a restaurant nine years ago, serving classic Beijing cuisine at bargain prices. Don’t go if you’re on a diet – the trad repertoire includes madoufu (pan-fried mung bean pulp), zha guanchang (deep fried sausage accompanied by garlic dipping sauce) and zha gezi (deep fried fries).</p>]]></description>
+        <openingtimes><![CDATA[11am-10.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057495" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.33433580</longitude>
+      <latitude>39.94272906</latitude>
+    </geo-position>
+    <name><![CDATA[Beijing Aquarium]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Gaoliang Qiao Xiejie]]></street>
+      <houseno><![CDATA[18B]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Haidian district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Beijing Aquarium]]></name>
+      <address>
+        <street><![CDATA[Gaoliang Qiao Xiejie]]></street>
+        <houseno><![CDATA[18B]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Haidian district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Western | American]]></vendor-category>
+        <vendor-category><![CDATA[Sightseeing | Museums]]></vendor-category>
+        <description><![CDATA[<p>Watch dolphins dance</p><p>
+</p><p>Despite being located within the grounds of the Beijing Zoo, the Beijing Aquarium couldn’t be more different. No expense was spared during the Aquarium’s 1999 overhaul, and the conch shell-shaped building has several impressive themed areas, quality souvenirs and an enormous marine theatre that seats 3,000 people. Professional dolphin and sea lion shows take place daily at 11am and 3pm and visitors get a chance to take photos of the animals up close afterwards.
+Packing in 18,000 tons of artificial saltwater, the rest of the centre features hundreds of different marine wildlife, from rare Chinese sturgeon to sharks, plus a few you’ll be amazed by – 
+look out for the incredible dolphin-sized Amazonian Arapaima fish.</p><p></p>]]></description>
+        <openingtimes><![CDATA[9am-5pm daily.]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/5bcd92e6e6c4986550f6512d560b779c.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057498" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>121.48570328</longitude>
+      <latitude>31.24440229</latitude>
+    </geo-position>
+    <name><![CDATA[Former residence of Lu Xun]]></name>
+    <category><![CDATA[eat-drink]]></category>
+    <address>
+      <street><![CDATA[Gongmenkou Santiao]]></street>
+      <houseno><![CDATA[19]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Xicheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Former residence of Lu Xun]]></name>
+      <address>
+        <street><![CDATA[Gongmenkou Santiao]]></street>
+        <houseno><![CDATA[19]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Xicheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Shops & Services | Food & Drink]]></vendor-category>
+        <vendor-category><![CDATA[Sightseeing | Historical Buildings]]></vendor-category>
+        <description><![CDATA[<p>Visit the house where modern Chinese literature was born</p><p>
+</p><p>Regarded as the founder of modern Chinese literature for writing in the way that people spoke rather than in the classic literary style, left-wing author Lu Xun can safely be called one of the country’s leading cultural icons. A key member of the May Fourth Movement, his writings included wry commentaries on the country’s social problems at the beginning of the 20th century. This museum, buried in the hutongs near Baitaisi, pays homage to Lu Xun’s life as a writer, ideologue and revolutionary, and includes some 21,842 items of interest as well as the famed scroll known as the Self-Mockery Poem. </p><p></p>]]></description>
+        <openingtimes><![CDATA[9am-3.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057501" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.40845100</longitude>
+      <latitude>39.91860000</latitude>
+    </geo-position>
+    <name><![CDATA[Lao She Museum]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Fengfu Hutong]]></street>
+      <houseno><![CDATA[19]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Lao She Museum]]></name>
+      <address>
+        <street><![CDATA[Fengfu Hutong]]></street>
+        <houseno><![CDATA[19]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Sightseeing | Museums]]></vendor-category>
+        <description><![CDATA[<p> The museum is located in a well preserved hutong where the author penned several of his last works. This small museum contains the author’s library and living quarters including a writing desk with his daily calendar still open on the date of his disappearance in October 1966. After a tour of the museum, stand in the courtyard under the red persimmon trees and try to imagine what he may have been pondering just before his suspected suicide. </p>
+<p> </p>]]></description>
+        <openingtimes><![CDATA[8.30am-6pm daily.]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/ee16f62993746494d98aad94ae669bf0.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057502" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.41784604</longitude>
+      <latitude>39.94535711</latitude>
+    </geo-position>
+    <name><![CDATA[No. 28 Courtyard]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Xilou Hutong]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[No. 28 Courtyard]]></name>
+      <address>
+        <street><![CDATA[Xilou Hutong]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Guangxi]]></vendor-category>
+        <description><![CDATA[<p>Atmospheric courtyard serving specialities from Guangxi’s Zhuang Autonomous Region. </p><p></p>]]></description>
+        <openingtimes><![CDATA[11am-11pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057504" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.51824951</longitude>
+      <latitude>39.97646237</latitude>
+    </geo-position>
+    <name><![CDATA[Nyonya Kitchen]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Gaojiayuan Middle School]]></street>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Nyonya Kitchen]]></name>
+      <address>
+        <street><![CDATA[Gaojiayuan Middle School]]></street>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Asian | Thai]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Asian | Malaysian]]></vendor-category>
+        <description><![CDATA[<p>Consistently good and authentic Malaysian.  Best curry puffs in town. </p><p></p>]]></description>
+        <openingtimes><![CDATA[11am-9pm.]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/1f2f4218462bf1c9b4b9046d6c8e0b7d.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057505" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.43529884</longitude>
+      <latitude>39.95899387</latitude>
+    </geo-position>
+    <name><![CDATA[Onitsuka Tiger]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Wanfujing Dajie]]></street>
+      <houseno><![CDATA[B1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Onitsuka Tiger]]></name>
+      <address>
+        <street><![CDATA[Wanfujing Dajie]]></street>
+        <houseno><![CDATA[B1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <description><![CDATA[<p>A retro running shoe brand that thankfully doesn’t cost the earth, Onitsuka Tiger is the second cool import from Japan to hit Beijing stores in a month. 
+Founded in 1949, Onitsuka’s post-war aim was to raise capable children through the promotion of sport. When the country’s first basketball shoes appeared, they had a tiger emblazoned on the arch, and Onitsuka adopted the animal as its logo. Though back in the day Onitsuka’s designs were adopted by world-class athletes, it’s now become more of a fashion brand with a prestigious heritage. Nevertheless, comfy, colourful and on average costing around 600RMB, the footwear in this shop is well worth a trip to Xidan. Sizes go up to size 42 for women and 46 for men, and it’s worth looking out for zip-up track tops (788RMB) and neat men’s and women’s bags (from 198RMB) too. 
+Onitsuka Tiger 4 Floor, 56, Joy City Mall (Dayuecheng), 131 Xidan Bei Dajie, Xicheng district (tel XXXX XXXX). Open 10am-10pm daily.
+Walking around this tiny, just opened store inside the Oriental Plaza is, frankly, a major disappointment. Considering Costume National is one of the world’s better known designer brands, one would expect a polished interior, experienced staff and a great selection of Italian designer Ennio Capasa’s casual tailoring and brightly coloured spring-summer pieces. Instead there’s but a handful of the clothes from the runway shows and the layout and sales women (of which there are far too many) do nothing to inspire you to buy the gear. Best to go to Lane Crawford for their selection – when presented well, this is an exciting label. Look out for off-the-shoulder dresses and tops for women, clothes in bold red and fuschia pink and skinny, blunt ties and laid-back suits for the men. Prices range from around 1,700RMB for a men’s t-shirt to 7,700RMB for a dress.
+</p>]]></description>
+        <openingtimes><![CDATA[9.30am-9.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057510" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.44655130</longitude>
+      <latitude>39.91524369</latitude>
+    </geo-position>
+    <name><![CDATA[You know you want it]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Guanghua Lu]]></street>
+      <houseno><![CDATA[9]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[You know you want it]]></name>
+      <address>
+        <street><![CDATA[Guanghua Lu]]></street>
+        <houseno><![CDATA[9]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Cosmetics]]></vendor-category>
+        <description><![CDATA[<p>The latest range from cult make-up brand M.AC features kitsch packaging designed by French graphic artist Fafi. And with names like Flash ’n’ Dash, Utterly Frivolous, Sugar Trance and Boom!, there’s more than a touch of rebellious ’80s chic about these products. The M.A.C store at the place has gone all out too – with four life-sized ‘Fafinettes’ scrawled on their windows. </p>]]></description>
+        <openingtimes><![CDATA[10am-9,30pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/d171b6225595f3886fef1efcbd658b7c.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057512" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.44533634</longitude>
+      <latitude>39.92912247</latitude>
+    </geo-position>
+    <name><![CDATA[66° North]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Gongti Dong Lu]]></street>
+      <houseno><![CDATA[2]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[66° North]]></name>
+      <address>
+        <street><![CDATA[Gongti Dong Lu]]></street>
+        <houseno><![CDATA[2]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Beijing]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Cafés & Snacks]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Cafés & Teahouses]]></vendor-category>
+        <description><![CDATA[<p>
+Established in conjunction with the Norwegian Embassy, 66° North has been created to promote quality Norwegian produce – notably salmon and reindeer – in China. Reminiscent of a log hut perched beside an icy fjord, the cosy atmosphere offers diners a retreat in which to sip black beer under the light cast from antler-adorned lamps whilst admiring digital images of Santa.
+With a menu clearly emphasising Norway’s most famed exports, the chef, disappointingly, seems intent on disguising the truly excellent quality of the ingredients with over-ambitious yet poorly executed ‘innovative’ dishes. The delicate flavour of the fillet of Norwegian salmon is sadly lost balanced atop its tower of anise cream sauce and carrot puree, sautéed red cabbage, onion and spinach and quenelles of mash (118RMB), while the succulence of the perfectly pink and tender slices of broiled deer on islands of mashed potato is overwhelmed by sweet and sour carrots and a red wine sauce (128RMB). Diners organised enough to order a day in advance can enjoy a taste of Rudolf, but weighing in at 466RMB a dish, one can only hope the Norwegian arctic reindeer is complemented by its ragu of brussels sprouts, mushrooms and bacon with lingonberry, glazed pears and mash. 
+The quality of the produce available at 66° North is superb. If only the chef would allow that quality to speak for itself. 
+</p>]]></description>
+        <openingtimes><![CDATA[10am-1pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/4c98e5793fbfac3507e506557219ce98.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057515" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.43001556</longitude>
+      <latitude>39.91329134</latitude>
+    </geo-position>
+    <name><![CDATA[Miao Xiang Lou]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Wangfujing Dajie]]></street>
+      <houseno><![CDATA[138]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <phone>+86 238 018 8028</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Miao Xiang Lou]]></name>
+      <address>
+        <street><![CDATA[Wangfujing Dajie]]></street>
+        <houseno><![CDATA[138]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | European | French]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Yunnan & Southwest Minority]]></vendor-category>
+        <description><![CDATA[<p>Ethical eating in a shopping mall? Not quite. A misspelling in Miao Xiang Lou’s menu that transforms ‘ethnic’ into ‘ethic’ might make a diner snicker but the food certainly won’t. Located on the fourth floor of the newly revamped Sun Dong An Plaza, Miao Xiang Lou brings Southern Chinese specialities to the heart of Wangfujing’s shopping street. 
+	In sharp contrast to the glitzy shopping venue, a group of damsels decked out in traditional Miao finery stand poised for action outside the restaurant’s two entrances, breaking into a short musical number each time a guest arrives or leaves. The long menu specialises in Miao dishes and runs the gamut from sour soup fish hot pot to fried locusts with a few Cantonese dishes thrown in for good measure. The special buckwheat noodles (22RMB) are a must order. There’s enough minced garlic folded into the noodles to ward off vampires yet its strength disappears into the vinegar, thin layer of chilli oil, coriander and spring onion layered on top. The fried hot chicken (48RMB) is a huge portion of big, juicy pieces of meat along with whole cloves of al dente garlic drenched in chillies that, while spicy, do not overwhelm. A satisfying meal could be made solely from the xiao chi, or little-eats, section alone. Homemade corn cakes (6RMB) are small parcels of cornmeal steamed in a cornhusk. Steamed glutinous rice in a leaf (6RMB) is an olive green bun of soft glutinous rice encasing a minced pork filling. Since neither of these contains any hint of chilli, they balance the spicier dishes well. The only mishap is the braised tofu with peppers (22RMB), a dish that tastes too similar to jia chang doufu. 
+	Except for a few sepia coloured photos of Miao men performing music, the interior doesn’t reflect the origins of the cuisine but is still, along with the friendly and attentive service, a welcome relief from the brash white mall. Miao Xiang Lou is worth remembering for a break and a bite while shopping on Wanfujing. </p>]]></description>
+        <openingtimes><![CDATA[9am-9pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057516" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.40318207</longitude>
+      <latitude>39.93471192</latitude>
+    </geo-position>
+    <name><![CDATA[Woo]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Nanluoguxiang Hutong]]></street>
+      <houseno><![CDATA[110-1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.wooscarf.cn</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Woo]]></name>
+      <address>
+        <street><![CDATA[Nanluoguxiang Hutong]]></street>
+        <houseno><![CDATA[110-1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p>A firm Shanghai favourite, one
+caress of Woo's gorgeous, luxe fabrics and you'll be sworn off Yashow pashminas
+forever. Cashmere cushions and super soft
+wraps, silk scarves and fox fur-lined coats will - er... woo you on the spot.
+‘Feel this, it's very soft,' insists the sales girl, flinging one of Woo's
+multipurpose pashminas (1,380RMB) around her body in multipurpose ways, before
+hauling up a ginormous cream cashmere blanket (2,380RMB), ‘perfect for
+snuggling up with a DVD' she points out. Ruched scarves in rich colours
+(398RMB), black pashminas embroidered with exotic silk flowers (980RMB;
+1,880RMB) and even a 50RMB bargain shelf with all manner of strokable
+accessories, makes this a one-stop shop of exceptional quality at reasonable
+prices. 
+</p>
+<p> </p>
+<p> </p>]]></description>
+        <openingtimes><![CDATA[9.30am-11pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057520" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.40529632</longitude>
+      <latitude>39.92829974</latitude>
+    </geo-position>
+    <name><![CDATA[Rainbow Restaurant]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Qisheng Zhong Lu, Beisanhuan Dong Lu]]></street>
+      <houseno><![CDATA[12]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Rainbow Restaurant]]></name>
+      <address>
+        <street><![CDATA[Qisheng Zhong Lu, Beisanhuan Dong Lu]]></street>
+        <houseno><![CDATA[12]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Yunnan & Southwest Minority]]></vendor-category>
+        <description><![CDATA[<p>Fresh, flavourful and varied Yunnan dining in the hotel that will soon house that province’s capital office. Worth the trek.</p>]]></description>
+        <openingtimes><![CDATA[11.30am-2pm, 5.30-10pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057523" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.39593000</longitude>
+      <latitude>39.90574500</latitude>
+    </geo-position>
+    <name><![CDATA[Still Thoughts]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Dafosi Dongjie]]></street>
+      <houseno><![CDATA[18A]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Still Thoughts]]></name>
+      <address>
+        <street><![CDATA[Dafosi Dongjie]]></street>
+        <houseno><![CDATA[18A]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Beijing]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Vegetarian]]></vendor-category>
+        <description><![CDATA[<p>Small and sunny, Still Thoughts is located near the former site of the Dafo 
+Temple. </p>
+<p>While it serves up its share of mock meat cuisine, it excels at simple 
+tofu dishes such as stir-fried minced tofu with preserved soybeans (23RMB). 
+Beancurd sheets around a filling of mushrooms and bamboo shoots (23RMB) will 
+satisfy as long as you disregard its gloupy brown sauce. </p>
+<p>Directions are 
+essential: Head north on the east side of the National Art Museum of China. When 
+the street turns west, continue heading north into Dongfosi Dongjie. Continue to 
+Yuqun Hutong and turn east. Su Shi Fang is on the left. Although its English 
+name is Still Thoughts Vegetarian Restaurant, the large sign above the 
+restaurant says only Su Shi Fang.</p>]]></description>
+        <openingtimes><![CDATA[11am-10.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057524" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.51344290</longitude>
+      <latitude>40.10315461</latitude>
+    </geo-position>
+    <name><![CDATA[Elaine's Vegetarian Restaurant and Bar]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Houshayu]]></street>
+      <houseno><![CDATA[8]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Shunyi district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Elaine's Vegetarian Restaurant and Bar]]></name>
+      <address>
+        <street><![CDATA[Houshayu]]></street>
+        <houseno><![CDATA[8]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Shunyi district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Yunnan & Southwest Minority]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <description><![CDATA[<p>This beautiful little restaurant sits beside Luoma Lake in Shunyi, hidden 
+from the hustle and bustle of city life. Diners can choose to eat out in the 
+garden during the summer months or inside the half-courtyard, where rural 
+homeliness meets modern chic, and the wooden menus roll out to reveal countless 
+options. Elaine's boasts over 100 dishes such as crispy duck (48RMB) and 
+sizzling beef (42RMB) all made from non-meat products. The vegetable curry is 
+among the best in Beijing, as are the crispy vegetable wraps, meaning Elaine's 
+is a must for both vegetarians and anyone who loves good food.</p>]]></description>
+        <openingtimes><![CDATA[9.30am-10pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057527" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.47396087</longitude>
+      <latitude>39.83859542</latitude>
+    </geo-position>
+    <name><![CDATA[Longtanhu Park]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Longtanhu Lu]]></street>
+      <houseno><![CDATA[8]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chongwen district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Longtanhu Park]]></name>
+      <address>
+        <street><![CDATA[Longtanhu Lu]]></street>
+        <houseno><![CDATA[8]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chongwen district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Sightseeing | Parks & Gardens]]></vendor-category>
+        <description><![CDATA[<p>This picturesque park boasts elegantly arched bridges and towering rock 
+formations. Take a duck-shaped boat (30-60RMB) to the island, where kids can zip 
+around on their rollerblades or ride in the Challenger, a virtual spaceship not 
+designed for the claustrophobic (15RMB). The play area has an indoor playground 
+(20RMB), an outdoor play area and the requisite rides - trampolines, mini ferris 
+wheel and helicopter rides (all 8RMB). Bigger kids can enjoy the plethora of 
+Chinese gym equipment, badminton courts, sporting and games quarters. A climbing 
+wall and an old MiG fighter jet complete the picture of unabashed fun. </p>]]></description>
+        <openingtimes><![CDATA[daily 6am-9.30pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057539" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45535707</longitude>
+      <latitude>39.91233674</latitude>
+    </geo-position>
+    <name><![CDATA[Jimmy Choo]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Jianguomenwai Dajie]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Jimmy Choo]]></name>
+      <address>
+        <street><![CDATA[Jianguomenwai Dajie]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p> </p>
+<p>Hale Berry and Hilary Swank
+accepted Oscars in them, and Sarah Jessica Parker wore a strappy lilac pair in <i>Sex and the City</i>. The luxury favourite of
+the rich and famous, Jimmy Choo shoes have gained cult status in the last ten
+years and have also come to reflect the personality of their founder, Tamara
+Mellon - glamorous, high maintenance, and strictly no nonsense. </p>
+<p>The daughter of a
+Chanel model and a successful British entrepreneur, Mellon was Vogue's
+accessories editor before approaching couture shoe-maker Jimmy Choo and
+developing a collection of high quality, ready-to-wear shoes. Choo himself is
+now long gone, having left the company in 2001, but the quality products (now
+including handbags) live on under Mellon, who put in an appearance in Beijing
+to launch the brand. Characterised by clean lines, simple palettes and high
+maintenance stiletto heels, these are shoes for women who have a driver. Prices
+range from around 6,300RMB for a pair of pink suede kitten heels to a whopping
+17,950RMB for a glamorous holdall. </p>]]></description>
+        <openingtimes><![CDATA[10am-9.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057541" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.48186802</longitude>
+      <latitude>39.90857585</latitude>
+    </geo-position>
+    <name><![CDATA[Evisu]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Jianguo Lu]]></street>
+      <houseno><![CDATA[89]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Evisu]]></name>
+      <address>
+        <street><![CDATA[Jianguo Lu]]></street>
+        <houseno><![CDATA[89]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p> </p>
+<p>Championed by jet-setting
+hipsters and DJs the world over and instantly recognisable by the ‘seagull'
+scrawled on the rear pockets of each pair, Evisu jeans have been a cult brand
+for several years now. Made from heavy, premium-quality selvedge denim (the sort of denim that looks ‘raw'
+and doesn't unravel) and produced on 29-inch wide vintage looms, the Japanese
+brand has never scrimped on quality. Perhaps that's why a pair will you back
+3,500RMB if you're a guy and 2,799RMB if you're of the fairer sex. However, if
+you do decide to invest in a pair, expect them to last a long, long time. The vintage
+style store (littered with superhero action figures and leather sofas more
+befitting of a bespoke tailor's shop) also sells a range of too-cool-for-school
+t-shirts (759RMB), sunglasses (1,950RMB) and men's sneakers (1,090RMB). </p>
+<p><i>SK</i></p>]]></description>
+        <openingtimes><![CDATA[10am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/6c78e519a5c28ba45f200ed715c7e498.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057547" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45547509</longitude>
+      <latitude>39.93599192</latitude>
+    </geo-position>
+    <name><![CDATA[Nonseason]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Sanlitun Lu]]></street>
+      <houseno><![CDATA[10]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Nonseason]]></name>
+      <address>
+        <street><![CDATA[Sanlitun Lu]]></street>
+        <houseno><![CDATA[10]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p>Here at Time Out we’re in love with Nalio Patio’s newest edition. Owner and designer Ellde Zhang’s forte is timeless yet funky cashmere pieces, and the store’s name reflects her belief that the luxe fabric can be worn at any time of the year. </p>
+<p>Zhang studied fashion in America, the United Kingdom and France, graduating from the Fashion Institute of Design and Merchandising as a specialist in knitware and denim. You have to try on her pieces to fully appreciate them – sweaters that look über plain on the hanger transform into sultry pieces that hug the body and flatter bulky upper arms. </p>
+<p>We’re particularly fond of her bestseller – a 2-in-1 cashmere vest/cape (1,189RMB). Worn one way, it’s a knee-length vest with low-slung pockets and a spine seam that flatters the backside; flip it over and it’s an A-line cape that is so Parisian you might as well throw on over-sized shades and sling a baguette into your handbag. </p>
+<p>Try to visit when Ellde’s around, she’ll show you the secret to wearing the multifunctional pieces. The store also carries winter staples like finely knit 100 per cent elbow-length cashmere gloves (490RMB) and delicate scarves made of a cashmere-bamboo blend that would be perfect for spring (280RMB). </p>
+<p>Shop 517, Nali Patio, 81 Sanlitun Lu, Chaoyang district (8668 9255). Open 11am-8.30pm daily.</p>]]></description>
+        <openingtimes><![CDATA[11am-8.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057548" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.42057418</longitude>
+      <latitude>39.95949089</latitude>
+    </geo-position>
+    <name><![CDATA[China National Puppet Theatre]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Anzhen Xili]]></street>
+      <houseno><![CDATA[1A]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[China National Puppet Theatre]]></name>
+      <address>
+        <street><![CDATA[Anzhen Xili]]></street>
+        <houseno><![CDATA[1A]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <openingtimes><![CDATA[Subject to concert times]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057550" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.40675544</longitude>
+      <latitude>39.92783900</latitude>
+    </geo-position>
+    <name><![CDATA[Fang Si]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Gulou Dong Dajie]]></street>
+      <houseno><![CDATA[96-1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Fang Si]]></name>
+      <address>
+        <street><![CDATA[Gulou Dong Dajie]]></street>
+        <houseno><![CDATA[96-1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Beijing]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p>The newest recruit on Gulou Dong
+Dajie, Fang Si is the latest project from
+Xiao Si, former marketing manager of
+Sanlitun’s Original Design Circle. With
+a similar premise in mind, she has
+created a space for Chinese designers
+from Beijing, Shanghai, Guangzhou,
+Taiwan and Hong Kong.</p>
+<p>Xiao Si’s
+own creations include jewellery
+made of dominoes in the colours of
+various flags at a very reasonable
+25RMB. Other notable pieces include
+designs from Shanghai label SQY-T,
+including <i>woshi jiulinghou</i> (born in
+the ’90s) T-shirts (95RMB), a shirt with
+Beijing’s Second Ring Road traffic emblazoned across it (280RMB),
+and, for the Jackson Pollocks among
+you, a paint-splattered T-shirt dress
+(380RMB).</p>
+<p>Gift ideas are in abundance,
+ranging from felt clutches and wallets
+(75RMB) from Shanghai’s Mrkt to
+sudoku toilet paper (25RMB) and
+plastic vases from Hong Kong’s
+Creative Art Life (35RMB). And, if
+you’re feeling parched, a wide array of
+alcoholic beverages are on hand from
+Xiao Si’s personal collection.<i> Alice McInerney</i></p>]]></description>
+        <openingtimes><![CDATA[1pm-11pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057551" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.33633136</longitude>
+      <latitude>39.99293647</latitude>
+    </geo-position>
+    <name><![CDATA[Jessica's Cafe]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Huaqing Jiayuan, Wudaokou]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Haidian district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Jessica's Cafe]]></name>
+      <address>
+        <street><![CDATA[Huaqing Jiayuan, Wudaokou]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Haidian district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Cantonese]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Cafés & Snacks]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Cafés & Teahouses]]></vendor-category>
+        <description><![CDATA[<p>Wudaokou’s student population and younger crowd always seem to clamour for more table space, particularly the kind that can hold laptops and ashtrays as well as the occasional bite to eat. Just across the tracks from the Wudaokou station is the good old Huaqing Jiayuan apartment complex that every once-upon-a-time language student in Beijing knows a little too well. Scattered amongst a cluster of cafés, each vying for the presence of students, is a little place called Jessica’s Café.</p>
+<p>There’s a fine line between walking by an establishment and walking in. And for the moment, Jessica’s seems to be attracting passers-by. When you finally do make that giant leap in, there’s a decidedly welcome comfort in the air. Fried chicken bones (15RMB) are too curious to ignore.</p>
+<p>They’re actual crunchy chicken knees. You heard that right. And if cartilage is your thing, and you’re the type of person who orders ‘soft knees’ at a <i>yakitori </i>joint, you’ll be happy. When Jessica’s burger (45RMB) arrives, it’s a catastrophe and insult.</p>
+<p>Pathetically stacked to a height of disfigurement, it’s a dry bun, mystery patty of disturbing texture, complete with three thick rings of coloured bell peppers. Just up on the street corner is Lush, the go-to-joint for a reliable burger that costs less.</p>
+<p>We almost want to get up and go. Fish and chips (45RMB) are just as scary. Sadder still is the chicken Caesar (22RMB), which can only be described as a cruel deception.</p>
+<p>It’s a really dry coleslaw with a few chewy bits of dry roasted dark meat and is entirely disappointing. The saving grace is that the desserts are purchased from outside. American cheesecake (22RMB) is hard to discern from the mascarpone version, but fair enough to make up for the earlier insults.</p>
+<p>Tiramisu (22RMB) by the slice is acceptable too. Instead of a full-on dinner, Jessica’s might just be the place to go for a quick sweet, drinks, and to study. And that’s a good thing when you need quiet and peaceful. <i>Lillian Chou</i></p>]]></description>
+        <openingtimes><![CDATA[10am-2am daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057577" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.58742904</longitude>
+      <latitude>40.46915143</latitude>
+    </geo-position>
+    <name><![CDATA[Xiaolumian]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Yingbei Village]]></street>
+      <houseno><![CDATA[4]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Huairou district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.xiaolumian.com/index.html</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Xiaolumian]]></name>
+      <address>
+        <street><![CDATA[Yingbei Village]]></street>
+        <houseno><![CDATA[4]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Huairou district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Cafés & Snacks]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <description><![CDATA[<p>Shaanxi noodles at a rustic farmhouse near the Great Wall.</p>]]></description>
+        <openingtimes><![CDATA[11am-5pm weekends / holidays or by private appointment]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057635" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.39816700</longitude>
+      <latitude>39.90792400</latitude>
+    </geo-position>
+    <name><![CDATA[Three Guizhou Men]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Gongti Xi Lu]]></street>
+      <houseno><![CDATA[8]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Three Guizhou Men]]></name>
+      <address>
+        <street><![CDATA[Gongti Xi Lu]]></street>
+        <houseno><![CDATA[8]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Sichuan]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Guizhou]]></vendor-category>
+        <description><![CDATA[<p>In the few short years since the first Three Guizhou Men opened in a hole-in-the-wall place in an alley behind the Jianguo Hotel, other branches have found niches for themselves. </p>
+<p>The Workers’ Stadium branch is set in a modern environment, and diners are greeted by waitresses decked in jangling Miao silver ornaments. </p>
+<p>Food is a fusion of dishes from different regions of Guizhou, cooked, according to the chain’s owner, with less oil and one notch less spicy than what is typically offered in his home province. </p>
+<p>Beef on Fire – a favourite with European diners – features pieces of cooked beef placed over chives on a wire grid that sits on a burning bed of coals. Chinese diners particularly like the sour fish soup.</p>]]></description>
+        <openingtimes><![CDATA[Open 24 hours daily; 11.30am-10pm daily; 9:30-11pm daily; 11:30am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/2985531b4a6f06ff50407f2db6084e9a.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057686" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.37645721</longitude>
+      <latitude>39.94712142</latitude>
+    </geo-position>
+    <name><![CDATA[Parfum]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Jianguo Lu]]></street>
+      <houseno><![CDATA[89]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Parfum]]></name>
+      <address>
+        <street><![CDATA[Jianguo Lu]]></street>
+        <houseno><![CDATA[89]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | European | French]]></vendor-category>
+        <description><![CDATA[<p>Classic fare in plush, romantic candle-lit décor.</p><p></p>]]></description>
+        <openingtimes><![CDATA[11am-12pm daily.]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/6a974e237e5edde0668ba25b8674c6d2.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057692" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.44413471</longitude>
+      <latitude>39.90901202</latitude>
+    </geo-position>
+    <name><![CDATA[Dini's Kosher Restaurant]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Jianguomen Diplomatic Building]]></street>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <phone>+86 139 107 4010 9</phone>
+      <url>http://www.kosherbeijing.com/</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Dini's Kosher Restaurant]]></name>
+      <address>
+        <street><![CDATA[Jianguomen Diplomatic Building]]></street>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Dive Bars]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Middle Eastern | Israeli]]></vendor-category>
+        <description><![CDATA[<p>Beijing’s first kosher restaurant, with everything prepared according to <i>kashrut </i>and certified under Rabbi Shimon Freundlich of Chabad. </p>
+<p>Currently, they're operating out of the Central Chabad House while looking for a new space. Check their website for updates.</p>
+<p>A selection of Western, Chinese, and Israeli food is available.</p>
+<p> </p>]]></description>
+        <openingtimes><![CDATA[call for details]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/8076a110dbb4fd6eefaa2ecdf022069c.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057694" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46357536</longitude>
+      <latitude>39.87655461</latitude>
+    </geo-position>
+    <name><![CDATA[Love Vegetarian]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Songyu Bei Lu]]></street>
+      <houseno><![CDATA[5]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Love Vegetarian]]></name>
+      <address>
+        <street><![CDATA[Songyu Bei Lu]]></street>
+        <houseno><![CDATA[5]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Gay Bars]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Vegetarian]]></vendor-category>
+        <description><![CDATA[<p>As if the name isn’t enough, on the wall hangs a sign with a ‘Loving Reminder’ that one should ‘Live the easy and decent life’. A meal here will put one in the mood to do exactly that. </p>
+<p>The food, rather than suffering from the blandness that characterises so many vegetarian institutions in Beijing, tastes like proper Chinese food should: full of flavour, colour and texture. Spicy fried black poplar mushrooms (36RMB) exudes a meatiness that should satisfy carnivores, and bamboo shoots with needle mushrooms (26RMB) is equally worth ordering. </p>
+<p>Avoid the smoked fish. A small shop at the entrance sells mock meats and other vegetarian foods. Great location for a break from Panjiayuan shopping. </p>
+<p> </p>]]></description>
+        <openingtimes><![CDATA[9.30am-9.30pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/d1ba8d41228921bcfdc6a2914c96930d.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057696" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46052837</longitude>
+      <latitude>39.91036168</latitude>
+    </geo-position>
+    <name><![CDATA[The Chieff Store]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Jianguomenwai Dajie]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[The Chieff Store]]></name>
+      <address>
+        <street><![CDATA[Jianguomenwai Dajie]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Arts & Handicrafts]]></vendor-category>
+        <description><![CDATA[<p>Ever wanted to own a replica bird's nest stadium with eggs nesting inside 
+that are actually night lights? Well now you can, for the rather apt price of 2, 
+008RMB. </p>
+<p>The Chieff Store is a not unfamiliar collection of weird and wonderful 
+modern lifestyle and home products thunk up by European designers with funny 
+names. </p>
+<p>However one can't help thinking it all looks a little too much like a 
+collection of Philippe Starck or Alessi rip offs. </p>
+<p>Then again if you're looking 
+for high design at reasonable prices, The Chieff Store delivers. Huge, crater 
+like fruit bowls cost 315RMB; that Starck-esque lamp 1,666RMB and a chrome 
+cocktail shaker just 188RMB. </p>]]></description>
+        <openingtimes><![CDATA[10am-9.30pm  daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/13c6b71a82f6b3dffe3ac4289209860a.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057697" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.44937038</longitude>
+      <latitude>39.91181007</latitude>
+    </geo-position>
+    <name><![CDATA[Garden Books]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Guanghua Lu]]></street>
+      <houseno><![CDATA[44]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.gardenbooks.cn/</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Garden Books]]></name>
+      <address>
+        <street><![CDATA[Guanghua Lu]]></street>
+        <houseno><![CDATA[44]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Dive Bars]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Books, Movies & Music]]></vendor-category>
+        <description><![CDATA[<p>Garden books aims to be your friendly local bookshop. Located above the ever popular Sequoia café, it has a sizeable collection of books on its dark wood shelves and even a well-lit kids area complete with giant ladybird cushions. <br />Tomes on offer range from Chinese language learning books to coffee table volumes and life changing novels. There’s also a decent selection of China books, both business and fiction, and a huge blue wedge of Lonely Planet guidebooks (as well as a handful of Time Out city guides to Shanghai and Hong Kong). <br />Foreign language magazines are currently limited to business titles (The Economist, Time, etc), but Paris Match, Vogue and National Geographic are also sporadically available. Prices are reasonable, but still more expensive than amazon. <br />A book that costs 14USD is sold for 140RMB for example, but it’s a pleasant place to pick up some weekend reading on a Friday lunchtime.</p>]]></description>
+        <openingtimes><![CDATA[8am-8pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/9b8e36c36f8a13b9b5f75ea004ffb280.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057698" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45184304</longitude>
+      <latitude>39.90793392</latitude>
+    </geo-position>
+    <name><![CDATA[Meli Melo]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Yonganli]]></street>
+      <houseno><![CDATA[16]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Meli Melo]]></name>
+      <address>
+        <street><![CDATA[Yonganli]]></street>
+        <houseno><![CDATA[16]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | DJ Bars]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | European | French]]></vendor-category>
+        <description><![CDATA[<p>This French fusion restaurant tends towards the whimsical in its eclectic décor of peach-coloured sofas, gilded screens and red chandelier covers made of an Issey Miyake inspired fabric. Yet when it comes to food, Meli Melo gets serious. 
+Meli Melo belongs to the three-storey Les Millésimes development, which includes a wine bar, cigar bar, private club and the French seafood restaurant La Maree, located on the same floor as Meli Melo. The two restaurants share a kitchen and a wine list. That the wines are currently available only by the bottle is unfortunate since it is nearly impossible to match one wine with the many flavours that Meli Melo combines on one plate. Staff are polite and professional yet unlike many new restaurants around town, Meli Melo does not add an extra service charge.</p>]]></description>
+        <openingtimes><![CDATA[11am-2.30pm, 6-10.30pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/2335e6feaeee2898d2fa9d4c0bd8e2cd.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057699" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45245492</longitude>
+      <latitude>39.90429624</latitude>
+    </geo-position>
+    <name><![CDATA[La Maree]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Yonganli]]></street>
+      <houseno><![CDATA[16]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[La Maree]]></name>
+      <address>
+        <street><![CDATA[Yonganli]]></street>
+        <houseno><![CDATA[16]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | South American]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <description><![CDATA[<p>La Maree is true to its name (‘the tide’ in French) – its shades-of-blue décor evokes an upmarket seafood restaurant in Brittany and the menu, written in an aquatic blue font on white paper, is nearly all straight from the sea. 
+Pleasingly, the freshness of the seafood is apparent in every bite. </p>
+<p>The lobster bisque (58RMB) has such an intense flavour it tastes like concentrated lobster essence, but the rubbery abalone lurking below the surface only distracts from the soup. A salad of scallops (75RMB), so lightly seared they are still translucent and bursting with flavour, sits on a bed of grated celeriac mixed with a creamy dressing inside a bowl made of ice.
+</p>
+<p>As main dishes, tiger prawns (168RMB), perfectly sautéed so they crunch, are placed around a base of creamy mashed potatoes so that their tails rise up towards the diner like water spouting from a whale, while the lemony saffron sauce balances the richness of the prawns and mash. A slightly overcooked sea bass (128RMB) on a bed of vegetable risotto swimming in sea of saffron broth creates a light yet filling dish. </p>
+<p>A complimentary dessert of a slice of lemon ice cream with a raspberry puree and diced fruit demonstrates that La Maree is as talented at sweets as it is at seafood. 
+Les Millésimes, of which La Maree is a part, directly imports over 100 wines, so offers bottles impossible to find in other Beijing venues, including whites that match well with the seafood. </p>
+<p>Unfortunately wine by the glass is currently not an option. Staff are attentive and courteous. </p>]]></description>
+        <openingtimes><![CDATA[11am-2.30pm, 6-10.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057704" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.41222983</longitude>
+      <latitude>39.91305063</latitude>
+    </geo-position>
+    <name><![CDATA[C&A]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Wangfujing Dajie]]></street>
+      <houseno><![CDATA[208-210]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[C&A]]></name>
+      <address>
+        <street><![CDATA[Wangfujing Dajie]]></street>
+        <houseno><![CDATA[208-210]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | DJ Bars]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p>You may not know it, but C&amp;A is a company with a 170 year history, and may well have been the first to produce ‘ready to wear’ clothing in Europe. Founded in the Netherlands in 1841 by two Germans brothers, Clemens and August Brenninkmeyer, C&amp;A opened its first international stores in Germany, Britain and France 50 years later.</p>
+<p> These days, the global brand has become synonymous with cheap-looking, young person’s clothes (unsurprisingly, all UK branches have since closed down), but redeems itself by being the only store of its kind in Beijing, and by having a great selection of super-affordable underwear and accessories.
+</p>
+<p>Steer clear of the crap then, and instead scan the room for one off pieces worth having, such as the cardigans; cute denim skirts; and bras (sans padding). </p>
+<p>For men there are half decent summer shirts  and boxer shorts. 
+When Time Out visited, they even had on-trend raffia hairbands and Marni-style sunglasses.</p>
+<p> In the absence of an H&amp;M or Primark here, this is the closest Beijingers will get to cheap, trendy clothing.
+</p>]]></description>
+        <openingtimes><![CDATA[10am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/350f02a33e306e49835e80ab228ec564.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057706" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46322131</longitude>
+      <latitude>39.99085687</latitude>
+    </geo-position>
+    <name><![CDATA[Sephora]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Guangshun Bei Dajie]]></street>
+      <houseno><![CDATA[9]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.sephora.cn</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Sephora]]></name>
+      <address>
+        <street><![CDATA[Guangshun Bei Dajie]]></street>
+        <houseno><![CDATA[9]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | DJ Bars]]></vendor-category>
+        <description><![CDATA[<p>The French perfume and beauty emporium has gradually opened more and more stores in Beijing, each one bigger than the last.</p>]]></description>
+        <openingtimes><![CDATA[9am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/13ff6c9f8e0f7a041426e51222bb2a2a.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057716" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.39500200</longitude>
+      <latitude>39.94411096</latitude>
+    </geo-position>
+    <name><![CDATA[Baoyue Chupin]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Tang Gong Hutong, Jiu Gulou Dajie]]></street>
+      <houseno><![CDATA[19]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Dongcheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Baoyue Chupin]]></name>
+      <address>
+        <street><![CDATA[Tang Gong Hutong, Jiu Gulou Dajie]]></street>
+        <houseno><![CDATA[19]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Dongcheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | DJ Bars]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Beijing]]></vendor-category>
+        <description><![CDATA[<p>Hidden in a <i>hutong</i> north 
+of the Drum Tower, this small courtyard restaurant serves up generous portions 
+of simple, delicious and inexpensive fare.</p>
+<p> </p>]]></description>
+        <openingtimes><![CDATA[11am-2pm,4.30-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/deab37f55c89a9fc73866654bf422701.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057718" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45946621</longitude>
+      <latitude>39.93273416</latitude>
+    </geo-position>
+    <name><![CDATA[L'Isola]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Gongti Beilu]]></street>
+      <houseno><![CDATA[A2]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.lisolabeijing.com/</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[L'Isola]]></name>
+      <address>
+        <street><![CDATA[Gongti Beilu]]></street>
+        <houseno><![CDATA[A2]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Dive Bars]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | European | Italian]]></vendor-category>
+        <description><![CDATA[<p>An excellent all round Italian establishment patronised by Beijing-resident Italians with knowledgeable service set in a restaurant with large bay windows for people watching. Head Chef Roberto Masili brings contemporary and regional cuisine which is complimented by a sound selection of regional wines.</p>]]></description>
+        <openingtimes><![CDATA[11:30am-2:30pm, 6pm-11pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057727" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.48649215</longitude>
+      <latitude>39.89650173</latitude>
+    </geo-position>
+    <name><![CDATA[China World Trade Centre]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Jianguomenwai Dajie]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[China World Trade Centre]]></name>
+      <address>
+        <street><![CDATA[Jianguomenwai Dajie]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | DJ Bars]]></vendor-category>
+        <vendor-category><![CDATA[Sightseeing]]></vendor-category>
+        <openingtimes><![CDATA[10am-7pm Mon to Wed and 10am-5pm on Thur]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/f07de05b6cebcdfc58c1f4ec6d8db3b4.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057732" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45568162</longitude>
+      <latitude>39.94113943</latitude>
+    </geo-position>
+    <name><![CDATA[Sureno]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Sanlitun Bei Lu]]></street>
+      <houseno><![CDATA[11]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.surenorestaurant.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Sureno]]></name>
+      <address>
+        <street><![CDATA[Sanlitun Bei Lu]]></street>
+        <houseno><![CDATA[11]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | European | Spanish]]></vendor-category>
+        <description><![CDATA[<p>Simple, classic, and fun Mediterranean dishes that utilise the very best quality ingredients.  Winner of the Best New Restaurant and Best Service Awards in the 2009 Time Out Eating Out Awards. </p>]]></description>
+        <openingtimes><![CDATA[midday- 2pm, 6-10.30pm Mon-Fri; 6-10.30pm Sat; midday-10.30pm Sun]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/4568c01070156bed6390d5a9fc865f8d.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057740" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45533293</longitude>
+      <latitude>39.93615028</latitude>
+    </geo-position>
+    <name><![CDATA[Pantry Magic]]></name>
+    <category><![CDATA[sports-facility-venue]]></category>
+    <address>
+      <street><![CDATA[Sanlitun Bei Lu]]></street>
+      <houseno><![CDATA[81]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Pantry Magic]]></name>
+      <address>
+        <street><![CDATA[Sanlitun Bei Lu]]></street>
+        <houseno><![CDATA[81]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Olympics]]></vendor-category>
+        <vendor-category><![CDATA[Sightseeing]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p>Whether it's a
+copper saucepan for that perfect <i>hollandaise </i>or a blowtorch to finish
+off your <i>crème brûlee</i>, Pantry Magic will have cooking enthusiasts
+spellbound with its high quality cookware and other kitchen gadgets. </p>
+<p>Located in
+Nali Patio (the white building on the south side of Sanlitun's 3.3), the shop
+is light, bright and a place to browse for hours.</p>
+<p> Not only is the range of
+products better than what's on offer in Beijing's
+department stores but the prices are as well, as everything in the store comes
+direct from the factory. </p>
+<p>With over 2,000 items to choose from, including
+hard-to-find products such as electric pepper grinders (374RMB); pestle and
+mortars (235RMB), and even cheese flags.</p>
+<p>
+<i>Pam
+Shookman</i></p>]]></description>
+        <openingtimes><![CDATA[10am-9pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057742" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45903170</longitude>
+      <latitude>39.90993992</latitude>
+    </geo-position>
+    <name><![CDATA[Louis Vuitton]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Jianguomenwai Dajie]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.vuitton.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Louis Vuitton]]></name>
+      <address>
+        <street><![CDATA[Jianguomenwai Dajie]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Pubs]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <openingtimes><![CDATA[10am-9.30pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057744" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46241664</longitude>
+      <latitude>39.89205673</latitude>
+    </geo-position>
+    <name><![CDATA[Sichuan Ren Huoguo]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Bakeyang]]></street>
+      <houseno><![CDATA[1A]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Sichuan Ren Huoguo]]></name>
+      <address>
+        <street><![CDATA[Bakeyang]]></street>
+        <houseno><![CDATA[1A]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Dive Bars]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Sichuan]]></vendor-category>
+        <description><![CDATA[<p>Destination dining for hot pot addicts. Sleek décor and good service.</p>]]></description>
+        <openingtimes><![CDATA[11am-11pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057745" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45645141</longitude>
+      <latitude>39.95027979</latitude>
+    </geo-position>
+    <name><![CDATA[Chocolate]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[Ritan Bei Lu]]></street>
+      <houseno><![CDATA[84]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Chocolate]]></name>
+      <address>
+        <street><![CDATA[Ritan Bei Lu]]></street>
+        <houseno><![CDATA[84]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Shops & Services]]></vendor-category>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <description><![CDATA[<p>Chocolate is clearly
+a venue that’s aimed at the Russian
+community, it’s hard to see how
+anyone can fail to have fun in a club
+that looks like a cross between Roman
+Abramovich’s bedroom and the set of
+a Persian hip-hop video.</p>
+<p>Chocolate has live
+music performances every night
+and DJs spinning Russian hip-hop
+and dance tracks, thereby providing
+some much-needed variety. </p>
+<p>Billed
+as a nightclub first and a restaurant
+second, the dancefloor in front of the
+stage is nearly always full with both
+
+singles and couples alike; the venue
+also serves food until closing time
+and offers a fantastic stage show to
+accompany your meal: think fireeaters,
+male and female exotic dancers,
+unicycles, a cover band belting out
+Russian (and sometimes English) hits.</p>]]></description>
+        <openingtimes><![CDATA[10am-4am]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057746" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.51301383</longitude>
+      <latitude>40.08562362</latitude>
+    </geo-position>
+    <name><![CDATA[Za’atar]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[Huan Lu,Lakeview Place]]></street>
+      <houseno><![CDATA[30]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Shunyi district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Za’atar]]></name>
+      <address>
+        <street><![CDATA[Huan Lu,Lakeview Place]]></street>
+        <houseno><![CDATA[30]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Shunyi district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <description><![CDATA[<p> </p>
+<p>Named after a roughly ground mixture of
+thyme, sumac (an ancient spice with a touch of acidity) and sesame seeds,
+Za'atar brings modern Middle Eastern cuisine to the shores of Dragon Bay
+in Shunyi. Ghassan Barhoumeh, the restaurant's owner and chef, grew up eating <i>za'atar</i> and shares his enthusiasm for it
+with every diner who walks through the door. </p>
+<p>Za'atar's menu extends beyond the familiar
+territory of baba ghanoush and couscous to <i>fa-khad</i>,
+oven-roasted lamb knuckle, and <i>maklouba</i>,
+a layered dish of rice, chicken and vegetables. All are beautifully presented.
+Not only does the menu note vegetarian options but ‘kid approved' dishes as
+well. </p>
+<p>A complimentary plate of <i>za'atar</i>, pita bread, olives and olive
+oil surprises because the latter two are sourced from China. The
+olives, while not great, are better than what pass for olives in many Beijing
+restaurants, but the olive oil lacks fruitiness and tastes as bland as vegetable
+oil. Barhoumeh proudly explains that, except for baklava, which
+requires butter, he cooks solely with olive oil. However one can't
+help feeling that using such bland-tasting olive oil restrains the flavours in his
+otherwise well-prepared food.</p>
+<p><i>Mezza</i> (starters) such as <i>foul</i>
+(25RMB), broadbeans mixed with garlic and olive oil, and <i>tabouleh</i> (25RMB), a parsley and cracked wheat salad, are light and
+pleasing. <i>Shawerma</i>, a type of wrap
+with thinly sliced marinated chicken inside a freshly made flatbread similar to
+an Indian <i>roti,</i> is good but needs the
+accompanying <i>aioli</i> to perk it up. <i>Fakhad</i> (65RMB), the lamb knuckle, is
+hardier fare and served with mashed potatoes. A light and delicious way to
+finish a meal is with <i>basbousa</i>, a
+cross between a biscuit and a cake, usually made of semolina and ground almonds
+but here cornmeal stands in for semolina. </p>
+<p>
+Za'atar's peaceful lakeside terrace comes just in time
+for summer al fresco dining and the interior's simple wooden tables and muted
+colour scheme create a low-key, casual ambiance. Service is both helpful and
+friendly. 
+</p>]]></description>
+        <openingtimes><![CDATA[10am-10pm daily]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000057748" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.38666940</longitude>
+      <latitude>40.00303060</latitude>
+    </geo-position>
+    <name><![CDATA[National Aquatics Centre (Water Cube)]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Olympic Green]]></street>
+      <houseno><![CDATA[19]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[National Aquatics Centre (Water Cube)]]></name>
+      <address>
+        <street><![CDATA[Olympic Green]]></street>
+        <houseno><![CDATA[19]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Western | American]]></vendor-category>
+        <vendor-category><![CDATA[Olympics]]></vendor-category>
+        <description><![CDATA[<p>Dubbed the ‘Water Cube’, this purpose-built venue was where the Olympic swimming, diving, water polo and synchronised swimming events took place. </p>
+<p>Now, the space has been reborn as an indoor water park with 11 slides over 12,000sqm.</p>]]></description>
+        <public-transport><![CDATA[Metro Olympic Park]]></public-transport>
+        <openingtimes><![CDATA[varies with events]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058333" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.49056911</longitude>
+      <latitude>39.90951892</latitude>
+    </geo-position>
+    <name><![CDATA[Neverland Café]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Jianguo Lu]]></street>
+      <houseno><![CDATA[93]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Neverland Café]]></name>
+      <address>
+        <street><![CDATA[Jianguo Lu]]></street>
+        <houseno><![CDATA[93]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Modern]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Cafés & Snacks]]></vendor-category>
+        <description><![CDATA[<p>Snacking in the quiet haven of Neverland Café in Wanda Plaza comes at a price. 32RMB is steep for a single espresso yet the minimalist decor, softly played new age music and bamboo tree that reaches up into the second floor seating area compensate. Wine, by the bottle only, and beer are also available.</p>]]></description>
+        <openingtimes><![CDATA[10.30-midnight daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/be00007875a74a654f1b32fb976a51f1.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058392" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45439147</longitude>
+      <latitude>39.92764155</latitude>
+    </geo-position>
+    <name><![CDATA[Panino Teca]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Sanlitun Beixiaojie]]></street>
+      <houseno><![CDATA[1]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Panino Teca]]></name>
+      <address>
+        <street><![CDATA[Sanlitun Beixiaojie]]></street>
+        <houseno><![CDATA[1]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | European | Italian]]></vendor-category>
+        <description><![CDATA[<p>Deli serving panini, salads and sandwiches on freshly made ciabatta.</p><p></p>]]></description>
+        <openingtimes><![CDATA[8am-10pm daily.]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/dceb04058c1f1955c8855ddadce07cf4.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058476" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.40232611</longitude>
+      <latitude>39.91160202</latitude>
+    </geo-position>
+    <name><![CDATA[Dockers]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Xidan Bei Dajie]]></street>
+      <houseno><![CDATA[131]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Xicheng district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Dockers]]></name>
+      <address>
+        <street><![CDATA[Xidan Bei Dajie]]></street>
+        <houseno><![CDATA[131]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Xicheng district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Yunnan & Southwest Minority]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services | Fashion]]></vendor-category>
+        <description><![CDATA[<p>A well-known international brand , famous for creating the perfect pair of pants partway between dress trousers and jeans 20 years ago in San Francisco, Dockers have since gained a reputation for being the lazy dresser’s default option. Nevertheless, with a good quality selection of Gap-style basics and a new take on their original khakis (now known as ‘Khak1s’), their first store in China is worth a visit and likely to win over some new fans. Expect to pay around 259RMB for a t-shirt; 1,699RMB for jacket and 759RMB for their signature Khak1s.</p>]]></description>
+        <openingtimes><![CDATA[10am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/eb4fd0e135654c1794bfab3d0af273be.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058478" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.39688491</longitude>
+      <latitude>39.90499581</latitude>
+    </geo-position>
+    <name><![CDATA[MeliMelo]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Yonganli]]></street>
+      <houseno><![CDATA[16]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[MeliMelo]]></name>
+      <address>
+        <street><![CDATA[Yonganli]]></street>
+        <houseno><![CDATA[16]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Chinese | Sichuan]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | European | French]]></vendor-category>
+        <description><![CDATA[<p>This French fusion restaurant tends towards the whimsical in its eclectic 
+décor of peach-coloured sofas, gilded screens and red chandelier covers made of 
+an Issey Miyake inspired fabric. Yet when it comes to food, Meli Melo gets 
+serious. </p>
+<p>Unlike most fusion fare where gimmickry prevails over flavours to result in a 
+confused mess, Meli Melo's chefs skilfully combine ingredients and cooking 
+methods in a cohesive and scrumptious whole. A starter of seared foie gras 
+(128RMB) melts in your mouth as does the thin slice of duck breast and bounty of 
+tiny figs underneath the liver, while a ginger sauce gives the dish an Asian 
+spin. Disks of Ahi tuna (75RMB), seared on the outside and raw inside, arrive in 
+a black sesame seed crust atop a mildly curried potato salad alongside a thick 
+cream exuding a hint of horseradish. </p>
+<p>Mains are equally creative and well crafted. Mandarin fish rarely appears 
+outside Chinese restaurants, yet Meli Melo serves nut-encrusted fillets of it on 
+a medley of mushrooms bound together with a drizzle of cream and accompanied by 
+a small round of truffle risotto (105RMB) - however it's a shame the pea-green 
+coriander sauce lacks the herb's cleansing flavour.</p>
+<p>Also rewarding are the gigantic seared scallops (128RMB) sprinkled with 
+salmon roe pearls and carefully placed around a bed of squid-ink pasta tossed 
+with segments of sun-dried tomatoes. A nearly translucent lemongrass cream adds 
+a further complementary flavour. </p>
+<p>Despite the large portion sizes at Meli Melo, the dessert menu is still 
+tempting. A classic pear <i>tarte Tatin</i> (45RMB) is deconstructed and 
+re-engineered in a deep glass with a wedge of a cinnamon-poached pear underneath 
+thin layers of crispy pastry and topped with a scoop of vanilla ice cream. 
+Unfortunately the result is disappointing.</p>
+<p>Meli Melo belongs to the three-storey Les Millésimes development, which 
+includes a wine bar, cigar bar, private club and the French seafood restaurant 
+La Maree, located on the same floor as Meli Melo. The two restaurants share a 
+kitchen and a wine list. That the wines are currently available only by the 
+bottle is unfortunate since it is nearly impossible to match one wine with the 
+many flavours that Meli Melo combines on one plate. Staff are polite and 
+professional yet unlike many new restaurants around town, Meli Melo does not add 
+an extra service charge. </p>]]></description>
+        <openingtimes><![CDATA[11am-2.30pm, 6-10.30pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/4e868230d4391e5474d6cead1bb5cd53.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058479" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.48300394</longitude>
+      <latitude>39.95324501</latitude>
+    </geo-position>
+    <name><![CDATA[Beanstalk International Kindergarten (BIK)]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Liangmaqiao Lu]]></street>
+      <houseno><![CDATA[40]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.bibs.com.cn</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Beanstalk International Kindergarten (BIK)]]></name>
+      <address>
+        <street><![CDATA[Liangmaqiao Lu]]></street>
+        <houseno><![CDATA[40]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | European]]></vendor-category>
+        <vendor-category><![CDATA[Shops & Services]]></vendor-category>
+        <openingtimes><![CDATA[Call to inquire]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/9f75ebbd78e622aee27cada349eb2d30.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058480" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.44816875</longitude>
+      <latitude>39.92012123</latitude>
+    </geo-position>
+    <name><![CDATA[Tiny Salt Coffee Club]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Dongdaqiao Lu]]></street>
+      <houseno><![CDATA[8]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Tiny Salt Coffee Club]]></name>
+      <address>
+        <street><![CDATA[Dongdaqiao Lu]]></street>
+        <houseno><![CDATA[8]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | European | French]]></vendor-category>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <description><![CDATA[<p>Folk music venue Tiny Salt overcomes its mall setting with a good sound system, black
+décor and a cool loft.</p>]]></description>
+        <openingtimes><![CDATA[varies]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/1c4cbc956bc9d16db070e7060dccd935.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058522" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.37165069</longitude>
+      <latitude>39.94369968</latitude>
+    </geo-position>
+    <name><![CDATA[Na Jia Xiaoguan]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[Yonganli, Jianguomenwai Dajie]]></street>
+      <houseno><![CDATA[3]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Na Jia Xiaoguan]]></name>
+      <address>
+        <street><![CDATA[Yonganli, Jianguomenwai Dajie]]></street>
+        <houseno><![CDATA[3]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Shops & Services]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Manchu]]></vendor-category>
+        <description><![CDATA[<p>Manchu cuisine.Must order dish is the mizisupi xia.</p><p></p>]]></description>
+        <openingtimes><![CDATA[11am-2.30pm, 5-10pm daily.]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/438894b14527ed7fb3d1140705021ee4.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058523" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.46911144</longitude>
+      <latitude>39.91052627</latitude>
+    </geo-position>
+    <name><![CDATA[Stefanel]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Jianguo Lu]]></street>
+      <houseno><![CDATA[89]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Stefanel]]></name>
+      <address>
+        <street><![CDATA[Jianguo Lu]]></street>
+        <houseno><![CDATA[89]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Lounges]]></vendor-category>
+        <description><![CDATA[<p>Stefanel first attempted to break into the Chinese market four years ago but discovered the time wasn’t ripe. Now they’re having another go, and they’ve chosen the swanky new mini mall that is Huamao as their base. Purveyors of casual Italian chic, Stefanel is a women’s wear brand dripping with colour and class – and with near designer prices to match. A pair of well-cut jeans cost 1,080RMB, as does the plum-coloured quilted holdall supermodel Giselle sports in Stefanel’s ad campaign. However, given that FCUK’s clothes cost around the same price these days, Stefanel gives you more quality for your money.</p>]]></description>
+        <openingtimes><![CDATA[10am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/a12b390ed370382d6d7b6c908ed9247d.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058525" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45824581</longitude>
+      <latitude>39.93275678</latitude>
+    </geo-position>
+    <name><![CDATA[Noodle Bar]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Gongti Bei Lu]]></street>
+      <houseno><![CDATA[1949]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Noodle Bar]]></name>
+      <address>
+        <street><![CDATA[Gongti Bei Lu]]></street>
+        <houseno><![CDATA[1949]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars | Gay Bars]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese | Beijing]]></vendor-category>
+        <description><![CDATA[<p>
+Noodle slurping couldn’t get any sleeker than at the Noodle Bar. Only 12 diners can fit around a U-shaped bar where the light grained woods of its counter and stools contrast the dark, concrete-chic interior. </p>
+<p>Behind the counter cooks mix, knead and pull noodles and tend a cauldron of broth that simmers seven hours until ready. </p>
+<p>The menu, like the space, is compact but the limited choice of tendon (30RMB), tripe (30RMB) or brisket (28RMB) added to the delicious broth may scare away the offal averse.</p>
+<p> There is also a vegetarian option, but anyone who has never tried tripe should do so here where it is meltingly tender. Thick noodles, there’s also a thin option, combine a chewy, udon-like texture with a satisfying flavour. Side dishes such as garlicky cucumbers (11RMB) and spicy beef shank (18RMB) round out a meal. </p>
+<p>The 38RMB set meal includes a bowl of noodles with all three meats and two small side dishes. Complimentary oolong tea is also served. </p>]]></description>
+        <openingtimes><![CDATA[11am-10pm daily]]></openingtimes>
+        <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/beijing/poi/media/2ff4fdb72e5f1a57a7c92211062ce94e.jpg]]></media>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000058534" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.45547006</longitude>
+      <latitude>39.94117002</latitude>
+    </geo-position>
+    <name><![CDATA[Bei]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Sanlitun Lu]]></street>
+      <houseno><![CDATA[11]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact>
+      <url>http://www.beirestaurant.com/</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Bei]]></name>
+      <address>
+        <street><![CDATA[Sanlitun Lu]]></street>
+        <houseno><![CDATA[11]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants | Western | American]]></vendor-category>
+        <vendor-category><![CDATA[Restaurants | Chinese]]></vendor-category>
+        <description><![CDATA[<p>Winner of the Best Asian award
+at the 2010 <i>Time Out</i> Eating Out Awards,
+and home to Chef of the Year Max Levy,
+Bei serves up fresh and soulful North Asian
+inventions.</p>]]></description>
+        <openingtimes><![CDATA[5.30-10.30pm Mon-Sat]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000059921" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.36358261</longitude>
+      <latitude>39.97330521</latitude>
+    </geo-position>
+    <name><![CDATA[Peking University Century Hall]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Haidian Lu]]></street>
+      <houseno><![CDATA[75]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Haidian district]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Peking University Century Hall]]></name>
+      <address>
+        <street><![CDATA[Haidian Lu]]></street>
+        <houseno><![CDATA[75]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Haidian district]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Schools | Universities]]></vendor-category>
+        <openingtimes><![CDATA[Subject to concert times]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="PEK000000000000000000000000063363" lang="en" modified="2010-10-05T05:51:30">
+    <geo-position>
+      <longitude>116.40702400</longitude>
+      <latitude>39.84848694</latitude>
+    </geo-position>
+    <name><![CDATA[National Tennis Center]]></name>
+    <category><![CDATA[sports-facility-venue]]></category>
+    <address>
+      <street><![CDATA[Lincui Lu]]></street>
+      <houseno><![CDATA[2]]></houseno>
+      <city><![CDATA[beijing]]></city>
+      <district><![CDATA[Chaoyang]]></district>
+      <country>CHN</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[National Tennis Center]]></name>
+      <address>
+        <street><![CDATA[Lincui Lu]]></street>
+        <houseno><![CDATA[2]]></houseno>
+        <city><![CDATA[beijing]]></city>
+        <district><![CDATA[Chaoyang]]></district>
+        <country>CHN</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Sports & Fitness | Sports Venues]]></vendor-category>
+        <openingtimes><![CDATA[varies with events]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+</vendor-pois>

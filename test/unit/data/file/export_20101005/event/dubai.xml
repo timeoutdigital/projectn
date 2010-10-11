@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-10-05T05:54:24">
+  <event id="DXB000000000000000000000000105812" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Dubai Dolphinarium - 11am show (Fri)]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dubai Dolphinarium - 11am show (Fri)]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+      <price><![CDATA[Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs70(Regular), Child - Dhs40(Regular)]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/8131-dubai-dolphinarium-11am-show-fri]]></property>
+      <property key="phone"><![CDATA[+971 4 336 9773]]></property>
+      <property key="email"><![CDATA[smo@dubaidolphinarium.ae]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000062605">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000105813" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Dubai Dolphinarium - 9pm show (Thu, Fri)]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dubai Dolphinarium - 9pm show (Thu, Fri)]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+      <price><![CDATA[Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/8201-dubai-dolphinarium-9pm-show-thu-fri]]></property>
+      <property key="phone"><![CDATA[+971 4 336 9773]]></property>
+      <property key="email"><![CDATA[smo@dubaidolphinarium.ae]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000062605">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000105814" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Dubai Dolphinarium - 3pm show (Fri, Sat)]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dubai Dolphinarium - 3pm show (Fri, Sat)]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+      <price><![CDATA[Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/8199-dubai-dolphinarium-3pm-show-fri-sat]]></property>
+      <property key="phone"><![CDATA[+971 4 336 9773]]></property>
+      <property key="email"><![CDATA[smo@dubaidolphinarium.ae]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000062605">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000105815" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Dubai Dolphinarium - 6pm show]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dubai Dolphinarium - 6pm show]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+      <price><![CDATA[Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/8200-dubai-dolphinarium-6pm-show]]></property>
+      <property key="phone"><![CDATA[+971 4 336 9773]]></property>
+      <property key="email"><![CDATA[smo@dubaidolphinarium.ae]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000062605">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000106954" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Dubai Dolphinarium - 11am show (Mon)]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dubai Dolphinarium - 11am show (Mon)]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+      <price><![CDATA[Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs70(Regular), Child - Dhs40(Regular)]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/8130-dubai-dolphinarium-11am-show-mon]]></property>
+      <property key="phone"><![CDATA[+971 4 336 9773]]></property>
+      <property key="email"><![CDATA[smo@dubaidolphinarium.ae]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000062605">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000107473" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Dubai Dolphinarium - 11am show (Tue, Wed, Thu, Sat)]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Dubai Dolphinarium - 11am show (Tue, Wed, Thu, Sat)]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Have you ever dreamed of seeing live dolphins and seals? Now your dream can come true at Dubai Dolphinarium in the heart of the Creek Park]]></description>
+      <price><![CDATA[Adult - Dhs120(VIP), Child - Dhs80(VIP), Adult - Dhs100(Regular), Child - Dhs50(Regular)]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/8198-dubai-dolphinarium-11am-show-tue-wed-thu-sat]]></property>
+      <property key="phone"><![CDATA[+971 4 336 9773]]></property>
+      <property key="email"><![CDATA[smo@dubaidolphinarium.ae]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000062605">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000100270" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Soluna]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Soluna]]></name>
+      <vendor-category><![CDATA[Bar]]></vendor-category>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Buff Wise and pals play Café del Mar-influenced downtempo and chill-out tunes as the sun falls]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/4459-soluna]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000062901">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000104302" modified="2010-10-05T05:54:24">
+    <name><![CDATA[In Decay]]></name>
+    <category>arts-museums</category>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[In Decay]]></name>
+      <vendor-category><![CDATA[Art & Culture]]></vendor-category>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[The first Middle Eastern solo show for German artist Ralf Ziervogel, whose fine-line drawings were some of the most talked-about work at Art Dubai this year]]></description>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/8160-in-decay]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000068332">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000105038" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Fashion: The Story of a Lifetime]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Fashion: The Story of a Lifetime]]></name>
+      <vendor-category><![CDATA[Around Town]]></vendor-category>
+      <description><![CDATA[A jaw-dropping collection of fashion photography prints, many of which were shot in the Arab world]]></description>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/aroundtown/events/7993-fashion-the-story-of-a-lifetime]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000068396">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000105039" modified="2010-10-05T05:54:24">
+    <name><![CDATA[Permanent Collection]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Permanent Collection]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[This gallery is showing a revolving selection from its permanent collection]]></description>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/nightlife/events/7769-permanent-collection]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000068397">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="DXB000000000000000000000000105044" modified="2010-10-05T05:54:24">
+    <name><![CDATA[The Terrace]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[The Terrace]]></name>
+      <vendor-category><![CDATA[Around Town]]></vendor-category>
+      <description><![CDATA[Enjoy a delicious mix of barbecue and salad buffet for just Dhs99 per person. Chill out and relax to the rhythms of our resident DJ<br />]]></description>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutdubai.com/aroundtown/events/5478-the-terrace]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="DXB000000000000000000000000068400">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

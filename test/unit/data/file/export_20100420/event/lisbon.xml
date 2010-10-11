@@ -1,0 +1,2016 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-04-20T08:09:07">
+  <event id="LIS000000000000000000000000007757" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Na Sombra das Coleces - Provenincias Europeias nas Reservas da Casa-Museu]]></name>
+    <category>arts-museums</category>
+    <version lang="pt">
+      <name><![CDATA[Na Sombra das Coleces - Provenincias Europeias nas Reservas da Casa-Museu]]></name>
+      <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      <short-description><![CDATA[Exposio que rene um esplio de pinturas e peas de mobilirio, na sua quase t]]></short-description>
+      <description><![CDATA[Exposio que rene um esplio de pinturas e peas de mobilirio, na sua quase totalidade de provenincia europeia. Algumas das obras de arte so expostas pela primeira vez e revelam nomes to impressionantes como os de Jacob Jordaens (1593-1678), pintor flamengo, Eugne Delacroix, mestre da pintura romntica francesa, uma tbua da oficina veneziana dos Guardi, sculo XVIII, um leo atribudo ao mestre do realismo Gustave Courbet (1819-1877) e um Eugne Boudin (1824-1898), percursor do Impressionismo, entre outras peas, assim como mobilirio ingls e holands dos sculos XVII e XVIII.]]></description>
+      <property key="band"><![CDATA[Na Sombra das Coleces - Provenincias Europeias nas Reservas da Casa-Museu]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001208">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007644" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A Perspectiva das Coisas: a Natureza-morta na Europa, sculos XVII a XX]]></name>
+    <category>arts-museums</category>
+    <version lang="pt">
+      <name><![CDATA[A Perspectiva das Coisas: a Natureza-morta na Europa, sculos XVII a XX]]></name>
+      <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      <short-description><![CDATA[O Museu Calouste Gulbenkian apresenta pela primeira vez um conjunto assinalvel ]]></short-description>
+      <description><![CDATA[O Museu Calouste Gulbenkian apresenta pela primeira vez um conjunto assinalvel de obras-primas de grandes pintores que exploraram o tema da pintura de natureza-morta. As obras, de invulgar qualidade, provm de vrias coleces privadas e museus a nvel mundial. A exposio explora os temas recorrentes da natureza-morta ao longo de quatro sculos de histria: frutos, caa, cozinhas e mesas de banquete, pintura de flores, instrumentos musicais, gabinetes de curiosidades, Vanitas e obras em trompe-l'oeil. A mostra ser apresentada em duas partes. A primeira, patente at 2 de Maio, rene 71 pinturas dos sculos XVII e XVIII. A produo dos sculos XIX e XX ser exibida mais tarde, entre 21 de Outubro de 2011 e 8 de Janeiro de 2012. Visita orientada  exposio na sexta e no domingo s 15.00.]]></description>
+      <price><![CDATA[Preo: 5?.]]></price>
+      <property key="band"><![CDATA[A Perspectiva das Coisas: a Natureza-morta na Europa, sculos XVII a XX]]></property>
+      <property key="timeinfo"><![CDATA[Horrio: teras, quartas, sextas, sbados, domingo das 10.00-18.00/ quintas das 10.00-21.00.]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001229">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000020414" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Usabilidade no seu esplendor]]></name>
+    <category>arts-museums</category>
+    <version lang="pt">
+      <name><![CDATA[Usabilidade no seu esplendor]]></name>
+      <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      <short-description><![CDATA[Projecto individual de joalharia que abre o ciclo de arte contempornea em So R]]></short-description>
+      <description><![CDATA[Projecto individual de joalharia que abre o ciclo de arte contempornea em So Roque, {I}Percepes do Sagrado{/I}. Esta exposio agrupa trabalhos, alguns inditos, que Leonor Hiplito fez ao longo do seu percurso artstico. A autora reinterpreta o uso e o significado de algumas obras do Museu e outras, de diferentes pocas e culturas, inspirando-se no seu esplendor.]]></description>
+      <property key="band"><![CDATA[Usabilidade no seu esplendor]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001272">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007666" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Museu do Fado]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Museu do Fado]]></name>
+      <vendor-category><![CDATA[Listas | Exposies]]></vendor-category>
+      <short-description><![CDATA[O fado  uma coisa que corre nas veias dos portugueses e quase sempre desde pequ]]></short-description>
+      <description><![CDATA[O fado  uma coisa que corre nas veias dos portugueses e quase sempre desde pequeninos. Se os seus filhos apreciam o gnero musical, por gosto prprio ou contgio familiar, leve-os a conhecer este espao onde vo aprender muito no s sobre o gnero musical em si como acerca dos instrumentos e dos seus intrpretes. O Museu faz visitas guiadas mediante marcao prvia. ]]></description>
+      <price><![CDATA[3?; Crianas, Estudantes e Seniores: 1,50?]]></price>
+      <property key="timeinfo"><![CDATA[De Ter a Dom, das 10h s 18h]]></property>
+      <property key="band"><![CDATA[Museu do Fado]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001278">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007715" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Argentina Santos - No sei se canto se rezo (INCOMPLETO)]]></name>
+    <category>arts-museums</category>
+    <version lang="pt">
+      <name><![CDATA[Argentina Santos - No sei se canto se rezo (INCOMPLETO)]]></name>
+      <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      <short-description><![CDATA[O fado de Argentina Santos tem a fora de um prego e a conteno de uma prece. ]]></short-description>
+      <description><![CDATA[O fado de Argentina Santos tem a fora de um prego e a conteno de uma prece. A exposio dedicada a Argentina Santos apresenta objectos e memrias que ilustram a sua vida artstica como fadista, intimamente ligada  Casa de Fados "A Parreirinha de Alfama". Os visitantes vo poder ver fotografias, artigos da imprensa de fado (de meados do sculo XX), discografia, anncios e cartazes e ainda vestidos de actuao. Muito do esplio exposto  pertena da fadista, das memrias que ao longo das dcadas foi preservando para si. A exposio  enriquecida com excertos de filmes, e entrevistas recolhidas nos arquivos da RTP.]]></description>
+      <property key="band"><![CDATA[Argentina Santos - No sei se canto se rezo]]></property>
+      <property key="band"><![CDATA[Argentina Santos - No sei se canto se rezo (INCOMPLETO)]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001278">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007773" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Visitas Cantadas]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Visitas Cantadas]]></name>
+      <vendor-category><![CDATA[Eventos | Passeios]]></vendor-category>
+      <short-description><![CDATA[De Maro a Maio, as Visitas Cantadas esto de volta ao Museu do Fado. Esta  uma]]></short-description>
+      <description><![CDATA[De Maro a Maio, as Visitas Cantadas esto de volta ao Museu do Fado. Esta  uma iniciativa que d a conhecer o museu atravs de vrias geraes de fadistas que do voz  histria do fado. Este fim-de-semana cantam Maria Amlia Proena e Jos da Cmara.]]></description>
+      <price><![CDATA[Preo: 3?]]></price>
+      <property key="timeinfo"><![CDATA[Sbado e domingo, 16.30.]]></property>
+      <property key="band"><![CDATA[Visitas Cantadas]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001278">
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007717" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A Bblia - Toda a Palavra de Deus (d&#39;uma assentada)]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[A Bblia - Toda a Palavra de Deus (d&#39;uma assentada)]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Verso condensada e cmica dos principais episdios dos livros bblicos, do dil]]></short-description>
+      <description><![CDATA[Verso condensada e cmica dos principais episdios dos livros bblicos, do dilvio e da Arca de No aos Dez Mandamentos enunciados por Moiss.]]></description>
+      <price><![CDATA[20?]]></price>
+      <property key="timeinfo"><![CDATA[Dom 21.00. De Adam Long, Reed Martim e Austin Tichenor, encenao de Juvenal Garcs, com Henrique Martins, Pedro Saavedra e Ricardo Cruz]]></property>
+      <property key="band"><![CDATA[A Bblia - Toda a Palavra de Deus (d&#39;uma assentada)]]></property>
+      <property key="timeinfo"><![CDATA[Dom 21.00. De Adam Long, Reed Martim e Austin Tichenor, encenao de Juvenal Garcs, com Pedro Saavedra, Pedro Luzindro e Ricardo Cruz]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001322">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007718" modified="2010-04-20T08:09:07">
+    <name><![CDATA[As Vampiras Lsbicas de Sodoma]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[As Vampiras Lsbicas de Sodoma]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[A Companhia Teatral do Chiado pede aos espectadores que vo ao teatro ver esta p]]></short-description>
+      <description><![CDATA[A Companhia Teatral do Chiado pede aos espectadores que vo ao teatro ver esta pea mas no se esqueam de proteger os pescoos. O ttulo j  assustador, mas vai-se ver e  uma brincadeira. Escrita por Charles Busch, a histria comea nos tempos bblicos, em Sodoma, e acaba numa sala de ensaios de um musical, onde duas actrizes vampiras rivalizam, h dois mil anos, pela eternidade das grandes divas do cinema. ]]></description>
+      <price><![CDATA[20?]]></price>
+      <property key="timeinfo"><![CDATA[Seg 21.00. De Charles Busch, encenao de Juvenal Garcs, com Joo Carracedo, Joo Marta, Manuel Mendes, Rita Lello, Rben Garcia e Simo Rubim]]></property>
+      <property key="band"><![CDATA[As Vampiras Lsbicas de Sodoma]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001322">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000020241" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Palavra dos poetas: Maria Teresa Horta]]></name>
+    <category>educational</category>
+    <version lang="pt">
+      <name><![CDATA[Palavra dos poetas: Maria Teresa Horta]]></name>
+      <vendor-category><![CDATA[Leituras | Leituras]]></vendor-category>
+      <vendor-category><![CDATA[Outros palcos | Performances]]></vendor-category>
+      <short-description><![CDATA[At Maio, a Comuna vai continuar a dar a palavra aos poetas. Cada ms  dedicado]]></short-description>
+      <description><![CDATA[At Maio, a Comuna vai continuar a dar a palavra aos poetas. Cada ms  dedicado a um autor em particular, mas o conceito  sempre o mesmo: todas as quintas, no bar do teatro, h poesia declamada com msica ao vivo. Abril  o ms de Maria Teresa Horta. A recolha e dramaturgia dos textos  de Carlos Paulo, a msica de Hugo Franco e a interpretao de Carlos Paulo e Marco Paiva.]]></description>
+      <property key="timeinfo"><![CDATA[Qui 19.00]]></property>
+      <property key="band"><![CDATA[Palavra dos poetas: Maria Teresa Horta]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001323">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000023645" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Sonho de Um Homem Ridculo]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Sonho de Um Homem Ridculo]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[A Associao Cultural Direita Baixa adaptou o conto de Dostoivsk Sonho de Um Ho]]></short-description>
+      <description><![CDATA[A Associao Cultural Direita Baixa adaptou o conto de Dostoivsk {I}Sonho de Um Homem Ridculo{/I} a uma pea de teatro. No centro da aco est um homem s e uma menina, s voltas com um sonho, uma utopia e um amor incondicional. ]]></description>
+      <price><![CDATA[10? (com descontos). Informaes e reservas: 96 384 4664]]></price>
+      <property key="timeinfo"><![CDATA[Seg-Sb (excepto quartas-feiras) 21.30, Dom 16.00. De Dostoivski, encenao de Ctia Ribeiro, com Ctia Ribeiro e Jenny Romero]]></property>
+      <property key="band"><![CDATA[Sonho de Um Homem Ridculo]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001323">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007774" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Uma Famlia Portuguesa]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Uma Famlia Portuguesa]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[ Uma Famlia Portuguesa, concerteza, daquelas do passado, tradicionais, com os ]]></short-description>
+      <description><![CDATA[ {I}Uma Famlia Portuguesa{/I}, concerteza, daquelas do passado, tradicionais, com os progenitores e os filhos coabitando assombrados pela memria de um av, patriarca exemplar que a av aponta constantemente como uma arma carregada de saudade do marido e desprezo ressentido pela parentela. Enfim, as trs geraes que asseguram a memria do passado, a incerteza do presente e uma perspectiva de futuro que a encenao de Cristina Carvalhal tornou uma comdia mordaz e trgica, um belo fresco sobre o Portugal que preferamos j no ser mas em que no fundo, no fundo continuamos ? apesar das aparncias. (RM)]]></description>
+      <price><![CDATA[7,5? a 15?]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Sb 21.30, Dom 16.00. De Filomena Oliveira e Miguel Real, encenao de Cristina Carvalhal, com Bruno Simes, Carlos Malvarez, Joo Maria Pinto, Luisa Salgueiro e Teresa Faria]]></property>
+      <property key="band"><![CDATA[Uma Famlia Portuguesa]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001368">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007750" modified="2010-04-20T08:09:07">
+    <name><![CDATA[O Teatro Possvel]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[O Teatro Possvel]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <vendor-category><![CDATA[Teatro | Centro]]></vendor-category>
+      <short-description><![CDATA[A histria do teatro  contada numa comdia com trs actores, um tcnico e o pb]]></short-description>
+      <description><![CDATA[A histria do teatro  contada numa comdia com trs actores, um tcnico e o pblico, que  um elemento fundamental para o desenrolar da histria. Partindo da Grcia Antiga, passando por dipo e seguindo para o teatro quinhentista, Gil Vicente e Shakespeare, o espectculo mostra os vrios tipos de teatro at aos nossos dias.  ]]></description>
+      <price><![CDATA[5? a 10?]]></price>
+      <property key="timeinfo"><![CDATA[Sex e Sb 21:30. Texto e encenao de Pedro Estorninho, com Carlos Dias, Filipa Roldo e Pedro Oliveira ]]></property>
+      <property key="band"><![CDATA[O Teatro Possvel]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001371">
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025858" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Quixote]]></name>
+    <category>concerts</category>
+    <version lang="pt">
+      <name><![CDATA[Quixote]]></name>
+      <vendor-category><![CDATA[Musicais | Musicais]]></vendor-category>
+      <short-description><![CDATA[ uma pardia  pardia. Quixote pegou num texto popular e cmico e quis torn-l]]></short-description>
+      <description><![CDATA[ uma pardia  pardia. {I}Quixote{/I} pegou num texto popular e cmico e quis torn-lo ainda mais caricato.  a nova proposta do grupo de teatro O Bando e  uma pera {I}buffa{/I}, isto , cmica. O texto partiu da pea {I}Vida do Grande D. Quixote de La Mancha e do Gordo Sancho Pana{/I}, de Antnio Jos da Silva (1705-1738), "o Judeu", que por sua vez partira do clssico de Cervantes, popularizando-o. E da veio a ideia de parodiar a pardia. No s na msica de Jorge Salgueiro, que parte da ideia de plgio e cola referncias a temas eruditos com msica popular e at pimba, mas tambm na estrutura da histria, onde todos os gneros foram invertidos. Ou seja, em vez de ser o D. Quixote atrs da Dulcineia,  a Dulcineia atrs do D. Quixote, e em vez de Sancho Pana, quem acompanha a herona principal nas suas aventuras  Teresa Pana, a mulher. Por cima disto tudo, a aco  localizada numa espcie de lar de terceira idade, para falar do tema da velhice, e dois cantores fazem as vozes de todas as personagens, como se estas fossem marionetas.]]></description>
+      <price><![CDATA[8? a 16?]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Sb 20.30, Dom 16.30. A partir de "Vida do Grande D. Quixotede La Mancha e do Gordo Sancho Pana" de Antnio Jos da Silva, dramaturgia e encenao de Joo Brites, msica e direco musical de Jorge Salgueiro, com Bruno Huca e Sara Belo (cantores), Catarina Flix, Flix Lozano, Joana Bergano, Joana Manaas, Pedro Ramos, Sandra Rosado, Susana Blazer e os msicos Abel Chaves, Antnio Laertes, Fernando Domingos, Helena Vasques, Ins Mesquita, Joo Aboim, Miguel Tapadas e Paulo Tavares]]></property>
+      <property key="band"><![CDATA[Quixote]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001383">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000026277" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A Fbrica]]></name>
+    <category>concerts</category>
+    <version lang="pt">
+      <name><![CDATA[A Fbrica]]></name>
+      <vendor-category><![CDATA[Musicais | Musicais]]></vendor-category>
+      <short-description><![CDATA[Cinco actores, atravs da utilizao de mscaras, do vida a uma srie que tm c]]></short-description>
+      <description><![CDATA[Cinco actores, atravs da utilizao de mscaras, do vida a uma srie que tm como ponto em comum viverem num local onrico, a Fbrica da Humanidade. Baseado em {I}O Segredo do Cu{/I}, do Prmio Nobel Pr Lagerkvist, {I}A Fbrica {/I}pretende reflectir sobre o sentido da vida e a evoluo da sociedade, falando das duas Grandes Guerras, da Revoluo Industrial, de mquinas, amor e solido. ]]></description>
+      <price><![CDATA[5? a 8?]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Sb 21.45, Dom 17.30. A partir de O Segredo do Cu de Pr Lagerkvist, encenao de Miguel Fonseca, com Ana Gil, Joo Duarte Costa, Jorge Completo, Marisa Russo e Nuno Fernandes]]></property>
+      <property key="band"><![CDATA[A Fbrica]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001383">
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007656" modified="2010-04-20T08:09:07">
+    <name><![CDATA[O Feiticeiro de Oz]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[O Feiticeiro de Oz]]></name>
+      <vendor-category><![CDATA[Listas | Teatro]]></vendor-category>
+      <short-description><![CDATA[Filipe La Fria  to bom a entreter adultos quanto crianas e a prova disso  a]]></short-description>
+      <description><![CDATA[Filipe La Fria  to bom a entreter adultos quanto crianas e a prova disso  a adaptao que fez da verso cinematogrfica de {I}O Feiticeiro de Oz{/I}, com msicas e dilogos originais. O musical em cena no Politeama relembra a histria de Dorothy e do seu co Tot que so levados por um tornado para um mundo mgico tendo como companheiros um espantalho, um leo e um homem-lata. A sua casa est cada vez mais longe e s o Feiticeiro de Oz pode ajud-los a regressar ao Kansas. ]]></description>
+      <price><![CDATA[De 7,50? e 12,50?]]></price>
+      <property key="timeinfo"><![CDATA[Sbados e domingos: 15h]]></property>
+      <property key="band"><![CDATA[O Feiticeiro de Oz]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001437">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000026297" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Projeco do filme Eyes on the skies]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Projeco do filme Eyes on the skies]]></name>
+      <vendor-category><![CDATA[Eventos | Outros]]></vendor-category>
+      <short-description><![CDATA[O filme Eyes on the Skies, publicado pela Unio Astronmica Internacional, explo]]></short-description>
+      <description><![CDATA[O filme Eyes on the Skies, publicado pela Unio Astronmica Internacional, explora asvrias facetas do telescpio ? o desenvolvimento histrico, a importncia cientfica, osavanos tecnolgicos e a prpria Astronomia nos ltimos 400 anos, de Galileu aos diasactuais.  apresentado pelo Dr. Joe Liske, um astrnomo profissional do EuropeanSouthern Observatory. A exibio do filme ser seguida de uma sesso de observao do cu. A introduo ao filme ser feita por Jos Marques (Associao Portuguesa de Astrnomos Amadores).]]></description>
+      <property key="timeinfo"><![CDATA[Sbado, 21.00]]></property>
+      <property key="band"><![CDATA[Projeco do filme Eyes on the skies]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001447">
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007650" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Suspender no Ar]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Suspender no Ar]]></name>
+      <vendor-category><![CDATA[Exposies | Setbal]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[Entrada livre]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sex 10-18h, Sb e Dom 13-18h. Escultura, desenho, fotografia e instalao de Cristina Atade]]></property>
+      <property key="band"><![CDATA[Suspender no Ar]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001617">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007659" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Suspender o Ar]]></name>
+    <category>arts-museums</category>
+    <version lang="pt">
+      <name><![CDATA[Suspender o Ar]]></name>
+      <vendor-category><![CDATA[Museus | Museus]]></vendor-category>
+      <short-description><![CDATA[Expondo h quase trs dcadas, Cristina Atade vem desenvolvendo, a par da escul]]></short-description>
+      <description><![CDATA[Expondo h quase trs dcadas, Cristina Atade vem desenvolvendo, a par da escultura, extensa obrano campo do desenho, cruzando-a com a fotografia, o vdeo e a instalao. A exposio "Suspender o Ar" conta com trabalhos recentes da autora ? alguns deles criados expressamente para os espaos que ocupam (Galeria Principal, Salo Nobre, galeria do Ptio, Capela e O Cho das Artes ? Jardim Botnico da Casa da Cerca) ?, mostrando o modo como os limites do desenho se encontram cada vez mais imprecisos, cruzando-se facilmente com o exerccio da escultura e da instalao e entrando em dilogo com o vdeo e as listas que funcionam como elemento agregador, unindo os vrios espaos. Tratando-se de uma exposio com caractersticas especiais, em que o site speficic se cruza tambm com a progresso do trabalho em estreita articulao com o pblico, as peas expostas na Capela exigem dos visitantes um pouco mais do que a mera fruio, sendo estes convocados a participar na obra, atravs da expresso dos seus desejos, que podem ser inscritos em fitas vermelhas que, posteriormente, envolvero tambm os "bordes" expostos nesse espao.]]></description>
+      <property key="band"><![CDATA[Suspender o Ar]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000001617">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000022356" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Sbados Selvagens]]></name>
+    <category>festivals-fairs</category>
+    <version lang="pt">
+      <name><![CDATA[Sbados Selvagens]]></name>
+      <vendor-category><![CDATA[Listas | Brincadeiras]]></vendor-category>
+      <short-description><![CDATA[Pode respirar de alvio: os Sbados Selvagens no Zoo de Lisboa esto de volta, d]]></short-description>
+      <description><![CDATA[Pode respirar de alvio: os Sbados Selvagens no Zoo de Lisboa esto de volta, depois da hibernao normal do Inverno. J pode passar uma manh em famlias rodeado de araras, golfinhos, lees, macacos, elefantes, ursos e, no caso dos cls mais valentes, at de cobras. Os tratadores esto  sua espera com percursos temticos sobre vrios grupos de animais e conversas que vo desvendar segredos de algumas espcies. M/4. ]]></description>
+      <price><![CDATA[Adultos: 35?; Crianas: 25?; Inclui entrada, programa personalizado, apresentaes e todas as atraces do Zoo. ]]></price>
+      <property key="timeinfo"><![CDATA[Todos os sbados, das 10h s 13.30; Marcao prvia at quarta-feira anterior (21 723 2960).]]></property>
+      <property key="band"><![CDATA[Sbados Selvagens]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000002704">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000022798" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A Casa de Bernarda Alba ]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[A Casa de Bernarda Alba ]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Bernarda Alba  uma matriarca enlutada que, aps a morte do segundo marido, deci]]></short-description>
+      <description><![CDATA[Bernarda Alba  uma matriarca enlutada que, aps a morte do segundo marido, decide trancar entre quatro paredes as suas filhas adultas. Impedidas de dar livre curso aos seus desejos e vontades, as cinco mulheres podem pouco contra a tirania da me e a opresso da sociedade. O texto foi a ltima pea que Federico Garca Lorca (898-1936) escreveu antes de ser fuzilado por uma milcia nacionalista, aqui encenado por Joo Rosa por ocasio das comemoraoes do 25 de Abril e com a participao do Coro Audite Nova de Lisboa.]]></description>
+      <price><![CDATA[17,50?]]></price>
+      <property key="timeinfo"><![CDATA[Qui e Sex 19.45. De Federico Garcia Lorca, encenao de Joo Rosa, com ngela Pinto, Manuela Cassola, Paula Guedes, Delfina Cruz, Margarida Cardeal, Catarina Gonalves e Ana Moreira, entre outros]]></property>
+      <property key="band"><![CDATA[A Casa de Bernarda Alba ]]></property>
+      <property key="timeinfo"><![CDATA[Qua e Qui 19.45. De Federico Garcia Lorca, encenao de Joo Rosa, com ngela Pinto, Manuela Cassola, Paula Guedes, Delfina Cruz, Margarida Cardeal, Catarina Gonalves e Ana Moreira, entre outros]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000003683">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000020133" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Pau, pano, papel e tesoura]]></name>
+    <category>educational</category>
+    <version lang="pt">
+      <name><![CDATA[Pau, pano, papel e tesoura]]></name>
+      <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+      <short-description><![CDATA[Com estes materiais, os midos vo pegar na imaginao e dar vida a criativos bo]]></short-description>
+      <description><![CDATA[Com estes materiais, os midos vo pegar na imaginao e dar vida a criativos bonecos. O teatro A, B, C est mesmo ali ao lado para serem levadas  cena as histrias que as crianas inventarem, de preferncia com a ajuda dos progenitores. Dos 6 aos 8 anos. ]]></description>
+      <price><![CDATA[2?]]></price>
+      <property key="timeinfo"><![CDATA[Fins-de-semana (horrio a combinar); Mnimo 6 pax; Marcao prvia de Seg a Sex; ]]></property>
+      <property key="band"><![CDATA[Pau, pano, papel e tesoura]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004309">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007622" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Iniciao ao Bodyboard]]></name>
+    <category>educational</category>
+    <version lang="pt">
+      <name><![CDATA[Iniciao ao Bodyboard]]></name>
+      <vendor-category><![CDATA[Listas | Workshops]]></vendor-category>
+      <short-description><![CDATA[As suas crianas andam a desesperar por uma manh cheia de energia? Vista-lhes o]]></short-description>
+      <description><![CDATA[As suas crianas andam a desesperar por uma manh cheia de energia? Vista-lhes o fato do bodyboard e deixe-as por conta da Equincio. Quanto a si, no precisa de ficar em casa. Pode vestir o fato e ir tambm. Esta aula de iniciao  modalidade, onde sero exploradas as tcnicas bsicas,  mesmo para toda a famlia. Local: Praia de Carcavelos ou Guincho. ]]></description>
+      <price><![CDATA[40?/pessoa ]]></price>
+      <property key="timeinfo"><![CDATA[Sb, 30: 9:15 (durao de 3 horas); Marcao prvia ]]></property>
+      <property key="band"><![CDATA[Iniciao ao Bodyboard]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004649">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007671" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Ulisses Carrin e a sua livraria]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Ulisses Carrin e a sua livraria]]></name>
+      <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="timeinfo"><![CDATA[Biblioteca do Museu Seg-Sb 10-18h. Edies e outros de vrios autores]]></property>
+      <property key="band"><![CDATA[Ulisses Carrin e a sua livraria]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004775">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007688" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A Luz da Sombra]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[A Luz da Sombra]]></name>
+      <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?2]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Dom 11.30-18h. Obras de Lourdes de Castro e Manuel Zimbro]]></property>
+      <property key="band"><![CDATA[A Luz da Sombra]]></property>
+      <property key="timeinfo"><![CDATA[Ter-Dom 11.30-18h. Obras de Lourdes de Castro e Manuel Zimbro ( 6 de Maro ser apresentado pela primeira vez o filme "Pelas Sombras" de Lourdes de Castro e Catarina Mouro s 12h e 18h, no Auditrio de Serralves)]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004775">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007776" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Antgona]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Antgona]]></name>
+      <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?7,50-16]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Sb 21.30, Dom 16h. De Sfocles, encenador Nuno Carinhas, com Alexandra Gabriel, Antnio Dures, Emlia Silvestre entre outros]]></property>
+      <property key="band"><![CDATA[Antgona]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004789">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007777" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Estados de Guerra]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Estados de Guerra]]></name>
+      <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[Entrada Gratuita]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sb 14-20h. Fotografia de Joo Pina]]></property>
+      <property key="band"><![CDATA[Estados de Guerra]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004789">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000024179" modified="2010-04-20T08:09:07">
+    <name><![CDATA[De Volta aos Teatros]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[De Volta aos Teatros]]></name>
+      <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[Entrada livre]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sb 14-19h, Dom 14-15h. Fotografia por Teresa Santos e Pedro Tropa]]></property>
+      <property key="band"><![CDATA[De Volta aos Teatros]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004789">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025845" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Leitura Encenada: Antgona]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Leitura Encenada: Antgona]]></name>
+      <vendor-category><![CDATA[Outros Palcos | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?6]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Sex 15h. De Antnio Pedro com Joo Castro, Marlene Costa, Simo Lus entre outros]]></property>
+      <property key="band"><![CDATA[Leitura Encenada: Antgona]]></property>
+      <property key="timeinfo"><![CDATA[21.30, Qua-Sex 15h. De Antnio Pedro com Joo Castro, Marlene Costa, Simo Lus entre outros]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004789">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000026276" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Troilo e Crssida]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Troilo e Crssida]]></name>
+      <vendor-category><![CDATA[Teatro | Setubal]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?6-13]]></price>
+      <property key="timeinfo"><![CDATA[Qua-Sb 21.30, Dom 16h. De William Shakespeare, encenador Joaquim Benite e Jos Martins com Andr Silva, Lus Vicente, Mrio Spencer, Rogrio Boane, Solange S e Tnia Silva]]></property>
+      <property key="band"><![CDATA[Troilo e Crssida]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004819">
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025841" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Miserere]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Miserere]]></name>
+      <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?7-16]]></price>
+      <property key="timeinfo"><![CDATA[Sala Garrett Qua-Sb 21.30, Dom 16h. De Gil Vicente, encenador Lus Miguel Cintra com Dinis Gomes, Duarte Guimares, Joo Grosso entre muitos outros]]></property>
+      <property key="band"><![CDATA[Miserere]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004820">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007710" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A Dama de Copas e o Rei de Cuba]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[A Dama de Copas e o Rei de Cuba]]></name>
+      <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?20]]></price>
+      <property key="timeinfo"><![CDATA[Sex e Sb 21h. De Timochenco Wehbi, encenador Juvenal Garcs, com Alexandra Sargento, Cristina Baslio, Pedro Saavedra]]></property>
+      <property key="band"><![CDATA[A Dama de Copas e o Rei de Cuba]]></property>
+      <property key="timeinfo"><![CDATA[21h. De Timochenco Wehbi, encenador Juvenal Garcs, com Alexandra Sargento, Cristina Baslio, Pedro Saavedra]]></property>
+      <property key="timeinfo"><![CDATA[Sb 21h, Dom 17h. De Timochenco Wehbi, encenador Juvenal Garcs, com Alexandra Sargento, Cristina Baslio, Pedro Saavedra]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004824">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007711" modified="2010-04-20T08:09:07">
+    <name><![CDATA[As Obras Completas de William Shakespeare em 97 minutos]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[As Obras Completas de William Shakespeare em 97 minutos]]></name>
+      <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      <vendor-category><![CDATA[Teatro | Faro]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?20]]></price>
+      <property key="timeinfo"><![CDATA[21h. De Adam Long, Daniel Singer, Jess Borgeson, encenao Juvenal Garcs, com Joo Carracedo, Manuel Mendes, Simo Rubim. Companhia Teatral do Chiado]]></property>
+      <property key="band"><![CDATA[As Obras Completas de William Shakespeare em 97 minutos]]></property>
+      <property key="timeinfo"><![CDATA[15h e 22h. De Adam Long, Daniel Singer, Jess Borgeson, encenao Juvenal Garcs, com Joo Carracedo, Manuel Mendes, Simo Rubim. Companhia Teatral do Chiado]]></property>
+      <property key="timeinfo"><![CDATA[Ter e Qua 21h. De Adam Long, Daniel Singer, Jess Borgeson, encenao Juvenal Garcs, com Joo Carracedo, Manuel Mendes, Simo Rubim. Companhia Teatral do Chiado]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004824">
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025851" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Que Vergonha Rapazes]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Que Vergonha Rapazes]]></name>
+      <vendor-category><![CDATA[Teatro | Lisboa]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?5-10]]></price>
+      <property key="timeinfo"><![CDATA[Ter e Qua 22h. De Nuno Artur Silva e Ins Fonseca Santos com Miguel Guilherme]]></property>
+      <property key="band"><![CDATA[Que Vergonha Rapazes]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004825">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007694" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A Gaiola das Loucas]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[A Gaiola das Loucas]]></name>
+      <vendor-category><![CDATA[Outros Palcos | Lisboa]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?20-35]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sex 21.30, Sab 17.30-21.30, Dom 17.00. De Jean Poiret, encenador Filipe La Fria com Jos Raposo, Carlos Quintas, Rita Ribeiro, Joel Branco, Hugo Rendas.]]></property>
+      <property key="band"><![CDATA[A Gaiola das Loucas]]></property>
+      <property key="timeinfo"><![CDATA[Ter-Sex 21.30, Sab 17.30-21.30, Dom 17.00. De Jean Poiret, encenador Filipe La Fria com Jos Raposo, Carlos Quintas, Rita Ribeiro, Joel Branco, Hugo Rendas]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004828">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025850" modified="2010-04-20T08:09:07">
+    <name><![CDATA[7:AM]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[7:AM]]></name>
+      <vendor-category><![CDATA[Teatro | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?4,99-9,99]]></price>
+      <property key="timeinfo"><![CDATA[Sala Estdio Latino Qua-Dom 21.46. Texto e encenao Ricardo Alves com Ivo Bastos e Rodrigo Santos]]></property>
+      <property key="band"><![CDATA[7:AM]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004836">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007752" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Victor Tajes]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Victor Tajes]]></name>
+      <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[Entrada livre]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sb 15-19h. De Robert Schwarz]]></property>
+      <property key="band"><![CDATA[@mbos Mundos]]></property>
+      <property key="timeinfo"><![CDATA[Ter-Sb 15-19h. leos e acrlicos]]></property>
+      <property key="band"><![CDATA[Victor Tajes]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004964">
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007764" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Double Lecture]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Double Lecture]]></name>
+      <vendor-category><![CDATA[Outros espaos | Outros espaos]]></vendor-category>
+      <short-description><![CDATA[Em "Double Lecture", ngela Ferreira apresenta uma srie de novos trabalhos: uma]]></short-description>
+      <description><![CDATA[Em "Double Lecture", ngela Ferreira{B} {/B}apresenta uma srie de novos trabalhos: uma escultura / maqueta, uma srie fotogrfica e uma pea em vdeo, espcie de aula sobre as motivaes e os processos de pesquisa sobre a feitura da sua obra{I}. {/I}Neste projecto, a artista d a conhecer o seu processo de pesquisa visual, conceptual e estilstica, ao revisitar a arquitectura modernista e a sua utilizao como discurso poltico no espao ps-colonial. A sua obra tem-se debruado sobre a histria da arquitectura enquanto processo mental e de construo, reflectindo sobre questes do foro poltico, o uso das teorias - com uma ateno particular s teorias da histria da arte - e a relao eimpacto destas na arte contempornea.]]></description>
+      <property key="band"><![CDATA[Double Lecture]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004990">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007765" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Abro a janela e respiro o ar fresco do fim do mundo]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Abro a janela e respiro o ar fresco do fim do mundo]]></name>
+      <vendor-category><![CDATA[Outros espaos | Outros espaos]]></vendor-category>
+      <short-description><![CDATA[O espanhol lvaro Negro apresenta na cave do palcio um novo projecto, iniciado ]]></short-description>
+      <description><![CDATA[O espanhol lvaro Negro apresenta na cave do palcio um novo projecto, iniciado na cidade deBerlim em 2007. O artista faz uma reflexo sobre conceitos que se relacionam no cruzamento da ideia de viagem, de localizao e deslocalizao, do histrico e do biogrfico, do contemplativo e do temporal, do belo e do sublime. Tudo isto exercita-se com imagens sob o prprio feito de olhar (em permanente estado de passagem) na procura do micro-acontecimento.]]></description>
+      <property key="band"><![CDATA[Abro a janela e respiro o ar fresco do fim do mundo]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004990">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007766" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Invasive Species]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Invasive Species]]></name>
+      <vendor-category><![CDATA[Outros espaos | Outros espaos]]></vendor-category>
+      <short-description><![CDATA[Catarina Leito apresenta uma instalao,com desenhos sobre papel, sequncia da ]]></short-description>
+      <description><![CDATA[Catarina Leito{B} {/B}apresenta uma instalao,com desenhos sobre papel, sequncia da sua investigao sobre questes relacionadas com a natureza e o espao construdo. "Invasive species" estabelece um dilogo com o Palcio e convida o espectador a observar e deambular por um universo desenhado, com perfuraes, sombras, mquinas impossveis e cores, criando um espao de vivncia sensorial.]]></description>
+      <property key="band"><![CDATA[Invasive Species]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004990">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007767" modified="2010-04-20T08:09:07">
+    <name><![CDATA[A memria da memria]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[A memria da memria]]></name>
+      <vendor-category><![CDATA[Outros espaos | Outros espaos]]></vendor-category>
+      <short-description><![CDATA[Daniel Blaufuks mostra dois trabalhos sobre a memria. O primeiro  um filme - "]]></short-description>
+      <description><![CDATA[Daniel Blaufuks{B} {/B}mostra dois trabalhos sobre a memria. O primeiro  um filme - "Carpe Diem"- sobre a memria do prprio espao expositivo em que se insere, um lugar privado que hoje  pblico. O segundo trabalho  de fotografia - "A memria dos outros"{I} {/I}? e fala sobre a possvel memria encerrada em filmes privados. Os dois projectos apresentados falam da impossibilidade de aceder inteiramente  memria do outro, dado esta ser uma experincia sensorial e espacial e ser transmitida principalmente atravs de registos falados, escritos, fotogrficos ou flmicos, ou seja, atravs de uma memria dessa memria (evocao). Simultaneamente estes dois trabalhos realam a importncia dos arquivos de memrias como um elemento de transmisso e como base essencial para o conhecimento.]]></description>
+      <property key="band"><![CDATA[A memria da memria]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004990">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007768" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Monlogo jardim, palcio polifonia]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Monlogo jardim, palcio polifonia]]></name>
+      <vendor-category><![CDATA[Outros espaos | Outros espaos]]></vendor-category>
+      <short-description><![CDATA[Javier Peafiel investiga a memria pessoal e colectiva que habita o Palcio do ]]></short-description>
+      <description><![CDATA[Javier Peafiel{B} {/B}investiga a memria pessoal e colectiva que habita o Palcio do Marqus de Pombal. Uma investigao inicial baseada em conversas com pessoas que tiveram uma experincia pessoal no palcio e tambm na reviso de documentos antigos. O resultado  uma animao com desenhos e outros documentos fotogrficos e uma pera em vdeo.]]></description>
+      <property key="band"><![CDATA[Monlogo jardim, palcio polifonia]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000004990">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000007705" modified="2010-04-20T08:09:07">
+    <name><![CDATA[The Michael Jackson Dance Tribute]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[The Michael Jackson Dance Tribute]]></name>
+      <vendor-category><![CDATA[Dana | Aveiro]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[?20-32,50 (Jantar com espectculo)]]></price>
+      <property key="timeinfo"><![CDATA[Dom-Qui 22.30, Sex e Sb 23h]]></property>
+      <property key="band"><![CDATA[The Michael Jackson Dance Tribute]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000005039">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025843" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Forwards]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Forwards]]></name>
+      <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[Entrada livre]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sb 15-20h. Pintura de Diana Costa]]></property>
+      <property key="band"><![CDATA[Forwards]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000005140">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000022353" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Odisseia pelos Astros]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Odisseia pelos Astros]]></name>
+      <vendor-category><![CDATA[Listas | Teatro]]></vendor-category>
+      <short-description><![CDATA[O aventureiro Ferno de Magalhes decide acompanhar a velocidade da luz e desbra]]></short-description>
+      <description><![CDATA[O aventureiro Ferno de Magalhes decide acompanhar a velocidade da luz e desbravar o espao profundo do Universo numa viagem que o navegador nunca mais ir esquecer. Ao longo do percurso, vai atravessar buracos negros, desviar-se  tangente de meteoros e meteoritos e evitar as nuvens. ]]></description>
+      <price><![CDATA[Adultos: 7?; Crianas (dos 4 aos 14): 6,50; Seniores: 6? ]]></price>
+      <property key="timeinfo"><![CDATA[Sbados e domingos: 16h; Reservas: 21 846 0738; 96 600 4227]]></property>
+      <property key="band"><![CDATA[Odisseia pelos Astros]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000005601">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000021773" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Quantos Queres]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Quantos Queres]]></name>
+      <vendor-category><![CDATA[Exposies | Lisboa]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[Entrada livre]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sb 12-20h. Escultura, fotografia e outros por Markus Amm, John Beech, Michal Budny, Sean Edwards, Germaine Kruip e Joo Seguro]]></property>
+      <property key="band"><![CDATA[Quantos Queres]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000005704">
+        <occurrence>
+          <time>
+            <start_date>2010-04-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000025852" modified="2010-04-20T08:09:07">
+    <name><![CDATA[Master and Everyone]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Master and Everyone]]></name>
+      <vendor-category><![CDATA[Exposies | Porto]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <price><![CDATA[Entrada livre]]></price>
+      <property key="timeinfo"><![CDATA[Ter-Sex 10-12.30/15-19.30, Sb 15-19.30. Pintura Andr Prncipe]]></property>
+      <property key="band"><![CDATA[Master and Everyone]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000006244">
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

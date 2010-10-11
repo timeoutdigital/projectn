@@ -1,0 +1,1068 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-pois vendor="timeout" modified="2010-08-19T08:50:37">
+  <entry vpid="BOM000000000000000000000000054800" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82902520</longitude>
+      <latitude>18.93647680</latitude>
+    </geo-position>
+    <name><![CDATA[American Centre]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Near Nirmala Niketan, New Marine Lines]]></street>
+      <zip><![CDATA[400020]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 262 4590</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[American Centre]]></name>
+      <address>
+        <street><![CDATA[Near Nirmala Niketan, New Marine Lines]]></street>
+        <zip><![CDATA[400020]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Cultural center]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000054802" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.81794410</longitude>
+      <latitude>18.91456620</latitude>
+    </geo-position>
+    <name><![CDATA[Flamboyanté]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[The Arcade, World Trade Center]]></street>
+      <zip><![CDATA[400005]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 218 0433</phone>
+      <phone2>+91 222 218 0434</phone2>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Flamboyanté]]></name>
+      <address>
+        <street><![CDATA[The Arcade, World Trade Center]]></street>
+        <zip><![CDATA[400005]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <description><![CDATA[Flamboyanté, with its canopy of bright red curtains and fresh flowers floating in glass urns, sits somewhat incongruously in a courtyard in the WTC. The restaurant has three sections. There’s the Courtyard, an idyllic setting for those making the best of the monsoon with seating under umbrellas while the pitter patter of rain drops fall above head; a bar area; and an Asian fine dining section. A deli counter stands along one side of the Courtyard, holding delicious-looking pies and breads. The menu is a mix of pan-Asian (which is fast becoming the city’s favourite high-end food category) and Mediterranean. The vibe is relaxed, making this a quiet place for an after-work drink if your office is in the vicinity]]></description>
+        <openingtimes><![CDATA[Daily 11am-11pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000054803" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82386100</longitude>
+      <latitude>18.92418590</latitude>
+    </geo-position>
+    <name><![CDATA[Nimble Foundation]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Tulsiani Chambers, Nariman Point]]></street>
+      <houseno><![CDATA[318]]></houseno>
+      <zip><![CDATA[400021]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 224 002 6600</phone>
+      <phone2>+91 224 002 6020</phone2>
+      <email><![CDATA[info@nimblefoundation.org]]></email>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Nimble Foundation]]></name>
+      <address>
+        <street><![CDATA[Tulsiani Chambers, Nariman Point]]></street>
+        <houseno><![CDATA[318]]></houseno>
+        <zip><![CDATA[400021]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Cultural center]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000054804" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.84442620</longitude>
+      <latitude>19.11369760</latitude>
+    </geo-position>
+    <name><![CDATA[Hotel Park View]]></name>
+    <category><![CDATA[hotel]]></category>
+    <address>
+      <street><![CDATA[near Lallubhai Park]]></street>
+      <zip><![CDATA[400058]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 982 015 8537</phone>
+      <email><![CDATA[training@examplecg.com]]></email>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Hotel Park View]]></name>
+      <address>
+        <street><![CDATA[near Lallubhai Park]]></street>
+        <zip><![CDATA[400058]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Hotel]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000054870" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.85122480</longitude>
+      <latitude>19.01480980</latitude>
+    </geo-position>
+    <name><![CDATA[Wild Escapes]]></name>
+    <category><![CDATA[amusement-holiday-park]]></category>
+    <address>
+      <street><![CDATA[G.D Ambekar Marg, Hanuman Industrial Estate]]></street>
+      <houseno><![CDATA[207]]></houseno>
+      <zip><![CDATA[400031]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 226 663 5228</phone>
+      <phone2>+91 222 412 2030</phone2>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Wild Escapes]]></name>
+      <address>
+        <street><![CDATA[G.D Ambekar Marg, Hanuman Industrial Estate]]></street>
+        <houseno><![CDATA[207]]></houseno>
+        <zip><![CDATA[400031]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Adventure company]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055493" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.81223760</longitude>
+      <latitude>19.13255980</latitude>
+    </geo-position>
+    <name><![CDATA[Soda]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Picnic Cottage, Aram Nagar 1, Seven Bungalows]]></street>
+      <zip><![CDATA[400058]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 634 6688</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Soda]]></name>
+      <address>
+        <street><![CDATA[Picnic Cottage, Aram Nagar 1, Seven Bungalows]]></street>
+        <zip><![CDATA[400058]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Pubs & Bars]]></vendor-category>
+        <description><![CDATA[Many a pitcher of Long Island Iced Tea has been consumed in the name of project work at Soda’s outlet at Seven Bungalows. Soda occupies the top two floors of what used to be Rolling Beans. The first one is what they call the club area, which is fairly non-descript save for posters of vintage advertisements on the walls. Then there’s the terrace which has white linens, candles and faint music that give it a quiet cosiness. Together the two floors make for a perfect antidote to assignment blues: horrid karaoke to relieve any sense of awkwardness and then a quiet, candle-lit dinner to unwind - NS]]></description>
+        <openingtimes><![CDATA[Daily 7pm-1am]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055494" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.81467470</longitude>
+      <latitude>18.97049750</latitude>
+    </geo-position>
+    <name><![CDATA[SDIPA]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Everest, J. Dadaji Road]]></street>
+      <houseno><![CDATA[C-19]]></houseno>
+      <zip><![CDATA[400034]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 226 154 3000</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[SDIPA]]></name>
+      <address>
+        <street><![CDATA[Everest, J. Dadaji Road]]></street>
+        <houseno><![CDATA[C-19]]></houseno>
+        <zip><![CDATA[400034]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Cultural center]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055495" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83290020</longitude>
+      <latitude>19.13487230</latitude>
+    </geo-position>
+    <name><![CDATA[Firangi Paani Andheri]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Fun Republic, off New Link Road]]></street>
+      <zip><![CDATA[400053]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 673 4731</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Firangi Paani Andheri]]></name>
+      <address>
+        <street><![CDATA[Fun Republic, off New Link Road]]></street>
+        <zip><![CDATA[400053]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Cultural center]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055496" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.97040210</longitude>
+      <latitude>19.19158380</latitude>
+    </geo-position>
+    <name><![CDATA[Sahayog Mandir Sabhagriha]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Ghantali, Naupada]]></street>
+      <zip><![CDATA[400602]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[Sahayog Mandir Sabhagriha]]></name>
+      <address>
+        <street><![CDATA[Ghantali, Naupada]]></street>
+        <zip><![CDATA[400602]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Cultural center]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055517" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83164750</longitude>
+      <latitude>18.94307260</latitude>
+    </geo-position>
+    <name><![CDATA[St Xavier’s College, Mahapalika Marg]]></name>
+    <category><![CDATA[facilities]]></category>
+    <address>
+      <street><![CDATA[St Xavier’s College, Mahapalika Marg]]></street>
+      <zip><![CDATA[400001]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact/>
+    <version lang="en">
+      <name><![CDATA[St Xavier’s College, Mahapalika Marg]]></name>
+      <address>
+        <street><![CDATA[St Xavier’s College, Mahapalika Marg]]></street>
+        <zip><![CDATA[400001]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Auditorium]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055592" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83137320</longitude>
+      <latitude>18.92915470</latitude>
+    </geo-position>
+    <name><![CDATA[Jehangir Art Gallery]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Mahatma Gandhi Road]]></street>
+      <zip><![CDATA[400023]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 204 8212</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Jehangir Art Gallery]]></name>
+      <address>
+        <street><![CDATA[Mahatma Gandhi Road]]></street>
+        <zip><![CDATA[400023]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Art Gallery]]></vendor-category>
+        <openingtimes><![CDATA[Mon-Sat 11am-7pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055593" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.81863300</longitude>
+      <latitude>18.95156500</latitude>
+    </geo-position>
+    <name><![CDATA[DD Neroy Gallery]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Charni Road]]></street>
+      <zip><![CDATA[400003]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 361 1124</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[DD Neroy Gallery]]></name>
+      <address>
+        <street><![CDATA[Charni Road]]></street>
+        <zip><![CDATA[400003]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Art Gallery]]></vendor-category>
+        <openingtimes><![CDATA[Mon-Sat 10.30am-6pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055612" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83300240</longitude>
+      <latitude>18.92203030</latitude>
+    </geo-position>
+    <name><![CDATA[Moschino]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[The Taj Mahal Palace & Tower, Apollo Bunder]]></street>
+      <zip><![CDATA[400005]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 223 244 5293</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Moschino]]></name>
+      <address>
+        <street><![CDATA[The Taj Mahal Palace & Tower, Apollo Bunder]]></street>
+        <zip><![CDATA[400005]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Boutiques]]></vendor-category>
+        <short-description><![CDATA[Moschino’s suave travel bags are decorated with everything from black felines to horseshoes. The “Lost &amp; Found” range includes trolley cases, document cases, laptop bags, shopping bags, cosmetics pouches and mini messenger bags. Their prices are a bit steep, but then they’re meant for high fliers.]]></short-description>
+        <openingtimes><![CDATA[Daily 11am- 8.30pm.]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055630" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.84460260</longitude>
+      <latitude>19.12770780</latitude>
+    </geo-position>
+    <name><![CDATA[Amboli Bar & Kitchen]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Near Café Coffee Day, Caesar Road, Amboli]]></street>
+      <zip><![CDATA[400058]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 678 0022</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Amboli Bar & Kitchen]]></name>
+      <address>
+        <street><![CDATA[Near Café Coffee Day, Caesar Road, Amboli]]></street>
+        <zip><![CDATA[400058]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <description><![CDATA[See food. Amboli is a neighbourhood in Andheri, a fermented-rice pancake and now it’s also the name of a restaurant that serves Malwani and Goan food. Although the neighbourhood is not swanky, Amboli Bar &amp; Kitchen is styled like a fine-dining restaurant, with muted lighting, floor-to-ceiling glass windows and pale, sand-coloured furniture that complements the seafood menu. For discerning diners who like to pick their seafood before they pick at it, crustaceans and their ilk are placed around the cooking counter in the middle of the restaurant. On the evening we went for dinner, we saw silvery pomfrets, luscious lobsters and crabs lying on beds of ice. They looked really tempting but they were expensive: the crab we fancied would have cost Rs 1,500. So we decided to stick to the offerings on the menu. We wish they had paid as much attention to designing the menu as they had to the décor. We were handed spiral-bound photocopies of a list of dishes and there were typos on every page. Fortunately, the dishes themselves were appealing. From the drinks menu, we ordered a smoked chhaas (Rs 20) and an Amboli Special (Rs 199), a mix of pineapple, guava and lime juice, spiced with chat masala, salt and pepper and poured over plenty of ice. It was refreshing and tasty. The chhaas was infused with the aroma of burning coals and spiked with green chillies. It was warm and fiery, perfect for a cold and rainy night. For starters, we picked the jingha nisha (Rs 325) and kaju kothimibir vadi (Rs 135). Although the description of the jingha nisha said the prawns would be coated in saffron-infused sauce, we couldn’t detect that flavour. But each prawn was a big mouthful covered in a creamy, delicately spiced sauce and we got nine of them so we weren’t complaining. They didn’t skimp on the cashews in the kaju kothimbir vadi either and we had to stop at three to make sure we had enough room for the main course. Our main course included fish caldeen made with surmai (Rs 275), the olambi aka mushroom cashew nut malwani masala (Rs 185) and to satisfy the crab craving, a khekra masala (Rs 325). The crab was a good size – the body as big as a man’s palm – and the spicy tomato-onion gravy and tender meat went well with the sweetish tandalachi bhakri (Rs 30) made with finely ground rice flour. Cracking open the claws led to much spattering, making us realise why the table mats were plain brown paper – it meant less table linen to wash. Amboli in Amboli did serve amboli (Rs 35), a thick, spongy pancake that soaked up gravies just like an appam and added a sour bite to each morsel, especially the olambi cashew nut malwani masala. The fish caldeen was wonderfully mild. Its coconut-milk-based gravy, spiced with capsicum, green chillies and turmeric, was smooth. Rice would go well with this, but we had to leave room for dessert. They serve bebinca, malai kulfi and caramel custard, but we wanted to stay close to Malwan, so we ordered kharwas. It turned out to be sweet enough to pass for dessert but not smooth enough to pass for kharwas. This could just be part of Amboli’s teething troubles, like the spiral-bound menu, but we’d go back for more of that smoked chhaas and fish caldeen.]]></description>
+        <openingtimes><![CDATA[Noon-3.30pm, 7.30pm-1am]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055650" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82976140</longitude>
+      <latitude>19.14049930</latitude>
+    </geo-position>
+    <name><![CDATA[Fingers Cross]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Off New Link Road, Raheja Classique, Lokhandwala]]></street>
+      <zip><![CDATA[400058]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 633 9997</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Fingers Cross]]></name>
+      <address>
+        <street><![CDATA[Off New Link Road, Raheja Classique, Lokhandwala]]></street>
+        <zip><![CDATA[400058]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Pubs & Bars]]></vendor-category>
+        <short-description><![CDATA[There’s nothing unusual about Fingers Cross. From the décor to the music, you’ve seen and heard it all before. A Buddha statue sits alongside a black and white poster of Marilyn Monroe, low wooden tables are spread out and the DJ plays a mix of retro, rock, hip hop and Hindi. This is precisely what works for the place. The pretension free atmosphere coupled with the almost dive-like pricing draws patrons of every disposition. You’ll find a mix of uncles and aunties, hipsters and teeny-bopper taking advantage of their long happy hours – one-on-one free from noon-8.45pm and from midnight-1am. NS]]></short-description>
+        <openingtimes><![CDATA[Daily noon-1am]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055671" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.81814150</longitude>
+      <latitude>19.13034660</latitude>
+    </geo-position>
+    <name><![CDATA[Crepestation’s]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Tirupati Towers, Seven Bungalows, JP Road]]></street>
+      <zip><![CDATA[400058]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 630 2334</phone>
+      <phone2>+91 222 631 4158</phone2>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Crepestation’s]]></name>
+      <address>
+        <street><![CDATA[Tirupati Towers, Seven Bungalows, JP Road]]></street>
+        <zip><![CDATA[400058]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <description><![CDATA[Crepestation restobar has a special American menu all through July. On offer are sandwiches such as the tuscano (sundried tomatoes), tuna open bake, chicken breast and their signature Crepestation club sandwich. Pizzas include classic margarita, Mexican mafia, Thai fair, smoked chicken ham and sausage. To go with the food are milkshakes (Nutella, banana, chocolate and vanilla) and their waffles (Nutella, choco-nutty, nut-o-banana, apple-cinnamon, blueberry, strawberry and coconut banana)]]></description>
+        <openingtimes><![CDATA[Daily noon-1am]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055708" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82410930</longitude>
+      <latitude>18.99257730</latitude>
+    </geo-position>
+    <name><![CDATA[Raghuvanshi Mansions]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[Raghuvanshi Mills, Senapati Bapat Marg]]></street>
+      <zip><![CDATA[400013]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 495 1954</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Raghuvanshi Mansions]]></name>
+      <address>
+        <street><![CDATA[Raghuvanshi Mills, Senapati Bapat Marg]]></street>
+        <zip><![CDATA[400013]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Shopping Centers]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055736" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83355400</longitude>
+      <latitude>18.92756970</latitude>
+    </geo-position>
+    <name><![CDATA[Gallery Beyond]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Great Western Building, Shahid Bhagat Singh Road]]></street>
+      <houseno><![CDATA[130/132]]></houseno>
+      <zip><![CDATA[400001]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 283 7345</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Gallery Beyond]]></name>
+      <address>
+        <street><![CDATA[Great Western Building, Shahid Bhagat Singh Road]]></street>
+        <houseno><![CDATA[130/132]]></houseno>
+        <zip><![CDATA[400001]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Art Gallery]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055767" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82226160</longitude>
+      <latitude>18.94518890</latitude>
+    </geo-position>
+    <name><![CDATA[Not Just Jazz by the Bay]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Marine Drive]]></street>
+      <houseno><![CDATA[143]]></houseno>
+      <zip><![CDATA[400021]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 285 1876</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Not Just Jazz by the Bay]]></name>
+      <address>
+        <street><![CDATA[Marine Drive]]></street>
+        <houseno><![CDATA[143]]></houseno>
+        <zip><![CDATA[400021]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Cultural center]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055811" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.80592900</longitude>
+      <latitude>18.97745990</latitude>
+    </geo-position>
+    <name><![CDATA[Ghetto]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Bhulabhai Desai Road, near Mahalaxmi Temple, Breach Candy]]></street>
+      <zip><![CDATA[400026]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 353 8418</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Ghetto]]></name>
+      <address>
+        <street><![CDATA[Bhulabhai Desai Road, near Mahalaxmi Temple, Breach Candy]]></street>
+        <zip><![CDATA[400026]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Pubs & Bars]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055813" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83521980</longitude>
+      <latitude>18.93476180</latitude>
+    </geo-position>
+    <name><![CDATA[Yashwantrao Chavan Natya Sankul]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Near Star, City]]></street>
+      <zip><![CDATA[400019]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 437 7649</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Yashwantrao Chavan Natya Sankul]]></name>
+      <address>
+        <street><![CDATA[Near Star, City]]></street>
+        <zip><![CDATA[400019]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Cultural center]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055818" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.84050790</longitude>
+      <latitude>19.02512810</latitude>
+    </geo-position>
+    <name><![CDATA[Aaswad]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[L J Road, Shivaji Park, Gadkari Chowk]]></street>
+      <zip><![CDATA[400028]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 445 1871</phone>
+      <phone2>+91 222 445 1876</phone2>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Aaswad]]></name>
+      <address>
+        <street><![CDATA[L J Road, Shivaji Park, Gadkari Chowk]]></street>
+        <zip><![CDATA[400028]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <openingtimes><![CDATA[Tue-Sun 10am-10.30pm.]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055832" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.84925970</longitude>
+      <latitude>19.01960430</latitude>
+    </geo-position>
+    <name><![CDATA[ITC Grand Central]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Dr Babasaheb Ambedkar Road]]></street>
+      <houseno><![CDATA[287]]></houseno>
+      <zip><![CDATA[400012]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 410 1010</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[ITC Grand Central]]></name>
+      <address>
+        <street><![CDATA[Dr Babasaheb Ambedkar Road]]></street>
+        <houseno><![CDATA[287]]></houseno>
+        <zip><![CDATA[400012]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055867" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82716990</longitude>
+      <latitude>18.91826400</latitude>
+    </geo-position>
+    <name><![CDATA[Warehouse on 3rd Pasta]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[3rd Pasta Lane]]></street>
+      <zip><![CDATA[400005]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 202 3056</phone>
+      <url>http://www.gallerymaskara.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Warehouse on 3rd Pasta]]></name>
+      <address>
+        <street><![CDATA[3rd Pasta Lane]]></street>
+        <zip><![CDATA[400005]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Art Gallery]]></vendor-category>
+        <openingtimes><![CDATA[Tue-Sun 11am-7pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055869" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82532190</longitude>
+      <latitude>18.99385070</latitude>
+    </geo-position>
+    <name><![CDATA[Tulika Arts]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Senapati Bapat Marg]]></street>
+      <zip><![CDATA[400 013]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 491 3051</phone>
+      <email><![CDATA[info@tulikaartsgallery.com]]></email>
+      <url>http://www.tulikaarts.in</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Tulika Arts]]></name>
+      <address>
+        <street><![CDATA[Senapati Bapat Marg]]></street>
+        <zip><![CDATA[400 013]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Art Gallery]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055891" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.80608620</longitude>
+      <latitude>18.96395810</latitude>
+    </geo-position>
+    <name><![CDATA[Rudra Spa]]></name>
+    <category><![CDATA[recreation]]></category>
+    <address>
+      <street><![CDATA[Kemps Corner]]></street>
+      <zip><![CDATA[400036]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 387 2530</phone>
+      <phone2>+91 222 387 2531</phone2>
+      <email><![CDATA[info@rudraspa.com]]></email>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Rudra Spa]]></name>
+      <address>
+        <street><![CDATA[Kemps Corner]]></street>
+        <zip><![CDATA[400036]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Spa]]></vendor-category>
+        <openingtimes><![CDATA[Tue-Sun 9am-9pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055904" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83338770</longitude>
+      <latitude>19.07354040</latitude>
+    </geo-position>
+    <name><![CDATA[Fuel]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[14th Road]]></street>
+      <zip><![CDATA[400052]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 649 7878</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Fuel]]></name>
+      <address>
+        <street><![CDATA[14th Road]]></street>
+        <zip><![CDATA[400052]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Clothes & accessories store]]></vendor-category>
+        <openingtimes><![CDATA[Daily 11am-8pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000055913" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83413730</longitude>
+      <latitude>19.07169670</latitude>
+    </geo-position>
+    <name><![CDATA[The Banana Bar]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Linking Road]]></street>
+      <zip><![CDATA[400052]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 648 0483</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[The Banana Bar]]></name>
+      <address>
+        <street><![CDATA[Linking Road]]></street>
+        <zip><![CDATA[400052]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Pubs & Bars]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000056909" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.83540080</longitude>
+      <latitude>19.17246630</latitude>
+    </geo-position>
+    <name><![CDATA[Calvin Klein]]></name>
+    <category><![CDATA[shopping]]></category>
+    <address>
+      <street><![CDATA[Shoppers Stop, Link Road]]></street>
+      <zip><![CDATA[400064]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 226 643 4700</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Calvin Klein]]></name>
+      <address>
+        <street><![CDATA[Shoppers Stop, Link Road]]></street>
+        <zip><![CDATA[400064]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Clothes & accessories store]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000057155" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.89191530</longitude>
+      <latitude>19.12232330</latitude>
+    </geo-position>
+    <name><![CDATA[Renaissance Hotel]]></name>
+    <category><![CDATA[hotel]]></category>
+    <address>
+      <street><![CDATA[L&T Gate, Powai]]></street>
+      <zip><![CDATA[400087]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 226 692 8888</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Renaissance Hotel]]></name>
+      <address>
+        <street><![CDATA[L&T Gate, Powai]]></street>
+        <zip><![CDATA[400087]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Hotel]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000057158" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82850240</longitude>
+      <latitude>18.93626650</latitude>
+    </geo-position>
+    <name><![CDATA[Alliance Française]]></name>
+    <category><![CDATA[theatre-music-culture]]></category>
+    <address>
+      <street><![CDATA[Theosophy Hall, Vithaldas Thackersey Marg]]></street>
+      <houseno><![CDATA[40]]></houseno>
+      <zip><![CDATA[400020]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 222 203 5993</phone>
+      <url>http://www.bombay.afindia.org</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Alliance Française]]></name>
+      <address>
+        <street><![CDATA[Theosophy Hall, Vithaldas Thackersey Marg]]></street>
+        <houseno><![CDATA[40]]></houseno>
+        <zip><![CDATA[400020]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Art Gallery]]></vendor-category>
+        <openingtimes><![CDATA[Mon-Sat 10am-7pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000057185" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.82588390</longitude>
+      <latitude>19.10187230</latitude>
+    </geo-position>
+    <name><![CDATA[Lotus Café]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[JW Marriott Hotel, Juhu Tara Road]]></street>
+      <zip><![CDATA[400049]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 226 693 3276</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Lotus Café]]></name>
+      <address>
+        <street><![CDATA[JW Marriott Hotel, Juhu Tara Road]]></street>
+        <zip><![CDATA[400049]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <openingtimes><![CDATA[Sunday brunch from 12.30pm.]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000057191" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>73.03641350</longitude>
+      <latitude>19.01105590</latitude>
+    </geo-position>
+    <name><![CDATA[Pet Pujo_CBD]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Sector 15, Near Reliance Fresh]]></street>
+      <zip><![CDATA[400614]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 226 514 9666</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Pet Pujo_CBD]]></name>
+      <address>
+        <street><![CDATA[Sector 15, Near Reliance Fresh]]></street>
+        <zip><![CDATA[400614]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <openingtimes><![CDATA[Daily 11am-11.30pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="BOM000000000000000000000000057197" lang="en" modified="2010-08-19T08:50:37">
+    <geo-position>
+      <longitude>72.99545980</longitude>
+      <latitude>19.07304850</latitude>
+    </geo-position>
+    <name><![CDATA[Sky Café and Catering]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Sidheshwar Society, Sector 2, Kopar Khairane]]></street>
+      <zip><![CDATA[400709]]></zip>
+      <city><![CDATA[Mumbai]]></city>
+      <country>IND</country>
+    </address>
+    <contact>
+      <phone>+91 932 365 9800</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Sky Café and Catering]]></name>
+      <address>
+        <street><![CDATA[Sidheshwar Society, Sector 2, Kopar Khairane]]></street>
+        <zip><![CDATA[400709]]></zip>
+        <city><![CDATA[Mumbai]]></city>
+        <country>IND</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurant]]></vendor-category>
+        <openingtimes><![CDATA[Daily 8.30am-11pm]]></openingtimes>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+</vendor-pois>
