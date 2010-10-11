@@ -30,6 +30,8 @@ class mediaDownloadTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_REQUIRED, 'Only for one model type', false),
+      new sfCommandOption('existing', null, sfCommandOption::PARAMETER_REQUIRED, 'Header check & download existing media too', false),
+      new sfCommandOption('verbose', null, sfCommandOption::PARAMETER_REQUIRED, 'Output exception messages', false),
     ));
 
     $this->namespace        = 'projectn';
@@ -49,8 +51,11 @@ EOF;
     $databaseManager = new sfDatabaseManager( $this->configuration );
     $connection = $databaseManager->getDatabase( $options['connection'] ? $options['connection'] : null )->getConnection();
 
-    // Valid File Types.
-    $this->validFileTypes = array( 'image/jpeg' );
+    // Valid Mime Types.
+    $this->validMimeTypes = array( 'image/jpeg' );
+
+    // Set Verbosity.
+    $this->verbose = $options['verbose'];
   }
 
   protected function execute( $arguments = array(), $options = array())
@@ -72,12 +77,16 @@ EOF;
         $this->batchProcess( Doctrine::getTable( $table )->findByStatus( 'new' ) );
     }
 
-    // Update Existing Media
-    foreach( $mediaTables as $table )
+    // Toggle Update Checks of Existing Media
+    if( $options['existing'] !== false )
     {
-        $this->batchProcess( Doctrine::getTable( $table )->createQuery()
-            ->where( 'id % 7 IN ( '. implode( ',', $this->schedule[ date('l') ] ) . ' )' )
-            ->execute() );
+        // Update Existing Media
+        foreach( $mediaTables as $table )
+        {
+            $this->batchProcess( Doctrine::getTable( $table )->createQuery()
+                ->where( 'id % 7 IN ( '. implode( ',', $this->schedule[ date('l') ] ) . ' )' )
+                ->execute() );
+        }
     }
   }
 
@@ -85,7 +94,7 @@ EOF;
   {
     foreach( $collection as $media )
     {
-        if( $this->mediaIsNew( $media ) || $this->mediaHasChanged( $media ) )
+        if( in_array( $this->getStatus( $media ), array( 'new', 'error' ) ) || $this->mediaHasChanged( $media ) )
         {
             try
             {
@@ -94,8 +103,11 @@ EOF;
 
             catch( Exception $e )
             {
-                //echo "MediaDownloadTask threw a " . get_class( $e ) . " Exception with message:" . PHP_EOL;
-                //echo $e->getMessage() . str_repeat( PHP_EOL, 2 );
+                if( $this->verbose !== false )
+                {
+                    echo "MediaDownloadTask threw a " . get_class( $e ) . " Exception with message:" . PHP_EOL;
+                    echo $e->getMessage() . str_repeat( PHP_EOL, 2 );
+                }
             }
         }
     }
@@ -106,9 +118,9 @@ EOF;
     unset( $collection );
   }
 
-  protected function mediaIsNew( Doctrine_Record $media )
+  protected function getStatus( Doctrine_Record $media )
   {
-      return isset( $media['status'] ) && $media['status'] == 'new' ? true : false;
+      return isset( $media['status'] ) ? $media['status'] : false;
   }
 
   protected function mediaHasChanged( Doctrine_Record $media )
@@ -116,7 +128,7 @@ EOF;
       if( !isset( $media['url'] ) ) return false;
 
       $curlClass = $this->curlClass;
-      $headers = $curlClass::fetchAuthoritativeHeader( $media['url'] );
+      $headers = $curlClass::fetchAuthoritativeHeader( $this->encodeUrl( $media['url'] ) );
 
       return ( isset( $headers['Content-Type'] )   && $headers['Content-Type']   != $media['mime_type'] ) ||
              ( isset( $headers['Content-Length'] ) && $headers['Content-Length'] != $media['content_length'] ) ||
@@ -136,29 +148,28 @@ EOF;
       $tmpDestination   = tempnam( '/tmp', get_class( $media ) . '_' );
 
       $curlClass = $this->curlClass;
-      $curl = new $curlClass( $media['url'] );
-      $curl->downloadTo( $tmpDestination );
+      $curl = new $curlClass( $this->encodeUrl( $media['url'] ) );
 
-      $media['mime_type']          = $curl->getContentType();
-      $media['file_last_modified'] = $curl->getLastModified();
-      $media['etag']               = $curl->getETag();
-      $media['content_length']     = $curl->getContentLength();
-      $media['status']             = 'valid';
-      $media['last_header_check']  = date("Y-m-d H:i:s");
+      try
+      {
+          $curl->downloadTo( $tmpDestination );
 
-      try {
-        $this->validateDownload( $curl->getCurlInfo(), $tmpDestination, $media );
+          $media['mime_type']          = $curl->getContentType();
+          $media['file_last_modified'] = $curl->getLastModified();
+          $media['etag']               = $curl->getETag();
+          $media['content_length']     = $curl->getContentLength();
+          $media['status']             = 'valid';
+          $media['last_header_check']  = date("Y-m-d H:i:s");
+
+          $this->validateDownload( $curl->getCurlInfo(), $tmpDestination, $media );
       }
-      catch( MediaException $exception )
+      
+      catch( Exception $exception )
       {
         if( file_exists( $tmpDestination ) )
             unlink( $tmpDestination );
         
-        $media['mime_type']          = NULL;
-        $media['file_last_modified'] = NULL;
-        $media['etag']               = NULL;
-        $media['content_length']     = NULL;
-        $media['status']             = 'error';
+        $media['status'] = 'error';
         $media->save();
 
         throw $exception; // Re-throw Exception
@@ -183,6 +194,11 @@ EOF;
       $media->save();
   }
 
+  protected function encodeUrl( $url )
+  {
+      return str_replace( array( '%3A', '%2F' ), array( ':', '/' ), urlencode( $url ) );
+  }
+
   public function validateDownload( $curlInfo = array(), $destination, Doctrine_Record $media )
   {
       $responseCode         = $curlInfo[ 'http_code' ];
@@ -196,10 +212,10 @@ EOF;
           case file_exists( $destination ) :
               $errorMessage = "Failed to Save to Destination: '{$destination}'"; break;
 
-          case in_array( mime_content_type( $destination ), $this->validFileTypes ) :
+          case in_array( mime_content_type( $destination ), $this->validMimeTypes ) :
             $errorMessage = "Invalid MIME Type: '".mime_content_type( $destination )."'"; break;
                   
-          case in_array( $media['mime_type'], $this->validFileTypes ) :
+          case in_array( $media['mime_type'], $this->validMimeTypes ) :
               $errorMessage = "Invalid MIME Type: '{$media['mime_type']}'"; break;
 
           case is_numeric( $media['content_length'] ) && $media['content_length'] > 0 :

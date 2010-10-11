@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-08-19T08:51:05">
+  <event id="PNQ000000000000000000000000070082" modified="2010-08-19T08:51:05">
+    <name><![CDATA[Swarvarsha]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Swarvarsha]]></name>
+      <vendor-category><![CDATA[Concerts]]></vendor-category>
+      <description><![CDATA[The Talvihar Tabala Academy presents its annual evening of classical music. This year's line-up includes Mukesh Jadhav on the tabla, Bhawani Shankar on the pakhwaj and vocalist Shashank Maktedar will be performing.]]></description>
+      <price><![CDATA[Rs 100, 150 and 200]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000070460" modified="2010-08-19T08:51:05">
+    <name><![CDATA[Swarvarsha]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Swarvarsha]]></name>
+      <vendor-category><![CDATA[Concerts]]></vendor-category>
+      <description><![CDATA[The Talvihar Tabala Academy presents its annual evening of classical music. This year's line-up includes Mukesh Jadhav on the tabla, Bhawani Shankar on the pakhwaj and vocalist Shashank Maktedar will be performing.]]></description>
+      <price><![CDATA[Rs 100, 150 and 200]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000070781" modified="2010-08-19T08:51:05">
+    <name><![CDATA[Swarvarsha]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Swarvarsha]]></name>
+      <vendor-category><![CDATA[Concerts]]></vendor-category>
+      <description><![CDATA[The Talvihar Tabala Academy presents its annual evening of classical music. This year's line-up includes Mukesh Jadhav on the tabla, Bhawani Shankar on the pakhwaj and vocalist Shashank Maktedar will be performing.]]></description>
+      <price><![CDATA[Rs 100, 150 and 200]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000071079" modified="2010-08-19T08:51:05">
+    <name><![CDATA[Swarvarsha]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Swarvarsha]]></name>
+      <vendor-category><![CDATA[Concerts]]></vendor-category>
+      <description><![CDATA[The Talvihar Tabala Academy presents its annual evening of classical music. This year's line-up includes Mukesh Jadhav on the tabla, Bhawani Shankar on the pakhwaj and vocalist Shashank Maktedar will be performing.]]></description>
+      <price><![CDATA[Rs 100, 150 and 200]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000071446" modified="2010-08-19T08:51:05">
+    <name><![CDATA[Swarvarsha]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Swarvarsha]]></name>
+      <vendor-category><![CDATA[Concerts]]></vendor-category>
+      <description><![CDATA[The Talvihar Tabala Academy presents its annual evening of classical music. This year's line-up includes Mukesh Jadhav on the tabla, Bhawani Shankar on the pakhwaj and vocalist Shashank Maktedar will be performing.]]></description>
+      <price><![CDATA[Rs 100, 150 and 200]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000071975" modified="2010-08-19T08:51:05">
+    <name><![CDATA[Swarvarsha]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Swarvarsha]]></name>
+      <vendor-category><![CDATA[Concerts]]></vendor-category>
+      <description><![CDATA[The Talvihar Tabala Academy presents its annual evening of classical music. This year's line-up includes Mukesh Jadhav on the tabla, Bhawani Shankar on the pakhwaj and vocalist Shashank Maktedar will be performing.]]></description>
+      <price><![CDATA[Rs 100, 150 and 200]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000072923" modified="2010-08-19T08:51:05">
+    <name><![CDATA[Swarvarsha]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Swarvarsha]]></name>
+      <vendor-category><![CDATA[Concerts]]></vendor-category>
+      <description><![CDATA[The Talvihar Tabala Academy presents its annual evening of classical music. This year's line-up includes Mukesh Jadhav on the tabla, Bhawani Shankar on the pakhwaj and vocalist Shashank Maktedar will be performing.]]></description>
+      <price><![CDATA[Rs 100, 150 and 200]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

@@ -62,6 +62,11 @@ abstract class XMLExport
   protected $amazonResources = array();
 
   /**
+   * @var amazon s3cmd access class, Marked for Mocking Purposes
+   */
+  protected $s3cmdClassName = 's3cmd';
+
+  /**
    * @param Vendor $vendor
    * @param string $destination Path to file to write export to
    * @param Doctrine_Model $model The model to be exported
@@ -283,17 +288,9 @@ abstract class XMLExport
    */
   protected function loadListOfMediaAvailableOnAmazon( $vendorCity, $recordClass )
   {
-      // Note this requires the s3cmd utility 0.9.9.91 or greater. Available on prod, but maybe not on your comp.
-      if( strlen( trim( shell_exec( 's3cmd --version 2> /dev/null' ) ) ) < 1 )
-          throw new Exception( "Please Install & Configure the latest version of s3cmd. An installation script is available in /n/scripts" );
-
-      $vendorCity   = strtolower( $vendorCity );
-      $recordClass  = strtolower( $recordClass );
-      
-      $imageList    = trim( shell_exec( "s3cmd ls s3://projectn/{$vendorCity}/{$recordClass}/media/ | cut -d'/' -f7" ) );
-      $imageArray   = explode( "\n", $imageList );
-
-      $this->amazonResources = $imageArray;
+      $s3cmd = new $this->s3cmdClassName();
+      $this->amazonResources = $s3cmd->getListOfMediaAvailableOnAmazon( $vendorCity, $recordClass );
+      unset( $s3cmd ); // Free the class
   }
 
 
@@ -325,5 +322,39 @@ abstract class XMLExport
     }
 
     return $validRecords;
+  }
+
+  /**
+   * Set the S3CMD class name for mockup...
+   * @param string $className
+   */
+  public function setS3cmdClassName( $className )
+  {
+      if( !class_exists( $className ) )
+      {
+          throw new Exception( $className . ' do not exists.' );
+      }
+      
+      $this->s3cmdClassName = $className;
+  }
+
+  /**
+   * Validate phone Number using Nokia's RegEx
+   * @param string $phoneNo
+   * @return boolean
+   */
+  protected function isValidTelephoneNo( $phoneNo )
+  {
+      if( !is_string( $phoneNo ) )
+      {
+          return false;
+      }
+      
+      $phoneNo = str_replace( ' ', '', $phoneNo ); // Remove EMPTY spaces
+
+      // Validate using Nokia's Regex
+      $pattern = "/^\+(?:-?[0-9]\x20?){10,14}[0-9]$/"; // original Nokia one is /^\+(?:-?[0-9]\x20?){6,14}[0-9]$/', this is slightly modified
+
+      return preg_match( $pattern, $phoneNo );
   }
 }

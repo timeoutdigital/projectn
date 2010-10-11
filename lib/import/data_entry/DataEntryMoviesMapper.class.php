@@ -83,13 +83,44 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
                     $movie = new Movie();
                 }
                 $movie['vendor_movie_id']   = $vendorMovieId ;
+                $movie['Vendor']            = $this->vendor;
                 $movie->addMeta( 'vendor_movie_id' , $vendorMovieId );
+
+                if( isset( $movieElement->version->media ) )
+                {
+                    foreach ( $movieElement->version->media as $media )
+                    {
+                        foreach ($media->attributes() as $key => $value)
+                        {
+                            if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
+                            {
+                                continue 2; //only add the images
+                            }
+                        }
+                        try
+                        {
+                            // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
+                           // $urlArray = explode( '/', (string) $media );
+                            // Get the Last IDENT
+                            //$imageFileName = array_pop( $urlArray );
+
+                           // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/movie/%s', $imageFileName );
+
+                            $movie->addMediaByUrl( (string) $media  );
+                        }
+                        catch ( Exception $exception )
+                        {
+                             $this->notifyImporterOfFailure( $exception );
+                        }
+
+                    }
+                }
 
             }
 
             // version
 
-            $movie['Vendor']            = $this->vendor;
+
             $movie['name']              = (string) $movieElement->version->name ;
 
             $genreInfo  =  (string) $movieElement->version->genre;
@@ -133,35 +164,7 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
 
             $movie['cast'] =  implode( ', ', $actors );
 
-            if( isset( $movieElement->version->media ) )
-            {
-                foreach ( $movieElement->version->media as $media )
-                {
-                    foreach ($media->attributes() as $key => $value)
-                    {
-                        if( (string) $key == 'mime-type' &&  (string) $value !='image/jpeg')
-                        {
-                            continue 2; //only add the images
-                        }
-                    }
-                    try
-                    {
-                        // Generate Image [ http://www.timeout.com/projectn/uploads/media/event/$fileName ]
-                        $urlArray = explode( '/', (string) $media );
-                        // Get the Last IDENT
-                        $imageFileName = array_pop( $urlArray );
 
-                        $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/movie/%s', $imageFileName );
-
-                        $movie->addMediaByUrl( $mediaURL );
-                    }
-                    catch ( Exception $exception )
-                    {
-                         $this->notifyImporterOfFailure( $exception );
-                    }
-
-                }
-            }
 
             $movie[ 'utf_offset' ] = $this->vendor->getUtcOffset();
 

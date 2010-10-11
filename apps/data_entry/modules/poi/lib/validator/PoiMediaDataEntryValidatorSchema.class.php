@@ -28,14 +28,6 @@ class PoiMediaDataEntryValidatorSchema extends sfValidatorSchema
           unset($values[$key]);
       }
     }
-    else
-    {
-        if ($values['url'])
-        {
-            $values['ident'] = md5( microtime() );
-            $values['mime_type'] = 'image/jpeg';
-        }
-    }
 
     return $values;
   }

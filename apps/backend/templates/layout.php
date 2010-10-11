@@ -31,6 +31,9 @@
             <?php echo link_to('Movie', '@movie') ?> /
           </li>
           <li>
+            <?php echo link_to('Vendor', '@vendor') ?> /
+          </li>
+          <li>
             <?php echo link_to('Vendor Poi Categories', '@vendor_poi_category') ?> /
           </li>
           <li>

@@ -56,7 +56,8 @@ class widgetFormPoiVendorCategoryChoice extends sfWidgetForm
 
   private function getChoices()
   {
-    $relatedVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->findByVendorId( $this->options['vendor_id'] );
+    
+    $relatedVendorCategories = Doctrine::getTable( 'Poi' )->getVendorPoiCategoryByVendorId( $this->options['vendor_id'] );
 
     $choices = array();
     foreach( $relatedVendorCategories as $category )

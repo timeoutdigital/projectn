@@ -136,7 +136,6 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 // Save POI
                 $this->notifyImporter( $poi );
 
-                $poi->free( true );
                 unset( $poi );
                 
             } catch (Exception $exception)

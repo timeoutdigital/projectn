@@ -59,7 +59,8 @@ class XMLExportPOI extends XMLExport
              Doctrine_Query::create()
                  ->select("p.latitude, p.longitude, CONCAT( latitude, ', ', longitude ) as myString")
                  ->from('Poi p')
-                 ->where('p.vendor_id = ?', $this->vendor['id'])
+                 ->where('p.vendor_id = ?', $this->vendor['id'] )
+                 ->addWhere('p.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
                  ->groupBy('myString')
                  ->having('count( myString ) > 1')
                  ->execute( array(), Doctrine_Core::HYDRATE_ARRAY )
@@ -136,7 +137,7 @@ class XMLExportPOI extends XMLExport
           }
       }
 
-      if( stringTransform::mb_trim ( $poi['street'] ) == '' )
+      if( stringTransform::mb_trim ( $poi['street'] ) == '' || stringTransform::mb_trim ( $poi['street'] ) == '[invalid]')
       {
           if( $this->validation == true )
           {
@@ -189,9 +190,19 @@ class XMLExportPOI extends XMLExport
 
       $contactElement = $this->appendRequiredElement( $entryElement, 'contact' );
 
-      $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
-      $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
-      $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
+      // #687 Validate phone number with Nokia's Regex
+      if( $this->isValidTelephoneNo( $poi['phone'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
+      }
+      if( $this->isValidTelephoneNo( $poi['fax'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
+      }
+      if( $this->isValidTelephoneNo( $poi['phone2'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
+      }
 
       $this->appendNonRequiredElement( $contactElement, 'email', $poi['email'], XMLExport::USE_CDATA );
 
@@ -234,15 +245,29 @@ class XMLExportPOI extends XMLExport
       //event/version/media
 
       // Finds Largest Media File that Exists on s3.
-      foreach( $this->filterByExportPolicyAndVerifyMedia( $poi[ 'PoiMedia' ] ) as $medium )
+      if( $this->validation )
       {
-        $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getAwsUrl(), XMLExport::USE_CDATA );
+          foreach( $this->filterByExportPolicyAndVerifyMedia( $poi[ 'PoiMedia' ] ) as $medium )
+          {
+            $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getMediaUrl(), XMLExport::USE_CDATA );
 
-        if ( $mediaElement instanceof DOMElement )
-        {
-          $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
-        }
-        //$medium->free();
+            if ( $mediaElement instanceof DOMElement )
+            {
+              $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+            }
+          }
+      }
+      else
+      {
+         foreach( $poi[ 'PoiMedia' ]  as $medium )
+          {
+            $mediaElement = $this->appendNonRequiredElement( $contentElement, 'media', $medium->getMediaUrl(), XMLExport::USE_CDATA );
+
+            if ( $mediaElement instanceof DOMElement )
+            {
+              $mediaElement->setAttribute( 'mime-type', $medium[ 'mime_type' ] );
+            }
+          }
       }
 
       foreach( $poi[ 'PoiProperty' ] as $property )

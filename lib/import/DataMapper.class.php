@@ -31,10 +31,10 @@ abstract class DataMapper
         '$method',
         'return preg_match( "/^map[A-Z]*/", $method->name );'
       ) );
-    
+
     return $mapMethods;
   }
-  
+
   public function setImporter( $importer )
   {
     $this->importer = $importer;
@@ -44,7 +44,7 @@ abstract class DataMapper
   {
     $this->importer->onRecordMapped( $record );
   }
-  
+
   protected function notifyImporterOfFailure( Exception $exception , Doctrine_Record $record = NULL, $message='' )
   {
     $this->importer->onRecordMappingException( $exception ,$record, $message );
@@ -76,6 +76,11 @@ abstract class DataMapper
   {
       foreach( $xml as $fixSimpleXMLBug ) $data[] = $fixSimpleXMLBug;
       return $data;
+  }
+
+  protected function clean( $string )
+  {
+    return stringTransform::mb_trim( $string );
   }
 }
 ?>

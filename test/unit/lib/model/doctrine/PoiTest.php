@@ -48,6 +48,41 @@ class PoiTest extends PHPUnit_Framework_TestCase
    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testMarkRecordAsDuplicate()
+  {
+    // Set False->False
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( NULL );
+    $this->object->save();
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set False->True
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( 'on' );
+    $this->object->save();
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set True->True
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( 'on' );
+    $this->object->save();
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+
+    // Set True->False
+    $this->assertTrue( $this->object->getDuplicate() );
+    $this->assertEquals( 1, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+    $this->object->setDuplicate( NULL );
+    $this->object->save();
+    $this->assertFalse( $this->object->getDuplicate() );
+    $this->assertEquals( 0, Doctrine::getTable( 'PoiMeta' )->findByLookupAndRecordId( 'Duplicate', $this->object['id'] )->count() );
+  }
+
   public function testStreetDoesNotContainPostCode()
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -405,6 +440,14 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'spaced poi name', $poiTrim[ 'poi_name' ] );
       $this->assertEquals( '45 Some Street', $poiTrim[ 'street' ], 'Expected Street Name: 45 Some Street, SE1 9HG' );
 
+      // make sure leading and trailing commas get removed
+      $poiTrim['poi_name'] = ',Poi name is ,';
+
+      // save
+      $poiTrim->save();
+
+      // assert
+      $this->assertEquals('Poi name is', $poiTrim['poi_name'], 'trim failed to remove leading and/or trailing comma(s)');
   }
 
   /**
@@ -443,6 +486,19 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '', $poi['url'] , 'invalid url should be saved as NULL' );
       $this->assertEquals( '', $poi['email'] , 'invalid email should be saved as NULL' );
    }
+
+   /**
+   * Test Media Class -> PopulateByUrl with Redirecting Image URLS
+   */
+  public function testMediaPopulateByUrlForRedirectingLink()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ); // url Redirect to another...
+      $poi->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
+      $poi->save();
+
+      $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+  }
 
   public function testStreetDoesNotEndWithCityName()
   {
@@ -515,12 +571,42 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals( '+3493 9 3424 6577', $poi['phone'], "formatPhone should'nt change the phone number if it's already prefixed with the dial code" );
    }
+
+   /**
+    * Check addMediaByUrl() get_header for array value.
+    */
+   public function testAddMediaByUrlMimeTypeCheck()
+   {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // Valid URL with 302 Redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
+      // 404 Error Url
+      $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+      // Valid URL - No redirect
+      $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
+   }
+
+   public function testAddVendorCategoryHTMLDecode()
+   {
+    $vendorCategory = "Neighborhood &amp; pubs";
+    //$vendorCategory = "Neighborhood pubs | Pick-up joints";
+    $vendor = Doctrine::getTable('Vendor')->findOneById( 1 );
+    $this->object->addVendorCategory( $vendorCategory, $vendor[ 'id' ] );
+    $this->object->save();
+
+    $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorPoiCategory' ][0]['name'] );
+   }
 }
 
 class MockgeocoderForPoiTest extends geocoder
 {
   private $address;
 
+  public function responseIsValid()
+  {
+      return true;
+  }
   public function _setAddress( $address )
   {
     $this->address = $address;
@@ -547,8 +633,6 @@ class MockgeocoderForPoiTest extends geocoder
       return 'mockgeocoder for poi lookup url';
   }
 
-  protected function responseIsValid() {}
-
   protected function apiKeyIsValid( $apiKey ) { }
 
   protected function processResponse( $response ) { }
@@ -562,13 +646,17 @@ class MockgeocoderForPoiTestWithoutAddress extends geocoder
   public function getLatitude() { }
   public function getAccuracy() { }
 
-   public function getLookupUrl()
+  public function getLookupUrl()
   {
       return 'mockgeocoder for poi lookup url';
   }
 
+  public function responseIsValid()
+  {
+      return true;
+  }
+
   protected function apiKeyIsValid( $apiKey ) { }
   protected function processResponse( $response ) { }
-  protected function responseIsValid() {}
 }
 

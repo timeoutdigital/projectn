@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-08-19T08:50:39">
+  <event id="BOM000000000000000000000000063905" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000063906" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000063907" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000069367" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000069368" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000069369" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000069985" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000069986" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000069987" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000070383" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000070384" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000070385" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000070721" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000070722" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000070723" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071026" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071027" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071028" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071390" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071391" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071392" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071909" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071910" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000071911" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072651" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Backpacking to Ladakh]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Backpacking to Ladakh]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes will organise a ten-day trip to Ladakh. On the itinerary is the Pangong Tso lake, Nubra Valley and white-water rafting on the Indus. Trip dates: Mon Aug 23-Wed Sept 1. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 19,900 (from Delhi)]]></description>
+      <price><![CDATA[Rs 19,900]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-09-01</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072652" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Hornbill Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Hornbill Festival]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes visits the Hornbill festival in Nagaland on a seven-day trip which includes a trek through Kaziranga National Park – by jeep or elephant – and an exploration of the Shankardeva Kalakshetra. Trip dates: Sun Nov 28-Sat Dec 04. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com. Rs 29,600 (from Delhi)]]></description>
+      <price><![CDATA[Rs 29,600]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-11-28</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072653" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Spiti Camp]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Spiti Camp]]></name>
+      <vendor-category><![CDATA[Treks]]></vendor-category>
+      <description><![CDATA[Wild Escapes combines a Himalayan jeep safari with trekking over ten days to enjoy the Spiti Valley in Himachal Pradesh. Trip dates: Sat Sept 4-Mon Sept 13. To register, call Wild Escapes on 6663-5228 or 2412-2030 or email wildescapes@gmail.com Rs 24,950 (from Delhi).]]></description>
+      <price><![CDATA[Rs 24,950]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000054870">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-13</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072685" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Bhuwan Babulal Silhare’s paintings, Gallery 1]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-22</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072686" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Ajay Kumar Samir, Gallery 1]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-29</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072687" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Arun Giri shows sculptures, Gallery 1]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-30</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072688" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Deepak Bhagwanrao Jogdand displays paintings, Gallery 2]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-21</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072689" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Rachana Ajit Nagarkar, Gallery 2]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-29</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072690" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Deepak Madhukar Sonar displays paintings, Gallery 2]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072691" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Balvant Janardhan Patil’s paintings, Gallery 3]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-21</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072692" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Sanil Ponniam, Gallery 3]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-29</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072693" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Shankar Gojare shows paintings, Gallery 3]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072694" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Group Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Group Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Dhananjay Takalikar, Rakesh Ghodpage, Ajay Joshi and others display paintings, Auditorium Hall]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-23</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072695" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Group Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Group Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Anuj Prasad and Dilshad Faroodi, Auditorium Hall]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-30</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072696" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Sukhamoy Majumder shows paintings, Hirji Gallery]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-24</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072697" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Rajesh Bhimraj Sawant’s paintings, Hirji Gallery]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055592">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-31</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072706" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Enigma]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Enigma]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Ghayathri Desai, Devyani Parikh, Ram Thorat, Vasant Sonavani and Apet Pramod present recent works]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055593">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-31</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072657" modified="2010-08-19T08:50:39">
+    <name><![CDATA[GO-AA]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[GO-AA]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[The gallery has initiated an art workshop programme in Goa. For their third camp, 14 artists including Prabhakar Kolte, Brinda Miller, Puneet Kaushik, Rajesh Ahlawat and others created works, which will be exhibited at the gallery]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055736">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-09-02</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072704" modified="2010-08-19T08:50:39">
+    <name><![CDATA[NUL to Now]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[NUL to Now]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Four years ago, Priyanka Choudhary began experimenting with twigs, branches and thorns after she was dissatisfied with using paints on her canvases. Choudhary’s fascination with what she describes as “raw organic materials” is palpable in her debut solo. In the show, the artist pierces her canvases with sharp twigs, applies white plaster on the surface and uses red clay on the reverse to create works that she says lie “somewhere between painting and sculpture”. The pointed branches jutting out of the surface, the gashes that look like wounds and the red of the clay seeping through underscores the theme of pain in Choudhary’s art. The series is the artist’s reaction to violence prevalent in society. We were arrested by Pubic, a bamboo installation that runs across the length of the gallery and looks like construction scaffolding gone wrong. The forceful work is Choudhary’s reaction to the changing landscape of her hometown of Delhi]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055867">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-22</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BOM000000000000000000000000072705" modified="2010-08-19T08:50:39">
+    <name><![CDATA[Solo Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Solo Show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Prashant Pande presents sculptures made from waste]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BOM000000000000000000000000055867">
+        <occurrence>
+          <time>
+            <start_date>2010-08-31</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>
