@@ -822,9 +822,6 @@ class importTask extends sfBaseTask
             case 'poi':
                     $dataMapper = 'HongKongFeedVenuesMapper';
                     $params['datasource']['url']    = 'http://tohk.testpilotweb.com/rss/venues/';
-                //$params['datasource']['url']    = '/home/jeevan/Workspace/projectn/hk-venues.xml';
-                //$params['datasource']['classname']    = 'CurlMock';
-                require_once( '/home/jeevan/Workspace/projectn/test/unit/mocks/curl.mock.php' );
                 break;
             case 'movie':
                     $dataMapper = 'HongKongFeedMoviesMapper';
