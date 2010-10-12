@@ -41,76 +41,76 @@
                         <td>
                             <?php if( $yesterday !== false ){ ?>
                                 <?php if( $today[ $model ]['insert'] > $yesterday[ $model ]['insert'] ){ ?>
-                                    <p class="diff up"><?= $today[ $model ]['insert'] - $yesterday[ $model ]['insert']; ?></p>
+                                    <p class="diff up"><?php echo $today[ $model ]['insert'] - $yesterday[ $model ]['insert']; ?></p>
                                 <?php } elseif( $today[ $model ]['insert'] < $yesterday[ $model ]['insert'] ){ ?>
-                                    <p class="diff down"><?= $yesterday[ $model ]['insert'] - $today[ $model ]['insert']; ?></p>
+                                    <p class="diff down"><?php echo $yesterday[ $model ]['insert'] - $today[ $model ]['insert']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                         </td>
-                        <td><p class="num"><?= $today[ $model ]['insert']; ?></p></td>
+                        <td><p class="num"><?php echo $today[ $model ]['insert']; ?></p></td>
                     </tr>
                     <tr>
                         <td><span class="panel-title" style="color:red">Failed to Import</span></td>
                         <td>
                             <?php if( $yesterday !== false ){ ?>
                                 <?php if( $today[ $model ]['failed'] > $yesterday[ $model ]['failed'] ){ ?>
-                                    <p class="diff up"><?= $today[ $model ]['failed'] - $yesterday[ $model ]['failed']; ?></p>
+                                    <p class="diff up"><?php echo $today[ $model ]['failed'] - $yesterday[ $model ]['failed']; ?></p>
                                 <?php } elseif( $today[ $model ]['failed'] < $yesterday[ $model ]['failed'] ){ ?>
-                                    <p class="diff down"><?= $yesterday[ $model ]['failed'] - $today[ $model ]['failed']; ?></p>
+                                    <p class="diff down"><?php echo $yesterday[ $model ]['failed'] - $today[ $model ]['failed']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                         </td>
-                        <td><p class="num"><?= $today[ $model ]['failed']; ?></p></td>
+                        <td><p class="num"><?php echo $today[ $model ]['failed']; ?></p></td>
                     </tr>
                     <tr>
                         <td><span class="panel-title" style="color:blue">Updated Records</span></td>
                         <td width="10px">
                             <?php if( $yesterday !== false ){ ?>
                                 <?php if( $today[ $model ]['updated'] > $yesterday[ $model ]['updated'] ){ ?>
-                                    <p class="diff up"><?= $today[ $model ]['updated'] - $yesterday[ $model ]['updated']; ?></p>
+                                    <p class="diff up"><?php echo $today[ $model ]['updated'] - $yesterday[ $model ]['updated']; ?></p>
                                 <?php } elseif( $today[ $model ]['updated'] < $yesterday[ $model ]['updated'] ){ ?>
-                                    <p class="diff down"><?= $yesterday[ $model ]['updated'] - $today[ $model ]['updated']; ?></p>
+                                    <p class="diff down"><?php echo $yesterday[ $model ]['updated'] - $today[ $model ]['updated']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                         </td>
-                        <td width="50px"><p class="num"><?= $today[ $model ]['updated']; ?></p></td>
+                        <td width="50px"><p class="num"><?php echo $today[ $model ]['updated']; ?></p></td>
                     </tr>
                     <tr>
                         <td><span class="panel-title" style="color:#555;">Un-modified Records</span></td>
                         <td width="10px">
                             <?php if( $yesterday !== false ){ ?>
                                 <?php if( $today[ $model ]['existing'] > $yesterday[ $model ]['existing'] ){ ?>
-                                    <p class="diff up"><?= $today[ $model ]['existing'] - $yesterday[ $model ]['existing']; ?></p>
+                                    <p class="diff up"><?php echo $today[ $model ]['existing'] - $yesterday[ $model ]['existing']; ?></p>
                                 <?php } elseif( $today[ $model ]['existing'] < $yesterday[ $model ]['existing'] ){ ?>
-                                    <p class="diff down"><?= $yesterday[ $model ]['existing'] - $today[ $model ]['existing']; ?></p>
+                                    <p class="diff down"><?php echo $yesterday[ $model ]['existing'] - $today[ $model ]['existing']; ?></p>
                                 <?php } ?>
                             <?php } ?>
                         </td>
-                        <td width="50px"><p class="num"><?= $today[ $model ]['existing']; ?></p></td>
+                        <td width="50px"><p class="num"><?php echo $today[ $model ]['existing']; ?></p></td>
                     </tr>
                     <tr>
                         <td><span class="panel-title">Total in Vendor Feed</span></td>
                         <td>
                             <?php if( $yesterday !== false ){ ?>
                                 <?php if( $todayTotal > $yesterdayTotal ){ ?>
-                                    <p class="diff up"><?= $todayTotal - $yesterdayTotal; ?></p>
+                                    <p class="diff up"><?php echo $todayTotal - $yesterdayTotal; ?></p>
                                 <?php } elseif( $todayTotal < $yesterdayTotal ){ ?>
-                                    <p class="diff down"><?= $yesterdayTotal - $todayTotal; ?></p>
+                                    <p class="diff down"><?php echo $yesterdayTotal - $todayTotal; ?></p>
                                 <?php } ?>
                             <?php } ?>
                         </td>
-                        <td><p class="num"><?= $todayTotal; ?></p></td>
+                        <td><p class="num"><?php echo $todayTotal; ?></p></td>
                     </tr>
                     <tr><td colspan="3" style="background-color:#C8D6FF; height:5px; padding:0px;"></td></tr>
                     <tr>
                         <td><span class="panel-title">Total in Database</span></td>
                         <td></td>
-                        <td><p class="num"><?= is_numeric( $dbtotal ) ? $dbtotal : '?'; ?></p></td>
+                        <td><p class="num"><?php echo is_numeric( $dbtotal ) ? $dbtotal : '?'; ?></p></td>
                     </tr>
                     <tr>
                         <td><span class="panel-title">Total Exported to Nokia</span></td>
                         <td></td>
-                        <td><p class="num"><?= is_numeric( $exportTotal ) ? $exportTotal : '?'; ?></p></td>
+                        <td><p class="num"><?php echo is_numeric( $exportTotal ) ? $exportTotal : '?'; ?></p></td>
                     </tr>
                 </table>
             </div>
@@ -123,7 +123,7 @@
         </td>
         <td id="summary2" style="border:none; padding:17px;" width="100%">
             <div style="background-color:#C8D6FF; border-radius: 5px; margin-bottom:20px; -moz-border-radius: 5px;">
-                <p style="font-size:26px; padding:5px 10px; text-align:center;"><?= ucfirst( $vendor->city ); ?> <?= ucfirst( $model ); ?> imports for period: <?= date( 'jS F \'y', $date_from ); ?> - <?= date( 'jS F \'y', $date_to ); ?></p>
+                <p style="font-size:26px; padding:5px 10px; text-align:center;"><?php echo ucfirst( $vendor->city ); ?> <?php echo ucfirst( $model ); ?> imports for period: <?php echo date( 'jS F \'y', $date_from ); ?> - <?php echo date( 'jS F \'y', $date_to ); ?></p>
             </div>
             <div id="graph" style="width:100%; height:350px;"></div>
         </td>
