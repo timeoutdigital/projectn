@@ -22,6 +22,7 @@ class ProjectN_Test_Unit_Factory
   	$manager = new sfDatabaseManager( $config );
 
     Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine' );
+    ImportLogger::getInstance()->enabled( false );
   }
 
   /**
