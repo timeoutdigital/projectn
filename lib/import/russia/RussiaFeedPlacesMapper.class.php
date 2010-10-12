@@ -13,9 +13,26 @@
  */
 class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
 {
+    private $startPoint;
+    private $endPoint;
+    
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false, $startPoint = 0, $endPoint = 0)
+    {
+        // Set Default End point for other Cities!
+        if( $endPoint <= 0 )
+        {
+            $endPoint = $xml->venue->count();
+        }
+        
+        $this->startPoint = $startPoint;
+        $this->endPoint = $endPoint;
+        
+        parent::__construct($xml, $geocoderr, $city );
+    }
   public function mapPlaces()
   {
-    for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
+    //for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
+    for( $i=$this->startPoint, $venueElement = $this->xml->venue[ $this->startPoint ]; $i < $this->endPoint; $i++, $venueElement = $this->xml->venue[ $i ] )
     {
         try {
             // Get Venue Id
