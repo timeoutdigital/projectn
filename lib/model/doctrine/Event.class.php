@@ -17,7 +17,7 @@ class Event extends BaseEvent
    *
    * @var array
    */
-  public static $vendorCategories;
+  private static $vendorCategories;
 
 
 
@@ -339,6 +339,11 @@ class Event extends BaseEvent
         $eventMetaObj[ 'comment' ] = (string) $comment;
 
     $this[ 'EventMeta' ][] = $eventMetaObj;
+  }
+
+  public static function resetVendorCategoryCache()
+  {
+      self::$vendorCategories = null;
   }
 
 }
