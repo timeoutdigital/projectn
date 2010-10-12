@@ -277,7 +277,7 @@ class ImportLogger extends BaseLogger
     {
        if( $this->_enabled )
        {
-           $logImportCount = $this->_getLogImportCountObject( 'insert', get_class( $record ) );
+           $logImportCount = $this->_getLogImportCountObject( 'insert', is_object( $record ) ? get_class( $record ) : NULL );
            $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
            $this->save();
        }
@@ -292,7 +292,7 @@ class ImportLogger extends BaseLogger
     {
        if( $this->_enabled )
        {
-           $logImportCount = $this->_getLogImportCountObject( 'failed', get_class( $record ) );
+           $logImportCount = $this->_getLogImportCountObject( 'failed', is_object( $record ) ? get_class( $record ) : NULL );
            $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
            $this->save();
        }
@@ -310,7 +310,7 @@ class ImportLogger extends BaseLogger
       {
           if ( empty( $modifiedFieldsArray ) )
           {
-             $logImportCount = $this->_getLogImportCountObject( 'existing', get_class( $record ) );
+             $logImportCount = $this->_getLogImportCountObject( 'existing', is_object( $record ) ? get_class( $record ) : NULL );
              $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
           }
           else
@@ -324,7 +324,7 @@ class ImportLogger extends BaseLogger
               }
               $logImportChange = new LogImportChange();
               $logImportChange[ 'record_id' ] = $record[ 'id' ];
-              $logImportChange[ 'model' ]     = get_class( $record );
+              $logImportChange[ 'model' ]     = is_object( $record ) ? get_class( $record ) : NULL;
               $logImportChange['log']         = $log;
 
               $importLogger = $this->getLoggerByVendor();

@@ -328,7 +328,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
 
-      $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
+      $this->assertEquals( 6, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
     /**
@@ -439,7 +439,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testIfPoiWithEmptyStreetIsSkipped()
     {
       //entry
-      $this->assertEquals( 2, count( $this->xml->entry ) );
+      $this->assertEquals( 3, count( $this->xml->entry ) );
     }
 
     /**
@@ -448,7 +448,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testGeneratedXMLHasEntryTagsWithRequiredAttribute()
     {
       //entry
-      $this->assertEquals( 2, count( $this->xml->entry ) );
+      $this->assertEquals( 3, count( $this->xml->entry ) );
 
       $prefix = 'XXX';
       $this->assertStringStartsWith( $prefix, (string) $this->xml->entry[0]['vpid'] );
@@ -608,7 +608,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testMediaTags()
     {
       $properties = $this->xml->entry[0]->version->content->media;
-      $this->assertEquals( 0, count( $properties ) );
+      $this->assertEquals( 1, count( $properties ) );
     }
 
     public function testExportWithValidationOff()

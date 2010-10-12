@@ -1,0 +1,1496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-10-05T05:42:04">
+  <event id="ALA000000000000000000000000098168" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Флория Тоска"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Флория Тоска"]]></name>
+      <vendor-category><![CDATA[Опера | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-07</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098169" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Красная Жизель"]]></name>
+    <category>dance</category>
+    <version lang="ru">
+      <name><![CDATA["Красная Жизель"]]></name>
+      <vendor-category><![CDATA[Балет и танец | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-21</start_date>
+            <end_date>2010-10-21</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-20</start_date>
+            <end_date>2010-10-20</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098170" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Шедевры современной хореографии латиноамериканских балетмейстеров Ж. Бизе - Р. Щедрин "Кармен-сюита"]]></name>
+    <category>dance</category>
+    <version lang="ru">
+      <name><![CDATA[Шедевры современной хореографии латиноамериканских балетмейстеров Ж. Бизе - Р. Щедрин "Кармен-сюита"]]></name>
+      <vendor-category><![CDATA[Балет и танец | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>17:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098171" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Шедевры современной хореографии латиноамериканских балетмейстеров Г. Перселл "Павана мавра"]]></name>
+    <category>dance</category>
+    <version lang="ru">
+      <name><![CDATA[Шедевры современной хореографии латиноамериканских балетмейстеров Г. Перселл "Павана мавра"]]></name>
+      <vendor-category><![CDATA[Балет и танец | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>17:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098172" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Евгений Онегин"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Евгений Онегин"]]></name>
+      <vendor-category><![CDATA[Опера | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098173" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Тлеп и Сарыкыз"]]></name>
+    <category>dance</category>
+    <version lang="ru">
+      <name><![CDATA["Тлеп и Сарыкыз"]]></name>
+      <vendor-category><![CDATA[Балет и танец | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-29</start_date>
+            <end_date>2010-10-29</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098174" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Кыз Жибек"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Кыз Жибек"]]></name>
+      <vendor-category><![CDATA[Опера | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-30</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098175" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Дон Кихот"]]></name>
+    <category>dance</category>
+    <version lang="ru">
+      <name><![CDATA["Дон Кихот"]]></name>
+      <vendor-category><![CDATA[Балет и танец | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-31</start_date>
+            <end_date>2010-10-31</end_date>
+            <event_time>17:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098176" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Летучая мышь"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Летучая мышь"]]></name>
+      <vendor-category><![CDATA[Опера | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043452">
+        <occurrence>
+          <time>
+            <start_date>2010-10-23</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098208" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Групповая фотовыставка "Осень"]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Групповая фотовыставка "Осень"]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043556">
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <end_date>2010-11-04</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098210" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Персональная выставка живописи Анны Петраковой]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Персональная выставка живописи Анны Петраковой]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043556">
+        <occurrence>
+          <time>
+            <start_date>2010-10-22</start_date>
+            <end_date>2010-11-11</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000102986" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Сольный концерт Андрея Данилова]]></name>
+    <category>concerts</category>
+    <version lang="ru">
+      <name><![CDATA[Сольный концерт Андрея Данилова]]></name>
+      <vendor-category><![CDATA[Классика | Концерты]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043787">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>17:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000102987" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Юбилейный концерт Мурата Серкебаева]]></name>
+    <category>concerts</category>
+    <version lang="ru">
+      <name><![CDATA[Юбилейный концерт Мурата Серкебаева]]></name>
+      <vendor-category><![CDATA[Классика | Концерты]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043787">
+        <occurrence>
+          <time>
+            <start_date>2010-10-30</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098212" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Выставка гобеленов и шкатулок]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Выставка гобеленов и шкатулок]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043898">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-23</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098177" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Вишневый сад"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Вишневый сад"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-08</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-30</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098178" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Пижама на шестерых"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Пижама на шестерых"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-27</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098179" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Пока она умирала"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Пока она умирала"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098180" modified="2010-10-05T05:42:04">
+    <name><![CDATA["&#8470;13"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["&#8470;13"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <end_date>2010-10-12</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-31</start_date>
+            <end_date>2010-10-31</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098181" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Мужской род, единственное число"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Мужской род, единственное число"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-13</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098182" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Человек, который платит"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Человек, который платит"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <end_date>2010-10-14</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098183" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Пожар в сумасшедшем доме во время наводнения"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Пожар в сумасшедшем доме во время наводнения"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098184" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Семейный портрет с посторонним"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Семейный портрет с посторонним"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-26</start_date>
+            <end_date>2010-10-26</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098185" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Ищу партнера для нечастых встреч"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Ищу партнера для нечастых встреч"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098186" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Король Лир"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Король Лир"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-29</start_date>
+            <end_date>2010-10-29</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098187" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Я не Раппапорт"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Я не Раппапорт"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098188" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Уроки французского"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Уроки французского"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-13</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-21</start_date>
+            <end_date>2010-10-21</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098189" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Эти свободные бабочки"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Эти свободные бабочки"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <end_date>2010-10-14</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098190" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Вальс одиноких"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Вальс одиноких"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-19</start_date>
+            <end_date>2010-10-19</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098191" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Василиса Прекрасная"]]></name>
+    <category>family</category>
+    <version lang="ru">
+      <name><![CDATA["Василиса Прекрасная"]]></name>
+      <vendor-category><![CDATA[Театр детям | Дети]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098192" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Аленький цветочек"]]></name>
+    <category>family</category>
+    <version lang="ru">
+      <name><![CDATA["Аленький цветочек"]]></name>
+      <vendor-category><![CDATA[Театр детям | Дети]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098193" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Хрустальный башмачок"]]></name>
+    <category>family</category>
+    <version lang="ru">
+      <name><![CDATA["Хрустальный башмачок"]]></name>
+      <vendor-category><![CDATA[Театр детям | Дети]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-31</start_date>
+            <end_date>2010-10-31</end_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000100204" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Максим Аверин в спектакле "Портрет"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA[Максим Аверин в спектакле "Портрет"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043906">
+        <occurrence>
+          <time>
+            <start_date>2010-10-23</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098154" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Анархан"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Анархан"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-16</start_date>
+            <end_date>2010-10-16</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098155" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Одинокая яблоня"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Одинокая яблоня"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-23</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098156" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Концерт ансамбля "Нава"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA[Концерт ансамбля "Нава"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-17</start_date>
+            <end_date>2010-10-17</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098157" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Концерт солистки ансамбля "Рухсара" Сайдуллаевой Эльмиры "Ана юрт наласи"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA[Концерт солистки ансамбля "Рухсара" Сайдуллаевой Эльмиры "Ана юрт наласи"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098158" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Аршин мал алан"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Аршин мал алан"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-30</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098159" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Букет цветов"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Букет цветов"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-31</start_date>
+            <end_date>2010-10-31</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000100206" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Евгений Гришковец в спектакле "+1"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA[Евгений Гришковец в спектакле "+1"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-06</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-07</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000100207" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Евгений Гришковец в спектакле "По По"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA[Евгений Гришковец в спектакле "По По"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043913">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-08</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098219" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Абай"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Абай"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-31</start_date>
+            <end_date>2010-10-31</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <end_date>2010-10-14</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098220" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Каракоз"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Каракоз"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <end_date>2010-10-15</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098221" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Поэма о любви"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Поэма о любви"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-16</start_date>
+            <end_date>2010-10-16</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098222" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Цыганская серенада"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Цыганская серенада"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-17</start_date>
+            <end_date>2010-10-17</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098223" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Выходят бабки замуж"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Выходят бабки замуж"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-17</start_date>
+            <end_date>2010-10-17</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098224" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Светлая любовь"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Светлая любовь"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-19</start_date>
+            <end_date>2010-10-19</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098225" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Женитьба"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Женитьба"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-23</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-20</start_date>
+            <end_date>2010-10-20</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098226" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Ангел с дьявольским лицом"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Ангел с дьявольским лицом"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-21</start_date>
+            <end_date>2010-10-21</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098227" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Все же жив Ходжа Насреддин"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Все же жив Ходжа Насреддин"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098228" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Продайте мужа"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Продайте мужа"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-26</start_date>
+            <end_date>2010-10-26</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098229" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Лавина"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Лавина"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-27</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098230" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Кулемиз бе, жылаймыз ба?"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Кулемиз бе, жылаймыз ба?"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-30</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098231" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Не делайте друг другу больно"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Не делайте друг другу больно"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043941">
+        <occurrence>
+          <time>
+            <start_date>2010-10-29</start_date>
+            <end_date>2010-10-29</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098161" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Не покидай меня"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Не покидай меня"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043945">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-08</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098162" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Карлик нос"]]></name>
+    <category>family</category>
+    <version lang="ru">
+      <name><![CDATA["Карлик нос"]]></name>
+      <vendor-category><![CDATA[Театр детям | Дети]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043945">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-06</end_date>
+            <event_time>12:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098163" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Счастливый Ганс"]]></name>
+    <category>family</category>
+    <version lang="ru">
+      <name><![CDATA["Счастливый Ганс"]]></name>
+      <vendor-category><![CDATA[Театр детям | Дети]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043945">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-13</end_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098164" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Девушка и смерть"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Девушка и смерть"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043945">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-13</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098165" modified="2010-10-05T05:42:04">
+    <name><![CDATA["Отпустите меня в джунгли"]]></name>
+    <category>theater</category>
+    <version lang="ru">
+      <name><![CDATA["Отпустите меня в джунгли"]]></name>
+      <vendor-category><![CDATA[Драма | Театр]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043945">
+        <occurrence>
+          <time>
+            <start_date>2010-10-29</start_date>
+            <end_date>2010-10-29</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098206" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Персональная выставка Абдулахата Муратбаева]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Персональная выставка Абдулахата Муратбаева]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043996">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-28</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098207" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Персональная выставка Головкова Г. А.]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Персональная выставка Головкова Г. А.]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000043996">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-18</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098214" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Выставка детского рисунка]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Выставка детского рисунка]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000045070">
+        <occurrence>
+          <time>
+            <start_date>2010-10-16</start_date>
+            <end_date>2010-10-29</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098215" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Выставка детского творчества, организованная Культурным фондом имени Нурпеиса Байганина, народного акына Казахстана]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Выставка детского творчества, организованная Культурным фондом имени Нурпеиса Байганина, народного акына Казахстана]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000045070">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-10</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000098218" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Выставка детского рисунка "В каждом рисунке солнце"]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Выставка детского рисунка "В каждом рисунке солнце"]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000045070">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-26</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000088105" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Андрей Макаревич с "Оркестром креольского танго"]]></name>
+    <category>concerts</category>
+    <version lang="ru">
+      <name><![CDATA[Андрей Макаревич с "Оркестром креольского танго"]]></name>
+      <vendor-category><![CDATA[Поп / Рок | Концерты]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000045268">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="ALA000000000000000000000000092575" modified="2010-10-05T05:42:04">
+    <name><![CDATA[Выставка "Евразия. Образы современности"]]></name>
+    <category>other</category>
+    <version lang="ru">
+      <name><![CDATA[Выставка "Евразия. Образы современности"]]></name>
+      <vendor-category><![CDATA[Выставки]]></vendor-category>
+      <description><![CDATA[]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="ALA000000000000000000000000060501">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-11-20</end_date>
+            <utc_offset>+06:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

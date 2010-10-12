@@ -1,0 +1,1667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-10-05T05:49:22">
+  <event id="KUL000000000000000000000000104949" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Wipeout Season 3]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Wipeout Season 3]]></name>
+      <vendor-category><![CDATA[Film | TV Show]]></vendor-category>
+      <short-description><![CDATA[Twenty-four participants will compete in the worlds largest extreme obstacle course to win US$50,000...]]></short-description>
+      <description><![CDATA[<p>Twenty-four participants will compete in the world's largest extreme obstacle course to win US$50,000. New obstacles for this season include Fence Flappers, Foam-Covered, Shake-o-lator and Shape-Shifter. </p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <end_date>2010-10-05</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104956" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Ben 10: Ultimate Alien]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Ben 10: Ultimate Alien]]></name>
+      <vendor-category><![CDATA[Film | Animation]]></vendor-category>
+      <short-description><![CDATA[Follow Ben Tennysons evolution from a ten-year-old boy to a galaxy saving superhero.]]></short-description>
+      <description><![CDATA[<p>Follow Ben Tennyson's evolution from a ten-year-old boy to a galaxy saving superhero. His secret identity has been revealed and he is now loved by kids all over the world. Watch Ben transform into ultimate versions of his aliens with his new mysterious Ultimatrix.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104957" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Wall-E]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Wall-E]]></name>
+      <vendor-category><![CDATA[Film | Animation]]></vendor-category>
+      <short-description><![CDATA[Wall-E discovers a new purpose in life when he meets a sleek search robot named EVE....]]></short-description>
+      <description><![CDATA[<p>Wall-E discovers a new purpose in life when he meets a sleek search robot named EVE. EVE notices that Wall-E has found the key to the planet's future and races back to space to report her findings to the humans.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>15:45:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104958" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Dirty Jobs 5]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Dirty Jobs 5]]></name>
+      <vendor-category><![CDATA[Film | Documentary]]></vendor-category>
+      <short-description><![CDATA[Mike Rowe brings viewers closer to the unsung American labourers who make their living in the most unthinkable ways...]]></short-description>
+      <description><![CDATA[<p>Mike Rowe brings viewers closer to the unsung American labourers who make their living in the most unthinkable ways. Watch these people overcome fear, danger and sometimes stench to accomplish their tasks.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <end_date>2010-10-11</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104959" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Secret Meat Business]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Secret Meat Business]]></name>
+      <vendor-category><![CDATA[Film | Variety]]></vendor-category>
+      <short-description><![CDATA[Join Adrian Richardson in this (mouth-watering) programme as he teaches you all the secrets to creating that perfect steak...]]></short-description>
+      <description><![CDATA[<p>Join Adrian Richardson in this (mouth-watering) programme as he teaches you all the secrets to creating that perfect steak.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-13</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104960" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Chefs Table: Breaking All the Rules with Chef Bruce]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Chefs Table: Breaking All the Rules with Chef Bruce]]></name>
+      <vendor-category><![CDATA[Film | Variety]]></vendor-category>
+      <short-description><![CDATA[Youve seen Chef Bruce in Philippines on the show Tablescapes but this time, he will be creating more exquisite Filipino cuisines...]]></short-description>
+      <description><![CDATA[<p>You've seen Chef Bruce in Philippines on the show 'Tablescapes' but this time, he will be creating more exquisite Filipino cuisines in his own private studio-kitchen.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <end_date>2010-10-14</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104962" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Murder in Unit 14]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Murder in Unit 14]]></name>
+      <vendor-category><![CDATA[Film | Crime]]></vendor-category>
+      <short-description><![CDATA[After an altercation inside the cell block, an inmate collapses and dies from multiple stab wounds....]]></short-description>
+      <description><![CDATA[<p>After an altercation inside the cell block, an inmate collapses and dies from multiple stab wounds. Special Agents John Fisher and Joe England collect forensic evidence to solve the case.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-20</start_date>
+            <end_date>2010-10-20</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104963" modified="2010-10-05T05:49:22">
+    <name><![CDATA[The 13th Warrior]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[The 13th Warrior]]></name>
+      <vendor-category><![CDATA[Film | TV Show]]></vendor-category>
+      <short-description><![CDATA[This adventure-thriller tells the story of Ibn Fahdlan (Antonio Banderas), an important emissary who is banished from his homeland...]]></short-description>
+      <description><![CDATA[<p>This adventure-thriller tells the story of Ibn Fahdlan (Antonio Banderas), an important emissary who is banished from his homeland. He must conquer his personal fears and help battle the illusive invaders of the night.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-22</start_date>
+            <end_date>2010-10-22</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104964" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Hunt for the Samurai Sub]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Hunt for the Samurai Sub]]></name>
+      <vendor-category><![CDATA[Film | Documentary]]></vendor-category>
+      <short-description><![CDATA[A team of deep-sea explorers travel 3,000 feet under the sea to uncover evidence of a top secret Japanese plan to dominate WWII...]]></short-description>
+      <description><![CDATA[<p>A team of deep-sea explorers travel 3,000 feet under the sea to uncover evidence of a top secret Japanese plan to dominate WWII.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104965" modified="2010-10-05T05:49:22">
+    <name><![CDATA[The Restaurant Adventures of Caroline and Dave]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[The Restaurant Adventures of Caroline and Dave]]></name>
+      <vendor-category><![CDATA[Film | Variety]]></vendor-category>
+      <short-description><![CDATA[Husband and wife Dave and Caroline open their vegan restaurant, ZenKitchen, in the busy streets of Chinatown in Ottawa but will they be able to...]]></short-description>
+      <description><![CDATA[<p>Husband and wife Dave and Caroline open their vegan restaurant, ZenKitchen, in the busy streets of Chinatown in Ottawa but will they be able to pull through the woes of a malfunctioning kitchen and inexperienced staff?</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-25</start_date>
+            <end_date>2010-10-25</end_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104966" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Top Chef Season 4]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Top Chef Season 4]]></name>
+      <vendor-category><![CDATA[Film | TV Show]]></vendor-category>
+      <short-description><![CDATA[The newest 16 rising hot chefs across the country take on Chicago. Some of the biggest and most respected chefs will guest star on Top Chef this season....]]></short-description>
+      <description><![CDATA[<p>The newest 16 rising hot chefs across the country take on Chicago. Some of the biggest and most respected chefs will guest star on Top Chef this season.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-25</start_date>
+            <end_date>2010-10-25</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104967" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Sizzling Woks]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[Sizzling Woks]]></name>
+      <vendor-category><![CDATA[Film | Variety]]></vendor-category>
+      <short-description><![CDATA[Follow hosts Pornsak and Lee Teng as they bring you to the best eateries around Singapore...]]></short-description>
+      <description><![CDATA[<p>Follow hosts Pornsak and Lee Teng as they bring you to the best eateries around Singapore.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026779">
+        <occurrence>
+          <time>
+            <start_date>2010-10-26</start_date>
+            <end_date>2010-10-26</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066053" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Kinky Boudoir - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Kinky Boudoir - October]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A naughty night with cheeky performance such as Office Chair Dance...]]></short-description>
+      <description><![CDATA[<p>A naughty night with cheeky performance such as Office Chair Dance, Bondage Rope Frolla, Whip Prance, Aerial Cocoon Act and performances by The Opera Cirque Nouveau.</p>]]></description>
+      <url><![CDATA[http://www.theopera.my/contact_us.html]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066546" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Cleopatra - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Cleopatra - October]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A night of mystique with Fire Dance, Cleopatra and Slave Show...]]></short-description>
+      <description><![CDATA[<p>A night of mystique with Fire Dance, Cleopatra and Slave Show, Aerial Fire Performance, Snake Charmer Stunt and performance by The Opera Cirque Nouveau.</p>]]></description>
+      <url><![CDATA[http://www.theopera.my/contact_us.html]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026782">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000075523" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Ashore]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Ashore]]></name>
+      <vendor-category><![CDATA[Art | Art Exhibition]]></vendor-category>
+      <short-description><![CDATA[Yong Look Lams sixth solo show, Ashore, reveals the painterly brilliance of watercolor techniques and sensuousness...]]></short-description>
+      <description><![CDATA[<p>Yong Look Lam's sixth solo show, Ashore, reveals the painterly brilliance of watercolor techniques and sensuousness. In this series Yong explores Malaysian culture and traditions through the depiction of fishing boats, rural life, local flora and fauna and other indigenous aesthetics. His elegant composition and multifaceted design brings charm to community life while keeping the watercolor tradition alive and reputable. </p>]]></description>
+      <url><![CDATA[http://www.pinkguy.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026898">
+        <occurrence>
+          <time>
+            <start_date>2010-10-16</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000098306" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Kuala Lumpur Children Book Fair 2010]]></name>
+    <category>family</category>
+    <version lang="en">
+      <name><![CDATA[Kuala Lumpur Children Book Fair 2010]]></name>
+      <vendor-category><![CDATA[Around Town | Kids]]></vendor-category>
+      <short-description><![CDATA[There will be lots of fun activities for kids out there - Petrosains Mini Discovery Centre, animal-petting session, stage events and even competitions....]]></short-description>
+      <description><![CDATA[<p>The Kuala Lumpur Children's Book Fair (KLCBF) 2010 is a focused and themed book fair that aims to promote the wonderful world of children literature. Taking after the very successful KLIBF, KLCBF incorporates additional elements besides consumer product exhibition. <br /><br />
+There will be lots of fun activities for kids out there - Petrosains Mini Discovery Centre, animal-petting session, stage events and even competitions. So parents, don't miss out on a chance to bring joy to your kids!</p>]]></description>
+      <url><![CDATA[http://www.kualalumpurchildrenbookfair.com/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026964">
+        <occurrence>
+          <time>
+            <start_date>2010-12-22</start_date>
+            <end_date>2010-12-26</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056679" modified="2010-10-05T05:49:22">
+    <name><![CDATA[In Heat (Autumn Club) - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[In Heat (Autumn Club) - October]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Sizzling hip hop and R&amp;B beats with TJ da DJ and Mr Morelli will raise temperatures even further...]]></short-description>
+      <description><![CDATA[<p>Sizzling hip hop and R&amp;B beats with TJ da DJ and Mr Morelli will  raise temperatures even further.</p>
+<p> </p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066047" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Winter Chill Ladies - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Winter Chill Ladies - October]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Guys, you won't find a cooler place in town to check out the babes on ladies night...]]></short-description>
+      <description><![CDATA[<p>Ladies, don those suede boots and fur-trimmed coats and head down to  Quattro this Wednesday just to chill out. Literally. Guys, you won't  find a cooler place in town to check out the babes... trust us. Bring  your jackets.</p>]]></description>
+      <url><![CDATA[http://www.clubquattro.com]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026969">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056715" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Neubeats - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Neubeats - October]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Featuring DJ Goldilocks and Miss Eva T. Ladies get free entry and three free drinks before midnight....]]></short-description>
+      <description><![CDATA[<p>Neubeats is all about music, fashion and people. Expect to hear the latest R&amp;B, pop, house, electro, rock all fused up in one single night. Party with DJs Goldilocks and the sexy Miss Eva T.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000090645" modified="2010-10-05T05:49:22">
+    <name><![CDATA[BLOW @ Mist Club]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[BLOW @ Mist Club]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Slip on to the dance floor and go on and on with DVJs A-Rox and MC Fendi....]]></short-description>
+      <description><![CDATA[<p>Slip on to the dance floor and go on and on with DVJs A-Rox and MC Fendi. Gents RM35 inclusive of one drink, Ladies free &amp; free flow of house pouring until midnight.</p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000098301" modified="2010-10-05T05:49:22">
+    <name><![CDATA[The House of Exorcism]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[The House of Exorcism]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Be prepared for a whole know frightening-experience where four nights of terror will call out all you Edward &amp; Jacobwannabies...]]></short-description>
+      <description><![CDATA[<p>It's the time of the year again where pumpkins go under the knife in numbers. Be prepared for a whole know frightening-experience where four nights of terror will call out all you Edward &amp; Jacob-wannabies and dancing trolls to be gathered for the freaky festivities happening at Mist Club. Why trick or treat when you can unleash that crazy imagination of yours and exorcise your inner party demons! Now go howl at the moon. <br /><br /><b>Blow your Brains Off </b><br /><i>Oct 27, Men RM35 inclusive of one drink. Free for ladies. </i><br />
+- Worms crawling out from their rotting bodies, you girls better be holding a chainsaw to hack them to pieces. They cant dance but they sure can thrill your night with your favorite zombie A-ROX! <br /><br /><b>LADIES NIGHT NeuMoon </b><br /><i>Oct 28, Men RM25, Ladies RM20 inclusive of one drink. </i><br />
+- There are not many Edwards out there to save you so be careful not to shed a single drop of blood of you'll have 'them' running after you. Free drinks to anyone dressed as a vampire. <br /><br /><b>LADIES NIGHT LolliGore </b><br />
+Oct 29, Men RM40, Ladies RM30 inclusive of one drink. <br />
+- A prom night not for the faint-hearted so be prepared as there is no such thing as too much blood. With psychopath students and Tokyo-Gore-Lollitas, there will be BLOOD on the dance floor!<br /><br /><b>LADIES NIGHT Volume Scream Fest </b><br /><i>Oct 30, Men RM40, Ladies RM30 inclusive of one drink. </i><br />
+- Games and creepy-crawly things are going to make you scream and you just might win yourself some great prizes for screaming the loudest! <br /><br />
+-<i> Compiled by Amin Khairuddin</i></p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-10-27</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104954" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Tribal BellyDance Festival Malaysia 2010]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Tribal BellyDance Festival Malaysia 2010]]></name>
+      <vendor-category><![CDATA[Performance | Dance]]></vendor-category>
+      <short-description><![CDATA[This is the first tribal bellydance festival to be held in Malaysia, and its not just limited to the belly dance you see in restaurants....]]></short-description>
+      <description><![CDATA[<p>This is the first tribal bellydance festival to be held in Malaysia, and it's not just limited to the belly dance you see in restaurants. There'll be Gothic, folkloric, tribal fusion and American tribal styles of belly dance. It's a gathering of over 30 instructors, 100 performers and of course you, Joe public. If you can't go somewhere without buying something, worry not, there will be stalls fringing the festival selling dancewear, 'alternative lifestyle items' (intriguing…) and even dispensing henna tattoos. <br /><br /><b>Why should you go to this festival?</b><br />
+Festival organiser Aiza Abni Habban (and award-winning belly dancer) says, 'You get to rub shoulders with all the pretty ladies, watch all the wonderful performances, be part of the tribe and most importantly, get to know us dancers! This is our life!'<br />
+ </p>]]></description>
+      <url><![CDATA[http://www.mistclub.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026974">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000097472" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Speedzone Tour 2010]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Speedzone Tour 2010]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[In conjuction with Moto Garnd Prix, the best dance party Speedzone Tour 2010 is back...]]></short-description>
+      <description><![CDATA[<p>In conjuction with Moto Garnd Prix, the best dance party Speedzone Tour 2010 is back! The electrifying event will start with the world-renowned Mauro Picotto who has released over 600 productions and numerous remixes. Lange, the influential dance artist will be also make an appearance. Also not forgetting our very own, Goldfish &amp; Blink as well as Terence C will be mixing it all up!<br /><br />
+Date : 9th Oct 2010<br />
+Time : 7pm onwards<br />
+Venue: KL Live<br /><br />
+Ticketing/Bookings : Axcess</p>]]></description>
+      <url><![CDATA[http://axcess.com.my/s_speedzonetour.asp?id=2912264575621426703931426154098889911489]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026976">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000094429" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Medea @ The Actors Studio]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Medea @ The Actors Studio]]></name>
+      <vendor-category><![CDATA[Performance | Play]]></vendor-category>
+      <short-description><![CDATA[Watch this brilliant performance to find out the truth behind it....]]></short-description>
+      <description><![CDATA[<p>Love and revenge, Medea was left by her husband, hurt she killed the woman who stole him away. Is this life? Does love leads to revenge? Watch this brilliant performance to find out the truth behind it. Details below:<br /><br />
+Date : 13th - 17th Oct, 2010<br />
+Time : 8.30pm (13, 14, 15, 16 Oct), 3pm (16, 17 Oct)<br />
+Venue: The Actors Studio, KL<br />
+Price: RM40</p>]]></description>
+      <url><![CDATA[http://axcess.com.my/s_medea10.asp?id=3408770775702605253045421620184329345650]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026980">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-17</end_date>
+            <event_time>15:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000097471" modified="2010-10-05T05:49:22">
+    <name><![CDATA[A Night of Cantonese Opera IV]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[A Night of Cantonese Opera IV]]></name>
+      <vendor-category><![CDATA[Performance | Play]]></vendor-category>
+      <short-description><![CDATA[Cantonese opera exponent from Hong Kong, Madam Kam, will once again lead her talented group of local performers in this special edition...]]></short-description>
+      <description><![CDATA[<p>The Actors Studio through its Teater Rayat programme will be attempting to revive the glorious days of Cantonese Opera with an on-going series. The huge success of the very first installment in 2009 paved the way for the second, third, and now fourth installment this October.<br /><br />
+Cantonese opera exponent from Hong Kong, Madam Kam, will once again lead her talented group of local performers in this special edition held in conjunction with The Actors Studio @ Lot 10's first birthday. A Night of Cantonese Opera IV will feature eight delightful pieces spread  across two sets.<br /><br />
+Date : 7 - 8 Oct (Set 1); 9 Oct (Set 2)<br />
+Time : Set 1 8pm, Set 2 3pm &amp; 7pm<br />
+Venue: The Actors Studio @ Lot 10</p>]]></description>
+      <url><![CDATA[http://www.theactorsstudio.com.my/new-venue-the-actors-studio-lot-10/upcoming-shows/a-night-of-cantonese-opera-iv/]]></url>
+      <price><![CDATA[RM40 / RM25 (students & the disabled)]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026980">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-09</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000101859" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Medea]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Medea]]></name>
+      <vendor-category><![CDATA[Performance | Play]]></vendor-category>
+      <short-description><![CDATA[A Greek play that has been adapted and presented in the form of a traditional Malay performance...]]></short-description>
+      <description><![CDATA[<p>The Actors Studio Teater Rakyat will be staging Medea, a Greek play that has been adapted and presented in the form of a traditional Malay performance. Medea will be directed by renowned director Norzizi Zulkifli and stars a stellar cast comprising veteran names.<br /><br />
+Greek theatre is well-known for the use of its chorus as commentators or spectators. This time round, the chorus will be fused with a dikir barat performance. Gamelan will also be featured as part of the show.<br /><br /><i>The play will be performed in BM with English surtitle. </i><br /><br />
+Medea is the story of the dutiful and loyal wife to Jason, whom she loved with all her heart. Their marriage bore them two princes. However her sacrifice and love was met by betrayal. Lured by the promise of rank and wealth, her husband left her for another woman. Outraged, Medea plots to kill the woman who ruined her marriage and then end her life. Who is at fault really? <br />
+ </p>]]></description>
+      <url><![CDATA[http://www.theactorsstudio.com.my]]></url>
+      <price><![CDATA[RM25 (preview night); RM40 / RM25 (students & the disabled)]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000026980">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-17</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000097473" modified="2010-10-05T05:49:22">
+    <name><![CDATA[RAINBOW MASSACRE 2010: We Are Family!]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[RAINBOW MASSACRE 2010: We Are Family!]]></name>
+      <vendor-category><![CDATA[Performance | Musical]]></vendor-category>
+      <short-description><![CDATA[Whether youre bent, straight or zigzag, somewhere out there is a queer anthem just for you....]]></short-description>
+      <description><![CDATA[<p>Whether you're bent, straight or zigzag, somewhere out there is a queer anthem just for you. From Kylie to Siti, from Bowie to Ah Mei, queer icons give us the soundtrack to dance to our tears, fight back the haters, and unleash our true fabulous selves in all the pretty colours of the rainbow. Their songs unite us in a worldwide group hug of every brand of love, from dazzling to nasty to just plain mushy.<br /><br />
+Date : 15th - 17th Oct 2010<br />
+Time : 8.30pm<br />
+Venue: Annexe Gallery</p>]]></description>
+      <url><![CDATA[http://www.annexegallery.com/index.php?option=com_eventlist&view=details&id=232:rainbow-massacre-2010-we-are-family&Itemid=28]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027210">
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <end_date>2010-10-17</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057051" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Cozmix - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Cozmix - October]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Ladies night. Dj Joe Black, Musta K &amp; DJ B groove with R&amp;B abd hip hop mayhem...]]></short-description>
+      <description><![CDATA[<p>Ladies night. Dj Joe Black, Musta K &amp; DJ B groove with R&amp;B  abd hip hop mayhem.</p>]]></description>
+      <url><![CDATA[http://www.facebook.com/group.php?gid=154602463697#!/group.php?gid=154602463697&v=wall]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027279">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000107392" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Hot Booty Pump @ Space]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Hot Booty Pump @ Space]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[DJ Joe Black, Musta K and DJ B do their stuff.]]></short-description>
+      <description><![CDATA[<p>DJ Joe Black, Musta K and DJ B do their stuff.</p>]]></description>
+      <url><![CDATA[http://www.facebook.com/group.php?gid=154602463697]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027279">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000031997" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Save The Robots - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Save The Robots - October]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Ministry of Sound (MOS) brings you a weekly robotic night out every Thursday....]]></short-description>
+      <description><![CDATA[<p>DJ Victor G and his guest DJs will bring a totally different club night  experience as innovative new sounds take centre stage. Pull off some of  your robotic moves on stage while grooving along.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056711" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Mix Tape - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Mix Tape - October]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Open Format type of music with double styles creating something entirely different...]]></short-description>
+      <description><![CDATA[<p>Open Format type of music with double styles creating  something entirely different.</p>
+<p>Featured Resident DJ: Patrick Oliver from Miami, U.S.A.</p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057026" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Frisky? @ The Deq - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Frisky? @ The Deq - October]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Ian Ross will spin some stylish and sexy vocals of house...]]></short-description>
+      <description><![CDATA[<p>Straight from Ministry of Sound, London, DJ Ian Ross will spin some  stylish and sexy vocals of house.</p>
+<p><i>RM40 inclusive of one drink</i></p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my/]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103010" modified="2010-10-05T05:49:22">
+    <name><![CDATA[HOWL-O-WEEN : Full Throttle]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[HOWL-O-WEEN : Full Throttle]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[The HOWL-O-WEEN: Full Throttle is definitely THE way to start your night during this spooky month!.....]]></short-description>
+      <description><![CDATA[<p>Trick or treat! Well, not really. But guess what? Ministry of Sound - Euphoria is having a string of parties. The HOWL-O-WEEN: Full Throttle is definitely THE way to start your night during this spooky month! Details below:<br /><br /><b>Wed, 27th October (Theme: Paranormal Activity)</b><br /><i><b>Gents</b> - RM25 + 1 drink, <b>Ladies</b> - Free entry all night + 1 drink before midnight, Free entry for first 100 guests dressed in costume according to the theme of the night</i><br /><b>Bottle Promo:</b> Before 11.30pm - RM299nett for 1 bottle &amp; RM499nett for 2 bottles, After 11.30pm - RM388nett for 1 bottle &amp; RM588nett for 2 bottles<br />
+(<b>Bottle choices:</b> Chivas Regal 12 Yrs, Absolut Vodka Blue, Havana Rum, Beefeater Gin, Olmeca Tequila)<br /><br /><b><br />
+T</b><b>hurs, 28th October (Theme: House of Asian Horrors)</b><br /><i><b>Gents</b> - RM40 + 1 drink, <b>Ladies</b> - Free entry + 1 drink all night (Ladies Night), Free entry for first 100 guests dressed in costume according to the theme of the night</i><br /><b>Bottle Promo:</b> Before 11.30pm - RM299nett for 1 bottle &amp; RM499nett for 2 bottles, After 11.30pm - RM388nett for 1 bottle &amp; RM588nett for 2 bottles<br />
+(<b>Bottle choices:</b> Chivas Regal 12 Yrs, Absolut Vodka Blue, Havana Rum, Beefeater Gin, Olmeca Tequila)<br /><br /><br /><b>Fri, 29th October (Theme: Jason vs Vampires)</b><br /><i><b>Gents</b> - RM35 + 1 drink, <b>Ladies</b> - Free entry before midnight, RM25 + 1 drink after midnight, Free entry for first 100 guests dressed in costume according to the theme of the night</i><br /><b>Bottle Promo:</b> Before 11.30pm - RM299nett for 1 bottle &amp; RM499nett for 2 bottles, After 11.30pm - RM388nett for 1 bottle &amp; RM588nett for 2 bottles<br />
+(<b>Bottle choices:</b> Chivas Regal 12 Yrs, Absolut Vodka Blue, Havana Rum, Beefeater Gin, Olmeca Tequila)<br /><br /><br /><b>Ministry of Sound - EUPHORIA 2nd Anniversary Party</b><br /><b>Sat, 30th October (Theme: Terror within the cave)</b><br /><b><i>Gents</i></b><i> - RM45 + free flow before 11.30pm, RM45 + 1 drink after 11.30pm, <b>Ladies</b> - RM35 + free flow before 11.30pm, RM35 + 1 drink after 11.30pm</i><br /><b>Bottle Promo:</b> Before 11.30pm - RM299nett for 1 bottle &amp; RM499nett for 2 bottles, After 11.30pm - RM388nett for 1 bottle &amp; RM588nett for 2 bottles<br />
+(<b>Bottle choices:</b> Chivas Regal 12 Yrs, Absolut Vodka Blue, Havana Rum, Beefeater Gin, Olmeca Tequila)<br /><b>Prizes: </b><i>Most Creative &amp; Scariest Costumes to win prizes worth up to RM15,000!</i><br /><br />
+ </p>]]></description>
+      <url><![CDATA[http://www.euphoria.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027297">
+        <occurrence>
+          <time>
+            <start_date>2010-10-27</start_date>
+            <end_date>2010-10-30</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066052" modified="2010-10-05T05:49:22">
+    <name><![CDATA[DJ Herb @ SkyBar - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[DJ Herb @ SkyBar - October]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Join DJ Herb as he plays sensual Hip Hop and R&amp;B at one of the highest places to chill out and relax in town...]]></short-description>
+      <description><![CDATA[<p>Join DJ Herb as he plays sensual Hip Hop and R&amp;B at one of the highest places to chill out and relax in town.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066547" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Deep House - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Deep House - October]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[Come on down and let your self loose with Shahril Adnan...]]></short-description>
+      <description><![CDATA[<p>Come on down and let your self loose with Shahril Adnan.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000107391" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Nil @ Sky Bar]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Nil @ Sky Bar]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Combining big room house, progressive and commercial dance to bring out the best in what house music has to offer....]]></short-description>
+      <description><![CDATA[<p>Combining big room house, progressive and commercial dance to bring out the best in what house music has to offer. Get resident mixologist, Shaq to concoct his signature cocktail.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-09</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000107397" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Happy Sweetest Day]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Happy Sweetest Day]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[A day besides Valentines to spend time with your sweetest one. Get resident mixologist, Shaq to concoct his signature cocktail...]]></short-description>
+      <description><![CDATA[<p>A day besides Valentines to spend time with your sweetest one. Get resident mixologist, Shaq to concoct his signature cocktail.</p>]]></description>
+      <url><![CDATA[http://www.skybar.com.my]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027300">
+        <occurrence>
+          <time>
+            <start_date>2010-10-16</start_date>
+            <end_date>2010-10-16</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066524" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Club Z Night - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Club Z Night - October]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Ladies are entitled to complimentary drinks by Zetas mixologists from 8  10pm....]]></short-description>
+      <description><![CDATA[<p>Ladies are entitled to complimentary drinks by Zeta's mixologists from 8 - 10pm. Club Z members will be accorded 50 per cent for loose drinks tonight and 10 per cent off on weekends.</p>]]></description>
+      <url><![CDATA[http://www1.hilton.com/en_US/hi/hotel/KULHIHI-Hilton-Kuala-Lumpur-hotel/dining.do]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027307">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104953" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Moonshine October]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Moonshine October]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <short-description><![CDATA[Come down to Laundry Bar for another monthly dosage of Moonshine...]]></short-description>
+      <description><![CDATA[<p>Come down to Laundry Bar for another monthly dosage of Moonshine this October 7. Check out the young Coldplay-esque Lightcraft, back-from-the-drummerless-dead-running around-in-the-forest pop Ferns, alternative rockers Stonebay (doin' an acoustic set) and singer-songwriter Aiqa Halim.<br /><br />
+Admission is free.</p>]]></description>
+      <url><![CDATA[http://moonshinekl.blogspot.com]]></url>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-07</end_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000107381" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Who's World - Thedonn]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Who's World - Thedonn]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Connecting a world of sonic oddities, B-side boundaries to foundations of future boogie. Singapore hit man THEDONN....]]></short-description>
+      <description><![CDATA[<p>Connecting a world of sonic oddities, B-side boundaries to foundations of future boogie. Singapore hit man THEDONN conducts an electric seat down investigation of future music. P.S Ladies privilege apply on this night.</p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <end_date>2010-10-26</end_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000107383" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Mid Week Asylum-Disko 2020]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Mid Week Asylum-Disko 2020]]></name>
+      <vendor-category><![CDATA[Nightlife | Parties]]></vendor-category>
+      <short-description><![CDATA[Malaysias internationally acclaimed producer Raysoo and SGs Diskothug brings you their B-Side selection of finest electronic dance music....]]></short-description>
+      <description><![CDATA[<p>Malaysia's internationally acclaimed producer Raysoo and SG's Diskothug brings you their B-Side selection of finest electronic dance music, house, and new age disco sounds.</p>]]></description>
+      <url><![CDATA[http://www.laundrybar.net]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027309">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000072647" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Lobo Live In Malaysia 2010]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Lobo Live In Malaysia 2010]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[As a part of his 'Lobo Asia Tour, Roland Kent Lavoie or better known as 'Lobo' is heading down to Malaysia....]]></short-description>
+      <description><![CDATA[<p>As a part of his 'Lobo Asia Tour, Roland Kent Lavoie or better known as 'Lobo' is heading down to Malaysia as one of his many Asian stops. Back in the 70s, this American singer-songwriter sang country tunes like 'Me and You and a Dog Named Boo', 'Dont Expect Me To Be Your Friend' and more. This will be his second visit to our beautiful country (first in 2006). catch him live at the Arena of Stars this 15th October, 8.30pm.<br /><br />
+Ticketing info here</p>]]></description>
+      <url><![CDATA[http://www.ticketpro.com.my/jnp/concert/pop/467292-lobo-live-in-malaysia-2010.html]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027336">
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <end_date>2010-10-15</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000097475" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Sorcery, Sunshine and Shakespeare]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Sorcery, Sunshine and Shakespeare]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[Jean-Yves Thibaudet returns with plenty of sweet music. Happening on the 30th - 31st of October at 8.30pm, don't miss out....]]></short-description>
+      <description><![CDATA[<p>Jean-Yves Thibaudet returns with plenty of sweet music. Happening on the 30th - 31st of October at 8.30pm, don't miss out on this amazing show which will take place at the Malaysian Philharmonic Orchestra. Get your tickets here MPO</p>]]></description>
+      <url><![CDATA[http://www.mpo.com.my/Home.aspx]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-30</start_date>
+            <end_date>2010-10-31</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000098298" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Rhythm and Repetition]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Rhythm and Repetition]]></name>
+      <vendor-category><![CDATA[Music | Concert]]></vendor-category>
+      <short-description><![CDATA[Come and watch this interesting show - chamber concert with pianist Foo Mei Yi....]]></short-description>
+      <description><![CDATA[<p>Malaysian pianist Foo Mei Yi and the MPO ensemble will present works of Ligeti, Ravel and Messiaen in the concert.<br />
+ </p>]]></description>
+      <url><![CDATA[http://www.mpo.com.my/Upcoming-Performances/Following-Concerts/Repetition.aspx?docid=1560&perfname=Rhythm%20and%20Repetition]]></url>
+      <price><![CDATA[RM10]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-06</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000098300" modified="2010-10-05T05:49:22">
+    <name><![CDATA['Psycho' with Orchestra!]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA['Psycho' with Orchestra!]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[Experience one of the most fabulous examples of menace in music as Kevin Field drives the MPO through Bernard Hermanns outstanding score for Hitchcocks 1960 horror film...]]></short-description>
+      <description><![CDATA[<p>Experience one of the most fabulous examples of menace in music as Kevin Field drives the MPO through Bernard Hermann's outstanding score for Hitchcock's 1960 horror movie complete with its famous screeching violins. Hitchcock said that "33% of the effect of Psycho was in the music" and, with the movie screened as the MPO play, expect 100% thrills.</p>]]></description>
+      <url><![CDATA[http://www.mpo.com.my]]></url>
+      <price><![CDATA[RM95, RM75, RM55, RM25]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000098305" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Malim Deman The Musical]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Malim Deman The Musical]]></name>
+      <vendor-category><![CDATA[Performance | Musical]]></vendor-category>
+      <short-description><![CDATA[From the ancient Malay literature, Malim Deman tells a tale about Prince Raja Malim Dewa who rules the Muar city.....]]></short-description>
+      <description><![CDATA[<p>From the ancient Malay literature, Malim Deman tells a tale about Prince Raja Malim Dewa who rules the Muar city. Seeking blessings from his mother, Tuan Puteri Lindungan Bulan, he hopes to find a suitable partner. A tear-jerker as a series of tragic events ensues involving Malim Deman.</p>]]></description>
+      <url><![CDATA[http://www.mpo.com.my/Upcoming-Performances/Following-Concerts/Malim-Deman-The-Musical.aspx?docid=1639&perfname=Malim%20Deman%20The%20Musical]]></url>
+      <price><![CDATA[RM58, RM48, RM38, RM18]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-12-17</start_date>
+            <end_date>2010-12-18</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000102996" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Suara Tulus]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Suara Tulus]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[The first performance to open for KLCC Seni Festival, Suara Tulus features MPO Seni Ensemble and pianist Foo Mei Yi in this concert....]]></short-description>
+      <description><![CDATA[<p>The first performance to open for KLCC Seni Festival, Suara Tulus features MPO Seni Ensemble and pianist Foo Mei Yi in this concert. Joining them is Datuk A Samad Said, who will be reciting his poetry with music by MPO.</p>]]></description>
+      <url><![CDATA[http://www.dfp.com.my/]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <end_date>2010-10-12</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000102997" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Ikhlas Dari MPO]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Ikhlas Dari MPO]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[Listen to Malaysian folk songs with an Eastern twist in symphonic arrangements performed by Zainal Abidin and MPO Seni Ensemble...]]></short-description>
+      <description><![CDATA[<p>Listen to Malaysian folk songs with an Eastern twist in symphonic arrangements performed by Zainal Abidin and MPO Seni Ensemble.</p>]]></description>
+      <url><![CDATA[http://www.dfp.com.my/]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-13</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000102998" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Joining Hands with the MPO]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Joining Hands with the MPO]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[MPO Percussion collaborates with Hands Percussion to produce beautiful rhythms in this concert....]]></short-description>
+      <description><![CDATA[<p>MPO Percussion collaborates with Hands Percussion to produce beautiful rhythms in this concert.</p>]]></description>
+      <url><![CDATA[http://www.dfp.com.my/]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <end_date>2010-10-14</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103002" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Painted Notes]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Painted Notes]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[Under the baton of conductor Harish Shankar, witness a Malaysian artist who draws his response to a live performance of Rimsky-Korsakovs Scheherazade...]]></short-description>
+      <description><![CDATA[<p>Under the baton of conductor Harish Shankar, witness a Malaysian artist who draws his response to a live performance of Rimsky-Korsakov's 'Scheherazade'.</p>]]></description>
+      <url><![CDATA[http://www.dfp.com.my/]]></url>
+      <price><![CDATA[RM20-95]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-16</start_date>
+            <end_date>2010-10-17</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103003" modified="2010-10-05T05:49:22">
+    <name><![CDATA[The Galileo Project: Music of the Spheres]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[The Galileo Project: Music of the Spheres]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[Famed Canadian ensemble The Tafelmusik Baroque Orchestra performs works from Monteverdi, Vivaldi, Handel and Bach...]]></short-description>
+      <description><![CDATA[<p>Famed Canadian ensemble The Tafelmusik Baroque Orchestra performs works from Monteverdi, Vivaldi, Handel and Bach along with a poetic narration against a backdrop of images from the Hubble telescope.</p>]]></description>
+      <url><![CDATA[http://www.dfp.com.my/]]></url>
+      <price><![CDATA[RM58-178]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-19</start_date>
+            <end_date>2010-10-19</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103007" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Toyota Classics 2010]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Toyota Classics 2010]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[Experience a classical evening with Orchestra Città di Firenze led by conductor Lorenzo Castriota Skanderbeg....]]></short-description>
+      <description><![CDATA[<p>Experience a classical evening with Orchestra Città di Firenze led by conductor Lorenzo Castriota Skanderbeg. Collaborating with the established orchestra is outstanding young Italian tenor Leonardo Melani.</p>]]></description>
+      <url><![CDATA[http://www.dfp.com.my/]]></url>
+      <price><![CDATA[RM50-180]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-23</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103011" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Chamber Concertos]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Chamber Concertos]]></name>
+      <vendor-category><![CDATA[Music | Classical]]></vendor-category>
+      <short-description><![CDATA[Together with MPO Chamber Players, Foo Mei Yi performs works of Bach and Shostakovich on the piano...]]></short-description>
+      <description><![CDATA[<p>Together with MPO Chamber Players, Foo Mei Yi performs works of Bach and Shostakovich on the piano.</p>]]></description>
+      <url><![CDATA[http://www.dfp.com.my/]]></url>
+      <price><![CDATA[RM10]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027338">
+        <occurrence>
+          <time>
+            <start_date>2010-10-27</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000107390" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Storytelling & Costumes Competition]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Storytelling & Costumes Competition]]></name>
+      <vendor-category><![CDATA[Books | Fairs]]></vendor-category>
+      <short-description><![CDATA[Storytelling &amp; Costumes Competition]]></short-description>
+      <description><![CDATA[<p>All the story tellers, bring you and your stories here!  In conjunction with the ongoing 'Treasury of the World: Jewelled Arts of India in the Age of the Mughals' exhibition, the Islamic Arts Museum Malaysia and MPH Bookstores have organised this interactive project. Find registration forms on the website. We are really looking forward to your different stories. Visit www.mphclick.com for more details.<br /><br />
+Schedule: MPH Subang Parade, Oct 9; <br />
+                   MPH Megastore 1 Utama, Oct 16; <br />
+                   MPH Mid Valley, Oct 23, Oct 30, 2 - 4pm.<br />
+ </p>]]></description>
+      <url><![CDATA[http://www.mphclick.com]]></url>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027366">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-30</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000092149" modified="2010-10-05T05:49:22">
+    <name><![CDATA[9th Latin American Film Festival]]></name>
+    <category>movies</category>
+    <version lang="en">
+      <name><![CDATA[9th Latin American Film Festival]]></name>
+      <vendor-category><![CDATA[Film | Festival]]></vendor-category>
+      <short-description><![CDATA[To celebrate this wonderful event, mark your calendars because from the 14th - 17th October 2010....]]></short-description>
+      <description><![CDATA[<p>The 9th Latin American Film Festival is coming soon. To celebrate this wonderful event, mark your calendars because from the <b>14th - 17th October</b> 2010, screenings of several popular Latin American films will be showcased here in GSC! For further details, please log in to www.latinfilmfest.org.my and www.gsc.com.my for time and date.</p>
+<p><b>La cámara oscura (María Victoria Menis, 2009) </b><br />
+In the province of Entre Ríos, a woman who grows as an unattractive child becomes insignificant and almost transparent. She is ignored by others until a French photographer arrives and discovers her beauty.<br /><br /><b>Bossa Nova (Bruno Barreto, 2000) </b><br />
+A romantic comedy mixing personal stories with genuine Brazilian charm.  Mary Ann is a widow who has given up on love.  Pedro is the midst of a sticky divorce but when he sees Mary Ann, he is instantly smitten with her. Meanwhile, Mary Ann's student is having an affair and Pedro's brother falls in love with Pedro's intern.<br /><br /><b>La Anunciación (Pineda Barnet, 2009) </b><br />
+With effects and sound that play between drama and thriller, the feature film tells the story of Amalia, a high school teacher that turns to spiritualism in her old age, seeking harmony in her home environment.<br /><br /><b>El Regalo (Cristián Galaz &amp; Andrea Ugalde, 2000) </b><br />
+This is the story of three friends, Francisco, Pacheco and Tito. Francisco, a widowed retiree, is going through a difficult time and, to cheer him up, Tito and Pacheco decide to give him a gift. They invite him on a trip to the Chillán hot springs, along with Lucy, Francisco's teenage sweetheart, who excitedly accepts their invitation. But things don't always go as planned.<br /><br /><b>Cuando me toque a mi (Victor Arregui, 2008) </b><br />
+A murder sets in motion a series of tragedies that find their way to the city morgue's brooding Dr. Arturo Fernandez. Isolated from the world around him, Arturo develops an intimate relationship with the personal lives of his cases, forcing him to confront his connection to the living and the dead.<br /><b><br />
+El viaje de la Nonna (Sebastián Silva, 2008)</b><br />
+La Nonna forgets everything. But the one thing she won't forget is her last wish - to go to the village of Todaro, the birthplace of her deceased husband. She wants to take her entire family with her, but most of them don't want to go. But when La Nonna's insistence begins to verge on threats, her family decides to grant her this last wish. <br /><br /><b>La prueba (Judith Vélez, 2006)</b><br />
+Miranda needs to find her missing father, whose blood type can save her brother's life. Whilst searching for him, she recalls her teenage years and how her family began to collapse amidst a society hit by corruption and terrorism.  She undertakes an uncertain journey towards Siabayo, where she believes his father is staying.<br /><br /><b>El Baño del Papa (César Charlone &amp; Enrique Fernández, 2009) </b><br />
+In Melo, several men earn their living from contraband, mostly transported on bicycles. One of them, Beto, is getting too old for heavy freights but hopes to earn a motorbike. The idea is to build and charge money for the use of a proper lavatory at the occasion of the first-ever papal visit to Uruguay, as His Holiness is expected to pass trough Melo.<br /><br /><b>Zamora, tierra y hombres libres (Román Chalbaud, 2009)</b><br />
+The movie explores the life of Ezequiel Zamora, one of the protagonists of the most violent period in the history of Venezuela. </p>
+<p><i>Only available in GSC Pavilion KL, GSC 1 Utama, GSC Mid Valley</i></p>]]></description>
+      <url><![CDATA[http://www.gsc.com.my/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027403">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <end_date>2010-10-17</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000102995" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Sharizan Borhan]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Sharizan Borhan]]></name>
+      <vendor-category><![CDATA[Music | Jazz]]></vendor-category>
+      <short-description><![CDATA[A platinum-selling and award-winning recording artiste, Sharizan steps into the limelight again with his album Timeless....]]></short-description>
+      <description><![CDATA[<p>A platinum-selling and award-winning recording artiste, Sharizan steps into the limelight again with his album 'Timeless'. This 33-year-old crooner will perform some jazz and swing numbers for the night. </p>]]></description>
+      <url><![CDATA[http://www.alexis.com.my/]]></url>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027406">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>22:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000102999" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Atilia & The Phunk Mob]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Atilia & The Phunk Mob]]></name>
+      <vendor-category><![CDATA[Music | Jazz]]></vendor-category>
+      <short-description><![CDATA[Currently working on her second album Indah, Atilia will be singing from Bossa to Neo Jazz with a hint of classical Malay sounds....]]></short-description>
+      <description><![CDATA[<p>Currently working on her second album 'Indah', Atilia will be singing from Bossa to Neo Jazz with a hint of classical Malay sounds. Joining her is The Phunk Mob, the brainchild of drummer John Ashley Thomas.</p>]]></description>
+      <url><![CDATA[http://www.alexis.com.my/]]></url>
+      <price><![CDATA[RM25]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027406">
+        <occurrence>
+          <time>
+            <start_date>2010-10-15</start_date>
+            <end_date>2010-10-16</end_date>
+            <event_time>22:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103004" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Margie Segers Live at NBT Album Launch]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Margie Segers Live at NBT Album Launch]]></name>
+      <vendor-category><![CDATA[Music | Jazz]]></vendor-category>
+      <short-description><![CDATA[Margie Segers used to appear in Indonesias music scene as a blues, motown and soul singer but under the wing of Jack Lesmana...]]></short-description>
+      <description><![CDATA[<p>Margie Segers used to appear in Indonesia's music scene as a blues, motown and soul singer but under the wing of Jack Lesmana, Margie emerged as an astounding jazz vocalist. Performing with her that night are Idang Rasjidi (piano), Ananda Mates (bass) and Lewis Pragasam (drums). </p>]]></description>
+      <url><![CDATA[http://www.alexis.com.my/]]></url>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027406">
+        <occurrence>
+          <time>
+            <start_date>2010-10-19</start_date>
+            <end_date>2010-10-19</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103005" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Michael Veerapen ft. Joanna Bessey]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Michael Veerapen ft. Joanna Bessey]]></name>
+      <vendor-category><![CDATA[Music | Jazz]]></vendor-category>
+      <short-description><![CDATA[Pianist Michael Veerapen will be accompanied by the multi-talented Joanna Bessey..]]></short-description>
+      <description><![CDATA[<p>Pianist Michael Veerapen will be accompanied by the multi-talented Joanna Bessey who just recently directed 'So You Think You Can Mamak?' and 'Wacky Bar' at PJ Live Arts (PJLA).</p>]]></description>
+      <url><![CDATA[http://www.alexis.com.my/]]></url>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027406">
+        <occurrence>
+          <time>
+            <start_date>2010-10-22</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>22:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103012" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Anthony Strong]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Anthony Strong]]></name>
+      <vendor-category><![CDATA[Music | Jazz]]></vendor-category>
+      <short-description><![CDATA[Twenty-five year old Anthony Strong is a London based singer-pianist who writes music infused with jazz, blues and soul....]]></short-description>
+      <description><![CDATA[<p>Twenty-five year old Anthony Strong is a London based singer-pianist who writes music infused with jazz, blues and soul. You might hear some familiar tunes influenced by Frank Sinatra, Stevie Wonder, Burt Bacharach and Oscar Peterson during his performance.</p>]]></description>
+      <url><![CDATA[http://www.alexis.com.my/]]></url>
+      <price><![CDATA[RM25]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027406">
+        <occurrence>
+          <time>
+            <start_date>2010-10-29</start_date>
+            <end_date>2010-10-30</end_date>
+            <event_time>22:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000102994" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Amir Yussof & Roots]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Amir Yussof & Roots]]></name>
+      <vendor-category><![CDATA[Music | Jazz]]></vendor-category>
+      <short-description><![CDATA[Amir has just formed a band called Roots who play mostly rearranged original songs from Amirs albums...]]></short-description>
+      <description><![CDATA[<p>Amir has just formed a band called Roots who play mostly rearranged original songs from Amir's albums. Watch him perform some relaxing tunes at NBT with his band.</p>]]></description>
+      <url><![CDATA[http://www.noblacktie.com.my/]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027407">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-08</end_date>
+            <event_time>22:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000103006" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Tim Wilson: Logic]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Tim Wilson: Logic]]></name>
+      <vendor-category><![CDATA[Music | Jazz]]></vendor-category>
+      <short-description><![CDATA[An Australian-based saxophonist, woodwind instrumentalist and composer, Tim has performed and recorded with numerous artistes including Ray Charles...]]></short-description>
+      <description><![CDATA[<p>An Australian-based saxophonist, woodwind instrumentalist and composer, Tim has performed and recorded with numerous artistes including Ray Charles, Olivia Newton-John, Hugh Jackman and Michael Buble. He will be performing with Glenn Cannon (guitar), Ben Vanderwal (drums) and Dane Alderson (bass) at NBT.</p>]]></description>
+      <url><![CDATA[http://www.noblacktie.com.my/]]></url>
+      <price><![CDATA[RM40]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027407">
+        <occurrence>
+          <time>
+            <start_date>2010-10-22</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>22:30:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000056681" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Soul Candy - October]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Soul Candy - October]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Joe Black &amp; Musta K shake it and break it...]]></short-description>
+      <description><![CDATA[<p>DJ Joe Black &amp; Musta K shake it and break it.</p>]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-27</end_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000066549" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Delicious @ Upstairs]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Delicious @ Upstairs]]></name>
+      <vendor-category><![CDATA[Nightlife | DJ Gigs]]></vendor-category>
+      <short-description><![CDATA[DJ Charlie D doing hip hop and urban mash up...]]></short-description>
+      <description><![CDATA[<p>DJ Charlie D doing hip hop and urban mash up.</p>]]></description>
+      <url><![CDATA[http://www.asianheritagerow.com/loft-upstairs.asp]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000027418">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-28</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000104950" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Plucks Musical Arson]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Plucks Musical Arson]]></name>
+      <vendor-category><![CDATA[Performance | Musical]]></vendor-category>
+      <short-description><![CDATA[Plucks Musical Arson
+Pluck brings comedy and classical music together like no other group has, tapping into the international love for all things musical and comic...]]></short-description>
+      <description><![CDATA[<p>Pluck brings comedy and classical music together like no other group has, tapping into the international love for all things musical and comic. The classically trained trio were here in Malaysia for sell-out tours in 2004 and 2006, and are back with a slightly different line-up (two of the original three have been replaced) but no less humour. <br /><br />
+Pluck's brand of string instrument silliness has taken the Edinburgh fringe festival more than once by storm, and racked up considerable awards for the group. The basic premise was hatched in 2002, when three classical musicians decided to bring an element of comedy to their shows. Eight years and four original shows later, violinist Kit Massey, violist Jon Regan and cellist Flora Allison put their considerable classical musical experience to good use by turning a previously stuffy genre into a free-for-all laugh fest. <br /><br />
+In spite of their antics, or even because of them, the three are clearly very talented, and their use of stage gags and slapstick humour is endearing, rather than annoying. Plus they do turn some very impressive tricks - surely playing a violin is hard enough, without also dancing, running, and making silly faces at the same time. <br /><br />
+And it's not only long-dead composers who come under the knife (or bow, as it were). All music is ripe for the parodying, with Abba classics and Hendrix tunes making it to the stage as well.</p>
+<p><i>- Emma Chong</i><br />
+ </p>]]></description>
+      <url><![CDATA[http://www.gardnerandwife.com/]]></url>
+      <price><![CDATA[RM44, RM55, RM66, RM77]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000050637">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-23</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057169" modified="2010-10-05T05:49:22">
+    <name><![CDATA[Art Expo Malaysia 2010]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Art Expo Malaysia 2010]]></name>
+      <vendor-category><![CDATA[Around Town | Exhibitions]]></vendor-category>
+      <short-description><![CDATA[The International Art Expo Malaysia  is where Art's at. Old and New, East and West. Whatever forms, whatever styles, whatever media...]]></short-description>
+      <description><![CDATA[<p>The International Art Expo Malaysia  is where Art's at. Old and New, East and West. Whatever forms, whatever styles, whatever media. Paintings, Sculptures, Prints, Assemblages, Installations, New Media (Digital Art). Astonishing artworks from all over the world - Asia, Europe - Eastern and Western, the United States, Central America.<br /><br />
+Date : 28th Oct-1st Nov 2010<br />
+Venue: MATRADE Exhibition and Convention Centre<br /><br />
+For further details, please email info@artexpomalaysia.com</p>]]></description>
+      <url><![CDATA[http://www.artexpomalaysia.com/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000054351">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-01</end_date>
+            <event_time>10:00:00</event_time>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="KUL000000000000000000000000057170" modified="2010-10-05T05:49:22">
+    <name><![CDATA[International Art Expo Malaysia 2010]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[International Art Expo Malaysia 2010]]></name>
+      <vendor-category><![CDATA[Art | Art Exhibition]]></vendor-category>
+      <short-description><![CDATA[Art Expo Malaysia 2010 provides the opportunity for visitors to admire 2000 pieces of great artworks....]]></short-description>
+      <description><![CDATA[<p>Art Expo Malaysia 2010 provides the opportunity for visitors to admire 2000 pieces of great artworks (including paintings, sculptures, digital art, installation, photography and mural art) represented by more than 60 reputable art galleries from 20 countries at once, under one roof.</p>
+<p>Part of the 1 Malaysia Contemporary Arts Tourism Festival.<br />http://www.timeoutkl.com/art/events/1-Malaysia-Contemporary-Arts-Tourism-Festival</p>]]></description>
+      <url><![CDATA[http://www.artexpomalaysia.com/]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="KUL000000000000000000000000054351">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-01</end_date>
+            <utc_offset>+08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

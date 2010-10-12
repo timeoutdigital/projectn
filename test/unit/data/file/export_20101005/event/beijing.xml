@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-10-05T05:53:56">
+  <event id="PEK000000000000000000000000101367" modified="2010-10-05T05:53:56">
+    <name><![CDATA[China Open]]></name>
+    <category>sport</category>
+    <version lang="en">
+      <name><![CDATA[China Open]]></name>
+      <vendor-category><![CDATA[Sports & Outdoors | Spectator Sports]]></vendor-category>
+      <short-description><![CDATA[Men's reigning champ Novak Djokovic, world number one Serena Williams and other tennis luminaries appear in Beijing]]></short-description>
+      <description><![CDATA[Gathering together some of the best tennis players on Earth for one event is no easy task. Yet the China Open returns once again, bigger and better than before, and positively swaggering with top seeds. And, while stars such as last year’s winners Novak Djokovic and Svetlana Kuznetsova return to entertain, there are plenty of activities taking place off court to enjoy at the National Tennis Center.
+
+Of special interest for families is the carnival, which will give visitors opportunities to see tennis skills to make the mind boggle. Meanwhile, a tennis training camp will provide promising children and teens with an opportunity to put their own abilities to the test with some professional coaches. There’s even a fashion show and a cheerleading team for young kids. Auditions for both will be held in the run-up to the event. Finally, there will also be a collection of acts performing throughout the duration of the Open, although the line-up was still strictly hush-hush when Time Out went to press.
+
+But, at the end of the day, the main attraction will be the sports stars illuminating the courts of the National Tennis Center this month. This is without doubt the best chance you will get this year to see some of the best tennis players in the world pit their skills against one another. Be sure to make the most of it.]]></description>
+      <booking_url><![CDATA[http://www.chinaopen.com.cn/2010/]]></booking_url>
+      <url><![CDATA[http://www.chinaopen.com.cn/2010/]]></url>
+      <price><![CDATA[from 30RMB]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PEK000000000000000000000000063363">
+        <occurrence>
+          <booking_url>http://www.chinaopen.com.cn/2010/</booking_url>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <end_date>2010-10-05</end_date>
+            <event_time>12:00:00</event_time>
+            <end_time>22:00:00</end_time>
+            <utc_offset>-08:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <booking_url>http://www.chinaopen.com.cn/2010/</booking_url>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-06</end_date>
+            <event_time>12:00:00</event_time>
+            <end_time>22:00:00</end_time>
+            <utc_offset>-08:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <booking_url>http://www.chinaopen.com.cn/2010/</booking_url>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-07</end_date>
+            <event_time>12:00:00</event_time>
+            <end_time>22:00:00</end_time>
+            <utc_offset>-08:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <booking_url>http://www.chinaopen.com.cn/2010/</booking_url>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <end_date>2010-10-08</end_date>
+            <event_time>12:00:00</event_time>
+            <end_time>22:00:00</end_time>
+            <utc_offset>-08:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <booking_url>http://www.chinaopen.com.cn/2010/</booking_url>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>12:00:00</event_time>
+            <end_time>22:00:00</end_time>
+            <utc_offset>-08:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <booking_url>http://www.chinaopen.com.cn/2010/</booking_url>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>12:00:00</event_time>
+            <end_time>22:00:00</end_time>
+            <utc_offset>-08:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

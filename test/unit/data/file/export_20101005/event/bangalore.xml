@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-10-05T05:51:13">
+  <event id="BLR000000000000000000000000103317" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Solder]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Solder]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Siddarth Abraham, Mark Escottee, Akhilesh Kumar and Samson Phillip come together as Solder, a city-based jam band]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000055501">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104244" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Anil Desai]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Anil Desai]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Comedian and impressionist Anil Desai, also known by his aliases Rajesh – Bollywood Lounge Singer and Candice the Fluffer Girl, brings his act to town. On Combedybox online, Desai has over 25,000 hits for his performance of 52 impressions in 5 minutes. Part improv comedy, part stand up, Desai often riffs off the audience, performing his impressions as names of personalities are called out from the audience]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058898">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103291" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Christabel & Peter]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Christabel & Peter]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[The duo will present an evening of pop, rock ’n’ roll and blues. Call 2559-4567 to make reservations.]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058952">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104245" modified="2010-10-05T05:51:13">
+    <name><![CDATA[DJ Hassan]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[DJ Hassan]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[DJ Hassan promises to play all the popular rock and retro tunes. 3052-7777 for details.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058961">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104250" modified="2010-10-05T05:51:13">
+    <name><![CDATA[The Dimension of the Plane]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Dimension of the Plane]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[An exhibition of “Communication Design in Germany”, hosted by the German Design Council]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058971">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <end_date>2010-10-23</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104996" modified="2010-10-05T05:51:13">
+    <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Browse through 150 recent works by influential German designers at this exhibition of contemporary two-dimensional communication design services from Germany, the oldest of which date back to the early 2000s. Get an overview of the works by renowned German design agencies such as Johannes Erler, Mike Meiré, Joachim Sauter, Erik Spiekmann and Andreas Uebele]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058971">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104997" modified="2010-10-05T05:51:13">
+    <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Browse through 150 recent works by influential German designers at this exhibition of contemporary two-dimensional communication design services from Germany, the oldest of which date back to the early 2000s. Get an overview of the works by renowned German design agencies such as Johannes Erler, Mike Meiré, Joachim Sauter, Erik Spiekmann and Andreas Uebele]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058971">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104998" modified="2010-10-05T05:51:13">
+    <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Browse through 150 recent works by influential German designers at this exhibition of contemporary two-dimensional communication design services from Germany, the oldest of which date back to the early 2000s. Get an overview of the works by renowned German design agencies such as Johannes Erler, Mike Meiré, Joachim Sauter, Erik Spiekmann and Andreas Uebele]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058971">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104999" modified="2010-10-05T05:51:13">
+    <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Dimension of the Plane – Communication Design in Germany]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Browse through 150 recent works by influential German designers at this exhibition of contemporary two-dimensional communication design services from Germany, the oldest of which date back to the early 2000s. Get an overview of the works by renowned German design agencies such as Johannes Erler, Mike Meiré, Joachim Sauter, Erik Spiekmann and Andreas Uebele]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058971">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104254" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Suresh Limbaraj Gulage]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Suresh Limbaraj Gulage]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A show of paintings by the artist from Pune. Galleries 1 &amp; 2.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058973">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-17</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104255" modified="2010-10-05T05:51:13">
+    <name><![CDATA[MN Jayakumar]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[MN Jayakumar]]></name>
+      <vendor-category><![CDATA[Art workshops]]></vendor-category>
+      <description><![CDATA[A solo show of photographs hosted by the Bangalore-based Chief Conservator of Forests. Galleries 1, 2, 4, &amp; 4]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058973">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-12</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105000" modified="2010-10-05T05:51:13">
+    <name><![CDATA[From Soil to Seed]]></name>
+    <category>business-tech</category>
+    <version lang="en">
+      <name><![CDATA[From Soil to Seed]]></name>
+      <vendor-category><![CDATA[Technology talks]]></vendor-category>
+      <description><![CDATA[Take control of your food by learning integrated farming techniques practiced by Annadana, a soil and seed saving network. Learn soil regeneration techniques, seed showing techniques as well as seed saving.To register call Pavitra Prasan on 96326-80564]]></description>
+      <price><![CDATA[Rs.3,000 per person]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058973">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104257" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Group show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Group show]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Paintings by Ananth Mehta, Arvind Patel, Chikmath FV, Dayananad Karmakar and Sudhir Phadnes]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058974">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <end_date>2010-10-15</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104267" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Exhibition]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Exhibition]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A collection of paintings by the city-based veteran artists KN Ramachandran and SG Vasudev.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058991">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-15</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103292" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Open Mic]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Open Mic]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Kyra offers its stage to the city’s musicians, singers, dancers and poets.]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058993">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103293" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Open Mic]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Open Mic]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Kyra offers its stage to the city’s musicians, singers, dancers and poets.]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058993">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105001" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Open Mic Night]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Open Mic Night]]></name>
+      <vendor-category><![CDATA[Poetry & readings]]></vendor-category>
+      <description><![CDATA[Read aloud your poetry, prose and diatribes.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058993">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <event_time>21:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105002" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Open Mic Night]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Open Mic Night]]></name>
+      <vendor-category><![CDATA[Poetry & readings]]></vendor-category>
+      <description><![CDATA[Read aloud your poetry, prose and diatribes.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058993">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103294" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[GML Ananya Cultural Academy presents a special series that will celebrate Devi – the eternal goddess. The two dancers performing, Sheshadri Iyengar and Samyuktha Sharath, will use special kritis, devotional songs, to extol the various aspects of Devi.]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058994">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103301" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Herbert Erich Lang & Ambi Subramaniam]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Herbert Erich Lang & Ambi Subramaniam]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[A Carnatic recital featuring Subramaniam on violin, V Ramanamurthi on mridangam, Lang, a professor in Carnatic music from Germany, on kanjira and Ganthasala Satya Sai on morsing]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058996">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103302" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Collage workshop]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Collage workshop]]></name>
+      <vendor-category><![CDATA[Art workshops]]></vendor-category>
+      <description><![CDATA[Collages are a great way to express your creativity. You can display your work of art at home or gift it to a friend. Learn the basics of making a paper collage in different styles and patterns. Ages 12+.]]></description>
+      <price><![CDATA[Rs.400 per class]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000058997">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104269" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Leon Bolier]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Leon Bolier]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[The Dutch composer and DJ, who has won acclaim from Tiesto and Armin van Buuren, plays trance and progressive music. Call 98861-22458 for details.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059004">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104270" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Johnny Deep]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Johnny Deep]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[The underground DJ plays his funk-infused music. Call 99166-95200 for details]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059011">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103306" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Sunday Groove]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Sunday Groove]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[An open stage for the city’s musicians to meet and jam.]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059015">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103308" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Bulls Unplugged]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Bulls Unplugged]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Every Monday night, Opus hosts upcoming Bangalore bands, live and unplugged]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059016">
+        <occurrence>
+          <time>
+            <start_date>2010-10-11</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104273" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Water Station (Neerina Tanna)]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Water Station (Neerina Tanna)]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Dir: N Manjunatha. Writer: Ota Shogo. Cast: Hudukata Ranga Thanda. Synopsis Japanese dramaturgist/director Ota Shogo famously said of his experimental work, “There are words here. You just can’t hear them.” The first of his trilogy of plays (it was followed by Earth Station and Wind Station) which deal with man’s interaction of the elements of nature, it centres on a tap which becomes a stop for a stream of travellers to rest. Expressions, gestures, glances and walks fill the space that would normally be occupied by dialogue and narration]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059018">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104274" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Rizwaan]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Rizwaan]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Writer/Dir: Abhishek Majumdar. Cast: Indian Ensemble]]></description>
+      <price><![CDATA[Tickets Rs.100]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059018">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>07:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104275" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Mysooru Mallige]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Mysooru Mallige]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA["Dir: BV Rajaram. Writer: Rajendra Karanth (based on KS Narasimhaswamy’s poems). Cast: Kalagangotri. Synopsis KS Narasimhaswamy’s collection of poetry was first published in 1942, to immediate acclaim. In it the poet created fictional town of Naviluru, and examined at life in rural India before independence, through characters like the bangle seller Balegaara Channaya, is central to the theatrical adaptation. For ticket information contact 
+94480-69667.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059018">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104276" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Shudra Tapaswi]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Shudra Tapaswi]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Dir: Manjunath Badiger. Writer: Kuvempu. Cast: Ninasam, Heggodu. 2hours. Synopsis After his victory over Ravana, Rama returns to Ayodhya and is crowned king. When a child dies, he is advised that it is because dharma isn’t being followed correctly in the kingdom. He soon learns that a member of the Shudra caste, named Shambuka, is performing penance, thus defying the rules of caste system. Rama executes him by beheading. This adaptation also incorporates text from another Kuvempu work, Sri Ramayana Darshanam.]]></description>
+      <price><![CDATA[Tickets Rs.50]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059018">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104277" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Othello]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Othello]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Dir: Jehaan Manekshaw. Writer: William Shakespeare. Cast: Ninasam, Heggodu. 2 hours. Shakespeare’s tale of the Moor ravaged by jealousy, adapted into Kannada by KS Nissar Ahmed.]]></description>
+      <price><![CDATA[Tickets Rs.50]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059018">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103310" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Anil Murthy]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Anil Murthy]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[A five-day Carnatic music festival as part of the Vijayadashami celebrations conducted by GML Ananya Cultural Academy will begin with a vocal recital featuring Murthy, accompanied by Mysore R Dayakar on violin, B Dhruvaraj on mridangam and S Srishyla on ghatam]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059020">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103311" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Chitra Lingam]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Chitra Lingam]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[A Carnatic veena recital by Lingam, accompanied by TS Chandrashekar on mridangam and M Gururaj on morsing]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059020">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103312" modified="2010-10-05T05:51:13">
+    <name><![CDATA[CN Thyagarajan]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[CN Thyagarajan]]></name>
+      <vendor-category><![CDATA[Classical Music]]></vendor-category>
+      <description><![CDATA[A Carnatic concert led by the flautist, accompanied by JK Sridhar on violin, N Vasudev on mridangam and Dayananda Mohite on ghatam]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059020">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104279" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Actor Chorus Text]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Actor Chorus Text]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Applications are invited for a four-day acting workshop by Anna Helena McLean, of Actor Chorus Text, UK. Through playful exercises in music, rhythm and dynamic physicality, up to 20 participants will be introduced to ACT’s theatre training]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059020">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103314" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Saturday Jam]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Saturday Jam]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Two city bands in a shopping mall. To sign up your band for these weekly gigs call 98441-36692]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059021">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>17:30:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104280" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Advaita]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Advaita]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A psychedelic and fusion outfit]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059023">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104281" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Orb Knightz Noon Party]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Orb Knightz Noon Party]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[This noon party features DJs Guru and Daljit, as well as MCs Irfan and MJ playing house and commercial favourites. Call 98440-38140 for details.]]></description>
+      <price><![CDATA[Entry Rs.349 for men, free for women]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059023">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>12:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104282" modified="2010-10-05T05:51:13">
+    <name><![CDATA[iReboot DJ workshop]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[iReboot DJ workshop]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[In this workshop, participants can learn disk jockeying from professionals and even get to perform live at a club.]]></description>
+      <url><![CDATA[http://www.ireboot.com]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059023">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104283" modified="2010-10-05T05:51:13">
+    <name><![CDATA[iReboot DJ workshop]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[iReboot DJ workshop]]></name>
+      <vendor-category><![CDATA[Electronica]]></vendor-category>
+      <description><![CDATA[In this workshop, participants can learn disk jockeying from professionals and even get to perform live at a club.]]></description>
+      <url><![CDATA[http://www.ireboot.com]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059023">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103319" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Jyotsna Jagannathan will perform “Angayar Kanni”, a navarasa varnam or histrionic piece that dwells on the nine emotions of Devi, the mother goddess, composed by Lalgudi Jayaraman, as part of her recital]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059040">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103320" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Peruvian dances]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Peruvian dances]]></name>
+      <vendor-category><![CDATA[Dance Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The performing unit of the Association Puno for Art and Tradition will present five traditional dances that represent the geographical regions of the country: the coast, the highlands, the jungle and the plains]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059042">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104284" modified="2010-10-05T05:51:13">
+    <name><![CDATA[P Unni Krishnan & Anil Srinivasan]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[P Unni Krishnan & Anil Srinivasan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A Carnatic vocal and piano jugalbandhi]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059042">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104285" modified="2010-10-05T05:51:13">
+    <name><![CDATA[TM Krishna and Rashid Khan]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[TM Krishna and Rashid Khan]]></name>
+      <vendor-category><![CDATA[Music Classes & Workshop]]></vendor-category>
+      <description><![CDATA[A Carnatic and Hindustani vocal jugalbandhi]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059042">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104286" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Wedding Album]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Wedding Album]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Dir: Lilette Dubey. Writer: Girish Karnad. Cast: Utkarsh Mazumdar, Neena Kulkarni, Ira Dubey, Suchitra Pillai. Review Wedding Album has all the excitement, feuding and tears that are characteristic of any household planning a wedding. Vidula, the youngest member of the Nadkarni family in small-town Dharwad, is unsure of marrying a man she has only conversed with over the phone and on the internet, but remains optimistic about the match. Her elder sister, still sore about her low-profile wedding many years ago, is shocked to be the object of affection of the adolescent boy next door, while Vidula’s brother tries to avoid a persistent marriage proposal. Wedding Album comments on the role of memory in narration but doesn’t always seem sure about its purpose. There are unnecessary detours, such as a lecture on moral policing and a finale that ties up a sub-plot rather than the main story. But the laughs come fast and easy as the bride’s parents and the maid jump into the fray - Saumya Ancheri]]></description>
+      <price><![CDATA[Donor passes Rs.500, Rs.1,000, Rs.2,000]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059042">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103323" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Drones from the Turbine]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Drones from the Turbine]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Anand Vijayasimha on vocals and guitar, Aditya Kishore on percussion, Jaydev Umesh and Nithin Sadhu on guitars, Pranav K on bass and Ashish Sharma on the visual mixer form the psychedelic rock band, Drones from the Turbine. For entry charges contact the venue]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059047">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103324" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Parvaaz]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Parvaaz]]></name>
+      <vendor-category><![CDATA[Rock & pop]]></vendor-category>
+      <description><![CDATA[Kashif Iqbal on vocals and guitar, Khalid Ahamed on vocals, Neil Simon on bass, Adarsh Deokota on guitar and Somarshi Bhattacharya on drums are a Sufi rock band. For entry charges contact the venue]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059047">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105004" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Book release]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Book release]]></name>
+      <vendor-category><![CDATA[Poetry & readings]]></vendor-category>
+      <description><![CDATA[Bangalore-based writer Monideepa Sahu will lead you through the adventures of Rishabh the rat and Shashee the spider. In her new book, Riddle of the Seventh Stone, you read the exploits of these two characters as they rummage through Venkat Thata’s herb shop in the heart of Bangalore and transform into human children and figure it is hard to be children afterall. Sahu will read from her novel, answer questions and there are games to be played.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059065">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>17:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000104294" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Transmigrations]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Transmigrations]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[A show of photographs by Karen Knorr. For details call Megha at 99864-70678]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059068">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-11-11</end_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105005" modified="2010-10-05T05:51:13">
+    <name><![CDATA[International Career Guidance Conference]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[International Career Guidance Conference]]></name>
+      <vendor-category><![CDATA[Educational talk]]></vendor-category>
+      <description><![CDATA[Culture is on the agenda for the IAEVG-Jiva Conference of counsellors from around the world. Organised by the Promise Foundation with the objective of bringing together the wisdom of different cultures in counselling, the three-day programme includes thematic sessions and several keynotes lectures. Founder of the Aseema Trust, an organisation that attempts to incorporate traditional performing arts in education guided by Gandhian thought, VR Devika speaks on Gandhi’s approach to work. Gideon Arulmani and Kamini Ramachandran present on storytelling as a mode of counselling. Frederick Leong, a professor of psychology from Michigan State University speaks on new models of counselling. Also on the agenda is a symposium on traditional occupations in the modern world. An exhibition titled Hunters to Hotels by archaeologist Shanti Pappu documents the history of work]]></description>
+      <url><![CDATA[http://www.jivacareer.org]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105006" modified="2010-10-05T05:51:13">
+    <name><![CDATA[From Soil to Seed]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[From Soil to Seed]]></name>
+      <vendor-category><![CDATA[Wellness talks]]></vendor-category>
+      <description><![CDATA[Take control of your food by learning integrated farming techniques practiced by Annadana, a soil and seed saving network. Learn soil regeneration techniques, seed showing techniques as well as seed saving.To register call Pavitra Prasan on 96326-80564]]></description>
+      <price><![CDATA[Rs.3,000 per person]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059108">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103328" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Kumar, a student B Bhanumathi and Sheela Chandrashekar will perform pieces from the traditional margam of bharatanatyam]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059111">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105008" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Talk on Open Education Online]]></name>
+    <category>business-tech</category>
+    <version lang="en">
+      <name><![CDATA[Talk on Open Education Online]]></name>
+      <vendor-category><![CDATA[Technology talks]]></vendor-category>
+      <description><![CDATA[Online The next biggest thing after open source software is open source content. There are valuable open content resources for higher education online, according to Phillipp Schmidt, co-founder of the Peer-to-peer University, an online initiative focused on delivering free college-level courses online. With higher education systems around the world becoming increasingly inaccessible to large sections of the population due to prohibitive costs and limited seats, an online university with free courses could be the way forward. Schmidt speaks about the future of higher education, open content, and the role of the Internet in setting knowledge free]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000059610">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000105009" modified="2010-10-05T05:51:13">
+    <name><![CDATA[From Soil to Seed]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[From Soil to Seed]]></name>
+      <vendor-category><![CDATA[Wellness talks]]></vendor-category>
+      <description><![CDATA[Take control of your food by learning integrated farming techniques practiced by Annadana, a soil and seed saving network. Learn soil regeneration techniques, seed showing techniques as well as seed saving.To register call Pavitra Prasan on 96326-80564]]></description>
+      <price><![CDATA[Rs.3,000 per person]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000060893">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103334" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Kuchipudi]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Kuchipudi]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Shambhavi Dance Ensemble presents Kuchipudi Traditions. The production has been conceptualised and choreographed by Vyjayanthi Kashi, artistic-director of the ensemble]]></description>
+      <price><![CDATA[FREE]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000068285">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103336" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Kathak]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Kathak]]></name>
+      <vendor-category><![CDATA[Dance Classes & Workshop]]></vendor-category>
+      <description><![CDATA[STEM Dance Kampni will present excerpts from their recent choreographic works. The first, Sanjog, fuses motifs of kathak and flamenco in its choreography and music design. The second, Vajra, will explore the tangible forms of divinity using the shape of a diamond as a movement cue]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000068287">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103337" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Kathak]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Kathak]]></name>
+      <vendor-category><![CDATA[Dance Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The performing unit of the Delhi-based Kathak Kendra will present works that are rooted in the movement vocabulary of kathak and yet are experimental in nature]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000068287">
+        <occurrence>
+          <time>
+            <start_date>2010-10-08</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103338" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Classes & Workshop]]></vendor-category>
+      <description><![CDATA[Delhi-based Geeta Chandran is known for using classical bharatanatyam to comment on issues of gender and the environment. She will perform her own choreographic repertoire.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000068287">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103339" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Bharatanatyam]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Classes & Workshop]]></vendor-category>
+      <description><![CDATA[Hyderabad-based bharatanatyam and kuchipudi dancer Ananda Shankar Jayant will perform Thyagaraja Ramayanam.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000068287">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="BLR000000000000000000000000103340" modified="2010-10-05T05:51:13">
+    <name><![CDATA[Peruvian dances]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Peruvian dances]]></name>
+      <vendor-category><![CDATA[Dance Classes & Workshop]]></vendor-category>
+      <description><![CDATA[The performing unit of the Association Puno for Art and Tradition will present five traditional dances that represent the geographical regions of the country: the coast, the highlands, the jungle and the plains]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="BLR000000000000000000000000068287">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>
