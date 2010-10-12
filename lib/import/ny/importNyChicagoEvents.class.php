@@ -400,9 +400,6 @@ class importNyChicagoEvents
         }
 
         ImportLogger::saveRecordComputeChangesAndLog( $eventObj );
-
-        //Kill the object
-        $eventObj->free();
     }
 
 

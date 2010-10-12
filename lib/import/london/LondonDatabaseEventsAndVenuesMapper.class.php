@@ -226,7 +226,6 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
                             {
                                 if ( isset( $event ) && $event instanceof Event )
                                 {
-                                    $event->free( true );
                                     unset( $event );                                    
                                 }
 
