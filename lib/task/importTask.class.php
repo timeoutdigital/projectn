@@ -398,8 +398,8 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
-            case 'poi_1':
-            case 'poi_2':
+            case 'moscow_1':
+            case 'moscow_2':
                     $this->importMoscow( $city, $options['type'] );
                 break;
             case 'poi':
@@ -1126,8 +1126,8 @@ EOF;
         $total = $xml->venue->count();
         $splitMiddle = (int)ceil( $total / 2 );
 
-        $startPoint = ( $type == 'poi_1' ) ? 0 : $splitMiddle;
-        $endPoint = ( $type == 'poi_1' ) ? $splitMiddle : $total;
+        $startPoint = ( $type == 'moscow_1' ) ? 0 : $splitMiddle;
+        $endPoint = ( $type == 'moscow_1' ) ? $splitMiddle : $total;
         
         echo ' Total :' . $total . ' | Middle: '. $splitMiddle . ' | Start: ' . $startPoint . ' | End: ' . $endPoint . PHP_EOL;
 
