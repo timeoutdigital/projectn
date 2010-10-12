@@ -31,7 +31,7 @@ class EventTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    Event::$vendorCategories = null;
+    Event::resetVendorCategoryCache();
   }
 
   private function initializeEvent()
@@ -255,10 +255,6 @@ class EventTest extends PHPUnit_Framework_TestCase
     //event should reuse 'Category Two'
     $this->assertEquals( 'Category Two', $event2['VendorEventCategory'][ 'Category Two' ]['name'] );
     $this->assertTrue( $event['VendorEventCategory'][ 'Category Two' ]->exists() );
-
-    $vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-    $eventForVendor2 = ProjectN_Test_Unit_Factory::add( 'Event' );
-    $eventForVendor2['Vendor'] = $vendor2;
   }
 
   /**
