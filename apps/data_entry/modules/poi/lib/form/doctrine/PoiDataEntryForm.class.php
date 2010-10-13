@@ -55,7 +55,7 @@ class PoiDataEntryForm extends BasePoiForm
     $this->configureVendorPoiCategoryWidget();
 
     /* images */
-    $this->embedRelation('PoiMedia');
+    $this->embedRelation('PoiMedia', new PoiMediaFormDataEntry());
 
     /* new poi media */
     //@todo find issue why more than 2 imgs failing to save
