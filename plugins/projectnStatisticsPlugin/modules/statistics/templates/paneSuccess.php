@@ -20,18 +20,18 @@
                 <?php
                     $statsPanel = $sf_data->getRaw( 'statsPanel' );
 
-                    $today      = array_shift( $statsPanel );
                     $yesterday  = array_shift( $statsPanel );
+		    $today      = array_shift( $statsPanel );
 
                     $exportStats = $sf_data->getRaw( 'exportStats' );
                     $exportTotal = false;
 
-                    if( isset( $exportStats[ 'LogExportCount' ] ) && !empty( $exportStats[ 'LogExportCount' ] ) )
-                        $exportTotal = $exportStats[ 'LogExportCount' ][0]['count'];
+                    if( isset( $exportStats[0][ 'LogExportCount' ][0]['count'] ) )
+                        $exportTotal = $exportStats[0][ 'LogExportCount' ][0]['count'];
 
                     if( is_array( $today ) )
                     {
-                    
+
                         $todayTotal = $yesterdayTotal = 0;
                         foreach( $today[ $model ] as $metric ) $todayTotal += $metric;
                         if( is_array( $yesterday ) && array_key_exists( $model, $yesterday ) ) foreach( $yesterday[ $model ] as $metric ) $yesterdayTotal += $metric;
@@ -151,4 +151,3 @@
     }
   );
 </script>
-
