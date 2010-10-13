@@ -17,7 +17,7 @@ generator:
       list:
         title: Poi Geocodes
         sort:               [created_at, desc]
-        display:            [_edit_poi, _poi_name, _street, _city, latitude, longitude]
+        display:            [_edit_poi, _poi_name, _street, _city, latitude, longitude, _duplicate]
         batch_actions: []
         actions: []
         object_actions: []

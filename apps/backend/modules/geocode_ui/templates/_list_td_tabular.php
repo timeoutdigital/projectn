@@ -16,3 +16,6 @@
 <td class="sf_admin_date sf_admin_list_td_long">
   <a href='javascript:getVenueDetails( "<?php echo $t_venue->getId(); ?> " )'> <?php echo $t_venue->getLongitude();?> </a>
 </td>
+<td class="sf_admin_number sf_admin_list_td_duplicate">
+  <?php echo get_partial('duplicate', array('type' => 'list', 't_venue' => $t_venue)) ?>
+</td>
