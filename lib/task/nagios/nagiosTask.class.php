@@ -64,7 +64,7 @@ abstract class nagiosTask extends sfBaseTask
         {
             case empty( $this->errors )     : exit( 2 );
             case empty( $this->warnings )   : exit( 1 );
-            default                         : exit( 0 );
+            default                         : echo 'ok'; exit( 0 );
         }
     }
 
