@@ -138,9 +138,11 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
         $media = new PoiMedia();
         $media[ 'ident' ] = 'md5 hash of the url';
-        $media[ 'mime_type' ] = 'image/';
+        $media[ 'mime_type' ] = 'image/jpeg';
         $media[ 'url' ] = 'url';
         $media[ 'status' ] = 'valid';
+        $media[ 'content_length' ] = 120;
+
         $poi['PoiMedia'][] = $media;
 
         $media->save();
@@ -204,6 +206,34 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->link( 'Vendor', 2 );
         $poi->save();
 
+        // #687 Telephone Number Check
+        $poi = new Poi();
+        $poi->setPoiName( 'Invalid Telephone' );
+        $poi->setStreet( 'test street' );
+        $poi->setHouseNo('12' );
+        $poi->setZips('1234' );
+        $poi->setCity( 'test town' );
+        $poi->setDistrict( 'test district' );
+        $poi->setCountry( 'GBR' );
+        $poi->setVendorPoiId( '123' );
+        $poi->setLocalLanguage('en');
+        $poi->setLongitude( '-0.081888002' );
+        $poi->setLatitude( 51.524543601 );
+        $poi->setEmail( 'you@who.com' );
+        $poi->setUrl( 'http://foo.com' );
+        $poi->setPhone( '212 420 1934' );
+        $poi->setPhone2( '12 769 1212' ); // Valid
+        $poi->setFax( '444 1236' ); // Invalid no
+        $poi->setShortDescription( 'test short description' );
+        $poi->setDescription( 'test description' );
+        $poi->setPublicTransportLinks( 'test public transport' );
+        //$poi->setPrice( 'test price' );
+        $poi->setOpeningTimes( 'test opening times' );
+        $poi->link( 'Vendor', 2 );
+        $poi->link('PoiCategory', array( 1, 2 ) );
+        $poi->link('VendorPoiCategory', array( 1, 2 ) );
+        $poi->save();
+
         $this->runImportAndExport();
       }
       catch(PDOException $e)
@@ -216,6 +246,39 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     {
       ProjectN_Test_Unit_Factory::destroyDatabases();
 
+    }
+
+    public function testDuplicateRecordsDontCountTowardsDuplicateLatLong()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $this->vendor2['geo_boundries'] = "1;1;2;2";
+      $this->vendor2->save();
+
+      $poi1 = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi1[ 'Vendor' ] = $this->vendor2;
+      $poi1['latitude'] = 1.5;
+      $poi1['longitude'] = 1.5;
+      $poi1->save();
+
+      $poi2 = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi2[ 'Vendor' ] = $this->vendor2;
+      $poi2['latitude'] = 1.5;
+      $poi2['longitude'] = 1.5;
+      $poi2->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImportAndExport();
+      $this->assertEquals( 0, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
+
+      $poi2->setDuplicate( 'on' );
+      $poi2->save();
+
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $this->runImportAndExport();
+      $this->assertEquals( 1, count( $this->xml->xpath( '/vendor-pois/entry' ) ) );
     }
 
     /**
@@ -232,7 +295,6 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
       $poi[ 'Vendor' ] = $this->vendor2;
-
       $poi['latitude'] = 1.5;
       $poi['longitude'] = 1.5;
       $poi->save();
@@ -266,7 +328,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $uiCategories = $this->xpath->query( "/vendor-pois/entry/version/content/property[@key='UI_CATEGORY']" );
 
-      $this->assertEquals( 4, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
+      $this->assertEquals( 6, $uiCategories->length, "Should be exporting property 'UI_CATEGORY'." );
   }
 
     /**
@@ -377,7 +439,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testIfPoiWithEmptyStreetIsSkipped()
     {
       //entry
-      $this->assertEquals( 2, count( $this->xml->entry ) );
+      $this->assertEquals( 3, count( $this->xml->entry ) );
     }
 
     /**
@@ -386,7 +448,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testGeneratedXMLHasEntryTagsWithRequiredAttribute()
     {
       //entry
-      $this->assertEquals( 2, count( $this->xml->entry ) );
+      $this->assertEquals( 3, count( $this->xml->entry ) );
 
       $prefix = 'XXX';
       $this->assertStringStartsWith( $prefix, (string) $this->xml->entry[0]['vpid'] );
@@ -545,11 +607,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
      */
     public function testMediaTags()
     {
-      //  print_r( Doctrine::getTable('PoiMedia')->findAll()->toArray() );
-      //echo $this->xml->entry[0]->asXML();
       $properties = $this->xml->entry[0]->version->content->media;
-      $this->assertEquals( 'image/', (string) $properties[0]['mime-type'] );
-      $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/md5 hash of the url.jpg', (string) $properties[0] );
+      $this->assertEquals( 1, count( $properties ) );
     }
 
     public function testExportWithValidationOff()
@@ -660,6 +719,21 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->xml = simplexml_load_file( $this->destination );
 
       //ExportLogger::getInstance()->showErrors();
+    }
+
+    /**
+     * Test the Nokia RegEx validation for phone, Phone 2 and Fax numbers when exporting.
+     */
+    public function testIsValidTelephoneNo()
+    {
+        $xml= simplexml_load_file( $this->destination );
+
+        // Get the Last one to test for Invalid Number
+        $contact = $xml->entry[2]->contact;
+
+        $this->assertEquals( '+44 212 420 1934', (string) $contact->phone );
+        $this->assertEquals( '+44 1 2769 1212', (string) $contact->phone2 );
+        $this->assertEquals( '', (string) $contact->fax );
     }
 }
 /**

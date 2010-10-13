@@ -31,6 +31,49 @@ class Poi extends BasePoi
   private $minimumAccuracy = 8;
 
 
+  public function getDuplicate()
+  {     
+      foreach( $this['PoiMeta'] as $meta )
+      {
+          if( isset( $meta['lookup'] ) && $meta['lookup'] == 'Duplicate' )
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+  public function setDuplicate( $value = NULL )
+  {
+      if( $value === 'on' )
+      {
+            if( $this->getDuplicate() )
+                return;
+
+            $pm = new PoiMeta();
+            $pm['lookup']   = 'Duplicate';
+            $pm['value']    = 'Duplicate';
+            $pm['comment']  = 'Producer Marked as Duplicate';
+            $this['PoiMeta'][] = $pm;
+      }
+      
+      elseif( is_null( $value ) )
+      {
+            if( !$this->getDuplicate() )
+                return;
+
+            foreach( $this['PoiMeta'] as $key => $meta )
+            {
+                if( isset( $meta['lookup'] ) && $meta['lookup'] == 'Duplicate' )
+                {
+                    unset( $this['PoiMeta'][ $key ] );
+                    $meta->delete();
+                }
+            }
+      }
+  }
+
   public function setMinimumAccuracy( $acc )
   {
       if( is_numeric( $acc ) )
@@ -65,13 +108,6 @@ class Poi extends BasePoi
         unset( $streetNameParts [ count( $streetNameParts ) -1 ]  );
         $this[ 'street' ] = implode( ' ',$streetNameParts );
     }
-
-    $this[ 'street' ] = preg_replace( '/[, ]*$/', '', $this[ 'street' ] );
-  }
-
-  public function fixPoiName()
-  {
-    $this['poi_name'] = preg_replace( '/[, ]*$/', '', $this['poi_name'] );
   }
 
   /**
@@ -98,7 +134,7 @@ class Poi extends BasePoi
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
 
             // Refs #525 - Trim All Text fields on PreSave
-            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ], ',' );
 
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
@@ -342,7 +378,7 @@ class Poi extends BasePoi
     if( !is_array($name) )
         $name = array( $name );
 
-    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
 
     if( stringTransform::mb_trim($name) == '' )
         return false;
@@ -352,7 +388,7 @@ class Poi extends BasePoi
       // This will unlink all vendor category relationships that dont match the poi vendor.
       if( $existingCategory[ 'vendor_id' ] != $vendorId )
           $this->unlinkInDb( 'VendorPoiCategory', array( $existingCategory[ 'id' ] ) );
-      
+
       if( $existingCategory[ 'name' ] == $name ) return;
     }
 
@@ -389,7 +425,6 @@ class Poi extends BasePoi
   {
      // NOTE - All Fixes MUST be Multibyte compatible.
      $this->cleanStringFields();
-     $this->fixPoiName();
      $this->fixStreetName();
      $this->applyDefaultGeocodeLookupStringIfNull();
      $this->fixPhoneNumbers();
@@ -397,7 +432,7 @@ class Poi extends BasePoi
      $this->fixEmail();
      $this->truncateGeocodeLengthToMatchSchema();
      $this->applyAddressTransformations();
-     $this->cleanStreetField();     
+     $this->cleanStreetField();
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
@@ -410,7 +445,7 @@ class Poi extends BasePoi
   {
     $this->applyFixes();
   }
-  
+
   private function cleanStreetField()
   {
      $vendorCityName = array( $this->Vendor->city );
@@ -571,7 +606,6 @@ class Poi extends BasePoi
   {
     Media::addMedia( $this, $url );
   }
-
 
   /**
    * Sets the longitude and latitude of the object to null if it matches a default coordinate

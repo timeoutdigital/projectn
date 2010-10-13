@@ -464,6 +464,26 @@ Vendor:
     country_code_long:        TUR
     geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
 
+  v34:
+    city:                     rio de janeiro
+    language:                 pt-br
+    time_zone:                Brazil/East
+    inernational_dial_code:   +55
+    airport_code:             GIG
+    country_code:             br
+    country_code_long:        BRA
+    geo_boundries:            '-33.7507133483887;-73.9855499267578;5.2648777961731;-32.392993927002'
+
+  v35:
+    city:                     sao paulo
+    language:                 pt-br
+    time_zone:                Brazil/East
+    inernational_dial_code:   +55
+    airport_code:             GIG
+    country_code:             br
+    country_code_long:        BRA
+    geo_boundries:            '-33.7507133483887;-73.9855499267578;5.2648777961731;-32.392993927002'
+
 EventCategory:
   c1:
     name:                movies

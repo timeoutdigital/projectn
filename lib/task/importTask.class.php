@@ -398,6 +398,10 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
+            case 'moscow_1':
+            case 'moscow_2':
+                    $this->importMoscow( $city, $options['type'] );
+                break;
             case 'poi':
 
                 $feedName = array();
@@ -1061,24 +1065,29 @@ EOF;
     private function parseSydneyFtpDirectoryListing( $rawFtpListingOutput )
     {
         $fileListSorted = array();
+
         //sort the files  so the newest file should be the first item in the list
         foreach ($rawFtpListingOutput as $fileListing)
         {
             $fileName = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
-
+            
             preg_match( '/^.*_([0-9\-]+)\.xml$/', $fileName, $matches );
 
             if( isset( $matches [1] ) )
             {
                 $date = date( 'Y-m-d' ,strtotime($matches[1] ));
                 $fileListSorted[ $date . ' ' .$fileName ] =   $fileListing;
-            }else
-            {
-                 $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED" );
-                 return NULL;
             }
 
         }
+
+        // Check if any files Exists
+        if( count($fileListSorted) <= 0 )
+        {
+            $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED" );
+            return null;
+        }
+        
         ksort ( $fileListSorted );
         $fileListSorted = array_reverse( $fileListSorted );
         // sorting is done
@@ -1096,8 +1105,39 @@ EOF;
 
         if( !isset( $ftpFiles[ 'poi' ] ) || !isset( $ftpFiles[ 'event' ] ) || !isset( $ftpFiles[ 'movie' ] ) )
             $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing." );
-
+        
         return $ftpFiles;
+    }
+
+    private function importMoscow( $city, $type )
+    {
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, 'ru' );
+
+        $feedUrl = 'http://www.timeout.ru/london/places_msk.xml';
+        $mapperClass = 'RussiaFeedPlacesMapper';
+
+        echo 'Downloading Feed' . PHP_EOL;
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        echo 'Starting Import' . PHP_EOL;
+        // SPlit 2 and Import based on City
+        $total = $xml->venue->count();
+        $splitMiddle = (int)ceil( $total / 2 );
+
+        $startPoint = ( $type == 'moscow_1' ) ? 0 : $splitMiddle;
+        $endPoint = ( $type == 'moscow_1' ) ? $splitMiddle : $total;
+        
+        echo ' Total :' . $total . ' | Middle: '. $splitMiddle . ' | Start: ' . $startPoint . ' | End: ' . $endPoint . PHP_EOL;
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer = new Importer( );
+        $importer->addDataMapper( new $mapperClass( $xml, null, $city, $startPoint, $endPoint ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+
+        $this->dieWithLogMessage();
     }
 
 

@@ -1,0 +1,2843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-08-19T08:20:55">
+  <event id="SYD000000000000000000000000058251" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Barb Jungr]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Barb Jungr]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Barb Jungr has been compared to Nina Simone, Peggy Lee and Edith Piaf and is coming to our shores so that we can see for ourselves what this widely celebrated singer is capable of. Known for her singular interpretations of classic popular songs this show will give listeners a whole new perspective on old favourites.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023482">
+        <occurrence>
+          <time>
+            <start_date>2010-09-09</start_date>
+            <end_date>2010-09-09</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058313" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Jonah and the Wailers]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Jonah and the Wailers]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Regulars at the Basement, Jonah and the Wailers have recorded 8 live CD's there, in as many years performing. The group which tours around folk and arts festivals is joined by the Elementals, for a night of uplifting choral music.]]></description>
+      <price><![CDATA[25.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023482">
+        <occurrence>
+          <time>
+            <start_date>2010-09-14</start_date>
+            <end_date>2010-09-14</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058314" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Misinterprotato]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Misinterprotato]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Mesmerizing driving rhythms are what makes Misinterprotato's sound so unique. No strangers to Sydney audiences, the trio who have previously frequented jazz festivals around the country, are bringing their cool lounge jazz to the Basement in September.]]></description>
+      <price><![CDATA[between 15.00 and 25.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023482">
+        <occurrence>
+          <time>
+            <start_date>2010-09-27</start_date>
+            <end_date>2010-09-27</end_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058317" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Wolf Mail]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Wolf Mail]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[International musician Wolf Mail was awarded "best blues guitarist" in 2005 by Japan's Guitar Player magazine. Bust out your leather jacket, pull your pants up high and sit back as Mail transports you back into the fifties with his award winning music.]]></description>
+      <price><![CDATA[25.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023482">
+        <occurrence>
+          <time>
+            <start_date>2010-10-20</start_date>
+            <end_date>2010-10-20</end_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058318" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Finoa Joy Hawkins and Blue Dream]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Finoa Joy Hawkins and Blue Dream]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Award winning Pianist Fiona Joy Hawkins is known for her soothing contemporary classical works. The Aria nominee is joined by Blue Dream, a collective of improvisational musicians who helps bring Hawkins music to life.]]></description>
+      <price><![CDATA[35.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023482">
+        <occurrence>
+          <time>
+            <start_date>2010-11-21</start_date>
+            <end_date>2010-11-21</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061530" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Lil' Band O Gold]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Lil' Band O Gold]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Swamp dogs and blues boys unite in this all star band of highly accomplished musicians from the southern states of the USA. The coming together of this magical group was captured in the acclaimed documentary, ‘The Promised Land’ which has been re-pressed due to popular demand. Following their reception at the East Coast Blues and Roots Festival these lads are back for another bite at the cherry with 2 shows in Sydney.]]></description>
+      <price><![CDATA[between 38.00 and 45.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023482">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-06</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061563" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Lil' Band O' Gold]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Lil' Band O' Gold]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[The Louisiana super group are returning for shows all over the country including their first appearance in Sydney.]]></description>
+      <price><![CDATA[between 38.00 and 87.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023482">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-06</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061516" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Paul Dempsey]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Paul Dempsey]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[As an offshoot of his tour with Powderfinger, Paul Dempsey has added some solo, acoustic shows in Sydney and Melbourne. The Something For Kate frontman's debut solo album Everything is True was nominated for 3 Arias and won iTunes Australian Album of the Year. If floppy haired, whisky voiced, singer-songwriters are your style then Paul Dempsey just may be your god.]]></description>
+      <price><![CDATA[30.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023485">
+        <occurrence>
+          <time>
+            <start_date>2010-10-10</start_date>
+            <end_date>2010-10-10</end_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068669" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Dan Kelly]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Dan Kelly]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[It has been a long wait but Dan Kelly has finally released his solo album, Dan Kelly's Dream, and is now setting out on a massive national tour.  Head to the Annandale and catch the insightful yet kooky lyricism of Dan Kelly as he tries to make music, entertain the masses and save the planet, all at once.]]></description>
+      <price><![CDATA[17.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023485">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-09</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069508" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Cancer Bats]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Cancer Bats]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Cancer Bats fans, rejoice: if you were a little nonplussed at the thought of shelling out to see them do a support slot for Bullet For My Valentine, be advised that the 'Bats are doing their own headline gig at the Annandale while they're in town.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023485">
+        <occurrence>
+          <time>
+            <start_date>2010-09-15</start_date>
+            <end_date>2010-09-15</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061524" modified="2010-08-19T08:20:55">
+    <name><![CDATA[MM9]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[MM9]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Sydney act MM9 or Many Machines On Nine perform at the Gaelic on the back of their new album The Air Between released in March.]]></description>
+      <price><![CDATA[15.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-09-17</start_date>
+            <end_date>2010-09-17</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061536" modified="2010-08-19T08:20:55">
+    <name><![CDATA[In Search of Sunrise: South Africa]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[In Search of Sunrise: South Africa]]></name>
+      <vendor-category><![CDATA[Clubs | Nightclubs]]></vendor-category>
+      <description><![CDATA[Trance lovers, your time has come! Taking over from Tiesto, Richard Durand is manning the decks at the revived ISOS event at the Gaelic along with Jonas Stenberg and Trent McDermott.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-04</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061571" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Horrorshow]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Horrorshow]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[After appearances supporting Hilltop Hoods in England and Germany (July), as well as a spot on the sold out Splendour in the Grass, Horrorshow will be performing in Sydney's CDB.]]></description>
+      <price><![CDATA[17.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-09-11</start_date>
+            <end_date>2010-09-11</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061572" modified="2010-08-19T08:20:55">
+    <name><![CDATA[GBH and The Rumjacks]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[GBH and The Rumjacks]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[There isn't a self-respecting gutter punk, hardcore kid or subcultural miscreant alive who hasn't seen the GBH logo emblazoned on the back of a leather jacket, a denim vest, or a torn-up t-shirt.]]></description>
+      <price><![CDATA[40.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-10-14</start_date>
+            <end_date>2010-10-14</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061574" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Louis Bertignac]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Louis Bertignac]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Red, white and blues. Those are the national colours of french blues guitarist Louis Bertignac from outfit Telephone. Now a solo artist he has been referred to as the Gallic Kieth Richards.]]></description>
+      <price><![CDATA[25.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-10-02</start_date>
+            <end_date>2010-10-02</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061575" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Halloween Syndicate]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Halloween Syndicate]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[A full costume themed night made up of a cabaret hour and performances from Psyconanny &amp; The Baby Shaker Halloween Syndicate features a variety of small acts from burlesque to natations to belly dancing. Supports Pute Madre Brothers .]]></description>
+      <price><![CDATA[15.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000062535" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Coffins]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Coffins]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Japanese metal 3 piece visit Sydney on their Australian tour.]]></description>
+      <price><![CDATA[20.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-09-19</start_date>
+            <end_date>2010-09-19</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066160" modified="2010-08-19T08:20:55">
+    <name><![CDATA[The Wonder Years]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[The Wonder Years]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[The Wonder Years will tour Australia this September for the First time. On the Hits, Tits and Pits Tour. Joining them on this PopPunk whip around Australia will be acts: Heroes For Hire, Tonight Alive and Skyway.]]></description>
+      <price><![CDATA[23.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023488">
+        <occurrence>
+          <time>
+            <start_date>2010-09-11</start_date>
+            <end_date>2010-09-11</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065591" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Dream Home]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Dream Home]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[Eleven photomedia artists take a critical look at what a 'dream home' means for different Australians.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023493">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-10-09</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065592" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Kaoru Alfonso: 212]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Kaoru Alfonso: 212]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[The 212-unit Currong project produced the tallest building in Canberra and at the time was considered an innovative approach to meet the city's changing housing needs. In this exhibition, all 212 windows of the Currong flats have been photographed and gridded on the gallery wall.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023493">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065593" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Bindi Cole: Sistagirls]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Bindi Cole: Sistagirls]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[Bindi Cole’s portraits and Jirra Lulla Harvey’s accompanying texts offer an insight into the world of the Sistagirls, a small community of Indigenous transgender women.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023493">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066716" modified="2010-08-19T08:20:55">
+    <name><![CDATA[A Little Bazaar]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[A Little Bazaar]]></name>
+      <vendor-category><![CDATA[Around Town | Markets]]></vendor-category>
+      <description><![CDATA[Dead Space Living Artists (DSLA) are hosting a hand-made market as part of the Paddington Alive Fashion Festival. Head to the ACP to see the hand-made gems of 18 local designers including Nicked Design, Jelly, Jessica Stewart, Bilingual, shãshen, Treasure and Mok’s studio. It's also your last chance to catch the ACP's Zeitgeist Becomes Form, London Calling and The Birthday Suit exhibitions.]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/96f22ec3548fd7b58b9b6c2681ac1ce0.jpg]]></media>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023493">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>10:00:00</event_time>
+            <end_time>16:00:00</end_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069504" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Liverpool City Art Prize 2010]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Liverpool City Art Prize 2010]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[An open-themed, $10,000 art prize open to all artists.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023496">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-09-12</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069505" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Liverpool Art Society 2010]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Liverpool Art Society 2010]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[The popular annual Liverpool Art Society exhibition showcases the diverse range of art created by members of the Liverpool Art Society Inc. This year, the exhibition is united by the theme 'Memories, Characters and Places of Liverpool.']]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023496">
+        <occurrence>
+          <time>
+            <start_date>2010-09-18</start_date>
+            <end_date>2010-10-03</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069506" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Mil-Pra AECG Aboriginal Exhibition & Art Award]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Mil-Pra AECG Aboriginal Exhibition & Art Award]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[A competition open to all Indigenous and Torres Strait Islander people living in NSW and the ACT. In 2010 the theme of the exhibition is 'Legends of the Dreaming.']]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023496">
+        <occurrence>
+          <time>
+            <start_date>2010-09-18</start_date>
+            <end_date>2010-10-03</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068679" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Shifting Sands]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Shifting Sands]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[Local and foreign artists explore the Botany Bay region through a range of media.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023498">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-10-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058060" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Primavera 2010]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Primavera 2010]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[The MCA's annual exhibition for Australian artists 35 and under is curated in 2010 by Katie Dyer and features Akira Akira, Jule Fragar,  Agatha Gothe-Snape, Alasdair McLuckie, James Newitt, Jackson Slattery and Emma White. 
+ 
+ .]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-11-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058061" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Runa Islam]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Runa Islam]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[Film installations by a Bangladesh-born UK artist.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-11-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065594" modified="2010-08-19T08:20:55">
+    <name><![CDATA[In the Balance: Art for a Changing World]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[In the Balance: Art for a Changing World]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[An exhibition featuring works by Australian and international contemporary artists that address ecological issues.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-10-31</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065176" modified="2010-08-19T08:20:55">
+    <name><![CDATA[16 Degrees]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[16 Degrees]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[16 artists from the Charlie Sheard Studio School apply modern inspiration to the traditional painting techniques of the 'Old Masters'.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023511">
+        <occurrence>
+          <time>
+            <start_date>2010-09-02</start_date>
+            <end_date>2010-09-20</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068689" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Sonya Rothwell: armour&more]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Sonya Rothwell: armour&more]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[A series of figurative works that capture sensual figures and faces.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023519">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <end_date>2010-09-12</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000062538" modified="2010-08-19T08:20:55">
+    <name><![CDATA[A List Comedy at the Oatley Hotel]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[A List Comedy at the Oatley Hotel]]></name>
+      <vendor-category><![CDATA[Comedy | Stand Up]]></vendor-category>
+      <description><![CDATA[The fine, upstanding proprietors of the Oatley Hotel are here to rescue you from hump day blues with some of the best and brightest on the comedy circuit. Featuring the comedic styling of Matt Dyktynski, James Rochford, and Dolores Lorette.]]></description>
+      <price><![CDATA[6.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023527">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058203" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Yellow Moon]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Yellow Moon]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[The story of a Glaswegian Bonnie and Clyde is told through physical theatre.]]></description>
+      <price><![CDATA[between 20.00 and 34.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023538">
+        <occurrence>
+          <time>
+            <start_date>2010-09-02</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058205" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Fool for Love]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Fool for Love]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[In a claustrophobic motel room on the edge of California’s Mojave Desert, two lovers tear themselves – and each other – apart in this confronting play.]]></description>
+      <price><![CDATA[between 20.00 and 34.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023538">
+        <occurrence>
+          <time>
+            <start_date>2010-09-30</start_date>
+            <end_date>2010-10-24</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058206" modified="2010-08-19T08:20:55">
+    <name><![CDATA[The Sweetest Thing]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[The Sweetest Thing]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[The premier of this new Australian work, a story of a grieving family seen through the fram of  chaos theory.]]></description>
+      <price><![CDATA[between 20.00 and 34.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023538">
+        <occurrence>
+          <time>
+            <start_date>2010-10-28</start_date>
+            <end_date>2010-11-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058208" modified="2010-08-19T08:20:55">
+    <name><![CDATA[A Distressing Scenario]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[A Distressing Scenario]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[A double bill of devised pieces Everything I Know About the Global Financial Crisis in One Hour and The Market  Is Not Functioning. The night will examine the cultural repercussions of the current economic state.]]></description>
+      <price><![CDATA[between 20.00 and 34.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023538">
+        <occurrence>
+          <time>
+            <start_date>2010-11-25</start_date>
+            <end_date>2010-12-19</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000064710" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Fame - The Musical]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Fame - The Musical]]></name>
+      <vendor-category><![CDATA[Theatre | Musicals]]></vendor-category>
+      <description><![CDATA[FAME – The Musical is the story of a diverse group of students at New York City’s celebrated High School of the Performing Arts. Meet the class of 2010 in this new production.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023539">
+        <occurrence>
+          <time>
+            <start_date>2010-10-09</start_date>
+            <end_date>2010-10-31</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065165" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Tap Dogs]]></name>
+    <category>dance</category>
+    <version lang="en">
+      <name><![CDATA[Tap Dogs]]></name>
+      <vendor-category><![CDATA[Theatre | Dance]]></vendor-category>
+      <description><![CDATA[Winner of 11 major international awards including an Olivier for Best Choreography, Tap Dogs arrives at the Capitol Theatre this summer.]]></description>
+      <price><![CDATA[between 106.00 and 164.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023539">
+        <occurrence>
+          <time>
+            <start_date>2011-01-06</start_date>
+            <end_date>2011-02-05</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058204" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Rain Man]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Rain Man]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[Charlie Babbitt discovers he has an autistic older brother and goes on a road trip of discovery, love and understanding.]]></description>
+      <price><![CDATA[between 31.00 and 43.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023543">
+        <occurrence>
+          <time>
+            <start_date>2010-09-07</start_date>
+            <end_date>2010-09-18</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058293" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Australia: The Show]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Australia: The Show]]></name>
+      <vendor-category><![CDATA[Theatre]]></vendor-category>
+      <description><![CDATA[A light-hearted interrogation of Australian history with a couple of larrikins.]]></description>
+      <price><![CDATA[between 31.00 and 63.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023543">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-09-04</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058295" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Lotte's Gift]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Lotte's Gift]]></name>
+      <vendor-category><![CDATA[Theatre]]></vendor-category>
+      <description><![CDATA[A touching recollection of memoirs, memories and the relationship between grandmother and granddaughter.]]></description>
+      <price><![CDATA[between 35.00 and 63.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023543">
+        <occurrence>
+          <time>
+            <start_date>2010-10-06</start_date>
+            <end_date>2010-10-16</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058297" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Peace Train - The Cat Stevens Story]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Peace Train - The Cat Stevens Story]]></name>
+      <vendor-category><![CDATA[Theatre]]></vendor-category>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[Enjoy live performances from the Firecats as they and Darren Coggan explore the man behind the music.]]></description>
+      <price><![CDATA[between 31.00 and 63.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023543">
+        <occurrence>
+          <time>
+            <start_date>2010-10-19</start_date>
+            <end_date>2010-10-30</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058315" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Burnt by the Sun]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Burnt by the Sun]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[Based on the Oscar-winning film, this play is set in Russia in the 1930s, where a family is gradually threatened by military and human enemies.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023544">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-09-11</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000031790" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Katie Noonan]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Katie Noonan]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Australian jazz darling Noonan will perform songs from the Emperor's Box with guitarist Cameron Deyell. Also featuring performances from Charmaine Ford Trio, and George Garzone with The Mike Nock Trio.]]></description>
+      <price><![CDATA[between 25.00 and 35.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/04534fc7a653c61a32eb1ed4d7d823a2.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023546">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058024" modified="2010-08-19T08:20:55">
+    <name><![CDATA[List Operators]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[List Operators]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[Recently nominated for 'Best Show' at the 2010 Melbourne International Comedy Festival, the List Operators bring their child-friendly show to Sydney. Involving farts and silly fun, this show is sure to bring out the kid in anyone.]]></description>
+      <price><![CDATA[17.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023546">
+        <occurrence>
+          <time>
+            <start_date>2010-10-05</start_date>
+            <end_date>2010-10-09</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058277" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Andrea Keller Quartet w Bernie McGann/Warwick Alder, George Garzone with The Mike Nock Project]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Andrea Keller Quartet w Bernie McGann/Warwick Alder, George Garzone with The Mike Nock Project]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Boston's George Garzone helps top off SIMA's Jazz Visions festival, playing saxophone with Sydney's own Mike Nock Project at the Seymour Centre's Everest Theatre. Melbourne's Andrea Keller Quartet open the show.]]></description>
+      <price><![CDATA[between 25.00 and 35.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023546">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058278" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Charmaine Ford Trio, Katie Noonan & Cameron Deyell, George Garzone with The Mike Nock Trio]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Charmaine Ford Trio, Katie Noonan & Cameron Deyell, George Garzone with The Mike Nock Trio]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[New Zealand-born pianist Charmaine Ford opens an evening featuring singer-songwriter Katie Noonan, George Garzone and the Mike Nock Trio. The performance will go on at the Seymour Centre's Everest Theatre as part of SIMA's Jazz Visions festival.]]></description>
+      <price><![CDATA[between 25.00 and 35.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023546">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069065" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Growing Friends Spring Plant Sale]]></name>
+    <category>tours</category>
+    <version lang="en">
+      <name><![CDATA[Growing Friends Spring Plant Sale]]></name>
+      <vendor-category><![CDATA[Around Town | Walks, tours & gardens]]></vendor-category>
+      <description><![CDATA[Head to Mount Annan Botanic Garden to buy grasses, wattles, eucalypts, grevilleas and other plants native to the gardens.]]></description>
+      <url><![CDATA[http://www.rbgsyd.nsw.gov.au]]></url>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023600">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-04</end_date>
+            <event_time>10:00:00</event_time>
+            <end_time>15:00:00</end_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068688" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Draw]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Draw]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[Drawings by artists French, Stefan Marx and Marcus Oakley.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023616">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-09-09</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068642" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Brent Grayburn: Roadside Picnic]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Brent Grayburn: Roadside Picnic]]></name>
+      <vendor-category><![CDATA[Arts | Galleries | Multimedia | Exhibition]]></vendor-category>
+      <description><![CDATA[A video sculpture that journeys to the edge of an invaded forest where a nervous picnicker squirms in a state of high agitation amongst a landscape of ever compressing whiteness and discarded debris, 'Roadside Picnic' is infested with detachment and voodoo. Shot in reverse and constructed backwards, Roadside Picnic is the book written by Russian novelists Boris and Arkady Strgatsky and is credited by Andrei Tarkovsky for nothing other than the words Stalker and Zone.]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/64602e296c96fefa898e08f712051f38.jpg]]></media>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023617">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-09-05</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068643" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Tim Silver]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Tim Silver]]></name>
+      <vendor-category><![CDATA[Arts | Exhibition | Photography | Galleries]]></vendor-category>
+      <vendor-category><![CDATA[Arts | Galleries | Photography | Exhibition]]></vendor-category>
+      <description><![CDATA[Within his practice, Silver frequently explores notions of entropy, decay and the passing of time through processes of casting and photographic documentation. Born in Hobart, Tim Silver currently lives and works in Sydney.]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/1e16ca04939ab8061009416032e840b3.jpg]]></media>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023617">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-09-05</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068690" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Stereotyped]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Stereotyped]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[An experimental exhibition of typography and sound that challenges to definition of 'designer' by bringing together composers, graphic designers, film makers, sound engineers, typographers, and musicians.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023619">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068680" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Toni Warburton/Trevor Fry]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Toni Warburton/Trevor Fry]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[In this joint exhibition Toni Warburton's Picture Window exhibits a collection of things salvaged from a house fire and Trevor Fry's employs archaic and ancient coil-building techniques for his new ceramic sculptures.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023621">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-09-18</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068683" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Francesca Heinz: Performance #1]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Francesca Heinz: Performance #1]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[The New Zealand artist will make herself a new skin, follow a strict diet and become increasingly restricted by the presence of the 'Minder' for three consecutive days. The performances may be viewed from outside of the Gallery through peep holes.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023621">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-09-18</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061557" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Stormie Millks: In Celebration of Second Best]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Stormie Millks: In Celebration of Second Best]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[Beginning on the street and going on to exhibit artwork the world over, Stormie Mills comes to Sydney with an exhibition of graffiti and street based art of today. The work has undertakings of spray cans and alludes to night painting escapades.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023626">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <end_date>2010-09-15</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065164" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Stormie Mills]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Stormie Mills]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[Beginning on the street and going on to exhibit artwork the world over, Stormie Mills comes to Sydney with an exhibition of graffiti and street based art of today. The work has undertakings of spray cans and alludes to night painting escapades.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023626">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <end_date>2010-09-15</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061547" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Mr Salmon and Mrs Sparrow]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Mr Salmon and Mrs Sparrow]]></name>
+      <vendor-category><![CDATA[Arts | Exhibition]]></vendor-category>
+      <description><![CDATA[An unconventional map exhibition plotting the spread of Sydneysiders with fish- and bird-based surnames.]]></description>
+      <url><![CDATA[http://www.sydneydesign.com.au]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/9ab05594fbc9e6a99bf7df149eda6f0b.jpg]]></media>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023633">
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>10:00:00</event_time>
+            <end_time>17:00:00</end_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061556" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Soliloquy by Bill Brown]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Soliloquy by Bill Brown]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[Brown has held more than 20 solo commercial 
+exhibitions including at Rudy Komon Gallery, Rex 
+Irwin Art Dealer and Macquarie Galleries. His return exhibition at Wilson Street Gallery in 2008 won accolades from peers, artists and critics. His work is held by all major Australian public and regional collections. His works have been described as depicting a place between places.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023635">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066158" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Bill Brown: Soliloquy]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Bill Brown: Soliloquy]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[Brown has held more than 20 solo commercial 
+exhibitions and his recent exhibition at Wilson Street Gallery in 2008 won accolades from peers, artists and critics. His work is held by all major Australian public and regional collections, and have been described as depicting a place between places.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023635">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058104" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Dinosnore Sleepover]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Dinosnore Sleepover]]></name>
+      <vendor-category><![CDATA[Museums | Events]]></vendor-category>
+      <description><![CDATA[Bring your kids to the Australian Museum's Dinosnore sleepover. The price includes a pizza, craft activities, a tour of the museum by torchlight, DVDs, and a night's sleep amongst dinosaur bones.]]></description>
+      <price><![CDATA[between 110.00 and 140.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/0e93ef0f80e2c864f873b644e744d1e1.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023637">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058239" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Ornithological Orchestra: Birds and their Calls]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Ornithological Orchestra: Birds and their Calls]]></name>
+      <vendor-category><![CDATA[Museums | Events]]></vendor-category>
+      <description><![CDATA[A provocative fast-paced lecture drawing on Dr Hollis Taylor's ornithological fieldwork.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023637">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065585" modified="2010-08-19T08:20:55">
+    <name><![CDATA[TALK: Monsoons, mountains and mosquitoes]]></name>
+    <category>educational</category>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[TALK: Monsoons, mountains and mosquitoes]]></name>
+      <vendor-category><![CDATA[Around Town | Classes, Workshops & talks]]></vendor-category>
+      <vendor-category><![CDATA[Museums | Events]]></vendor-category>
+      <description><![CDATA[Dr Jodi Rowley talks about her expeditions through the remote forests of Indochina, where the frog fauna is relatively unknown, yet is still subject to human impacts through habit destruction and predation. Bookings essential.]]></description>
+      <price><![CDATA[between 20.00 and 30.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023637">
+        <occurrence>
+          <time>
+            <start_date>2010-09-30</start_date>
+            <end_date>2010-09-30</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065583" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Convict Sydney]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Convict Sydney]]></name>
+      <vendor-category><![CDATA[Museums]]></vendor-category>
+      <description><![CDATA[The Hyde Park Barracks is one of Australia’s most important convict sites. This new exhibition explores the convict experience, from transportation to forging a new life in the colony of New South Wales. It reveals the extraordinary contribution convict workers made to the building of early Sydney. Learn about the everyday lives of convicts who passed through the doors of the barracks between 1819 and 1848.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023639">
+        <occurrence>
+          <time>
+            <start_date>2010-09-11</start_date>
+            <end_date>2013-05-31</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068644" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Wit Large]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Wit Large]]></name>
+      <vendor-category><![CDATA[Comedy | Stand Up]]></vendor-category>
+      <description><![CDATA[Smart and literate comedy comes to Glebe's premier bookshop on the first Saturday of every month, with Tommy Dean, Lila Tillman and David Cunningham, plus your host Dr Dave Bloustien. The show also includes complementary wine and a book-browsing break.]]></description>
+      <price><![CDATA[between 10.00 and 12.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023648">
+        <occurrence>
+          <time>
+            <start_date>2010-09-04</start_date>
+            <end_date>2010-09-04</end_date>
+            <event_time>17:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068660" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Elif Bautman - Author Event]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Elif Bautman - Author Event]]></name>
+      <vendor-category><![CDATA[Books | Talks & Signings]]></vendor-category>
+      <description><![CDATA[Elif Bautman brings tales of the scholarly and the ridiculous to life in her book The Possessed: Adventures with Russian books and the people who read them. Journey to the world of Dostoyevsky, Tolstoy and Chekhov, and the academics who worship them.]]></description>
+      <price><![CDATA[between 7.00 and 10.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023648">
+        <occurrence>
+          <time>
+            <start_date>2010-08-30</start_date>
+            <end_date>2010-08-30</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068663" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Satyajit Das - Author Event]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Satyajit Das - Author Event]]></name>
+      <vendor-category><![CDATA[Books | Talks & Signings]]></vendor-category>
+      <description><![CDATA[Derivatives guru Satyajit Das warned of an impending financial meltdown in 2006. In the revised edition of his book he includes an afterword on the 2008 GFC but otherwise it is largely unchanged from his incendiary book from 2006. Now mired in a mess of our own making, this is a timely re-release of a book that correctly predicted the economic strife of the new millennium.]]></description>
+      <price><![CDATA[between 7.00 and 10.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023648">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-24</end_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068670" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Fethiye Cetin - Author Event]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Fethiye Cetin - Author Event]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Fethiye Çetin is a human-rights lawyer from Turkey who has defended many Turkish-Armenian people who have fallen victim to State and societal discrimination. Her book, My Grandmother, has been published in nine languages and examines identity, family and political history in Turkey.]]></description>
+      <price><![CDATA[between 7.00 and 10.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023648">
+        <occurrence>
+          <time>
+            <start_date>2010-09-30</start_date>
+            <end_date>2010-09-30</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068649" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Author Talk with Damien Pignolet]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Author Talk with Damien Pignolet]]></name>
+      <vendor-category><![CDATA[Books | Talks & Signings]]></vendor-category>
+      <description><![CDATA[Damien Pignolet, head of Woollahra's prestigious Bistro Moncur and author of culinary tome French, is back with a new offering for burgeoning master chefs. In Salades, Pignolet explores the myriad of ways that one can interpret the humble salad so that is goes from supporting role to star attraction of the dinner table.]]></description>
+      <price><![CDATA[7.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023656">
+        <occurrence>
+          <time>
+            <start_date>2010-09-01</start_date>
+            <end_date>2010-09-01</end_date>
+            <event_time>19:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068650" modified="2010-08-19T08:20:55">
+    <name><![CDATA[George Calombaris and Gary Mehigan]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[George Calombaris and Gary Mehigan]]></name>
+      <vendor-category><![CDATA[Books | Talks & Signings]]></vendor-category>
+      <description><![CDATA[Its time for the MasterChef judges to put their money where their mouths are. Escorting readers into their own kitchens, both at work and at home, Calombaris and Mehigan demonstrate the skills, tricks and family favourites they have developed over their culinary careers with 43 of their favourite ingredients made into 86 delicious recipes. Selected recipes from the book will be served on the night so you can get a chance to judge the judges.]]></description>
+      <price><![CDATA[15.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023656">
+        <occurrence>
+          <time>
+            <start_date>2010-10-12</start_date>
+            <end_date>2010-10-12</end_date>
+            <event_time>19:15:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058100" modified="2010-08-19T08:20:55">
+    <name><![CDATA[John Farnham]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[John Farnham]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Luna Park celebrates its 75th anniversary with a special performance by Farnsey.]]></description>
+      <price><![CDATA[155.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/5ef4c38e79c3f1277481f69dc62bebf8.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023674">
+        <occurrence>
+          <time>
+            <start_date>2010-10-04</start_date>
+            <end_date>2010-10-04</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058183" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Judy Bailey]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Judy Bailey]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[This week Jazz in the Cafe presents Judy Bailey.]]></description>
+      <price><![CDATA[15.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023697">
+        <occurrence>
+          <time>
+            <start_date>2010-09-13</start_date>
+            <end_date>2010-09-13</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058184" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Craig Scott]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Craig Scott]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[This week Jazz in the Cafe presents Craig Scott.]]></description>
+      <price><![CDATA[15.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023697">
+        <occurrence>
+          <time>
+            <start_date>2010-10-13</start_date>
+            <end_date>2010-10-13</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058185" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Salut! Baroque!]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Salut! Baroque!]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Folk meets baroque in this exposition of music by Monteverdi, Matteis, Marini, Falconieri, and Germiniani.]]></description>
+      <price><![CDATA[38.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023697">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <end_date>2010-08-25</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000060154" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Flinders Quartet Program 2 - Beloved Beethoven]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Flinders Quartet Program 2 - Beloved Beethoven]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[This performance signifies the end of the Con's journey through Beethoven's immense string quartet cycle, culminating in Op. 18 No. 2 in G as well as Op.59 No.1 in F.]]></description>
+      <price><![CDATA[40.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023697">
+        <occurrence>
+          <time>
+            <start_date>2010-09-06</start_date>
+            <end_date>2010-09-06</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000060156" modified="2010-08-19T08:20:55">
+    <name><![CDATA[The Merry Wives of Windsor]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[The Merry Wives of Windsor]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Die Lustigen Weiber Von Windsor features as part of the Con's season of Opera. Based on the original comedy by William Shakespeare, this opera in three acts is a European favourite sung in German.]]></description>
+      <price><![CDATA[45.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023697">
+        <occurrence>
+          <time>
+            <start_date>2010-09-25</start_date>
+            <end_date>2010-09-25</end_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065582" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Come and Play Gamelan]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Come and Play Gamelan]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[A workshop on the Indonesian percussion orchestra led by Associate Professor Peter Dunbar-Hall for the Friends of the Conservatorium. Audience members have a chance to participate.]]></description>
+      <url><![CDATA[http://www.cityrecitalhall.com/events/id/802/Come-and-Play-Gamelan/]]></url>
+      <price><![CDATA[20.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/533af5d06a4dea8a160c0b12cd45a807.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023697">
+        <occurrence>
+          <time>
+            <start_date>2010-09-16</start_date>
+            <end_date>2010-09-16</end_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000031627" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Powderfinger - Sunsets tour]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Powderfinger - Sunsets tour]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[It's their last ever tour, everyone - after 20 years Powderfinger ride off into the Sunsets (see what we did there) for the final time. Their pals Jet are also on the bill.
+
+]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023809">
+        <occurrence>
+          <time>
+            <start_date>2010-09-18</start_date>
+            <end_date>2010-09-18</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000031883" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Celtic Woman]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Celtic Woman]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[For the first time ever, the multi-platinum Irish singing sensations (ocalists Lisa Kelly, Chloë Agnew, Lynn Hilary, Alex Sharpe and fiddler Máiréad Nesbitt) play the nation's stadia in support of Songs from the Heart.]]></description>
+      <price><![CDATA[between $109.00 and $350.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023809">
+        <occurrence>
+          <time>
+            <start_date>2010-10-23</start_date>
+            <end_date>2010-10-23</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061490" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Gorillaz]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Gorillaz]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Which actual humans are coming down our way remains a tantalising mystery at the moment (aside from Damon Albarn, one presumes…), but rest assured that Murdoc, 2D, Noodle and Russel will be represented. 
+
+Gorillaz from gladiator on Vimeo.]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/fec0ff2bd96f200e3a648923c89acc10.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023809">
+        <occurrence>
+          <time>
+            <start_date>2010-12-16</start_date>
+            <end_date>2010-12-16</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000064709" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Ben 10 Live]]></name>
+    <category>family</category>
+    <version lang="en">
+      <name><![CDATA[Ben 10 Live]]></name>
+      <vendor-category><![CDATA[Kids | Performance]]></vendor-category>
+      <description><![CDATA[The Australian premiere of Cartoon Network's BEN 10 LIVE: Power of the Omnitrix arrives in Sydney in September.
+Everyone's favourite boy-hero, Ben Tennyson, and his alien heroes will come to life on stage in BEN 10 LIVE, a show filled with stunts, action and special effects. Did somebody say 'Hero Time'?]]></description>
+      <price><![CDATA[between 33.00 and 56.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/36a3caa1dcfe295cf518bdbb05cdb30c.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023809">
+        <occurrence>
+          <time>
+            <start_date>2010-09-25</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069503" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Creedence Clearwater Revisited]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Creedence Clearwater Revisited]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[The Fogerty brothers may be long gone, but the original Creedence Clearwater Revival rhythm section of Stu Cook and Doug "Cosmo" Clifford lead this new band in a selection of their old hits.]]></description>
+      <price><![CDATA[between 114.00 and 126.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023809">
+        <occurrence>
+          <time>
+            <start_date>2010-10-17</start_date>
+            <end_date>2010-10-17</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000057967" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Enter Shakiri]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Enter Shakiri]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Finally getting around to visting in support of last year's Common Dreads, the noisy electro-punks hit the Roundhouse with locals House vs Hurricane.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023823">
+        <occurrence>
+          <time>
+            <start_date>2010-09-23</start_date>
+            <end_date>2010-09-23</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058041" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Soulfly, City of Fire, Incite]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Soulfly, City of Fire, Incite]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Max "Sepultura" Cavelera brings the monster metal of Soulfly our way in support of Omen, with City of Fire (featuring members of Strapping Young Lad and Fear Factory) and Incite for one hell of a loud night.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023823">
+        <occurrence>
+          <time>
+            <start_date>2010-09-09</start_date>
+            <end_date>2010-09-09</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061542" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Cabins]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Cabins]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[After a massive year touring with Alberta Cross and the Soft Pack, Cabins are making a pretty impressive name for themselves as a band to keep an eye on. Touring with their album A Bright Victory, supported by Step-Panther, this is a show that showcases the future of Australian music.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023941">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068639" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Kontrast]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Kontrast]]></name>
+      <vendor-category><![CDATA[Clubs | Nightclubs]]></vendor-category>
+      <description><![CDATA[Get your old school boogie on with Kontrast featuring Joey Kaz and Joey Tupaea.]]></description>
+      <price><![CDATA[15.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023941">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068640" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Jackin]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Jackin]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Hit up Jackin at Melt for a night of DJ battles with Ilya &amp; Matt Roberts B2B, Travis Hale v Emme Jay, 2 Phat DJS v Hannah Gibbs, Ant Best v Rob Marshall, Funkinsteele v DJ Nycks, and Deefloy]]></description>
+      <price><![CDATA[10.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000023941">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058353" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Belly Dance and Arabic Music Extravaganza 2010]]></name>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[Belly Dance and Arabic Music Extravaganza 2010]]></name>
+      <vendor-category><![CDATA[Around Town | Fairs & Festivals]]></vendor-category>
+      <description><![CDATA[Iconic Egyptian belly dancer, Dina, is the star performer at the three-day Belly Dance and Arabic Music Extravaganza. As well as performing as the feature act, Dina will also be looking on as judge for the Belly Dance Star Awards. There will also be dance workshops and stalls in a Cairo-like bazaar during the festival.]]></description>
+      <url><![CDATA[http://www.ameraspalace.com.au]]></url>
+      <price><![CDATA[between 50.00 and 135.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024025">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-22</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065167" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Margaret Woodward]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Margaret Woodward]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[A collection of the artist's paintings and drawings using oil, graphite, pastel, charcoal and more. Several subjects are explored with a mix of the exotic and domestic running side by side.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024386">
+        <occurrence>
+          <time>
+            <start_date>2010-09-18</start_date>
+            <end_date>2010-10-14</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058018" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Parramasala]]></name>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[Parramasala]]></name>
+      <vendor-category><![CDATA[Around Town | Fairs & Festivals]]></vendor-category>
+      <description><![CDATA[Colourful and uplifting, this new festival features a rich program of free and ticketed event. Innovative collaborations from today’s most celebrated, contemporary artists working across music, dance, theatre, film and visual arts.Full program and tickets available in August.]]></description>
+      <url><![CDATA[http://www.parramasala.com]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024393">
+        <occurrence>
+          <time>
+            <start_date>2010-11-04</start_date>
+            <end_date>2010-11-08</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066722" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Parramatta Park Open Day]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Parramatta Park Open Day]]></name>
+      <vendor-category><![CDATA[Around Town | Activities]]></vendor-category>
+      <description><![CDATA[Parramatta park is hosting a fun family day. Explore Governor Macquarie’s surviving dairy cottage, see farm animals, learn how butter and lemonade are made, play colonial games, milk a cow or simply relax with a picnic in the beautiful parklands.]]></description>
+      <url><![CDATA[http://www.parrapark.com.au]]></url>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024393">
+        <occurrence>
+          <time>
+            <start_date>2010-09-12</start_date>
+            <end_date>2010-09-12</end_date>
+            <event_time>11:00:00</event_time>
+            <end_time>15:00:00</end_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066723" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Roses in the Lumber Yard Heritage Rose Festival]]></name>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[Roses in the Lumber Yard Heritage Rose Festival]]></name>
+      <vendor-category><![CDATA[Around Town | Fairs & Festivals | Classes, Workshops & talks]]></vendor-category>
+      <description><![CDATA[Listen to talks by old tools expert Ralf Hawkins, rose expert Gillian Batchen and park curator Verena Mauldon, try your hand at sustainable gardening with Adrian Bligh or relax in the garden and take in the festival's jazz band over a picnic.]]></description>
+      <url><![CDATA[http://www.parrapark.com.au]]></url>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024393">
+        <occurrence>
+          <time>
+            <start_date>2010-10-24</start_date>
+            <end_date>2010-10-24</end_date>
+            <event_time>10:00:00</event_time>
+            <end_time>17:00:00</end_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058362" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Jim Davidson]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Jim Davidson]]></name>
+      <vendor-category><![CDATA[Comedy | Stand Up]]></vendor-category>
+      <description><![CDATA[Jim Davidson is firmly established as one of Britain’s top stand-up comedians and the host of BBC TV game shows Generation Game and Big Break. 
+He is bringing his comedy show back to Australia after last years tour for another bite at the apple.
+Kids be warned, this is an 18+ event.]]></description>
+      <price><![CDATA[45.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024424">
+        <occurrence>
+          <time>
+            <start_date>2010-10-29</start_date>
+            <end_date>2010-10-29</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058358" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Soundwave 2011]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Soundwave 2011]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Yep, Soundwave has a date and (most likely, still to be entirely confirmed) location, not to mention a leaked line-up that includes Iron Maiden, Slayer, Gang of Four, Slash, Queens of the Stone Age, Slayer, Primus, Social Distortion, Rob Zombie, Avenged Sevenfold, Stone Sour, Pennywise, Sum 41, Third Eye Blind, Monster Magnet, The Gaslight Anthem, High on Fire, I See Stars, Nonpoint, Breathe Carolina, 36 Crazyfists, The Bronx, Alesana, 30 Seconds to Mars, Kylesa, Bayside, Asking Alexandria, The Sword, A Skylit Drive, Mad Caddies, There For Tomorrow, Veara, Less than Jake, All That Remains, Trash Talk, The Ataris, Protest The Hero and The Blackout. Whooo!]]></description>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/3f64bf54903267d6ed9a4527e56511d2.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024429">
+        <occurrence>
+          <time>
+            <start_date>2011-02-27</start_date>
+            <end_date>2011-02-27</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069511" modified="2010-08-19T08:20:55">
+    <name><![CDATA[The Bushland Shire Festival]]></name>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[The Bushland Shire Festival]]></name>
+      <vendor-category><![CDATA[Around Town | Fairs & Festivals]]></vendor-category>
+      <description><![CDATA[Head south for live shows by Channel Nine's New MacDonald's Farm, a historical vehicle display, market and food stalls, a scarecrow competition, animal farm, eco-gardening workshops, art demonstrations, and plenty of kids' activities.]]></description>
+      <url><![CDATA[http://www.hornsby.nsw.gov.au]]></url>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024477">
+        <occurrence>
+          <time>
+            <start_date>2010-09-19</start_date>
+            <end_date>2010-09-19</end_date>
+            <event_time>10:00:00</event_time>
+            <end_time>16:00:00</end_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058275" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Pochee/Robson Duo, Mute Canary Project - Steve Lacy Tribute]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Pochee/Robson Duo, Mute Canary Project - Steve Lacy Tribute]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[The evening starts with a collaboration between improv masters, John Pochee on drums and Andrew Robson on sax, and ends with a tribute to Steve Lacy, courtesy of Brisbane's Mute Canary Project.]]></description>
+      <price><![CDATA[between 15.00 and 25.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024582">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <end_date>2010-08-20</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058276" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Sandy Evans Trio with Sarangan Sriranganathan & Bobby Singh, The Vampires]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Sandy Evans Trio with Sarangan Sriranganathan & Bobby Singh, The Vampires]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Saxophonist Sandy Evans jams with Bobby Singh on tabla and Maestro Sarangan Sriranganathan for an afternoon of energetic, Indian-infused jazz music.]]></description>
+      <price><![CDATA[between 15.00 and 25.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024582">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <end_date>2010-08-21</end_date>
+            <event_time>14:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058279" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Steve Hunter Quartet]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Steve Hunter Quartet]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Bassist Steve Hunter and his crew returns to the Sound Lounge for a powerhouse evening of new compositions.]]></description>
+      <price><![CDATA[between 12.00 and 18.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024582">
+        <occurrence>
+          <time>
+            <start_date>2010-08-27</start_date>
+            <end_date>2010-08-27</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058280" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Virna Sanzone Band]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Virna Sanzone Band]]></name>
+      <vendor-category><![CDATA[Music | Classical & Jazz]]></vendor-category>
+      <description><![CDATA[Pianist Tom O’Halloran, bassist Brett Hirst and other top-of-the-line players accompany Virna Sanzone and her sweet, silky vocals.]]></description>
+      <price><![CDATA[between 12.00 and 18.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024582">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061558" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Scribe]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Scribe]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[New Zealand's finest rapper comes down under.]]></description>
+      <price><![CDATA[69.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024624">
+        <occurrence>
+          <time>
+            <start_date>2010-09-11</start_date>
+            <end_date>2010-09-11</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000064294" modified="2010-08-19T08:20:55">
+    <name><![CDATA[CSI Misunderstood?]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[CSI Misunderstood?]]></name>
+      <vendor-category><![CDATA[Around Town | Classes, Workshops & talks]]></vendor-category>
+      <description><![CDATA[Forensic experts explain how real crime scene investigations happen.]]></description>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024752">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-08-24</end_date>
+            <event_time>18:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058019" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Bathurst 1000 V8 Supercars]]></name>
+    <category>sport</category>
+    <version lang="en">
+      <name><![CDATA[Bathurst 1000 V8 Supercars]]></name>
+      <vendor-category><![CDATA[Sport & Outdoor | What to watch]]></vendor-category>
+      <description><![CDATA[Mt Panorama, Bathurst- the 'Mecca of Motorsport'. Watch the V8 Supercars come alive again with this must-see event.]]></description>
+      <price><![CDATA[between 103.00 and 1155.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024780">
+        <occurrence>
+          <time>
+            <start_date>2010-10-07</start_date>
+            <end_date>2010-10-10</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065595" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Manly Arts Festival]]></name>
+    <category>arts-museums</category>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[Manly Arts Festival]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <vendor-category><![CDATA[Around Town | Fairs & Festivals]]></vendor-category>
+      <description><![CDATA[The 16th anniversary of the community arts festival brings together over 60 events in the areas of art exhibitions, music, literature, theatre, dance, and performance by local and regional participants.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024784">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-09-19</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058050" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Woollahra Small Sculpture Prize]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Woollahra Small Sculpture Prize]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[The only national acquisitive prize that showcases the quality and diversity of sculptures of smaller dimensions.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024865">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-10-17</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065596" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Form + Woollahra Small Sculpture Prize]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Form + Woollahra Small Sculpture Prize]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[The artists in Form take paper as their material starting point for their small sculptures.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024865">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-10-17</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000069496" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Form]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Form]]></name>
+      <vendor-category><![CDATA[Arts | Institutions]]></vendor-category>
+      <description><![CDATA[The artists in this group show take paper as their material starting point for their small sculptures.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024865">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-10-17</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058066" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Graham Kuo]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Graham Kuo]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[A retrospective exhibition traces the silkscreen work of Graham Kuo, one of Australia's pre-eminent abstract expressionist printmakers.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000024909">
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <end_date>2010-09-11</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058016" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Sydney 2000 Olympics and Paralympics 10th Anniversary Celebrations]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Sydney 2000 Olympics and Paralympics 10th Anniversary Celebrations]]></name>
+      <vendor-category><![CDATA[Around Town]]></vendor-category>
+      <description><![CDATA[To mark 10 years from the Sydney 2000 Olympics, a week long celebration will take place, including an exhibition of memorabilia at the Powerhouse Discovery Centre and the official relighting of the Olympic cauldron by Cathy Freeman.]]></description>
+      <url><![CDATA[http://www.olympics.com.au]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000025107">
+        <occurrence>
+          <time>
+            <start_date>2010-09-11</start_date>
+            <end_date>2010-09-17</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058355" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Sydney Telstra 500 with Guns n' Roses]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Sydney Telstra 500 with Guns n' Roses]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Axl Rose and his band of hired guns hits Olympic Park as headliner of the V8 Supercars Sydney Telstra 500 weekend.]]></description>
+      <price><![CDATA[between 91.00 and 156.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000025107">
+        <occurrence>
+          <time>
+            <start_date>2010-12-04</start_date>
+            <end_date>2010-12-04</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066169" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Mirah]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Mirah]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[For the first time ever - EVER - US indie folk chanteuse Mirah comes to Australia, joined by The Smallgoods and Shiver Me Timbers, in support of last year's beautiful (A)spera.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000025642">
+        <occurrence>
+          <time>
+            <start_date>2010-10-21</start_date>
+            <end_date>2010-10-21</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068654" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Women of Letters]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Women of Letters]]></name>
+      <vendor-category><![CDATA[Books | Readings]]></vendor-category>
+      <description><![CDATA[If you long for the days of a hand-addressed envelope, penmanship and the excitement of the postman's daily appearance then make sure you get tickets to Women of Letters for their  one-off Sydney, afternoon event. Celebrate the lost art of the letter with readings from Tara Moss, Jennifer Byrne, Claudia Karvan, Sally Seltman, Sacha Horley, and Virginia Gay, and raise money for Edgar's Mission Animal Shelter]]></description>
+      <price><![CDATA[20.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000025642">
+        <occurrence>
+          <time>
+            <start_date>2010-09-26</start_date>
+            <end_date>2010-09-26</end_date>
+            <event_time>13:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066176" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Opera In The Caves]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Opera In The Caves]]></name>
+      <vendor-category><![CDATA[Theatre | Opera]]></vendor-category>
+      <description><![CDATA[The Jenolan Caves is soon to be transformed into the Opera House of the Blue Mountains as part of a bold new concept in operatic performance.]]></description>
+      <price><![CDATA[between 45.00 and 70.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/8e7de40e34c689d4ac414f0d78c9aaa5.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026115">
+        <occurrence>
+          <time>
+            <start_date>2011-02-19</start_date>
+            <end_date>2011-02-19</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066175" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Opera in the Vineyards]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Opera in the Vineyards]]></name>
+      <vendor-category><![CDATA[Theatre | Opera]]></vendor-category>
+      <description><![CDATA[A journey through the life and times of Mozart's musical genius, led by performers in full period costume in surrounds of the vineyards.]]></description>
+      <url><![CDATA[http://www.operainthevineyards.com.au]]></url>
+      <price><![CDATA[between 78.00 and 158.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/3669b12aba6efd30c3daf018ffe012b5.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026171">
+        <occurrence>
+          <time>
+            <start_date>2010-10-23</start_date>
+            <end_date>2010-10-23</end_date>
+            <event_time>18:30:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066710" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Farewell BBQ]]></name>
+    <category>community</category>
+    <version lang="en">
+      <name><![CDATA[Farewell BBQ]]></name>
+      <vendor-category><![CDATA[Gay & Lesbian | Social]]></vendor-category>
+      <description><![CDATA[What's a farewell without a few thick ones thrown in your bun? Say goodbye to Bear Pride Week by taking in some meat.]]></description>
+      <url><![CDATA[http://www.bearpride.com.au]]></url>
+      <property key="Free"><![CDATA[Y]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026195">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <end_date>2010-08-22</end_date>
+            <event_time>16:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066720" modified="2010-08-19T08:20:55">
+    <name><![CDATA[7th Australian Poetry Festival]]></name>
+    <category>festivals-fairs</category>
+    <version lang="en">
+      <name><![CDATA[7th Australian Poetry Festival]]></name>
+      <vendor-category><![CDATA[Around Town | Fairs & Festivals]]></vendor-category>
+      <description><![CDATA[A three-day festival of all things poetry. The line-up includes talks and workshops with Chris Wallace-Crabbe, Emily Ballou, David Brooks, John Bennett, Michael Farrell, Lucy Dougan and Paul Magee.]]></description>
+      <url><![CDATA[http://www.poetsunion.com]]></url>
+      <price><![CDATA[between 30.00 and 80.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026230">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2010-09-05</end_date>
+            <event_time>10:00:00</event_time>
+            <end_time>17:30:00</end_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000065588" modified="2010-08-19T08:20:55">
+    <name><![CDATA[The Rock Show]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Rock Show]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[Renee French, an American graphic novelist, and Shelley Burnham, an Australian painter, exhibit drawings and acrylic paintings of rocks, pebbles and stones. French covers hers in thin, flesh-like sheaths while Burnham offers simple and colourful forms.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026250">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-09-12</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066159" modified="2010-08-19T08:20:55">
+    <name><![CDATA[The Big Bang]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[The Big Bang]]></name>
+      <vendor-category><![CDATA[Arts | Galleries | Exhibition]]></vendor-category>
+      <description><![CDATA[The Big Bang is White Rabbit’s third exhibition. Featuring an exhilarating selection of contemporary art, the highlights of the new show include Ai Weiwei’s 500-kilo pile of porcelain sunflower seeds, Li Hongbo’s enormous
+installation: a slinky-like paper man, and Wang Zhiyuan’s 11-metre-high whirlwind of rubbish.
+Located in the inner-city suburb of Chippendale.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026321">
+        <occurrence>
+          <time>
+            <start_date>2010-09-03</start_date>
+            <end_date>2011-01-31</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068693" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Britpop's Third Birthday]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Britpop's Third Birthday]]></name>
+      <vendor-category><![CDATA[Clubs | Nightclubs]]></vendor-category>
+      <description><![CDATA[It's been three years of Britpop goodness – oh, how the time flies! – and the team are in the mood to party, with Johnny Darko joined by El Mariachi, Johnny Segment, Urby and Time Out Sydney's own Andrew P Street.]]></description>
+      <price><![CDATA[10.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/b98d794dded4a9dd1460044c1fdeacba.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026355">
+        <occurrence>
+          <time>
+            <start_date>2010-08-28</start_date>
+            <end_date>2010-08-28</end_date>
+            <event_time>20:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068701" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Dei El-Ayoubi - Begin]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Dei El-Ayoubi - Begin]]></name>
+      <vendor-category><![CDATA[Arts | Sculpture & Installation]]></vendor-category>
+      <description><![CDATA[An installation piece and a series of photographs that look at the physical experience of being in the womb.]]></description>
+      <url><![CDATA[http://www.thesydneyfringe.com.au]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026417">
+        <occurrence>
+          <time>
+            <start_date>2010-09-10</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068702" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Michael Gray - +8GMT]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Michael Gray - +8GMT]]></name>
+      <vendor-category><![CDATA[Arts | Photography]]></vendor-category>
+      <description><![CDATA[Divided from the subject by a language barrier, these photographs result from an unspoken barter system.]]></description>
+      <url><![CDATA[http://www.thesydneyfringe.com.au]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026417">
+        <occurrence>
+          <time>
+            <start_date>2010-09-10</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000068703" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Tim Andrew - Where's my private jet]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Tim Andrew - Where's my private jet]]></name>
+      <vendor-category><![CDATA[Arts | Exhibition]]></vendor-category>
+      <description><![CDATA[Brightly humorous, these images deal with life's downbeat anxieties.]]></description>
+      <url><![CDATA[http://www.thesydneyfringe.com.au]]></url>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000026417">
+        <occurrence>
+          <time>
+            <start_date>2010-09-10</start_date>
+            <end_date>2010-09-26</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058054" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Arthur Boyd: A Final Look]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Arthur Boyd: A Final Look]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[The final solo exhibition of Arthur Boyd's paintings as well as copper and ceramic works.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000054238">
+        <occurrence>
+          <time>
+            <start_date>2010-08-31</start_date>
+            <end_date>2010-09-28</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058099" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Coaster 2010]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Coaster 2010]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Gosford, get ready: you're going to get rocked by Cypress Hill, Birds of Tokyo, Art vs Science, Silversun Pickups, Bluejuice, Basement Birds, Cloud Control, Hungry Kids of Hungary, Boy &amp; Bear, ILly, Spit Syndicate, The Aston Shuffle, 
+The Holidays, The Chemis, City Riots, Slow Down Honey and many more! Grab tickets while you can, kids.]]></description>
+      <url><![CDATA[http://www.coasterfestival.com.au]]></url>
+      <price><![CDATA[89.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/sydney/event/media/83aad34e323dd5d56c43701d2387ac90.jpg]]></media>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000054269">
+        <occurrence>
+          <time>
+            <start_date>2010-09-25</start_date>
+            <end_date>2010-09-25</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000058298" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Freshley Squeezed]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Freshley Squeezed]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[A night of new media performance from the new performance collective stagejuice. There will be puppetry, beat poetry, movement and  theatre.]]></description>
+      <price><![CDATA[10.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000054501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000061459" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Freshly Squeezed]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Freshly Squeezed]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[A night of new media performance from the new performance collective stagejuice. There will be puppetry, beat poetry, movement and  theatre.]]></description>
+      <price><![CDATA[10.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000054501">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-21</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000060162" modified="2010-08-19T08:20:55">
+    <name><![CDATA[Intersection]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Intersection]]></name>
+      <vendor-category><![CDATA[Theatre | Theatre]]></vendor-category>
+      <description><![CDATA[This outdoor show from Milk Crate Theatre, which features performers who have experienced homelessness, is an interactive tour, part Greek tragedy and part exploration of turning points.]]></description>
+      <price><![CDATA[30.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000054571">
+        <occurrence>
+          <time>
+            <start_date>2010-08-26</start_date>
+            <end_date>2010-09-03</end_date>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SYD000000000000000000000000066706" modified="2010-08-19T08:20:55">
+    <name><![CDATA[HCB 15th Anniversary Dinner]]></name>
+    <category>community</category>
+    <version lang="en">
+      <name><![CDATA[HCB 15th Anniversary Dinner]]></name>
+      <vendor-category><![CDATA[Gay & Lesbian]]></vendor-category>
+      <description><![CDATA[Embrace the hair in your soup at this anniversary dinner that celebrates 15 years' worth of bear hugs and chest rugs in style.]]></description>
+      <url><![CDATA[http://www.bearpride.com.au]]></url>
+      <price><![CDATA[between 69.00 and 89.00]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SYD000000000000000000000000055486">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <end_date>2010-08-19</end_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+10:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

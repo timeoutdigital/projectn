@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-04-20T08:11:10">
+  <event id="SIN000000000000000000000000024222" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Formula Drift Singapore 2010 powered by Nissan]]></name>
+    <category>sport</category>
+    <version lang="en">
+      <name><![CDATA[Formula Drift Singapore 2010 powered by Nissan]]></name>
+      <vendor-category><![CDATA[Sports | Things to watch]]></vendor-category>
+      <description><![CDATA[The super-charged, adrenaline-rattling motorsport showdown returns for the third time with over 45 drivers from Singapore, Malaysia, Phillipines, Thailand, Indonesia, Hong Kong, New Zealand and Japan all doing battle over two days at the F1 Pit Building. <br />Unlike speed-based races, drivers in this skidding-pretty competition are judged on how well they adhere to a predetermined course that requires a series of perfectly executed sideways slides, or drifts. Drivers use kansei drifts, dirt-drop drifts and faint drifts in an attempt to snatch this year's trophy. Hotly tipped to win it this year is Japanese champion and top USA Formula Drift pro Ryuji Miki. <br /><i>Read Give me a brake, one man's story about taking a spin at a Drift clinic. <br />We are giving away a free  Drift demo ride, Formula Drift-branded iPhone covers, and Formula Drift walkabout tickets. While you're at it, check out the rest of our online competitions. </i>]]></description>
+      <url><![CDATA[http://www.formuladrift.com.sg]]></url>
+      <price><![CDATA[between 20.00 and 50.00]]></price>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/dfb2fc718bf15a857ea8dd5d443f6295.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/39625d0c3482e7d5fd1d8a816c359483.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/480f7182bf37925d2b0ea74bc0d8a3c8.jpg]]></media>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000003580">
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020318" modified="2010-04-20T08:11:10">
+    <name><![CDATA[A Curators Tour]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[A Curators Tour]]></name>
+      <vendor-category><![CDATA[Around Town | Museums]]></vendor-category>
+      <description><![CDATA[Special after-hours tour of the exhibit with special pre-tour light refreshments. $25. Registration required.]]></description>
+      <price><![CDATA[25.00]]></price>
+      <property key="opentime"><![CDATA[7.30pm]]></property>
+      <property key="tag"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000005418">
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000003916" modified="2010-04-20T08:11:10">
+    <name><![CDATA[adidas Sundown Marathon]]></name>
+    <category>sport</category>
+    <version lang="en">
+      <name><![CDATA[adidas Sundown Marathon]]></name>
+      <vendor-category><![CDATA[Sports | Things to do]]></vendor-category>
+      <description><![CDATA[ A field of 11,000 runners from across South-East Asia is expected to take on the regions only night race, now with four distance categories to suit all abilities.<i>Fees and start times dependent on race category (10km-84km; 6-11.59pm).</i>]]></description>
+      <url><![CDATA[http://www.sundownmarathon.com]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/6e8c6e364c9711d96bf046d8dca9514b.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/c008bd63372210241b20607d903fb870.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/1f7f8df9d7861e46a8bdc5b6f0953174.jpg]]></media>
+      <property key="opentime"><![CDATA[6-11:59pm ]]></property>
+      <property key="tag"><![CDATA[Running]]></property>
+      <property key="tag"><![CDATA[Sports]]></property>
+      <property key="tag"><![CDATA[Things to do]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000006361">
+        <occurrence>
+          <time>
+            <start_date>2010-05-28</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000023676" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Andrea Bocelli at the YTL Concert of Celebration 2010]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Andrea Bocelli at the YTL Concert of Celebration 2010]]></name>
+      <vendor-category><![CDATA[Music | Opera and Vocal]]></vendor-category>
+      <description><![CDATA[Free outdoor performance by Italian tenor Andrea Bocelli, with special guests Slovenian soprano Sabina Cvilak, world-renowned flutist Andrea Griminelli and popular Australian singer Delta Goodrem, accompanied by the Singapore Philharmonic Orchestra and Philharmonic Chamber Choir. Complimentary tickets is available through a public ballot.]]></description>
+      <url><![CDATA[http://www.ytlconcert2010.com.sg]]></url>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/0cc4de4e662dc058f8003618e211e4cf.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/a05a10482499dd5ee96568ad524725df.jpg]]></media>
+      <media mime-type="image/jpeg"><![CDATA[http://projectn.s3.amazonaws.com/singapore/event/media/755bd18cf879cf775ea4fb0d703ad0c3.jpg]]></media>
+      <property key="opentime"><![CDATA[6pm]]></property>
+      <property key="tag"><![CDATA[Music]]></property>
+      <property key="tag"><![CDATA[Concerts]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007359">
+        <occurrence>
+          <time>
+            <start_date>2010-05-07</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020476" modified="2010-04-20T08:11:10">
+    <name><![CDATA[All in Good Time (Rafta Rafta)]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[All in Good Time (Rafta Rafta)]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[An Olivier award winner for Best New Comedy 2007, HuM Theatre presents the Singapore premiere of this lighthearted play which puts love and cultural differences under the comic microscope.]]></description>
+      <price><![CDATA[between 52.00 and 62.00]]></price>
+      <property key="opentime"><![CDATA[8pm]]></property>
+      <property key="tag"><![CDATA[Theatre]]></property>
+      <property key="tag"><![CDATA[Performance]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007438">
+        <occurrence>
+          <time>
+            <start_date>2010-04-28</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020465" modified="2010-04-20T08:11:10">
+    <name><![CDATA[The Studios 2010: Velocity by Horse]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[The Studios 2010: Velocity by Horse]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[Horse  an all-male Taiwanese dance troupe known for showcasing playful, subtle works  explores the concept of speed with a mix of experimental theatre, drama and mime.]]></description>
+      <price><![CDATA[25.00]]></price>
+      <property key="opentime"><![CDATA[8pm]]></property>
+      <property key="tag"><![CDATA[Theatre]]></property>
+      <property key="tag"><![CDATA[Performance]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007439">
+        <occurrence>
+          <time>
+            <start_date>2010-04-29</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020468" modified="2010-04-20T08:11:10">
+    <name><![CDATA[The Studios 2010: Epic Poem of Malaya by spell#7]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[The Studios 2010: Epic Poem of Malaya by spell#7]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[Based on a work by 50s realist painter Chua Mia Te, this play tells the story of a young boy who leaves Singapore for a life on the South China Sea.]]></description>
+      <price><![CDATA[25.00]]></price>
+      <property key="opentime"><![CDATA[8pm]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007439">
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000024216" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Meet the Author: Robin Sharma]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Meet the Author: Robin Sharma]]></name>
+      <vendor-category><![CDATA[Books | Readings & events]]></vendor-category>
+      <description><![CDATA[Leadership guru Robin Sharma launches <i>The Leader Who Had No Title</i>, his follow-up to the hit <i>The Monk Who Sold His Ferrari</i>. His new book gives tips on 'how to influence people regardless of our positions as well as educates us on how to recognize and seize opportunities in tough times of change'. ]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007471">
+        <occurrence>
+          <time>
+            <start_date>2010-05-02</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000024217" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Arena, graphic novel anthologies]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Arena, graphic novel anthologies]]></name>
+      <vendor-category><![CDATA[Books | Book signing]]></vendor-category>
+      <description><![CDATA[Hang out with local comic writers and artists as they launch two graphic novel anthologies (one on fantasy, another on science fiction) published by IGNITE! (Inaugural Graphic Novel IniTiativE).]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007471">
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000023685" modified="2010-04-20T08:11:10">
+    <name><![CDATA[P-Diary]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[P-Diary]]></name>
+      <vendor-category><![CDATA[Arts | Galleries]]></vendor-category>
+      <description><![CDATA[Using simple doodles and sketches, Priscilla Wong illustrations are light-hearted and come with a good dose of wit and personal perspective.]]></description>
+      <url><![CDATA[http://www.substation.org]]></url>
+      <property key="tag"><![CDATA[Art galleries]]></property>
+      <property key="tag"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007640">
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020484" modified="2010-04-20T08:11:10">
+    <name><![CDATA[ATB (Germany)]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[ATB (Germany)]]></name>
+      <vendor-category><![CDATA[Clubs | DJ gigs]]></vendor-category>
+      <description><![CDATA[One of trances biggest producers will twist and swirl you around with happy hardcore tunes.<i>Before 10pm: men &amp; women $18 (limited to first 300), includes two drinks. After 10pm: men $30, women $25, includes two drinks.</i>]]></description>
+      <property key="tag"><![CDATA[Clubbing]]></property>
+      <property key="tag"><![CDATA[DJ gigs]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007706">
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020485" modified="2010-04-20T08:11:10">
+    <name><![CDATA[XIX - Zouk Awards Zouk 19th Anniversary]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[XIX - Zouk Awards Zouk 19th Anniversary]]></name>
+      <vendor-category><![CDATA[Clubs | Event]]></vendor-category>
+      <description><![CDATA[The elder statesman of Singapore nightlife marks the final year of its adolescence with a celebration of the best in clubworld.<i>Before 10pm: men &amp; women $18 (limited to first 300), includes two drinks. After 10pm: men $30, women $25, includes two drinks. </i>]]></description>
+      <property key="tag"><![CDATA[Clubbing]]></property>
+      <property key="tag"><![CDATA[Parties]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007706">
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020320" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Kelly Clarkson]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Kelly Clarkson]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Throaty, power-lunged Texan chanteuse and winner of 2002s American Idol arrives in Singapore chugging her fourth, Avril Lavigne-style nu-rock album All I Ever Wanted.]]></description>
+      <price><![CDATA[between 60.00 and 170.00]]></price>
+      <property key="opentime"><![CDATA[8pm]]></property>
+      <property key="tag"><![CDATA[Music]]></property>
+      <property key="tag"><![CDATA[Gigs]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007722">
+        <occurrence>
+          <time>
+            <start_date>2010-04-26</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020270" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Borders Fair]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Borders Fair]]></name>
+      <vendor-category><![CDATA[Books | Events]]></vendor-category>
+      <description><![CDATA[Annual Borders Fair means discounted books and other items. ]]></description>
+      <property key="opentime"><![CDATA[10am-10pm]]></property>
+      <property key="tag"><![CDATA[Books]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007743">
+        <occurrence>
+          <time>
+            <start_date>2010-04-29</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020330" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Gala: Yo-Yo Ma & The Silk Road Ensemble (SSO)]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Gala: Yo-Yo Ma & The Silk Road Ensemble (SSO)]]></name>
+      <vendor-category><![CDATA[Music | Opera and Vocal]]></vendor-category>
+      <description><![CDATA[The star cellist and band play music from the countries of the Silk Road.]]></description>
+      <price><![CDATA[between 40.00 and 200.00]]></price>
+      <property key="opentime"><![CDATA[7.30pm ]]></property>
+      <property key="tag"><![CDATA[Music]]></property>
+      <property key="tag"><![CDATA[Orchestral]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007752">
+        <occurrence>
+          <time>
+            <start_date>2010-04-28</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020339" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Lautten Compagney: Chirping of the Nightingale]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Lautten Compagney: Chirping of the Nightingale]]></name>
+      <vendor-category><![CDATA[Music | Chamber music & recitals]]></vendor-category>
+      <description><![CDATA[With adapted and arranged selections from John Playfords English Dancing Master, an early 17thcentury guide for young gentlemen, quickens the pulse with once-popular songs.]]></description>
+      <price><![CDATA[between 48.00 and 118.00]]></price>
+      <property key="opentime"><![CDATA[7.30pm ]]></property>
+      <property key="tag"><![CDATA[Chamber music & recitals]]></property>
+      <property key="tag"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000007752">
+        <occurrence>
+          <time>
+            <start_date>2010-04-21</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020351" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Chocolate Appreciation]]></name>
+    <category>educational</category>
+    <version lang="en">
+      <name><![CDATA[Chocolate Appreciation]]></name>
+      <vendor-category><![CDATA[Around Town | Workshops]]></vendor-category>
+      <description><![CDATA[Find out what constitutes good chocolate with these guided tastings.]]></description>
+      <url><![CDATA[http://www.safra.sg]]></url>
+      <price><![CDATA[between 24.00 and 28.00]]></price>
+      <property key="opentime"><![CDATA[10.00-11.30am ]]></property>
+      <property key="tag"><![CDATA[Around Town]]></property>
+      <property key="tag"><![CDATA[Workshops & courses]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000013918">
+        <occurrence>
+          <time>
+            <start_date>2010-04-24</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020319" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Darren Moore Quintet]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Darren Moore Quintet]]></name>
+      <vendor-category><![CDATA[Music | Gigs]]></vendor-category>
+      <description><![CDATA[Well known on the local jazz circuit, these electro-jazzfunk fusionists and Blu Jaz Café regulars mark the release of their long-awaited debut album Isolation Has Its Advantages. The line-up: Tim ODwyer (saxophone), Greg Lyons (saxophone), Andrew Lim (guitar), Tony Makarome (bass) and Darren Moore (drums).]]></description>
+      <price><![CDATA[25.00]]></price>
+      <property key="opentime"><![CDATA[9.30pm]]></property>
+      <property key="tag"><![CDATA[Music]]></property>
+      <property key="tag"><![CDATA[Gigs]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000014592">
+        <occurrence>
+          <time>
+            <start_date>2010-04-29</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000024220" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Breakbot]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Breakbot]]></name>
+      <vendor-category><![CDATA[Clubs | DJ gigs]]></vendor-category>
+      <description><![CDATA[You have to love a French man who sleeps with his Moog and makes romantic disco electro numbers with it. Born Thibaut Berland, he may be shy and elusive, but when it comes to making happy music, his salacious sounds are deliciously pop-ish while still referencing classic disco and house tracks. Unlike other artists signed to Ed Banger Records (SebastiAn, Uffie and DJ Ozio), Breakbots sound is a little less banging, relying more on ticklish electro. He has remixed artists ranging from coffeetable acts like Röyksopp and Air to electro darlings Kavinsky and Justice. Whether Breakbots producing or remixing/re-editing, this Frenchie keeps it happy and doesnt ask for much except for you to move side to side, back and forth and <i>slideee</i> SL]]></description>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000014639">
+        <occurrence>
+          <time>
+            <start_date>2010-04-30</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020456" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Community in Bloom Talk Series: Have Fun Propagating Plants!]]></name>
+    <category>family</category>
+    <version lang="en">
+      <name><![CDATA[Community in Bloom Talk Series: Have Fun Propagating Plants!]]></name>
+      <vendor-category><![CDATA[Kids | Things to do]]></vendor-category>
+      <description><![CDATA[This talk is an introduction to plant anatomy and will point little green thumbs in the right direction to start their first garden.]]></description>
+      <property key="opentime"><![CDATA[3-4pm]]></property>
+      <property key="tag"><![CDATA[Things to do]]></property>
+      <property key="tag"><![CDATA[Kids]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000019794">
+        <occurrence>
+          <time>
+            <start_date>2010-04-23</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020472" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Red Ballerina]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Red Ballerina]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[Directed by Ong Keng Sen and produced by TheatreWorks, this workin- progress documentary performance highlights the life of iconic Singaporean choreographer and dancer, Goh Lay Kuan.]]></description>
+      <price><![CDATA[20.00]]></price>
+      <property key="opentime"><![CDATA[8pm]]></property>
+      <property key="tag"><![CDATA[Performance]]></property>
+      <property key="tag"><![CDATA[Theatre]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000019797">
+        <occurrence>
+          <time>
+            <start_date>2010-04-28</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-05-01</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="SIN000000000000000000000000020473" modified="2010-04-20T08:11:10">
+    <name><![CDATA[Miss Very Wagner by Charlotte Engelkes]]></name>
+    <category>theater</category>
+    <version lang="en">
+      <name><![CDATA[Miss Very Wagner by Charlotte Engelkes]]></name>
+      <vendor-category><![CDATA[Performance | Theatre]]></vendor-category>
+      <description><![CDATA[With help from TheatreWorks director Ong Keng Sen, Swedens Charlotte Engelkes combines opera and performance art in a one-woman show set in the context of Wagners operas and his strong, selfsacrificing heroines.]]></description>
+      <url><![CDATA[http://tworks@singnet.com.sg]]></url>
+      <price><![CDATA[20.00]]></price>
+      <property key="opentime"><![CDATA[8pm]]></property>
+      <property key="tag"><![CDATA[Theatre]]></property>
+      <property key="tag"><![CDATA[Performance]]></property>
+    </version>
+    <showtimes>
+      <place place-id="SIN000000000000000000000000019797">
+        <occurrence>
+          <time>
+            <start_date>2010-04-22</start_date>
+            <utc_offset>+00:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

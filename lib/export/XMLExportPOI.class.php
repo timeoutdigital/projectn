@@ -59,7 +59,8 @@ class XMLExportPOI extends XMLExport
              Doctrine_Query::create()
                  ->select("p.latitude, p.longitude, CONCAT( latitude, ', ', longitude ) as myString")
                  ->from('Poi p')
-                 ->where('p.vendor_id = ?', $this->vendor['id'])
+                 ->where('p.vendor_id = ?', $this->vendor['id'] )
+                 ->addWhere('p.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
                  ->groupBy('myString')
                  ->having('count( myString ) > 1')
                  ->execute( array(), Doctrine_Core::HYDRATE_ARRAY )
@@ -189,9 +190,19 @@ class XMLExportPOI extends XMLExport
 
       $contactElement = $this->appendRequiredElement( $entryElement, 'contact' );
 
-      $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
-      $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
-      $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
+      // #687 Validate phone number with Nokia's Regex
+      if( $this->isValidTelephoneNo( $poi['phone'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'phone',  $poi['phone'] );
+      }
+      if( $this->isValidTelephoneNo( $poi['fax'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'fax',    $poi['fax'] );
+      }
+      if( $this->isValidTelephoneNo( $poi['phone2'] ) )
+      {
+          $this->appendNonRequiredElement( $contactElement, 'phone2', $poi['phone2'] );
+      }
 
       $this->appendNonRequiredElement( $contactElement, 'email', $poi['email'], XMLExport::USE_CDATA );
 

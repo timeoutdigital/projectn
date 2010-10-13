@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2010-08-19T08:09:28">
+  <event id="LIS000000000000000000000000042321" modified="2010-08-19T08:09:28">
+    <name><![CDATA[O Solar de Antigamente]]></name>
+    <category>tours</category>
+    <version lang="pt">
+      <name><![CDATA[O Solar de Antigamente]]></name>
+      <vendor-category><![CDATA[Listas | Passeios]]></vendor-category>
+      <short-description><![CDATA[Actividades que dêem oportunidade às pessoas de encarnarem personagens de outros]]></short-description>
+      <description><![CDATA[Actividades que dêem oportunidade às pessoas de encarnarem personagens de outros tempos têm sempre muita graça. Nesta visita guiada interactiva, as famílias vão vestir a pele de figuras do séc. XIX recorrendo a diálogos, adereços e cenários que recriam essa época. Uma forma diferente de recriar momentos da vida quotidiana de uma Casa de Habitação Erudita como foi o Solar dos Zagallos. No final, há um tesouro para ser descoberto. M/6.<br />O Solar de Antigamente]]></description>
+      <property key="timeinfo"><![CDATA[De Quar a Sáb, das 10h às 12.30 e das 14h às 17.30; Inscrições: zagalos@cma.m-almada.pt ]]></property>
+      <property key="timeinfo"><![CDATA[De Quar a Sáb, das 10h às 12.30 e das 14h às 17.30; Inscrições: zagalos@cma.m-almada.pt]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000003264">
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000065569" modified="2010-08-19T08:09:28">
+    <name><![CDATA[Cinema ao ar livre no Sky Bar]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Cinema ao ar livre no Sky Bar]]></name>
+      <vendor-category><![CDATA[Eventos | Outros]]></vendor-category>
+      <short-description><![CDATA[Passar o Verão na cidade não tem que ser aborrecido, por isso o SKY Bar do Tivol]]></short-description>
+      <description><![CDATA[Passar o Verão na cidade não tem que ser aborrecido, por isso o SKY Bar do Tivoli Lisboa oferece aos seus clientes sessões de cinema ao livre durante o mês de Agosto. Programação para os próximos dias: "Cabaret, de Bob Fosse (quarta), "Agosto Elogio do amor", de Jean-Luc Godard (domingo), "Estranho mundo de Jack", Tim Burton (segunda), "Amor Cão", de Alejandro González Iñárritu (terça).<br />Cinema ao ar livre no Sky Bar]]></description>
+      <property key="timeinfo"><![CDATA[Todos os domingos, segundas, terças e quartas, às 21.30.]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000005317">
+        <occurrence>
+          <time>
+            <start_date>2010-08-25</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000068630" modified="2010-08-19T08:09:28">
+    <name><![CDATA[Solércia]]></name>
+    <category>theater</category>
+    <version lang="pt">
+      <name><![CDATA[Solércia]]></name>
+      <vendor-category><![CDATA[Teatro | Teatro]]></vendor-category>
+      <short-description><![CDATA[Ao longo dos jardins da Quinta da Regaleira, o Teatro Tapafuros apresenta um esp]]></short-description>
+      <description><![CDATA[Ao longo dos jardins da Quinta da Regaleira, o Teatro Tapafuros apresenta um espectáculo tragicómico construído a partir dos principais textos de Gil Vicente. E assim, num registo itinerante, a Capela torna-se no espaço do Velho da Horta de <i>o Breve Sumário da História de Deus</i>, enquanto o patamar do ténis recebe o <i>Auto da Barca do Inferno</i>, e assim sucessivamente, passando pela estrada da Fonte da Abundância, os caminhos da Gruta do Oriente, o Poço Iniciático e o Terraço dos Mundos Celestes, palco para uma readaptação de <i>O</i> <i>Auto da Lusitânia</i>.<br />Solércia]]></description>
+      <price><![CDATA[16€]]></price>
+      <property key="timeinfo"><![CDATA[Qui-Sáb 22.00, Dom 21.00. A partir de textos de Gil Vicente, encenação de Rui Mário, música original de Pedro Hilário, com Rute Lizardo, Flávio Tomé, Paulo Cintrão, Ricardo Soares, Henrique Martins, Catarina Salgueiro e Regina Gaspar. Como o espectáculo é volante recomenda-se calçado confortável e um agasalho]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014094">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000071462" modified="2010-08-19T08:09:28">
+    <name><![CDATA[Universo Star Wars]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Universo Star Wars]]></name>
+      <vendor-category><![CDATA[Listas | Exposições]]></vendor-category>
+      <short-description><![CDATA[Três espanhóis fanáticos da saga Star Wars juntaram as suas colecções de peso nu]]></short-description>
+      <description><![CDATA[Três espanhóis fanáticos da saga Star Wars juntaram as suas colecções de peso numa exposição que está no El Corte Inglés de Lisboa. Foram precisos 300 metros quadrados para acondicionar todas as figuras (em miniatura e em tamanho real), réplicas de naves, capacetes, dioramas, roupas, bustos, guiões, robôs, cartazes de filmes, discos e DVDs. A exposição integra também uma réplica de Captain Rex, cedida pelo próprio George Lucas, e a réplica da Speeder Bike usada na cena da Batalha de Endor, no Episódio VI ? O Regresso de Jedi. Há também uma área reservada ao material vintage, onde se encontram os artigos que saíram para o mercado entre 1977 e 1985, com a estreia dos três primeiros Star Wars.<br />Universo Star Wars]]></description>
+      <property key="timeinfo"><![CDATA[De Seg a Qui, das 10.00 às 22.00; Sex e Sáb, das 10.00 às 23.30.]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014147">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000050908" modified="2010-08-19T08:09:28">
+    <name><![CDATA[Estamos no mesmo sítio 1970-2010]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Estamos no mesmo sítio 1970-2010]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[Exposição que comemora 40 anos de fotojornalismo de Alfredo Cunha e assinala a d]]></short-description>
+      <description><![CDATA[Exposição que comemora 40 anos de fotojornalismo de Alfredo Cunha e assinala a doação do seu espólio à Câmara Municipal de Lisboa. As fotografias expostas foram seleccionadas pelo autor como as mais representativas da sua carreira.<br />Estamos no mesmo sítio 1970-2010]]></description>
+      <property key="timeinfo"><![CDATA[De terça-feira a sexta-feira, das 10.00 às 18.30 - 1.º e 3.º Sábados de cada mês das 10.00h às 17.15. Encerrado: segundas, domingos e feriados]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014165">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000065558" modified="2010-08-19T08:09:28">
+    <name><![CDATA[Obras de Santa Engrácia - O Panteão na República]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Obras de Santa Engrácia - O Panteão na República]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[400 anos de construção valeram o adágio popular "Obras de Santa Engrácia" ao mon]]></short-description>
+      <description><![CDATA[400 anos de construção valeram o adágio popular "Obras de Santa Engrácia" ao monumento que é hoje Panteão Nacional, resgatado ao estado de abandono em que se encontrava pela República. Associando-se às comemorações do centenário da Implantação da República, o Panteão Nacional apresenta uma exposição que através de documentos, imagens, peças e objectos únicos, alguns deles apresentados pela primeira vez ao público, ilustra a história das famosas "obras de Santa Engrácia", que têm início no final do séc XVI e terminam em 1966 com a inauguração do Panteão Nacional.<br />Obras de Santa Engrácia - O Panteão na República]]></description>
+      <price><![CDATA[Entrada no Panteão: 3€]]></price>
+      <property key="timeinfo"><![CDATA[De terça a domingo, das 10-17h]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014437">
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000071464" modified="2010-08-19T08:09:28">
+    <name><![CDATA[5º Ensaio]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[5º Ensaio]]></name>
+      <vendor-category><![CDATA[Stand up | Stand up]]></vendor-category>
+      <short-description><![CDATA[Depois do bar O Século, a Bang Produções tem uma nova parceria, desta vez com o]]></short-description>
+      <description><![CDATA[Depois do bar O Século, a Bang Produções tem uma nova parceria, desta vez com o Cinema City Classic Alvalade, e todas as quintas-feiras apresenta uma noite de stand up com quatro ou cinco comediantes a despontar.<br />5º Ensaio]]></description>
+      <property key="timeinfo"><![CDATA[Qui 21.30]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Stage]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014444">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000071465" modified="2010-08-19T08:09:28">
+    <name><![CDATA[O Quintal de Contá Estória]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[O Quintal de Contá Estória]]></name>
+      <vendor-category><![CDATA[Eventos | Outros]]></vendor-category>
+      <short-description><![CDATA[Num registo intimista, esta iniciativa pretende recriar o ambiente tradicionalme]]></short-description>
+      <description><![CDATA[Num registo intimista, esta iniciativa pretende recriar o ambiente tradicionalmente africano que se proporcionava à noite, no quintal, quando o mais-velho da família se propunha a contar estórias.  No Quintal de Contá Estóriaa anciã emprestará os sentidos ao contadorÂngelo Torrese os assobios dos ôssobos conquistarão as mãos do cantor e mestre de koraJosé Galissá.<br />O Quintal de Contá Estória]]></description>
+      <property key="timeinfo"><![CDATA[Quinta, 22.00]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014503">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000041003" modified="2010-08-19T08:09:28">
+    <name><![CDATA[A primeira República na Génese da Banda Desenhada e no Olhar do século XXI]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[A primeira República na Génese da Banda Desenhada e no Olhar do século XXI]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[A Câmara Municipal da Amadora e a Comissão Nacional para as Comemorações do Cent]]></short-description>
+      <description><![CDATA[A Câmara Municipal da Amadora e a Comissão Nacional para as Comemorações do Centenário da República apresentam uma exposição com pranchas originais, reproduções, jornais e revistas da época e outros materiais que, no seu conjunto, revelam a produção artística na área da Banda Desenhada e artes próximas (cartoon, caricatura, ilustração e cinema de animação) surgida com a Implantação da República.<br />A primeira República na Génese da Banda Desenhada e no Olhar do século XXI]]></description>
+      <property key="timeinfo"><![CDATA[Segunda a sexta das 9.30 às 12.30 e das 14.00 às 17.30]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000014553">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-23</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000047081" modified="2010-08-19T08:09:28">
+    <name><![CDATA[Sardinha Romana]]></name>
+    <category>other</category>
+    <version lang="pt">
+      <name><![CDATA[Sardinha Romana]]></name>
+      <vendor-category><![CDATA[Eventos | Exposições]]></vendor-category>
+      <short-description><![CDATA[Para assinalar 15 anos de actividade, o NARC inaugura uma nova área temática ded]]></short-description>
+      <description><![CDATA[Para assinalar 15 anos de actividade, o NARC inaugura uma nova área temática dedicada à sardinha, peixe muito consumido em Lisboa desde o período romano e que serve de mote às Festas de Lisboa 2010. Além dos vestígios arqueológicos de um peixe tão importante na alimentação dos olisiponenses durante a ocupação romana, em exposição estão também as ânforas que fizeram chegar a todos os pontos do império romano as conservas de peixe e a popular pasta de sardinha.<br />Sardinha Romana]]></description>
+      <property key="timeinfo"><![CDATA[Qui 15-17h, Sab 10-13h/ 15-17h, escolas Quarta.]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000020893">
+        <occurrence>
+          <time>
+            <start_date>2010-08-19</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="LIS000000000000000000000000047082" modified="2010-08-19T08:09:28">
+    <name><![CDATA[Espaço Eco-Ruca]]></name>
+    <category>festivals-fairs</category>
+    <version lang="pt">
+      <name><![CDATA[Espaço Eco-Ruca]]></name>
+      <vendor-category><![CDATA[Listas | Brincadeiras]]></vendor-category>
+      <short-description><![CDATA[Acabou de abrir portas mas vai ficar assim até ao final do ano. No Espaço Ruca o]]></short-description>
+      <description><![CDATA[Acabou de abrir portas mas vai ficar assim até ao final do ano. No Espaço Ruca os miúdos vão poder brincar e pular muito mas também irão aprender coisas muito úteis, como separar o lixo, experimentar actividades <i>paper free</i>, colorir dicas ecológicas, brincar com puzzles educativos do Ruca (que dá nome ao espaço) e muito mais.<br />Espaço Eco-Ruca]]></description>
+      <property key="timeinfo"><![CDATA[De Ter a Sex, das 10.00 às 13.00 e das 14.00 às 17.00; Fins-de-semana, das 10.00 às 13.00 e das 14.00 às 18.00. Feriados, das 14.00 às 17.00.]]></property>
+      <property key="timeinfo"><![CDATA[e Ter a Sex, das 10.00 às 13.00 e das 14.00 às 17.00; Fins-de-semana, das 10.00 às 13.00 e das 14.00 às 18.00. Feriados, das 14.00 às 17.00.]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+    </version>
+    <showtimes>
+      <place place-id="LIS000000000000000000000000053772">
+        <occurrence>
+          <time>
+            <start_date>2010-08-20</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-21</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-22</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2010-08-24</start_date>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>
