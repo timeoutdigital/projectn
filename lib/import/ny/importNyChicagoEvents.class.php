@@ -355,8 +355,11 @@ class importNyChicagoEvents
                     case 'Chill Out End Note':
                         $eventObj->addProperty( 'chill_out_end_note', (string) $text->content );
                         break;
-                    case 'Venue Blurb':
-                        $eventObj->addProperty( 'venue_blurb', (string) $text->content );
+                    /* New NY FTP feed don't have Venue Blurb anymore, this line is commented out to prevent
+                     * the #316 error being happening again if NY decided to put back "venue blurb"
+                     */
+                    // case 'Venue Blurb':
+                        // $eventObj->addProperty( 'venue_blurb', (string) $text->content );
                         break;
                     case 'Approach Descriptions':
                         $eventObj->addProperty( 'approach_description', (string) $text->content );
