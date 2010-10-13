@@ -18,21 +18,23 @@
         <td style="background-color:#fff; border:none;" valign="top">
             <div style="background-color:#C8D6FF; width:300px; margin:10px; border-radius: 5px; -moz-border-radius: 5px;">
                 <?php
-                    $today      = $statsPanel->current(); $statsPanel->next();
-                    $yesterday  = $statsPanel->current();
+                    $statsPanel = $sf_data->getRaw( 'statsPanel' );
 
-                    $exportStats = $exportStats->current();
+                    $yesterday  = array_shift( $statsPanel );
+		    $today      = array_shift( $statsPanel );
+
+                    $exportStats = $sf_data->getRaw( 'exportStats' );
                     $exportTotal = false;
 
-                    if( isset( $exportStats[ 'LogExportCount' ] ) && !empty( $exportStats[ 'LogExportCount' ] ) )
-                        $exportTotal = $exportStats[ 'LogExportCount' ][0]['count'];
+                    if( isset( $exportStats[0][ 'LogExportCount' ][0]['count'] ) )
+                        $exportTotal = $exportStats[0][ 'LogExportCount' ][0]['count'];
 
-                    if( $today !== false )
+                    if( is_array( $today ) )
                     {
-                    
+
                         $todayTotal = $yesterdayTotal = 0;
                         foreach( $today[ $model ] as $metric ) $todayTotal += $metric;
-                        if( $yesterday !== false ) foreach( $yesterday[ $model ] as $metric ) $yesterdayTotal += $metric;
+                        if( is_array( $yesterday ) && array_key_exists( $model, $yesterday ) ) foreach( $yesterday[ $model ] as $metric ) $yesterdayTotal += $metric;
                 ?>
                 <table id="panel" width="290px" style="margin:5px; border:none;">
                     <caption style="font-size:26px;">Todays Summary</caption>
@@ -149,4 +151,3 @@
     }
   );
 </script>
-

@@ -5,7 +5,7 @@ class MetricDimensionForm extends BaseForm
   protected static $models = array( 'Poi', 'Event', 'Movie' );
 
   public function configure()
-  {
+  {      
     $jsCallback = array( 'onChange' => 'refreshMetricPane()' );
     
     $dateWidget = new sfWidgetFormDate( array(

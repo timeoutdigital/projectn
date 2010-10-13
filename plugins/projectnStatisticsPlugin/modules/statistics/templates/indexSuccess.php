@@ -7,8 +7,13 @@
 </style>
 
 <script type="text/javascript">
+
+    var spinner = '<p><img src="/images/spinner.gif" style="margin-right:20px;" />loading statistics...</p>';
+    
     function refreshMetricPane()
     {
+        $("#metricPane").html( spinner );
+        
         $.ajax({
           type: 'POST',
           url: 'statistics/pane',
@@ -24,6 +29,25 @@
           } ),
           success: function( data ) {
             $("#metricPane").html( data );
+          }
+        });
+
+        loadErrors();
+    }
+
+    function loadErrors()
+    {
+        $("#failurePane").html( spinner );
+
+        $.ajax({
+          type: 'POST',
+          url: 'statistics/errors',
+          data: ( {
+              vendor_id         : $("#vendor").val(),
+              model             : $("#model :selected").text()
+          } ),
+          success: function( data ) {
+            $("#failurePane").html( data );
           }
         });
     }
@@ -42,3 +66,4 @@
 </div>
 
 <div id="metricPane"></div>
+<div id="failurePane"></div>

@@ -21,6 +21,31 @@ class statisticsActions extends sfActions
         $this->form = new MetricDimensionForm();
   }
 
+  public function executeImporterror(sfWebRequest $request)
+  {
+      $this->logId  = $request->getGetParameter( 'id' );
+      
+      $q = Doctrine::getTable( 'LogImportError' )->createQuery('e')
+        ->where('e.id=?', $this->logId )
+        ->limit( 1 );
+
+      $this->importError = $q->fetchArray();
+  }
+
+  public function executeErrors(sfWebRequest $request)
+  {
+      $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
+      $this->model  = $request->getPostParameter( 'model' );
+
+      $q = Doctrine::getTable( 'LogImportError' )->createQuery('e')
+        ->leftJoin('e.LogImport l ON l.id = e.log_import_id')
+        ->where('e.model=?', $this->model )
+        ->addWhere('l.vendor_id = ?', $this->vendor->id )
+        ->addWhere( 'l.created_at > DATE( NOW() )' );
+
+      $this->errorList = $q->fetchArray();
+  }
+
   public function executePane(sfWebRequest $request)
   {
       $this->date_from = mktime( 0, 0, 0,
@@ -67,9 +92,13 @@ class statisticsActions extends sfActions
       $q = Doctrine::getTable( 'LogExport' )->createQuery('l')
         ->leftJoin('l.LogExportCount c ON l.id = c.log_export_id')
         ->where('c.model=?', $this->model )
-        ->addWhere( 'l.created_at = DATE(NOW())' );
+	->addWhere( 'l.vendor_id=?', $this->vendor->id )
+        ->limit(1)
+        ->addWhere( 'l.created_at > DATE( NOW() )' );
 
       $this->exportStats = $q->fetchArray();
+
+
 
 //      echo '<pre style="padding:20px; background-color: white;">';
 //      print_r( $this->dbtotal );
@@ -84,7 +113,7 @@ class statisticsActions extends sfActions
         foreach( $array as $logImport )
         {
             $date = date( 'Y-m-d', strtotime( $logImport['created_at'] ) );
-            
+
             if( !array_key_exists( $date, $dates ) )
                 $dates[ $date ] = array( 'Poi' => $metrics, 'Event' => $metrics, 'Movie' => $metrics, 'EventOccurrence' => $metrics );
 
