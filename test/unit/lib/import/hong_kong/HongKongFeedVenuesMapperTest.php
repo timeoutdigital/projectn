@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Hong Kong Feed Venues Mapper import.
  *
@@ -19,11 +19,6 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 {
    /**
-   * @var HongKOngFeedVenuesMapper
-   */
-  protected $dataMapper;
-
-   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
    */
@@ -32,8 +27,17 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
 
-    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong/hong_kong_venues_short.xml' );
-    $this->dataMapper = new HongKongFeedVenuesMapper( $this->moviesXml, null );
+    // get vendor
+    $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('hong kong');
+
+    $params = array('datasource' => array( 'classname' => 'CurlMock', 'url' =>  TO_TEST_DATA_PATH . '/hong_kong/hong_kong_venues_short.xml' ) );
+
+    $dataMapper = new HongKongFeedVenuesMapper( $vendor, $params );
+
+    // Run Import
+    $importer = new Importer();
+    $importer->addDataMapper( $dataMapper );
+    $importer->run();
   }
 
   /**
@@ -47,10 +51,6 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapMovies()
   {
-      $importer = new Importer();
-      $importer->addDataMapper( $this->dataMapper );
-      $importer->run();
-
       $pois = Doctrine::getTable('Poi')->findAll();
 
       // Check IMPORTED COUNT
@@ -162,6 +162,29 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( '', $poi['provider'] );
         $this->assertEquals('',$poi['vendor_category']);
       
+  }
+
+  /**
+   * Validate Geocodes are extracted from mapcode tag ( from IFRAME )
+   */
+  public function testIframGeoCode()
+  {
+      // 1st and 2nd poi have Mapcode Tag in Test feed
+      $poi = Doctrine::getTable('Poi')->find( 1 );
+
+      $this->assertEquals( '22.276548', $poi['latitude']);
+      $this->assertEquals( '114.16769', $poi['longitude']);
+      $this->assertEquals( 'Feed', $poi['PoiMeta'][0]['value']);
+
+      $poi = Doctrine::getTable('Poi')->find( 2 );
+      $this->assertEquals( '22.28112', $poi['latitude']);
+      $this->assertEquals( '114.155511', $poi['longitude']);
+      $this->assertEquals( 'Feed', $poi['PoiMeta'][0]['value']);
+
+      $poi = Doctrine::getTable('Poi')->find( 3 );
+      $this->assertEquals( null, $poi['latitude']);
+      $this->assertEquals( null, $poi['longitude']);
+      $this->assertEquals( 0 , $poi['PoiMeta']->count() );
   }
   
 }
