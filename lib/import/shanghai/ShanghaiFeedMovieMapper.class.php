@@ -121,8 +121,7 @@ class ShanghaiFeedMovieMapper extends DataMapper
                 }
 
                 // save
-                $movie->save();
-                //$this->notifyImporter( $movie );
+                $this->notifyImporter( $movie );
                 
             }catch( Exception $exception ) {
                 echo 'Exception: ' . $exception->getMessage() . PHP_EOL;
