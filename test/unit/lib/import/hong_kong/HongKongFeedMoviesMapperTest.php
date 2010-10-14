@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Hong Kong Feed Movies Mapper import.
  *
@@ -31,9 +31,15 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
-   
-    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong/hong_kong_movies_short.xml' );
-    $this->dataMapper = new HongKongFeedMoviesMapper( $this->moviesXml, null, "hong kong" );
+
+    // get vendor
+    $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('hong kong');
+
+    $params = array('datasource' => array( 'classname' => 'CurlMock', 'url' =>  TO_TEST_DATA_PATH . '/hong_kong/hong_kong_movies_short.xml' ) );
+
+    $importer = new Importer();
+    $importer->addDataMapper( new HongKongFeedMoviesMapper( $vendor, $params ) );
+    $importer->run();
 
   }
 
@@ -48,10 +54,6 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapMovies()
   {
-
-    $importer = new Importer();
-    $importer->addDataMapper( $this->dataMapper );
-    $importer->run();
 
     $movies = Doctrine::getTable('Movie')->findAll();
 
