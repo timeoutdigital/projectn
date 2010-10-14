@@ -251,7 +251,7 @@ class FTPClient
     foreach( $dirListingArray as $dirItem )
     {
       $matches = array();
-      preg_match( '/[\s]+((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Nov|Dec)[\s]+([0-9]+){1}[\s]+([0-9]{2}:[0-9]{2}){1})[\s]+(.*+)$/', $dirItem, $matches );
+      preg_match( '/[\s]+((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[\s]+([0-9]+){1}[\s]+([0-9]{2}:[0-9]{2}){1})[\s]+(.*+)$/', $dirItem, $matches );
 
       if ( isset( $matches[ 1 ] ) && isset( $matches[ 5 ] ) )
       {
