@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Hong KOng Feed Events Mapper import.
  *
@@ -37,11 +37,25 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
 
-    $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong/hongkong_events.short.xml' );
-
+    // get vendor
     $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'hong kong' );
 
-    $this->dataMapper = new HongKongFeedEventsMapper( $this->eventsXml, null );
+    // Open event XMl and Update Event Occurrence Start dates to valid future dates, sot hat occurrences will be added everytime this test runs
+    $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . '/hong_kong/hongkong_events.short.xml' );
+
+    $tmpFilePath = $this->updateOccurrenceDateAndGetTmpFilePath();
+    
+    // params for new Mapper System
+    $params = array('datasource' => array( 'classname' => 'CurlMock', 'url' =>  $tmpFilePath) );
+
+    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
+
+    $importer = new Importer();
+    $importer->addDataMapper( new HongKongFeedEventsMapper( $this->vendor, $params ) );
+    $importer->run();
+
+    // remove the TMP file
+    unlink( $tmpFilePath );
     
   }
 
@@ -56,11 +70,6 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
    public function testMapEvents()
   {
-    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
-
-    $importer = new Importer();
-    $importer->addDataMapper( $this->dataMapper );
-    $importer->run();
 
     $events = Doctrine::getTable('Event')->findAll();
     $this->assertEquals( 7, $events->count(), 'Should have same number of events imported as in the feed received.' );
@@ -82,7 +91,7 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertLessThan( 1, $event[ 'VendorEventCategory' ]->count(), 'No Category fir First' );
 
     $this->assertGreaterThan( 0, $event[ 'EventOccurrence' ]->count() );
-    $this->assertEquals( '35152_2851_20100714000000', $event[ 'EventOccurrence' ][0]['vendor_event_occurrence_id'] );
+    $this->assertEquals( '35152_2851_'.date( 'Ymd', strtotime( '+1 day' ) ).'000000', $event[ 'EventOccurrence' ][0]['vendor_event_occurrence_id'] );
 
     // Check for Other one with Category (Tag)
     $event = $events[3]; // Get 4nd to TEST
@@ -99,7 +108,7 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'en-HK', $event->Vendor->language );
 
     $this->assertGreaterThan( 0, $event[ 'EventOccurrence' ]->count() );
-    $this->assertEquals( '35412_5135_20100717000000', $event[ 'EventOccurrence' ][0]['vendor_event_occurrence_id'] );
+    $this->assertEquals( '35412_5135_'.date( 'Ymd', strtotime( '+7 day' ) ).'000000', $event[ 'EventOccurrence' ][0]['vendor_event_occurrence_id'] );
 
 
     $this->assertEquals( "Clubs | Nightlife", $event[ 'VendorEventCategory' ][ 'Clubs | Nightlife' ][ 'name' ], 'Check event category' );
@@ -136,6 +145,21 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
       $poi->save();
     }
     $this->assertEquals( 7, Doctrine::getTable( 'Poi' )->count() );
+  }
+
+  private function updateOccurrenceDateAndGetTmpFilePath( )
+  {
+      $this->eventsXml->channel->events->event[0]->occurrences->occurrence[0]->start_date = date('Y-m-d', strtotime( '+1 day' ) );
+      $this->eventsXml->channel->events->event[1]->occurrences->occurrence[0]->start_date = date('Y-m-d', strtotime( '+2 day' ) );
+      $this->eventsXml->channel->events->event[3]->occurrences->occurrence[0]->start_date = date('Y-m-d', strtotime( '+7 day' ) );
+
+      // create a Temporary file///
+      $tmpfile = tempnam( '/tmp', 'xml');
+
+      // save the XML
+      file_put_contents( $tmpfile , $this->eventsXml->saveXML() );
+
+      return $tmpfile;
   }
   
 }
