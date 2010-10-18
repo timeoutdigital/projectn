@@ -87,6 +87,35 @@ class EventTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  /**
+   * Ensure that a Doctrine record doesn't save/update unless
+   * it's content changes
+   */
+  public function testUnmodifiedDoctrineRecordDoesNotSave()
+  {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      $name = 'Super duper';
+      $vendorCategory = 'Gowanus'; //found in NY
+
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      $event  = ProjectN_Test_Unit_Factory::get( 'Event' );
+      $event['Vendor'] = $vendor;
+      $event['name'] = $name;
+      $event->addVendorCategory( $vendorCategory );
+      $event->save();
+      $updatedAt = $event[ 'updated_at' ];
+
+      $sameEvent = Doctrine::getTable( 'Event' )->findOneById( 1 );
+      $event['Vendor'] = $vendor;
+      $sameEvent[ 'name' ] = $name;
+      $sameEvent->addVendorCategory( $vendorCategory );
+      sleep( 2 );
+      $sameEvent->save();
+      $this->assertEquals( $updatedAt, $sameEvent[ 'updated_at' ] );
+  }
+
    /**
    * test if setting the name of a Poi ensures HTML entities are decoded and Trimmed
    */
