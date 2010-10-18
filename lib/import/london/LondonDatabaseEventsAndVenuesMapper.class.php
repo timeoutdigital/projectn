@@ -144,7 +144,7 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 	private function processEvents( $from, $to )
 	{
 		$currentPage = 1;
-		$resultsPerPage = 100;
+		$resultsPerPage = 50; // was 100, causing Mysql Has Gone Away Error
 
                 /*
                  * the following query must use inner joins, as we only want
@@ -176,6 +176,8 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
 
 			$currentPage++;
 			unset( $items );
+
+                        sleep(2); // Sleep 2 Seconds, Interval for Mysql
 		}
 		while ( $pager->getLastPage( ) >= $currentPage );
 

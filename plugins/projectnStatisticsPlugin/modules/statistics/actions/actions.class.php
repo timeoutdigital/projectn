@@ -34,6 +34,17 @@ class statisticsActions extends sfActions
 
   public function executeErrors(sfWebRequest $request)
   {
+      if( !is_numeric( $request->getPostParameter( 'date_month' ) ) )
+      {
+          $this->date = strtotime( 'today' );
+      }
+      else {
+          $this->date = mktime( 0, 0, 0,
+            $request->getPostParameter( 'date_month' ),
+            $request->getPostParameter( 'date_day' ),
+            $request->getPostParameter( 'date_year' ) );
+      }
+
       $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
       $this->model  = $request->getPostParameter( 'model' );
 
@@ -41,22 +52,64 @@ class statisticsActions extends sfActions
         ->leftJoin('e.LogImport l ON l.id = e.log_import_id')
         ->where('e.model=?', $this->model )
         ->addWhere('l.vendor_id = ?', $this->vendor->id )
-        ->addWhere( 'l.created_at > DATE( NOW() )' );
+        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', $this->date ), date( 'Y-m-d', $this->date + 86400 ) ) );
 
       $this->errorList = $q->fetchArray();
   }
 
+  public function executeGraph(sfWebRequest $request)
+  {
+      if( !is_numeric( $request->getPostParameter( 'date_from_month' ) ) )
+      {
+          $this->date_from = strtotime( '-2 weeks' );
+      }
+      else {
+          $this->date_from = mktime( 0, 0, 0,
+            $request->getPostParameter( 'date_from_month' ),
+            $request->getPostParameter( 'date_from_day' ),
+            $request->getPostParameter( 'date_from_year' ) );
+      }
+
+      if( !is_numeric( $request->getPostParameter( 'date_to_month' ) ) )
+      {
+          $this->date_to = time();
+      }
+      else {
+          $this->date_to = mktime( 0, 0, 0,
+            $request->getPostParameter( 'date_to_month' ),
+            $request->getPostParameter( 'date_to_day' ),
+            $request->getPostParameter( 'date_to_year' ) );
+      }
+
+      $this->form = new DateRangeSelectionForm();
+      $this->form->setDefault( 'date', array( 'from' =>  $this->date_from, 'to' => $this->date_to ) );
+
+      $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
+      $this->model  = $request->getPostParameter( 'model' );
+
+      $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
+        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id AND lc.model=?', $this->model )
+        ->where( 'l.vendor_id=?', $this->vendor->id )
+        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', $this->date_from ), date( 'Y-m-d', $this->date_to + ( 60 * 60 * 24 ) ) ) );
+
+      $this->stats = $this->extractStats( $q->fetchArray() );
+  }
+
   public function executePane(sfWebRequest $request)
   {
-      $this->date_from = mktime( 0, 0, 0,
-        $request->getPostParameter( 'date_from_month' ),
-        $request->getPostParameter( 'date_from_day' ),
-        $request->getPostParameter( 'date_from_year' ) );
+      if( !is_numeric( $request->getPostParameter( 'date_month' ) ) )
+      {
+          $this->date = strtotime( 'today' );
+      }
+      else {
+          $this->date = mktime( 0, 0, 0,
+            $request->getPostParameter( 'date_month' ),
+            $request->getPostParameter( 'date_day' ),
+            $request->getPostParameter( 'date_year' ) );
+      }
 
-      $this->date_to = mktime( 0, 0, 0,
-        $request->getPostParameter( 'date_to_month' ),
-        $request->getPostParameter( 'date_to_day' ),
-        $request->getPostParameter( 'date_to_year' ) );
+      $this->form = new DateSelectionForm();
+      $this->form->setDefault( 'date', $this->date );
 
       $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
       $this->model  = $request->getPostParameter( 'model' );
@@ -69,16 +122,9 @@ class statisticsActions extends sfActions
 //      echo '</pre>';
 
       $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
-        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id AND lc.model=?', $this->model )
-        ->where( 'l.vendor_id=?', $this->vendor->id )
-        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', $this->date_from ), date( 'Y-m-d', $this->date_to + ( 60 * 60 * 24 ) ) ) );
-
-      $this->stats = $this->extractStats( $q->fetchArray() );
-
-      $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
         ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )
         ->where( 'l.vendor_id=?', $this->vendor->id )
-        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', strtotime( '-1 day' ) ), date( 'Y-m-d', strtotime( '+1 day' ) ) ) );
+        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', strtotime( '-1 day', $this->date ) ), date( 'Y-m-d', strtotime( '+1 day', $this->date ) ) ) );
 
       $this->statsPanel = $this->extractStats( $q->fetchArray() );
 
