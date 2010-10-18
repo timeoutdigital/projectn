@@ -120,29 +120,51 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
     // mb trim failed to trim Portugese weird whitespace. We will create a function to handle this
     // directly in portugese mapper
 
-    $trimmed = stringTransform::mb_trim( "\nMajor de Sarrià\n ", "\n" );
+    $trimmed = stringTransform::mb_trim( "\nMajor de Sarrià\n " );
     $this->assertEquals( $trimmed, "Major de Sarrià" );
 
-    $trimmed = stringTransform::mb_trim( "\n.Major de Sarrià\n ", "\n." );
+    $trimmed = stringTransform::mb_trim( "\n.Major de Sarrià\n ", "." );
     $this->assertEquals( $trimmed, "Major de Sarrià" );
 
-    $trimmed = stringTransform::mb_trim( "\n,Major de Sarrià\n ", "\n," );
+    $trimmed = stringTransform::mb_trim( "\n,Major de Sarrià\n ", "," );
     $this->assertEquals( $trimmed, "Major de Sarrià" );
 
-    $trimmed = stringTransform::mb_trim( "\n.,Major de Sarrià\n ,.\n", ".,\n" );
+    $trimmed = stringTransform::mb_trim( "\n.,Major de Sarrià\n ,.\n\t\r
+        ", ".," );
     $this->assertEquals( $trimmed, "Major de Sarrià" );
 
-    $trimmed = stringTransform::mb_trim( "\n.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $trimmed = stringTransform::mb_trim( "\n.,Major de \nSarrià\n ,.\n", ".," );
     $this->assertEquals( $trimmed, "Major de \nSarrià" );
 
-    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n |.\n", ".,|" );
     $this->assertEquals( $trimmed, "Major de \nSarrià" );
 
-    $trimmed = stringTransform::mb_trim( "\t.,Major de \nSarrià\n ,.\n", ".,\n" );
+    $trimmed = stringTransform::mb_trim( "\t.,Major de \nSarrià\n ,.\n", ".," );
     $this->assertEquals( $trimmed, "Major de \nSarrià" );
 
-    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n ,.\n", ".,\n\r" );
+    $trimmed = stringTransform::mb_trim( "\0.,Major de \nSarrià\n ,.\n", ".," );
     $this->assertEquals( $trimmed, "Major de \nSarrià" );
+
+$london_weird_characters = <<<EOF
+<I>Swans	</I>																						Wisely moving from the middle of July to the middle of autumn, this indoor, forward-thinking avant-rock weekend brings together all sorts of fiercely experimental noisemakers, from psychedelic-folk to death metal, with a hotly anticipated headline set from Michael Gira's New York noise inspiration Swans. Don't expect many stony-faced rock nerds, though. The organisers serve tea and cake throughout and they're promising other fun and games this year.
+EOF;
+
+    $trimmed = stringTransform::mb_trim( $london_weird_characters );
+    $this->assertEquals( $trimmed, $london_weird_characters );
+
+$multiline = <<<EOF
+testing
+
+
+
+
+
+    efgjen
+EOF;
+
+    $trimmed = stringTransform::mb_trim( $multiline );
+    $this->assertEquals( $trimmed, $multiline );
+    
   }
 
   /**
