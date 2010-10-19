@@ -429,7 +429,7 @@ LogImportCount:
     type: concrete
   columns:
     log_import_id:            {type: integer, notnull: true}
-    operation:                {type: enum, values: [received, insert, existing, failed, delete], notnull: true}
+    operation:                {type: enum, values: [updated, insert, existing, failed, delete], notnull: true}
   relations:
     LogImport:                {local: log_import_id, foreign: id}
   indexes:
