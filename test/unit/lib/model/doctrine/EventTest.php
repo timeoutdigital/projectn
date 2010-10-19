@@ -511,7 +511,6 @@ class EventTest extends PHPUnit_Framework_TestCase
     $event->free( true ); unset( $event );
     $event = Doctrine::getTable( "Event" )->findOneById( $savedEventId );
 
-    // after adding 3 images we expect to have only one image and it should be the large image
     $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
     $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to Event when adding more than one' );
 
