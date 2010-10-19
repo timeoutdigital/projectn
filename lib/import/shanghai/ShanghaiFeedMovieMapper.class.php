@@ -78,8 +78,8 @@ class ShanghaiFeedMovieMapper extends DataMapper
                 $movie['Vendor']            = $this->vendor;
                 $movie['vendor_movie_id']   = $vendorMovieID;
                 $movie['name']              = (string)$xmlNode->name;
-                $movie['plot']              = $this->cleanHTML( (string)$xmlNode->plot );
-                $movie['review']            = $this->cleanHTML( (string)$xmlNode->review );
+                $movie['plot']              = (string)$xmlNode->plot;
+                $movie['review']            = (string)$xmlNode->review;
                 $movie['director']          = (string)$xmlNode->director;
                 $movie['writer']            = (string)$xmlNode->diwriterctor;
                 $movie['rating']            = $this->getRatingOrNull( (string)$xmlNode->rating );
@@ -148,11 +148,6 @@ class ShanghaiFeedMovieMapper extends DataMapper
         }
 
         return null;
-    }
-
-    private function cleanHTML( $string )
-    {
-        return strip_tags( $string, '<p><i><b><string><em><pre><br>' );
     }
 
     /**
