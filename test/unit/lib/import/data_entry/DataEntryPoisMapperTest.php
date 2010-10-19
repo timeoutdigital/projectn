@@ -108,7 +108,7 @@ class DataEntryPoisMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Timeout_link', $poi[ 'PoiProperty' ][0] ['lookup']  );
 
     $this->assertGreaterThan( 0, $poi[ 'PoiMedia' ]->count() );
-    $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/poi/30fb4afc231e21b0f88b35e410acfd0540f2c02b.jpg', $poi[ 'PoiMedia' ][0] ['url']  );
+    $this->assertEquals( 'http://projectn.s3.amazonaws.com/sydney/event/media/30fb4afc231e21b0f88b35e410acfd0540f2c02b.jpg', $poi[ 'PoiMedia' ][0] ['url']  );
 
     $this->assertEquals(0, preg_match("/ESP/", $poi['geocode_look_up']));
     //content node end

@@ -17,7 +17,14 @@ class exportFirstDateFinder
 
     foreach( DirectoryIteratorN::iterate( $this->pathToExports, DirectoryIteratorN::DIR_FOLDERS ) as $dirName )
     {
-      $date = new DateTime( str_replace( 'export_', '', $dirName ) );
+      try
+      {
+        $date = new DateTime( str_replace( 'export_', '', $dirName ) );
+      }
+      catch( Exception $e )
+      {
+        continue;
+      }
 
       $absolutePath = implode( '/', array( $this->pathToExports,
                                            $dirName,

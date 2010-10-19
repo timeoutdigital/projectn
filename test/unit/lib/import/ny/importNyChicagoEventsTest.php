@@ -312,7 +312,8 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
-    $this->assertEquals( 'Comedy', $eventObj['VendorEventCategory'][ 0 ][ 'name' ] );
+    $this->assertTrue( $eventObj['VendorEventCategory'][ 'Comedy' ]->exists() );
+    $this->assertEquals( 'Comedy', $eventObj['VendorEventCategory'][ 'Comedy' ][ 'name' ] );
   }
 
   /*

@@ -257,6 +257,8 @@ class ImportLogger extends BaseLogger
 
             if ( is_subclass_of( $record, "Doctrine_Record" ) )
             {
+                ImportLogger::getInstance()->addFailed( $record );
+
                 $importRecordErrorLogger['model']                    = get_class( $record );
                 $storeObject = method_exists( 'toArray', $record ) ? $record->toArray() : $record;
                 $importRecordErrorLogger['serialized_object']        = serialize( $storeObject );
@@ -308,12 +310,10 @@ class ImportLogger extends BaseLogger
     {
       if( $this->_enabled )
       {
-          if ( empty( $modifiedFieldsArray ) )
-          {
-             $logImportCount = $this->_getLogImportCountObject( 'existing', is_object( $record ) ? get_class( $record ) : NULL );
-             $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
-          }
-          else
+         $logImportCount = $this->_getLogImportCountObject( 'existing', is_object( $record ) ? get_class( $record ) : NULL );
+         $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
+          
+          if ( !empty( $modifiedFieldsArray ) )
           {
               $log = "Updated Fields: \n";
 
@@ -418,7 +418,6 @@ class ImportLogger extends BaseLogger
         }
         catch( Exception $e )
         {
-            if( $record ) ImportLogger::getInstance()->addFailed( $record );
             ImportLogger::getInstance()->addError( $e, $record, 'failed to save record' );
             
             //if( isset( $record ) ) $record->free( true );

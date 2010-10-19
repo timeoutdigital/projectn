@@ -2,21 +2,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/global.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/default.css" />
 
-<style type="text/css">
-    table#panel td { border:none; background-color:#fff; }
-    table#panel tr { border-bottom: solid 3px #C8D6FF; }
-    table#panel span.panel-title { font-weight:bold; }
-    table#panel p.diff { display:block; width:40px; height:32px; margin:-3px 0; padding:0px; text-align:right; font-style: italic; }
-    p.up{ background-image: url( "/images/up_alt.png" ); background-repeat: no-repeat; }
-    p.down{ background-image: url( "/images/down_alt.png" ); background-repeat: no-repeat; }
-    p.num { background-color:#C8D6FF; border-radius: 5px; -moz-border-radius: 5px; padding:5px; margin-bottom: 0px; text-align:center; }
-    p.noyesterday { background-image: url( "/images/alert.png" ); background-repeat: no-repeat; height:22px; padding-top:10px; padding-left:50px; margin-left:10px; }
-</style>
-
-<table id="xwdfwd" style="background-color:#fff;margin-right:10px;">
-    <tr id="summary">
-        <td style="background-color:#fff; border:none;" valign="top">
-            <div style="background-color:#C8D6FF; width:300px; margin:10px; border-radius: 5px; -moz-border-radius: 5px;">
+            
                 <?php
                     $statsPanel = $sf_data->getRaw( 'statsPanel' );
 
@@ -28,16 +14,17 @@
 
                     if( isset( $exportStats[0][ 'LogExportCount' ][0]['count'] ) )
                         $exportTotal = $exportStats[0][ 'LogExportCount' ][0]['count'];
-
-                    if( is_array( $today ) )
-                    {
-
-                        $todayTotal = $yesterdayTotal = 0;
-                        foreach( $today[ $model ] as $metric ) $todayTotal += $metric;
-                        if( is_array( $yesterday ) && array_key_exists( $model, $yesterday ) ) foreach( $yesterday[ $model ] as $metric ) $yesterdayTotal += $metric;
                 ?>
                 <table id="panel" width="290px" style="margin:5px; border:none;">
-                    <caption style="font-size:26px;">Todays Summary</caption>
+                    <caption style="font-size:26px;"><?php echo $form; ?></caption>
+                    <?php
+                        if( is_array( $today ) )
+                        {
+
+                            $todayTotal = $yesterdayTotal = 0;
+                            foreach( $today[ $model ] as $metric ) $todayTotal += $metric;
+                            if( is_array( $yesterday ) && array_key_exists( $model, $yesterday ) ) foreach( $yesterday[ $model ] as $metric ) $yesterdayTotal += $metric;
+                    ?>
                     <tr>
                         <td><span class="panel-title" style="color:green">New Records</span></td>
                         <td>
@@ -114,40 +101,10 @@
                         <td></td>
                         <td><p class="num"><?php echo is_numeric( $exportTotal ) ? $exportTotal : '?'; ?></p></td>
                     </tr>
-                </table>
-            </div>
                 <?php if( $yesterday === false ){ ?>
-                    <p class="noyesterday">Failed to retrieve yesterdays import logs.</p>
+                    <p class="noyesterday">Failed to retrieve import logs day before specified date.</p>
                 <?php } ?>
             <?php } else { ?>
-                <p class="noyesterday">Failed to retrieve todays import logs.</p>
+                <p class="noyesterday">Failed to retrieve import logs for specified date.</p>
             <?php } ?>
-        </td>
-        <td id="summary2" style="border:none; padding:17px;" width="100%">
-            <div style="background-color:#C8D6FF; border-radius: 5px; margin-bottom:20px; -moz-border-radius: 5px;">
-                <p style="font-size:26px; padding:5px 10px; text-align:center;"><?php echo ucfirst( $vendor->city ); ?> <?php echo ucfirst( $model ); ?> imports for period: <?php echo date( 'jS F \'y', $date_from ); ?> - <?php echo date( 'jS F \'y', $date_to ); ?></p>
-            </div>
-            <div id="graph" style="width:100%; height:350px;"></div>
-        </td>
-    </tr>
-</div>
-
-<script type="text/javascript">
-  new Dygraph(
-    document.getElementById("graph"),
-    "<?php
-        echo 'Date,insert,failed,updated\n';
-        foreach( $stats as $date => $metrics )
-            echo $date . ',' . $metrics[ $model ]['insert'] . ',' . $metrics[ $model ]['failed'] . ',' . $metrics[ $model ]['updated'] . '\n';
-    ?>",
-    {
-      rollPeriod: 1,
-      showRoller: false,
-      includeZero: true,
-      strokeWidth: 2,
-      drawPoints: 1,
-      pointSize: 4,
-      colors: ['green', 'red', 'blue']
-    }
-  );
-</script>
+                </table>
