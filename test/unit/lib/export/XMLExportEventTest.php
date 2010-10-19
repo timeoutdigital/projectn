@@ -795,7 +795,7 @@ private function addAnotherEventOccurrenceTo( $event, $poi )
     $occurrence3 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
     $occurrence3['vendor_event_occurrence_id'] = 1111;
     $occurrence3->link( 'Event', array( 2 ) );
-    $occurrence3->link( 'Poi', array( 1,2 ) );
+    $occurrence3->link( 'Poi', array( 2 ) );
     $occurrence3->save();
 
     $occurrence4 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence', array( 'start_date' => $this->today() ) );
