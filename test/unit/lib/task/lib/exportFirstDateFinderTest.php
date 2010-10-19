@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/../../../bootstrap.php';
  *
  *
  */
-class eachPoiHasAtleastOneVendorCategoryTest extends PHPUnit_Framework_TestCase
+class exportFirstDateFinderTest extends PHPUnit_Framework_TestCase
 {
   public function testRun()
   {
