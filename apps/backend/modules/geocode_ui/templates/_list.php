@@ -10,7 +10,7 @@
       </thead>
       <tfoot>
         <tr>
-          <th colspan="6">
+          <th colspan="7">
             <?php if ($pager->haveToPaginate()): ?>
               <?php include_partial('geocode_ui/pagination', array('pager' => $pager)) ?>
             <?php endif; ?>
