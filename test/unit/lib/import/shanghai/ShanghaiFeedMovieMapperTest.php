@@ -56,7 +56,7 @@ class ShanghaiFeedMovieMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '4', $movie['vendor_movie_id'] );
       $this->assertEquals( '精武风云·陈真', $movie['name'] );
       $this->assertStringStartsWith( '陈真(甄子丹饰)当年为报杀师之仇，独闯虹口道场', $movie['plot'] );
-      $this->assertStringStartsWith( '<p style="text-align: center;"></p>', $movie['review'] );
+      $this->assertStringStartsWith( '<p style="text-align: center;"><img', $movie['review'] ); // We are not cleaning HTML tags in import, Export will clean this
       $this->assertEquals( '刘伟强 Wai Keung Lau', $movie['director'] );
       $this->assertEquals( null, $movie['writer'] );
       $this->assertEquals( '3', $movie['rating'] );
