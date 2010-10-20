@@ -69,7 +69,7 @@ class importBoundariesCheckTask extends nagiosTask
             $dateFrom   = date( 'Y-m-d', strtotime( '-1 day' ) ); // yesterday
             $dateTo     = date( 'Y-m-d', strtotime( '+1 day' ) ) ; // to Tomorrow
 
-            $todayImportLog = Doctrine::getTable( 'LogImport' )->getLogImportCount( $vendorID, $dateFrom, $dateTo );
+            $todayImportLog = Doctrine::getTable( 'LogImport' )->getLogImportCount( $vendorID, $dateFrom, $dateTo, Doctrine_Core::HYDRATE_ARRAY );
 
             if( !isset($todayImportLog) || empty($todayImportLog) )
             {
