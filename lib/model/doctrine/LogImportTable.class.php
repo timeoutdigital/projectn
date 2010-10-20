@@ -51,7 +51,7 @@ class LogImportTable extends LogTable
      * @param int $doctrineHydrateType
      * @return Mixed
      */
-    public function getLogImportCount( $vendorID, $dateFrom, $dateTo, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
+    public function getLogImportWithCountRecords( $vendorID, $dateFrom, $dateTo, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
     {
         $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
         ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )

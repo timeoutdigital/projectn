@@ -9,7 +9,7 @@ class LogExportTable extends LogTable
      * @param int $doctrineHydrateType
      * @return mix
      */
-    public function getTodaysLogExportCount( $vendorID, $model, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
+    public function getTodaysLogExportWithCountRecords( $vendorID, $model, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
     {
         $q = Doctrine::getTable( 'LogExport' )->createQuery('l')
         ->leftJoin('l.LogExportCount c ON l.id = c.log_export_id')
