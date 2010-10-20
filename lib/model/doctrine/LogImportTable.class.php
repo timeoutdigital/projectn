@@ -41,4 +41,15 @@ class LogImportTable extends LogTable
       // If City Not Found Return Empty LogImport, so methods still return 0;
       return ( $result !== false ) ? $result : new LogImport();
     }
+
+    public function getLogImportCount( $vendorID, $dateFrom, $dateTo, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
+        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )
+        ->where( 'l.vendor_id=?', $vendorID )
+        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( $dateFrom, $dateTo ) );
+
+        return $q->execute( array(), $doctrineHydrateType );
+        
+    }
 }
