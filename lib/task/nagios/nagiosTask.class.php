@@ -39,12 +39,13 @@ abstract class nagiosTask extends sfBaseTask
         $this->detailedDescription  = 'Nagios Automated Script';
 
         $this->setAppPath( sfConfig::get( 'sf_root_dir' ) );
-
-        $this->enableDB && $this->configureDatabase();
     }
 
     protected function execute( $arguments = array(), $options = array() )
     {
+        // Connect to DB when Database Enabled
+        $this->enableDB && $this->configureDatabase( $options );
+        
         $this->executeNagiosTask( $arguments, $options );
         $this->postExecute();
     }
