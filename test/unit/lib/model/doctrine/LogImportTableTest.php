@@ -69,4 +69,92 @@ class LogImportTableTest extends PHPUnit_Framework_TestCase
       
   }
 
+  public function testGetLogImportCount()
+  {
+      $vendors = Doctrine::getTable( 'Vendor' )->findAll();
+      $this->assertEquals( 3, $vendors->count() );
+      
+      $vendor1 = Doctrine::getTable( 'Vendor' )->findOneById(1);
+      $vendor2 = Doctrine::getTable( 'Vendor' )->findOneById(2);
+      $vendor3 = Doctrine::getTable( 'Vendor' )->findOneById(3);
+      
+      $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
+      $today     = date('Y-m-d H:i:s' );
+      $tomorrow  = date('Y-m-d H:i:s' , strtotime( '+1 day' )  );
+
+      // Add LogImports for yesterday
+      ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 1,
+                                                          'created_at' => $yesterday ) );
+
+      ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 2,
+                                                          'created_at' => $yesterday ) );
+      
+      $this->assertEquals(2, Doctrine::getTable( 'LogImport' )->count() );
+      
+      //Add LogImports for today
+      ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id' => 1,
+
+                                                          'created_at' => $today ) );
+      
+      $this->assertEquals(3, Doctrine::getTable( 'LogImport' )->count() );
+
+      // add LogImportCounts
+      ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 1, 
+                                                               'model'         => 'Poi',
+                                                               'operation'     => 'failed',
+                                                               'count'         => 5 ) );
+
+      ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 1, 
+                                                               'model'         => 'Event',
+                                                               'operation'     => 'insert', 
+                                                               'count'         => 100 ) );
+      
+      ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 3, 
+                                                               'model'         => 'Poi',
+                                                               'operation'     => 'existing',
+                                                               'count'         => 275  ) );
+      
+      ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 2, 
+                                                               'model'         => 'Poi',
+                                                               'operation'     => 'existing',
+                                                               'count'         => 275  ) );
+      
+      $this->assertEquals(4, Doctrine::getTable( 'LogImportCount' )->count() );
+
+      //today
+      $importLogsWithCountsForVendor3Today = Doctrine::getTable( 'LogImport' )
+                                             ->getLogImportWithCountRecords( $vendor3[ 'id' ], $today, $today );
+
+      $this->assertEquals( 0, $importLogsWithCountsForVendor3Today->count(),
+                           'There should be no results for vendor 3 because it has no log import counts' );
+      
+      $importLogsWithCountsForVendor1Today = Doctrine::getTable( 'LogImport' )
+                                             ->getLogImportWithCountRecords( $vendor1[ 'id' ], $today, $today );
+      
+      $this->assertEquals( 1, $importLogsWithCountsForVendor1Today->count(),
+                           'There should be one logImport record for vendor1 today' );
+
+      $this->assertEquals( 1, $importLogsWithCountsForVendor1Today[0]['LogImportCount']->count(),
+                           'There should be one import count for vendor1 today' );
+
+      //today and yesterday
+      $importLogsWithCountsForVendor1Today = Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecords( $vendor1[ 'id' ], $yesterday, $today );
+      $this->assertEquals( 2, $importLogsWithCountsForVendor1Today->count(),
+                           'There should be one logImport record for vendor1 today' );
+
+      $this->assertEquals( 2, $importLogsWithCountsForVendor1Today[0]['LogImportCount']->count(), 
+                           'There should be two import count for vendor1 yesterday' );
+
+      $this->assertEquals( 1, $importLogsWithCountsForVendor1Today[1]['LogImportCount']->count(),
+                           'There should be one import count for vendor1 today' );
+
+      // vendor2 today and yesterday
+      $importLogsWithCountsForVendor2TodayYesterday = Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecords( $vendor2[ 'id' ], $yesterday, $today );
+      $this->assertEquals( 1, $importLogsWithCountsForVendor2TodayYesterday->count(),
+                           'There should be one logImport record for vendor2 yesterday and today' );
+
+      $this->assertEquals( 1, $importLogsWithCountsForVendor2TodayYesterday[0]['LogImportCount']->count(),
+                           'There should be onne import count for vendor2 yesterday' );
+  }
+
 }
