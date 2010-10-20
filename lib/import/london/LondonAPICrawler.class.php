@@ -170,6 +170,13 @@ class LondonAPICrawler
   protected function callApiSearch( $params )
   {
     $this->curl->pullXml( $this->searchUrl, '', $params );
+
+    // Archive API Response
+    $tempVendor = new Vendor();
+    $tempVendor[ 'city' ] = 'london';
+    new FeedArchiver( $tempVendor, $this->curl->getResponse(), $params['type'] );
+    unset( $tempVendor );
+
     return $this->curl->getXml();
   }
 
