@@ -100,6 +100,7 @@ class ProjectN_Test_Unit_Factory
       'movieproperty'       => 'MoviePropertyFixture',
       'vendoreventcategory' => 'VendorEventCategoryFixture',
       'vendorpoicategory'   => 'VendorPoiCategoryFixture',
+      'logimport'           => 'LogImportFixture',
     );
 
     $model = strtolower( $model );
@@ -151,6 +152,37 @@ class ProjectN_Test_Unit_Factory
 
     return $record;
   }
+}
+
+class LogImportFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $logImport = new LogImport();
+
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'Vendor' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'Vendor' );
+            }
+        }
+
+        $default = array(
+            'vendor_id' => 1,
+            'status' => 'success',
+            'total_time' => '00:00:01',
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+        $logImport->fromArray($default );
+        
+        return $logImport;
+
+    }
 }
 
 class PoiFixture

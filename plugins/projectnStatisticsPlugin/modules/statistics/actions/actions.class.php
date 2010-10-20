@@ -48,13 +48,7 @@ class statisticsActions extends sfActions
       $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
       $this->model  = $request->getPostParameter( 'model' );
 
-      $q = Doctrine::getTable( 'LogImportError' )->createQuery('e')
-        ->leftJoin('e.LogImport l ON l.id = e.log_import_id')
-        ->where('e.model=?', $this->model )
-        ->addWhere('l.vendor_id = ?', $this->vendor->id )
-        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', $this->date ), date( 'Y-m-d', $this->date + 86400 ) ) );
-
-      $this->errorList = $q->fetchArray();
+      $this->errorList = Doctrine::getTable( 'LogImportError' )->getLogImportErrors( $this->vendor->id, $this->model, date( 'Y-m-d', $this->date ), date( 'Y-m-d', $this->date + 86400 ), Doctrine_Core::HYDRATE_ARRAY );
   }
 
   public function executeGraph(sfWebRequest $request)
@@ -87,12 +81,8 @@ class statisticsActions extends sfActions
       $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
       $this->model  = $request->getPostParameter( 'model' );
 
-      $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
-        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id AND lc.model=?', $this->model )
-        ->where( 'l.vendor_id=?', $this->vendor->id )
-        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', $this->date_from ), date( 'Y-m-d', $this->date_to + ( 60 * 60 * 24 ) ) ) );
-
-      $this->stats = $this->extractStats( $q->fetchArray() );
+      $q = Doctrine::getTable( 'LogImport' )->getLogImportCount( $this->vendor->id, date( 'Y-m-d', $this->date_from ), date( 'Y-m-d', $this->date_to + ( 60 * 60 * 24 ) ), Doctrine_Core::HYDRATE_ARRAY );
+      $this->stats = $this->extractStats( $q );
   }
 
   public function executePane(sfWebRequest $request)
@@ -121,12 +111,8 @@ class statisticsActions extends sfActions
 //      var_dump( $this->model );
 //      echo '</pre>';
 
-      $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
-        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )
-        ->where( 'l.vendor_id=?', $this->vendor->id )
-        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( date( 'Y-m-d', strtotime( '-1 day', $this->date ) ), date( 'Y-m-d', strtotime( '+1 day', $this->date ) ) ) );
-
-      $this->statsPanel = $this->extractStats( $q->fetchArray() );
+      $q = Doctrine::getTable( 'LogImport' )->getLogImportCount( $this->vendor->id, date( 'Y-m-d', strtotime( '-1 day', $this->date ) ), date( 'Y-m-d', strtotime( '+1 day', $this->date ) ), Doctrine_Core::HYDRATE_ARRAY );
+      $this->statsPanel = $this->extractStats( $q );
 
       $q = Doctrine::getTable( $this->model )->createQuery('l')
         ->select('count(*)')
@@ -135,15 +121,7 @@ class statisticsActions extends sfActions
       $this->dbtotal = $q->fetchArray();
       $this->dbtotal = $this->dbtotal[0]['count'];
 
-      $q = Doctrine::getTable( 'LogExport' )->createQuery('l')
-        ->leftJoin('l.LogExportCount c ON l.id = c.log_export_id')
-        ->where('c.model=?', $this->model )
-	->addWhere( 'l.vendor_id=?', $this->vendor->id )
-        ->limit(1)
-        ->addWhere( 'l.created_at > DATE( NOW() )' );
-
-      $this->exportStats = $q->fetchArray();
-
+      $this->exportStats = Doctrine::getTable( 'LogExport' )->getTodaysLogExportCount( $this->vendor->id, $this->model, Doctrine_Core::HYDRATE_ARRAY );
 
 
 //      echo '<pre style="padding:20px; background-color: white;">';
