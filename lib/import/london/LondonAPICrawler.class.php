@@ -140,6 +140,7 @@ class LondonAPICrawler
 
       // Fix for #751, this for-loop was trying to loop through child of child object without checking parent exists
       // isset will determin if the child exists before for-loop
+      
       if( isset( $searchPageXml->response->block->row ) )
       {
           foreach( $searchPageXml->response->block->row as $row )
@@ -156,6 +157,8 @@ class LondonAPICrawler
             $this->doMapping( $xml );
             if( !$this->inLimit( ++$numResultsMapped ) ) return;
           }
+      } else { // Throw Error
+          trigger_error( "LondonAPICrawler::crawlApi() callApiSearch() returned empty xml document. offset: {$offset}, total results: {$numResults}" , E_USER_WARNING );
       } // fix #751
     }
   }
