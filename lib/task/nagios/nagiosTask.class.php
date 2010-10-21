@@ -108,6 +108,24 @@ abstract class nagiosTask extends sfBaseTask
     {
         $this->errors[] = $message;
     }
+
+    /**
+     * set array of string messages to be MERGED with existing errors
+     * @param array $warnings
+     */
+    protected function setError( array $errors )
+    {
+        $this->errors = array_merge( $this->errors, $errors );
+    }
+
+    /**
+     * set array of string messages to be MERGED with existing warnings
+     * @param array $warnings
+     */
+    protected function setWarning( array $warnings )
+    {
+        $this->warnings = array_merge( $this->warnings, $warnings );
+    }
 }
 
 class NagiosException extends Exception {}
