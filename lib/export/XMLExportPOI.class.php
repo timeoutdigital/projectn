@@ -184,7 +184,7 @@ class XMLExportPOI extends XMLExport
       $this->appendRequiredElement(    $addressElement, 'street',   $poi['street'],   XMLExport::USE_CDATA);
       $this->appendNonRequiredElement( $addressElement, 'houseno',  $poi['house_no'], XMLExport::USE_CDATA);
       $this->appendNonRequiredElement( $addressElement, 'zip',      $poi['zips'], XMLExport::USE_CDATA );
-      $this->appendRequiredElement(    $addressElement, 'city',     $poi['city'], XMLExport::USE_CDATA );
+      $this->appendRequiredElement(    $addressElement, 'city',     ucwords( $poi['city'] ), XMLExport::USE_CDATA );
       $this->appendNonRequiredElement( $addressElement, 'district', $poi['district'], XMLExport::USE_CDATA );
       $this->appendRequiredElement(    $addressElement, 'country',  $poi['country'] );
 

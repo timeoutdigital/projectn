@@ -515,7 +515,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'test street', (string) $contact->street );
       $this->assertEquals( '12', (string) $contact->houseno );
       $this->assertEquals( '1234', (string) $contact->zip );
-      $this->assertEquals( 'test town', (string) $contact->city );
+      $this->assertEquals( 'Test Town', (string) $contact->city );
       $this->assertEquals( 'test district',(string)  $contact->district );
       $this->assertEquals( 'GBR', (string) $contact->country );
     }
@@ -734,6 +734,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->assertEquals( '+44 212 420 1934', (string) $contact->phone );
         $this->assertEquals( '+44 1 2769 1212', (string) $contact->phone2 );
         $this->assertEquals( '', (string) $contact->fax );
+    }
+
+    public function testCityIsCapitalised()
+    {
+      $contact = $this->xml->xpath( '/vendor-pois/entry[1]/address' );
+      $contact = array_shift( $contact );
+      $this->assertEquals( 'Test Town', (string) $contact->city );
     }
 }
 /**
