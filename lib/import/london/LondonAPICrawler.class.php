@@ -138,20 +138,25 @@ class LondonAPICrawler
         $this->mapper->onException($exception);
       }
 
-      foreach( $searchPageXml->response->block->row as $row )
+      // Fix for #751, this for-loop was trying to loop through child of child object without checking parent exists
+      // isset will determin if the child exists before for-loop
+      if( isset( $searchPageXml->response->block->row ) )
       {
-        try
-        {
-          $xml = $this->callApiGetDetails( $row->uid );
-        }
-        catch( Exception $exception )
-        {
-          $this->mapper->onException($exception);
-        }
+          foreach( $searchPageXml->response->block->row as $row )
+          {
+            try
+            {
+              $xml = $this->callApiGetDetails( $row->uid );
+            }
+            catch( Exception $exception )
+            {
+              $this->mapper->onException($exception);
+            }
 
-        $this->doMapping( $xml );
-        if( !$this->inLimit( ++$numResultsMapped ) ) return;
-      }
+            $this->doMapping( $xml );
+            if( !$this->inLimit( ++$numResultsMapped ) ) return;
+          }
+      } // fix #751
     }
   }
 
