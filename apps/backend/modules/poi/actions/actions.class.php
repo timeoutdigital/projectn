@@ -13,6 +13,38 @@ require_once dirname(__FILE__).'/../lib/poiGeneratorHelper.class.php';
  */
 class poiActions extends autoPoiActions
 {
+  public function executeResolve(sfWebRequest $request)
+  {
+    $importErrorId = $request->getGetParameter( 'import_error_id' );
+    if( is_numeric( $importErrorId ) )
+    {
+        $logImportRecord = Doctrine::getTable( 'LogImportError' )->findOneById( $importErrorId );
+
+        if( is_object( $logImportRecord ) && $logImportRecord instanceof LogImportError && isset( $logImportRecord[ 'serialized_object' ] ) )
+        {
+            $serializedObj = unserialize( $logImportRecord[ 'serialized_object' ] );
+
+            if( is_numeric( $serializedObj['id'] ) )
+            {
+                $poi = Doctrine::getTable( 'Poi' )->findOneById( $serializedObj['id'] );
+                $poi->merge( $serializedObj );
+            }
+
+            else $poi = $serializedObj;
+        }
+    }
+    else $this->getUser()->setFlash('error', 'Import Error ID Not Numeric' );
+    
+    $this->form = $this->configuration->getForm( isset( $poi ) ? $poi : null );
+    $this->poi = $this->form->getObject();
+
+    $this->setTemplate('new');
+
+    // Flag Error Resolved.
+    // Apply Overrides.
+    // Return User
+  }
+
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
