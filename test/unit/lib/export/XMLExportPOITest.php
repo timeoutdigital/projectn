@@ -742,6 +742,90 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $contact = array_shift( $contact );
       $this->assertEquals( 'Test Town', (string) $contact->city );
     }
+
+    public function testBeijingDistrictDoesNotEndWithStringDistrict()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      //we need beijing to be vendor 22
+      //probably should've loaded the fixtures...
+      for( $i=1; $i<22; $i++)
+      {
+        ProjectN_Test_Unit_Factory::add( 'Vendor' );
+      }
+      $beijing = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'Beijing' ) );
+
+      //add some pois to beijing
+      $poi1 = ProjectN_Test_Unit_Factory::get( 'Poi', array( 'district' => 'uppercase District' ) );
+      $poi1[ 'Vendor' ] = $beijing;
+      $poi1[ 'latitude' ] = 56.12;
+      $poi1[ 'longitude' ] = -5.12;
+      $poi1->save();
+
+      $poi2 = ProjectN_Test_Unit_Factory::get( 'Poi', array( 'district' => 'lowercase district' ) );
+      $poi2[ 'Vendor' ] = $beijing;
+      $poi2[ 'latitude' ] = 56.13;
+      $poi2[ 'longitude' ] = -5.13;
+      $poi2->save();
+
+      //export the beijing pois
+      $this->vendor2 = $beijing; //see runImportAndExport for why this line is here
+      $this->runImportAndExport();
+
+      //should get back nodes in xml
+      $entries = $this->xml->xpath( '/vendor-pois/entry' );
+      $this->assertEquals( 2, count($entries) );
+
+      //check uppercase 'District' is removed
+      $contact = $this->xml->xpath( '/vendor-pois/entry[1]/address' );
+      $contact = array_shift( $contact );
+      $this->assertEquals( 'uppercase', (string) $contact->district );
+
+      //check lowercase 'District' is removed
+      $contact = $this->xml->xpath( '/vendor-pois/entry[2]/address' );
+      $contact = array_shift( $contact );
+      $this->assertEquals( 'lowercase', (string) $contact->district );
+    }
+
+    public function testNonBeijingDistrictCanEndWithStringDistrict()
+    {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      //check non-beijing (id 22) vendors not affected
+      $notBeijing = ProjectN_Test_Unit_Factory::add('Vendor');
+
+      $poin1 = ProjectN_Test_Unit_Factory::get( 'Poi', array( 'district' => 'uppercase District' ) );
+      $poin1[ 'Vendor' ] = $notBeijing;
+      $poin1['latitude'] = 51;
+      $poin1['longitude'] = -3;
+      $poin1->save();
+
+      $poin2 = ProjectN_Test_Unit_Factory::get( 'Poi', array( 'district' => 'lowercase district' ) );
+      $poin2[ 'Vendor' ] = $notBeijing;
+      $poin2['latitude'] = 51.1;
+      $poin2['longitude'] = -3.1;
+      $poin2->save();
+
+      //export the non-beijing pois
+      $this->vendor2 = $notBeijing; //see runImportAndExport for why this line is here
+      $this->runImportAndExport();
+
+      //should get back nodes in xml
+      $entries = $this->xml->xpath( '/vendor-pois/entry' );
+      $this->assertEquals( 2, count($entries) );
+
+      //check uppercase 'District' is not removed
+      $contact = $this->xml->xpath( '/vendor-pois/entry[1]/address' );
+      $contact = array_shift( $contact );
+      $this->assertEquals( 'uppercase District', (string) $contact->district );
+
+      //check lowercase 'District' is not removed
+      $contact = $this->xml->xpath( '/vendor-pois/entry[2]/address' );
+      $contact = array_shift( $contact );
+      $this->assertEquals( 'lowercase district', (string) $contact->district );
+    }
 }
 /**
  * Purpose of this mockup class to Make "testMediaTags" test pass..

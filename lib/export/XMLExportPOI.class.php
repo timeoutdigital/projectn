@@ -103,6 +103,11 @@ class XMLExportPOI extends XMLExport
          }
      }
 
+     if( $poi[ 'vendor_id' ] == 22 ) //beijing vendor_id
+     {
+       $poi['district'] = preg_replace( '/\s*district$/i', null, $poi['district'] );
+     }
+
       //Skip Export for Pois with Dupe Lat/Longs
       foreach( $duplicateLatLongs as $dupe )
       {
