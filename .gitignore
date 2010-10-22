@@ -26,3 +26,6 @@ test/unit/data/downloaded_feeds/ny/[!.]*
 lib/vendor/htmlpurifier-library/HTMLPurifier/DefinitionCache/*
 tags
 *.csv
+*.sql
+*.sql.gz
+*.xml
