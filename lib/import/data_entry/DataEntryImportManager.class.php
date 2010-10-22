@@ -114,9 +114,11 @@ class DataEntryImportManager
                 throw new Exception( 'DataEntryImportManager::runImport Invalid Type ' . $type ); return; // Exit
                 break;
         }
-
         // Start Importer
         $importer->run();
+
+        // End Import Logger
+        ImportLogger::getInstance()->end();
     }
 
     /**

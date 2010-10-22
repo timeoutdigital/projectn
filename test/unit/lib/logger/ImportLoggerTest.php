@@ -27,6 +27,15 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         ImportLogger::getInstance()->unsetSingleton();
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
+    /**
+     * This test is to makesure that data fixture is loaded and
+     * ImportLogger can find the default unknown vendor
+     */
+    public function testNothing()
+    {
+        // this test us written to give enought time for the bootstrap to loard fixtures
+    }
+
 
     public function testSaveRecordComputeChangesAndLogWithInvalidRecordType()
     {

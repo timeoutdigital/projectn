@@ -6,21 +6,12 @@ class MetricDimensionForm extends BaseForm
 
   public function configure()
   {      
-    $jsCallback = array( 'onChange' => 'refreshMetricPane()' );
-    
-    $dateWidget = new sfWidgetFormDate( array(
-        'format' => '%day%/%month%/%year%',
-        'can_be_empty' => false,
-        'years' => array( '2010' => '2010' ),
-    ), $jsCallback );
+    $jsCallback = array( 'onChange' => 'refreshPane();' );
 
     $this->setWidgets(array(
-        'date'    => new sfWidgetFormDateRange( array( 'from_date' => clone $dateWidget, 'to_date' => clone $dateWidget ) ),
         'vendor'  => new sfWidgetFormSelect( array( 'choices' => Doctrine::getTable('Vendor')->findAll( 'KeyValue' ) ), $jsCallback ),
         'model'   => new sfWidgetFormSelect( array( 'choices' => static::$models ), $jsCallback )
     ));
-
-    $this->setDefault( 'date', array( 'from' => '-2 weeks', 'to' => 'today' ) );
     
     $this->widgetSchema->setFormFormatterName( 'list' );
   }

@@ -36,6 +36,9 @@
     background-color: #6699CC !important;
     color: #fff !important;
 }
+tr.even td {
+    background-color: #ddeeff;
+}
 /* Clear Floated Elements
 ----------------------------------------------------------------------------------------------------*/
 
