@@ -875,6 +875,24 @@ class importTask extends sfBaseTask
 
          break;
 
+     case 'shanghai':
+         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'shanghai', 'zh-Hans' );
+
+         switch( $options['type'] )
+         {
+             case 'movie':
+                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/ExportTOLondon/MoviesData.aspx', 'username' => 'timeoutlondon' , 'password' => 'aas9384jewt-0tkfd' ) );
+                 ImportLogger::getInstance()->setVendor( $vendorObj );
+                 $importer->addDataMapper( new ShanghaiFeedMovieMapper( $vendorObj, $params ) );
+                 $importer->run();
+                 ImportLogger::getInstance()->end();
+                 $this->dieWithLogMessage();
+                 break;
+             default : $this->dieDueToInvalidTypeSpecified();
+         }
+         
+         break;
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
