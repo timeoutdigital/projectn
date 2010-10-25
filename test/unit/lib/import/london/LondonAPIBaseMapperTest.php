@@ -17,6 +17,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
 {
 
+    private $vendor;
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -24,7 +25,8 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
       'city' => 'london',
       'language' => 'en-GB',
       ) );
@@ -44,8 +46,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testPoiUrlIsNotTimeoutUrlAndTimeoutLinkIsStoredAsAProperty()
   {
-    $mock = new MockLondonAPIBaseMapper( null , $this->getMock( 'googleGeocoder' ) );
-
+    $mock = new MockLondonAPIBaseMapper($this->vendor , array() );
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl><lat>1</lat><lng>1</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
     $mock->map( $poi, $xml );
@@ -60,7 +61,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testCommaLondonNotInEndOfAddressField()
   {
-    $mock = new MockLondonAPIBaseMapper( null, $this->getMock( 'googleGeocoder' ));
+    $mock = new MockLondonAPIBaseMapper( $this->vendor , array()  );
 
     $poi = new Poi();
     $xml = simplexml_load_string( '<xml><address>foo, London </address><lat>51.5079</lat><lng>-0.3049</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
@@ -85,7 +86,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
 
   public function testCriticsChoiceFlagIsSavedAsNormalisedProperty()
   {
-    $mock = new MockLondonAPIBaseMapperCriticsChoice( null, $this->getMock( 'googleGeocoder' ));
+    $mock = new MockLondonAPIBaseMapperCriticsChoice( $this->vendor , array() );
     $mock->setImporter( new Importer() );
     $poi = new Poi();
     $xml = simplexml_load_string( '
@@ -114,9 +115,9 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
 
 class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
 {
-  public function __construct( $apiCrawler, $geocoder )
+  public function __construct( Vendor $vendor, array $params )
   {
-    parent::__construct( $apiCrawler, $geocoder );
+    parent::__construct( $vendor, $params );
   }
   public function map( Poi $poi, SimpleXMLElement $xml )
   {
@@ -128,9 +129,9 @@ class MockLondonAPIBaseMapper extends LondonAPIBaseMapper
 }
 class MockLondonAPIBaseMapperCriticsChoice extends LondonAPIBaseMapper
 {
-  public function __construct( $apiCrawler, $geocoder )
+  public function __construct( Vendor $vendor, array $params )
   {
-    parent::__construct( $apiCrawler, $geocoder );
+    parent::__construct( $vendor, $params );
   }
   public function map( Poi $poi, SimpleXMLElement $xml )
   {
