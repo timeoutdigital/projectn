@@ -863,7 +863,7 @@ class importTask extends sfBaseTask
          switch( $options['type'] )
          {
              case 'poi':
-                 $params = array( 'datasource' => array( 'classname' => 'Curl', 'url' => 'http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
+                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
                  ImportLogger::getInstance()->setVendor( $vendorObj );
                  $importer->addDataMapper( new beijingZHFeedVenueMapper( $vendorObj, $params ) );
                  $importer->run();
@@ -877,19 +877,28 @@ class importTask extends sfBaseTask
 
      case 'shanghai':
          $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'shanghai', 'zh-Hans' );
-
+         $params = null;
+         $dataMapper = null;
+         
          switch( $options['type'] )
          {
+             case 'poi':
+                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/ExportTOLondon/VenuesData.aspx', 'username' => 'timeoutlondon' , 'password' => 'aas9384jewt-0tkfd' ) );
+                 $dataMapper = 'beijingZHFeedVenueMapper';
+                 break;
              case 'movie':
                  $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/ExportTOLondon/MoviesData.aspx', 'username' => 'timeoutlondon' , 'password' => 'aas9384jewt-0tkfd' ) );
-                 ImportLogger::getInstance()->setVendor( $vendorObj );
-                 $importer->addDataMapper( new ShanghaiFeedMovieMapper( $vendorObj, $params ) );
-                 $importer->run();
-                 ImportLogger::getInstance()->end();
-                 $this->dieWithLogMessage();
+                 $dataMapper = 'ShanghaiFeedMovieMapper';
                  break;
              default : $this->dieDueToInvalidTypeSpecified();
          }
+
+         // Runt the Import
+         ImportLogger::getInstance()->setVendor( $vendorObj );
+         $importer->addDataMapper( new $dataMapper( $vendorObj, $params ) );
+         $importer->run();
+         ImportLogger::getInstance()->end();
+         $this->dieWithLogMessage();
          
          break;
 

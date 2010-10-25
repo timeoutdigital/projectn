@@ -86,7 +86,7 @@ class ShanghaiFeedBaseMapper extends DataMapper
 
         // Post form with ameded Data to get XML response! hopefully
         $formScraper->doPostBack( $formFields );
-var_dump( $formScraper->getResponse()  );
+
         $this->xmlNodes = simplexml_load_string( $formScraper->getResponse() );
     }
 }
