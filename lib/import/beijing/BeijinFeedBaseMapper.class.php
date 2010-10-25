@@ -113,6 +113,21 @@ class BeijingFeedBaseMapper extends DataMapper
      */
     protected function getXMLFeed()
     {
+        $formScraper = new $this->params['datasource']['classname']( $this->params['datasource']['url'] );
+        // Get form Fields to manipulate
+        $formFields = $formScraper->getFormFields();
+        $formFields['Login2$UserName'] = $this->params['datasource']['username'];
+        $formFields['Login2$Password'] = $this->params['datasource']['password'];
+        $formFields['__EVENTTARGET'] = 'Login2$LoginButton';
+        $formFields['__EVENTARGUMENT'] = '';
+
+        // Post form with ameded Data to get XML response! hopefully
+        $formScraper->doPostBack( $formFields );
+
+        $this->xmlNodes = simplexml_load_string( $formScraper->getResponse() );
+        file_put_contents( '/n/shanghai_venue.xml', $formScraper->getResponse() );
+        return;
+        
         // Set temporary Cookie File
         $cookieFile = tempnam ("/tmp", "CURLCOOKIE");
 
@@ -171,7 +186,6 @@ class BeijingFeedBaseMapper extends DataMapper
         if( !$this->isValidResponse( str_replace($newlines , "", $response ) ) )
         {
             throw new Exception( 'Failed to download the feed, response to pass valid feed test...' );
-            var_dump( $response );
         }
 
         // Parse as XML
