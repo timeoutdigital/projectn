@@ -17,8 +17,8 @@
       rollPeriod: 1,
       showRoller: false,
       includeZero: true,
-      strokeWidth: 2,
-      drawPoints: 1,
+      strokeWidth: 4,
+      drawPoints: 0,
       pointSize: 4,
       colors: ['green', 'red', 'blue']
     }
