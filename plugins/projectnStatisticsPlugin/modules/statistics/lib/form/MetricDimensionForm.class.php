@@ -6,7 +6,7 @@ class MetricDimensionForm extends BaseForm
 
   public function configure()
   {      
-    $jsCallback = array( 'onChange' => 'refreshPane();' );
+    $jsCallback = array( 'onChange' => 'refreshPane(); refreshGraph();' );
 
     $this->setWidgets(array(
         'vendor'  => new sfWidgetFormSelect( array( 'choices' => Doctrine::getTable('Vendor')->findAll( 'KeyValue' ) ), $jsCallback ),
