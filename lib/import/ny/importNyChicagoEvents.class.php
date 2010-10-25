@@ -355,8 +355,11 @@ class importNyChicagoEvents
                     case 'Chill Out End Note':
                         $eventObj->addProperty( 'chill_out_end_note', (string) $text->content );
                         break;
-                    case 'Venue Blurb':
-                        $eventObj->addProperty( 'venue_blurb', (string) $text->content );
+                    /* New NY FTP feed don't have Venue Blurb anymore, this line is commented out to prevent
+                     * the #316 error being happening again if NY decided to put back "venue blurb"
+                     */
+                    // case 'Venue Blurb':
+                        // $eventObj->addProperty( 'venue_blurb', (string) $text->content );
                         break;
                     case 'Approach Descriptions':
                         $eventObj->addProperty( 'approach_description', (string) $text->content );
@@ -371,17 +374,21 @@ class importNyChicagoEvents
         //deal with attributes node
         $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
 
-        foreach( $event->attributes->children() as $attribute )
+        // #747 - Throwing Warning when "attribute" node not found in XML Feed
+        if( isset( $event->attributes ) )
         {
-            if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
+            foreach( $event->attributes->children() as $attribute )
             {
-                $critics_choice_value = (string) strtolower( $attribute->value );
+                if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
+                {
+                    $critics_choice_value = (string) strtolower( $attribute->value );
 
-                // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
-                if( $critics_choice_value == "yes" ) $critics_choice_value = "y";
-                if( $critics_choice_value == "no" ) $critics_choice_value = "n";
+                    // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
+                    if( $critics_choice_value == "yes" ) $critics_choice_value = "y";
+                    if( $critics_choice_value == "no" ) $critics_choice_value = "n";
 
-                $eventObj->addProperty( "Critics_choice", $critics_choice_value );
+                    $eventObj->addProperty( "Critics_choice", $critics_choice_value );
+                }
             }
         }
 
@@ -394,15 +401,15 @@ class importNyChicagoEvents
             //The Poi gets its categories from the event if it doesn't have any
             if( count( $occurrence['Poi']['VendorPoiCategory']) == 0)
             {
+
+                print_r( $occurrence['Poi']->toArray() );
+                //die;
                 $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
             }
 
         }
 
         ImportLogger::saveRecordComputeChangesAndLog( $eventObj );
-
-        //Kill the object
-        $eventObj->free();
     }
 
 
@@ -466,6 +473,7 @@ class importNyChicagoEvents
 
                 //set poi id
                 $venueObj = Doctrine::getTable('Poi')->findOneByVendorIdAndVendorPoiId( $this->_vendorObj['id'], (string) $occurrence->venue[0]->address_id );
+                var_dump( $venueObj === false );
 
                 $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
@@ -474,7 +482,7 @@ class importNyChicagoEvents
             }
             catch( Exception $exception )
             {
-                if( $occurrenceObj ) ImportLogger::getInstance()->addFailed( $occurrenceObj );
+                if( isset( $occurrenceObj ) ) ImportLogger::getInstance()->addFailed( $occurrenceObj ); 
                 ImportLogger::getInstance()->addError( $exception, isset( $occurrenceObj ) ? $occurrenceObj : NULL, "New York / Chicago Event Occurence Failed to Save, possibly due to Event Occurence Object Not Found in DB." );
             }
         }//end foreach

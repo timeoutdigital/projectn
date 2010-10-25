@@ -174,7 +174,7 @@ abstract class LondonAPIBaseMapper extends DataMapper
 
     // Refs: #412, We seem to be getting postcodes on the end of the address string, where we used to get the city name.
     if( preg_match( "/[0-9]/", $city ) )
-        throw new LondonAPIBaseMapperException("City Name Should Not Contain a Number.");
+        throw new LondonAPIBaseMapperException("City Name Should Not Contain a Number. Recieved city name: '$city'.");
 
     return $city;
   }

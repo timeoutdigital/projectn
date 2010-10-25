@@ -505,6 +505,11 @@ class sfWidgetFormSchema extends sfWidgetForm implements ArrayAccess
       $errors = new sfValidatorErrorSchema($errors->getValidator(), array($errors));
     }
 
+   if (null === $value && $widget->hasOption('default')) 
+   { 
+	$value = $widget->getOption('default'); 
+   } 
+
     // we clone the widget because we want to change the id format temporarily
     $clone = clone $widget;
     $clone->setIdFormat($this->options['id_format']);

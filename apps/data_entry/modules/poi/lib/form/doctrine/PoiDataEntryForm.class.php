@@ -10,7 +10,7 @@
  */
 class PoiDataEntryForm extends BasePoiForm
 {
-  
+
   private $user;
 
   private $filePath = 'media/poi';
@@ -33,17 +33,17 @@ class PoiDataEntryForm extends BasePoiForm
 
     //@todo maybe use the jquery calendar
     $this->widgetSchema[ 'review_date' ]      = new sfWidgetFormDate(array());
-    
+
     $this->validatorSchema[ 'review_date' ]    = new sfValidatorDate(array( 'required' => false ));
 
     if ( $this->object[ 'latitude' ] === NULL || $this->object[ 'longitude' ] === NULL )
     {
         unset( $this->widgetSchema[ 'latitude' ] );
-        unset( $this->widgetSchema[ 'longitude' ] );    
+        unset( $this->widgetSchema[ 'longitude' ] );
     }
     else
     {
-        $this->widgetSchema[ 'latitude' ]      = new widgetFormFixedText();
+        $this->widgetSchema[ 'latitude' ]       = new widgetFormFixedText();
         $this->widgetSchema[ 'longitude' ]      = new widgetFormFixedText();
     }
 
@@ -55,7 +55,7 @@ class PoiDataEntryForm extends BasePoiForm
     $this->configureVendorPoiCategoryWidget();
 
     /* images */
-    $this->embedRelation('PoiMedia');
+    $this->embedRelation('PoiMedia', new PoiMediaFormDataEntry());
 
     /* new poi media */
     //@todo find issue why more than 2 imgs failing to save
@@ -127,15 +127,14 @@ class PoiDataEntryForm extends BasePoiForm
                   if ( !in_array($form->getObject()->getId(), $this->poiMediasScheduledForDeletion ))
                   {
                     $form->saveEmbeddedForms($con);
-                    
-                    $media = $form->getObject();
-                    $urlParts = explode( '.', $media['url'] );
 
-                    if ( isset( $urlParts[0] ) && $urlParts[0] != '' )
-                        $media['ident'] = $urlParts[0];
-                    else
-                        unset( $media['ident'] );
-                    
+                    $media = $form->getObject();
+
+                    if( $media->isNew() )
+                    {
+                        $media[ 'ident' ] = basename($media[ 'url' ], ".jpg") ;
+                        $media[ 'mime_type' ] =  'image/jpeg';
+                    }
                     $media->save($con);
                   }
               }

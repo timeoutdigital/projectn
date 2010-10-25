@@ -10,7 +10,7 @@
  */
 class EventDataEntryForm extends BaseEventForm
 {
-  
+
   private $user;
 
   private $filePath = 'media/event';
@@ -22,6 +22,7 @@ class EventDataEntryForm extends BaseEventForm
 
   public function configure()
   {
+
     $this->user = sfContext::getInstance()->getUser();
 
     $this->widgetSchema[ 'created_at' ]      = new widgetFormFixedText( array( 'default' => 'now' ) );
@@ -38,19 +39,13 @@ class EventDataEntryForm extends BaseEventForm
 
     $this->configureVendorEventCategoryWidget();
 
-    /* occurrences */
-    $this->embedRelation('EventOccurrence');
+    /* images */
+    $this->embedRelation('EventMedia');
 
-    /* new event occurrence */
-    $eventOccurrence = new EventOccurrence();
-    $eventOccurrence->Event = $this->getObject();
+    $this->embedForm( 'EventOccurrenceCollectionForm',  new EventOccurrenceCollectionForm( $this->getObject() ) );
 
-    $form = new EventOccurrenceForm( $eventOccurrence );
-
-    $form->validatorSchema['start_date']->setOption('required', false);
-    $form->validatorSchema['poi_id']->setOption('required', false);
-
-    $this->embedForm( 'newEventOccurrenceDataEntry', $form );
+    $this->embedForm( 'AddEventOccurrenceForm',  new AddEventOccurrenceForm( $this->getObject() ) );
+    $this->validatorSchema[ 'AddEventOccurrenceForm' ]   = new AddEventOccurrenceValidatorSchema( );
 
     /* images */
     $this->embedRelation('EventMedia');
@@ -76,7 +71,8 @@ class EventDataEntryForm extends BaseEventForm
     )));
 
     $this->embedForm( 'newEventMediaDataEntry', $form );
-    
+
+
   }
 
 
@@ -110,6 +106,7 @@ class EventDataEntryForm extends BaseEventForm
 
   public function saveEmbeddedForms($con = null, $forms = null)
   {
+
       if (null === $con)
       {
         $con = $this->getConnection();
@@ -136,15 +133,7 @@ class EventDataEntryForm extends BaseEventForm
       {
           if ($form instanceof sfFormObject)
           {
-              if ( $form->getObject() instanceof EventOccurrence )
-              {
-                  if ( !in_array($form->getObject()->getId(), $this->eventOccurencesScheduledForDeletion ))
-                  {
-                    $form->saveEmbeddedForms($con);
-                    $form->getObject()->save($con);
-                  }
-              }
-              else if ( $form->getObject() instanceof EventMedia )
+              if ( $form->getObject() instanceof EventMedia )
               {
                   if ( !in_array($form->getObject()->getId(), $this->eventMediasScheduledForDeletion ))
                   {
@@ -157,10 +146,11 @@ class EventDataEntryForm extends BaseEventForm
           {
               $this->saveEmbeddedForms($con, $form->getEmbeddedForms());
           }
-      }     
+      }
+
   }
 
- protected function doUpdateObject($values)
+  protected function doUpdateObject($values)
   {
     if ( count( $this->eventOccurencesScheduledForDeletion ) )
     {
@@ -185,7 +175,6 @@ class EventDataEntryForm extends BaseEventForm
      $this->getObject()->fromArray( $values );
   }
 
-
   private function configureVendorEventCategoryWidget()
   {
     $widget = new widgetFormEventVendorCategoryChoice( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
@@ -194,4 +183,263 @@ class EventDataEntryForm extends BaseEventForm
     $validator = new validatorVendorEventCategoryChoice( array( 'vendor_id' => $this->user->getCurrentVendorId() ) );
     $this->validatorSchema[ 'vendor_event_category_list' ] = $validator;
   }
+
+  public function save( $con = null )
+  {
+
+     $values = $this->getValues();
+
+     $event = parent::save( $con );
+
+     $addOccurrencesData = $values ['AddEventOccurrenceForm'];
+
+     $eventId = $event[ 'id' ];
+
+     $vendor =Doctrine::getTable( 'Vendor' )->find( $this->user->getCurrentVendorId() );
+
+     $poiId = $addOccurrencesData[ 'poi_id' ];
+
+      //lets create the occurrences if only Never option wasn't selected
+     if( $addOccurrencesData[ 'recurring_dates' ]['recurring_freq'] != 'never' )
+     {
+         $occurrenceDates =  $this->getOccurrenceDates( $values ['AddEventOccurrenceForm'] ) ;
+
+         foreach ($occurrenceDates as $date)
+         {
+              $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$date ;
+              $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
+
+              if( !$occurrence )
+              {
+                $occurrence = new EventOccurrence();
+                $occurrence[ 'vendor_event_occurrence_id' ] = $vendorOccurrenceId;
+              }
+              $occurrence[ 'poi_id' ]       = $poiId;
+              $occurrence[ 'Event' ]        = $event;
+              $occurrence[ 'start_date' ]   = $date;
+              //$occurrence[ 'end_date' ]     = $date;
+              $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00';
+              //$occurrence[ 'end_time' ]     = $addOccurrencesData[ 'end_time' ];
+              $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
+              $occurrence->save();
+         }
+
+     }
+     else
+     {
+          if( !empty( $poiId ) )
+          {
+              $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$addOccurrencesData [ 'start_date' ] ;
+
+
+              $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
+
+              if( !$occurrence )
+              {
+                $occurrence = new EventOccurrence();
+                $occurrence[ 'vendor_event_occurrence_id' ] = $vendorOccurrenceId;
+              }
+              $occurrence[ 'poi_id' ]       = $poiId;
+              $occurrence[ 'Event' ]        = $event;
+              $occurrence[ 'start_date' ]   = $addOccurrencesData [ 'start_date' ];
+              //$occurrence[ 'end_date' ]     = $addOccurrencesData [ 'end_date' ];
+              $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00' ;
+              //$occurrence[ 'end_time' ]     = $addOccurrencesData[  'end_time' ];
+              $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
+              $occurrence->save();
+
+          }
+     }
+
+     return $event;
+  }
+
+  protected function getOccurrenceDates(  $addEventOccurrenceFormParams = array() )
+  {
+        if( empty( $addEventOccurrenceFormParams [ 'start_date' ] ) )
+        {
+            return array();
+        }
+
+        if( empty( $addEventOccurrenceFormParams [ 'poi_id' ] ) )
+        {
+            return array();
+        }
+
+        $occ = array();
+
+        $occUTS = array();
+
+        $ds = $addEventOccurrenceFormParams [ 'recurring_dates' ];
+
+        if( !isset( $ds['recurring_daily_except']  ) )
+        {
+           $ds['recurring_daily_except']  = array();
+        }
+        if ( $ds === NULL || empty( $ds ) )
+        {
+            return null;
+        }
+
+        $isRecurring = $ds [ 'recurring_freq' ] != 'never';
+
+        if( $isRecurring == false )
+        {
+            return array();
+        }
+
+        $dateStart = explode( '-', $addEventOccurrenceFormParams[ 'start_date' ] );
+
+        $dateStartUTS = mktime( 0, 0, 0, $dateStart[1], $dateStart[2], $dateStart[0] );
+
+        if( $isRecurring )
+        {
+            $dateEnd   = $ds['recurring_until'];
+            if( empty( $dateEnd ) )
+            {
+                $dateEnd =date( 'Y-m-d' , strtotime( '+ 3 months' ) );
+            }
+
+        }else
+        {
+            //$dateEnd   = ( $listing['end_date'] != '0000-00-00' ) ? $listing['end_date'] : $listing['start_date'];
+            $dateEnd   = $addEventOccurrenceFormParams[ 'event_date' ] ;
+        }
+
+        $dateEnd = explode( '-', $dateEnd );
+
+        $dateEndUTS = mktime( 0, 0, 0, $dateEnd[1], $dateEnd[2], $dateEnd[0] );
+
+        $recDateEnd = explode( '-', $ds['recurring_until'] );
+
+        $recDateEndUTS = mktime( 0, 0, 0, $recDateEnd[1], $recDateEnd[2], $recDateEnd[0] );
+
+        // create all dates between start and end date
+        if ( ( $isRecurring != 1 ) && $dateStartUTS == $dateEndUTS )
+        {
+            $occUTS[] = date( 'Y-m-d', $dateStartUTS );
+            $dayUTS[ date( 'Y-m-d', $dateStartUTS) ] = date( 'Y-m-d', $dateStartUTS );
+        }
+        elseif ( $isRecurring != 1 )
+        {
+
+            $dayUTS = $dateStartUTS;
+            do
+            {
+                $occUTS[] = date( 'Y-m-d', $dayUTS);
+                // day plus one day
+                $dayUTS = $dayUTS + 60*60*24;
+
+
+            } while ( $dayUTS <= $dateEndUTS );
+
+        }
+        elseif ( $isRecurring == 1 && $ds['recurring_freq'] == 'daily' )
+        {
+
+            // loop through every day to create the actual occurrences
+            $dayUTS = null;
+            $occUTS = $dateStartUTS;
+            do
+            {
+                if ( !in_array( strtolower( date( 'l', $occUTS ) ), $ds['recurring_daily_except'] ) )
+                    $dayUTS[ date( 'Y-m-d', $occUTS) ] = date( 'Y-m-d', $occUTS );
+
+                // day plus one day
+                $occUTS = $occUTS + 60*60*24;
+
+            } while ( $occUTS <= $recDateEndUTS );
+
+
+        }
+        elseif ( $isRecurring == 1 && $ds['recurring_freq'] == 'weekly' )
+        {
+
+            $weeksUTS = $dateStartUTS;
+            // Create the weeks where the event happens
+            do
+            {
+                $weeks[] = date( 'W', $weeksUTS );
+
+                // plus recurring_weekly_week_number times one week
+                $weeksUTS = $weeksUTS + ( 60*60*24*7 * $ds['recurring_weekly_week_number'] );
+
+
+
+            } while ( $weeksUTS <= $recDateEndUTS );
+
+
+            // now loop through every day to create the actual occurrences
+            $dayUTS = null;
+            $occUTS = $dateStartUTS;
+            do
+            {
+                if ( in_array( strtolower( date( 'l', $occUTS ) ), $ds['recurring_weekly_days'] ) &&
+                     in_array( date( 'W', $occUTS ), $weeks ) )
+                {
+                    $dayUTS[ date( 'Y-m-d', $occUTS ) ] = date( 'Y-m-d', $occUTS );
+                }
+
+                // day plus one day
+                $occUTS = $occUTS + 60*60*24;
+
+            } while ( $occUTS <= $recDateEndUTS );
+
+
+
+        }
+        elseif ( $isRecurring == 1 && $ds['recurring_freq'] == 'monthly' )
+        {
+
+            // loop through the months to generate the occurrences
+
+            $occUTS = $dateStartUTS;
+            $monthUTS = null;
+
+            do
+            {
+                // the last friday is not the last friday of the month but
+                // the latest past friday, so go to the 1st of next month.
+                // otherwise go the the last day of the previous month
+                if ( $ds['recurring_monthly_position'] == 'last' )
+                {
+                    $month = date( 'm', $occUTS ) + 1 ;
+                    $day = 1;
+                }
+                else
+                {
+                    $month = date( 'm', $occUTS );
+                    $day = 0;
+                }
+
+                $month = mktime( 0, 0, 0, date( 'm', $occUTS ), 0, date( 'Y', $occUTS ) );
+
+                $humanTimeString = $ds['recurring_monthly_position'] . ' ' . $ds['recurring_monthly_weekday'];
+
+                if ( strtotime( $humanTimeString, $month ) >= $dateStartUTS )
+                    $monthUTS[] = strtotime( $humanTimeString, $month );
+
+                // create the month for the occurrence
+                $occUTS = mktime( 0, 0, 0, date( 'm', $occUTS ) + $ds['recurring_monthly_month_number'], date( 'd', $occUTS ), date( 'Y', $occUTS ) );
+
+
+
+            } while ( $occUTS <= $recDateEndUTS );
+
+            foreach ($monthUTS as $ts)
+            {
+                $dayUTS[] = date( 'Y-m-d', $ts);
+
+            }
+
+        }
+
+        foreach ( $dayUTS as $ts )
+        {
+            $occ[] = $ts;
+        }
+
+        return $occ;
+
+    }
 }

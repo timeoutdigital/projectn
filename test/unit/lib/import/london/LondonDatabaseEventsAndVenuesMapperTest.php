@@ -49,6 +49,7 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases( );
   }
 
+
   public function testImportDoesNotStopIfPoiFailsToSave()
   {
     //don't need to do anything, the import will stop in setup()
@@ -223,12 +224,28 @@ class LondonDatabaseEventsAndVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $offset, $occurrence2[ 'utc_offset' ]  );
   }
 
+
   private function runImport( $type )
   {
       // Run London Import
       $importer = new Importer();
       $importer->addDataMapper( new LondonDatabaseEventsAndVenuesMapper( $this->vendor, array( 'type' => $type )) );
       $importer->run();
+  }
+  public function testImportWithTypeEvent()
+  {
+    $this->runImport( 'event' );
+    $events = Doctrine::getTable( 'Event' );
+    $this->assertEquals( 4, $events->count() );
+  }
+
+  public function testImportWithTypeEventOccurrence()
+  {
+    $this->runImport( 'poi' );
+    $this->runImport( 'event' );
+    $this->runImport( 'event-occurrence' );
+    $occurrences = Doctrine::getTable( 'EventOccurrence' );
+    $this->assertEquals( 4, $occurrences->count() );
   }
 
 }

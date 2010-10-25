@@ -1,0 +1,7 @@
+all:
+  javascripts:
+    - jquery.toForm.js
+    - plugins/jquery-ui-datepicker-1.7.2.min.js
+    - plugins/jquery.autocomplete-1.0.2.js
+  stylesheets:
+    - jquery-ui-datepicker-1.7.2.css

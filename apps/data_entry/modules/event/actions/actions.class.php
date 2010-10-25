@@ -19,7 +19,6 @@ class eventActions extends autoEventActions
   public function preExecute()
   {
      parent::preExecute();
-     
 
      $filters = $this->getFilters() ;
      $this->user = $this->getUser();
@@ -30,19 +29,62 @@ class eventActions extends autoEventActions
      }
   }
 
+  public function executeAjaxDeleteOccurrence( $request )
+  {
+
+    $output = array();
+
+    $occurrenceId = $request->getParameter( 'occurrenceId' );
+
+    $eventId = $request->getParameter( 'eventId' );
+
+    $occurrence =  Doctrine::getTable( 'EventOccurrence' )->findOneByIdAndEventId( $occurrenceId , $eventId );
+
+    if( !$occurrence )
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'occurrence couldn\t be found!';
+        return  $this->renderText( json_encode( $output ) );
+    }
+    //check if the user is registered with the right vendor
+    if( $occurrence[ 'Event' ]['vendor_id']  != $this->user->getCurrentVendorId() )
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'Please log in and try again!';
+        return  $this->renderText( json_encode( $output ) );
+
+    }
+    try
+    {
+        $occurrence->delete();
+    }
+    catch (Exception  $e)
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'Occurrence couldn\'t be deleted';
+        sfContext::getInstance()->getLogger()->err("executeAjaxDeleteOccurrence failed : Exception" . $e->getMessage() );
+        return  $this->renderText( json_encode( $output ) );
+    }
+
+    $output [ 'status' ] = 'success';
+
+    return $this->renderText( json_encode( $output) );
+  }
+
   public function executeAjaxPoiList($request)
   {
     $this->getResponse()->setContentType('application/json');
-    
+
     $q = Doctrine_Query::create()
                 ->select( 'id, poi_name name' )
                 ->from('Poi p')
                 ->where( 'vendor_id = ?', $this->user->getCurrentVendorId() )
-                ->andWhere( 'poi_name LIKE ?', '%' . $request->getParameter('q') . '%' );
+                ->andWhere( '( poi_name LIKE ? OR vendor_poi_id LIKE ? )', array( '%' . $request->getParameter('q') . '%', $request->getParameter('q') . '%' ) );
+                // #679 Vendor can search POI by their ID (Vendor POI ID)
 
     $result = $q->fetchArray();
-    
-    $pois = array();    
+
+    $pois = array();
     foreach ( $result as $poi )
     {
         $pois[ $poi['id'] ] = $poi['name'];
@@ -72,7 +114,10 @@ class eventActions extends autoEventActions
     return $this->renderText(json_encode($pois));
   }
 
-
+  public function executeShow(sfWebRequest $request)
+  {
+        $this->redirect('@event');
+  }
   public function executeEdit(sfWebRequest $request)
   {
     if ( $this->getUser()->checkIfRecordPermissionsByRequest( $request ) )
@@ -105,9 +150,9 @@ class eventActions extends autoEventActions
     }
     else
     {
-        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );        
+        $this->getUser()->setFlash ( 'error' , 'You don\' have permissions to delete this record' );
     }
-    
+
     $this->redirect('@event');
   }
 

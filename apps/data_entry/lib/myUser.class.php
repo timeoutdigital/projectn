@@ -184,4 +184,10 @@ class myUser extends sfGuardSecurityUser
         }
     }
 
+    public function signOut()
+    {
+        parent::signOut();
+        session_destroy(); // This resolves the #736 issue
+    }
+
 }

@@ -94,7 +94,7 @@ EOF;
   {
     foreach( $collection as $media )
     {
-        if( $this->mediaIsNew( $media ) || $this->mediaHasChanged( $media ) )
+        if( in_array( $this->getStatus( $media ), array( 'new', 'error' ) ) || $this->mediaHasChanged( $media ) )
         {
             try
             {
@@ -118,9 +118,9 @@ EOF;
     unset( $collection );
   }
 
-  protected function mediaIsNew( Doctrine_Record $media )
+  protected function getStatus( Doctrine_Record $media )
   {
-      return isset( $media['status'] ) && $media['status'] == 'new' ? true : false;
+      return isset( $media['status'] ) ? $media['status'] : false;
   }
 
   protected function mediaHasChanged( Doctrine_Record $media )

@@ -106,20 +106,26 @@ class importTask extends sfBaseTask
             break;
 
           case 'eating-drinking':
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $this->importNyEd($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
+              ImportLogger::getInstance()->setVendor( $vendorObj );
+              try
+              {
+                  //Setup NY FTP @todo refactor FTPClient to not connect in constructor
+                  $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
+                  $ftpClientObj->setSourcePath( '/NOKIA/' );
+                  $this->importNyEd($vendorObj, $ftpClientObj);
+
+              }
+              catch ( Exception $e )
+              {
+                  echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
+              }
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+            
             break;
 
           case 'eating-drinking-kids':
+              ImportLogger::getInstance()->setVendor( $vendorObj );
             try
             {
               //Setup NY FTP @todo refactor FTPClient to not connect in constructor
@@ -127,18 +133,17 @@ class importTask extends sfBaseTask
               $ftpClientObj->setSourcePath( '/NOKIA/' );
               $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
 
-              /*$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-              $csv = new processCsv( 'import/tony_ed_made_up_headers.csv' );
-              $nyEDImport =  new importNyED( $csv, $vendor );
-              $nyEDImport->insertPois();*/
             }
             catch ( Exception $e )
             {
               echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
             }
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
             break;
 
           case 'bars-clubs':
+               ImportLogger::getInstance()->setVendor( $vendorObj );
             try
             {
               //Setup NY FTP @todo refactor FTPClient to not connect in constructor
@@ -150,6 +155,8 @@ class importTask extends sfBaseTask
             {
               echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
             }
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
             break;
 
 
@@ -401,6 +408,10 @@ class importTask extends sfBaseTask
 
         switch( $options['type'] )
         {
+            case 'moscow_1':
+            case 'moscow_2':
+                    $this->importMoscow( $city, $options['type'] );
+                break;
             case 'poi':
 
                 $feedName = array();
@@ -1032,24 +1043,29 @@ EOF;
     private function parseSydneyFtpDirectoryListing( $rawFtpListingOutput )
     {
         $fileListSorted = array();
+
         //sort the files  so the newest file should be the first item in the list
         foreach ($rawFtpListingOutput as $fileListing)
         {
             $fileName = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
-
+            
             preg_match( '/^.*_([0-9\-]+)\.xml$/', $fileName, $matches );
 
             if( isset( $matches [1] ) )
             {
                 $date = date( 'Y-m-d' ,strtotime($matches[1] ));
                 $fileListSorted[ $date . ' ' .$fileName ] =   $fileListing;
-            }else
-            {
-                 $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED" );
-                 return NULL;
             }
 
         }
+
+        // Check if any files Exists
+        if( count($fileListSorted) <= 0 )
+        {
+            $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED" );
+            return null;
+        }
+        
         ksort ( $fileListSorted );
         $fileListSorted = array_reverse( $fileListSorted );
         // sorting is done
@@ -1067,9 +1083,10 @@ EOF;
 
         if( !isset( $ftpFiles[ 'poi' ] ) || !isset( $ftpFiles[ 'event' ] ) || !isset( $ftpFiles[ 'movie' ] ) )
             $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing." );
-
+        
         return $ftpFiles;
     }
+
 
     public function newStyleImport( $city, $options, $databaseManager, $importer )
     {
@@ -1092,42 +1109,37 @@ EOF;
         ImportLogger::getInstance()->end();
         $this->dieWithLogMessage( '', true );
 
+    }
 
-//        ImportLogger::getInstance()->end();
-//        $this->dieWithLogMessage( '', true );
+    private function importMoscow( $city, $type )
+    {
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, 'ru' );
+
+        $feedUrl = 'http://www.timeout.ru/london/places_msk.xml';
+        $mapperClass = 'RussiaFeedPlacesMapper';
+
+        echo 'Downloading Feed' . PHP_EOL;
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        echo 'Starting Import' . PHP_EOL;
+        // SPlit 2 and Import based on City
+        $total = $xml->venue->count();
+        $splitMiddle = (int)ceil( $total / 2 );
+
+        $startPoint = ( $type == 'moscow_1' ) ? 0 : $splitMiddle;
+        $endPoint = ( $type == 'moscow_1' ) ? $splitMiddle : $total;
         
-//        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('london', 'en-GB');
-//        $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
-//
-//        switch ($options['type']) {
-//            case 'poi-ev-mapper': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('poi'));
-//                break; //End EventsAndVenuesMapper
-//
-//            case 'poi-bars-pubs': $importer->addDataMapper(new LondonAPIBarsAndPubsMapper());
-//                break; // End BarsAndPubsMapper
-//
-//            case 'poi-restaurants': $importer->addDataMapper(new LondonAPIRestaurantsMapper());
-//                break; // End RestaurantsMapper
-//
-//            case 'poi-cinemas': $importer->addDataMapper(new LondonAPICinemasMapper());
-//                break; //End CinemasMapper
-//
-//            case 'event': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('event'));
-//                break; //End Event
-//
-//            case 'event-occurrence': $importer->addDataMapper(new LondonDatabaseEventsAndVenuesMapper('event-occurrence'));
-//                break; //End Event-Occurrence
-//
-//            case 'movie': $importer->addDataMapper(new londonDatabaseFilmsDataMapper($vendor));
-//                break; //End Movie
-//
-//            default : $this->dieDueToInvalidTypeSpecified();
-//        }
-//
-//        ImportLogger::getInstance()->setVendor($vendor);
-//        $importer->run();
-//        ImportLogger::getInstance()->end();
-//        $this->dieWithLogMessage( '', true );
+        echo ' Total :' . $total . ' | Middle: '. $splitMiddle . ' | Start: ' . $startPoint . ' | End: ' . $endPoint . PHP_EOL;
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer = new Importer( );
+        $importer->addDataMapper( new $mapperClass( $xml, null, $city, $startPoint, $endPoint ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+
+        $this->dieWithLogMessage();
     }
 
 }

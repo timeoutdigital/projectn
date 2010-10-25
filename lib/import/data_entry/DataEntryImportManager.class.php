@@ -32,6 +32,9 @@ class DataEntryImportManager
             {
                 throw new Exception( 'given importDir ' . $importDir . ' is not a valid directory' );
             }
+        }else
+        {
+             $this->importDir = $this->locateImportDir();
         }
 
     }
@@ -111,9 +114,11 @@ class DataEntryImportManager
                 throw new Exception( 'DataEntryImportManager::runImport Invalid Type ' . $type ); return; // Exit
                 break;
         }
-
         // Start Importer
         $importer->run();
+
+        // End Import Logger
+        ImportLogger::getInstance()->end();
     }
 
     /**

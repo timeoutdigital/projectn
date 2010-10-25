@@ -118,6 +118,7 @@ else
   REF='master'
 fi
 
+
 ###############
 # Set details #
 ###############
@@ -125,16 +126,14 @@ GIT_USER=git
 GIT_ROOT=timeout.unfuddle.com:timeout
 APP_REPO=$GIT_ROOT/projectn.git
 
-DEPLOY_DIR=$CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/httpdocs
 RELEASE_NAME=`date +"%Y-%m-%d-%H%M%S"`
-CURRENT_RELEASE=$CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases/$RELEASE_NAME
 
 
 #####################
 # Confirm with user #
 #####################
 
-echo -n "You are about to deploy $CONFIG_APP_NAME ($REF_TYPE:$REF) to $ENV environment do you really want to do this? (yes/no)"
+echo -n "You are about to deploy ${CONFIG_APP_NAME[*]} ($REF_TYPE:$REF) to $ENV environment do you really want to do this? (yes/no)"
 read -e CONFIRMATION
 
 if [ $CONFIRMATION != "yes" ]; then
@@ -142,31 +141,55 @@ if [ $CONFIRMATION != "yes" ]; then
  exit 1
 fi
 
+
 ##########
 # Deploy #
 ##########
 
-DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/releases &&
-                              git clone $GIT_USER@$APP_REPO $RELEASE_NAME &&
-                              cd $RELEASE_NAME &&
-                              $GIT_CHECKOUT
-                              rm -rf export/ import/ log/ web/uploads/ config/databases.yml &&
-                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/export export &&
-                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/import import &&
-                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/log log &&
-                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/uploads web/uploads &&
-                              ln -ns $CONFIG_DEPLOY_PATH/$CONFIG_APP_NAME/config/databases.yml config/databases.yml &&
-                              rm $DEPLOY_DIR &&
-                              ln -ns $CURRENT_RELEASE $DEPLOY_DIR &&
-                              ./symfony project:permissions &&
-                              ./symfony doctrine:build-model &&
-                              ./symfony doctrine:build-filters &&
-                              ./symfony doctrine:build-forms &&
-                              ./symfony cc &&
-                              ./scripts/clean_releases.sh -e $ENV"
+for APP_NAME in ${CONFIG_APP_NAME[*]}
+do
 
-echo "Deploying on $CONFIG_DEPLOY_SERVER"
-ssh -t $CONFIG_DEPLOY_USER@$CONFIG_DEPLOY_SERVER "$DEPLOY_COMMAND"
+    ############################
+    # Set APP specific details #
+    ############################
+
+    DEPLOY_DIR=$CONFIG_DEPLOY_PATH/$APP_NAME/httpdocs
+    CURRENT_RELEASE=$CONFIG_DEPLOY_PATH/$APP_NAME/releases/$RELEASE_NAME
+
+    #########################
+    # Create deploy command #
+    #########################
+
+    DEPLOY_COMMAND="cd $CONFIG_DEPLOY_PATH/$APP_NAME/releases &&
+                                  git clone $GIT_USER@$APP_REPO $RELEASE_NAME &&
+                                  cd $RELEASE_NAME &&
+                                  $GIT_CHECKOUT
+                                  rm -rf $CONFIG_DEPLOY_PATH/$APP_NAME/vendor && mv lib/vendor/ $CONFIG_DEPLOY_PATH/$APP_NAME/vendor/ &&
+                                  rm -rf export/ import/ log/ web/uploads/ config/databases.yml &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/export export &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/import import &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/log log &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/vendor lib/vendor &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/uploads web/uploads &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/config/databases.yml config/databases.yml &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/data/geocache.sqlite data/geocache.sqlite &&
+                                  rm $DEPLOY_DIR &&
+                                  ln -ns $CURRENT_RELEASE $DEPLOY_DIR &&
+                                  ./symfony project:permissions &&
+                                  ./symfony doctrine:build-model &&
+                                  ./symfony doctrine:build-filters &&
+                                  ./symfony doctrine:build-forms &&
+                                  ./symfony cc &&
+                                  ./scripts/clean_releases.sh -e $ENV"
+    ###########
+    # Execute #
+    ###########
+
+    echo "Deploying on $CONFIG_DEPLOY_SERVER, app: $APP_NAME"
+    ssh -t $CONFIG_DEPLOY_USER@$CONFIG_DEPLOY_SERVER "$DEPLOY_COMMAND"
+
+done
+
 
 #######
 # fin #
