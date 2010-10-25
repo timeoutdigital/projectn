@@ -22,83 +22,18 @@ all:
     order: [ import, export ]
   import:
     cities:
-#        -
-#          name: singapore
-#          type: [ poi-event, movie ]
-#
-#        -
-#          name: singapore
-#          language: en-US
-#          type:
-#            poi-event:
-#              
-#              mapperParams:
-#                poi_url: http://www.timeoutsingapore.com/xmlapi/venues/
-#                section: index
-#                full:
-#                key: ffab6a24c60f562ecf705130a36c1d1e
-#            movie:
-#              language: en-US
-#              mapperParams:
-#                url: http://www.timeoutsingapore.com/xmlapi/movies/
-#                section: index
-#                full:
-#                key: ffab6a24c60f562ecf705130a36c1d1e
-              
-#        -
-#          name: nyfix
-#          type: [ fixid ]
-#        -
-#          name: ny
-#          type: [ poi-event, eating-drinking, bars-clubs, movie ]
-#        -
-#          name: chicago
-#          type: [ poi, poi-bc, poi-ed, event, movie]   
+        -
+          name: nyfix
+          type: [ fixid ]
+        -
+          name: ny
+          type: [ poi-event, eating-drinking, bars-clubs, movie ]
         -
           name: chicago
-          language: en-US
-          ftp:
-            host: ftp.timeoutchicago.com
-            user: timeout
-            password: y6fv2LS8
-          type:
-            poi-bc:
-              mapper:
-                class: ChicagoFeedBCMapper
-                params:
-                  file_name: toc_bc.xml
-            poi-ed:
-              mapper:
-                class: ChicagoFeedEDMapper
-                params:
-                  file_name: toc_ed.xml
-            poi:
-              mapper:
-                class: ChicagoFeedPoiMapper
-                params:
-                  file_name: toc_leo.xml
-            event:
-              mapper:
-                class: ChicagoFeedEventMapper
-                params:
-                  file_name: toc_leo.xml
-            movie:
-              mapper:
-                class: londonDatabaseFilmsDataMapper
+          type: [ poi-bc, poi-ed, poi, event, movie ]
         -
           name: lisbon
-          language: pt
-          url: http://www.timeout.pt/
-          days_ahead: 7
-          from: <?php echo date( 'Y-m-d' ) . PHP_EOL ?>
-          to:   <?php echo date( 'Y-m-d', strtotime( '+7 day' ) ) . PHP_EOL ?>
-          type:
-            poi:
-              class: LisbonFeedVenuesMapper
-            event:
-              class: LondonDatabaseEventsAndVenuesMapper
-            movie:
-              class: LondonDatabaseEventsAndVenuesMapper
+          type: [ poi, event, movie ]
         -
           name: london
           type: [ poi-ev-mapper, poi-bars-pubs, poi-restaurant, poi-cinemas, event, event-occurrence, movie ]
