@@ -16,7 +16,7 @@ import:
           detailedurl: http://api.timeout.com/v1/getBar.xml
           apitype: Bars & pubs
 
-  poi-restaurants:
+  poi-restaurant:
     class:
       name: LondonAPIRestaurantsMapper
       params:
