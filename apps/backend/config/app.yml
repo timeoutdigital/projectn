@@ -85,40 +85,6 @@ all:
             movie:
               mapper:
                 class: londonDatabaseFilmsDataMapper
-
-        -
-          name: london
-          language: en-GB
-          type:
-            poi-ev-mapper:
-              mapper:
-                class: LondonDatabaseEventsAndVenuesMapper
-                params:
-                  type: poi
-            poi-bars-pubs:
-              mapper:
-                class: LondonAPIBarsAndPubsMapper
-                params:
-                  datasource:
-                    classname: LondonAPICrawler
-                    url: http://api.timeout.com/v1/search.xml
-                    detailedurl: http://api.timeout.com/v1/getBar.xml
-                    apitype: Bars & pubs
-            poi-restaurant:
-              class: LondonAPIRestaurantsMapper
-            poi-cinemas:
-              class: LondonAPICinemasMapper
-            event:
-              class: LondonDatabaseEventsAndVenuesMapper
-              params:
-                type: event
-            event-occurrence:
-              class: LondonDatabaseEventsAndVenuesMapper
-              params:
-                type: event-occurrence
-            movie:
-              class: londonDatabaseFilmsDataMapper
-
         -
           name: lisbon
           language: pt
@@ -133,6 +99,9 @@ all:
               class: LondonDatabaseEventsAndVenuesMapper
             movie:
               class: LondonDatabaseEventsAndVenuesMapper
+        -
+          name: london
+          type: [ poi-ev-mapper, poi-bars-pubs, poi-restaurant, poi-cinemas, event, event-occurrence, movie ]
         -
           name: sydney
           type: [ poi, event, movie ]
