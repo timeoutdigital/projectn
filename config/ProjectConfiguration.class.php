@@ -16,6 +16,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfFormExtraPlugin');
     $this->enablePlugins('sfJqueryReloadedPlugin');
     $this->enablePlugins('projectnStatisticsPlugin');
+    $this->enablePlugins('projectnExportstatsPlugin');
   }
 
   static public function registerHTMLPurifier()

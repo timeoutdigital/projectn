@@ -70,9 +70,6 @@ poi_category:
     column:               id
     with_wildcard_routes: true
 
-dashboard:
-  url:   /dashboard
-  param: { module: dashboard, action: index }
 geocode_ui:
   class: sfDoctrineRouteCollection
   options:
