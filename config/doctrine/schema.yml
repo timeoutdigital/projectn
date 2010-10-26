@@ -15,7 +15,7 @@ Poi:
     poi_name:                   {type: string(80), notnull: true, minlength: 1 } # @todo should be 'name'
     house_no:                   {type: string(32), notnull: false}
     street:                     {type: string(255), notnull: false}
-    city:                       {type: string(32), notnull: true, minlength: 1}
+    city:                       {type: string(32), notnull: true, minlength: 1, regexp: '/^[^0-9]+/' }
     district:                   {type: string(128), notnull: false}
     country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
     additional_address_details: {type: string(1024), notnull: false}
