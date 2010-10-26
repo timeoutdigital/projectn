@@ -690,8 +690,8 @@ class importTask extends sfBaseTask
         {
             // Download the File
             $feedCurl           = new Curl( $feedUrl );
-            new FeedArchiver( $vendor, $feedObj->getResponse(), $options['type'] );
             $feedCurl->exec();
+            new FeedArchiver( $vendor, $feedObj->getResponse(), $options['type'] );
 
             $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
 
@@ -960,7 +960,7 @@ class importTask extends sfBaseTask
             echo "Downloading B/C's feed \n";
             $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
 
-            new FeedArchiver( $vendorObj, file_get_content( $fileNameString ), 'bc' );
+            new FeedArchiver( $vendorObj, file_get_contents( $fileNameString ), 'bc' );
 
             echo "Parsing Ny's B/C's feed \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
@@ -987,7 +987,7 @@ class importTask extends sfBaseTask
             echo "Downloading E/D's feed \n";
             $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
 
-            new FeedArchiver( $vendorObj, file_get_content( $fileNameString ), 'ed' );
+            new FeedArchiver( $vendorObj, file_get_contents( $fileNameString ), 'ed' );
 
             echo "Parsing Ny's E/D's feed \n";
             $processXmlObj = new processNyBcXml( $fileNameString );
