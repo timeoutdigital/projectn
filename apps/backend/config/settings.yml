@@ -36,4 +36,4 @@ all:
     use_database:           true
 
         #enable the plugins
-    enabled_modules: [default, statistics, exportstats]
+    enabled_modules: [default, statistics, exportstats, dashboard ]

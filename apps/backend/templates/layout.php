@@ -45,6 +45,9 @@
           <li>
             <?php echo link_to('Export Stats', 'exportstats/index') ?> /
           </li>
+          <li>
+            <?php echo link_to('Dashboard', 'dashboard/index') ?> 
+          </li>
         </ul>
       </div>
       <div class="clear"></div>
