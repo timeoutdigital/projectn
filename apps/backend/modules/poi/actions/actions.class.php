@@ -15,34 +15,12 @@ class poiActions extends autoPoiActions
 {
   public function executeResolve(sfWebRequest $request)
   {
-    $importErrorId = $request->getGetParameter( 'import_error_id' );
-    if( is_numeric( $importErrorId ) )
-    {
-        $logImportRecord = Doctrine::getTable( 'LogImportError' )->findOneById( $importErrorId );
-
-        if( is_object( $logImportRecord ) && $logImportRecord instanceof LogImportError && isset( $logImportRecord[ 'serialized_object' ] ) )
-        {
-            $serializedObj = unserialize( $logImportRecord[ 'serialized_object' ] );
-
-            if( is_numeric( $serializedObj['id'] ) )
-            {
-                $poi = Doctrine::getTable( 'Poi' )->findOneById( $serializedObj['id'] );
-                $poi->merge( $serializedObj );
-            }
-
-            else $poi = $serializedObj;
-        }
-    }
-    else $this->getUser()->setFlash('error', 'Import Error ID Not Numeric' );
+    $record = LogImportErrorHelper::loadAndUnSerialize( $this, $request );
     
-    $this->form = $this->configuration->getForm( isset( $poi ) ? $poi : null );
+    $this->form = $this->configuration->getForm( isset( $record ) ? $record : null );
     $this->poi = $this->form->getObject();
 
     $this->setTemplate('new');
-
-    // Flag Error Resolved.
-    // Apply Overrides.
-    // Return User
   }
 
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/

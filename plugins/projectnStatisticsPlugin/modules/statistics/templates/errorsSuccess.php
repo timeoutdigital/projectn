@@ -29,8 +29,8 @@
                             <td><a href="statistics/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
                         <?php } else if( $k == 'trace'){ ?>
                             <td><a href="statistics/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
-                        <?php } else if( $k == 'resolved' ){ ?>
-                            <td><a href="poi/resolve?import_error_id=<?php echo $error['id'] ; ?>" target="_blank">resolve</a></td>
+                        <?php } else if( $k == 'resolved' && in_array( $error['model'], array('Poi','Event','Movie') ) ){ ?>
+                            <td><a href="<?php echo strtolower( $error['model'] ); ?>/resolve?import_error_id=<?php echo $error['id'] ; ?>" target="_blank">resolve</a></td>
                         <?php } else { ?>
                             <td><?php echo $v; ?></td>
                         <?php } ?>
