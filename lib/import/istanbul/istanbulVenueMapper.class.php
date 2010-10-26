@@ -84,7 +84,7 @@ class istanbulVenueMapper extends istanbulBaseMapper
 
             foreach( $venueElement->medias->media as $media )
             {
-                $poi->addMediaByUrl( (string) $media );
+                $this->addImageHelper( $poi, (string) $media ); //#753 addImageHelper capture Exception and notify, this don't break the Import process
             }
             $this->notifyImporter( $poi );
         }

@@ -66,14 +66,9 @@ class sydneyFtpEventsMapper extends DataMapper
             $event['FreeProperty'] = true;
 
 
-          // Try Catch Erro's when getting Headers!
-          try {
-            $event->addMediaByUrl( (string) $eventNode->ImagePath );
-          }
-          catch( Exception $e )
-          {
-            $this->notifyImporterOfFailure($e);
-          }
+          //#753 addImageHelper capture Exception and notify, this don't break the Import process
+          $this->addImageHelper( $event, (string) $eventNode->ImagePath );
+          
 
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 
