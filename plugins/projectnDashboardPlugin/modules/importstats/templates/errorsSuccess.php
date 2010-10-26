@@ -26,9 +26,9 @@
                 <?php foreach( $error as $k => $v ){ ?>
                     <?php if( !is_array( $v ) && !in_array( $k, $ignore ) ){ ?>
                         <?php if( $k == 'serialized_object'){ ?>
-                            <td><a href="statistics/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
+                            <td><a href="importstats/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
                         <?php } else if( $k == 'trace'){ ?>
-                            <td><a href="statistics/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
+                            <td><a href="importstats/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
                         <?php } else { ?>
                             <td><?php echo $v; ?></td>
                         <?php } ?>

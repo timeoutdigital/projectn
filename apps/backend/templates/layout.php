@@ -43,10 +43,7 @@
             <?php echo link_to('Geocode UI', '@geocode_ui') ?> /
           </li>
           <li>
-            <?php echo link_to('Export Stats', 'exportstats/index') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Dashboard', 'dashboard/index') ?> 
+            <?php echo link_to('Export Stats', 'exportstats/index') ?>
           </li>
         </ul>
       </div>
