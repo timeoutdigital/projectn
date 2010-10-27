@@ -691,7 +691,7 @@ class importTask extends sfBaseTask
             // Download the File
             $feedCurl           = new Curl( $feedUrl );
             $feedCurl->exec();
-            new FeedArchiver( $vendor, $feedObj->getResponse(), $options['type'] );
+            new FeedArchiver( $vendor, $feedCurl->getResponse(), $options['type'] );
 
             $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
 
