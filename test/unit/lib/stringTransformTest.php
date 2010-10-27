@@ -54,6 +54,21 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   protected function setUp() {
   }
 
+  public function testByteToHumanReadable()
+  {
+      // valid test
+      $this->assertEquals( '1 kb', stringTransform::byteToHumanReadable( 1024 ), ' Should be 1KB');
+      $this->assertEquals( '1 mb', stringTransform::byteToHumanReadable( 1024 * 1024 ) );
+      $this->assertEquals( '1 gb', stringTransform::byteToHumanReadable( 1024 * 1024 * 1024 ) );
+      $this->assertEquals( '1 tb', stringTransform::byteToHumanReadable( 1024 * 1024 * 1024 * 1024 ) );
+      $this->assertEquals( '1 pb', stringTransform::byteToHumanReadable( 1024 * 1024 * 1024 * 1024 * 1024 ) );
+
+      // invalid
+
+      $this->assertEquals( NAN , stringTransform::byteToHumanReadable( 'invalid' ) );
+      $this->assertEquals( NAN , stringTransform::byteToHumanReadable( -1245 ) );
+  }
+
   /**
    * Load a comprehensive list of timeinfo strings (delimeted by ^^) and try to
    * apply the extractTimeRangesFromText() & extractTimesFromText() functions, and see what happens.

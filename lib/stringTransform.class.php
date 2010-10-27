@@ -39,8 +39,13 @@ class stringTransform
    */
   public static function byteToHumanReadable( $size )
   {
+      if( !is_numeric( $size ) || $size <= 0 )
+      {
+          return NAN;
+      }
+
     $unit=array('b','kb','mb','gb','tb','pb');
-    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '. $unit[$i];
   }
 
    /**
