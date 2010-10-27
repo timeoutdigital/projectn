@@ -43,25 +43,90 @@ class importBoundariesCheck
         // set options
         $this->options = is_array( $options ) ? $options : array();
         $this->errors = array();
+
+        // Load Vendors
+        $this->vendors = Doctrine::getTable( 'Vendor' )->findAll( 'KeyValue' );
+        // Load config file
+        $this->loadAndParseConfig( );
+    }
+
+    public function getPrcentageDiffByXDays( $days, $filterVendorID = null )
+    {
+        if( $days == null || !is_numeric($days) || $days <= 0)
+        {
+            throw new ImportBoundariesCheckException( 'getPrcentageDiffByXDays invalid $days, Days should be positive integer value' );
+        }
+
+        if( $filterVendorID !== null && !isset( $this->vendors[$filterVendorID] ) )
+        {
+            throw new ImportBoundariesCheckException( 'getPrcentageDiffByXDays vendor not found' );
+        }
+
+        // Get the Import Log and Filter out by Dates
+        $backDateNumber = intval( $days * 2 );
+        $todayDate = date( 'Y-m-d', strtotime( '+1 day') );
+        $firstDate = date( 'Y-m-d', strtotime( "-{$backDateNumber} day" ) );
+        
+        $changesArray = array();
+
+        // Loop through vendor
+        foreach( $this->vendors as $vendorID => $city )
+        {
+            if( isset($vendorID) && is_numeric( $filterVendorID ) && $filterVendorID != $vendorID)
+            {
+                continue; // Requested Only 1 vendor
+            }
+
+            // get the import log and count
+            $importLogCount = Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecords( $vendorID, $firstDate, $todayDate, Doctrine_Core::HYDRATE_ARRAY );
+            $importLogCountByDate = $this->extractStats( $importLogCount );
+
+            // Check to confirm we have All required Log
+            if( !is_array($importLogCountByDate) || count($importLogCountByDate) != $backDateNumber || ( count($importLogCountByDate) % $days ) != 0 )
+            {
+                $this->addError( "{$city} - getPrcentageDiffByXDays invalid number of logs found, unable to process any further. Total Number of Records found: " . count($importLogCountByDate) );
+                continue;
+            }
+
+            // split result
+            $importLogChunk = array_chunk( $importLogCountByDate, $days, true );
+
+            // Add them Up
+            $defaults = array( 'poi' => 0, 'event' => 0, 'movie' => 0 , 'eventoccurrence' => 0 );
+            $sumOfArrays = array( $defaults, $defaults );
+            
+            foreach( $importLogChunk as $key => $modelValue )
+            {
+                foreach( $modelValue as $dateCount )
+                {
+                    foreach( $dateCount as $model => $importCount )
+                    {
+                        $sumOfArrays[ $key ][ strtolower( $model) ] += array_sum( $importCount);
+                    }
+                }
+            }
+
+            // calculate the Differences in percentage
+            foreach( $sumOfArrays[ 0 ] as $model => $value )
+            {
+                if( $value == 0 || $sumOfArrays[ 1 ][ $model ] == 0 )
+                {
+                    // Error Devided by Zero!
+                    $this->addError( "Unable to calculate variant for {$city}::{$model}, devide or by 0 [ First Value: {$value}, Second Value: {$sumOfArrays[ 1 ][ $model ]}]." );
+                    continue;
+                }
+                // calculate variant
+                $changesArray[ $city ][ $model ] = ( ( ($sumOfArrays[ 1 ][ $model ] / $days ) ) / ( ( $value / $days ) ) );
+                $changesArray[ $city ][ $model ] =  ( (  $changesArray[ $city ][ $model ] * 100 ) - 100 ); // Get change Percentage
+            }
+
+        }// $vendor
+
+        return $changesArray;
     }
 
     public function getErrors()
     {
-        // Load Vendors
-        $this->vendors = Doctrine::getTable( 'Vendor' )->findAll( 'KeyValue' );
-
-        // get Yaml file location
-        $configFile = ( !isset( $this->options['yml'] ) || $this->options['yml'] == null ) ? sfConfig::get('sf_config_dir') . DIRECTORY_SEPARATOR . 'importBoundaries.yml' : $this->options['yml'];
-
-        // check YAML file exists
-        if( !file_exists( $configFile ) )
-        {
-            throw new ImportBoundariesCheckException( "YAML file not found, at {$configFile}" );
-        }
-
-        // Load the YML config File and Parse it into Config
-        $config = sfYaml::load( $configFile );
-        $this->parseConfig( $config );
 
         $todayDate = date( 'Y-m-d' );
         $yesterdayDate = date( 'Y-m-d', strtotime( '-1 day' ) );
@@ -145,11 +210,23 @@ class importBoundariesCheck
     }
 
     /**
+     * Load Config YMAL file and
      * Parse Loaded YML file into config with All vendors and Overrides as specified in YML file
-     * @param Array $ymlData
      */
-    private function parseConfig( $ymlData )
+    private function loadAndParseConfig( )
     {
+        // get Yaml file location
+        $configFile = ( !isset( $this->options['yml'] ) || $this->options['yml'] == null ) ? sfConfig::get('sf_config_dir') . DIRECTORY_SEPARATOR . 'importBoundaries.yml' : $this->options['yml'];
+
+        // check YAML file exists
+        if( !file_exists( $configFile ) )
+        {
+            throw new ImportBoundariesCheckException( "YAML file not found, at {$configFile}" );
+        }
+
+        // Load the YML config File and Parse it into Config
+        $ymlData = sfYaml::load( $configFile );
+        
         // Reset Variables
         $this->config = array();
         $this->excludedVendors = array();

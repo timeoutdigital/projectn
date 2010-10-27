@@ -43,6 +43,106 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
+    public function testGetPrcentageDiffByXDaysForAVendor()
+    {
+        $days = 1; // Number of days to compare the Average! 1 == 2 ( $days * 2 )
+        $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
+        $today     = date('Y-m-d H:i:s' );
+
+        // generate YAML file
+        $ymlFilename = $this->generateYamlAndReturnPath();
+
+        // Add LogImports for yesterday
+        $this->addLogImport( 1, $yesterday );
+
+        // Add LogImports for today
+        $this->addLogImport( 1, $today );
+
+        //Add LogImport Count for yesterday
+        $this->addLogImportCount( 1, "Poi", 20 );
+        $this->addLogImportCount( 1, "Event", 15 );
+        $this->addLogImportCount( 1, "Movie", 20 );
+
+        //Add LogImport Count for today
+        $this->addLogImportCount( 2, "Poi", 10 );
+        $this->addLogImportCount( 2, "Event", 15 );
+        $this->addLogImportCount( 2, "Movie", 21 );
+        
+        // have to clear OLD errors
+        $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
+
+        $changes = $importCheck->getPrcentageDiffByXDays( $days, 1 );
+
+        $this->assertTrue( is_array($changes ), 'return should be an Array' );
+        $this->assertEquals( 1, count( $changes), 'Since we send Vendor, it should only return One Set of result' );
+        $keys = array_keys( $changes );
+        $this->assertEquals( 'ny', $keys[0], 'Key NY should be in Array');
+        $this->assertEquals( 3, count( $changes['ny'] ), 'NY should have 3 Models calculations' );
+        $this->assertEquals( -50, $changes['ny']['poi'], 'NY:Poi should show 50% Drop (-50)' );
+        $this->assertEquals( 0, $changes['ny']['event'], 'NY:Event should show 0% change' );
+        $this->assertEquals( 5, $changes['ny']['movie'], 'NY:Movie should show 5% Increase (5)' );
+
+        unlink( $ymlFilename );
+        
+    }
+    
+    public function testGetPrcentageDiffBy7DaysForAVendor()
+    {
+        $days = 7; // Number of days to compare the Average! 7 == 14 ( $days * 2 )
+        $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
+        $today     = date('Y-m-d H:i:s' );
+
+        // generate YAML file
+        $ymlFilename = $this->generateYamlAndReturnPath();
+
+        // Add LogImports
+        for( $i = ($days *2); $i >= 1 ; $i-- )
+        {
+            $logImport = $this->addLogImport( 1, date('Y-m-d H:i:s' , strtotime( "-{$i} day" ) ) );
+            $logCount = $this->addLogImportCount( $logImport->id, "Poi", 10 );
+            $logCount = $this->addLogImportCount( $logImport->id, "Event", 10 );
+            $logCount = $this->addLogImportCount( $logImport->id, "Movie", 10 );
+        }
+
+        $this->assertEquals( 14, Doctrine::getTable( 'LogImport' )->findAll()->count() );
+        $this->assertEquals( ( 14 * 3 ), Doctrine::getTable( 'LogImportCount' )->findAll()->count() );
+        
+        // Set some figures for testing
+        $this->addLogImportCount( 1, "Poi", 5, 'failed');
+        $this->addLogImportCount( 1, "Movie", 3, 'failed');
+        $this->addLogImportCount( 4, "Movie", 1, 'failed');
+        $this->addLogImportCount( 4, "Poi", 6, 'failed');
+        $this->addLogImportCount( 7, "Poi", 6, 'failed');
+        $this->addLogImportCount( 7, "Event", 8, 'failed');
+        $this->addLogImportCount( 8, "Event", 5, 'failed');
+        $this->addLogImportCount( 9, "Poi", 5, 'failed');
+        $this->addLogImportCount( 10, "Poi", 2, 'failed');
+        $this->addLogImportCount( 13, "Movie", 2, 'failed');
+        $this->addLogImportCount( 14, "Event", 8, 'failed');
+        $this->addLogImportCount( 1, "EventOccurrence", 1, 'failed');
+        $this->addLogImportCount( 14, "EventOccurrence", 1, 'failed');
+        
+        // Get the Percentage changes
+        $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
+
+        $changes = $importCheck->getPrcentageDiffByXDays( $days );
+
+        $this->assertTrue( is_array($changes ), 'return should be an Array' );
+        $this->assertEquals( 1, count( $changes), 'There should be 1 vendor, as other should not be included since they dont have any Logs' );
+        $keys = array_keys( $changes );
+        $this->assertEquals( 'ny', $keys[0], 'Key NY should be in Array');
+        $this->assertEquals( 4, count( $changes['ny'] ), 'NY should have 4 Models calculations, it has EventOccurrence' );
+
+        // Check calculations, it returned in float values
+        $this->assertEquals( "-11.4943", round($changes['ny']['poi'], 4), 'NY:Poi should show 15% Drop (-15)' );
+        $this->assertEquals( "6.4103", round($changes['ny']['event'], 4), 'NY:Event should show 0% Change' );
+        $this->assertEquals( "-2.7027", round($changes['ny']['movie'], 4), 'NY:Movie should show 0% Change' );
+        $this->assertEquals( 0, $changes['ny']['eventoccurrence'], 'NY:EventOccurrence should show 0 change' );
+
+        unlink( $ymlFilename );
+
+    }
+
     /**
      * In this test, we are testing the TASK this class is written FOR
      */
@@ -75,8 +175,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
         
         // Add LogImports for yesterday
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 1,
-                                                          'created_at' => $yesterday ) );   // Log Import ID: 1
+        $this->addLogImport( 1, $yesterday ); // for Vendor [ Ny ]
 
         // get the Errors
         $errors = $this->getErrors( );
@@ -95,16 +194,12 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $today     = date('Y-m-d H:i:s' );
 
         // Add LogImports for today
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 1,
-                                                          'created_at' => $today ) );       // Log Import ID: 1
-
+        $this->addLogImport( 1, $today ); // for Vendor [ Ny ]
 
         // add Logs to Make today voundaries are VALID for importboundaries to check for percentage DROP
         //Add LogImports for today
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 1,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'insert',
-                                                               'count'         => 10 ) );
+        $this->addLogImportCount( 1, 'Poi', 10 , 'insert'); // Make it Zero to archive Devided By Zero
+        
         // get the Errors
         $errors = $this->getErrors( );
 
@@ -144,22 +239,15 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $today     = date('Y-m-d H:i:s' );
 
         // Add LogImports for yesterday
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 1,
-                                                          'created_at' => $yesterday ) );   // Log Import ID: 1
+        $this->addLogImport( 1, $yesterday ); // for Vendor [ Ny ]
+        
         // Add LogImports for today
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 1,
-                                                          'created_at' => $today ) );   // Log Import ID: 2
+        $this->addLogImport( 1, $today ); // for Vendor [ Ny ]
+        
 
         //Add LogImport Count for yesterday
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 1,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'failed',
-                                                               'count'         => 0) ); // Make it Zero to archive Devided By Zero
-        //Add LogImport Count for today
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 2,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'existing',
-                                                               'count'         => 10) ); // Make it valid, so it will pass through the Fell behind Error message
+        $this->addLogImportCount( 1, 'Poi', 0 , 'failed'); // Make it Zero to archive Devided By Zero
+        $this->addLogImportCount( 2, 'Poi', 10 , 'existing'); // Make it valid, so it will pass through the Fell behind Error message
 
         // get the Errors
         $errors = $this->getErrors( );
@@ -177,43 +265,21 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $today     = date('Y-m-d H:i:s' );
 
         // Add LogImports for yesterday
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 1, // for Vendor 3 [ Ny ]
-                                                          'created_at' => $yesterday ) );   // Log Import ID: 1
+        
+        $this->addLogImport( 1, $yesterday ); // for Vendor 3 [ Ny ]
+        $this->addLogImport( 3, $yesterday ); // for Vendor 3 [ London ]
 
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 3, // for Vendor 3 [ London ]
-                                                          'created_at' => $yesterday ) );   // Log Import ID: 2
         // Add LogImports for today
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 1, // for Vendor 3 [ Ny ]
-                                                          'created_at' => $today ) );   // Log Import ID: 3
-
-        ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => 3, // for Vendor 3 [ London ]
-                                                          'created_at' => $today ) );   // Log Import ID: 4
+        $this->addLogImport( 1, $today ); // for Vendor 3 [ Ny ]
+        $this->addLogImport( 3, $today ); // for Vendor 3 [ London ]
+        
 
         //Add LogImport Count for yesterday
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 1,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'existing',
-                                                               'count'         => 7) ); // 7 should fell behind the minimum boundary
-        
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 2,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'existing',
-                                                               'count'         => 5) ); // 5 and when today's cound drop more than 2% it should throw error
-        //Add LogImport Count for today
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 3,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'failed',
-                                                               'count'         => 7) ); // 7 should fell behind the minimum boundary
-
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 4,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'insert',
-                                                               'count'         => 1) );
-        
-        ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => 4,
-                                                               'model'         => 'Poi',
-                                                               'operation'     => 'failed',
-                                                               'count'         => 1) ); // insert + failed = 2 that is (100 - ( ( 2 / 5 ) * 100 ) ) = 60% drop
+        $this->addLogImportCount( 1, 'Poi', 7 , 'existing'); // 7 should fell behind the minimum boundary
+        $this->addLogImportCount( 2, 'Poi', 5 , 'existing'); // 5 and when today's cound drop more than 2% it should throw error
+        $this->addLogImportCount( 3, 'Poi', 7 , 'failed'); // 7 should fell behind the minimum boundary
+        $this->addLogImportCount( 4, 'Poi', 1 , 'insert'); // insert + failed = 2 that is (100 - ( ( 2 / 5 ) * 100 ) ) = 60% drop
+        $this->addLogImportCount( 4, 'Poi', 1 , 'failed'); // insert + failed = 2 that is (100 - ( ( 2 / 5 ) * 100 ) ) = 60% drop
 
         // get the Errors
         $errors = $this->getErrors( );
@@ -279,11 +345,26 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
 
         // have to clear OLD errors
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
-        return $importCheck->getErrors();
 
-        unset( $importCheck ) ;
-        // End
         unlink( $ymlFilename ); // Remove the TMP file
+
+        return $importCheck->getErrors();        
+    }
+
+    private function addLogImport( $vendorID, $date )
+    {
+        $logImport = ProjectN_Test_Unit_Factory::add( 'LogImport', array('vendor_id'  => $vendorID,
+                                                          'created_at' => $date ) );   // Log Import ID: 1
+        return $logImport;
+    }
+    
+    private function addLogImportCount( $logImportID, $model, $count = 10, $status = 'existing' )
+    {
+        $count = ProjectN_Test_Unit_Factory::add( 'LogImportCount', array('log_import_id' => $logImportID,
+                                                               'model'         => ucfirst( $model ),
+                                                               'operation'     => $status,
+                                                               'count'         => $count) );
+        return $count;
     }
 }
 
