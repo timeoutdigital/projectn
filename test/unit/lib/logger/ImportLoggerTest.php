@@ -101,12 +101,12 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 1, $logger->LogImportCount[1]['count'], "Expecting Event Failure Count to be 1" );
 
         $this->assertEquals( 2, $logger->LogImportError->count(), "Expecting Two Sets of Errors" );
-        $this->assertEquals( 'Exception', $logger->LogImportError[0]['exception_class'], "Expecting exception_class to be Exception" );
-        $this->assertEquals( 'Poi', $logger->LogImportError[0]['model'], "Expecting Model to be POI" );
-        $this->assertEquals( 'foo', $logger->LogImportError[0]['message'], "Expecting Message to be set." );
-        $this->assertEquals( 'MediaException', $logger->LogImportError[1]['exception_class'], "Expecting exception_class to be MediaException" );
-        $this->assertEquals( 'Event', $logger->LogImportError[1]['model'], "Expecting Model to be POI" );
-        $this->assertEquals( 'bar', $logger->LogImportError[1]['message'], "Expecting Message to be set." );
+        $this->assertEquals( 'Exception', $logger->LogImportError[1]['exception_class'], "Expecting exception_class to be Exception" );
+        $this->assertEquals( 'Poi', $logger->LogImportError[1]['model'], "Expecting Model to be POI" );
+        $this->assertEquals( 'foo', $logger->LogImportError[1]['message'], "Expecting Message to be set." );
+        $this->assertEquals( 'MediaException', $logger->LogImportError[0]['exception_class'], "Expecting exception_class to be MediaException" );
+        $this->assertEquals( 'Event', $logger->LogImportError[0]['model'], "Expecting Model to be POI" );
+        $this->assertEquals( 'bar', $logger->LogImportError[0]['message'], "Expecting Message to be set." );
         //print_r( $logger->toArray() );
     }
 
