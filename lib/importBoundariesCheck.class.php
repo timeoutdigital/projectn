@@ -125,9 +125,8 @@ class importBoundariesCheck
         return $changesArray;
     }
 
-    public function getErrors()
+    public function processImportLog()
     {
-
         $todayDate = date( 'Y-m-d' );
         $yesterdayDate = date( 'Y-m-d', strtotime( '-1 day' ) );
 
@@ -195,7 +194,10 @@ class importBoundariesCheck
                 }
             } // foreach city > model
         }
-
+    }
+    
+    public function getErrors()
+    {
         // return error messages
         return $this->errors;
     }

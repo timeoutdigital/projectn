@@ -345,7 +345,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
 
         // have to clear OLD errors
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
-
+        $importCheck->processImportLog();
         unlink( $ymlFilename ); // Remove the TMP file
 
         return $importCheck->getErrors();        
