@@ -12,7 +12,7 @@ class dashboardActions extends sfActions
 {
     public function executeIndex( sfWebRequest $request)
     {
-        $startDate  = strtotime("-60 days");
+        $startDate  = strtotime("-120 days");
         $endDate    = time();
 
         $this->graphData = array();
