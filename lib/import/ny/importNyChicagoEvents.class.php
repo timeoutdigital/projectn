@@ -401,9 +401,6 @@ class importNyChicagoEvents
             //The Poi gets its categories from the event if it doesn't have any
             if( count( $occurrence['Poi']['VendorPoiCategory']) == 0)
             {
-
-                print_r( $occurrence['Poi']->toArray() );
-                //die;
                 $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
             }
 
@@ -473,7 +470,6 @@ class importNyChicagoEvents
 
                 //set poi id
                 $venueObj = Doctrine::getTable('Poi')->findOneByVendorIdAndVendorPoiId( $this->_vendorObj['id'], (string) $occurrence->venue[0]->address_id );
-                var_dump( $venueObj === false );
 
                 $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
