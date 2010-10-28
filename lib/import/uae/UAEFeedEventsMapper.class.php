@@ -79,13 +79,11 @@ class UAEFeedEventsMapper extends UAEFeedBaseMapper
                         $event['EventOccurrence'][]                 = $occurrence;
                     }// occurrence
                 }
-
+                
                 // save
-                $event->save();
-                $event->free( true );
+                $this->notifyImporter( $event );
 
             }catch( Exception $exc ){
-                echo 'UAEFeedEventsMapper::mapEvents - ' . $exc->getTraceAsString() . PHP_EOL;
                 $this->notifyImporterOfFailure( $exc );
             }
         } // foreach

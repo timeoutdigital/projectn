@@ -1,0 +1,30 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           poi
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          geocode_ui
+    with_doctrine_route:   1
+    actions_base_class:    sfActions
+
+    config:
+      actions: []
+      fields:  ~
+      list:
+        title: Poi Geocodes
+        sort:               [created_at, desc]
+        display:            [_edit_poi, _poi_name, _street, _city, latitude, longitude, _duplicate]
+        batch_actions: []
+        actions: []
+        object_actions: []
+
+      filter:
+         class: PoiDataEntryFormFilter
+         display: [ _vendor_id, poi_name, latitude, longitude, _list_filter ]
+      form:    ~
+      edit:    ~
+      new:     ~

@@ -22,6 +22,7 @@ class ProjectN_Test_Unit_Factory
   	$manager = new sfDatabaseManager( $config );
 
     Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine' );
+    ImportLogger::getInstance()->enabled( false );
   }
 
   /**
@@ -99,6 +100,7 @@ class ProjectN_Test_Unit_Factory
       'movieproperty'       => 'MoviePropertyFixture',
       'vendoreventcategory' => 'VendorEventCategoryFixture',
       'vendorpoicategory'   => 'VendorPoiCategoryFixture',
+      'uicategory'          => 'UiCategoryFixture',
     );
 
     $model = strtolower( $model );
@@ -505,6 +507,30 @@ class VendorPoiCategoryFixture
   }
 }
 
+class UiCategoryFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = self::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $record = new UiCategory();
+    $record->fromArray( $defaults );
+
+    return $record;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name'       =>  'test name',
+    );
+  }
+}
 
 class mockgeocoder extends geocoder
 {

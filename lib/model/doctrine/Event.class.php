@@ -13,6 +13,15 @@
 class Event extends BaseEvent
 {
   /**
+   * cache for vendorCategories
+   *
+   * @var array
+   */
+  private static $vendorCategories;
+
+
+
+  /**
    * Attempts to fix and / or format fields, e.g. url
    */
   public function applyFixes()
@@ -53,7 +62,7 @@ class Event extends BaseEvent
             $this[ $field ] = html_entity_decode( $this[ $field ], ENT_QUOTES, 'UTF-8' );
 
             // Refs #525 - Trim All Text fields on PreSave
-            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ] );
+            if($this[ $field ] !== null) $this[ $field ] = stringTransform::mb_trim( $this[ $field ], ',' );
 
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) =='' ) $this[ $field ] = null;
@@ -197,7 +206,7 @@ class Event extends BaseEvent
     if( !is_array($name) )
         $name = array( $name );
 
-    $name = stringTransform::concatNonBlankStrings(' | ', $name);
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
 
     //#645 if the category is Film save it as Art
     if( strtolower( $name ) == 'film' )
@@ -208,6 +217,9 @@ class Event extends BaseEvent
     if( stringTransform::mb_trim($name) == '' )
         return false;
 
+    // This will enable the ussage of String Index insted of numeric Index in Doctrine Collection array
+    $this[ 'VendorEventCategory' ]->setKeyColumn( 'name' );
+    
     foreach( $this[ 'VendorEventCategory' ] as $existingCategory )
     {
       // This will unlink all vendor category relationships that dont match the event vendor.
@@ -215,16 +227,35 @@ class Event extends BaseEvent
           $this->unlinkInDb( 'VendorEventCategory', array( $existingCategory[ 'id' ] ) );
     }
 
-    $vendorEventCategoryObj = new VendorEventCategory();
-    $vendorEventCategoryObj[ 'name' ] = $name;
-    $vendorEventCategoryObj[ 'vendor_id' ] = $vendorId;
+    if( is_null( self::$vendorCategories ) || !isset( self::$vendorCategories[ $vendorId ]) )
+    {
+        if( is_null( self::$vendorCategories ) )
+        {
+            self::$vendorCategories = array();
+        }
 
-    $recordFinder = new recordFinder();
-    $uniqueRecord = $recordFinder->findEquivalentOf( $vendorEventCategoryObj )
-                                     ->comparingAllFieldsExcept( 'id' )
-                                     ->getUniqueRecord();
+        self::$vendorCategories[ $vendorId ] = array();
+        $vendorEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findByVendorId( $vendorId );
+        foreach( $vendorEventCategories as $vendorCategory )
+        {
+            $vendorCategoryName = $vendorCategory['name'];
+            self::$vendorCategories[ $vendorId ][ $vendorCategoryName ] = $vendorCategory;
+        }
+    }
 
-    $this[ 'VendorEventCategory' ][ $name ] = $uniqueRecord;
+    if( key_exists( $name, self::$vendorCategories[ $vendorId ] ) )
+    {
+      $category = self::$vendorCategories[ $vendorId ][ $name ];
+    }
+    else
+    {
+      $category = new VendorEventCategory();
+      $category[ 'name' ] = $name;
+      $category[ 'vendor_id' ] = $vendorId;
+      self::$vendorCategories[ $vendorId ][ $name ] = $category;
+    }
+    
+    $this[ 'VendorEventCategory' ][ $name ] = $category;
   }
 
   /**
@@ -308,6 +339,11 @@ class Event extends BaseEvent
         $eventMetaObj[ 'comment' ] = (string) $comment;
 
     $this[ 'EventMeta' ][] = $eventMetaObj;
+  }
+
+  public static function resetVendorCategoryCache()
+  {
+      self::$vendorCategories = null;
   }
 
 }

@@ -464,6 +464,46 @@ Vendor:
     country_code_long:        TUR
     geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
 
+  v34:
+    city:                     rio de janeiro
+    language:                 pt-br
+    time_zone:                Brazil/East
+    inernational_dial_code:   +55
+    airport_code:             GIG
+    country_code:             br
+    country_code_long:        BRA
+    geo_boundries:            '-33.7507133483887;-73.9855499267578;5.2648777961731;-32.392993927002'
+
+  v35:
+    city:                     sao paulo
+    language:                 pt-br
+    time_zone:                Brazil/East
+    inernational_dial_code:   +55
+    airport_code:             GIG
+    country_code:             br
+    country_code_long:        BRA
+    geo_boundries:            '-33.7507133483887;-73.9855499267578;5.2648777961731;-32.392993927002'
+
+  v36:
+    city:                     shanghai
+    language:                 zh-Hans
+    time_zone:                Asia/Shanghai
+    inernational_dial_code:   +86
+    airport_code:             PVG
+    country_code:             cn
+    country_code_long:        CHN
+    geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
+    
+  v37:
+    city:                     shanghai_en
+    language:                 en-GB
+    time_zone:                Asia/Shanghai
+    inernational_dial_code:   +86
+    airport_code:             SHA
+    country_code:             cn
+    country_code_long:        CHN
+    geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
+
 EventCategory:
   c1:
     name:                movies
