@@ -7,6 +7,7 @@ define( 'TO_TEST_IMPORT_PATH', TO_TEST_ROOT_PATH . '/import' );
 define( 'TO_TEST_MOCKS', TO_TEST_ROOT_PATH . '/mocks' );
 
 ini_set( 'date.timezone', 'Europe/London' );
+error_reporting( E_ALL | E_STRICT );
 
 class ProjectN_Test_Unit_Factory
 {
@@ -23,6 +24,7 @@ class ProjectN_Test_Unit_Factory
 
     Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine' );
     ImportLogger::getInstance()->enabled( false );
+    error_reporting( E_ALL | E_STRICT );
   }
 
   /**
