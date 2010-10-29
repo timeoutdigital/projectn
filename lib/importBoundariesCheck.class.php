@@ -340,7 +340,9 @@ class importBoundariesCheck
      */
     protected function extractImportStats( array $array )
     {
-        $metrics = array( 'insert' => 0, 'failed' => 0, 'updated' => 0, 'existing' => 0 );
+        $operationDefinition = Doctrine::getTable('LogImportCount')->getColumnDefinition('operation');
+        $availableOperations = $operationDefinition['values'];
+        $metrics = array_fill_keys( array_values( $availableOperations ), 0 );
         $dates = array();
 
         foreach( $array as $logImport )
