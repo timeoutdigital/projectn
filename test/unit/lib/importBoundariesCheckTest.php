@@ -96,16 +96,22 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $ymlFilename = $this->generateYamlAndReturnPath();
 
         // Add LogImports
-        for( $i = ($days *2); $i >= 1 ; $i-- )
+        for( $i = ( $days  * 2 ); $i >= 0 ; $i-- )
         {
-            $logImport = $this->addLogImport( 1, date('Y-m-d H:i:s' , strtotime( "-{$i} day" ) ) );
+            if( $i == 0)
+            {
+                $logImport = $this->addLogImport( 1, date('Y-m-d H:i:s' ) );
+            }else
+            {
+                $logImport = $this->addLogImport( 1, date('Y-m-d H:i:s' , strtotime( "-{$i} day" ) ) );
+            }
             $logCount = $this->addLogImportCount( $logImport->id, "Poi", 10 );
             $logCount = $this->addLogImportCount( $logImport->id, "Event", 10 );
             $logCount = $this->addLogImportCount( $logImport->id, "Movie", 10 );
         }
 
-        $this->assertEquals( 14, Doctrine::getTable( 'LogImport' )->findAll()->count() );
-        $this->assertEquals( ( 14 * 3 ), Doctrine::getTable( 'LogImportCount' )->findAll()->count() );
+        $this->assertEquals( 15, Doctrine::getTable( 'LogImport' )->findAll()->count() );
+        $this->assertEquals( ( 15 * 3 ), Doctrine::getTable( 'LogImportCount' )->findAll()->count() );
         
         // Set some figures for testing
         $this->addLogImportCount( 1, "Poi", 5, 'failed');
@@ -121,6 +127,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $this->addLogImportCount( 14, "Event", 8, 'failed');
         $this->addLogImportCount( 1, "EventOccurrence", 1, 'failed');
         $this->addLogImportCount( 14, "EventOccurrence", 1, 'failed');
+        $this->addLogImportCount( 15, "EventOccurrence", 1, 'failed');
         
         // Get the Percentage changes
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );

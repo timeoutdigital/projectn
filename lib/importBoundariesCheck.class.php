@@ -63,7 +63,7 @@ class importBoundariesCheck
         }
 
         // Get the Import Log and Filter out by Dates
-        $backDateNumber = intval( $days * 2 );
+        $backDateNumber = intval( ( $days * 2 ) - 1 );
         $todayDate = date( 'Y-m-d', strtotime( '+1 day') );
         $firstDate = date( 'Y-m-d', strtotime( "-{$backDateNumber} day" ) );
         
@@ -82,7 +82,7 @@ class importBoundariesCheck
             $importLogCountByDate = $this->extractStats( $importLogCount );
 
             // Check to confirm we have All required Log
-            if( !is_array($importLogCountByDate) || count($importLogCountByDate) != $backDateNumber || ( count($importLogCountByDate) % $days ) != 0 )
+            if( !is_array($importLogCountByDate) || count($importLogCountByDate) != ( $backDateNumber + 1 ) || ( count($importLogCountByDate) % $days ) != 0 )
             {
                 $this->addError( "{$city} - getPrcentageDiffByXDays invalid number of logs found, unable to process any further. Total Number of Records found: " . count($importLogCountByDate) );
                 continue;
