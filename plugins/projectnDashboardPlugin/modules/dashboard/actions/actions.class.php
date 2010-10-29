@@ -17,6 +17,20 @@ class dashboardActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->forward( 'exportstats', 'index');
+      // get vendor
+      $vendors = Doctrine::getTable( 'Vendor' )->findAll();
+
+      // Get the Threshold
+      $importBoundary = new importBoundariesCheck( );
+      $yesterdayData = $importBoundary->getPrcentageDiffByXDays( 1 ); // = yesterday and Today
+      $weekData = $importBoundary->getPrcentageDiffByXDays( 7 ); // = Week
+      $monthData = $importBoundary->getPrcentageDiffByXDays( 28 ); // = Month
+
+      // Send Data to View
+      $this->vendors = $vendors;
+      $this->yesterdayData = $yesterdayData;
+      $this->weekData = $weekData;
+      $this->monthData = $monthData;
+
   }
 }
