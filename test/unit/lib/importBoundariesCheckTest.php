@@ -96,7 +96,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $ymlFilename = $this->generateYamlAndReturnPath();
 
         // Add LogImports
-        for( $i = ( $days  * 2 ); $i >= 0 ; $i-- )
+        for( $i = 0; $i <= ( $days * 2 ); $i++ )
         {
             if( $i == 0)
             {
@@ -125,9 +125,8 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $this->addLogImportCount( 10, "Poi", 2, 'failed');
         $this->addLogImportCount( 13, "Movie", 2, 'failed');
         $this->addLogImportCount( 14, "Event", 8, 'failed');
-        $this->addLogImportCount( 1, "EventOccurrence", 1, 'failed');
+        $this->addLogImportCount( 2, "EventOccurrence", 1, 'failed');
         $this->addLogImportCount( 14, "EventOccurrence", 1, 'failed');
-        $this->addLogImportCount( 15, "EventOccurrence", 1, 'failed');
         
         // Get the Percentage changes
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
