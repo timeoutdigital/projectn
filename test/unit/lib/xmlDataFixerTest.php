@@ -21,6 +21,22 @@ require_once dirname(__FILE__).'/../bootstrap.php';
 class xmlDataFixerTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testGetSimpleXML2()
+    {
+        $fileData       = file_get_contents( TO_TEST_DATA_PATH . '/xmlDataFixer/ny.xml' );
+
+        $xmlDataFixer   = new xmlDataFixer( $fileData );
+
+        //$xmlDataFixer->removeHtmlEntiryEncoding();
+        $xmlDataFixer->encodeUTF8();
+
+        $xml            = $xmlDataFixer->getSimpleXML();
+
+        $this->assertNotNull( $xml );
+        $this->assertType( "SimpleXMLElement", $xml, 'getXml should return SimpleXMLElement' );
+
+    }
+
     public function testGetSimpleXML()
     {
         $fileData       = file_get_contents( TO_TEST_DATA_PATH . '/xmlDataFixer/perfectxml.xml' );

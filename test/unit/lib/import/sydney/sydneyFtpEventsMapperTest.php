@@ -29,7 +29,8 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $this->feed   = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' );
+    $this->feed   = $this->setDynamicTime( simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' ) );
+    
     $this->vendor =  ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
                                                      'city'          => 'sydney',
                                                      'language'      => 'en-AU',
@@ -46,6 +47,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
         $poi[ 'Vendor' ] = $this->vendor;
         $poi->save();
     }
+    
     $importer = new Importer();
     $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
     $importer->run();
@@ -61,9 +63,9 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
   public function testMapping()
   {
 
-    $this->assertEquals( 3,
+    $this->assertGreaterThan( 1,
                          $this->eventTable->count(),
-                        'Database should have same number of Events as feed after import'
+                        'Database should have same more then 1 Poi'
                          );
 
     $event = $this->eventTable->findOneById( 1 );
@@ -86,7 +88,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $vendorCategory =  $events[0]['VendorEventCategory']->toArray();
 
-    $this->assertEquals( 'Gay & Lesbian',   $vendorCategory['Gay & Lesbian']['name']  );
+    $this->assertEquals( 'Gay & Lesbian',   $vendorCategory[0]['name']  );
 
     $vendorCategory =  $events[1]['VendorEventCategory']->toArray();
 
@@ -121,13 +123,26 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
                           );
   }
 
+
+  private function setDynamicTime( SimpleXMLElement $xmlNodes )
+  {
+      
+      $xmlNodes->event[0]->DateFrom = date('d/m/Y h:i:s A');
+      $xmlNodes->event[0]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
+
+      $xmlNodes->event[2]->DateFrom = date('d/m/Y h:i:s A');
+      $xmlNodes->event[2]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
+
+      return $xmlNodes;
+  }
+
   public function testFilmEventsAreSavedInArtCategory()
   {
       $event = $this->eventTable->findOneById( 3 );  //event's category is Film but we are expecting it to be saved as Art
 
       $vendorCategory =  $event['VendorEventCategory']->toArray();
 
-      $this->assertEquals( 'Art', $vendorCategory[ 'Art' ][ 'name' ] );
+      $this->assertEquals( 'Art', $vendorCategory[ 0 ][ 'name' ] );
 
   }
 }

@@ -138,20 +138,28 @@ class LondonAPICrawler
         $this->mapper->onException($exception);
       }
 
-      foreach( $searchPageXml->response->block->row as $row )
+      // Fix for #751, this for-loop was trying to loop through child of child object without checking parent exists
+      // isset will determin if the child exists before for-loop
+      
+      if( isset( $searchPageXml->response->block->row ) )
       {
-        try
-        {
-          $xml = $this->callApiGetDetails( $row->uid );
-        }
-        catch( Exception $exception )
-        {
-          $this->mapper->onException($exception);
-        }
+          foreach( $searchPageXml->response->block->row as $row )
+          {
+            try
+            {
+              $xml = $this->callApiGetDetails( $row->uid );
+            }
+            catch( Exception $exception )
+            {
+              $this->mapper->onException($exception);
+            }
 
-        $this->doMapping( $xml );
-        if( !$this->inLimit( ++$numResultsMapped ) ) return;
-      }
+            $this->doMapping( $xml );
+            if( !$this->inLimit( ++$numResultsMapped ) ) return;
+          }
+      } else { // Throw Error
+          trigger_error( "LondonAPICrawler::crawlApi() callApiSearch() returned empty xml document. offset: {$offset}, total results: {$numResults}" , E_USER_WARNING );
+      } // fix #751
     }
   }
 
@@ -170,6 +178,13 @@ class LondonAPICrawler
   protected function callApiSearch( $params )
   {
     $this->curl->pullXml( $this->searchUrl, '', $params );
+
+    // Archive API Response
+    $tempVendor = new Vendor();
+    $tempVendor[ 'city' ] = 'london';
+    new FeedArchiver( $tempVendor, $this->curl->getResponse(), $params['type'] );
+    unset( $tempVendor );
+
     return $this->curl->getXml();
   }
 
