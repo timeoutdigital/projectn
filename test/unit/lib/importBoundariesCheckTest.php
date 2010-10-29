@@ -43,7 +43,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
-    public function testGetPrcentageDiffByXDaysForAVendor()
+    public function testGetPercentageDiffByXDaysForImportAVendor()
     {
         $days = 1; // Number of days to compare the Average! 1 == 2 ( $days * 2 )
         $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
@@ -71,7 +71,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // have to clear OLD errors
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
 
-        $changes = $importCheck->getPrcentageDiffByXDays( $days, 1 );
+        $changes = $importCheck->getPercentageDiffByXDaysForImport( $days, 1 );
 
         $this->assertTrue( is_array($changes ), 'return should be an Array' );
         $this->assertEquals( 1, count( $changes), 'Since we send Vendor, it should only return One Set of result' );
@@ -86,7 +86,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         
     }
     
-    public function testGetPrcentageDiffBy7DaysForAVendor()
+    public function testGetPercentageDiffBy7DaysForImportForAVendor()
     {
         $days = 7; // Number of days to compare the Average! 7 == 14 ( $days * 2 )
         $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
@@ -131,7 +131,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // Get the Percentage changes
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
 
-        $changes = $importCheck->getPrcentageDiffByXDays( $days );
+        $changes = $importCheck->getPercentageDiffByXDaysForImport( $days );
 
         $this->assertTrue( is_array($changes ), 'return should be an Array' );
         $this->assertEquals( 1, count( $changes), 'There should be 1 vendor, as other should not be included since they dont have any Logs' );
@@ -146,6 +146,73 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 0, $changes['ny']['eventoccurrence'], 'NY:EventOccurrence should show 0 change' );
 
         unlink( $ymlFilename );
+
+    }
+
+    public function testGetPercentageDiffByXDaysForExport()
+    {
+        $daysPerPeriod = 10; //a period could be a week or any number of days we want to compare counts for
+        $totalDaysAnalysed = 20; //number of days we analyse should be double days per period
+        $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
+        $today     = date('Y-m-d H:i:s' );
+
+        // Add enough logs to do calculation
+        for( $i = ( $daysPerPeriod * 2 ); $i >= 1; $i-- )
+        {
+            // Export Log
+            $iDaysBack = date('Y-m-d H:i:s' , strtotime( "-{$i} day" ) );
+            $exportLog = $this->addLogExport(1, $iDaysBack );
+
+            // Export Log Count
+            $this->addLogExportCount( $exportLog->id, 'Poi', 1);
+            $this->addLogExportCount( $exportLog->id, 'Movie', 1);
+            $this->addLogExportCount( $exportLog->id, 'Event', 1);
+        }
+        $this->assertEquals( $totalDaysAnalysed, Doctrine::getTable( 'LogExport' )->findAll()->count() );
+        
+        //Add another export log so we know we don't pull more than 20 days
+        $exportLog = $this->addLogExport(1, $today );
+        $this->addLogExportCount( $exportLog->id, 'Poi', 1);
+        $this->addLogExportCount( $exportLog->id, 'Movie', 1);
+        $this->addLogExportCount( $exportLog->id, 'Event', 1);
+        $this->assertEquals( 21, Doctrine::getTable( 'LogExport' )->findAll()->count() );
+
+        // assert dummy
+        $this->assertEquals( 21 * 3, Doctrine::getTable( 'LogExportCount' )->findAll()->count() );
+
+        // Set today's counts
+        // 63 counts in the database in total
+        // POI, Movie, Event (3 records) times 21 days ( ( 2 * 10 day periods ) + today)
+        // counting backwards, we get today's counts for each model:
+        $logCount = Doctrine::getTable( 'LogExportCount' )->find(61); // Poi
+        $logCount->count = 2; //make this week's POI increase by 10 per cent
+        //we've added 1 to count every day for a period of ten days
+        //if we make one of those days have a count of 2, that period has increased ten per cent
+        $logCount->save();
+        $logCount = Doctrine::getTable( 'LogExportCount' )->find(62); // Movie
+        $logCount->count = 1; //make this week's Movie the same
+        $logCount->save();
+        $logCount = Doctrine::getTable( 'LogExportCount' )->find(63); // Event
+        $logCount->count = 0; //make this week's Event drop by 10 per cent
+        $logCount->save();
+        // Although we updated few Count's, total count should remain same
+        $this->assertEquals( 21 * 3, Doctrine::getTable( 'LogExportCount' )->findAll()->count() );
+
+        // get Data and Assert
+        $importCheck = new importBoundariesCheck( );
+        $changes = $importCheck->getPercentageDiffByXDaysForExport( $daysPerPeriod );
+
+        $this->assertTrue( is_array($changes ), 'return should be an Array' );
+        $this->assertEquals( 1, count( $changes), 'There should be 1 vendor, as other should not be included since they dont have any Logs' );
+        $keys = array_keys( $changes );
+        $this->assertEquals( 'ny', $keys[0], 'Key NY should be in Array');
+        $this->assertEquals( 3, count( $changes['ny'] ), 'NY should have 3 Models exported' );
+
+        // assert calculation
+        $this->assertEquals( "10", round( $changes['ny']['poi'], 4 ) ); 
+        $this->assertEquals( "-10", round( $changes['ny']['event'], 4 ) );
+        $this->assertEquals( "0", round( $changes['ny']['movie'], 4 ) );
+        
 
     }
 
@@ -370,6 +437,22 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
                                                                'model'         => ucfirst( $model ),
                                                                'operation'     => $status,
                                                                'count'         => $count) );
+        return $count;
+    }
+
+    private function addLogExport( $vendorID, $date )
+    {
+        $logExport = ProjectN_Test_Unit_Factory::add( 'LogExport', array('vendor_id'  => $vendorID,
+                                                          'created_at' => $date ) );
+        return $logExport;
+    }
+    
+    private function addLogExportCount(  $logExportID, $model, $count = 10 )
+    {
+        $count = ProjectN_Test_Unit_Factory::add( 'LogExportCount', array('log_export_id' => $logExportID,
+                                                               'model'         => ucfirst( $model ),
+                                                               'count'         => $count) );
+
         return $count;
     }
 }
