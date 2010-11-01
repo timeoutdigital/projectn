@@ -19,18 +19,19 @@ class dashboardActions extends sfActions
   {
       // get vendor
       $vendors = Doctrine::getTable( 'Vendor' )->findAll();
-
+      $this->vendors = $vendors;
+      
       // Get the Threshold
       $importBoundary = new importBoundariesCheck( );
-      $yesterdayData = $importBoundary->getPrcentageDiffByXDays( 1 ); // = yesterday and Today
-      $weekData = $importBoundary->getPrcentageDiffByXDays( 7 ); // = Week
-      $monthData = $importBoundary->getPrcentageDiffByXDays( 28 ); // = Month
+      $this->thresholdImport = array();
+      $this->thresholdImport['yesterday'] = $importBoundary->getPercentageDiffByXDaysForImport( 1 ); // = yesterday and Today
+      $this->thresholdImport['week'] = $importBoundary->getPercentageDiffByXDaysForImport( 7 ); // = Week
+      $this->thresholdImport['month'] = $importBoundary->getPercentageDiffByXDaysForImport( 28 ); // = Month
 
-      // Send Data to View
-      $this->vendors = $vendors;
-      $this->yesterdayData = $yesterdayData;
-      $this->weekData = $weekData;
-      $this->monthData = $monthData;
-
+      // get the export stats
+      $this->thresholdExport = array();
+      $this->thresholdExport['yesterday'] = $importBoundary->getPercentageDiffByXDaysForExport( 1 ); // = yesterday and Today
+      $this->thresholdExport['week'] = $importBoundary->getPercentageDiffByXDaysForExport( 7 ); // = Week
+      $this->thresholdExport['month'] = $importBoundary->getPercentageDiffByXDaysForExport( 28 ); // = Month
   }
 }
