@@ -1,11 +1,5 @@
 <?php use_helper('dashboard');?>
-<html>
-  <head>
-    <link type="text/css" rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="jquery-1.4.3.min.js"></script>
-    <script type="text/javascript" src="views.js"></script>
-  </head>
-  <body>
+<?php use_stylesheet('/projectnDashboardPlugin/css/dashboard.css'); ?>
     <table id="over-view">
       <thead>
         <tr>
@@ -74,5 +68,3 @@
         <?php endforeach; ?>
       </tbody>
     </table>
-  </body>
-</html>
