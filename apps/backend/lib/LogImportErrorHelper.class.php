@@ -59,6 +59,6 @@ class LogImportErrorHelper
         }
         else $action->getUser()->setFlash( 'error', self::MSG_INVALID_REQUEST );
 
-        return isset( $record ) ? $record : false;
+        return isset( $record ) ? $record : null;
     }
 }
