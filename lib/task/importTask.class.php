@@ -63,7 +63,7 @@ class importTask extends sfBaseTask
         $this->options[ 'configFolder' ] = sfConfig::get('sf_config_dir') . DIRECTORY_SEPARATOR . 'projectn';
     }
 
-    $this->config = sfYaml::load( $this->options['configFolder'] . DIRECTORY_SEPARATOR . $this->options['city'] . '.yml' );
+    $this->config = sfYaml::load( $this->options['configFolder'] . DIRECTORY_SEPARATOR . str_replace( ' ', '_', $this->options['city'] ) . '.yml' );
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
     Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
@@ -460,112 +460,16 @@ class importTask extends sfBaseTask
     break; // end Barcelona
 
     case 'dubai':
-        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('dubai', 'en-US');
 
-        switch( $options['type'] )
-        {
-            case 'bar':
-                $feedUrl            = 'http://www.timeoutdubai.com/nokia/bars';
-                $dataMapperClass    = 'UAEFeedBarsMapper';
-                break;
-            case 'restaurant':
-                $feedUrl            = 'http://www.timeoutdubai.com/nokia/restaurants';
-                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
-                break;
-            case 'poi':
-                $feedUrl            = 'http://www.timeoutdubai.com/nokia/latestevents';
-                $dataMapperClass    = 'UAEFeedPoiMapper';
-                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
-                break;
-            case 'event':
-                $feedUrl            = 'http://www.timeoutdubai.com/nokia/latestevents';
-                $dataMapperClass    = 'UAEFeedEventsMapper';
-                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
-                break;
-            case 'movie':
-                $feedUrl            = 'http://www.timeoutdubai.com/customfeed/nokia/films';
-                $dataMapperClass    = 'UAEFeedFilmsMapper';
-                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' );
-                break;
-            default : $this->dieDueToInvalidTypeSpecified();
-        }
+        $this->newStyleImport( 'dubai', 'en-US', $options, $databaseManager, $importer );
 
-        if( isset($feedUrl) && isset($dataMapperClass) )
-        {
-            // Download the File
-            $feedCurl           = new Curl( $feedUrl );
-            $feedCurl->exec();
-            new FeedArchiver( $vendor, $feedCurl->getResponse(), $options['type'] );
-
-            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendor );
-            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
-            {
-                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
-            }else{
-                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
-            }
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-        }
-
-        break;
+    break;
+    
     case 'abu dhabi':
-        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('abu dhabi', 'en-US');
 
-        switch( $options['type'] )
-        {
-            case 'bar':
-                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/bars';
-                $dataMapperClass    = 'UAEFeedBarsMapper';
-                break;
-            case 'restaurant':
-                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/restaurants';
-                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
-                break;
-            case 'poi':
-                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/latestevents';
-                $dataMapperClass    = 'UAEFeedPoiMapper';
-                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
-                break;
-            case 'event':
-                $feedUrl            = 'http://www.timeoutabudhabi.com/nokia/latestevents';
-                $dataMapperClass    = 'UAEFeedEventsMapper';
+        $this->newStyleImport( 'abu dhabi', 'en-US', $options, $databaseManager, $importer );
 
-                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
-                break;
-            case 'movie':
-                $feedUrl            = 'http://www.timeoutabudhabi.com/customfeed/nokia/films';
-                $dataMapperClass    = 'UAEFeedFilmsMapper';
-                $xslt               =file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' );
-                break;
-            default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-        if( isset($feedUrl) && isset($dataMapperClass) )
-        {
-            // Download the File
-            $feedCurl           = new Curl( $feedUrl );
-            $feedCurl->exec();
-            new FeedArchiver( $vendor, $feedCurl->getResponse(), $options['type'] );
-
-            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
-
-            ImportLogger::getInstance()->setVendor( $vendor );
-            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
-            {
-                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
-            }else{
-                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
-            }
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-        }
-
-        break;
+    break;
 
     // data entry imports
     case 'mumbai':
