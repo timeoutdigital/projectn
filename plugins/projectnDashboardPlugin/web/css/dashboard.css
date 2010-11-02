@@ -92,6 +92,16 @@ thead tr th.empty.row-section-end a{
   border-right: 5px solid #aaa;
 }
 
+.verygood{
+  /* background:#bbf; */
+  background:#bfb;
+  text-decoration: underline;
+}
+
+.good{
+  background:#bfb;
+}
+
 .ok{
   background:#bfb;
 }
@@ -103,13 +113,15 @@ thead tr th.empty.row-section-end a{
 .verybad{
   background:#fbb;
 }
-.highlight .ok,
+.highlight .good,
+.highlight .verygood,
 .highlight .verybad,
+.highlight .ok,
 .highlight .bad{
   color: black;
   background:#ddd;
 }
-.highlight .ok{
+.highlight .good{
   background:#5BFF45;
 }
 
@@ -124,6 +136,6 @@ thead tr th.empty.row-section-end a{
     background: #ccc;
     color: #ccc;
 }
-.ok, .verybad, .bad{
+.verygood, .good, .verybad, .bad, .ok{
     color: #555;
 }
