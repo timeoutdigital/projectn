@@ -24,6 +24,32 @@ class importTask extends sfBaseTask
     $this->detailedDescription = '';
   }
 
+  public function newStyleImport( $city, $language, $options, $databaseManager, $importer )
+    {
+      // London DB Switch
+      if( $city == 'london')
+      {
+          $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
+      }
+        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, $language );
+
+        $type = $this->options['type'];
+        $mapperClassName = $this->config['import'][$type]['class']['name'];
+
+        $constructorParams = array();
+        if( isset( $this->config['import'][$type]['class']['params'] ) )
+        {
+            $constructorParams = $this->config['import'][$type]['class']['params'];
+        }
+
+        ImportLogger::getInstance()->setVendor($vendor);
+        $importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage( '', true );
+
+    }
+
   protected function execute($arguments = array(), $options = array())
   {
 
@@ -66,113 +92,8 @@ class importTask extends sfBaseTask
             break;
       case 'ny':
 
-        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
-
-        switch( $options['type'] )
-        {
-            case 'poi-event':
-                ImportLogger::getInstance()->setVendor( $vendorObj );
-                // Set FTP
-                $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-                $ftpClientObj->setSourcePath( '/NOKIA/' );
-
-                echo "Downloading NY's Event's feed \n";
-                $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
-
-                // Load XML file
-                $xmlString      = file_get_contents( $fileNameString );
-                $xmlDataFixer   = new xmlDataFixer( $xmlString );
-                //$xmlDataFixer->addRootElement( 'body' );
-                $xmlDataFixer->removeHtmlEntiryEncoding();
-                $xmlDataFixer->encodeUTF8();
-
-                $processXmlObj = new processNyXml( '' );
-                $processXmlObj->xmlObj  = $xmlDataFixer->getSimpleXML();
-                $processXmlObj->setEvents('/leo_export/event')->setVenues('/leo_export/address');
-
-                echo "Importing NY Events / Poi  \n";
-                $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
-                $nyImportObj->insertEventCategoriesAndEventsAndVenues();
-                ImportLogger::getInstance()->end();
-                $this->dieWithLogMessage();
-
-                break;
-          case 'movie':
-                ImportLogger::getInstance()->setVendor( $vendorObj );
-                $importer->addDataMapper( new londonDatabaseFilmsDataMapper( $vendorObj ) );
-                $importer->run();
-                ImportLogger::getInstance()->end();
-                $this->dieWithLogMessage();
-            break;
-
-          case 'eating-drinking':
-              ImportLogger::getInstance()->setVendor( $vendorObj );
-              try
-              {
-                  //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-                  $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-                  $ftpClientObj->setSourcePath( '/NOKIA/' );
-                  $this->importNyEd($vendorObj, $ftpClientObj);
-
-              }
-              catch ( Exception $e )
-              {
-                  echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-              }
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-            
-            break;
-
-          case 'eating-drinking-kids':
-              ImportLogger::getInstance()->setVendor( $vendorObj );
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $fileNameString = $ftpClient->fetchFile( 'tonykids_ed.xml' );
-
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-            break;
-
-          case 'bars-clubs':
-               ImportLogger::getInstance()->setVendor( $vendorObj );
-            try
-            {
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $this->importNyBc($vendorObj, $ftpClientObj);
-            }
-            catch ( Exception $e )
-            {
-              echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-            }
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-            break;
-
-
-          case 'all':
-              //Import all events
-              //Setup NY FTP @todo refactor FTPClient to not connect in constructor
-              $ftpClientObj = new FTPClient( 'ftp.timeoutny.com', 'london', 'timeout', $vendorObj[ 'city' ] );
-              $ftpClientObj->setSourcePath( '/NOKIA/' );
-              $this->importNyEvents($vendorObj, $ftpClientObj);
-              $this->importNyMovies($vendorObj, $ftpClientObj);
-
-          break;
-
-          default : $this->dieDueToInvalidTypeSpecified();
-
-        }
+          $this->newStyleImport( 'ny', 'en-US', $options, $databaseManager, $importer );
+          
         break; // end ny
 
       case 'chicago':
@@ -478,7 +399,7 @@ class importTask extends sfBaseTask
 
       case 'london':
 
-          $this->newStyleImport( 'london', $options, $databaseManager, $importer );
+          $this->newStyleImport( 'london', 'en-GB', $options, $databaseManager, $importer );
 
       break; //end London
 
@@ -839,129 +760,9 @@ class importTask extends sfBaseTask
     }//end switch
   }
 
-  /***************************************************************************
-   *
-   *    NEW YORK
-   *
-   * *************************************************************************/
+  
 
-  /**
-   * Import NY's Events
-   *
-   * @param <Vendor> $vendoObj
-   * @param <FTPClient> $ftpClientObj
-   */
-   private function importNyEvents($vendorObj, $ftpClientObj)
-  {
-       try
-        {
-          echo "Downloading NY's Event's feed \n";
-          $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'tony_leo.xml' );
-
-          echo "Parsing Ny's Event's feed \n";
-          $processXmlObj = new processNyXml( $fileNameString );
-
-          //$processXmlObj = new processNyXml( '/var/workspace/projectn/import/ny/tony_leo.xml' );
-
-          $processXmlObj->setEvents('/body/event')->setVenues('/body/address');
-
-          echo "Importing Ny's Event's \n";
-          $nyImportObj = new importNyChicagoEvents($processXmlObj,$vendorObj);
-          $nyImportObj->insertEventCategoriesAndEventsAndVenues();
-
-          echo "\n\n NY's Event's Imported \n\n";
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in NY events import '  . $e->getMessage();
-        }
-   }
-
-
-   /**
-    * Import NY's Movies
-   *
-   * @param <Vendor> $vendoObj
-   * @param <FTPClient> $ftpClientObj
-    */
-   private function importNyMovies($vendorObj, $ftpClientObj)
-   {
-        try
-        {
-          echo "Downloading NY's Movies feed \n";
-          $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'xffd_TONewYork_[0-9]+.xml' );
-
-          echo "Parsing Ny's Movies feed \n";
-          $processXmlObj = new processNyMoviesXml( $fileNameString );
-          $processXmlObj->setMovies('/xffd/movies/movie');
-          $processXmlObj->setPoi('/xffd/theaters/theater');
-          $processXmlObj->setOccurances('/xffd/showTimes/showTime');
-
-          echo "Importing Ny's Movies \n";
-          $nyImportMoviesObj = new importNyMovies($processXmlObj,$vendorObj);
-          $nyImportMoviesObj->importMovies();
-
-          echo "\n\n NY's Movies Imported \n\n";
-        }
-        catch ( Exception $e )
-        {
-          echo 'Exception caught in chicago' . $options['city'] . ' ' . $options['type'] . ' import: ' . $e->getMessage();
-        }
-   }
-
-
-     private function importNyBc($vendorObj, $ftpClientObj)
-     {
-        try
-        {
-            echo "Downloading B/C's feed \n";
-            $fileNameString = $ftpClientObj->fetchFile( 'tony_bc.xml' );
-
-            echo "Parsing Ny's B/C's feed \n";
-            $processXmlObj = new processNyBcXml( $fileNameString );
-
-            echo "Importing Ny's B/C's \n";
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::BAR_CLUB );
-            $importBcEd->import();
-
-           echo "\n\n NY's B/C's Imported \n\n";
-        }
-        catch ( Exception $e )
-        {
-          echo "Exception caught in NY's B/C's import: " . $e->getMessage();
-        }
-
-     }
-
-
-     private function importNyEd($vendorObj, $ftpClientObj)
-     {
-        try
-        {
-
-            echo "Downloading E/D's feed \n";
-            $fileNameString = $ftpClientObj->fetchFile( 'tony_ed.xml' );
-
-            echo "Parsing Ny's E/D's feed \n";
-            $processXmlObj = new processNyBcXml( $fileNameString );
-
-            echo "Importing Ny's E/D's \n";
-            $importBcEd = new nyImportBcEd($processXmlObj, $vendorObj, nyImportBcEd::RESTAURANT );
-            $importBcEd->import();
-
-            echo "\n\n NY's E/D's Imported \n\n";
-        }
-        catch ( Exception $e )
-        {
-          echo "Exception caught in NY's E/D import: " . $e->__toString();
-        }
-
-     }
-
-
-
-     /* Common Function */
-
+  /* Common Function */
   private function dieDueToInvalidTypeSpecified()
   {
       $this->dieWithLogMessage( 'FAILED IMPORT - INVALID TYPE SPECIFIED' );
@@ -1086,7 +887,6 @@ EOF;
         
         return $ftpFiles;
     }
-
 
     public function newStyleImport( $city, $options, $databaseManager, $importer )
     {
