@@ -30,7 +30,7 @@
                         <td><?php echo $v; ?></td>
                     <?php } ?>
                <?php } ?>
-               <td><a href="statistics/importerror/?id=<?php echo $error['id'] ; ?>" target="_blank">more info...</a></td>
+               <td><a href="importstats/importerror/?id=<?php echo $error['id'] ; ?>" target="_blank">more info...</a></td>
                <?php if( in_array( $error['model'], array('Poi','Event','Movie') ) ){ ?>
                    <td><a href="<?php echo strtolower( $error['model'] ); ?>/resolve?import_error_id=<?php echo $error['id'] ; ?>" target="_blank">resolve</a></td>
                <?php } else { ?>
