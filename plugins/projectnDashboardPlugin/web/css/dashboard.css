@@ -74,8 +74,14 @@ tbody tr td:last-child.row-section-end{
 }
 
 thead tr th.empty.row-section-end{
-  background-color: #999;
+  /* background-color: #999; */
   border-right: 5px solid #999;
+  border-bottom: 5px solid #999;
+}
+
+thead tr th.empty.row-section-end a{
+  color: white;
+  text-decoration: underline;
 }
 
 .row-section-end{
@@ -96,6 +102,23 @@ thead tr th.empty.row-section-end{
 
 .error{
   background:#fbb;
+}
+.highlight .ok,
+.highlight .error,
+.highlight .warning{
+  color: black;
+  background:#ddd;
+}
+.highlight .ok{
+  background:#5BFF45;
+}
+
+.highlight .warning{
+  background:#FFFF45;
+}
+
+.highlight .error{
+  background:#FF4548;
 }
 .no-log{
     background: #ccc;
