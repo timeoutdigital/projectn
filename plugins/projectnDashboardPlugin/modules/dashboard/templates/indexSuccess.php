@@ -59,15 +59,14 @@
               $importLog = 'import'.ucwords($logDay);
               $exportLog = 'export'.ucwords($logDay);
               // echo TD for Import LOG
-              printf( '<td class="%s" title="%s">%s</td>', $$importLog->getStatusBy( $cityName , 'poi') , $$importLog->getVariantNumberBy( $cityName , 'poi' ), $$importLog->getVariantPercentageBy(  $cityName , 'poi', 1 ) );
-              printf( '<td class="row-section-end %s" title="%s">%s</td>', $$exportLog->getStatusBy( $cityName , 'poi') , $$exportLog->getVariantNumberBy( $cityName , 'poi' ), $$exportLog->getVariantPercentageBy(  $cityName , 'poi', 1 ) );
+              echo dashboardRow( $cityName, $$importLog, 'poi' );
+              echo dashboardRow( $cityName, $$exportLog, 'poi', 'row-section-end' );
 
-              printf( '<td class="%s" title="%s">%s</td>', $$importLog->getStatusBy( $cityName , 'event') , $$importLog->getVariantNumberBy( $cityName , 'event' ), $$importLog->getVariantPercentageBy(  $cityName , 'event', 1 ) );
-              printf( '<td class="row-section-end %s" title="%s">%s</td>', $$exportLog->getStatusBy( $cityName , 'event') , $$exportLog->getVariantNumberBy( $cityName , 'event' ), $$exportLog->getVariantPercentageBy(  $cityName , 'event', 1 ) );
+              echo dashboardRow( $cityName, $$importLog, 'event' );
+              echo dashboardRow( $cityName, $$exportLog, 'event', 'row-section-end' );
 
-              printf( '<td class="%s" title="%s">%s</td>', $$importLog->getStatusBy( $cityName , 'movie') , $$importLog->getVariantNumberBy( $cityName , 'movie' ), $$importLog->getVariantPercentageBy(  $cityName , 'movie', 1 ) );
-              printf( '<td class="row-section-end big %s" title="%s">%s</td>', $$exportLog->getStatusBy( $cityName , 'movie') , $$exportLog->getVariantNumberBy( $cityName , 'movie' ), $$exportLog->getVariantPercentageBy(  $cityName , 'movie', 1 ) );
-              
+              echo dashboardRow( $cityName, $$importLog, 'movie' );
+              echo dashboardRow( $cityName, $$exportLog, 'movie', 'row-section-end big' );
           }
           ?>
         </tr>

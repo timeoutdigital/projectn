@@ -4,21 +4,18 @@
  * and open the template in the editor.
  */
 
-function getStatus( $value, $threshold = 0 )
-{
-  if( !is_numeric( $value ) )
-  {
-      return "no-log";
-  }
 
-  return ( $value < 0 ) ? 'warning' : 'ok';
-}
-
-function buildAndReturnTD( $city, $log, $model, $threshold, $className = '' )
+function dashboardRow( $cityName, $log, $model, $htmlClasses = '' )
 {
-    $threshold = ( !is_numeric( $threshold ) ) ? 0 : $threshold;
-    $percentageValue = isset( $log[ $city ][ $model ] ) ? $log[ $city ][ $model ] : '-';
-    return sprintf( '<td class="%s">%s</td>', $className. ' ' . getStatus( $percentageValue, $threshold ),is_numeric( $percentageValue ) ? round( $percentageValue, 1 ): '-' );
+    $status = ( trim( $htmlClasses ) != '' ) ? $htmlClasses . ' ' : '';
+    $status .=  $log->getStatusBy( $cityName , $model);
+    
+    $percentage = $log->getVariantPercentageBy(  $cityName , $model, 1 );
+    $number = $log->getVariantNumberBy( $cityName , $model );
+    $pastPeriod = $log->getPastPeriodCountBy( $cityName , $model );
+    $currentPeriod = $log->getCurrentPeriodCountBy( $cityName , $model );
+    
+    return sprintf( '<td class="%s" percentage="%s" number="%s" pastperiod="%s" currentperiod="%s" title="Percentage Variant">%s</td>', $status, $percentage, $number, $pastPeriod, $currentPeriod, $percentage );
 }
 
 ?>

@@ -393,6 +393,16 @@ class importBoundariesCheck
         return isset( $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'status' ] ) ?  $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'status' ] : null;
     }
 
+    public function getPastPeriodCountBy( $cityName, $modelName )
+    {
+        return isset( $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'pastPeriodCount' ] ) ? $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'pastPeriodCount' ] : null ;
+    }
+
+    public function getCurrentPeriodCountBy( $cityName, $modelName )
+    {
+        return isset( $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'currentPeriodCount' ] ) ? $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'currentPeriodCount' ] : null ;
+    }
+
     public function getIncludedCities( )
     {
         return array_keys( $this->percentageDiffByDays );
