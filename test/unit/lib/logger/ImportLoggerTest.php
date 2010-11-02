@@ -96,9 +96,9 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $logger = Doctrine::getTable("LogImport")->findAll()->getFirst();
         //$logger->refresh( true ); // Call this to clear Doctrine cache //2010-10-27 causes unit test to fail on machines after upgrading to ubuntu 10.10
 
-        $this->assertEquals( 2, $logger->LogImportCount->count(), "Expecting 2 Sets of Counts, (poi & event)" );
-        $this->assertEquals( 1, $logger->LogImportCount[0]['count'], "Expecting Poi Failure Count to be 1" );
-        $this->assertEquals( 1, $logger->LogImportCount[1]['count'], "Expecting Event Failure Count to be 1" );
+        $this->assertEquals( 2, $logger->LogImportCount->count(), "Expecting sets of Counts, (poi & event)" );
+        $this->assertEquals( 1, $logger->LogImportCount[0]['count'], "Expecting Poi Failure Count" );
+        $this->assertEquals( 1, $logger->LogImportCount[1]['count'], "Expecting Event Failure Count" );
 
         $this->assertEquals( 2, $logger->LogImportError->count(), "Expecting Two Sets of Errors" );
         $this->assertEquals( 'Exception', $logger->LogImportError[0]['exception_class'], "Expecting exception_class to be Exception" );
@@ -127,17 +127,17 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $logger = Doctrine::getTable("LogImport")->findAll()->getFirst();
         $logger->refresh( true ); // Call this to clear Doctrine cache
 
-        $this->assertEquals( 4, $logger->LogImportCount->count(), "Expecting One Set of Counts, (poi inserts only)" );
-        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 4, $logger->LogImportCount->count(), "Expecting sets of Counts, (poi inserts only)" );
+        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Poi', $logger->LogImportCount[0]['model'], "Expecting Model to be POI" );
         $this->assertEquals( 'insert', $logger->LogImportCount[0]['operation'], "Expecting Operation to be INSERT" );
-        $this->assertEquals( 2, $logger->LogImportCount[1]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[1]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Event', $logger->LogImportCount[1]['model'], "Expecting Model to be Event" );
         $this->assertEquals( 'insert', $logger->LogImportCount[1]['operation'], "Expecting Operation to be INSERT" );
-        $this->assertEquals( 2, $logger->LogImportCount[2]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[2]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Movie', $logger->LogImportCount[2]['model'], "Expecting Model to be Movie" );
         $this->assertEquals( 'insert', $logger->LogImportCount[2]['operation'], "Expecting Operation to be INSERT" );
-        $this->assertEquals( 2, $logger->LogImportCount[3]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[3]['count'], "Expecting Save Count" );
         $this->assertEquals( 'EventOccurrence', $logger->LogImportCount[3]['model'], "Expecting Model to be EventOccurrence" );
         $this->assertEquals( 'insert', $logger->LogImportCount[3]['operation'], "Expecting Operation to be INSERT" );
         //print_r( $logger->toArray() );
@@ -160,18 +160,18 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $logger = Doctrine::getTable("LogImport")->findAll()->getFirst();
         $logger->refresh( true ); // Call this to clear Doctrine cache
 
-        $this->assertEquals( 4, $logger->LogImportCount->count(), "Expecting 4 Sets of Counts, (one for each model)" );
-        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 4, $logger->LogImportCount->count(), "Expecting Sets of Counts, (one for each model)" );
+        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count" );
         
         $this->assertEquals( 'Poi', $logger->LogImportCount[0]['model'], "Expecting Model to be POI" );
         $this->assertEquals( 'failed', $logger->LogImportCount[0]['operation'], "Expecting Operation to be FAILED" );
-        $this->assertEquals( 2, $logger->LogImportCount[1]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[1]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Event', $logger->LogImportCount[1]['model'], "Expecting Model to be Event" );
         $this->assertEquals( 'failed', $logger->LogImportCount[1]['operation'], "Expecting Operation to be FAILED" );
-        $this->assertEquals( 2, $logger->LogImportCount[2]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[2]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Movie', $logger->LogImportCount[2]['model'], "Expecting Model to be Movie" );
         $this->assertEquals( 'failed', $logger->LogImportCount[2]['operation'], "Expecting Operation to be FAILED" );
-        $this->assertEquals( 2, $logger->LogImportCount[3]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[3]['count'], "Expecting Save Count" );
         $this->assertEquals( 'EventOccurrence', $logger->LogImportCount[3]['model'], "Expecting Model to be EventOccurrence" );
         $this->assertEquals( 'failed', $logger->LogImportCount[3]['operation'], "Expecting Operation to be FAILED" );
         //print_r( $logger->toArray() );
@@ -199,26 +199,26 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $logger = Doctrine::getTable("LogImport")->findAll()->getFirst();
         //$logger->refresh( true ); // Call this to clear Doctrine cache //2010-10-27 causes unit test to fail on machines after upgrading to ubuntu 10.10
 
-        $this->assertEquals( 8, $logger->LogImportCount->count(), "Expecting 4 Sets of Counts, (one for each model)" );
-        $this->assertEquals( 1, $logger->LogImportCount[0]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 8, $logger->LogImportCount->count(), "Expecting Sets of Counts, (one for each model)" );
+        $this->assertEquals( 1, $logger->LogImportCount[0]['count'], "Expecting Save Count" );
         
         $this->assertEquals( 'Poi', $logger->LogImportCount[0]['model'], "Expecting Model to be POI" );
         $this->assertEquals( 'existing', $logger->LogImportCount[0]['operation'], "Expecting Operation to be EXISTING" );
         $this->assertEquals( 'updated', $logger->LogImportCount[1]['operation'], "Expecting Operation to be UPDATED" );
-        $this->assertEquals( 1, $logger->LogImportCount[2]['count'], "Expecting Save Count to be 1" );
+        $this->assertEquals( 1, $logger->LogImportCount[2]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Event', $logger->LogImportCount[2]['model'], "Expecting Model to be Event" );
         $this->assertEquals( 'existing', $logger->LogImportCount[2]['operation'], "Expecting Operation to be EXISTING" );
         $this->assertEquals( 'updated', $logger->LogImportCount[3]['operation'], "Expecting Operation to be UPDATED" );
-        $this->assertEquals( 1, $logger->LogImportCount[4]['count'], "Expecting Save Count to be 1" );
+        $this->assertEquals( 1, $logger->LogImportCount[4]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Movie', $logger->LogImportCount[4]['model'], "Expecting Model to be Movie" );
         $this->assertEquals( 'existing', $logger->LogImportCount[4]['operation'], "Expecting Operation to be EXISTING" );
         $this->assertEquals( 'updated', $logger->LogImportCount[5]['operation'], "Expecting Operation to be UPDATED" );
-        $this->assertEquals( 1, $logger->LogImportCount[6]['count'], "Expecting Save Count to be 1" );
+        $this->assertEquals( 1, $logger->LogImportCount[6]['count'], "Expecting Save Count" );
         $this->assertEquals( 'EventOccurrence', $logger->LogImportCount[6]['model'], "Expecting Model to be EventOccurrence" );
         $this->assertEquals( 'existing', $logger->LogImportCount[6]['operation'], "Expecting Operation to be EXISTING" );
         $this->assertEquals( 'updated', $logger->LogImportCount[7]['operation'], "Expecting Operation to be UPDATED" );
 
-        $this->assertEquals( 4, $logger->LogImportChange->count(), "Expecting 4 Changes to be logged." );
+        $this->assertEquals( 4, $logger->LogImportChange->count(), "Expecting Changes to be logged." );
         $this->assertEquals( 'Poi', $logger->LogImportChange[0]['model'], "Expecting First Change to be POI." );
         $this->assertEquals( "Updated Fields: \nfoo: bar \n", $logger->LogImportChange[0]['log'], "Incorrect log message" );
         $this->assertEquals( 'Event', $logger->LogImportChange[1]['model'], "Expecting Second Change to be EVENT." );
@@ -265,7 +265,7 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $logger->refresh( true ); // Call this to clear Doctrine cache
         
         $this->assertEquals( 1, $logger->LogImportCount->count(), "Expecting One Set of Counts, (poi inserts only)" );
-        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Poi', $logger->LogImportCount[0]['model'], "Expecting Model to be POI" );
         $this->assertEquals( 'insert', $logger->LogImportCount[0]['operation'], "Expecting Operation to be INSERT" );
         //print_r( $logger->toArray() );
@@ -301,7 +301,7 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $logger->refresh( true ); // Call this to clear Doctrine cache
 
         $this->assertEquals( 1, $logger->LogImportCount->count(), "Expecting No Sets of Counts" );
-        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count to be 2" );
+        $this->assertEquals( 2, $logger->LogImportCount[0]['count'], "Expecting Save Count" );
         $this->assertEquals( 'Poi', $logger->LogImportCount[0]['model'], "Expecting Model to be POI" );
         $this->assertEquals( 'insert', $logger->LogImportCount[0]['operation'], "Expecting Operation to be INSERT" );
         //print_r( $logger->toArray() );
