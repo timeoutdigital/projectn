@@ -17,19 +17,25 @@ $(function()
     });
 
   $( '#data-type' )
-    .html( '<a>Count / Percentage</a>' )
-    .click( function( event )
-    {
-      $( '#over-view td' ).each(function()
-      {
-        var td      = $( this );
-        var title   = td.attr( 'title' );
-        var content = td.html();
-        td.attr( 'title', content );
-        td.html( title );
-      });
-    });
+    .html( '<a type="percentage">Difference %</a>'    + '<br/>' +
+           '<a type="number">Difference No.</a>' + '<br/>' + 
+           '<a type="pastperiod">Past count</a>'     + '<br/>' +
+           '<a type="currentperiod">Current count</a>'
+           )
+    .css({'text-align':'left'})
 
   $( '#data-type a' )
-    .css({'cursor':'pointer'});
+    .css({'cursor':'pointer'})
+    .click( function( event )
+    {
+      var type = $( this ).attr( 'type' );
+
+      $( '#over-view td' ).each(function( event )
+      {
+        var td      = $( this );
+        var currentContent = td.html();
+        td.html( td.attr( type ) );
+        td.attr( 'title', type );
+      });
+    });
 });
