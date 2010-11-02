@@ -1,0 +1,15 @@
+import:
+
+  mock-one:
+    class:
+      name: MockLondonClassOne
+      params:
+        type: test-type
+
+  mock-two:
+    class:
+      name: MockLondonClassTwo
+      params:
+        foo: footest
+        bar: bartest
+        baz: baztest

@@ -35,11 +35,6 @@ abstract class LondonAPIBaseMapper extends DataMapper
   protected $country = 'GBR';
 
   /**
-   * @var geocoder
-   */
-  protected $geocoderr;
-
-  /**
    * @var int
    */
   protected $limit = 0;
@@ -58,23 +53,15 @@ abstract class LondonAPIBaseMapper extends DataMapper
    * @param LondonAPICrawler $apiCrawler
    * @param geocoder $geocoderr
    */
-  public function  __construct( LondonAPICrawler $apiCrawler=null, geocoder $geocoderr = null )
+  public function  __construct( Doctrine_Record $vendor, $params )
   {
-    $this->vendor = Doctrine::getTable('Vendor')
-      ->findOneByCityAndLanguage( 'london', 'en-GB' );
+    $this->vendor = $vendor;
 
-    if( is_null( $apiCrawler ) )
+    if( is_null( $this->apiCrawler ) )
     {
-      $apiCrawler = new LondonAPICrawler();
+      $this->apiCrawler = new LondonAPICrawler();
     }
-    $apiCrawler->setMapper( $this );
-    $this->apiCrawler = $apiCrawler;
-
-    if( is_null( $geocoderr ) )
-    {
-      $geocoderr = new googleGeocoder();
-    }
-    $this->geocoderr = $geocoderr;
+    $this->apiCrawler->setMapper( $this );
 
     $this->dataMapperHelper = new projectNDataMapperHelper($this->vendor);
   }
