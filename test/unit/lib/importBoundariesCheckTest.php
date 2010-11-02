@@ -111,9 +111,9 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( "0", $importCheck->getVariantNumberBy( 'ny', 'event') );
 
         // status
-        $this->assertEquals( "error", $importCheck->getStatusBy( 'ny', 'poi') );
-        $this->assertEquals( "ok", $importCheck->getStatusBy( 'ny', 'movie') );
-        $this->assertEquals( "warning", $importCheck->getStatusBy( 'ny', 'event'), 'should return Error as threshold limit for event is 1%' );
+        $this->assertEquals( "verybad", $importCheck->getStatusBy( 'ny', 'poi') );
+        $this->assertEquals( "verygood", $importCheck->getStatusBy( 'ny', 'movie') );
+        $this->assertEquals( "ok", $importCheck->getStatusBy( 'ny', 'event'), 'should return Error as threshold limit for event is 1%' );
         unlink( $ymlFilename );
         
     }
@@ -126,8 +126,8 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // init
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
         
-        $this->assertEquals( 5, $importCheck->getThresholdFor( 'ny', 'poi') );
-        $this->assertEquals( 1, $importCheck->getThresholdFor( 'ny', 'event') );
+        $this->assertEquals( 5, $importCheck->getLowerThresholdFor( 'ny', 'poi') );
+        $this->assertEquals( 1, $importCheck->getLowerThresholdFor( 'ny', 'event') );
     }
     
     public function testGetPercentageDiffBy7DaysForImportForAVendor()
@@ -391,7 +391,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // get the Errors
         $errors = $this->getErrors( );
 
-        // First one is NY which will throw fell behind minimum error and
+        // First one is NY which will throw fell behtempnamind minimum error and
         // two others; 2nd and 3rd will be NY's event and Movie which we are not checking!
         $this->assertContains( 'fell behind the minimum', $errors[0] );
 
@@ -413,19 +413,22 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
             'default' => array( 
                 'poi' => array(
                     'minimum' => 2,
-                    'threshold' => 1,
+                    'lower_threshold' => 1,
+                    'upper_threshold' => 1,
                 ), 
                 'event' => array(
                     'minimum' => 2,
-                    'threshold' => 1,
+                    'lower_threshold' => 1,
+                    'upper_threshold' => 1,
                 ),
                 'movie' => array(
                     'minimum' => 2,
-                    'threshold' => 1,
+                    'lower_threshold' => 1,
+                    'upper_threshold' => 1,
                 )
             ),
             'ny' => array(
-                'poi' => array( 'minimum' => 8, 'eventoccurrence' => 2, 'threshold' => 5 )
+                'poi' => array( 'minimum' => 8, 'eventoccurrence' => 2, 'lower_threshold' => 5 )
             ),
             'exclude' => array(
                 'unknown',

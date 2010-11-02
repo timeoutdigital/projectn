@@ -232,16 +232,27 @@ class importBoundariesCheck
                 $calculatedNumber = ( $currentPeriodTotalCount - $pastPeriodTotalCount ); // Get the difference
 
                 // get Status
-                $status = 'ok';
-                $thresHold = $this->getThresholdFor( $cityName, $model ) ;
-                if( $thresHold !== null && $calculatedPercentage < $thresHold && $calculatedPercentage < 0)
+                $status = 'good';
+                $lowerThresHold = $this->getLowerThresholdFor( $cityName, $model ) ;
+                $upperThresHold = $this->getUpperThresholdFor( $cityName, $model ) ;
+                
+                if( $calculatedPercentage == 0 )
                 {
-                    $status = 'error';
-                } 
-                else if( $calculatedPercentage <= 0 )
-                {
-                    $status = 'warning';
+                    $status = 'ok';
                 }
+                else if( $lowerThresHold !== null && $calculatedPercentage < $lowerThresHold)
+                {
+                    $status = 'verybad';
+                }
+                else if( $upperThresHold !== null && $calculatedPercentage > $upperThresHold)
+                {
+                    $status = 'verygood';
+                }
+                else if( $calculatedPercentage < 0 )
+                {
+                    $status = 'bad';
+                }
+
                 $changesArray[ $cityName ][ $model ] = array(
                                                     'percentage' => $calculatedPercentage,
                                                     'number' => $calculatedNumber,
@@ -323,9 +334,9 @@ class importBoundariesCheck
                     $droppedPercent = ( 100 - round( ( $todayIteration / $yesterDaylIteration )  * 100 ) );
                     $droppedAmount = $yesterDaylIteration - $todayIteration;
 
-                    if( $droppedPercent > $values['threshold'] )
+                    if( $droppedPercent > $values['lower_threshold'] )
                     {
-                        $this->addError( str_pad( ucfirst($city) , 20 ) . ": " . str_pad( ucfirst($model) , 15)." | import count dropped by {$droppedPercent}% ({$droppedAmount}), threshold: {$values['threshold']}%" );
+                        $this->addError( str_pad( ucfirst($city) , 20 ) . ": " . str_pad( ucfirst($model) , 15)." | import count dropped by {$droppedPercent}% ({$droppedAmount}), lower threshold: {$values['lower_threshold']}%" );
                     }
                 }
             } // foreach city > model
@@ -339,14 +350,24 @@ class importBoundariesCheck
     }
 
     
-    public function getThresholdFor( $cityName, $modelName )
+    public function getLowerThresholdFor( $cityName, $modelName )
     {
-        if( !isset( $this->config[ $cityName ][ $modelName ][ 'threshold' ]  ) )
+        if( !isset( $this->config[ $cityName ][ $modelName ][ 'lower_threshold' ]  ) )
         {
             return null;
         }
 
-        return $this->config[ $cityName ][ $modelName ][ 'threshold' ];
+        return $this->config[ $cityName ][ $modelName ][ 'lower_threshold' ];
+    }
+
+    public function getUpperThresholdFor( $cityName, $modelName )
+    {
+        if( !isset( $this->config[ $cityName ][ $modelName ][ 'upper_threshold' ]  ) )
+        {
+            return null;
+        }
+
+        return $this->config[ $cityName ][ $modelName ][ 'upper_threshold' ];
     }
 
     /**

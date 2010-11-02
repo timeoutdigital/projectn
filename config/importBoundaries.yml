@@ -3,13 +3,16 @@
 default:
   poi:
     minimum: 200
-    threshold: 0
+    lower_threshold: -2
+    upper_threshold: 5
   event:
     minimum: 1
-    threshold: 5
+    lower_threshold: -2
+    upper_threshold: 5
   movie:
     minimum: 1
-    threshold: 0
+    lower_threshold: -2
+    upper_threshold: 5
 
 # Specify City for Exclution from Checking Minimum / Threashold
 exclude: [ unknown, jerusalem, tel_aviv, amsterdam, bucharest, beijing_zh, budapest, bahrain, doha, rio_de_janeiro, sao_paulo, shanghai, hong_kong, novosibirsk, krasnoyarsk, omsk ,tyumen ]
@@ -23,9 +26,6 @@ ny:
     minimum: 1400
   movie:
     minimum: 100
-  eventoccurrence:
-    minimum: 100
-    threshold: 10
 
 chicago:
   poi:
