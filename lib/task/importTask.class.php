@@ -93,7 +93,7 @@ class importTask extends sfBaseTask
       case 'ny':
 
           $this->newStyleImport( 'ny', 'en-US', $options, $databaseManager, $importer );
-          
+
         break; // end ny
 
       case 'chicago':
@@ -108,6 +108,7 @@ class importTask extends sfBaseTask
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_bc.xml' );
 
                 echo "Importing Chicago's BC \n";
+                new FeedArchiver( $vendorObj, file_get_contents( $fileNameString ), 'poi-bc' );
 
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedBCMapper($vendorObj, $fileNameString) );
@@ -121,6 +122,7 @@ class importTask extends sfBaseTask
                 $fileNameString = $ftpClientObj->fetchLatestFileByPattern( 'toc_ed.xml' );
 
                 echo "Importing Chicago's ED \n";
+                new FeedArchiver( $vendorObj, file_get_contents( $fileNameString ), 'poi-ed' );
 
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedEDMapper($vendorObj, $fileNameString) );
@@ -137,6 +139,7 @@ class importTask extends sfBaseTask
                 $xmlData = simplexml_load_file( $fileNameString );
 
                 echo "Importing Chicago's Pois \n";
+                new FeedArchiver( $vendorObj, file_get_contents( $fileNameString ), 'poi' );
 
                 ImportLogger::getInstance()->setVendor( $vendorObj );
                 $importer->addDataMapper( new ChicagoFeedPoiMapper($vendorObj, $xmlData) );
@@ -153,6 +156,7 @@ class importTask extends sfBaseTask
                 $xmlData = simplexml_load_file( $fileNameString );
 
                 echo "Importing Chicago's Events \n";
+                new FeedArchiver( $vendorObj, file_get_contents( $fileNameString ), 'event' );
 
                 // @todo Wrap in try catch & change this to XSLT like new NY
                 // We are to Run two Import on Events to Manage Memory!
@@ -253,6 +257,7 @@ class importTask extends sfBaseTask
           case 'poi':
             $request = 'xmlvenues.asp';
             $feedObj->pullXml ( $url, $request, $parameters, 'POST' );
+            new FeedArchiver( $vendorObj, $feedObj->getResponse(), 'poi' );
 
             ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new LisbonFeedVenuesMapper( $feedObj->getXml() ) );
@@ -281,6 +286,7 @@ class importTask extends sfBaseTask
 
                 echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . "-" . $parameters[ 'to' ] . PHP_EOL;
                 $feedObj->pullXml( $url, $request, $parameters, 'POST' );
+                new FeedArchiver( $vendorObj, $feedObj->getResponse(), 'event_' . $parameters[ 'from' ] . '_to_' . $parameters[ 'to' ] );
 
                 $importer->addDataMapper( new LisbonFeedListingsMapper( $feedObj->getXml() ) );
               }
@@ -299,6 +305,7 @@ class importTask extends sfBaseTask
           case 'movie':
             $request = 'xmlfilms.asp';
             $feedObj->pullXml ( $url, $request, $parameters, 'POST' );
+            new FeedArchiver( $vendorObj, $feedObj->getResponse(), 'movie' );
 
             ImportLogger::getInstance()->setVendor( $vendorObj );
             $importer->addDataMapper( new LisbonFeedMoviesMapper( $feedObj->getXml() ) );
@@ -385,6 +392,7 @@ class importTask extends sfBaseTask
 
         $feedObj = new Curl( $feedUrl );
         $feedObj->exec();
+        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         ImportLogger::getInstance()->setVendor( $vendorObj );
@@ -441,6 +449,7 @@ class importTask extends sfBaseTask
         $ftpFiles = $this->parseSydneyFtpDirectoryListing( $ftpClient->fetchRawDirListing() );
 
         $xml = simplexml_load_file( $ftpClient->fetchFile( $ftpFiles[ $options['type'] ], $targetFileName ) );
+        new FeedArchiver( $vendor, file_get_contents( sfConfig::get( 'sf_root_dir' ) . "/import/{$vendor['city']}/{$targetFileName}" ), $options['type'] );
 
         $importer->addDataMapper( new $mapperClass( $vendor, $xml ) );
         $importer->run();
@@ -462,6 +471,7 @@ class importTask extends sfBaseTask
         else break;
 
         $feedObj->exec();
+        new FeedArchiver( $vendor, $feedObj->getResponse(), $options['type'] );
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         switch( $options['type'] )
@@ -531,6 +541,7 @@ class importTask extends sfBaseTask
 
         $feedObj = new Curl( $feedUrl );
         $feedObj->exec();
+        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         ImportLogger::getInstance()->setVendor( $vendorObj );
@@ -577,6 +588,7 @@ class importTask extends sfBaseTask
             // Download the File
             $feedCurl           = new Curl( $feedUrl );
             $feedCurl->exec();
+            new FeedArchiver( $vendor, $feedCurl->getResponse(), $options['type'] );
 
             $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
 
@@ -630,6 +642,7 @@ class importTask extends sfBaseTask
             // Download the File
             $feedCurl           = new Curl( $feedUrl );
             $feedCurl->exec();
+            new FeedArchiver( $vendor, $feedCurl->getResponse(), $options['type'] );
 
             $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
 
@@ -746,6 +759,8 @@ class importTask extends sfBaseTask
 
         $feedObj = new Curl( $feedUrl );
         $feedObj->exec();
+        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
+        
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         ImportLogger::getInstance()->setVendor( $vendorObj );
@@ -759,8 +774,6 @@ class importTask extends sfBaseTask
 
     }//end switch
   }
-
-  
 
   /* Common Function */
   private function dieDueToInvalidTypeSpecified()
@@ -921,6 +934,9 @@ EOF;
         echo 'Downloading Feed' . PHP_EOL;
         $feedObj = new Curl( $feedUrl );
         $feedObj->exec();
+
+        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $type );
+
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         echo 'Starting Import' . PHP_EOL;

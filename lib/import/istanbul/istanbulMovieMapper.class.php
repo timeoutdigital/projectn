@@ -56,7 +56,7 @@ class istanbulMovieMapper extends istanbulBaseMapper
           //medias
           foreach( $movieElement->medias->media as $media )
           {
-             $movie->addMediaByUrl( (string) $media );
+             $this->addImageHelper( $movie, (string) $media );  //#753 addImageHelper capture Exception and notify, this don't break the Import process
           }
 
           $this->notifyImporter( $movie );

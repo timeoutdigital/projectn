@@ -79,11 +79,11 @@ class singaporePoiMapper extends DataMapper
             }
 
             // add images
-            $poi->addMediaByUrl( (string) $venueElement->highres );
-            $poi->addMediaByUrl( (string) $venueElement->large_image );
-            $poi->addMediaByUrl( (string) $venueElement->image );
-            $poi->addMediaByUrl( (string) $venueElement->thumb );
-            $poi->addMediaByUrl( (string) $venueElement->thumbnail );
+            $this->addImageHelper( $poi, (string) $venueElement->highres ); //#753 addImageHelper capture Exception and notify, this don't break the Import process
+            $this->addImageHelper( $poi, (string) $venueElement->large_image );
+            $this->addImageHelper( $poi, (string) $venueElement->image );
+            $this->addImageHelper( $poi, (string) $venueElement->thumb );
+            $this->addImageHelper( $poi, (string) $venueElement->thumbnail );
 
             $this->notifyImporter( $poi );
         }

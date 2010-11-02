@@ -165,12 +165,13 @@ do
                                   cd $RELEASE_NAME &&
                                   $GIT_CHECKOUT
                                   rm -rf $CONFIG_DEPLOY_PATH/$APP_NAME/vendor && mv lib/vendor/ $CONFIG_DEPLOY_PATH/$APP_NAME/vendor/ &&
-                                  rm -rf export/ import/ log/ web/uploads/ config/databases.yml &&
+                                  rm -rf export/ import/ log/ web/uploads/ vendor_feeds/ config/databases.yml &&
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/export export &&
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/import import &&
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/log log &&
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/vendor lib/vendor &&
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/uploads web/uploads &&
+                                  ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/vendor_feeds vendor_feeds &&
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/config/databases.yml config/databases.yml &&
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/data/geocache.sqlite data/geocache.sqlite &&
                                   rm $DEPLOY_DIR &&

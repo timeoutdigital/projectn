@@ -53,7 +53,7 @@ class istanbulEventMapper extends istanbulBaseMapper
 
           foreach( $eventElement->medias->media as $media )
           {
-            $event->addMediaByUrl( (string) $media );
+              $this->addImageHelper( $event, (string) $media ); //#753 addImageHelper capture Exception and notify, this don't break the Import process
           }
 
           // Delete Occurences, but before deleting save the ids in an array to reuse

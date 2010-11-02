@@ -358,9 +358,6 @@ class nyEventsAndPoiMapper extends nyFeedBaseMapper
             //The Poi gets its categories from the event if it doesn't have any
             if( count( $occurrence['Poi']['VendorPoiCategory']) == 0)
             {
-
-                print_r( $occurrence['Poi']->toArray() );
-                //die;
                 $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
             }
 

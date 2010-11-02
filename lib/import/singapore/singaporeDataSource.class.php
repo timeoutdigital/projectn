@@ -56,6 +56,11 @@ class singaporeDataSource extends baseDataSource
         $feedObj = new $this->curlClass( $this->downloadURL );
         $feedObj->exec();
 
+        // Archive Feed
+        preg_match("/.*(events|venues|movies).*$/", $this->downloadURL, $archive_model);
+        new FeedArchiver( $vendor, $feedObj->getResponse(), "feed-{$archive_model[1]}" );
+        unset( $archive_model );
+
         // Fix UTF8 Encoding Issue
         $xmlDataFixer = new xmlDataFixer( $feedObj->getResponse() );
         $xmlDataFixer->encodeUTF8(); //#667 Fix Failing import
@@ -98,6 +103,11 @@ class singaporeDataSource extends baseDataSource
             
             $detailsFeedObj = new $this->curlClass( (string) $item->link );
             $detailsFeedObj->exec();
+
+            // Archive Feed
+            preg_match("/^http:\/\/.*\?(event|venue|movie)=(.*)&(?:amp;)?key=.*$/", $url, $archive_model);
+            new FeedArchiver( $vendor, $detailsFeedObj->getResponse(), "feed-{$archive_model[1]}-part" );
+            unset( $archive_model );
 
             $nodeXML = $this->getNodeAsString( $detailsFeedObj->getResponse() );
             $nodes [] = $nodeXML ;
