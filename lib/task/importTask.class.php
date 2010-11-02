@@ -63,8 +63,6 @@ class importTask extends sfBaseTask
         $this->options[ 'configFolder' ] = sfConfig::get('sf_config_dir') . DIRECTORY_SEPARATOR . 'projectn';
     }
 
-    die( $this->options['configFolder'] . DIRECTORY_SEPARATOR . $this->options['city'] . '.yml' );
-
     $this->config = sfYaml::load( $this->options['configFolder'] . DIRECTORY_SEPARATOR . $this->options['city'] . '.yml' );
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
