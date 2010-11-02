@@ -101,6 +101,27 @@ class LogExportTableTest extends PHPUnit_Framework_TestCase
                            'There should be 4 LogExportCount record for vendor 2 yesterday + today' );
   }
 
+  public function testGetLogExportWithCountRecordsByDates()
+  {
+      $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
+      $today     = date('Y-m-d H:i:s' );
+      $tomorrow  = date('Y-m-d H:i:s' , strtotime( '+1 day' )  );
+
+      $this->populateDatabaseWithData(); // Dummy Data
+
+      // Today
+      $exportLogsWithCountsByDatesToday =  Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecordsByDates( $today, $today, Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertEquals(1 , count( $exportLogsWithCountsByDatesToday ), 'There is only 1 Log for Today');
+
+      // yesterday
+      $exportLogsWithCountsByDatesYesterday =  Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecordsByDates( $yesterday, $yesterday, Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertEquals(2 , count( $exportLogsWithCountsByDatesYesterday ), 'There are 2 Log for Yesterday');
+
+      // today + yesterday
+      $exportLogsWithCountsByDatesTodayAndYesterday =  Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecordsByDates( $yesterday, $today, Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertEquals(3 , count( $exportLogsWithCountsByDatesTodayAndYesterday ), 'There are 3 Log for Today + Yesterday');
+  }
+
   
   private function populateDatabaseWithData()
   {

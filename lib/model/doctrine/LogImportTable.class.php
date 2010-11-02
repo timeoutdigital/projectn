@@ -57,6 +57,22 @@ class LogImportTable extends LogTable
         ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )
         ->where( 'l.vendor_id=?', $vendorID )
         ->addWhere( 'l.created_at BETWEEN ? AND ?', array( $dateFrom, $dateTo ) );
+        
+        return $q->execute( array(), $doctrineHydrateType );
+    }
+
+    /**
+     * Get LogImport and LogImport Count for given date range
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param int $doctrineHydrateType
+     * @return mixed
+     */
+    public function getLogImportWithCountRecordsByDates( $dateFrom, $dateTo, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
+        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )
+        ->where( 'l.created_at BETWEEN ? AND ?', array( $dateFrom, $dateTo ) );
 
         return $q->execute( array(), $doctrineHydrateType );
     }

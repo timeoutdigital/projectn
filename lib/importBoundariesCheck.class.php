@@ -135,12 +135,35 @@ class importBoundariesCheck
         $todayDate = date( 'Y-m-d', strtotime( '+1 day') );
         $firstDate = date( 'Y-m-d', strtotime( "-{$backDateNumber} day" ) );
 
+        // Query Database now and get All vendors Results, unless filtervendorID specified
+        $logResultSet = null;
+        if( $filterVendorID == null )
+        {
+            $logResultSet = ( $TYPE === self::IMPORT ) ? Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecordsByDates( $firstDate, $todayDate, Doctrine_Core::HYDRATE_ARRAY ) :
+                    Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecordsByDates( $firstDate, $todayDate, Doctrine_Core::HYDRATE_ARRAY );
+        }
+        else
+        {
+            $logResultSet = ( $TYPE === self::IMPORT ) ? Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecords( $filterVendorID, $firstDate, $todayDate, Doctrine_Core::HYDRATE_ARRAY ) :
+                    Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecords( $filterVendorID, $firstDate, $todayDate, Doctrine_Core::HYDRATE_ARRAY );
+        }
+
+        if( !is_array( $logResultSet ) || empty( $logResultSet ) )
+        {
+            throw new ImportBoundariesCheckException( 'query return empty log records...' );
+        }
+
+        // Extract the Log into easy to use Array
+        $logExtracted = ( $TYPE === self::IMPORT ) ? $this->extractImportStats( $logResultSet ) : $this->extractExportStats( $logResultSet );
+
+        // Store changes
         $changesArray = array();
 
         // Loop through vendor
         foreach( $this->vendors as $vendorID => $city )
         {
             $cityName = str_replace( ' ' , '_', $city );
+
             // Skip cities marked as exclude in YAML file
             if( in_array( $cityName , $this->excludedVendors ) )
             {
@@ -152,20 +175,11 @@ class importBoundariesCheck
                 continue; // Requested Only 1 vendor
             }
 
-            // get the import log and count
-            if( $TYPE === self::IMPORT )
-            {
-                $logCount = Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecords( $vendorID, $firstDate, $todayDate, Doctrine_Core::HYDRATE_ARRAY );
-                $logCountByDate = $this->extractImportStats( $logCount );
-            }
-            else
-            {
-                $logCount = Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecords( $vendorID, $firstDate, $todayDate, Doctrine_Core::HYDRATE_ARRAY );
-                $logCountByDate = $this->extractExportStats( $logCount );
-            }
+            // get Vendor Specific Logs
+            $logCountByDate = isset($logExtracted[$vendorID]) ? $logExtracted[$vendorID] : null;
 
             // Check to confirm we have All required Log
-            if( !is_array($logCountByDate) || count($logCountByDate) != ( $backDateNumber + 1 ) || ( count($logCountByDate) % $days ) != 0 )
+            if(!is_array($logCountByDate) || count($logCountByDate) != ( $backDateNumber + 1 ) || ( count($logCountByDate) % $days ) != 0 )
             {
                 $this->addError( "{$TYPE} : {$city} - invalid number of logs found, unable to process any further. Total Number of Records found: " . count($logCountByDate) );
                 continue;
@@ -211,7 +225,8 @@ class importBoundariesCheck
                     continue;
                 }
                 // calculate variant
-                $calculatedPercentage = ( ( ($currentPeriodTotalCount / $days ) ) / ( ( $pastPeriodTotalCount / $days ) ) );
+                //$calculatedPercentage = ( ( ($currentPeriodTotalCount / $days ) ) / ( ( $pastPeriodTotalCount / $days ) ) );
+                $calculatedPercentage = ( ( $currentPeriodTotalCount  ) / ( $pastPeriodTotalCount ) );
                 $calculatedPercentage =  ( (  $calculatedPercentage * 100 ) - 100 ); // Get change Percentage
 
                 $calculatedNumber = ( $currentPeriodTotalCount - $pastPeriodTotalCount ); // Get the difference
@@ -246,30 +261,34 @@ class importBoundariesCheck
     {
         $todayDate = date( 'Y-m-d' );
         $yesterdayDate = date( 'Y-m-d', strtotime( '-1 day' ) );
+        // Date Range for log Count Query
+        $dateFrom   = date( 'Y-m-d', strtotime( '-1 day' ) ); // yesterday
+        $dateTo     = date( 'Y-m-d', strtotime( '+1 day' ) ) ; // to Tomorrow
+        
+        // Query the Database Only Once, and it will Return Log for all vendors.
+        // Extract function will conver it into easy to use Array( vendor_id => array( date => ...) )
+        $todayImportLog = Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecordsByDates( $dateFrom, $dateTo, Doctrine_Core::HYDRATE_ARRAY );
 
-        // Evaluate
+        // Extract Stats and evaluate
+        $importLog = $this->extractImportStats( $todayImportLog ); // Extract the Date
+        
         // Check for Boundaries
         foreach ( $this->vendors as $vendorID => $city )
         {
             $cityName = str_replace( ' ' , '_', $city ); // CityName
 
+            // Skip Cities when specified in exclude list
             if( in_array( $cityName, $this->excludedVendors ) )
                 continue;
 
-            // Date Range for log Count Query
-            $dateFrom   = date( 'Y-m-d', strtotime( '-1 day' ) ); // yesterday
-            $dateTo     = date( 'Y-m-d', strtotime( '+1 day' ) ) ; // to Tomorrow
-
-            $todayImportLog = Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecords( $vendorID, $dateFrom, $dateTo, Doctrine_Core::HYDRATE_ARRAY );
-
-            if( !isset($todayImportLog) || empty($todayImportLog) )
+            // Check Log Exists
+            if( !isset($importLog[$vendorID]) || empty($importLog[$vendorID]) )
             {
                 $this->addError( sprintf( 'No Import Log found for City "%s" Today ( Checked at : %s)', $city, date('d M Y H:i:s ') ) );
                 continue;
             }
 
-            // Extract Stats and evaluate
-            $stats = $this->extractImportStats( $todayImportLog ); // Extract the Date
+            $stats = $importLog[$vendorID]; // get this vendor Logs
 
             foreach( $this->config[ $cityName ] as $model => $values )
             {
@@ -453,14 +472,19 @@ class importBoundariesCheck
         $operationDefinition = Doctrine::getTable('LogImportCount')->getColumnDefinition('operation');
         $availableOperations = $operationDefinition['values'];
         $metrics = array_fill_keys( array_values( $availableOperations ), 0 );
-        $dates = array();
+        $vendorsAndDates = array();
 
         foreach( $array as $logImport )
         {
             $date = date( 'Y-m-d', strtotime( $logImport['created_at'] ) );
 
-            if( !array_key_exists( $date, $dates ) )
-                $dates[ $date ] = array( 'poi' => $metrics, 'event' => $metrics, 'movie' => $metrics );
+            // Check vendor ID array Key Exists
+            if( !array_key_exists( $logImport['vendor_id'], $vendorsAndDates ) )
+                $vendorsAndDates[ $logImport['vendor_id'] ] = array();
+
+            // check and create Date and Default Array
+            if( !array_key_exists( $date, $vendorsAndDates[ $logImport['vendor_id'] ] ) )
+                $vendorsAndDates[ $logImport['vendor_id'] ][ $date ] = array( 'poi' => $metrics, 'event' => $metrics, 'movie' => $metrics );
 
             foreach( $logImport['LogImportCount'] as $logImportCount )
             {
@@ -469,7 +493,7 @@ class importBoundariesCheck
                     continue; // Skip event occurrence
                 }
 
-                $dates[ $date ][ strtolower( $logImportCount['model'] ) ][ $logImportCount['operation'] ] += $logImportCount['count'];
+                $vendorsAndDates[ $logImport['vendor_id'] ][ $date ][ strtolower( $logImportCount['model'] ) ][ $logImportCount['operation'] ] += $logImportCount['count'];
             }
 
             // Validate Sucess
@@ -479,7 +503,7 @@ class importBoundariesCheck
             }
         }
 
-        return $dates;
+        return $vendorsAndDates;
     }
 
     /**
@@ -489,20 +513,24 @@ class importBoundariesCheck
      */
     protected function extractExportStats( array $array )
     {
-        $dates = array();
+        $vendorsAndDates = array();
 
         foreach( $array as $logExport )
         {
-            $date = date( 'Y-m-d', strtotime( $logExport['created_at'] ) );
+            // Check vendor ID array Key Exists
+            if( !array_key_exists( $logExport['vendor_id'], $vendorsAndDates ) )
+                $vendorsAndDates[ $logExport['vendor_id'] ] = array();
 
-            if( !array_key_exists( $date, $dates ) )
-                $dates[ $date ] = array( 'poi' => 0, 'event' => 0, 'movie' => 0);
+            $date = date( 'Y-m-d', strtotime( $logExport['created_at'] ) );
+            
+            if( !array_key_exists( $date, $vendorsAndDates[ $logExport['vendor_id'] ] ) )
+                $vendorsAndDates[ $logExport['vendor_id'] ][ $date ] = array( 'poi' => 0, 'event' => 0, 'movie' => 0);
 
             foreach( $logExport['LogExportCount'] as $logExportCount )
-                $dates[ $date ][ strtolower( $logExportCount['model'] ) ] += $logExportCount['count'];
+                $vendorsAndDates[ $logExport['vendor_id'] ][ $date ][ strtolower( $logExportCount['model'] ) ] += $logExportCount['count'];
         }
 
-        return $dates;
+        return $vendorsAndDates;
     }
 }
 

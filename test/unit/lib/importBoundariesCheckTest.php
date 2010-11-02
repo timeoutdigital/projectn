@@ -48,13 +48,11 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // generate YAML file
         $ymlFilename = $this->generateYamlAndReturnPath();
 
+        // ImportBoundaried will throw an Exception that No results found
+        $this->setExpectedException( 'ImportBoundariesCheckException' );
+        
         // have to clear OLD errors
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename , 'daysToAnalyse' => 7, 'type' =>  importBoundariesCheck::IMPORT ) );
-
-        $errorMessages = $importCheck->getErrors();
-        $this->assertTrue( is_array( $errorMessages ) );
-        $this->assertGreaterThan( 1, count($errorMessages) );
-        $this->assertStringStartsWith( 'import', $errorMessages[0] );
     }
 
     public function testGetPercentageDiffByXDaysForExportInConstructor()
@@ -62,13 +60,12 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // generate YAML file
         $ymlFilename = $this->generateYamlAndReturnPath();
 
+        // ImportBoundaried will throw an Exception that No results found
+        $this->setExpectedException( 'ImportBoundariesCheckException' );
+        
         // have to clear OLD errors
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename , 'daysToAnalyse' => 7, 'type' =>  importBoundariesCheck::EXPORT ) );
 
-        $errorMessages = $importCheck->getErrors();
-        $this->assertTrue( is_array( $errorMessages ) );
-        $this->assertGreaterThan( 1, count($errorMessages) );
-        $this->assertStringStartsWith( 'export', $errorMessages[0] );
     }
 
     public function testGetPercentageDiffByXDaysForImportAVendor()

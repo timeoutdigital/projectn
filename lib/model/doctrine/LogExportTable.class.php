@@ -39,4 +39,20 @@ class LogExportTable extends LogTable
 
         return $q->execute( array(), $doctrineHydrateType );
     }
+
+    /**
+     * Get logExport and LogExportCount between given date range for all vendors
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param int $doctrineHydrateType
+     * @return mixed
+     */
+    public function getLogExportWithCountRecordsByDates( $dateFrom, $dateTo, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = Doctrine::getTable( 'LogExport' )->createQuery('l')
+        ->leftJoin( 'l.LogExportCount lc ON l.id = lc.log_export_id' )
+        ->where( 'l.created_at BETWEEN ? AND ?', array( $dateFrom, $dateTo ) );
+
+        return $q->execute( array(), $doctrineHydrateType );
+    }
 }
