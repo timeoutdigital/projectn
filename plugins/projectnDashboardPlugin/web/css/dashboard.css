@@ -36,16 +36,24 @@ thead{
   background: #666; 
 }
 
+thead tr:nth-child(1) th{
+  padding: 0.7em 0.5em;
+}
+
+thead tr:nth-child(2) th{
+  padding-bottom: 0;
+}
+
 thead tr:nth-child(1),
 thead tr:nth-child(2){
   border-bottom:none;
 }
 
-thead tr:nth-child(1) th{
+thead tr:first-child th{
   border-bottom: 1px solid #bbb;
 }
 
-thead tr:nth-child(1) th.empty{
+thead tr:first-child th.empty{
   border-bottom: none;
 }
 
