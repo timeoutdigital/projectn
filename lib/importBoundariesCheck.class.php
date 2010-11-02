@@ -234,7 +234,7 @@ class importBoundariesCheck
                 // get Status
                 $status = 'ok';
                 $thresHold = $this->getThresholdFor( $cityName, $model ) ;
-                if( $thresHold != null && $calculatedPercentage < $thresHold && $calculatedPercentage < 0)
+                if( $thresHold !== null && $calculatedPercentage < $thresHold && $calculatedPercentage < 0)
                 {
                     $status = 'error';
                 } 
