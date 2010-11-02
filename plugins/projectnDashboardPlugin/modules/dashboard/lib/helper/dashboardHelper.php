@@ -4,20 +4,21 @@
  * and open the template in the editor.
  */
 
-function getStatus( $value )
+function getStatus( $value, $threshold = 0 )
 {
   if( !is_numeric( $value ) )
   {
-      return "error";
+      return "no-log";
   }
 
   return ( $value < 0 ) ? 'warning' : 'ok';
 }
 
-function buildAndReturnTD( $city, $log, $model )
+function buildAndReturnTD( $city, $log, $model, $threshold, $className = '' )
 {
+    $threshold = ( !is_numeric( $threshold ) ) ? 0 : $threshold;
     $percentageValue = isset( $log[ $city ][ $model ] ) ? $log[ $city ][ $model ] : '-';
-    return sprintf( '<td class="%s">%s</td>', getStatus( $percentageValue ), is_numeric( $percentageValue ) ? round( $percentageValue, 1 ): '-' );
+    return sprintf( '<td class="%s">%s</td>', $className. ' ' . getStatus( $percentageValue, $threshold ),is_numeric( $percentageValue ) ? round( $percentageValue, 1 ): '-' );
 }
 
 ?>

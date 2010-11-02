@@ -43,6 +43,34 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
+    public function testGetPercentageDiffByXDaysForImportInConstructor()
+    {
+        // generate YAML file
+        $ymlFilename = $this->generateYamlAndReturnPath();
+
+        // have to clear OLD errors
+        $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename , 'daysToAnalyse' => 7, 'type' =>  importBoundariesCheck::IMPORT ) );
+
+        $errorMessages = $importCheck->getErrors();
+        $this->assertTrue( is_array( $errorMessages ) );
+        $this->assertGreaterThan( 1, count($errorMessages) );
+        $this->assertStringStartsWith( 'import', $errorMessages[0] );
+    }
+
+    public function testGetPercentageDiffByXDaysForExportInConstructor()
+    {
+        // generate YAML file
+        $ymlFilename = $this->generateYamlAndReturnPath();
+
+        // have to clear OLD errors
+        $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename , 'daysToAnalyse' => 7, 'type' =>  importBoundariesCheck::EXPORT ) );
+
+        $errorMessages = $importCheck->getErrors();
+        $this->assertTrue( is_array( $errorMessages ) );
+        $this->assertGreaterThan( 1, count($errorMessages) );
+        $this->assertStringStartsWith( 'export', $errorMessages[0] );
+    }
+
     public function testGetPercentageDiffByXDaysForImportAVendor()
     {
         $days = 1; // Number of days to compare the Average! 1 == 2 ( $days * 2 )
@@ -71,19 +99,38 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // have to clear OLD errors
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
 
-        $changes = $importCheck->getPercentageDiffByXDaysForImport( $days, 1 );
+        // do calculations
+        $importCheck->getPercentageDiffByXDaysForImport( $days, 1 );
 
-        $this->assertTrue( is_array($changes ), 'return should be an Array' );
-        $this->assertEquals( 1, count( $changes), 'Since we send Vendor, it should only return One Set of result' );
-        $keys = array_keys( $changes );
-        $this->assertEquals( 'ny', $keys[0], 'Key NY should be in Array');
-        $this->assertEquals( 3, count( $changes['ny'] ), 'NY should have 3 Models calculations' );
-        $this->assertEquals( -50, $changes['ny']['poi'], 'NY:Poi should show 50% Drop (-50)' );
-        $this->assertEquals( 0, $changes['ny']['event'], 'NY:Event should show 0% change' );
-        $this->assertEquals( 5, $changes['ny']['movie'], 'NY:Movie should show 5% Increase (5)' );
+        // Check the percentages
+        $this->assertNotNull( $importCheck->getVariantPercentageBy( 'ny', 'poi' ) );
+        $this->assertEquals( -50, $importCheck->getVariantPercentageBy( 'ny', 'poi' ), 'NY:Poi should show 50% Drop (-50)' );
+        $this->assertEquals( 0, $importCheck->getVariantPercentageBy( 'ny', 'event' ), 'NY:Event should show 0% change' );
+        $this->assertEquals( 5, $importCheck->getVariantPercentageBy( 'ny', 'movie' ), 'NY:Movie should show 5% Increase (5)' );
 
+        // numbers
+        $this->assertEquals( "-10", $importCheck->getVariantNumberBy( 'ny', 'poi') );
+        $this->assertEquals( "1", $importCheck->getVariantNumberBy( 'ny', 'movie') );
+        $this->assertEquals( "0", $importCheck->getVariantNumberBy( 'ny', 'event') );
+
+        // status
+        $this->assertEquals( "error", $importCheck->getStatusBy( 'ny', 'poi') );
+        $this->assertEquals( "ok", $importCheck->getStatusBy( 'ny', 'movie') );
+        $this->assertEquals( "warning", $importCheck->getStatusBy( 'ny', 'event'), 'should return Error as threshold limit for event is 1%' );
         unlink( $ymlFilename );
         
+    }
+
+    public function testGetThresholdFor()
+    {
+        // generate YAML file
+        $ymlFilename = $this->generateYamlAndReturnPath();
+        
+        // init
+        $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
+        
+        $this->assertEquals( 5, $importCheck->getThresholdFor( 'ny', 'poi') );
+        $this->assertEquals( 1, $importCheck->getThresholdFor( 'ny', 'event') );
     }
     
     public function testGetPercentageDiffBy7DaysForImportForAVendor()
@@ -131,19 +178,12 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // Get the Percentage changes
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
 
-        $changes = $importCheck->getPercentageDiffByXDaysForImport( $days );
-
-        $this->assertTrue( is_array($changes ), 'return should be an Array' );
-        $this->assertEquals( 1, count( $changes), 'There should be 1 vendor, as other should not be included since they dont have any Logs' );
-        $keys = array_keys( $changes );
-        $this->assertEquals( 'ny', $keys[0], 'Key NY should be in Array');
-        $this->assertEquals( 4, count( $changes['ny'] ), 'NY should have 4 Models calculations, it has EventOccurrence' );
+        $importCheck->getPercentageDiffByXDaysForImport( $days );
 
         // Check calculations, it returned in float values
-        $this->assertEquals( "-11.4943", round($changes['ny']['poi'], 4), 'NY:Poi should show 15% Drop (-15)' );
-        $this->assertEquals( "6.4103", round($changes['ny']['event'], 4), 'NY:Event should show 0% Change' );
-        $this->assertEquals( "-2.7027", round($changes['ny']['movie'], 4), 'NY:Movie should show 0% Change' );
-        $this->assertEquals( 0, $changes['ny']['eventoccurrence'], 'NY:EventOccurrence should show 0 change' );
+        $this->assertEquals( "-11.4943", round($importCheck->getVariantPercentageBy( 'ny', 'poi' ), 4), 'NY:Poi should show 15% Drop (-15)' );
+        $this->assertEquals( "6.4103", round($importCheck->getVariantPercentageBy( 'ny', 'event' ), 4), 'NY:Event should show 0% Change' );
+        $this->assertEquals( "-2.7027", round($importCheck->getVariantPercentageBy( 'ny', 'movie' ), 4), 'NY:Movie should show 0% Change' );
 
         unlink( $ymlFilename );
 
@@ -200,20 +240,17 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
 
         // get Data and Assert
         $importCheck = new importBoundariesCheck( );
-        $changes = $importCheck->getPercentageDiffByXDaysForExport( $daysPerPeriod );
-
-        $this->assertTrue( is_array($changes ), 'return should be an Array' );
-        $this->assertEquals( 1, count( $changes), 'There should be 1 vendor, as other should not be included since they dont have any Logs' );
-        $keys = array_keys( $changes );
-        $this->assertEquals( 'ny', $keys[0], 'Key NY should be in Array');
-        $this->assertEquals( 3, count( $changes['ny'] ), 'NY should have 3 Models exported' );
+        $importCheck->getPercentageDiffByXDaysForExport( $daysPerPeriod );
 
         // assert calculation
-        $this->assertEquals( "10", round( $changes['ny']['poi'], 4 ) ); 
-        $this->assertEquals( "-10", round( $changes['ny']['event'], 4 ) );
-        $this->assertEquals( "0", round( $changes['ny']['movie'], 4 ) );
-        
+        $this->assertEquals( "10", round( $importCheck->getVariantPercentageBy( 'ny', 'poi' ), 4 ) );
+        $this->assertEquals( "-10", round( $importCheck->getVariantPercentageBy( 'ny', 'event' ), 4 ) );
+        $this->assertEquals( "0", round( $importCheck->getVariantPercentageBy( 'ny', 'movie' ), 4 ) );
 
+        // Numbers
+        $this->assertEquals( "1", $importCheck->getVariantNumberBy( 'ny', 'poi' ) );
+        $this->assertEquals( "-1", $importCheck->getVariantNumberBy( 'ny', 'event' ) );
+        $this->assertEquals( "0", $importCheck->getVariantNumberBy( 'ny', 'movie' ) );
     }
 
     /**
@@ -391,7 +428,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
                 )
             ),
             'ny' => array(
-                'poi' => array( 'minimum' => 8, 'eventoccurrence' => 2 )
+                'poi' => array( 'minimum' => 8, 'eventoccurrence' => 2, 'threshold' => 5 )
             ),
             'exclude' => array(
                 'unknown',

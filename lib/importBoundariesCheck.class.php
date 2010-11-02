@@ -34,6 +34,8 @@ class importBoundariesCheck
 
     protected $errors;
 
+    protected $percentageDiffByDays;
+
     const IMPORT = 'import';
     const EXPORT = 'export';
 
@@ -49,9 +51,22 @@ class importBoundariesCheck
         $this->errors = array();
 
         // Load Vendors
-        $this->vendors = Doctrine::getTable( 'Vendor' )->findAll( 'KeyValue' );
+        $this->vendors = Doctrine::getTable( 'Vendor' )->findAllVendorsInAlphabeticalOrder( 'KeyValue' );
+
         // Load config file
         $this->loadAndParseConfig( );
+
+        if( isset( $options['daysToAnalyse'] ) && is_numeric( $options['daysToAnalyse'] ) )
+        {
+            if( isset( $options['type'] ) && $options['type'] === self::IMPORT )
+            {
+                $this->getPercentageDiffByXDaysForImport( $options['daysToAnalyse'] );
+            }
+            else if( isset( $options['type'] ) && $options['type'] === self::EXPORT )
+            {
+                $this->getPercentageDiffByXDaysForExport( $options['daysToAnalyse'] );
+            }
+        }
     }
 
     /**
@@ -72,8 +87,9 @@ class importBoundariesCheck
             throw new ImportBoundariesCheckException( 'getPercentageDiffByXDaysForImport vendor not found' );
         }
 
+        $this->percentageDiffByDays = null; // reset
         // Return Results
-        return $this->getPercentageDiffByXDays( self::IMPORT, $days, $filterVendorID );
+        $this->percentageDiffByDays = $this->getPercentageDiffByXDays( self::IMPORT, $days, $filterVendorID );
     }
 
     /**
@@ -94,8 +110,10 @@ class importBoundariesCheck
             throw new ImportBoundariesCheckException( 'getPercentageDiffByXDaysForExport vendor not found' );
         }
 
+        $this->percentageDiffByDays = null; // reset
+        
         // Return Results
-        return $this->getPercentageDiffByXDays( self::EXPORT, $days, $filterVendorID );
+        $this->percentageDiffByDays = $this->getPercentageDiffByXDays( self::EXPORT, $days, $filterVendorID );
     }
 
     /**
@@ -122,6 +140,13 @@ class importBoundariesCheck
         // Loop through vendor
         foreach( $this->vendors as $vendorID => $city )
         {
+            $cityName = str_replace( ' ' , '_', $city );
+            // Skip cities marked as exclude in YAML file
+            if( in_array( $cityName , $this->excludedVendors ) )
+            {
+                continue;
+            }
+            
             if( isset($vendorID) && is_numeric( $filterVendorID ) && $filterVendorID != $vendorID)
             {
                 continue; // Requested Only 1 vendor
@@ -150,8 +175,8 @@ class importBoundariesCheck
             $logChunk = array_chunk( $logCountByDate, $days, true );
 
             // Add them Up
-            $defaults = array( 'poi' => 0, 'event' => 0, 'movie' => 0 , 'eventoccurrence' => 0 );
-            $sumOfArrays = array( $defaults, $defaults );
+            $defaults = array( 'poi' => 0, 'event' => 0, 'movie' => 0 );
+            $sumOfArrays = array( $defaults, $defaults ); // Two set of arrasy required as we have to calculate lastweek, this week and so on...
 
             foreach( $logChunk as $key => $modelValue )
             {
@@ -174,21 +199,45 @@ class importBoundariesCheck
             }
 
             // calculate the Differences in percentage
-            foreach( $sumOfArrays[ 0 ] as $model => $value )
+            foreach( $sumOfArrays[ 0 ] as $model => $pastPeriodTotalCount )
             {
-                if( $value == 0 || $sumOfArrays[ 1 ][ $model ] == 0 )
+                // Get current period count
+                $currentPeriodTotalCount = $sumOfArrays[ 1 ][ $model ];
+
+                if( $pastPeriodTotalCount == 0 || $currentPeriodTotalCount == 0 )
                 {
                     // Error Devided by Zero!
-                    $this->addError( "{$TYPE} : Unable to calculate variant for {$city}::{$model}, devide or by 0 [ First Value: {$value}, Second Value: {$sumOfArrays[ 1 ][ $model ]}]." );
+                    $this->addError( "{$TYPE} : Unable to calculate variant for {$city}::{$model}, devide or by 0 [ First Value: {$pastPeriodTotalCount}, Second Value: {$currentPeriodTotalCount}]." );
                     continue;
                 }
                 // calculate variant
-                $changesArray[ $city ][ $model ] = ( ( ($sumOfArrays[ 1 ][ $model ] / $days ) ) / ( ( $value / $days ) ) );
-                $changesArray[ $city ][ $model ] =  ( (  $changesArray[ $city ][ $model ] * 100 ) - 100 ); // Get change Percentage
+                $calculatedPercentage = ( ( ($currentPeriodTotalCount / $days ) ) / ( ( $pastPeriodTotalCount / $days ) ) );
+                $calculatedPercentage =  ( (  $calculatedPercentage * 100 ) - 100 ); // Get change Percentage
+
+                $calculatedNumber = ( $currentPeriodTotalCount - $pastPeriodTotalCount ); // Get the difference
+
+                // get Status
+                $status = 'ok';
+                $thresHold = $this->getThresholdFor( $cityName, $model ) ;
+                if( $thresHold != null && $calculatedPercentage < $thresHold && $calculatedPercentage < 0)
+                {
+                    $status = 'error';
+                } 
+                else if( $calculatedPercentage <= 0 )
+                {
+                    $status = 'warning';
+                }
+                $changesArray[ $cityName ][ $model ] = array(
+                                                    'percentage' => $calculatedPercentage,
+                                                    'number' => $calculatedNumber,
+                                                    'status' => $status,
+                                                    'pastPeriodCount' => $pastPeriodTotalCount,
+                                                    'currentPeriodCount' => $currentPeriodTotalCount,
+                                                    );
             }
 
         }// $vendor
-
+        
         return $changesArray;
     }
 
@@ -268,6 +317,67 @@ class importBoundariesCheck
     {
         // return error messages
         return $this->errors;
+    }
+
+    
+    public function getThresholdFor( $cityName, $modelName )
+    {
+        if( !isset( $this->config[ $cityName ][ $modelName ][ 'threshold' ]  ) )
+        {
+            return null;
+        }
+
+        return $this->config[ $cityName ][ $modelName ][ 'threshold' ];
+    }
+
+    /**
+     * Methods to access Import/Export percentages
+     */
+
+    /**
+     * get the percentage variant by Cityname and Model Name
+     * @param string $cityName
+     * @param string $modelName
+     * @return mix
+     */
+    public function getVariantPercentageBy( $cityName, $modelName, $decimalPlaces = null )
+    {
+        $value = isset( $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'percentage' ] ) ? $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'percentage' ] : null;
+        if( is_int( $decimalPlaces ) && is_numeric( $value ) )
+        {
+            return round( $value, $decimalPlaces );
+        }
+
+        return $value;
+    }
+
+    /**
+     * get the number variant by Cityname and Model Name
+     * @param string $cityName
+     * @param string $modelName
+     * @return mix
+     */
+    public function getVariantNumberBy( $cityName, $modelName )
+    {
+        return isset( $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'number' ] ) ? $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'number' ] : null;
+    }
+
+    /**
+     * get the status by comparing to confic YAML file threshold limit
+     * @param string $cityName
+     * @param string $modelName
+     * @return string error, warning, ok
+     */
+    public function getStatusBy( $cityName, $modelName )
+    {
+
+        return isset( $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'status' ] ) ?  $this->percentageDiffByDays[ $cityName ][ $modelName ][ 'status' ] : null;
+    }
+
+    public function getIncludedCities( )
+    {
+        return array_keys( $this->percentageDiffByDays );
+        
     }
 
     /**
@@ -350,10 +460,17 @@ class importBoundariesCheck
             $date = date( 'Y-m-d', strtotime( $logImport['created_at'] ) );
 
             if( !array_key_exists( $date, $dates ) )
-                $dates[ $date ] = array( 'poi' => $metrics, 'event' => $metrics, 'movie' => $metrics, 'eventoccurrence' => $metrics );
+                $dates[ $date ] = array( 'poi' => $metrics, 'event' => $metrics, 'movie' => $metrics );
 
             foreach( $logImport['LogImportCount'] as $logImportCount )
+            {
+                if( strtolower( $logImportCount['model'] ) === 'eventoccurrence' )
+                {
+                    continue; // Skip event occurrence
+                }
+
                 $dates[ $date ][ strtolower( $logImportCount['model'] ) ][ $logImportCount['operation'] ] += $logImportCount['count'];
+            }
 
             // Validate Sucess
             if( $date == date('Y-m-d')  && 'success' != strtolower( $logImport['status'] ))

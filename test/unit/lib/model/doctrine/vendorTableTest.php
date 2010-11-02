@@ -30,7 +30,7 @@ class VendorTableTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
-    public function testFindAllVendorsInAlphaBeticalOrder()
+    public function testFindAllVendorsInAlphabeticalOrder()
     {
         $vendorZ = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'Z City name' ) );
         $vendorA = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'A City name' ) );

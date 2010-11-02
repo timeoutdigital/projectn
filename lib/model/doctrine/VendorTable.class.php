@@ -32,7 +32,7 @@ class VendorTable extends Doctrine_Table
    * @param int $hydrationMode
    * @return mix
    */
-  public function findAllVendorsInAlphaBeticalOrder( $hydrationMode = Doctrine_core::HYDRATE_RECORD )
+  public function findAllVendorsInAlphabeticalOrder( $hydrationMode = Doctrine_core::HYDRATE_RECORD )
   {
       $q = Doctrine_Query::create()
       ->from( 'Vendor v ' )

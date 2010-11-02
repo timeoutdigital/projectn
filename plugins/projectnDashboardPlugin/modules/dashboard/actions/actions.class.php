@@ -18,20 +18,22 @@ class dashboardActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
       // get vendor
-      $vendors = Doctrine::getTable( 'Vendor' )->findAll();
+      $vendors = Doctrine::getTable( 'Vendor' )->findAllVendorsInAlphabeticalOrder();
       $this->vendors = $vendors;
       
       // Get the Threshold
-      $importBoundary = new importBoundariesCheck( );
       $this->thresholdImport = array();
-      $this->thresholdImport['yesterday'] = $importBoundary->getPercentageDiffByXDaysForImport( 1 ); // = yesterday and Today
-      $this->thresholdImport['week'] = $importBoundary->getPercentageDiffByXDaysForImport( 7 ); // = Week
-      $this->thresholdImport['month'] = $importBoundary->getPercentageDiffByXDaysForImport( 28 ); // = Month
+      $this->thresholdExport = array();
+      
+      // Import stats
+      $this->importYesterday = new importBoundariesCheck( array('daysToAnalyse' => 1, 'type' => importBoundariesCheck::IMPORT ) ); // = yesterday and Today
+      $this->importWeek = new importBoundariesCheck( array('daysToAnalyse' => 7, 'type' => importBoundariesCheck::IMPORT ) ); // = Week
+      $this->importMonth = new importBoundariesCheck( array('daysToAnalyse' => 28, 'type' => importBoundariesCheck::IMPORT ) ); // = month
 
       // get the export stats
-      $this->thresholdExport = array();
-      $this->thresholdExport['yesterday'] = $importBoundary->getPercentageDiffByXDaysForExport( 1 ); // = yesterday and Today
-      $this->thresholdExport['week'] = $importBoundary->getPercentageDiffByXDaysForExport( 7 ); // = Week
-      $this->thresholdExport['month'] = $importBoundary->getPercentageDiffByXDaysForExport( 28 ); // = Month
+      $this->exportYesterday = new importBoundariesCheck( array('daysToAnalyse' => 1, 'type' => importBoundariesCheck::EXPORT ) ); // = yesterday and Today
+      $this->exportWeek = new importBoundariesCheck( array('daysToAnalyse' => 7, 'type' => importBoundariesCheck::EXPORT ) ); // = week
+      $this->exportMonth =  new importBoundariesCheck( array('daysToAnalyse' => 28, 'type' => importBoundariesCheck::EXPORT ) ); // = Month
+      
   }
 }

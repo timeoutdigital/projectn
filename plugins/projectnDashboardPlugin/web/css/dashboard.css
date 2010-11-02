@@ -36,7 +36,7 @@ thead{
   background: #666; 
 }
 
-thead tr:first-child{
+thead tr:nth-child(2){
   border-bottom:none;
 }
 
@@ -57,7 +57,7 @@ thead th.empty{
 }
 
 .row-section-end{
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #888;
 }
 
 .row-section-end.big{
@@ -74,4 +74,11 @@ thead th.empty{
 
 .error{
   background:#fbb;
+}
+.no-log{
+    background: #ccc;
+    color: #ccc;
+}
+.ok, .error, .warning{
+    color: #555;
 }
