@@ -62,7 +62,9 @@ class importTask extends sfBaseTask
     {
         $this->options[ 'configFolder' ] = sfConfig::get('sf_config_dir') . DIRECTORY_SEPARATOR . 'projectn';
     }
-    
+
+    die( $this->options['configFolder'] . DIRECTORY_SEPARATOR . $this->options['city'] . '.yml' );
+
     $this->config = sfYaml::load( $this->options['configFolder'] . DIRECTORY_SEPARATOR . $this->options['city'] . '.yml' );
     //Connect to the database.
     $databaseManager = new sfDatabaseManager($this->configuration);
@@ -806,29 +808,6 @@ EOF;
             $this->writeLogLine( "Failed to Extract All File Names From Sydney FTP Directory Listing." );
         
         return $ftpFiles;
-    }
-
-    public function newStyleImport( $city, $options, $databaseManager, $importer )
-    {
-
-        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('london', 'en-GB');
-        $databaseManager->getDatabase('searchlight_london')->getConnection(); // Set sfDatabase
-
-        $type = $this->options['type'];
-        $mapperClassName = $this->config['import'][$type]['class']['name'];
- 
-        $constructorParams = array();
-        if( isset( $this->config['import'][$type]['class']['params'] ) )
-        {
-            $constructorParams = $this->config['import'][$type]['class']['params'];
-        }
-
-        ImportLogger::getInstance()->setVendor($vendor);
-        $importer->addDataMapper( new $mapperClassName( $vendor, $constructorParams ) );
-        $importer->run();
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage( '', true );
-
     }
 
     private function importMoscow( $city, $type )
