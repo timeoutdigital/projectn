@@ -36,8 +36,17 @@ thead{
   background: #666; 
 }
 
+thead tr:nth-child(1),
 thead tr:nth-child(2){
   border-bottom:none;
+}
+
+thead tr:nth-child(1) th{
+  border-bottom: 1px solid #bbb;
+}
+
+thead tr:nth-child(1) th.empty{
+  border-bottom: none;
 }
 
 thead tr th{
@@ -52,8 +61,13 @@ tbody td{
   text-align:center;
 }
 
-thead th.empty{
-  background-color: transparent;
+tbody tr td:last-child.row-section-end{
+  border-right: 1px solid #bbb;
+}
+
+thead tr th.empty.row-section-end{
+  background-color: #999;
+  border-right: 5px solid #999;
 }
 
 .row-section-end{

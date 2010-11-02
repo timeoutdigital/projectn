@@ -1,23 +1,25 @@
 <?php use_helper('dashboard');?>
 <?php use_stylesheet('/projectnDashboardPlugin/css/dashboard.css'); ?>
+<?php use_javascript('jquery-1.4.3.min.js'); ?>
+<?php use_javascript('/projectnDashboardPlugin/css/dashboard.css'); ?>
     <table id="over-view">
       <thead>
         <tr>
           <th class="empty row-section-end big"></th>
-          <th colspan="6" class="row-section-end big">Yesterday</th>
-          <th colspan="6" class="row-section-end big">Last week</th>
-          <th colspan="6">Last month</th>
+          <th colspan="6" class="row-section-end big">Today vs yesterday</th>
+          <th colspan="6" class="row-section-end big">This week vs last week</th>
+          <th colspan="6">This month vs last month</th>
         </tr>
         <tr>
           <th class="empty row-section-end big"></th>
 
           <th colspan="2" class="row-section-end">Poi</th>
           <th colspan="2" class="row-section-end">Event</th>
-          <th class="empty row-section-end big" colspan="2" class="">Movie</th>
+          <th class="row-section-end big" colspan="2" class="">Movie</th>
           
           <th colspan="2" class="row-section-end">Poi</th>
           <th colspan="2" class="row-section-end">Event</th>
-          <th class="empty row-section-end big" colspan="2" class="">Movie</th>
+          <th class="row-section-end big" colspan="2" class="">Movie</th>
           
           <th colspan="2" class="row-section-end">Poi</th>
           <th colspan="2" class="row-section-end">Event</th>
@@ -26,7 +28,7 @@
 
         </tr>
         <tr>
-          <th class="row-section-end big"></th>
+          <th class="empty row-section-end big"></th>
 
           <th>Import</th>
           <th class="row-section-end">Export</th>
