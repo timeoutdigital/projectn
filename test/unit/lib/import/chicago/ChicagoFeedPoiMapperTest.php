@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 
 /**
  * Test for Chicago Poi Mapper
@@ -20,6 +21,7 @@ class ChicagoFeedPoiMapperTest extends PHPUnit_Framework_TestCase
 {
     private $vendor;
 
+    private $params;
     /**
     * Sets up the fixture, for example, opens a network connection.
     * This method is called before a test is executed.
@@ -30,6 +32,8 @@ class ChicagoFeedPoiMapperTest extends PHPUnit_Framework_TestCase
         Doctrine::loadData('data/fixtures');
 
         $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'chicago' );
+
+        $this->params =  array( 'ftp' => array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutchicago.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/chicago/chicago_new_event_poi.short.xml' ) );
 
     }
 
@@ -49,8 +53,7 @@ class ChicagoFeedPoiMapperTest extends PHPUnit_Framework_TestCase
     {
 
         // Load XML and Data Mapper
-        $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/chicago/chicago_new_event_poi.short.xml' );
-        $dataMapper = new ChicagoFeedPoiMapper( $this->vendor, $xml );
+        $dataMapper = new ChicagoFeedPoiMapper( $this->vendor, $this->params );
 
         // Run Test Import
         $importer = new Importer();

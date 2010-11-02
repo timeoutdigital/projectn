@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 /**
  * Test for Chicago Event Mapper
  *
@@ -12,7 +12,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  * @author Rajeevan Kumarathasan <rajeevankumarathasan@timeout.com>
  * @copyright Timeout Communications Ltd
  *
- * @version 1.0.0
+ * @version 1.0.0 
  *
  *
  */
@@ -31,7 +31,7 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
 
         $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'chicago' );
 
-        
+        $this->params =  array( 'split' => array( 'index' => 1, 'chunk' => 3 ), 'ftp' => array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutchicago.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/chicago/chicago_new_event_poi.short.tmp.xml' ) );
 
     }
 
@@ -42,6 +42,11 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         ProjectN_Test_Unit_Factory::destroyDatabases();
+        // Delete the TMP file
+        if(file_exists( $this->params['ftp']['file']))
+        {
+            unlink($this->params['ftp']['file']);
+        }
     }
 
     public function testMapEvents()
@@ -51,17 +56,14 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
 
         $xml = $this->setupPoisAndDates( $xml ); // Setup Dummy POIs and update DATEs
 
+        // Save it as Temporary Files
+        file_put_contents( $this->params['ftp']['file'], $xml->saveXML());
+
         $pois = Doctrine::getTable( 'Poi' )->findAll();
         $this->assertGreaterThan( 15, $pois->count(), 'There should be at-least 15 POIS');
         
-        // Split and RUNN import Twise
-        $eventNodes = $xml->xpath( '/body/event' );
-        
-        $totalCount = count( $eventNodes );
-        $splitAt = round( $totalCount / 2 );
-
         // Run First Half of the import
-        $dataMapper = new ChicagoFeedEventMapper( $this->vendor, $xml, null, $eventNodes, 0, $splitAt);
+        $dataMapper = new ChicagoFeedEventMapper( $this->vendor, $this->params);
 
         // Run Test Import
         $importer = new Importer();
@@ -71,10 +73,12 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
 
         // Get all events added
         $events = Doctrine::getTable( 'Event' )->findAll();
-        $this->assertEquals( $splitAt, $events->count(), 'First Hlaf should be Imported.');
+        $this->assertEquals( 5, $events->count(), 'First Hlaf should be Imported.');
 
         // Run Second import
-        $dataMapper = new ChicagoFeedEventMapper( $this->vendor, $xml, null, $eventNodes, $splitAt, $totalCount ) ;
+        $this->params['split']['index'] = 2;
+        $dataMapper = new ChicagoFeedEventMapper( $this->vendor, $this->params ) ;
+
         // Run Test Import
         $importer = new Importer();
         $importer->addDataMapper( $dataMapper );
@@ -83,7 +87,21 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
 
         // Get all events added First + second
         $events = Doctrine::getTable( 'Event' )->findAll();
-        $this->assertEquals( $totalCount, $events->count(), 'First + second should add upto total count.');
+        $this->assertEquals( 10, $events->count(), 'First + second should add upto total count.');
+
+        // Run Third import
+        $this->params['split']['index'] = 3;
+        $dataMapper = new ChicagoFeedEventMapper( $this->vendor, $this->params ) ;
+
+        // Run Test Import
+        $importer = new Importer();
+        $importer->addDataMapper( $dataMapper );
+        $importer->run();
+        unset( $importer );
+
+        // Get all events added First + second
+        $events = Doctrine::getTable( 'Event' )->findAll();
+        $this->assertEquals( 15, $events->count(), 'First + second + Third should add upto total count.');
 
         // used for Occurrence checking
         $startDateFormatted = strtotime( '+2 day' );
@@ -142,6 +160,50 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
         
     }
 
+    /**
+     * Test for Spliting as 2 Chunks, this will have left over and split should handle this and import all 15 events
+     */
+    public function testMapEvents2Chunk()
+    {
+        // Load XML and Data Mapper
+        $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/chicago/chicago_new_event_poi.short.xml' );
+
+        $xml = $this->setupPoisAndDates( $xml ); // Setup Dummy POIs and update DATEs
+
+        // Save it as Temporary Files
+        file_put_contents( $this->params['ftp']['file'], $xml->saveXML());
+
+        // Run First Half of the import
+        $this->params['split']['chunk'] = 2;
+        $this->params['split']['index'] = 1;
+        $dataMapper = new ChicagoFeedEventMapper( $this->vendor, $this->params);
+
+        // Run Test Import
+        $importer = new Importer();
+        $importer->addDataMapper( $dataMapper );
+        $importer->run();
+        unset( $importer );
+
+        // Get all events added
+        $events = Doctrine::getTable( 'Event' )->findAll();
+        $this->assertEquals( 8, $events->count(), 'First Hlaf should be Imported.');
+
+        // Run Second import
+        $this->params['split']['index'] = 2;
+        $dataMapper = new ChicagoFeedEventMapper( $this->vendor, $this->params ) ;
+
+        // Run Test Import
+        $importer = new Importer();
+        $importer->addDataMapper( $dataMapper );
+        $importer->run();
+        unset( $importer );
+
+        // Get all events added First + second
+        $events = Doctrine::getTable( 'Event' )->findAll();
+        $this->assertEquals( 15, $events->count(), 'First + second should add upto total count.');
+
+
+    }
     /**
    * Setup Dummy Pois based on venue ID's and Change XMl Feed Dates
    * @param SimpleXMLElement $xml

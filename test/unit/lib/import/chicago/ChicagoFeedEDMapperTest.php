@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 
 /**
  * Test for Chicago ED Mapper
@@ -20,6 +21,8 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
 {
     private $vendor;
 
+    private $params;
+    
     /**
     * Sets up the fixture, for example, opens a network connection.
     * This method is called before a test is executed.
@@ -31,6 +34,7 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
 
         $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'chicago' );
 
+        $this->params =  array( 'ftp' => array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutchicago.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/chicago/short_toc_ed.xml' ) );
     }
 
     /**
@@ -45,8 +49,7 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
     public function testMapBC()
     {
         // Load XML and Data Mapper
-        $fileName =  TO_TEST_DATA_PATH . '/chicago/short_toc_ed.xml';
-        $dataMapper = new ChicagoFeedEDMapper( $this->vendor, $fileName );
+        $dataMapper = new ChicagoFeedEDMapper( $this->vendor, $this->params );
 
         // Run Test Import
         $importer = new Importer();
