@@ -96,16 +96,16 @@ thead tr th.empty.row-section-end a{
   background:#bfb;
 }
 
-.warning{
+.bad{
   background:#ffb;
 }
 
-.error{
+.verybad{
   background:#fbb;
 }
 .highlight .ok,
-.highlight .error,
-.highlight .warning{
+.highlight .verybad,
+.highlight .bad{
   color: black;
   background:#ddd;
 }
@@ -113,17 +113,17 @@ thead tr th.empty.row-section-end a{
   background:#5BFF45;
 }
 
-.highlight .warning{
+.highlight .bad{
   background:#FFFF45;
 }
 
-.highlight .error{
+.highlight .verybad{
   background:#FF4548;
 }
 .no-log{
     background: #ccc;
     color: #ccc;
 }
-.ok, .error, .warning{
+.ok, .verybad, .bad{
     color: #555;
 }
