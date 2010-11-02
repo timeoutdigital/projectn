@@ -1,7 +1,7 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
 
-<div class="hiddenFilter" style="display: none;" id="hidden_filter">
+<div class="filter" style="float:right;">
   <?php if ($form->hasGlobalErrors()): ?>
     <?php echo $form->renderGlobalErrors() ?>
   <?php endif; ?>
@@ -34,12 +34,4 @@
     </table>
   </form>
 </div>
-<script type="text/javascript" language="javascript">
 
-function showFilter(show) {
-	document.getElementById('hidden_filter').style.display = (show) ? "block" : "none";
-	document.getElementById('show_filter').style.display = (show) ? "none" : "block";
-	document.getElementById('hide_filter').style.display = (show) ? "block" : "none";
-}
-
-</script>
