@@ -65,7 +65,6 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
         $logImportError['message'] = $exception->getMessage();
         $logImportError['log'] = 'Developer specified log message.';
         $logImportError['serialized_object'] = serialize( $record );
-        $logImportError['resolved'] = false;
         $logImportError['log_import_id'] = $this->logImport['id'];
         $logImportError->save();
 
@@ -76,7 +75,7 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
     {
         $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_INVALID_REQUEST, $this->sfAction->getUser()->getFlash( 'error' ) );
-        $this->assertFalse( $record );
+        $this->assertNull( $record );
     }
 
     public function testNonNumericIdPassed()
