@@ -477,7 +477,6 @@ LogImportError:
   indexes:
     model_index:                {fields: [model]}
     exception_class_index:      {fields: [exception_class]}
-    resolved_index:             {fields: [resolved]}
 
 LogExportError:
   connection: project_n
