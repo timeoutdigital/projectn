@@ -471,14 +471,12 @@ LogImportError:
     message:                    {type: string, notnull: true}
     log:                        {type: string, notnull: true}
     serialized_object:          {type: string, notnull: false}
-    resolved:                   {type: boolean, notnull: true, default: 0}
     log_import_id:              {type: integer, notnull: true}
   relations:
     LogImport:                  {local: log_import_id, foreign: id}
   indexes:
     model_index:                {fields: [model]}
     exception_class_index:      {fields: [exception_class]}
-    resolved_index:             {fields: [resolved]}
 
 LogExportError:
   connection: project_n
