@@ -30,4 +30,12 @@ class ProjectConfiguration extends sfProjectConfiguration
 
     self::$htmlPurifierLoaded = true;
   }
+
+  // Register Custom Hydrator
+  public function configureDoctrine (Doctrine_Manager $manager)
+  {
+      $manager->registerHydrator( 'KeyValue', 'Doctrine_Hydrator_KeyValue' );
+  }
+
+
 }

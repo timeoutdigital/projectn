@@ -39,12 +39,13 @@ abstract class nagiosTask extends sfBaseTask
         $this->detailedDescription  = 'Nagios Automated Script';
 
         $this->setAppPath( sfConfig::get( 'sf_root_dir' ) );
-
-        $this->enableDB && $this->configureDatabase();
     }
 
     protected function execute( $arguments = array(), $options = array() )
     {
+        // Connect to DB when Database Enabled
+        $this->enableDB && $this->configureDatabase( $options );
+        
         $this->executeNagiosTask( $arguments, $options );
         $this->postExecute();
     }
@@ -106,6 +107,24 @@ abstract class nagiosTask extends sfBaseTask
     protected function addError( $message )
     {
         $this->errors[] = $message;
+    }
+
+    /**
+     * set array of string messages to be MERGED with existing errors
+     * @param array $warnings
+     */
+    protected function setError( array $errors )
+    {
+        $this->errors = array_merge( $this->errors, $errors );
+    }
+
+    /**
+     * set array of string messages to be MERGED with existing warnings
+     * @param array $warnings
+     */
+    protected function setWarning( array $warnings )
+    {
+        $this->warnings = array_merge( $this->warnings, $warnings );
     }
 }
 

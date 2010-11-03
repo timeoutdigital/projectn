@@ -27,4 +27,18 @@ class VendorTable extends Doctrine_Table
       return $q->fetchOne();
   }
 
+  /**
+   * Find All vendors by alphabetical order
+   * @param int $hydrationMode
+   * @return mix
+   */
+  public function findAllVendorsInAlphabeticalOrder( $hydrationMode = Doctrine_core::HYDRATE_RECORD )
+  {
+      $q = Doctrine_Query::create()
+      ->from( 'Vendor v ' )
+      ->orderBy( 'city ASC' );
+
+      return $q->execute( array(), $hydrationMode );
+  }
+
 }
