@@ -31,7 +31,9 @@ class UAEFeedBaseMapperTest extends PHPUnit_Framework_TestCase
         $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'dubai' );
     }
 
-    protected function tearDown(){}
+    protected function tearDown(){
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+    }
 
     public function testInvalidVendor()
     {
