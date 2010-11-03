@@ -9,7 +9,7 @@
 
 <?php
     $errors = $sf_data->getRaw( 'errorList' );
-    $ignore = array( 'id', 'log_import_id', 'updated_at' );
+    $ignore = array( 'serialized_object', 'trace', 'log_import_id', 'updated_at' );
 ?>
 
 <?php if( !empty( $errors ) ){ ?>
@@ -20,20 +20,22 @@
                     <th><?php echo ucfirst( $k ); ?></th>
                 <?php } ?>
             <?php } ?>
+            <th>Details</th>
+            <th>Resolve</th>
         </tr>
         <?php foreach( $errors as $error ){ ?>
             <tr>
                 <?php foreach( $error as $k => $v ){ ?>
                     <?php if( !is_array( $v ) && !in_array( $k, $ignore ) ){ ?>
-                        <?php if( $k == 'serialized_object'){ ?>
-                            <td><a href="importstats/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
-                        <?php } else if( $k == 'trace'){ ?>
-                            <td><a href="importstats/importerror/?id=<?php echo $error['id'] ; ?>">more info...</a></td>
-                        <?php } else { ?>
-                            <td><?php echo $v; ?></td>
-                        <?php } ?>
+                        <td><?php echo $v; ?></td>
                     <?php } ?>
-                <?php } ?>
+               <?php } ?>
+               <td><a href="importstats/importerror/?id=<?php echo $error['id'] ; ?>" target="_blank">more info...</a></td>
+               <?php if( in_array( $error['model'], array('Poi','Event','Movie') ) ){ ?>
+                   <td><a href="<?php echo strtolower( $error['model'] ); ?>/resolve?import_error_id=<?php echo $error['id'] ; ?>" target="_blank">resolve</a></td>
+               <?php } else { ?>
+                   <td></td>
+               <?php } ?>
             </tr>
         <?php } ?>
     </table>
