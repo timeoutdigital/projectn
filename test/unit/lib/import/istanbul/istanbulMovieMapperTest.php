@@ -58,7 +58,7 @@ class istanbulMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Gezegen 51', $firstMovie['name'] );
     $this->assertEquals( 'Buradan çok uzakta, hayatın basit, çocukların mutlu ve herkesin her şeyden memnun olduğu bir yerde geçiyor film. Hep öcü olarak akıllarda yer etmiş uzaylıların yerine insan geçiyor bu sefer. Yani Gezegen 51’e insanlar geliyor. Normalde bu tarz filmlerde dünyayı uzaylıların istila etmesine alışığız, ‘Gezegen 51’de bunun tam tersi oluyor; Gezegen 51’i dünyalılar istila ediyor. Bunun akabinde de komik olaylar vuku buluyor. Film için ilk olarak ‘Planet One’ adı uygun görülmüş ancak daha sonra ‘Planet 51’ olarak değiştirilmiş. Çok taze bir film değil bu arada ‘Gezegen 51’, yurt dışında 2009’da gösterime girmiş bir film. Memleketteki animasyon meraklıları da filme ilgi gösterecektir diye tahmin ediyoruz. Ancak daha çok çocuklara yönelik bir film olduğunu belirtelim, zaten dublajlı olarak vizyona giriyor.', $firstMovie['review'] );
     $this->assertEquals( 'http://www.sonypictures.com/sonywonder/planet51/', $firstMovie['url'] );
-    $this->assertEquals( '+01:00', $firstMovie['utf_offset'] );
+    $this->assertEquals( $firstMovie['Vendor']->getUtcOffset(), $firstMovie['utf_offset'] );
     $this->assertEquals( 'istanbul', $firstMovie['Vendor']['city'] );
 
     $this->assertEquals( 5, $movies->count() );
