@@ -114,8 +114,9 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'Set sail at this third annual cruise featuring a buffet, open bar, DJ, dancing, sexy sailor boys', mb_substr( $event['description'], 0, 96), 'Event Description miss matching');
         $this->assertEquals( '$150', $event['price'], 'Event Price miss matching');
         $this->assertEquals( 1, $event['VendorEventCategory']->count() , 'Category Count should be 1');
-        
-        $category = array_pop($event['VendorEventCategory']->toArray());
+
+        $categoryArray = $event['VendorEventCategory']->toArray();
+        $category = array_pop($categoryArray);
         $this->assertEquals( 'Gay & Lesbian | Events & meetings', $category['name'] , 'Category Count should be Gay & Lesbian | Events & meetings');
 
         // occurrences
@@ -140,7 +141,8 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( '$3, plus $5 food and drink minimum', $event['price'], 'Event Price miss matching');
         $this->assertEquals( 1, $event['VendorEventCategory']->count() , 'Category Count should be 1');
 
-        $category = array_pop($event['VendorEventCategory']->toArray());
+        $categoryArray = $event['VendorEventCategory']->toArray();
+        $category = array_pop( $categoryArray );
         $this->assertEquals( 'Around Town | City Picks', $category['name'] , 'Category Count should be Around Town | City Picks');
 
         // occurrences
