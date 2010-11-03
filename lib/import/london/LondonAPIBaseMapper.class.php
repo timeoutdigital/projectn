@@ -56,10 +56,13 @@ abstract class LondonAPIBaseMapper extends DataMapper
   public function  __construct( Doctrine_Record $vendor, $params )
   {
     $this->vendor = $vendor;
-
+    
+    // curlImporter require Mocking for unit Testing
+    $curlImporterClassName = ( isset( $params['curlImporterClassName'] ) && is_string( $params['curlImporterClassName'] ) ) ? $params['curlImporterClassName'] : 'curlImporter';
+    
     if( is_null( $this->apiCrawler ) )
     {
-      $this->apiCrawler = new LondonAPICrawler();
+      $this->apiCrawler = new LondonAPICrawler( $curlImporterClassName );
     }
     $this->apiCrawler->setMapper( $this );
 
