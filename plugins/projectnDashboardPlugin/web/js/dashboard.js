@@ -1,5 +1,9 @@
 $(function()
 {
+  /**
+   * Row highlighting
+   * Click a row to toggle highlighting
+   */
   $( '#over-view tbody tr' )
     .click( function( event )
     { 
@@ -16,6 +20,14 @@ $(function()
       }
     });
 
+  /**
+   * Change number type
+   * provide links to change type of numbers:
+   * - difference as percentage
+   * - difference in actual count
+   * - count for past period
+   * - count for current period
+   */
   $( '#data-type' )
     .html( '<a type="percentage">Difference %</a>'    + '<br/>' +
            '<a type="number">Difference No.</a>' + '<br/>' + 
@@ -23,7 +35,7 @@ $(function()
            '<a type="currentperiod">Current count</a>'
            )
     .css({'text-align':'left'})
-
+  ;
   $( '#data-type a' )
     .css({'cursor':'pointer'})
     .click( function( event )
@@ -38,4 +50,16 @@ $(function()
         td.attr( 'title', type );
       });
     });
+
+  /**
+   * Toggle colors for Alexis
+  $( '#over-view' )
+    .after( '<a id="color-toggle">Toggle colors</a>' )
+  ;
+  $( '#color-toggle' )
+    .click(function()
+    {
+    })
+  ;
+   */
 });
