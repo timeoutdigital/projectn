@@ -58,11 +58,10 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 14, $movies->count() ); // 1 Movie have 3 Venues (14 Venues in 9 Movies = 14 movies should be added)
 
     $movie = $movies->getFirst();
-
     $this->assertEquals( 15032,  $movie['vendor_movie_id'] );
     $this->assertEquals( 'Скины', $movie['name'] );
     $this->assertEquals( 'Культовый в', mb_substr( $movie['review'],0 , 11, 'UTF-8' ) );
-    $this->assertEquals( '+04:00', $movie['utf_offset'] );
+    $this->assertEquals( $movie['Vendor']->getUtcOffset() , $movie['utf_offset'] ); // UTC Offset changes with daylight saving, it's a good idea to check with current UTC
 
     $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );
     $this->assertEquals( "Timeout_link", $movie[ 'MovieProperty' ][0]['lookup'] );
@@ -79,7 +78,7 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 41418,  $movie['vendor_movie_id'] );
     $this->assertEquals( 'Небесный замок Лапута', $movie['name'] );
     $this->assertEquals( 'Миядзаки среднего периода', mb_substr( $movie['review'],0 , 25, 'UTF-8' ) );
-    $this->assertEquals( '+07:00', $movie['utf_offset'] );
+    $this->assertEquals( $movie['Vendor']->getUtcOffset(), $movie['utf_offset'] ); // UTC Offset changes with daylight saving, it's a good idea to check with current UTC
 
     $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );
     $this->assertEquals( "Timeout_link", $movie[ 'MovieProperty' ][0]['lookup'] );
