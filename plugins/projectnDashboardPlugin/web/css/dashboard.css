@@ -113,15 +113,24 @@ thead tr th.empty.row-section-end a{
 .verybad{
   background:#fbb;
 }
-.highlight .good,
 .highlight .verygood,
+.highlight .good,
 .highlight .verybad,
 .highlight .ok,
 .highlight .bad{
   color: black;
   background:#ddd;
 }
+
+.highlight .verygood{
+  background:#5BFF45;
+}
+
 .highlight .good{
+  background:#5BFF45;
+}
+
+.highlight .ok{
   background:#5BFF45;
 }
 
