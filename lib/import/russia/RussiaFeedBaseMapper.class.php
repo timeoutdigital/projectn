@@ -20,11 +20,6 @@ class RussiaFeedBaseMapper extends DataMapper
     protected $dataMapperHelper;
 
     /**
-    * @var geocoder
-    */
-    protected $geocoderr;
-
-    /**
     * @var Vendor
     */
     protected $vendor;
@@ -34,23 +29,26 @@ class RussiaFeedBaseMapper extends DataMapper
     */
     protected $xml;
 
+    protected $params;
+
+    protected $exceptionClass = 'RussiaFeedBaseMapperException';
     /**
     *
     * @param SimpleXMLElement $xml
     * @param geocoder $geocoderr
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false )
+    public function __construct( Vendor $vendor, $params )
     {
-        if( is_string( $city ) )
-            $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( $city, 'ru' );
-
         if( !isset( $vendor ) || !$vendor )
           throw new Exception( 'Vendor not found.' );
 
-        $this->geocoderr           = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
+        $this->_validateConstructorParams( $vendor, $params );
+        $this->_loadXML( $vendor, $params );
+        
         $this->vendor               = $vendor;
-        $this->xml                  = $xml;
+        $this->params               = $params; // required for SPLIT option in places
+        
     }
 
     protected function fixHtmlEntities( $string )
@@ -104,5 +102,29 @@ class RussiaFeedBaseMapper extends DataMapper
             }
         }
     }
+
+    private function _validateConstructorParams( $vendor, $params )
+    {
+        if( !( $vendor instanceof Vendor ) || !isset( $vendor[ 'id' ] ) )
+        {
+            throw new $this->exceptionClass( 'Invalid Vendor Passed to RussiaFeedBaseMapper Constructor.' );
+        }
+
+        if( !isset( $params['curl']['classname'] ) || !isset( $params['curl']['src'] ) || !isset( $params['type'] ) )
+        {
+            throw new $this->exceptionClass( 'Invalid Params Passed to RussiaFeedBaseMapper Constructor.' );
+        }
+    }
+
+    private function _loadXML( $vendor, $params )
+    {
+        $curlInstance = new $params['curl']['classname']( $params['curl']['src'] );
+        $curlInstance->exec();
+
+        new FeedArchiver( $vendor, $curlInstance->getResponse(), $params['type'] );
+
+        $this->xml = simplexml_load_string( $curlInstance->getResponse() );
+    }
 }
+class RussiaFeedBaseMapperException extends Exception{}
 ?>
