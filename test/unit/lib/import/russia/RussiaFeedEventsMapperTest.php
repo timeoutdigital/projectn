@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Russia Feed Events Mapper import.
  *
@@ -49,6 +49,17 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
+
+    private function _getParams( $filename )
+    {
+        return array(
+            'type' => 'poi',
+            'curl'  => array(
+                'classname' => 'CurlMock',
+                'src' => TO_TEST_DATA_PATH . '/russia/' . $filename
+             ),
+        );
+    }
 
   public function testMapEvents()
   {
@@ -116,23 +127,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('19:10' , $occurrence['end_time']);
   }
 
-  private function getVenueIdsFromXml()
-  {
-    $venues = $this->eventsXml->xpath('//venue');
-    $venueIds = array();
-
-    foreach( $venues as $venue )
-    {
-      $venueIds[] = (string) $venue;
-    }
-
-    $venueIds = array_unique( $venueIds );
-
-    //make sure our keys are not missing a number
-    sort( $venueIds );
-
-    return $venueIds;
-  }
+  
 
   public function testVenueIdsCreated()
   {
@@ -196,21 +191,42 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
   }
 
 
+  /**
+   * Private function for TEST
+   */
+
+  
   private function importFileAndAddRequiredPois( $file = 'russia_events.short.xml' )
   {
-    $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . DIRECTORY_SEPARATOR . $file );
+      $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'moscow' );
 
-    $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'moscow' );
+      $this->eventsXml = simplexml_load_file( TO_TEST_DATA_PATH . DIRECTORY_SEPARATOR . 'russia' . DIRECTORY_SEPARATOR . $file );
 
-    $this->dataMapper = new RussiaFeedEventsMapper( $this->eventsXml, null, $this->vendor['city'] );
     $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
 
     $importer = new Importer();
-    $importer->addDataMapper( $this->dataMapper );
+    $importer->addDataMapper( new RussiaFeedEventsMapper( $this->vendor, $this->_getParams( $file ) ) );
     $importer->run();
   }
 
+  private function getVenueIdsFromXml()
+  {
+    $venues = $this->eventsXml->xpath('//venue');
+    $venueIds = array();
 
+    foreach( $venues as $venue )
+    {
+      $venueIds[] = (string) $venue;
+    }
+
+    $venueIds = array_unique( $venueIds );
+
+    //make sure our keys are not missing a number
+    sort( $venueIds );
+
+    return $venueIds;
+  }
+  
   private function createVenuesFromVenueIds( $venueIds )
   {
     for( $i = 0; $i < count( $venueIds ); $i++ )
