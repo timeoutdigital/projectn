@@ -4,6 +4,10 @@
     form ul li { display: inline; font-size: 16px; margin-right:30px; }
     select { padding: 5px; }
     div#metricBar { margin-right:10px; padding:5px 10px; background-color:#C8D6FF }
+    ul.tabs { border-bottom: solid 3px #B3C3EF; margin:5px 1px 0px 1px; padding-bottom:9px; }
+    ul.tabs li { display: inline; list-style: none; padding:10px 15px; background-color: #DDD; -moz-border-radius: 5px 5px 0px 0px; }
+    ul.tabs li.selected { background-color: #B3C3EF; }
+    ul.tabs li a { text-decoration: none; }
 </style>
 
 <script type="text/javascript">
@@ -12,6 +16,7 @@
     $("#graph").html( spinner );
     $("#pane").html( spinner );
     $("#failurePane").html( spinner );
+    $("#failurePane2").html( spinner );
     
     function refreshGraph()
     {
@@ -61,7 +66,7 @@
     {
         $.ajax({
           type: 'POST',
-          url: 'importstats/errors',
+          url: 'importstats/importerrors',
           data: ( {
               vendor_id         : $("#vendor").val(),
               model             : $("#model :selected").text(),
@@ -75,6 +80,39 @@
         });
 
         $("#failurePane").html( spinner );
+
+        $.ajax({
+          type: 'POST',
+          url: 'importstats/exporterrors',
+          data: ( {
+              vendor_id         : $("#vendor").val(),
+              model             : $("#model :selected").text(),
+              date_month        : $("#date_month").val(),
+              date_day          : $("#date_day").val(),
+              date_year         : $("#date_year").val()
+          } ),
+          success: function( data ) {
+            $("#failurePane2").html( data );
+          }
+        });
+
+        $("#failurePane2").html( spinner );
+    }
+
+    function switchTab( tabName )
+    {
+        $("ul.tabs li").removeClass( 'selected' );
+        $("ul.tabs li#tab-"+tabName).addClass( 'selected' );
+
+        if( tabName == 'import' )
+        {
+            $("#failurePane").css( 'display', 'block' );
+            $("#failurePane2").css( 'display', 'none' );
+        }
+        else {
+            $("#failurePane2").css( 'display', 'block' );
+            $("#failurePane").css( 'display', 'none' );
+        }
     }
 
     $( document ).ready( function() {
@@ -113,4 +151,9 @@
     </tr>
 </table>
 </div>
+<ul class="tabs">
+    <li id="tab-import" class="selected"><a href="#" onClick="switchTab('import');">Import Errors</a></li>
+    <li id="tab-export"><a href="#" onClick="switchTab('export');">Export Errors</a></li>
+</ul>
 <div id="failurePane"></div>
+<div id="failurePane2" style="display:none;"></div>

@@ -21,7 +21,7 @@ class importstatsActions extends sfActions
         $this->form = new MetricDimensionForm();
   }
 
-  public function executeImporterror(sfWebRequest $request)
+  public function executeImporterrorinfo(sfWebRequest $request)
   {
       $this->logId  = $request->getGetParameter( 'id' );
       
@@ -32,7 +32,7 @@ class importstatsActions extends sfActions
       $this->importError = $q->fetchArray();
   }
 
-  public function executeErrors(sfWebRequest $request)
+  public function executeImporterrors(sfWebRequest $request)
   {
       if( !is_numeric( $request->getPostParameter( 'date_month' ) ) )
       {
@@ -49,6 +49,25 @@ class importstatsActions extends sfActions
       $this->model  = $request->getPostParameter( 'model' );
 
       $this->errorList = Doctrine::getTable( 'LogImportError' )->getLogImportErrors( $this->vendor->id, $this->model, date( 'Y-m-d', $this->date ), date( 'Y-m-d', $this->date + 86400 ), Doctrine_Core::HYDRATE_ARRAY );
+  }
+
+  public function executeExporterrors(sfWebRequest $request)
+  {
+      if( !is_numeric( $request->getPostParameter( 'date_month' ) ) )
+      {
+          $this->date = strtotime( 'today' );
+      }
+      else {
+          $this->date = mktime( 0, 0, 0,
+            $request->getPostParameter( 'date_month' ),
+            $request->getPostParameter( 'date_day' ),
+            $request->getPostParameter( 'date_year' ) );
+      }
+
+      $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
+      $this->model  = $request->getPostParameter( 'model' );
+
+      $this->errorList = Doctrine::getTable( 'LogExportError' )->getLogExportErrors( $this->vendor->id, $this->model, date( 'Y-m-d', $this->date ), date( 'Y-m-d', $this->date + 86400 ), Doctrine_Core::HYDRATE_ARRAY );
   }
 
   public function executeGraph(sfWebRequest $request)
