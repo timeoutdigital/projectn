@@ -1,0 +1,32 @@
+import:
+
+  poi_1:
+    class:
+      name: RussiaFeedPlacesMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeout.ru/london/places_msk.xml
+        split:
+          chunk: 2
+          index: 1
+  poi_2:
+    class:
+      name: RussiaFeedPlacesMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeout.ru/london/places_msk.xml
+        split:
+          chunk: 2
+          index: 2
+  event:
+    class:
+      name: RussiaFeedEventsMapper
+      params:
+        type: event
+        curl:
+          classname: Curl
+          src: http://www.timeout.ru/london/events_msk.xml
