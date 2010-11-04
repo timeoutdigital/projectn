@@ -15,7 +15,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfDoctrineGuardPlugin');
     $this->enablePlugins('sfFormExtraPlugin');
     $this->enablePlugins('sfJqueryReloadedPlugin');
-    $this->enablePlugins('projectnStatisticsPlugin');
+    $this->enablePlugins('projectnDashboardPlugin');
   }
 
   static public function registerHTMLPurifier()
@@ -28,4 +28,12 @@ class ProjectConfiguration extends sfProjectConfiguration
 
     self::$htmlPurifierLoaded = true;
   }
+
+  // Register Custom Hydrator
+  public function configureDoctrine (Doctrine_Manager $manager)
+  {
+      $manager->registerHydrator( 'KeyValue', 'Doctrine_Hydrator_KeyValue' );
+  }
+
+
 }

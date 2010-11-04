@@ -41,4 +41,39 @@ class LogImportTable extends LogTable
       // If City Not Found Return Empty LogImport, so methods still return 0;
       return ( $result !== false ) ? $result : new LogImport();
     }
+
+    /**
+     * Get LogImport and LogImportCount from specified vendor + date from - date to
+     * as mixed type (Doctrine_core::Hydrate_Type) result set
+     * @param int $vendorID
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param int $doctrineHydrateType
+     * @return Mixed
+     */
+    public function getLogImportWithCountRecords( $vendorID, $dateFrom, $dateTo, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
+        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )
+        ->where( 'l.vendor_id=?', $vendorID )
+        ->addWhere( 'l.created_at BETWEEN ? AND ?', array( $dateFrom, $dateTo ) );
+        
+        return $q->execute( array(), $doctrineHydrateType );
+    }
+
+    /**
+     * Get LogImport and LogImport Count for given date range
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param int $doctrineHydrateType
+     * @return mixed
+     */
+    public function getLogImportWithCountRecordsByDates( $dateFrom, $dateTo, $doctrineHydrateType = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = Doctrine::getTable( 'LogImport' )->createQuery('l')
+        ->leftJoin( 'l.LogImportCount lc ON l.id = lc.log_import_id' )
+        ->where( 'l.created_at BETWEEN ? AND ?', array( $dateFrom, $dateTo ) );
+
+        return $q->execute( array(), $doctrineHydrateType );
+    }
 }

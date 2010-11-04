@@ -17,7 +17,7 @@
     {
         $.ajax({
           type: 'POST',
-          url: 'statistics/graph',
+          url: 'importstats/graph',
           data: ( {
               date_from_month   : $("#date_from_month").val(),
               date_from_day     : $("#date_from_day").val(),
@@ -40,7 +40,7 @@
     {
         $.ajax({
           type: 'POST',
-          url: 'statistics/pane',
+          url: 'importstats/pane',
           data: ( {
               vendor_id         : $("#vendor").val(),
               model             : $("#model :selected").text(),
@@ -61,7 +61,7 @@
     {
         $.ajax({
           type: 'POST',
-          url: 'statistics/errors',
+          url: 'importstats/errors',
           data: ( {
               vendor_id         : $("#vendor").val(),
               model             : $("#model :selected").text(),

@@ -87,7 +87,7 @@ do
                IMPORT_TYPE=`echo "${IMPORT_START_LINE}" | cut -d"(" -f2 | cut -d"," -f1 | cut -d" " -f2 | tail -n1`
 
                # Check if Import Type Didn't Finish
-               if [ `grep $TODAYS_DATE ${LOG_FILE} | grep "end import" | grep ${IMPORT_TYPE} | wc -l` -lt 1 ]; then
+               if [ `grep $TODAYS_DATE ${LOG_FILE} | grep "end import" | grep "type: ${IMPORT_TYPE}," | wc -l` -lt 1 ]; then
 
                     # Found at Least One Failure
                     FAILURES="true";
@@ -97,8 +97,8 @@ do
 
                else
 
-                   START_LINE_NUMBER=`grep -n ${IMPORT_START_LINE} ${LOG_FILE} | grep ${IMPORT_TYPE} | cut -d":" -f1 | tail -n1`
-                   END_LINE_NUMBER=`grep -n $TODAYS_DATE ${LOG_FILE} | grep "end import" | grep ${IMPORT_TYPE} | cut -d":" -f1 | tail -n1`
+                   START_LINE_NUMBER=`grep -n ${IMPORT_START_LINE} ${LOG_FILE} | grep "type: ${IMPORT_TYPE}," | cut -d":" -f1 | tail -n1`
+                   END_LINE_NUMBER=`grep -n $TODAYS_DATE ${LOG_FILE} | grep "end import" | grep "type: ${IMPORT_TYPE}," | cut -d":" -f1 | tail -n1`
 
                    TOTAL_LINES=$(($END_LINE_NUMBER-$START_LINE_NUMBER))
 
