@@ -53,7 +53,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     private function _getParams( $filename )
     {
         return array(
-            'type' => 'poi',
+            'type' => 'event',
             'curl'  => array(
                 'classname' => 'CurlMock',
                 'src' => TO_TEST_DATA_PATH . '/russia/' . $filename
