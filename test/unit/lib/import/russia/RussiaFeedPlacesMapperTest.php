@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Russia Feed Places Mapper import.
  *
@@ -30,22 +30,10 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    Doctrine::loadData('data/fixtures');
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'moscow',
-      'language' => 'ru',
-      'time_zone' => 'Europe/Moscow',
-      'country_code_long' => 'RUS'
-      )
-    );
-    $vendor->save();
-    $this->vendor = $vendor;
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'moscow' );
 
-    $this->object = new RussiaFeedPlacesMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/moscow_places.short.xml' ),
-      null,
-      "moscow"
-    );
   }
 
   /**
@@ -57,12 +45,32 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  private function _getParams( $filename, $index = 1 )
+    {
+        return array(
+            'type' => 'poi',
+            'curl'  => array(
+                'classname' => 'CurlMock',
+                'src' => TO_TEST_DATA_PATH . '/russia/' . $filename
+             ),
+            'split' => array(
+                'chunk' => 2,
+                'index' => $index
+            )
+        );
+    }
+
   public function testMapPlaces()
   {
     $importer = new Importer();
-    $importer->addDataMapper( $this->object );
+    $importer->addDataMapper( new RussiaFeedPlacesMapper( $this->vendor, $this->_getParams( 'moscow_places.short.xml' ) ) );
     $importer->run();
 
+    // At this point, Only first half should have inserted ( which is 2 (because of ceil))
+    $this->assertEquals( 2 , Doctrine::getTable('Poi')->findAll()->count() );
+    $importer->addDataMapper( new RussiaFeedPlacesMapper( $this->vendor, $this->_getParams( 'moscow_places.short.xml', 2 ) ) ); // Run the seconds half
+    $importer->run();
+    
     $pois = Doctrine::getTable('Poi')->findAll();
     $this->assertEquals( 3, $pois->count() );
     $poi = $pois[0];
@@ -76,7 +84,7 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '37.4029402', $poi['longitude'] );
     $this->assertEquals( 'Этот магазин известен давно. Здесь много вещей неизвестных марок, на которых значится - Made in Turkey, Made in Ukraine.., они-то и представляют основной интерес.', $poi['short_description'] );
     $this->assertEquals( '<p>Этот магазин известен давно. Здесь много вещей неизвестных марок', substr( $poi['description'], 0 ,122 ) );
-    $this->assertEquals( '+44 750 3553', $poi['phone'] );
+    $this->assertEquals( '+7495 750 3553', $poi['phone'] );
     $this->assertEquals( '2010-04-06 15:28:25', $poi['review_date'] );
     $this->assertEquals( 'Строгино', $poi['public_transport_links'] );
     $this->assertNull( $poi['rating'] );
@@ -103,14 +111,8 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
   public function testQuotRemovedFromName()
   {
 
-    $this->object = new RussiaFeedPlacesMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/moscow_place_with_quot_in_name.xml' ),
-      null,
-      "moscow"
-    );
-
     $importer = new Importer();
-    $importer->addDataMapper( $this->object );
+    $importer->addDataMapper( new RussiaFeedPlacesMapper( $this->vendor, $this->_getParams( 'moscow_place_with_quot_in_name.xml' ) ) );
     $importer->run();
 
     $pois = Doctrine::getTable('Poi')->findAll();
@@ -122,9 +124,13 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testShortDescriptionDoesNotHaveHTMLTags()
   {
+      $params = $this->_getParams( 'moscow_places.short.xml' );
+      $params['split'] = null;
+      
     $importer = new Importer();
-    $importer->addDataMapper( $this->object );
+    $importer->addDataMapper( new RussiaFeedPlacesMapper( $this->vendor, $params ) );
     $importer->run();
+
     $pois = Doctrine::getTable('Poi')->findAll();
     $this->assertEquals( 3, $pois->count() );
     $poi = $pois[2];
