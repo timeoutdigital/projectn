@@ -73,7 +73,7 @@ class IstanbulEventMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'http://www.facebook.com', $occurrence['booking_url']);
     $this->assertEquals( '2010-09-04', $occurrence['start_date']);
     $this->assertEquals( '3589', $occurrence['Poi'][ 'vendor_poi_id']);
-    $this->assertEquals( '+03:00', $occurrence['utc_offset']);
+    $this->assertEquals( $firstEvent['Vendor']->getUtcOffset(), $occurrence['utc_offset']);
 
   }
 

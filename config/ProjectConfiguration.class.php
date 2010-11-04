@@ -16,6 +16,8 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfFormExtraPlugin');
     $this->enablePlugins('sfJqueryReloadedPlugin');
     $this->enablePlugins('projectnDashboardPlugin');
+
+    sfConfig::set( 'projectn_xslt_dir', sfConfig::get( 'sf_data_dir' ) . '/xslt' );
   }
 
   static public function registerHTMLPurifier()

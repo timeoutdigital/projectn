@@ -27,12 +27,14 @@ class LondonAPICrawlerTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    ProjectN_Test_Unit_Factory::add('Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
+    $vendor =  ProjectN_Test_Unit_Factory::add('Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
 
-    $this->object = new LondonAPICrawler();
-    $this->object->setLimit( 11 );
-    $this->mapper = new UnitTestSomeLondonAPIMapper($this->object);
-    
+    // Create new Mapper
+    $this->mapper = new UnitTestSomeLondonAPIMapper( $vendor, array( 'curlImporterClassName' => 'curlImporterMock', 'datasource' => array( 'classname' => 'LondonAPICrawlerMockTest' ) ) );
+    // Importer
+    $importer = new Importer( );
+    $importer->addDataMapper( $this->mapper );
+    $importer->run(); // Execute Importer
   }
 
   /**
@@ -46,18 +48,65 @@ class LondonAPICrawlerTest extends PHPUnit_Framework_TestCase
 
   public function testo()
   {
-      // #658 Getting XML Feed from london failed, This maybe an issue with London
-     // $this->markTestSkipped( 'Gettig XML Failed, Issue with London?' );
-    $this->object->crawlApi();
-    $this->assertEquals( 11, $this->mapper->getCount() );
+      // there are only 2 records refereing to Details.. hence it should only have 2 records
+      $this->assertEquals( 2, $this->mapper->getCount() );
   }
 }
 
+// Mock API crawler it self to override the SEARCH URL ONYL
+class LondonAPICrawlerMockTest extends LondonAPICrawler
+{
+    protected $searchUrl = 'api_bars_and_pubs_search.xml';
+}
+
+// Mock for curlImport, this will be used to read files from disk and not to make http request
+class curlImporterMock extends curlImporter
+{
+
+    private $response; // store the response for a little while
+    
+    public function  pullXml($url, $request, $parameters = '', $requestMethod = 'GET', $overrideCharset = false) {
+
+        $filepath = TO_TEST_DATA_PATH . '/london/' .$url;
+        
+        if( !file_exists( $filepath ) )
+        {
+            throw new Exception( 'File not found' );
+        }
+        // load the File
+        $this->response = file_get_contents( $filepath );
+    }
+
+    public function  getXml() {
+        // return as XML
+        return simplexml_load_string( $this->response );
+    }
+    
+    public function  getResponse() {
+        // return response as string
+        return $this->response;
+    }
+}
+
+// Dummy Mapper class to test the Api craewer
 class UnitTestSomeLondonAPIMapper extends LondonAPIBaseMapper
 {
   private $count = 0;
+
+  public function  __construct(Doctrine_Record $vendor, $params) {
+
+      // Create the apiCrawler using MOCK and Pass the curlImporter Mock
+      $this->apiCrawler = new $params['datasource']['classname']( $params['curlImporterClassName'] );
+      
+      parent::__construct($vendor, $params);
+   }
+
+  public function mapSometing()
+  {
+      $this->crawlApi();
+  }
   public function getCount(){ return $this->count; }
-  public function getDetailsUrl(){ return 'http://api.timeout.com/v1/getBar.xml'; }
+  public function getDetailsUrl(){ return 'api_bars_and_pubs_search.xml'; }
   public function getApiType(){ return 'Bars & pubs'; }
   public function doMapping( SimpleXMLElement $xml ){
     $this->count++;
