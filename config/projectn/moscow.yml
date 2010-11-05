@@ -1,6 +1,6 @@
 import:
 
-  poi_1:
+  moscow_poi_1:
     class:
       name: RussiaFeedPlacesMapper
       params:
@@ -11,7 +11,7 @@ import:
         split:
           chunk: 2
           index: 1
-  poi_2:
+  moscow_poi_2:
     class:
       name: RussiaFeedPlacesMapper
       params:
