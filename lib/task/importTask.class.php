@@ -961,7 +961,7 @@ class importTask extends sfBaseTask
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $mapperClass( $xml ) );
+        $importer->addDataMapper( new $mapperClass( $vendorObj, $xml ) );
         $importer->run();
         ImportLogger::getInstance()->end();
         $this->dieWithLogMessage();
@@ -987,7 +987,7 @@ class importTask extends sfBaseTask
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $mapperClass( $xml ) );
+        $importer->addDataMapper( new $mapperClass( $vendorObj, $xml ) );
         $importer->run();
         ImportLogger::getInstance()->end();
         $this->dieWithLogMessage();
