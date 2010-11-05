@@ -967,6 +967,33 @@ class importTask extends sfBaseTask
         $this->dieWithLogMessage();
      break;
 
+ case 'istanbul_en':
+
+     $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'istanbul_en', 'en-US' );
+     switch( $options['type'] )
+     {
+         case 'poi':
+             $feedUrl = "www.timeoutistanbul.com/content/n_xml/venues_en.xml";
+             $mapperClass = "istanbulVenueMapper";
+             break;
+         
+         default : $this->dieDueToInvalidTypeSpecified();
+     }
+
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
+
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $mapperClass( $xml ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
+
+     break;
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
