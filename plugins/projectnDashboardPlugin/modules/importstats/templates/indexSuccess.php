@@ -113,6 +113,8 @@
             $("#failurePane2").css( 'display', 'block' );
             $("#failurePane").css( 'display', 'none' );
         }
+
+        return false;
     }
 
     $( document ).ready( function() {
@@ -152,8 +154,8 @@
 </table>
 </div>
 <ul class="tabs">
-    <li id="tab-import" class="selected"><a href="#" onClick="switchTab('import');">Import Errors</a></li>
-    <li id="tab-export"><a href="#" onClick="switchTab('export');">Export Errors</a></li>
+    <li id="tab-import" class="selected"><a href="#" onClick="return switchTab('import');">Import Errors</a></li>
+    <li id="tab-export"><a href="#" onClick="return switchTab('export');">Export Errors</a></li>
 </ul>
 <div id="failurePane"></div>
 <div id="failurePane2" style="display:none;"></div>
