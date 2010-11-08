@@ -137,10 +137,10 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testThereIsNoRepeatedOccurrences ()
   {
-    $this->markTestSkipped( 'cleaning duplicated occurrences is disabled in Event model' );
     $this->importFileAndAddRequiredPois( 'russia_events_multiple_occurrences.short.xml' );
-    $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
 
+    $this->markTestSkipped( 'Event.class->removeMultipleOccurrences() should be called in apply Fix to test this part of the Test' );
+    
     //check that event with the id 128382 is imported
     //this is the event that has duplicated occurrences. two occurrence2 for 2010-09-14
     //test for same star
@@ -153,7 +153,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
         $occurrenceDates [] = $occurrence[ 'start_date' ];
      }
 
-     $this->assertEquals( count( $occurrenceDates ), 6  );
+     $this->assertEquals( 6, count( $occurrenceDates )  );
      //occurrence_dates array shouldn't have any duplicate values even tho the feed has a duplicate occurrence!
      $this->assertEquals( count( $occurrenceDates ), count( array_unique( $occurrenceDates )  ) ,'Duplicate occurrences should be removed while saving an event. check event model'  );
 
