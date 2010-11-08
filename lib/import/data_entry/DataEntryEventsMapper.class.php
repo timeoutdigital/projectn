@@ -206,7 +206,8 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
 
                     }
                 }
-               $event->save();
+
+                $this->notifyImporter( $event );
             }
             catch ( Exception  $exception)
             {

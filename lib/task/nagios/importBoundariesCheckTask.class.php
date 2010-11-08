@@ -47,6 +47,7 @@ class importBoundariesCheckTask extends nagiosTask
     protected function executeNagiosTask( $arguments = array(), $options = array() )
     {
         $importBoundaryCheck = new importBoundariesCheck( $options );
+        $importBoundaryCheck->processImportLog();
         $errorMessages =  $importBoundaryCheck->getErrors();
         $this->setError( $errorMessages ); // add errors to Baseclass errors
     }

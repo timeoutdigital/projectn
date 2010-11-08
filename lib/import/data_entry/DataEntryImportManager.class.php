@@ -97,6 +97,8 @@ class DataEntryImportManager
         // Start Import
         ImportLogger::getInstance()->setVendor( $this->vendor );
         $importer = new Importer();
+        new FeedArchiver( $this->vendor, file_get_contents( $filePath ), $type );
+
         $xml = simplexml_load_file ( $filePath ); // Load XML
 
         switch ( $type)

@@ -69,7 +69,7 @@ class UAEFeedFilmsMapper extends UAEFeedBaseMapper
                 } //$genre
 
                 // Save
-                $movie->save();
+                $this->notifyImporter( $movie );
             
             } catch ( Exception $exc ) {
                 echo 'Exception: UAEFeedFilmsMapper::mapFilms - ' . $exc->getTraceAsString() . PHP_EOL; // DEBUG only

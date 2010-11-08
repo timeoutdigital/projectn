@@ -76,10 +76,10 @@ class singaporeEventMapper extends DataMapper
                 }
 
                 // -- Add Images --
-                $event->addMediaByUrl( (string) $eventElement->highres );
-                $event->addMediaByUrl( (string) $eventElement->large_image );
-                $event->addMediaByUrl( (string) $eventElement->size1 );
-                $event->addMediaByUrl( (string) $eventElement->thumbnail );
+                $this->addImageHelper( $event, (string) $eventElement->highres ); //#753 addImageHelper capture Exception and notify, this don't break the Import process
+                $this->addImageHelper( $event, (string) $eventElement->large_image );
+                $this->addImageHelper( $event, (string) $eventElement->size1 );
+                $this->addImageHelper( $event, (string) $eventElement->thumbnail );
 
                 //save to populate the id
                 //ImportLogger::saveRecordComputeChangesAndLog( $event );

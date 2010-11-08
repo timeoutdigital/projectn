@@ -30,10 +30,18 @@ class curlImporter
   private $_xmlRequest;
   private $_xmlResponseRaw;
   private $_simpleXml;
+  private $_rawResponse;
 
   public function  __construct()
   {
 
+  }
+
+  // This method mimics the behaviour of the Curl.clas.php.
+  // It returns the raw response from the server.
+  public function getResponse()
+  {
+      return $this->_rawResponse;
   }
 
   /**
@@ -105,10 +113,10 @@ class curlImporter
 
    private function getFeed()
    {
-       $rawData=$this->curlRequest();
+       $this->_rawResponse=$this->curlRequest();
 
        $ignore = '(laquo|raquo|nbsp|amp|lt|gt|quot|apos|#[0-9]+);';
-       $this->_xmlResponseRaw = preg_replace( "/&(?!$ignore)/", '&amp;', $rawData );
+       $this->_xmlResponseRaw = preg_replace( "/&(?!$ignore)/", '&amp;', $this->_rawResponse );
    }
 
 

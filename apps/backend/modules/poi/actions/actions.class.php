@@ -13,10 +13,49 @@ require_once dirname(__FILE__).'/../lib/poiGeneratorHelper.class.php';
  */
 class poiActions extends autoPoiActions
 {
+  public function executeResolve(sfWebRequest $request)
+  {
+    $record = LogImportErrorHelper::loadAndUnSerialize( $this, $request );
+
+    $this->form = $this->configuration->getForm( $record );
+    $this->poi = $this->form->getObject();
+
+    ( isset( $record[ 'id' ] ) ) ?  $this->setTemplate('edit') : $this->setTemplate('new');
+  }
+
+
+  public function executeCreate(sfWebRequest $request)
+  {
+    $vendorId = $request->getPostParameter( 'poi[vendor_id]' );
+    
+    if ( !is_numeric( $vendorId ) )
+    {
+        $this->getUser()->setFlash('error', 'Invalid Vendor Id');
+        $this->redirect('@poi_new');
+    }
+    
+    $vendor = Doctrine::getTable( 'Vendor' )->findOneById( $vendorId );
+
+    if ( $vendor === false)
+    {
+        $this->getUser()->setFlash('error', 'Vendor does not exist');
+        $this->redirect('@poi_new');
+    }
+
+    $this->form = $this->configuration->getForm( array(), array( 'vendor_id' => $vendor['id'] ) );
+    $this->poi = $this->form->getObject();
+
+    $this->processForm($request, $this->form);
+
+    $this->setTemplate('new');
+  }
+
+
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
     if ($form->isValid())
     {
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
