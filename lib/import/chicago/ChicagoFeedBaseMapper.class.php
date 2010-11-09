@@ -92,11 +92,7 @@ class ChicagoFeedBaseMapper extends DataMapper
         // Clean if Flagged
         if( $requireCleaning )
         {
-            mb_internal_encoding("UTF-8");
-            mb_regex_encoding("UTF-8");
-
-
-            $contents = mb_ereg_replace( "[^\x9\xA\xD\x20-\x7E\xA0-\xFF]", "", $contents );
+            $this->cleanTheContents( $contents );
         }
 
         $this->xml = simplexml_load_string( $contents );
@@ -112,6 +108,21 @@ class ChicagoFeedBaseMapper extends DataMapper
         $stringArray = explode( PHP_EOL , $string );
         
         return ( is_array( $stringArray) && count( $stringArray >= 1) ) ? $stringArray : array( $string );
+    }
+
+    /**
+     * Clean the Unicode Weird chars and return notmal string,
+     * Abstracted out to unit test
+     * @param string $contents
+     * @return string
+     */
+    protected function cleanTheContents( $contents )
+    {
+        // SET PHP internal
+        mb_internal_encoding("UTF-8");
+        mb_regex_encoding("UTF-8");
+
+        return mb_ereg_replace( "[^\x9\xA\xD\x20-\x7E\xA0-\xFF]", "", $contents );
     }
 }
 ?>
