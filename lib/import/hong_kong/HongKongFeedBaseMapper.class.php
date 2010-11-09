@@ -131,6 +131,9 @@ class HongKongFeedBaseMapper extends DataMapper
         $curl = new $this->params['datasource']['classname']( $this->params['datasource']['url'] );
         $curl->exec();
 
+        // Archive
+        new FeedArchiver( $this->vendor, $curl->getResponse(), $this->params['type'] );
+        
         // Go through Cleaning process and Parse it as XML
         $xmlDataFixer = new xmlDataFixer( $curl->getResponse() );
 

@@ -929,6 +929,7 @@ class importTask extends sfBaseTask
         
         $dataMapper = null;
         $params = array( 'datasource' => array( 'classname' => 'Curl', 'url' => '' ) );
+        $params['type'] = $options['type']; // Requierd by Feed Archiver
         
         switch( $options['type'] )
         {    
