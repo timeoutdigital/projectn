@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <rss xmlns:content="http://purl.org/rss/1.0/modules/content/"
+             xmlns:tohk="http://www.timeout.com.hk/custom.xsd" version="2.0">
+        	<channel>
+            <title><![CDATA[Venues]]></title>
+            <link>http://www.timeout.com.hk</link>
+            <description><![CDATA[TOHK Venues]]></description>
+            <pubDate>Wed, 14 Jul 2010</pubDate>
+            <managingEditor>admin@timeout.com.hk (timeout.com.hk)</managingEditor>
+            <copyright>timeout.com.hk</copyright>
+            <image>
+              <url>http://www.timeout.com.hk/images/logo.gif</url>
+              <title><![CDATA[TOHK Venues]]></title>
+              <link>http://www.timeout.com.hk</link>
+            </image>
+            <language>en</language>
+            <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+            <venues>
+                
+        	<venue id='2'>
+                <name><![CDATA[The Rotunda]]></name>
+                <street><![CDATA[Exchange Square]]></street>
+                <city><![CDATA[Central]]></city>
+                <district><![CDATA[Central]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+                <mapcode><![CDATA[<iframe width="400" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com.hk/maps?q=%E7%81%A3%E4%BB%94%E6%98%9F%E8%A1%979%E8%99%9F&amp;ie=UTF8&amp;hq=&amp;hnear=%E6%98%9F%E8%A1%979%E8%99%9F&amp;gl=hk&amp;ei=lNVHTNSAN4XRcf3rgOsM&amp;ved=0CB4Q8gEwAA&amp;hl=zh-TW&amp;cd=1&amp;geocode=FaTpUwEdoQ_OBg&amp;split=0&amp;sll=22.38131,114.168639&amp;sspn=0.465734,0.667115&amp;brcurrent=3,0x3403ff80eb6f67b1:0x46c3c89b39011247,0&amp;ll=22.276548,114.16769&amp;spn=0.027799,0.034332&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com.hk/maps?q=%E7%81%A3%E4%BB%94%E6%98%9F%E8%A1%979%E8%99%9F&amp;ie=UTF8&amp;hq=&amp;hnear=%E6%98%9F%E8%A1%979%E8%99%9F&amp;gl=hk&amp;ei=lNVHTNSAN4XRcf3rgOsM&amp;ved=0CB4Q8gEwAA&amp;hl=zh-TW&amp;cd=1&amp;geocode=FaTpUwEdoQ_OBg&amp;split=0&amp;sll=22.38131,114.168639&amp;sspn=0.465734,0.667115&amp;brcurrent=3,0x3403ff80eb6f67b1:0x46c3c89b39011247,0&amp;ll=22.276548,114.16769&amp;spn=0.027799,0.034332&amp;z=14&amp;iwloc=A&amp;source=embed" style="color:#0000FF;text-align:left">檢視較大的地圖</a></small>]]></mapcode>
+
+                <categories>
+                    <category><![CDATA[Story 2]]></category>
+                </categories>
+                
+                
+        	</venue>
+        	
+        	<venue id='3'>
+                <name><![CDATA[Piazza Area]]></name>
+                <street><![CDATA[]]></street>
+                <city><![CDATA[Discovery Bay]]></city>
+                <district><![CDATA[Discovery Bay]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+                <mapcode><![CDATA[<iframe width="400" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=21+D'Aguilar+St+hong+kong&amp;sll=22.323123,114.190478&amp;sspn=0.009091,0.013797&amp;doflg=ptk&amp;ie=UTF8&amp;hq=&amp;hnear=21+D'aguilar+St,+Hong+Kong&amp;z=14&amp;ll=22.28112,114.155511&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=21+D'Aguilar+St+hong+kong&amp;sll=22.323123,114.190478&amp;sspn=0.009091,0.013797&amp;doflg=ptk&amp;ie=UTF8&amp;hq=&amp;hnear=21+D'aguilar+St,+Hong+Kong&amp;z=14&amp;ll=22.28112,114.155511" style="color:#0000FF;text-align:left">View Larger Map</a></small>]]></mapcode>
+                <categories>
+                    <category><![CDATA[Story 3]]></category>
+                </categories>
+                
+                
+        	</venue>
+        	
+        	<venue id='4'>
+                <name><![CDATA[Soccer pitch of Pak Tai Temple Playground]]></name>
+                <street><![CDATA[Shop M, Roof Viewing Deck, Pier 7, Star Ferry]]></street>
+                <city><![CDATA[Cheung Chau]]></city>
+                <district><![CDATA[Cheung Chau]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+                
+                <categories>
+                    <category><![CDATA[Story 4]]></category>
+                </categories>
+                
+                
+        	</venue>
+        	
+            </venues>
+           </channel>
+        </rss>
