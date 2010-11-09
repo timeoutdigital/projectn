@@ -72,8 +72,7 @@ class Importer
 
   public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )
   {
-    //if( $record ) ImportLogger::getInstance()->addFailed( $record );
-    ImportLogger::getInstance()->addError( $exception, $record, $message );
+      ImportLogger::getInstance()->addError( $exception, $record, $message );
   }
 
   /**

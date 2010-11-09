@@ -16,8 +16,7 @@ class HongKongFeedEventsMapper extends HongKongFeedBaseMapper
 
   public function mapEvents()
   {
-      
-      foreach ($this->fixIteration($this->xml->channel->events->event)  as $eventElement)
+      foreach ($this->xml->channel->events->event as $eventElement)
       {
           try{
               // Get Venue Id
@@ -87,7 +86,7 @@ class HongKongFeedEventsMapper extends HongKongFeedBaseMapper
 
               } // Foreach Events occurrences
 
-                // Add Medias to Event
+                // Add Medias to EZ
                 if( isset( $eventElement->medias->media ) )
                 {
                     foreach( $eventElement->medias->media as $media )
