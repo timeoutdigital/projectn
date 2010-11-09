@@ -72,9 +72,6 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( "http://www.timeout.com.hk/film/features/1739/the-savages.html", $movie[ 'MovieProperty' ][0]['value'] );
 
     $this->assertGreaterThan( 0, $movie[ 'Vendor' ]->count() );
-    
-    $filename = sfConfig::get( 'sf_root_dir' ) . '/import/hong_kong/movie/media/' . md5('http://www.timeout.com.hk/media/content/normal/1739_savages1.jpg') . '.jpg';
-    $this->assertEquals(true,file_exists($filename));
 
     // Test the LAST
      $movie = $movies->getLast();
