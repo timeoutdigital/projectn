@@ -34,6 +34,11 @@ class importTask extends sfBaseTask
         $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, $language );
 
         $type = $this->options['type'];
+        // Check config file has this type configuration
+        if( !isset( $this->config['import'][$type] ) )
+        {
+            $this->dieDueToInvalidTypeSpecified();
+        }
         $mapperClassName = $this->config['import'][$type]['class']['name'];
 
         $constructorParams = array();
@@ -239,75 +244,7 @@ class importTask extends sfBaseTask
         $city = $options['city'];
         if( $city == 'russia' ) $city = 'unknown';
 
-        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( $city, 'ru' );
-
-        switch( $options['type'] )
-        {
-            case 'moscow_1':
-            case 'moscow_2':
-                    $this->importMoscow( $city, $options['type'] );
-                break;
-            case 'poi':
-
-                $feedName = array();
-                $feedName['moscow']              = 'places_msk.xml';
-                $feedName['saint petersburg']    = 'places_spb.xml';
-                $feedName['omsk']                = 'places_omsk.xml';
-                $feedName['almaty']              = 'places_almaty.xml';
-                $feedName['novosibirsk']         = 'places_novosibirsk.xml';
-                $feedName['krasnoyarsk']         = 'places_krasnoyarsk.xml';
-                $feedName['tyumen']              = 'places_tumen.xml';
-
-                if( !in_array( $city, array_keys( $feedName ) ) )
-                    $this->dieWithLogMessage( 'No Feed Available For City Named: ' . $city );
-
-                $feedUrl = 'http://www.timeout.ru/london/' . $feedName[ $city ];
-                $mapperClass = 'RussiaFeedPlacesMapper';
-
-            break; //End Poi
-
-            case 'event':
-
-                $feedName = array();
-                $feedName['moscow']              = 'events_msk.xml';
-                $feedName['saint petersburg']    = 'events_spb.xml';
-                $feedName['omsk']                = 'events_omsk.xml';
-                $feedName['almaty']              = 'events_almaty.xml';
-                $feedName['novosibirsk']         = 'events_novosibirsk.xml';
-                $feedName['krasnoyarsk']         = 'events_krasnoyarsk.xml';
-                $feedName['tyumen']              = 'events_tumen.xml';
-
-                if( !in_array( $city, array_keys( $feedName ) ) )
-                    $this->dieWithLogMessage( 'No Feed Available For City Named: ' . $city );
-
-                $feedUrl = 'http://www.timeout.ru/london/' . $feedName[ $city ];
-                $mapperClass = 'RussiaFeedEventsMapper';
-
-            break; //End Event
-
-            case 'movie':
-
-                if( $options['city'] !== 'russia' ) $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
-
-                $feedUrl = 'http://www.timeout.ru/london/movies.xml';
-                $mapperClass = 'RussiaFeedMoviesMapper';
-
-            break; //End Movie
-
-            default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-        $feedObj = new Curl( $feedUrl );
-        $feedObj->exec();
-        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
-        $xml = simplexml_load_string( $feedObj->getResponse() );
-
-        ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $mapperClass( $xml, null, $city ) );
-        $importer->run();
-        ImportLogger::getInstance()->end();
-
-        $this->dieWithLogMessage();
+        $this->newStyleImport( $city, 'ru', $options, $databaseManager, $importer );
 
       break; //End Russian Cities
 
@@ -468,6 +405,100 @@ class importTask extends sfBaseTask
     case 'abu dhabi':
 
         $this->newStyleImport( 'abu dhabi', 'en-US', $options, $databaseManager, $importer );
+
+        break;
+    case 'bahrain':
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('bahrain', 'en-US');
+
+        switch( $options['type'] )
+        {
+            case 'bar':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/bars';
+                $dataMapperClass    = 'UAEFeedBarsMapper';
+                break;
+            case 'restaurant':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/restaurants';
+                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
+                break;
+            case 'poi':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedPoiMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
+                break;
+            case 'event':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedEventsMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        if( isset($feedUrl) && isset($dataMapperClass) )
+        {
+            // Download the File
+            $feedCurl           = new Curl( $feedUrl );
+            $feedCurl->exec();
+
+            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
+            {
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
+            }else{
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
+            }
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+        }
+
+        break;
+    case 'doha':
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('doha', 'en-US');
+
+        switch( $options['type'] )
+        {
+            case 'bar':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/bars';
+                $dataMapperClass    = 'UAEFeedBarsMapper';
+                break;
+            case 'restaurant':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/restaurants';
+                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
+                break;
+            case 'poi':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedPoiMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
+                break;
+            case 'event':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedEventsMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        if( isset($feedUrl) && isset($dataMapperClass) )
+        {
+            // Download the File
+            $feedCurl           = new Curl( $feedUrl );
+            $feedCurl->exec();
+
+            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
+            {
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
+            }else{
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
+            }
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+        }
 
     break;
 

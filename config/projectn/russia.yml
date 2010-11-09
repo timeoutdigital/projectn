@@ -1,0 +1,11 @@
+import:
+
+  movie:
+    class:
+      name: RussiaFeedMoviesMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeout.ru/london/movies.xml
+ 
