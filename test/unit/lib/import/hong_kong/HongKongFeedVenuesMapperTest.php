@@ -65,7 +65,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('The Rotunda', $poi['name']);
 
       $this->assertEquals('Exchange Square', $poi['street']);
-      $this->assertEquals('Central', $poi['city']);
+      $this->assertEquals('Hong Kong', $poi['city']);
       $this->assertEquals('Central', $poi['district']);
       $this->assertEquals('HKG',$poi['country']);
       
@@ -100,7 +100,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('Piazza Area', $poi['name']);
 
       $this->assertEquals('', $poi['street']);
-      $this->assertEquals('Discovery Bay', $poi['city']);
+      $this->assertEquals('Hong Kong', $poi['city']);
       $this->assertEquals('Discovery Bay', $poi['district']);
       $this->assertEquals('HKG',$poi['country']);
       
@@ -135,7 +135,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('Soccer pitch of Pak Tai Temple Playground', $poi['name']);
 
       $this->assertEquals('Shop M, Roof Viewing Deck, Pier 7, Star Ferry', $poi['street']);
-      $this->assertEquals('Cheung Chau', $poi['city']);
+      $this->assertEquals('Hong Kong', $poi['city']);
       $this->assertEquals('Cheung Chau', $poi['district']);
       $this->assertEquals('HKG',$poi['country']);
       

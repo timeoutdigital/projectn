@@ -934,15 +934,15 @@ class importTask extends sfBaseTask
         {    
             case 'poi':
                     $dataMapper = 'HongKongFeedVenuesMapper';
-                    $params['datasource']['url']    = 'http://tohk.testpilotweb.com/rss/venues/';
+                    $params['datasource']['url']    = 'http://www.timeout.com.hk/rss/venues/';
                 break;
             case 'movie':
                     $dataMapper = 'HongKongFeedMoviesMapper';
-                    $params['datasource']['url']    = 'http://tohk.testpilotweb.com/rss/movies/';
+                    $params['datasource']['url']    = 'http://www.timeout.com.hk/rss/events/';
                 break;
             case 'event':
                     $dataMapper = 'HongKongFeedEventsMapper';
-                    $params['datasource']['url']    = 'http://tohk.testpilotweb.com/rss/events/';
+                    $params['datasource']['url']    = 'http://www.timeout.com.hk/rss/movies/';
                 break;
             default : $this->dieDueToInvalidTypeSpecified();
                 break;

@@ -72,19 +72,29 @@ class HongKongFeedEventsMapper extends HongKongFeedBaseMapper
 
 
                       // Add Categories (use Tags as Category!) // Require Vendor
-                      $categories = array();
-                      foreach( $eventElement->tags->tag as $category ) $categories[] = stringTransform::mb_trim((string) $category); // mb_trim to trim any Whitespaces in Cat names
-                      $event->addVendorCategory( $categories, $event['Vendor']['id'] );
-
+                      if( isset( $eventElement->tags->tag ) )
+                      {
+                          $categories = array();
+                          foreach( $eventElement->tags->tag as $category ) $categories[] = stringTransform::mb_trim((string) $category); // mb_trim to trim any Whitespaces in Cat names
+                          $event->addVendorCategory( $categories, $event['Vendor']['id'] );
+                      }
                       // Add to Events Occurrences
                       $event['EventOccurrence'][] = $occurrence;
 
                   }catch(Exception $exception){
-                      //$this->notifyImporterOfFailure( $exception, $occurrence );
-                      print_r($exception->getMessage() . ' -Failed to add Occurrence for vendor ID@' . $vendorEventId . ' - vendor event id@' . $event['vendor_event_id'] . ' on venue id@' . (string) $xmlOccurrence->venue_id .PHP_EOL);
+                      $this->notifyImporterOfFailure( $exception, $occurrence );
                   }
 
               } // Foreach Events occurrences
+
+                // Add Medias to Event
+                if( isset( $eventElement->medias->media ) )
+                {
+                    foreach( $eventElement->medias->media as $media )
+                    {
+                        $this->addImageHelper( $event, (string) $media->url );
+                    }
+                }
 
               // Save Event
               $this->notifyImporter( $event );
@@ -92,7 +102,6 @@ class HongKongFeedEventsMapper extends HongKongFeedBaseMapper
 
           }catch(Exception $exception){
               $this->notifyImporterOfFailure($exception, isset( $event ) ? $event : null );
-              print_r($exception->getMessage() . ' - failed to add Event for vendor event id@'. $event['vendor_event_id'].PHP_EOL);
           }
       }// END foreach
   }

@@ -73,7 +73,6 @@ class HongKongFeedMoviesMapper extends HongKongFeedBaseMapper
         catch( Exception $exception )
         {
             $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
-            print_r( $exception->getMessage() );
         }
     }
   }

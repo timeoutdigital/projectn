@@ -30,9 +30,9 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               $poi['vendor_poi_id']                 = (string) $vendor_venue_id;
               $poi['poi_name']                      = (string) $venueElement->name;
               $poi['street']                        = (string) $venueElement->street;
-              $poi['city']                          = (string) $venueElement->city;
+              $poi['city']                          = ucwords( $this->vendor['city'] ); // HK feed's Cityname == District Name, we could use our Database Cityname
               $poi['district']                      = (string) $venueElement->district;
-              $poi['country']                       = "HKG";
+              $poi['country']                       = $this->vendor['country_code_long'];
 
               $poi['phone']                         = (string) $venueElement->phone;
               $poi['url']                           = (string) $venueElement->url;
@@ -44,10 +44,12 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               $poi['Vendor']                        = clone $this->vendor;
 
               // Categories
-              $categories = array();
-              foreach( $venueElement->categories->category as $category ) stringTransform::mb_trim($categories[] = (string) $category); // TRIM as addVendorCategory Don't Trim!
-              $poi->addVendorCategory( $categories, $this->vendor->id );
-
+              if( isset( $venueElement->categories->category ) )
+              {
+                  $categories = array();
+                  foreach( $venueElement->categories->category as $category ) stringTransform::mb_trim($categories[] = (string) $category); // TRIM as addVendorCategory Don't Trim!
+                  $poi->addVendorCategory( $categories, $this->vendor->id );
+              }
               // Extract and Apply Lat/Long
               $mapCode                              = (string) $venueElement->mapcode;
               if( stringTransform::mb_trim( $mapCode ) != '' )
@@ -64,14 +66,13 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
                       }
                   }
               }
-                  
+
               // Done and Save
               $this->notifyImporter( $poi );
 
           }catch(Exception $exception)
           {
               $this->notifyImporterOfFailure($exception, isset($poi) ? $poi : null );
-              print_r($exception->getMessage() . ' - VENDOR POI ID@ '.$poi['vendor_poi_id'].PHP_EOL);
           }
 
           unset($poi, $categories, $vendor_venue_id);
