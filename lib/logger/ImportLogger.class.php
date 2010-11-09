@@ -309,12 +309,12 @@ class ImportLogger extends BaseLogger
     public function addUpdate( Doctrine_Record $record, $modifiedFieldsArray = array() )
     {
       if( $this->_enabled )
-      {
-         $logImportCount = $this->_getLogImportCountObject( 'existing', is_object( $record ) ? get_class( $record ) : NULL );
-         $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
-          
+      {         
           if ( !empty( $modifiedFieldsArray ) )
           {
+             $logImportCount = $this->_getLogImportCountObject( 'updated', is_object( $record ) ? get_class( $record ) : NULL );
+             $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
+
               $log = "Updated Fields: \n";
 
               //The item is modified therefore log as an update
@@ -329,6 +329,11 @@ class ImportLogger extends BaseLogger
 
               $importLogger = $this->getLoggerByVendor();
               $importLogger[ 'LogImportChange' ][] = $logImportChange;
+          }
+
+          else {
+            $logImportCount = $this->_getLogImportCountObject( 'existing', is_object( $record ) ? get_class( $record ) : NULL );
+            $logImportCount[ 'count' ] = $logImportCount[ 'count' ] + 1;
           }
 
           $this->save();
@@ -358,7 +363,9 @@ class ImportLogger extends BaseLogger
         return $logImportCount;
     }
 
-    
+    /**
+     * @return ImportLogger
+     */
     // The singleton method
     public static function getInstance()
     {

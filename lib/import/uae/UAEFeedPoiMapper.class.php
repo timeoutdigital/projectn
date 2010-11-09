@@ -53,7 +53,7 @@ class UAEFeedPoiMapper extends UAEFeedBaseMapper
                 // Category
                 $poi->addVendorCategory( (string) $xmlNode->{'mobile-section'}['value'], $this->vendor_id );
 
-                $poi->save();
+                $this->notifyImporter( $poi );
                 
             } catch (Exception $exc) {
                 echo 'Exception UAEFeedPoiMapper::mapPoi - ' . $exc->getMessage() . PHP_EOL;

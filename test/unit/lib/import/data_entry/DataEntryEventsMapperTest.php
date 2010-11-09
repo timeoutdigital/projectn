@@ -89,13 +89,13 @@ class DataEntryEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '2010-07-12', $eventOccurrence1['start_date'] );
     $this->assertEquals( '10:00:00', $eventOccurrence1['start_time'] );
     $this->assertEquals( '11:00:00', $eventOccurrence1['end_time'] );
-    $this->assertEquals( '+01:00', $eventOccurrence1['utc_offset'] );
+    $this->assertEquals( '+00:00', $eventOccurrence1['utc_offset'] );
 
     $eventOccurrence2 = $event['EventOccurrence'][1];
     $this->assertEquals( '2010-07-13', $eventOccurrence2['start_date'] );
     $this->assertEquals( '10:00:01', $eventOccurrence2['start_time'] );
     $this->assertEquals( '11:00:01', $eventOccurrence2['end_time'] );
-    $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
+    $this->assertEquals( '+00:00', $eventOccurrence2['utc_offset'] );
 
     $this->assertGreaterThan( 0, $event[ 'EventProperty' ]->count() );
     $this->assertEquals( 'http://www.timeout.ru/cinema/event/15032/', $event[ 'EventProperty' ][0] ['value']  );
