@@ -113,27 +113,5 @@ class ChicagoFeedBaseMapper extends DataMapper
         
         return ( is_array( $stringArray) && count( $stringArray >= 1) ) ? $stringArray : array( $string );
     }
-
-    /**
-     * Implode New lines into Comma seperated string
-     * @param string $string
-     * @return string
-     */
-    protected function nl2Comma( $string )
-    {
-        $stringArray     = $this->nl2Array( $string );
-
-        return implode(', ', $stringArray );
-    }
-
-    /**
-     * Search / Replace SemiColon (;) with Comma (,)
-     * @param string $string
-     * @return string
-     */
-    protected function semiColon2Comma( $string )
-    {
-        return mb_ereg_replace(';', ',', $string );
-    }
 }
 ?>
