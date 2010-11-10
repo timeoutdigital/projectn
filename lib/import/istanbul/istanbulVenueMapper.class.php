@@ -30,7 +30,7 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $poi['poi_name']                      = $this->clean( (string) $venueElement->name );
             $poi['house_no']                      = $this->clean( (string) $venueElement->house_no );
             $poi['street']                        = $this->clean( (string) $venueElement->street );
-            $poi['city']                          = ucfirst( $this->clean( (string) $this->vendor['city'] ) );
+            $poi['city']                          = 'Istanbul';
             $poi['district']                      = $this->clean( (string) $venueElement->district );
             $poi['country']                       = $this->clean( (string) $this->vendor['country_code_long'] );
             $poi['zips']                          = $this->clean( (string) $venueElement->postcode );
