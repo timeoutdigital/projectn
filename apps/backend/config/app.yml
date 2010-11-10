@@ -91,7 +91,9 @@ all:
         -
           name: singapore
           type: [ poi, event, movie ]
-       
+        -
+          name: hong kong
+          type: [ poi, event, movie ]
 
   export:
     cities:
@@ -199,6 +201,11 @@ all:
           name: istanbul
           type: [ poi, event, movie ]
           language: tr
+          exportForNokia: true
+        -
+          name: hong kong
+          type: [ poi, event, movie ]
+          language: en-HK
           exportForNokia: true
 
 
