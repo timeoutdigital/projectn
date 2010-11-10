@@ -19,9 +19,6 @@ class HongKongFeedMoviesMapper extends HongKongFeedBaseMapper
     foreach( $this->fixIteration( $this->xml->channel->movies->movie ) as $movieElement )
     {
         try {
-            // Set Vendor Unknown For Import Logger
-            ImportLogger::getInstance()->setVendorUnknown();
-
             // Get Movie Id
             $vendor_movie_id = (int) $movieElement['id'];
 
