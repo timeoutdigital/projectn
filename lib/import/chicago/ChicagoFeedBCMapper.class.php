@@ -59,7 +59,7 @@ class ChicagoFeedBCMapper extends ChicagoFeedBaseMapper
                 $poi['country']                                 = $poi['Vendor']['country_code_long'];
 
                 $poi['price_information']                       = (string) $xmlNode->prices;
-                $poi['openingtimes']                            = $this->semiColon2Comma( (string) $xmlNode->hours );
+                $poi['openingtimes']                            = mb_ereg_replace(';', ',', (string) $xmlNode->hours );
                 $poi['url']                                     = stringTransform::formatUrl( (string) $xmlNode->url );
 
                 // phone number
@@ -90,7 +90,7 @@ class ChicagoFeedBCMapper extends ChicagoFeedBaseMapper
                 // Add Features to Property
                 if( trim( (string) $xmlNode->features ) != '')
                 {
-                    $poi->addProperty( 'features', $this->nl2Comma( (string) $xmlNode->features ) );
+                    $poi->addProperty( 'features', implode(', ', $this->nl2Array( (string) $xmlNode->features ) ) );
                 }
 
                 // Save POI

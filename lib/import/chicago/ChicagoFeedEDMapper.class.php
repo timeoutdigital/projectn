@@ -60,12 +60,12 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
 
                 $poi['price_information']                       = (string) $xmlNode->prices;
                 $poi['url']                                     = stringTransform::formatUrl( (string) $xmlNode->url );
-                $openingTimes                                   = $this->semiColon2Comma( (string) $xmlNode->hours );
+                $openingTimes                                   = mb_ereg_replace(';', ',', (string) $xmlNode->hours );
 
                 // Add openingtimes with hours.notes
                 if( isset($xmlNode->{'hours.notes'}) && trim( (string)$xmlNode->{'hours.notes'} ) != '' )
                 {
-                    $hoursNotes                                 = $this->nl2Comma( (string) $xmlNode->{'hours.notes'} );
+                    $hoursNotes                                 = implode(', ', $this->nl2Array( (string) $xmlNode->{'hours.notes'} ) );
                     $openingTimes                               = stringTransform::concatNonBlankStrings(' - ', array( trim($openingTimes), trim($hoursNotes) ) );
                 }
                 $poi['openingtimes']                            = $openingTimes;
@@ -96,7 +96,7 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 // Add Features to Property
                 if( trim( (string) $xmlNode->features ) != '')
                 {
-                    $features           = $this->nl2Comma( (string) $xmlNode->features );
+                    $features           = implode(', ', $this->nl2Array( (string) $xmlNode->features ) );
                     // Clean up features property, to remove the string "Cheap (entrees under $10)" #251
                     $features           = mb_ereg_replace( '\s*\(entrees under\s\$\d*\)\s*', '', $features );
                     $poi->addProperty( 'features', $features );

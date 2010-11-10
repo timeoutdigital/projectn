@@ -92,11 +92,7 @@ class ChicagoFeedBaseMapper extends DataMapper
         // Clean if Flagged
         if( $requireCleaning )
         {
-            mb_internal_encoding("UTF-8");
-            mb_regex_encoding("UTF-8");
-
-
-            $contents = mb_ereg_replace( "[^\x9\xA\xD\x20-\x7E\xA0-\xFF]", "", $contents );
+            $this->cleanTheContents( $contents );
         }
 
         $this->xml = simplexml_load_string( $contents );
@@ -115,25 +111,18 @@ class ChicagoFeedBaseMapper extends DataMapper
     }
 
     /**
-     * Implode New lines into Comma seperated string
-     * @param string $string
+     * Clean the Unicode Weird chars and return notmal string,
+     * Abstracted out to unit test
+     * @param string $contents
      * @return string
      */
-    protected function nl2Comma( $string )
+    protected function cleanTheContents( $contents )
     {
-        $stringArray     = $this->nl2Array( $string );
+        // SET PHP internal
+        mb_internal_encoding("UTF-8");
+        mb_regex_encoding("UTF-8");
 
-        return implode(', ', $stringArray );
-    }
-
-    /**
-     * Search / Replace SemiColon (;) with Comma (,)
-     * @param string $string
-     * @return string
-     */
-    protected function semiColon2Comma( $string )
-    {
-        return mb_ereg_replace(';', ',', $string );
+        return mb_ereg_replace( "[^\x9\xA\xD\x20-\x7E\xA0-\xFF]", "", $contents );
     }
 }
 ?>
