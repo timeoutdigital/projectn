@@ -27,7 +27,7 @@ all:
           type: [ fixid ]
         -
           name: ny
-          type: [ poi-event, eating-drinking, bars-clubs, movie ]
+          type: [ eating-drinking, bars-clubs, poi, event, movie ]
         -
           name: chicago
           type: [ poi-bc, poi-ed, poi, event, movie ]
