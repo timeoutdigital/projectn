@@ -6,7 +6,7 @@ require_once dirname( __FILE__ ) . '/../bootstrap.php';
 require_once dirname(__FILE__).'/../../../lib/stringTransform.class.php';
 
 
-/**
+/** 
  * Test class for stringn transform
  *
  * @package test
