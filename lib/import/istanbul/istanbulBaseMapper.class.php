@@ -34,9 +34,13 @@ class istanbulBaseMapper extends DataMapper
     * @param geoEncode $geoEncoder
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geocoder $geoEncoder = null )
-    {        
-        $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'istanbul', 'tr' );
+    public function __construct( $vendor, SimpleXMLElement $xml, geocoder $geoEncoder = null )
+    {
+        if( !is_object( $vendor ) || !($vendor instanceof Vendor) )
+        {
+            throw new Exception( 'Invalid vendor passed to Istanbul Mapper' );
+        }
+        $this->vendor     = $vendor; // #781 we share common mapper for istanbul and istanbul_en
 
         //date_default_timezone_set( $this->vendor->time_zone );
         //setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
