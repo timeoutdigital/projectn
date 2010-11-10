@@ -14,7 +14,17 @@
 
 class xmlDataFixer
 {
+    /**
+     * String format Contents of XML File for processing
+     * @var string
+     */
     private $xmlStringData;
+
+    /**
+     * Tag name for preg_replace_callback in  htmlEntitiesTag
+     * @var string
+     */
+    private $preg_tag_name;
 
     /**
      * Requires XML String
@@ -91,7 +101,8 @@ class xmlDataFixer
      */
     public function removeHtmlEntiryEncoding()
     {
-        $ignore = '(laquo|raquo|nbsp|amp|lt|gt|quot|apos|#[0-9]+);'; //ndash|rsquo|lsquo|
+        //$ignore = '(laquo|raquo|nbsp|amp|lt|gt|quot|apos|#[0-9]+);'; //ndash|rsquo|lsquo|
+        $ignore = '(ndash|rsquo|lsquo|laquo|raquo|nbsp|amp|lt|gt|quot|apos|#[0-9]+);';
         $this->xmlStringData = preg_replace( "/&(?!$ignore)/", '&amp;', $this->xmlStringData );
        // $this->xmlStringData = mb_ereg_replace( '\&#146;', '', $this->xmlStringData);
     }
@@ -117,6 +128,94 @@ class xmlDataFixer
     {
         $this->xmlStringData = utf8_encode($this->xmlStringData);
     }
+
+    /**
+     * Filter the MS Word html Tags
+     * (font|span|del|ins|w:|link|meta|xml|style)
+     * @param string $string
+     * @return string
+     */
+    private function filterMSWordHtmlTags( $string )
+    {
+        $string = mb_ereg_replace("<(/)?(font|span|del|ins|w:|o:|link|meta|xml|style)[^>]*>", "", $string );
+        $string = mb_ereg_replace( '<!(?:--[\s\S]*?--\s*)?>\s*', "", $string ); // Removes the <!-- Comments -->
+
+        return $string;
+    }
+
+    /**
+     * This method will remove the MS Word Html tags
+     * Pass in tagName to filter only specific Tag or lave empty for Entire Document
+     * Also, Set haveCDATA to TRUE if this tag content is wrapped in CDATA
+     * @param string $tagName
+     * @param boolean $haveCDATA
+     */
+    public function removeMSWordHtmlTags( $tagName = '', $haveCDATA = true)
+    {
+        if( is_string($tagName) && trim($tagName) != '' )
+        {
+            // Preg_match tags and Clean the contents for Word HTML Tags
+            $this->preg_match_tag( 'preg_callback_msword', $tagName, $haveCDATA );
+        }else{
+            // Else Filter Entire Document!
+            $this->xmlStringData = $this->filterMSWordHtmlTags( $this->xmlStringData );
+        }
+    }
+
+    /**
+     * This function will Search and Replace the contents inside given tag with htmlentities encoded contents +
+     * wrap with CDATA
+     * @param string $tagName
+     * @param boolean $haveCDATA
+     */
+    public function htmlEntitiesTag( $tagName, $haveCDATA = false)
+    {
+        $this->preg_match_tag( 'preg_callback_htmlEntities', $tagName, $haveCDATA );
+    }
+
+    /**
+     * Match tags and Execute the Callback
+     * @param string $callback
+     * @param string $tagName
+     * @param boolean $haveCDATA
+     */
+    private function preg_match_tag( $callback, $tagName, $haveCDATA = false )
+    {
+        $cdata_start = ( $haveCDATA ) ? '<\!\[CDATA\[' : '';
+        $cdata_end = ( $haveCDATA ) ? '\]\]>' : '';
+        $this->preg_tag_name = $tagName; 
+        // Match and Process Matches
+        $this->xmlStringData = preg_replace_callback('#<'.$tagName.'>'.$cdata_start.'(.*)'.$cdata_end.'</'.$tagName.'>#iUs', array( &$this, $callback) , $this->xmlStringData );
+        
+        unset( $this->preg_tag_name , $cdata_start, $cdata_end );
+    }
+
+    /**
+     * matched will be passed here when used with preg_replace_callback in htmlEntitiesTag()
+     * @param array $input
+     * @return string
+     */
+    private function preg_callback_htmlEntities( $input )
+    {
+        if( count( $input ) < 2 )
+            return '<'.$this->preg_tag_name.'><![CDATA[]]></'.$this->preg_tag_name.'>';
+        
+        return sprintf('<'.$this->preg_tag_name.'><![CDATA[%s]]></'.$this->preg_tag_name.'>', htmlentities( $input[1] ) );
+    }
+
+    /**
+     * matched will be cleaned for MS HTML tags
+     * @param array $input
+     * @return string
+     */
+    private function preg_callback_msword( $input )
+    {
+        if( count( $input ) < 2 )
+            return '<'.$this->preg_tag_name.'><![CDATA[]]></'.$this->preg_tag_name.'>';
+
+        return sprintf('<'.$this->preg_tag_name.'><![CDATA[%s]]></'.$this->preg_tag_name.'>', $this->filterMSWordHtmlTags( $input[1] ) );
+    }
+
    
 }
 ?>

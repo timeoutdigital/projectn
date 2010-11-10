@@ -6,7 +6,7 @@ require_once dirname( __FILE__ ) . '/../bootstrap.php';
 require_once dirname(__FILE__).'/../../../lib/stringTransform.class.php';
 
 
-/**
+/** 
  * Test class for stringn transform
  *
  * @package test
@@ -462,6 +462,168 @@ three
       {
           $this->assertEquals( $afterArrayFormatted[ $i ], stringTransform::extractStartTime( $beforeArray[ $i ] ) );
       }
+  }
+  
+  public function testRemoveMultipleLines()
+  {
+      $string = <<<EOF
+first
+
+
+
+
+
+
+second line
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+test 3
+EOF;
+     
+$asert = <<<EOF
+first
+second line
+test 3
+EOF;
+      $string = stringTransform::removeMultipleLines($string);
+      $this->assertEquals( $asert, $string);
   }
 
 }
