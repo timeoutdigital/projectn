@@ -39,19 +39,11 @@ class PoiMetaTest extends PHPUnit_Framework_TestCase
 
   public function testSaveWithoutLookupAndValue()
   {
-    try
-    {
       $meta = new PoiMeta();
+      $this->setExpectedException('Exception');
       $meta->save();
-    }catch (Exception $e)
-    {
-        $this->assertTrue( true );
-        return;
-    }
-
-    $this->fail('An expected exception has not been raised.');
-
   }
+  
   public function testSave()
   {
       try{

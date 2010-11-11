@@ -257,8 +257,6 @@ class ImportLogger extends BaseLogger
 
             if ( is_subclass_of( $record, "Doctrine_Record" ) )
             {
-                ImportLogger::getInstance()->addFailed( $record );
-
                 $importRecordErrorLogger['model']                    = get_class( $record );
                 $storeObject = method_exists( 'toArray', $record ) ? $record->toArray() : $record;
                 $importRecordErrorLogger['serialized_object']        = serialize( $storeObject );
@@ -426,7 +424,7 @@ class ImportLogger extends BaseLogger
         catch( Exception $e )
         {
             ImportLogger::getInstance()->addError( $e, $record, 'failed to save record' );
-            
+            if( $record ) ImportLogger::getInstance()->addFailed( $record );
             //if( isset( $record ) ) $record->free( true );
         }
     }

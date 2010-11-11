@@ -1,0 +1,164 @@
+# Default Minimum and Threashold for All cities
+# Minimum and threashold should be specified in Whole Integer (Threashold counted as drop % warning threashold)
+default:
+  poi:
+    minimum: 200
+    lower_threshold: -2
+    upper_threshold: 5
+  event:
+    minimum: 1
+    lower_threshold: -2
+    upper_threshold: 5
+  movie:
+    minimum: 1
+    lower_threshold: -2
+    upper_threshold: 5
+
+# Specify City for Exclution from Checking Minimum / Threashold
+exclude: [ unknown, jerusalem, tel_aviv, amsterdam, bucharest, beijing_zh, budapest,rio_de_janeiro, sao_paulo, shanghai, novosibirsk, krasnoyarsk, omsk ,tyumen ]
+
+# For each city that require specific minimum and Threashold, override here
+# Spaces should be replaced with _ (underscore) and all text to be nomralized to lowercase
+ny:
+  poi:
+    minimum: 5300
+  event:
+    minimum: 1400
+  movie:
+    minimum: 100
+
+chicago:
+  poi:
+    minimum: 3800
+  event:
+    minimum: 1600
+  movie:
+    minimum: 75
+
+singapore:
+  poi:
+    minimum: 40
+  event:
+    minimum: 800
+  movie:
+    minimum: 800
+
+london:
+  poi:
+    minimum: 6200
+  event:
+    minimum: 3200
+  movie:
+    minimum: 340
+
+abu_dhabi:
+  poi:
+    minimum: 250
+  event:
+    minimum: 20
+  movie:
+    minimum: 35
+
+dubai:
+  poi:
+    minimum: 1180
+  event:
+    minimum: 20
+  movie:
+    minimum: 30
+
+lisbon:
+  poi:
+    minimum: 10140
+  event:
+    minimum: 4700
+  movie:
+    minimum: 8
+
+sydney:
+  poi:
+    minimum: 3600
+  event:
+    minimum: 700
+  movie:
+    minimum: 35
+
+kuala_lumpur:
+  poi:
+    minimum: 1100
+  event:
+    minimum: 270
+  movie:
+    minimum: 5
+
+moscow:
+  poi:
+    minimum: 10700
+  event:
+    minimum: 2800
+  movie:
+    minimum: 200
+
+saint_petersburg:
+  poi:
+    minimum: 3800
+  event:
+    minimum: 1900
+  movie:
+    minimum: 60
+
+almaty:
+  poi:
+    minimum: 1800
+  event:
+    minimum: 90
+  movie:
+    minimum: 10
+
+barcelona:
+  poi:
+    minimum: 3100
+  event:
+    minimum: 500
+  movie:
+    minimum: 90
+
+mumbai:
+  poi:
+    minimum: 550
+  event:
+    minimum: 20
+  movie:
+    minimum: 50
+
+delhi:
+  poi:
+    minimum: 500
+  event:
+    minimum: 20
+  movie:
+    minimum: 10
+
+bangalore:
+  poi:
+    minimum: 400
+  event:
+    minimum: 20
+  movie:
+    minimum: 10
+
+beijing:
+  poi:
+    minimum: 1450
+  event:
+    minimum: 5
+  movie:
+    minimum: 0
+
+pune:
+  poi:
+    minimum: 100
+  event:
+    minimum: 20
+  movie:
+    minimum: 10

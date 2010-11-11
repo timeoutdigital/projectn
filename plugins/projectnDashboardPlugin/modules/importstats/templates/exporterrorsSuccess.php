@@ -9,7 +9,7 @@
 
 <?php
     $errors = $sf_data->getRaw( 'errorList' );
-    $ignore = array( 'serialized_object', 'trace', 'log_import_id', 'updated_at' );
+    $ignore = array( 'model', 'log_export_id', 'updated_at' );
 ?>
 
 <?php if( !empty( $errors ) ){ ?>
@@ -20,8 +20,6 @@
                     <th><?php echo ucfirst( $k ); ?></th>
                 <?php } ?>
             <?php } ?>
-            <th>Details</th>
-            <th>Resolve</th>
         </tr>
         <?php foreach( $errors as $error ){ ?>
             <tr>
@@ -30,13 +28,9 @@
                         <td><?php echo $v; ?></td>
                     <?php } ?>
                <?php } ?>
-               <td><a href="importstats/importerror/?id=<?php echo $error['id'] ; ?>" target="_blank">more info...</a></td>
-               <?php if( in_array( $error['model'], array('Poi','Event','Movie') ) ){ ?>
-                   <td><a href="<?php echo strtolower( $error['model'] ); ?>/resolve?import_error_id=<?php echo $error['id'] ; ?>" target="_blank">resolve</a></td>
-               <?php } else { ?>
-                   <td></td>
-               <?php } ?>
             </tr>
         <?php } ?>
     </table>
+<?php } else { ?>
+    <h4>No errors found.</h4>
 <?php } ?>

@@ -762,6 +762,100 @@ class importTask extends sfBaseTask
         }
 
         break;
+    case 'bahrain':
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('bahrain', 'en-US');
+
+        switch( $options['type'] )
+        {
+            case 'bar':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/bars';
+                $dataMapperClass    = 'UAEFeedBarsMapper';
+                break;
+            case 'restaurant':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/restaurants';
+                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
+                break;
+            case 'poi':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedPoiMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
+                break;
+            case 'event':
+                $feedUrl            = 'http://www.timeoutbahrain.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedEventsMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        if( isset($feedUrl) && isset($dataMapperClass) )
+        {
+            // Download the File
+            $feedCurl           = new Curl( $feedUrl );
+            $feedCurl->exec();
+
+            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
+            {
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
+            }else{
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
+            }
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+        }
+
+        break;
+    case 'doha':
+        $vendor = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage('doha', 'en-US');
+
+        switch( $options['type'] )
+        {
+            case 'bar':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/bars';
+                $dataMapperClass    = 'UAEFeedBarsMapper';
+                break;
+            case 'restaurant':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/restaurants';
+                $dataMapperClass    = 'UAEFeedRestaurantsMapper';
+                break;
+            case 'poi':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedPoiMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_pois.xml' );
+                break;
+            case 'event':
+                $feedUrl            = 'http://www.timeoutdoha.com/nokia/latestevents';
+                $dataMapperClass    = 'UAEFeedEventsMapper';
+                $xslt               = file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_events.xml' );
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        if( isset($feedUrl) && isset($dataMapperClass) )
+        {
+            // Download the File
+            $feedCurl           = new Curl( $feedUrl );
+            $feedCurl->exec();
+
+            $xmlDataFixer       = new xmlDataFixer( $feedCurl->getResponse() );
+
+            ImportLogger::getInstance()->setVendor( $vendor );
+            if( in_array( $options['type'], array('poi', 'event', 'movie') ) )
+            {
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXMLUsingXSLT( $xslt ) ) );
+            }else{
+                $importer->addDataMapper( new $dataMapperClass( $vendor,  $xmlDataFixer->getSimpleXML() ) );
+            }
+            $importer->run();
+            ImportLogger::getInstance()->end();
+            $this->dieWithLogMessage();
+        }
+
+        break;
 
     // data entry imports
     case 'mumbai':
@@ -829,6 +923,44 @@ class importTask extends sfBaseTask
         }
 
     break;
+    case 'hong kong':
+
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'hong kong', 'en-HK' );
+        
+        $dataMapper = null;
+        $params = array( 'datasource' => array( 'classname' => 'Curl', 'url' => '' ) );
+        $params['type'] = $options['type']; // Requierd by Feed Archiver
+        
+        switch( $options['type'] )
+        {    
+            case 'poi':
+                    $dataMapper = 'HongKongFeedVenuesMapper';
+                    $params['datasource']['url']    = 'http://www.timeout.com.hk/rss/venues/';
+                break;
+            case 'movie':
+                    $dataMapper = 'HongKongFeedMoviesMapper';
+                    $params['datasource']['url']    = 'http://www.timeout.com.hk/rss/movies/';
+                break;
+            case 'event':
+                    $dataMapper = 'HongKongFeedEventsMapper';
+                    $params['datasource']['url']    = 'http://www.timeout.com.hk/rss/events/';
+                break;
+            default : $this->dieDueToInvalidTypeSpecified();
+                break;
+        }
+        if(!$dataMapper || !$vendorObj )
+        {
+            throw new Exception('HongKong:: Invalid value!');
+        }
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $dataMapper( $vendorObj, $params ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+
+        $this->dieWithLogMessage();
+        
+        break;
 
      case 'istanbul':
 
@@ -867,10 +999,37 @@ class importTask extends sfBaseTask
         $xml = simplexml_load_string( $feedObj->getResponse() );
 
         ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $mapperClass( $xml ) );
+        $importer->addDataMapper( new $mapperClass( $vendorObj, $xml ) );
         $importer->run();
         ImportLogger::getInstance()->end();
         $this->dieWithLogMessage();
+     break;
+
+ case 'istanbul_en':
+
+     $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'istanbul_en', 'en-US' );
+     switch( $options['type'] )
+     {
+         case 'poi':
+             $feedUrl = "www.timeoutistanbul.com/content/n_xml/venues_en.xml";
+             $mapperClass = "istanbulVenueMapper";
+             break;
+         
+         default : $this->dieDueToInvalidTypeSpecified();
+     }
+
+        $feedObj = new Curl( $feedUrl );
+        $feedObj->exec();
+        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
+
+        $xml = simplexml_load_string( $feedObj->getResponse() );
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $mapperClass( $vendorObj, $xml ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
+
      break;
 
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
