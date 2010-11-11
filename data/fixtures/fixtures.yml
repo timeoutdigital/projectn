@@ -504,6 +504,16 @@ Vendor:
     country_code_long:        CHN
     geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
 
+  v38:
+    city:                     istanbul_en
+    language:                 en-US
+    time_zone:                Asia/Istanbul
+    inernational_dial_code:   +90
+    airport_code:             SAW
+    country_code:             tr
+    country_code_long:        TUR
+    geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
+
 EventCategory:
   c1:
     name:                movies
