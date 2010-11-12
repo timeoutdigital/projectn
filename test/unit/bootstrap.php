@@ -7,6 +7,7 @@ define( 'TO_TEST_IMPORT_PATH', TO_TEST_ROOT_PATH . '/import' );
 define( 'TO_TEST_MOCKS', TO_TEST_ROOT_PATH . '/mocks' );
 
 ini_set( 'date.timezone', 'Europe/London' );
+error_reporting( E_ALL | E_STRICT );
 
 class ProjectN_Test_Unit_Factory
 {
@@ -23,6 +24,7 @@ class ProjectN_Test_Unit_Factory
 
     Doctrine::createTablesFromModels( dirname(__FILE__).'/../../lib/model/doctrine' );
     ImportLogger::getInstance()->enabled( false );
+    error_reporting( E_ALL | E_STRICT );
   }
 
   /**
@@ -100,6 +102,13 @@ class ProjectN_Test_Unit_Factory
       'movieproperty'       => 'MoviePropertyFixture',
       'vendoreventcategory' => 'VendorEventCategoryFixture',
       'vendorpoicategory'   => 'VendorPoiCategoryFixture',
+      'logimport'           => 'LogImportFixture',
+      'logimportcount'      => 'LogImportCountFixture',
+      'logimporterror'      => 'LogImportErrorFixture',
+      'logexport'           => 'LogExportFixture',
+      'logexportcount'      => 'LogExportCountFixture',
+      'uicategory'          => 'UiCategoryFixture',
+      'logexporterror'      => 'LogExportErrorFixture'
     );
 
     $model = strtolower( $model );
@@ -151,6 +160,194 @@ class ProjectN_Test_Unit_Factory
 
     return $record;
   }
+}
+
+class LogExportErrorFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $exportError = new LogExportError();
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'LogExport' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'LogExport' );
+            }
+        }
+
+        $default = array(
+            'record_id' => 1,
+            'model' => 'Poi',
+            'log' => 'error log',
+            'log_export_id' => 1
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+
+        $exportError->fromArray( $default );
+        return $exportError;
+    }
+}
+
+class LogImportErrorFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $importError = new LogImportError();
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'LogImport' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'LogImport' );
+            }
+        }
+
+        $default = array(
+            'model' => 'Poi',
+            'exception_class' => 'Exception',
+            'trace' => 'no trace details',
+            'message' => null,
+            'log' => 'test error log',
+            'serialized_object' => null,
+            'resolved' => 0,
+            'log_import_id' => 1,
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+        
+        $importError->fromArray( $default );
+        return $importError;
+    }
+}
+
+class LogExportCountFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $logCount = new LogExportCount();
+
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'LogExport' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'LogExport' );
+            }
+        }
+
+        $default = array(
+            'model' => 'Poi',
+            'count' => 0,
+            'log_export_id' => 1,
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+
+        $logCount->fromArray( $default );
+
+        return $logCount;
+    }
+}
+
+class LogExportFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $logExport = new LogExport();
+
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'Vendor' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'Vendor' );
+            }
+        }
+
+        $default = array(
+            'vendor_id' => 1,
+            'status' => 'success',
+            'total_time' => '00:00:01',
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+        $logExport->fromArray($default );
+
+        return $logExport;
+
+    }
+}
+
+class LogImportCountFixture{
+
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $logCount = new LogImportCount();
+
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'LogImport' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'LogImport' );
+            }
+        }
+
+        $default = array(
+            'model' => 'Poi',
+            'count' => 0,
+            'log_import_id' => 1,
+            'operation' => 'failed',
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+        
+        $logCount->fromArray( $default );
+        
+        return $logCount;
+    }
+}
+class LogImportFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $logImport = new LogImport();
+
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'Vendor' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'Vendor' );
+            }
+        }
+
+        $default = array(
+            'vendor_id' => 1,
+            'status' => 'success',
+            'total_time' => '00:00:01',
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+        $logImport->fromArray($default );
+        
+        return $logImport;
+
+    }
 }
 
 class PoiFixture
@@ -506,6 +703,30 @@ class VendorPoiCategoryFixture
   }
 }
 
+class UiCategoryFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults = self::getDefaults();
+
+    if( is_array( $data ) )
+    {
+      $defaults = array_merge( $defaults, $data );
+    }
+
+    $record = new UiCategory();
+    $record->fromArray( $defaults );
+
+    return $record;
+  }
+
+  static private function getDefaults()
+  {
+    return array(
+      'name'       =>  'test name',
+    );
+  }
+}
 
 class mockgeocoder extends geocoder
 {

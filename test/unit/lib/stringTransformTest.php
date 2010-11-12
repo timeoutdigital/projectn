@@ -235,6 +235,8 @@ EOF;
    */
   public function testFormatPhoneNumber()
   {
+      $transform = stringTransform::formatPhoneNumber('93 424 65 77' , '+34');
+      $this->assertEquals('+34 9 3424 6577', $transform, 'Testing Barcelona');
 
       $transform = stringTransform::formatPhoneNumber('630 420-6010' , '+1');
       $this->assertEquals('+1 630 420 6010', $transform, 'Testing American number type 1');
@@ -460,6 +462,168 @@ three
       {
           $this->assertEquals( $afterArrayFormatted[ $i ], stringTransform::extractStartTime( $beforeArray[ $i ] ) );
       }
+  }
+  
+  public function testRemoveMultipleLines()
+  {
+      $string = <<<EOF
+first
+
+
+
+
+
+
+second line
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+test 3
+EOF;
+     
+$asert = <<<EOF
+first
+second line
+test 3
+EOF;
+      $string = stringTransform::removeMultipleLines($string);
+      $this->assertEquals( $asert, $string);
   }
 
 }

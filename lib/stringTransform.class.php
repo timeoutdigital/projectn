@@ -599,4 +599,14 @@ class stringTransform
       return str_replace( $charValues, $charKeys, $string);
 
   }
+
+  /**
+   * Replace multiple libe Breaks( 2 or more ) into Sinle line break
+   * @param string $string
+   * @return string
+   */
+  static public function removeMultipleLines( $string )
+  {
+      return mb_ereg_replace( "\n+", "\n", $string );
+  }
 }

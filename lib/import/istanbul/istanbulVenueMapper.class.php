@@ -30,7 +30,7 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $poi['poi_name']                      = $this->clean( (string) $venueElement->name );
             $poi['house_no']                      = $this->clean( (string) $venueElement->house_no );
             $poi['street']                        = $this->clean( (string) $venueElement->street );
-            $poi['city']                          = ucfirst( $this->clean( (string) $this->vendor['city'] ) );
+            $poi['city']                          = 'Istanbul';
             $poi['district']                      = $this->clean( (string) $venueElement->district );
             $poi['country']                       = $this->clean( (string) $this->vendor['country_code_long'] );
             $poi['zips']                          = $this->clean( (string) $venueElement->postcode );
@@ -55,8 +55,8 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $description                          = preg_replace("/\n{2,}/su","\n\n",(string) $venueElement->description );
             $poi['description']                   = $this->clean( $description );
             //$poi['public_transport_links']        = $this->extractPublicTransportInfo( $venueElement );
-            //$poi['price_information']             = $this->clean( (string) $venueElement->price_information );
-            //$poi['openingtimes']                  = $this->clean( (string) $venueElement->opening_times );
+            $poi['price_information']             = $this->clean( (string) $venueElement->price_information ); // #781 - Some of them have values like Orta (Middle), Pahalı (Expensive) etc...
+            $poi['openingtimes']                  = $this->clean( (string) $venueElement->opening_times ); //#781 - As of today, data in the feed is valid!
             //$poi['star_rating']
             //$poi['rating']
             $poi['provider']                      = $this->clean( (string) $venueElement->provider );
@@ -84,7 +84,7 @@ class istanbulVenueMapper extends istanbulBaseMapper
 
             foreach( $venueElement->medias->media as $media )
             {
-                $poi->addMediaByUrl( (string) $media );
+                $this->addImageHelper( $poi, (string) $media ); //#753 addImageHelper capture Exception and notify, this don't break the Import process
             }
             $this->notifyImporter( $poi );
         }

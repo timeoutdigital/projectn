@@ -13,6 +13,16 @@ require_once dirname(__FILE__).'/../lib/movieGeneratorHelper.class.php';
  */
 class movieActions extends autoMovieActions
 {
+  public function executeResolve(sfWebRequest $request)
+  {
+    $record = LogImportErrorHelper::loadAndUnSerialize( $this, $request );
+
+    $this->form = $this->configuration->getForm( isset( $record ) ? $record : null );
+    $this->movie = $this->form->getObject();
+
+    $this->setTemplate('new');
+  }
+
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
   protected function processForm(sfWebRequest $request, sfForm $form)
   {

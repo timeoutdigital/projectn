@@ -15,10 +15,12 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class IstanbulEventMapperTest extends PHPUnit_Framework_TestCase
 {
+    private $vendor;
+    
   public function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
       'city' => 'istanbul',
       'inernational_dial_code' => '+90',
       'language' => 'tr',
@@ -38,7 +40,7 @@ class IstanbulEventMapperTest extends PHPUnit_Framework_TestCase
     $this->createPoisRequiredForEventImport();
     $importer = new Importer();
     $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/istanbul/events.xml' );
-    $importer->addDataMapper( new istanbulEventMapper( $xml ) );
+    $importer->addDataMapper( new istanbulEventMapper( $this->vendor, $xml ) );
     $importer->run();
 
     $this->assertEquals( 2, Doctrine::getTable( 'event' )->count() );
@@ -73,7 +75,7 @@ class IstanbulEventMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'http://www.facebook.com', $occurrence['booking_url']);
     $this->assertEquals( '2010-09-04', $occurrence['start_date']);
     $this->assertEquals( '3589', $occurrence['Poi'][ 'vendor_poi_id']);
-    $this->assertEquals( '+03:00', $occurrence['utc_offset']);
+    $this->assertEquals( $this->vendor->getUtcOffset(), $occurrence['utc_offset']);
 
   }
 

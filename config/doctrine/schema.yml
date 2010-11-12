@@ -15,7 +15,7 @@ Poi:
     poi_name:                   {type: string(80), notnull: true, minlength: 1 } # @todo should be 'name'
     house_no:                   {type: string(32), notnull: false}
     street:                     {type: string(255), notnull: false}
-    city:                       {type: string(32), notnull: true, minlength: 1}
+    city:                       {type: string(32), notnull: true, minlength: 1, regexp: '/^[^0-9]+/' }
     district:                   {type: string(128), notnull: false}
     country:                    {type: string(3), notnull: true, regexp: '/^[a-zA-Z]{3}$/' }
     additional_address_details: {type: string(1024), notnull: false}
@@ -429,7 +429,7 @@ LogImportCount:
     type: concrete
   columns:
     log_import_id:            {type: integer, notnull: true}
-    operation:                {type: enum, values: [received, insert, existing, failed, delete], notnull: true}
+    operation:                {type: enum, values: [updated, insert, existing, failed, delete], notnull: true}
   relations:
     LogImport:                {local: log_import_id, foreign: id}
   indexes:
@@ -471,14 +471,12 @@ LogImportError:
     message:                    {type: string, notnull: true}
     log:                        {type: string, notnull: true}
     serialized_object:          {type: string, notnull: false}
-    resolved:                   {type: boolean, notnull: true, default: 0}
     log_import_id:              {type: integer, notnull: true}
   relations:
     LogImport:                  {local: log_import_id, foreign: id}
   indexes:
     model_index:                {fields: [model]}
     exception_class_index:      {fields: [exception_class]}
-    resolved_index:             {fields: [resolved]}
 
 LogExportError:
   connection: project_n
@@ -610,3 +608,22 @@ LinkingVendorEventCategoryUiCategory:
   columns:
     vendor_event_category_id:   {type: integer, notnull: true}
     ui_category_id:             {type: integer, notnull: true}
+
+
+GeneratedExportStats:
+  connection: project_n
+  columns:
+    date:                       {type: date, notnull: true}
+    model:                      {type: string(50), notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+    ui_category:                {type: string(50), notnull: true}
+    ui_category_id:             {type: integer, notnull: true}
+    total:                      {type: integer, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+  indexes:
+    date_index:                 {fields: [date]}
+    model_index:                {fields: [model]}
+    vendor_id_index:            {fields: [vendor_id]}
+    ui_category_index:          {fields: [ui_category]}
+    ui_category_id_index:       {fields: [ui_category_id]}
