@@ -46,7 +46,7 @@ class beijingZHFeedPoiMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapVenue()
   {
-      $params = array( 'datasource' => array( 'classname' => 'CurlMock', 'url' => TO_TEST_DATA_PATH . '/beijing/beijing_zh.venue.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
+      $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/beijing/beijing_zh.venue.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
 
       $dataMapper = new beijingZHFeedVenueMapperMock( $this->vendor, $params );
 
