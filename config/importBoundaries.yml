@@ -15,7 +15,7 @@ default:
     upper_threshold: 5
 
 # Specify City for Exclution from Checking Minimum / Threashold
-exclude: [ unknown, jerusalem, tel_aviv, amsterdam, bucharest, beijing_zh, budapest, bahrain, doha, rio_de_janeiro, sao_paulo, shanghai, hong_kong, novosibirsk, krasnoyarsk, omsk ,tyumen ]
+exclude: [ unknown, jerusalem, tel_aviv, amsterdam, bucharest, beijing_zh, budapest,rio_de_janeiro, sao_paulo, shanghai, novosibirsk, krasnoyarsk, omsk ,tyumen ]
 
 # For each city that require specific minimum and Threashold, override here
 # Spaces should be replaced with _ (underscore) and all text to be nomralized to lowercase

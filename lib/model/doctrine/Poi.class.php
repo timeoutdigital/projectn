@@ -524,7 +524,7 @@ class Poi extends BasePoi
 
     if( empty( $this['geocode_look_up'] ) )
     {
-      throw new GeoCodeException( 'geocode_look_up is required to lookup a geoCode for this POI.' );
+      return;
     }
 
     $geocoderr = $this->getgeocoderr();

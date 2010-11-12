@@ -1,0 +1,10 @@
+import:
+  poi:
+    class:
+      name: beijingZHFeedVenueMapper
+      params:
+        datasource:
+          classname: curl
+          url: "http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx"
+          username: "tolondon"
+          password: "to3rjk&e*8dsfj9"

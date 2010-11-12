@@ -15,10 +15,12 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class IstanbulVenueMapperTest extends PHPUnit_Framework_TestCase
 {
+    private $vendor;
+    
   public function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
       'city' => 'istanbul',
       'inernational_dial_code' => '+90',
       'language' => 'tr',
@@ -36,7 +38,7 @@ class IstanbulVenueMapperTest extends PHPUnit_Framework_TestCase
   {
     $importer = new Importer();
     $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/istanbul/venues.xml' );
-    $importer->addDataMapper( new istanbulVenueMapper( $xml ) );
+    $importer->addDataMapper( new istanbulVenueMapper( $this->vendor, $xml ) );
     $importer->run();
 
     $this->assertEquals( Doctrine::getTable( 'poi' )->count(), $xml->count() );

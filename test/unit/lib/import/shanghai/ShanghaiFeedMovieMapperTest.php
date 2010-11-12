@@ -29,11 +29,11 @@ class ShanghaiFeedMovieMapperTest extends PHPUnit_Framework_TestCase
 
     Doctrine::loadData('data/fixtures');
 
-    $params = array( 'datasource' => array( 'classname' => 'CurlMock', 'url' => TO_TEST_DATA_PATH . '/shanghai/MoivesIsOnView.xml' ) );
+    $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/shanghai/MoivesIsOnView.xml', 'username' => 'test', 'password' => 'test' ) );
     $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'shanghai' );
     
     $importer = new Importer( );
-    $importer->addDataMapper( new ShanghaiFeedMovieMapper($vendor, $params) );
+    $importer->addDataMapper( new ShanghaiFeedMovieMapperMock($vendor, $params) );
     $importer->run();
   }
 
@@ -79,4 +79,9 @@ class ShanghaiFeedMovieMapperTest extends PHPUnit_Framework_TestCase
   }
 }
 
-?>
+class ShanghaiFeedMovieMapperMock extends ShanghaiFeedMovieMapper
+{
+    protected function  getXMLFeedData() {
+        $this->xmlNodes = simplexml_load_file( $this->params['datasource']['url'] );
+    }
+}

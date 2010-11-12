@@ -18,6 +18,8 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class istanbulMoviesMapperTest extends PHPUnit_Framework_TestCase
 {
+    private $vendor;
+    
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -25,7 +27,7 @@ class istanbulMoviesMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array(
+    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
       'city' => 'istanbul',
       'inernational_dial_code' => '+90',
       'language' => 'tr',
@@ -48,7 +50,7 @@ class istanbulMoviesMapperTest extends PHPUnit_Framework_TestCase
   {
     $importer = new Importer();
     $xml = simplexml_load_file( TO_TEST_DATA_PATH.'/istanbul/movies.xml' );
-    $importer->addDataMapper( new istanbulMovieMapper( $xml ) );
+    $importer->addDataMapper( new istanbulMovieMapper( $this->vendor, $xml ) );
     $importer->run();
 
     $movies = Doctrine::getTable( 'Movie' )->findAll();
@@ -58,7 +60,7 @@ class istanbulMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Gezegen 51', $firstMovie['name'] );
     $this->assertEquals( 'Buradan çok uzakta, hayatın basit, çocukların mutlu ve herkesin her şeyden memnun olduğu bir yerde geçiyor film. Hep öcü olarak akıllarda yer etmiş uzaylıların yerine insan geçiyor bu sefer. Yani Gezegen 51’e insanlar geliyor. Normalde bu tarz filmlerde dünyayı uzaylıların istila etmesine alışığız, ‘Gezegen 51’de bunun tam tersi oluyor; Gezegen 51’i dünyalılar istila ediyor. Bunun akabinde de komik olaylar vuku buluyor. Film için ilk olarak ‘Planet One’ adı uygun görülmüş ancak daha sonra ‘Planet 51’ olarak değiştirilmiş. Çok taze bir film değil bu arada ‘Gezegen 51’, yurt dışında 2009’da gösterime girmiş bir film. Memleketteki animasyon meraklıları da filme ilgi gösterecektir diye tahmin ediyoruz. Ancak daha çok çocuklara yönelik bir film olduğunu belirtelim, zaten dublajlı olarak vizyona giriyor.', $firstMovie['review'] );
     $this->assertEquals( 'http://www.sonypictures.com/sonywonder/planet51/', $firstMovie['url'] );
-    $this->assertEquals( $firstMovie['Vendor']->getUtcOffset(), $firstMovie['utf_offset'] );
+    $this->assertEquals( $this->vendor->getUtcOffset(), $firstMovie['utf_offset'] );
     $this->assertEquals( 'istanbul', $firstMovie['Vendor']['city'] );
 
     $this->assertEquals( 5, $movies->count() );
