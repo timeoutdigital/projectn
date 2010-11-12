@@ -886,43 +886,6 @@ class importTask extends sfBaseTask
         $this->dieWithLogMessage();
     break; //end data entry imports
 
-    case 'beijing':
-
-        switch( $options['type'] )
-        {
-            case 'poi':
-                $pdoDB = null;
-                try {
-
-                    $dns = sfConfig::get("app_beijing_dns");
-                    $user = sfConfig::get("app_beijing_user");
-                    $password = sfConfig::get("app_beijing_password");
-
-                    $pdoDB = new PDO( $dns , $user , $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
-
-                    echo 'Database Connection Estabilished' . PHP_EOL;
-
-                    $importer->addDataMapper( new BeijingFeedVenueMapper( $pdoDB ) );
-                    $importer->run();
-
-                }
-                catch(PDOException $e)
-                {
-                    echo 'PDO Connection Exception: ' . $e->getMessage() . PHP_EOL;
-                    return;
-                } catch( Exception $e)
-                {
-                    echo 'Beijing Import Error: ' . $e->getMessage();
-                    return;
-                }
-
-                $this->dieWithLogMessage();
-
-                break;
-            default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-    break;
     case 'hong kong':
 
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'hong kong', 'en-HK' );
@@ -1033,7 +996,7 @@ class importTask extends sfBaseTask
      break;
 
      case 'beijing_zh':
-         
+         /* This ImportTask only created for TESTING, Please do Not use this as FINAL RELEASE VERSION */
          $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'beijing_zh', 'zh-Hans' );
 
          switch( $options['type'] )
@@ -1052,6 +1015,8 @@ class importTask extends sfBaseTask
          break;
 
      case 'shanghai':
+         /* This ImportTask only created for TESTING, Please do Not use this as FINAL RELEASE VERSION */
+         
          $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'shanghai', 'zh-Hans' );
          $params = null;
          $dataMapper = null;
