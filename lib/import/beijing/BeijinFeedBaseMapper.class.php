@@ -78,7 +78,7 @@ class BeijingFeedBaseMapper extends DataMapper
         $this->params       = $params;
 
         // Fetch the Data
-        $this->getXMLFeed();
+        $this->getXMLFeedData();
     }
 
     protected function fixHtmlEntities( $string )
@@ -111,7 +111,7 @@ class BeijingFeedBaseMapper extends DataMapper
      * curl class is utilized to do this and the feed download page checking authentication by cookie,
      * it is important to pass a cookie file
      */
-    protected function getXMLFeed()
+    protected function getXMLFeedData()
     {
         $formScraper = new $this->params['datasource']['classname']( $this->params['datasource']['url'] );
         // Get form Fields to manipulate
@@ -125,74 +125,6 @@ class BeijingFeedBaseMapper extends DataMapper
         $formScraper->doPostBack( $formFields );
 
         $this->xmlNodes = simplexml_load_string( $formScraper->getResponse() );
-        file_put_contents( '/n/shanghai_venue.xml', $formScraper->getResponse() );
-        return;
-        
-        // Set temporary Cookie File
-        $cookieFile = tempnam ("/tmp", "CURLCOOKIE");
-
-        // Get the Login Form with its view state and ect other asp.net hidden fields
-        $curl = new $this->params['datasource']['classname']( $this->params['datasource']['url'] ); // "http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx"
-        $curl->setCurlOption(CURLOPT_COOKIEJAR, $cookieFile);
-        $curl->exec();
-
-        // Get the Login page HTML and extract all input fields
-        $loginPageHTML = $curl->getResponse();
-
-        // Remove all news lines, as it's easier to Preg match
-        $newlines = array("\t","\n","\r","\x20\x20","\0","\x0B");
-        $loginPageHTML = str_replace($newlines, "", html_entity_decode($loginPageHTML));
-
-        // Extract all the Inputs
-        preg_match_all("|<input.*/>|U",$loginPageHTML, $Loginfields);
-
-        if( !is_array( $Loginfields ) || empty( $Loginfields ) )
-        {
-            throw new Exception( 'Failed to Extract Login fields from login form at ' . $this->params['datasource']['url'] );
-        }
-
-        // Set default Fields Expected
-        $fields = array( '__EVENTTARGET' => '', '__EVENTARGUMENT' => '', '__EVENTVALIDATION' => '', 'ctl00$CM$Login1$UserName' => '', 'ctl00$CM$Login1$Password' => '', 'ctl00$CM$Login1$LoginButton' => '', 'ctl00$CM$Login1$RememberMe' => '' );
-
-        // Extract the name & value of the Fields
-        foreach( $Loginfields[0] as $input )
-        {
-            preg_match( '/<input.*?name\\s*=\\s*"?([^\\s>"]*).*?value\\s*=\\s*"?([^\\s"]*).*?/i', $input, $match);
-            if( count($match) == 3 )
-            {
-                $fields[ $match[1] ] = $match[2];
-            }
-        }
-
-        // Set username / Password
-        $fields[ 'ctl00$CM$Login1$UserName' ] = $this->params['datasource']['username'];
-        $fields[ 'ctl00$CM$Login1$Password' ] = $this->params['datasource']['password'];
-
-        // Overriders / Simulate Javascript Click event
-        $fields[ '__EVENTTARGET' ] = 'ctl00$CM$Login1$LoginButton';
-        $fields[ '__EVENTARGUMENT' ] = '';
-
-        echo 'Downloading XML' . PHP_EOL;
-
-        // Send the request as POST to authenticate and download the Feed
-        $curl = new $this->params['datasource']['classname']( $this->params['datasource']['url'], $fields, "POST");
-        $curl->setCurlOption(CURLOPT_COOKIEFILE, $cookieFile); // Give the Cookie File that already written in previous request
-        $curl->exec();
-
-        // get the Response
-        $response = $curl->getResponse();
-        
-        // Validate XML
-        if( !$this->isValidResponse( str_replace($newlines , "", $response ) ) )
-        {
-            throw new Exception( 'Failed to download the feed, response to pass valid feed test...' );
-        }
-
-        // Parse as XML
-        $this->xmlNodes = simplexml_load_string( $response );
-        
-        // [Safe] Delete the Cookie file
-        @unlink($cookieFile);
     }
 
     /**
@@ -206,4 +138,3 @@ class BeijingFeedBaseMapper extends DataMapper
         return false;
     }
 }
-?>

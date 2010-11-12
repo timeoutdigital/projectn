@@ -48,7 +48,7 @@ class beijingZHFeedPoiMapperTest extends PHPUnit_Framework_TestCase
   {
       $params = array( 'datasource' => array( 'classname' => 'CurlMock', 'url' => TO_TEST_DATA_PATH . '/beijing/beijing_zh.venue.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
 
-      $dataMapper = new beijingZHFeedVenueMapper( $this->vendor, $params );
+      $dataMapper = new beijingZHFeedVenueMapperMock( $this->vendor, $params );
 
       $importer = new Importer();
       $importer->addDataMapper($dataMapper);
@@ -101,4 +101,12 @@ class beijingZHFeedPoiMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'http://www.timeoutcn.com/Articles_12_15.htm', $poi['PoiProperty'][0]['value'] );
       
   }
+}
+
+class beijingZHFeedVenueMapperMock extends beijingZHFeedVenueMapper
+{
+    protected function  getXMLFeedData() {
+        
+        $this->xmlNodes = simplexml_load_file( $this->params['datasource']['url'] );
+    }
 }
