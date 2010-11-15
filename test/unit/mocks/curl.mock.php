@@ -4,9 +4,10 @@ class CurlMock extends Curl
 {
     private $fileStringData;
 
-    public function __construct( $url )
+    public function __construct( $url, $parameters     = array(),
+                                        $requestMethod  = 'GET')
     {
-        parent::__construct( $url );
+        parent::__construct( $url, $parameters, $requestMethod );
     }
 
     // Override function, This will Read file from Local Disk insted of URL

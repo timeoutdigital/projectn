@@ -108,6 +108,7 @@ class ProjectN_Test_Unit_Factory
       'logexport'           => 'LogExportFixture',
       'logexportcount'      => 'LogExportCountFixture',
       'uicategory'          => 'UiCategoryFixture',
+      'logexporterror'      => 'LogExportErrorFixture'
     );
 
     $model = strtolower( $model );
@@ -159,6 +160,36 @@ class ProjectN_Test_Unit_Factory
 
     return $record;
   }
+}
+
+class LogExportErrorFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $exportError = new LogExportError();
+        if( $autoCreateRelatedObjects )
+        {
+            if( Doctrine::getTable( 'LogExport' )->count() < 1  )
+            {
+                ProjectN_Test_Unit_Factory::add( 'LogExport' );
+            }
+        }
+
+        $default = array(
+            'record_id' => 1,
+            'model' => 'Poi',
+            'log' => 'error log',
+            'log_export_id' => 1
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+
+        $exportError->fromArray( $default );
+        return $exportError;
+    }
 }
 
 class LogImportErrorFixture

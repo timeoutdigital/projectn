@@ -49,7 +49,10 @@
         </tr>
       </thead>
       <tbody>
-      <?php foreach( $importYesterday->getIncludedCities() as $cityName ):?>
+      <?php 
+      $vendors_sorted = $importYesterday->getIncludedCities();
+      asort( $vendors_sorted ); // Sort A-Z
+      foreach( $vendors_sorted as $cityName ):?>
         <tr>
           <th class="row-section-end big"><?php echo ucwords( str_replace('_', ' ', $cityName) );?></th>
 
@@ -73,7 +76,7 @@
         <?php endforeach; ?>
       </tbody>
     </table>
-<!--
+
 <table style="width:90%;" cellspacing="1" cellpadding="5">
     <thead>
         <tr>
@@ -88,5 +91,5 @@
         <?php endforeach; ?>
     </tbody>
 </table>
--->
+
 <br />
