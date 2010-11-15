@@ -14,6 +14,21 @@
 class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 {
 
+    /*
+     * -- About the lisbon event feed --
+     *
+     * We recieve multiple event elements for each event occurrence.
+     *
+     * @musicid seems to be a unique occurrence id.
+     * @RecurringListingID seems to be an event id.
+     *
+     * We use the highest @musicid as they appear to all be the exact same
+     * with the exception of the @musicid, we think that if the vendor changes
+     * a record they may simply duplicate and create a new @musicid, so the
+     * highest @musicid should be the most recent and most correct.
+     *
+     */
+
     public function mapListings()
     {
         $recurringListingIdArray = array();
@@ -38,7 +53,15 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                 $recurringListingId = (int) $listingElement[ 'RecurringListingID' ];
                 $musicId = (int) $listingElement['musicid'];
 
-                if( !array_key_exists( $recurringListingId, $recurringListingIdArray) )
+                // Skip events where @RecurringListingID not a key in array created above.
+                if( !array_key_exists( $recurringListingId, $recurringListingIdArray ) )
+                {
+                    continue;
+                }
+
+                // Skip events where @musicid not a value in array created above.
+                // refs #776.
+                if( $musicId != $recurringListingIdArray[ $recurringListingId ] )
                 {
                     continue;
                 }
