@@ -157,8 +157,11 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                         continue;
                     }
 
-                    $poi->addVendorCategory(   $category, $this->vendor['id'] );
-                    $this->notifyImporter( $poi );
+                    $poi->addVendorCategory( $category, $this->vendor['id'] );
+
+                    // Calling Poi->save() directly so that ImportLogger does not count poi record twice.
+                    // Poi needs to be saved as event categories are added to the corresponding poi.
+                    $poi->save();
 
                     $occurrence['Poi']                                    = $poi;
                     $event['EventOccurrence'][]                           = $occurrence;
