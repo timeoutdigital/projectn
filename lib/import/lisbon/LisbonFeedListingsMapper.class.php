@@ -29,6 +29,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
      *
      */
 
+    private $processedMusicIds = array();
+
     public function mapListings()
     {
         $recurringListingIdArray = array();
@@ -62,6 +64,13 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                 // Skip events where @musicid not a value in array created above.
                 // refs #776.
                 if( $musicId != $recurringListingIdArray[ $recurringListingId ] )
+                {
+                    continue;
+                }
+
+                // Skip events where @musicid has previously been processed.
+                // refs #776.
+                if( in_array( $musicId, $processedMusicIds ) )
                 {
                     continue;
                 }
@@ -158,6 +167,9 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
                 // Save
                 $this->notifyImporter( $event );
+
+                // Mark @musicid as processed.
+                $processedMusicIds[] = $musicId;
                 
             } catch ( Exception $exception )
             {
