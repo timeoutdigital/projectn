@@ -30,7 +30,7 @@ all:
           type: [ eating-drinking, bars-clubs, poi, event, movie ]
         -
           name: chicago
-          type: [ poi-bc, poi-ed, poi, event, movie ]
+          type: [ poi-bc, poi-ed, poi, event_1, event_2, movie ]
         -
           name: lisbon
           type: [ poi, event, movie ]
