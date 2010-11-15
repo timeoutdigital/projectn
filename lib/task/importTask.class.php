@@ -341,6 +341,8 @@ class importTask extends sfBaseTask
             $startDate = time();
             $daysAhead = 7; //lisbon caps the request at max 9 days
 
+            $eventDataSimpleXMLSegmentsArray = array();
+
             while ( $startDate < strtotime( "+3 month" ) ) // Only look 3 months ahead
             {
                 try
@@ -364,7 +366,8 @@ class importTask extends sfBaseTask
 
                     // -- [end] CURL -- //
 
-                    $importer->addDataMapper( new LisbonFeedListingsMapper( $dataFixer->getSimpleXML() ) );
+                    // Add segment to array
+                    $eventDataSimpleXMLSegmentsArray[] = $dataFixer->getSimpleXML();
 
                     // Move start date ahead one day from last end date
                     $startDate = strtotime( "+".( $daysAhead +1 )." day", $startDate );
@@ -380,6 +383,10 @@ class importTask extends sfBaseTask
             }
 
             echo "Running Lisbon Mappers" . PHP_EOL;
+
+            $concatenatedFeed = XmlConcatenator::concatXML( $eventDataSimpleXMLSegmentsArray, '/geral/event' );
+            
+            $importer->addDataMapper( new LisbonFeedListingsMapper( $concatenatedFeed ) );
 
             $importer->run();
             ImportLogger::getInstance()->end();
