@@ -92,7 +92,7 @@ class ChicagoFeedBaseMapper extends DataMapper
         // Clean if Flagged
         if( $requireCleaning )
         {
-            $this->cleanTheContents( $contents );
+            $contents = $this->cleanTheContents( $contents );
         }
 
         $this->xml = simplexml_load_string( $contents );
