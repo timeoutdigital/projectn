@@ -6,8 +6,11 @@
                 <?php
                     $statsPanel = $sf_data->getRaw( 'statsPanel' );
 
-                    $yesterday  = array_shift( $statsPanel );
-		    $today      = array_shift( $statsPanel );
+                    if( is_array( $statsPanel ) && count( $statsPanel ) > 1 )
+                    {
+                        $yesterday = array_shift( $statsPanel );
+                    }
+		    $today = array_shift( $statsPanel );
 
                     $exportStats = $sf_data->getRaw( 'exportStats' );
                     $exportTotal = false;
@@ -28,7 +31,7 @@
                     <tr>
                         <td><span class="panel-title" style="color:green">New Records</span></td>
                         <td>
-                            <?php if( $yesterday !== false ){ ?>
+                            <?php if( is_array( $yesterday ) ){ ?>
                                 <?php if( $today[ $model ]['insert'] > $yesterday[ $model ]['insert'] ){ ?>
                                     <p class="diff up"><?php echo $today[ $model ]['insert'] - $yesterday[ $model ]['insert']; ?></p>
                                 <?php } elseif( $today[ $model ]['insert'] < $yesterday[ $model ]['insert'] ){ ?>
@@ -41,7 +44,7 @@
                     <tr>
                         <td><span class="panel-title" style="color:red">Failed to Import</span></td>
                         <td>
-                            <?php if( $yesterday !== false ){ ?>
+                            <?php if( is_array( $yesterday ) ){ ?>
                                 <?php if( $today[ $model ]['failed'] > $yesterday[ $model ]['failed'] ){ ?>
                                     <p class="diff up"><?php echo $today[ $model ]['failed'] - $yesterday[ $model ]['failed']; ?></p>
                                 <?php } elseif( $today[ $model ]['failed'] < $yesterday[ $model ]['failed'] ){ ?>
@@ -54,7 +57,7 @@
                     <tr>
                         <td><span class="panel-title" style="color:blue">Updated Records</span></td>
                         <td width="10px">
-                            <?php if( $yesterday !== false ){ ?>
+                            <?php if( is_array( $yesterday ) ){ ?>
                                 <?php if( $today[ $model ]['updated'] > $yesterday[ $model ]['updated'] ){ ?>
                                     <p class="diff up"><?php echo $today[ $model ]['updated'] - $yesterday[ $model ]['updated']; ?></p>
                                 <?php } elseif( $today[ $model ]['updated'] < $yesterday[ $model ]['updated'] ){ ?>
@@ -67,7 +70,7 @@
                     <tr>
                         <td><span class="panel-title" style="color:#555;">Un-modified Records</span></td>
                         <td width="10px">
-                            <?php if( $yesterday !== false ){ ?>
+                            <?php if( is_array( $yesterday ) ){ ?>
                                 <?php if( $today[ $model ]['existing'] > $yesterday[ $model ]['existing'] ){ ?>
                                     <p class="diff up"><?php echo $today[ $model ]['existing'] - $yesterday[ $model ]['existing']; ?></p>
                                 <?php } elseif( $today[ $model ]['existing'] < $yesterday[ $model ]['existing'] ){ ?>
@@ -80,7 +83,7 @@
                     <tr>
                         <td><span class="panel-title">Total in Vendor Feed</span></td>
                         <td>
-                            <?php if( $yesterday !== false ){ ?>
+                            <?php if( is_array( $yesterday ) ){ ?>
                                 <?php if( $todayTotal > $yesterdayTotal ){ ?>
                                     <p class="diff up"><?php echo $todayTotal - $yesterdayTotal; ?></p>
                                 <?php } elseif( $todayTotal < $yesterdayTotal ){ ?>
@@ -101,8 +104,8 @@
                         <td></td>
                         <td><p class="num"><?php echo is_numeric( $exportTotal ) ? $exportTotal : '?'; ?></p></td>
                     </tr>
-                <?php if( $yesterday === false ){ ?>
-                    <p class="noyesterday">Failed to retrieve import logs day before specified date.</p>
+                <?php if( is_null( $yesterday ) ){ ?>
+                    <p class="noyesterday">Failed to retrieve import logs for previous day.</p>
                 <?php } ?>
             <?php } else { ?>
                 <p class="noyesterday">Failed to retrieve import logs for specified date.</p>
