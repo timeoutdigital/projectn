@@ -3,38 +3,44 @@
 /**
  * XmlConcatenator - Concatenates Simple XML Files.
  *
- * @package projectn
- * @subpackage
- *
- * @author Peter Johnson <peterjohnson@timout.com>
- * @copyright Timeout Communications Ltd
- *
- * @version 1.0.0
- *
- * @description
- *
  * The first simplexml file is used as a parent document, the additional simplexml
  * documents are searched using the xpath string provided and appended to the parent.
  *
  * The default target for the copied nodes is the direct parent of the children
  * in the parent document.
  *
+ * @package projectn
+ * @subpackage lib
+ *
+ * @author Peter Johnson <peterjohnson@timout.com>
+ * @copyright Timeout Communications Ltd
+ * @version 1.0.0
+ *
  * @example
- * 
- * $xml1 = simplexml_load_string( '<root><parent><child id="1"><![CDATA[1]]></child></parent></root>' );
- * $xml2 = simplexml_load_string( '<root><parent><child id="2"><![CDATA[2]]></child></parent></root>' );
  *
- * $concatXML = XmlConcatenator::concatXML( array( $xml1, $xml2 ), '//parent/child' );
- * echo $concatXML->save();
+ *  <code>
  *
- * @result
+ *    $xml1 = simplexml_load_string( '<root><parent><child id="1"><![CDATA[1]]></child></parent></root>' );
+ *    $xml2 = simplexml_load_string( '<root><parent><child id="2"><![CDATA[2]]></child></parent></root>' );
+ *
+ *    $concatXML = XmlConcatenator::concatXML( array( $xml1, $xml2 ), '//parent/child' );
+ *    echo $concatXML->save();
  * 
- * <root><parent><child id="1"><![CDATA[1]]></child><child id="2"><![CDATA[2]]></child></parent></root>
- * 
+ *    <root><parent><child id="1"><![CDATA[1]]></child><child id="2"><![CDATA[2]]></child></parent></root>
+ *
+ *  </code>
  */
+
+class XmlConcatenatorException extends Exception {}
 
 class XmlConcatenator
 {
+    /**
+     * @param array $simpleXMLStack
+     * @param string $xpath
+     * @return SimpleXMLElement
+     * @throws XmlConcatenatorException
+     */
     public static function concatXML( array $simpleXMLStack, /* string */ $xpath )
     {
         try {
@@ -68,5 +74,3 @@ class XmlConcatenator
         }
     }
 }
-
-class XmlConcatenatorException extends Exception {}
