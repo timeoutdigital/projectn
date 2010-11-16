@@ -4,16 +4,14 @@ require_once dirname(__FILE__).'/../../bootstrap/unit.php';
 require_once dirname(__FILE__).'/../bootstrap.php';
 
 /**
- * Description
+ * XmlConcatenatorTest
  *
  * @package projectn
- * @subpackage
+ * @subpackage unit
  *
  * @author Peter Johnson <peterjohnson@timout.com>
  * @copyright Timeout Communications Ltd
- *
  * @version 1.0.0
- *
  */
 
 class XmlConcatenatorTest extends PHPUnit_Framework_TestCase
