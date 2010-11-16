@@ -886,43 +886,6 @@ class importTask extends sfBaseTask
         $this->dieWithLogMessage();
     break; //end data entry imports
 
-    case 'beijing':
-
-        switch( $options['type'] )
-        {
-            case 'poi':
-                $pdoDB = null;
-                try {
-
-                    $dns = sfConfig::get("app_beijing_dns");
-                    $user = sfConfig::get("app_beijing_user");
-                    $password = sfConfig::get("app_beijing_password");
-
-                    $pdoDB = new PDO( $dns , $user , $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
-
-                    echo 'Database Connection Estabilished' . PHP_EOL;
-
-                    $importer->addDataMapper( new BeijingFeedVenueMapper( $pdoDB ) );
-                    $importer->run();
-
-                }
-                catch(PDOException $e)
-                {
-                    echo 'PDO Connection Exception: ' . $e->getMessage() . PHP_EOL;
-                    return;
-                } catch( Exception $e)
-                {
-                    echo 'Beijing Import Error: ' . $e->getMessage();
-                    return;
-                }
-
-                $this->dieWithLogMessage();
-
-                break;
-            default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-    break;
     case 'hong kong':
 
         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'hong kong', 'en-HK' );
@@ -1031,6 +994,54 @@ class importTask extends sfBaseTask
         $this->dieWithLogMessage();
 
      break;
+
+     case 'beijing_zh':
+         /* This ImportTask only created for TESTING, Please do Not use this as FINAL RELEASE VERSION */
+         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'beijing_zh', 'zh-Hans' );
+
+         switch( $options['type'] )
+         {
+             case 'poi':
+                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
+                 ImportLogger::getInstance()->setVendor( $vendorObj );
+                 $importer->addDataMapper( new beijingZHFeedVenueMapper( $vendorObj, $params ) );
+                 $importer->run();
+                 ImportLogger::getInstance()->end();
+                 $this->dieWithLogMessage();
+                 break;
+             default : $this->dieDueToInvalidTypeSpecified();
+         }
+
+         break;
+
+     case 'shanghai':
+         /* This ImportTask only created for TESTING, Please do Not use this as FINAL RELEASE VERSION */
+         
+         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'shanghai', 'zh-Hans' );
+         $params = null;
+         $dataMapper = null;
+         
+         switch( $options['type'] )
+         {
+             case 'poi':
+                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/ExportTOLondon/VenuesData.aspx', 'username' => 'timeoutlondon' , 'password' => 'aas9384jewt-0tkfd' ) );
+                 $dataMapper = 'beijingZHFeedVenueMapper';
+                 break;
+             case 'movie':
+                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/ExportTOLondon/MoviesData.aspx', 'username' => 'timeoutlondon' , 'password' => 'aas9384jewt-0tkfd' ) );
+                 $dataMapper = 'ShanghaiFeedMovieMapper';
+                 break;
+             default : $this->dieDueToInvalidTypeSpecified();
+         }
+
+         // Runt the Import
+         ImportLogger::getInstance()->setVendor( $vendorObj );
+         $importer->addDataMapper( new $dataMapper( $vendorObj, $params ) );
+         $importer->run();
+         ImportLogger::getInstance()->end();
+         $this->dieWithLogMessage();
+         
+         break;
 
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
