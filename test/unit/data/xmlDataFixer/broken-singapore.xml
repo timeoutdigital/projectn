@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Time Out Singapore RSS API - Events</title>
+		<link>/</link>
+		<description>RSS Feed from Time Out Singapore's Events</description>
+		<category>RSS API</category>
+		<pubDate>Tue, 16 Nov 2010 00:20:49 +0000</pubDate>
+		<lastBuildDate>Tue, 16 Nov 2010 00:20:49 +0000</lastBuildDate>
+		<atom:link href="http://www.timeoutsingapore.com/xmlapi/events/" rel="self" type="application/rss+xml" />
+		<generator>Soldia - Dynaweb</generator>
+
+			<item>
+				<title>Andy Warhol â€" The Uniques</title>
+				<link>http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=9985&amp;key=ffab6a24c60f562ecf705130a36c1d1e</link>
+				<guid>http://www.timeoutsingapore.com/xmlapi/xml_detail/?event=9985&amp;key=ffab6a24c60f562ecf705130a36c1d1e</guid>
+				<description><![CDATA[28 Sep-04 Dec - An exhibition of 38 drawings, paintings, prints and original trial-proofs created by the man famous for changing the way we look at, and engage with, popular culture.]]></description>
+				<category></category>
+				<pubDate>Fri, 29 Oct 10 06:29:16 +0000</pubDate>
+			</item>
+	</channel>
+</rss>

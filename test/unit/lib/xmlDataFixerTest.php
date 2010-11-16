@@ -21,9 +21,13 @@ require_once dirname(__FILE__).'/../bootstrap.php';
 class xmlDataFixerTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testGetSimpleXML2()
+    /**
+     * Singapore broken-singapore.xml contains a char that is outside simplexml Chars boundary,
+     * UTF8_Encode should encode these chars to simplexml compliance
+     */
+    public function testGetSimpleXMLencodeUTF8()
     {
-        $fileData       = file_get_contents( TO_TEST_DATA_PATH . '/xmlDataFixer/ny.xml' );
+        $fileData       = file_get_contents( TO_TEST_DATA_PATH . '/xmlDataFixer/broken-singapore.xml' );
 
         $xmlDataFixer   = new xmlDataFixer( $fileData );
 
