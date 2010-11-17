@@ -9,7 +9,7 @@ class MetricDimensionForm extends BaseForm
     $jsCallback = array( 'onChange' => 'refreshPane(); refreshGraph();' );
 
     $vendorList = Doctrine::getTable('Vendor')->findAll( 'KeyValue' );
-    sort( $vendorList );
+    asort( $vendorList );
 
     $this->setWidgets(array(
         'vendor'  => new sfWidgetFormSelect( array( 'choices' => $vendorList ), $jsCallback ),
