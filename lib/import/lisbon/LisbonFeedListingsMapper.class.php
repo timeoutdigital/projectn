@@ -31,155 +31,304 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
 
     private $processedMusicIds = array();
 
+
+
+
+
+
+
+
+
+
+
+
+    private $processedRecurringListingIds = array();
+
+
     public function mapListings()
     {
-        $recurringListingIdArray = array();
 
         foreach( $this->xml->listings as $listingElement )
         {
-            $recurringListingId = (int) $listingElement[ 'RecurringListingID' ];
-            $musicId = (int) $listingElement['musicid'];
 
-            if( $recurringListingId != 0)
-            {
-                if( !array_key_exists( $recurringListingId, $recurringListingIdArray ) || $recurringListingIdArray[ $recurringListingId ] < $musicId )
-                {
-                    $recurringListingIdArray[ $recurringListingId ] = $musicId;
-                }
-            }
-        }
-
-        foreach( $this->xml->listings as $listingElement )
-        {
-            try{
                 $recurringListingId = (int) $listingElement[ 'RecurringListingID' ];
                 $musicId = (int) $listingElement['musicid'];
 
-                // Skip events where @RecurringListingID not a key in array created above.
-                if( !array_key_exists( $recurringListingId, $recurringListingIdArray ) )
+
+
+                if ( $recurringListingId == 0)
                 {
-                    continue;
+                    $recurringListingId = $musicId;
                 }
 
-                // Skip events where @musicid not a value in array created above.
-                // refs #776.
-                if( $musicId != $recurringListingIdArray[ $recurringListingId ] )
-                {
-                    continue;
-                }
 
-                // Skip events where @musicid has previously been processed.
-                // refs #776.
-                if( in_array( $musicId, $processedMusicIds ) )
-                {
-                    continue;
-                }
 
-                //      $eventName = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
-                //
-                //      $occurrence = Doctrine::getTable( 'EventOccurrence' )->createQuery( 'o' )
-                //                                                           ->innerJoin( 'o.Event e' )
-                //                                                           ->where( 'e.vendor_id = ?', $this->vendor[ 'id' ] )
-                //                                                           ->andWhere( 'o.vendor_event_occurrence_id = ?', $musicId )
-                //                                                           ->fetchOne();
-                //
-                //      if (  $occurrence !== false )
-                //      {
-                //        $event = $occurrence['Event'];
-                //      }
-                //      else
-                //      {
-                //        $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndName( $recurringListingId, $eventName );
-                //
-                //        if ( $event === false )
-                //        {
-                //          $event = new Event();
-                //        }
-                //
-                //        $occurrence = new EventOccurrence();
-                //        $occurrence['vendor_event_occurrence_id']           = $musicId;
-                //      }
 
-                $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor[ 'id' ], $recurringListingId );
+                /* update event
+                 *
+                 * @todo remove mulbiple updates, check out Corpo – Estado, Medicina e Sociedade no tempo da I República
+                 */
 
-                if ( $event === false )
-                {
-                    $event = new Event();
-                }
+                    try{
 
-                //category
-                $category = array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] );
+                        $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor[ 'id' ], $recurringListingId );
 
-                //event
-                $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
-                $this->appendBandInfoToDescription( $event, $listingElement );
-                $event['description']                                 = $this->clean( preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] ) );
-                $event['price']                                       = $this->clean(str_replace( "?", "€", $event['price'] ) ); // Refs: #258b
-                $event['vendor_id']                                   = $this->vendor['id'];
-                $event['vendor_event_id']                             = $recurringListingId;
-                $event['review_date']                                 = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
-                $eventName = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
-                $event['name']                                        = $this->clean($eventName);
-                $event->addVendorCategory( $category, $this->vendor['id'] );
+                        if ( !in_array( $recurringListingId, $this->processedRecurringListingIds ) )
+                        {
+                            if ( $event === false )
+                            {
+                                $event = new Event();
+                            }
 
-                //occurrence
+                            //event
+                            $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
+                            $this->appendBandInfoToDescription( $event, $listingElement );
+                            $event['description']                                 = $this->clean( preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] ) );
+                            $event['price']                                       = $this->clean(str_replace( "?", "€", $event['price'] ) ); // Refs: #258b
+                            $event['vendor_id']                                   = $this->vendor['id'];
+                            $event['vendor_event_id']                             = $recurringListingId;
+                            $event['review_date']                                 = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
+                            $eventName = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
+                            $event['name']                                        = $this->clean($eventName);
 
-                //get rid of our old occurrences
-                $event['EventOccurrence']->delete();
+                            //category
+                            $category = array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] );
+                            $event->addVendorCategory( $category, $this->vendor['id'] );
 
-                //$start = $this->extractStartTimes( $listingElement );
+                            //occurrence
+                            //get rid of our old occurrences
+                            $event['EventOccurrence']->delete();
+                            // Save
+                            $this->notifyImporter( $event );
 
-                $possibleDays = $this->extractDays( $listingElement );
+                            $this->processedRecurringListingIds[] = $recurringListingId;
+                        }
 
-                $occurrenceDates = $this->getOccurrenceDates( $listingElement, $possibleDays );
+                        try{
+                                if ( $event === false )
+                                {
+                                    $this->notifyImporterOfFailure( new Exception( 'Missing Lisbon Event, failed to create occurrence for event (vendor_event_id: ' . $recurringListingId . ' vendor_event_occurrence_id: ' . $musicId . ')' ) );
+                                    continue;
+                                }
 
-                // @todo if we go with this variant it should be optimized, its a little inefficient
-                $placeid = (int) $listingElement['placeid'];
+                                // @todo if we go with this variant it should be optimized, its a little inefficient
+                                $placeid = (int) $listingElement['placeid'];
 
-                foreach( $occurrenceDates as $occurrenceDate )
-                {
-                    if( $placeid == 0 )
+                                if( $placeid == 0 )
+                                {
+                                    $this->notifyImporterOfFailure( new Exception( 'Missing Lisbon Poi, failed to create occurrence for event (vendor_event_id: ' . $recurringListingId . ' vendor_event_occurrence_id: ' . $musicId . ')' ) );
+                                    continue;
+                                }
+
+                                $listingDate = strtotime((string) $listingElement['ListingDate']);
+                                
+                                if( $listingDate == false )
+                                {
+                                    $this->notifyImporterOfFailure( new Exception( 'Failed to convert date ( ' . (string) $node['ListingDate'] . ' ), failed to create occurrence for event (vendor_event_id: ' . $recurringListingId . ' vendor_event_occurrence_id: ' . $musicId . ')' ) );
+                                    continue;
+                                }
+
+                                $poi = $this->dataMapperHelper->getPoiRecord( $placeid, $this->vendor['id'] );
+
+                                if( $poi === false )
+                                {
+                                    $this->notifyImporterOfFailure( new Exception( 'Could not find Lisbon Poi with vendor_poi_id of '. $placeid . ', failed to create occurrence for event (vendor_event_id: ' . $recurringListingId . ' vendor_event_occurrence_id: ' . $musicId . ')' ) );
+                                    continue;
+                                }
+
+
+
+
+                                $poi->addVendorCategory( $category, $this->vendor['id'] );
+                                // Calling Poi->save() directly so that ImportLogger does not count poi record twice.
+                                // Poi needs to be saved as event categories are added to the corresponding poi.
+                                $poi->save();
+
+
+
+
+                                $listingDateFormatted = date( 'Y-m-d', $listingDate );
+
+                                $occurrence = new EventOccurrence();
+                                $occurrence['vendor_event_occurrence_id']             = $musicId;
+                                $occurrence['start_date']                             = $listingDateFormatted;
+                                $occurrence['utc_offset']                             = $this->vendor->getUtcOffset( $listingDateFormatted );
+                                $occurrence['Poi']                                    = $poi;
+                                $occurrence['Event']                                  = $event;
+
+                                $occurrence->save();
+
+                        } catch( Exception $exception )
+                        {
+                            $this->notifyImporterOfFailure( $exception, ( isset($occurrence) ) ? $occurrence : null, 'Exception: LisbonFeedListingsMapper::mapListing (occurrence)');
+                        }
+
+                    } catch ( Exception $exception )
                     {
-                        $this->notifyImporterOfFailure( new Exception( 'Missing Lisbon Poi, failed to create occurrence for event (vendor_event_id: ' . $recurringListingId . ')' ) );
-                        continue;
+                        $this->notifyImporterOfFailure( $exception, ( isset($event) ) ? $event : null, 'Exception: LisbonFeedListingsMapper::mapListing (event)');
                     }
-
-                    $occurrence = new EventOccurrence();
-                    $occurrence['vendor_event_occurrence_id']             = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $recurringListingId, $placeid, $occurrenceDate );
-                    $occurrence['start_date']                             = $occurrenceDate;
-                    $occurrence['utc_offset']                             = $this->vendor->getUtcOffset( $occurrenceDate );
-
-                    $poi = $this->dataMapperHelper->getPoiRecord( $placeid, $this->vendor['id'] );
-
-                    if( $poi === false )
-                    {
-                        $this->notifyImporterOfFailure( new Exception( 'Could not find Lisbon Poi with vendor_poi_id of '. $placeid ), $occurrence );
-                        continue;
-                    }
-
-                    $poi->addVendorCategory( $category, $this->vendor['id'] );
-
-                    // Calling Poi->save() directly so that ImportLogger does not count poi record twice.
-                    // Poi needs to be saved as event categories are added to the corresponding poi.
-                    $poi->save();
-
-                    $occurrence['Poi']                                    = $poi;
-                    $event['EventOccurrence'][]                           = $occurrence;
-
-                }
-
-                // Save
-                $this->notifyImporter( $event );
-
-                // Mark @musicid as processed.
-                $processedMusicIds[] = $musicId;
                 
-            } catch ( Exception $exception )
-            {
-                $this->notifyImporterOfFailure( $exception, ( isset($event) ) ? $event : null, 'Exception: LisbonFeedListingsMapper::mapListing');
-            }
         }
     }
+
+
+
+
+
+
+
+
+
+
+//    public function mapListings()
+//    {
+//        $recurringListingIdArray = array();
+//
+//        foreach( $this->xml->listings as $listingElement )
+//        {
+//            $recurringListingId = (int) $listingElement[ 'RecurringListingID' ];
+//            $musicId = (int) $listingElement['musicid'];
+//
+//            if( $recurringListingId != 0)
+//            {
+//                if( !array_key_exists( $recurringListingId, $recurringListingIdArray ) || $recurringListingIdArray[ $recurringListingId ] < $musicId )
+//                {
+//                    $recurringListingIdArray[ $recurringListingId ] = $musicId;
+//                }
+//            }
+//        }
+//
+//        foreach( $this->xml->listings as $listingElement )
+//        {
+//            try{
+//                $recurringListingId = (int) $listingElement[ 'RecurringListingID' ];
+//                $musicId = (int) $listingElement['musicid'];
+//
+//                // Skip events where @RecurringListingID not a key in array created above.
+//                if( !array_key_exists( $recurringListingId, $recurringListingIdArray ) )
+//                {
+//                    continue;
+//                }
+//
+//                // Skip events where @musicid not a value in array created above.
+//                // refs #776.
+//                if( $musicId != $recurringListingIdArray[ $recurringListingId ] )
+//                {
+//                    continue;
+//                }
+//
+//                // Skip events where @musicid has previously been processed.
+//                // refs #776.
+//                if( in_array( $musicId, $processedMusicIds ) )
+//                {
+//                    continue;
+//                }
+//
+//                //      $eventName = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
+//                //
+//                //      $occurrence = Doctrine::getTable( 'EventOccurrence' )->createQuery( 'o' )
+//                //                                                           ->innerJoin( 'o.Event e' )
+//                //                                                           ->where( 'e.vendor_id = ?', $this->vendor[ 'id' ] )
+//                //                                                           ->andWhere( 'o.vendor_event_occurrence_id = ?', $musicId )
+//                //                                                           ->fetchOne();
+//                //
+//                //      if (  $occurrence !== false )
+//                //      {
+//                //        $event = $occurrence['Event'];
+//                //      }
+//                //      else
+//                //      {
+//                //        $event = Doctrine::getTable( 'Event' )->findOneByVendorEventIdAndName( $recurringListingId, $eventName );
+//                //
+//                //        if ( $event === false )
+//                //        {
+//                //          $event = new Event();
+//                //        }
+//                //
+//                //        $occurrence = new EventOccurrence();
+//                //        $occurrence['vendor_event_occurrence_id']           = $musicId;
+//                //      }
+//
+//                $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor[ 'id' ], $recurringListingId );
+//
+//                if ( $event === false )
+//                {
+//                    $event = new Event();
+//                }
+//
+//                //category
+//                $category = array( (string) $listingElement['category'], (string) $listingElement['SubCategory'] );
+//
+//                //event
+//                $this->mapAvailableData( $event, $listingElement, 'EventProperty' );
+//                $this->appendBandInfoToDescription( $event, $listingElement );
+//                $event['description']                                 = $this->clean( preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] ) );
+//                $event['price']                                       = $this->clean(str_replace( "?", "€", $event['price'] ) ); // Refs: #258b
+//                $event['vendor_id']                                   = $this->vendor['id'];
+//                $event['vendor_event_id']                             = $recurringListingId;
+//                $event['review_date']                                 = str_replace( 'T', ' ', (string) $listingElement['ModifiedDate'] );
+//                $eventName = html_entity_decode( (string) $listingElement[ 'gigKey' ], ENT_QUOTES, 'UTF-8' );
+//                $event['name']                                        = $this->clean($eventName);
+//                $event->addVendorCategory( $category, $this->vendor['id'] );
+//
+//                //occurrence
+//
+//                //get rid of our old occurrences
+//                $event['EventOccurrence']->delete();
+//
+//                //$start = $this->extractStartTimes( $listingElement );
+//
+//                $possibleDays = $this->extractDays( $listingElement );
+//
+//                $occurrenceDates = $this->getOccurrenceDates( $listingElement, $possibleDays );
+//
+//                // @todo if we go with this variant it should be optimized, its a little inefficient
+//                $placeid = (int) $listingElement['placeid'];
+//
+//                foreach( $occurrenceDates as $occurrenceDate )
+//                {
+//                    if( $placeid == 0 )
+//                    {
+//                        $this->notifyImporterOfFailure( new Exception( 'Missing Lisbon Poi, failed to create occurrence for event (vendor_event_id: ' . $recurringListingId . ')' ) );
+//                        continue;
+//                    }
+//
+//                    $occurrence = new EventOccurrence();
+//                    $occurrence['vendor_event_occurrence_id']             = Doctrine::getTable( 'EventOccurrence' )->generateVendorEventOccurrenceId( $recurringListingId, $placeid, $occurrenceDate );
+//                    $occurrence['start_date']                             = $occurrenceDate;
+//                    $occurrence['utc_offset']                             = $this->vendor->getUtcOffset( $occurrenceDate );
+//
+//                    $poi = $this->dataMapperHelper->getPoiRecord( $placeid, $this->vendor['id'] );
+//
+//                    if( $poi === false )
+//                    {
+//                        $this->notifyImporterOfFailure( new Exception( 'Could not find Lisbon Poi with vendor_poi_id of '. $placeid ), $occurrence );
+//                        continue;
+//                    }
+//
+//                    $poi->addVendorCategory( $category, $this->vendor['id'] );
+//
+//                    // Calling Poi->save() directly so that ImportLogger does not count poi record twice.
+//                    // Poi needs to be saved as event categories are added to the corresponding poi.
+//                    $poi->save();
+//
+//                    $occurrence['Poi']                                    = $poi;
+//                    $event['EventOccurrence'][]                           = $occurrence;
+//
+//                }
+//
+//                // Save
+//                $this->notifyImporter( $event );
+//
+//                // Mark @musicid as processed.
+//                $processedMusicIds[] = $musicId;
+//
+//            } catch ( Exception $exception )
+//            {
+//                $this->notifyImporterOfFailure( $exception, ( isset($event) ) ? $event : null, 'Exception: LisbonFeedListingsMapper::mapListing');
+//            }
+//        }
+//    }
 
 //  private function getPoi( $placeid )
 //  {
