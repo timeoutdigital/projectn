@@ -6,47 +6,29 @@
  * @subpackage sydney.import.lib.unit
  *
  * @author Clarence Lee <clarencelee@timout.com>
+ * @author Rajeevan Kumarathasan <rajeevankumarathasan.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1
  *
  */
-class sydneyFtpVenuesMapper extends DataMapper
+class sydneyFtpVenuesMapper extends sydneyFtpBaseMapper
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $feed;
-
-  /**
-   * @var projectnDataMapperHelper
-   */
-  private $dataMapperHelper;
-
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @param SimpleXMLElement $feed
-   */
-  public function __construct( Vendor $vendor, SimpleXMLElement $feed )
-  {
-    $this->feed = $feed;
-    $this->vendor = $vendor;
-    $this->dataMapperHelper = new projectnDataMapperHelper( $vendor );
-  }
-
   public function mapVenues()
   {
     foreach( $this->feed->venue as $venue )
     {
+      // get Existing POI or create NEW
+      $vendor_poi_id = (string) $venue->VenueID;
+      $poi = Doctrine::getTable( 'Poi' )->findOneByvendorIdAndVendorPoiId( $this->vendor['id'], $vendor_poi_id );
+      if( $poi === false )
+      {
+          $poi = new Poi();
+      }
 
-      $poi = $this->dataMapperHelper->getPoiRecord( (string) $venue->VenueID );
-
+      // Map Data
       $poi['Vendor']            = $this->vendor;
-      $poi['vendor_poi_id']     = (string) $venue->VenueID;
+      $poi['vendor_poi_id']     = $vendor_poi_id;
 
       $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
 
