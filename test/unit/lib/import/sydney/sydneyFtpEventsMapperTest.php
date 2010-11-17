@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 /**
  * Test class for sydney venues import
  *
@@ -10,35 +10,41 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  * @subpackage sydney.import.lib.unit
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
+ * @author Rajeevan Kumarathasan <rajeevankumarathasan.com>
  *
  * @version 1.0.1
  */
 class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $feed;
 
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
+    private $vendor;
+    private $params;
+    private $xmlNodesTmpPath;
+    
   public function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
+    Doctrine::loadData('data/fixtures');
 
-    $this->feed   = $this->setDynamicTime( simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_events.xml' ) );
-    
-    $this->vendor =  ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
-                                                     'city'          => 'sydney',
-                                                     'language'      => 'en-AU',
-                                                     'country_code'  => 'au',
-                                                     'country_code_long'  => 'AUS',
-                                                     'inernational_dial_code'  => '+61',
-                                                     ) );
+    // Dynamicaly Change Date on events
+    $xmlFilePath = TO_TEST_DATA_PATH . '/sydney/sydney_sample_events.xml';
+    $xmlNodes = simplexml_load_file( $xmlFilePath );
+    $xmlNodes = $this->setDynamicTime( $xmlNodes );
 
+    // save in TMP folder and Remove on TearDown
+    $this->xmlNodesTmpPath = tempnam( '/tmp', 'xml' );
+    file_put_contents( $this->xmlNodesTmpPath , $xmlNodes->saveXML() );
+
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('sydney');
+    $this->params = array( 'type' => 'event', 'ftp' => array(
+                                                        'classname' => 'FTPClientMock',
+                                                        'username' => 'test',
+                                                        'password' => 'test',
+                                                        'src' => '',
+                                                        'dir' => '/',
+                                                        'file' => $this->xmlNodesTmpPath,
+                                                        )
+        );
     //event feed has pois with vendor_poi_id 1,2 and 3
     for ( $i =1; $i< 4; $i++ )
     {
@@ -47,28 +53,28 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
         $poi[ 'Vendor' ] = $this->vendor;
         $poi->save();
     }
-    
-    $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->feed ) );
-    $importer->run();
 
-    $this->eventTable = Doctrine::getTable( 'Event' );
+    //Import data
+    $importer = new Importer();
+    $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->params ) );
+    $importer->run();
   }
 
   public function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
+    unlink( $this->xmlNodesTmpPath ); // remove TMP file
   }
 
   public function testMapping()
   {
 
     $this->assertGreaterThan( 1,
-                         $this->eventTable->count(),
+                         Doctrine::getTable( 'Event' )->findAll()->count(),
                         'Database should have same more then 1 Poi'
                          );
 
-    $event = $this->eventTable->findOneById( 1 );
+    $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
 
     $this->assertEquals('a good festival', $event['name'], 'Check name field.' );
     $this->assertEquals('2010-03-29 09:59:00', $event['review_date'], 'Check review_date field.' );
@@ -77,12 +83,12 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('http://www.somewebsite.com', $event['url'], 'Check url field.' );
     $this->assertEquals('$30.00', $event['price'], 'Check price field.' );
     $this->assertEquals('1', $event['rating'], 'Check rating field.' );
-    $this->assertEquals('1', $event['vendor_id'], 'Check vendor_id field.' );
+    $this->assertEquals('8', $event['vendor_id'], 'Check vendor_id field.' );
   }
 
   public function testVendorCategory()
   {
-    $events = $this->eventTable->findAll( );
+    $events = Doctrine::getTable( 'Event' )->findAll( );
 
     $this->assertEquals( 1, count(  $events[0]['VendorEventCategory'] ),'1st event in the feed has only one vendorCategory' );
 
@@ -96,7 +102,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testProperties()
   {
-    $events = $this->eventTable->findAll( );
+    $events = Doctrine::getTable( 'Event' )->findAll( );
 
     $this->assertNull( $events[0]['CriticsChoiceProperty'] );
     $this->assertNull( $events[0]['RecommendedProperty'] );
@@ -110,13 +116,13 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testEventOccurrence()
   {
-      $event = $this->eventTable->findOneById( 1 );
+      $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
       $this->assertEquals( 1, $event['EventOccurrence']->count() );
   }
 
   public function testHasImage()
   {
-    $event = $this->eventTable->findOneById( 1 );
+    $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
 
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
                           $event['EventMedia'][0]['url']
@@ -126,10 +132,12 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
   private function setDynamicTime( SimpleXMLElement $xmlNodes )
   {
-      
+
+      $xmlNodes->event[0]->DateInserted = date('d/m/Y h:i:s A');
       $xmlNodes->event[0]->DateFrom = date('d/m/Y h:i:s A');
       $xmlNodes->event[0]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
 
+      $xmlNodes->event[2]->DateInserted = date('d/m/Y h:i:s A');
       $xmlNodes->event[2]->DateFrom = date('d/m/Y h:i:s A');
       $xmlNodes->event[2]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
 
@@ -138,7 +146,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testFilmEventsAreSavedInArtCategory()
   {
-      $event = $this->eventTable->findOneById( 3 );  //event's category is Film but we are expecting it to be saved as Art
+      $event = Doctrine::getTable( 'Event' )->findOneById( 3 );  //event's category is Film but we are expecting it to be saved as Art
 
       $vendorCategory =  $event['VendorEventCategory']->toArray();
 

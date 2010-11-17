@@ -6,42 +6,19 @@
  * @subpackage sydney.import.lib.unit
  *
  * @author Ralph Schwaninger <ralphschwaninger@timout.com>
+ * @author Rajeevan Kumarathasan <rajeevankumarathasan.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1
  *
  */
-class sydneyFtpEventsMapper extends DataMapper
+class sydneyFtpEventsMapper extends sydneyFtpBaseMapper
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $feed;
-
-  /**
-   * @var projectnDataMapperHelper
-   */
-  private $dataMapperHelper;
-
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @param SimpleXMLElement $feed
-   */
-  public function __construct( Vendor $vendor, SimpleXMLElement $feed )
-  {
-    $this->feed = $feed;
-    $this->vendor = $vendor;
-    $this->dataMapperHelper = new projectnDataMapperHelper( $vendor );
-  }
-
+    
   public function mapEvents()
   {
 
-      $todays_date = mktime( 0,0,0, date('m'), date('d'), date('Y') );
+    $todays_date = mktime( 0,0,0, date('m'), date('d'), date('Y') );
     foreach( $this->feed->event as $eventNode )
     {
       try
@@ -54,10 +31,16 @@ class sydneyFtpEventsMapper extends DataMapper
               continue;
           }
 
-          $event = $this->dataMapperHelper->getEventRecord( substr( md5( (string) $eventNode->Name ), 0, 9 ) );
+          // Get existing Event or Create New Event object
+          $vendor_event_id = substr( md5( (string) $eventNode->Name ), 0, 9 );
+          $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor['id'], $vendor_event_id);
+          if( $event === false )
+          {
+              $event = new Event();
+          }
 
           $event['review_date']             = $this->extractDate( (string) $eventNode->DateUpdated );
-          $event['vendor_event_id']         = substr( md5( (string) $eventNode->Name ), 0, 9 );
+          $event['vendor_event_id']         = $vendor_event_id;
           $event['name']                    = (string) $eventNode->Name;
           $event['description']             = (string) $eventNode->Description;
           $event['url']                     = (string) $eventNode->Website;
