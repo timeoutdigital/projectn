@@ -117,7 +117,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
   public function testEventOccurrence()
   {
       $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
-      $this->assertEquals( 1, $event['EventOccurrence']->count() );
+      $this->assertEquals( 2, $event['EventOccurrence']->count(), 'Since This event repeated with different date as Occurrence, this occurrence count should be 2' );
   }
 
   public function testHasImage()
@@ -141,6 +141,10 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
       $xmlNodes->event[2]->DateFrom = date('d/m/Y h:i:s A');
       $xmlNodes->event[2]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +1 day' ) );
 
+      $xmlNodes->event[3]->DateInserted = date('d/m/Y h:i:s A');
+      $xmlNodes->event[3]->DateFrom = date('d/m/Y h:i:s A', strtotime( ' +5 day' ));
+      $xmlNodes->event[3]->DateTo = date('d/m/Y h:i:s A', strtotime( ' +6 day' ) );
+
       return $xmlNodes;
   }
 
@@ -151,6 +155,23 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
       $vendorCategory =  $event['VendorEventCategory']->toArray();
 
       $this->assertEquals( 'Art', $vendorCategory[ 'Art' ][ 'name' ] );
+
+  }
+
+  public function testSimulateUpdateAndTestNoDuplicateOccurrences()
+  {
+      // Existing count
+      $totalEventsWasInDB = Doctrine::getTable( 'Event' )->findAll()->count();
+      $totalOccurrencesWasInDB = Doctrine::getTable( 'EventOccurrence' )->findAll()->count();
+      
+      //Import data
+      $importer = new Importer();
+      $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->params ) );
+      $importer->run();
+      
+      $this->assertEquals( $totalEventsWasInDB, Doctrine::getTable( 'Event' )->findAll()->count());
+      $this->assertEquals( $totalOccurrencesWasInDB, Doctrine::getTable( 'EventOccurrence' )->findAll()->count());
+
 
   }
 }

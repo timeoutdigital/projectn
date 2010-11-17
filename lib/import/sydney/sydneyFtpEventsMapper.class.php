@@ -60,29 +60,20 @@ class sydneyFtpEventsMapper extends sydneyFtpBaseMapper
 
           //#753 addImageHelper capture Exception and notify, this don't break the Import process
           $this->addImageHelper( $event, (string) $eventNode->ImagePath );
-          
 
+          // get the Poi for this Event occurrence
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 
-          // Delete Occurences
-          // occurrences of this event will be deleted and will be added again
-          // this causes auto_increment id's to increment each time, we may run out of ids at some point
-          // so we will keep the old ids
-
-          $oldIds = array();
-          foreach ($event['EventOccurrence'] as $oldOccurrence)
-          {
-            $oldIds[] = $oldOccurrence[ 'id' ];
-          }
-
-          $event['EventOccurrence']->delete();
+          // This code is commented out to capture Multiple recurring occurrences. Sydney feed gives us each occurrences as Events,
+          // hence it require to not delete any previous Occurrences when adding new...
+          // Since we have a presave function in Event model that removes all duplicate occurrences, it is safe to assume that
+          // No duplicate event occurrences will be saved to our database and/or exported.
+          //// $event['EventOccurrence']->delete();
 
           // This assumes only one occurence per Event.
           if ( $poi !== false )
           {
               $occurrence = new EventOccurrence();
-              //reuse the old occurrence id
-              $occurrence[ 'id' ] = array_pop( $oldIds );
               $occurrence['start_date']                   = $this->extractDate( (string) $eventNode->DateFrom, true );
 
               $timeInfo = $this->extractTime( (string) $eventNode->Time );
@@ -104,7 +95,6 @@ class sydneyFtpEventsMapper extends sydneyFtpBaseMapper
               $event['EventOccurrence'][] = $occurrence;
           }else
           {
-
               $this->notifyImporterOfFailure( new Exception( 'Could not find Sydney Poi with Vendor name of '. (string) $event['name']  ) );
               continue;
           }
@@ -113,7 +103,7 @@ class sydneyFtpEventsMapper extends sydneyFtpBaseMapper
       }
       catch( Exception $exception )
       {
-          $this->notifyImporterOfFailure( $exception );
+          $this->notifyImporterOfFailure( $exception, isset($event) ? $event : null );
       }
     }
   }
