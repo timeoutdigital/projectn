@@ -88,6 +88,8 @@ class ChicagoFeedBaseMapper extends DataMapper
         $fileNameString = $ftpClientObj->fetchLatestFileByPattern( $this->params['ftp']['file'] );
 
         $contents = file_get_contents( $fileNameString );
+
+        new FeedArchiver( $this->vendor, $contents, $this->params['type'] );
         
         // Clean if Flagged
         if( $requireCleaning )
