@@ -1,0 +1,39 @@
+import:
+  poi:
+    class:
+      name: sydneyFtpVenuesMapper
+      params:
+        type: poi
+        ftp:
+          classname: FTPClient
+          src: ftp.timeoutsydney.com.au
+          username: timeoutlondon
+          password: T1m3outl*nd)n
+          dir: '/timeoutlondon/'
+          file: 'venues.xml'
+
+  event:
+    class:
+      name: sydneyFtpEventsMapper
+      params:
+        type: event
+        ftp:
+          classname: FTPClient
+          src: ftp.timeoutsydney.com.au
+          username: timeoutlondon
+          password: T1m3outl*nd)n
+          dir: '/timeoutlondon/'
+          file: 'event.xml'
+
+  event:
+    class:
+      name: sydneyFtpMoviesMapper
+      params:
+        type: movie
+        ftp:
+          classname: FTPClient
+          src: ftp.timeoutsydney.com.au
+          username: timeoutlondon
+          password: T1m3outl*nd)n
+          dir: '/timeoutlondon/'
+          file: 'films.xml'

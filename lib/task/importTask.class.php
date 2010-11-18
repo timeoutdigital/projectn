@@ -258,7 +258,8 @@ class importTask extends sfBaseTask
 
       case 'sydney':
 
-        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
+        $this->newStyleImport( 'sydney', 'en-AU', $options, $databaseManager, $importer );
+        /*$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
 
         switch( $options['type'] )
         {
@@ -278,7 +279,7 @@ class importTask extends sfBaseTask
 
           case 'movie':
 
-            $targetFileName = 'movie.xml';
+            $targetFileName = 'films.xml';
             $mapperClass = 'sydneyFtpMoviesMapper';
 
           break; //End Movie
@@ -299,7 +300,7 @@ class importTask extends sfBaseTask
         $importer->run();
 
         ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage();
+        $this->dieWithLogMessage();*/
 
      break; //end Sydney
 
