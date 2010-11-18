@@ -1,0 +1,18 @@
+import:
+
+  poi:
+    class:
+      name: RussiaFeedPlacesMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeout.ru/london/places_tumen.xml
+  event:
+    class:
+      name: RussiaFeedEventsMapper
+      params:
+        type: event
+        curl:
+          classname: Curl
+          src: http://www.timeout.ru/london/events_tumen.xml

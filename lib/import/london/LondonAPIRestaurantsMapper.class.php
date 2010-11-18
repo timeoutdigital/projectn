@@ -17,14 +17,39 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    * @var PoiCategory
    */
   private $poiCategory;
+  /**
+   *
+   * @var string Hold the url to Get Detailed information
+   */
+  private $detailedURL;
 
   /**
    *
+   * @var string Query Type for Details
    */
-  public function  __construct( LondonAPICrawler $apiCrawler=null, geocoder $encoder=null  )
+  private $apiType;
+  
+  /**
+   *
+   */
+  public function  __construct(  Doctrine_Record $vendor, $params  )
   {
-    parent::__construct( $apiCrawler, $encoder );
-    $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'restaurant' );
+      if( !is_array( $params ) || !isset($params['datasource']) || !is_array( $params['datasource'] ))
+      {
+          throw new Exception ( 'Invalid Parameter' );
+      }
+      
+      // Set Params Data
+      $this->apiCrawler     = new $params[ 'datasource' ]['classname']();
+      $this->searchUrl      = $params[ 'datasource' ]['url'];
+      $this->detailedURL    = $params[ 'datasource' ]['detailedurl'];
+      $this->apiType        = $params[ 'datasource' ]['apitype'];
+
+      // Set Default fallback Category
+      $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'restaurant' );
+
+      // Call Parent to do something
+      parent::__construct( $vendor, $params );
   }
 
   /**
@@ -42,7 +67,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    */
   public function getDetailsUrl()
   {
-    return 'http://api.timeout.com/v1/getRestaurant.xml';
+      return $this->detailedURL;
   }
 
   /**
@@ -54,7 +79,7 @@ class LondonAPIRestaurantsMapper extends LondonAPIBaseMapper
    */
   public function getApiType()
   {
-    return 'Restaurants & cafés';
+      return $this->apiType;
   }
 
   /**

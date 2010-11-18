@@ -15,28 +15,17 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
 {
 
     /**
-     * BC XML feed require cleaning before pharsing as XML, this overwrite should takecare of that issue
+     * Constructor
      * @param Doctrine_Record $vendor
-     * @param string $dataFileName
-     * @param SimpleXMLElement $xml
-     * @param geoEncode $geoEncoder
+     * @param array $params
      */
-    public function __construct( Doctrine_Record $vendor, $dataFileName, SimpleXMLElement $xml = null,  geocoder $geoEncoder = null )
-    {
-        if( !isset($xml) && !isset($dataFileName) )
-        {
-            throw new Exception( 'ChicagoFeedEDMapper:: No Data File name or XML feed provided!' );
-        }
+    public function  __construct(Doctrine_Record $vendor, $params) {
+        parent::__construct($vendor, $params);
 
-        // if No XML load file and Clean before pharsing as XML
-        if( !$xml )
-        {
-            $xml = simplexml_load_string( $this->openAndCleanData( $dataFileName ) );
-        }
-
-        parent::__construct($vendor, $xml, $geoEncoder);
+        // read file > clean and parse it as XML into $this->XML
+        $this->ftpGetDataAndCleanData( true );
     }
-
+   
     public function mapED()
     {
         foreach( $this->xml->ROW as $xmlNode)
@@ -71,12 +60,12 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
 
                 $poi['price_information']                       = (string) $xmlNode->prices;
                 $poi['url']                                     = stringTransform::formatUrl( (string) $xmlNode->url );
-                $openingTimes                                   = $this->semiColon2Comma( (string) $xmlNode->hours );
+                $openingTimes                                   = mb_ereg_replace(';', ',', (string) $xmlNode->hours );
 
                 // Add openingtimes with hours.notes
                 if( isset($xmlNode->{'hours.notes'}) && trim( (string)$xmlNode->{'hours.notes'} ) != '' )
                 {
-                    $hoursNotes                                 = $this->nl2Comma( (string) $xmlNode->{'hours.notes'} );
+                    $hoursNotes                                 = implode(', ', $this->nl2Array( (string) $xmlNode->{'hours.notes'} ) );
                     $openingTimes                               = stringTransform::concatNonBlankStrings(' - ', array( trim($openingTimes), trim($hoursNotes) ) );
                 }
                 $poi['openingtimes']                            = $openingTimes;
@@ -107,7 +96,7 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 // Add Features to Property
                 if( trim( (string) $xmlNode->features ) != '')
                 {
-                    $features           = $this->nl2Comma( (string) $xmlNode->features );
+                    $features           = implode(', ', $this->nl2Array( (string) $xmlNode->features ) );
                     // Clean up features property, to remove the string "Cheap (entrees under $10)" #251
                     $features           = mb_ereg_replace( '\s*\(entrees under\s\$\d*\)\s*', '', $features );
                     $poi->addProperty( 'features', $features );

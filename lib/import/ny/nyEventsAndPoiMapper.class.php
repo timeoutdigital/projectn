@@ -11,36 +11,8 @@
  *
  *
  */
-class importNyChicagoEvents
+class nyEventsAndPoiMapper extends nyFeedBaseMapper
 {
-    /**
-     * simpleXmlElement object
-     *
-     * @var simpleXmlElement
-     */
-    private $_events;
-
-    /**
-     * simpleXmlElement object
-     *
-     * @var simpleXmlElement
-     */
-    private $_venues;
-
-    /**
-     * processNyXml object
-     *
-     * @var processNyXml
-     */
-    private $_xmlFeed;
-
-    /**
-     * Store a vendor
-     *
-     * @var Vendor
-     */
-    private $_vendorObj;
-
 
     /**
      * Store cageory mapper
@@ -48,7 +20,6 @@ class importNyChicagoEvents
      * @var CategoryMap
      */
     private $_categoryMap;
-
 
     /**
      * Constructor
@@ -58,44 +29,30 @@ class importNyChicagoEvents
      * @todo possibly add transactions
      *
      */
-    public function  __construct( $xmlFeed, $vendorObj )
+    public function  __construct( Vendor $vendor, $params )
     {
-        $this->_xmlFeed = $xmlFeed;
-        $this->_venues = $this->_xmlFeed->getVenues();
-        $this->_events = $this->_xmlFeed->getEvents();
-        $this->_vendorObj = $vendorObj;
-        $this->_categoryMap = new CategoryMap( false );
-        ImportLogger::getInstance()->setVendor( $vendorObj );
-    }
+        parent::__construct($vendor, $params );
 
+        // Set Category mapper
+        $this->_categoryMap = new CategoryMap( false );
+        // Download the FTP data and extract the Nodes
+        $this->getXMLData();
+    }
 
     /**
-     * Insert the Events and Venues data into the database
-     *
-     *
+     * DataMapper required function to Map Poi or Event
      */
-    public function insertEventCategoriesAndEventsAndVenues()
+    public function mapPoiAndEvent()
     {
-        //Add each venue to the database
-        foreach( $this->_venues as $venue )
+        echo 'Importing ' . $this->params['type'] . PHP_EOL;
+        foreach( $this->xmlNodes as $xmlNode )
         {
-            $this->insertPoi( $venue ) ;
-        }
-
-        //echo 'Pois done';
-
-        //Loop through each event to add to the category mappings
-        /*foreach($this->_events as $event)
-    {
-      $this->insertVendorEventCategories( $event );
-    }
-        */
-        //echo 'Event cats done';
-
-        //Loop through all the events to add them and occurances to database
-        foreach($this->_events as $event)
-        {
-            $this->insertEvent( $event );
+            if( $this->params['type'] == 'poi' )
+            {
+                $this->insertPoi( $xmlNode ) ;
+            } else {
+                $this->insertEvent( $xmlNode );
+            }
         }
     }
 
@@ -112,7 +69,7 @@ class importNyChicagoEvents
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId((string) $poi['id'], $this->_vendorObj['id']);
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId((string) $poi['id'], $this->vendor['id']);
 
         if($currentPoi)
         {
@@ -137,7 +94,7 @@ class importNyChicagoEvents
     {
 
         //Check database for existing Poi by vendor id
-        $currentEvent = Doctrine::getTable('Event')->findOneByVendorEventIdAndVendorId((string) $event['id'], $this->_vendorObj['id']);
+        $currentEvent = Doctrine::getTable('Event')->findOneByVendorEventIdAndVendorId((string) $event['id'], $this->vendor['id']);
 
         if($currentEvent)
         {
@@ -168,10 +125,10 @@ class importNyChicagoEvents
         $poiObj[ 'street' ] = (string) $poi->street;
         $poiObj[ 'city' ] = (string) $poi->town;
         $poiObj[ 'country' ] = 'USA';
-        $poiObj[ 'local_language' ] = substr( $this->_vendorObj[ 'language' ], 0, 2 );
+        $poiObj[ 'local_language' ] = substr( $this->vendor[ 'language' ], 0, 2 );
         $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
         $poiObj[ 'url' ] = stringTransform::formatUrl((string) $poi->website);
-        $poiObj[ 'vendor_id' ] = $this->_vendorObj->getId();
+        $poiObj[ 'vendor_id' ] = $this->vendor->getId();
 
         //Form and set phone number
         $countryCodeString = (string) $poi->telephone->country_code;
@@ -275,7 +232,7 @@ class importNyChicagoEvents
         }
         foreach ($categoryArray as $category)
         {
-            $poiObj->addVendorCategory( trim ( $category ), $this->_vendorObj->getId()  );
+            $poiObj->addVendorCategory( trim ( $category ), $this->vendor->getId()  );
         }
 
         ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
@@ -298,7 +255,7 @@ class importNyChicagoEvents
         $eventObj = $this->getEvent( $event );
 
         //Set the Events required values
-        $eventObj[ 'vendor_id' ] = $this->_vendorObj->getId();
+        $eventObj[ 'vendor_id' ] = $this->vendor->getId();
         $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
         $eventObj[ 'name' ] = (string) $event->identifier;
         $eventObj[ 'description' ] = (string) $event->description;
@@ -315,7 +272,7 @@ class importNyChicagoEvents
 
         foreach( $categoryArray as $category )
         {
-            $eventObj->addVendorCategory($category, $this->_vendorObj['id']);
+            $eventObj->addVendorCategory($category, $this->vendor['id']);
         }
 
         //deal with the "text-system" nodes
@@ -421,7 +378,7 @@ class importNyChicagoEvents
         //Loop through all categories
         foreach($eventObj['VendorEventCategory']->toArray() as $categories)
         {
-            $poiObj->addVendorCategory($categories['name'], $this->_vendorObj['id']);
+            $poiObj->addVendorCategory($categories['name'], $this->vendor['id']);
         }
 
         ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
@@ -464,12 +421,12 @@ class importNyChicagoEvents
                     $occurrenceObj[ 'start_time' ] = NULL;
                 }
 
-                $occurrenceObj[ 'utc_offset' ] = $this->_vendorObj->getUtcOffset( $start['datetime'] );
+                $occurrenceObj[ 'utc_offset' ] = $this->vendor->getUtcOffset( $start['datetime'] );
 
                 $occurrenceObj[ 'event_id' ] = $eventObj[ 'id' ];
 
                 //set poi id
-                $venueObj = Doctrine::getTable('Poi')->findOneByVendorIdAndVendorPoiId( $this->_vendorObj['id'], (string) $occurrence->venue[0]->address_id );
+                $venueObj = Doctrine::getTable('Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], (string) $occurrence->venue[0]->address_id );
 
                 $occurrenceObj[ 'poi_id' ] = $venueObj[ 'id' ];
 
@@ -623,5 +580,28 @@ class importNyChicagoEvents
         }
 
         return $categoryArray;
+    }
+
+    /**
+     * Use FTP connection to Download Data based on $this->params variable
+     */
+    private function getXMLData()
+    {
+        // Download File
+        $fileNameString = $this->ftpGetXMLFile();
+
+        // Load XML file
+        $xmlString      = file_get_contents( $fileNameString );
+        $xmlDataFixer   = new xmlDataFixer( $xmlString );
+        //$xmlDataFixer->addRootElement( 'body' );
+        $xmlDataFixer->removeHtmlEntiryEncoding();
+        $xmlDataFixer->encodeUTF8();
+
+        if( $this->params['type'] == 'poi' )
+        {
+            $this->xmlNodes = $this->getXMLNodesByPath( '/leo_export/address', $xmlDataFixer->getSimpleXML() );
+        } else {
+            $this->xmlNodes = $this->getXMLNodesByPath( '/leo_export/event', $xmlDataFixer->getSimpleXML() );
+        }
     }
 }

@@ -13,30 +13,19 @@
  */
 class ChicagoFeedBCMapper extends ChicagoFeedBaseMapper
 {
-
     /**
-     * BC XML feed require cleaning before pharsing as XML, this overwrite should takecare of that issue
+     * Constructor
      * @param Doctrine_Record $vendor
-     * @param string $dataFileName
-     * @param SimpleXMLElement $xml
-     * @param geoEncode $geoEncoder
+     * @param array $params
      */
-    public function __construct( Doctrine_Record $vendor, $dataFileName, SimpleXMLElement $xml = null,  geocoder $geoEncoder = null )
-    {
-        if( !isset($xml) && !isset($dataFileName) )
-        {
-            throw new Exception( 'ChicagoFeedBCMapper:: No Data File name or XML feed provided!' );
-        }
+    public function  __construct(Doctrine_Record $vendor, $params) {
+        parent::__construct($vendor, $params);
 
-        // if No XML load file and Clean before pharsing as XML
-        if( !$xml )
-        {
-            $xml = simplexml_load_string( $this->openAndCleanData( $dataFileName ) );
-        }
-
-        parent::__construct($vendor, $xml, $geoEncoder);
+        // read file > clean and parse it as XML into $this->XML
+        $this->ftpGetDataAndCleanData( true );
     }
 
+    
     public function mapBC()
     {
         foreach( $this->xml->ROW as $xmlNode)
@@ -70,7 +59,7 @@ class ChicagoFeedBCMapper extends ChicagoFeedBaseMapper
                 $poi['country']                                 = $poi['Vendor']['country_code_long'];
 
                 $poi['price_information']                       = (string) $xmlNode->prices;
-                $poi['openingtimes']                            = $this->semiColon2Comma( (string) $xmlNode->hours );
+                $poi['openingtimes']                            = mb_ereg_replace(';', ',', (string) $xmlNode->hours );
                 $poi['url']                                     = stringTransform::formatUrl( (string) $xmlNode->url );
 
                 // phone number
@@ -101,7 +90,7 @@ class ChicagoFeedBCMapper extends ChicagoFeedBaseMapper
                 // Add Features to Property
                 if( trim( (string) $xmlNode->features ) != '')
                 {
-                    $poi->addProperty( 'features', $this->nl2Comma( (string) $xmlNode->features ) );
+                    $poi->addProperty( 'features', implode(', ', $this->nl2Array( (string) $xmlNode->features ) ) );
                 }
 
                 // Save POI

@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/londonAPICrawler.mock.php';
 /**
  * Test class for London API Cinemas Mapper.
  *
@@ -17,6 +17,8 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class LondonAPICinemasMapperTest extends PHPUnit_Framework_TestCase
 {
 
+    private $vendor;
+
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -26,7 +28,7 @@ class LondonAPICinemasMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
 
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'london' );
   }
 
   /**
@@ -43,23 +45,21 @@ class LondonAPICinemasMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapPoi()
   {
-    $limit = 11;
-
-    $crawler = new LondonAPICrawler();
-    $crawler->setLimit( $limit );
-    $mapper = new LondonAPICinemasMapper($crawler);
+    $params = array( 'datasource' => array( 'classname' => 'LondonAPICrawlerMock',
+                                            'url' => 'http://api.timeout.com/v1/search.xml',
+                                            'detailedurl' => TO_TEST_DATA_PATH . '/london/LondonAPICinemasMapper.xml',
+                                            'apitype' => 'Cinemas' ) );
+    
+    $mapper = new LondonAPICinemasMapper( $this->vendor, $params );
 
     $importer = new Importer();
-    $mapper->setLimit( $limit );
-    //$importer->addLogger( new echoingLogger() );
     $importer->addDataMapper( $mapper );
     $importer->run();
 
     $poiResults = Doctrine::getTable('Poi')->findAll();
-
-    //@todo add fixtures!
-    //$this->assertEquals( $limit, $poiResults->count() );
-
+    
+    $this->assertEquals( 11, $poiResults->count() );
+    
     $poi = $poiResults[0];
 
     $this->assertFalse( empty( $poi[ 'vendor_id' ] ),         'vendor_id should not be empty: '     . $poi[ 'url' ] );
@@ -76,12 +76,5 @@ class LondonAPICinemasMapperTest extends PHPUnit_Framework_TestCase
 
     //$this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) );
   }
-
-  /**
-   * @todo test grabs all cinemas if no limit set
-   */
-  public function testNoLimit()
-  {
-    $this->markTestIncomplete();
-  }
+  
 }

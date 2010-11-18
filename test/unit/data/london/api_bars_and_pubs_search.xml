@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<toxml>
+		<responseHeader>
+			<rows>2</rows>
+			<numFound>2</numFound>
+			<title>Most popular</title>
+		</responseHeader>
+		<response>
+			<block>
+				<row type="Bars &amp; Pubs">
+					<uid>api_bars_and_pubs_details.xml</uid>
+					<name>Bar Pepito</name>
+					<section colour="#ff6600">Bars &amp; pubs</section>
+					<venueAddress>Varnishers Yard</venueAddress>
+					<venuePostcode>N1 9FD</venuePostcode>
+					<starRating>5</starRating>
+					<tags>
+						<tag>Critics' Choice</tag>
+					</tags>
+					<lat>51.531111</lat>
+					<lng>-0.121514</lng>
+					<imageUrl>http://toimg.net/managed/images/10133263/w88/h68/i.jpg</imageUrl>
+					<apiUrl>http://api.timeout.com/v1/getRestaurant.xml?uid=Venue/Travel/2:26834</apiUrl>
+					<webUrl>http://www.timeout.com/london/bars/venue/2:26834/bar-pepito</webUrl>
+				</row>
+				<row type="Bars &amp; Pubs">
+					<uid>api_bars_and_pubs_details.xml</uid>
+					<name>Bar Pepito</name>
+					<section colour="#ff6600">Bars &amp; pubs</section>
+					<venueAddress>Varnishers Yard</venueAddress>
+					<venuePostcode>N1 9FD</venuePostcode>
+					<starRating>5</starRating>
+					<tags>
+						<tag>Critics' Choice</tag>
+					</tags>
+					<lat>51.531111</lat>
+					<lng>-0.121514</lng>
+					<imageUrl>http://toimg.net/managed/images/10133263/w88/h68/i.jpg</imageUrl>
+					<apiUrl>http://api.timeout.com/v1/getRestaurant.xml?uid=Venue/Travel/2:26834</apiUrl>
+					<webUrl>http://www.timeout.com/london/bars/venue/2:26834/bar-pepito</webUrl>
+				</row>
+			</block>
+		</response>
+	</toxml>

@@ -13,27 +13,40 @@
  */
 class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
 {
+    // Splitting feed import
     private $startPoint;
     private $endPoint;
+    protected $exceptionClass = 'RussiaFeedPlacesMapperException'; // override the Exception class variable in BaseMapper
     
-    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null, $city = false, $startPoint = 0, $endPoint = 0)
-    {
-        // Set Default End point for other Cities!
-        if( $endPoint <= 0 )
+    public function  __construct(Vendor $vendor, $params) {
+        parent::__construct($vendor, $params);
+
+        // Calculate Split and Current Run
+        if( isset( $this->params['split'] ) && is_array( $this->params['split'] ) )
         {
-            $endPoint = $xml->venue->count();
+            $split = $this->params['split'];
+            $total = count( $this->xml->venue ); // Total XML Nodes
+            $max = ceil( $total / $split['chunk'] );
+
+            $this->startPoint    = intval( ($split['index'] -1) * $max );
+            $this->endPoint      = intval( ( ( $max * $split['index'] ) > $total ) ? $total : ($max * $split['index']) );
+            echo "Running in SPLIT Mode. Total in Feed: {$total}, Starting at: {$this->startPoint} - Ending at: {$this->endPoint}" . PHP_EOL;
+            
+        } else { // When not specified, run all
+            
+            $this->startPoint = 0;
+            $this->endPoint = count( $this->xml->venue );
         }
         
-        $this->startPoint = $startPoint;
-        $this->endPoint = $endPoint;
-        
-        parent::__construct($xml, $geocoderr, $city );
     }
+
   public function mapPlaces()
   {
     //for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
-    for( $i=$this->startPoint, $venueElement = $this->xml->venue[ $this->startPoint ]; $i < $this->endPoint; $i++, $venueElement = $this->xml->venue[ $i ] )
+    for( ; $this->startPoint < $this->endPoint ; $this->startPoint++ )
     {
+        $venueElement = $this->xml->venue[ $this->startPoint ]; // Get the XMLNODE
+        
         try {
             // Get Venue Id
             $vendor_venue_id = (string) $venueElement['id'];
@@ -108,4 +121,5 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
     }
   }
 }
+class RussiaFeedPlacesMapperException extends Exception{}
 ?>

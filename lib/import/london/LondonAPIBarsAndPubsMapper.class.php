@@ -20,13 +20,38 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
 
   /**
    *
+   * @var string Hold the url to Get Detailed information
+   */
+  private $detailedURL;
+
+  /**
+   *
+   * @var string Query Type for Details
+   */
+  private $apiType;
+  /**
+   *
    * @param LondonAPICrawler $apiCrawler
    * @param geocoder $geocoderr
    */
-  public function __construct( LondonAPICrawler $apiCrawler=null, geocoder $geocoderr=null )
+  public function __construct( Doctrine_Record $vendor, $params )
   {
-    parent::__construct($apiCrawler, $geocoderr);
-    $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'bar-pub' );
+      if( !is_array( $params ) || !isset($params['datasource']) || !is_array( $params['datasource'] ))
+      {
+          throw new Exception ( 'Invalid Parameter' );
+      }
+
+      // Set Params Data
+      $this->apiCrawler     = new $params[ 'datasource' ]['classname']();
+      $this->searchUrl      = $params[ 'datasource' ]['url'];
+      $this->detailedURL    = $params[ 'datasource' ]['detailedurl'];
+      $this->apiType        = $params[ 'datasource' ]['apitype'];
+
+      // Set Default fallback Category
+      $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'bar-pub' );
+
+      // Call Parent to do something
+      parent::__construct( $vendor, $params );
   }
 
   /**
@@ -44,7 +69,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    */
   public function getDetailsUrl()
   {
-    return 'http://api.timeout.com/v1/getBar.xml';
+      return $this->detailedURL;
   }
 
   /**
@@ -56,7 +81,7 @@ class LondonAPIBarsAndPubsMapper extends LondonAPIBaseMapper
    */
   public function getApiType()
   {
-    return 'Bars & pubs';
+      return $this->apiType;
   }
 
   /**

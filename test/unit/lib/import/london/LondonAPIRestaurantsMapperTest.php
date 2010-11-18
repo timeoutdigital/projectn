@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/londonAPICrawler.mock.php';
 
 /**
  * Test class for London API CinemasMapper.
@@ -16,6 +17,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
 {
 
+    private $vendor;
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -25,7 +27,7 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
 
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'london' );
   }
 
   /**
@@ -42,20 +44,26 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapPoi()
   {
-    $limit = 11;
 
-    $this->setExpectedException( 'Exception' );
-    $this->runImportWithLimit( $limit );
+      $importer = new Importer();
+      $params = array( 'datasource' => array( 'classname' => 'LondonAPICrawlerMock',
+                                            'url' => 'http://api.timeout.com/v1/search.xml',
+                                            'detailedurl' => TO_TEST_DATA_PATH . '/london/LondonAPIRestaurants.xml',
+                                            'apitype' => 'Restaurants & cafés' ) );
 
+    $mapper = new LondonAPIRestaurantsMapper( $this->vendor, $params );
+    $importer->addDataMapper( $mapper );
+    $importer->run();
+    
     $poiResults = Doctrine::getTable('Poi')->findAll();
 
-    $this->assertEquals( $limit, $poiResults->count() );
+    $this->assertEquals( 11, $poiResults->count() );
 
     $poi = $poiResults[0];
 
     $this->assertFalse( empty( $poi[ 'vendor_id' ] ),         'vendor_id should not be empty: '     . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'vendor_poi_id' ] ),     'vendor_poi_id should not be empty: ' . $poi[ 'url' ] );
-    $this->assertFalse( empty( $poi[ 'street' ] ),            'street should not be empty: '        . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'street' ] ),            'street should not be empty: '        . $poi[ 'url' ] ); 
     $this->assertFalse( empty( $poi[ 'city' ] ),              'city should not be empty: '          . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'country' ] ),           'city should not be empty: '          . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'longitude' ] ),         'longitude should not be empty: '     . $poi[ 'url' ] );
@@ -68,29 +76,29 @@ class LondonAPIRestaurantsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertFalse( empty( $poi[ 'openingtimes' ] ),      'openingtimes should not be empty: '  . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'star_rating' ] ),       'star_rating should not be empty: '   . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'description' ] ),       'description should not be empty: '   . $poi[ 'url' ] );
-    $this->assertEquals( empty( $poi[ 'PoiCategory' ][ 0 ][ 'name' ] ), 'restaurant', 'description should not be empty: '   . $poi[ 'url' ] );
+    $this->assertEquals(  $poi[ 'PoiCategory' ][ 0 ][ 'name' ] , 'restaurant', 'description should not be empty: '   . $poi[ 'url' ] );
 
     $this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) );
   }
 
-  private function runImportWithLimit( $limit )
-  {
-    $crawler = new LondonAPICrawler();
-    $crawler->setLimit( $limit );
-    $mapper = new LondonAPIRestaurantsMapper( $crawler );
-
-    $importer = new Importer();
-    $importer->addDataMapper( $mapper );
-
-    $importer->run();
-  }
-
-  /**
-   * @todo test grabs all restaurants if no limit set
-   */
-  public function testNoLimit()
-  {
-    $this->markTestIncomplete();
-  }
+//  private function runImportWithLimit( $limit )
+//  {
+//    $crawler = new LondonAPICrawler();
+//    $crawler->setLimit( $limit );
+//    $mapper = new LondonAPIRestaurantsMapper( $crawler );
+//
+//    $importer = new Importer();
+//    $importer->addDataMapper( $mapper );
+//
+//    $importer->run();
+//  }
+//
+//  /**
+//   * @todo test grabs all restaurants if no limit set
+//   */
+//  public function testNoLimit()
+//  {
+//    $this->markTestIncomplete();
+//  }
 }
 ?>

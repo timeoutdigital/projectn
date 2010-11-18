@@ -193,7 +193,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     }
 
     $this->assertEquals( null, $eventOccurrence1['start_time'] );
-    $this->assertEquals( '+01:00', $eventOccurrence1['utc_offset'] );
+    $this->assertEquals( $event['Vendor']->getUtcOffset(), $eventOccurrence1['utc_offset'] );
 
     // Check for Friday Event
 
@@ -210,7 +210,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
 
     $this->assertEquals( null, $eventOccurrence2['start_time'] );
-    $this->assertEquals( '+01:00', $eventOccurrence2['utc_offset'] );
+    $this->assertEquals( $event['Vendor']->getUtcOffset(), $eventOccurrence2['utc_offset'] );
 
 //    $eventOccurrences = Doctrine::getTable( 'EventOccurrence' )->findAll();
 //    $this->assertEquals( 13, $eventOccurrences->count() );
