@@ -13,7 +13,7 @@ require_once dirname(__FILE__).'/../../../lib/stringTransform.class.php';
  * @subpackage lib.unit
  *
  * @author Timmy Bowler <timbowler@timeout.com>
- * @copyright Timeout Communications Ltd 
+ * @copyright Timeout Communications Ltd - 
  *
  * @version 1.0.0
  *
