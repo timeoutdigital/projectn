@@ -18,6 +18,8 @@ class sydneyFtpEventsMapper extends sydneyFtpBaseMapper
   public function mapEvents()
   {
 
+    $processedVendorEventsID = array(); // Store all evenets processed
+
     $todays_date = mktime( 0,0,0, date('m'), date('d'), date('Y') );
     foreach( $this->feed->event as $eventNode )
     {
@@ -64,11 +66,14 @@ class sydneyFtpEventsMapper extends sydneyFtpBaseMapper
           // get the Poi for this Event occurrence
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 
-          // This code is commented out to capture Multiple recurring occurrences. Sydney feed gives us each occurrences as Events,
-          // hence it require to not delete any previous Occurrences when adding new...
-          // Since we have a presave function in Event model that removes all duplicate occurrences, it is safe to assume that
-          // No duplicate event occurrences will be saved to our database and/or exported.
-          //// $event['EventOccurrence']->delete();
+          // Sydney provide occurrences as events, since we delete occurrences we have to make sure that we only delete once per import
+          // this will make sure that we have all occurrences for that event saved..
+          if( !in_array( $vendor_event_id, $processedVendorEventsID ) )
+          {
+            $event['EventOccurrence']->delete();
+            $processedVendorEventsID[] = $vendor_event_id;
+
+          }
 
           // This assumes only one occurence per Event.
           if ( $poi !== false )
