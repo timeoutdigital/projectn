@@ -10,7 +10,7 @@ require_once dirname(__FILE__).'/../../../lib/stringTransform.class.php';
  * Test class for stringn transform
  *
  * @package test
- * @subpackage lib.unit
+ * @subpackage lib.unit.lib
  *
  * @author Timmy Bowler <timbowler@timeout.com>
  * @copyright Timeout Communications Ltd 
