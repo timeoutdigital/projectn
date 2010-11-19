@@ -179,11 +179,11 @@ do
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/data/geocache.sqlite data/geocache.sqlite &&
                                   rm $DEPLOY_DIR &&
                                   ln -ns $CURRENT_RELEASE $DEPLOY_DIR &&
-                                  ./symfony project:permissions &&
-                                  ./symfony doctrine:build-model &&
-                                  ./symfony doctrine:build-filters &&
-                                  ./symfony doctrine:build-forms &&
-                                  ./symfony cc &&
+                                  php symfony project:permissions &&
+                                  php symfony doctrine:build-model &&
+                                  php symfony doctrine:build-filters &&
+                                  php symfony doctrine:build-forms &&
+                                  php symfony cc &&
                                   ./scripts/clean_releases.sh -e $ENV"
     ###########
     # Execute #
