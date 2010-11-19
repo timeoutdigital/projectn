@@ -15,7 +15,7 @@ require_once dirname(__FILE__).'/../../../lib/stringTransform.class.php';
  * @author Timmy Bowler <timbowler@timeout.com>
  * @copyright Timeout Communications Ltd 
  *
- * @version 1.0.0
+ * @version 1.0.1
  *
  *
  */
