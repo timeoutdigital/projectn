@@ -31,7 +31,7 @@ class ChicagoFeedEventMapperTest extends PHPUnit_Framework_TestCase
 
         $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'chicago' );
 
-        $this->params =  array( 'split' => array( 'index' => 1, 'chunk' => 3 ), 'ftp' => array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutchicago.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/chicago/chicago_new_event_poi.short.tmp.xml' ) );
+        $this->params =  array( 'type' => 'event', 'split' => array( 'index' => 1, 'chunk' => 3 ), 'ftp' => array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutchicago.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/chicago/chicago_new_event_poi.short.tmp.xml' ) );
 
     }
 
