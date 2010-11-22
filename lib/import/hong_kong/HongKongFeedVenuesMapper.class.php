@@ -52,7 +52,12 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               }
               // Extract and Apply Lat/Long
               $mapCode                              = (string) $venueElement->mapcode;
-              if( stringTransform::mb_trim( $mapCode ) != '' )
+              $mapCodeSplit                         = explode( ',', $mapCode);
+              if( is_array( $mapCodeSplit) && count( $mapCodeSplit ) == 2 )
+              {
+                  $poi->applyFeedGeoCodesIfValid( $mapCodeSplit[0], $mapCodeSplit[1] );
+              }
+              /*if( stringTransform::mb_trim( $mapCode ) != '' )
               {
                   $regEx = '/\&amp;ll=(.*?)\&amp;/i';
                   preg_match( $regEx, $mapCode, $geocodes );
@@ -65,7 +70,7 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
                           $poi->applyFeedGeoCodesIfValid( $geolatLong[0], $geolatLong[1] );
                       }
                   }
-              }
+              }*/
 
               // Done and Save
               $this->notifyImporter( $poi );
