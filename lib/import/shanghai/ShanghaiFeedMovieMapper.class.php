@@ -39,8 +39,8 @@ class ShanghaiFeedMovieMapper extends ShanghaiFeedBaseMapper
                 $movie['Vendor']            = $this->vendor;
                 $movie['vendor_movie_id']   = $vendorMovieID;
                 $movie['name']              = (string)$xmlNode->name;
-                //$movie['plot']              = (string)$xmlNode->plot;
-                $movie['review']            = (string)$xmlNode->plot; // it seems new Archive feed don't ahve review anymore but Plot!
+                $movie['plot']              = (string)$xmlNode->plot;
+                $movie['review']            = (string)$xmlNode->review;
                 $movie['director']          = (string)$xmlNode->director;
                 $movie['writer']            = (string)$xmlNode->writer;
                 $movie['rating']            = $this->getRatingOrNull( (string)$xmlNode->rating );
