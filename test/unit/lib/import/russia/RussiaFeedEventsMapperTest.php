@@ -91,8 +91,8 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('2010-05-21' , $occurrence['start_date']);
     $this->assertEquals('19:00' , $occurrence['start_time']);
     
-    $this->assertEquals('2010-05-21' , $occurrence['end_date']);
-    $this->assertEquals('19:01' , $occurrence['end_time']);
+    $this->assertEquals( null , $occurrence['end_date']);
+    $this->assertEquals('19:10' , $occurrence['end_time']);
 
     // Empty Start / End Time
     $occurrence = $event[ 'EventOccurrence' ][1];
@@ -102,7 +102,10 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('2010-05-21' , $occurrence['end_date']);
     $this->assertEquals(null , $occurrence['end_time']);
 
-    // End Date Greater
+    /*
+     * #807 - This tests are invalid as We only store Unique Occurrences ( start_date . start_time . poi_id )
+     *
+     // End Date Greater
     $occurrence = $event[ 'EventOccurrence' ][2];
     $this->assertEquals('2010-05-21' , $occurrence['start_date']);
     $this->assertEquals('19:00' , $occurrence['start_time']);
@@ -125,6 +128,7 @@ class RussiaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals('' , $occurrence['end_date']);
     $this->assertEquals('19:10' , $occurrence['end_time']);
+     */
   }
 
   
