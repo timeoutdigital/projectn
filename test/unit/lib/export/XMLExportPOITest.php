@@ -647,14 +647,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 2, count( $numEntries ) );
     }
 
-    public function testGetMediaUrl()
+    public function testGetMediaUrlForProjectN()
     {
       $XMLExportDestination =  dirname( __FILE__ ) . '/../../export/poi/poitest.xml'  ;
-
       ProjectN_Test_Unit_Factory::destroyDatabases();
       @unlink( $XMLExportDestination );
       //delete the dummy image file if it exists
-      @unlink( sfConfig::get('sf_upload_dir') .'/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' );
+      @unlink( $dummyImageFileName );
       ProjectN_Test_Unit_Factory::createDatabases();
 
       $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
@@ -690,12 +689,52 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       //delete the export file and export it again with data_entry application
       @unlink( $XMLExportDestination );
-      $application = sfConfig::get( 'sf_app' ); //store the default application , should restore it back when we are done,
+    }
 
+    public function testGetMediaUrlForDataEntry()
+    {
+
+      // Clean Database and create New Empty
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+
+      // Set file Paths
+      $XMLExportDestination =  dirname( __FILE__ ) . '/../../export/poi/poitest.xml'  ;
+      $dummyImageFileName = sfConfig::get('sf_test_dir') .'/unit/import/uploads/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg';
+      
+      // Mock Upload DIR
+      $sf_upload_dir = sfConfig::get( 'sf_upload_dir' );
+      sfConfig::set('sf_upload_dir', sfConfig::get('sf_test_dir') .'/unit/import/uploads' );
+
+      // Mock App, Run as Data Entry branch
+      $application = sfConfig::get( 'sf_app' ); //store the default application , should restore it back when we are done,
       sfConfig::set( 'sf_app' , 'data_entry' ); //now we are exporting in data_entry installation
 
+      // Remove OLD Files
+      @unlink( $XMLExportDestination );
+      @unlink( $dummyImageFileName );  //delete the dummy image file if it exists
+
+      // Run Import / Export
+      $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi[ 'Vendor' ] = $this->vendor2;
+      $poi['poi_name'] = 'hello';
+      $poi['latitude'] = 11.52453600;
+      $poi['longitude'] = -0.08148800;
+      $poi->addVendorCategory( "moo", $this->vendor->id );
+
+      $media = new PoiMedia();
+      $media[ 'ident' ] =   'e5f9ec048d1dbe19c70f720e002f9cb1';
+      $media[ 'mime_type' ] = 'image/';
+      $media[ 'url' ] =  'e5f9ec048d1dbe19c70f720e002f9cb1.jpg';
+      $media[ 'status' ] = 'new';
+      $poi['PoiMedia'][] = $media;
+
+      $poi->save();
+      
       //create file in upload folder . mimic data_entry form uploaded it
-      file_put_contents( sfConfig::get('sf_upload_dir') .'/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,'' );
+      file_put_contents( $dummyImageFileName ,'' );
       //run data_entry export
       $this->export = new XMLExportPOI( $this->vendor2, $XMLExportDestination, false ); //validation is off!
 
@@ -703,12 +742,16 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $this->xml = simplexml_load_file( $XMLExportDestination );
 
       $numEntries = $this->xml->xpath( '//entry' );
-
+      
       //now we are expecting a timeout/upload url
       $this->assertEquals( 'http://www.timeout.com/projectn/uploads/media/poi/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,(string) $numEntries[0]->version->content->media  );
+
+      // Reset config settings
       sfConfig::set( 'sf_app' , $application );  //put the application setting back, don't want to mess with the other tests
+      sfConfig::set( 'sf_upload_dir' , $sf_upload_dir );  // put the upload_dir path back to default
 
     }
+    
     private function runImportAndExport()
     {
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
