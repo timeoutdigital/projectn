@@ -16,8 +16,8 @@
 
 abstract class nagiosTask extends sfBaseTask
 {
-    private   $warnings     = array();
-    private   $errors       = array();
+    protected $warnings     = array();
+    protected $errors       = array();
 
     protected $enableDB     = false;
     protected $description  = 'Nagios Automated Script';
@@ -52,10 +52,8 @@ abstract class nagiosTask extends sfBaseTask
 
     abstract protected function executeNagiosTask( $arguments = array(), $options = array() );
 
-    private function postExecute()
+    protected function postExecute()
     {
-        //echo $this->name . ': ' . $this->description . PHP_EOL . PHP_EOL;
-        
         foreach( array_merge( $this->errors, $this->warnings ) as $message )
         {
             echo $message . PHP_EOL;
@@ -99,12 +97,12 @@ abstract class nagiosTask extends sfBaseTask
         }
     }
 
-    protected function addWarning( $message )
+    public function addWarning( $message )
     {
         $this->warnings[] = $message;
     }
 
-    protected function addError( $message )
+    public function addError( $message )
     {
         $this->errors[] = $message;
     }
