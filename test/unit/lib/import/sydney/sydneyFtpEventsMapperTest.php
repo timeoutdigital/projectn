@@ -88,7 +88,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
     $vendorCategory =  $events[0]['VendorEventCategory']->toArray();
 
-    $this->assertEquals( 'Gay & Lesbian',   $vendorCategory[0]['name']  );
+    $this->assertEquals( 'Gay & Lesbian',   $vendorCategory[ 'Gay & Lesbian' ]['name']  );
 
     $vendorCategory =  $events[1]['VendorEventCategory']->toArray();
 
@@ -142,7 +142,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
       $vendorCategory =  $event['VendorEventCategory']->toArray();
 
-      $this->assertEquals( 'Art', $vendorCategory[ 0 ][ 'name' ] );
+      $this->assertEquals( 'Art', $vendorCategory[ 'Art' ][ 'name' ] );
 
   }
 }

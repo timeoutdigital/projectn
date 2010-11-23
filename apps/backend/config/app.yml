@@ -23,29 +23,26 @@ all:
   import:
     cities:
         -
-          name: singapore
-          type: [ poi, event, movie ]
-        -
           name: nyfix
           type: [ fixid ]
         -
           name: ny
-          type: [ poi-event, eating-drinking, bars-clubs, movie ]
+          type: [ eating-drinking, bars-clubs, poi, event, movie ]
         -
           name: chicago
-          type: [ poi, poi-bc, poi-ed, event, movie]
-        -
-          name: london
-          type: [ poi-ev-mapper, poi-bars-pubs, poi-restaurants, poi-cinemas ,event ,event-occurrence ,movie  ]
+          type: [ poi-bc, poi-ed, poi, event_1, event_2, movie ]
         -
           name: lisbon
           type: [ poi, event, movie ]
+        -
+          name: london
+          type: [ poi-ev-mapper, poi-bars-pubs, poi-restaurant, poi-cinemas, event, event-occurrence, movie ]
         -
           name: sydney
           type: [ poi, event, movie ]
         -
           name: moscow
-          type: [ moscow_1, moscow_2, event ]
+          type: [ moscow_poi_1, moscow_poi_2, event ]
         -
           name: saint petersburg
           type: [ poi, event ]
@@ -90,6 +87,9 @@ all:
           type: [ bar, restaurant, poi, event ]
         -
           name: istanbul
+          type: [ poi, event, movie ]
+        -
+          name: singapore
           type: [ poi, event, movie ]
         -
           name: hong kong

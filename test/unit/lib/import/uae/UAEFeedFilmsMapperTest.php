@@ -2,46 +2,49 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 
 /**
- * Test for UAE Feed Bars Mapper
+ *
+ * Test for UAE Feed Film Mapper
  *
  * @package test
  * @subpackage uae.import.lib.unit
  *
- * @author Rajeevan Kumarathasan <rajeevankumarathasan@timeout.com>
+ * @author Peter Johnson <peterjohnson@timeout.com>
  * @copyright Timeout Communications Ltd
  *
- * @version 1.0.0
- *
+ * @version 1.1.0
  *
  */
+
 class UAEFeedFilmsMapperTest extends PHPUnit_Framework_TestCase
 {
     private $vendor;
 
-    /**
-    * Sets up the fixture, for example, opens a network connection.
-    * This method is called before a test is executed.
-    */
     protected function setUp()
     {
         ProjectN_Test_Unit_Factory::createDatabases();
         Doctrine::loadData('data/fixtures');
+        error_reporting( E_ALL );
 
         $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'dubai' );
-
-        $fileName =  TO_TEST_DATA_PATH . '/uae/dubai_film.xml';
-        // xml data fixer
-        $xmlDataFixer = new xmlDataFixer( file_get_contents( $fileName ) );
-
-        $dataMapper = new UAEFeedFilmsMapper( $this->vendor,   $xmlDataFixer->getSimpleXMLUsingXSLT( file_get_contents( sfConfig::get( 'sf_data_dir' ).'/xslt/uae_films.xml' ) ) );
-
-        // Run Test Import
+        
         $importer = new Importer();
-        $importer->addDataMapper( $dataMapper );
+        $importer->addDataMapper( new UAEFeedFilmsMapper( $this->vendor, $this->_getParams() ) );
         $importer->run();
+    }
 
+    private function _getParams()
+    {
+        return array(
+            'type' => 'movie',
+            'curl'  => array(
+                'classname' => 'CurlMock',
+                'src' => TO_TEST_DATA_PATH . '/uae/dubai_film.xml',
+                'xslt' => 'uae_films.xml'
+             )
+        );
     }
 
     /**

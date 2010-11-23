@@ -28,8 +28,7 @@
                 <phone><![CDATA[]]></phone>
                 <url><![CDATA[]]></url>
                 <country><![CDATA[HKG]]></country>
-                <mapcode><![CDATA[<iframe width="400" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com.hk/maps?q=%E7%81%A3%E4%BB%94%E6%98%9F%E8%A1%979%E8%99%9F&amp;ie=UTF8&amp;hq=&amp;hnear=%E6%98%9F%E8%A1%979%E8%99%9F&amp;gl=hk&amp;ei=lNVHTNSAN4XRcf3rgOsM&amp;ved=0CB4Q8gEwAA&amp;hl=zh-TW&amp;cd=1&amp;geocode=FaTpUwEdoQ_OBg&amp;split=0&amp;sll=22.38131,114.168639&amp;sspn=0.465734,0.667115&amp;brcurrent=3,0x3403ff80eb6f67b1:0x46c3c89b39011247,0&amp;ll=22.276548,114.16769&amp;spn=0.027799,0.034332&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com.hk/maps?q=%E7%81%A3%E4%BB%94%E6%98%9F%E8%A1%979%E8%99%9F&amp;ie=UTF8&amp;hq=&amp;hnear=%E6%98%9F%E8%A1%979%E8%99%9F&amp;gl=hk&amp;ei=lNVHTNSAN4XRcf3rgOsM&amp;ved=0CB4Q8gEwAA&amp;hl=zh-TW&amp;cd=1&amp;geocode=FaTpUwEdoQ_OBg&amp;split=0&amp;sll=22.38131,114.168639&amp;sspn=0.465734,0.667115&amp;brcurrent=3,0x3403ff80eb6f67b1:0x46c3c89b39011247,0&amp;ll=22.276548,114.16769&amp;spn=0.027799,0.034332&amp;z=14&amp;iwloc=A&amp;source=embed" style="color:#0000FF;text-align:left">檢視較大的地圖</a></small>]]></mapcode>
-
+                <mapcode><![CDATA[22.276548,114.16769]]></mapcode>
                 <categories>
                     <category><![CDATA[Story 2]]></category>
                 </categories>
@@ -48,7 +47,8 @@
                 <phone><![CDATA[]]></phone>
                 <url><![CDATA[]]></url>
                 <country><![CDATA[HKG]]></country>
-                <mapcode><![CDATA[<iframe width="400" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=21+D'Aguilar+St+hong+kong&amp;sll=22.323123,114.190478&amp;sspn=0.009091,0.013797&amp;doflg=ptk&amp;ie=UTF8&amp;hq=&amp;hnear=21+D'aguilar+St,+Hong+Kong&amp;z=14&amp;ll=22.28112,114.155511&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=21+D'Aguilar+St+hong+kong&amp;sll=22.323123,114.190478&amp;sspn=0.009091,0.013797&amp;doflg=ptk&amp;ie=UTF8&amp;hq=&amp;hnear=21+D'aguilar+St,+Hong+Kong&amp;z=14&amp;ll=22.28112,114.155511" style="color:#0000FF;text-align:left">View Larger Map</a></small>]]></mapcode>
+                <mapcode><![CDATA[22.28112,114.155511]]></mapcode>
+
                 <categories>
                     <category><![CDATA[Story 3]]></category>
                 </categories>
@@ -74,7 +74,28 @@
                 
                 
         	</venue>
-        	
+
+            
+        	<venue id='23'>
+                <name><![CDATA[8 Happiness]]></name>
+                <street><![CDATA[2/F, W Square, 314-324 Hennessy Rd]]></street>
+                <city><![CDATA[Wan Chai]]></city>
+                <district><![CDATA[Wan Chai]]></district>
+                <description><![CDATA[While this new restaurant from the Maxim’s group shares the same decor and ambience as its Cantonese cousins, the menu adds a dollop of new age Taiwanese cuisine. Recommended dishes include dried fish roe with red pepper, garlic and turnip mash, and the three cup chicken in clay pot, where chicken tenders are tossed lightly with soy sauce in a hot wok, and a bunch of basil leaves adding an extra aroma and refreshing taste to the meat. Meal for two: around $250.]]></description>
+                <opening_times><![CDATA[Daily 7am-4:30pm, 5:30pm-11pm]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[2838 6998]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+                <mapcode><![CDATA[22.27825523,114.182689]]></mapcode>
+                
+                <categories>
+                    <category><![CDATA[Restaurants]]></category>
+                </categories>
+                
+                
+        	</venue>
+        
             </venues>
            </channel>
         </rss>

@@ -18,16 +18,40 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
    * @var PoiCategory
    */
   private $poiCategory;
+  /**
+   *
+   * @var string Hold the url to Get Detailed information
+   */
+  private $detailedURL;
 
+  /**
+   *
+   * @var string Query Type for Details
+   */
+  private $apiType;
   /**
    *
    * @param LondonAPICrawler $apiCrawler
    * @param geocoder $geocoderr
    */
-  public function __construct( LondonAPICrawler $apiCrawler=null, geocoder $geocoderr=null )
+  public function __construct(  Doctrine_Record $vendor, $params )
   {
-    parent::__construct($apiCrawler, $geocoderr);
-    $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'cinema' );
+      if( !is_array( $params ) || !isset($params['datasource']) || !is_array( $params['datasource'] ))
+      {
+          throw new Exception ( 'Invalid Parameter' );
+      }
+
+      // Set Params Data
+      $this->apiCrawler     = new $params[ 'datasource' ]['classname']();
+      $this->searchUrl      = $params[ 'datasource' ]['url'];
+      $this->detailedURL    = $params[ 'datasource' ]['detailedurl'];
+      $this->apiType        = $params[ 'datasource' ]['apitype'];
+
+      // Set Default fallback Category
+      $this->poiCategory = Doctrine::getTable( 'PoiCategory' )->findOneByName( 'cinema' );
+
+      // Call Parent to do something
+      parent::__construct( $vendor, $params );
   }
 
   /**
@@ -45,7 +69,7 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
    */
   public function getDetailsUrl()
   {
-    return 'http://api.timeout.com/v1/getCinema.xml';
+      return $this->detailedURL;
   }
 
   /**
@@ -57,7 +81,7 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
    */
   public function getApiType()
   {
-    return 'Cinemas';
+      return $this->apiType;
   }
 
   /**
@@ -67,17 +91,18 @@ class LondonAPICinemasMapper extends LondonAPIBaseMapper
    */
   public function doMapping( SimpleXMLElement $cinemaXml )
   {
-    $poi = $this->dataMapperHelper->getPoiRecord( (string) $cinemaXml->uid );
+      $poi = $this->dataMapperHelper->getPoiRecord( (string) $cinemaXml->uid );
 
     try
     {
-      $this->mapCommonPoiMappings($poi, $cinemaXml);
+        $this->mapCommonPoiMappings($poi, $cinemaXml);
     }
     catch( Exception $exception )
     {
-      $this->notifyImporterOfFailure($exception, $poi);
-      return;
+        $this->notifyImporterOfFailure($exception, $poi);
+        return;
     }
+
     //$poi['PoiCategory'][]   = $this->poiCategory;
     $poi['star_rating']       = (int) $cinemaXml->starRating;
 

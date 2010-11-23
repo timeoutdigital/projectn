@@ -13,10 +13,7 @@
  */
 class ChicagoFeedBaseMapper extends DataMapper
 {
-    /**
-    * @var geoEncode
-    */
-    protected $geoEncoder;
+    protected $params;
 
     /**
     * @var Vendor
@@ -26,7 +23,7 @@ class ChicagoFeedBaseMapper extends DataMapper
     protected $vendorID;
 
     /**
-    * @var SimpleXMLElement
+    * @var SimpleXMLElement or Array of XML Nodes ( using xpath() )
     */
     protected $xml;
 
@@ -36,7 +33,7 @@ class ChicagoFeedBaseMapper extends DataMapper
     * @param SimpleXMLElement $xml
     * @param geoEncode $geoEncoder
     */
-    public function __construct( Doctrine_Record $vendor, SimpleXMLElement $xml, geocoder $geoEncoder = null)
+    public function __construct( Doctrine_Record $vendor, $params )
     {
 
         if( !$vendor )
@@ -49,9 +46,8 @@ class ChicagoFeedBaseMapper extends DataMapper
           throw new Exception( 'ChicagoFeedBaseMapper:: Vendor not found' );
 
         // Set data
-        $this->geoEncoder           = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
+        $this->params               = $params;
         $this->vendor               = $vendor;
-        $this->xml                  = $xml;
         $this->vendorID             = $vendor['id'];
     }
 
@@ -82,17 +78,26 @@ class ChicagoFeedBaseMapper extends DataMapper
 
     /**
      * This is create for Chicago Bars / Clubs and Eating / Dining... Data have Weird characters that need to be cleaned before pharsing as XML
-     * @param String $fileName
-     * @return String File contents after Cleaning
+     * @return XML Element after Cleaning
      */
-    protected function openAndCleanData( $fileName )
+    protected function ftpGetDataAndCleanData( $requireCleaning = true )
     {
-        mb_internal_encoding("UTF-8");
-        mb_regex_encoding("UTF-8");
+        $ftpClientObj = new $this->params['ftp']['classname']( $this->params['ftp']['ftp'], $this->params['ftp']['username'], $this->params['ftp']['password'], $this->vendor[ 'city' ] );
+
+        echo 'Downloading Chicago Feed ' . PHP_EOL;
+        $fileNameString = $ftpClientObj->fetchLatestFileByPattern( $this->params['ftp']['file'] );
+
+        $contents = file_get_contents( $fileNameString );
+
+        new FeedArchiver( $this->vendor, $contents, $this->params['type'] );
         
-        $contents = file_get_contents( $fileName );
-        
-        return mb_ereg_replace( "[^\x9\xA\xD\x20-\x7E\xA0-\xFF]", "", $contents );
+        // Clean if Flagged
+        if( $requireCleaning )
+        {
+            $contents = $this->cleanTheContents( $contents );
+        }
+
+        $this->xml = simplexml_load_string( $contents );
     }
 
     /**
@@ -108,25 +113,18 @@ class ChicagoFeedBaseMapper extends DataMapper
     }
 
     /**
-     * Implode New lines into Comma seperated string
-     * @param string $string
+     * Clean the Unicode Weird chars and return notmal string,
+     * Abstracted out to unit test
+     * @param string $contents
      * @return string
      */
-    protected function nl2Comma( $string )
+    protected function cleanTheContents( $contents )
     {
-        $stringArray     = $this->nl2Array( $string );
+        // SET PHP internal
+        mb_internal_encoding("UTF-8");
+        mb_regex_encoding("UTF-8");
 
-        return implode(', ', $stringArray );
-    }
-
-    /**
-     * Search / Replace SemiColon (;) with Comma (,)
-     * @param string $string
-     * @return string
-     */
-    protected function semiColon2Comma( $string )
-    {
-        return mb_ereg_replace(';', ',', $string );
+        return mb_ereg_replace( "[^\x9\xA\xD\x20-\x7E\xA0-\xFF]", "", $contents );
     }
 }
 ?>

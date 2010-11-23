@@ -31,8 +31,8 @@ fi
 ###############
 # Load config #
 ###############
-
 CURRENT_DIR=`pwd`
+SKIP_CONFIRMATION="no"
 CONFIG=$CURRENT_DIR/scripts/$ENV.config
 if [[ -f $CONFIG ]]; then
   source $CONFIG
@@ -132,9 +132,12 @@ RELEASE_NAME=`date +"%Y-%m-%d-%H%M%S"`
 #####################
 # Confirm with user #
 #####################
-
-echo -n "You are about to deploy ${CONFIG_APP_NAME[*]} ($REF_TYPE:$REF) to $ENV environment do you really want to do this? (yes/no)"
-read -e CONFIRMATION
+if [ ${SKIP_CONFIRMATION} != "yes" ]; then
+    echo -n "You are about to deploy ${CONFIG_APP_NAME[*]} ($REF_TYPE:$REF) to $ENV environment do you really want to do this? (yes/no)"
+    read -e CONFIRMATION
+else
+    CONFIRMATION='yes'
+fi
 
 if [ $CONFIRMATION != "yes" ]; then
  echo "deployment aborted"
@@ -176,11 +179,11 @@ do
                                   ln -ns $CONFIG_DEPLOY_PATH/$APP_NAME/data/geocache.sqlite data/geocache.sqlite &&
                                   rm $DEPLOY_DIR &&
                                   ln -ns $CURRENT_RELEASE $DEPLOY_DIR &&
-                                  ./symfony project:permissions &&
-                                  ./symfony doctrine:build-model &&
-                                  ./symfony doctrine:build-filters &&
-                                  ./symfony doctrine:build-forms &&
-                                  ./symfony cc &&
+                                  php symfony project:permissions &&
+                                  php symfony doctrine:build-model &&
+                                  php symfony doctrine:build-filters &&
+                                  php symfony doctrine:build-forms &&
+                                  php symfony cc &&
                                   ./scripts/clean_releases.sh -e $ENV"
     ###########
     # Execute #

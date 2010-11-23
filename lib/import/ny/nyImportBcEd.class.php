@@ -15,52 +15,28 @@
  *
  *
  */
-class nyImportBcEd {
-
-    const BAR_CLUB = 'bar_club';
-    const RESTAURANT = 'restaurant';
-    /**
-     * Process simple XML for B/C
-     *
-     * @var processNyBcXml
-     */
-    public $bcObj;
-
-    /**
-     * NY Vendor
-     *
-     * @var Vendor
-     */
-    public $vendorObj;
-
-    /**
-     * @var string;
-     */
-    private $restaurantOrBar;
-
+class nyImportBcEd extends nyFeedBaseMapper{
 
     /**
      * Constructor
-     *
-     * @param processNyBcXml $bcObj
-     * @param Vendor $vendorObj
+     * @param Vendor $vendor
+     * @param array $params
      */
-    public function  __construct(processNyBcXml $bcObj, Vendor $vendorObj, $restuarantOrBar )
-    {
-        $this->bcObj = $bcObj;
-        $this->vendorObj = $vendorObj;
-        $this->restaurantOrBar = $restuarantOrBar;
-        ImportLogger::getInstance()->setVendor( $vendorObj );
-        Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
+    public function  __construct(Vendor $vendor, $params) {
+        parent::__construct($vendor, $params);
+
+        $this->getXMLData();
+
+        
     }
 
     /**
      * Import the Poi's
      */
-    public function import()
+    public function mapBCEDData()
     {
         //Loop over the xml
-        foreach($this->bcObj->xmlObj as $poi)
+        foreach($this->xmlNodes as $poi)
         {
             //Only process if there is a record id and its not closed
             if($poi->xpath('@RECORDID') && $poi->{'closed.0'} != 'yes')
@@ -83,7 +59,7 @@ class nyImportBcEd {
     {
 
         //Check database for existing Poi by vendor id
-        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId($poi->{'ID'}, $this->vendorObj['id']);
+        $currentPoi = Doctrine::getTable('Poi')->findOneByVendorPoiIdAndVendorId($poi->{'ID'}, $this->vendor['id']);
 
         if($currentPoi)
         {
@@ -132,7 +108,7 @@ class nyImportBcEd {
             $poiObj[ 'street' ]                  = (string) trim( $streetAddress );
             $poiObj[ 'poi_name' ]                = (string) $poi->{'name.0'};
             $poiObj[ 'public_transport_links' ]  = (string) $poi->{'subway.0'};
-            $poiObj[ 'local_language' ]          = substr( $this->vendorObj[ 'language' ], 0, 2 );
+            $poiObj[ 'local_language' ]          = substr( $this->vendor[ 'language' ], 0, 2 );
             $poiObj[ 'zips' ]                    = (string) $poi->{'zip.0'};
             $poiObj[ 'phone' ]                   = (string) $poi->{'phone.0'};
             $poiObj[ 'url' ]                     = (string) $poi->{'url.0'};
@@ -185,14 +161,14 @@ class nyImportBcEd {
 
 
             $poiObj[ 'country' ]                 = 'USA';
-            $poiObj[ 'Vendor' ]                  = $this->vendorObj;
+            $poiObj[ 'Vendor' ]                  = $this->vendor;
             $poiObj[ 'geocode_look_up' ]         = stringTransform::concatNonBlankStrings( ', ', array( $poiObj[ 'street' ], $poiObj[ 'city' ], $poiObj[ 'zips' ], $poiObj[ 'country' ]   ) );
 
            $category = $this->extractCategory( $poi );
-           $poiObj->addVendorCategory($category, $this->vendorObj['id']);
+           $poiObj->addVendorCategory($category, $this->vendor['id']);
 
            //Add the cuisine property
-           if( $this->restaurantOrBar == nyImportBcEd::RESTAURANT )
+           if( $this->params['type'] == 'restaurant' )
            {
                $cuisineString = (string) $poi->{'PrimaryCuisine'};
                $priceString = ": $";
@@ -224,7 +200,7 @@ class nyImportBcEd {
 
         catch(Doctrine_Validator_Exception $error)
         {
-           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
+           $log =  "Error processing Poi: \n Vendor = ". $this->vendvendororObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
            ImportLogger::getInstance()->addError($error, $poiObj, $log);
 
             return $poiObj;
@@ -232,7 +208,7 @@ class nyImportBcEd {
 
         catch(Exception $e)
         {
-           $log =  "Error processing Poi: \n Vendor = ". $this->vendorObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
+           $log =  "Error processing Poi: \n Vendor = ". $this->vendor['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
            ImportLogger::getInstance()->addError($e, $poiObj, $log);
 
            return $poiObj;
@@ -246,13 +222,13 @@ class nyImportBcEd {
         /**
          * Later changed on licensee's front end
          */
-        switch( $this->restaurantOrBar )
+        switch( $this->params['type'] )
         {
-          case nyImportBcEd::BAR_CLUB:
+          case 'bar_club':
             $category = 'Bar-club';
             break;
 
-          case nyImportBcEd::RESTAURANT:
+          case 'restaurant':
             $category = 'Restaurant';
 
             break;
@@ -269,6 +245,19 @@ class nyImportBcEd {
         }
 
         return $category;
+    }
+
+    /**
+     * Use FTP connection to Download Data based on $this->params variable
+     */
+    private function getXMLData()
+    {
+        // Download File
+        $contents = file_get_contents( $this->ftpGetXMLFile() );
+        // Clean the Feed
+        $contents = preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $contents);
+        // Parse it as XML
+        $this->xmlNodes = simplexml_load_string( $contents );
     }
 
 
