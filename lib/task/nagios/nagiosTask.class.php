@@ -16,8 +16,8 @@
 
 abstract class nagiosTask extends sfBaseTask
 {
-    protected $warnings     = array();
-    protected $errors       = array();
+    public $warnings     = array();
+    public $errors       = array();
 
     protected $enableDB     = false;
     protected $description  = 'Nagios Automated Script';
