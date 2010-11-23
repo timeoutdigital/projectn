@@ -499,7 +499,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poi->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
       $poi->save();
 
-      $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+      $this->assertEquals(2, $poi['PoiMedia']->count(), 'addMediaByUrl() will add All images to DB and another one will be chosen on export');
   }
 
   public function testStreetDoesNotEndWithCityName()
