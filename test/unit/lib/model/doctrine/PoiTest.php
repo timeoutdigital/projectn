@@ -279,22 +279,24 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTestReturnNulllatLong();
       $poiObj->save();
 
-      $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
+      $this->assertTrue($poiObj['longitude'] === null , "Test that there is no 0 in the longitude");
+  }
 
-
+  public function testPoiWithoutAddressGeocoderThrowsException()
+  {
+      $this->markTestIncomplete( '@todo: Discuss with Clee before doing anythinf on this test' );
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj->setgeocoderLookUpString(" ");
       $poiObj['geocoderr'] = new MockgeocoderForPoiTestWithoutAddress();
 
-      $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
+      //$this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
       $poiObj->save();
 
       $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
   }
-
   /**
    * Test the long/lat is either valid or null
    */
@@ -660,3 +662,15 @@ class MockgeocoderForPoiTestWithoutAddress extends geocoder
   protected function processResponse( $response ) { }
 }
 
+class MockgeocoderForPoiTestReturnNulllatLong extends MockgeocoderForPoiTest
+{
+    public function getLongitude()
+    {
+        return null;
+    }
+
+    public function getLatitude()
+    {
+        return null;
+    }
+}
