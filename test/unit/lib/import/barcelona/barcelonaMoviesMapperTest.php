@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 
 /**
  * Test of Barcelona Venues Mapper import.
@@ -18,6 +19,9 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class barcelonaMoviesMapperTest extends PHPUnit_Framework_TestCase
 {
+    private $vendor;
+    private $params;
+    
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -25,19 +29,9 @@ class barcelonaMoviesMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'barcelona',
-      'language' => 'ca',
-      'time_zone' => 'Europe/Madrid',
-      'inernational_dial_code' => '+3493',
-      )
-    );
-    $vendor->save();
-
-    $this->vendor = $vendor;
-
-    $this->object = new barcelonaMoviesMapper( simplexml_load_file( TO_TEST_DATA_PATH . '/barcelona/movies_trimmed.xml' ) );
+    Doctrine::loadData('data/fixtures');
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('barcelona');
+    $this->params = array( 'type' => 'movie', 'curl' => array( 'classname' => 'CurlMock', 'src' => TO_TEST_DATA_PATH . '/barcelona/movies_trimmed.xml' ) );
   }
 
   /**
@@ -52,7 +46,7 @@ class barcelonaMoviesMapperTest extends PHPUnit_Framework_TestCase
   public function testMapMovies()
   {
     $importer = new Importer();
-    $importer->addDataMapper( $this->object );
+    $importer->addDataMapper( new barcelonaMoviesMapper( $this->vendor, $this->params ) );
     $importer->run();
 
     $movies = Doctrine::getTable( 'Movie' )->findAll();
