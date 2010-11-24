@@ -46,7 +46,7 @@ class HongKongFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     $tmpFilePath = $this->updateOccurrenceDateAndGetTmpFilePath();
     
     // params for new Mapper System
-    $params = array('type' => 'Event', 'datasource' => array( 'classname' => 'CurlMock', 'url' =>  $tmpFilePath) );
+    $params = array( 'type' => 'Events', 'datasource' => array( 'classname' => 'CurlMock', 'url' =>  $tmpFilePath) );
 
     $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
 

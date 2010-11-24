@@ -37,7 +37,6 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     $params = array('type' => 'Movie', 'datasource' => array( 'classname' => 'CurlMock', 'url' =>  TO_TEST_DATA_PATH . '/hong_kong/hong_kong_movies_short.xml' ) );
 
-
     $importer = new Importer();
     $importer->addDataMapper( new HongKongFeedMoviesMapper( $vendor, $params ) );
     $importer->run();
