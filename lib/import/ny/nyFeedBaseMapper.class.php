@@ -36,7 +36,11 @@ class nyFeedBaseMapper extends DataMapper
 
         // Downloading File
         echo 'Downloading File' . PHP_EOL;
-        return $ftpClientObj->fetchLatestFileByPattern( $this->params['ftp']['file'] );
+        $xmlFilePath = $ftpClientObj->fetchLatestFileByPattern( $this->params['ftp']['file'] );
+
+        new FeedArchiver( $this->vendor, file_get_contents( $xmlFilePath ), $this->params['type'] );
+
+        return $xmlFilePath;
     }
 
     /**

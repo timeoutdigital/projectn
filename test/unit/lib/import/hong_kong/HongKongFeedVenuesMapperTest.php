@@ -30,7 +30,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     // get vendor
     $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('hong kong');
 
-    $params = array('type' => 'Event', 'datasource' => array( 'classname' => 'CurlMock', 'url' =>  TO_TEST_DATA_PATH . '/hong_kong/hong_kong_venues_short.xml' ) );
+    $params = array('type' => 'Venues', 'datasource' => array( 'classname' => 'CurlMock', 'url' =>  TO_TEST_DATA_PATH . '/hong_kong/hong_kong_venues_short.xml' ) );
 
     $dataMapper = new HongKongFeedVenuesMapper( $vendor, $params );
 
@@ -54,7 +54,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $pois = Doctrine::getTable('Poi')->findAll();
 
       // Check IMPORTED COUNT
-      $this->assertEquals( 3, $pois->count() );
+      $this->assertEquals( 4, $pois->count(), 'Since the Geocode Structure chaged, we have 4 Pois in feed' );
 
       $poi = $pois[0];
 
@@ -185,6 +185,20 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( null, $poi['latitude']);
       $this->assertEquals( null, $poi['longitude']);
       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+  }
+
+  /**
+  * Hong kong has recently changed it's mapcode taga nd now provide geocodes comma separated,
+  * This test to ensure that no other changes to structure were made
+  */
+
+  public function testGeocodeChaneAndudpatedFeed()
+  {
+      $poi = Doctrine::getTable( 'Poi' )->find( 4 );
+      $this->assertEquals( 23, $poi['vendor_poi_id']);
+      $this->assertEquals( '8 Happiness', $poi['poi_name']);
+      $this->assertEquals( '22.27825523', $poi['latitude'] );
+      $this->assertEquals( '114.182689', $poi['longitude'] );
   }
   
 }
