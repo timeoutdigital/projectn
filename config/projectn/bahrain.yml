@@ -45,5 +45,5 @@ import:
         type: movie
         curl:
           classname: Curl
-          src: http://www.timeoutdubai.com/customfeed/nokia/films
+          src: http://www.timeoutbahrain.com/nokia/latestfilms
           xslt: uae_films.xml
