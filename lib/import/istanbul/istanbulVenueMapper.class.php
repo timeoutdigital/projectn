@@ -17,15 +17,25 @@ class istanbulVenueMapper extends istanbulBaseMapper
   {
     for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
     {
+
+        // poi->presave will apend review date with 00:00:00 as time when only date given, this cause update on each run... hence, 00:00:00 added during import
+        $reviewDate =  ( trim( $this->clean( (string) $venueElement->review_date ) ) != ''  ) ? date("Y-m-d 00:00:00" , strtotime( $this->clean( (string) $venueElement->review_date ) ) ) : null ;
+
         $poi = Doctrine::getTable( 'poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $this->clean( (string) $venueElement['id'] ) );
         if( $poi === false )
         {
           $poi = new Poi();
         }
+        else if( $poi['review_date'] !=null &&  $poi['review_date'] == $reviewDate ) // Check for Review date and SKIP when POI is not updated, this will help with memory issue
+        {
+            continue;
+        }
+
+        // Map data
         try
         {
             $poi['vendor_poi_id']                 = $this->clean( (string) $venueElement['id'] );
-            $poi['review_date']                   = $this->clean( date("Y-m-d" , strtotime( (string) $venueElement->review_date  ) ) );
+            $poi['review_date']                   = $reviewDate;
             $poi['local_language']                = $this->vendor['language'];
             $poi['poi_name']                      = $this->clean( (string) $venueElement->name );
             $poi['house_no']                      = $this->clean( (string) $venueElement->house_no );
@@ -34,10 +44,6 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $poi['district']                      = $this->clean( (string) $venueElement->district );
             $poi['country']                       = $this->clean( (string) $this->vendor['country_code_long'] );
             $poi['zips']                          = $this->clean( (string) $venueElement->postcode );
-
-            //opening times field has extra information for example (eng translation) : “open between 10am – 7pm. Accepts Credit cards.Non-smoking section available”
-            //so we don't import opening_times
-            //$poi['opening_times']                 = null;
 
             $url = (string) $venueElement->url;
             //some of the url's has only  "http://"
