@@ -43,6 +43,8 @@ class ProjectN_Test_Unit_Factory
 
     	if ( $connection instanceof Doctrine_Connection ) $connection->close( );
     }
+
+    Event::resetVendorCategoryCache();
   }
   
   /**
