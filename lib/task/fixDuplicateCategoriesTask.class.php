@@ -15,10 +15,10 @@ class fixDuplicateCategoriesTask extends sfBaseTask
     $this->name             = 'fix-duplicate-categories';
     $this->briefDescription = 'Merge duplicate categories';
     $this->detailedDescription = <<<EOF
-The [invoice|INFO] task does things.
+The [fix-duplicate-categories|INFO] fixes duplicate categories by merging duplicate categories then removing unused categories.
 Call it with:
 
-  [php symfony invoice|INFO]
+  [php symfony fix-duplicate-categories|INFO]
 EOF;
   }
 
