@@ -103,4 +103,14 @@ class mockNagiosTask extends nagiosTask
             default                         : echo 'ok'; $this->exitCode = 0;
         }
     }
+
+    public function addWarning( $message )
+    {
+        $this->warnings[] = $message;
+    }
+
+    public function addError( $message )
+    {
+        $this->errors[] = $message;
+    }
 }

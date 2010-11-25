@@ -26,7 +26,7 @@ class categoriesCheckTaskTest extends PHPUnit_Framework_TestCase
         parent::setUp();
         ProjectN_Test_Unit_Factory::createDatabases();
 
-        $this->task = new mockNagiosTask( new sfEventDispatcher, new sfFormatter );
+        $this->task = new mockCategoriesCheckTask( new sfEventDispatcher, new sfFormatter );
 
         $this->options['connection'] = 'project_n';
         $this->options['env'] = 'test';
@@ -49,8 +49,8 @@ class categoriesCheckTaskTest extends PHPUnit_Framework_TestCase
     private function _wipeTaskErrorsAndWarnings()
     {
         // Wipe Errors
-        $this->task->errors = array();
-        $this->task->warnings = array();
+        $this->task->clearErrors();
+        $this->task->clearWarnings();
     }
 
     public function testNoCategoriesFound()
@@ -182,7 +182,7 @@ class categoriesCheckTaskTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class mockNagiosTask extends categoriesCheckTask
+class mockCategoriesCheckTask extends categoriesCheckTask
 {
     public $exitCode;
 
@@ -199,5 +199,25 @@ class mockNagiosTask extends categoriesCheckTask
             case empty( $this->warnings )   : $this->exitCode = 1; break;
             default                         : echo 'ok'; $this->exitCode = 0;
         }
+    }
+
+    public function addWarning( $message )
+    {
+        $this->warnings[] = $message;
+    }
+
+    public function addError( $message )
+    {
+        $this->errors[] = $message;
+    }
+
+    public function clearWarnings()
+    {
+        $this->warnings = array();
+    }
+
+    public function clearErrors()
+    {
+        $this->errors = array();
     }
 }

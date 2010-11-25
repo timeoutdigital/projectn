@@ -16,8 +16,8 @@
 
 abstract class nagiosTask extends sfBaseTask
 {
-    public $warnings     = array();
-    public $errors       = array();
+    protected $warnings     = array();
+    protected $errors       = array();
 
     protected $enableDB     = false;
     protected $description  = 'Nagios Automated Script';
@@ -97,12 +97,12 @@ abstract class nagiosTask extends sfBaseTask
         }
     }
 
-    public function addWarning( $message )
+    protected function addWarning( $message )
     {
         $this->warnings[] = $message;
     }
 
-    public function addError( $message )
+    protected function addError( $message )
     {
         $this->errors[] = $message;
     }
