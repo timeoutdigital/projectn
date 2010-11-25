@@ -14,7 +14,9 @@
  *
  * @version 1.0.0
  *
- *
+ * @see There is some prebuilt logic in the repository (commits of the LisbonFeedListingsMapper and the
+ *      LisbonFeedListingsMapperTest class before the 23/11/2010) to parse a string field and produce
+ *      occurrences out of it, check for reference if a functionality like this is ever needed
  *
  */
 
