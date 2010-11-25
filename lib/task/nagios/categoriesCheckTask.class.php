@@ -41,7 +41,7 @@ class categoriesCheckTask extends nagiosTask
         $q = Doctrine::getTable( 'VendorPoiCategory' )
             ->createQuery()
             ->select('name as name, count(*) as c')
-            ->groupBy('name')
+            ->groupBy('name, vendor_id')
             ->having('count(*) > 1')
             ->execute( array(), Doctrine::HYDRATE_ARRAY );
 
@@ -78,7 +78,7 @@ class categoriesCheckTask extends nagiosTask
         $q = Doctrine::getTable( 'VendorEventCategory' )
             ->createQuery()
             ->select('name as name, count(*) as c')
-            ->groupBy('name')
+            ->groupBy('name, vendor_id')
             ->having('count(*) > 1')
             ->execute( array(), Doctrine::HYDRATE_ARRAY );
 
