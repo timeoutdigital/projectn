@@ -15,6 +15,21 @@ class londonDatabaseFilmsDataMapper extends DataMapper
 {
 
   /**
+   * @var Vendor
+   */
+  protected $vendor;
+  
+  /**
+   * @var PDO
+   */
+  protected $pdo;
+
+  /**
+   * @var projectNDataMapperHelper
+   */
+  protected $dataMapperHelper;
+  
+  /**
    * @var array
    */
   protected $databaseConfig;
@@ -22,38 +37,18 @@ class londonDatabaseFilmsDataMapper extends DataMapper
   /**
    * @var array
    */
-  protected $cityConfig;
-
-  /**
-   * @var PDO
-   */
-  protected $pdo;
-  
-  /**
-   * @var Vendor
-   */
-  protected $vendor;
-
-  /**
-   * @var projectNDataMapperHelper
-   */
-  protected $dataMapperHelper;
-
-  /**
-   * @var configFilePath
-   */
-  protected $configFilePath;
+  protected $params;
 
   /**
    *
    * @param Vendor $vendor
    * table 'review' of database 'film_convert'
    */
-  public function  __construct( Vendor $vendor, $configFilePath = null )
+  public function  __construct( Vendor $vendor, $params )
   {
-    $this->setConfigFilePath( $configFilePath );
+    // Set Defaults
     $this->vendor = $vendor;
-    $this->fillConfig();
+    $this->fillConfig( $params );
     $this->preparePdo();
     $this->dataMapperHelper = new projectNDataMapperHelper($vendor);
   }
@@ -132,23 +127,12 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     //in Chicago, e.g. Skokie, Chicago, Wilmette, etc10119509...
     //this could go into a yml...
 
-    $query = $this->getQueryFromConfig();
-    $statement = $this->pdo->prepare( $query );
 
-    $param = $this->getQueryParamFromConfig();
-    $statement->execute( array( $param ) );
+    $query = $this->getFindQueryWithWhere( $this->params['query'] );
+    $statement = $this->pdo->prepare( $query );
+    $statement->execute( );
 
     return $statement->fetchAll(  PDO::FETCH_ASSOC );
-  }
-  
-  private function getFindByStateQuery()
-  {
-    return $this->getFindQueryWithWhere( "c.country_id = '931' AND  city_state LIKE ?" );
-  }
-
-  private function getFindByCountryQuery()
-  {
-    return $this->getFindQueryWithWhere( "c.country_id = ?" );
   }
 
   private function getFindQueryWithWhere( $whereClause )
@@ -217,7 +201,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
    */
   protected function getReview( $filmId )
   {
-    $review_type_id = $this->cityConfig['params']['review_type_id'];
+    $review_type_id = $this->params['review_type_id'];
     $query = "
       SELECT review_type_id , text , rating ,
       (
@@ -251,82 +235,36 @@ class londonDatabaseFilmsDataMapper extends DataMapper
     return $string;
   }
 
-  private function setConfigFilePath( $path=null )
+  /**
+   * Set defaults
+   * @param array $params
+   */
+  private function fillConfig( $params )
   {
-    if( !$path )
-      $path = sfConfig::get( 'sf_config_dir' ) . '/projectn/londonDatabaseFilm.yml';
-
-    if( !is_file( $path ) )
-      throw new Exception( 'Could not find config at path: '. $path );
-
-    $this->configFilePath = $path;
+      // Set Database
+      $this->databaseConfig = $params[ 'database' ];
+      
+      // Save $params for Other variables
+      $this->params = $params;
   }
 
-  private function fillConfig()
-  {
-    $config = sfYaml::load( $this->configFilePath );
-    $config = sfYaml::load( sfConfig::get( 'sf_config_dir' ) . '/projectn/londonDatabaseFilm.yml' );
-
-    $environment = $this->getEnvironment();
-    $config      = $config[ $environment ];
-
-    $this->databaseConfig = $config[ 'database' ];
-    $this->cityConfig = $config[ 'cities' ][ $this->getCityLanguage() ];
-  }
-
-  private function getEnvironment()
-  {
-    $environment = sfConfig::get( 'sf_environment' );
-    $environment = preg_replace( '/dev|prod/', 'all', $environment );
-    return $environment;
-  }
-
+  /**
+   * Estabilish Database Connection
+   */
   private function preparePdo()
   {
-		$pdo  = new PDO(
-			$this->databaseConfig[ 'dsn' ],
-			$this->databaseConfig[ 'username' ],
-			$this->databaseConfig[ 'password' ]
-		);
-    
-		$this->pdo = $pdo;
+    $pdo  = new PDO(
+            $this->databaseConfig[ 'dsn' ],
+            $this->databaseConfig[ 'username' ],
+            $this->databaseConfig[ 'password' ],
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+    );
+
+    $this->pdo = $pdo;
 
     $statement = $this->pdo->prepare( "SET NAMES UTF8 " );
     if( $statement ) $statement->execute();
   }
 
-  private function getQueryFromConfig()
-  {
-    $method = 'get' . ucfirst( $this->cityConfig['query'] ) . 'Query';
-    return $this->$method();
-  }
-
-  private function getQueryParamFromConfig()
-  {
-    $cityLanguage = $this->getCityLanguage();
-
-    $param = null;
-    switch( $this->cityConfig['query'] )
-    {
-      case 'findByCountry':
-        $param = $this->cityConfig['params']['country_id'];
-        break;
-      case 'findByState':
-        $param = $this->cityConfig['params']['state'];
-        break;
-      default:
-        throw new Exception( 'query "findByCountry" is not supported. Please change the Yaml config to use either "findByCountry" or "findByState".' );
-    }
-
-    return $param;
-  }
-
-  private function getCityLanguage()
-  {
-    $cityLanguage = $this->vendor[ 'city' ] . '_' . $this->vendor[ 'language' ];
-    $cityLanguage = preg_replace( '/[^a-z]/i', '_', $cityLanguage );
-    $cityLanguage = strtolower( $cityLanguage );
-    return $cityLanguage;
-  }
 }
 ?>

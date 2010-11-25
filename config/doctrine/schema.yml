@@ -613,3 +613,22 @@ LinkingVendorEventCategoryUiCategory:
   columns:
     vendor_event_category_id:   {type: integer, notnull: true}
     ui_category_id:             {type: integer, notnull: true}
+
+
+GeneratedExportStats:
+  connection: project_n
+  columns:
+    date:                       {type: date, notnull: true}
+    model:                      {type: string(50), notnull: true}
+    vendor_id:                  {type: integer, notnull: true}
+    ui_category:                {type: string(50), notnull: true}
+    ui_category_id:             {type: integer, notnull: true}
+    total:                      {type: integer, notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+  indexes:
+    date_index:                 {fields: [date]}
+    model_index:                {fields: [model]}
+    vendor_id_index:            {fields: [vendor_id]}
+    ui_category_index:          {fields: [ui_category]}
+    ui_category_id_index:       {fields: [ui_category_id]}

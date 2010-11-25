@@ -123,13 +123,6 @@ class importstatsActions extends sfActions
       $this->vendor = Doctrine::getTable( 'Vendor' )->findOneById( $request->getPostParameter( 'vendor_id' ) );
       $this->model  = $request->getPostParameter( 'model' );
 
-//      echo '<pre style="padding:20px; background-color: white;">';
-//      var_dump( date( 'Y-m-d', $this->date_from ) );
-//      var_dump( date( 'Y-m-d', $this->date_to ) );
-//      print_r( $this->vendor->toArray() );
-//      var_dump( $this->model );
-//      echo '</pre>';
-
       $q = Doctrine::getTable( 'LogImport' )->getLogImportWithCountRecords( $this->vendor->id, date( 'Y-m-d', strtotime( '-1 day', $this->date ) ), date( 'Y-m-d', strtotime( '+1 day', $this->date ) ), Doctrine_Core::HYDRATE_ARRAY );
       $this->statsPanel = $this->extractStats( $q );
 
@@ -140,12 +133,7 @@ class importstatsActions extends sfActions
       $this->dbtotal = $q->fetchArray();
       $this->dbtotal = $this->dbtotal[0]['count'];
 
-      $this->exportStats = Doctrine::getTable( 'LogExport' )->getTodaysLogExportWithCountRecords( $this->vendor->id, $this->model, Doctrine_Core::HYDRATE_ARRAY );
-
-
-//      echo '<pre style="padding:20px; background-color: white;">';
-//      print_r( $this->dbtotal );
-//      echo '</pre>';
+      $this->exportStats = Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecordsForDate( $this->vendor->id, $this->model, $this->date, Doctrine_Core::HYDRATE_ARRAY );
   }
 
     public function extractStats( array $array )

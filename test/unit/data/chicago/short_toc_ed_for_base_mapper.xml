@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- This grammar has been deprecated - use FMPXMLRESULT instead -->
+<FMPDSORESULT xmlns="http://www.filemaker.com/fmpdsoresult">
+<ERRORCODE>0</ERRORCODE>
+<DATABASE>EDdb08</DATABASE>
+<LAYOUT></LAYOUT>
+<ROW MODID="113" RECORDID="3140">
+<body>Modern-day Turkey isn’t the idea here, so if you’re looking for contemporary Istanbul, get a plane ticket. This dining room hearkens to times of eating on luxurious floor cushions and sucking on hookahs like they’re Tic Tacs. You can make a meal out of the hot appetizer platter—thin zucchini pancakes, tangy rolls of feta-stuffed phyllo and the Turkish pizza, a housemade pita piled with perfectly seasoned ground lamb. Or fill up on the A La Turka special: sautéed beef and grilled vegetables served with a slightly sweet eggplant puree. Either way the portions are sized for big appetites, so you won’t leave hungry.</body>
+<category>New 2010 â Alfred and noteworthy</category>
+<cc></cc>
+<cheapeats></cheapeats>
+<city.state>Chicago, IL</city.state>
+<closed></closed>
+<crixpix></crixpix>
+<crossstreet>between Barry and Belmont Aves</crossstreet>
+<cta>El: Brown to Paulina. Bus: 9, 11, 77</cta>
+<cuisine.1>Middle Eastern</cuisine.1>
+<cuisine.2></cuisine.2>
+<cuisine.3></cuisine.3>
+<current.menu></current.menu>
+<delivery>Take-out</delivery>
+<EatOutAwards></EatOutAwards>
+<EatOutAwards2007></EatOutAwards2007>
+<EatOutAwards2008></EatOutAwards2008>
+<features>Good for groups
+Vegetarian-friendly
+Late-night dining
+Private party room(s)
+Cheap (entrees under $10)</features>
+<hood>Lakeview</hood>
+<hours>Lunch (Wed–Sun), Dinner</hours>
+<hours.24hrs></hours.24hrs>
+<hours.breakfast></hours.breakfast>
+<hours.brunch></hours.brunch>
+<hours.dinner></hours.dinner>
+<hours.lunch></hours.lunch>
+<hours.notes>Sun 11:30am–10:30pm
+Mon–Wed 4:30–10:30pm
+Fri–Sat 11:30am–midnight
+</hours.notes>
+<icons></icons>
+<ID>1004</ID>
+<location>3134 N Lincoln Ave</location>
+<meals>smoking
+Dinner
+Lunch</meals>
+<multipleLocations></multipleLocations>
+<name>A La Turka café and façade</name>
+<new></new>
+<phone>773-935-6101</phone>
+<pricePoint>$</pricePoint>
+<prices>Average main course: $15</prices>
+<reservations></reservations>
+<status></status>
+<updated></updated>
+<url>www.turkishkitchen.us</url>
+<winelist></winelist>
+<zip>60657</zip>
+</ROW>
+
+<ROW MODID="87" RECORDID="3141">
+<body> This tiny Ukrainian Village dining room is tight on tables and menu items—there are about a dozen of each—but what it lacks in size is made up for with charm. The simple Italian fare has absolutely no bells or whistles, but, luckily, they don’t need any. A duo of meaty mushrooms—perfectly roasted portobello and sautéed oyster—is dressed only with balsamic and thyme. For more intricate dishes, look to seasonal specialties like juniper and clove–braised pork shanks over Tuscan white beans, or grilled marinated leg of lamb with roasted parsnip puree and toasted garlic spinach. </body>
+<category>Hidden Gems</category>
+<cc></cc>
+<cheapeats></cheapeats>
+<city.state>Chicago, IL</city.state>
+<closed></closed>
+<crixpix>Yes</crixpix>
+<crossstreet>between Hoyne Ave and Leavitt St</crossstreet>
+<cta>Bus: 49, 50, 66</cta>
+<cuisine.1>Italian/Pizza</cuisine.1>
+<cuisine.2></cuisine.2>
+<cuisine.3></cuisine.3>
+<current.menu></current.menu>
+<delivery>Take-out</delivery>
+<EatOutAwards></EatOutAwards>
+<EatOutAwards2007></EatOutAwards2007>
+<EatOutAwards2008></EatOutAwards2008>
+<features>Notable wine list
+Vegetarian-friendly
+Outdoor seating</features>
+<hood>Ukrainian Village</hood>
+<hours>Dinner (closed Sun)</hours>
+<hours.24hrs></hours.24hrs>
+<hours.breakfast></hours.breakfast>
+<hours.brunch></hours.brunch>
+<hours.dinner></hours.dinner>
+<hours.lunch></hours.lunch>
+<hours.notes></hours.notes>
+<icons></icons>
+<ID>1005</ID>
+<location>2148 W Chicago Ave</location>
+<meals>smoking
+Dinner</meals>
+<multipleLocations></multipleLocations>
+<name>A Tavola</name>
+<new></new>
+<phone>773-276-7567</phone>
+<pricePoint>$$</pricePoint>
+<prices>Average main course: $23</prices><reservations>Reservation</reservations>
+<status></status><updated></updated><url>atavolachicago.com</url>
+<winelist></winelist><zip>60622</zip></ROW>
+
+<ROW MODID="63" RECORDID="3142">
+<body></body><category>Classics</category><cc></cc><cheapeats></cheapeats>
+<city.state>Chicago, IL</city.state><closed></closed><crixpix></crixpix>
+<crossstreet>between Ravenswood and Wolcott Aves</crossstreet>
+<cta>El: Brown to Irving Park. Bus: 80</cta>
+<cuisine.1>Thai</cuisine.1>
+<cuisine.2></cuisine.2><cuisine.3></cuisine.3><current.menu></current.menu>
+<delivery>Both</delivery><EatOutAwards></EatOutAwards><EatOutAwards2007></EatOutAwards2007><EatOutAwards2008></EatOutAwards2008>
+<features>Cheap (entrees under $10)</features><hood>Lakeview</hood>
+<hours>Lunch, dinner (closed Sun)</hours><hours.24hrs></hours.24hrs>
+<hours.breakfast></hours.breakfast><hours.brunch></hours.brunch><hours.dinner></hours.dinner><hours.lunch></hours.lunch><hours.notes></hours.notes>
+<icons></icons><ID>1007</ID>
+<location>1825 W Irving Park Rd</location><meals>smoking
+Lunch
+Dinner</meals><multipleLocations></multipleLocations><name>Always Thai</name><new></new><phone>773-929-0100</phone><pricePoint>$</pricePoint><prices>Average main course: $6</prices><reservations></reservations><status></status><updated></updated><url></url><winelist></winelist><zip>60613</zip></ROW>
+<ROW MODID="51" RECORDID="4111"><body></body><category></category><cc></cc><cheapeats></cheapeats><city.state>Chicago, IL</city.state><closed></closed><crixpix></crixpix><crossstreet>between Ohio and Ontario Sts</crossstreet><cta>El: Red to Grand. Bus: 29, 36, 65.</cta><cuisine.1>Classic American</cuisine.1><cuisine.2></cuisine.2><cuisine.3></cuisine.3><current.menu></current.menu><delivery></delivery><EatOutAwards></EatOutAwards><EatOutAwards2007></EatOutAwards2007><EatOutAwards2008></EatOutAwards2008><features>Private party room(s)
+Late-night dining</features><hood>River North</hood><hours>Lunch, dinner</hours><hours.24hrs></hours.24hrs><hours.breakfast></hours.breakfast><hours.brunch></hours.brunch><hours.dinner></hours.dinner><hours.lunch></hours.lunch><hours.notes></hours.notes><icons></icons><ID>2786</ID><location>609 N Dearborn St</location><meals>smoking
+Lunch
+Dinner</meals><multipleLocations></multipleLocations><name>The Melting Pot</name><new></new><phone>312-573-0011</phone><pricePoint>$$</pricePoint><prices>Average main course: $20</prices><reservations></reservations><status></status><updated></updated><url></url><winelist></winelist><zip>60610-3828</zip></ROW>
+<ROW MODID="29" RECORDID="6462"><body>There’s not much of a science-fiction theme at this new vegan takeout shop from former Atomix owner Adam Paul—it’s just a bare-bones steam-table setup. But science fiction &lt;i&gt;could&lt;/i&gt; explain the fact that the barbecue “rib” seitan had the consistency of astronaut ice cream, and the funky mac and soy-cheese defied gravity by sticking to an upturned spoon. The overly salty tofu “egg” salad and gloopy greens in coconut milk, however, can only be explained by the kitchen. Surprisingly, the sweet-potato chips are among the best around. But as far as everything else goes, we’ll stick to eating on Earth.</body><category></category><cc></cc><cheapeats></cheapeats><city.state>Chicago, IL</city.state><closed></closed><crixpix></crixpix><crossstreet>at RIchmond St</crossstreet><cta>El: Blue to California. Bus: 52, 73</cta><cuisine.1>Vegetarian</cuisine.1><cuisine.2></cuisine.2><cuisine.3></cuisine.3><current.menu></current.menu><delivery>Take-out</delivery><EatOutAwards></EatOutAwards><EatOutAwards2007></EatOutAwards2007><EatOutAwards2008></EatOutAwards2008>
+<features>Vegetarian-friendly
+Cheap (entrees under $10)</features><hood>Logan Square</hood><hours>Lunch, dinner</hours><hours.24hrs></hours.24hrs><hours.breakfast></hours.breakfast><hours.brunch></hours.brunch><hours.dinner></hours.dinner><hours.lunch></hours.lunch><hours.notes></hours.notes><icons></icons><ID>5802</ID><location>2910 W Armitage Ave</location><meals>Lunch
+Dinner</meals><multipleLocations></multipleLocations><name>Life on Mars</name><new>Yes</new><phone>773-489-6277</phone><pricePoint>$</pricePoint><prices>Average main course: $8</prices><reservations></reservations><status></status><updated></updated><url></url><winelist></winelist><zip>60647</zip></ROW><ROW MODID="16" RECORDID="6463"><body>Yes, they serve your basic lineup of American-Italian food (spaghetti and meatballs; sausage and peppers). Yes, it’s probably a better bet for drinking than eating (DJs start at 10pm). And yes, they’re completely serious about the name.</body><category></category><cc></cc><cheapeats></cheapeats><city.state>Chicago, IL</city.state><closed></closed><crixpix></crixpix><crossstreet>between Bryn Mawr and Peterson Aves</crossstreet><cta>Bus: 49B, 84</cta><cuisine.1>Classic American</cuisine.1><cuisine.2></cuisine.2><cuisine.3></cuisine.3><current.menu></current.menu><delivery></delivery><EatOutAwards></EatOutAwards><EatOutAwards2007></EatOutAwards2007><EatOutAwards2008></EatOutAwards2008><features>Late-night dining</features><hood>Far North Side</hood><hours>Lunch, dinner</hours><hours.24hrs></hours.24hrs><hours.breakfast></hours.breakfast><hours.brunch></hours.brunch><hours.dinner></hours.dinner><hours.lunch></hours.lunch><hours.notes></hours.notes><icons></icons><ID>5804</ID><location>5695 N Lincoln Ave</location><meals>Lunch
+Dinner</meals><multipleLocations></multipleLocations><name>The Money Shot</name><new>Yes</new><phone>773-293-7943</phone><pricePoint>$</pricePoint><prices>Average main course:  $10</prices><reservations></reservations><status></status><updated></updated><url></url><winelist></winelist><zip>60659</zip></ROW>
+<ROW MODID="30" RECORDID="6464">
+<body>If you’ve ever passed by this Lincoln Park sandwich shop, you’ve probably assumed it’s a chain. Well, you’re right and you’re wrong. At the moment, this is the only location, and once you get inside, you’ll see that some of the sandwiches pay homage to our lovely city (not that we have any idea what a ham-and-roast-beef sandwich has to do with its moniker, The Windy City). What you’ll also see inside are bags of Uncle Ben’s stuffing (the better to make the Thanksgiving-inspired Pilgrim sandwich with) and Ghiradelli brownie mix (nothing wrong with that). Bite into the soft, doughy bread, though, and it’s hard not to be reminded of Jimmy Johns.</body>
+<category></category><cc></cc><cheapeats></cheapeats>
+<city.state>Chicago, IL</city.state><closed></closed><crixpix></crixpix>
+<crossstreet>between Surrey Ct and Racine Ave</crossstreet>
+<cta>El: Red, Brown, Purple (rush hrs) to Fullerton. Bus: </cta>
+<cuisine.1>Classic American</cuisine.1><cuisine.2>Delis</cuisine.2><cuisine.3>Foo</cuisine.3>
+<current.menu></current.menu><delivery></delivery><EatOutAwards></EatOutAwards>
+<EatOutAwards2007></EatOutAwards2007><EatOutAwards2008></EatOutAwards2008>
+<features>Cheap (entrees under $10)
+Kid-friendly
+Late-night dining</features>
+<hood>Lincoln Park</hood>
+<hours>Lunch, dinner </hours>
+<hours.24hrs></hours.24hrs><hours.breakfast></hours.breakfast><hours.brunch></hours.brunch><hours.dinner></hours.dinner>
+<hours.lunch></hours.lunch>
+<hours.notes>sun-wed 11am-midnight, thu, fri sat 11-2am</hours.notes>
+<icons></icons><ID>5806</ID>
+<location>1231 W Fullerton Ave</location><meals>Lunch
+Dinner</meals><multipleLocations></multipleLocations><name>Uncle Sammy’s</name><new>Yes</new>
+<phone>773-525-4800</phone><pricePoint>$</pricePoint><prices>Average main course: $5.50</prices>
+<reservations></reservations><status></status><updated></updated><url></url><winelist></winelist><zip>60614</zip></ROW>
+</FMPDSORESULT>

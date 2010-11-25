@@ -57,9 +57,10 @@ class LondonAPICrawler
    *
    * @param string $type see http://api.timeout.com/v1/getTypes.xml
    */
-  public function  __construct()
+  public function  __construct( $curlImporterClassName = 'curlImporter' )
   {
-    $this->curl = new curlImporter();
+      // This override is used for Testing
+      $this->curl = new $curlImporterClassName();
   }
 
   /**
@@ -232,6 +233,7 @@ class LondonAPICrawler
   {
     return $this->mapper->getDetailsUrl();
   }
+  
 
   /**
    * Return the API type

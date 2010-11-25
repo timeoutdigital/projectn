@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 
 /**
  * Test of Russia Feed Movies Mapper import.
@@ -22,7 +23,7 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
    * @var RussiaFeedMoviesMapper
    */
   protected $dataMapper;
-
+  protected $vendor;
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -32,8 +33,8 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures'); // Add Initial data
     //$this->addRussianVendors();
-    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/russia_movies.short.xml' );
-    $this->dataMapper = new RussiaFeedMoviesMapper( $this->moviesXml, null, "moscow" );
+    $this->moviesXml = simplexml_load_file( TO_TEST_DATA_PATH . '/russia/russia_movies.short.xml' );
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'unknown' );
   }
 
   /**
@@ -45,12 +46,23 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+    private function _getParams( $filename )
+    {
+        return array(
+            'type' => 'movie',
+            'curl'  => array(
+                'classname' => 'CurlMock',
+                'src' => TO_TEST_DATA_PATH . '/russia/' . $filename
+             ),
+        );
+    }
+
   public function testMapMovies()
   {
     $this->createVenuesFromVenueIds( $this->getVenueIdsFromXml() );
 
     $importer = new Importer();
-    $importer->addDataMapper( $this->dataMapper );
+    $importer->addDataMapper( new RussiaFeedMoviesMapper( $this->vendor, $this->_getParams( 'russia_movies.short.xml' ) ) );
     $importer->run();
 
     $movies = Doctrine::getTable('Movie')->findAll();
@@ -58,11 +70,10 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 14, $movies->count() ); // 1 Movie have 3 Venues (14 Venues in 9 Movies = 14 movies should be added)
 
     $movie = $movies->getFirst();
-
     $this->assertEquals( 15032,  $movie['vendor_movie_id'] );
     $this->assertEquals( 'Скины', $movie['name'] );
     $this->assertEquals( 'Культовый в', mb_substr( $movie['review'],0 , 11, 'UTF-8' ) );
-    $this->assertEquals( '+04:00', $movie['utf_offset'] );
+    $this->assertEquals( $movie['Vendor']->getUtcOffset() , $movie['utf_offset'] ); // UTC Offset changes with daylight saving, it's a good idea to check with current UTC
 
     $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );
     $this->assertEquals( "Timeout_link", $movie[ 'MovieProperty' ][0]['lookup'] );
@@ -79,7 +90,7 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 41418,  $movie['vendor_movie_id'] );
     $this->assertEquals( 'Небесный замок Лапута', $movie['name'] );
     $this->assertEquals( 'Миядзаки среднего периода', mb_substr( $movie['review'],0 , 25, 'UTF-8' ) );
-    $this->assertEquals( '+07:00', $movie['utf_offset'] );
+    $this->assertEquals( $movie['Vendor']->getUtcOffset(), $movie['utf_offset'] ); // UTC Offset changes with daylight saving, it's a good idea to check with current UTC
 
     $this->assertGreaterThan( 0, $movie[ 'MovieProperty' ]->count() );
     $this->assertEquals( "Timeout_link", $movie[ 'MovieProperty' ][0]['lookup'] );
@@ -94,22 +105,6 @@ class RussiaFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 2, $movie['MovieProperty']->count(), 'Movie Property should have Timeout_link and English_title' );
     $this->assertEquals( 'Castle in the Sky', $movie['MovieProperty'][1]['value'], 'English name should be added to Movie Property' );
 
-  }
-
-  // fixtures should take care of this function now...
-  private function addRussianVendors()
-  {
-    foreach( array( 'tyumen', 'saint petersburg', 'omsk', 'almaty', 'novosibirsk', 'krasnoyarsk', 'moscow' ) as $city )
-    {
-        $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-          'city' => $city,
-          'language' => 'ru',
-          'time_zone' => 'Europe/Moscow',
-          )
-        );
-        $vendor->save();
-    }
-    $this->assertEquals( 7, Doctrine::getTable( 'Vendor' )->count() );
   }
 
   private function getVenueIdsFromXml()

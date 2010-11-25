@@ -12,52 +12,13 @@
  *
  */
 
-class ShanghaiFeedMovieMapper extends DataMapper
+class ShanghaiFeedMovieMapper extends ShanghaiFeedBaseMapper
 {
-    /**
-     * Store Vendor object for Mapper use
-     * @var Vendor
-     */
-    private $vendor;
+    public function  __construct(Vendor $vendor, $params) {
 
-    /**
-     * Store Array Values
-     * @var array
-     */
-    private $params;
-    
-    /**
-     * Store Loaded SimpleXML data
-     * @var SimpleXML
-     */
-    private $xmlNodes;
-
-    /**
-     * Shanghai Movie Mapper
-     * @param Vendor $vendor
-     * @param array $params
-     */
-    public function  __construct( Vendor $vendor, $params ) {
-
-        if( !$vendor )
-            throw new ShanghaiMovieMapperException( 'Invalid vendor object' );
-
-        if( !is_array( $params ) || empty( $params ) )
-            throw new ShanghaiMovieMapperException ( 'Invalid Parameter' );
-
-        // Validate Params
-        if( !isset( $params['datasource']['classname'] ) || empty( $params['datasource']['classname'] ) )
-            throw new ShanghaiMovieMapperException ( 'Invalid datasource::classname ' );
-
-        if( !isset( $params['datasource']['url'] ) || empty( $params['datasource']['url'] ) )
-            throw new ShanghaiMovieMapperException ( 'Invalid datasource::url ' );
-
-        // Set local variables
-        $this->vendor = $vendor;
-        $this->params = $params;
-
-
-        $this->getXMLFeedData(); 
+        $this->exceptionClass = 'ShanghaiMovieMapperException'; // Set exception class to be Movi Exception Class
+        
+        parent::__construct($vendor, $params);
     }
 
     public function mapMovie()
@@ -81,7 +42,7 @@ class ShanghaiFeedMovieMapper extends DataMapper
                 $movie['plot']              = (string)$xmlNode->plot;
                 $movie['review']            = (string)$xmlNode->review;
                 $movie['director']          = (string)$xmlNode->director;
-                $movie['writer']            = (string)$xmlNode->diwriterctor;
+                $movie['writer']            = (string)$xmlNode->writer;
                 $movie['rating']            = $this->getRatingOrNull( (string)$xmlNode->rating );
                 $movie['url']               = (string)$xmlNode->url;
                 $movie['utf_offset']        = (string) $movie['Vendor']->getUtcOffset();
@@ -150,15 +111,6 @@ class ShanghaiFeedMovieMapper extends DataMapper
         return null;
     }
 
-    /**
-     * Download the XML feed and Store it in $this->xmlNodes variable
-     */
-    protected function getXMLFeedData()
-    {
-        $curl = new $this->params['datasource']['classname']( $this->params['datasource']['url'] );
-        $curl->exec(); // Download the Data
-        $this->xmlNodes = simplexml_load_string( $curl->getResponse() );
-    }
 }
 
 // Movie Mapper Exception

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2010 (http://www.altova.com) by Alexis Orssich (Time Out Communications Ltd) -->
-<body xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<leo_export xmlns:fo="http://www.w3.org/1999/XSL/Format">
 	<params>
 		<!--Hochzeichen-Zeichenersetzung-->
 		<replacechar str="’" to="’"/>
@@ -2755,4 +2755,4 @@
 		<sort_string>Watts Quintet</sort_string>
 		<review_date dd="14" mm="02" yyyy="2003" hh="0" nn="00" ss="00" dw="Fri" dwnum="5" hh12="12" ampm="am">2003-02-14 00:00:00</review_date>
 	</artist>
-</body>
+</leo_export>

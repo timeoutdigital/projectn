@@ -3,7 +3,7 @@ require_once 'PHPUnit/Framework.php';
 
 require_once dirname(__FILE__).'/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 
 /**
  * Test class for importNy.
@@ -22,11 +22,7 @@ class importNyTest extends PHPUnit_Framework_TestCase
   /**
    * @var importNyChicagoEvents
    */
-  protected $object;
-
-  protected $xmlObj;
-
-  protected $vendorObj;
+  protected $vendorObj; 
 
   protected $categoryMap;
 
@@ -39,7 +35,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
     try {
 
       ProjectN_Test_Unit_Factory::createDatabases();
-
       Doctrine::loadData('data/fixtures');
       $this->vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('ny', 'en-US');
 
@@ -47,10 +42,20 @@ class importNyTest extends PHPUnit_Framework_TestCase
       $poiCategoryObj[ 'name' ] = 'theatre-music-culture';
       $poiCategoryObj->save();
 
-      $this->xmlObj = new processNyXml( TO_TEST_DATA_PATH.'/tony_leo_test_correct.xml' );
-      $this->xmlObj->setEvents('/body/event')->setVenues('/body/address');
+      // Load the XML into MAPPER and IMPORT
+      $params = array( 'type' => 'poi', 'ftp' =>
+                                        array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutny.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/tony_leo_test_correct.xml' ) );
 
-      $this->object = new importNyChicagoEvents( $this->xmlObj, $this->vendorObj );
+      // Run POI import
+      $importer = new Importer();
+      $importer->addDataMapper( new nyEventsAndPoiMapper( $this->vendorObj, $params ) );
+      $importer->run();
+
+      // Run Event Mapper
+      $params['type'] = 'event';
+      $importer = new Importer();
+      $importer->addDataMapper( new nyEventsAndPoiMapper( $this->vendorObj, $params ) );
+      $importer->run();
 
     }
     catch( Exception $e )
@@ -113,9 +118,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testInsertPoi()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-
-    $this->object->insertPoi( $venuesArray[ 0 ] );
 
     $poiObj = Doctrine::getTable('Poi')->findByPoiName('Zankel Hall (at Carnegie Hall)');
 
@@ -136,13 +138,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testInsertEventAndEventOccurrences()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-
-    $this->object->insertEvent( $eventsArray[ 0 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
@@ -159,8 +154,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testInsertPriceInformationProperty()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
 
     $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
 
@@ -203,11 +196,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
   */
   public function testPoiCategoryProperty()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 0 ] );
 
     $poiObj = Doctrine::getTable('Poi')->findOneByPoiName('Zankel Hall (at Carnegie Hall)');
 
@@ -228,11 +216,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testInsertEventProperty()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 0 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
@@ -248,11 +231,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   public function testContactBlurb()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 0 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
@@ -287,11 +265,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
    */
   public function testCriticsPicksPropertyOnEvent()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 0 ] );
 
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
@@ -304,12 +277,6 @@ class importNyTest extends PHPUnit_Framework_TestCase
   */
   public function testCategoryIfVendorEventCategorIsSuccessfullyAppended()
   {
-    $venuesArray = $this->xmlObj->getVenues();
-    $this->object->insertPoi( $venuesArray[ 0 ] );
-
-    $eventsArray = $this->xmlObj->getEvents();
-    $this->object->insertEvent( $eventsArray[ 0 ] );
-
     $eventObj = Doctrine::getTable('Event')->findOneByName('Rien Que Les Heures');
 
     $this->assertTrue( $eventObj['VendorEventCategory'][ 'Comedy' ]->exists() );
@@ -358,19 +325,12 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   public function testPoisHaveCategories()
   {
-      $venuesArray = $this->xmlObj->getVenues();
-      $testVenue = $venuesArray[0];
 
-
-      $venueId = 103532;
-      $this->assertEquals( $venueId, (int) $testVenue['id'], 'The venue we are working on is has id '.$venueId );
-
-      $this->object->insertPoi( $testVenue );
       $poiTable = Doctrine::getTable('Poi');
 
+      $this->assertEquals( 8, $poiTable->count(), 'There should only be 8 poi imported' );
 
-      $this->assertEquals( 1, $poiTable->count(), 'There should only be one poi imported' );
-
+      $venueId = 103532;
       $poi = $poiTable->findOneByVendorIdAndVendorPoiId( $this->vendorObj['id'], $venueId );
 
       $this->assertEquals( 1, count( $poi['VendorPoiCategory'] ) );
@@ -381,25 +341,32 @@ class importNyTest extends PHPUnit_Framework_TestCase
 
   public function testPoiGetsEventsVendorPoiCategoryIfItDoesntHaveAny()
   {
-      $venuesArray = $this->xmlObj->getVenues();
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+      Doctrine::loadData('data/fixtures');
+      // Insert Only POI
+      // Load the XML into MAPPER and IMPORT
+      $params = array( 'type' => 'poi', 'ftp' =>
+                                        array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutny.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/tony_leo_test_correct.xml' ) );
 
-      $testVenue = $venuesArray[1];
+      // Run POI import
+      $importer = new Importer();
+      $importer->addDataMapper( new nyEventsAndPoiMapper( $this->vendorObj, $params ) );
+      $importer->run();
 
       $venueId = 101130;
-
-      $this->object->insertPoi( $testVenue );
-
       $poiObj = Doctrine::getTable("Poi")->findOneByVendorIdAndVendorPoiId( $this->vendorObj['id'], $venueId );
       //poi doesn't have category
       $this->assertEquals( 0, count( $poiObj['VendorPoiCategory'] ) );
 
-      //The Poi gets its categories from the event if it doesn't have any
-      $eventsArray = $this->xmlObj->getEvents();
+      // Now Insert Event and Add Category to POI
 
-      $testEvent = $eventsArray[1];
-
-      $this->object->insertEvent( $testEvent );
-
+      // Run Event Mapper
+      $params['type'] = 'event';
+      $importer = new Importer();
+      $importer->addDataMapper( new nyEventsAndPoiMapper( $this->vendorObj, $params ) );
+      $importer->run();
+      
       //after saving an event happening in this poi, poi should have the event's category
       $this->assertEquals( 1, count( $poiObj['VendorPoiCategory'] ) );
       $this->assertEquals( 'Film | Art-house & indie cinema',  $poiObj['VendorPoiCategory'][0]['name'] );

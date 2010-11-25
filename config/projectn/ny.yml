@@ -1,0 +1,63 @@
+import:
+  poi:
+    class:
+      name: nyEventsAndPoiMapper
+      params:
+        type: poi
+        ftp:
+          classname: FTPClient
+          ftp: ftp.timeoutny.com
+          username: london
+          password: timeout
+          dir: '/NOKIA/'
+          file: 'tony_leo.xml'
+
+  bars-clubs:
+    class:
+      name: nyImportBcEd
+      params:
+        type: bar_club
+        ftp:
+          classname: FTPClient
+          ftp: ftp.timeoutny.com
+          username: london
+          password: timeout
+          dir: '/NOKIA/'
+          file: 'tony_bc.xml'
+
+  eating-drinking:
+    class:
+      name: nyImportBcEd
+      params:
+        type: restaurant
+        ftp:
+          classname: FTPClient
+          ftp: ftp.timeoutny.com
+          username: london
+          password: timeout
+          dir: '/NOKIA/'
+          file: 'tony_ed.xml'
+          
+  event:
+    class:
+      name: nyEventsAndPoiMapper
+      params:
+        type: event
+        ftp:
+          classname: FTPClient
+          ftp: ftp.timeoutny.com
+          username: london
+          password: timeout
+          dir: '/NOKIA/'
+          file: 'tony_leo.xml'
+          
+  movie:
+    class:
+      name: londonDatabaseFilmsDataMapper
+      params:
+        query: "c.country_id = '931' AND  city_state LIKE '%NY'"
+        review_type_id: 3
+        database:
+          dsn: 'mysql:dbname=film_convert;host=80.250.104.16'
+          username: 'timeout'
+          password: '65dali32'

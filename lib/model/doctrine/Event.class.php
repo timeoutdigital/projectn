@@ -35,7 +35,7 @@ class Event extends BaseEvent
         $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
 
     $this->applyOverrides();
-    //$this->removeMultipleOccurrences();
+    $this->removeMultipleOccurrences(); // require as of #784
   }
 
   /**

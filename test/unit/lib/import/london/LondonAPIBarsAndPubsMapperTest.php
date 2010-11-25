@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/londonAPICrawler.mock.php';
 
 /**
  * Test class for London API Bars And Pubs Mapper.
@@ -16,6 +17,8 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
 {
 
+    private $vendor;
+    
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -24,7 +27,8 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData( 'data/fixtures/fixtures.yml' );
-    ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
+    
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'london' );
   }
 
   /**
@@ -38,32 +42,23 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
 
   /**
    * test restaurants are mapped to pois
-   */
+   */ 
   public function testMapPoi()
   {
     $importer = new Importer();
-
-    $crawler = new MockLondonAPIBarsAndPubsMapperCrawler();
-
-    $mockgeocoderr = $this->getMock('googleGeocoder', array( 'setAddress', 'getLongitude', 'getLatitude' ) );
-    //we have the geocodes so geocoder shouldn't be used
-    $mockgeocoderr->expects( $this->exactly( 0 ) )
-               ->method( 'setAddress' )
-               ;
-    $mockgeocoderr->expects( $this->exactly( 0 ) )
-               ->method( 'getLongitude' );
-    $mockgeocoderr->expects( $this->exactly( 0 ) )
-               ->method( 'getLatitude' ) ;
-
-    $mapper = new LondonAPIBarsAndPubsMapper( $crawler, $mockgeocoderr );
-
+    
+    $params = array( 'datasource' => array( 'classname' => 'LondonAPICrawlerMock',
+                                            'url' => 'http://api.timeout.com/v1/search.xml',
+                                            'detailedurl' => TO_TEST_DATA_PATH . '/london/LondonAPIBarsAndPubsTest.xml',
+                                            'apitype' => 'Bars & pubs' ) );
+    
+    $mapper = new LondonAPIBarsAndPubsMapper( $this->vendor, $params );
     $importer->addDataMapper( $mapper );
-
     $importer->run();
 
     $poiResults = Doctrine::getTable('Poi')->findAll();
 
-    $this->assertEquals( 10, $poiResults->count() );
+    $this->assertEquals( 11, $poiResults->count() );
 
     $poi = $poiResults[0];
 
@@ -85,34 +80,5 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
 
     //$this->assertGreaterThan( 0, count( $poi['PoiProperty'] ) ); //need fixtures!
   }
-
-  /**
-   * @todo test grabs all restaurants if no limit set
-   */
-  public function testNoLimit()
-  {
-    $this->markTestIncomplete();
-  }
-}
-
-class MockLondonAPIBarsAndPubsMapperCrawler extends LondonAPICrawler
-{
-  public function crawlApi()
-  {
-    for( $i=1; $i<=11; $i++ )
-    {
-      $fileContents = file_get_contents( TO_TEST_DATA_PATH . '/LondonAPIBarsAndPubsTest.xml' );
-      $fileContents = str_replace( '{id}', $i, $fileContents );
-      $fileContents = str_replace( '{name}', "Poi $i", $fileContents );
-
-      if( $i == 11 )
-      {
-        $fileContents = preg_replace( ':<lat>[-0-9.]*</lat>:', '', $fileContents );
-        $fileContents = preg_replace( ':<lng>[-0-9.]*</lng>:', '', $fileContents );
-      }
-
-      $xml = simplexml_load_string( $fileContents );
-      $this->mapper->doMapping( $xml->response->row );
-    }
-  }
+  
 }
