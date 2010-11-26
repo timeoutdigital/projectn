@@ -650,10 +650,10 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
     public function testGetMediaUrlForProjectN()
     {
       $XMLExportDestination =  dirname( __FILE__ ) . '/../../export/poi/poitest.xml'  ;
-      ProjectN_Test_Unit_Factory::destroyDatabases();
       @unlink( $XMLExportDestination );
-      //delete the dummy image file if it exists
-      @unlink( $dummyImageFileName );
+
+      // Destroy nd Re-create Database, as we needed a Clean database to test
+      ProjectN_Test_Unit_Factory::destroyDatabases();      
       ProjectN_Test_Unit_Factory::createDatabases();
 
       $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor' );
@@ -683,7 +683,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
       $numEntries = $this->xml->xpath( '//entry' );
 
-      //because the default application is not data_entry
+      //because the default application is frontend, All media URL's will be linked to AWS
       // we are expecting a url from AWS
       $this->assertEquals( 'http://projectn.s3.amazonaws.com/test/poi/media/e5f9ec048d1dbe19c70f720e002f9cb1.jpg' ,(string) $numEntries[0]->version->content->media  );
 

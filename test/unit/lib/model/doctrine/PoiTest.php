@@ -285,18 +285,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $this->assertTrue($poiObj['longitude'] === null , "Test that there is no 0 in the longitude");
   }
 
-  public function testPoiWithoutAddressGeocoderThrowsException()
-  {
-      $this->markTestIncomplete( '@todo: Discuss with Clee before doing anythinf on this test' );
-      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj->setgeocoderLookUpString(" ");
-      $poiObj['geocoderr'] = new MockgeocoderForPoiTestWithoutAddress();
-
-      //$this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
-      $poiObj->save();
-
-      $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
-  }
+  // Removed test as w no longer throws exception in baseclass...
   /**
    * Test the long/lat is either valid or null
    */
