@@ -296,7 +296,7 @@ class importBoundariesCheck
             {
                 // check for Log existing
                 //$this->addError( str_pad( ucfirst($city), 20 ) . ": " . str_pad( ucfirst( $model ) , 15 ) . " | Error: No Import log found for date {$todayDate}" );
-                $currentModelVariantNumber = $this->getCurrentPeriodCountBy( $cityName, strtolower( $cityModel ), 2);
+                $currentModelVariantNumber = $this->getCurrentPeriodCountBy( $cityName, strtolower( $cityModel ) );
                 if( $currentModelVariantNumber < $modelMetrix['minimum'] )
                 {
                     $this->addError( str_pad( ucfirst($city), 20 ) . ": " . str_pad( ucfirst($cityModel) , 15 )." | fell behind the minimum iteration count (Actual: {$currentModelVariantNumber} Expected: {$modelMetrix['minimum']})");
