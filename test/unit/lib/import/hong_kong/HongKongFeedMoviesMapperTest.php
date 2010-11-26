@@ -90,10 +90,7 @@ class HongKongFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
     
     $this->assertGreaterThan( 0, $movie[ 'Vendor' ]->count() );
 
-    $filename = sfConfig::get( 'sf_root_dir' ) . '/import/hong_kong/movie/media/' . md5('http://www.timeout.com.hk/media/content/normal/1741_over-dead-bodybg.jpg') . '.jpg';
-    $this->assertEquals(true,file_exists($filename));
-
-
+    // #807 - Media Images do not download anymore, they are downloaded in another task...
     
   }
 
