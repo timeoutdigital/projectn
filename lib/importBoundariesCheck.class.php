@@ -296,12 +296,13 @@ class importBoundariesCheck
             {
                 // check for Log existing
                 //$this->addError( str_pad( ucfirst($city), 20 ) . ": " . str_pad( ucfirst( $model ) , 15 ) . " | Error: No Import log found for date {$todayDate}" );
-                $currentModelVariantNumber = $this->getVariantNumberBy( $cityName, strtolower( $cityModel ) );
-                if( $currentModelVariantNumber < $modelMetrix['minimum'] )
+                $currentModelNumber = $this->getCurrentPeriodCountBy($cityName, strtolower( $cityModel ) );
+                if( $currentModelNumber < $modelMetrix['minimum'] )
                 {
-                    $this->addError( str_pad( ucfirst($city), 20 ) . ": " . str_pad( ucfirst($cityModel) , 15 )." | fell behind the minimum iteration count (Actual: {$currentModelVariantNumber} Expected: {$modelMetrix['minimum']})");
+                    $this->addError( str_pad( ucfirst($city), 20 ) . ": " . str_pad( ucfirst($cityModel) , 15 )." | fell behind the minimum iteration count (Actual: {$currentModelNumber} Expected: {$modelMetrix['minimum']})");
                     
                 } else {
+                    $currentModelVariantNumber = $this->getVariantNumberBy( $cityName, strtolower( $cityModel ) );
                     $currentModelVariantPercentage = $this->getVariantPercentageBy( $cityName, strtolower( $cityModel ), 2);
                     if( $currentModelVariantPercentage < $modelMetrix['lower_threshold'] )
                     {
