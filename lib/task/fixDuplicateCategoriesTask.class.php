@@ -96,6 +96,12 @@ EOF;
         {
             $unusedMapping->delete();
         }
+
+        foreach( $poiCategory[ 'LinkingVendorPoiCategoryUiCategory' ] as $unusedMapping )
+        {
+            $unusedMapping->delete();
+        }
+        
         $poiCategory->delete();
     }
   }
@@ -112,6 +118,12 @@ EOF;
         {
             $unusedMapping->delete();
         }
+
+        foreach( $eventCategory[ 'LinkingVendorEventCategoryUiCategory' ] as $unusedMapping )
+        {
+            $unusedMapping->delete();
+        }
+
         $eventCategory->delete();
     }
   }

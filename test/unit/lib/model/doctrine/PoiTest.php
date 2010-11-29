@@ -279,22 +279,13 @@ class PoiTest extends PHPUnit_Framework_TestCase
   {
       $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
       $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
+      $poiObj['geocoderr'] = new MockgeocoderForPoiTestReturnNulllatLong();
       $poiObj->save();
 
-      $this->assertTrue($poiObj['longitude'] != 0, "Test that there is no 0 in the longitude");
-
-
-      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj->setgeocoderLookUpString(" ");
-      $poiObj['geocoderr'] = new MockgeocoderForPoiTestWithoutAddress();
-
-      $this->setExpectedException( 'GeoCodeException' ); // Empty string in GeEccodeLookUp should throwan Exception
-      $poiObj->save();
-
-      $this->assertNull($poiObj['longitude'], "Test that a NULL is returned if the lookup has no values");
+      $this->assertTrue($poiObj['longitude'] === null , "Test that there is no 0 in the longitude");
   }
 
+  // Removed test as w no longer throws exception in baseclass...
   /**
    * Test the long/lat is either valid or null
    */
@@ -497,7 +488,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poi->addMediaByUrl( 'http://www.timeout.com/img/44484/image.jpg' ); // another url Redirect to another...
       $poi->save();
 
-      $this->assertEquals(1, $poi['PoiMedia']->count(), 'addMediaByUrl() Should only add 1 fine');
+      $this->assertEquals(2, $poi['PoiMedia']->count(), 'addMediaByUrl() will add All images to DB and another one will be chosen on export');
   }
 
   public function testStreetDoesNotEndWithCityName()
@@ -570,21 +561,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poi->save();
 
       $this->assertEquals( '+3493 9 3424 6577', $poi['phone'], "formatPhone should'nt change the phone number if it's already prefixed with the dial code" );
-   }
-
-   /**
-    * Check addMediaByUrl() get_header for array value.
-    */
-   public function testAddMediaByUrlMimeTypeCheck()
-   {
-      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-
-      // Valid URL with 302 Redirect
-      $this->assertTrue( $poi->addMediaByUrl( 'http://www.timeout.com/img/44494/image.jpg' ), 'addMediaByUrl() should return true if header check is valid ' );
-      // 404 Error Url
-      $this->assertFalse( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/a10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
-      // Valid URL - No redirect
-      $this->assertTrue( $poi->addMediaByUrl( 'http://www.toimg.net/managed/images/10038317/image.jpg' ), 'This should fail as This is invalid URL ' );
    }
 
    public function testAddVendorCategoryHTMLDecode()
@@ -660,3 +636,15 @@ class MockgeocoderForPoiTestWithoutAddress extends geocoder
   protected function processResponse( $response ) { }
 }
 
+class MockgeocoderForPoiTestReturnNulllatLong extends MockgeocoderForPoiTest
+{
+    public function getLongitude()
+    {
+        return null;
+    }
+
+    public function getLatitude()
+    {
+        return null;
+    }
+}

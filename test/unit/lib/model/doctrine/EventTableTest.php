@@ -42,46 +42,53 @@ class EventTableTest extends PHPUnit_Framework_TestCase
     $event = new Event();
     $event['vendor_event_id'] = 1111;
     $event->setName( 'test event1' );
-    $event->link( 'Vendor', array( 1 ) );
+    $event['vendor_id'] = 1;
     $event->save();
 
     $event2 = new Event();
     $event2['vendor_event_id'] = 1111;
     $event2->setName( 'test event1' );
-    $event2->link( 'Vendor', array( 1 ) );
+    $event2['vendor_id'] = 1;
     $event2->save();
 
+    /**
+     * When adding Occurrences, we have to take into account that Only unique occurrences wil be saved to Database..
+     * unique == event_id + statr_date + start_time + poi_id
+     */
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 1;
     $occurrence[ 'start_date' ] = date( 'Y-m-d' );
     $occurrence[ 'utc_offset' ] = '0';
-    $occurrence[ 'event_id' ] = $event[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
-    $occurrence->save();
+    $event['EventOccurrence'][] = $occurrence;
 
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 2;
     $occurrence[ 'start_date' ] = date( 'Y-m-d' );
+    $occurrence[ 'start_time' ] = '10:20';
     $occurrence[ 'utc_offset' ] = '0';
-    $occurrence[ 'event_id' ] = $event[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi[ 'id' ];
-    $occurrence->save();
+    $event['EventOccurrence'][] = $occurrence;
 
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 3;
     $occurrence[ 'start_date' ] = date( 'Y-m-d' );
+    $occurrence[ 'start_time' ] = '12:25';
     $occurrence[ 'utc_offset' ] = '0';
-    $occurrence[ 'event_id' ] = $event[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
-    $occurrence->save();
+    $event['EventOccurrence'][] = $occurrence;
 
     $occurrence = new EventOccurrence();
     $occurrence[ 'vendor_event_occurrence_id' ] = 4;
     $occurrence[ 'start_date' ] = date( 'Y-m-d' );
+    $occurrence[ 'start_time' ] = '15:00';
     $occurrence[ 'utc_offset' ] = '0';
-    $occurrence[ 'event_id' ] = $event2[ 'id' ];
     $occurrence[ 'poi_id' ] = $poi2[ 'id' ];
-    $occurrence->save();
+    $event2['EventOccurrence'][] = $occurrence;
+
+    // Save Events again to save Occurrences and update LINKS
+    $event->save();
+    $event2->save();
 
     $this->object = Doctrine::getTable('Event');
   }
@@ -132,13 +139,13 @@ class EventTableTest extends PHPUnit_Framework_TestCase
      $numOccurrencesStartingToday = 2;
      for( $i = 0; $i < $numOccurrencesStartingToday; $i++) 
      {
-       $this->addEventOccurrence( $vendor, $poi, $event, ProjectN_Test_Unit_Factory::today() );
+       $this->addEventOccurrence( $vendor, $poi, $event, ProjectN_Test_Unit_Factory::today(), date( 'H:i:s', (time() + $i) ) );
      }
 
      $numOccurencesStartingBeforeToday = 2;
      for( $i = 0; $i < $numOccurencesStartingBeforeToday; $i++) 
      {
-       $this->addEventOccurrence( $vendor, $poi, $event, '2000-01-01' );
+       $this->addEventOccurrence( $vendor, $poi, $event, '2000-01-01', date( 'H:i:s', (time() + $i) ) );
      }
 
      //add a bad event (has only occurrences that start before today)
@@ -148,14 +155,14 @@ class EventTableTest extends PHPUnit_Framework_TestCase
 
      for( $i = 0; $i < 4; $i++) 
      {
-       $this->addEventOccurrence( $vendor, $poi, $event2, '2000-01-01' );
+       $this->addEventOccurrence( $vendor, $poi, $event2, '2000-01-01', date( 'H:i:s', (time() + $i) ) );
      }
 
 
      $numOccurrencesInTotal = $numOccurrencesStartingToday + $numOccurencesStartingBeforeToday;
 
      $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
-     $this->assertEquals( $numOccurrencesInTotal, $event[ 'EventOccurrence' ]->count() );
+     $this->assertEquals( $event[ 'EventOccurrence' ]->count(), $numOccurrencesInTotal);
 
      $goodEvents = Doctrine::getTable( 'Event' )
       ->findByVendorAndStartsFromAsArray( $vendor, new DateTime );
@@ -178,12 +185,12 @@ class EventTableTest extends PHPUnit_Framework_TestCase
      $event  = ProjectN_Test_Unit_Factory::get( 'Event' );
      $event[ 'Vendor' ] = $vendor;
      $event->save();
-     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today() );
-     $this->addEventOccurrence( $vendor, $poi2, $event, ProjectN_Test_Unit_Factory::today() );
-     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today() );
-     $this->addEventOccurrence( $vendor, $poi1, $event, ProjectN_Test_Unit_Factory::today() );
-     $this->addEventOccurrence( $vendor, $poi2, $event, ProjectN_Test_Unit_Factory::today() );
-     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today() );
+     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today(), date( 'H:i:s', (time() + 1) ) );
+     $this->addEventOccurrence( $vendor, $poi2, $event, ProjectN_Test_Unit_Factory::today(), date( 'H:i:s', (time() + 2) ) );
+     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today(), date( 'H:i:s', (time() + 3) ) );
+     $this->addEventOccurrence( $vendor, $poi1, $event, ProjectN_Test_Unit_Factory::today(), date( 'H:i:s', (time() + 4) ) );
+     $this->addEventOccurrence( $vendor, $poi2, $event, ProjectN_Test_Unit_Factory::today(), date( 'H:i:s', (time() + 5) ) );
+     $this->addEventOccurrence( $vendor, $poi3, $event, ProjectN_Test_Unit_Factory::today(), date( 'H:i:s', (time() + 6) ) );
 
      $event2  = ProjectN_Test_Unit_Factory::get( 'Event' );
      $event2[ 'Vendor' ] = $vendor;
@@ -238,13 +245,14 @@ class EventTableTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'moscow', $event['Vendor']['city'] );
    }
 
-   private function addEventOccurrence( $vendor, $poi, $event, $date )
+   private function addEventOccurrence( $vendor, $poi, $event, $date, $start_time = null )
    {
        $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
        $occurrence[ 'start_date' ] = $date;
-       $occurrence[ 'Event' ] = $event;
+       $occurrence[ 'start_time' ] = $start_time;
        $occurrence[ 'Poi' ]   = $poi;
-       $occurrence->save();
+       $event['EventOccurrence'][] = $occurrence;
+       $event->save();
    }
 }
 ?>
