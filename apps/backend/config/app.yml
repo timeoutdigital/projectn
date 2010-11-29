@@ -81,10 +81,10 @@ all:
           type: [ bar, restaurant, poi, event, movie ]
         -
           name: bahrain
-          type: [ bar, restaurant, poi, event ]
+          type: [ bar, restaurant, poi, event, movie ]
         -
           name: doha
-          type: [ bar, restaurant, poi, event ]
+          type: [ bar, restaurant, poi, event, movie ]
         -
           name: istanbul
           type: [ poi, event, movie ]
@@ -97,6 +97,9 @@ all:
         -
           name: istanbul_en
           type: [ poi ]
+        -
+          name: shanghai_en
+          type: [ poi, event, movie ]
 
   export:
     cities:
@@ -214,6 +217,11 @@ all:
           name: istanbul_en
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
+        -
+          name: shanghai_en
+          type: [ poi, event, movie ]
+          language: en-GB
           exportForNokia: true
 
 

@@ -12,7 +12,7 @@
 <?php if( !empty( $errors ) ){ ?>
     <?php foreach( $errors as $errorKey => $error ){ ?>
         <?php if( in_array( $error['model'], array('Poi','Event','Movie') ) ){ ?>
-            <a href="../../poi/resolve?import_error_id=<?php echo $error['id'] ; ?>">resolve</a><br/><br/>
+            <a href="../../<?php echo strtolower( $error['model'] ); ?>/resolve?import_error_id=<?php echo $error['id']; ?>">resolve</a><br/><br/>
         <?php } ?>
         <?php foreach( $error as $k => $v ){ ?>
             <?php if( !is_array( $v ) && !in_array( $k, $ignore ) ){ ?>
@@ -23,9 +23,8 @@
     if( method_exists( $u, 'toArray' ) )
     {
         echo '<h3>Object of type '. get_class( $u ) .'</h3>';
-        var_dump( $u['name'] );
         $u = $u->toArray();
-        var_dump( $u );
+        print_r( $u );
     }
 ?>
 </pre>

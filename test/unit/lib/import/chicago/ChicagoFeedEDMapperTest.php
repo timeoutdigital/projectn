@@ -34,7 +34,7 @@ class ChicagoFeedEDMapperTest extends PHPUnit_Framework_TestCase
 
         $this->vendor = Doctrine::getTable('Vendor')->findOneByCity( 'chicago' );
 
-        $this->params =  array( 'ftp' => array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutchicago.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/chicago/short_toc_ed.xml' ) );
+        $this->params =  array(  'type' => 'ed','ftp' => array( 'classname' => 'FTPClientMock', 'ftp' => 'ftp.timeoutchicago.com', 'username' => 'test', 'password' => 'test', 'dir' => '/', 'file' => TO_TEST_DATA_PATH.'/chicago/short_toc_ed.xml' ) );
     }
 
     /**

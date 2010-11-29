@@ -133,7 +133,7 @@ class importstatsActions extends sfActions
       $this->dbtotal = $q->fetchArray();
       $this->dbtotal = $this->dbtotal[0]['count'];
 
-      $this->exportStats = Doctrine::getTable( 'LogExport' )->getTodaysLogExportWithCountRecords( $this->vendor->id, $this->model, Doctrine_Core::HYDRATE_ARRAY );
+      $this->exportStats = Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecordsForDate( $this->vendor->id, $this->model, $this->date, Doctrine_Core::HYDRATE_ARRAY );
   }
 
     public function extractStats( array $array )

@@ -30,14 +30,20 @@ class xmlDataFixer
      * Requires XML String
      * @param string $fileData
      */
-    public function  __construct( $fileData ) {
+    public function  __construct( /* string */ $xmlString ) {
 
-        if( !is_string( $fileData ) )
+        if( !is_string( $xmlString ) )
         {
-            throw new Exception( 'xmlDataFixer::__construct Invalid file data, it should raw string contents' );
+            throw new Exception( 'xmlDataFixer::__construct Invalid file data, it should be a string.' );
         }
 
-        $this->xmlStringData    = $fileData;
+        $this->xmlStringData = $xmlString;
+        $this->trimXmlStringData();
+    }
+
+    public function trimXmlStringData()
+    {
+        $this->xmlStringData = stringTransform::mb_trim( $this->xmlStringData );
     }
 
     /**

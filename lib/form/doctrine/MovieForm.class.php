@@ -17,6 +17,9 @@ class MovieForm extends BaseMovieForm
     $this->widgetSchema[ 'updated_at' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ]       = new widgetFormFixedText();
 
+    $this->widgetSchema[ 'import_error_id' ] = new sfWidgetFormInputHidden();
+    $this->validatorSchema[ 'import_error_id' ] = new sfValidatorPass();
+
     $this->widgetSchema[ 'movie_genres_list' ] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'method' => 'getGenre', 'order_by' => array( 'genre', 'asc' ) ));
   }
 
@@ -24,9 +27,42 @@ class MovieForm extends BaseMovieForm
   {
     parent::doUpdateObject( $values );
 
-    $record = $this->getObject();
+    if ( isset( $values[ 'import_error_id' ] ) && is_numeric( $values[ 'import_error_id' ] ) )
+    {
+        $feedRecord = LogImportErrorHelper::getErrorObject( $values[ 'import_error_id' ] );
+
+        if ( $feedRecord !== false )
+        {
+            $excludeFieldsFromOverrides = array();
+
+            foreach ( $feedRecord as $feedKey => $feedValue )
+            {
+               if ( isset($values[ $feedKey ] ) && $feedValue != $values[ $feedKey ] )
+                {
+                    $excludeFieldsFromOverrides[ $feedKey ] = array ( 'currentReceivedValue' => $feedValue, 'editedValue' => $values[ $feedKey ] );
+                }
+            }
+        }
+    }
+
+    $record   = $this->getObject();
     $override = new recordFieldOverrideManager( $record );
-    $override->saveRecordModificationsAsOverrides();
+
+    if ( isset( $excludeFieldsFromOverrides ) )
+    {
+        foreach( $excludeFieldsFromOverrides as $field => $data )
+        {
+            $override->saveModificationAsOverride( $field, $data[ 'currentReceivedValue' ], $data[ 'editedValue' ]  );
+        }
+
+        $excludeFromOverridesParam = array_keys( $excludeFieldsFromOverrides );
+    }
+    else
+    {
+        $excludeFromOverridesParam = array();
+    }
+
+    $override->saveRecordModificationsAsOverrides( $excludeFromOverridesParam );
   }
 
 }

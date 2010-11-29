@@ -33,7 +33,15 @@ class exportFirstDateFinder
 
       foreach( DirectoryIteratorN::iterate( $absolutePath, DirectoryIteratorN::DIR_FILES, 'xml' ) as $fileName )
       {
-        $cityName =  str_replace( '_', ' ', array_shift( explode( '.', $fileName ) ) );
+        // First split the filename and see if we could find the City name (Can be splitted),
+        // and than select the city name
+        $fileNameSplit = explode( '.', $fileName );
+        if( !is_array( $fileNameSplit ) || count( $fileNameSplit ) <= 0 )
+        {
+          continue;
+        }
+          
+        $cityName =  str_replace( '_', ' ', array_shift( $fileNameSplit ) );
 
         if( !isset( $firstExportDates[ $cityName ] ) )
         {

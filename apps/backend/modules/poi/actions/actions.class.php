@@ -15,14 +15,44 @@ class poiActions extends autoPoiActions
 {
   public function executeResolve(sfWebRequest $request)
   {
-    $record = LogImportErrorHelper::loadAndUnSerialize( $this, $request );
+    $recordInfo = LogImportErrorHelper::getMergedObject( $this, $request );
 
-    $this->form = $this->configuration->getForm( $record );
+    $this->form = $this->configuration->getForm( $recordInfo[ 'record' ] );
     $this->poi = $this->form->getObject();
 
-    ( isset( $record[ 'id' ] ) ) ?  $this->setTemplate('edit') : $this->setTemplate('new');
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $recordInfo[ 'previousValues' ] );
+    /* set error id in form */
+    $importErrorId = $request->getParameter( 'import_error_id' );
+    $widgetSchema[ 'import_error_id' ]->setDefault( $importErrorId );
+
+    isset( $recordInfo[ 'record' ][ 'id' ] ) ?  $this->setTemplate('edit') : $this->setTemplate('new');
   }
 
+  public function executeEdit(sfWebRequest $request)
+  {
+    $this->poi = $this->getRoute()->getObject();
+    $this->form = $this->configuration->getForm($this->poi);
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $this->poi->toArray() );
+  }
+
+  public function executeUpdate(sfWebRequest $request)
+  {
+    $this->poi = $this->getRoute()->getObject();
+    $this->form = $this->configuration->getForm($this->poi);
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $this->poi->toArray() );
+
+    $this->processForm($request, $this->form);
+
+    $this->setTemplate('edit');
+  }
 
   public function executeCreate(sfWebRequest $request)
   {
@@ -49,7 +79,6 @@ class poiActions extends autoPoiActions
 
     $this->setTemplate('new');
   }
-
 
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
   protected function processForm(sfWebRequest $request, sfForm $form)

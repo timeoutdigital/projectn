@@ -108,6 +108,7 @@ LinkingVendorPoiCategory:
      vendor_poi_category_id:  {type: integer, notnull: true}
      poi_id:                  {type: integer, notnull: true}
 
+
 #Poi CategoryMapping
 LinkingPoiCategoryMapping:
   connection: project_n
@@ -410,7 +411,10 @@ LogExportDate:
     vendor_id:                  {type: integer, notnull: true}
     model:                      {type: string(10), notnull: true}
     export_date:                {type: datetime, notnull: true}
-
+  indexes:
+    record_id_index:            {fields: [record_id]}
+    vendor_id_index:            {fields: [vendor_id]}
+    model_index:                {fields: [model]}
 
 LogCount:
   connection: project_n
@@ -457,6 +461,7 @@ LogImportChange:
   relations:
     LogImport:                  {local: log_import_id, foreign: id}
   indexes:
+    record_id_index:            {fields: [record_id]}
     model_index:                {fields: [model]}
 
 
