@@ -8,9 +8,9 @@ class LogImportErrorHelper
     const MSG_INVALID_REQUEST       = 'Import Error ID Not Numeric';
     const MSG_NO_MATCHING_DB_RECORD = 'No Matching Database Record Found';
 
-    public static function loadAndUnSerialize( &$action, &$request )
+    public static function getMergedObject( &$action, &$request )
     {
-        if( is_numeric( $importErrorId = $request->getGetParameter( 'import_error_id' ) ) )
+        if( is_numeric( $importErrorId = $request->getGetParameter( 'import_error_id' ) ) || is_numeric( $importErrorId = $request->getPostParameter( 'poi[import_error_id]' ) ) )
         {
             $logImportRecord = Doctrine::getTable( 'LogImportError' )->findOneById( $importErrorId );
 
@@ -39,14 +39,20 @@ class LogImportErrorHelper
                             $vendorReferenceColumn = 'vendor_' . strtolower( get_class( $record ) ) . '_id';
                             $databaseVendorReference = $record[ $vendorReferenceColumn ];
 
-                            $record->merge( $serializedObj );
-                            $record['id'] = $databaseRecordId;
-                            $record[ $vendorReferenceColumn ] = $databaseVendorReference;
+                            $valuesBeforeMerge = $record->toArray();
+
+                            $mergedRecord = clone $record;
+                            $mergedRecord->merge( $serializedObj );
+
+                            $mergedRecord->mapValue( 'import_error_id', $importErrorId);
+
+                            $mergedRecord['id'] = $databaseRecordId;
+                            $mergedRecord[ $vendorReferenceColumn ] = $databaseVendorReference;
                         }
 
                         else {
                             $action->getUser()->setFlash( 'notice', self::MSG_NO_MATCHING_DB_RECORD );
-                            $record = $serializedObj;
+                            $mergedRecord = $serializedObj;
                         }
                     }
 
@@ -59,6 +65,21 @@ class LogImportErrorHelper
         }
         else $action->getUser()->setFlash( 'error', self::MSG_INVALID_REQUEST );
 
-        return isset( $record ) ? $record : null;
+        return array( 'record' => isset( $mergedRecord ) ? $mergedRecord : null, 'previousValues' => isset( $valuesBeforeMerge ) ? $valuesBeforeMerge : array() );
     }
+
+    public static function getErrorObject( $importErrorId )
+    {
+        if ( is_numeric( $importErrorId ) )
+        {
+            $logImportRecord = Doctrine::getTable( 'LogImportError' )->findOneById( $importErrorId );
+
+            if( is_object( $logImportRecord ) && $logImportRecord instanceof LogImportError && isset( $logImportRecord[ 'serialized_object' ] ) )
+            {
+                return unserialize( $logImportRecord[ 'serialized_object' ] );
+            }
+        }
+        return false;
+    }
+
 }

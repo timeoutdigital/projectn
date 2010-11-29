@@ -19,10 +19,12 @@ class PoiForm extends BasePoiForm
     $this->widgetSchema[ 'updated_at' ]     = new widgetFormFixedText();
     $this->widgetSchema[ 'vendor_id' ]      = new widgetFormFixedText();
     $this->widgetSchema[ 'geocode_look_up' ]= new widgetFormFixedText();
+   
+    $this->widgetSchema[ 'import_error_id' ] = new sfWidgetFormInputHidden();
+    $this->validatorSchema[ 'import_error_id' ] = new sfValidatorPass();
+
     $this->widgetSchema[ 'duplicate' ]      = new sfWidgetFormInputCheckbox();
-
     $this->setDefault( 'duplicate', $this->getObject()->getDuplicate() );
-
     $this->validatorSchema[ 'duplicate' ] = new sfValidatorPass();
 
     $this->configureVendorPoiCategoryWidget();
@@ -40,10 +42,42 @@ class PoiForm extends BasePoiForm
   {
     parent::doUpdateObject( $values );
 
+    if ( isset( $values[ 'import_error_id' ] ) && is_numeric( $values[ 'import_error_id' ] ) )
+    {
+        $feedRecord = LogImportErrorHelper::getErrorObject( $values[ 'import_error_id' ] );
+
+        if ( $feedRecord !== false )
+        {
+            $excludeFieldsFromOverrides = array();
+
+            foreach ( $feedRecord as $feedKey => $feedValue )
+            {
+               if ( isset($values[ $feedKey ] ) && $feedValue != $values[ $feedKey ] )
+                {
+                    $excludeFieldsFromOverrides[ $feedKey ] = array ( 'currentReceivedValue' => $feedValue, 'editedValue' => $values[ $feedKey ] );
+                }
+            }
+        }
+    }
+
     $record   = $this->getObject();
     $override = new recordFieldOverrideManager( $record );
-    
-    $override->saveRecordModificationsAsOverrides();
+
+    if ( isset( $excludeFieldsFromOverrides ) )
+    {
+        foreach( $excludeFieldsFromOverrides as $field => $data )
+        {
+            $override->saveModificationAsOverride( $field, $data[ 'currentReceivedValue' ], $data[ 'editedValue' ]  );
+        }
+
+        $excludeFromOverridesParam = array_keys( $excludeFieldsFromOverrides );
+    }
+    else
+    {
+        $excludeFromOverridesParam = array();
+    }
+
+    $override->saveRecordModificationsAsOverrides( $excludeFromOverridesParam );
   }
 
   private function configureVendorPoiCategoryWidget()
