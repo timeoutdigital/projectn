@@ -266,6 +266,8 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
      */
     public function testNoLogFoud()
     {
+        $this->setExpectedException( 'ImportBoundariesCheckException' ); // importBoundary will throw error when no logs in database
+        
         // get the Errors
         $errors = $this->getErrors( );
 
@@ -288,7 +290,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $errors = $this->getErrors( );
 
         // Error should be thors as there is no Log for TODAY!
-        $this->assertContains( 'Error: No Import log found for date', $errors[0] );
+        $this->assertContains( 'No Import Log found for City "Ny"', $errors[0] );
     }
 
     /**
@@ -299,11 +301,13 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
     public function testNoImportFoundForYesterday()
     {
         $today     = date('Y-m-d H:i:s' );
-
+        $yesterday = date('Y-m-d H:i:s' , strtotime( '-1 day' ) );
+        
         // Add LogImports for today
         $this->addLogImport( 1, $today ); // for Vendor [ Ny ]
+        $this->addLogImport( 1, $yesterday ); // for Vendor [ Ny ]
 
-        // add Logs to Make today voundaries are VALID for importboundaries to check for percentage DROP
+        // add Logs to Make today boundaries are VALID for importboundaries to check for percentage DROP
         //Add LogImports for today
         $this->addLogImportCount( 1, 'Poi', 10 , 'insert'); // Make it Zero to archive Devided By Zero
         
@@ -311,8 +315,8 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         $errors = $this->getErrors( );
 
         // since there is no yesterday LOG found, importoundaries can't calculate the dropped percentage...
-        $this->assertContains( 'Error: No Import log found for date', $errors[0] );
-        $this->assertStringEndsWith('to calculate drop percentage', $errors[0] );
+        $this->assertContains( 'devide or by 0', $errors[3] );
+        $this->assertStringStartsWith('No Import Log found for City', $errors[0] );
     }
 
     /**
@@ -330,10 +334,9 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
                                                           'created_at' => $today ) );       // Log Import ID: 1
         // get the Errors
         $errors = $this->getErrors( );
-
         // Status of the Import is running, unless the status is success;
         // importBoundaryCheck should add error that this import did not complete
-        $this->assertContains( 'failed to complete' , $errors[0] );
+        $this->assertContains( 'failed to complete' , $errors[3] );
     }
 
     /**
@@ -359,7 +362,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
         // get the Errors
         $errors = $this->getErrors( );
 
-        $this->assertContains( 'unable to calculate dropped percentage', $errors[0] );
+        $this->assertContains( 'Unable to calculate variant for', $errors[3] );
     }
 
     /**
@@ -390,16 +393,16 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
 
         // get the Errors
         $errors = $this->getErrors( );
-
+        
         // First one is NY which will throw fell behtempnamind minimum error and
         // two others; 2nd and 3rd will be NY's event and Movie which we are not checking!
         $this->assertContains( 'fell behind the minimum', $errors[0] );
 
         // 4th error message would be the London error saying that Poi is dropped by 60 %
-        $this->assertContains( 'dropped by 60%', $errors[3] );
+        $this->assertContains( 'dropped by -60%', $errors[3] );
 
         // in total there should be 7 Error messages as last one (chicago) don't have any import log so it will throw only one Error
-        $this->assertEquals( 7 , count($errors) );
+        $this->assertGreaterThan( 6 , count($errors) );
         
     }
 
@@ -455,7 +458,7 @@ class importBoundariesCheckTest extends PHPUnit_Framework_TestCase
 
         // have to clear OLD errors
         $importCheck = new importBoundariesCheck( array( 'yml' => $ymlFilename ) );
-        $importCheck->processImportLog();
+        $importCheck->nagiosBoundaryCheck();
         unlink( $ymlFilename ); // Remove the TMP file
 
         return $importCheck->getErrors();        
