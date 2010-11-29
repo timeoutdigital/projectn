@@ -41,7 +41,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     $vendor2 = ProjectN_Test_Unit_Factory::add( 'vendor' );
 
     $poi2 = ProjectN_Test_Unit_Factory::get( 'poi' );
-    $poi2->link( 'Vendor', array( $vendor2->getId() ) );
+    $poi2['Vendor'] = $vendor2;
     $poi2->save();
 
     $eventCategory = new EventCategory();
@@ -51,29 +51,27 @@ class EventTest extends PHPUnit_Framework_TestCase
     $event = new Event();
     $event['vendor_event_id'] = 1111;
     $event->setName( 'test event1' );
-    $event->link( 'Vendor', array( 1 ) );
+    $event['vendor_id'] = 1;
     $event->save();
 
     $eventOccurrence1 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
     $eventOccurrence1['vendor_event_occurrence_id'] = 1;
     $eventOccurrence1['utc_offset'] = '-05:00:00';
-    $eventOccurrence1->link( 'Event', array( $event['id'] ) );
-    $eventOccurrence1->link( 'Poi', array( 1 ) );
-    $eventOccurrence1->save();
+    $eventOccurrence1['Poi'] = $poi1;
 
     $eventOccurrence2 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
     $eventOccurrence2['vendor_event_occurrence_id'] = 2;
     $eventOccurrence2['utc_offset'] = '-05:00';
-    $eventOccurrence2->link( 'Event', array( $event['id'] ) );
-    $eventOccurrence2->link( 'Poi', array( 1 ) );
-    $eventOccurrence2->save();
+    $eventOccurrence2['Poi'] = $poi1;
 
     $eventOccurrence3 = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
     $eventOccurrence3['vendor_event_occurrence_id'] = 3;
     $eventOccurrence3['utc_offset'] = '-05:00:00';
-    $eventOccurrence3->link( 'Event', array( $event['id'] ) );
-    $eventOccurrence3->link( 'Poi', array( 2 ) );
-    $eventOccurrence3->save();
+    $eventOccurrence3['Poi'] = $poi2;
+
+    $event['EventOccurrence'][] = $eventOccurrence1;
+    $event['EventOccurrence'][] = $eventOccurrence2;
+    $event['EventOccurrence'][] = $eventOccurrence3;
 
     $this->object = Doctrine::getTable('Event')->findOneById( $event['id'] );
   }
@@ -540,8 +538,9 @@ class EventTest extends PHPUnit_Framework_TestCase
     $event->free( true ); unset( $event );
     $event = Doctrine::getTable( "Event" )->findOneById( $savedEventId );
 
-    $this->assertEquals( count( $event[ 'EventMedia' ]) ,1 , 'there should be only one EventMedia attached to a Event after saving' );
-    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $largeImageUrl , 'larger image should be attached to Event when adding more than one' );
+    $this->assertEquals( count( $event[ 'EventMedia' ]) ,3 , 'Events can have multiple Images. All images added should be saved in DB' );
+    $this->assertEquals( $event[ 'EventMedia' ][0][ 'url' ], $smallImageUrl , 'Since image store all images, it should store in same order as we added!' );
+    $this->assertEquals( $event[ 'EventMedia' ][2][ 'url' ], $mediumImageUrl , 'Since image store all images, it should store in same order as we added!' );
 
    }
 

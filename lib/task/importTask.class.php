@@ -167,10 +167,10 @@ class importTask extends sfBaseTask
           case 'poi':
 
             $url .= 'xmlvenues.asp';
-            $xml = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'poi' );
+            $xmlData = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'poi' );
             
             ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedVenuesMapper( $xml ) );
+            $importer->addDataMapper( new LisbonFeedVenuesMapper( $xmlData ) );
             $importer->run();
             ImportLogger::getInstance()->end();
             $this->dieWithLogMessage();
@@ -183,6 +183,10 @@ class importTask extends sfBaseTask
             ImportLogger::getInstance()->setVendor( $vendorObj );
 
             $startDate = time();
+            $daysAhead = 7; //lisbon caps the request at max 9 days
+
+            $eventDataSimpleXMLSegmentsArray = array();
+
             while ( $startDate < strtotime( "+3 month" ) ) // Only look 3 months ahead
             {
               try
@@ -204,7 +208,14 @@ class importTask extends sfBaseTask
               {
                 ImportLogger::getInstance()->addError( $e );
               }
+
             }
+
+            echo "Running Lisbon Mappers" . PHP_EOL;
+
+            $concatenatedFeed = XmlConcatenator::concatXML( $eventDataSimpleXMLSegmentsArray, '/geral/event' );
+            
+            $importer->addDataMapper( new LisbonFeedListingsMapper( $concatenatedFeed ) );
 
             $importer->run();
             ImportLogger::getInstance()->end();
@@ -213,14 +224,16 @@ class importTask extends sfBaseTask
           break;
 
           case 'movie':
+
             $url .= 'xmlfilms.asp';
-            $xml = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'movie' );
+            $xmlData = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'movie' );
             
             ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedMoviesMapper( $xml ) );
+            $importer->addDataMapper( new LisbonFeedMoviesMapper( $xmlData ) );
             $importer->run();
             ImportLogger::getInstance()->end();
             $this->dieWithLogMessage();
+            
           break;
 
           default : $this->dieDueToInvalidTypeSpecified();
