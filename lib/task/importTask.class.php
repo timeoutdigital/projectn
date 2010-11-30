@@ -516,13 +516,13 @@ class importTask extends sfBaseTask
 
      case 'istanbul':
 
-        $this->newStyleImport( $city, 'tr', $options, $databaseManager, $importer );
+        $this->newStyleImport( 'istanbul', 'tr', $options, $databaseManager, $importer );
 
      break;
 
  case 'istanbul_en':
 
-     $this->newStyleImport( $city, 'en-US', $options, $databaseManager, $importer );
+     $this->newStyleImport( 'istanbul_en', 'en-US', $options, $databaseManager, $importer );
 
      break;
 
