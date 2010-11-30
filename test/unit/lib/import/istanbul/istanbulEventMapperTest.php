@@ -35,12 +35,23 @@ class IstanbulEventMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  private function _getParams( )
+    {
+        return array(
+            'type' => 'events',
+            'curl'  => array(
+                'classname' => 'CurlMock',
+                'src' => TO_TEST_DATA_PATH . '/istanbul/events.xml'
+             )
+        );
+    }
+
   public function testMap()
   {
     $this->createPoisRequiredForEventImport();
     $importer = new Importer();
     $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/istanbul/events.xml' );
-    $importer->addDataMapper( new istanbulEventMapper( $this->vendor, $xml ) );
+    $importer->addDataMapper( new istanbulEventMapper( $this->vendor, $this->_getParams( ) ) );
     $importer->run();
 
     $this->assertEquals( 2, Doctrine::getTable( 'event' )->count() );
