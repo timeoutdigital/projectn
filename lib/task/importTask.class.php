@@ -516,71 +516,13 @@ class importTask extends sfBaseTask
 
      case 'istanbul':
 
-        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'istanbul', 'tr' );
+        $this->newStyleImport( $city, 'tr', $options, $databaseManager, $importer );
 
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $feedUrl = "http://www.timeoutistanbul.com/content/n_xml/venues.xml";
-            $mapperClass = "istanbulVenueMapper";
-
-          break; //end Poi
-
-          case 'event':
-
-            $feedUrl = "http://www.timeoutistanbul.com/content/n_xml/events.xml";
-            $mapperClass = "istanbulEventMapper";
-
-          break; //end Event
-
-          case 'movie':
-
-            $feedUrl = "http://www.timeoutistanbul.com/content/n_xml/movies.xml";
-            $mapperClass = "istanbulMovieMapper";
-
-          break; //end Movie
-
-          default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-        $feedObj = new Curl( $feedUrl );
-        $feedObj->exec();
-        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
-        
-        $xml = simplexml_load_string( $feedObj->getResponse() );
-
-        ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $mapperClass( $vendorObj, $xml ) );
-        $importer->run();
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage();
      break;
 
  case 'istanbul_en':
 
-     $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'istanbul_en', 'en-US' );
-     switch( $options['type'] )
-     {
-         case 'poi':
-             $feedUrl = "www.timeoutistanbul.com/content/n_xml/venues_en.xml";
-             $mapperClass = "istanbulVenueMapper";
-             break;
-         
-         default : $this->dieDueToInvalidTypeSpecified();
-     }
-
-        $feedObj = new Curl( $feedUrl );
-        $feedObj->exec();
-        new FeedArchiver( $vendorObj, $feedObj->getResponse(), $options['type'] );
-
-        $xml = simplexml_load_string( $feedObj->getResponse() );
-
-        ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $mapperClass( $vendorObj, $xml ) );
-        $importer->run();
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage();
+     $this->newStyleImport( $city, 'en-US', $options, $databaseManager, $importer );
 
      break;
 
