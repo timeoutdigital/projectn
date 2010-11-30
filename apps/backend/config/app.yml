@@ -87,7 +87,7 @@ all:
           type: [ bar, restaurant, poi, event, movie ]
         -
           name: istanbul
-          type: [ poi_1, [poi_2, event, movie ]
+          type: [ poi_1, poi_2, event, movie ]
         -
           name: singapore
           type: [ poi, event, movie ]
