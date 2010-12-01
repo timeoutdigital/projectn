@@ -10,7 +10,7 @@ import:
           username: timeoutlondon
           password: T1m3outl*nd)n
           dir: '/timeoutlondon/'
-          file: 'venues.xml'
+          file: 'venues_'
 
   event:
     class:
@@ -23,9 +23,9 @@ import:
           username: timeoutlondon
           password: T1m3outl*nd)n
           dir: '/timeoutlondon/'
-          file: 'event.xml'
+          file: 'events_'
 
-  event:
+  movie:
     class:
       name: sydneyFtpMoviesMapper
       params:
@@ -36,4 +36,4 @@ import:
           username: timeoutlondon
           password: T1m3outl*nd)n
           dir: '/timeoutlondon/'
-          file: 'films.xml'
+          file: 'films_'

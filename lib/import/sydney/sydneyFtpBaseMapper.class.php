@@ -61,14 +61,12 @@ class sydneyFtpBaseMapper extends DataMapper
         $ftpClient = new $params['ftp']['classname']( $params['ftp']['src'], $params['ftp']['username'], $params['ftp']['password'], $vendor['city'] );
         $ftpClient->setSourcePath( $params['ftp']['dir'] );
 
-        $downloadedFileName = $ftpClient->fetchLatestFileByPattern( $params['ftp']['file'] );
+        $latestFileName = $this->_getTheLatestFileName( $ftpClient->fetchRawDirListing(), $params['ftp']['file'] );
+        $saveToFileName = $params['ftp']['file'] . '.xml';
 
-        if( !file_exists( $downloadedFileName ) )
-        {
-            throw new SydneyFTPBaseMapperException( 'FTP download failed, invalid source path returned: ' . $downloadedFileName );
-        }
-
-        $contents = file_get_contents( $downloadedFileName );
+        // Download the File and Open as String contents into $contents
+        $downloadedFileFullPath = $ftpClient->fetchFile( $latestFileName, $saveToFileName );
+        $contents = file_get_contents( $downloadedFileFullPath );
 
         // Archive
         new FeedArchiver( $vendor, $contents, $params['type'] );
@@ -76,6 +74,54 @@ class sydneyFtpBaseMapper extends DataMapper
         // Load as SimpleXML
         $this->feed = simplexml_load_string( $contents );
         
+    }
+
+    /**
+     * Sort by date attached filename and return the Latest filename using $xmlFileName
+     * @param array $rawFtpListingOutput
+     * @param string $xmlFileName
+     * @return string
+     */
+    protected function _getTheLatestFileName( $rawFtpListingOutput, $xmlFileName )
+    {
+
+        // Sort FTP Rawoutput using Filename and Date attached tof ilename
+        foreach ($rawFtpListingOutput as $fileListing)
+        {
+            $fileName = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileListing );
+
+            preg_match( '/^.*_([0-9\-]+)\.xml$/', $fileName, $matches );
+
+            if( isset( $matches [1] ) )
+            {
+                $date = date( 'Y-m-d' ,strtotime($matches[1] ));
+                $fileListSorted[ $date . ' ' .$fileName ] =   $fileListing;
+            }
+
+        }
+
+        // Makesure we have sorted filenames
+        if( count($fileListSorted) <= 0 )
+        {
+            throw new SydneyFTPBaseMapperException( 'Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED' );
+        }
+
+        ksort ( $fileListSorted );
+        $fileListSorted = array_reverse( $fileListSorted );
+
+        // Extract the Latest Filename for Given Type
+        foreach( $fileListSorted as $fileNameSorted )
+        {
+            //get rid of the date / other info from ls command
+            $filename = preg_replace( '/^.*?([-a-z0-9_]*.xml)$/', '$1', $fileNameSorted );
+
+            if(strpos( $filename, $xmlFileName ) !== false )
+            {
+                return $filename;
+            }
+        }
+
+        throw new SydneyFTPBaseMapperException( "Failed to get the Filename for : {$xmlFileName}" );
     }
     
 }
