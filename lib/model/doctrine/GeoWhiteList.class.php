@@ -12,4 +12,5 @@
  */
 class GeoWhiteList extends BaseGeoWhiteList
 {
+    
 }

@@ -28,6 +28,17 @@ class PoiTable extends Doctrine_Table
       return 'vendor_poi_id';
     }
 
+    public function findAllDuplicateLatLongs( $vendorId )
+    {
+         return $this->createQuery( 'p' )
+             ->select("p.latitude, p.longitude, CONCAT( latitude, ', ', longitude ) as myString")
+             ->where('p.vendor_id = ?', $vendorId )
+             ->addWhere('p.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
+             ->groupBy('myString')
+             ->having('count( myString ) > 1')
+             ->execute( array(), Doctrine_Core::HYDRATE_ARRAY );
+    }
+
     /**
      *
      * @param int $vendorId
@@ -43,7 +54,6 @@ class PoiTable extends Doctrine_Table
 
       return $query->execute();
     }
-
     private function addWhereNotMarkedAsDuplicate( Doctrine_Query $query )
     {
       $query
