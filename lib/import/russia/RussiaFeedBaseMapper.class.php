@@ -123,7 +123,9 @@ class RussiaFeedBaseMapper extends DataMapper
 
         new FeedArchiver( $vendor, $curlInstance->getResponse(), $params['type'] );
 
-        $this->xml = simplexml_load_string( $curlInstance->getResponse() );
+        $fixer = new xmlDataFixer( $curlInstance->getResponse() );
+        $fixer->removeVerticalTab();
+        $this->xml = $fixer->getSimpleXML();
     }
 }
 class RussiaFeedBaseMapperException extends Exception{}
