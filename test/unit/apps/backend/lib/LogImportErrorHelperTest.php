@@ -73,22 +73,22 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
 
     public function testNoErrorIdPassedInQueryString()
     {
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo  = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_INVALID_REQUEST, $this->sfAction->getUser()->getFlash( 'error' ) );
-        $this->assertNull( $record );
+        $this->assertNull( $recordInfo['record'] );
     }
 
     public function testNonNumericIdPassed()
     {
         $this->sfRequest->setParam( 'import_error_id', false );
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_INVALID_REQUEST, $this->sfAction->getUser()->getFlash( 'error' ) );
     }
 
     public function testImportErrorNotFound()
     {
         $this->sfRequest->setParam( 'import_error_id', 99999 );
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_INVALID_IMPORT_ERROR, $this->sfAction->getUser()->getFlash( 'error' ) );
     }
 
@@ -96,8 +96,8 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
     {
         $logImportError = $this->_addImportError( new stdclass(), 'Class Does Not Extend from Doctrine_Record' );
         $this->sfRequest->setParam( 'import_error_id', $logImportError['id'] );
-        
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_DESERIALIZE_ERR, $this->sfAction->getUser()->getFlash( 'error' ) );
     }
 
@@ -108,11 +108,11 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
 
         $unknownVendor = Doctrine::getTable( "Vendor" )->findOneByCity( "unknown" );
         $feedRecord['vendor_id'] = $unknownVendor['id'];
-        
+
         $logImportError = $this->_addImportError( $feedRecord, 'Poi With A Different Vendor ID' );
         $this->sfRequest->setParam( 'import_error_id', $logImportError['id'] );
 
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_NO_MATCHING_DB_RECORD, $this->sfAction->getUser()->getFlash( 'notice' ) );
     }
 
@@ -126,7 +126,7 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
         $logImportError = $this->_addImportError( $feedRecord, 'Poi With A Different vendor_poi_id' );
         $this->sfRequest->setParam( 'import_error_id', $logImportError['id'] );
 
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_NO_MATCHING_DB_RECORD, $this->sfAction->getUser()->getFlash( 'notice' ) );
     }
 
@@ -140,7 +140,7 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
         $logImportError = $this->_addImportError( $feedRecord, 'Poi With An Invalid Vendor ID' );
         $this->sfRequest->setParam( 'import_error_id', $logImportError['id'] );
 
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_INVALID_VENDOR, $this->sfAction->getUser()->getFlash( 'error' ) );
     }
 
@@ -154,7 +154,7 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
         $logImportError = $this->_addImportError( $feedRecord, 'Poi With An Invalid vendor_poi_id' );
         $this->sfRequest->setParam( 'import_error_id', $logImportError['id'] );
 
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
         $this->assertEquals( LogImportErrorHelper::MSG_INVALID_VENDOR, $this->sfAction->getUser()->getFlash( 'error' ) );
     }
 
@@ -162,7 +162,7 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
     {
         $databaseRecord = ProjectN_Test_Unit_Factory::add( 'Poi' );
         $feedRecord = ProjectN_Test_Unit_Factory::get( 'Poi' );
-        
+
         $feedRecord['poi_name']     = 'Timeout Magazine';
         $feedRecord['house_no']     = '251';
         $feedRecord['street']       = 'Tottenham Court Road';
@@ -170,25 +170,37 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
 
         $logImportError = $this->_addImportError( $feedRecord, 'Generic Error Message' );
         $this->sfRequest->setParam( 'import_error_id', $logImportError['id'] );
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
+
+
 
         // Test class & vendor do not change, and that not error was presented to the user.
-        $this->assertEquals( get_class( $databaseRecord ) , get_class( $record ), 'Class should not change.' );
-        $this->assertEquals( $databaseRecord['vendor_id'], $record['vendor_id'], 'Vendor should not change' );
-        $this->assertEquals( $databaseRecord['vendor_poi_id'], $record['vendor_poi_id'], 'Vendor reference should not change' );
+        $this->assertEquals( get_class( $databaseRecord ) , get_class( $recordInfo['record'] ), 'Class should not change.' );
+        $this->assertEquals( $databaseRecord['vendor_id'], $recordInfo['record']['vendor_id'], 'Vendor should not change' );
+        $this->assertEquals( $databaseRecord['vendor_poi_id'], $recordInfo['record']['vendor_poi_id'], 'Vendor reference should not change' );
         $this->assertFalse( $this->sfAction->getUser()->getFlash( 'error' ), 'Should not show user flash.' );
 
         // Test successful deserialize and merge.
-        $this->assertEquals( $feedRecord['poi_name'],   $record['poi_name'] );
-        $this->assertEquals( $feedRecord['house_no'],   $record['house_no'] );
-        $this->assertEquals( $feedRecord['street'],     $record['street'] );
-        $this->assertEquals( $feedRecord['city'],       $record['city'] );
+        $this->assertEquals( $feedRecord['poi_name'],   $recordInfo['record']['poi_name'] );
+        $this->assertEquals( $feedRecord['house_no'],   $recordInfo['record']['house_no'] );
+        $this->assertEquals( $feedRecord['street'],     $recordInfo['record']['street'] );
+        $this->assertEquals( $feedRecord['city'],       $recordInfo['record']['city'] );
 
         // Test some un-merged values.
-        $this->assertEquals( $databaseRecord['additional_address_details'],     $record['additional_address_details'] );
-        $this->assertEquals( $databaseRecord['zips'],                           $record['zips'] );
-        $this->assertEquals( $databaseRecord['longitude'],                      $record['longitude'] );
-        $this->assertEquals( $databaseRecord['latitude'],                       $record['latitude'] );
+        $this->assertEquals( $databaseRecord['additional_address_details'],     $recordInfo['record']['additional_address_details'] );
+        $this->assertEquals( $databaseRecord['zips'],                           $recordInfo['record']['zips'] );
+        $this->assertEquals( $databaseRecord['district'],                       $recordInfo['record']['district'] );
+        $this->assertEquals( $databaseRecord['phone'],                          $recordInfo['record']['phone'] );
+
+        // Test previous values
+        $this->assertEquals( $databaseRecord['poi_name'],                       $recordInfo['previousValues']['poi_name'] );
+        $this->assertEquals( $databaseRecord['house_no'],                       $recordInfo['previousValues']['house_no'] );
+        $this->assertEquals( $databaseRecord['street'],                         $recordInfo['previousValues']['street'] );
+        $this->assertEquals( $databaseRecord['city'],                           $recordInfo['previousValues']['city'] );
+        $this->assertEquals( $databaseRecord['additional_address_details'],     $recordInfo['previousValues']['additional_address_details'] );
+        $this->assertEquals( $databaseRecord['zips'],                           $recordInfo['previousValues']['zips'] );
+        $this->assertEquals( $databaseRecord['district'],                       $recordInfo['previousValues']['district'] );
+        $this->assertEquals( $databaseRecord['phone'],                          $recordInfo['previousValues']['phone'] );
     }
 
     public function testNewRecord()
@@ -202,19 +214,51 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
 
         $logImportError = $this->_addImportError( $feedRecord, 'Generic Error Message' );
         $this->sfRequest->setParam( 'import_error_id', $logImportError['id'] );
-        $record = LogImportErrorHelper::loadAndUnSerialize( $this->sfAction, $this->sfRequest );
+        $recordInfo = LogImportErrorHelper::getMergedObject( $this->sfAction, $this->sfRequest );
 
         // Test class & vendor do not change, and that not error was presented to the user.
-        $this->assertEquals( get_class( $feedRecord ) , get_class( $record ), 'Class should be same as feed record.' );
-        $this->assertEquals( $feedRecord['vendor_id'], $record['vendor_id'], 'Vendor should not change' );
-        $this->assertEquals( $feedRecord['vendor_poi_id'], $record['vendor_poi_id'], 'Vendor reference should not change' );
+        $this->assertEquals( get_class( $feedRecord ) , get_class( $recordInfo['record'] ), 'Class should be same as feed record.' );
+        $this->assertEquals( $feedRecord['vendor_id'], $recordInfo['record']['vendor_id'], 'Vendor should not change' );
+        $this->assertEquals( $feedRecord['vendor_poi_id'], $recordInfo['record']['vendor_poi_id'], 'Vendor reference should not change' );
         $this->assertEquals( LogImportErrorHelper::MSG_NO_MATCHING_DB_RECORD, $this->sfAction->getUser()->getFlash( 'notice' ) );
 
         // Test successful deserialize and merge.
-        $this->assertEquals( $feedRecord['poi_name'],   $record['poi_name'] );
-        $this->assertEquals( $feedRecord['house_no'],   $record['house_no'] );
-        $this->assertEquals( $feedRecord['street'],     $record['street'] );
-        $this->assertEquals( $feedRecord['city'],       $record['city'] );
+        $this->assertEquals( $feedRecord['poi_name'],   $recordInfo['record']['poi_name'] );
+        $this->assertEquals( $feedRecord['house_no'],   $recordInfo['record']['house_no'] );
+        $this->assertEquals( $feedRecord['street'],     $recordInfo['record']['street'] );
+        $this->assertEquals( $feedRecord['city'],       $recordInfo['record']['city'] );
+
+        // Test if we have a new record the previous values array should be empty
+        $this->assertEquals( 0, count( $recordInfo['previousValues'] ) );
+    }
+
+    public function testGetErrorObjectSuccess()
+    {
+        $feedRecord = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+        $unknownVendor = Doctrine::getTable( "Vendor" )->findOneByCity( "unknown" );
+        $feedRecord['vendor_id'] = $unknownVendor['id'];
+
+        $logImportError = $this->_addImportError( $feedRecord, 'Poi With A Different Vendor ID' );
+
+        $errorObject = LogImportErrorHelper::getErrorObject( $logImportError['id'] );
+        $this->assertTrue( $errorObject instanceof Poi, 'failed to successfully get error object' );
+    }
+
+    public function testGetErrorObjectFailure()
+    {
+        $feedRecord = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+        $unknownVendor = Doctrine::getTable( "Vendor" )->findOneByCity( "unknown" );
+        $feedRecord['vendor_id'] = $unknownVendor['id'];
+
+        $logImportError = $this->_addImportError( $feedRecord, 'Poi With A Different Vendor ID' );
+
+        $errorObject = LogImportErrorHelper::getErrorObject( 123 );
+        $this->assertFalse( $errorObject, 'returned error object for invalid error' );
+
+        $errorObject = LogImportErrorHelper::getErrorObject( 'abc' );
+        $this->assertFalse( $errorObject, 'returned error object for invalid error' );
     }
 }
 

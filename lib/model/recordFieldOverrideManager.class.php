@@ -8,6 +8,7 @@
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.0
+ * @todo check for exising overrides first (to prevent duplicates)
  *
  *
  */
@@ -48,24 +49,43 @@ class recordFieldOverrideManager
   /**
    * creates and saves record overrides using the results of getModified()
    * on the record this instance is working on.
+   *
+   * @param array $ignoreOverridesForFields
    */
-  public function saveRecordModificationsAsOverrides()
+  public function saveRecordModificationsAsOverrides( $ignoreOverridesForFields = array() )
   {
     $currentReceivedValues = $this->record->getModified( true );
     $modifiedValues        = $this->record->getModified();
+
+    $ignoreOverridesForFields[] = 'updated_at';
 
     foreach( $modifiedValues as $field => $editedValue )
     {
       if( empty( $editedValue ) && is_null( $currentReceivedValues[ $field ] ) )
         continue;
 
-      if( $field == 'updated_at' )
+      if ( in_array( $field, $ignoreOverridesForFields ) )
         continue;
-
+      
       $this->deactivateOverridesForField( $field );
       $currentReceivedValue = $currentReceivedValues[ $field ];
       $this->saveOverride( $field, $currentReceivedValue, $editedValue );
     }
+  }
+
+  /**
+   * @param string $field
+   * @param string $currentReceivedValue
+   * @param string $editedValue
+   */
+  public function saveModificationAsOverride( $field, $currentReceivedValue, $editedValue  )
+  {
+     if( !( empty( $editedValue ) && is_null( $currentReceivedValue ) ) && isset( $this->record[ $field ] ) )
+     {
+         $this->deactivateOverridesForField( $field );
+         return $this->saveOverride( $field, $currentReceivedValue, $editedValue );
+     }
+     return false;
   }
 
   /**

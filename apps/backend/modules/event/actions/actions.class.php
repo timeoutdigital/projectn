@@ -15,10 +15,67 @@ class eventActions extends autoEventActions
 {
   public function executeResolve(sfWebRequest $request)
   {
-    $record = LogImportErrorHelper::loadAndUnSerialize( $this, $request );
+    $recordInfo = LogImportErrorHelper::getMergedObject( $this, $request );
 
-    $this->form = $this->configuration->getForm( isset( $record ) ? $record : null );
+    $this->form = $this->configuration->getForm( $recordInfo[ 'record' ] );
     $this->event = $this->form->getObject();
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $recordInfo[ 'previousValues' ] );
+    /* set error id in form */
+    $importErrorId = $request->getParameter( 'import_error_id' );
+    $widgetSchema[ 'import_error_id' ]->setDefault( $importErrorId );
+
+    isset( $recordInfo[ 'record' ][ 'id' ] ) ?  $this->setTemplate('edit') : $this->setTemplate('new');
+  }
+
+  public function executeEdit(sfWebRequest $request)
+  {
+    $this->event = $this->getRoute()->getObject();
+    $this->form = $this->configuration->getForm($this->event);
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $this->event->toArray() );
+  }
+
+  public function executeUpdate(sfWebRequest $request)
+  {
+    $this->event = $this->getRoute()->getObject();
+    $this->form = $this->configuration->getForm($this->event);
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $this->event->toArray() );
+
+    $this->processForm($request, $this->form);
+
+    $this->setTemplate('edit');
+  }
+
+  public function executeCreate(sfWebRequest $request)
+  {
+    $vendorId = $request->getPostParameter( 'event[vendor_id]' );
+
+    if ( !is_numeric( $vendorId ) )
+    {
+        $this->getUser()->setFlash('error', 'Invalid Vendor Id');
+        $this->redirect('@event_new');
+    }
+
+    $vendor = Doctrine::getTable( 'Vendor' )->findOneById( $vendorId );
+
+    if ( $vendor === false)
+    {
+        $this->getUser()->setFlash('error', 'Vendor does not exist');
+        $this->redirect('@event_new');
+    }
+
+    $this->form = $this->configuration->getForm( array(), array( 'vendor_id' => $vendor['id'] ) );
+    $this->event = $this->form->getObject();
+
+    $this->processForm($request, $this->form);
 
     $this->setTemplate('new');
   }
