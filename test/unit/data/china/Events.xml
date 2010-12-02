@@ -12,7 +12,7 @@
         <start_time><![CDATA[22:00:00]]></start_time>
         <end_date><![CDATA[2010-11-13]]></end_date>
         <end_time><![CDATA[]]></end_time>
-        <venue_id><![CDATA[596]]></venue_id>
+        <venue_id><![CDATA[4]]></venue_id>
       </occurrence>
     </occurrences>
     <categories>
@@ -43,7 +43,7 @@
         <start_time><![CDATA[17:00:00]]></start_time>
         <end_date><![CDATA[2010-11-13]]></end_date>
         <end_time><![CDATA[]]></end_time>
-        <venue_id><![CDATA[421]]></venue_id>
+        <venue_id><![CDATA[1]]></venue_id>
       </occurrence>
     </occurrences>
     <categories>
@@ -75,35 +75,35 @@
         <start_time><![CDATA[]]></start_time>
         <end_date><![CDATA[2010-11-13]]></end_date>
         <end_time><![CDATA[]]></end_time>
-        <venue_id><![CDATA[600]]></venue_id>
+        <venue_id><![CDATA[2]]></venue_id>
       </occurrence>
       <occurrence id="2">
         <start_date><![CDATA[2010-11-14]]></start_date>
         <start_time><![CDATA[]]></start_time>
         <end_date><![CDATA[2010-11-14]]></end_date>
         <end_time><![CDATA[]]></end_time>
-        <venue_id><![CDATA[600]]></venue_id>
+        <venue_id><![CDATA[1]]></venue_id>
       </occurrence>
       <occurrence id="3">
         <start_date><![CDATA[2010-11-15]]></start_date>
         <start_time><![CDATA[]]></start_time>
         <end_date><![CDATA[2010-11-15]]></end_date>
         <end_time><![CDATA[]]></end_time>
-        <venue_id><![CDATA[600]]></venue_id>
+        <venue_id><![CDATA[2]]></venue_id>
       </occurrence>
       <occurrence id="4">
         <start_date><![CDATA[2010-11-16]]></start_date>
         <start_time><![CDATA[]]></start_time>
         <end_date><![CDATA[2010-11-16]]></end_date>
         <end_time><![CDATA[]]></end_time>
-        <venue_id><![CDATA[600]]></venue_id>
+        <venue_id><![CDATA[3]]></venue_id>
       </occurrence>
       <occurrence id="5">
         <start_date><![CDATA[2010-11-17]]></start_date>
         <start_time><![CDATA[]]></start_time>
         <end_date><![CDATA[2010-11-17]]></end_date>
         <end_time><![CDATA[]]></end_time>
-        <venue_id><![CDATA[600]]></venue_id>
+        <venue_id><![CDATA[1]]></venue_id>
       </occurrence>
     </occurrences>
     <categories>

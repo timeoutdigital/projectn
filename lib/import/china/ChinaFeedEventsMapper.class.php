@@ -83,10 +83,11 @@ class ChinaFeedEventsMapper extends ChinaFeedBaseMapper
 
                         $eventOccurrence = new EventOccurrence;
                         $eventOccurrence['start_date']                  = (string)$xmlOccurrence->start_date;
-                        $eventOccurrence['start_time']                  = (string)$xmlOccurrence->start_time;
+                        $eventOccurrence['start_time']                  = $this->extractTimeOrNull( (string)$xmlOccurrence->start_time );
                         $eventOccurrence['end_date']                    = (string)$xmlOccurrence->end_date;
-                        $eventOccurrence['end_time']                    = (string)$xmlOccurrence->end_time;
+                        $eventOccurrence['end_time']                    = $this->extractTimeOrNull( (string)$xmlOccurrence->end_time );
                         $eventOccurrence['poi_id']                      = $occurrenceVenue['id'];
+                        $eventOccurrence['utc_offset']                  = $this->vendor->getUtcOffset();
                         $eventOccurrence['vendor_event_occurrence_id']  = stringTransform::concatNonBlankStrings('-', array(
                                                                                                                         $event['vendor_event_id'],
                                                                                                                         $eventOccurrence['start_date'],
@@ -96,6 +97,8 @@ class ChinaFeedEventsMapper extends ChinaFeedBaseMapper
                         $event['EventOccurrence'][] = $eventOccurrence;
                     }
                 }
+
+                $this->notifyImporter( $event );
 
             } catch ( Exception $e )
             {
