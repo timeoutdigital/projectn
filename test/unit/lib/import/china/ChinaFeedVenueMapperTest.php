@@ -41,7 +41,6 @@ class ChinaFeedVenueMapperTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
-      $this->pdoDB = null;
       ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
@@ -100,6 +99,30 @@ class ChinaFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       // timeout URL
       $this->assertEquals( 1, $poi['PoiProperty']->count() );
       $this->assertEquals( 'http://www.timeoutcn.com/Articles_12_15.htm', $poi['PoiProperty'][0]['value'] );
+
+  }
+
+  public function testCategoryInFeed()
+  {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
+      ProjectN_Test_Unit_Factory::createDatabases();
+      Doctrine::loadData('data/fixtures');
+
+      // Do import
+      $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'src' => TO_TEST_DATA_PATH . '/china/PoiWithCategory.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9', 'xmlsrc' => 'test' ) );
+
+      $dataMapper = new ChinaFeedVenueMapperMock( $this->vendor, $params );
+
+      $importer = new Importer();
+      $importer->addDataMapper($dataMapper);
+      $importer->run();
+
+      $this->assertEquals( 1, Doctrine::getTable( 'Poi' )->count() );
+
+      $poi = Doctrine::getTable( 'Poi' )->find(1);
+      $this->assertEquals( 1, $poi['VendorPoiCategory']->count() );
+      $this->assertEquals( '吃喝 | 食客', $poi['VendorPoiCategory'][0]['name']);
+
 
   }
 }
