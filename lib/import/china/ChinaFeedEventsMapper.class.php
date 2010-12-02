@@ -52,9 +52,9 @@ class ChinaFeedEventsMapper extends ChinaFeedBaseMapper
                         if( isset( $parentCategory->children ) )
                         foreach ( $parentCategory->children as $childCategory )
                         {
-                            if( $this->clean( (string)$childCategory->name ) != '' )
+                            if( $this->clean( (string)$childCategory->category->name ) != '' )
                             {
-                                $categoryArray[] = $this->clean( (string)$childCategory->name );
+                                $categoryArray[] = $this->clean( (string)$childCategory->category->name );
                             }
                         }
 

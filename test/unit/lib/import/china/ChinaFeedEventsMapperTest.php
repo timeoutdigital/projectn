@@ -53,6 +53,53 @@ class ChinaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
         $this->assertEquals( 3, Doctrine::getTable( 'Event' )->count() );
 
+        $events = Doctrine::getTable( 'Event' )->findAll();
+
+        $event = $events[0];
+        $this->assertEquals( 'We back, we go HARD', $event['name']);
+        $this->assertStringStartsWith('新锐派对组织SuperColab将携东京最著名的前卫DJ团', $event['description']);
+        $this->assertStringEndsWith('DJ团“HARD”来到北...', $event['short_description']);
+        $this->assertEquals('门票50元', $event['price']);
+
+        // Check Category
+        $this->assertEquals('1', $event['VendorEventCategory']->count() );
+        $categories = $event['VendorEventCategory']->toArray();
+        $category = array_shift( $categories );
+        $this->assertEquals('北京 | 派对 | 双周推荐榜', $category['name'] );
+
+
+        // Check for occurrences
+        $this->assertEquals( 1 , $event['EventOccurrence'] ->count() );
+        $occurrence = $event['EventOccurrence'][0];
+
+        $this->assertEquals( '2010-11-13' , $occurrence['start_date'] );
+        $this->assertEquals( '22:00:00' , $occurrence['start_time'] );
+        $this->assertEquals( '2010-11-13' , $occurrence['end_date'] );
+        $this->assertEquals( '4' , $occurrence['poi_id'] );
+
+
+        // Test another Event
+        $event = $events[2];
+        $this->assertEquals( '《收获荒地》、《中国人来了》、《省长先生》', $event['name']);
+        $this->assertEquals('', $event['description']);
+        $this->assertEquals('', $event['short_description']);
+        $this->assertEquals('', $event['price']);
+
+        // Check Category
+        $this->assertEquals('1', $event['VendorEventCategory']->count() );
+        $categories = $event['VendorEventCategory']->toArray();
+        $category = array_shift( $categories );
+        $this->assertEquals('北京 | 影视 | 独立放映', $category['name'] );
+
+
+        // Check for occurrences
+        $this->assertEquals( 5 , $event['EventOccurrence'] ->count() );
+        $occurrence = $event['EventOccurrence'][0];
+
+        $this->assertEquals( '2010-11-13' , $occurrence['start_date'] );
+        $this->assertEquals( null , $occurrence['start_time'] );
+        $this->assertEquals( '2010-11-13' , $occurrence['end_date'] );
+        $this->assertEquals( '2' , $occurrence['poi_id'] );
     }
 
     /**
@@ -62,7 +109,7 @@ class ChinaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     {
         for( $i = 1; $i <= 4; $i++ )
         {
-            ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' =>  29) ); // Beijing ZH
+            ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' =>  29, 'vendor_poi_id' => $i) ); // Beijing ZH
         }
     }
 }

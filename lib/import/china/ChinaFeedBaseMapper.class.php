@@ -133,7 +133,7 @@ class ChinaFeedBaseMapper extends DataMapper
 
     protected function extractTimeOrNull( $string )
     {
-        $date = DateTime::createFromFormat( 'H:i', $string );
+        $date = DateTime::createFromFormat( 'H:i:s', $string );
 
         return ( $date === false ) ? null : $string;
     }
