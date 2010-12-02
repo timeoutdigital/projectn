@@ -29,7 +29,7 @@ class ChinaFeedMovieMapperTest extends PHPUnit_Framework_TestCase
 
     Doctrine::loadData('data/fixtures');
 
-    $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/china/MoivesIsOnView.xml', 'username' => 'test', 'password' => 'test' ) );
+    $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'src' => TO_TEST_DATA_PATH . '/china/MoivesIsOnView.xml', 'username' => 'test', 'password' => 'test', 'xmlsrc' => 'test' ) );
     $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'shanghai' );
 
     $importer = new Importer( );
@@ -82,6 +82,6 @@ class ChinaFeedMovieMapperTest extends PHPUnit_Framework_TestCase
 class ChinaFeedMovieMapperMock extends ChinaFeedMovieMapper
 {
     protected function  _loadXML() {
-        $this->xmlNodes = simplexml_load_file( $this->params['datasource']['url'] );
+        $this->xmlNodes = simplexml_load_file( $this->params['datasource']['src'] );
     }
 }

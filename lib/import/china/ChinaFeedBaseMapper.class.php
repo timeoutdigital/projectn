@@ -85,7 +85,7 @@ class ChinaFeedBaseMapper extends DataMapper
      */
     protected function _loadXML()
     {
-        $formScraper = new $this->params['datasource']['classname']( $this->params['datasource']['url'] );
+        $formScraper = new $this->params['datasource']['classname']( $this->params['datasource']['src'] );
 
         // Get form Fields to manipulate
         $formFields = $formScraper->getFormFields();
@@ -101,14 +101,16 @@ class ChinaFeedBaseMapper extends DataMapper
         // only updated when login Invoked. Hence we will be checking their Header for status 200 (which will be checked by Curl class)
         // and makesure that Last modified date == today's date
 
+        // Now download the generated feed using static URL
+        $formScraper = new $this->params['datasource']['classname']( $this->params[ 'datasource' ]['xmlsrc'] );
+
+        // Check modified date to confirm Login Sucess and Feed touched Today
         $modifiedDate = $formScraper->getHeaderField( 'Last-Modified' );
         if( date('Y-m-d', strtotime( $modifiedDate ) )  !== date( 'Y-m-d' ) )
         {
-            throw new ChinaFeedBaseMapperException( "Feed is out-dated! Possibily login failed and feed failed to generate today. Feed last modified date: {$modifiedDate}" );
+            throw new ChinaFeedBaseMapperException( "Feed is out-dated! Possibily login failed or feed failed to generate today. Feed last modified date: {$modifiedDate}" );
         }
 
-        // Now download the generated feed using static URL
-        $formScraper = new $this->params['datasource']['classname']( $this->params[ 'datasource' ]['xmlsrc'] );
         $this->xmlNodes = simplexml_load_string( $formScraper->getResponse() );
     }
 

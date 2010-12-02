@@ -47,7 +47,7 @@ class ChinaFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapVenue()
   {
-      $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/china/beijing_zh.venue.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
+      $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'src' => TO_TEST_DATA_PATH . '/china/beijing_zh.venue.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9', 'xmlsrc' => 'test' ) );
 
       $dataMapper = new ChinaFeedVenueMapperMock( $this->vendor, $params );
 
@@ -107,6 +107,6 @@ class ChinaFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 class ChinaFeedVenueMapperMock extends ChinaFeedVenueMapper
 {
     protected function   _loadXML() {
-        $this->xmlNodes = simplexml_load_file( $this->params['datasource']['url'] );
+        $this->xmlNodes = simplexml_load_file( $this->params['datasource']['src'] );
     }
 }

@@ -5,7 +5,7 @@ import:
       params:
         datasource:
           classname: curl
-          src: "http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx"
-          username: "tolondon"
-          password: "to3rjk&e*8dsfj9"
+          src: "http://n.timeoutcn.com/Admin/Export/Venues.aspx"
           xmlsrc: http://n.timeoutcn.com/Admin/Export/Venues.xml
+          username: "timeoutlondon"
+          password: "aas9384jewt-0tkfd"
