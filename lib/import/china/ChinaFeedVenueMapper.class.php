@@ -17,7 +17,7 @@ class ChinaFeedVenueMapper extends ChinaFeedBaseMapper
 {
     public function mapVenue()
     {
-        $xmlNodes = $this->xmlNodes->xpath( '//venues/venues' ); // use xpath to extract only venues
+        $xmlNodes = $this->xmlNodes->xpath( '//venues/venue' ); // use xpath to extract only venues
 
         for( $i = 0; $i < count( $xmlNodes ); $i++ )
         {

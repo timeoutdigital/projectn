@@ -1,11 +1,12 @@
 import:
   poi:
     class:
-      name: beijingZHFeedVenueMapper
+      name: ChinaFeedVenueMapper
       params:
+        type: poi
         datasource:
-          classname: curl
-          src: "http://n.timeoutcn.com/Admin/Export/Venues.aspx"
+          classname: FormScraper
+          src: "http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/Export/Venues.aspx"
           xmlsrc: http://n.timeoutcn.com/Admin/Export/Venues.xml
           username: "timeoutlondon"
           password: "aas9384jewt-0tkfd"

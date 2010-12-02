@@ -86,7 +86,7 @@ class ChinaFeedBaseMapper extends DataMapper
     protected function _loadXML()
     {
         $formScraper = new $this->params['datasource']['classname']( $this->params['datasource']['src'] );
-        $formScraper->doFormRequest();
+        $formScraper->doFormPageRequest();
         
         // Get form Fields to manipulate
         $formFields = $formScraper->getFormFields();
@@ -113,6 +113,8 @@ class ChinaFeedBaseMapper extends DataMapper
             throw new ChinaFeedBaseMapperException( "Feed is out-dated! Possibily login failed or feed failed to generate today. Feed last modified date: {$modifiedDate}" );
         }
 
+        new FeedArchiver( $this->vendor, $formScraper->getResponse(), $this->params['type']);
+        
         $this->xmlNodes = simplexml_load_string( $formScraper->getResponse() );
     }
 
