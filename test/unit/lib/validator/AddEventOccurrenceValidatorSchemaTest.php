@@ -61,12 +61,18 @@ class AddEventOccurrenceValidatorSchemaTest extends PHPUnit_Framework_TestCase
         $this->assertTrue( true );
     }
 
-    public function testErrorsIfMissingData()
+    /**
+     * Since we are not validating End date / Time, we cannot test start-date empty, start-time empty and poi empty as a combination...
+     * logic behing the clean() require one of above to be in place to validate the data otherwise it will skip validation.
+     *
+     * This function is now split in two to validate missing poi id separately and missing start_date & satrt_time in another
+     */
+    public function testErrorsIfMissingDataPoiAndStartTime()
     {
         $data = array
         (
             'poi_id' => '',
-            'start_date' => '',
+            'start_date' => '2010-11-22',
             'end_date' => '2010-10-05',
             'start_time' => Array
             (
@@ -139,13 +145,88 @@ class AddEventOccurrenceValidatorSchemaTest extends PHPUnit_Framework_TestCase
         }
 
         $this->assertTrue( $poiIdExceptionThrown , 'expecting exception due to missing poi_id' );
-        $this->assertTrue( $startDateExceptionThrown , 'expecting exception due to missing start_date' );
+        //$this->assertTrue( $startDateExceptionThrown , 'expecting exception due to missing start_date' );
         $this->assertTrue( $startTimeExceptionThrown , 'expecting exception due to missing start_time' );
         //commented out because end_date and end_time are removed temporarily//
         //$this->assertTrue( $endTimeExceptionThrown , 'expecting exception due to missing end_time' );
         //$this->assertFalse( $endDateExceptionThrown , 'not expecting exception for end date' );
 
     }
+
+    /**
+     * Testing Statr_date and start_time missing..
+     */
+    public function testErrorsIfMissingDataStartDateAndTime()
+    {
+        $data = array
+        (
+            'poi_id' => '1',
+            'start_date' => '',
+            'end_date' => '2010-10-05',
+            'start_time' => Array
+            (
+                'hour' => '',
+                'minute' => '',
+            ),
+
+            'end_time' => Array
+            (
+                'hour' => '',
+                'minute' => '',
+            ),
+
+            'recurring_dates' => Array
+            (
+                'recurring_freq' => 'daily',
+                'recurring_weekly_week_number' => '1',
+                'recurring_monthly_month_number' => '1',
+                'recurring_monthly_position' => 'first',
+                'recurring_monthly_weekday' => 'mon',
+                'recurring_until' => '',
+            )
+
+        );
+
+        //expecting exceptions for poi_id ,start_date start_time and end_time
+        $poiIdExceptionThrown       = false;
+        $startDateExceptionThrown   = false;
+        //commented out because end_date and end_time are removed temporarily//
+       // $endDateExceptionThrown     = false;    //we don't want this to be thrown because the end date is given in the data
+        $startTimeExceptionThrown   = false;
+        ////commented out because end_date and end_time are removed temporarily//
+        $endTimeExceptionThrown     = false;
+
+        $validator = new AddEventOccurrenceValidatorSchema();
+        try
+        {
+            $validator->clean( $data );
+        }
+        catch ( sfValidatorErrorSchema $e )
+        {
+            foreach ($e->getErrors() as $key => $errorObj)
+            {
+                if( $key == 'poi_id' )
+                {
+                    $poiIdExceptionThrown = true;
+                }
+
+                if( $key == 'start_date' )
+                {
+                    $startDateExceptionThrown = true;
+                }
+
+                if( $key == 'start_time' )
+                {
+                    $startTimeExceptionThrown = true;
+                }
+            }
+        }
+
+        $this->assertTrue( $startDateExceptionThrown , 'expecting exception due to missing start_date' );
+        $this->assertTrue( $startTimeExceptionThrown , 'expecting exception due to missing start_time' );
+
+    }
+
     public function testValidationErrorIfStartDateAndEndDateAreDifferent()
     {
         //test is skipped because end_date and end_time are removed temporarily//

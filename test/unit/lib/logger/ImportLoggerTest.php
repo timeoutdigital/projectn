@@ -96,10 +96,6 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $logger = Doctrine::getTable("LogImport")->findAll()->getFirst();
         //$logger->refresh( true ); // Call this to clear Doctrine cache //2010-10-27 causes unit test to fail on machines after upgrading to ubuntu 10.10
 
-        $this->assertEquals( 2, $logger->LogImportCount->count(), "Expecting sets of Counts, (poi & event)" );
-        $this->assertEquals( 1, $logger->LogImportCount[0]['count'], "Expecting Poi Failure Count" );
-        $this->assertEquals( 1, $logger->LogImportCount[1]['count'], "Expecting Event Failure Count" );
-
         $this->assertEquals( 2, $logger->LogImportError->count(), "Expecting Two Sets of Errors" );
         $this->assertEquals( 'Exception', $logger->LogImportError[0]['exception_class'], "Expecting exception_class to be Exception" );
         $this->assertEquals( 'Poi', $logger->LogImportError[0]['model'], "Expecting Model to be POI" );
@@ -108,6 +104,23 @@ class ImportLoggerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'Event', $logger->LogImportError[1]['model'], "Expecting Model to be POI" );
         $this->assertEquals( 'bar', $logger->LogImportError[1]['message'], "Expecting Message to be set." );
         //print_r( $logger->toArray() );
+    }
+
+    /**
+     * AddFailed is not working independently from addError()...
+     */
+    public function testAddFailed2()
+    {
+        ImportLogger::getInstance()->progressive( true );
+        ImportLogger::getInstance()->setVendor( Doctrine::getTable("Vendor")->findOneByCity( "moscow" ) );
+        ImportLogger::getInstance()->addFailed( new Poi );
+        ImportLogger::getInstance()->addFailed(  new Event );
+
+        $logger = Doctrine::getTable("LogImport")->findAll()->getFirst();
+
+        $this->assertEquals( 2, $logger->LogImportCount->count(), "Expecting sets of Counts, (poi & event)" );
+        $this->assertEquals( 1, $logger->LogImportCount[0]['count'], "Expecting Poi Failure Count" );
+        $this->assertEquals( 1, $logger->LogImportCount[1]['count'], "Expecting Event Failure Count" );
     }
 
     public function testAddInsert()

@@ -383,7 +383,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->populateDbWithLondonData();
       $this->exportPoisAndEvents();
       $event = Doctrine::getTable( 'Event' )->findOneById( 1 );
-
+      
       $this->assertEquals( 1, $event['EventOccurrence'][0]['poi_id'], 'Event occurrence id should match poi id.' );
       $this->assertEquals( 'LHR', $event['Vendor']['airport_code'], 'airport code' );
 
@@ -475,21 +475,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 'image/', $propertyElements->item(0)->getAttribute('mime-type') );
       $this->assertEquals( 'url',    $propertyElements->item(0)->nodeValue );
     }
-
-  public function testSuppressSingaporeTimeinfoProperty()
-  {
-    $this->addEventWithTimeInfoForVendor( 'singapore' );
-    $this->doPoiExport( $this->vendor );
-    $this->export();
-
-    //should only get the 'other' property back
-    $this->assertEquals( 3, $this->xpath->query( '//property' )->length );
-    $node = $this->xpath->query( '//property' )->item(1);
-
-    $this->assertEquals( 'other', $node->attributes->item(0)->nodeValue );
-    $this->assertEquals( 'other', $node->nodeValue );
-
-  }
+  
   public function test2SuppressSingaporeTimeinfoProperty()
   {
     $this->addEventWithTimeInfoForVendor( 'london' );
@@ -734,9 +720,10 @@ private function addAnotherEventOccurrenceTo( $event, $poi )
       'start_date' => $this->today(),
       'start_time' => '00:00:01',
     ) );
-    $occurrence->link( 'Event', array( 1 ) );
+    
     $occurrence->link( 'Poi', array( 1 ) );
-    $occurrence->save();
+    $event['EventOccurrence'][] = $occurrence;
+    $event->save();
 
     $property = ProjectN_Test_Unit_Factory::get( 'EventProperty', array(
       'lookup' => 'test key 1',
@@ -777,7 +764,7 @@ private function addAnotherEventOccurrenceTo( $event, $poi )
 
     $vendorEventCategories = new Doctrine_Collection( Doctrine::getTable('VendorEventCategory'));
     $vendorEventCategories[] = $vendorEventCategory;
-
+    
     $event2 = ProjectN_Test_Unit_Factory::get( 'Event' );
     $event2->addVendorCategory( 'test vendor category' );
     $event2['EventCategory'][] = $eventCat1;
