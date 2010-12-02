@@ -3,8 +3,9 @@ require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 require_once TO_TEST_MOCKS . '/curl.mock.php';
+
 /**
- * Test of beijing Venue Mapper
+ * Test of China Venue Mapper
  *
  * @package test
  * @subpackage beijing.import.lib.unit
@@ -17,7 +18,7 @@ require_once TO_TEST_MOCKS . '/curl.mock.php';
  *
  */
 
-class beijingZHFeedPoiMapperTest extends PHPUnit_Framework_TestCase
+class ChinaFeedVenueMapperTest extends PHPUnit_Framework_TestCase
 {
 
     protected $vendor;
@@ -46,9 +47,9 @@ class beijingZHFeedPoiMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapVenue()
   {
-      $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/beijing/beijing_zh.venue.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
+      $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/china/beijing_zh.venue.xml', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
 
-      $dataMapper = new beijingZHFeedVenueMapperMock( $this->vendor, $params );
+      $dataMapper = new ChinaFeedVenueMapperMock( $this->vendor, $params );
 
       $importer = new Importer();
       $importer->addDataMapper($dataMapper);
@@ -99,14 +100,13 @@ class beijingZHFeedPoiMapperTest extends PHPUnit_Framework_TestCase
       // timeout URL
       $this->assertEquals( 1, $poi['PoiProperty']->count() );
       $this->assertEquals( 'http://www.timeoutcn.com/Articles_12_15.htm', $poi['PoiProperty'][0]['value'] );
-      
+
   }
 }
 
-class beijingZHFeedVenueMapperMock extends beijingZHFeedVenueMapper
+class ChinaFeedVenueMapperMock extends ChinaFeedVenueMapper
 {
-    protected function  getXMLFeedData() {
-        
+    protected function   _loadXML() {
         $this->xmlNodes = simplexml_load_file( $this->params['datasource']['url'] );
     }
 }

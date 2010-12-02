@@ -4,10 +4,10 @@ require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
- * Test of Shanghai Movie Mapper
+ * Test of China Movie Mapper
  *
  * @package test
- * @subpackage shanghai.import.lib.unit
+ * @subpackage china.import.lib.unit
  *
  * @author Rajeevan Kumarathasan <rajeevankumarathasan@timeout.com>
  * @copyright Timeout Communications Ltd
@@ -17,7 +17,7 @@ require_once TO_TEST_MOCKS . '/curl.mock.php';
  *
  */
 
-class ShanghaiFeedMovieMapperTest extends PHPUnit_Framework_TestCase
+class ChinaFeedMovieMapperTest extends PHPUnit_Framework_TestCase
 {
    /**
    * Sets up the fixture, for example, opens a network connection.
@@ -29,11 +29,11 @@ class ShanghaiFeedMovieMapperTest extends PHPUnit_Framework_TestCase
 
     Doctrine::loadData('data/fixtures');
 
-    $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/shanghai/MoivesIsOnView.xml', 'username' => 'test', 'password' => 'test' ) );
+    $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => TO_TEST_DATA_PATH . '/china/MoivesIsOnView.xml', 'username' => 'test', 'password' => 'test' ) );
     $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'shanghai' );
-    
+
     $importer = new Importer( );
-    $importer->addDataMapper( new ShanghaiFeedMovieMapperMock($vendor, $params) );
+    $importer->addDataMapper( new ChinaFeedMovieMapperMock($vendor, $params) );
     $importer->run();
   }
 
@@ -64,7 +64,7 @@ class ShanghaiFeedMovieMapperTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals( 3, $movie['MovieGenres']->count() );
       $this->assertEquals( '动作', $movie['MovieGenres'][0]['genre'] );
-      
+
       $movie = $movies[0];
       $this->assertEquals( '2', $movie['vendor_movie_id'] );
       $this->assertEquals( '狄仁杰之通天帝国', $movie['name'] );
@@ -79,9 +79,9 @@ class ShanghaiFeedMovieMapperTest extends PHPUnit_Framework_TestCase
   }
 }
 
-class ShanghaiFeedMovieMapperMock extends ShanghaiFeedMovieMapper
+class ChinaFeedMovieMapperMock extends ChinaFeedMovieMapper
 {
-    protected function  getXMLFeedData() {
+    protected function  _loadXML() {
         $this->xmlNodes = simplexml_load_file( $this->params['datasource']['url'] );
     }
 }
