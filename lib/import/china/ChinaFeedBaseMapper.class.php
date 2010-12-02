@@ -86,7 +86,8 @@ class ChinaFeedBaseMapper extends DataMapper
     protected function _loadXML()
     {
         $formScraper = new $this->params['datasource']['classname']( $this->params['datasource']['src'] );
-
+        $formScraper->doFormRequest();
+        
         // Get form Fields to manipulate
         $formFields = $formScraper->getFormFields();
         $formFields['Login2$UserName'] = $this->params['datasource']['username'];
@@ -103,7 +104,8 @@ class ChinaFeedBaseMapper extends DataMapper
 
         // Now download the generated feed using static URL
         $formScraper = new $this->params['datasource']['classname']( $this->params[ 'datasource' ]['xmlsrc'] );
-
+        $formScraper->doGetRequest();
+        
         // Check modified date to confirm Login Sucess and Feed touched Today
         $modifiedDate = $formScraper->getHeaderField( 'Last-Modified' );
         if( date('Y-m-d', strtotime( $modifiedDate ) )  !== date( 'Y-m-d' ) )
