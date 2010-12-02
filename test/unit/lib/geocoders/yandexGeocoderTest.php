@@ -32,9 +32,15 @@ class yandexGeocodeTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases(); // We need to create context to load keys.
+    SqliteGeoCache::$enabled = false; // Disable SqlLiteCache for this test
     $this->object = new yandexGeocoder( 'yandexGeocodeTestExactMockCurl' );
     $this->apiKey = sfConfig::get('app_yandex_api_key');
     $this->object->setApiKey( $this->apiKey );
+  }
+
+  protected function tearDown()
+  {
+      ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
   public function testLookupUrl()

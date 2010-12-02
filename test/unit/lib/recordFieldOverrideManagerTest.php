@@ -35,11 +35,61 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
 
   public function testSavesRecordModificationsAsRecordFieldOverrides()
   {
-    //$this->markTestSkipped();
+    //create and save a poi
+    $receivedName           = 'Received name';
+    $receivedStreet         = 'Received street';
+    $receivedDescription    = 'Received description';
+    $receivedZips           = 'Received zip';
+
+    $record = ProjectN_Test_Unit_Factory::add( 'Poi', array( 
+      'poi_name'    => $receivedName,
+      'street'      => $receivedStreet,
+      'description' => $receivedDescription,
+      'zips'        => $receivedZips
+    ) );
+
+    //change some fields on the poi
+    $editedName                 = 'Edited name';
+    $editedStreet               = 'Edited street';
+    $editedDescription          = 'Edited description';
+    $editedZips                 = 'Edited zip';
+    $record[ 'poi_name' ]       = $editedName;
+    $record[ 'street' ]         = $editedStreet;
+    $record[ 'description' ]    = $editedDescription;
+    $record[ 'zips' ]           = $editedZips;
+    $this->assertEquals( 4, count( $record->getModified() ), 'Record should have 4 modified field.' );
+
+    //generate overrides using poi's changes
+    $ignoreOverridesForFields = array( 'description', 'zips' );
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->saveRecordModificationsAsOverrides( $ignoreOverridesForFields );
+
+    $this->assertEquals( $editedName,   $record[ 'poi_name' ], 'Record should not be affected by saveRecordModificationsAsOverrides()');
+    $this->assertEquals( $editedStreet, $record[ 'street' ],   'Record should not be affected by saveRecordModificationsAsOverrides()');
+    $this->assertEquals( $editedDescription,   $record[ 'description' ], 'Record should not be affected by saveRecordModificationsAsOverrides()');
+    $this->assertEquals( $editedZips, $record[ 'zips' ],   'Record should not be affected by saveRecordModificationsAsOverrides()');
+
+    //do assertions
+    $overrideTable = $overrides->getOverrideTable();
+    $this->assertEquals( 2, $overrideTable->count(), 'Should have 2 records in RecordFieldOverride table.' );
+
+    $nameOverride = $overrideTable->findOneByField( 'poi_name' );
+    $this->assertEquals( $receivedName, $nameOverride[ 'received_value' ], 'Checking received name' ); 
+    $this->assertEquals( $editedName,   $nameOverride[ 'edited_value' ], 'Checking edited name' );
+
+    $streetOverride = $overrideTable->findOneByField( 'street' );
+    $this->assertEquals( $receivedStreet, $streetOverride[ 'received_value' ], 'Checking received street' ); 
+    $this->assertEquals( $editedStreet,   $streetOverride[ 'edited_value' ], 'Checking edited street' );
+
+    $this->assertEquals( 2, count( $record[ 'RecordFieldOverride' ] )  );
+  }
+
+  public function testSavesRecordModificationsAsRecordFieldOverridesWithExcludedFields()
+  {
     //create and save a poi
     $receivedName   = 'Received name';
     $receivedStreet = 'Received street';
-    $record = ProjectN_Test_Unit_Factory::add( 'Poi', array( 
+    $record = ProjectN_Test_Unit_Factory::add( 'Poi', array(
       'poi_name' => $receivedName,
       'street'    => $receivedStreet
     ) );
@@ -49,7 +99,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     $editedStreet         = 'Edited street';
     $record[ 'poi_name' ] = $editedName;
     $record[ 'street' ]   = $editedStreet;
-    $this->assertEquals( 2, count( $record->getModified() ), 'Record should have 1 modified field.' );
+    $this->assertEquals( 2, count( $record->getModified() ), 'Record should have 2 modified fields.' );
 
     //generate overrides using poi's changes
     $overrides = new recordFieldOverrideManager( $record );
@@ -63,14 +113,107 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals( 2, $overrideTable->count(), 'Should have 2 records in RecordFieldOverride table.' );
 
     $nameOverride = $overrideTable->findOneByField( 'poi_name' );
-    $this->assertEquals( $receivedName, $nameOverride[ 'received_value' ], 'Checking received name' ); 
+    $this->assertEquals( $receivedName, $nameOverride[ 'received_value' ], 'Checking received name' );
     $this->assertEquals( $editedName,   $nameOverride[ 'edited_value' ], 'Checking edited name' );
 
     $streetOverride = $overrideTable->findOneByField( 'street' );
-    $this->assertEquals( $receivedStreet, $streetOverride[ 'received_value' ], 'Checking received street' ); 
+    $this->assertEquals( $receivedStreet, $streetOverride[ 'received_value' ], 'Checking received street' );
     $this->assertEquals( $editedStreet,   $streetOverride[ 'edited_value' ], 'Checking edited street' );
 
     $this->assertEquals( 2, count( $record[ 'RecordFieldOverride' ] )  );
+  }
+
+  public function testSaveModificationAsOverride()
+  {
+    //create and save a poi
+    $receivedName   = 'Received name';
+    $receivedStreet = 'Received street';
+    $record = ProjectN_Test_Unit_Factory::add( 'Poi', array(
+      'poi_name' => $receivedName,
+      'street'    => $receivedStreet
+    ) );
+
+    //change some fields on the poi
+    $editedName           = 'Edited name';
+
+    //generate overrides using poi's changes
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->saveModificationAsOverride( 'poi_name', $receivedName, $editedName  );
+
+    $this->assertEquals( $receivedName,   $record[ 'poi_name' ], 'Record should not be affected by saveModificationAsOverride()');
+    $this->assertEquals( $receivedStreet, $record[ 'street' ],   'Record should not be affected by saveModificationAsOverride()');
+
+    $record->save();
+
+    $this->assertEquals( $editedName,   $record[ 'poi_name' ], 'Record should come back with edited value for field');
+    $this->assertEquals( $receivedStreet, $record[ 'street' ],   'Record should come back with original (received) value for field');
+
+    $overrideTable = $overrides->getOverrideTable();
+
+    $nameOverride = $overrideTable->findOneByField( 'poi_name' );
+    $this->assertEquals( $receivedName, $nameOverride[ 'received_value' ], 'Checking received name' );
+    $this->assertEquals( $editedName,   $nameOverride[ 'edited_value' ], 'Checking edited name' );
+
+    $this->assertEquals( 1, $overrideTable->count(), 'Should have 1 records in RecordFieldOverride table.' );
+  }
+  
+  public function testSaveModificationAsOverrideWithInvalidField()
+  {
+    //create and save a poi
+    $receivedName   = 'Received name';
+    $receivedStreet = 'Received street';
+    $record = ProjectN_Test_Unit_Factory::add( 'Poi', array(
+      'poi_name' => $receivedName,
+      'street'    => $receivedStreet
+    ) );
+
+    //change some fields on the poi
+    $editedName           = 'Edited name';
+
+    //generate overrides using poi's changes
+    $overrides = new recordFieldOverrideManager( $record );
+    
+    $this->assertFalse( $overrides->saveModificationAsOverride( 'poi_name_2', $receivedName, $editedName  ) );
+
+    $overrideTable = $overrides->getOverrideTable();
+
+    $this->assertEquals( 0, $overrideTable->count(), 'Should have 0 records in RecordFieldOverride table.' );
+  }
+  
+  public function testSaveModificationAsOverrideWidthEmptyChange()
+  {
+    //create and save a poi
+    $receivedName     = 'Received name';
+    $receivedProvider = NULL;
+    $record = ProjectN_Test_Unit_Factory::add( 'Poi', array(
+      'poi_name' => $receivedName,
+      'street'    => $receivedProvider
+    ) );
+
+    //change some fields on the poi
+    $editedName           = 'Edited name';
+    $editedProvider       = '';
+
+    //generate overrides using poi's changes
+    $overrides = new recordFieldOverrideManager( $record );
+    $overrides->saveModificationAsOverride( 'poi_name', $receivedName, $editedName  );
+    $overrides->saveModificationAsOverride( 'provider', $receivedProvider, $editedProvider );
+
+    $this->assertEquals( $receivedName,   $record[ 'poi_name' ], 'Record should not be affected by saveModificationAsOverride()');
+    $this->assertEquals( $receivedProvider, $record[ 'provider' ],   'Record should not be affected by saveModificationAsOverride()');
+
+    $record->save();
+
+    $this->assertEquals( $editedName,   $record[ 'poi_name' ], 'Record should come back with edited value for field');
+    $this->assertEquals( $receivedProvider, $record[ 'provider' ],   'Record should come back with original (received) value for field');
+
+    $overrideTable = $overrides->getOverrideTable();
+
+    $nameOverride = $overrideTable->findOneByField( 'poi_name' );
+    $this->assertEquals( $receivedName, $nameOverride[ 'received_value' ], 'Checking received name' );
+    $this->assertEquals( $editedName,   $nameOverride[ 'edited_value' ], 'Checking edited name' );
+
+    $this->assertEquals( 1, $overrideTable->count(), 'Should have 1 records in RecordFieldOverride table.' );
   }
 
   public function testOverridesRemainInPlaceIfIncomingValueHasNotChanged()
@@ -98,7 +241,7 @@ class recordFieldOverrideManagerTest extends PHPUnit_Framework_TestCase {
     $record = $this->createAnEventAndThreeOverrides();
 
     //change the some of the edited values back
-    $newIncomingValue = 'something different';    
+    $newIncomingValue = 'something different';
     $record[ 'name' ]  = $newIncomingValue;
     $record[ 'price' ] = $newIncomingValue;
 

@@ -56,16 +56,10 @@ class XMLExportPOI extends XMLExport
     try {
         // Dont Do Dupe Lat Long Lookup for Russian Cities
         $duplicateLatLongs = ( $this->vendor['language'] != 'ru' ) ?
-             Doctrine_Query::create()
-                 ->select("p.latitude, p.longitude, CONCAT( latitude, ', ', longitude ) as myString")
-                 ->from('Poi p')
-                 ->where('p.vendor_id = ?', $this->vendor['id'] )
-                 ->addWhere('p.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
-                 ->groupBy('myString')
-                 ->having('count( myString ) > 1')
-                 ->execute( array(), Doctrine_Core::HYDRATE_ARRAY )
+            Doctrine::getTable('Poi')->findAllDuplicateLatLongsAndApplyWhitelist( $this->vendor['id'] )
         : array();
     }
+    
     catch( Exception $e )
     {
         ExportLogger::getInstance()->addError( 'FATAL Exception returned while finding duplicate lat/longs in export.', 'Poi' );

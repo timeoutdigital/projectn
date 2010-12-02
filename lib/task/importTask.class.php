@@ -400,6 +400,7 @@ class importTask extends sfBaseTask
     case 'bangalore':
     case 'beijing-data-entry':
     case 'pune':
+    case 'shanghai_en':
 
         if( $options['city'] == 'beijing-data-entry' )
         {

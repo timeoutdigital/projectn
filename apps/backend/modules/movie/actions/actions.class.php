@@ -15,15 +15,72 @@ class movieActions extends autoMovieActions
 {
   public function executeResolve(sfWebRequest $request)
   {
-    $record = LogImportErrorHelper::loadAndUnSerialize( $this, $request );
+    $recordInfo = LogImportErrorHelper::getMergedObject( $this, $request );
 
-    $this->form = $this->configuration->getForm( isset( $record ) ? $record : null );
+    $this->form = $this->configuration->getForm( $recordInfo[ 'record' ] );
     $this->movie = $this->form->getObject();
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $recordInfo[ 'previousValues' ] );
+    /* set error id in form */
+    $importErrorId = $request->getParameter( 'import_error_id' );
+    $widgetSchema[ 'import_error_id' ]->setDefault( $importErrorId );
+
+    isset( $recordInfo[ 'record' ][ 'id' ] ) ?  $this->setTemplate('edit') : $this->setTemplate('new');
+  }
+
+  public function executeEdit(sfWebRequest $request)
+  {
+    $this->movie = $this->getRoute()->getObject();
+    $this->form = $this->configuration->getForm($this->movie);
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $this->movie->toArray() );
+  }
+
+  public function executeUpdate(sfWebRequest $request)
+  {
+    $this->movie = $this->getRoute()->getObject();
+    $this->form = $this->configuration->getForm($this->movie);
+
+    $widgetSchema = $this->form->getWidgetSchema();
+    /* set original values as help text */
+    $widgetSchema->setHelps( $this->movie->toArray() );
+
+    $this->processForm($request, $this->form);
+
+    $this->setTemplate('edit');
+  }
+
+  public function executeCreate(sfWebRequest $request)
+  {
+    $vendorId = $request->getPostParameter( 'movie[vendor_id]' );
+
+    if ( !is_numeric( $vendorId ) )
+    {
+        $this->getUser()->setFlash('error', 'Invalid Vendor Id');
+        $this->redirect('@movie_new');
+    }
+
+    $vendor = Doctrine::getTable( 'Vendor' )->findOneById( $vendorId );
+
+    if ( $vendor === false)
+    {
+        $this->getUser()->setFlash('error', 'Vendor does not exist');
+        $this->redirect('@movie_new');
+    }
+
+    $this->form = $this->configuration->getForm( array(), array( 'vendor_id' => $vendor['id'] ) );
+    $this->movie = $this->form->getObject();
+
+    $this->processForm($request, $this->form);
 
     $this->setTemplate('new');
   }
 
-  /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
+  /*** symfony generated start taken from cache/backend/dev/modules/autoMovie/actions/actions.class.php ***/
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

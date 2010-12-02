@@ -24,6 +24,7 @@ class SqliteGeoCacheTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        SqliteGeoCache::$persistent = false; // This cause I/O error when files are deleted in code bellow
         $this->assertTrue( class_exists( 'SqliteGeoCache' ) );
 
         file_exists( SqliteGeoCache::$sqlpath ) && unlink( SqliteGeoCache::$sqlpath );

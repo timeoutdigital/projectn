@@ -136,6 +136,14 @@ class xmlDataFixer
     }
 
     /**
+     * Encode String data to UTF-8 using utf8_encode()
+     */
+    public function removeVerticalTab()
+    {
+        $this->xmlStringData = preg_replace( "/\x0B/", '', $this->xmlStringData );
+    }
+
+    /**
      * Filter the MS Word html Tags
      * (font|span|del|ins|w:|link|meta|xml|style)
      * @param string $string
