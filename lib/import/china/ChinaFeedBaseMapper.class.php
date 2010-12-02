@@ -37,27 +37,10 @@ class ChinaFeedBaseMapper extends DataMapper
      * @param Vendor $vendor
      * @param array $params
      */
-    public function  __construct( Vendor $vendor, $params ) {
-
-        if( !$vendor )
-            throw new $this->exceptionClass( 'Invalid vendor object' );
-
-        if( !is_array( $params ) || empty( $params ) )
-            throw new ChinaFeedBaseMapperException ( 'Invalid Parameter' );
-
-        // Validate Params
-        if( !isset( $params['datasource']['classname'] ) || empty( $params['datasource']['classname'] ) )
-            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::classname ' );
-
-        if( !isset( $params['datasource']['url'] ) || empty( $params['datasource']['url'] ) )
-            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::url ' );
-
-        if( !isset( $params['datasource']['username'] ) || empty( $params['datasource']['username'] ) )
-            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::username ' );
-
-        if( !isset( $params['datasource']['password'] ) || empty( $params['datasource']['password'] ) )
-            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::password ' );
-
+    public function  __construct( Vendor $vendor, $params )
+    {
+        $this->_validateParams( $vendor, $params );
+        
         // Set local variables
         $this->vendor = $vendor;
         $this->params = $params;
@@ -66,6 +49,37 @@ class ChinaFeedBaseMapper extends DataMapper
         $this->_loadXML();
     }
 
+    /**
+     * Validate Parameters passed in Constructor
+     * @param Vendor $vendor
+     * @param array $params
+     */
+    
+    private function _validateParams( $vendor, $params )
+    {
+        if( !$vendor )
+            throw new ChinaFeedBaseMapperException( 'Invalid vendor object' );
+
+        if( !is_array( $params ) || empty( $params ) )
+            throw new ChinaFeedBaseMapperException ( 'Invalid Parameter' );
+
+        // Validate Params
+        if( !isset( $params['datasource']['classname'] ) || empty( $params['datasource']['classname'] ) )
+            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::classname ' );
+
+        if( !isset( $params['datasource']['src'] ) || empty( $params['datasource']['src'] ) )
+            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::src ' );
+
+        if( !isset( $params['datasource']['xmlsrc'] ) || empty( $params['datasource']['xmlsrc'] ) )
+            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::xmlsrc ' );
+
+        if( !isset( $params['datasource']['username'] ) || empty( $params['datasource']['username'] ) )
+            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::username ' );
+
+        if( !isset( $params['datasource']['password'] ) || empty( $params['datasource']['password'] ) )
+            throw new ChinaFeedBaseMapperException ( 'Invalid datasource::password ' );
+    }
+    
     /**
      * Download the XML feed and Store it in $this->xmlNodes variable
      */
