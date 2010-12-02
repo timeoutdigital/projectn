@@ -40,29 +40,7 @@ class ChinaFeedEventsMapper extends ChinaFeedBaseMapper
                 // Extract Category
                 if( isset( $eventNode->categories ) )
                 {
-                    $categoryArray;
-                    foreach( $eventNode->categories->category as $parentCategory )
-                    {
-                        $categoryArray = array(); // Reset
-
-                        // Adding parent category to Array
-                        $categoryArray[] = $this->clean( (string) $parentCategory->name );
-
-                        // Look for Any child category and Add them to The list
-                        if( isset( $parentCategory->children ) )
-                        foreach ( $parentCategory->children as $childCategory )
-                        {
-                            if( $this->clean( (string)$childCategory->category->name ) != '' )
-                            {
-                                $categoryArray[] = $this->clean( (string)$childCategory->category->name );
-                            }
-                        }
-
-                        // addVendorCategory will Implode the array into | seperated Value
-                        // hence we add Each Top level category with its child
-                        $event->addVendorCategory( $categoryArray, $this->vendor['id'] );
-
-                    }
+                    $this->extractCategory( $event, $eventNode);
                 }
 
                 // Extract Event occurrences

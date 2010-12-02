@@ -1,5 +1,5 @@
 <venues>
-<venues id="3">
+<venue id="3">
     <name><![CDATA[俏江南]]></name>
     <house_no><![CDATA[1号]]></house_no>
     <street><![CDATA[东城区东长安街]]></street>
@@ -15,7 +15,7 @@
     <price_information><![CDATA[]]></price_information>
     <phone><![CDATA[8518 6971]]></phone>
     <timeout_url><![CDATA[http://www.timeoutcn.com/Articles_11_14.htm]]></timeout_url>
-  </venues>
+  </venue>
   <categories>
     <category>
       <name><![CDATA[吃喝]]></name>
@@ -26,7 +26,7 @@
       </children>
     </category>
   </categories>
-  <venues id="4">
+  <venue id="4">
     <name><![CDATA[蕉叶]]></name>
     <house_no><![CDATA[4号]]></house_no>
     <street><![CDATA[朝阳区工体北路]]></street>
@@ -44,7 +44,7 @@
     <price_information><![CDATA[]]></price_information>
     <phone><![CDATA[6506 8855]]></phone>
     <timeout_url><![CDATA[http://www.timeoutcn.com/Articles_11_14.htm]]></timeout_url>
-  </venues>
+  </venue>
   <categories>
     <category>
       <name><![CDATA[吃喝]]></name>
@@ -55,7 +55,7 @@
       </children>
     </category>
   </categories>
-  <venues id="5">
+  <venue id="5">
     <name><![CDATA[金谷仓]]></name>
     <house_no><![CDATA[1号]]></house_no>
     <street><![CDATA[朝阳区三里屯北小街]]></street>
@@ -73,7 +73,7 @@
     <price_information><![CDATA[]]></price_information>
     <phone><![CDATA[8454 0064]]></phone>
     <timeout_url><![CDATA[http://www.timeoutcn.com/Articles_11_14.htm]]></timeout_url>
-  </venues>
+  </venue>
   <categories>
     <category>
       <name><![CDATA[吃喝]]></name>
@@ -84,7 +84,7 @@
       </children>
     </category>
   </categories>
-  <venues id="6">
+  <venue id="6">
     <name><![CDATA[苗乡楼]]></name>
     <house_no><![CDATA[138号]]></house_no>
     <street><![CDATA[东城区王府井大街]]></street>
@@ -105,7 +105,7 @@
     <price_information><![CDATA[人均消费60元]]></price_information>
     <phone><![CDATA[6523 8018]]></phone>
     <timeout_url><![CDATA[http://www.timeoutcn.com/Articles_12_15.htm]]></timeout_url>
-  </venues>
+  </venue>
   <categories>
     <category>
       <name><![CDATA[吃喝]]></name>
@@ -116,7 +116,7 @@
       </children>
     </category>
   </categories>
-  <venues id="7">
+  <venue id="7">
     <name><![CDATA[玉]]></name>
     <house_no><![CDATA[甲83号]]></house_no>
     <street><![CDATA[朝阳区建国路]]></street>
@@ -141,7 +141,7 @@
     <price_information><![CDATA[人均消费230元]]></price_information>
     <phone><![CDATA[5908 8888]]></phone>
     <timeout_url><![CDATA[http://www.timeoutcn.com/Articles_12_15.htm]]></timeout_url>
-  </venues>
+  </venue>
   <categories>
     <category>
       <name><![CDATA[吃喝]]></name>
@@ -152,7 +152,7 @@
       </children>
     </category>
   </categories>
-  <venues id="114">
+  <venue id="114">
     <name><![CDATA[优品国际公寓]]></name>
     <house_no><![CDATA[38号]]></house_no>
     <street><![CDATA[朝阳区松榆南路]]></street>
@@ -168,7 +168,7 @@
     <price_information><![CDATA[]]></price_information>
     <phone><![CDATA[东三环华威桥东300米]]></phone>
     <timeout_url><![CDATA[http://www.timeoutcn.com/Articles_156_300.htm]]></timeout_url>
-  </venues>
+  </venue>
   <categories>
     <category>
       <name><![CDATA[消费]]></name>

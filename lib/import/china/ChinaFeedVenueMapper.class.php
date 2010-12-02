@@ -54,6 +54,12 @@ class ChinaFeedVenueMapper extends ChinaFeedBaseMapper
                 // use Feed Geocode
                 $poi->applyFeedGeoCodesIfValid( (string)$xmlNode->lat, (string)$xmlNode->long );
 
+                // Extract Category
+                if( isset( $xmlNode->categories ) )
+                {
+                    $this->extractCategory( $poi, $xmlNode);
+                }
+                
                 // Add timeout Link
                 if( trim( (string) $xmlNode->timeout_url ) != '' )
                 {
