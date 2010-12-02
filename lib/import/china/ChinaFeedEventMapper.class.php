@@ -14,22 +14,28 @@
 
 class ChinaFeedEventMapper extends ChinaFeedBaseMapper
 {
+    private $eventVendor;
+
     public function mapEvents()
     {
         foreach( $this->xmlNodes as $eventNode )
         {
-            // get existing Event or create new one
-            $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor['id'], (string)$eventNode['id'] );
-            if( $event === false )
-            {
-                $event = new Event();
-            }
+            // Set Vendor Unknown For Import Logger
+            ImportLogger::getInstance()->setVendorUnknown();
 
-            // Map Data
             try
             {
+            
+                // get existing Event or create new one
+                $event = Doctrine::getTable( 'Event' )->findByVendorEventIdAndVendorLanguage((string)$eventNode['id'], 'zh-Hans' );
+                if( $event === false )
+                {
+                    $event = new Event();
+                }
+
+
+                // Map Event Data
                 $event['vendor_event_id']       = (string)$eventNode['id'];
-                $event['Vendor']                = $this->vendor;
 
                 $event['name']                  = $this->clean( (string) $eventNode->name );
                 $event['review_date']           = $this->clean( (string) $eventNode->review_date );
@@ -37,27 +43,26 @@ class ChinaFeedEventMapper extends ChinaFeedBaseMapper
                 $event['short_description']     = $this->clean( (string) $eventNode->short_description );
                 $event['price']                 = $this->clean( (string) $eventNode->price );
 
-                // Extract Category
-                if( isset( $eventNode->categories ) )
-                {
-                    $this->extractCategory( $event, $eventNode);
-                }
-
                 // Extract Event occurrences
                 if( isset( $eventNode->occurrences->occurrence ) )
                 {
+                    // Delete existing Occurrences
                     $event['EventOccurrence']->delete();
                     
                     foreach( $eventNode->occurrences->occurrence as $xmlOccurrence )
                     {
                         // Check for POI
-                        $occurrenceVenue = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], (string)$xmlOccurrence->venue_id );
+                        $occurrenceVenue = Doctrine::getTable( 'Poi' )->findByVendorPoiIdAndVendorLanguage( (string)$xmlOccurrence->venue_id, 'zh-Hans' );
 
                         if( $occurrenceVenue === false )
                         {
-                            $this->notifyImporterOfFailure( new Exception ( "Poi not found, China Mapper; Event {$event['vendor_event_id']} occurrence." ) );
+                            $this->notifyImporterOfFailure( new Exception ( "Poi not found with id: {(string)$xmlOccurrence->venue_id}, China Mapper; Event {$event['vendor_event_id']} occurrence." ) );
                             continue;
                         }
+
+                        // Set Vendor For Import Logger
+                        ImportLogger::getInstance()->setVendor( $occurrenceVenue['Vendor'] );
+
 
                         $eventOccurrence = new EventOccurrence;
                         $eventOccurrence['start_date']                  = (string)$xmlOccurrence->start_date;
@@ -65,7 +70,7 @@ class ChinaFeedEventMapper extends ChinaFeedBaseMapper
                         $eventOccurrence['end_date']                    = (string)$xmlOccurrence->end_date;
                         $eventOccurrence['end_time']                    = $this->extractTimeOrNull( (string)$xmlOccurrence->end_time );
                         $eventOccurrence['poi_id']                      = $occurrenceVenue['id'];
-                        $eventOccurrence['utc_offset']                  = $this->vendor->getUtcOffset();
+                        $eventOccurrence['utc_offset']                  = $occurrenceVenue['Vendor']->getUtcOffset();
                         $eventOccurrence['vendor_event_occurrence_id']  = stringTransform::concatNonBlankStrings('-', array(
                                                                                                                         $event['vendor_event_id'],
                                                                                                                         $eventOccurrence['start_date'],
@@ -73,7 +78,19 @@ class ChinaFeedEventMapper extends ChinaFeedBaseMapper
                                                                                                                     ));
 
                         $event['EventOccurrence'][] = $eventOccurrence;
+                        $event['Vendor']            = $occurrenceVenue['Vendor'];
                     }
+
+                }else{
+                    
+                    $this->notifyImporterOfFailure( new Exception( "Event doesn't have any occurrences" ));
+                    continue;
+                }
+
+                // Extract Category, require vendor
+                if( isset( $eventNode->categories ) )
+                {
+                    $this->extractCategory( $event, $eventNode);
                 }
 
                 $this->notifyImporter( $event );

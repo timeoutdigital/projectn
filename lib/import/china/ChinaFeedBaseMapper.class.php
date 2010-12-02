@@ -180,7 +180,7 @@ class ChinaFeedBaseMapper extends DataMapper
 
             // addVendorCategory will Implode the array into | seperated Value
             // hence we add Each Top level category with its child
-            $model->addVendorCategory( $categoryArray, $this->vendor['id'] );
+            $model->addVendorCategory( $categoryArray, $model['Vendor']['id'] );
 
         }
     }
