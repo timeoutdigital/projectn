@@ -202,7 +202,6 @@ class importTask extends sfBaseTask
                 echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . " to " . $parameters[ 'to' ] . PHP_EOL;
                 
                 $xmlData = $this->getLisbonSimpleXML($vendorObj, $url, $parameters, 'GET', 'event_' . $parameters[ 'from' ] . '_to_' . $parameters[ 'to' ]);
-                $importer->addDataMapper( new LisbonFeedListingsMapper( $xmlData ) );
 
                 // add XML data to array for XmlConcatenator
                 $eventDataSimpleXMLSegmentsArray[] = $xmlData;
