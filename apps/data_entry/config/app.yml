@@ -59,6 +59,12 @@ all:
           language: en-GB
           validation: false
           exportForNokia: true
+        -
+          name: shanghai_en
+          type: [ poi, event, movie ]
+          language: en-GB
+          validation: false
+          exportForNokia: true
   update:
      cities:
         -
