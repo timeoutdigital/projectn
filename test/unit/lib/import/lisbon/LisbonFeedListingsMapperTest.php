@@ -28,6 +28,11 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   protected $object;
 
   /**
+   * @var SimpleXMLElement $xmlData
+   */
+  protected $xmlData;
+
+  /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
    */
@@ -51,15 +56,12 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     }
 
     // Load XML
-    $xmlData =  simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' );
+    $this->xmlData =  simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' );
 
-    // Simulate Dynamic Dates to test in future
-    // updating dates for First two nodes in the feed
-    $xmlData->listings[0]['ProposedFromDate'] = $xmlData->listings[1]['ProposedFromDate'] = date('Y-m-d\T00:00:00');
-    $xmlData->listings[0]['ProposedToDate'] = $xmlData->listings[1]['ProposedToDate'] = date('Y-m-d\T00:00:00', mktime(0,0,0, date('m'), date('d')+14, date('Y')));
-
-    $this->object = new LisbonFeedListingsMapper( $xmlData );
-
+    //@todo this is a bit of a hack and will be fixed in another ticket
+    $this->object = new LisbonFeedListingsMapper( $this->xmlData );
+    $sortedXmlString = $this->object->sortSimpleXmlByAttribute( 'RecurringListingID' );
+    $this->object = new LisbonFeedListingsMapper( simplexml_load_string( $sortedXmlString ) );
   }
 
   /**
@@ -70,6 +72,44 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
   {
      ProjectN_Test_Unit_Factory::destroyDatabases();
   }
+
+
+  public function testSortSimpleXmlByAttribute()
+  {
+      $sortedXmlString = $this->object->sortSimpleXmlByAttribute( 'RecurringListingID' );
+      $sortedXml = simplexml_load_string( $sortedXmlString );
+
+      //order of target xml
+      $this->assertEquals(  '0', (string) $sortedXml->listings[0]['RecurringListingID']  );
+      $this->assertEquals(  '0', (string) $sortedXml->listings[1]['RecurringListingID']  );
+      $this->assertEquals(  '0', (string) $sortedXml->listings[2]['RecurringListingID']  );
+      $this->assertEquals(  '234', (string) $sortedXml->listings[3]['RecurringListingID']  );
+      $this->assertEquals(  '50699', (string) $sortedXml->listings[4]['RecurringListingID']  );
+      $this->assertEquals(  '50797', (string) $sortedXml->listings[5]['RecurringListingID']  );
+      $this->assertEquals(  '50797', (string) $sortedXml->listings[6]['RecurringListingID']  );
+      $this->assertEquals(  '50805', (string) $sortedXml->listings[7]['RecurringListingID']  );
+      $this->assertEquals(  '50805', (string) $sortedXml->listings[8]['RecurringListingID']  );
+      $this->assertEquals(  '67337', (string) $sortedXml->listings[9]['RecurringListingID']  );
+      $this->assertEquals(  '67337', (string) $sortedXml->listings[10]['RecurringListingID']  );
+      $this->assertEquals(  '67337', (string) $sortedXml->listings[11]['RecurringListingID']  );
+      $this->assertEquals(  '6887688', (string) $sortedXml->listings[12]['RecurringListingID']  );
+      $this->assertEquals(  '6887689', (string) $sortedXml->listings[13]['RecurringListingID']  );
+      $this->assertEquals(  '65876870', (string) $sortedXml->listings[14]['RecurringListingID'], 'if this fails the sort is probably not numeric'  );
+
+      //sample of target xml attributes
+      $this->assertEquals(  'Nuestros Silencios', (string) $sortedXml->listings[3]['gigKey']  );
+      $this->assertEquals(  '1672342', (string) $sortedXml->listings[3]['musicid']  );
+      $this->assertEquals(  '234', (string) $sortedXml->listings[3]['RecurringListingID']  );
+      $this->assertEquals(  '2010-01-02T00:00:00', (string) $sortedXml->listings[3]['ListingDate']  );
+      $this->assertEquals(  'Praça Marquês de Pombal ', (string) $sortedXml->listings[3]['place']  );
+      $this->assertEquals(  'In Progress', (string) $sortedXml->listings[3]['listingstatus']  );
+      $this->assertEquals(  '', (string) $sortedXml->listings[3]['image']  );
+
+      //sample of target xml elements (children and text nodes)
+      $this->assertTrue( isset( $sortedXml->listings[4]->testnode->testsubnode->testtextnode ) );
+      $this->assertEquals(  'asdfasdf', trim ( (string) $sortedXml->listings[4]->testnode->testsubnode->testtextnode )  );
+  }
+
 
   /**
    * Test to make sure Question Marks are replaced with Euro Signs
@@ -96,8 +136,8 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
     $search = Doctrine::getTable('Event')->findAll();
 
-    $this->assertEquals( false, strpos( $search[0]['description'], "{I}Robinson Crusoe{/I}" ), "Description cannot contain parenthesis for html elements." );
-    $this->assertNotEquals( false, strpos( $search[0]['description'], "<I>Robinson Crusoe</I>" ), "Description cannot contain parenthesis for html elements." );
+    $this->assertEquals( false, strpos( $search[6]['description'], "{I}Robinson Crusoe{/I}" ), "Description cannot contain parenthesis for html elements." );
+    $this->assertNotEquals( false, strpos( $search[6]['description'], "<I>Robinson Crusoe</I>" ), "Description cannot contain parenthesis for html elements." );
   }
 
   /**
@@ -121,61 +161,39 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testDifferentEventTypesAreSavedCorrectly()
   {
-    $import = simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_xmllist.xml' );
-    $placeids = $import->xpath( '/geral/listings/@placeid' );
-
-    foreach( $placeids as $placeid )
-    {
-      $id = (integer) $placeid['placeid'];
-      ProjectN_Test_Unit_Factory::add('poi', array( "vendor_poi_id" => $id ) );
-    }
-
-    $mapper = new LisbonFeedListingsMapper( $import );
-
     $importer = new Importer();
-    $importer->addDataMapper( $mapper );
+    $importer->addDataMapper( $this->object );
     $importer->run();
 
     $events = Doctrine::getTable( 'Event' )->findAll();
 
-    $this->assertEquals( 5, $events->count(), "failed to import all events" );
+    $this->assertEquals( 10, $events->count(), "failed to import all events" );
 
-    $this->assertEquals( 1, $events[0]['EventOccurrence']->count(), "wrong number of occurrences" );
-    $this->assertEquals( 1, $events[1]['EventOccurrence']->count(), "wrong number of occurrences" );
-    $this->assertEquals( 2, $events[2]['EventOccurrence']->count(), "wrong number of occurrences" );
-    $this->assertEquals( 1, $events[3]['EventOccurrence']->count(), "wrong number of occurrences" );
-    $this->assertEquals( 1, $events[4]['EventOccurrence']->count(), "wrong number of occurrences" );
+    /* test a recurring events */
+    $this->assertEquals( 67337, $events[7]['vendor_event_id'], "wrong event id" );
+    $this->assertEquals( 223406, $events[7]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
+    $this->assertEquals( 223397, $events[7]['EventOccurrence'][1]['vendor_event_occurrence_id'], "wrong number of occurrences" );
+    $this->assertEquals( 223398, $events[7]['EventOccurrence'][2]['vendor_event_occurrence_id'], "wrong number of occurrences" );
+    $this->assertEquals( 3, count( $events[7]['EventOccurrence']) );
 
-    $this->assertEquals( 36436, $events[0]['vendor_event_id'], "wrong number of occurrences" );
-
-    $this->assertEquals( 36436, $events[0]['vendor_event_id'], "wrong event id" );
-    $this->assertEquals( 177367, $events[0]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong occurrence id" );
+    /* test non recurring events */
+    $this->assertEquals( 100, $events[0]['vendor_event_id'], "wrong event id" );
+    $this->assertEquals( 100, $events[0]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
     $this->assertEquals( 1, count( $events[0]['EventOccurrence']) );
 
-    $this->assertEquals( 50397, $events[1]['vendor_event_id'], "wrong number of occurrences" );
-    $this->assertEquals( 177727, $events[1]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
+    $this->assertEquals( 101, $events[1]['vendor_event_id'], "wrong event id" );
+    $this->assertEquals( 101, $events[1]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
     $this->assertEquals( 1, count( $events[1]['EventOccurrence']) );
 
-    $this->assertEquals( 45934, $events[2]['vendor_event_id'], "wrong number of occurrences" );
-    $this->assertEquals( 178086, $events[2]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
-    $this->assertEquals( 178087, $events[2]['EventOccurrence'][1]['vendor_event_occurrence_id'], "wrong number of occurrences" );
-    $this->assertEquals( 2, count( $events[2]['EventOccurrence']) );
-
-    /* the vendor_event_id and vendor_event_occurrence_id are equal for the non recurring events */
-
-    $this->assertEquals( 178290, $events[3]['vendor_event_id'], "wrong number of occurrences" );
-    $this->assertEquals( 178290, $events[3]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
-    $this->assertEquals( 1, count( $events[3]['EventOccurrence']) );
-
-    $this->assertEquals( 178291, $events[4]['vendor_event_id'], "wrong number of occurrences" );
-    $this->assertEquals( 178291, $events[4]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
-    $this->assertEquals( 1, count( $events[4]['EventOccurrence']) );
+    $this->assertEquals( 102, $events[2]['vendor_event_id'], "wrong event id" );
+    $this->assertEquals( 102, $events[2]['EventOccurrence'][0]['vendor_event_occurrence_id'], "wrong number of occurrences" );
+    $this->assertEquals( 1, count( $events[2]['EventOccurrence']) );
   }
 
   /**
    * @todo Implement testMapVenues().
    */
-  public function testMapListings()
+  public function testEventMapListings()
   {
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
@@ -183,9 +201,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
     $events = Doctrine::getTable( 'Event' )->findAll();
 
-    $this->assertEquals( 8, $events->count() );
-
-    $event = $events[0];
+    $event = $events[6];
 
     $this->assertEquals( '50805', $event['vendor_event_id'] );
     $this->assertEquals( 'Arquitecto José Santa-Rita, arquitecto: Obra, marcas e identidade(s) de um percu', $event['name'] );
@@ -196,6 +212,10 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '', $event['price'] );
     $this->assertEquals( '', $event['rating'] );
     $this->assertEquals( '1', $event['vendor_id'] );
+
+    /*test that timeinfo property exists*/
+    $this->assertEquals( 'timeinfo', $event['EventProperty'][0]['lookup'], 'timeinfo property not available' );
+    $this->assertEquals( 'Ter-Sex 10-19h; Sab e Dom 14-19h. Encerra à 2ª feiras e feriados.', $event['EventProperty'][0]['value'], 'timeinfo property does not match expected value' );
 
     $this->assertEquals(2,  $event['EventOccurrence']->count());
     $eventOccurrence1 = $event['EventOccurrence'][0];
@@ -218,6 +238,47 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 3 ,count( $event['EventOccurrence'] ), 'One event occurrence for Rozett 4 Tet'  );
   }
 
+
+  /**
+   * testEventMapListingsWithDifferentContentPerEvent()
+   * 
+   * makes sure that event fields get 'nulled' if they are inconsistent over the
+   * course of muliple occurrences
+   */
+  public function testEventMapListingsWithDifferentContentPerEvent()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $events = Doctrine::getTable( 'Event' )->findAll();
+
+    $event = $events[5];
+
+    $this->assertEquals( '50797', $event['vendor_event_id'] );
+    /*data should be present*/
+    $this->assertEquals( 'Nuestros Silencios', $event['name'] );
+    $this->assertEquals( 'Lisboa é a primeira cidade europeia a acolher a exposição de arte pública do esc', $event['short_description'] );
+    /*data in field should be removed*/
+    $this->assertEquals( '', $event['description'] );
+
+    /*check properties that timeinfo property does not exist*/
+    $this->assertEquals( 0, count( $event['EventProperty'] ), 'unexpected timeinfo property found' );
+  }
+
+
+  public function testThatEventWithDifferentNamesIsNotInDatabase()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( $this->object );
+    $importer->run();
+
+    $event = Doctrine::getTable( 'Event' )->findOneByVendorEventId( '65876870' );
+
+    $this->assertFalse( $event instanceof Event );
+  }
+
+
   public function testAddsCategoryToPoi()
   {
     $importer = new Importer();
@@ -232,11 +293,11 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
     $poi833Categories = $poi833['VendorPoiCategory'];
 
-    $this->assertEquals( 2, $poi833Categories->count() );
+    $this->assertEquals( 3, $poi833Categories->count() );
 
     $this->assertEquals( $poi833Categories[0]['name'], 'test name' );//autocreated by bootstrap
     $this->assertEquals($poi833Categories[1]['name'], 'Museus | Museus' );
-    //$this->assertEquals( $poi833Categories[2]['name'], 'Category | SubCategory' );
+    $this->assertEquals( $poi833Categories[2]['name'], 'Category | SubCategory' );
   }
 
   public function testIsNotAffectedByEventsFromOtherVendors()
