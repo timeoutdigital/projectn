@@ -43,16 +43,6 @@ class FormScraper
         $this->requestURL = $formURL;
         $this->formFields = array(); // Empty array fields
         $this->postBackMethod = 'GET';
-        
-        // Get Form Data
-        $this->curlFormData();
-        
-        //extract the Form Data
-        // Get the Postback URL        // Get post Method
-        $this->generatePostbackURLAndSetPostbackMethod();
-
-        // Get form inputs
-        $this->extractFormInputFields();
     }
 
     /**
@@ -190,6 +180,30 @@ class FormScraper
         }
     }
 
+    /**
+     * Request url and Extract Form fields
+     */
+    public function doFormPageRequest()
+    {
+        $this->doGetRequest();
+        
+        //extract the Form Data
+        // Get the Postback URL        // Get post Method
+        $this->generatePostbackURLAndSetPostbackMethod();
+
+        // Get form inputs
+        $this->extractFormInputFields();
+    }
+
+    /**
+     * Normal Curl Request and get the Response
+     */
+    public function doGetRequest()
+    {
+        // send get request
+        $this->curlFormData();
+    }
+    
     /**
      * get last request response
      * @return string
