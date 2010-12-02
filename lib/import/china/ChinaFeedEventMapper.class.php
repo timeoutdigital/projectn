@@ -12,7 +12,7 @@
  *
  */
 
-class ChinaFeedEventsMapper extends ChinaFeedBaseMapper
+class ChinaFeedEventMapper extends ChinaFeedBaseMapper
 {
     public function mapEvents()
     {

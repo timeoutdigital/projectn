@@ -17,7 +17,7 @@ require_once TO_TEST_MOCKS . '/curl.mock.php';
  *
  */
 
-class ChinaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
+class ChinaFeedEventMapperTest extends PHPUnit_Framework_TestCase
 {
     /**
     * Sets up the fixture, for example, opens a network connection.
@@ -34,7 +34,7 @@ class ChinaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
         $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'beijing_zh' );
 
         $importer = new Importer( );
-        $importer->addDataMapper( new ChinaFeedEventsMapperMock($vendor, $params) );
+        $importer->addDataMapper( new ChinaFeedEventMapperMock($vendor, $params) );
         $importer->run();
     }
 
@@ -114,7 +114,7 @@ class ChinaFeedEventsMapperTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class ChinaFeedEventsMapperMock extends ChinaFeedEventsMapper
+class ChinaFeedEventMapperMock extends ChinaFeedEventMapper
 {
     protected function  _loadXML() {
         $this->xmlNodes = simplexml_load_file( $this->params['datasource']['src'] );
