@@ -24,6 +24,7 @@ class FormScraper
     private $formFields;
     private $curlClass;
     private $cookieFilePath;
+    private $curlObject;
     
     public function  __construct( $formURL, $curlClass = 'Curl' ) {
 
@@ -65,18 +66,18 @@ class FormScraper
             $url = $this->requestURL;
         }
         // Create CURL class and send the request URL
-        $curl = new $this->curlClass( $url, $this->formFields, $this->postBackMethod );
+        $this->curlObject = new $this->curlClass( $url, $this->formFields, $this->postBackMethod );
 
         if( $this->cookieFilePath == null )
         {
             $this->cookieFilePath = tempnam( '/tmp', 'COOKIE');
-            $curl->setCurlOption(CURLOPT_COOKIEJAR, $this->cookieFilePath );
+            $this->curlObject->setCurlOption(CURLOPT_COOKIEJAR, $this->cookieFilePath );
         } else {
-            $curl->setCurlOption(CURLOPT_COOKIEFILE, $this->cookieFilePath);
+            $this->curlObject->setCurlOption(CURLOPT_COOKIEFILE, $this->cookieFilePath);
         }
         
-        $curl->exec(); // get page data
-        $this->response = $curl->getResponse();
+        $this->curlObject->exec(); // get page data
+        $this->response = $this->curlObject->getResponse();
     }
 
     /**
@@ -197,6 +198,35 @@ class FormScraper
     {
         
         return $this->response;
+    }
+
+    /**
+     * Get the Last request Header Information
+     * @return string
+     */
+    public function getHeader()
+    {
+        if ( $this->curlObject == null )
+        {
+            return null;
+        }
+
+        return $this->curlObject->getHeader();
+    }
+
+    /**
+     * Get the Last request Header information by field
+     * @param string $field
+     * @return string
+     */
+    public function getHeaderField( $field )
+    {
+        if ( $this->curlObject == null )
+        {
+            return null;
+        }
+        
+        return $this->curlObject->getHeaderField( $field );
     }
 
     /**

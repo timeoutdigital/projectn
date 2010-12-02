@@ -8,3 +8,4 @@ import:
           url: "http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx"
           username: "tolondon"
           password: "to3rjk&e*8dsfj9"
+          xmlsrc: http://n.timeoutcn.com/Admin/Export/Venues.xml

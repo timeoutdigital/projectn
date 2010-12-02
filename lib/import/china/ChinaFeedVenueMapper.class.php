@@ -1,6 +1,6 @@
 <?php
 /**
- * Beijing Import venue Mapper
+ * China City Feed Venue Import Mapper
  *
  * @package projectn
  * @subpackage
@@ -12,12 +12,13 @@
  *
  */
 
-class beijingZHFeedVenueMapper extends BeijingFeedBaseMapper
+
+class ChinaFeedVenueMapper extends ChinaFeedBaseMapper
 {
     public function mapVenue()
     {
         $xmlNodes = $this->xmlNodes->xpath( '//venues/venues' ); // use xpath to extract only venues
-        
+
         for( $i = 0; $i < count( $xmlNodes ); $i++ )
         {
             $xmlNode = $xmlNodes[$i]; // Get the XML NODE
@@ -60,25 +61,13 @@ class beijingZHFeedVenueMapper extends BeijingFeedBaseMapper
                 }
 
                 $this->notifyImporter( $poi );
-                
+
             } catch ( Exception $ex )
             {
                 echo 'Exception: ' . $ex->getMessage() . PHP_EOL;
                 $this->notifyImporterOfFailure( $ex, $poi );
             }
 
-
         }// for Loop
-    }
-
-    /**
-     * Override to validate url response
-     * @param string $response
-     * @return boolean
-     */
-    protected function isValidResponse( $response )
-    {
-        $testString = mb_substr(  $response, 0, 8, 'UTF-8');
-        return ($testString === '<venues>');
     }
 }
