@@ -116,6 +116,12 @@ class ChinaFeedBaseMapper extends DataMapper
         new FeedArchiver( $this->vendor, $formScraper->getResponse(), $this->params['type']);
         
         $this->xmlNodes = simplexml_load_string( $formScraper->getResponse() );
+
+        if( isset( $this->params['datasource']['xslt'] ) )
+        {
+            $xmlDataFixer = new xmlDataFixer( $formScraper->getResponse() );
+            $this->xmlNodes = $xmlDataFixer->getSimpleXMLUsingXSLT( file_get_contents( sfConfig::get( 'projectn_xslt_dir' ) . '/' . $this->params['datasource']['xslt'] ) );
+        }
     }
 
     /**

@@ -10,3 +10,28 @@ import:
           xmlsrc: http://n.timeoutcn.com/Admin/Export/Venues.xml
           username: "timeoutlondon"
           password: "aas9384jewt-0tkfd"
+          xslt: "beijing_venues.xsl"
+
+  event:
+    class:
+      name: ChinaFeedEventMapper
+      params:
+        type: event
+        datasource:
+          classname: FormScraper
+          src: "http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/Export/Events.aspx"
+          xmlsrc: http://n.timeoutcn.com/Admin/Export/Events.xml
+          username: "timeoutlondon"
+          password: "aas9384jewt-0tkfd"
+
+  movie:
+    class:
+      name: ChinaFeedMovieMapper
+      params:
+        type: movie
+        datasource:
+          classname: FormScraper
+          src: "http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/Export/Movies.aspx"
+          xmlsrc: http://n.timeoutcn.com/Admin/Export/Movies.xml
+          username: "timeoutlondon"
+          password: "aas9384jewt-0tkfd"
