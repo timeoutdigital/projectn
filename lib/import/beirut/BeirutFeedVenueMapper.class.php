@@ -54,12 +54,14 @@ class BeirutFeedVenueMapper extends BeirutFeedBaseMapper
                 $poi['provider']                    = $this->clean( (string)$xmlNode->provider );
                 $poi['rating']                      = $this->roundNumberOrNull( $this->clean( (string)$xmlNode->rating ) );
                 
+                // use Feed Geocode
+                $poi->applyFeedGeoCodesIfValid( $this->clean( (string)$xmlNode->lat ), $this->clean( (string)$xmlNode->long ) );
 
                 /**
                  * Add City as Town Property, Beirut feed has lots of Cities refering out outside nearby city
                  * We will put this as Town in property and City In mapper column to Beirut static value....
                  */
-                if( $this->clean( (string)$xmlNode->city ) != '' )
+                if( $this->clean( (string)$xmlNode->city ) != '' && strtolower( $this->clean( (string)$xmlNode->city ) ) !== 'beirut' )
                 {
                     $poi->addProperty( 'Town',$this->clean( (string)$xmlNode->city ) );
                 }
