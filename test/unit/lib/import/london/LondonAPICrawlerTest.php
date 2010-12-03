@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 
 /**
  * Test class for London API Client.
@@ -30,7 +31,7 @@ class LondonAPICrawlerTest extends PHPUnit_Framework_TestCase
     $vendor =  ProjectN_Test_Unit_Factory::add('Vendor', array( 'city' => 'london', 'language' => 'en-GB' ) );
 
     // Create new Mapper
-    $this->mapper = new UnitTestSomeLondonAPIMapper( $vendor, array( 'curlImporterClassName' => 'curlImporterMock', 'datasource' => array( 'classname' => 'LondonAPICrawlerMockTest' ) ) );
+    $this->mapper = new UnitTestSomeLondonAPIMapper( $vendor, array( 'curlImporterClassName' => 'curlMockApiCrawlerMock', 'datasource' => array( 'classname' => 'LondonAPICrawlerMockTest' ) ) );
     // Importer
     $importer = new Importer( );
     $importer->addDataMapper( $this->mapper );
@@ -59,32 +60,12 @@ class LondonAPICrawlerMockTest extends LondonAPICrawler
     protected $searchUrl = 'api_bars_and_pubs_search.xml';
 }
 
-// Mock for curlImport, this will be used to read files from disk and not to make http request
-class curlImporterMock extends curlImporter
+// Mock CurlMock again to overide URL
+class curlMockApiCrawlerMock extends CurlMock
 {
-
-    private $response; // store the response for a little while
-    
-    public function  pullXml($url, $request, $parameters = '', $requestMethod = 'GET', $overrideCharset = false) {
-
-        $filepath = TO_TEST_DATA_PATH . '/london/' .$url;
-        
-        if( !file_exists( $filepath ) )
-        {
-            throw new Exception( 'File not found' );
-        }
-        // load the File
-        $this->response = file_get_contents( $filepath );
-    }
-
-    public function  getXml() {
-        // return as XML
-        return simplexml_load_string( $this->response );
-    }
-    
-    public function  getResponse() {
-        // return response as string
-        return $this->response;
+    public function  getUrl() {
+        $url = parent::getUrl();
+        return TO_TEST_DATA_PATH . '/london/' .$url;
     }
 }
 
