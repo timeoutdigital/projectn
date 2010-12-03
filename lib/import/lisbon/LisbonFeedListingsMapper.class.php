@@ -143,8 +143,8 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
             } catch ( Exception $exception )
             {
                 $this->notifyImporterOfFailure( $exception, ( isset($event) ) ? $event : null, 'Exception: LisbonFeedListingsMapper::mapListing (event)');
-            }                
-        }    
+            }
+        }
     }
 
   /**
@@ -157,7 +157,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       $band_info = explode( ",", (string) $listingElement['band'] );
 
       foreach( $band_info as $k => $info )
-          $band_info[$k] = trim( $info, "  " ); // One of those is a weird portugese space
+          $band_info[$k] = trim( $info, "  " ); // One of those is a weird portugese space
 
       $band_info = (string) implode( "<br />", $band_info );
 
@@ -260,7 +260,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
       'image',
       'band'
     );
-  }  
+  }
 
 }
 ?>
