@@ -66,6 +66,7 @@ class BeirutFeedEventMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( null, $event['rating']);
         $this->assertEquals( null, $event['review_date']);
 
+        // check occurrence
         $this->assertEquals( 1, $event['EventOccurrence']->count() );
         $this->assertEquals( "2010-12-03" , $event['EventOccurrence'][0]['start_date'] );
         $this->assertEquals( "2010-12-03" , $event['EventOccurrence'][0]['end_date'] );
@@ -73,6 +74,12 @@ class BeirutFeedEventMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( null , $event['EventOccurrence'][0]['end_time'] );
         $this->assertEquals( "4" , $event['EventOccurrence'][0]['poi_id'] );
         $this->assertEquals( "3909-2010-12-03-4" , $event['EventOccurrence'][0]['vendor_event_occurrence_id'] );
+
+        // check category
+        $this->assertEquals( 1, $event['VendorEventCategory']->count() );
+        $this->assertEquals( "Clubs & Pubs", $event['VendorEventCategory']["Clubs & Pubs"]['name'] );
+        $this->assertEquals( true, $event['VendorEventCategory']["Clubs & Pubs"]->exists() );
+
         
         
     }
