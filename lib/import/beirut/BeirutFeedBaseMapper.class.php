@@ -59,6 +59,8 @@ class BeirutFeedBaseMapper extends DataMapper
     {
         $curl =  new $params['curl']['classname']( $params['curl']['src'] );
         $curl->exec();
+
+        new FeedArchiver( $this->vendor, $curl->getResponse(), $params['type']);
         $this->xmlNodes = simplexml_load_string( $curl->getResponse() );
     }
 
