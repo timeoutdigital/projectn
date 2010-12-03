@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<venues>
+	<venue id="1947">
+		<name><![CDATA[ Old Sugar Refinery ]]></name>
+		<house_no><![CDATA[  ]]></house_no>
+		<street><![CDATA[ Zalka sea side road ]]></street>
+		<city><![CDATA[ Zalka ]]></city>
+		<district><![CDATA[ Maten  ]]></district>
+		<additional_address_details><![CDATA[ before Mazda showroom ]]></additional_address_details>
+		<country><![CDATA[ Lebanon ]]></country>
+		<postcode><![CDATA[  ]]></postcode>
+		<long><![CDATA[ 35.573062 ]]></long>
+		<lat><![CDATA[ 33.904886 ]]></lat>
+		<short_description><![CDATA[ Zalka ]]></short_description>
+		<description><![CDATA[  ]]></description>
+		<price_information><![CDATA[  ]]></price_information>
+		<opening_times><![CDATA[  ]]></opening_times>
+		<rating><![CDATA[  ]]></rating>
+		<email><![CDATA[  ]]></email>
+		<phone><![CDATA[  ]]></phone>
+		<phone2><![CDATA[  ]]></phone2>
+		<fax><![CDATA[  ]]></fax>
+		<url><![CDATA[  ]]></url>
+		<timeout_url><![CDATA[  ]]></timeout_url>
+		<review_date><![CDATA[  ]]></review_date>
+		<public_transport><![CDATA[  ]]></public_transport>
+		<rating><![CDATA[  ]]></rating>
+		<keywords><![CDATA[  ]]></keywords>
+		<categories>
+			<category>
+				<name><![CDATA[ Explorer & Own this City ]]></name>
+			</category>
+		</categories>
+		<provider><![CDATA[  ]]></provider>
+	</venue>
+	<venue id="2034">
+		<name><![CDATA[ Pineland Resort ]]></name>
+		<house_no><![CDATA[  ]]></house_no>
+		<street><![CDATA[ Qsaibe main road ]]></street>
+		<city><![CDATA[ Qsaibe ]]></city>
+		<district><![CDATA[ Ras el Maten  ]]></district>
+		<additional_address_details><![CDATA[  ]]></additional_address_details>
+		<country><![CDATA[ Lebanon ]]></country>
+		<postcode><![CDATA[  ]]></postcode>
+		<long><![CDATA[ 35.650500 ]]></long>
+		<lat><![CDATA[ 33.866863 ]]></lat>
+		<short_description><![CDATA[  Ras el Maten ]]></short_description>
+		<description><![CDATA[  ]]></description>
+		<price_information><![CDATA[  ]]></price_information>
+		<opening_times><![CDATA[  ]]></opening_times>
+		<rating><![CDATA[  ]]></rating>
+		<email><![CDATA[  ]]></email>
+		<phone><![CDATA[  ]]></phone>
+		<phone2><![CDATA[  ]]></phone2>
+		<fax><![CDATA[  ]]></fax>
+		<url><![CDATA[  ]]></url>
+		<timeout_url><![CDATA[  ]]></timeout_url>
+		<review_date><![CDATA[  ]]></review_date>
+		<public_transport><![CDATA[  ]]></public_transport>
+		<rating><![CDATA[  ]]></rating>
+		<keywords><![CDATA[  ]]></keywords>
+		<categories>
+			<category>
+				<name><![CDATA[ Explorer & Own this City ]]></name>
+			</category>
+		</categories>
+		<provider><![CDATA[  ]]></provider>
+	</venue>
+        <venue id="981">
+		<name><![CDATA[ Babel Theatre ]]></name>
+		<house_no><![CDATA[  ]]></house_no>
+		<street><![CDATA[ Cairo Street ]]></street>
+		<city><![CDATA[ Beirut ]]></city>
+		<district><![CDATA[ Hamra  ]]></district>
+		<additional_address_details><![CDATA[ Marginian Bldg ]]></additional_address_details>
+		<country><![CDATA[ Lebanon ]]></country>
+		<postcode><![CDATA[  ]]></postcode>
+		<long><![CDATA[ 35.485455 ]]></long>
+		<lat><![CDATA[ 33.896568 ]]></lat>
+		<short_description><![CDATA[ If it's not playing host to a theatre festival, Babel is rented out regularly to local and International playwrights and theatre troupes, performing classical and experimental plays. ]]></short_description>
+		<description><![CDATA[  ]]></description>
+		<price_information><![CDATA[ Tickets sold at the venue and at the Commodore Hotel in Hamra (01 734734) ]]></price_information>
+		<opening_times><![CDATA[  ]]></opening_times>
+		<rating><![CDATA[  ]]></rating>
+		<email><![CDATA[  ]]></email>
+		<phone><![CDATA[ 01 744033 ]]></phone>
+		<phone2><![CDATA[  ]]></phone2>
+		<fax><![CDATA[  ]]></fax>
+		<url><![CDATA[  ]]></url>
+		<timeout_url><![CDATA[  ]]></timeout_url>
+		<review_date><![CDATA[  ]]></review_date>
+		<public_transport><![CDATA[  ]]></public_transport>
+		<rating><![CDATA[  ]]></rating>
+		<keywords><![CDATA[  ]]></keywords>
+		<categories>
+			<category>
+				<name><![CDATA[ Performing Arts ]]></name>
+			</category>
+		</categories>
+		<provider><![CDATA[  ]]></provider>
+	</venue>
+        <venue id="1945">
+		<name><![CDATA[ Club Grappe ]]></name>
+		<house_no><![CDATA[  ]]></house_no>
+		<street><![CDATA[ Ain saade main road ]]></street>
+		<city><![CDATA[ Ain saade ]]></city>
+		<district><![CDATA[ Maten  ]]></district>
+		<additional_address_details><![CDATA[ Near Royal Park Hotel ]]></additional_address_details>
+		<country><![CDATA[ Lebanon ]]></country>
+		<postcode><![CDATA[  ]]></postcode>
+		<long><![CDATA[ 35.599859 ]]></long>
+		<lat><![CDATA[ 33.865185 ]]></lat>
+		<short_description><![CDATA[ Transmitting passion for the pleasure of the palate in a very irresistible context; Club Grappe, the first wine tasting club in Lebanon, it was created by Dr Carlos Khachan in the year 2002.  ]]></short_description>
+		<description><![CDATA[  ]]></description>
+		<price_information><![CDATA[  ]]></price_information>
+		<opening_times><![CDATA[  ]]></opening_times>
+		<rating><![CDATA[  ]]></rating>
+		<email><![CDATA[  ]]></email>
+		<phone><![CDATA[  ]]></phone>
+		<phone2><![CDATA[ 03 611603 ]]></phone2>
+		<fax><![CDATA[  ]]></fax>
+		<url><![CDATA[  ]]></url>
+		<timeout_url><![CDATA[  ]]></timeout_url>
+		<review_date><![CDATA[  ]]></review_date>
+		<public_transport><![CDATA[  ]]></public_transport>
+		<rating><![CDATA[  ]]></rating>
+		<keywords><![CDATA[  ]]></keywords>
+		<categories>
+			<category>
+				<name><![CDATA[ Explorer & Own this City ]]></name>
+			</category>
+		</categories>
+		<provider><![CDATA[  ]]></provider>
+	</venue>
+</venues>
