@@ -160,5 +160,13 @@ EOF;
 
       $this->assertEquals( '304', $curlInfo[ 'http_code' ] );
   }
+
+  public function testInvalidParametersGetMethodInvalidValue()
+  {
+      $params = array( 'valid' => 'true', 'invalid' => array( 'a' => 'b' ) );
+
+      $this->setExpectedException( 'CurlException' );
+      $curl = new Curl( 'http://localhost', $params );
+      
+  }
 }
-?>

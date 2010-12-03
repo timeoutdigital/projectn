@@ -46,9 +46,10 @@ class LondonAPICrawler
   protected $limit = 0;
 
   /**
-   * @var curlImporter
+   *
+   * @var Curl
    */
-  protected $curl;
+  protected $curlClassName;
 
   /**
    *protected
@@ -57,10 +58,10 @@ class LondonAPICrawler
    *
    * @param string $type see http://api.timeout.com/v1/getTypes.xml
    */
-  public function  __construct( $curlImporterClassName = 'curlImporter' )
+  public function  __construct( $curlClassName = 'Curl' )
   {
       // This override is used for Testing
-      $this->curl = new $curlImporterClassName();
+      $this->curlClassName = $curlClassName;
   }
 
   /**
@@ -148,11 +149,12 @@ class LondonAPICrawler
           {
             try
             {
-              $xml = $this->callApiGetDetails( $row->uid );
+              $xml = $this->callApiGetDetails( (string)$row->uid );
             }
             catch( Exception $exception )
             {
               $this->mapper->onException($exception);
+              continue; // #825 When exception thrown, $xml === null... hence we cannot let it move doMapping()!
             }
 
             $this->doMapping( $xml );
@@ -178,15 +180,16 @@ class LondonAPICrawler
    */
   protected function callApiSearch( $params )
   {
-    $this->curl->pullXml( $this->searchUrl, '', $params );
+    $curl = new $this->curlClassName( $this->searchUrl, $params );
+    $curl->exec();
 
     // Archive API Response
     $tempVendor = new Vendor();
     $tempVendor[ 'city' ] = 'london';
-    new FeedArchiver( $tempVendor, $this->curl->getResponse(), $params['type'] );
+    new FeedArchiver( $tempVendor, $curl->getResponse(), $params['type'] );
     unset( $tempVendor );
 
-    return $this->curl->getXml();
+    return simplexml_load_string( $curl->getResponse() );
   }
 
   /**
@@ -203,8 +206,9 @@ class LondonAPICrawler
    */
   protected function callApiGetDetails( $uid )
   {
-    $this->curl->pullXml( $this->getDetailsUrl(), '', array( 'uid' => $uid ) );
-    $xml = $this->curl->getXML();
+    $curl = new $this->curlClassName(  $this->getDetailsUrl(), array( 'uid' => $uid ) );
+    $curl->exec();
+    $xml = simplexml_load_string( $curl->getResponse() );
 
     if( !$xml )
     {
