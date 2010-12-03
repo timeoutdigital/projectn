@@ -112,7 +112,7 @@ class BeirutFeedBaseMapper extends DataMapper
                 }
             } // If childrens
 
-            $model->addVendorCategory( $categoryArray, $model['vendor']['id'] );
+            $model->addVendorCategory( $categoryArray, $model['Vendor']['id'] );
         }
     }
 }
