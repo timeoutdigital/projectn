@@ -51,8 +51,8 @@ class ChinaFeedVenueMapper extends ChinaFeedBaseMapper
                 $poi['price_information']               = (string) $xmlNode->price_information;
                 $poi['phone']                           = (string) $xmlNode->phone;
 
-                // use Feed Geocode
-                $poi->applyFeedGeoCodesIfValid( (string)$xmlNode->lat, (string)$xmlNode->long );
+                // use Feed Geocode (we have to reverse lat/long because china provide it the wrong way around)
+                $poi->applyFeedGeoCodesIfValid( (string)$xmlNode->long, (string)$xmlNode->lat );
 
                 // Extract Category
                 if( isset( $xmlNode->categories ) )
