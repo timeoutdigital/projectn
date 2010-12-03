@@ -68,8 +68,8 @@ class ChinaFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '东城区东长安街', $poi['street'], 'Wrong Poi street');
       $this->assertEquals( '东城', $poi['district'], 'Wrong Poi district');
       $this->assertEquals( '100010', $poi['zips'], 'Wrong Poi zips');
-      $this->assertEquals( '116.414518', $poi['latitude'], 'Wrong Poi latitude');
-      $this->assertEquals( '39.909807', $poi['longitude'], 'Wrong Poi longitude');
+      $this->assertEquals( '39.909807', $poi['latitude'], 'Wrong Poi latitude');
+      $this->assertEquals( '116.414518', $poi['longitude'], 'Wrong Poi longitude');
       $this->assertEquals( '东城区东长安街1号东方广场B1楼BB88号', $poi['short_description'], 'Wrong Poi short_description');
       $this->assertEquals( '东城区东长安街1号东方广场B1楼BB88号', $poi['description'], 'Wrong Poi description');
 
@@ -89,8 +89,8 @@ class ChinaFeedVenueMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '朝阳', $poi['district'], 'Wrong Poi district');
       $this->assertEquals( '朝阳区建国路甲83号丽思卡尔顿酒店', $poi['additional_address_details'], 'Wrong Poi additional_address_details');
       $this->assertEquals( '100020', $poi['zips'], 'Wrong Poi zips');
-      $this->assertEquals( '116.5416677', $poi['latitude'], 'Wrong Poi latitude');
-      $this->assertEquals( '39.9081711', $poi['longitude'], 'Wrong Poi longitude');
+      $this->assertEquals( '39.9081711', $poi['latitude'], 'Wrong Poi latitude');
+      $this->assertEquals( '116.5416677', $poi['longitude'], 'Wrong Poi longitude');
       $this->assertEquals( '以前，酒店里的中餐馆都给人又贵又不靠谱的印象，从半岛的凰庭、君悦的长安一号开始，酒店里的中餐馆也有了...', $poi['short_description'], 'Wrong Poi short_description');
       $this->assertStringStartsWith( '以前，酒店里的中餐馆都给', $poi['description'], 'Wrong Poi description');
 

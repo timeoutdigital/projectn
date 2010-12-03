@@ -30,7 +30,7 @@ class ChinaFeedMovieMapperTest extends PHPUnit_Framework_TestCase
     Doctrine::loadData('data/fixtures');
 
     $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'src' => TO_TEST_DATA_PATH . '/china/MoivesIsOnView.xml', 'username' => 'test', 'password' => 'test', 'xmlsrc' => 'test' ) );
-    $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'shanghai' );
+    $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'shanghai_zh' );
 
     $importer = new Importer( );
     $importer->addDataMapper( new ChinaFeedMovieMapperMock($vendor, $params) );
