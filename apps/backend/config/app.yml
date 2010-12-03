@@ -101,7 +101,7 @@ all:
           name: shanghai_en
           type: [ poi, event, movie ]
         -
-          name: shanghai
+          name: shanghai_zh
           type: [ poi, event, movie ]
         -
           name: beijing_zh
@@ -230,7 +230,7 @@ all:
           language: en-GB
           exportForNokia: true
         -
-          name: shanghai
+          name: shanghai_zh
           type: [ poi, event, movie ]
           language: zh-Hans
           exportForNokia: true

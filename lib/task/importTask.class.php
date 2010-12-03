@@ -538,9 +538,9 @@ class importTask extends sfBaseTask
 
          break;
 
-     case 'shanghai':
+     case 'shanghai_zh':
          
-         $this->newStyleImport( 'shanghai', 'zh-Hans', $options, $databaseManager, $importer );
+         $this->newStyleImport( 'shanghai_zh', 'zh-Hans', $options, $databaseManager, $importer );
          
          break;
 
