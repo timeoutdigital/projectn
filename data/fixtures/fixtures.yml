@@ -485,7 +485,7 @@ Vendor:
     geo_boundries:            '-33.7507133483887;-73.9855499267578;5.2648777961731;-32.392993927002'
 
   v36:
-    city:                     shanghai
+    city:                     shanghai_zh
     language:                 zh-Hans
     time_zone:                Asia/Shanghai
     inernational_dial_code:   +86
