@@ -39,17 +39,17 @@ class BeirutFeedBaseMapper extends DataMapper
             throw new BeirutFeedBaseMapperException( 'Invalid parameters ($params) passed to constructor, Extecting an array()' );
         }
 
-        if( !vendor || !isset( $vendor['id'] ) )
+        if( !$vendor || !isset( $vendor['id'] ) )
         {
             throw new BeirutFeedBaseMapperException( 'Invalid vendor object in Parameters' );
         }
 
-        if( !isset( $params['curl'] ) || $params['curl']['classname'] || empty( $params['curl']['classname'] ) )
+        if( !isset( $params['curl'] ) || !isset($params['curl']['classname']) || empty( $params['curl']['classname'] ) )
         {
             throw new BeirutFeedBaseMapperException( 'Parameters missing curl:classname' );
         }
 
-        if( !isset( $params['curl']['curl']['src']) || empty( $params['curl']['curl'] ))
+        if( !isset( $params['curl']['src']) || empty( $params['curl']['src'] ))
         {
             throw new BeirutFeedBaseMapperException( 'Parameters missing curl:src' );
         }
