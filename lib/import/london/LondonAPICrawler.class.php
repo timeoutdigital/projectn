@@ -149,11 +149,12 @@ class LondonAPICrawler
           {
             try
             {
-              $xml = $this->callApiGetDetails( $row->uid );
+              $xml = $this->callApiGetDetails( (string)$row->uid );
             }
             catch( Exception $exception )
             {
               $this->mapper->onException($exception);
+              continue; // #825 When exception thrown, $xml === null... hence we cannot let it move doMapping()!
             }
 
             $this->doMapping( $xml );
