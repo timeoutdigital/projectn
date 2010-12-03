@@ -33,6 +33,8 @@ class BeirutFeedVenueMapper extends BeirutFeedBaseMapper
                 $poi['vendor_poi_id']               = $vendorPoiID;
 
                 $poi['poi_name']                    = $this->clean( (string)$xmlNode->name );
+                $poi['short_description']           = $this->clean( (string)$xmlNode->short_description );
+                $poi['description']                 = $this->clean( (string)$xmlNode->description );
 
                 $poi['house_no']                    = $this->clean( (string)$xmlNode->house_no );
                 $poi['street']                      = $this->clean( (string)$xmlNode->street );
