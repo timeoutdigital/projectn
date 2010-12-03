@@ -31,14 +31,14 @@ class BeirutFeedEventMapper extends BeirutFeedBaseMapper
                 $event['vendor_event_id']       = $vendorEventId;
                 $event['Vendor']                = $this->vendor;
 
-                $event['name']                  = $this->clean( (string)$xmlNode['name'] );
-                $event['description']           = $this->clean( (string)$xmlNode['description'] );
-                $event['short_description']     = $this->clean( (string)$xmlNode['short_description'] );
-                $event['booking_url']           = $this->clean( (string)$xmlNode['booking_url'] );
-                $event['url']                   = $this->clean( (string)$xmlNode['url'] );
-                $event['price']                 = $this->clean( (string)$xmlNode['price'] );
-                $event['review_date']           = $this->clean( (string)$xmlNode['review_date'] );
-                $event['rating']                = $this->roundNumberOrNull( $this->clean( (string)$xmlNode['rating'] ) );
+                $event['name']                  = $this->clean( (string)$xmlNode->name );
+                $event['description']           = $this->clean( (string)$xmlNode->description );
+                $event['short_description']     = $this->clean( (string)$xmlNode->short_description );
+                $event['booking_url']           = $this->clean( (string)$xmlNode->booking_url );
+                $event['url']                   = $this->clean( (string)$xmlNode->url );
+                $event['price']                 = $this->clean( (string)$xmlNode->price );
+                $event['review_date']           = $this->clean( (string)$xmlNode->review_date );
+                $event['rating']                = $this->roundNumberOrNull( $this->clean( (string)$xmlNode->rating ) );
 
 
                 if( $this->clean( (string) $xmlNode->timeout_url) != '' )
@@ -64,21 +64,23 @@ class BeirutFeedEventMapper extends BeirutFeedBaseMapper
                             $this->notifyImporterOfFailure( new Exception( "Event {$vendorEventId}, Don't have any Venue_ID specified for the occurrence" ) );
                             continue;
                         }
+
                         $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $event['Vendor']['id'], $poiID );
                         if( $poi === false )
                         {
                             $this->notifyImporterOfFailure( new Exception( "Event {$vendorEventId}'s Occurrence Poi not found. vendor poi id: {$poiID} '" ) );
+                            continue;
                         }
 
                         $occurrence = new EventOccurrence;
                         $occurrence['utc_offset']   = $event['Vendor']->getUtcOffset();
                         $occurrence['Poi']          = $poi;
-
+                        
                         $occurrence['start_date']   = $this->clean( (string) $xmlOccurrence->start_date );
                         $occurrence['end_date']     = $this->clean( (string) $xmlOccurrence->end_date );
                         $occurrence['start_time']   = $this->_validateAndGetTime( $this->clean( (string) $xmlOccurrence->start_time ) );
                         $occurrence['end_time']     = $this->_validateAndGetTime( $this->clean( (string) $xmlOccurrence->end_time ) );
-                        
+
                         $occurrence['vendor_event_occurrence_id']  = stringTransform::concatNonBlankStrings('-', array(
                                                                                                                     $event['vendor_event_id'],
                                                                                                                     $occurrence['start_date'],
@@ -89,11 +91,12 @@ class BeirutFeedEventMapper extends BeirutFeedBaseMapper
                     }
                 }
 
-                //$event->save();
-                $this->notifyImporter( $event );
+                $event->save();
+                //$this->notifyImporter( $event );
 
             } catch ( Exception $e )
             {
+                echo 'Exception: ' .$e->getMessage() . PHP_EOL;
                 $this->notifyImporterOfFailure( $e, isset( $event) ? $event : null );
             }
         }
