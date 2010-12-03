@@ -80,6 +80,39 @@ class BeirutFeedEventMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( "Clubs & Pubs", $event['VendorEventCategory']["Clubs & Pubs"]['name'] );
         $this->assertEquals( true, $event['VendorEventCategory']["Clubs & Pubs"]->exists() );
 
+        // Check another event
+        $event = $events[1];
+        $this->assertEquals( '4085', $event['vendor_event_id']);
+        $this->assertEquals( 'Where Is My Mind?!?', $event['name']);
+        $this->assertEquals( "Pop and graffiti artist Benoit Debanne displays a freestyle technique developed through his 18-year involvement in street art. Fun representations of Bruce Lee, Grendizer the robot and even Pichu, Debanne’s cat, feature in this exhibition. The exhibition will run Wed until Saturday, from Nov 12 until Dec 5. For more information call 03 997676", $event['description']);
+        $this->assertEquals( "Exhibition by pop and graffiti artist Benoit Debanne", $event['short_description']);
+        $this->assertEquals( null, $event['url']);
+        $this->assertEquals( null, $event['booking_url']);
+        $this->assertEquals( null, $event['price']);
+        $this->assertEquals( null, $event['rating']);
+        $this->assertEquals( null, $event['review_date']);
+
+        // check occurrence
+        $this->assertEquals( 6, $event['EventOccurrence']->count() );
+        $this->assertEquals( "2010-11-29" , $event['EventOccurrence'][0]['start_date'] );
+        $this->assertEquals( "2010-11-29" , $event['EventOccurrence'][0]['end_date'] );
+        $this->assertEquals( null , $event['EventOccurrence'][0]['start_time'] );
+        $this->assertEquals( null , $event['EventOccurrence'][0]['end_time'] );
+        $this->assertEquals( "3" , $event['EventOccurrence'][0]['poi_id'] );
+        $this->assertEquals( "4085-2010-11-29-3" , $event['EventOccurrence'][0]['vendor_event_occurrence_id'] );
+
+        $this->assertEquals( "2010-12-03" , $event['EventOccurrence'][4]['start_date'] );
+        $this->assertEquals( "2010-12-03" , $event['EventOccurrence'][4]['end_date'] );
+        $this->assertEquals( null , $event['EventOccurrence'][4]['start_time'] );
+        $this->assertEquals( null , $event['EventOccurrence'][4]['end_time'] );
+        $this->assertEquals( "3" , $event['EventOccurrence'][4]['poi_id'] );
+        $this->assertEquals( "4085-2010-12-03-3" , $event['EventOccurrence'][4]['vendor_event_occurrence_id'] );
+
+        // check category
+        $this->assertEquals( 1, $event['VendorEventCategory']->count() );
+        $this->assertEquals( "Art", $event['VendorEventCategory']["Art"]['name'] );
+        $this->assertEquals( true, $event['VendorEventCategory']["Art"]->exists() );
+
         
         
     }
