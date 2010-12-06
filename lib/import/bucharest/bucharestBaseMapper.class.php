@@ -37,12 +37,12 @@ class bucharestBaseMapper extends DataMapper
      */
     public function  __construct( Vendor $vendor, array $params )
     {
-        $this->_validateParameters();
+        $this->_validateParameters( $vendor, $params );
 
         $this->vendor = $vendor;
         $this->params = $params;
 
-        $this->_loadXML();
+        $this->_loadXML( $vendor, $params );
     }
 
     /**
@@ -52,7 +52,7 @@ class bucharestBaseMapper extends DataMapper
      */
     private function _validateParameters( Vendor $vendor, array $params )
     {
-        if( !$vendor || gettype( $vendor ) !== 'Vendor' )
+        if( !$vendor || ($vendor instanceof Vendor) === false )
         {
             throw new BucharestBaseMapperException( "Invalid Vendor object passed in parameter");
         }
