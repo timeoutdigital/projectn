@@ -46,7 +46,7 @@ class bucharestVenueMapper extends bucharestBaseMapper
             // Categories
             if( isset( $venueElement->categories->category ) )
             {
-                $this->addVendorCategories( $this->vendor, $venueElement );
+                $this->addVendorCategories( $poi, $venueElement );
             }
 
             $this->notifyImporter( $poi );
