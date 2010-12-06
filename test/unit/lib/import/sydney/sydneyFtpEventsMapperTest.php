@@ -56,7 +56,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
     //Import data
     $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->params ) );
+    $importer->addDataMapper( new sydneyFtpEventsMapperMock( $this->vendor, $this->params ) );
     $importer->run();
   }
 
@@ -166,7 +166,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
       
       //Import data
       $importer = new Importer();
-      $importer->addDataMapper( new sydneyFtpEventsMapper( $this->vendor, $this->params ) );
+      $importer->addDataMapper( new sydneyFtpEventsMapperMock( $this->vendor, $this->params ) );
       $importer->run();
       
       $this->assertEquals( $totalEventsWasInDB, Doctrine::getTable( 'Event' )->findAll()->count());
@@ -174,4 +174,14 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
 
   }
+}
+
+/**
+ * Mocking Event mapper to override _getTheLatestFileName as it require FTP style file listing
+ */
+class sydneyFtpEventsMapperMock extends sydneyFtpEventsMapper
+{
+    protected function  _getTheLatestFileName($rawFtpListingOutput, $xmlFileName) {
+        return $xmlFileName;
+    }
 }

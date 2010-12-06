@@ -38,7 +38,7 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     // Run Import
     $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpMoviesMapper( $this->vendor, $this->params ) );
+    $importer->addDataMapper( new sydneyFtpMoviesMapperMock( $this->vendor, $this->params ) );
     $importer->run();
         
   }
@@ -67,4 +67,14 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
   }
 
 
+}
+
+/**
+ * Mocking Movie mapper to override _getTheLatestFileName as it require FTP style file listing
+ */
+class sydneyFtpMoviesMapperMock extends sydneyFtpMoviesMapper
+{
+    protected function  _getTheLatestFileName($rawFtpListingOutput, $xmlFileName) {
+        return $xmlFileName;
+    }
 }

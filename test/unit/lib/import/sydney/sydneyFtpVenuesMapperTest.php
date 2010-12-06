@@ -151,7 +151,18 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function runImport()
   {
     $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpVenuesMapper( $this->vendor, $this->params ) );
+    $importer->addDataMapper( new sydneyFtpVenuesMapperMock( $this->vendor, $this->params ) );
     $importer->run();
   }
+}
+
+
+/**
+ * Mocking Poi mapper to override _getTheLatestFileName as it require FTP style file listing
+ */
+class sydneyFtpVenuesMapperMock extends sydneyFtpVenuesMapper
+{
+    protected function  _getTheLatestFileName($rawFtpListingOutput, $xmlFileName) {
+        return $xmlFileName;
+    }
 }
