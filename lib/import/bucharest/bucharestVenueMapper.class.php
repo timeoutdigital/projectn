@@ -11,39 +11,11 @@
  * @version 1.0.1
  *
  */
-class bucharestVenueMapper extends DataMapper
+class bucharestVenueMapper extends bucharestBaseMapper
 {
-      /**
-    * @var geoEncode
-    */
-    protected $geoEncoder;
-
-    /**
-    * @var Vendor
-    */
-    protected $vendor;
-
-    /**
-    * @var SimpleXMLElement
-    */
-    protected $xml;
-
-    /**
-    *
-    * @param SimpleXMLElement $xml
-    * @param geoEncode $geoEncoder
-    */
-  public function __construct( SimpleXMLElement $xml, geocoder $geoEncoder = null )
-  {        
-      $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'bucharest', 'ro' );
-      
-      $this->geoEncoder = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
-      $this->xml        = $xml;
-  }
-
   public function mapVenues()
   {
-    for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
+    for( $i=0, $venueElement = $this->xmlNodes->venue[ 0 ]; $i<$this->xmlNodes->venue->count(); $i++, $venueElement = $this->xmlNodes->venue[ $i ] )
     {
         $poi = Doctrine::getTable( 'poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $this->clean( (string) $venueElement['id'] ) );
         if( $poi === false )
@@ -72,11 +44,9 @@ class bucharestVenueMapper extends DataMapper
             $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
 
             // Categories
-            $cats = $this->extractCategories( $venueElement );
-
-            foreach( $cats as $cat )
+            if( isset( $element->categories->category ) )
             {
-                $poi->addVendorCategory( $cat );
+                $this->addVendorCategories( $this->vendor, $venueElement );
             }
 
             $this->notifyImporter( $poi );
@@ -88,29 +58,4 @@ class bucharestVenueMapper extends DataMapper
     }
   }
 
-  protected function extractCategories( $element )
-  {
-    // This is so complicated because it covers the rare event
-    // where one parent category has multiple child categories.
-    // @todo this function should be moved into a parent (base) class
-    $categories = array();
-    foreach( $element->categories->category as $category )
-    {
-        $categoryName = $this->clean( (string) $category->name );
-
-        // Category has No Children
-        if( count( $category->children->category ) === 0 )
-        {
-            $categories[] = $categoryName;
-        }else
-        {
-            foreach( $category->children->category as $subCategory )
-            {
-            $categories[] = stringTransform::concatNonBlankStrings( " | ", array( $categoryName, $this->clean( (string) $subCategory->name ) ) );
-            }
-        }
-
-    }
-    return array_unique( $categories );
-  }
 }
