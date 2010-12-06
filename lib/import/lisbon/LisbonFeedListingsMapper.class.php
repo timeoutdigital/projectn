@@ -24,27 +24,35 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
      */
     private $processedVendorEventIds = array();
 
-    /**
-     *
-     * @var SimpleXmlElement $xml
-     */
-    public $xml = null;
 
 
 
+    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null )
+    {
+        parent::__construct($xml, $geocoderr);
+
+        //sort our internal simplexml for later processing in the mapListings() method
+        //we need all event ids (recurring listing ids) in order
+        $sortedXmlString = $this->sortSimpleXmlByAttribute( 'RecurringListingID' );
+    }
 
     public function mapListings()
     {
-
         $lastEventRecordData = false;
 
         for ( $i=0; $i < count($this->xml->listings); $i++ )
         {
+            //retrieve vendorEventId
             $vendorEventId = $this->getEventId( $this->xml->listings[$i] );
+
+            //we are using the per occurrence unique musicid as our vendorOccurrenceId
+            //for non recurring events we use music id not only as vendorOccurrenceId
+            //but also as vendrEventId
             $vendorEventOccurrenceId = (int) $this->xml->listings[$i]['musicid'];
            
             try{
-                
+                //keep track of the events we have processed already (lookup, creation and event occurrence deletion
+                //must be done once only
                 if ( !in_array( $vendorEventId, $this->processedVendorEventIds ) )
                 {
                     $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor[ 'id' ], $vendorEventId );
@@ -58,7 +66,9 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                 }
 
                 //event
+                //attribute/property mapping, see base class
                 $this->mapAvailableData( $event, $this->xml->listings[$i], 'EventProperty' );
+                //some magic
                 $this->appendBandInfoToDescription( $event, $this->xml->listings[$i] );
                 $event['description']                                 = $this->clean( preg_replace( "/{(\/?\w+)}/", "<$1>", $event['description'] ) );
                 $event['price']                                       = $this->clean(str_replace( "?", "€", $event['price'] ) ); // Refs: #258b
@@ -73,14 +83,16 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                 $category = array( (string) $this->xml->listings[$i]['category'], (string) $this->xml->listings[$i]['SubCategory'] );
                 $event->addVendorCategory( $category, $this->vendor['id'] );
 
-                //remove event details which are different for occurrences
+                //remove event details which are not consistent throught the event (if different occurrences cary different event details)
                 $event = $this->removeInconsistentEventDetails( $lastEventRecordData, $event );
                 $lastEventRecordData = clone $event;
 
-                /*sort out occurrences*/
+                //prepare occurrences and attache them to the event
                 $occurrence = $this->populateOccurrence( $event, $vendorEventId, $vendorEventOccurrenceId, $category, $this->xml->listings[$i] );
                 if ( $occurrence !== false ) $event['EventOccurrence'][] = $occurrence;
 
+                //hit save (notifyImporter() and reset the last record variable if the next iteration is the last one or has a different
+                //event id
                 if ( !isset( $this->xml->listings[$i+1] ) || $this->getEventId( $this->xml->listings[$i+1] ) != $vendorEventId )
                 {
                     $this->notifyImporter( $event );
@@ -102,9 +114,10 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
    * @todo function will be cleaned up in another ticket (bottom of it) and
    * cdata preservation
    */
-  public function sortSimpleXmlByAttribute( $attribute )
+  private function sortSimpleXmlByAttribute( $attribute )
   {
 
+//xsl stylesheet to sort by an attribute found somewhere in the xml tree
 $stylesheet = <<<EOT
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 <xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="testtextnode" />
@@ -122,19 +135,20 @@ $stylesheet = <<<EOT
 </xsl:stylesheet>
 EOT;
 
+    //setup the xslt processor
     $xsl = new DOMDocument;
     $xsl->loadXML($stylesheet);
-
     $processor = new XSLTProcessor;
     $processor->importStyleSheet($xsl); // attach the xsl rules
 
-    $domXml = dom_import_simplexml( $this->xml );
+    //load our simplexml into dom element
+    $domElement = dom_import_simplexml( $this->xml );
 
-    $xmlString = $processor->transformToXML($domXml);
+    //fire the processor to sort the stuff
+    $domDoc = $processor->transformToDoc($domElement);
 
-    $this->xml = simplexml_load_string($xmlString);
-
-    return $this->xml->asXml();
+    //convert the dom document back to simplexml
+    $this->xml = simplexml_import_dom($domDoc);
   }
 
   /**
@@ -206,11 +220,17 @@ EOT;
         return false;
     }
 
-    $poi->addVendorCategory( $category, $this->vendor['id'] );
-    
-    // Calling Poi->save() directly so that ImportLogger does not count poi record twice.
-    // Poi needs to be saved as event categories are added to the corresponding poi.
-    $poi->save();
+    // we have our own try catch here as we don't want potential poi exceptions to affect our event import
+    try
+    {
+        $poi->addVendorCategory( $category, $this->vendor['id'] );
+        // Calling Poi->save() directly so that ImportLogger does not count poi record twice.
+        // Poi needs to be saved as event categories are added to the corresponding poi.
+        $poi->save();
+    } catch ( Exception $exception )
+    {
+        $this->notifyImporterOfFailure( $exception, null, 'Failed to add categories and resave poi in event import');
+    }
 
     $listingDate = strtotime((string) $listingElement['ListingDate']);
 
@@ -233,14 +253,20 @@ EOT;
   }
 
   /**
+   * This function returns the event id for a lisbon event.
    *
    * @param SimpleXMLElement $listingsElement
    * @return integer
    */
   private function getEventId( $listingsElement )
   {
+    // normally we use the RecurringListingID as event id, it allows us to
+    // have one event with multiple occurrences as the RecurringListingID
+    // is unique for an event but not for occurrences
     $vendorEventId = (int) $listingsElement[ 'RecurringListingID' ];
 
+    // if an event is not recurring, the recurring id is 0 and we use the
+    // unique (per occurrence) musicid as event id
     if ( $vendorEventId == 0 )
     {
         $vendorEventId = (int) $listingsElement['musicid'];

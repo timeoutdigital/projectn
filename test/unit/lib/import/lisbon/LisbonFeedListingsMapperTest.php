@@ -58,10 +58,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     // Load XML
     $this->xmlData =  simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_listings.short.xml' );
 
-    //@todo this is a bit of a hack and will be fixed in another ticket
     $this->object = new LisbonFeedListingsMapper( $this->xmlData );
-    $sortedXmlString = $this->object->sortSimpleXmlByAttribute( 'RecurringListingID' );
-    $this->object = new LisbonFeedListingsMapper( simplexml_load_string( $sortedXmlString ) );
   }
 
   /**
@@ -76,8 +73,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
 
   public function testSortSimpleXmlByAttribute()
   {
-      $sortedXmlString = $this->object->sortSimpleXmlByAttribute( 'RecurringListingID' );
-      $sortedXml = simplexml_load_string( $sortedXmlString );
+      $sortedXml = $this->object->getXml();
 
       //order of target xml
       $this->assertEquals(  '0', (string) $sortedXml->listings[0]['RecurringListingID']  );
