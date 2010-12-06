@@ -22,7 +22,7 @@ class bucharestEventMapper extends bucharestBaseMapper
             try
             {
                 $vendorEventId = $this->clean( $xmlNode['id'] );
-                $event = Doctrine::getTable( 'Event' )->fineOneByVendorIdAndVendorEventId( $this->vendor, $vendorEventId );
+                $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor, $vendorEventId );
                 if( $event === false )
                 {
                     $event = new Event();
@@ -46,6 +46,8 @@ class bucharestEventMapper extends bucharestBaseMapper
                 {
                     $this->addOccurrences( $event, $xmlNode);
                 }
+
+                $this->notifyImporter( $event );
             }
             catch ( Exception $e )
             {
