@@ -52,10 +52,10 @@ class sydneyFtpBaseMapperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue( $mapper->getSimpleXMLElement() instanceof SimpleXMLElement );
     }
 
-    public function testConstructorException()
+    public function testConstructorExceptionInvalidVendor()
     {
         $this->setExpectedException( 'Exception' );
-        $mapper = new sydneyFtpBaseMapperMock( null, null );
+        $mapper = new sydneyFtpBaseMapperMock( null, array() );
     }
     
 }
@@ -68,5 +68,10 @@ class sydneyFtpBaseMapperMock extends sydneyFtpBaseMapper
     public function getSimpleXMLElement()
     {
         return $this->feed;
+    }
+
+    protected function _getTheLatestFileName( $rawFtpListingOutput, $xmlFileName )
+    {
+        return $xmlFileName;
     }
 }
