@@ -1,6 +1,6 @@
 <?php
 /**
- * Sydney base mapper
+ * Australia base mapper
  *
  * @package projectn
  * @subpackage sydney.import.lib.unit
@@ -11,7 +11,7 @@
  * @version 1.0.0
  *
  */
-class sydneyFtpBaseMapper extends DataMapper
+class australiaBaseMapper extends DataMapper
 {
     protected $vendor;
     protected $feed;
@@ -123,7 +123,24 @@ class sydneyFtpBaseMapper extends DataMapper
 
         throw new SydneyFTPBaseMapperException( "Failed to get the Filename for : {$xmlFileName}" );
     }
-    
+
+    public function extractGeoCodesFromIframe( $iframeHTML )
+    {
+          if( stringTransform::mb_trim( $iframeHTML ) != '' )
+          {
+              $regEx = '/\&amp;ll=(.*?)\&amp;/i';
+              preg_match( $regEx, $iframeHTML, $geocodes );
+
+              if( is_array( $geocodes ) && count( $geocodes ) == 2 )
+              {
+                  $geolatLong = explode(',', $geocodes[1] );
+                  if( count( $geolatLong ) == 2 )
+                  {
+                      $poi->applyFeedGeoCodesIfValid( $geolatLong[0], $geolatLong[1] );
+                  }
+              }
+          }
+    }
 }
 
 /**

@@ -13,7 +13,7 @@
  *
  */
 
-class sydneyFtpMoviesMapper extends sydneyFtpBaseMapper
+class australiaMoviesMapper extends australiaBaseMapper
 {
 
   public function mapMovies()

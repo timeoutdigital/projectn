@@ -4,17 +4,17 @@ require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 /**
- * Test class for sydney venues import
+ * Test class for australia venues import
  *
  * @package test
- * @subpackage sydney.import.lib.unit
+ * @subpackage australia.import.lib.unit
  *
  * @author Ralph Schwaninger <ralphschwaninger@timeout.com>
  * @author Rajeevan Kumarathasan <rajeevankumarathasan.com>
  *
  * @version 1.0.1
  */
-class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
+class australiaEventsMapperTest extends PHPUnit_Framework_TestCase
 {
 
     private $vendor;
@@ -56,7 +56,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 
     //Import data
     $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpEventsMapperMock( $this->vendor, $this->params ) );
+    $importer->addDataMapper( new australiaEventsMapperMock( $this->vendor, $this->params ) );
     $importer->run();
   }
 
@@ -166,7 +166,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
       
       //Import data
       $importer = new Importer();
-      $importer->addDataMapper( new sydneyFtpEventsMapperMock( $this->vendor, $this->params ) );
+      $importer->addDataMapper( new australiaEventsMapperMock( $this->vendor, $this->params ) );
       $importer->run();
       
       $this->assertEquals( $totalEventsWasInDB, Doctrine::getTable( 'Event' )->findAll()->count());
@@ -179,7 +179,7 @@ class sydneyFtpEventsMapperTest extends PHPUnit_Framework_TestCase
 /**
  * Mocking Event mapper to override _getTheLatestFileName as it require FTP style file listing
  */
-class sydneyFtpEventsMapperMock extends sydneyFtpEventsMapper
+class australiaEventsMapperMock extends australiaEventsMapper
 {
     protected function  _getTheLatestFileName($rawFtpListingOutput, $xmlFileName) {
         return $xmlFileName;

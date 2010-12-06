@@ -5,7 +5,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 
 /**
- * Test class for sydney base mapper
+ * Test class for australia base mapper
  *
  * @package test
  * @subpackage sydney.import.lib.unit
@@ -14,7 +14,7 @@ require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
  *
  * @version 1.0.0
  */
-class sydneyFtpBaseMapperTest extends PHPUnit_Framework_TestCase
+class australiaBaseMapperTest extends PHPUnit_Framework_TestCase
 {
 
     private $vendor;
@@ -44,7 +44,7 @@ class sydneyFtpBaseMapperTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorAllValidData()
     {
-        $mapper = new sydneyFtpBaseMapperMock( $this->vendor, $this->params );
+        $mapper = new australiaBaseMapperMock( $this->vendor, $this->params );
         $importer = new Importer( );
         $importer->addDataMapper( $mapper );
         $importer->run();
@@ -55,12 +55,12 @@ class sydneyFtpBaseMapperTest extends PHPUnit_Framework_TestCase
     public function testConstructorExceptionInvalidVendor()
     {
         $this->setExpectedException( 'Exception' );
-        $mapper = new sydneyFtpBaseMapperMock( null, $this->params );
+        $mapper = new australiaBaseMapperMock( null, $this->params );
     }
     public function testConstructorExceptionInvalidParams()
     {
         $this->setExpectedException( 'Exception' );
-        $mapper = new sydneyFtpBaseMapperMock( $this->vendor, array() );
+        $mapper = new australiaBaseMapperMock( $this->vendor, array() );
     }
     
 }
@@ -68,7 +68,7 @@ class sydneyFtpBaseMapperTest extends PHPUnit_Framework_TestCase
 /**
  * Mocking Basemapper to write a public fuction to Get the XML loaded to test
  */
-class sydneyFtpBaseMapperMock extends sydneyFtpBaseMapper
+class australiaBaseMapperMock extends australiaBaseMapper
 {
     public function getSimpleXMLElement()
     {

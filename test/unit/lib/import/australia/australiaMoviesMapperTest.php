@@ -5,17 +5,17 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 
 /**
- * Test class for sydney venues import
+ * Test class for australia venues import
  *
  * @package test
- * @subpackage sydney.import.lib.unit
+ * @subpackage australia.import.lib.unit
  *
  * @author Peter Johnson <peterjohnson@timeout.com>
  * @author Rajeevan Kumarathasan <rajeevankumarathasan.com>
  *
  * @version 1.0.1
  */
-class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
+class australiaMoviesMapperTest extends PHPUnit_Framework_TestCase
 {
     private $vendor;
     private $params;
@@ -38,7 +38,7 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
 
     // Run Import
     $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpMoviesMapperMock( $this->vendor, $this->params ) );
+    $importer->addDataMapper( new australiaMoviesMapperMock( $this->vendor, $this->params ) );
     $importer->run();
         
   }
@@ -72,7 +72,7 @@ class sydneyFtpMoviesMapperTest extends PHPUnit_Framework_TestCase
 /**
  * Mocking Movie mapper to override _getTheLatestFileName as it require FTP style file listing
  */
-class sydneyFtpMoviesMapperMock extends sydneyFtpMoviesMapper
+class australiaMoviesMapperMock extends australiaMoviesMapper
 {
     protected function  _getTheLatestFileName($rawFtpListingOutput, $xmlFileName) {
         return $xmlFileName;

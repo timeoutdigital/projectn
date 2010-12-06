@@ -12,7 +12,7 @@
  * @version 1.0.1
  *
  */
-class sydneyFtpVenuesMapper extends sydneyFtpBaseMapper
+class australiaVenuesMapper extends australiaBaseMapper
 {
   public function mapVenues()
   {

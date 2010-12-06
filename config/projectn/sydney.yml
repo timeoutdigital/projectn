@@ -1,7 +1,7 @@
 import:
   poi:
     class:
-      name: sydneyFtpVenuesMapper
+      name: australiaVenuesMapper
       params:
         type: poi
         ftp:
@@ -14,7 +14,7 @@ import:
 
   event:
     class:
-      name: sydneyFtpEventsMapper
+      name: australiaEventsMapper
       params:
         type: event
         ftp:
@@ -27,7 +27,7 @@ import:
 
   movie:
     class:
-      name: sydneyFtpMoviesMapper
+      name: australiaMoviesMapper
       params:
         type: movie
         ftp:

@@ -271,48 +271,6 @@ class importTask extends sfBaseTask
       case 'sydney':
 
         $this->newStyleImport( 'sydney', 'en-AU', $options, $databaseManager, $importer );
-        /*$vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'sydney', 'en-AU' );
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $targetFileName = 'venues.xml';
-            $mapperClass = 'sydneyFtpVenuesMapper';
-
-          break; //End Poi
-
-          case 'event':
-
-            $targetFileName = 'event.xml';
-            $mapperClass = 'sydneyFtpEventsMapper';
-
-          break; //End Event
-
-          case 'movie':
-
-            $targetFileName = 'films.xml';
-            $mapperClass = 'sydneyFtpMoviesMapper';
-
-          break; //End Movie
-
-          default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-        ImportLogger::getInstance()->setVendor( $vendor );
-
-        $ftpClient = new FTPClient( 'ftp.timeoutsydney.com.au', 'timeoutlondon', 'T1m3outl*nd)n', $vendor[ 'city' ] );
-        $ftpClient->setSourcePath( '/timeoutlondon/' );
-        $ftpFiles = $this->parseSydneyFtpDirectoryListing( $ftpClient->fetchRawDirListing() );
-
-        $xml = simplexml_load_file( $ftpClient->fetchFile( $ftpFiles[ $options['type'] ], $targetFileName ) );
-        new FeedArchiver( $vendor, file_get_contents( sfConfig::get( 'sf_root_dir' ) . "/import/{$vendor['city']}/{$targetFileName}" ), $options['type'] );
-
-        $importer->addDataMapper( new $mapperClass( $vendor, $xml ) );
-        $importer->run();
-
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage();*/
 
      break; //end Sydney
 
