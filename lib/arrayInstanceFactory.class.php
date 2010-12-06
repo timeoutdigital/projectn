@@ -26,6 +26,14 @@
  */
 class arrayInstanceFactory
 {
+    /**
+     * var ReflectionClass
+     */
+    private $_reflection;
+
+    /**
+     * var ReflectionParameter
+     */
     private $_constructorArguments;
 
     public function __construct( array $configuration )
