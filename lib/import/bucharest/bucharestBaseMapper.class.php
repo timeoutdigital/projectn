@@ -90,6 +90,39 @@ class bucharestBaseMapper extends DataMapper
         new FeedArchiver( $vendor, $curlInstance->getResponse( ), $params['type'] );
         $this->xmlNodes = simplexml_load_string( $curlInstance->getResponse( ) );
     }
+
+    /**
+     * Extract Categories from XMLNode and add them to $model
+     * @param SimpleXMLElement $element
+     * @return mixed
+     */
+    protected function addVendorCategories( $model, $element )
+    {
+        // This is so complicated because it covers the rare event
+        // where one parent category has multiple child categories.
+        foreach( $element->categories->category as $category )
+        {
+            $categories = array(); // reset and create categories array
+            
+            $categoryName = $this->clean( (string) $category->name );
+
+            // Category has No Children
+            if( count( $category->children->category ) === 0 )
+            {
+                $categories[] = $categoryName;
+            }else
+            {
+                foreach( $category->children->category as $subCategory )
+                {
+                $categories[] = $this->clean( (string) $subCategory->name );
+                }
+            }
+
+            // add the category to model, it will IMPLODE array into one PIPE separated category
+            $model->addVendorCategory( $categories, $model['Vendor']['id'] );
+
+        }
+    }
 }
 
 class BucharestBaseMapperException extends Exception{}
