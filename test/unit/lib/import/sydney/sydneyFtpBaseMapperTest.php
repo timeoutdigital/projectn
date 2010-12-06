@@ -55,7 +55,12 @@ class sydneyFtpBaseMapperTest extends PHPUnit_Framework_TestCase
     public function testConstructorExceptionInvalidVendor()
     {
         $this->setExpectedException( 'Exception' );
-        $mapper = new sydneyFtpBaseMapperMock( null, array() );
+        $mapper = new sydneyFtpBaseMapperMock( null, $this->params );
+    }
+    public function testConstructorExceptionInvalidParams()
+    {
+        $this->setExpectedException( 'Exception' );
+        $mapper = new sydneyFtpBaseMapperMock( $this->vendor, array() );
     }
     
 }
