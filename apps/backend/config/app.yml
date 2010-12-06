@@ -109,6 +109,9 @@ all:
         -
           name: amsterdam_data_entry
           type: [ poi, event, movie ]
+        -
+          name: beirut
+          type: [ poi, event ]
 
   export:
     cities:
@@ -246,6 +249,11 @@ all:
           name: amsterdam
           type: [ poi, event, movie ]
           language: en
+          exportForNokia: true
+        -
+          name: beirut
+          type: [ poi, event, movie ]
+          language: en-US
           exportForNokia: true
 
 
