@@ -65,6 +65,14 @@ all:
           language: en-GB
           validation: false
           exportForNokia: true
+        -
+          name: amsterdam
+          type: [ poi, event, movie ]
+          language: en
+          validation: false
+          exportForNokia: true
+
+          
   update:
      cities:
         -

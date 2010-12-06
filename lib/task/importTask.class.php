@@ -544,6 +544,23 @@ class importTask extends sfBaseTask
          
          break;
 
+    case 'amsterdam_data_entry':
+
+        $dataEntryImportManager = new DataEntryImportManager( 'amsterdam' );
+
+        echo "Using : " . $dataEntryImportManager->getImportDir();
+
+        switch( $options['type'] )
+        {
+          case 'poi'   : $dataEntryImportManager->importPois();   break;
+          case 'event' : $dataEntryImportManager->importEvents(); break;
+          case 'movie' : $dataEntryImportManager->importMovies(); break;
+          default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        $this->dieWithLogMessage();
+    break; //end data entry imports
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch

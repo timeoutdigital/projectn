@@ -106,6 +106,9 @@ all:
         -
           name: beijing_zh
           type: [ poi, event, movie ]
+        -
+          name: amsterdam_data_entry
+          type: [ poi, event, movie ]
 
   export:
     cities:
@@ -238,6 +241,11 @@ all:
           name: beijing_zh
           type: [ poi, event, movie ]
           language: zh-Hans
+          exportForNokia: true
+        -
+          name: amsterdam
+          type: [ poi, event, movie ]
+          language: en
           exportForNokia: true
 
 
