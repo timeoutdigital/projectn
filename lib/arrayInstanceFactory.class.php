@@ -30,6 +30,11 @@ class arrayInstanceFactory
 
     public function __construct( array $configuration )
     {
+        if( !isset( $configuration[ 'class' ] ) )
+        {
+            throw new arrayInstanceFactoryException( 'Missing "class" in configuration array.' );
+        }
+
         $reflection  = new ReflectionClass( $configuration[ 'class' ] );
         $constructor = $reflection->getConstructor();
         $parameters  = $constructor->getParameters();
@@ -39,6 +44,12 @@ class arrayInstanceFactory
         foreach( $parameters as $param )
         {
             $paramName = $param->getName();
+
+            if( !isset( $configuration[ $paramName ] ) )
+            {
+                continue;
+            }
+
             $constructorArguments[ $paramName ] = $configuration[ $paramName ];
         }
 
@@ -52,4 +63,4 @@ class arrayInstanceFactory
     }
 }
 
-class CurlException extends Exception{}
+class arrayInstanceFactoryException extends Exception{}
