@@ -1,4 +1,9 @@
 <?php
+require_once 'PHPUnit/Framework.php';
+require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
+require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/curl.mock.php';
+
 /**
  * Description
  *
@@ -41,7 +46,8 @@ class bucharestEventMapperTest extends PHPUnit_Framework_TestCase
         $importer->run();
 
         // assert results
-//        $this->assertEquals( 0, $actual);
+        $this->assertEquals( 5, Doctrine::getTable( 'Poi' )->count() );
+        
 
     }
 
