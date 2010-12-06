@@ -53,11 +53,25 @@ class sydneyFtpEventsMapper extends sydneyFtpBaseMapper
           $event->addVendorCategory( $this->extractVendorCategories( $eventNode ), $this->vendor );
 
           if ( (string) $eventNode->CriticsPick == 'True' )
-            $event['CriticsChoiceProperty'] = true;
+          {
+              $event['CriticsChoiceProperty'] = true;
+          } else {
+              $event['CriticsChoiceProperty'] = false;
+          }
+
           if ( (string) $eventNode->Recommended == 'True' )
-            $event['RecommendedProperty'] = true;
+          {
+              $event['RecommendedProperty'] = true;
+          } else {
+              $event['RecommendedProperty'] = false;
+          }
+
           if ( (string) $eventNode->Free == 'True' )
-            $event['FreeProperty'] = true;
+          {
+              $event['FreeProperty'] = true;
+          } else {
+              $event['FreeProperty'] = false;
+          }
 
 
           //#753 addImageHelper capture Exception and notify, this don't break the Import process
