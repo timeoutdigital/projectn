@@ -34,15 +34,45 @@ class barcelonaBaseMapper extends DataMapper
     * @param geocoder $geocoderr
     * @param string $city
     */
-    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null )
-    {        
-        $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'barcelona', 'ca' );
-
-        //date_default_timezone_set( $this->vendor->time_zone );
-        //setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
+    public function __construct( Vendor $vendor, $params )
+    {
+        $this->_validateConstructorParams( $vendor, $params ); // Valdiate Params
         
-        $this->geocoderr = is_null( $geocoderr ) ? new googleGeocoder() : $geocoderr;
-        $this->xml        = $xml;
+        // set clas variables values
+        $this->vendor     = $vendor;
+
+        // Download the Feed
+        $this->_loadXML( $vendor, $params );
+    }
+
+    /**
+     * Valdiate Params
+     * @param Vendor $vendor
+     * @param array $params
+     */
+    private function _validateConstructorParams( $vendor, $params )
+    {
+        if( !( $vendor instanceof Vendor ) || !isset( $vendor[ 'id' ] ) )
+        {
+            throw new BarcelonaBaseMapperException( 'Invalid Vendor Passed to BarcelonaBaseMapper Constructor.' );
+        }
+
+        if( !isset( $params['curl']['classname'] ) || !isset( $params['curl']['src'] ) || !isset( $params['type'] ) )
+        {
+            throw new BarcelonaBaseMapperException( 'Invalid Params Passed to BarcelonaBaseMapper Constructor.' );
+        }
+    }
+
+    private function _loadXML( $vendor, $params )
+    {
+        // Download
+        $curlInstance = new $params['curl']['classname']( $params['curl']['src'] );
+        $curlInstance->exec();
+
+        new FeedArchiver( $vendor, $curlInstance->getResponse(), $params['type'] );
+        
+        // Load XML
+        $this->xml = simplexml_load_string( $curlInstance->getResponse() );
     }
 
     protected function fixHtmlEntities( $string )
@@ -108,4 +138,5 @@ class barcelonaBaseMapper extends DataMapper
         }
     }
 }
-?>
+
+class BarcelonaBaseMapperException extends Exception{}

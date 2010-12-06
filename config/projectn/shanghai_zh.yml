@@ -10,7 +10,7 @@ import:
           xmlsrc: http://n.timeoutcn.com/Admin/Export/Venues.xml
           username: "timeoutlondon"
           password: "aas9384jewt-0tkfd"
-          xslt: "beijing_venues.xsl"
+          xslt: "shanghai_venues.xsl"
 
   event:
     class:

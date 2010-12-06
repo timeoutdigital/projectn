@@ -100,6 +100,15 @@ all:
         -
           name: shanghai_en
           type: [ poi, event, movie ]
+        -
+          name: shanghai_zh
+          type: [ poi, event, movie ]
+        -
+          name: beijing_zh
+          type: [ poi, event, movie ]
+        -
+          name: amsterdam_data_entry
+          type: [ poi, event, movie ]
 
   export:
     cities:
@@ -223,7 +232,21 @@ all:
           type: [ poi, event, movie ]
           language: en-GB
           exportForNokia: true
-
+        -
+          name: shanghai_zh
+          type: [ poi, event, movie ]
+          language: zh-Hans
+          exportForNokia: true
+        -
+          name: beijing_zh
+          type: [ poi, event, movie ]
+          language: zh-Hans
+          exportForNokia: true
+        -
+          name: amsterdam
+          type: [ poi, event, movie ]
+          language: en
+          exportForNokia: true
 
 
 prod:

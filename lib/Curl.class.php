@@ -85,6 +85,12 @@ class Curl
                                $parameters     = array(),
                                $requestMethod  = 'GET' )
   {
+
+    if( $requestMethod === 'GET' )
+    {
+        $this->_validateParameters( $parameters );
+    }
+    
     $this->_url           = $url;
     $this->_parameters    = $parameters;
     $this->_requestMethod = $requestMethod;
@@ -462,5 +468,26 @@ class Curl
       return $headers;
   }
 
+  /**
+   * Validate parameters passed in construct is valid
+   * @param array $params
+   */
+  private function _validateParameters( $params )
+  {
+      if( !is_array( $params ) )
+      {
+          throw new CurlException( 'Invalid parameters, $parameters should be type of array()' );
+      }
+
+      foreach( $params as $key => $value )
+      {
+          if( ( !is_string( $value ) && !is_numeric( $value ) ) )
+          {
+              throw new CurlException( 'Invalid Parameter value / key. Key and value should be type of string or numeric, passed key type: ' . gettype( $key ) . ' and value type: ' . gettype( $value ) );
+          }
+      }
+  }
+
 }
-?>
+
+class CurlException extends Exception{}
