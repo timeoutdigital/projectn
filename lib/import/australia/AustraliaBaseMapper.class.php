@@ -3,7 +3,7 @@
  * Australia base mapper
  *
  * @package projectn
- * @subpackage sydney.import.lib.unit
+ * @subpackage australia.import.lib.unit
  *
  * @author Rajeevan Kumarathasan <rajeevakumarathasan@timout.com>
  * @copyright Timeout Communications Ltd
@@ -17,7 +17,7 @@ class australiaBaseMapper extends DataMapper
     protected $feed;
 
     /**
-     * Sydney FTP Base mapper constructor
+     * Australia Base mapper constructor
      * @param Vendor $vendor
      * @param array $params 
      */
@@ -41,12 +41,12 @@ class australiaBaseMapper extends DataMapper
     {
         if( !$vendor || !isset($vendor['id']) )
         {
-            throw new SydneyFTPBaseMapperException( 'Invalid vendor in Parameter' );
+            throw new AustraliaBaseMapperException( 'Invalid vendor in Parameter' );
         }
 
         if( !is_array($params) || count( $params ) <= 0 || !isset( $params['ftp'] ) || !isset( $params['ftp']['classname'] ) )
         {
-            throw new SydneyFTPBaseMapperException( 'Invalid $params in Parameter' );
+            throw new AustraliaBaseMapperException( 'Invalid $params in Parameter' );
         }
     }
 
@@ -103,7 +103,7 @@ class australiaBaseMapper extends DataMapper
         // Makesure we have sorted filenames
         if( count($fileListSorted) <= 0 )
         {
-            throw new SydneyFTPBaseMapperException( 'Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED' );
+            throw new AustraliaBaseMapperException( 'Failed to Extract All File Names From Sydney FTP Directory Listing. FILE NAME FORMAT MIGHT BE CHANGED' );
         }
 
         ksort ( $fileListSorted );
@@ -121,7 +121,7 @@ class australiaBaseMapper extends DataMapper
             }
         }
 
-        throw new SydneyFTPBaseMapperException( "Failed to get the Filename for : {$xmlFileName}" );
+        throw new AustraliaBaseMapperException( "Failed to get the Filename for : {$xmlFileName}" );
     }
 
     public function extractGeoCodesFromIframe( $iframeHTML )
@@ -146,4 +146,4 @@ class australiaBaseMapper extends DataMapper
 /**
  * Sydney FTP base mapper Exception class...
  */
-class SydneyFTPBaseMapperException extends Exception{}
+class AustraliaBaseMapperException extends Exception{}
