@@ -61,7 +61,7 @@ class bucharestEventMapper extends bucharestBaseMapper
         foreach( $xmlNode->occurrences->occurrence as $xmlOccurrence )
         {
             $vendorPoiID = $this->clean( (string)$xmlOccurrence->venue_id );
-            $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor, $vendorPoiID );
+            $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $vendorPoiID );
             if( $poi === false )
             {
                 $this->notifyImporterOfFailure( new Exception( "Poi not found, event {$event['vendor_event_id']} occurrence" ) );
@@ -73,8 +73,13 @@ class bucharestEventMapper extends bucharestBaseMapper
             $occurrence['utc_offset'] = $event['Vendor']->getUtcOffset();
             $occurrence['Poi'] = $poi;
 
-            $occurrence['star_date'] = $this->clean( (string)$xmlOccurrence->start_date );
-            $occurrence['end_date'] = $this->clean( (string)$xmlOccurrence->end_date );
+            $start_date = $this->getFormatedDateArrayOrNull( (string)$xmlOccurrence->start_date );
+            $occurrence['start_date'] = $start_date['date'];
+            $occurrence['start_time'] = $start_date['time'];
+            
+            $end_date = $this->getFormatedDateArrayOrNull( (string)$xmlOccurrence->end_date );
+            $occurrence['end_date'] = $end_date['date'];
+            $occurrence['end_time'] = $end_date['time'];
 
             $occurrence['vendor_event_occurrence_id'] = stringTransform::concatNonBlankStrings( '-', array(
                                                                                                         $event['vendor_event_id'],
@@ -83,5 +88,43 @@ class bucharestEventMapper extends bucharestBaseMapper
                                                                                                     ) );
             $event['EventOccurrence'][] = $occurrence;
         }
+    }
+
+    /**
+     * Split Date/Time and return array of date/time
+     * @param string $dateString
+     * @return array
+     */
+    private function getFormatedDateArrayOrNull( $dateString )
+    {
+        $dateArray = array( 'date' => null, 'time' => null );
+        
+        $dateString = $this->clean( $dateString );
+        if( $dateString == '' )
+        {
+            return $dateArray;
+        }
+
+        // It seems that Bucharest giving us Date Time together in one line,
+        // we should split it and use for Date & time
+        
+        if( strlen( $dateString ) > 10 )
+        {
+            $exploded = explode( 'T', $dateString );
+            if( count($exploded) == 1 )
+            {
+                $dateArray['date'] = substr( $dateString, 0, 10 );
+            } else if( count( $exploded == 2 ) )
+            {
+                $dateArray['date'] = $exploded[0];
+                $dateArray['time'] = $exploded[1];
+            }
+        }
+        else
+        {
+            $dateArray['date'] = $dateString;
+        }
+
+        return $dateArray;
     }
 }
