@@ -533,52 +533,33 @@ class importTask extends sfBaseTask
      break;
 
      case 'beijing_zh':
-         /* This ImportTask only created for TESTING, Please do Not use this as FINAL RELEASE VERSION */
-         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'beijing_zh', 'zh-Hans' );
-
-         switch( $options['type'] )
-         {
-             case 'poi':
-                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://www.timeoutcn.com/Account/Login.aspx?ReturnUrl=/admin/n/london/Default.aspx', 'username' => 'tolondon' , 'password' => 'to3rjk&e*8dsfj9' ) );
-                 ImportLogger::getInstance()->setVendor( $vendorObj );
-                 $importer->addDataMapper( new beijingZHFeedVenueMapper( $vendorObj, $params ) );
-                 $importer->run();
-                 ImportLogger::getInstance()->end();
-                 $this->dieWithLogMessage();
-                 break;
-             default : $this->dieDueToInvalidTypeSpecified();
-         }
+         
+         $this->newStyleImport( 'beijing_zh', 'zh-Hans', $options, $databaseManager, $importer );
 
          break;
 
-     case 'shanghai':
-         /* This ImportTask only created for TESTING, Please do Not use this as FINAL RELEASE VERSION */
+     case 'shanghai_zh':
          
-         $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'shanghai', 'zh-Hans' );
-         $params = null;
-         $dataMapper = null;
-         
-         switch( $options['type'] )
-         {
-             case 'poi':
-                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/ExportTOLondon/VenuesData.aspx', 'username' => 'timeoutlondon' , 'password' => 'aas9384jewt-0tkfd' ) );
-                 $dataMapper = 'beijingZHFeedVenueMapper';
-                 break;
-             case 'movie':
-                 $params = array( 'datasource' => array( 'classname' => 'FormScraper', 'url' => 'http://n.timeoutcn.com/Account/Login.aspx?ReturnUrl=/Admin/ExportTOLondon/MoviesData.aspx', 'username' => 'timeoutlondon' , 'password' => 'aas9384jewt-0tkfd' ) );
-                 $dataMapper = 'ShanghaiFeedMovieMapper';
-                 break;
-             default : $this->dieDueToInvalidTypeSpecified();
-         }
-
-         // Runt the Import
-         ImportLogger::getInstance()->setVendor( $vendorObj );
-         $importer->addDataMapper( new $dataMapper( $vendorObj, $params ) );
-         $importer->run();
-         ImportLogger::getInstance()->end();
-         $this->dieWithLogMessage();
+         $this->newStyleImport( 'shanghai_zh', 'zh-Hans', $options, $databaseManager, $importer );
          
          break;
+
+    case 'amsterdam_data_entry':
+
+        $dataEntryImportManager = new DataEntryImportManager( 'amsterdam' );
+
+        echo "Using : " . $dataEntryImportManager->getImportDir();
+
+        switch( $options['type'] )
+        {
+          case 'poi'   : $dataEntryImportManager->importPois();   break;
+          case 'event' : $dataEntryImportManager->importEvents(); break;
+          case 'movie' : $dataEntryImportManager->importMovies(); break;
+          default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        $this->dieWithLogMessage();
+    break; //end data entry imports
 
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 

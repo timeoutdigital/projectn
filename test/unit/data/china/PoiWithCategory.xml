@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<venues>
+<venue id="3">
+    <name><![CDATA[俏江南]]></name>
+    <house_no><![CDATA[1号]]></house_no>
+    <street><![CDATA[东城区东长安街]]></street>
+    <city><![CDATA[BeiJing]]></city>
+    <district><![CDATA[东城]]></district>
+    <additional_address_details><![CDATA[东城区东长安街1号东方广场B1楼BB88号]]></additional_address_details>
+    <country><![CDATA[China]]></country>
+    <postcode><![CDATA[100010]]></postcode>
+    <long><![CDATA[39.909807]]></long>
+    <lat><![CDATA[ 116.414518]]></lat>
+    <short_description><![CDATA[东城区东长安街1号东方广场B1楼BB88号]]></short_description>
+    <description><![CDATA[东城区东长安街1号东方广场B1楼BB88号]]></description>
+    <price_information><![CDATA[]]></price_information>
+    <phone><![CDATA[8518 6971]]></phone>
+    <timeout_url><![CDATA[http://www.timeoutcn.com/Articles_11_14.htm]]></timeout_url>
+     <categories>
+    <category>
+      <name><![CDATA[吃喝]]></name>
+      <children>
+        <category>
+          <name><![CDATA[食客]]></name>
+        </category>
+      </children>
+    </category>
+  </categories>
+  </venue>
+</venues>
