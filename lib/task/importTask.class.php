@@ -561,6 +561,31 @@ class importTask extends sfBaseTask
         $this->dieWithLogMessage();
     break; //end data entry imports
 
+   case 'bucharest':
+
+        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'bucharest', 'ro' );
+
+        switch( $options['type'] )
+        {
+          case 'poi':
+
+            $mapperClass = "bucharestVenueMapper";
+
+          break; //end Poi
+
+          default : $this->dieDueToInvalidTypeSpecified();
+        }
+
+        $xml = simplexml_load_file( '/home/ralph/venues.xml' );
+
+        ImportLogger::getInstance()->setVendor( $vendorObj );
+        $importer->addDataMapper( new $mapperClass( $xml ) );
+        $importer->run();
+        ImportLogger::getInstance()->end();
+        $this->dieWithLogMessage();
+     break; // End bucharest
+
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
