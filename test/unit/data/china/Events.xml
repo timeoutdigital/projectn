@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<events>
+  <event id="146">
+    <name><![CDATA[We back, we go HARD]]></name>
+    <description><![CDATA[新锐派对组织SuperColab将携东京最著名的前卫DJ团“HARD”来到北京，在京城著名高端场所D.Lounge举行其派对首开“SuperColab”暨“SuperColab×HARD”大型派对。东京的派对动物们对HARD的朝拜就像虔诚的基督徒亲吻上帝的脚趾。HARD自然也是不负众望，它可以在同一个夜晚带领其信徒在东京最潮俱乐部Le Baron纸醉金迷，>而下一秒却能够在涩谷的某条偏僻小街里用他们的音乐掀翻整条巷道。记得一定要精心打扮一番再来哦！]]></description>
+    <short_description><![CDATA[新锐派对组织SuperColab将携东京最著名的前卫DJ团“HARD”来到北...]]></short_description>
+    <price><![CDATA[门票50元]]></price>
+    <review_date><![CDATA[2010-11-12 08:05:43]]></review_date>
+    <occurrences>
+      <occurrence id="1">
+        <start_date><![CDATA[2010-11-13]]></start_date>
+        <start_time><![CDATA[22:00:00]]></start_time>
+        <end_date><![CDATA[2010-11-13]]></end_date>
+        <end_time><![CDATA[]]></end_time>
+        <venue_id><![CDATA[4]]></venue_id>
+      </occurrence>
+    </occurrences>
+    <categories>
+      <category>
+        <name><![CDATA[北京]]></name>
+        <children>
+          <category>
+            <name><![CDATA[派对]]></name>
+          </category>
+        </children>
+        <children>
+          <category>
+            <name><![CDATA[双周推荐榜]]></name>
+          </category>
+        </children>
+      </category>
+    </categories>
+  </event>
+  <event id="93">
+    <name><![CDATA[《电视政治》（瑞典）、《缅甸起义》（丹麦）]]></name>
+    <description><![CDATA[]]></description>
+    <short_description><![CDATA[]]></short_description>
+    <price><![CDATA[]]></price>
+    <review_date><![CDATA[2010-11-12 05:59:12]]></review_date>
+    <occurrences>
+      <occurrence id="1">
+        <start_date><![CDATA[2010-11-13]]></start_date>
+        <start_time><![CDATA[17:00:00]]></start_time>
+        <end_date><![CDATA[2010-11-13]]></end_date>
+        <end_time><![CDATA[]]></end_time>
+        <venue_id><![CDATA[1]]></venue_id>
+      </occurrence>
+    </occurrences>
+    <categories>
+      <category>
+        <name><![CDATA[北京]]></name>
+        <children>
+          <category>
+            <name><![CDATA[影视]]></name>
+          </category>
+        </children>
+        <children>
+          <category>
+            <name><![CDATA[独立放映]]></name>
+          </category>
+        </children>
+      </category>
+    </categories>
+  </event>
+
+  <event id="102">
+    <name><![CDATA[《收获荒地》、《中国人来了》、《省长先生》]]></name>
+    <description><![CDATA[]]></description>
+    <short_description><![CDATA[]]></short_description>
+    <price><![CDATA[]]></price>
+    <review_date><![CDATA[2010-11-12 06:02:46]]></review_date>
+    <occurrences>
+       <occurrence id="1">
+        <start_date><![CDATA[2010-11-13]]></start_date>
+        <start_time><![CDATA[]]></start_time>
+        <end_date><![CDATA[2010-11-13]]></end_date>
+        <end_time><![CDATA[]]></end_time>
+        <venue_id><![CDATA[2]]></venue_id>
+      </occurrence>
+      <occurrence id="2">
+        <start_date><![CDATA[2010-11-14]]></start_date>
+        <start_time><![CDATA[]]></start_time>
+        <end_date><![CDATA[2010-11-14]]></end_date>
+        <end_time><![CDATA[]]></end_time>
+        <venue_id><![CDATA[1]]></venue_id>
+      </occurrence>
+      <occurrence id="3">
+        <start_date><![CDATA[2010-11-15]]></start_date>
+        <start_time><![CDATA[]]></start_time>
+        <end_date><![CDATA[2010-11-15]]></end_date>
+        <end_time><![CDATA[]]></end_time>
+        <venue_id><![CDATA[2]]></venue_id>
+      </occurrence>
+      <occurrence id="4">
+        <start_date><![CDATA[2010-11-16]]></start_date>
+        <start_time><![CDATA[]]></start_time>
+        <end_date><![CDATA[2010-11-16]]></end_date>
+        <end_time><![CDATA[]]></end_time>
+        <venue_id><![CDATA[3]]></venue_id>
+      </occurrence>
+      <occurrence id="5">
+        <start_date><![CDATA[2010-11-17]]></start_date>
+        <start_time><![CDATA[]]></start_time>
+        <end_date><![CDATA[2010-11-17]]></end_date>
+        <end_time><![CDATA[]]></end_time>
+        <venue_id><![CDATA[1]]></venue_id>
+      </occurrence>
+    </occurrences>
+    <categories>
+      <category>
+        <name><![CDATA[北京]]></name>
+        <children>
+          <category>
+            <name><![CDATA[影视]]></name>
+          </category>
+        </children>
+        <children>
+          <category>
+            <name><![CDATA[独立放映]]></name>
+          </category>
+        </children>
+      </category>
+    </categories>
+  </event>
+</events>
+

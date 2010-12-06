@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Barcelona Events Mapper import.
  *
@@ -18,6 +18,8 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class barcelonaBaseMapperTest extends PHPUnit_Framework_TestCase
 {
+    private $vendor;
+    private $params;
   /**
    * Sets up the fixture, for example, opens a network connection.
    * This method is called before a test is executed.
@@ -25,17 +27,9 @@ class barcelonaBaseMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
-      'city' => 'barcelona',
-      'language' => 'ca',
-      'time_zone' => 'Europe/Madrid',
-      'inernational_dial_code' => '+3493',
-      )
-    );
-    $vendor->save();
-
-    $this->vendor = $vendor;
+    Doctrine::loadData('data/fixtures');
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('barcelona');
+    $this->params = array( 'type' => 'base', 'curl' => array( 'classname' => 'CurlMock', 'src' => '' ) );
   }
 
   /**
@@ -49,18 +43,18 @@ class barcelonaBaseMapperTest extends PHPUnit_Framework_TestCase
 
   public function testExtractCategories()
   {
-        $data = simplexml_load_string( "<xml><mock><categories><category><name>Foo</name></category><category><name>Foo2</name><children><category><name>Bar2</name></category></children></category></categories></mock></xml>" );
+      $this->params['curl']['src'] = TO_TEST_DATA_PATH . '/barcelona/basemapper_extract_category.xml';
 
-        $importer = new Importer();
-        $importer->addDataMapper( new mockBarcelonaMapper( $data ) );
-        $importer->run();
+      $importer = new Importer();
+      $importer->addDataMapper( new mockBarcelonaMapper( $this->vendor, $this->params ) );
+      $importer->run();
 
-        $pois = Doctrine::getTable( 'Poi' )->findAll();
-        $poi = $pois[ 0 ];
+      $pois = Doctrine::getTable( 'Poi' )->findAll();
+      $poi = $pois[ 0 ];
 
-        $this->assertEquals( 2, count( $poi['VendorPoiCategory'] ) );
-        $this->assertEquals( 'Foo', $poi['VendorPoiCategory'][0]['name'] );
-        $this->assertEquals( 'Foo2 | Bar2', $poi['VendorPoiCategory'][1]['name'] );
+      $this->assertEquals( 2, count( $poi['VendorPoiCategory'] ) );
+      $this->assertEquals( 'Foo', $poi['VendorPoiCategory'][0]['name'] );
+      $this->assertEquals( 'Foo2 | Bar2', $poi['VendorPoiCategory'][1]['name'] );
   }
 }
 

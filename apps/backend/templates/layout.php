@@ -40,6 +40,9 @@
             <?php echo link_to('Vendor Event Categories', '@vendor_event_category') ?> /
           </li>
           <li>
+            <?php echo link_to('Geocode White List', 'geo_white_list') ?>
+          </li>
+          <li>
             <?php echo link_to('Geocode UI', '@geocode_ui') ?> /
           </li>
           <li>

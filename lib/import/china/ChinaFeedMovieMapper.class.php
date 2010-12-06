@@ -1,6 +1,6 @@
 <?php
 /**
- * Shanghai Import Base Mapper
+ * China Feed Movie Import mapper
  *
  * @package projectn
  * @subpackage
@@ -12,14 +12,8 @@
  *
  */
 
-class ShanghaiFeedMovieMapper extends ShanghaiFeedBaseMapper
-{
-    public function  __construct(Vendor $vendor, $params) {
 
-        $this->exceptionClass = 'ShanghaiMovieMapperException'; // Set exception class to be Movi Exception Class
-        
-        parent::__construct($vendor, $params);
-    }
+class ChinaFeedMovieMapper extends ChinaFeedBaseMapper{
 
     public function mapMovie()
     {
@@ -83,7 +77,7 @@ class ShanghaiFeedMovieMapper extends ShanghaiFeedBaseMapper
 
                 // save
                 $this->notifyImporter( $movie );
-                
+
             }catch( Exception $exception ) {
                 echo 'Exception: ' . $exception->getMessage() . PHP_EOL;
                 $this->notifyImporterOfFailure($exception, isset($movie) ? $movie : null );
@@ -110,11 +104,4 @@ class ShanghaiFeedMovieMapper extends ShanghaiFeedBaseMapper
 
         return null;
     }
-
-}
-
-// Movie Mapper Exception
-class ShanghaiMovieMapperException extends Exception
-{
-    
 }
