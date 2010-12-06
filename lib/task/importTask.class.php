@@ -561,6 +561,12 @@ class importTask extends sfBaseTask
         $this->dieWithLogMessage();
     break; //end data entry imports
 
+    case 'beirut':
+
+        $this->newStyleImport( 'beirut', 'en-US', $options, $databaseManager, $importer );
+        
+        break;
+
     default : $this->dieWithLogMessage( 'FAILED IMPORT - INVALID CITY SPECIFIED' );
 
     }//end switch
