@@ -47,7 +47,42 @@ class bucharestEventMapperTest extends PHPUnit_Framework_TestCase
 
         // assert results
         $this->assertEquals( 5, Doctrine::getTable( 'Poi' )->count() );
-        
+
+        $events = Doctrine::getTable( 'Event' )->findAll();
+        $this->assertEquals( 5, $events->count() );
+
+        $event = $events[0];
+        $this->assertEquals( '7773314', $event['vendor_event_id']);
+        $this->assertEquals( 'Steve Vai & Evolution Tempo Orchestra', $event['name']);
+        $this->assertStringStartsWith( 'Exista un zvon care circula pe la Berklee (una dintre cele mai bune facultati de muzica) cum ca Steve ar fi chiulit ', $event['description']);
+
+        $this->assertEquals( 1, $event['VendorEventCategory']->count());
+        $this->assertEquals( 'Muzica', $event['VendorEventCategory']['Muzica']['name'] );
+        $this->assertTrue( $event['VendorEventCategory']['Muzica']->exists() );
+
+        $this->assertEquals( 1, $event['EventOccurrence']->count());
+        $this->assertEquals( '2010-12-08', $event['EventOccurrence'][0]['start_date'] );
+        $this->assertEquals( '19:30:00', $event['EventOccurrence'][0]['start_time'] );
+        $this->assertEquals( null, $event['EventOccurrence'][0]['end_time'] );
+        $this->assertEquals( null, $event['EventOccurrence'][0]['end_date'] );
+
+        $event = $events[2];
+        $this->assertEquals( '7773272', $event['vendor_event_id']);
+        $this->assertEquals( 'Festival: CineMAiubit', $event['name']);
+        $this->assertStringStartsWith( 'A 14-a editie a Festivalului International de Film Studentesc CineMAiubit isi', $event['description']);
+
+        // Test this category to make sure that "FILM" converted to ART in Event Model, as Nokia do not accept Film in Event
+        $this->assertEquals( 1, $event['VendorEventCategory']->count());
+        $this->assertEquals( 'Art', $event['VendorEventCategory']['Art']['name'] );
+        $this->assertTrue( $event['VendorEventCategory']['Art']->exists() );
+
+        $this->assertEquals( 1, $event['EventOccurrence']->count());
+        $this->assertEquals( '2010-12-06', $event['EventOccurrence'][0]['start_date'] );
+        $this->assertEquals( null, $event['EventOccurrence'][0]['start_time'] );
+        $this->assertEquals( null, $event['EventOccurrence'][0]['end_time'] );
+        $this->assertEquals( '2010-12-09', $event['EventOccurrence'][0]['end_date'] );
+        $this->assertEquals( '942696', $event['EventOccurrence'][0]['Poi']['vendor_poi_id'] );
+        $this->assertEquals( '7773272-2010-12-06-3', $event['EventOccurrence'][0]['vendor_event_occurrence_id'] );
 
     }
 
@@ -64,8 +99,8 @@ class bucharestEventMapperTest extends PHPUnit_Framework_TestCase
             {
                 continue; // add Venue only once
             }
-            
-            ProjectN_Test_Unit_Factory::add( 'Poi', array( 'Vendor' => $this->vendor, 'vendor_poi_id' => (string) $venue ) );
+
+            $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => $this->vendor['id'], 'vendor_poi_id' => (string) $venue ) );
             $processedVenues[] = (string) $venue;
         }
     }
