@@ -44,7 +44,7 @@ class bucharestVenueMapper extends bucharestBaseMapper
             $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
 
             // Categories
-            if( isset( $element->categories->category ) )
+            if( isset( $venueElement->categories->category ) )
             {
                 $this->addVendorCategories( $this->vendor, $venueElement );
             }

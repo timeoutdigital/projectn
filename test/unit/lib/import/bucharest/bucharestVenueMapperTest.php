@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 
 
 /**
@@ -23,10 +24,18 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
  */
 class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
 {
+
+    private $vendor;
+    private $params;
+    
   public function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
     Doctrine::loadData('data/fixtures');
+
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'bucharest' );
+    $this->params = array( 'type' => 'poi', 'curl' => array( 'classname' => 'CurlMock', 'src' => TO_TEST_DATA_PATH . '/bucharest/venues.xml' ) );
+
   }
 
   public function tearDown()
@@ -36,15 +45,17 @@ class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMap()
   {
-    $importer = new Importer();
     $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/bucharest/venues.xml' );
-    $importer->addDataMapper( new bucharestVenueMapper( $xml ) );
+    // Import 
+    $importer = new Importer();
+    $importer->addDataMapper( new bucharestVenueMapper( $this->vendor, $this->params ) );
     $importer->run();
 
-    $this->assertEquals( Doctrine::getTable( 'poi' )->count(), $xml->count() );
-    $firstPoi = Doctrine::getTable( 'poi' )->findOneById( 1 );
+    // Assert
+    $this->assertEquals( $xml->count(), Doctrine::getTable( 'Poi' )->count() );
+    $firstPoi = Doctrine::getTable( 'Poi' )->findOneById( 1 );
 
-    $this->assertEquals( 'Champions',  $firstPoi['name'] );
+    $this->assertEquals( 'Champions',  $firstPoi['poi_name'] );
     $this->assertEquals( 'Calea 13 septembrie 90', $firstPoi['street'] );
     $this->assertEquals( 'Bucharest', $firstPoi['city'] );
     $this->assertEquals( 'ROU',        $firstPoi['country'] );
