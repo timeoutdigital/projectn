@@ -18,7 +18,7 @@ class BeirutFeedVenueMapper extends BeirutFeedBaseMapper
     public function mapVenues()
     {
         foreach( $this->xmlNodes->venue as $xmlNode )
-        {
+        {echo '#';
             try
             {
                 $vendorPoiID = $this->clean( (string)$xmlNode['id'] );
@@ -77,7 +77,6 @@ class BeirutFeedVenueMapper extends BeirutFeedBaseMapper
 
             } catch (Exception $e ) {
 
-                echo 'EXCEPTION:' . $e->getMessage() . PHP_EOL;
                 $this->notifyImporterOfFailure( $e, isset( $poi ) ? $poi : null );
                 
             }

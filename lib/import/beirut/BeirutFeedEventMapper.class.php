@@ -96,7 +96,6 @@ class BeirutFeedEventMapper extends BeirutFeedBaseMapper
 
             } catch ( Exception $e )
             {
-                echo 'Exception: ' .$e->getMessage() . PHP_EOL;
                 $this->notifyImporterOfFailure( $e, isset( $event) ? $event : null );
             }
         }
