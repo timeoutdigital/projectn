@@ -47,7 +47,7 @@ class australiaEventsMapper extends australiaBaseMapper
           $event['description']             = (string) $eventNode->Description;
           $event['url']                     = (string) $eventNode->Website;
           $event['price']                   = stringTransform::formatPriceRange( (int) $eventNode->PriceFrom, (int) $eventNode->PriceTo, '$' );
-          $event['rating']                  = (string) $eventNode->Rating;
+          $event['rating']                  = ( (string) $eventNode->Rating == '' ) ? null : (string) $eventNode->Rating;
           $event['Vendor']                  = $this->vendor;
 
           $event->addVendorCategory( $this->extractVendorCategories( $eventNode ), $this->vendor );
@@ -175,23 +175,6 @@ class australiaEventsMapper extends australiaBaseMapper
 
  }
 
-  private function extractDate( $dateString, $dateOnly = false )
-  {
-    if ( empty( $dateString ) )
-      return;
-
-    $date = DateTime::createFromFormat( 'd/m/Y h:i:s A', $dateString); //new DateTime( $dateString );
-  
-    if ($dateOnly)
-    {
-        return $date->format( 'Y-m-d' );
-    }
-    else
-    {
-        return $date->format( 'Y-m-d H:i:s' );
-    }
-  }
-
   private function extractVendorCategories( SimpleXMLElement $eventNode )
   {
     $vendorCats = array();
@@ -201,8 +184,11 @@ class australiaEventsMapper extends australiaBaseMapper
     if( !empty( $parentCategory ) && $parentCategory != 'N/A' )
       $vendorCats[] = $parentCategory;
 
-    foreach( $eventNode->categories->childrens->children_category as $childCategory )
-      $vendorCats[] = (string) $childCategory;
+    if( isset( $eventNode->categories->childrens ) )
+    {
+        foreach( $eventNode->categories->childrens->children_category as $childCategory )
+          $vendorCats[] = (string) $childCategory;
+    }
 
     return $vendorCats;
   }

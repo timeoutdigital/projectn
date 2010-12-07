@@ -269,10 +269,11 @@ class importTask extends sfBaseTask
 
 
       case 'sydney':
+      case 'melbourne':
 
-        $this->newStyleImport( 'sydney', 'en-AU', $options, $databaseManager, $importer );
+        $this->newStyleImport( $options['city'], 'en-AU', $options, $databaseManager, $importer );
 
-     break; //end Sydney
+     break; //end Australia
 
 
     case 'kuala lumpur':

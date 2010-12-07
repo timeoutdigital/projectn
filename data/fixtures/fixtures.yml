@@ -514,6 +514,7 @@ Vendor:
     country_code_long:        TUR
     geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
 
+
 EventCategory:
   c1:
     name:                movies

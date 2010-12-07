@@ -23,13 +23,37 @@ class australiaBaseMapper extends DataMapper
      */
     public function  __construct( Vendor $vendor, array $params )
     {
-
-        $this->_validateConstructorParams( $vendor, $params );  // validate
-        $this->_loadXMLFromFTP( $vendor, $params ); // Load XML
-
+        $this->validateContructorParamsAndChooseDataSourceAndLoadXML( $vendor, $params ); // Refactor this once datasources have been abstracted.
+        
         // Set class variables value
         $this->vendor = $vendor;
         
+    }
+
+    /**
+     * Switch data sources (sydney=ftp, melbourne=feed)
+     * This is a temporary measure, please refactor or remove once datasources have been abstracted.
+     *
+     * @param Vendor $vendor
+     * @param array $params
+     */
+    public function validateContructorParamsAndChooseDataSourceAndLoadXML( Vendor $vendor, array $params )
+    {
+        switch( $vendor['city'] )
+        {
+            case 'sydney'       : $dataSourceClass = 'ftp'; break;
+            case 'melbourne'    : $dataSourceClass = 'curl'; break;
+            default : throw new AustraliaBaseMapperException( "Invalid city : {$vendor['city']}" );
+        }
+
+        $this->_validateConstructorParams( $vendor, $params, $dataSourceClass );  // validate
+
+        switch( $dataSourceClass )
+        {
+            case 'ftp'  : $this->_loadXMLFromFTP( $vendor, $params ); break; // Load XML via FTP
+            case 'curl' : $this->_loadXMLFromFeed( $vendor, $params ); break; // Load XML via Feed
+            default : throw new AustraliaBaseMapperException( "Invalid data source class specified: {$dataSourceClass}" );
+        }
     }
 
     /**
@@ -37,14 +61,14 @@ class australiaBaseMapper extends DataMapper
      * @param Vendor $vendor
      * @param array $params
      */
-    private function _validateConstructorParams( $vendor, $params )
+    private function _validateConstructorParams( $vendor, $params, $dataSourceClass )
     {
         if( !$vendor || !isset($vendor['id']) )
         {
             throw new AustraliaBaseMapperException( 'Invalid vendor in Parameter' );
         }
 
-        if( !is_array($params) || count( $params ) <= 0 || !isset( $params['ftp'] ) || !isset( $params['ftp']['classname'] ) )
+        if( !is_array($params) || count( $params ) <= 0 || !isset( $params[ $dataSourceClass ] ) || !isset( $params[ $dataSourceClass ]['classname'] ) )
         {
             throw new AustraliaBaseMapperException( 'Invalid $params in Parameter' );
         }
@@ -73,7 +97,24 @@ class australiaBaseMapper extends DataMapper
 
         // Load as SimpleXML
         $this->feed = simplexml_load_string( $contents );
-        
+    }
+
+    /**
+     * Download file from Feed and Parse it as SimpleXML
+     * @param Vendor $vendor
+     * @param array $params
+     */
+    private function _loadXMLFromFeed( $vendor, $params )
+    {
+        // Get the Feed
+        $curl = new $params['curl']['classname']( $params['curl']['src'] );
+        $curl->exec();
+
+        // Archive
+        new FeedArchiver( $vendor, $curl->getResponse(), $params['type'] );
+
+        // Load as SimpleXML
+        $this->feed = simplexml_load_string( $curl->getResponse() );
     }
 
     /**
@@ -140,6 +181,30 @@ class australiaBaseMapper extends DataMapper
                   }
               }
           }
+    }
+
+    protected function extractDateTime( $dateString )
+    {
+        if ( empty( $dateString ) )
+            return false;
+
+        $dateMask = 'd/m/Y g:i:s A';
+
+        if( $this->vendor['city'] == 'melbourne' )
+        {
+            $dateString = str_replace( array( ' AM', ' PM' ) , '', $dateString );
+            $dateMask = 'd/m/Y G:i:s';
+        }
+
+        return DateTime::createFromFormat( $dateMask, $dateString );
+    }
+
+    protected function extractDate( $dateString, $dateOnly = false )
+    {
+        $date = $this->extractDateTime( $dateString );
+        if( $date === false ) return null;
+        
+        return ( $dateOnly == true ) ? $date->format( 'Y-m-d' ) : $date->format( 'Y-m-d H:i:s' );
     }
 }
 
