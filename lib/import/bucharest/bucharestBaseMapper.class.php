@@ -88,7 +88,10 @@ class bucharestBaseMapper extends DataMapper
         $curlInstance->exec();
         
         new FeedArchiver( $vendor, $curlInstance->getResponse( ), $params['type'] );
-        $this->xmlNodes = simplexml_load_string( $curlInstance->getResponse( ) );
+
+        $xmlFixer = new xmlDataFixer( $curlInstance->getResponse( ) );
+        $xmlFixer->encodeUTF8();
+        $this->xmlNodes = $xmlFixer->getSimpleXML();
     }
 
     /**
