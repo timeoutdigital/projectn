@@ -524,6 +524,16 @@ Vendor:
     country_code_long:        LBN
     geo_boundries:            '33.0538558959961;35.1142730712891;34.6914253234863;36.6391983032227'
 
+  v40:
+    city:                     melbourne
+    language:                 en-AU
+    time_zone:                Australia/Melbourne
+    inernational_dial_code:   '+61'
+    airport_code:             'MEL'
+    country_code:             'au'
+    country_code_long:        'AUS'
+    geo_boundries:            '-43.74980833333333;112.91105;-9.212524999999999;153.6392833333333'
+
 EventCategory:
   c1:
     name:                movies

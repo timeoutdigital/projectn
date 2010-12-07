@@ -6,42 +6,21 @@
  * @subpackage sydney.import.lib.unit
  *
  * @author Ralph Schwaninger <ralphschwaninger@timout.com>
+ * @author Rajeevan Kumarathasan <rajeevankumarathasan.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1
  *
  */
-class sydneyFtpEventsMapper extends DataMapper
+class australiaEventsMapper extends australiaBaseMapper
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $feed;
-
-  /**
-   * @var projectnDataMapperHelper
-   */
-  private $dataMapperHelper;
-
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @param SimpleXMLElement $feed
-   */
-  public function __construct( Vendor $vendor, SimpleXMLElement $feed )
-  {
-    $this->feed = $feed;
-    $this->vendor = $vendor;
-    $this->dataMapperHelper = new projectnDataMapperHelper( $vendor );
-  }
-
+    
   public function mapEvents()
   {
 
-      $todays_date = mktime( 0,0,0, date('m'), date('d'), date('Y') );
+    $processedVendorEventsID = array(); // Store all evenets processed
+
+    $todays_date = mktime( 0,0,0, date('m'), date('d'), date('Y') );
     foreach( $this->feed->event as $eventNode )
     {
       try
@@ -54,52 +33,66 @@ class sydneyFtpEventsMapper extends DataMapper
               continue;
           }
 
-          $event = $this->dataMapperHelper->getEventRecord( substr( md5( (string) $eventNode->Name ), 0, 9 ) );
+          // Get existing Event or Create New Event object
+          $vendor_event_id = substr( md5( (string) $eventNode->Name ), 0, 9 );
+          $event = Doctrine::getTable( 'Event' )->findOneByVendorIdAndVendorEventId( $this->vendor['id'], $vendor_event_id);
+          if( $event === false )
+          {
+              $event = new Event();
+          }
 
           $event['review_date']             = $this->extractDate( (string) $eventNode->DateUpdated );
-          $event['vendor_event_id']         = substr( md5( (string) $eventNode->Name ), 0, 9 );
+          $event['vendor_event_id']         = $vendor_event_id;
           $event['name']                    = (string) $eventNode->Name;
           $event['description']             = (string) $eventNode->Description;
           $event['url']                     = (string) $eventNode->Website;
           $event['price']                   = stringTransform::formatPriceRange( (int) $eventNode->PriceFrom, (int) $eventNode->PriceTo, '$' );
-          $event['rating']                  = (string) $eventNode->Rating;
+          $event['rating']                  = ( (string) $eventNode->Rating == '' ) ? null : (string) $eventNode->Rating;
           $event['Vendor']                  = $this->vendor;
 
           $event->addVendorCategory( $this->extractVendorCategories( $eventNode ), $this->vendor );
 
           if ( (string) $eventNode->CriticsPick == 'True' )
-            $event['CriticsChoiceProperty'] = true;
+          {
+              $event['CriticsChoiceProperty'] = true;
+          } else {
+              $event['CriticsChoiceProperty'] = false;
+          }
+
           if ( (string) $eventNode->Recommended == 'True' )
-            $event['RecommendedProperty'] = true;
+          {
+              $event['RecommendedProperty'] = true;
+          } else {
+              $event['RecommendedProperty'] = false;
+          }
+
           if ( (string) $eventNode->Free == 'True' )
-            $event['FreeProperty'] = true;
+          {
+              $event['FreeProperty'] = true;
+          } else {
+              $event['FreeProperty'] = false;
+          }
 
 
           //#753 addImageHelper capture Exception and notify, this don't break the Import process
           $this->addImageHelper( $event, (string) $eventNode->ImagePath );
-          
 
+          // get the Poi for this Event occurrence
           $poi = Doctrine::getTable( 'Poi')->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $eventNode->VenueID );
 
-          // Delete Occurences
-          // occurrences of this event will be deleted and will be added again
-          // this causes auto_increment id's to increment each time, we may run out of ids at some point
-          // so we will keep the old ids
-
-          $oldIds = array();
-          foreach ($event['EventOccurrence'] as $oldOccurrence)
+          // Sydney provide occurrences as events, since we delete occurrences we have to make sure that we only delete once per import
+          // this will make sure that we have all occurrences for that event saved..
+          if( !in_array( $vendor_event_id, $processedVendorEventsID ) )
           {
-            $oldIds[] = $oldOccurrence[ 'id' ];
-          }
+            $event['EventOccurrence']->delete();
+            $processedVendorEventsID[] = $vendor_event_id;
 
-          $event['EventOccurrence']->delete();
+          }
 
           // This assumes only one occurence per Event.
           if ( $poi !== false )
           {
               $occurrence = new EventOccurrence();
-              //reuse the old occurrence id
-              $occurrence[ 'id' ] = array_pop( $oldIds );
               $occurrence['start_date']                   = $this->extractDate( (string) $eventNode->DateFrom, true );
 
               $timeInfo = $this->extractTime( (string) $eventNode->Time );
@@ -121,7 +114,6 @@ class sydneyFtpEventsMapper extends DataMapper
               $event['EventOccurrence'][] = $occurrence;
           }else
           {
-
               $this->notifyImporterOfFailure( new Exception( 'Could not find Sydney Poi with Vendor name of '. (string) $event['name']  ) );
               continue;
           }
@@ -130,7 +122,7 @@ class sydneyFtpEventsMapper extends DataMapper
       }
       catch( Exception $exception )
       {
-          $this->notifyImporterOfFailure( $exception );
+          $this->notifyImporterOfFailure( $exception, isset($event) ? $event : null );
       }
     }
   }
@@ -183,23 +175,6 @@ class sydneyFtpEventsMapper extends DataMapper
 
  }
 
-  private function extractDate( $dateString, $dateOnly = false )
-  {
-    if ( empty( $dateString ) )
-      return;
-
-    $date = DateTime::createFromFormat( 'd/m/Y h:i:s A', $dateString); //new DateTime( $dateString );
-  
-    if ($dateOnly)
-    {
-        return $date->format( 'Y-m-d' );
-    }
-    else
-    {
-        return $date->format( 'Y-m-d H:i:s' );
-    }
-  }
-
   private function extractVendorCategories( SimpleXMLElement $eventNode )
   {
     $vendorCats = array();
@@ -209,8 +184,11 @@ class sydneyFtpEventsMapper extends DataMapper
     if( !empty( $parentCategory ) && $parentCategory != 'N/A' )
       $vendorCats[] = $parentCategory;
 
-    foreach( $eventNode->categories->childrens->children_category as $childCategory )
-      $vendorCats[] = (string) $childCategory;
+    if( isset( $eventNode->categories->childrens ) )
+    {
+        foreach( $eventNode->categories->childrens->children_category as $childCategory )
+          $vendorCats[] = (string) $childCategory;
+    }
 
     return $vendorCats;
   }

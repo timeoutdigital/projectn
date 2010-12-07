@@ -18,6 +18,16 @@ class FTPClientMock extends FTPClient
     {
         
     }
+
+    public function fetchRawDirListing()
+    {
+        return null;
+    }
+
+    public function fetchFile( $srcFile, $targetFile = false )
+    {
+        return $srcFile;
+    }
 }
 
 ?>

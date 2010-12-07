@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<venues>
+	<event>
+		<EventID><![CDATA[17343]]></EventID>
+		<VenueID><![CDATA[1]]></VenueID>
+		<Name><![CDATA[a good festival]]></Name>
+		<Website><![CDATA[http://www.somewebsite.com]]></Website>
+		<Description><![CDATA[Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.]]></Description>
+		<Time><![CDATA[3pm–12am]]></Time>
+		<Phone><![CDATA[]]></Phone>
+		<Price><![CDATA[]]></Price>
+		<PriceFrom><![CDATA[30.0000]]></PriceFrom>
+		<PriceTo><![CDATA[0.0000]]></PriceTo>
+		<DateFrom><![CDATA[4/04/2010 12:00:00 AM]]></DateFrom>
+		<DateTo><![CDATA[4/04/2010 12:00:00 AM]]></DateTo>
+		<CriticsPick><![CDATA[False]]></CriticsPick>
+		<Recommended><![CDATA[False]]></Recommended>
+		<Free><![CDATA[False]]></Free>
+		<Bs><![CDATA[False]]></Bs>
+		<Veg><![CDATA[False]]></Veg>
+		<Cheap><![CDATA[False]]></Cheap>
+		<Justopen><![CDATA[False]]></Justopen>
+		<Gearedgirls><![CDATA[False]]></Gearedgirls>
+		<Gearedboys><![CDATA[False]]></Gearedboys>
+		<Rating><![CDATA[1]]></Rating>
+		<DateFirstShowOnSite><![CDATA[1/01/1900 12:00:00 AM]]></DateFirstShowOnSite>
+		<RelatedKeyword><![CDATA[]]></RelatedKeyword>
+		<RestaurantLocation><![CDATA[]]></RestaurantLocation>
+		<Feature1><![CDATA[]]></Feature1>
+		<Feature2><![CDATA[]]></Feature2>
+		<Feature3><![CDATA[]]></Feature3>
+		<Feature4><![CDATA[]]></Feature4>
+		<Feature5><![CDATA[]]></Feature5>
+		<DateInserted><![CDATA[29/03/2010 9:59:00 AM]]></DateInserted>
+		<DateUpdated><![CDATA[29/03/2010 9:59:00 AM]]></DateUpdated>
+		<OtherVenue><![CDATA[]]></OtherVenue>
+		<ImagePath><![CDATA[http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg]]></ImagePath>
+		<Link1><![CDATA[]]></Link1>
+		<Link2><![CDATA[]]></Link2>
+		<Link3><![CDATA[]]></Link3>
+		<Link4><![CDATA[]]></Link4>
+		<Link5><![CDATA[]]></Link5>
+		<Status><![CDATA[1]]></Status>
+		<categories>
+			<parent_category_name><![CDATA[N/A]]></parent_category_name>
+			<childrens>
+				<children_category><![CDATA[Gay & Lesbian]]></children_category>
+			</childrens>
+		</categories>
+	</event>
+	<event>
+		<EventID><![CDATA[17344]]></EventID>
+		<VenueID><![CDATA[2]]></VenueID>
+		<Name><![CDATA[Ascensions]]></Name>
+		<Website><![CDATA[http://www.somewebsite.com2]]></Website>
+		<Description><![CDATA[2Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.]]></Description>
+		<Time><![CDATA[3pm–12am]]></Time>
+		<Phone><![CDATA[]]></Phone>
+		<Price><![CDATA[]]></Price>
+		<PriceFrom><![CDATA[30.0000]]></PriceFrom>
+		<PriceTo><![CDATA[0.0000]]></PriceTo>
+		<DateFrom><![CDATA[4/04/2011 12:00:00 AM]]></DateFrom>
+		<DateTo><![CDATA[4/04/2011 12:00:00 AM]]></DateTo>
+		<CriticsPick><![CDATA[False]]></CriticsPick>
+		<Recommended><![CDATA[True]]></Recommended>
+		<Free><![CDATA[False]]></Free>
+		<Bs><![CDATA[False]]></Bs>
+		<Veg><![CDATA[False]]></Veg>
+		<Cheap><![CDATA[False]]></Cheap>
+		<Justopen><![CDATA[False]]></Justopen>
+		<Gearedgirls><![CDATA[False]]></Gearedgirls>
+		<Gearedboys><![CDATA[False]]></Gearedboys>
+		<Rating><![CDATA[1]]></Rating>
+		<DateFirstShowOnSite><![CDATA[1/01/1900 12:00:00 AM]]></DateFirstShowOnSite>
+		<RelatedKeyword><![CDATA[]]></RelatedKeyword>
+		<RestaurantLocation><![CDATA[]]></RestaurantLocation>
+		<Feature1><![CDATA[]]></Feature1>
+		<Feature2><![CDATA[]]></Feature2>
+		<Feature3><![CDATA[]]></Feature3>
+		<Feature4><![CDATA[]]></Feature4>
+		<Feature5><![CDATA[]]></Feature5>
+		<DateInserted><![CDATA[29/03/2010 10:01:00 AM]]></DateInserted>
+		<DateUpdated><![CDATA[29/03/2010 10:01:00 AM]]></DateUpdated>
+		<OtherVenue><![CDATA[]]></OtherVenue>
+		<ImagePath><![CDATA[http://www.timeout.com/image/]]></ImagePath>
+		<Link1><![CDATA[]]></Link1>
+		<Link2><![CDATA[]]></Link2>
+		<Link3><![CDATA[]]></Link3>
+		<Link4><![CDATA[]]></Link4>
+		<Link5><![CDATA[]]></Link5>
+		<Status><![CDATA[1]]></Status>
+		<categories>
+			<parent_category_name><![CDATA[N/A]]></parent_category_name>
+			<childrens>
+				<children_category><![CDATA[Gay & Lesbian]]></children_category>
+			</childrens>
+			<parent_category_name><![CDATA[Gay & Lesbian]]></parent_category_name>
+			<childrens>
+				<children_category><![CDATA[Club]]></children_category>
+			</childrens>
+		</categories>
+	</event>
+	<event>
+		<EventID><![CDATA[17345]]></EventID>
+		<VenueID><![CDATA[3]]></VenueID>
+		<Name><![CDATA[Sweat]]></Name>
+		<Website><![CDATA[]]></Website>
+		<Description><![CDATA[It’s as funky as it is filthy. Get your booty down to Phoenix this Easter Saturday night for the hood’s sweatiest night out and take in some sweet Miami underground tunes for good measure.]]></Description>
+		<Time><![CDATA[10m–late]]></Time>
+		<Phone><![CDATA[]]></Phone>
+		<Price><![CDATA[]]></Price>
+		<PriceFrom><![CDATA[10.0000]]></PriceFrom>
+		<PriceTo><![CDATA[20.0000]]></PriceTo>
+		<DateFrom><![CDATA[3/04/2010 12:00:00 AM]]></DateFrom>
+		<DateTo><![CDATA[3/04/2010 12:00:00 AM]]></DateTo>
+		<CriticsPick><![CDATA[False]]></CriticsPick>
+		<Recommended><![CDATA[True]]></Recommended>
+		<Free><![CDATA[False]]></Free>
+		<Bs><![CDATA[False]]></Bs>
+		<Veg><![CDATA[False]]></Veg>
+		<Cheap><![CDATA[False]]></Cheap>
+		<Justopen><![CDATA[False]]></Justopen>
+		<Gearedgirls><![CDATA[False]]></Gearedgirls>
+		<Gearedboys><![CDATA[False]]></Gearedboys>
+		<Rating><![CDATA[0]]></Rating>
+		<DateFirstShowOnSite><![CDATA[1/01/1900 12:00:00 AM]]></DateFirstShowOnSite>
+		<RelatedKeyword><![CDATA[]]></RelatedKeyword>
+		<RestaurantLocation><![CDATA[]]></RestaurantLocation>
+		<Feature1><![CDATA[]]></Feature1>
+		<Feature2><![CDATA[]]></Feature2>
+		<Feature3><![CDATA[]]></Feature3>
+		<Feature4><![CDATA[]]></Feature4>
+		<Feature5><![CDATA[]]></Feature5>
+		<DateInserted><![CDATA[29/03/2010 10:36:00 AM]]></DateInserted>
+		<DateUpdated><![CDATA[29/03/2010 10:46:00 AM]]></DateUpdated>
+		<OtherVenue><![CDATA[]]></OtherVenue>
+		<ImagePath><![CDATA[]]></ImagePath>
+		<Link1><![CDATA[]]></Link1>
+		<Link2><![CDATA[]]></Link2>
+		<Link3><![CDATA[]]></Link3>
+		<Link4><![CDATA[]]></Link4>
+		<Link5><![CDATA[]]></Link5>
+		<Status><![CDATA[1]]></Status>
+		<categories>
+			<parent_category_name><![CDATA[film]]></parent_category_name>
+			<childrens>
+				<children_category><![CDATA[]]></children_category>
+			</childrens>
+		</categories>
+	</event>
+        <event>
+		<EventID><![CDATA[17358]]></EventID>
+		<VenueID><![CDATA[1]]></VenueID>
+		<Name><![CDATA[a good festival]]></Name>
+		<Website><![CDATA[http://www.somewebsite.com]]></Website>
+		<Description><![CDATA[Sydney Leather Pride Association brings Easter to a grinding halt with this down and dirty party at Saddlebar. DJs George Roussos, Sveta and Rob Davis kick the afternoon off and see the leather and fetish geared up crowd working the dance floor until midnight.]]></Description>
+		<Time><![CDATA[3pm–12am]]></Time>
+		<Phone><![CDATA[]]></Phone>
+		<Price><![CDATA[]]></Price>
+		<PriceFrom><![CDATA[30.0000]]></PriceFrom>
+		<PriceTo><![CDATA[0.0000]]></PriceTo>
+		<DateFrom><![CDATA[4/04/2010 12:00:00 AM]]></DateFrom>
+		<DateTo><![CDATA[4/04/2010 12:00:00 AM]]></DateTo>
+		<CriticsPick><![CDATA[False]]></CriticsPick>
+		<Recommended><![CDATA[False]]></Recommended>
+		<Free><![CDATA[False]]></Free>
+		<Bs><![CDATA[False]]></Bs>
+		<Veg><![CDATA[False]]></Veg>
+		<Cheap><![CDATA[False]]></Cheap>
+		<Justopen><![CDATA[False]]></Justopen>
+		<Gearedgirls><![CDATA[False]]></Gearedgirls>
+		<Gearedboys><![CDATA[False]]></Gearedboys>
+		<Rating><![CDATA[1]]></Rating>
+		<DateFirstShowOnSite><![CDATA[1/01/1900 12:00:00 AM]]></DateFirstShowOnSite>
+		<RelatedKeyword><![CDATA[]]></RelatedKeyword>
+		<RestaurantLocation><![CDATA[]]></RestaurantLocation>
+		<Feature1><![CDATA[]]></Feature1>
+		<Feature2><![CDATA[]]></Feature2>
+		<Feature3><![CDATA[]]></Feature3>
+		<Feature4><![CDATA[]]></Feature4>
+		<Feature5><![CDATA[]]></Feature5>
+		<DateInserted><![CDATA[29/03/2010 9:59:00 AM]]></DateInserted>
+		<DateUpdated><![CDATA[29/03/2010 9:59:00 AM]]></DateUpdated>
+		<OtherVenue><![CDATA[]]></OtherVenue>
+		<ImagePath><![CDATA[http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg]]></ImagePath>
+		<Link1><![CDATA[]]></Link1>
+		<Link2><![CDATA[]]></Link2>
+		<Link3><![CDATA[]]></Link3>
+		<Link4><![CDATA[]]></Link4>
+		<Link5><![CDATA[]]></Link5>
+		<Status><![CDATA[1]]></Status>
+		<categories>
+			<parent_category_name><![CDATA[N/A]]></parent_category_name>
+			<childrens>
+				<children_category><![CDATA[Gay & Lesbian]]></children_category>
+			</childrens>
+		</categories>
+	</event>
+</venues>
