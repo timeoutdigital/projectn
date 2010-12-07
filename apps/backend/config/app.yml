@@ -112,6 +112,9 @@ all:
         -
           name: beirut
           type: [ poi, event ]
+        -
+          name: bucharest
+          type: [ poi, event ]
 
   export:
     cities:
@@ -254,6 +257,11 @@ all:
           name: beirut
           type: [ poi, event, movie ]
           language: en-US
+          exportForNokia: true
+        -
+          name: bucharest
+          type: [ poi, event, movie ]
+          language: ro
           exportForNokia: true
 
 
