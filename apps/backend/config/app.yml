@@ -107,6 +107,9 @@ all:
           name: beijing_zh
           type: [ poi, event, movie ]
         -
+          name: melbourne
+          type: [ poi, event, movie ]
+        -
           name: amsterdam_data_entry
           type: [ poi, event, movie ]
         -
@@ -246,6 +249,11 @@ all:
           language: zh-Hans
           exportForNokia: true
         -
+          name: melbourne
+          type: [ poi, event, movie ]
+          language: en-AU
+          exportForNokia: true
+        -
           name: amsterdam
           type: [ poi, event, movie ]
           language: en
@@ -255,7 +263,6 @@ all:
           type: [ poi, event, movie ]
           language: en-US
           exportForNokia: true
-
 
 prod:
   #matches url: http://projectn.live/
