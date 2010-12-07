@@ -72,13 +72,16 @@ class Vendor extends BaseVendor
    * @param float $longitude
    * @return boolean
    */
-  public function isGeocodeWithinVendorBoundaries( $latitude, $longitude )
+  public function isWithinBoundaries( $latitude, $longitude )
   {
       if( !is_numeric( $latitude ) || !is_numeric( $longitude ) )
       {
           return false;
       }
 
+      // Boundaries are set in LAT;LONG;LAT;LONG
+      // First set of Lat/Long is the Lower boundary and the other is the Higher boundary
+      // making it a Square boundary
       $bounds_array = explode( ";", $this['geo_boundries'] );
       if( $latitude < $bounds_array[0] || $latitude > $bounds_array[2] ||
           $longitude < $bounds_array[1] || $longitude > $bounds_array[3] )
