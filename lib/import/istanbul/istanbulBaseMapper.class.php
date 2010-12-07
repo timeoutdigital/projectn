@@ -5,7 +5,7 @@
  * @package projectn
  * @subpackage
  *
- * @author Clarence Lee <clarencelee@timout.com>
+ * @author Rajeevan Kumarathasan <rajeevankumarathasan@timout.com>
  * @copyright Timeout Communications Ltd
  *
  * @version 1.0.1
@@ -13,11 +13,6 @@
  */
 class istanbulBaseMapper extends DataMapper
 {
-    /**
-    * @var geoEncode
-    */
-    protected $geoEncoder;
-
     /**
     * @var Vendor
     */
@@ -29,24 +24,26 @@ class istanbulBaseMapper extends DataMapper
     protected $xml;
 
     /**
+     *
+     * @var array
+     */
+    protected $params;
+    
+    /**
     *
     * @param SimpleXMLElement $xml
     * @param geoEncode $geoEncoder
     * @param string $city
     */
-    public function __construct( $vendor, SimpleXMLElement $xml, geocoder $geoEncoder = null )
+    public function __construct( Vendor $vendor, $params )
     {
-        if( !is_object( $vendor ) || !($vendor instanceof Vendor) )
-        {
-            throw new Exception( 'Invalid vendor passed to Istanbul Mapper' );
-        }
-        $this->vendor     = $vendor; // #781 we share common mapper for istanbul and istanbul_en
+        $this->_validateConstructorParams( $vendor, $params );
 
-        //date_default_timezone_set( $this->vendor->time_zone );
-        //setlocale( LC_ALL, array( 'ca_ES.utf8','ca_ES.utf8@valencia','ca_ES','catalan' ) );
+        // Set class variable values
+        $this->vendor     = $vendor;
+        $this->params     = $params;
         
-        $this->geoEncoder = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
-        $this->xml        = $xml;
+        $this->_loadXML( $vendor, $params );
     }
 
     protected function fixHtmlEntities( $string )
@@ -55,6 +52,11 @@ class istanbulBaseMapper extends DataMapper
         return $string;
     }
 
+    /**
+     * Loop through categories and return category + child category in an array
+     * @param SimpleXMLElement $element
+     * @return array
+     */
     protected function extractCategories( $element )
     {
         // This is so complicated because it covers the rare event
@@ -80,11 +82,21 @@ class istanbulBaseMapper extends DataMapper
         return array_unique( $categories );
     }
 
+    /**
+     * Clean the string using mb_trim()
+     * @param string $string
+     * @return string
+     */
     protected function clean( $string )
     {
         return stringTransform::mb_trim( $string );
     }
 
+    /**
+     * Extract Publictransport information from XML Node
+     * @param SimpleXMLElement $element
+     * @return string
+     */
     protected function extractPublicTransportInfo( $element )
     {
         // Public Transport Links
@@ -96,6 +108,11 @@ class istanbulBaseMapper extends DataMapper
         return stringTransform::concatNonBlankStrings( ", ", $publicTransportArray );
     }
 
+    /**
+     * Return a valid number or Null value based on string passed as params
+     * @param string $string
+     * @return mixed
+     */
     protected function roundNumberOrReturnNull( $string )
     {
         return is_numeric( (string) $string ) ? round( (string) $string ) : null;
@@ -122,5 +139,40 @@ class istanbulBaseMapper extends DataMapper
             }
         }
     }
+
+    /**
+     * Validate Params passed to Constructor
+     * @param Vendor $vendor
+     * @param array $params
+     */
+    private function _validateConstructorParams( $vendor, $params )
+    {
+        if( !( $vendor instanceof Vendor ) || !isset( $vendor[ 'id' ] ) )
+        {
+            throw new IstanbulBaseMapperException( 'Invalid Vendor Passed to IstanbulBaseMapper Constructor.' );
+        }
+
+        if( !isset( $params['curl']['classname'] ) || !isset( $params['curl']['src'] ) || !isset( $params['type'] ) )
+        {
+            throw new IstanbulBaseMapperException( 'Invalid Params Passed to IstanbulBaseMapper Constructor.' );
+        }
+    }
+
+    /**
+     * Download XML File from Url and put it to protected variable $xml;
+     * @param Vendor $vendor
+     * @param array $params
+     */
+    private function _loadXML( $vendor, $params )
+    {
+        $curlInstance = new $params['curl']['classname']( $params['curl']['src'] );
+        $curlInstance->exec();
+
+        new FeedArchiver( $vendor, $curlInstance->getResponse(), $params['type'] );
+
+        $this->xml = simplexml_load_string( $curlInstance->getResponse() );
+    }
 }
+
+class IstanbulBaseMapperException extends Exception{ }
 ?>
