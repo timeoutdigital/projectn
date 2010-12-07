@@ -514,6 +514,25 @@ Vendor:
     country_code_long:        TUR
     geo_boundries:            '35.8154106140137;25.63938841131133;42.1076202392578;44.8350028991699'
 
+  v39:
+    city:                     beirut
+    language:                 en-US
+    time_zone:                Asia/Beirut
+    inernational_dial_code:   +961
+    airport_code:             BEY
+    country_code:             lb
+    country_code_long:        LBN
+    geo_boundries:            '33.0538558959961;35.1142730712891;34.6914253234863;36.6391983032227'
+
+  v40:
+    city:                     melbourne
+    language:                 en-AU
+    time_zone:                Australia/Melbourne
+    inernational_dial_code:   '+61'
+    airport_code:             'MEL'
+    country_code:             'au'
+    country_code_long:        'AUS'
+    geo_boundries:            '-43.74980833333333;112.91105;-9.212524999999999;153.6392833333333'
 
 EventCategory:
   c1:
