@@ -79,7 +79,6 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                 $event['name']                                        = $this->clean($eventName);
 
                 //category
-                //@todo should we move this out of the if and collect all the categories?
                 $category = array( (string) $this->xml->listings[$i]['category'], (string) $this->xml->listings[$i]['SubCategory'] );
                 $event->addVendorCategory( $category, $this->vendor['id'] );
 
@@ -87,7 +86,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
                 $event = $this->removeInconsistentEventDetails( $lastEventRecordData, $event );
                 $lastEventRecordData = clone $event;
 
-                //prepare occurrences and attache them to the event
+                //prepare occurrences and attach them to the event
                 $occurrence = $this->populateOccurrence( $event, $vendorEventId, $vendorEventOccurrenceId, $category, $this->xml->listings[$i] );
                 if ( $occurrence !== false ) $event['EventOccurrence'][] = $occurrence;
 

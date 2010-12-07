@@ -5,7 +5,7 @@ require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
 
 /**
  * Test class for LisbonFeedListingsMapper.
- * Lisbon Gives event date range and the days of event occurrences, ]
+ * Lisbon Gives event date range and the days of event occurrences
  * Mapper will only add events for next 7 days. Event dates are specified as #ProposedFromDate# = #ProposedToDate#
  * and days of the event occurrences are mentioned in the #timeinfo# as text
  *
