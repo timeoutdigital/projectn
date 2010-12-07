@@ -91,8 +91,7 @@ class BeirutFeedEventMapper extends BeirutFeedBaseMapper
                     }
                 }
 
-                $event->save();
-                //$this->notifyImporter( $event );
+                $this->notifyImporter( $event );
 
             } catch ( Exception $e )
             {
