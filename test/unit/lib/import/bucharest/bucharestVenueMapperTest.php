@@ -36,6 +36,11 @@ class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
     $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'bucharest' );
     $this->params = array( 'type' => 'poi', 'curl' => array( 'classname' => 'CurlMock', 'src' => TO_TEST_DATA_PATH . '/bucharest/venues.xml' ) );
 
+    // Import
+    $importer = new Importer();
+    $importer->addDataMapper( new bucharestVenueMapper( $this->vendor, $this->params ) );
+    $importer->run();
+
   }
 
   public function tearDown()
@@ -46,11 +51,7 @@ class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
   public function testMap()
   {
     $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/bucharest/venues.xml' );
-    // Import 
-    $importer = new Importer();
-    $importer->addDataMapper( new bucharestVenueMapper( $this->vendor, $this->params ) );
-    $importer->run();
-
+    
     // Assert
     $this->assertEquals( $xml->count(), Doctrine::getTable( 'Poi' )->count() );
     $firstPoi = Doctrine::getTable( 'Poi' )->findOneById( 1 );
@@ -59,12 +60,13 @@ class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Calea 13 septembrie 90', $firstPoi['street'] );
     $this->assertEquals( 'Bucharest', $firstPoi['city'] );
     $this->assertEquals( 'ROU',        $firstPoi['country'] );
-    $this->assertEquals( ' 050713',    $firstPoi['zips'] );
+    $this->assertEquals( '050713',    $firstPoi['zips'] );
     $this->assertEquals( '',           $firstPoi['email'] );
     $this->assertEquals( '44.423268', $firstPoi['latitude'] );
     $this->assertEquals( '26.072917', $firstPoi['longitude'] );
-    $this->assertEquals( 'ÃŽmi tot "ameninÅ£" prietenii cÄƒ am sÄƒ merg la Marriott ÅŸi am sÄƒ comand hamburgerul de one pound ÅŸi am sÄƒ mÄƒ pozez muÅŸcÃ¢nd din el.', $firstPoi['short_description'] );
-    $this->assertEquals( $this->getDescription(), $firstPoi['description'] );
+    $short_desc = utf8_encode( 'ÃŽmi tot "ameninÅ£" prietenii cÄƒ am sÄƒ merg la Marriott ÅŸi am sÄƒ comand hamburgerul de one pound ÅŸi am sÄƒ mÄƒ pozez muÅŸcÃ¢nd din el.' );
+    $this->assertEquals( $short_desc , $firstPoi['short_description'] );
+    $this->assertEquals(utf8_encode($this->getDescription()), $firstPoi['description'] );
     $this->assertEquals( '+40 2 1403 1917', $firstPoi['phone'] ); //021.403.19.17
     $this->assertEquals( 'Autobuz 385', $firstPoi['public_transport_links'] );
     $this->assertEquals( 'baruri, cluburi, bucuresti, sports bars, pubs', $firstPoi['keywords'] );
@@ -75,6 +77,27 @@ class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Hot Shots City Bar',  $secondPoi['name'] );
     $this->assertEquals( 'bar@hotshots.ro',  $secondPoi['email'] );
     $this->assertEquals( '+40 7 2435 5554', $secondPoi['phone'] ); //0724.355.554
+  }
+
+  /**
+   * We are swaping geocode lat/long when they are out of boundaries
+   * this test to make sure that is happening
+   */
+  public function testBucharestLatLongSwap()
+  {
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $poi = Doctrine::getTable( 'Poi' )->findOneByvendorIdAndVendorPoiId( $this->vendor['id'],'1036435');
+      $this->assertEquals( '1036435', $poi['vendor_poi_id']);
+      $this->assertEquals( 'Hot Shots City Bar', $poi['poi_name']);
+
+      /* 
+       * In the feed
+       * <long><![CDATA[44.440491]]></long>
+       * <lat><![CDATA[26.115081]]></lat>
+       */
+      // Expected
+      $this->assertEquals( '44.440491', $poi['latitude']);
+      $this->assertEquals( '26.115081', $poi['longitude']);
   }
 
   private function getDescription()

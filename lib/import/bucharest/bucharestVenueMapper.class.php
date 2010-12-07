@@ -43,6 +43,18 @@ class bucharestVenueMapper extends bucharestBaseMapper
             //lat long inversed, told the vendor to sort it out
             $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
 
+            // Bucharest sending us Geocode is wrong way around for some of the venues
+            // and right way in some, hence we decided to use the new vendor method isWithinBoundaries() to
+            // verify that this geocode is within boundaries or swap lat/long
+            if( $poi[ 'latitude' ] !== null && $poi[ 'longitude' ] !== null &&
+                    !$this->vendor->isWithinBoundaries( $poi['latitude'], $poi['longitude'] ) )
+            {
+                $tmpLat = $poi['latitude'];
+                $poi['latitude'] = $poi['longitude'];
+                $poi['longitude'] = $tmpLat;
+                unset($tmpLat);
+            }
+
             // Categories
             if( isset( $venueElement->categories->category ) )
             {
