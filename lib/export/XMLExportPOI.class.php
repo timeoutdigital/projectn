@@ -73,7 +73,7 @@ class XMLExportPOI extends XMLExport
     {
       //Skip Export for Pois with lat/long outside vendor boundaries.
       // #840 Old checking Moved into vendor and replaced with vendor->isWithinBoundaries();
-      if( $this->validation == true && $this->vendor->isWithinBoundaries( $poi['latitude'], $poi['longitude'] ) == false )
+      if( $this->validation == true && !$this->vendor->isWithinBoundaries( $poi['latitude'], $poi['longitude'] ) )
       {
            ExportLogger::getInstance()->addError( 'Skip Export for Pois Ouside Vendor Boundaries', 'Poi', $poi[ 'id' ] );
            continue;

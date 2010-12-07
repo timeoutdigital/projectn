@@ -76,7 +76,7 @@ class Vendor extends BaseVendor
   {
       if( !is_numeric( $latitude ) || !is_numeric( $longitude ) )
       {
-          return false;
+          throw new Exception( "Latitude and Longitude should be numeric value" );
       }
 
       // Boundaries are set in LAT;LONG;LAT;LONG

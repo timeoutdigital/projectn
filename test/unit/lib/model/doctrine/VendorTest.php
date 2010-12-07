@@ -102,4 +102,15 @@ class VendorTest extends PHPUnit_Framework_TestCase
       $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '1;-5;2;-2') );
       $this->assertTrue( $vendor->isWithinBoundaries( 1.5, -3 ));
   }
+
+  /**
+   * Test Exception when string or anything other than numeric value passed as lat/long
+   */
+  public function testIsWithinBoundariesException()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '1;-5;2;-2') );
+
+      $this->setExpectedException( 'Exception' );
+      $this->assertTrue( $vendor->isWithinBoundaries( "a", 1.5) );
+  }
 }
