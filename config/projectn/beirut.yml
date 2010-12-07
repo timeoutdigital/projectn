@@ -1,0 +1,22 @@
+import:
+  
+  poi:
+    class:
+      name: BeirutFeedVenueMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeoutbeirut.com/api/venues.php
+
+
+
+  event:
+    class:
+      name: BeirutFeedEventMapper
+      params:
+        type: event
+        curl:
+          classname: Curl
+          src: http://www.timeoutbeirut.com/api/events.php
+      

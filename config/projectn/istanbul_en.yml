@@ -1,0 +1,10 @@
+import:
+  
+  poi:
+    class:
+      name: istanbulVenueMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: www.timeoutistanbul.com/content/n_xml/venues_en.xml

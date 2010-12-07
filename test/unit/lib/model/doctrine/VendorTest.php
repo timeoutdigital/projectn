@@ -82,4 +82,35 @@ class VendorTest extends PHPUnit_Framework_TestCase
   {
     $this->assertEquals( '+08:00', $this->vendor->getUtcOffset( date( 'Y-m-d' ) ) );
   }
+
+  /**
+   * Test to see if the isWithinBoundaries() catching outside geocode
+   */
+  public function testIsWithinBoundariesOutboundaries()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '0;5;5;10') );
+      $this->assertFalse( $vendor->isWithinBoundaries( 7, 9 ), 'Latitude is out of geo boundary' );
+      $this->assertFalse( $vendor->isWithinBoundaries( 1,10.1 ), 'Longitude is out of geo boundary' );
+      $this->assertFalse( $vendor->isWithinBoundaries( -01.58,10.1 ), 'Lat/Long is out of geo boundary' );
+  }
+
+  /**
+   * Test to see when boundaries are valid, that isWithinBoundaries() return TRUE
+   */
+  public function testIsWithinBoundariesValid()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '1;-5;2;-2') );
+      $this->assertTrue( $vendor->isWithinBoundaries( 1.5, -3 ));
+  }
+
+  /**
+   * Test Exception when string or anything other than numeric value passed as lat/long
+   */
+  public function testIsWithinBoundariesException()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '1;-5;2;-2') );
+
+      $this->setExpectedException( 'Exception' );
+      $this->assertTrue( $vendor->isWithinBoundaries( "a", 1.5) );
+  }
 }
