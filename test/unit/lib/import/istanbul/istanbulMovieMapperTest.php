@@ -46,11 +46,22 @@ class istanbulMoviesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  private function _getParams( )
+    {
+        return array(
+            'type' => 'movie',
+            'curl'  => array(
+                'classname' => 'CurlMock',
+                'src' => TO_TEST_DATA_PATH . '/istanbul/movies.xml'
+             )
+        );
+    }
+
   public function testMapMovies()
   {
     $importer = new Importer();
     $xml = simplexml_load_file( TO_TEST_DATA_PATH.'/istanbul/movies.xml' );
-    $importer->addDataMapper( new istanbulMovieMapper( $this->vendor, $xml ) );
+    $importer->addDataMapper( new istanbulMovieMapper( $this->vendor, $this->_getParams( ) ) );
     $importer->run();
 
     $movies = Doctrine::getTable( 'Movie' )->findAll();
