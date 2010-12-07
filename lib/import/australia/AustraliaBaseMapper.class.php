@@ -68,7 +68,7 @@ class australiaBaseMapper extends DataMapper
             throw new AustraliaBaseMapperException( 'Invalid vendor in Parameter' );
         }
 
-        if( !is_array($params) || count( $params ) <= 0 || !isset( $params[ $dataSourceClass ] ) || !isset( $params[ $dataSourceClass ]['classname'] ) )
+        if( !is_array( $params ) || count( $params ) <= 0 || !isset( $params[ $dataSourceClass ] ) || !isset( $params[ $dataSourceClass ]['classname'] ) )
         {
             throw new AustraliaBaseMapperException( 'Invalid $params in Parameter' );
         }
@@ -79,7 +79,7 @@ class australiaBaseMapper extends DataMapper
      * @param Vendor $vendor
      * @param array $params
      */
-    private function _loadXMLFromFTP( $vendor, $params )
+    protected function _loadXMLFromFTP( $vendor, $params )
     {
         // Create FTP client [ src, username, password, target ]
         $ftpClient = new $params['ftp']['classname']( $params['ftp']['src'], $params['ftp']['username'], $params['ftp']['password'], $vendor['city'] );
@@ -104,7 +104,7 @@ class australiaBaseMapper extends DataMapper
      * @param Vendor $vendor
      * @param array $params
      */
-    private function _loadXMLFromFeed( $vendor, $params )
+    protected function _loadXMLFromFeed( $vendor, $params )
     {
         // Get the Feed
         $curl = new $params['curl']['classname']( $params['curl']['src'] );
@@ -188,15 +188,15 @@ class australiaBaseMapper extends DataMapper
         if ( empty( $dateString ) )
             return false;
 
-        $dateMask = 'd/m/Y g:i:s A';
+        $dateTime = DateTime::createFromFormat( 'd/m/Y g:i:s A', $dateString );
 
-        if( $this->vendor['city'] == 'melbourne' )
+        /* Try and fix time if it is provided as ( 24hr format with AM/PM ), DateTime doesn't like that very much */
+        if( $dateTime === false )
         {
-            $dateString = str_replace( array( ' AM', ' PM' ) , '', $dateString );
-            $dateMask = 'd/m/Y G:i:s';
+            $dateTime = DateTime::createFromFormat( 'd/m/Y G:i:s', str_replace( array( ' AM', ' PM' ) , '', $dateString ) );
         }
 
-        return DateTime::createFromFormat( $dateMask, $dateString );
+        return $dateTime;
     }
 
     protected function extractDate( $dateString, $dateOnly = false )

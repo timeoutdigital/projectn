@@ -30,7 +30,12 @@ class australiaVenuesMapper extends australiaBaseMapper
       $poi['Vendor']            = $this->vendor;
       $poi['vendor_poi_id']     = $vendor_poi_id;
 
-      $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
+      switch( $this->vendor['city'] )
+      {
+        /* Melbourne GeoCodes are Reversed. */
+        case 'melbourne' : $poi->applyFeedGeoCodesIfValid( (float) $venue->Longitude, (float) $venue->Latitude ); break;
+        default : $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
+      }
 
       $poi['poi_name']          = (string) $venue->Name;
       $poi['street']            = (string) $venue->Address;
@@ -101,10 +106,10 @@ class australiaVenuesMapper extends australiaBaseMapper
   private function extractGeocodeLookUp( SimpleXMLElement $venue )
   {
     $fields = array(
-      $venue->Name,
-      $venue->Address,
-      $venue->Suburb,
-      $venue->PostCode,
+      (string) $venue->Name,
+      (string) $venue->Address,
+      (string) $venue->Suburb,
+      (string) $venue->PostCode,
       'AUS',
     );
 
