@@ -15,12 +15,12 @@ class bucharestVenueMapper extends bucharestBaseMapper
 {
   public function mapVenues()
   {
-    for( $i=0, $venueElement = $this->xmlNodes->venue[ 0 ]; $i<$this->xmlNodes->venue->count(); $i++, $venueElement = $this->xmlNodes->venue[ $i ] )
+    foreach( $this->xmlNodes as $venueElement )
     {
         $poi = Doctrine::getTable( 'poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $this->clean( (string) $venueElement['id'] ) );
         if( $poi === false )
         {
-          $poi = new Poi();
+            $poi = new Poi();
         }
         try
         {
@@ -46,8 +46,9 @@ class bucharestVenueMapper extends bucharestBaseMapper
             // Bucharest sending us Geocode is wrong way around for some of the venues
             // and right way in some, hence we decided to use the new vendor method isWithinBoundaries() to
             // verify that this geocode is within boundaries or swap lat/long
-            if( $poi[ 'latitude' ] !== null && $poi[ 'longitude' ] !== null &&
-                    !$this->vendor->isWithinBoundaries( $poi['latitude'], $poi['longitude'] ) )
+            if( $poi[ 'latitude' ] !== null 
+                && $poi[ 'longitude' ] !== null 
+                && !$this->vendor->isWithinBoundaries( $poi['latitude'], $poi['longitude'] ) )
             {
                 $tmpLat = $poi['latitude'];
                 $poi['latitude'] = $poi['longitude'];
