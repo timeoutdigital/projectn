@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Kuala Lumpur Venues mapper
  *
@@ -30,8 +30,8 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
       'inernational_dial_code' => '+60',
       ) );
 
-    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kuala_lumpur_venues.xml' );
-    $importer->addDataMapper( new kualaLumpurVenuesMapper( $this->vendor, $this->xml ) );
+    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kualalumpur/kuala_lumpur_venues.xml' );
+    $importer->addDataMapper( new kualaLumpurVenuesMapper( $this->vendor, $this->_getParams( 'kuala_lumpur_venues.xml' ) ) );
     $importer->run();
 
     $this->pois = Doctrine::getTable( 'Poi' )->findAll();
@@ -45,13 +45,13 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testImageNotDownloaded()
   {
-    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kl_venue_image_failed_to_download.xml' );
+    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kualalumpur/kl_venue_image_failed_to_download.xml' );
     
     // #658
 //    $filename = sfConfig::get('sf_root_dir') . '/import/kuala_lumpur/poi/media/e78e2afe42ca1fbd0684a0a3aa6b8c8e.jpg';
 //    @unlink( $filename );
     $importer = new Importer();
-    $importer->addDataMapper( new kualaLumpurVenuesMapper( $this->vendor, $this->xml ) );
+    $importer->addDataMapper( new kualaLumpurVenuesMapper( $this->vendor, $this->_getParams( 'kl_venue_image_failed_to_download.xml' ) ) );
     $importer->run();
 
     /* #658 Since Imagedownload moved to seperate task, this Validation should change to validate data inserted sucessfully
@@ -180,5 +180,13 @@ EOF;
                           $this->pois[1]['short_description'],
                           'Checking short description'
                          );
+  }
+
+  private function _getParams( $filename = 'kuala_lumpur_venues.xml')
+  {
+      return array('type' => 'test', 'curl' => array(
+          'classname' => 'CurlMock',
+          'src' => TO_TEST_DATA_PATH . '/kualalumpur/'. $filename
+          ) );
   }
 }
