@@ -55,9 +55,9 @@ class XmlConcatenatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'CustomRoot', (string) $concatXML->getName() );
     }
 
-    public function testThrowInvalidXpathException()
+    public function testThrowInvalidRootNameException()
     {
-        $this->setExpectedException( 'XmlConcatenatorException', null, 'Invalid xpath' );
+        $this->setExpectedException( 'XmlConcatenatorException', null, 'Invalid root name' );
         $concatXML = XmlConcatenator::concatXML( array( $this->xml1, $this->xml2 ), 'roo/t' );
     }
 
