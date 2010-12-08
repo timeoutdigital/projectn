@@ -12,37 +12,12 @@
  *
  */
 
-class kualaLumpurMoviesMapper extends DataMapper
+class kualaLumpurMoviesMapper extends kualaLumpurBaseMapper
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $feed;
-
-  /**
-   * @var projectnDataMapperHelper
-   */
-  private $dataMapperHelper;
-
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @param SimpleXMLElement $feed
-   */
-
-  public function __construct( Vendor $vendor, SimpleXMLElement $feed )
-  {
-    $this->feed = $feed;
-    $this->vendor = $vendor;
-    $this->dataMapperHelper = new projectnDataMapperHelper( $vendor );
-  }
 
   public function mapMovies()
   {
-    foreach( $this->feed->eventDetails as $film )
+    foreach( $this->xmlNodes->eventDetails as $film )
     {
         try {
             $movie = $this->dataMapperHelper->getMovieRecord( (string) $film->id );
