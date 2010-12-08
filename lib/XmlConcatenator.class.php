@@ -41,7 +41,7 @@ class XmlConcatenator
         try {
             $targetDoc = new DOMDocument();
             $targetDoc->loadXML( '<' . $returnDocRootNode . '/>' );
-            $targetXpath = new DOMXPath( $targetDoc );            
+            $targetXpath = new DOMXPath( $targetDoc );
             $targetElements = $targetXpath->query( '/' . $returnDocRootNode );
             $targetRoot = $targetElements->item(0);
 
@@ -59,7 +59,7 @@ class XmlConcatenator
                 }
             }
 
-            return simplexml_import_dom( ( $targetDoc === NULL ) ? new DomDocument() : $targetDoc );
+            return simplexml_import_dom( $targetDoc );
         }
         catch( Exception $e )
         {
