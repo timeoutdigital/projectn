@@ -2,45 +2,42 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/FTPClient.mock.php';
 
 /**
- * Test class for sydney venues import
+ * Test class for australia venues import
  *
  * @package test
- * @subpackage sydney.import.lib.unit
+ * @subpackage australia.import.lib.unit
  *
  * @author Clarence Lee <clarencelee@timeout.com>
+ * @author Rajeevan Kumarathasan <rajeevankumarathasan.com>
  *
  * @version 1.0.1
  */
-class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
+class australiaVenuesMapperTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var SimpleXMLElement
-   */
-  private $feed;
-
-  /**
-   * @var Vendor
-   */
   private $vendor;
+  private $params;
 
   public function setUp()
   {
-    ProjectN_Test_Unit_Factory::createDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData('data/fixtures');
 
-    $this->feed   = simplexml_load_file( TO_TEST_DATA_PATH . '/sydney_sample_venues.xml' );
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor',  array(
-                                                     'city'          => 'sydney',
-                                                     'language'      => 'en-AU',
-                                                     'country_code'  => 'au',
-                                                     'country_code_long'  => 'AUS',
-                                                     'inernational_dial_code'  => '+61',
-                                                     ) );
-
-    $this->runImport();
-
-    $this->poiTable = Doctrine::getTable( 'Poi' );
+        $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('sydney');
+        $this->params = array( 'type' => 'poi', 'ftp' => array(
+                                                            'classname' => 'FTPClientMock',
+                                                            'username' => 'test',
+                                                            'password' => 'test',
+                                                            'src' => '',
+                                                            'dir' => '/',
+                                                            'file' => TO_TEST_DATA_PATH . '/sydney/sydney_sample_venues.xml'
+                                                            )
+            );
+        
+        // Run Import
+        $this->runImport();
   }
 
   public function tearDown()
@@ -50,12 +47,14 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testMapping()
   {
-    $this->assertEquals( count( $this->feed->venue ),
-                         $this->poiTable->count(),
+    // load xml for testing
+    $xmlFeed = simplexml_load_file( $this->params['ftp']['file'] );
+    $this->assertEquals( count( $xmlFeed->venue ),
+                         Doctrine::getTable( 'Poi' )->findAll()->count(),
                         'Database should have same number of POIs as feed after import'
                          );
 
-    $poi = $this->poiTable->findOneById( 1 );
+    $poi = Doctrine::getTable( 'Poi' )->findOneById( 1 );
 
     $this->assertEquals('Art Gallery of NSW',               $poi['name'],          'Check name field.' );
     $this->assertEquals('1',                                $poi['vendor_poi_id'], 'Check vendor poi id field.' );
@@ -91,14 +90,14 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testReviewDate()
   {
-    $poi = $this->poiTable->findOneById( 1 );
+    $poi = Doctrine::getTable( 'Poi' )->findOneById( 1 );
 
     $this->assertEquals( '2010-03-03 12:56:00', $poi[ 'review_date' ] );
   }
 
   public function testProperties()
   {
-    $pois = $this->poiTable->findAll( );
+    $pois = Doctrine::getTable( 'Poi' )->findAll( );
 
     $this->assertEquals( 'http://www.timeoutsydney.com.au/searchall/viewvenue.aspx?venueid=1',
                           $pois[0]['TimeoutLinkProperty'],
@@ -114,7 +113,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testPriceInfo()
   {
-    $pois = $this->poiTable->findAll( );
+    $pois = Doctrine::getTable( 'Poi' )->findAll( );
 
     $this->assertEquals( '',                       $pois[0]['price_information'] );
     $this->assertEquals( '$1.00',                   $pois[1]['price_information'] );
@@ -124,7 +123,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function testHasImages()
   {
 
-    $pois = $this->poiTable->findAll( );
+    $pois = Doctrine::getTable( 'Poi' )->findAll( );
 
     $this->assertEquals( 'http://www.timeoutsydney.com.au/pics/venue/agnsw.jpg',
                           $pois[0]['PoiMedia'][0]['url']
@@ -133,7 +132,7 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testHasVendorCategories()
   {
-    $pois = $this->poiTable->findAll( );
+    $pois = Doctrine::getTable( 'Poi' )->findAll( );
     $numVendorCategories = Doctrine::getTable( 'VendorPoiCategory' )->count();
 
     $this->assertEquals( 'Gallery',
@@ -152,7 +151,18 @@ class sydneyFtpVenuesMapperTest extends PHPUnit_Framework_TestCase
   public function runImport()
   {
     $importer = new Importer();
-    $importer->addDataMapper( new sydneyFtpVenuesMapper( $this->vendor, $this->feed ) );
+    $importer->addDataMapper( new australiaVenuesMapperMock( $this->vendor, $this->params ) );
     $importer->run();
   }
+}
+
+
+/**
+ * Mocking Poi mapper to override _getTheLatestFileName as it require FTP style file listing
+ */
+class australiaVenuesMapperMock extends australiaVenuesMapper
+{
+    protected function  _getTheLatestFileName($rawFtpListingOutput, $xmlFileName) {
+        return $xmlFileName;
+    }
 }
