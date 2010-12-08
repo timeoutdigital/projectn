@@ -13,17 +13,12 @@
  * @version 1.0.1
  *
  */
-class singaporeEventMapper extends DataMapper
+class singaporeEventMapper extends singaporeBaseMapper
 {
-    public function __construct( SimpleXMLElement $xml )
-    {
-        $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'singapore', 'en-US' );
-        $this->xml        = $xml;
-    }
 
     public function mapEvents()
     {
-        for( $i=0, $eventElement = $this->xml->event[ 0 ]; $i<$this->xml->event->count(); $i++, $eventElement = $this->xml->event[ $i ] )
+        foreach( $this->xmlNodes->event as $eventElement )
         {
             $event = null;
             try
@@ -143,8 +138,7 @@ class singaporeEventMapper extends DataMapper
             }
             catch (Exception $exception)
             {
-               var_dump( 'Exception singaporeEventMapper::mapEvents - ' . $exception->getMessage() );
-               $this->notifyImporterOfFailure($exception, $event);
+               $this->notifyImporterOfFailure($exception, isset( $event ) ? $event : null );
             }
         }
 

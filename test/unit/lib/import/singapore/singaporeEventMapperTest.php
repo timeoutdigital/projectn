@@ -19,6 +19,7 @@ require_once TO_TEST_MOCKS . '/curl.mock.php';
  */
 class singaporeEventMapperTest extends PHPUnit_Framework_TestCase
 {
+    private $vendor;
     /**
      * Store Temporary File name
      * @var string
@@ -34,8 +35,13 @@ class singaporeEventMapperTest extends PHPUnit_Framework_TestCase
         Doctrine::loadData('data/fixtures');
 
         // Setup Tmp File
+        $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('singapore');
         $this->tmpFile  = TO_TEST_DATA_PATH . '/singapore/new_events_list_tmp.xml';
         $this->createTmpFile();
+
+        // Create dummy POi for the EVENTS Occurrences
+        $dataSource = new singaporeDataSource( 'event', $this->tmpFile, 'CurlMock' );
+        $this->createDummyPoi( $dataSource->getXML() );
     }
 
     /**
@@ -55,13 +61,8 @@ class singaporeEventMapperTest extends PHPUnit_Framework_TestCase
 
     public function testMapEvent()
     {
-        // Get the XML
-        $dataSource = new singaporeDataSource( 'event', $this->tmpFile, 'CurlMock' );
-        $xml = $this->setDynamicDateTime( $dataSource->getXML() );
-
         // create Data Mapper
-        $dataMapper = new singaporeEventMapper( $xml );
-        $this->createDummyPoi( $xml );
+        $dataMapper = new singaporeEventMapper( $this->vendor, $this->_getParams() );
 
         // Check POI count
         $pois   =  Doctrine::getTable( 'Poi' )->findAll();
@@ -131,26 +132,7 @@ class singaporeEventMapperTest extends PHPUnit_Framework_TestCase
         $this->assertNull( $oc['end_date']);
     }
 
-    /**
-     * update 1st and 2nd Event occurrence Date time to Valid once
-     * @param SimpleXMLElement $eventNodes
-     * @return SimpleXMLElement
-     */
-    private function setDynamicDateTime(SimpleXMLElement $eventNodes )
-    {
-        $eventNodes->event[0]->date_start = date('D, d M Y H:i:s +0000', strtotime( '+1 Day' ));
-        $eventNodes->event[0]->date_end = date('D, d M Y H:i:s +0000', strtotime( '+2 Day' ));
-        $eventNodes->event[0]->alternative_dates = date('m/d/Y', strtotime( '+3 Day' ));
-
-        $eventNodes->event[1]->date_start = date('D, d M Y H:i:s +0000', strtotime( '+1 Day' ));
-        $eventNodes->event[1]->date_end = date('D, d M Y H:i:s +0000', strtotime( '+1 Day' ));
-        $eventNodes->event[1]->alternative_dates = date('m/d/Y', strtotime( '+2 Day' )).' - '.date('m/d/Y', strtotime( '+4 Day' )) . PHP_EOL . date('m/d/Y', strtotime( '+8 Day' )).' - '.date('m/d/Y', strtotime( '+9 Day' ));
-
-        $eventNodes->event[2]->date_start = date('D, d M Y H:i:s +0000', strtotime( '+2 Day' ));
-        $eventNodes->event[2]->date_end = date('D, d M Y H:i:s +0000', strtotime( '+2 Day' ));
-        return $eventNodes;
-    }
-
+    
     private function createDummyPoi( SimpleXMLElement $eventNodes )
     {
         foreach( $eventNodes->event as $eventNode )
@@ -191,6 +173,46 @@ class singaporeEventMapperTest extends PHPUnit_Framework_TestCase
         
         file_put_contents( $this->tmpFile, $xml->saveXML() );
     }
+
+    private function _getParams()
+    {
+        return array( 'type' => 'event',
+            'datasource' => array(
+                'classname' => 'singaporeDataSourceEventMock',
+                'src' => $this->tmpFile,
+            ));
+    }
 }
 
-?>
+class singaporeDataSourceEventMock extends singaporeDataSource
+{
+    public function  __construct($type, $url, $curlClass = 'Curl') {
+        parent::__construct($type, $url, 'CurlMock');
+    }
+
+    public function  getXML() {
+        // Get parent XML data and Set Dynamix DateTime for event occurrences
+        $xmlDATA  = parent::getXML();
+        return $this->setDynamicDateTime( $xmlDATA  );
+    }
+
+    /**
+     * update 1st and 2nd Event occurrence Date time to Valid once
+     * @param SimpleXMLElement $eventNodes
+     * @return SimpleXMLElement
+     */
+    private function setDynamicDateTime(SimpleXMLElement $eventNodes )
+    {
+        $eventNodes->event[0]->date_start = date('D, d M Y H:i:s +0000', strtotime( '+1 Day' ));
+        $eventNodes->event[0]->date_end = date('D, d M Y H:i:s +0000', strtotime( '+2 Day' ));
+        $eventNodes->event[0]->alternative_dates = date('m/d/Y', strtotime( '+3 Day' ));
+
+        $eventNodes->event[1]->date_start = date('D, d M Y H:i:s +0000', strtotime( '+1 Day' ));
+        $eventNodes->event[1]->date_end = date('D, d M Y H:i:s +0000', strtotime( '+1 Day' ));
+        $eventNodes->event[1]->alternative_dates = date('m/d/Y', strtotime( '+2 Day' )).' - '.date('m/d/Y', strtotime( '+4 Day' )) . PHP_EOL . date('m/d/Y', strtotime( '+8 Day' )).' - '.date('m/d/Y', strtotime( '+9 Day' ));
+
+        $eventNodes->event[2]->date_start = date('D, d M Y H:i:s +0000', strtotime( '+2 Day' ));
+        $eventNodes->event[2]->date_end = date('D, d M Y H:i:s +0000', strtotime( '+2 Day' ));
+        return $eventNodes;
+    }
+}
