@@ -1,0 +1,30 @@
+import:
+
+  poi:
+    class:
+      name: kualaLumpurVenuesMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeoutkl.com/xml/venues.xml
+
+  event:
+    class:
+      name: kualaLumpurEventsMapper
+      params:
+        type: event
+        curl:
+          classname: Curl
+          src: http://www.timeoutkl.com/xml/events.xml
+          xslt: kualalumpur_events.xsl
+
+  movie:
+    class:
+      name: kualaLumpurMoviesMapper
+      params:
+        type: movie
+        curl:
+          classname: Curl
+          src: http://www.timeoutkl.com/xml/events.xml
+          xslt: kualalumpur_movie.xsl

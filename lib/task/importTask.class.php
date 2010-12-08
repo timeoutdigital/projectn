@@ -278,49 +278,7 @@ class importTask extends sfBaseTask
 
     case 'kuala lumpur':
 
-        $vendor = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'kuala lumpur', 'en-MY' );
-
-        if( in_array( $options['type'], array( "event", "movie" ) ) )
-            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/events.xml' );
-        elseif( $options['type'] == "poi" )
-            $feedObj = new Curl( 'http://www.timeoutkl.com/xml/venues.xml' );
-        else break;
-
-        $feedObj->exec();
-        new FeedArchiver( $vendor, $feedObj->getResponse(), $options['type'] );
-        $xml = simplexml_load_string( $feedObj->getResponse() );
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $mapperClass = 'kualaLumpurVenuesMapper';
-
-          break; //End Poi
-
-          case 'event':
-            $xml = $this->removeKualaLumpurMoviesFromEventFeed( $xml );
-            $mapperClass = 'kualaLumpurEventsMapper';
-
-          break; //End Event
-
-          case 'movie':
-
-            $xml = $this->returnKualaLumpurMoviesFromEventFeed( $xml );
-            $mapperClass = 'kualaLumpurMoviesMapper';
-
-          break; //End Movie
-
-          default : $this->dieDueToInvalidTypeSpecified();
-        }
-
-        ImportLogger::getInstance()->setVendor( $vendor );
-
-        $importer->addDataMapper( new $mapperClass( $vendor, $xml ) );
-        $importer->run();
-
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage();
+        $this->newStyleImport( $options['city'], 'en-MY', $options, $databaseManager, $importer );
 
     break; //end Kuala Lumpur
 
@@ -503,60 +461,6 @@ class importTask extends sfBaseTask
   private function writeLogLine( $message )
   {
       echo PHP_EOL . date( 'Y-m-d H:i:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL;
-  }
-
-  private function returnKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
-  {
-    $string = <<<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="id keyword category subCategory genre title short_description descripton url venue start_date end_date start_time venue_area venue_address venue_map contact tel_no email booking price small_image big_image" />
-	<xsl:template match="/">
-		<xsl:element name="event">
-			<xsl:for-each select="//event/eventDetails">
-				<xsl:if test="categories[(category/text()='Film' and (subCategory/text()='Screenings' or subCategory/text()='Movies'))]">
-					<xsl:copy-of select="." />
-				</xsl:if>
-			</xsl:for-each>
-		</xsl:element>
-	</xsl:template>
-</xsl:stylesheet>
-EOF;
-
-    $xsl = new DOMDocument();
-    $xsl->loadXML( $string );
-
-    $xslProcessor = new XSLTProcessor();
-    $xslProcessor->importStyleSheet( $xsl );
-
-    return new SimpleXMLElement( $xslProcessor->transformToXML( dom_import_simplexml( $feed ) ) );
-  }
-
-  private function removeKualaLumpurMoviesFromEventFeed( SimpleXMLElement $feed )
-  {
-    $string = <<<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:output method="xml" encoding="UTF-8" indent="yes" cdata-section-elements="id keyword category subCategory genre title short_description descripton url venue start_date end_date start_time venue_area venue_address venue_map contact tel_no email booking price small_image big_image" />
-	<xsl:template match="/">
-		<xsl:element name="event">
-			<xsl:for-each select="//event/eventDetails">
-				<xsl:if test="categories[not(category/text()='Film' and (subCategory/text()='Screenings' and subCategory/text()='Movies'))]">
-					<xsl:copy-of select="." />
-				</xsl:if>
-			</xsl:for-each>
-		</xsl:element>
-	</xsl:template>
-</xsl:stylesheet>
-EOF;
-
-    $xsl = new DOMDocument();
-    $xsl->loadXML( $string );
-
-    $xslProcessor = new XSLTProcessor();
-    $xslProcessor->importStyleSheet( $xsl );
-
-    return new SimpleXMLElement( $xslProcessor->transformToXML( dom_import_simplexml( $feed ) ) );
   }
 
     /**
