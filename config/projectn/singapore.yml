@@ -14,7 +14,7 @@ import:
       name: singaporeEventMapper
       params:
         type: event
-        curl:
+        datasource:
           classname: singaporeDataSource
           src: http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e
 
@@ -23,6 +23,6 @@ import:
       name: singaporeMovieMapper
       params:
         type: movie
-        curl:
+        datasource:
           classname: singaporeDataSource
           src: http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e
