@@ -20,6 +20,7 @@ require_once TO_TEST_MOCKS . '/curl.mock.php';
 class singaporePoiMapperTest extends PHPUnit_Framework_TestCase
 {
 
+    private $vendor;
     /**
      * Store Temporary File name
      * @var string
@@ -35,6 +36,7 @@ class singaporePoiMapperTest extends PHPUnit_Framework_TestCase
         Doctrine::loadData('data/fixtures');
 
         // Setup Tmp File
+        $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('singapore');
         $this->tmpFile  = TO_TEST_DATA_PATH . '/singapore/new_venue_list_tmp.xml';
         $this->createTmpFile();
     }
@@ -56,12 +58,8 @@ class singaporePoiMapperTest extends PHPUnit_Framework_TestCase
 
     public function testMapPoi()
     {
-        // Get the XML
-        $dataSource = new singaporeDataSource( 'poi', $this->tmpFile, 'CurlMock' );
-        $xml = $dataSource->getXML();
-
         // create Data Mapper
-        $dataMapper = new singaporePoiMapper( $xml );
+        $dataMapper = new singaporePoiMapper( $this->vendor, $this->_getParams() );
 
         // Run Test Import
         $importer = new Importer();
@@ -148,6 +146,20 @@ class singaporePoiMapperTest extends PHPUnit_Framework_TestCase
 
         file_put_contents( $this->tmpFile, $xml->saveXML() );
     }
-    
+
+    private function _getParams()
+    {
+        return array( 'type' => 'poi',
+            'datasource' => array(
+                'classname' => 'singaporeDataSourcePoiMock',
+                'src' => $this->tmpFile,
+            ));
+    }
 }
-?>
+
+class singaporeDataSourcePoiMock extends singaporeDataSource
+{
+    public function  __construct($type, $url, $curlClass = 'Curl') {
+        parent::__construct($type, $url, 'CurlMock');
+    }
+}

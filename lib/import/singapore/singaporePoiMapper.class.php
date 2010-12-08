@@ -13,20 +13,13 @@
  *
  *
  */
-class singaporePoiMapper extends DataMapper
+class singaporePoiMapper extends singaporeBaseMapper
 {
-
-    public function __construct( SimpleXMLElement $xml, geocoder $geoEncoder = null )
-    {
-        $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'singapore', 'en-US' );
-        $this->geoEncoder = is_null( $geoEncoder ) ? new googleGeocoder() : $geoEncoder;
-        $this->xml        = $xml;
-    }
 
  public function mapVenues()
   {
 
-    for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
+    foreach( $this->xmlNodes->venue as $venueElement )
     {
         $poi = null;
         try
@@ -91,7 +84,7 @@ class singaporePoiMapper extends DataMapper
         {
             echo $exception;
 
-            $this->notifyImporterOfFailure( $exception, $poi );
+            $this->notifyImporterOfFailure( $exception, isset( $poi ) ? $poi : null );
         }
 
     }
