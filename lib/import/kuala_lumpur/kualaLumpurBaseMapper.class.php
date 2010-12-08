@@ -41,7 +41,7 @@ class kualaLumpurBaseMapper extends DataMapper
      * @param Vendor $vendor
      * @param array $params
      */
-    public function  __construct( Vendor $vendor, array $params)
+    public function  __construct( Vendor $vendor, array $params )
     {
         $this->_validateParameters( $vendor, $params );
         $this->_loadXML( $vendor, $params );
@@ -57,7 +57,7 @@ class kualaLumpurBaseMapper extends DataMapper
      * @param Vendor $vendor
      * @param array $array
      */
-    private function _validateParameters( Vendor $vendor, array $array )
+    private function _validateParameters( Vendor $vendor, array $params )
     {
         if( !$vendor || ($vendor instanceof Vendor) === false )
         {
@@ -73,11 +73,11 @@ class kualaLumpurBaseMapper extends DataMapper
         {
             throw new KualaLumpurBaseMapperException( "Invalid params[curl] in constructor parameter" );
         }
-        if( !isset( $params['curl']['classname'] ) || !empty ( $params['curl']['classname'] ) )
+        if( !isset( $params['curl']['classname'] ) || empty ( $params['curl']['classname'] ) )
         {
             throw new KualaLumpurBaseMapperException( "Invalid params[curl][classname] in constructor parameter, expecting Curl class" );
         }
-        if( !isset( $params['curl']['src'] ) || !empty ( $params['curl']['src'] ) )
+        if( !isset( $params['curl']['src'] ) || empty ( $params['curl']['src'] ) )
         {
             throw new KualaLumpurBaseMapperException( "Invalid params[curl][src] in constructor parameter, expecting valid source URL" );
         }        
@@ -88,9 +88,9 @@ class kualaLumpurBaseMapper extends DataMapper
      * @param Vendor $vendor
      * @param array $array
      */
-    private function _loadXML( Vendor $vendor, array $array )
+    private function _loadXML( Vendor $vendor, array $params )
     {
-        $curl = new $this->params['curl']['classname']( $this->params['curl']['src'] );
+        $curl = new $params['curl']['classname']( $params['curl']['src'] );
         $curl->exec();
 
         new FeedArchiver( $vendor, $curl->getResponse(), $params['type'] );
@@ -98,8 +98,8 @@ class kualaLumpurBaseMapper extends DataMapper
         // Kuala Lumpur mapper require XSLT to filter Movie and Events
         $xmlDataFixer = new xmlDataFixer( $curl->getResponse() );
         
-        $this->xmlNodes = isset( $this->params['curl']['xslt'] ) ?
-                                                        $xmlDataFixer->getSimpleXMLUsingXSLT(file_get_contents( $this->params['curl']['xslt'] ) ) :
+        $this->xmlNodes = isset( $params['curl']['xslt'] ) ?
+                                                        $xmlDataFixer->getSimpleXMLUsingXSLT(file_get_contents( sfConfig::get( 'projectn_xslt_dir' ) . '/' . $params['curl']['xslt'] ) ) :
                                                         $xmlDataFixer->getSimpleXML();
     }
 }
