@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Kuala Lumpur Events mapper
  *
@@ -28,13 +28,13 @@ class kualaLumpurEventsMapperTest extends PHPUnit_Framework_TestCase
       'inernational_dial_code' => '+60',
       ) );
     $this->addPoisWithIds( array( 509, 208, 216, 450, 1084 ) );
-
-    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kuala_lumpur_events.xml' );
+    
+    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kualalumpur/kuala_lumpur_events.xml' );
     $this->runImport();
 
     $this->events = Doctrine::getTable( 'Event' )->findAll();
   }
-
+  
   protected function tearDown()
   {
     ProjectN_Test_Unit_Factory::destroyDatabases();
@@ -149,7 +149,7 @@ EOF;
   private function runImport()
   {
     $importer = new Importer();
-    $importer->addDataMapper( new kualaLumpurEventsMapper( $this->vendor, $this->xml ) );
+    $importer->addDataMapper( new kualaLumpurEventsMapper( $this->vendor, $this->_getParams() ) );
     $importer->run();
   }
 
@@ -163,5 +163,14 @@ EOF;
       $poi->save();
     }
     $this->assertEquals( count( $ids ), Doctrine::getTable( 'Poi' )->count() );
+  }
+
+  private function _getParams()
+  {
+      return array('type' => 'test', 'curl' => array(
+          'classname' => 'CurlMock',
+          'src' => TO_TEST_DATA_PATH . '/kualalumpur/kuala_lumpur_events.xml',
+          'xslt' => 'kualalumpur_events.xsl'
+          ) );
   }
 }
