@@ -12,17 +12,11 @@
  * @version 1.0.0
  *
  */
-class singaporeMovieMapper extends DataMapper
+class singaporeMovieMapper extends singaporeBaseMapper
 {
-    public function __construct( SimpleXMLElement $xml )
-    {
-        $this->vendor     = Doctrine::getTable( 'Vendor' )->findOneByCityAndLanguage( 'singapore', 'en-US' );
-        $this->xml        = $xml;
-    }
-
     public function mapMovie()
     {
-        foreach( $this->xml->movie as $movieNode)
+        foreach( $this->xmlNodes->movie as $movieNode)
         {
             try{
                 $vendorMovieID  = (string) $movieNode->id;
@@ -74,8 +68,7 @@ class singaporeMovieMapper extends DataMapper
             }
             catch( Exception $exception )
             {
-                $this->notifyImporterOfFailure( new Exception ( 'Exception singaporeMovieMapper::mapMovie - ' . $exception->getMessage() ) );
-                echo 'Exception singaporeMovieMapper::mapMovie - ' . $exception->getMessage() . PHP_EOL;
+                $this->notifyImporterOfFailure( $exception, isset( $movie ) ? $movie : null );
             }
         }
     }
