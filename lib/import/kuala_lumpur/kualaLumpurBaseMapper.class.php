@@ -94,7 +94,13 @@ class kualaLumpurBaseMapper extends DataMapper
         $curl->exec();
 
         new FeedArchiver( $vendor, $curl->getResponse(), $params['type'] );
-        $this->xmlNodes = simplexml_load_string( $curl->getResponse() );
+
+        // Kuala Lumpur mapper require XSLT to filter Movie and Events
+        $xmlDataFixer = new xmlDataFixer( $curl->getResponse() );
+        
+        $this->xmlNodes = isset( $this->params['curl']['xslt'] ) ?
+                                                        $xmlDataFixer->getSimpleXMLUsingXSLT(file_get_contents( $this->params['curl']['xslt'] ) ) :
+                                                        $xmlDataFixer->getSimpleXML();
     }
 }
 
