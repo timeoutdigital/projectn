@@ -109,46 +109,8 @@ class importTask extends sfBaseTask
 
       case 'singapore':
 
-          // added here to ensure URL always return valid URL string
-          if( !in_array( $options['type'], array('poi', 'event', 'movie') ) )
-          {
-              $this->dieDueToInvalidTypeSpecified();
-              return;
-          }
-          // Get Vendor
-        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('singapore', 'en-US');
-
-        $singaporeURL['poi']    = 'http://www.timeoutsingapore.com/xmlapi/venues/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
-        $singaporeURL['event']  = 'http://www.timeoutsingapore.com/xmlapi/events/?section=index&full=&key=ffab6a24c60f562ecf705130a36c1d1e';
-        $singaporeURL['movie']  = 'http://www.timeoutsingapore.com/xmlapi/movies/?section=index&full&key=ffab6a24c60f562ecf705130a36c1d1e';
-        // Get XML
-        $dataSource = new singaporeDataSource( $options['type'], $singaporeURL[$options['type']] );
-        $xml = $dataSource->getXML();
-
-        // set vendor to logger
-        ImportLogger::getInstance()->setVendor( $vendorObj );
-
-        // Create Mapper class
-        switch( $options['type'] )
-        {
-
-          case 'poi':
-            $importer->addDataMapper( new singaporePoiMapper( $xml ) );
-            break;
-          case 'event':
-            $importer->addDataMapper( new singaporeEventMapper( $xml ) );
-            break;
-          case 'movie':
-            $importer->addDataMapper( new singaporeMovieMapper( $xml ) );
-          break;
-          default : $this->dieDueToInvalidTypeSpecified();
-        }
-        
-        // Run Import
-        $importer->run();
-        ImportLogger::getInstance()->end();
-        $this->dieWithLogMessage();
-
+          $this->newStyleImport( 'singapore', 'en-US', $options, $databaseManager, $importer );
+          
         break; //end singapore
 
       case 'lisbon':
