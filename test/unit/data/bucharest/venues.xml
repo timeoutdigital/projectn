@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<venues xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<venue id="5145712">
+		<name><![CDATA[Champions]]></name>
+		<street><![CDATA[Calea 13 septembrie 90,]]></street>
+		<city><![CDATA[Bucharest]]></city>
+		<country><![CDATA[ROU]]></country>
+		<postcode><![CDATA[050713]]></postcode>
+		<long><![CDATA[44.423268]]></long>
+		<lat><![CDATA[26.072917]]></lat>
+		<short_description><![CDATA[ÃŽmi tot "ameninÅ£" prietenii cÄƒ am sÄƒ merg la Marriott ÅŸi am sÄƒ comand hamburgerul de one pound ÅŸi am sÄƒ mÄƒ pozez muÅŸcÃ¢nd din el.]]></short_description>
+		<description><![CDATA[&lt;hr /&gt;
+&lt;p&gt;ÃƒÂŽmi tot "ameninÃ…Â£" prietenii cÃ„Âƒ am sÃ„Âƒ merg la Marriott Ã…ÂŸi am sÃ„Âƒ
+comand hamburgerul de one pound Ã…ÂŸi am sÃ„Âƒ mÃ„Âƒ pozez muÃ…ÂŸcÃƒÂ¢nd din el.
+FireÃ…ÂŸte cÃ„Âƒ nu am fÃ„Âƒcut asta, dar e un (alt) bun motiv sÃ„Âƒ merg mai
+des la Champions. Oriunde ai sta se vede foarte bine la tv, care
+sunt multe, cu diferite diagonale Ã…ÂŸi la fel de multe transmisiuni.
+Eu nu am mÃƒÂ¢ncat ceva sÃ„Âƒ nu-mi placÃ„Âƒ, dar fiÃ…Â£i atenÃ…Â£i: toate
+porÃ…Â£iile sunt respectabile, so you need exercise. Before &amp;
+after, my friends!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+]]></description>
+		<phone><![CDATA[021.403.19.17]]></phone>
+		<public_transport><![CDATA[Autobuz 385]]></public_transport>
+		<keywords><![CDATA[baruri, cluburi, bucuresti, sports bars, pubs,]]></keywords>
+		<categories>
+			<category>
+				<name><![CDATA[Cluburi si baruri]]></name>
+			</category>
+		</categories>
+	</venue>
+	<venue id="1036435">
+		<name><![CDATA[Hot Shots City Bar]]></name>
+		<street><![CDATA[Cercului 3A]]></street>
+		<city><![CDATA[Bucharest]]></city>
+		<country><![CDATA[ROU]]></country>
+		<postcode><![CDATA[ 010975]]></postcode>
+		<long><![CDATA[44.440491]]></long>
+		<lat><![CDATA[26.115081]]></lat>
+		<email><![CDATA[bar@hotshots.ro]]></email>
+		<phone><![CDATA[0724.355.554]]></phone>
+		<keywords><![CDATA[Hot Shots City Bar]]></keywords>
+		<categories>
+			<category>
+				<name><![CDATA[Cluburi si baruri]]></name>
+			</category>
+		</categories>
+	</venue>
+</venues>

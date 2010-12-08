@@ -31,6 +31,7 @@ class FormScraperTest extends PHPUnit_Framework_TestCase
         $url = 'http://n.test.com/authentication/formscraper_login_screen.html';
 
         $this->scraper = new FormScraper( $url, 'FormScraperCurlMock' );
+        $this->scraper->doFormPageRequest();
     }
 
     /**

@@ -66,4 +66,30 @@ class Vendor extends BaseVendor
 
   }
 
+  /**
+   * Check Latitude and Logitude against vendoe geocode boundaries and return TRUE if within and FALSE when outside boundaries
+   * @param float $latitude
+   * @param float $longitude
+   * @return boolean
+   */
+  public function isWithinBoundaries( $latitude, $longitude )
+  {
+      if( !is_numeric( $latitude ) || !is_numeric( $longitude ) )
+      {
+          throw new Exception( "Latitude and Longitude should be numeric value" );
+      }
+
+      // Boundaries are set in LAT;LONG;LAT;LONG
+      // First set of Lat/Long is the Lower boundary and the other is the Higher boundary
+      // making it a Square boundary
+      $bounds_array = explode( ";", $this['geo_boundries'] );
+      if( $latitude < $bounds_array[0] || $latitude > $bounds_array[2] ||
+          $longitude < $bounds_array[1] || $longitude > $bounds_array[3] )
+      {
+          return false;
+      }
+
+      return true;
+  }
+
 }

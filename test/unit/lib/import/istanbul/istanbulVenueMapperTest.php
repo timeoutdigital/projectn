@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test class for IstanbulMapper.
  >*
@@ -34,14 +34,56 @@ class IstanbulVenueMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+    private function _getParams( $chunk = 2, $index = 1)
+    {
+        return array(
+            'type' => 'poi',
+            'curl'  => array(
+                'classname' => 'CurlMock',
+                'src' => TO_TEST_DATA_PATH . '/istanbul/venues.xml'
+             ),
+            'split' => array(
+                'chunk' => $chunk,
+                'index' => $index
+            )
+        );
+    }
+
+    public function testSplitImport()
+    {
+        $importer = new Importer();
+        $importer->addDataMapper( new istanbulVenueMapper( $this->vendor, $this->_getParams( 3 , 1 ) ) );
+        $importer->run();
+        // First Index should only insert 2 POI's
+        $this->assertEquals(2, Doctrine::getTable( 'poi' )->count() );
+
+        // Second Run
+        $importer = new Importer();
+        $importer->addDataMapper( new istanbulVenueMapper( $this->vendor, $this->_getParams( 3 , 2 ) ) );
+        $importer->run();
+        $this->assertEquals(4, Doctrine::getTable( 'poi' )->count() ); // Second chunk should have 4 in db NOW
+
+        // Third and Final Run
+        $importer = new Importer();
+        $importer->addDataMapper( new istanbulVenueMapper( $this->vendor, $this->_getParams( 3 , 3 ) ) );
+        $importer->run();
+        $this->assertEquals(6, Doctrine::getTable( 'poi' )->count() ); // Third chunk should have 6 in db NOW
+    }
+
+    
   public function testMap()
   {
+    // Remove split and Run as single import
+    $params = $this->_getParams( 1 , 1 );
+    unset ($params['split']);
+    $this->assertFalse( isset( $params['split']) );
+    
+    // Import all in one
     $importer = new Importer();
-    $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/istanbul/venues.xml' );
-    $importer->addDataMapper( new istanbulVenueMapper( $this->vendor, $xml ) );
+    $importer->addDataMapper( new istanbulVenueMapper( $this->vendor, $params ) );
     $importer->run();
 
-    $this->assertEquals( Doctrine::getTable( 'poi' )->count(), $xml->count() );
+    $this->assertEquals( Doctrine::getTable( 'poi' )->count(), 6 );
     $firstPoi = Doctrine::getTable( 'poi' )->findOneById( 1 );
     
     $this->assertEquals( 'Adem Baba',  $firstPoi['name'] );

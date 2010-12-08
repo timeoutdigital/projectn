@@ -122,6 +122,16 @@ class LisbonFeedBaseMapper extends DataMapper
   }
 
   /**
+   * Returns the simplexml object
+   *
+   * @return SimpleXMLElement
+   */
+  public function getXml()
+  {
+      return $this->xml;
+  }
+
+  /**
    * Return an array of mappings from xml attributes to record fields
    *
    * @return array

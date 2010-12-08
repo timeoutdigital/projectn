@@ -15,25 +15,39 @@ class istanbulVenueMapper extends istanbulBaseMapper
 {
   public function mapVenues()
   {
-    for( $i=0, $venueElement = $this->xml->venue[ 0 ]; $i<$this->xml->venue->count(); $i++, $venueElement = $this->xml->venue[ $i ] )
+    // Split XML Nodes Defaults
+    $totalNodesCount = count( $this->xml->venue );
+    $startingIndex = 0;
+    $endingIndex = $totalNodesCount;
+    
+    // When split requested, do Split according to chunk and run import based on Index
+    if( isset( $this->params['split'] ) && isset( $this->params['split']['chunk'] ) && isset( $this->params['split']['index'] ) )
     {
+        $maximumInAChunk = intval( ceil( $totalNodesCount / $this->params['split']['chunk'] ) );
 
-        // poi->presave will apend review date with 00:00:00 as time when only date given, this cause update on each run... hence, 00:00:00 added during import
-        $reviewDate =  ( trim( $this->clean( (string) $venueElement->review_date ) ) != ''  ) ? date("Y-m-d 00:00:00" , strtotime( $this->clean( (string) $venueElement->review_date ) ) ) : null ;
+        $startingIndex  = ( $maximumInAChunk * ( $this->params['split']['index'] - 1 ) );
+        $endingIndex    = ( $maximumInAChunk * $this->params['split']['index'] );
+        $endingIndex    = ( $endingIndex > $totalNodesCount ) ? $totalNodesCount : $endingIndex; // prevent array index outofbound
+    }
+    
+    // Loopthrough Split chunks and Import
+    for( ; $startingIndex < $endingIndex ; $startingIndex++ )
+    {
+        $venueElement = $this->xml->venue[ $startingIndex ];
 
+        // Get existing POI or Create New
         $poi = Doctrine::getTable( 'poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $this->clean( (string) $venueElement['id'] ) );
         if( $poi === false )
         {
           $poi = new Poi();
         }
-        else if( $poi['review_date'] !=null &&  $poi['review_date'] == $reviewDate ) // Check for Review date and SKIP when POI is not updated, this will help with memory issue
-        {
-            continue;
-        }
 
-        // Map data
         try
         {
+            // poi->presave will apend review date with 00:00:00 as time when only date given, this cause update on each run... hence, 00:00:00 added during import
+            $reviewDate =  ( trim( $this->clean( (string) $venueElement->review_date ) ) != ''  ) ? date("Y-m-d 00:00:00" , strtotime( $this->clean( (string) $venueElement->review_date ) ) ) : null ;
+
+            // Map data
             $poi['vendor_poi_id']                 = $this->clean( (string) $venueElement['id'] );
             $poi['review_date']                   = $reviewDate;
             $poi['local_language']                = $this->vendor['language'];

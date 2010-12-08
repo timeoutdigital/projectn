@@ -24,6 +24,7 @@ class FormScraper
     private $formFields;
     private $curlClass;
     private $cookieFilePath;
+    private $curlObject;
     
     public function  __construct( $formURL, $curlClass = 'Curl' ) {
 
@@ -42,16 +43,6 @@ class FormScraper
         $this->requestURL = $formURL;
         $this->formFields = array(); // Empty array fields
         $this->postBackMethod = 'GET';
-        
-        // Get Form Data
-        $this->curlFormData();
-        
-        //extract the Form Data
-        // Get the Postback URL        // Get post Method
-        $this->generatePostbackURLAndSetPostbackMethod();
-
-        // Get form inputs
-        $this->extractFormInputFields();
     }
 
     /**
@@ -65,18 +56,18 @@ class FormScraper
             $url = $this->requestURL;
         }
         // Create CURL class and send the request URL
-        $curl = new $this->curlClass( $url, $this->formFields, $this->postBackMethod );
+        $this->curlObject = new $this->curlClass( $url, $this->formFields, $this->postBackMethod );
 
         if( $this->cookieFilePath == null )
         {
             $this->cookieFilePath = tempnam( '/tmp', 'COOKIE');
-            $curl->setCurlOption(CURLOPT_COOKIEJAR, $this->cookieFilePath );
+            $this->curlObject->setCurlOption(CURLOPT_COOKIEJAR, $this->cookieFilePath );
         } else {
-            $curl->setCurlOption(CURLOPT_COOKIEFILE, $this->cookieFilePath);
+            $this->curlObject->setCurlOption(CURLOPT_COOKIEFILE, $this->cookieFilePath);
         }
         
-        $curl->exec(); // get page data
-        $this->response = $curl->getResponse();
+        $this->curlObject->exec(); // get page data
+        $this->response = $this->curlObject->getResponse();
     }
 
     /**
@@ -190,6 +181,30 @@ class FormScraper
     }
 
     /**
+     * Request url and Extract Form fields
+     */
+    public function doFormPageRequest()
+    {
+        $this->doGetRequest();
+        
+        //extract the Form Data
+        // Get the Postback URL        // Get post Method
+        $this->generatePostbackURLAndSetPostbackMethod();
+
+        // Get form inputs
+        $this->extractFormInputFields();
+    }
+
+    /**
+     * Normal Curl Request and get the Response
+     */
+    public function doGetRequest()
+    {
+        // send get request
+        $this->curlFormData();
+    }
+    
+    /**
      * get last request response
      * @return string
      */
@@ -197,6 +212,35 @@ class FormScraper
     {
         
         return $this->response;
+    }
+
+    /**
+     * Get the Last request Header Information
+     * @return string
+     */
+    public function getHeader()
+    {
+        if ( $this->curlObject == null )
+        {
+            return null;
+        }
+
+        return $this->curlObject->getHeader();
+    }
+
+    /**
+     * Get the Last request Header information by field
+     * @param string $field
+     * @return string
+     */
+    public function getHeaderField( $field )
+    {
+        if ( $this->curlObject == null )
+        {
+            return null;
+        }
+        
+        return $this->curlObject->getHeaderField( $field );
     }
 
     /**

@@ -87,7 +87,7 @@ all:
           type: [ bar, restaurant, poi, event, movie ]
         -
           name: istanbul
-          type: [ poi, event, movie ]
+          type: [ poi_1, poi_2, event, movie ]
         -
           name: singapore
           type: [ poi, event, movie ]
@@ -100,6 +100,24 @@ all:
         -
           name: shanghai_en
           type: [ poi, event, movie ]
+        -
+          name: shanghai_zh
+          type: [ poi, event, movie ]
+        -
+          name: beijing_zh
+          type: [ poi, event, movie ]
+        -
+          name: melbourne
+          type: [ poi, event, movie ]
+        -
+          name: amsterdam_data_entry
+          type: [ poi, event, movie ]
+        -
+          name: beirut
+          type: [ poi, event ]
+        -
+          name: bucharest
+          type: [ poi, event ]
 
   export:
     cities:
@@ -223,8 +241,36 @@ all:
           type: [ poi, event, movie ]
           language: en-GB
           exportForNokia: true
-
-
+        -
+          name: shanghai_zh
+          type: [ poi, event, movie ]
+          language: zh-Hans
+          exportForNokia: true
+        -
+          name: beijing_zh
+          type: [ poi, event, movie ]
+          language: zh-Hans
+          exportForNokia: true
+        -
+          name: melbourne
+          type: [ poi, event, movie ]
+          language: en-AU
+          exportForNokia: true
+        -
+          name: amsterdam
+          type: [ poi, event, movie ]
+          language: en
+          exportForNokia: true
+        -
+          name: beirut
+          type: [ poi, event, movie ]
+          language: en-US
+          exportForNokia: true
+        -
+          name: bucharest
+          type: [ poi, event, movie ]
+          language: ro
+          exportForNokia: true
 
 prod:
   #matches url: http://projectn.live/
