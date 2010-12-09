@@ -63,7 +63,11 @@ class XMLExportEvent extends XMLExport
 
   protected function getData()
   {
-    $events = Doctrine::getTable( 'Event' )->findForExport( $this->vendor );
+    // #849: 
+    // Create Switch for including Expired events on Data Entry,
+    // $this->validation turned off when export called in DataEntry branch
+    // Use this as a Switch to Turn On and Off including expired events
+    $events = Doctrine::getTable( 'Event' )->findForExport( $this->vendor, !$this->validation );
     $this->loadListOfMediaAvailableOnAmazon( $this->vendor['city'], 'Event' );
 
     return $events;
