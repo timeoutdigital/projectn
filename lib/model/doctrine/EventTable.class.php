@@ -78,7 +78,7 @@ class EventTable extends Doctrine_Table
 
   }
 
-  public function findForExport( Vendor $vendor )
+  public function findForExport( Vendor $vendor, $includeExpired = false )
   {
     $dateTime = new DateTime;
     $dateString = $dateTime->format( 'Y-m-d' );
@@ -90,8 +90,16 @@ class EventTable extends Doctrine_Table
                             ->leftJoin( 'event.VendorEventCategory vendorCat' )
                                 ->leftJoin( 'vendorCat.UiCategory' )
                   ->addWhere( 'event.vendor_id = ? ',  $vendor['id'] )
-                  ->addWhere( 'occurrence.start_date >= ?', $dateString )
                   ->addOrderBy( 'occurrence.poi_id' );
+
+    /**
+     * #849 Require DataEntry to Export Expired Events,
+     * This switch enable us to Export Expired events when calling findForExport()
+     */
+    if( $includeExpired !== true )
+    {
+        $query->addWhere( 'occurrence.start_date >= ?', $dateString );
+    }
 
     return $query->execute( array(), Doctrine_Core::HYDRATE_ARRAY);
   }
