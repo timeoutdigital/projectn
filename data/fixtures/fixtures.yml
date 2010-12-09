@@ -270,7 +270,7 @@ Vendor:
     airport_code:             'ALA'
     country_code:             'kz'
     country_code_long:        'KAZ'
-    geo_boundries:            '41.1888580322266;19.25;81.8573760986328;179.05'
+    geo_boundries:            '40.9363288879395;46.4918518066406;55.4512023925781;87.31268310546881'
   v14:
     city:                     novosibirsk
     language:                 ru
