@@ -1,27 +1,11 @@
 <?php
 
-class kualaLumpurEventsMapper extends DataMapper
+class kualaLumpurEventsMapper extends kualaLumpurBaseMapper
 {
-  /**
-   * @var Vendor
-   */
-  private $vendor;
-
-  /**
-   * @var SimpleXMLElement
-   */
-  private $xml;
-
-  public function __construct( Vendor $vendor, SimpleXMLElement $xml)
-  {
-    $this->vendor = $vendor;
-    $this->xml = $xml;
-    $this->dataMapperHelper = new ProjectNDataMapperHelper( $vendor );
-  }
 
   public function mapEvents()
   {
-    foreach( $this->xml->eventDetails as $event )
+    foreach( $this->xmlNodes->eventDetails as $event )
     {
         try {
           if( $this->isFilm( $event ) )
@@ -89,7 +73,7 @@ class kualaLumpurEventsMapper extends DataMapper
         }
         catch( Exception $exception )
         {
-            $this->notifyImporterOfFailure($exception, $record);
+            $this->notifyImporterOfFailure($exception, isset( $record ) ? $record : null );
         }
     }
   }

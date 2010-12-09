@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
-
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 /**
  * Test of Kuala Lumpur Events mapper
  *
@@ -28,7 +28,7 @@ class kualaLumpurMoviesMapperTest extends PHPUnit_Framework_TestCase
       'inernational_dial_code' => '+60',
       ) );
 
-    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kuala_lumpur_movies.xml' );
+    $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kualalumpur/kuala_lumpur_movies.xml' );
     $this->runImport();
 
     $this->movies = Doctrine::getTable( 'Movie' )->findAll();
@@ -96,8 +96,17 @@ EOF;
   private function runImport()
   {
     $importer = new Importer();
-    $importer->addDataMapper( new kualaLumpurMoviesMapper( $this->vendor, $this->xml ) );
+    $importer->addDataMapper( new kualaLumpurMoviesMapper( $this->vendor, $this->_getParams() ) );
     //$importer->addLogger( new echoingLogger( ));
     $importer->run();
+  }
+  
+  private function _getParams()
+  {
+      return array('type' => 'test', 'curl' => array(
+          'classname' => 'CurlMock',
+          'src' => TO_TEST_DATA_PATH . '/kualalumpur/kuala_lumpur_movies.xml',
+          'xslt' => 'kualalumpur_movie.xsl'
+          ) );
   }
 }

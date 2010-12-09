@@ -254,5 +254,52 @@ class EventTableTest extends PHPUnit_Framework_TestCase
        $event['EventOccurrence'][] = $occurrence;
        $event->save();
    }
+
+   public function testFindForExportExlucdeExpiredEvents()
+   {
+       // Some Models we need to test Event
+       $vendor = Doctrine::getTable( 'Vendor' )->find( 1 );
+       $poi = Doctrine::getTable( 'Poi' )->find(1);
+       
+       // This event has 3 Valid Not expired Occurrences by Default (setup() )
+       $event = Doctrine::getTable( 'Event' )->find( 1 );
+       $this->assertEquals( 3, $event['EventOccurrence']->count() );
+
+       // test Export Call findForExport();
+       $eventsForExport = Doctrine::getTable( 'Event' )->findForExport( $vendor );
+       $this->assertEquals( 2, count( $eventsForExport ), 'There were TWO events inserted during setup' );
+       $this->assertEquals( 3, count( $eventsForExport[0]['EventOccurrence'] ), 'Three Occurrences are Valid and not expired');
+
+       // Insert 1 Expied occurrence and 1 more future dated occurrence
+       $this->addEventOccurrence( $vendor, $poi, $event, date('Y-m-d', strtotime( '+1 Day' ) ) ); // Future dated Occurrence
+       $this->addEventOccurrence( $vendor, $poi, $event, date('Y-m-d', strtotime( '-2 Day' ) ) ); // Expired Occurrence
+       $this->assertEquals( 5, $event['EventOccurrence']->count(), 'This event should have 5 Occurrences' );
+
+       // call findForExport() again to Excude this Expired and it should only return 4 occurrences
+       $eventsForExport = Doctrine::getTable( 'Event' )->findForExport( $vendor );
+       $this->assertEquals( 4, count( $eventsForExport[0]['EventOccurrence'] ), 'It should have 4 future dated occurrences');
+   }
+   
+   public function testFindForExportIncludeExpiredEvents()
+   {
+       // Some Models we need to test Event
+       $vendor = Doctrine::getTable( 'Vendor' )->find( 1 );
+       $poi = Doctrine::getTable( 'Poi' )->find(1);
+
+       // This event has 3 Valid Not expired Occurrences by Default (setup() )
+       $event = Doctrine::getTable( 'Event' )->find( 1 );
+       $this->assertEquals( 3, $event['EventOccurrence']->count() );
+
+       // Insert 1 Expied occurrence and 1 more future dated occurrence
+       $this->addEventOccurrence( $vendor, $poi, $event, date('Y-m-d', strtotime( '+1 Day' ) ) ); // Future dated Occurrence
+       $this->addEventOccurrence( $vendor, $poi, $event, date('Y-m-d', strtotime( '-2 Day' ) ) ); // Expired Occurrence
+       $this->assertEquals( 5, $event['EventOccurrence']->count(), 'This event should have 5 Occurrences' );
+
+       // call findForExport() again, this time it should export expired occurrences as well
+       $eventsForExport = Doctrine::getTable( 'Event' )->findForExport( $vendor, true ); // note the switch is TRUE now
+       $this->assertEquals( 5,  count( $eventsForExport[0]['EventOccurrence'] ), 'It should have 5  = ( future dated + exired ) occurrences');
+   }
+
+
 }
 ?>

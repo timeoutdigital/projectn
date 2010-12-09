@@ -49,7 +49,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
             //for non recurring events we use music id not only as vendorOccurrenceId
             //but also as vendrEventId
             $vendorEventOccurrenceId = (int) $this->xml->listings[$i]['musicid'];
-           
+
             try{
                 //keep track of the events we have processed already (lookup, creation and event occurrence deletion
                 //must be done once only
@@ -102,7 +102,7 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
             {
                 $this->notifyImporterOfFailure( $exception, ( isset($event) && $event instanceof Event ) ? $event : null, 'Exception: LisbonFeedListingsMapper::mapListing (event)');
             }
-        }    
+        }
     }
 
   /**
@@ -284,7 +284,7 @@ EOT;
       $band_info = explode( ",", (string) $listingElement['band'] );
 
       foreach( $band_info as $k => $info )
-          $band_info[$k] = trim( $info, "  " ); // One of those is a weird portugese space
+          $band_info[$k] = trim( $info, "  " ); // One of those is a weird portugese space
 
       $band_info = (string) implode( "<br />", $band_info );
 
@@ -387,7 +387,7 @@ EOT;
       'image',
       'band'
     );
-  }  
+  }
 
 }
 ?>
