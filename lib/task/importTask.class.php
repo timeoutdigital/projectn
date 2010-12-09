@@ -215,7 +215,7 @@ class importTask extends sfBaseTask
 
             echo "Running Lisbon Mappers" . PHP_EOL;
 
-            $concatenatedFeed = XmlConcatenator::concatXML( $eventDataSimpleXMLSegmentsArray, '/geral/listings' );
+            $concatenatedFeed = XmlConcatenator::concatXML( $eventDataSimpleXMLSegmentsArray, 'geral' );
             
             $importer->addDataMapper( new LisbonFeedListingsMapper( $concatenatedFeed ) );
 
