@@ -18,7 +18,8 @@ import:
           src: http://www.timeout.pt/xmllist.asp
           pager:
             days_per_page: 7
-            max_future_date: '+3 month'
+            from: 'today'
+            today: '+3 month'
 
   movie:
     class:
