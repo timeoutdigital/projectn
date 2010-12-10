@@ -1,6 +1,6 @@
 <?php
 /**
- * Clean phone numbers
+ * Clean phone numbers, Removed contents in bracket and extension number from telephone number
  *
  * @package projectn
  * @subpackage lib
