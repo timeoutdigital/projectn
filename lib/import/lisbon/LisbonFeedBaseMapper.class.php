@@ -49,27 +49,44 @@ class LisbonFeedBaseMapper extends DataMapper
    * @param SimpleXMLElement $xml
    * @param geocoder $geocoderr
    */
-  public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null )
+  public function __construct( Vendor $vendor, array $params )
   {
-    $vendor = Doctrine::getTable('Vendor')->findOneByCityAndLanguage( 'Lisbon', 'pt' );
-
-    if( !$vendor )
-    {
-      throw new Exception( 'Vendor not found.' );
-    }
-    $this->dataMapperHelper = new projectNDataMapperHelper( $vendor );
+    $this->_validateConstructorParams( $vendor, $params );
     $this->vendor = $vendor;
-    $this->xml = $xml;
+
+    $this->dataMapperHelper = new projectNDataMapperHelper( $this->vendor );
 
     $this->dateTimeZoneLondon = new DateTimeZone( 'Europe/London' );
     $this->dateTimeZoneLisbon = new DateTimeZone( 'Europe/Lisbon' );
 
-    if( is_null( $geocoderr ) )
-    {
-      $geocoderr = new googleGeocoder();
-    }
-    $this->geocoderr = $geocoderr;
+    $this->_loadXML( $vendor, $params );
   }
+
+    private function _validateConstructorParams( $vendor, $params )
+    {
+        if( !( $vendor instanceof Vendor ) || !isset( $vendor[ 'id' ] ) )
+        {
+            throw new $this->exceptionClass( 'Invalid Vendor Passed to LisbonFeedBaseMapper Constructor.' );
+        }
+
+        if( !isset( $params['curl']['classname'] ) || !isset( $params['curl']['src'] ) || !isset( $params['type'] ) )
+        {
+            throw new $this->exceptionClass( 'Invalid Params Passed to LisbonFeedBaseMapper Constructor.' );
+        }
+    }
+
+    private function _loadXML( $vendor, $params )
+    {
+        $curlInstance = new $params['curl']['classname']( $params['curl']['src'] );
+        $curlInstance->exec();
+
+        new FeedArchiver( $vendor, $curlInstance->getResponse(), $params['type'] );
+
+        $dataFixer = new xmlDataFixer( $curlInstance->getResponse() );
+        $dataFixer->removeHtmlEntiryEncoding();
+            
+        $this->xml = $dataFixer->getSimpleXML();
+    }
 
   /**
    * Maps all the attributes to the Event's properties unless stated otherwise
