@@ -200,6 +200,19 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( '22.27825523', $poi['latitude'] );
       $this->assertEquals( '114.182689', $poi['longitude'] );
   }
+
+  public function testExcludingAreCodedPhoneNumber()
+  {
+      // Test Invaid Number
+      $poi = Doctrine::getTable( 'Poi' )->find( 4 );
+      $this->assertEquals( null , $poi['phone']);
+      $this->assertEquals( null , $poi['phone2']);
+
+      //Test a valid number to be sure
+      $poi = Doctrine::getTable( 'Poi' )->find( 3 );
+      $this->assertEquals( '+852 8 266 8880' , $poi['phone']);
+      $this->assertEquals( null , $poi['phone2']);
+  }
   
 }
 ?>

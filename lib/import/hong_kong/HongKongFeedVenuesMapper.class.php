@@ -57,21 +57,11 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               {
                   $poi->applyFeedGeoCodesIfValid( $mapCodeSplit[0], $mapCodeSplit[1] );
               }
-              /*if( stringTransform::mb_trim( $mapCode ) != '' )
-              {
-                  $regEx = '/\&amp;ll=(.*?)\&amp;/i';
-                  preg_match( $regEx, $mapCode, $geocodes );
 
-                  if( is_array( $geocodes ) && count( $geocodes ) == 2 )
-                  {
-                      $geolatLong = explode(',', $geocodes[1] );
-                      if( count( $geolatLong) == 2 )
-                      {
-                          $poi->applyFeedGeoCodesIfValid( $geolatLong[0], $geolatLong[1] );
-                      }
-                  }
-              }*/
-
+              // #837 Any poi that have ( will be ignored as this may refer to another area code!
+              $poi['phone'] = ($this->_isValidPhoneNumber( $poi[ 'phone' ] ) ) ? $poi['phone'] : null;
+              $poi['phone2'] = ($this->_isValidPhoneNumber( $poi[ 'phone2' ] ) ) ? $poi['phone2'] : null;
+              
               // Done and Save
               $this->notifyImporter( $poi );
 
@@ -89,6 +79,17 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
   {
       $xmlDataFixer->removeMSWordHtmlTags( 'description', true );
       $xmlDataFixer->htmlEntitiesTag( 'description',  true );     
+  }
+
+  private function _isValidPhoneNumber( $subject )
+  {
+      if( $subject == null || trim( $subject ) == '' )
+      {
+          return false;
+      }
+
+      // return false if ( found
+      return ( strpos( $subject, ')' ) === false );
   }
 }
 
