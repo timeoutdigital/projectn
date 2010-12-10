@@ -275,6 +275,9 @@ EOF;
       $transform = stringTransform::formatPhoneNumber('04 334 4159', '+971');
       $this->assertEquals('+971 4 334 4159', $transform, 'UAE number type 1');
 
+      // #837 barcelona Failing test
+      $transform = stringTransform::formatPhoneNumber('93 363 44 45', '+34');
+      $this->assertEquals('+34 9 3363 4445', $transform, 'UAE number type 1');
 
 
       $transform = stringTransform::formatPhoneNumber(' ', '+971');
@@ -282,6 +285,7 @@ EOF;
 
       $transform = stringTransform::formatPhoneNumber('', '+971');
       $this->assertEquals(null, $transform, 'No number type 2');
+
 
 
   }
