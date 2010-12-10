@@ -117,22 +117,20 @@ class importTask extends sfBaseTask
 
         $vendorObj    = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('lisbon', 'pt');
 
-        $daysAhead    = 7; //lisbon caps the request at max 9 days
-        $url          = 'http://www.timeout.pt/';
-        $parameters   = array(
-            'from' => date( 'Y-m-d' ),
-            'to' => date( 'Y-m-d', strtotime( "+$daysAhead day" ) )
-        );
-
         switch( $options['type'] )
         {
           case 'poi':
 
-            $url .= 'xmlvenues.asp';
-            $xmlData = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'poi' );
-            
+            $curlObj = new Curl( 'http://www.timeout.pt/xmlvenues.asp' );
+            $curlObj->exec();
+
+            new FeedArchiver( $vendorObj, $curlObj->getResponse(), 'poi' );
+
+            $dataFixer = new xmlDataFixer( $curlObj->getResponse() );
+            $dataFixer->removeHtmlEntiryEncoding();
+
             ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedVenuesMapper( $xmlData ) );
+            $importer->addDataMapper( new LisbonFeedVenuesMapper( $dataFixer->getSimpleXML() ) );
             $importer->run();
             ImportLogger::getInstance()->end();
             $this->dieWithLogMessage();
@@ -141,7 +139,6 @@ class importTask extends sfBaseTask
 
           case 'event':
 
-            $url .= 'xmllist.asp';
             ImportLogger::getInstance()->setVendor( $vendorObj );
 
             $startDate = time();
@@ -151,34 +148,47 @@ class importTask extends sfBaseTask
 
             while ( $startDate < strtotime( "+3 month" ) ) // Only look 3 months ahead
             {
-              try
-              {
-                $parameters = array(
-                    'from' => date( 'Y-m-d', $startDate ),
-                    'to' => date( 'Y-m-d', strtotime( "+$daysAhead day", $startDate ) ) // Query x days ahead
-                );
+                try
+                {
+                    $parameters = array(
+                        'from' => date( 'Y-m-d', $startDate ),
+                        'to' => date( 'Y-m-d', strtotime( "+$daysAhead day", $startDate ) ) // Query x days ahead
+                    );
 
-                // Move start date ahead one day from last end date
-                $startDate = strtotime( "+".( $daysAhead +1 )." day", $startDate );
+                    echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . "-" . $parameters[ 'to' ] . PHP_EOL;
 
-                echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . " to " . $parameters[ 'to' ] . PHP_EOL;
-                
-                $xmlData = $this->getLisbonSimpleXML($vendorObj, $url, $parameters, 'GET', 'event_' . $parameters[ 'from' ] . '_to_' . $parameters[ 'to' ]);
+                    // -- [start] CURL -- //
 
-                // add XML data to array for XmlConcatenator
-                $eventDataSimpleXMLSegmentsArray[] = $xmlData;
-              }
-              catch ( Exception $e )
-              {
-                ImportLogger::getInstance()->addError( $e );
-              }
+                    $curlObj = new Curl( 'http://www.timeout.pt/xmllist.asp', $parameters );
+                    $curlObj->exec();
 
+                    new FeedArchiver( $vendorObj, $curlObj->getResponse(), 'event_' . $parameters[ 'from' ] . '_to_' . $parameters[ 'to' ] );
+
+                    $dataFixer = new xmlDataFixer( $curlObj->getResponse() );
+                    $dataFixer->removeHtmlEntiryEncoding();
+
+                    // -- [end] CURL -- //
+
+                    // Add segment to array
+                    $eventDataSimpleXMLSegmentsArray[] = $dataFixer->getSimpleXML();
+
+                    // Move start date ahead one day from last end date
+                    $startDate = strtotime( "+".( $daysAhead +1 )." day", $startDate );
+                }
+                catch ( Exception $e )
+                {
+                    // Add error
+                    ImportLogger::getInstance()->addError( $e );
+
+                    // Stop while loop.
+                    break;
+                }
             }
 
             echo "Running Lisbon Mappers" . PHP_EOL;
 
             $concatenatedFeed = XmlConcatenator::concatXML( $eventDataSimpleXMLSegmentsArray, 'geral' );
-            
+
             $importer->addDataMapper( new LisbonFeedListingsMapper( $concatenatedFeed ) );
 
             $importer->run();
@@ -189,15 +199,20 @@ class importTask extends sfBaseTask
 
           case 'movie':
 
-            $url .= 'xmlfilms.asp';
-            $xmlData = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'movie' );
-            
+            $curlObj = new Curl( 'http://www.timeout.pt/xmlfilms.asp' );
+            $curlObj->exec();
+
+            new FeedArchiver( $vendorObj, $curlObj->getResponse(), 'poi' );
+
+            $dataFixer = new xmlDataFixer( $curlObj->getResponse() );
+            $dataFixer->removeHtmlEntiryEncoding();
+
             ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedMoviesMapper( $xmlData ) );
+            $importer->addDataMapper( new LisbonFeedMoviesMapper( $dataFixer->getSimpleXML() ) );
             $importer->run();
             ImportLogger::getInstance()->end();
             $this->dieWithLogMessage();
-            
+
           break;
 
           default : $this->dieDueToInvalidTypeSpecified();
