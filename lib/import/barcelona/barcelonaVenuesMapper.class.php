@@ -71,6 +71,20 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
             //foreach( $venueElement->medias->media as $media ) $medias[] = (string) $media;
             //if( !empty( $medias ) ) $this->addImageHelper( $poi, $medias[0] );
 
+            // #837 Remove None numeric Chars before formating (done in pre-save)
+            if( $poi['phone'] != null && trim( $poi['phone'] ) != '' )
+            {
+                $phoneFixer = new phoneNumberFixer( $poi['phone'] );
+                $phoneFixer->removeNonNumeric();
+                $poi['phone'] = $phoneFixer->getPhoneNumber();
+            }
+            if( $poi['phone2'] != null && trim( $poi['phone2'] ) != '' )
+            {
+                $phoneFixer = new phoneNumberFixer( $poi['phone2'] );
+                $phoneFixer->removeNonNumeric();
+                $poi['phone2'] = $phoneFixer->getPhoneNumber();
+            }
+
             $this->notifyImporter( $poi );
         }
         catch( Exception $exception )

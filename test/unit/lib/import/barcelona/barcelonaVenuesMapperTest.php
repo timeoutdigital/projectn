@@ -87,6 +87,21 @@ class barcelonaVenuesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( "Museu", $poi[ 'VendorPoiCategory' ][1]['name'] );
   }
 
+  public function testRemoveNonNumericPhoneNumbers()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( new barcelonaVenuesMapper( $this->vendor, $this->params ) );
+    $importer->run();
+
+    $pois = Doctrine::getTable( 'Poi' )->findAll();
+    $this->assertEquals( 8, $pois->count() );
+
+    $poi = Doctrine::getTable( 'Poi' )->find(2);
+    $this->assertEquals( '+34 9 3424 6577', $poi['phone']);
+    $poi = Doctrine::getTable( 'Poi' )->find(3);
+    $this->assertEquals( null, $poi['phone']);
+  }
+
 
 }
 ?>
