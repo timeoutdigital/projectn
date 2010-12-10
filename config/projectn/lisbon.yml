@@ -1,0 +1,9 @@
+import:
+  poi:
+    class:
+      name: LisbonFeedVenuesMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeout.pt/xmlvenues.asp
