@@ -138,5 +138,26 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Большая игровая комната, двухуровневый лабиринт, кафе, мульткафе, по субботам с 16.00 до18.00 пираты превращают детей в сказочных персонажей', $poi['short_description'] );
   }
 
+  public function testPhoneNumberFixer()
+  {
+    $importer = new Importer();
+    $importer->addDataMapper( new RussiaFeedPlacesMapper( $this->vendor, $this->_getParams( 'moscow_places.short.phonenumberfixer.xml' ) ) );
+    $importer->run();
+
+    // At this point, Only first half should have inserted ( which is 2 (because of ceil))
+    $this->assertEquals( 2 , Doctrine::getTable('Poi')->findAll()->count() );
+    $importer->addDataMapper( new RussiaFeedPlacesMapper( $this->vendor, $this->_getParams( 'moscow_places.short.phonenumberfixer.xml', 2 ) ) ); // Run the seconds half
+    $importer->run();
+
+    $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
+
+    $poi = Doctrine::getTable( 'Poi' )->find(1); // Get the First POI
+    $this->assertEquals( '+7495 272 7934', $poi['phone']);
+    $this->assertEquals( '+7495 273 0409', $poi['phone2']);
+
+    $poi = Doctrine::getTable( 'Poi' )->find(2); // Get the second POI
+    $this->assertEquals( '+7495 261 2211', $poi['phone']);
+    $this->assertEquals( '+7495 261 2200', $poi['phone2']);
+  }
 }
 ?>

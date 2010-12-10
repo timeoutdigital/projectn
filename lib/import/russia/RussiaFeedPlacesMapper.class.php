@@ -110,6 +110,22 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
                 $processed_medias[] = $media_url;
             }
 
+            // #837 Format Telephone Numbers before saving
+            if ( $poi['phone'] != null && trim( $poi['phone'] ) != '')
+            {
+                $phoneFixer = new phoneNumberFixer( $poi['phone'] );
+                $phoneFixer->removeBracketContents();
+                $phoneFixer->removeExtensionNumber();
+                $poi['phone'] = $phoneFixer->getPhoneNumber();
+            }
+            if ( $poi['phone2'] != null && trim( $poi['phone2'] ) != '')
+            {
+                $phoneFixer = new phoneNumberFixer( $poi['phone2'] );
+                $phoneFixer->removeBracketContents();
+                $phoneFixer->removeExtensionNumber();
+                $poi['phone2'] = $phoneFixer->getPhoneNumber();
+            }
+
             $this->notifyImporter( $poi );
         }
         catch( Exception $exception )
