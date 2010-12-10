@@ -355,6 +355,6 @@ abstract class XMLExport
       // Validate using Nokia's Regex
       $pattern = "/^\+(?:-?[0-9]\x20?){10,14}[0-9]$/"; // original Nokia one is /^\+(?:-?[0-9]\x20?){6,14}[0-9]$/', this is slightly modified
 
-      return preg_match( $pattern, $phoneNo );
+      return (  preg_match( $pattern, $phoneNo ) != 1 ) ? false : true;
   }
 }
