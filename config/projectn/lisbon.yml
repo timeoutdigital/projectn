@@ -7,3 +7,13 @@ import:
         curl:
           classname: Curl
           src: http://www.timeout.pt/xmlvenues.asp
+
+import:
+  poi:
+    class:
+      name: LisbonFeedMoviesMapper
+      params:
+        type: movie
+        curl:
+          classname: Curl
+          src: http://www.timeout.pt/xmlfilms.asp
