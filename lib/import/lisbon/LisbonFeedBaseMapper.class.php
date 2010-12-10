@@ -59,7 +59,7 @@ class LisbonFeedBaseMapper extends DataMapper
     $this->dateTimeZoneLondon = new DateTimeZone( 'Europe/London' );
     $this->dateTimeZoneLisbon = new DateTimeZone( 'Europe/Lisbon' );
 
-    $this->_loadXML( $vendor, $params );
+    $this->_loadXML( $vendor, $params, isset( $params['curl']['pager'] ) );
   }
 
     private function _validateConstructorParams( $vendor, $params )
@@ -75,17 +75,69 @@ class LisbonFeedBaseMapper extends DataMapper
         }
     }
 
-    private function _loadXML( $vendor, $params )
+    private function _loadXML( $vendor, $params, $pagination = false )
     {
-        $curlInstance = new $params['curl']['classname']( $params['curl']['src'] );
-        $curlInstance->exec();
+        if( $pagination === true )
+        {
+            $fromDate   = strtotime( $params['curl']['pager']['from'] );
+            $toDate     = strtotime( $params['curl']['pager']['to'] );
+            $daysAhead  = (int) $params['curl']['pager']['days_per_page']; //lisbon caps the request at max 9 days
 
-        new FeedArchiver( $vendor, $curlInstance->getResponse(), $params['type'] );
+            $eventDataSimpleXMLSegmentsArray = array();
 
-        $dataFixer = new xmlDataFixer( $curlInstance->getResponse() );
-        $dataFixer->removeHtmlEntiryEncoding();
-            
-        $this->xml = $dataFixer->getSimpleXML();
+            while ( $fromDate < $toDate ) // Only page so far in the future ( specified by $params['curl']['pager']['to'] )
+            {
+                try
+                {
+                    $parameters = array(
+                        'from' => date( 'Y-m-d', $fromDate ),
+                        'to' => date( 'Y-m-d', strtotime( "+$daysAhead day", $fromDate ) ) // Query x days ahead
+                    );
+
+                    echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . "-" . $parameters[ 'to' ] . PHP_EOL;
+
+                    // -- [start] CURL -- //
+
+                    $curlObj = new $params['curl']['classname']( $params['curl']['src'], $parameters );
+                    $curlObj->exec();
+
+                    new FeedArchiver( $this->vendor, $curlObj->getResponse(), 'event_' . $parameters[ 'from' ] . '_to_' . $parameters[ 'to' ] );
+
+                    $dataFixer = new xmlDataFixer( $curlObj->getResponse() );
+                    $dataFixer->removeHtmlEntiryEncoding();
+
+                    // -- [end] CURL -- //
+
+                    // Add segment to array
+                    $eventDataSimpleXMLSegmentsArray[] = $dataFixer->getSimpleXML();
+
+                    // Move start date ahead one day from last end date
+                    $fromDate = strtotime( '+'.( $daysAhead +1 ).' day', $fromDate );
+                }
+                catch ( Exception $e )
+                {
+                    // Add error
+                    ImportLogger::getInstance()->addError( $e );
+
+                    // Stop while loop.
+                    break;
+                }
+            }
+
+            $this->xml = XmlConcatenator::concatXML( $eventDataSimpleXMLSegmentsArray, 'geral' );
+        }
+        else
+        {
+            $curlInstance = new $params['curl']['classname']( $params['curl']['src'] );
+            $curlInstance->exec();
+
+            new FeedArchiver( $vendor, $curlInstance->getResponse(), $params['type'] );
+
+            $dataFixer = new xmlDataFixer( $curlInstance->getResponse() );
+            $dataFixer->removeHtmlEntiryEncoding();
+
+            $this->xml = $dataFixer->getSimpleXML();
+        }
     }
 
   /**
