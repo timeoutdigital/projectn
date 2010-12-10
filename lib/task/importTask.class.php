@@ -121,19 +121,7 @@ class importTask extends sfBaseTask
         {
           case 'poi':
 
-            $curlObj = new Curl( 'http://www.timeout.pt/xmlvenues.asp' );
-            $curlObj->exec();
-
-            new FeedArchiver( $vendorObj, $curlObj->getResponse(), 'poi' );
-
-            $dataFixer = new xmlDataFixer( $curlObj->getResponse() );
-            $dataFixer->removeHtmlEntiryEncoding();
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedVenuesMapper( $dataFixer->getSimpleXML() ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
+            $this->newStyleImport( 'lisbon', 'pt', $options, $databaseManager, $importer );
 
           break;
 
@@ -199,19 +187,7 @@ class importTask extends sfBaseTask
 
           case 'movie':
 
-            $curlObj = new Curl( 'http://www.timeout.pt/xmlfilms.asp' );
-            $curlObj->exec();
-
-            new FeedArchiver( $vendorObj, $curlObj->getResponse(), 'poi' );
-
-            $dataFixer = new xmlDataFixer( $curlObj->getResponse() );
-            $dataFixer->removeHtmlEntiryEncoding();
-
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedMoviesMapper( $dataFixer->getSimpleXML() ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
+            $this->newStyleImport( 'lisbon', 'pt', $options, $databaseManager, $importer );
 
           break;
 
