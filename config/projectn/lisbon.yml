@@ -19,7 +19,7 @@ import:
           pager:
             days_per_page: 7
             from: 'today'
-            today: '+3 month'
+            to: '+3 month'
 
   movie:
     class:
