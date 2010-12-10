@@ -46,8 +46,8 @@ class LisbonFeedBaseMapper extends DataMapper
 
   /**
    *
-   * @param SimpleXMLElement $xml
-   * @param geocoder $geocoderr
+   * @param Vendor $vendor
+   * @param array $params
    */
   public function __construct( Vendor $vendor, array $params )
   {
