@@ -48,5 +48,16 @@ class phoneNumberFixerTest  extends PHPUnit_Framework_TestCase
         $fixer->removeExtensionNumber();
         $this->assertEquals( '261 2211', $fixer->getPhoneNumber(), 'Invalid CHAR may result in ?, this number from ALMATY, we should consider and remove numbers after ?' );
     }
+
+    public function testRemoveNonNumeric()
+    {
+        $fixer = new phoneNumberFixer( 't. 93 284 2894' );
+        $fixer->removeNonNumeric();
+        $this->assertEquals( '93 284 2894', $fixer->getPhoneNumber() );
+
+        $fixer = new phoneNumberFixer( 'Sense telèfon' );
+        $fixer->removeNonNumeric();
+        $this->assertEquals( '', $fixer->getPhoneNumber(), 'Sense telèfon is BCN says No Telephone, magic number convert this to actual number giving false information');
+    }
     
 }

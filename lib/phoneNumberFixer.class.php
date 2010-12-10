@@ -70,6 +70,14 @@ class phoneNumberFixer
 
         $this->phoneNumber = trim( $this->phoneNumber ); // Trim to remove any white spaces
     }
+
+    /**
+     * Remove All non-numeric chars from phone number, but white spaces will be ignored*
+     */
+    public function removeNonNumeric()
+    {
+        $this->phoneNumber = trim( preg_replace( "/[^0-9\s]+/", "", $this->phoneNumber ) );
+    }
     
 }
 
