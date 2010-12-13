@@ -339,26 +339,4 @@ class importTask extends sfBaseTask
   {
       echo PHP_EOL . date( 'Y-m-d H:i:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL;
   }
-
-    /**
-     * Download lisbone Feed and clean before parshing as XML
-     * @param Vendir $vendorObj
-     * @param string $url
-     * @param array $parameters
-     * @param string $method
-     * @param string $type
-     * @return SimpleXMLElement
-     */
-    private function getLisbonSimpleXML( $vendorObj, $url, $parameters, $method = 'POST', $type='lisbon' )
-    {
-        $curl = new Curl( $url, $parameters, $method );
-        $curl->exec();
-        new FeedArchiver( $vendorObj, $curl->getResponse(), $type );
-
-        // Clean the Feed, Sometime XML feed starts with Empty or new line and it causing simplexml load to throw exception
-        $rawXmlData = stringTransform::mb_trim( $curl->getResponse() );
-
-        return simplexml_load_string( $rawXmlData );
-    }
-
 }
