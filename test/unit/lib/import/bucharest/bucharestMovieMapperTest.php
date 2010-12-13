@@ -44,6 +44,53 @@ class bucharestMovieMapperTest extends PHPUnit_Framework_TestCase
     public function testMapMovies()
     {
         $this->assertEquals( 7 , Doctrine::getTable( 'Movie' )->count() );
+        $movies = Doctrine::getTable( 'Movie' )->findAll();
         
+        $movie = $movies[0];
+        $this->assertEquals( '7727770', $movie->vendor_movie_id );
+        $this->assertEquals( 'Cronică de film: Scott Pilgrim împotriva tuturor', $movie->name );
+        $this->assertStringStartsWith( 'Scott Pilgrim (Michael Cera) este la 22 de ani', $movie->plot );
+        $this->assertEquals( $this->_getReviewFor1(), $movie->review );
+        $this->assertEquals( 2 , $movie->rating );
+        $this->assertEquals( null , $movie->director );
+        $this->assertEquals( 'Michael Cera, Johnny Simmons, Alison Pill' , $movie->cast );
+
+        // genre
+        $this->assertEquals( 3 , $movie['MovieGenres']->count() );
+
+        $this->assertEquals( 'Actiune' , $movie['MovieGenres']['Actiune']['genre']);
+        $this->assertTrue( $movie['MovieGenres']['Actiune']->exists() );
+        
+        $this->assertEquals( 'Aventuri' , $movie['MovieGenres']['Aventuri']['genre']);
+        $this->assertTrue( $movie['MovieGenres']['Aventuri']->exists() );
+
+        $this->assertEquals( 'Comedie' , $movie['MovieGenres']['Comedie']['genre']);
+        $this->assertTrue( $movie['MovieGenres']['Comedie']->exists() );
+
+        // Media
+        $this->assertEquals( 1 , $movie['MovieMedia']->count() );
+        $this->assertEquals( 'http://storage0.dms.mpinteractiv.ro/media/401/401/6347/7727770/1/film-scottpilgrim.jpg' , $movie['MovieMedia'][0]['url'] );
+
+    }
+
+    private function _getReviewFor1()
+    {
+        return <<<EOF
+<p>Singurul obstacol în calea fericirii sunt cei şapte foşti
+prieteni malefici ai Ramonei care vor să îl ucidă. Până să o
+întâlnească pe ea Scott Pilgrim nu a fost nevoit să lupte pentru a
+câştiga inima unei fete. Despărţirile erau de fapt cele mai
+dificile. Fosta sa prietenă l-a părăsit şi a devenit o cântăreaţă
+de succes. După această relaţie nefericită, Scott a decis să îşi
+încerce norocul cu Knives, o colegă de liceu. După ce se
+îndrăgosteşte iremediabil de Ramona, el încearcă să se despartă de
+Knives, însă acest lucru se dovedeşte un proces mai dificil dect se
+aştepta. Problema e că în cazul Ramonei, Scott trebuie să câştige
+nu una, ci şapte lupte, cu foştii ei prieteni, printre care un star
+rock, un vegetarian şi o pereche de gemeni identici. Pentru ca
+povestea sa să aibă un final fericit el trebuie să îşi învingă toţi
+adversarii.</p>
+<p> </p>
+EOF;
     }
 }

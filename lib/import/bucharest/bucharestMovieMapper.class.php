@@ -78,7 +78,7 @@ class bucharestMovieMapper extends bucharestBaseMapper
                     {
                         if( trim( (string)$media->url ) != '' )
                         {
-                            $movie->addMediaByUrl( (string)$media->url );
+                            $movie->addMediaByUrl( $this->clean( (string)$media->url ) );
                         }
                     }
                 }
