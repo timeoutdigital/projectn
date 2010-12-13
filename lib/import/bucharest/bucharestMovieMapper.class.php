@@ -22,19 +22,22 @@ class bucharestMovieMapper extends bucharestBaseMapper
             try
             {
                 $vendorMovieID = $this->clean( $xmlNode['id'] );
-                $movie = Doctrine::getTable( 'Movie' )->fineOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieID );
+                $movie = Doctrine::getTable( 'Movie' )->findOneByVendorIdAndVendorMovieId( $this->vendor['id'], $vendorMovieID );
                 if( $movie === false )
                 {
                     $movie = new Movie();
                 }
 
                 // Map data
+                $movie['Vendor'] = $this->vendor;
+                $movie['vendor_movie_id'] = $vendorMovieID;
                 $movie['name'] = $this->clean( (string) $xmlNode->name );
                 $movie['plot'] = $this->clean( (string) $xmlNode->plot );
                 $movie['review'] = $this->clean( (string) $xmlNode->review );
                 $movie['rating'] = $this->_getNumberOrNull( $this->clean( (string) $xmlNode->rating ) );
                 $movie['director'] = $this->clean( (string) $xmlNode->director );
-
+                $movie['utf_offset'] = $movie['Vendor']->getUtcOffset();
+                
                 // Add Cast Details
                 if( isset( $xmlNode->cast->actor ) )
                 {
@@ -80,7 +83,8 @@ class bucharestMovieMapper extends bucharestBaseMapper
                     }
                 }
 
-
+                $this->notifyImporter( $movie );
+                
             } catch ( Exception $e )
             {
                 $this->notifyImporterOfFailure( $e, isset( $movie ) ? $movie : null );

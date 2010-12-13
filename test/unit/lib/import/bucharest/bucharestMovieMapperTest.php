@@ -29,7 +29,11 @@ class bucharestMovieMapperTest extends PHPUnit_Framework_TestCase
         $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'bucharest' );
         $this->params = array( 'type' => 'movie', 'curl' => array( 'classname' => 'CurlMock', 'src' => TO_TEST_DATA_PATH . '/bucharest/movies.xml' ) );
 
-        $this->_dummyPoi();
+        // Run import
+        $importer = new Importer;
+        $importer->addDataMapper( new bucharestMovieMapper( $this->vendor, $this->params ) );
+        $importer->run();
+
     }
 
     public function tearDown()
@@ -39,7 +43,7 @@ class bucharestMovieMapperTest extends PHPUnit_Framework_TestCase
 
     public function testMapMovies()
     {
-        $this->assertEquals( 8 , Doctrine::getTable( 'Movie' )->count() );
+        $this->assertEquals( 7 , Doctrine::getTable( 'Movie' )->count() );
         
     }
 }
