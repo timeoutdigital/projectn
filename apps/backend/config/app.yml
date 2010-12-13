@@ -117,14 +117,14 @@ all:
           type: [ poi, event ]
         -
           name: bucharest
-          type: [ poi, event ]
+          type: [ poi, event, movie ]
         -
           name: omsk
           type: [ poi, event ]
         -
           name: krasnoyarsk
           type: [ poi, event ]
-
+          
   export:
     cities:
         -
