@@ -19,3 +19,12 @@ import:
         curl:
           classname: Curl
           src: http://www.timeoutbucuresti.ro/project-n/events.xml
+
+  movie:
+    class:
+      name: bucharestMovieMapper
+      params:
+        type: movie
+        curl:
+          classname: Curl
+          src: http://www.timeoutbucuresti.ro/project-n/movies.xml

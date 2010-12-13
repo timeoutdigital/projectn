@@ -64,9 +64,9 @@ class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '',           $firstPoi['email'] );
     $this->assertEquals( '44.423268', $firstPoi['latitude'] );
     $this->assertEquals( '26.072917', $firstPoi['longitude'] );
-    $short_desc = utf8_encode( 'ÃŽmi tot "ameninÅ£" prietenii cÄƒ am sÄƒ merg la Marriott ÅŸi am sÄƒ comand hamburgerul de one pound ÅŸi am sÄƒ mÄƒ pozez muÅŸcÃ¢nd din el.' );
+    $short_desc =  'ÃŽmi tot "ameninÅ£" prietenii cÄƒ am sÄƒ merg la Marriott ÅŸi am sÄƒ comand hamburgerul de one pound ÅŸi am sÄƒ mÄƒ pozez muÅŸcÃ¢nd din el.';
     $this->assertEquals( $short_desc , $firstPoi['short_description'] );
-    $this->assertEquals(utf8_encode($this->getDescription()), $firstPoi['description'] );
+    $this->assertEquals($this->getDescription(), $firstPoi['description'] );
     $this->assertEquals( '+40 2 1403 1917', $firstPoi['phone'] ); //021.403.19.17
     $this->assertEquals( 'Autobuz 385', $firstPoi['public_transport_links'] );
     $this->assertEquals( 'baruri, cluburi, bucuresti, sports bars, pubs', $firstPoi['keywords'] );
