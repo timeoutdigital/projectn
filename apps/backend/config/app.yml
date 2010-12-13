@@ -118,6 +118,12 @@ all:
         -
           name: bucharest
           type: [ poi, event ]
+        -
+          name: omsk
+          type: [ poi, event ]
+        -
+          name: krasnoyarsk
+          type: [ poi, event ]
 
   export:
     cities:
@@ -270,6 +276,16 @@ all:
           name: bucharest
           type: [ poi, event, movie ]
           language: ro
+          exportForNokia: true
+        -
+          name: omsk
+          type: [ poi, event, movie ]
+          language: ru
+          exportForNokia: true
+        -
+          name: krasnoyarsk
+          type: [ poi, event, movie ]
+          language: ru
           exportForNokia: true
 
 prod:
