@@ -71,8 +71,23 @@ class bucharestMovieMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 1 , $movie['MovieMedia']->count() );
         $this->assertEquals( 'http://storage0.dms.mpinteractiv.ro/media/401/401/6347/7727770/1/film-scottpilgrim.jpg' , $movie['MovieMedia'][0]['url'] );
 
+        // Test another Movie
+        $movie = $movies[4];
+        $this->assertEquals( '7727404', $movie->vendor_movie_id );
+        $this->assertEquals( 'Guillermo del Toro  renunţă la regia filmului "The Hobbit"', $movie->name );
+        $this->assertStringStartsWith( 'După doi ani in care a lucrat intens la adaptarea cinematografică a romanului lui J.R.R. Tolkien,', $movie->plot );
+        $this->assertEquals( 'După doi ani in care a lucrat intens la adaptarea cinematografică a romanului lui J.R.R. Tolkien, regizorul mexican Guillermo del Toro a anunţat că nu va mai regiza filmul "The Hobbit".', $movie->review );
+        $this->assertEquals( null, $movie->cast);
+        // genre
+        $this->assertEquals( 0 , $movie['MovieGenres']->count() );
+
+        // Media
+        $this->assertEquals( 1 , $movie['MovieMedia']->count() );
+        $this->assertEquals( 'http://storage0.dms.mpinteractiv.ro/media/401/401/6347/7727404/1/guilermo.jpg' , $movie['MovieMedia'][0]['url'] );
+
     }
 
+    
     private function _getReviewFor1()
     {
         return <<<EOF
