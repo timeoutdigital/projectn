@@ -90,7 +90,7 @@ class bucharestBaseMapper extends DataMapper
         new FeedArchiver( $vendor, $curlInstance->getResponse( ), $params['type'] );
 
         $xmlFixer = new xmlDataFixer( $curlInstance->getResponse( ) );
-        $xmlFixer->encodeUTF8();
+        // $xmlFixer->encodeUTF8(); #856 - Bucharest seems to Fixed their issues and No need for Encode
         $this->xmlNodes = $xmlFixer->getSimpleXML();
     }
 
