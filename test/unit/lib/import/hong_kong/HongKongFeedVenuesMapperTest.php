@@ -30,7 +30,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     // get vendor
     $vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('hong kong');
 
-    $params = array('type' => 'Poi', 'curl' => array( 'classname' => 'CurlMock', 'src' =>  TO_TEST_DATA_PATH . '/hong_kong/hong_kong_venues_short.xml' ) );
+    $params = array('type' => 'poi', 'curl' => array( 'classname' => 'CurlMock', 'src' =>  TO_TEST_DATA_PATH . '/hong_kong/hong_kong_venues_short.xml' ) );
 
     $dataMapper = new HongKongFeedVenuesMapper( $vendor, $params );
 
