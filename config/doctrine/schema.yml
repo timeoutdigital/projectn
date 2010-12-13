@@ -138,7 +138,7 @@ Event:
   columns:
     review_date:                {type: datetime, notnull: false}
     vendor_event_id:            {type: string(10), notnull: true}
-    name:                       {type: string(255), notnull: true}
+    name:                       {type: string(255), notnull: true, minlength: 1 }
     short_description:          {type: string(1024), notnull: false}
     description:                {type: string(65535), notnull: false}
     booking_url:                {type: string(1024), notnull: false}
@@ -250,7 +250,7 @@ Movie:
     id:                         {type: integer, notnull: true,  autoincrement: true, primary: true }
     vendor_id:                  {type: integer, notnull: true}
     vendor_movie_id:            {type: string(25), notnull: true}
-    name:                       {type: string(255), notnull: true}
+    name:                       {type: string(255), notnull: true, minlength: 1 }
     plot:                       {type: string(65535), notnull: false}
     tag_line:                   {type: string(65535), notnull: false}
     review:                     {type: string(65535), notnull: false}
@@ -370,13 +370,6 @@ Vendor:
   indexes:
     city_index:                 {fields: [city]}
     city_language_index:        {fields: [city, language]}
-
-
-
-
-
-
-
 
 Log:
   connection: project_n
