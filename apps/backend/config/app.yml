@@ -117,7 +117,7 @@ all:
           type: [ poi, event ]
         -
           name: bucharest
-          type: [ poi, event ]
+          type: [ poi, event, movie ]
 
   export:
     cities:
