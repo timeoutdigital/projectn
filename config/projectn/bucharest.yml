@@ -7,7 +7,7 @@ import:
         type: poi
         curl:
           classname: Curl
-          src: http://127.0.0.1/bucharest-poi.xml
+          src: http://www.timeoutbucuresti.ro/project-n/venues.xml
 
 
 
@@ -18,4 +18,4 @@ import:
         type: event
         curl:
           classname: Curl
-          src: http://127.0.0.1/bucharest-event.xml
+          src: http://www.timeoutbucuresti.ro/project-n/events.xml
