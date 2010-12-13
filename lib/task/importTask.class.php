@@ -115,93 +115,8 @@ class importTask extends sfBaseTask
 
       case 'lisbon':
 
-        $vendorObj    = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage('lisbon', 'pt');
-
-        $daysAhead    = 7; //lisbon caps the request at max 9 days
-        $url          = 'http://www.timeout.pt/';
-        $parameters   = array(
-            'from' => date( 'Y-m-d' ),
-            'to' => date( 'Y-m-d', strtotime( "+$daysAhead day" ) )
-        );
-
-        switch( $options['type'] )
-        {
-          case 'poi':
-
-            $url .= 'xmlvenues.asp';
-            $xmlData = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'poi' );
-            
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedVenuesMapper( $xmlData ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-
-          break;
-
-          case 'event':
-
-            $url .= 'xmllist.asp';
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-
-            $startDate = time();
-            $daysAhead = 7; //lisbon caps the request at max 9 days
-
-            $eventDataSimpleXMLSegmentsArray = array();
-
-            while ( $startDate < strtotime( "+3 month" ) ) // Only look 3 months ahead
-            {
-              try
-              {
-                $parameters = array(
-                    'from' => date( 'Y-m-d', $startDate ),
-                    'to' => date( 'Y-m-d', strtotime( "+$daysAhead day", $startDate ) ) // Query x days ahead
-                );
-
-                // Move start date ahead one day from last end date
-                $startDate = strtotime( "+".( $daysAhead +1 )." day", $startDate );
-
-                echo "Getting Lisbon Events for Period: " . $parameters[ 'from' ] . " to " . $parameters[ 'to' ] . PHP_EOL;
-                
-                $xmlData = $this->getLisbonSimpleXML($vendorObj, $url, $parameters, 'GET', 'event_' . $parameters[ 'from' ] . '_to_' . $parameters[ 'to' ]);
-
-                // add XML data to array for XmlConcatenator
-                $eventDataSimpleXMLSegmentsArray[] = $xmlData;
-              }
-              catch ( Exception $e )
-              {
-                ImportLogger::getInstance()->addError( $e );
-              }
-
-            }
-
-            echo "Running Lisbon Mappers" . PHP_EOL;
-
-            $concatenatedFeed = XmlConcatenator::concatXML( $eventDataSimpleXMLSegmentsArray, 'geral' );
-            
-            $importer->addDataMapper( new LisbonFeedListingsMapper( $concatenatedFeed ) );
-
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-
-          break;
-
-          case 'movie':
-
-            $url .= 'xmlfilms.asp';
-            $xmlData = $this->getLisbonSimpleXML( $vendorObj, $url, $parameters, 'POST', 'movie' );
-            
-            ImportLogger::getInstance()->setVendor( $vendorObj );
-            $importer->addDataMapper( new LisbonFeedMoviesMapper( $xmlData ) );
-            $importer->run();
-            ImportLogger::getInstance()->end();
-            $this->dieWithLogMessage();
-            
-          break;
-
-          default : $this->dieDueToInvalidTypeSpecified();
-        }
+        $this->newStyleImport( 'lisbon', 'pt', $options, $databaseManager, $importer );
+          
         break; //end lisbon
 
 
@@ -424,26 +339,4 @@ class importTask extends sfBaseTask
   {
       echo PHP_EOL . date( 'Y-m-d H:i:s' ) . ' -- ' . $message . ' -- ' . PHP_EOL;
   }
-
-    /**
-     * Download lisbone Feed and clean before parshing as XML
-     * @param Vendir $vendorObj
-     * @param string $url
-     * @param array $parameters
-     * @param string $method
-     * @param string $type
-     * @return SimpleXMLElement
-     */
-    private function getLisbonSimpleXML( $vendorObj, $url, $parameters, $method = 'POST', $type='lisbon' )
-    {
-        $curl = new Curl( $url, $parameters, $method );
-        $curl->exec();
-        new FeedArchiver( $vendorObj, $curl->getResponse(), $type );
-
-        // Clean the Feed, Sometime XML feed starts with Empty or new line and it causing simplexml load to throw exception
-        $rawXmlData = stringTransform::mb_trim( $curl->getResponse() );
-
-        return simplexml_load_string( $rawXmlData );
-    }
-
 }

@@ -24,16 +24,13 @@ class LisbonFeedListingsMapper extends LisbonFeedBaseMapper
      */
     private $processedVendorEventIds = array();
 
-
-
-
-    public function __construct( SimpleXMLElement $xml, geocoder $geocoderr = null )
+    public function __construct( Vendor $vendor, array $params )
     {
-        parent::__construct($xml, $geocoderr);
+        parent::__construct( $vendor, $params );
 
         //sort our internal simplexml for later processing in the mapListings() method
         //we need all event ids (recurring listing ids) in order
-        $sortedXmlString = $this->sortSimpleXmlByAttribute( 'RecurringListingID' );
+        $this->sortSimpleXmlByAttribute( 'RecurringListingID' );
     }
 
     public function mapListings()

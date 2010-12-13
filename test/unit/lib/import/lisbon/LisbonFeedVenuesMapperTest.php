@@ -31,18 +31,23 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
+    $this->vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
       'city' => 'Lisbon',
       'language' => 'pt',
       'time_zone' => 'Europe/Lisbon',
       )
     );
-    $vendor->save();
-    $this->vendor = $vendor;
+    $this->vendor->save();
 
-    $this->object = new LisbonFeedVenuesMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_venues.short.xml' )
+    $params = array(
+        'type' => 'event',
+        'curl' => array(
+            'classname' => 'CurlMock',
+            'src' => TO_TEST_DATA_PATH . '/lisbon_venues.short.xml'
+        )
     );
+
+    $this->object = new LisbonFeedVenuesMapper( $this->vendor, $params );
   }
 
   /**
@@ -132,10 +137,15 @@ class LisbonFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   private function runImportFromFile( $filename = 'lisbon_venues.short.xml' )
   {
-    $this->object = new LisbonFeedVenuesMapper(
-      simplexml_load_file( TO_TEST_DATA_PATH . '/' . $filename )
+    $params = array(
+        'type' => 'event',
+        'curl' => array(
+            'classname' => 'CurlMock',
+            'src' => TO_TEST_DATA_PATH . '/' . $filename
+        )
     );
 
+    $this->object = new LisbonFeedVenuesMapper( $this->vendor, $params );
     $importer = new Importer();
     $importer->addDataMapper( $this->object );
     $importer->run();

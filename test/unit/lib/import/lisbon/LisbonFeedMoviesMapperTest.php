@@ -2,6 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once dirname( __FILE__ ) . '/../../../../../test/bootstrap/unit.php';
 require_once dirname( __FILE__ ) . '/../../../bootstrap.php';
+require_once TO_TEST_MOCKS . '/curl.mock.php';
 
 /**
  * Test class for Lisbon Feed Movies Mapper.
@@ -30,22 +31,28 @@ class LisbonFeedMoviesMapperTest extends PHPUnit_Framework_TestCase
   {
     ProjectN_Test_Unit_Factory::createDatabases();
 
-    $vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
+    $this->vendor = ProjectN_Test_Unit_Factory::get( 'Vendor', array(
       'city' => 'Lisbon',
       'language' => 'pt',
       'time_zone' => 'Europe/Lisbon',
       )
     );
-    $vendor->save();
-    $this->vendor = $vendor;
+    $this->vendor->save();
+
+    $params = array(
+        'type' => 'movie',
+        'curl' => array(
+            'classname' => 'CurlMock',
+            'src' => TO_TEST_DATA_PATH . '/lisbon_films.short.xml'
+        )
+    );
 
     ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1153' ) );
     ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1170' ) );
     ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1140' ) );
     ProjectN_Test_Unit_Factory::add( 'poi', array( 'vendor_poi_id' => '1175' ) );
 
-    $xml = simplexml_load_file( TO_TEST_DATA_PATH . '/lisbon_films.short.xml' );
-    $this->object = new LisbonFeedMoviesMapper( $xml );
+    $this->object = new LisbonFeedMoviesMapper( $this->vendor, $params );
   }
 
   /**
