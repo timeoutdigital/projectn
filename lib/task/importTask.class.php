@@ -220,43 +220,8 @@ class importTask extends sfBaseTask
 
     case 'hong kong':
 
-        //$this->newStyleImport( 'hong kong', 'en-HK', $options, $databaseManager, $importer );
+        $this->newStyleImport( 'hong kong', 'en-HK', $options, $databaseManager, $importer );
 
-        $vendorObj = Doctrine::getTable('Vendor')->getVendorByCityAndLanguage( 'hong kong', 'en-HK' );
-        
-        $dataMapper = null;
-        $params = array( 'curl' => array( 'classname' => 'Curl', 'src' => '' ) );
-        $params['type'] = $options['type']; // Requierd by Feed Archiver
-        
-        switch( $options['type'] )
-        {
-            case 'poi':
-                    $dataMapper = 'HongKongFeedVenuesMapper';
-                    $params['curl']['src']    = 'http://www.timeout.com.hk/rss/venues/';
-                break;
-            case 'movie':
-                    $dataMapper = 'HongKongFeedMoviesMapper';
-                    $params['curl']['src']    = 'http://www.timeout.com.hk/rss/movies/';
-                break;
-            case 'event':
-                    $dataMapper = 'HongKongFeedEventsMapper';
-                    $params['curl']['src']    = 'http://www.timeout.com.hk/rss/events/';
-                break;
-            default : $this->dieDueToInvalidTypeSpecified();
-                break;
-        }
-        if(!$dataMapper || !$vendorObj )
-        {
-            throw new Exception('HongKong:: Invalid value!');
-        }
-
-        ImportLogger::getInstance()->setVendor( $vendorObj );
-        $importer->addDataMapper( new $dataMapper( $vendorObj, $params ) );
-        $importer->run();
-        ImportLogger::getInstance()->end();
-
-        $this->dieWithLogMessage();
-        
         break;
 
      case 'istanbul':
