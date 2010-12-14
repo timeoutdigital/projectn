@@ -8,6 +8,8 @@ import:
         curl:
           classname: Curl
           src: http://www.timeout.ru/london/places_spb.xml
+        phone:
+          areacode: 812
   event:
     class:
       name: RussiaFeedEventsMapper
@@ -16,3 +18,5 @@ import:
         curl:
           classname: Curl
           src: http://www.timeout.ru/london/events_spb.xml
+        phone:
+          areacode: 812

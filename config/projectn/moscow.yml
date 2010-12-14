@@ -11,6 +11,9 @@ import:
         split:
           chunk: 2
           index: 1
+        phone:
+          areacode: 495
+
   moscow_poi_2:
     class:
       name: RussiaFeedPlacesMapper
@@ -22,6 +25,9 @@ import:
         split:
           chunk: 2
           index: 2
+        phone:
+          areacode: 495
+
   event:
     class:
       name: RussiaFeedEventsMapper
@@ -30,3 +36,5 @@ import:
         curl:
           classname: Curl
           src: http://www.timeout.ru/london/events_msk.xml
+        phone:
+          areacode: 495
