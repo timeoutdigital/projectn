@@ -111,21 +111,9 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             }
 
             // #837 Format Telephone Numbers before saving
-            if ( $poi['phone'] != null && trim( $poi['phone'] ) != '')
-            {
-                $phoneFixer = new phoneNumberFixer( $poi['phone'] );
-                $phoneFixer->removeBracketContents();
-                $phoneFixer->removeExtensionNumber();
-                $poi['phone'] = $phoneFixer->getPhoneNumber();
-            }
-            if ( $poi['phone2'] != null && trim( $poi['phone2'] ) != '')
-            {
-                $phoneFixer = new phoneNumberFixer( $poi['phone2'] );
-                $phoneFixer->removeBracketContents();
-                $phoneFixer->removeExtensionNumber();
-                $poi['phone2'] = $phoneFixer->getPhoneNumber();
-            }
-
+            $poi['phone'] = $this->getFormattedAndFixedPhone( $poi['phone'] );
+            $poi['phone2'] = $this->getFormattedAndFixedPhone( $poi['phone2'] );
+            
             $this->notifyImporter( $poi );
         }
         catch( Exception $exception )

@@ -129,7 +129,7 @@ class RussiaFeedBaseMapper extends DataMapper
     }
 
     /**
-     * Format russian telephone numbers and return VALID number or Null
+     * Format russian telephone numbers and return VALID number or Null #837
      * @param string $phoneNumber
      * @return mixed
      */
@@ -139,6 +139,12 @@ class RussiaFeedBaseMapper extends DataMapper
         {
             return null;
         }
+
+        // Remov Extensions and Brack contents
+        $phoneFixer = new phoneNumberFixer( $phoneNumber);
+        $phoneFixer->removeBracketContents();
+        $phoneFixer->removeExtensionNumber();
+        $phoneNumber = $phoneFixer->getPhoneNumber();
 
         // Normal Telephone number Length = 7
         // Area/City/Mobile code length = 3 (821, 911, 921, 951 etc...)
