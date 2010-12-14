@@ -39,6 +39,11 @@ class reSaveModelPoiFormatPhoneTask extends sfBaseTask
 
     if( $options['city'] )
     {
+        if( !in_array( $options[ 'city' ], array( 'moscow', 'saint petersburg', 'omsk', 'almaty', 'novosibirsk', 'krasnoyarsk', 'tyumen' ) ) )
+        {
+            throw new Exception("vendor {$options[ 'city' ]} is not Russian vendor");
+        }
+
         $this->_vendor = Doctrine::getTable('Vendor')->findOneByCity( $options['city'] );
         if( !$this->_vendor )
         {
