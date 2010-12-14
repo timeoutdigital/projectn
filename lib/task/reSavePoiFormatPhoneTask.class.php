@@ -30,11 +30,11 @@ class reSaveModelPoiFormatPhoneTask extends sfBaseTask
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
-    $allowedOptions = array( 'Poi', 'Event', 'Movie' );
+    $allowedOptions = array( 'Poi' );
 
     if( !in_array( $options[ 'model' ], $allowedOptions ) )
     {
-        throw new Exception( 'Invalid model given! use --model=Poi/Event/Movie  ');
+        throw new Exception( 'Invalid model given! use --model=Poi  ');
     }
 
     if( $options['city'] )
