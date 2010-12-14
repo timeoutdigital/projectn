@@ -219,7 +219,7 @@ class EventDataEntryForm extends BaseEventForm
               $occurrence[ 'start_date' ]   = $date;
               //$occurrence[ 'end_date' ]     = $date;
               $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00';
-              //$occurrence[ 'end_time' ]     = $addOccurrencesData[ 'end_time' ];
+              $occurrence[ 'end_time' ]     = $addOccurrencesData [ 'end_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'end_time' ] [ 'minute'] .':00';
               $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
               $occurrence->save();
          }
@@ -242,9 +242,9 @@ class EventDataEntryForm extends BaseEventForm
               $occurrence[ 'poi_id' ]       = $poiId;
               $occurrence[ 'Event' ]        = $event;
               $occurrence[ 'start_date' ]   = $addOccurrencesData [ 'start_date' ];
-              //$occurrence[ 'end_date' ]     = $addOccurrencesData [ 'end_date' ];
+              //$occurrence[ 'end_date' ]     = $addOccurrencesData [ 'start_date' ];
               $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00' ;
-              //$occurrence[ 'end_time' ]     = $addOccurrencesData[  'end_time' ];
+              $occurrence[ 'end_time' ]     = $addOccurrencesData [ 'end_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'end_time' ] [ 'minute'] .':00';
               $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
               $occurrence->save();
 
