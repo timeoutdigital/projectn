@@ -63,7 +63,7 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
                 'start_time' => $occurrence[ 'start_time' ],
             );
 
-            $occurrences [ $occurrence[ 'start_date'  ] ] = $this->renderContentTag( 'button',
+            $occurrences [ $occurrence[ 'start_date' ] . $occurrence[ 'start_time' ] . $occurrence[ 'poi_id'] ] = $this->renderContentTag( 'button',
                           $this->renderTag( 'img' ,
                                     array( 'src' => '/images/delete.png' ,
                                            'height' =>15 ,
@@ -91,7 +91,7 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
             {
               var occurrence =  eval('(' + $(this).val() + ')');
               var btn = $(this);
-              if( confirm( 'Are you sure that you want to delete this occurence ? \\nStart Date : ' + occurrence.start_date  + '\\nEnd Date : ' + occurrence.end_date  +'\\nPoi name : ' + occurrence.poi_name ) )
+              if( confirm( 'Are you sure that you want to delete this occurence ? \\nStart Date : ' + occurrence.start_date  + '\\nStart Time : ' + occurrence.start_time  +'\\nEnd Date : ' + occurrence.end_date  +'\\nPoi name : ' + occurrence.poi_name ) )
               {
                  btn.attr("disabled", "true");
                  $.ajax({

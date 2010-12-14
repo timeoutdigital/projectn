@@ -206,7 +206,7 @@ class EventDataEntryForm extends BaseEventForm
 
          foreach ($occurrenceDates as $date)
          {
-              $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$date ;
+              $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$date . '_' . $addOccurrencesData [ 'start_time' ] [ 'hour'] . '_' . $addOccurrencesData [ 'start_time' ] [ 'minute'] ;
               $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
 
               if( !$occurrence )
@@ -215,13 +215,14 @@ class EventDataEntryForm extends BaseEventForm
                 $occurrence[ 'vendor_event_occurrence_id' ] = $vendorOccurrenceId;
               }
               $occurrence[ 'poi_id' ]       = $poiId;
-              $occurrence[ 'Event' ]        = $event;
+              //$occurrence[ 'Event' ]        = $event;
               $occurrence[ 'start_date' ]   = $date;
               //$occurrence[ 'end_date' ]     = $date;
               $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00';
               $occurrence[ 'end_time' ]     = $addOccurrencesData [ 'end_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'end_time' ] [ 'minute'] .':00';
               $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
-              $occurrence->save();
+              //$occurrence->save();
+              $event['EventOccurrence'][] = $occurrence; // Event model handles duplicates.
          }
 
      }
@@ -229,8 +230,7 @@ class EventDataEntryForm extends BaseEventForm
      {
           if( !empty( $poiId ) )
           {
-              $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$addOccurrencesData [ 'start_date' ] ;
-
+              $vendorOccurrenceId = $eventId . '_' .$poiId . '_' .$addOccurrencesData [ 'start_date' ] . '_' . $addOccurrencesData [ 'start_time' ] [ 'hour'] . '_' . $addOccurrencesData [ 'start_time' ] [ 'minute'] ;
 
               $occurrence = Doctrine::getTable( 'EventOccurrence' )->findOneByVendorEventOccurrenceId( $vendorOccurrenceId );
 
@@ -240,16 +240,18 @@ class EventDataEntryForm extends BaseEventForm
                 $occurrence[ 'vendor_event_occurrence_id' ] = $vendorOccurrenceId;
               }
               $occurrence[ 'poi_id' ]       = $poiId;
-              $occurrence[ 'Event' ]        = $event;
+              //$occurrence[ 'Event' ]        = $event;
               $occurrence[ 'start_date' ]   = $addOccurrencesData [ 'start_date' ];
               //$occurrence[ 'end_date' ]     = $addOccurrencesData [ 'start_date' ];
               $occurrence[ 'start_time' ]   = $addOccurrencesData [ 'start_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'start_time' ] [ 'minute'] .':00' ;
               $occurrence[ 'end_time' ]     = $addOccurrencesData [ 'end_time' ] [ 'hour'] . ':' . $addOccurrencesData [ 'end_time' ] [ 'minute'] .':00';
               $occurrence[ 'utc_offset' ]   = $vendor->getUtcOffset();
-              $occurrence->save();
-
+              //$occurrence->save();
+              $event['EventOccurrence'][] = $occurrence; // Event model handles duplicates.
           }
      }
+
+     $event->save();
 
      return $event;
   }
