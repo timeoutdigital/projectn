@@ -76,11 +76,11 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
                                   'value' => json_encode( $occurrenceInfo )
                                  )
                            );
-
         }
 
         ksort ( $occurrences ) ;
         $url =  sfContext::getInstance()->getRequest()->getScriptName() . '/event/ajaxDeleteOccurrence';
+        $urlDeleteAll =  sfContext::getInstance()->getRequest()->getScriptName() . '/event/ajaxDeleteAllOccurrences';
 
         //$calenderJsAsText = implode( '' , $calenderJs );
         $script = <<<JS
@@ -116,8 +116,48 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
             });
 
         });
+
+        $(document).ready(function(){
+
+            var button = $( document.createElement( 'button' ) )
+                .addClass( 'occurrence-delete-button' )
+                .attr( 'type', 'button' )
+                .click(function()
+                    {
+                        if( confirm( 'Are you sure you want to delete ALL occurrences?' ) )
+                        {
+                            $.ajax({
+                                url:  '{$urlDeleteAll}',
+                                data : { eventID : '{$event['id']}' },
+                                success: function( data )
+                                {
+                                    data =  eval('(' + data + ')');
+
+                                    if( data.status == 'success')
+                                    {
+                                        $('button.occurrence-delete-button').fadeOut();
+                                    }
+                                    else
+                                    {
+                                        alert( data.message );
+                                    }
+                                }
+                            });
+                        }
+                    }
+                )
+                .appendTo( $('div.sf_admin_form_field_EventOccurrenceCollectionForm') );
+
+            var icon = $( document.createElement( 'img' ) )
+                .attr( 'src', '/images/delete.png' )
+                .attr( 'height', '15' )
+                .attr( 'width', '15' )
+                .appendTo( button );
+
+            button.append( ' Delete All Occurrences' );
+        });
 JS;
 
-         return implode( '', $occurrences) . $this->renderContentTag( 'script', $script, array( 'type' => 'text/javascript' ) ); ;;
+         return implode( '', $occurrences) . $this->renderContentTag( 'script', $script, array( 'type' => 'text/javascript' ) );
     }
 }
