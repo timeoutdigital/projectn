@@ -48,6 +48,13 @@ class PoiTest extends PHPUnit_Framework_TestCase
    ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
+  public function testGeoCodeLookupShouldNotBeBlank()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['geocode_look_up'] = "";
+      $poi->save();
+  }
+
   public function testMarkRecordAsDuplicate()
   {
     // Set False->False
