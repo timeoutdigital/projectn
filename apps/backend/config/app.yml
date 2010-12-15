@@ -27,7 +27,7 @@ all:
           type: [ fixid ]
         -
           name: ny
-          type: [ eating-drinking, bars-clubs, poi, event, movie ]
+          type: [ poi, event, movie ]
         -
           name: chicago
           type: [ poi-bc, poi-ed, poi, event_1, event_2, movie ]
@@ -42,7 +42,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: moscow
-          type: [ moscow_poi_1, moscow_poi_2, event ]
+          type: [ moscow_poi_1, moscow_poi_2, moscow_poi_3, event ]
         -
           name: saint petersburg
           type: [ poi, event ]
