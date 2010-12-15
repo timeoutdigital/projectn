@@ -12,31 +12,31 @@ import:
           dir: '/NOKIA/'
           file: 'tony_leo.xml'
 
-  bars-clubs:
-    class:
-      name: nyImportBcEd
-      params:
-        type: bar_club
-        ftp:
-          classname: FTPClient
-          ftp: ftp.timeoutny.com
-          username: london
-          password: timeout
-          dir: '/NOKIA/'
-          file: 'tony_bc.xml'
-
-  eating-drinking:
-    class:
-      name: nyImportBcEd
-      params:
-        type: restaurant
-        ftp:
-          classname: FTPClient
-          ftp: ftp.timeoutny.com
-          username: london
-          password: timeout
-          dir: '/NOKIA/'
-          file: 'tony_ed.xml'
+#  bars-clubs:
+#    class:
+#      name: nyImportBcEd
+#      params:
+#        type: bar_club
+#        ftp:
+#          classname: FTPClient
+#          ftp: ftp.timeoutny.com
+#          username: london
+#          password: timeout
+#          dir: '/NOKIA/'
+#          file: 'tony_bc.xml'
+#
+#  eating-drinking:
+#    class:
+#      name: nyImportBcEd
+#      params:
+#        type: restaurant
+#        ftp:
+#          classname: FTPClient
+#          ftp: ftp.timeoutny.com
+#          username: london
+#          password: timeout
+#          dir: '/NOKIA/'
+#          file: 'tony_ed.xml'
           
   event:
     class:

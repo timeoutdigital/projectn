@@ -143,7 +143,7 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
       //$this->assertEquals('',$poi['description']);
       $this->assertEquals('',$poi['openingtimes']);
       
-      $this->assertEquals('',$poi['phone']);
+      $this->assertEquals('+852 8 266 8880',$poi['phone']);
       $this->assertEquals('',$poi['url']);
 
       // Category Check
