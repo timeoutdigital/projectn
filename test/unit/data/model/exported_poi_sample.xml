@@ -30,6 +30,41 @@
       </address>
       <content>
         <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Nightout]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AMS000000000000000000000000075552" lang="en" modified="2010-12-14T08:23:00">
+    <geo-position>
+      <longitude>4.89707320</longitude>
+      <latitude>52.35666120</latitude>
+    </geo-position>
+    <name><![CDATA[Badcuyp]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Eerste Sweelinckstraat]]></street>
+      <houseno><![CDATA[10]]></houseno>
+      <zip><![CDATA[1073 CM]]></zip>
+      <city><![CDATA[Amsterdam]]></city>
+      <country>NLD</country>
+    </address>
+    <contact>
+      <phone>+31 2 0675 9669</phone>
+      <fax>+31 2 0670 8913</fax>
+      <email><![CDATA[communicatie@badcuyp.nl]]></email>
+      <url>http://www.badcuyp.nl</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Badcuyp]]></name>
+      <address>
+        <street><![CDATA[Eerste Sweelinckstraat]]></street>
+        <houseno><![CDATA[10]]></houseno>
+        <zip><![CDATA[1073 CM]]></zip>
+        <city><![CDATA[Amsterdam]]></city>
+        <country>NLD</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Restaurants]]></vendor-category>
         <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
       </content>
     </version>
@@ -166,6 +201,8 @@
       <content>
         <vendor-category><![CDATA[Auditorium]]></vendor-category>
         <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Film]]></property>
       </content>
     </version>
   </entry>

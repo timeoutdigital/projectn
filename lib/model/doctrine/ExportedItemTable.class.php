@@ -65,21 +65,21 @@ class ExportedItemTable extends Doctrine_Table
     private function getHighestValueUICategoryID( $xmlNode )
     {
         // Extract UI category from xmlNode and Get only the Unique Category
-        $propertyUICategory = array_unique( $xmlNode->xpath( '//property[@key = "UI_CATEGORY"]' ) );
+        $propertyUICategory = array_unique( $xmlNode->xpath( './/property[@key="UI_CATEGORY"]' ) );
 
         if( empty( $propertyUICategory ) )
         {
             return null;
         }
-        
+
         // For each Unique UI category, Find the Best (Money value) category for this Record
         $highestCategory = 99999;
         $priority = array( 'Eating & Drinking', 'Film', 'Art', 'Around Town', 'Nightlife', 'Music', 'Stage' );
-        
+
         foreach( $propertyUICategory as $category )
         {
             $uiCatName = (string)$category;
-            
+
             $priorityValue = array_search( $uiCatName, $priority );
             if( is_numeric( $priorityValue ) && $priorityValue < $highestCategory )
             {
@@ -93,7 +93,7 @@ class ExportedItemTable extends Doctrine_Table
         }
 
         $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : null;
-        $uiCategory = Doctrine::getTable( 'UiCategory' )->findOneByName( $categoryName );
+        $uiCategory = ( $categoryName !== null ) ?  Doctrine::getTable( 'UiCategory' )->findOneByName( $categoryName ) : false;
         
         return ( $uiCategory === false ) ? null : $uiCategory['id'];
     }
