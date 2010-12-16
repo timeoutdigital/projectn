@@ -12,4 +12,40 @@
  */
 class ExportedItem extends BaseExportedItem
 {
+    public function isInvoiceable( $startDate, $endDate )
+    {
+        // Convert all Date time String to time() unix format
+        $updated_at =  strtotime( substr($this['updated_at'],0,10 ) );
+        $startDate = strtotime( $startDate );
+        $endDate = strtotime( $endDate );
+
+        if( $updated_at  >= $startDate &&  $updated_at <=  $endDate)
+        {
+            // Read UICategory YAMl to identify the Invoiceable Category
+            $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
+            $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);
+
+            // Check current UI category for this Item is Invoiceable
+            if( !in_array( $this['ui_category_id'], $invoiceableCategoryIDs) )
+            {
+                return false;
+            }
+
+            // check modification to avoid repeating invoice
+            foreach( $this['ExportedItemModification']  as $modification )
+            {
+                // If this item had UI category ID that caould have been previously invoiceable,
+                // we assume that this has been invoiced on that category base
+                if( $modification['field'] == 'ui_category_id' && in_array( $modification['value_before_change'], $invoiceableCategoryIDs ) )
+                {
+                    return false;
+                }
+            }
+
+            // true = ui_category modified between $startDate and $endDate && ui_category is now chargeable but was not before $startDate
+            return true;
+        }
+
+        return false;
+    }
 }
