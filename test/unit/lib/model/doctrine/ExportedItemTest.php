@@ -87,13 +87,21 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(1);
         $this->assertEquals(2, $exporedItem['ui_category_id']);
         $this->assertEquals(1, $exporedItem['ExportedItemModification']->count() );
+        $this->assertNotEquals( $exporedItem['created_at'], $exporedItem['updated_at']);
         $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(2);
         $this->assertEquals(4, $exporedItem['ui_category_id']);
         $this->assertEquals(1, $exporedItem['ExportedItemModification']->count() );
+        $this->assertNotEquals( $exporedItem['created_at'], $exporedItem['updated_at']);
         $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(3);
         $this->assertEquals(7, $exporedItem['ui_category_id']);
         $this->assertEquals(0, $exporedItem['ExportedItemModification']->count() );
-        
+        $this->assertEquals( $exporedItem['created_at'], $exporedItem['updated_at']);
+
+        /*
+         * Now;
+         * 1 is invoiceable on around 15/10/2010
+         * 2 is invoiceable as of TODAY
+         */
     }
 
     private function generateXMLNodes( $arrayCategory )
