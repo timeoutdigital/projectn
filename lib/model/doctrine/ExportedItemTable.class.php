@@ -2,7 +2,13 @@
 
 class ExportedItemTable extends Doctrine_Table
 {
-    
+
+    /**
+     * Add or Update record to ExportedItemTable
+     * @param SimpleXMLElement $xmlNode
+     * @param string $modelType
+     * @param int $vendorID
+     */
     public function saveRecord( $xmlNode, $modelType, $vendorID )
     {
         // Pre-process
@@ -96,6 +102,11 @@ class ExportedItemTable extends Doctrine_Table
         $uiCategory = ( $categoryName !== null ) ?  Doctrine::getTable( 'UiCategory' )->findOneByName( $categoryName ) : false;
         
         return ( $uiCategory === false ) ? null : $uiCategory['id'];
+    }
+
+    public function fetchBy( $startDate, $endDate, $vendorID, $ui_category_id, $invoiceableOnly = true )
+    {
+        
     }
     
 }
