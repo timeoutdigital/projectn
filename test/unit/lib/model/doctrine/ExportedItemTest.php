@@ -49,6 +49,9 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         $this->assertFalse( $exportedItem->isInvoiceable( date('Y-m-d' ), date('Y-m-d' ) ) );
     }
 
+    /**
+     * Simple test to check isInvoiceable working with DateRanges...
+     */
     public function testIsInvoiceableDateRange()
     {
         $xml = $this->generateXMLNodes( array( 1=> 'Around Town', 2 => 'Eating & Drinking', 3 => 'Art' ) );
@@ -59,17 +62,10 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
 
         // Update the Dates manually to simulate time period
-        $exporedItem = Doctrine::getTable( 'ExportedItemHistory' )->find(1);
-        $exporedItem['created_at'] = '2010-10-15 12:00:00';
-        $exporedItem->save();
-        $this->assertEquals(3, $exporedItem['value']);
+        $this->updateRecordFields( 'ExportedItemHistory', 1, array( 'created_at' => '2010-10-15 12:00:00' ) );
+        $this->updateRecordFields( 'ExportedItemHistory', 2, array( 'created_at' => '2010-10-15 12:00:00' ) );
 
-        $exporedItem = Doctrine::getTable( 'ExportedItemHistory' )->find(2);
-        $exporedItem['created_at'] = '2010-10-15 12:00:00';
-        $exporedItem->save();
-        $this->assertEquals(2, $exporedItem['value']);
-        
-        $this->assertEquals( $exporedItem['created_at'], '2010-10-15 12:00:00');
+        // Run import again
         $this->importXMLNodes( $xml );
         $exporedItem = Doctrine::getTable( 'ExportedItemHistory' )->find(1);
         $this->assertEquals( $exporedItem['created_at'], '2010-10-15 12:00:00');
@@ -110,6 +106,28 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * Advance phase test:
+     * when the curent ui_category is not invoiceable but there is one or more invoiceable category withing the DateRange
+     * It is Invoiceable in that Date Range, Given that there is no past invoiceable category found for the record.
+     */
+    public function testIsInvoiceableValidWithinDateRange()
+    {
+        // insert data and update
+        $xml = $this->generateXMLNodes( array( 1=> 'Around Town', 2 => 'Eating & Drinking', 3 => 'Art' ) );
+        $this->importXMLNodes( $xml );
+
+        $this->updateRecordFields( 'ExportedItemHistory', 1, array( 'created_at' => '2010-10-15 12:00:01' ) );
+        $this->updateRecordFields( 'ExportedItemHistory', 2, array( 'created_at' => '2010-10-15 12:00:01' ) );
+        $this->updateRecordFields( 'ExportedItemHistory', 3, array( 'created_at' => '2010-10-15 12:00:01' ) );
+        
+    }
+
+    // get lastInvoiceableCategoryID
+    // get first invoiceable categoryiD
+    // get firstInvoiceableCategoryIDBy( date from - to )
+    // get lastInvoiceableCategoryIDBy( date from - to )
+
     private function generateXMLNodes( $arrayCategory )
     {
         $xmlString = '<vendor-pois vendor="timeout">';
@@ -130,6 +148,13 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         {
             Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
         }
+    }
+
+    private function updateRecordFields( $table, $id, $valuesArray )
+    {
+        $record = Doctrine::getTable( $table )->find($id);
+        $record->fromArray( $valuesArray );
+        $record->save();
     }
     
 }
