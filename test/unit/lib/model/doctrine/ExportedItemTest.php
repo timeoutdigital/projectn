@@ -114,12 +114,40 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
     public function testIsInvoiceableValidWithinDateRange()
     {
         // insert data and update
-        $xml = $this->generateXMLNodes( array( 1=> 'Around Town', 2 => 'Eating & Drinking', 3 => 'Art' ) );
-        $this->importXMLNodes( $xml );
-
+        $this->importXMLNodes( $this->generateXMLNodes( array( 1=> 'Around Town', 2 => 'Eating & Drinking', 3 => 'Art' ) ) );
         $this->updateRecordFields( 'ExportedItemHistory', 1, array( 'created_at' => '2010-10-15 12:00:01' ) );
         $this->updateRecordFields( 'ExportedItemHistory', 2, array( 'created_at' => '2010-10-15 12:00:01' ) );
         $this->updateRecordFields( 'ExportedItemHistory', 3, array( 'created_at' => '2010-10-15 12:00:01' ) );
+        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+
+        // Import again
+        $this->importXMLNodes( $this->generateXMLNodes( array( 1=> 'Eating & Drinking', 2 => 'Around Town', 3 => 'Art' ) ) );
+        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 5, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+        $this->updateRecordFields( 'ExportedItemHistory', 4, array( 'created_at' => '2010-10-20 12:00:01' ) );
+        $this->updateRecordFields( 'ExportedItemHistory', 5, array( 'created_at' => '2010-10-20 12:00:01' ) );
+
+        // import again
+        $this->importXMLNodes( $this->generateXMLNodes( array( 1=> 'Music', 2 => 'Around Town', 3 => 'Eating & Drinking' ) ) );
+        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 7, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+        $this->updateRecordFields( 'ExportedItemHistory', 6, array( 'created_at' => '2010-10-25 12:00:01' ) );
+        $this->updateRecordFields( 'ExportedItemHistory', 7, array( 'created_at' => '2010-10-25 12:00:01' ) );
+        $this->assertEquals( 7, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+
+        // assert changes
+        $exportedItem1 = Doctrine::getTable( 'ExportedItem' )->find(1);
+        $this->assertFalse( $exportedItem1->isInvoiceable( date('Y-m-d'), date('Y-m-d') ) );
+        $this->assertFalse( $exportedItem1->isInvoiceable( '2010-10-01', '2010-10-18' ) );
+        $this->assertFalse( $exportedItem1->isInvoiceable( '2010-10-24', '2010-10-28' ) );
+        $this->assertTrue( $exportedItem1->isInvoiceable( '2010-10-20', '2010-10-20' ) );
+        $this->assertTrue( $exportedItem1->isInvoiceable( '2010-10-01', '2010-10-28' ) );
+
+        $exportedItem1 = Doctrine::getTable( 'ExportedItem' )->find(2);
+        $this->assertTrue( $exportedItem1->isInvoiceable( '2010-10-01', '2010-10-18' ) );
+        $this->assertFalse( $exportedItem1->isInvoiceable( '2010-10-18', '2010-10-28' ) );
+        $this->assertTrue( $exportedItem1->isInvoiceable( '2010-10-01', '2010-10-28' ) );
         
     }
 
