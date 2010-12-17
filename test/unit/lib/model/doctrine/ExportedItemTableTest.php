@@ -38,18 +38,20 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $xmlNode = $xmlExportPoi->entry[0];
         Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
         $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 1 record added to Database");
-        $this->assertEquals( 0 , Doctrine::getTable( 'ExportedItemModification' )->count(), "There is no Modification yet!");
+        $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "Each record should have 1 minimum History");
 
         $xmlNode = $xmlExportPoi->entry[1];
         Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
         $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItem' )->count(), "Since this is repeating, there should only have 1 record");
-        $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItemModification' )->count(), "UI category has been changed, There should be 1 Record in modification");
+        $this->assertEquals( 2 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "UI category has been changed, There should be 2 Record in History");
         
-        $modifiedRecord = Doctrine::getTable( 'ExportedItemModification' )->find(1);
-        $this->assertEquals( '0' , $modifiedRecord['value_before_change'], "Last vaue should 0 as Nightout don't exists");
+        $modifiedRecord = Doctrine::getTable( 'ExportedItemHistory' )->find(1);
+        $this->assertEquals( '0' , $modifiedRecord['value'], "Last vaue should 0 as Nightout don't exists");
+        $modifiedRecord = Doctrine::getTable( 'ExportedItemHistory' )->find(2);
+        $this->assertEquals( '2' , $modifiedRecord['value'], "Last vaue should 2 for Eating & Drinking");
     }
 
-    public function _testsSaveRecordImportAll()
+    public function testsSaveRecordImportAll()
     {
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
@@ -61,11 +63,11 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         // assert
         $this->assertEquals( 5 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 4 record added to Database");
-        $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItemModification' )->count(), "UI category has been changed, There should be 1 Record in modification");
+        $this->assertEquals( 6 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "UI category changed 1 for 5 records, Hence there should be 6 history");
     }
     
     
-    public function _testsSaveRecordGetHighestValueUICategoryID()
+    public function testsSaveRecordGetHighestValueUICategoryID()
     {
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
@@ -77,6 +79,6 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         // get the LAST one to make sure that GetHighestValueUICategoryID() selected Eating and Drinking UI category
         $record = Doctrine::getTable( 'ExportedItem' )->find( 5 );
-        $this->assertEquals( 2, $record['ui_category_id'] );
+        $this->assertEquals( 2, $record['ExportedItemHistory'][0]->value );
     }
 }
