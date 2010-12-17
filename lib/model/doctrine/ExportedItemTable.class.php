@@ -31,29 +31,40 @@ class ExportedItemTable extends Doctrine_Table
 
         try
         {
-            // Find existing or create new
-            $record = $this->findOneByModelAndRecordId( $modelType, $recordID );
+            // Find the Existing Record
+            $query = $this->createQuery( 'e' )
+                    ->leftJoin( 'e.ExportedItemHistory h' )
+                    ->select( 'e.id, e.record_id, h.field, h.value' )
+                    ->where( 'e.model = ? ', $modelType )
+                    ->andWhere( 'e.record_id = ? ', $recordID )
+                    ->andWhere( 'h.field = ? ', "ui_category_id" )
+                    ->orderBy( 'h.created_at DESC' );
+                    // adding Limit cause SubQuery?
+             $record = $query->fetchOne();//fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY );
 
-            if( $record === false ) // add this as new Record
-            {
-                $record = new ExportedItem;
-                $record['record_id'] = $recordID;
-                $record['model'] = $modelType;
-                $record['ui_category_id'] = $ui_category_id;
-                $record['vendor_id'] = $vendorID;
-            }
-            else // Update any Modification changes
-            {
-                if( $record['ui_category_id'] != $ui_category_id )
-                {
-                    $exportedItemModification = new ExportedItemModification;
-                    $exportedItemModification['field'] = 'ui_category_id';
-                    $exportedItemModification['value_before_change'] = $record['ui_category_id'];
+             if( $record === false ) // add this as new Record
+             {
+                 $record = new ExportedItem;
+                 $record['record_id'] = $recordID;
+                 $record['model'] = $modelType;
+                 $record['vendor_id'] = $vendorID;
 
-                    $record['ExportedItemModification'][] = $exportedItemModification;
-                    $record['ui_category_id'] = $ui_category_id;
-                }
-            }
+                 // add History Record
+                 $recordHistory = new ExportedItemHistory;
+                 $recordHistory['field'] = 'ui_category_id';
+                 $recordHistory['value'] = $ui_category_id;
+                 $record['ExportedItemHistory'][] = $recordHistory;
+
+             } else { // Update any Modification changes
+
+                 if( $record['ExportedItemHistory'][0]->value != $ui_category_id)
+                 {
+                     $recordHistory = new ExportedItemHistory;
+                     $recordHistory['field'] = 'ui_category_id';
+                     $recordHistory['value'] = $ui_category_id;
+                     $record['ExportedItemHistory'][] = $recordHistory;
+                 }
+             }
 
             $record->save();
 
