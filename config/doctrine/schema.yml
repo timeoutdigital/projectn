@@ -640,19 +640,19 @@ GeoWhiteList:
 ExportedItem:
   connection: project_n
   actAs:
-    Timestampable:  ~
+    Timestampable:
+      updated:
+        disabled: true
   columns:
     model:                      {type: enum, notnull: true, values: [poi, event, movie] }
     vendor_id:                  {type: integer,    notnull: true}
     record_id:                  {type: integer,    notnull: true}
-    ui_category_id:             {type: integer,    notnull: true}
   indexes:
     ei_model_index:             {fields: [model]}
     ei_vendor_id_index:         {fields: [vendor_id]}
     ei_record_id_index:         {fields: [record_id]}
-    ei_ui_category_id_index:    {fields: [ui_category_id]}
 
-ExportedItemModification:
+ExportedItemHistory:
   connection: project_n
   actAs:
     Timestampable:
@@ -661,7 +661,7 @@ ExportedItemModification:
   columns:
     exported_item_id:           {type: integer, notnull: true}
     field:                      {type: string(100), notnull: true}
-    value_before_change:        {type: string(65535), notnull: false}
+    value:                      {type: string(65535), notnull: false}
   relations:
     ExportedItem:               {local: exported_item_id, foreign: id}
   indexes:
