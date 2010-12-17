@@ -15,33 +15,43 @@ class ExportedItem extends BaseExportedItem
     public function isInvoiceable( $startDate, $endDate )
     {
         // Convert all Date time String to time() unix format
-        $updated_at =  strtotime( substr($this['updated_at'],0,10 ) );
         $startDate = strtotime( $startDate );
         $endDate = strtotime( $endDate );
 
         // Read UICategory YAMl to identify the Invoiceable Category
         $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
         $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);
-
-        // Check current UI category for this Item is Invoiceable only when updated fall within daterange
-        if( ( $updated_at  >= $startDate &&  $updated_at <=  $endDate ) &&
-            ( !in_array( $this['ui_category_id'], $invoiceableCategoryIDs ) ) )
-        {   
-            return false;  
-        }
-
-        // at this point, This record IS Invoiceable.
-        // When updated date is not within daterange, we will have to query Modification on or before the start_date to ensure that
-        // this record was not invoiceable before start_date
-        $q = Doctrine::getTable('ExportedItemModification')->createQuery( 'm' )
+        
+        // get the Current UI category ID
+        $dateRangeInvoiceableCategories = Doctrine::getTable( 'ExportedItemHistory' )->createQuery( 'h' )
                 ->where( 'exported_item_id = ? ', $this['id'] )
-                ->andWhere( 'created_at <= ?', date('Y-m-d', $startDate ) )
-                ->andWhere( 'field = ?', 'ui_category_id' )
-                ->andWhereIn( 'value_before_change',  $invoiceableCategoryIDs );
-        $results = $q->execute();
+                ->andWhere( 'field = ? ', "ui_category_id" )
+                ->andWhereIn( 'value', $invoiceableCategoryIDs )
+                ->andWhere( 'DATE(created_at) BETWEEN ? AND ? ', array( date( 'Y-m-d', $startDate ), date( 'Y-m-d', $endDate ) ) )
+                ->orderBy( 'created_at DESC' )
+                ->limit(1)
+                ->fetchOne( array(), Doctrine_core::HYDRATE_ARRAY );
 
+        // If none found, Return false rightaway. no need to check for past
+        if( !is_array( $dateRangeInvoiceableCategories ) || empty( $dateRangeInvoiceableCategories ) )
+        {
+            return false;
+        }
+        
+        // at this point, This record IS Invoiceable.
+        // When updated date is not within daterange, we will have to query History on or before the start_date to ensure that
+        // this record was not invoiceable before start_date
+        $pastInvoiceableCategories = Doctrine::getTable( 'ExportedItemHistory' )->createQuery( 'h' )
+                ->where( 'exported_item_id = ? ', $this['id'] )
+                ->andWhere( 'field = ? ', "ui_category_id" )
+                ->andWhereIn( 'value', $invoiceableCategoryIDs )
+                ->andWhere( 'DATE(created_at) < ? ', date( 'Y-m-d', $startDate ) )
+                ->orderBy( 'created_at DESC' )
+                ->limit(1)
+                ->fetchOne( array(), Doctrine_core::HYDRATE_ARRAY );
+        
         // Query did find a category that was invoiceable?
-        if( $results->count() > 0 )
+        if( is_array( $pastInvoiceableCategories ) && count( $pastInvoiceableCategories ) > 0 )
         {
             return false;
         }
@@ -50,3 +60,5 @@ class ExportedItem extends BaseExportedItem
         return true;
     }
 }
+
+class ExportedItemException extends Exception{}

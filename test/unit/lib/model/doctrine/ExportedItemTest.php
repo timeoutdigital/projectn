@@ -45,11 +45,11 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
 
         // This category is not in Category
         $exportedItem = Doctrine::getTable( 'ExportedItem' )->find(4);
-        $this->assertEquals( 3, $exportedItem['ui_category_id'], 'This Record UI category ID should be 3 ( Around Town )');
+        $this->assertEquals( 3, $exportedItem['ExportedItemHistory'][0]['value'], 'This Record UI category ID should be 3 ( Around Town )');
         $this->assertFalse( $exportedItem->isInvoiceable( date('Y-m-d' ), date('Y-m-d' ) ) );
     }
 
-    public function testIsInvoiceableDateRange()
+    public function _testIsInvoiceableDateRange()
     {
         $xml = $this->generateXMLNodes( array( 1=> 'Around Town', 2 => 'Eating & Drinking', 3 => 'Art' ) );
         $this->assertEquals( 3, count( $xml ) );
