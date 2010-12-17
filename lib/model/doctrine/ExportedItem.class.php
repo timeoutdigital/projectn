@@ -59,6 +59,24 @@ class ExportedItem extends BaseExportedItem
         // true = ui_category modified between $startDate and $endDate && ui_category is now chargeable but was not before $startDate
         return true;
     }
+
+    public function getUICategoryID()
+    {
+        $recordHistory = Doctrine::getTable( 'ExportedItemHistory' )->createQuery( 'h' )
+                ->where( 'field = ?', "ui_category_id" )
+                ->andWhere( 'exported_item_id = ? ', $this['id'] )
+                ->orderBy( 'created_at DESC' )
+                ->limit(1)
+                ->fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY);
+
+        if( !is_array( $recordHistory ) || empty( $recordHistory ) )
+        {
+            return null;
+        }
+
+        return $recordHistory['value']; // return the value
+        
+    }
 }
 
 class ExportedItemException extends Exception{}
