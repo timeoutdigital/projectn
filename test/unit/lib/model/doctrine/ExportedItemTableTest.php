@@ -49,7 +49,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( '0' , $modifiedRecord['value_before_change'], "Last vaue should 0 as Nightout don't exists");
     }
 
-    public function testsSaveRecordImportAll()
+    public function _testsSaveRecordImportAll()
     {
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
@@ -65,7 +65,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     }
     
     
-    public function testsSaveRecordGetHighestValueUICategoryID()
+    public function _testsSaveRecordGetHighestValueUICategoryID()
     {
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
