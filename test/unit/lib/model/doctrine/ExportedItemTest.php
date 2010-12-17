@@ -99,9 +99,17 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
 
         /*
          * Now;
-         * 1 is invoiceable on around 15/10/2010
-         * 2 is invoiceable as of TODAY
+         * 1 is invoiceable as of TODAY
+         * 2 was invoiceable on 15/10/2010 not Today
          */
+        $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(1);print_r( $exporedItem->toArray());
+        $this->assertTrue( $exporedItem->isInvoiceable( date( 'Y-m-d' ), date( 'Y-m-d' ) ) );
+        $this->assertFalse( $exporedItem->isInvoiceable( '2010-10-15', '2010-10-15' ) );
+        
+        $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(2);
+        $this->assertFalse( $exporedItem->isInvoiceable( date( 'Y-m-d' ), date( 'Y-m-d' ) ) );
+        $this->assertTrue( $exporedItem->isInvoiceable( '2010-10-15', '2010-10-15' ) );
+
     }
 
     private function generateXMLNodes( $arrayCategory )

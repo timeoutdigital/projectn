@@ -19,33 +19,34 @@ class ExportedItem extends BaseExportedItem
         $startDate = strtotime( $startDate );
         $endDate = strtotime( $endDate );
 
-        if( $updated_at  >= $startDate &&  $updated_at <=  $endDate)
-        {
-            // Read UICategory YAMl to identify the Invoiceable Category
-            $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
-            $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);
+        // Read UICategory YAMl to identify the Invoiceable Category
+        $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
+        $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);
 
-            // Check current UI category for this Item is Invoiceable
-            if( !in_array( $this['ui_category_id'], $invoiceableCategoryIDs) )
-            {
-                return false;
-            }
-
-            // check modification to avoid repeating invoice
-            foreach( $this['ExportedItemModification']  as $modification )
-            {
-                // If this item had UI category ID that caould have been previously invoiceable,
-                // we assume that this has been invoiced on that category base
-                if( $modification['field'] == 'ui_category_id' && in_array( $modification['value_before_change'], $invoiceableCategoryIDs ) )
-                {
-                    return false;
-                }
-            }
-
-            // true = ui_category modified between $startDate and $endDate && ui_category is now chargeable but was not before $startDate
-            return true;
+        // Check current UI category for this Item is Invoiceable only when updated fall within daterange
+        if( ( $updated_at  >= $startDate &&  $updated_at <=  $endDate ) &&
+            ( !in_array( $this['ui_category_id'], $invoiceableCategoryIDs ) ) )
+        {   
+            return false;  
         }
 
-        return false;
+        // at this point, This record IS Invoiceable.
+        // When updated date is not within daterange, we will have to query Modification on or before the start_date to ensure that
+        // this record was not invoiceable before start_date
+        $q = Doctrine::getTable('ExportedItemModification')->createQuery( 'm' )
+                ->where( 'exported_item_id = ? ', $this['id'] )
+                ->andWhere( 'created_at <= ?', date('Y-m-d', $startDate ) )
+                ->andWhere( 'field = ?', 'ui_category_id' )
+                ->andWhereIn( 'value_before_change',  $invoiceableCategoryIDs );
+        $results = $q->execute();
+
+        // Query did find a category that was invoiceable?
+        if( $results->count() > 0 )
+        {
+            return false;
+        }
+
+        // true = ui_category modified between $startDate and $endDate && ui_category is now chargeable but was not before $startDate
+        return true;
     }
 }
