@@ -21,6 +21,7 @@ class ExportedItemTable extends Doctrine_Table
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
         $recordID = intval( substr( $recordID , 3 ) ); // strip Airport code and 0's at front
+        $modifiedDate = strtotime( (string)$xmlNode['modified'] );
 
         // Get UI category ID, No UI category = 0 ID
         $ui_category_id = $this->getHighestValueUICategoryID( $xmlNode );
@@ -48,11 +49,13 @@ class ExportedItemTable extends Doctrine_Table
                  $record['record_id'] = $recordID;
                  $record['model'] = $modelType;
                  $record['vendor_id'] = $vendorID;
+                 $record['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
 
                  // add History Record
                  $recordHistory = new ExportedItemHistory;
                  $recordHistory['field'] = 'ui_category_id';
                  $recordHistory['value'] = $ui_category_id;
+                 $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
                  $record['ExportedItemHistory'][] = $recordHistory;
 
              } else { // Update any Modification changes
@@ -62,6 +65,7 @@ class ExportedItemTable extends Doctrine_Table
                      $recordHistory = new ExportedItemHistory;
                      $recordHistory['field'] = 'ui_category_id';
                      $recordHistory['value'] = $ui_category_id;
+                     $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
                      $record['ExportedItemHistory'][] = $recordHistory;
                  }
              }
@@ -115,9 +119,43 @@ class ExportedItemTable extends Doctrine_Table
         return ( $uiCategory === false ) ? null : $uiCategory['id'];
     }
 
-    public function fetchBy( $startDate, $endDate, $vendorID, $ui_category_id, $invoiceableOnly = true )
+    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $ui_category_id = null, $invoiceableOnly = true )
     {
+        $startDateTime = strtotime( $startDate );
+        $endDateTime = strtotime( $endDate );
+
+
+        $q = $this->createQuery( 'e' )
+                ->innerJoin( 'e.ExportedItemHistory h')
+                ->where( 'e.vendor_id=?', $vendorID )
+                ->andWhere( 'h.field= ?', "ui_category_id" )
+                ->andWhere( 'DATE(h.created_at) BETWEEN ? AND ? ', array( $startDateTime, $endDateTime )  )
+                ->andWhere( 'e.model = ? ', $modelType );
+
+        if( isset( $ui_category_id ) && is_numeric( $ui_category_id ) && $ui_category_id > 0 )
+        {
+            $q->andWhere( 'h.value = ?', $ui_category_id );
+            $q->andWhere( 'h.id = ( SELECT MAX(eh.id) FROM ExportedItemHistory eh WHERE eh.field= ? AND ( DATE(eh.created_at) BETWEEN ? AND ?) AND eh.exported_item_id = e.id)', array( "ui_category_id", date('Y-m-d', $startDateTime), date('Y-m-d', $endDateTime)) );
+        }
         
+        if( $invoiceableOnly )
+        {
+            $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
+            $invoiceableCategoryIDs = array_keys( $invoiceableYaml['invoiceable'] );
+
+            // Check given Category is Invoiceable
+            if( !in_array( $ui_category_id, $invoiceableCategoryIDs) )
+            {
+                return null;
+            }
+
+            $q->andWhereIn( 'h.value' , $invoiceableCategoryIDs );
+
+            $whereValues = array( $modelType, "ui_category_field", date( 'Y-m-d', $startDateTime ), $invoiceableCategoryIDs );
+            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value NOT IN ? )', $whereValues );
+        }
+
+        var_dump( $q->getSqlQuery() ); die;
     }
     
 }

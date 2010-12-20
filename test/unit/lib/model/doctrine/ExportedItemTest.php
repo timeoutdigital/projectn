@@ -41,12 +41,12 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         // Test Invoiceable
         $exportedItem = Doctrine::getTable( 'ExportedItem' )->find(1);
         $this->assertFalse( $exportedItem->isInvoiceable( null, null ) );
-        $this->assertTrue( $exportedItem->isInvoiceable( date('Y-m-d' ), date('Y-m-d' ) ) );
+        $this->assertTrue( $exportedItem->isInvoiceable( '2010-12-14', '2010-12-14' ) );
 
         // This category is not in Category
         $exportedItem = Doctrine::getTable( 'ExportedItem' )->find(4);
         $this->assertEquals( 3, $exportedItem['ExportedItemHistory'][0]['value'], 'This Record UI category ID should be 3 ( Around Town )');
-        $this->assertFalse( $exportedItem->isInvoiceable( date('Y-m-d' ), date('Y-m-d' ) ) );
+        $this->assertFalse( $exportedItem->isInvoiceable( '2010-12-14', '2010-12-14' ) );
     }
 
     /**
@@ -161,7 +161,7 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         $xmlString = '<vendor-pois vendor="timeout">';
         foreach( $arrayCategory as $poiID => $categoryName )
         {
-            $xmlString .= '<entry vpid="ABC000000'.$poiID.'">';
+            $xmlString .= '<entry vpid="ABC000000'.$poiID.'" modified="'. date('Y-m-d H:i:s') .'">';
             $xmlString .= '<property key="UI_CATEGORY"><![CDATA['.$categoryName.']]></property>';
             $xmlString .= '</entry>';
         }
