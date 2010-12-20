@@ -119,6 +119,16 @@ class ExportedItemTable extends Doctrine_Table
         return ( $uiCategory === false ) ? null : $uiCategory['id'];
     }
 
+    /**
+     * Fetch Exported Item and Exported Item History by Date range, vendor, Model[poi,event,movie] and [ ui_category_id & invoiceableOnly ]
+     * @param string $startDate
+     * @param string $endDate
+     * @param int $vendorID
+     * @param string $modelType
+     * @param int $ui_category_id
+     * @param boolean $invoiceableOnly
+     * @return mixed
+     */
     public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $ui_category_id = null, $invoiceableOnly = true )
     {
         $startDateTime = strtotime( $startDate );
@@ -136,7 +146,9 @@ class ExportedItemTable extends Doctrine_Table
         if( isset( $ui_category_id ) && is_numeric( $ui_category_id ) && $ui_category_id > 0 )
         {
             $q->andWhere( 'h.value = ?', $ui_category_id );
-            $q->andWhere( 'h.id = ( SELECT MAX(eh.id) FROM ExportedItemHistory eh WHERE eh.field= ? AND ( DATE(eh.created_at) BETWEEN ? AND ?) AND eh.exported_item_id = e.id)', array( "ui_category_id", date('Y-m-d', $startDateTime), date('Y-m-d', $endDateTime)) );
+            $q->groupBy( 'e.id' );
+            $q->orderBy( 'h.created_at DESC');
+            //$q->andWhere( 'h.id = ( SELECT MAX(eh.id) FROM ExportedItemHistory eh WHERE eh.field= ? AND ( DATE(eh.created_at) BETWEEN ? AND ?) AND eh.exported_item_id = e.id)', array( "ui_category_id", date('Y-m-d', $startDateTime), date('Y-m-d', $endDateTime)) );
         }
         
         if( $invoiceableOnly )
@@ -152,8 +164,9 @@ class ExportedItemTable extends Doctrine_Table
             }
 
             $q->andWhereIn( 'h.value' , $invoiceableCategoryIDs );
-            $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime ), implode(',', $invoiceableCategoryIDs  ) );
-            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( ? ) )', $whereValueArray );
+            $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
+            $inValues = implode('","', $invoiceableCategoryIDs );
+            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
         }
         
         return $q->execute();
