@@ -8,6 +8,9 @@ import:
         curl:
           classname: Curl
           src: http://www.timeout.ru/london/places_krasnoyarsk.xml
+        phone:
+          areacode: 391
+
   event:
     class:
       name: RussiaFeedEventsMapper
@@ -16,3 +19,5 @@ import:
         curl:
           classname: Curl
           src: http://www.timeout.ru/london/events_krasnoyarsk.xml
+        phone:
+          areacode: 391

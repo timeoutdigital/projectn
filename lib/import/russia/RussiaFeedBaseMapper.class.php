@@ -127,6 +127,48 @@ class RussiaFeedBaseMapper extends DataMapper
         $fixer->removeVerticalTab();
         $this->xml = $fixer->getSimpleXML();
     }
+
+    /**
+     * Format russian telephone numbers and return VALID number or Null #837
+     * @param string $phoneNumber
+     * @return mixed
+     */
+    protected function getFormattedAndFixedPhone( $phoneNumber )
+    {
+        if( $phoneNumber == null )
+        {
+            return null;
+        }
+
+        // Remov Extensions and Brack contents
+        $phoneFixer = new phoneNumberFixer( $phoneNumber);
+        $phoneFixer->removeBracketContents();
+        $phoneFixer->removeExtensionNumber();
+        $phoneNumber = $phoneFixer->getPhoneNumber();
+
+        // Normal Telephone number Length = 7
+        // Area/City/Mobile code length = 3 (821, 911, 921, 951 etc...)
+        // hence we should have have maximum of 7 numbers without area code or 10 digits with area code
+        // sometime russian cities have 8 front of numbers or +7 front of it,
+        // bcz you will need 8 to dial from one city to another inside russia
+
+        // Remove everything otherthan Number
+        $phoneNumber = trim( preg_replace( "/[^0-9]+/", "", $phoneNumber ) );
+
+        if( strlen( $phoneNumber ) == 7 )
+        {
+            // add Area code to the Number and Return
+            return $this->params['phone']['areacode'] . $phoneNumber;
+        } else if ( strlen( $phoneNumber ) >= 10 )
+        {
+            // Get the LAST 10 Digits ( 7 Phone numbers and 3 City code = 10 ) and return
+            return substr( $phoneNumber, -10 );
+        } else {
+            $this->notifyImporterOfFailure( new RussiaFeedBaseMapperException( 'Invalid Telephone Number: ' .  $phoneNumber . ' For city : ' . $this->vendor['city'] ) );
+        }
+
+        return null; // Don't return phone number when unable to format the numbers
+    }
 }
 class RussiaFeedBaseMapperException extends Exception{}
 ?>

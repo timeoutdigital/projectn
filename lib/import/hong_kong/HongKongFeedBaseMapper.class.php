@@ -49,15 +49,15 @@ class HongKongFeedBaseMapper extends DataMapper
         }
 
         // validate data source / url
-        if( !isset( $params['datasource'] ) || !is_array($params['datasource']) || empty( $params['datasource'] ) )
+        if( !isset( $params['curl'] ) || !is_array($params['curl']) || empty( $params['curl'] ) )
         {
             throw new Exception( 'No Datasource specified' );
         }
-        if( !isset( $params['datasource']['url'] ) || trim( $params['datasource']['url'] ) == '' )
+        if( !isset( $params['curl']['src'] ) || trim( $params['curl']['src'] ) == '' )
         {
             throw new Exception( 'Invaid Datasource URL specified' );
         }
-        if( !isset( $params['datasource']['classname'] ) || trim( $params['datasource']['classname'] ) == '' )
+        if( !isset( $params['curl']['classname'] ) || trim( $params['curl']['classname'] ) == '' )
         {
             throw new Exception( 'Invalid Datasource Classname specified' );
         }
@@ -128,7 +128,7 @@ class HongKongFeedBaseMapper extends DataMapper
     protected function getXMlFeed()
     {
         // Get the Feed
-        $curl = new $this->params['datasource']['classname']( $this->params['datasource']['url'] );
+        $curl = new $this->params['curl']['classname']( $this->params['curl']['src'] );
         $curl->exec();
 
         // Archive

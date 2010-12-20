@@ -63,7 +63,7 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
                 'start_time' => $occurrence[ 'start_time' ],
             );
 
-            $occurrences [ $occurrence[ 'start_date'  ] ] = $this->renderContentTag( 'button',
+            $occurrences [ $occurrence[ 'start_date' ] . $occurrence[ 'start_time' ] . $occurrence[ 'poi_id'] ] = $this->renderContentTag( 'button',
                           $this->renderTag( 'img' ,
                                     array( 'src' => '/images/delete.png' ,
                                            'height' =>15 ,
@@ -76,11 +76,11 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
                                   'value' => json_encode( $occurrenceInfo )
                                  )
                            );
-
         }
 
         ksort ( $occurrences ) ;
         $url =  sfContext::getInstance()->getRequest()->getScriptName() . '/event/ajaxDeleteOccurrence';
+        $urlDeleteAll =  sfContext::getInstance()->getRequest()->getScriptName() . '/event/ajaxDeleteAllOccurrences';
 
         //$calenderJsAsText = implode( '' , $calenderJs );
         $script = <<<JS
@@ -91,7 +91,7 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
             {
               var occurrence =  eval('(' + $(this).val() + ')');
               var btn = $(this);
-              if( confirm( 'Are you sure that you want to delete this occurence ? \\nStart Date : ' + occurrence.start_date  + '\\nEnd Date : ' + occurrence.end_date  +'\\nPoi name : ' + occurrence.poi_name ) )
+              if( confirm( 'Are you sure that you want to delete this occurence ? \\nStart Date : ' + occurrence.start_date  + '\\nStart Time : ' + occurrence.start_time  +'\\nEnd Date : ' + occurrence.end_date  +'\\nPoi name : ' + occurrence.poi_name ) )
               {
                  btn.attr("disabled", "true");
                  $.ajax({
@@ -116,8 +116,48 @@ class pnWidgetFormOccurrenceCollection extends sfWidgetForm
             });
 
         });
+
+        $(document).ready(function(){
+
+            var button = $( document.createElement( 'button' ) )
+                .addClass( 'occurrence-delete-button' )
+                .attr( 'type', 'button' )
+                .click(function()
+                    {
+                        if( confirm( 'Are you sure you want to delete ALL occurrences?' ) )
+                        {
+                            $.ajax({
+                                url:  '{$urlDeleteAll}',
+                                data : { eventID : '{$event['id']}' },
+                                success: function( data )
+                                {
+                                    data =  eval('(' + data + ')');
+
+                                    if( data.status == 'success')
+                                    {
+                                        $('button.occurrence-delete-button').fadeOut();
+                                    }
+                                    else
+                                    {
+                                        alert( data.message );
+                                    }
+                                }
+                            });
+                        }
+                    }
+                )
+                .appendTo( $('div.sf_admin_form_field_EventOccurrenceCollectionForm') );
+
+            var icon = $( document.createElement( 'img' ) )
+                .attr( 'src', '/images/delete.png' )
+                .attr( 'height', '15' )
+                .attr( 'width', '15' )
+                .appendTo( button );
+
+            button.append( ' Delete All Occurrences' );
+        });
 JS;
 
-         return implode( '', $occurrences) . $this->renderContentTag( 'script', $script, array( 'type' => 'text/javascript' ) ); ;;
+         return implode( '', $occurrences) . $this->renderContentTag( 'script', $script, array( 'type' => 'text/javascript' ) );
     }
 }

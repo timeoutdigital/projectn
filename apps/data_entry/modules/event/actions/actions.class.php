@@ -29,6 +29,49 @@ class eventActions extends autoEventActions
      }
   }
 
+  public function executeAjaxDeleteAllOccurrences( $request )
+  {
+    $output = array();
+    
+    $eventId = $request->getParameter( 'eventID' );
+
+    $occurrences =  Doctrine::getTable( 'EventOccurrence' )->findByEventId( $eventId );
+
+    if( $occurrences === false )
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'no occurrences found for specified event!';
+        return $this->renderText( json_encode( $output ) );
+    }
+
+    foreach( $occurrences as $occurrence )
+    {
+        //check if the user is registered with the right vendor
+        if( $occurrence[ 'Event' ]['vendor_id']  != $this->user->getCurrentVendorId() )
+        {
+            $output [ 'status' ] = 'error';
+            $output [ 'message' ] = 'Please log in and try again!';
+            return  $this->renderText( json_encode( $output ) );
+        }
+    }
+
+    try
+    {
+        $occurrences->delete();
+    }
+    catch ( Exception $e )
+    {
+        $output [ 'status' ] = 'error';
+        $output [ 'message' ] = 'One or more occurrences couldn\'t be deleted';
+        sfContext::getInstance()->getLogger()->err("executeAjaxDeleteOccurrence failed : Exception" . $e->getMessage() );
+        return  $this->renderText( json_encode( $output ) );
+    }
+
+    $output [ 'status' ] = 'success';
+
+    return $this->renderText( json_encode( $output ) );
+  }
+
   public function executeAjaxDeleteOccurrence( $request )
   {
 

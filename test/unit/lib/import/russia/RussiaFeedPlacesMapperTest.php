@@ -56,7 +56,10 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
             'split' => array(
                 'chunk' => 2,
                 'index' => $index
-            )
+            ),
+            'phone' => array (
+              'areacode' => '495'
+            ),
         );
     }
 
@@ -84,7 +87,7 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( '37.4029402', $poi['longitude'] );
     $this->assertEquals( 'Этот магазин известен давно. Здесь много вещей неизвестных марок, на которых значится - Made in Turkey, Made in Ukraine.., они-то и представляют основной интерес.', $poi['short_description'] );
     $this->assertEquals( '<p>Этот магазин известен давно. Здесь много вещей неизвестных марок', substr( $poi['description'], 0 ,122 ) );
-    $this->assertEquals( '+7495 750 3553', $poi['phone'] );
+    $this->assertEquals( '+7 495 750 3553', $poi['phone'] );
     $this->assertEquals( '2010-04-06 15:28:25', $poi['review_date'] );
     $this->assertEquals( 'Строгино', $poi['public_transport_links'] );
     $this->assertNull( $poi['rating'] );
@@ -152,12 +155,12 @@ class RussiaFeedPlacesMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
 
     $poi = Doctrine::getTable( 'Poi' )->find(1); // Get the First POI
-    $this->assertEquals( '+7495 272 7934', $poi['phone']);
-    $this->assertEquals( '+7495 273 0409', $poi['phone2']);
+    $this->assertEquals( '+7 495 272 7934', $poi['phone']);
+    $this->assertEquals( '+7 495 273 0409', $poi['phone2']);
 
     $poi = Doctrine::getTable( 'Poi' )->find(2); // Get the second POI
-    $this->assertEquals( '+7495 261 2211', $poi['phone']);
-    $this->assertEquals( '+7495 261 2200', $poi['phone2']);
+    $this->assertEquals( '+7 495 261 2211', $poi['phone']);
+    $this->assertEquals( '+7 495 261 2200', $poi['phone2']);
   }
 }
 ?>
