@@ -129,9 +129,10 @@ class ExportedItemTable extends Doctrine_Table
                 ->innerJoin( 'e.ExportedItemHistory h')
                 ->where( 'e.vendor_id=?', $vendorID )
                 ->andWhere( 'h.field= ?', "ui_category_id" )
-                ->andWhere( 'DATE(h.created_at) BETWEEN ? AND ? ', array( $startDateTime, $endDateTime )  )
+                ->andWhere( 'DATE(h.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  )
                 ->andWhere( 'e.model = ? ', $modelType );
 
+        // Makesure to select the Last/Latest Category ID
         if( isset( $ui_category_id ) && is_numeric( $ui_category_id ) && $ui_category_id > 0 )
         {
             $q->andWhere( 'h.value = ?', $ui_category_id );
@@ -144,18 +145,18 @@ class ExportedItemTable extends Doctrine_Table
             $invoiceableCategoryIDs = array_keys( $invoiceableYaml['invoiceable'] );
 
             // Check given Category is Invoiceable
-            if( !in_array( $ui_category_id, $invoiceableCategoryIDs) )
+            if( $ui_category_id && is_numeric( $ui_category_id ) && $ui_category_id > 0 &&
+                !in_array( $ui_category_id, $invoiceableCategoryIDs) )
             {
                 return null;
             }
 
             $q->andWhereIn( 'h.value' , $invoiceableCategoryIDs );
-
-            $whereValues = array( $modelType, "ui_category_field", date( 'Y-m-d', $startDateTime ), $invoiceableCategoryIDs );
-            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value NOT IN ? )', $whereValues );
+            $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime ), implode(',', $invoiceableCategoryIDs  ) );
+            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( ? ) )', $whereValueArray );
         }
-
-        var_dump( $q->getSqlQuery() ); die;
+        
+        return $q->execute();
     }
     
 }

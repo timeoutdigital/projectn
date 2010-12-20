@@ -81,4 +81,26 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $record = Doctrine::getTable( 'ExportedItem' )->find( 5 );
         $this->assertEquals( 2, $record['ExportedItemHistory'][0]->value );
     }
+
+    public function testFetchByWithoutInvoice()
+    {
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+
+        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 8, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+        $fetchData = Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-12-15', '2010-12-20', 1, 'poi', null, true );
+        print_r( $fetchData->toArray() );
+
+        //Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-10-10', '2010-10-25', '2', 'poi', '2' );
+    }
+
+    private function importXMLNodes( $xmlNodes )
+    {
+        foreach( $xmlNodes->entry as $xmlNode)
+        {
+            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        }
+    }
 }
