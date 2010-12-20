@@ -75,6 +75,45 @@
                 
         	</venue>
 
+                <venue id='5'>
+                <name><![CDATA[Soccer pitch of Pak Tai Temple Playground]]></name>
+                <street><![CDATA[Shop M, Roof Viewing Deck, Pier 7, Star Ferry]]></street>
+                <city><![CDATA[Cheung Chau]]></city>
+                <district><![CDATA[Macau]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[8266 8880]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+
+                <categories>
+                    <category><![CDATA[Story 4]]></category>
+                </categories>
+
+
+        	</venue>
+
+
+                <venue id='6'>
+                <name><![CDATA[Soccer pitch of Pak Tai Temple Playground]]></name>
+                <street><![CDATA[Shop M, Roof Viewing Deck, Pier 7, Star Ferry]]></street>
+                <city><![CDATA[Cheung Chau]]></city>
+                <district><![CDATA[Shenzhen]]></district>
+                <description><![CDATA[]]></description>
+                <opening_times><![CDATA[]]></opening_times>
+                <rating><![CDATA[]]></rating>
+                <phone><![CDATA[8266 8880]]></phone>
+                <url><![CDATA[]]></url>
+                <country><![CDATA[HKG]]></country>
+
+                <categories>
+                    <category><![CDATA[Story 4]]></category>
+                </categories>
+
+
+        	</venue>
+
             
         	<venue id='23'>
                 <name><![CDATA[8 Happiness]]></name>
