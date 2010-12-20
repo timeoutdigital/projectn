@@ -77,6 +77,31 @@ class ExportedItem extends BaseExportedItem
         return $recordHistory['value']; // return the value
         
     }
+
+    /**
+     * Get the Invoiceable UICategoryID, First Invoiceable category is the Invoiceable Category.
+     */
+    public function getInvoiceableUICategoryID()
+    {
+        $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
+        $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);
+        
+        $q = Doctrine::getTable( 'ExportedItemHistory' )->createQuery( 'h' )
+                ->where( 'field = ?', "ui_category_id" )
+                ->andWhereIn( 'value', $invoiceableCategoryIDs )
+                ->andWhere( 'exported_item_id = ? ', $this['id'])
+                ->orderBy( 'created_at ASC' )
+                ->limit( 1 );
+        $historyItem = $q->execute( array(), Doctrine_Core::HYDRATE_ARRAY );
+
+        if( is_array( $historyItem ) && count( $historyItem ) >  0 )
+        {
+            return $historyItem[0]['value'];
+        }
+
+        return null;
+    }
+
 }
 
 class ExportedItemException extends Exception{}

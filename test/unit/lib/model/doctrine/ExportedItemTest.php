@@ -151,11 +151,21 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         
     }
 
-    // get lastInvoiceableCategoryID
-    // get first invoiceable categoryiD
-    // get firstInvoiceableCategoryIDBy( date from - to )
-    // get lastInvoiceableCategoryIDBy( date from - to )
+    public function testGetInvoiceableUICategoryID()
+    {
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
 
+        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 5, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+
+        $item = Doctrine::getTable( 'ExportedItem' )->find(1);
+        $this->assertEquals( 2, $item->getInvoiceableUICategoryID() );
+
+        $item = Doctrine::getTable( 'ExportedItem' )->find(3);
+        $this->assertNull( $item->getInvoiceableUICategoryID() );
+    }
+    
     private function generateXMLNodes( $arrayCategory )
     {
         $xmlString = '<vendor-pois vendor="timeout">';
