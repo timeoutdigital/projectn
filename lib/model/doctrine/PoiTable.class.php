@@ -146,6 +146,25 @@ class PoiTable extends Doctrine_Table
         
         return true;
     }
+
+    /**
+     * Get the Master of given POI ID or return null
+     * @param int $poiID
+     * @return mixed
+     */
+    public function getMasterOf( $poiID )
+    {
+        if( !$poiID || !is_numeric( $poiID ) || $poiID <= 0 )
+        {
+            throw new PoiTableException( 'Invalid $poiID in parameter' );
+        }
+
+        $q = $this->createQuery( 'p' )
+                ->leftJoin( 'p.PoiReference r')
+                ->where( 'r.duplicate_poi_id = ?', $poiID );
+
+        return $q->fetchOne();
+    }
 }
 
 

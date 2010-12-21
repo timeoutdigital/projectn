@@ -229,6 +229,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
 
       $poi = Doctrine::getTable( 'Poi' )->getMasterOf( $duplicatePoi['id'] );
       $this->assertEquals( $masterPoi['id'], $poi['id']);
+      $this->assertFalse( Doctrine::getTable( 'Poi' )->getMasterOf( $masterPoi['id'] ) );
   }
 
   private function addPoi( $vendorPoiId, $name, $vendor )
