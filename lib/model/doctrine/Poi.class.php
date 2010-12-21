@@ -74,6 +74,34 @@ class Poi extends BasePoi
       }
   }
 
+  /**
+   * Check is this Poi Master of duplicate pois
+   * @return boolean
+   */
+  public function isMaster()
+  {
+      if( $this['DuplicatePois']->count() > 0 )
+      {
+          return true;
+      }
+
+      return false;
+  }
+
+  /**
+   * Check this for being Duplicate of another Poi
+   * @return boolean
+   */
+  public function isDuplicate()
+  {
+      if( $this['MasterPoi']->count() > 0 )
+      {
+          return true;
+      }
+
+      return false;
+  }
+
   public function setMinimumAccuracy( $acc )
   {
       if( is_numeric( $acc ) )
