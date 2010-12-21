@@ -580,6 +580,48 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorPoiCategory' ][0]['name'] );
    }
+
+   public function testDuplicatePois()
+   {
+       $masterPoi1 = Doctrine::getTable( 'Poi' )->find(1);
+       $masterPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $duplicatePoi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $duplicatePoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+
+       $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
+       $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+
+       // Add duplicate POI to Master 1
+       $masterPoi1['DuplicatePois'][] = $duplicatePoi1;
+       $masterPoi1['DuplicatePois'][] = $duplicatePoi2;
+       $masterPoi1->save();
+
+       $this->assertEquals( 2, Doctrine::getTable( 'PoiReference' )->count() );
+       $this->assertEquals( 2, $masterPoi1['DuplicatePois']->count() );
+       $this->assertEquals( 0, $masterPoi2['DuplicatePois']->count() );
+       $this->assertEquals( 1, $duplicatePoi1['MasterPoi']->count() );
+       $this->assertEquals( 1, $duplicatePoi2['MasterPoi']->count() );
+   }
+
+   public function testDuplicatePoisUniqueDuplicatePoi()
+   {
+       $masterPoi1 = Doctrine::getTable( 'Poi' )->find(1);
+       $masterPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $duplicatePoi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+
+       $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
+       $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+
+       // Add Duplicate 1 to Master 1
+       $masterPoi1['DuplicatePois'][] = $duplicatePoi1;
+       $masterPoi1->save();
+       $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+
+       $this->setExpectedException( 'Exception' );
+       $masterPoi2['DuplicatePois'][] = $duplicatePoi1;
+       $masterPoi2->save();
+
+   }
 }
 
 class MockgeocoderForPoiTest extends geocoder
