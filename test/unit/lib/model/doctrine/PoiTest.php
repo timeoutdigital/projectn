@@ -640,6 +640,18 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertTrue( $masterPoi->isMaster() );
        
    }
+
+   public function testPreSaveThrowExceptionWhenDiffVendorPoiReferenced()
+   {
+       $masterPoiVendor1 = Doctrine::getTable( 'Poi' )->find(1);
+       $duplicatePoiVendor1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 1 ) );
+       $duplicatePoiVendor2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 2 ) );
+       $masterPoiVendor1['DuplicatePois'][] = $duplicatePoiVendor1;
+       $masterPoiVendor1['DuplicatePois'][] = $duplicatePoiVendor2;
+       $this->assertEquals( 2, $masterPoiVendor1['DuplicatePois']->count() );
+       $this->setExpectedException( 'Exception' );
+       $masterPoiVendor1->save();
+   }
 }
 
 class MockgeocoderForPoiTest extends geocoder

@@ -464,6 +464,7 @@ class Poi extends BasePoi
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
      $this->setDefaultLongLatNull();
+     $this->checkNonVendorRelatedReference();
   }
 
   /**
@@ -472,6 +473,24 @@ class Poi extends BasePoi
   public function preSave( $event )
   {
     $this->applyFixes();
+  }
+
+  /**
+   * Check for DuplicatePois and MasterPoi, Ensure that all of Vendors same as This Poi.
+   */
+  public function checkNonVendorRelatedReference()
+  {
+      foreach( $this['DuplicatePois'] as $duplicatePoi )
+      {
+          if( $duplicatePoi['vendor_id'] !== $this['vendor_id'] )
+          {
+              throw new Exception( 'Invalid Poi Reference, Different vendor Poi cannot be referenced as Master / Duplicate' );
+          }
+      }
+      if( $this['MasterPoi']->count() > 0 && $this['MasterPoi'][0]['vendor_id'] !== $this['vendor_id'] )
+      {
+          throw new Exception( 'Invalid Poi Reference, Different vendor Poi cannot be referenced as Master / Duplicate' );
+      }
   }
 
   private function cleanStreetField()
