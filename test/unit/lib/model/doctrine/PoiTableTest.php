@@ -200,6 +200,23 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'moscow', $poi['Vendor']['city'] );
   }
 
+  public function testIsDuplicate()
+  {
+      $this->assertEquals( 0, Doctrine::getTable('Poi')->count() );
+      $this->assertEquals( 0, Doctrine::getTable('PoiReference')->count() );
+
+      $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi['MasterPoi'][] = $masterPoi;
+      $duplicatePoi->save();
+
+      $this->assertEquals( 2, Doctrine::getTable('Poi')->count() );
+      $this->assertEquals( 1, Doctrine::getTable('PoiReference')->count() );
+
+      $this->assertTrue( Doctrine::getTable('Poi')->isDuplicate( $duplicatePoi['id'] ) );
+      $this->assertFalse( Doctrine::getTable('Poi')->isDuplicate( $masterPoi['id'] ) );
+  }
+
   private function addPoi( $vendorPoiId, $name, $vendor )
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
