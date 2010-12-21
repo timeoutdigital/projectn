@@ -124,4 +124,29 @@ class PoiTable extends Doctrine_Table
 
         return $query->execute();
     }
+
+    /**
+     * Check for Duplicate POI by poi_id
+     * @param int $poiID
+     * @return boolean
+     */
+    public function isDuplicate( $poiID )
+    {
+        if( !$poiID || !is_numeric( $poiID ) || $poiID <= 0 )
+        {
+            throw new PoiTableException( 'Invalid $poiID in parameter' );
+        }
+
+        $poiReference = Doctrine::getTable( 'PoiReference' )->findOneBy( 'duplicate_poi_id', $poiID );
+
+        if( $poiReference === false )
+        {
+            return false;
+        }
+        
+        return true;
+    }
 }
+
+
+class PoiTableException extends Exception{}
