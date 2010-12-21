@@ -622,6 +622,24 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $masterPoi2->save();
 
    }
+
+   public function testIsDuplicate()
+   {
+       $masterPoi = Doctrine::getTable( 'Poi' )->find(1);
+       $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $masterPoi['DuplicatePois'][] = $duplicatePoi;
+       $masterPoi->save();
+
+       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+       $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+
+       $this->assertTrue( $duplicatePoi->isDuplicate() );
+       $this->assertFalse( $duplicatePoi->isMaster() );
+       
+       $this->assertFalse( $masterPoi->isDuplicate() );
+       $this->assertTrue( $masterPoi->isMaster() );
+       
+   }
 }
 
 class MockgeocoderForPoiTest extends geocoder
