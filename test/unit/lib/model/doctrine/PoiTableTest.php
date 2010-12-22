@@ -232,6 +232,32 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertFalse( Doctrine::getTable( 'Poi' )->getMasterOf( $masterPoi['id'] ) );
   }
 
+  public function testSearchAllNonDuplicateAndNonMasterPoisBy()
+  {
+      $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'test name 1' ) );
+      $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'test name 2'  ) );
+      $normalPoiVendor1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'test name 3' ) );
+      $normalPoiVendor2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 2, 'poi_name' => 'test name 4' ) );
+      $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
+      $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+
+      // add Duplicate
+      $masterPoi['DuplicatePois'][] = $duplicatePoi;
+      $masterPoi->save();
+      $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+
+      // Get as Array
+      $pois = Doctrine::getTable( 'Poi' )->searchAllNonDuplicateAndNonMasterPoisBy( 1, 't', Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertTrue( is_array( $pois ) );
+      $this->assertEquals( 1, count($pois) );
+      $this->assertEquals( $normalPoiVendor1['id'], $pois[0]['id'] );
+
+      // Test the other vendor
+      $pois = Doctrine::getTable( 'Poi' )->searchAllNonDuplicateAndNonMasterPoisBy( 2, 't', Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertEquals( 1, count($pois) );
+      $this->assertEquals( $normalPoiVendor2['id'], $pois[0]['id'] );
+  }
+
   private function addPoi( $vendorPoiId, $name, $vendor )
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );

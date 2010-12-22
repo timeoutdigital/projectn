@@ -165,6 +165,18 @@ class PoiTable extends Doctrine_Table
 
         return $q->fetchOne();
     }
+
+    public function searchAllNonDuplicateAndNonMasterPoisBy( $vendorID, $searchKeyword, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = $this->createQuery( 'p' )
+                ->select( 'p.id, p.poi_name')
+                ->where( 'p.vendor_id = ? ', $vendorID )
+                ->andWhere( 'p.id NOT IN (select master_poi_id FROM poi_reference UNION select duplicate_poi_id FROM poi_reference )' )
+                //->andWhere( 'r.master_poi_id IS NULL AND r.duplicate_poi_id IS NULL ')
+                ->andWhere( ' ( p.poi_name LIKE ? OR p.id LIKE ? )', array( $searchKeyword . '%', $searchKeyword . '%' ) );
+        
+        return $q->execute( array(), $hydrationMode );
+    }
 }
 
 
