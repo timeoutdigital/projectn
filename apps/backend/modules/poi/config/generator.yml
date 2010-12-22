@@ -13,7 +13,8 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        DuplicatePoisForm: { label: Duplicate Poi's }
       list:
         display: [=name, longitude, latitude, city]
         object_actions:
@@ -57,10 +58,11 @@ generator:
             - created_at
             - updated_at
       form:
+        class: PoiBackendForm
         actions: { _list: ~, _save: ~ }
         display:
           Editable:
-            - duplicate
+            - DuplicatePoisForm
             - poi_name
             - house_no
             - street
