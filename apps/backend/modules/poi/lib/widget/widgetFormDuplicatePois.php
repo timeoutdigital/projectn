@@ -36,7 +36,7 @@ class widgetFormDuplicatePois extends sfWidgetForm
 
         $autoCompleter =  new sfWidgetFormJQueryAutocompleter(array(
             'url'   => sfContext::getInstance()->getRequest()->getScriptName() . '/poi/ajaxGetRelatedPoi',
-            'config' => '{ extraParams: { vendor: '.$this->poi["id"].'} }',
+            'config' => '{ extraParams: { vendor: '.$this->poi["vendor_id"].'} }',
               ) );
         
         $returnHTML = $autoCompleter->render( 'duplicate_poi_id' );

@@ -82,7 +82,32 @@ class poiActions extends autoPoiActions
 
   public function executeAjaxGetRelatedPoi(sfWebRequest $request)
   {
-      return $this->renderText(json_encode( array( $request->getParameter( 'q' )) ));
+      $vendor = $request->getParameter( 'vendor' );
+      $keyword = $request->getParameter( 'q' );
+
+      $returnMsg = array();
+      
+      if( !is_numeric($vendor) || $vendor <= 0 || stringTransform::mb_trim( $keyword ) == '' )
+      {
+          $returnMsg[0] = 'Invalid Vendor or Keyword';
+      }
+
+      // Do search and Return Results
+      $searchResults = Doctrine::getTable( 'Poi' )->searchAllNonDuplicateAndNonMasterPoisBy( $vendor, $keyword, Doctrine_Core::HYDRATE_ARRAY );
+      
+      if( !is_array($searchResults) || count( $searchResults ) <= 0 )
+      {
+          $returnMsg[0] = 'No poi found';
+      }
+      else
+      {
+          foreach( $searchResults as $poiArray )
+          {
+              $returnMsg[ $poiArray['id'] ] = $poiArray['poi_name'];
+          }
+      }
+
+      return $this->renderText(json_encode( $returnMsg ));
   }
   
 
