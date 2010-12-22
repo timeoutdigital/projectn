@@ -80,6 +80,12 @@ class poiActions extends autoPoiActions
     $this->setTemplate('new');
   }
 
+  public function executeAjaxGetRelatedPoi(sfWebRequest $request)
+  {
+      return $this->renderText(json_encode( array( $request->getParameter( 'q' )) ));
+  }
+  
+
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
@@ -148,4 +154,6 @@ class poiActions extends autoPoiActions
     }
   }
   /*** symfony generated end ***/
+
+  
 }
