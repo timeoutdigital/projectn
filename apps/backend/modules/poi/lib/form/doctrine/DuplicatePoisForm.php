@@ -58,13 +58,14 @@ class DuplicatePoisForm extends BaseFormDoctrine
             return;
         }
 
+        // Delete All Existing Duplicate POIS and Add New once
+        $this->poi['DuplicatePois']->delete();
+        
         // Add only what we have on Postback
-        $arrayNewDuplicatePois = array();
-
         $newDuplicatePoisID = $this->getValue( 'duplicate_pois' );
         foreach( $newDuplicatePoisID as $duplicatePoi )
         {
-            $poi = Doctrine::getTable( 'Poi' )->findById( $duplicatePoi );
+            $poi = Doctrine::getTable( 'Poi' )->findOneById( $duplicatePoi );
             if( $poi === false )
             {
                 // Throw Error?
@@ -77,12 +78,9 @@ class DuplicatePoisForm extends BaseFormDoctrine
                 continue;
             }
 
-            $newDuplicatePoisID[] = $poi;
+            $this->poi['DuplicatePois'][] = $poi;
         }
         
-        // Delete All Existing Duplicate POIS and Add New once
-        $this->poi['DuplicatePois']->delete();
-        $this->poi['DuplicatePois'] = $newDuplicatePoisID;
         $this->poi->save();
     }
 }
