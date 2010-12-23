@@ -83,11 +83,11 @@ class australiaBaseMapper extends DataMapper
     {
         // Create FTP client [ src, username, password, target ]
         $ftpClient = new $params['ftp']['classname']( $params['ftp']['src'], $params['ftp']['username'], $params['ftp']['password'], $vendor['city'] );
-        $ftpClient->setSourcePath( $params['ftp']['dir'] );
+        //$ftpClient->setSourcePath( $params['ftp']['dir'] );
 
         $latestFileName = $this->_getTheLatestFileName( $ftpClient->fetchRawDirListing(), $params['ftp']['file'] );
         $saveToFileName = $params['ftp']['file'] . '.xml';
-
+        
         // Download the File and Open as String contents into $contents
         $downloadedFileFullPath = $ftpClient->fetchFile( $latestFileName, $saveToFileName );
         $contents = file_get_contents( $downloadedFileFullPath );
