@@ -72,9 +72,10 @@ class DuplicatePoisForm extends BaseFormDoctrine
                 continue;
             }
 
-            if( $poi->isDuplicate() || $poi->isMaster() )
+            if( $poi->isDuplicate() || $poi->isMaster() || $poi['id'] == $this->poi['id'])
             {
                 // throw error, as you cannot add another master or duplicate as duplicate
+                // or it self!
                 continue;
             }
 
