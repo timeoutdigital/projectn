@@ -91,14 +91,26 @@ class XMLExportEvent extends XMLExport
     {
 
       //Check to see if this event has a corresponding poi
-      if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
+      $flag_valid_occurrence_found = false;
+      foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
-          if( $this->validation == true )
+          if(!in_array( $this->generateUID( $eventOccurrence['poi_id'] ), $this->poiIdsArray))
           {
-            ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
-            continue;
-          }
+              if( $this->validation == true )
+              {
+                ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
+                continue;
+              }
 
+          }
+          $flag_valid_occurrence_found = true; // Flag to skip continue
+          break;// Found one valid POI! that enough to Export this event
+      }
+
+      // Skip when there is NO Valid occurrence at ALL
+      if( !$flag_valid_occurrence_found )
+      {
+          continue;
       }
 
       if ( count( $event['VendorEventCategory'] ) < 1 )
