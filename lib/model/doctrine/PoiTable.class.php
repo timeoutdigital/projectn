@@ -39,6 +39,7 @@ class PoiTable extends Doctrine_Table
              ->groupBy('myString')
              ->having('count( myString ) > 1');
 
+         $q = $this->addWherePoiIsNotDuplicate( $q );
          return $q->execute( array(), Doctrine_Core::HYDRATE_ARRAY );
     }
 
@@ -57,7 +58,14 @@ class PoiTable extends Doctrine_Table
 
       return $query->execute();
     }
-    
+
+    private function addWherePoiIsNotDuplicate(  Doctrine_Query $query, $alias = 'p' )
+    {
+        $query->leftJoin("{$alias}.PoiReference d ON d.duplicate_poi_id = {$alias}.id");
+        $query->addWhere( 'd.duplicate_poi_id IS NULL' );
+        return $query;
+
+    }
     private function addWhereNotMarkedAsDuplicate( Doctrine_Query $query )
     {
       $query
