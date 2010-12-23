@@ -294,5 +294,27 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 0, count($pois), 'Should bring nothing back, as 4th one identified as duplicate of POI 1' );
   }
 
+  public function testAddWherePoiIsNotDuplicate_FindAllValidByVendorId()
+  {
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
+      
+      $validPois = Doctrine::getTable( 'Poi' )->findAllValidByVendorId( 1 );
+      $this->assertEquals( 4, $validPois->count(), 'There is no Duplicate Yet, it should bring back 4 POIs' );
+
+      // Mark poi 3 as Poi 1's Duplicate
+      $poi1['DuplicatePois'][] = $poi3;
+      $poi1->save();
+      
+      $validPois = Doctrine::getTable( 'Poi' )->findAllValidByVendorId( 1 );
+      $this->assertEquals( 3, $validPois->count(), 'Only 3, One marked as duplicate POI' );
+      $this->assertNotEquals( $poi3['id'], $validPois[0]['id'], 'POI ID3 should be excluded in the LIST' );
+      $this->assertNotEquals( $poi3['id'], $validPois[1]['id'], 'POI ID3 should be excluded in the LIST' );
+      $this->assertNotEquals( $poi3['id'], $validPois[2]['id'], 'POI ID3 should be excluded in the LIST' );
+  }
+
 }
 ?>

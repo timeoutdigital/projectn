@@ -55,6 +55,7 @@ class PoiTable extends Doctrine_Table
 
       $query = $this->addWhereLongitudeLatitudeNotNull( $query );
       $query = $this->addWhereNotMarkedAsDuplicate( $query );
+      $query = $this->addWherePoiIsNotDuplicate( $query, 'poi' );
 
       return $query->execute();
     }
