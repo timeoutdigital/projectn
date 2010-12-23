@@ -27,7 +27,7 @@ class widgetFormDuplicatePois extends sfWidgetForm
     {
          if( isset( $this->poi ) && $this->poi->isDuplicate() )
          {
-             return 'This is a Duplicate POI';
+             return sprintf( 'This poi is duplicate of poi: <a href="%s" title="Edit: %s"><strong>%s</strong></a>', sfContext::getInstance()->getRequest()->getScriptName() . "/poi/{$this->poi['MasterPoi'][0]['id']}/edit", $this->poi['MasterPoi'][0]['poi_name'], $this->poi['MasterPoi'][0]['poi_name'] );
          }
          
         $name.='[]'; // Change name into Array
@@ -43,7 +43,7 @@ class widgetFormDuplicatePois extends sfWidgetForm
         
         $returnHTML = $autoCompleter->render( 'duplicate_poi_id' );
 
-        $returnHTML .= $this->renderContentTag( 'input', '', array( 'type' => 'button', 'value' => 'Add as Duplicate', 'onclick' => 'dupes_addNew();') );
+        $returnHTML .= $this->renderContentTag( 'input', '', array( 'type' => 'button', 'value' => 'Add as duplicate', 'onclick' => 'dupes_addNew();') );
 
         return $returnHTML;
     }
@@ -57,8 +57,9 @@ class widgetFormDuplicatePois extends sfWidgetForm
             foreach( $this->poi['DuplicatePois'] as $dupePoi )
             {
                 printf( '<span>' );
+                printf( '<a href="#" title="Remove as duplicate" class="remove" onclick="removeAsDuplicate( this ); return false;"> Remove </a> &nbsp;' );
                 printf( '<input type="hidden" name="%s" value="%s" />', $name, $dupePoi['id'] );
-                printf( '<strong>%s</string>', $dupePoi['poi_name'] );
+                printf( '<strong><a href="%s" title="Edit this poi">%s</a></string>', sfContext::getInstance()->getRequest()->getScriptName() . "/poi/{$dupePoi['id']}/edit", $dupePoi['poi_name'] );
                 printf( '</span>' );
             }
         }
@@ -74,6 +75,7 @@ class widgetFormDuplicatePois extends sfWidgetForm
 <script type="text/javascript">
     function dupes_addNew()
     {
+        script_name = '%s';
         hiddenField = jQuery('#%s');
         visibleField = jQuery('#%s');
 
@@ -82,13 +84,23 @@ class widgetFormDuplicatePois extends sfWidgetForm
 
         // add a New Duplicate POI
         poi_holder = jQuery('#%s');
-        poi_holder.append( '<span><input type="hidden" name="%s" value="'+hiddenField.val()+'" /><strong>'+visibleField.val()+'</string></span>' );
+        poi_holder.append( '<span><a href="#" title="Remove as duplicate" class="remove" onclick="removeAsDuplicate( this ); return false;"> Remove </a> &nbsp;<input type="hidden" name="%s" value="'+hiddenField.val()+'" /><strong><a href="'+script_name+'/poi/'+hiddenField.val()+'/edit" title="Edit this poi">'+visibleField.val()+'</a></string></span>' );
         hiddenField.val('');
         visibleField.val('');
+    }
+    
+    function removeAsDuplicate( link )
+    {
+        if(confirm('Remove: Are you sure You want to Remove this POI as Duplicate'))
+        {
+            // delete the SPAN
+            jQuery(link).parent().remove();
+        }
     }
 </script>
 EOF
       ,
+                sfContext::getInstance()->getRequest()->getScriptName(),
                 $this->generateId( 'duplicate_poi_id' ),
                 'autocomplete_'.$this->generateId( 'duplicate_poi_id' ),
                 'duplicate_poi_holder',
