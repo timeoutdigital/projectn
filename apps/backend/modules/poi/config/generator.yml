@@ -16,7 +16,7 @@ generator:
       fields:
         DuplicatePoisForm: { label: Duplicate Poi's }
       list:
-        display: [=name, longitude, latitude, city]
+        display: [=name, longitude, latitude, city, _duplicate]
         object_actions:
           _edit: ~
         actions: {}
