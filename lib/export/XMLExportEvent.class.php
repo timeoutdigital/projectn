@@ -91,26 +91,12 @@ class XMLExportEvent extends XMLExport
     {
 
       //Check to see if this event has a corresponding poi
-      $flag_valid_occurrence_found = false;
-      foreach( $event['EventOccurrence'] as $eventOccurrence )
+      if( !$this->eventHappensAtExportPoi( $event ) && $this->validation == true  )
       {
-          if(!in_array( $this->generateUID( $eventOccurrence['poi_id'] ), $this->poiIdsArray))
-          {
-              if( $this->validation == true )
-              {
-                ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
-                continue;
-              }
 
-          }
-          $flag_valid_occurrence_found = true; // Flag to skip continue
-          break;// Found one valid POI! that enough to Export this event
-      }
+        ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
+        continue;
 
-      // Skip when there is NO Valid occurrence at ALL
-      if( !$flag_valid_occurrence_found )
-      {
-          continue;
       }
 
       if ( count( $event['VendorEventCategory'] ) < 1 )
@@ -296,7 +282,7 @@ class XMLExportEvent extends XMLExport
   /**
    * Check whether POIs that this event happens at is in Export POI xml.
    */
-  private function eventHappensAtExportPoi( Event $event )
+  private function eventHappensAtExportPoi( $event )
   {
       foreach( $event['EventOccurrence'] as $occurrence )
       {
