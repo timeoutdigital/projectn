@@ -161,7 +161,7 @@ class PoiTable extends Doctrine_Table
      * @param int $poiID
      * @return mixed
      */
-    public function getMasterOf( $poiID )
+    public function getMasterOf( $poiID, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
     {
         if( !$poiID || !is_numeric( $poiID ) || $poiID <= 0 )
         {
@@ -169,10 +169,10 @@ class PoiTable extends Doctrine_Table
         }
 
         $q = $this->createQuery( 'p' )
-                ->leftJoin( 'p.PoiReference r')
+                ->innerJoin( 'p.PoiReference r ON r.master_poi_id = p.id')
                 ->where( 'r.duplicate_poi_id = ?', $poiID );
 
-        return $q->fetchOne();
+        return $q->fetchOne( array(), $hydrationMode );
     }
 
     public function searchAllNonDuplicateAndNonMasterPoisBy( $vendorID, $searchKeyword, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
