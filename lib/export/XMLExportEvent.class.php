@@ -91,38 +91,12 @@ class XMLExportEvent extends XMLExport
     {
 
       //Check to see if this event has a corresponding poi
-      $flag_valid_occurrence_found = false;
-      foreach( $event['EventOccurrence'] as $key => $eventOccurrence )
+      if( !$this->eventHappensAtExportPoi( $event ) && $this->validation == true  )
       {
-          if(!in_array( $this->generateUID( $eventOccurrence['poi_id'] ), $this->poiIdsArray))
-          {
-              // map duplicate poi occurrence to master POI
-              $masterPoi = Doctrine::getTable( 'Poi' )->getMasterOf( $eventOccurrence['poi_id'] );
-              if( $masterPoi && in_array( $this->generateUID( $masterPoi['id'] ), $this->poiIdsArray ) )
-              {
-                  $event['EventOccurrence'][$key]['poi_id'] = $masterPoi['id']; // Map, Not to be saved
 
-                  $flag_valid_occurrence_found = true; // Flag to skip continue
+        ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
+        continue;
 
-                  $masterPoi->free();
-                  unset($masterPoi);
-                  continue;
-              }
-              
-              if( $this->validation == true )
-              {
-                ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
-                continue;
-              }
-
-          }
-          $flag_valid_occurrence_found = true; // Flag to skip continue
-      }
-
-      // Skip when there is NO Valid occurrence at ALL
-      if( !$flag_valid_occurrence_found )
-      {
-          continue;
       }
 
       if ( count( $event['VendorEventCategory'] ) < 1 )
@@ -308,7 +282,7 @@ class XMLExportEvent extends XMLExport
   /**
    * Check whether POIs that this event happens at is in Export POI xml.
    */
-  private function eventHappensAtExportPoi( Event $event )
+  private function eventHappensAtExportPoi( $event )
   {
       foreach( $event['EventOccurrence'] as $occurrence )
       {
