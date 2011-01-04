@@ -292,7 +292,7 @@ class XMLExportEvent extends XMLExport
         if( !in_array( $uid, $this->poiIdsArray ) )
         {
             // Check for POI's Master and Map to Master
-            $masterPoi = Doctrine::getTable( 'Poi' )->getMasterOf( $occurrence['poi_id'] );
+            $masterPoi = Doctrine::getTable( 'Poi' )->getMasterOf( $occurrence['poi_id'], Doctrine_Core::HYDRATE_ARRAY );
             if( $masterPoi && in_array( $this->generateUID( $masterPoi['id'] ), $this->poiIdsArray ) )
             {
 
