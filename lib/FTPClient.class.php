@@ -219,7 +219,7 @@ class FTPClient
 
     foreach( $dirListingArray as $dirListingItem )
     {
-      if( preg_match( '/' . $srcFilePattern . '/' , $dirListingItem[ 'filename' ] ) )
+      if( preg_match( '/' . $srcFilePattern . '/i' , $dirListingItem[ 'filename' ] ) )
       {        
         $matchingFilesArray[ $dirListingItem[ 'filename' ] ] = $dirListingItem[ 'last_modified_time' ];
       }
