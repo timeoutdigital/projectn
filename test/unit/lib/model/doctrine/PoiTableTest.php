@@ -232,6 +232,26 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertFalse( Doctrine::getTable( 'Poi' )->getMasterOf( $masterPoi['id'] ) );
   }
 
+  public function testGetDuplicatesOf()
+  {
+      $this->assertEquals( 0, Doctrine::getTable('Poi')->count() );
+      $this->assertEquals( 0, Doctrine::getTable('PoiReference')->count() );
+
+      $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi['MasterPoi'][] = $masterPoi;
+      $duplicatePoi->save();
+      $duplicatePoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi2['MasterPoi'][] = $masterPoi;
+      $duplicatePoi2->save();
+
+      $poi = Doctrine::getTable( 'Poi' )->getDuplicatesOf( $masterPoi['id'], Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertTrue( is_array( $poi ) );
+      $this->assertEquals( 2, count( $poi  ) );
+      $this->assertEquals( $duplicatePoi['id'], $poi[0]['id']);
+      $this->assertEquals( $duplicatePoi2['id'], $poi[1]['id']);
+  }
+
   public function testSearchAllNonDuplicateAndNonMasterPoisBy()
   {
       $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'test name 1' ) );

@@ -159,6 +159,7 @@ class PoiTable extends Doctrine_Table
     /**
      * Get the Master of given POI ID or return null
      * @param int $poiID
+     * @param int $hydrationMode
      * @return mixed
      */
     public function getMasterOf( $poiID, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
@@ -173,6 +174,26 @@ class PoiTable extends Doctrine_Table
                 ->where( 'r.duplicate_poi_id = ?', $poiID );
 
         return $q->fetchOne( array(), $hydrationMode );
+    }
+
+    /**
+     * Get the Duplicate Pois of Given Master POI ID
+     * @param int $poiID
+     * @param int $hydrationMode
+     * @return mixed
+     */
+    public function getDuplicatesOf( $poiID, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+    {
+        if( !$poiID || !is_numeric( $poiID ) || $poiID <= 0 )
+        {
+            throw new PoiTableException( 'Invalid $poiID in parameter' );
+        }
+
+        $q = $this->createQuery( 'p' )
+                ->innerJoin( 'p.PoiReference r ON r.duplicate_poi_id = p.id')
+                ->where( 'r.master_poi_id = ?', $poiID );
+
+        return $q->execute( array(), $hydrationMode );
     }
 
     public function searchAllNonDuplicateAndNonMasterPoisBy( $vendorID, $searchKeyword, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
