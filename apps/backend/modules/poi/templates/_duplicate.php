@@ -1,11 +1,11 @@
 <?php
     if( $poi && $poi->isDuplicate() )
     {
-        printf( '<a href="%s" title="Duplicate of: %s">of #%s</a>', url_for('poi_edit', $poi['MasterPoi'][0] ), $poi['MasterPoi'][0]['poi_name'] ,$poi['MasterPoi'][0]['id'] );
+        printf( '<a href="#" title="This is a Duplicate POI" onclick="showMasterPoi( this, \'%s\'); return false;">Duplicate</a>', $poi['id'] );
     }
     else if( $poi && $poi->isMaster() )
     {
-        echo 'Master';
+        printf( '<a href="#" onclick="showDuplicatePois( this, \'%s\' ); return false;" title="View duplicate pois">Master</a>',  $poi['id'] );
     }
     else
     {

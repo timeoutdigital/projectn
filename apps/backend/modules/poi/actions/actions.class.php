@@ -109,6 +109,58 @@ class poiActions extends autoPoiActions
 
       return $this->renderText(json_encode( $returnMsg ));
   }
+
+  public function executeAjaxPoiList( sfWebRequest $request )
+  {
+      $result['status'] = 'success'; // success otherwise stated
+      $result['pois'] = array();
+      // get Pois
+      $poiID = $request->getParameter( 'current_poi_id' );
+      switch ($request->getParameter( 'get_type' ) )
+      {
+          case 'master':
+              
+              $masterPOI = Doctrine::getTable( 'Poi' )->getMasterOf( $poiID, Doctrine_Core::HYDRATE_ARRAY );
+              if( !is_array( $masterPOI ) || count( $masterPOI ) <= 0 )
+              {
+                  $result['status'] = 'error';
+                  $result['message'] = 'No Master poi found for POI ID: ' . $poiID;
+                  break;
+              }
+
+              $result['pois'][] = $this->ajaxPoiToJsonArray( $masterPOI );
+              break;
+
+          case 'duplicate':
+              
+              $pois = Doctrine::getTable( 'Poi' )->getDuplicatesOf( $poiID, Doctrine_Core::HYDRATE_ARRAY );
+              if( !is_array( $pois ) || count( $pois ) <= 0 )
+              {
+                  $result['status'] = 'error';
+                  $result['message'] = 'No Duplicate pois found';
+                  break;
+              }
+
+              foreach( $pois as $poi )
+                  $result['pois'][] = $this->ajaxPoiToJsonArray( $poi );
+              
+              break;
+
+          default:
+              $result['status'] = 'error';
+              $result['message'] = 'Invalid type requested!';
+              break;
+      }
+      return $this->renderText( json_encode( $result ) );
+  }
+
+  private function ajaxPoiToJsonArray( &$poi )
+  {
+      return array(
+              'name' => $poi['poi_name'],
+              'id' => $poi['id']
+              );
+  }
   
 
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
