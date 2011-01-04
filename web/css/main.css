@@ -211,3 +211,8 @@ hr {
 .clearer{
  clear: left;
 }
+
+div.override
+{
+    background-color: #FCF6CF !important;
+}

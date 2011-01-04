@@ -239,7 +239,7 @@ Vendor:
     city:                     moscow
     language:                 ru
     time_zone:                Europe/Moscow
-    inernational_dial_code:   '+7495'
+    inernational_dial_code:   '+7'
     airport_code:             'MOW'
     country_code:             'ru'
     country_code_long:        'RUS'
@@ -248,7 +248,7 @@ Vendor:
     city:                     saint petersburg
     language:                 ru
     time_zone:                Europe/Moscow
-    inernational_dial_code:   '+7812'
+    inernational_dial_code:   '+7'
     airport_code:             'LED'
     country_code:             'ru'
     country_code_long:        'RUS'
@@ -257,7 +257,7 @@ Vendor:
     city:                     omsk
     language:                 ru
     time_zone:                Asia/Omsk
-    inernational_dial_code:   '+73812'
+    inernational_dial_code:   '+7'
     airport_code:             'OMS'
     country_code:             'ru'
     country_code_long:        'RUS'
@@ -266,7 +266,7 @@ Vendor:
     city:                     almaty
     language:                 ru
     time_zone:                Asia/Almaty
-    inernational_dial_code:   '+7727'
+    inernational_dial_code:   '+7'
     airport_code:             'ALA'
     country_code:             'kz'
     country_code_long:        'KAZ'
@@ -275,7 +275,7 @@ Vendor:
     city:                     novosibirsk
     language:                 ru
     time_zone:                Asia/Novosibirsk
-    inernational_dial_code:   '+7383'
+    inernational_dial_code:   '+7'
     airport_code:             'OVB'
     country_code:             'ru'
     country_code_long:        'RUS'
@@ -284,7 +284,7 @@ Vendor:
     city:                     krasnoyarsk
     language:                 ru
     time_zone:                Asia/Krasnoyarsk
-    inernational_dial_code:   '+73912'
+    inernational_dial_code:   '+7'
     airport_code:             'KJA'
     country_code:             'ru'
     country_code_long:        'RUS'
@@ -293,7 +293,7 @@ Vendor:
     city:                     tyumen
     language:                 ru
     time_zone:                Asia/Yekaterinburg
-    inernational_dial_code:   '+73452'
+    inernational_dial_code:   '+7'
     airport_code:             'TJM'
     country_code:             'ru'
     country_code_long:        'RUS'

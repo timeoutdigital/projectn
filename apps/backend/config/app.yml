@@ -27,7 +27,7 @@ all:
           type: [ fixid ]
         -
           name: ny
-          type: [ eating-drinking, bars-clubs, poi, event, movie ]
+          type: [ poi, event, movie ]
         -
           name: chicago
           type: [ poi-bc, poi-ed, poi, event_1, event_2, movie ]
@@ -42,7 +42,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: moscow
-          type: [ moscow_poi_1, moscow_poi_2, event ]
+          type: [ moscow_poi_1, moscow_poi_2, moscow_poi_3, event ]
         -
           name: saint petersburg
           type: [ poi, event ]
@@ -63,13 +63,13 @@ all:
           type: [ poi, event, movie ]
         -
           name: delhi
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
         -
           name: bangalore
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
         -
           name: pune
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
         -
           name: beijing-data-entry
           type: [ poi, event, movie ]
@@ -102,7 +102,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: shanghai_zh
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
         -
           name: beijing_zh
           type: [ poi, event, movie ]
@@ -164,12 +164,12 @@ all:
           exportForNokia: true
         -
           name: saint petersburg
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: ru
           exportForNokia: true
         -
           name: almaty
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: ru
           exportForNokia: true
         -
@@ -189,17 +189,17 @@ all:
           exportForNokia: true
         -
           name: delhi
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: en-GB
           exportForNokia: true
         -
           name: bangalore
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: en-GB
           exportForNokia: true
         -
           name: pune
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: en-GB
           exportForNokia: true
         -
@@ -249,7 +249,7 @@ all:
           exportForNokia: true
         -
           name: shanghai_zh
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: zh-Hans
           exportForNokia: true
         -
@@ -279,12 +279,12 @@ all:
           exportForNokia: true
         -
           name: omsk
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: ru
           exportForNokia: true
         -
           name: krasnoyarsk
-          type: [ poi, event, movie ]
+          type: [ poi, event ]
           language: ru
           exportForNokia: true
 

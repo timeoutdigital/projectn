@@ -474,7 +474,7 @@ class Poi extends BasePoi
 
   private function applyDefaultGeocodeLookupStringIfNull()
   {
-     if( is_null( $this['geocode_look_up'] ) )
+     if( is_null( $this['geocode_look_up'] ) || ( is_string( $this['geocode_look_up'] ) && empty( $this['geocode_look_up'] ) ) )
        $this['geocode_look_up'] = stringTransform::concatNonBlankStrings( ', ', array( $this['house_no'], $this['street'], $this['city'], $this['zips'] ) );
   }
 
