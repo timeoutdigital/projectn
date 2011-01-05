@@ -1,0 +1,34 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Poi
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          poi_duplicate_pois
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        vendor_poi_id: { label: Vendor POI ID }
+      list:
+        display: [ poi_name, longitude, latitude, city ]
+        object_actions:
+          _edit: ~
+      filter:
+        class: PoiBackendDuplicateFormFilter
+        display:
+          - vendor_id
+          - vendor_poi_id
+          - poi_name
+          - street
+          - latitude
+          - longitude
+          
+      form:    ~
+      edit:    ~
+      new:     ~
