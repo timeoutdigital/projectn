@@ -12,7 +12,7 @@
  *
  */
 
-class PoiBackendForm extends BasePoiForm
+class PoiBackendForm extends PoiForm
 {
     public function configure()
     {
