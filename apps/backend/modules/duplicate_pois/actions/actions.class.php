@@ -47,16 +47,19 @@ class duplicate_poisActions extends autoDuplicate_poisActions
             if( $poi === false )
             {
                 $this->getUser()->setFlash('error', 'One or more invalid poi id, unable to get poi from db');
+                continue;
             }
 
-            $master_poi['DuplicatePois'][] = $poi;
+            // Doctrine have issue with saving nested self referencing tables
+            if( Doctrine::getTable( 'PoiReference' )->findByMasterPoiIdAndDuplicatePoiId( $master_poi['id'], $poi['id'] )->count() <= 0 )
+            {
+                $p = new PoiReference;
+                $p['master_poi_id'] = $master_poi['id'];
+                $p['duplicate_poi_id'] = $poi['id'];
+                $p->save();
+            }
+
         }
-        var_dump($master_poi['id']);
-$master_poi->save();
-        print_r($master_poi['DuplicatePois']->toArray(false));
-die;
-        // update Master/ duplicate
-        $master_poi->save();
         
         $this->getUser()->setFlash('notice', 'Duplicate Pois updated');
         $this->redirect('duplicate_pois/index');
