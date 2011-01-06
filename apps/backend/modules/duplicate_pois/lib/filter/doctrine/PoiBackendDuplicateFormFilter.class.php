@@ -32,32 +32,33 @@ class PoiBackendDuplicateFormFilter extends BasePoiFormFilter
 
         $query = parent::buildQuery($values);
         $this->addLogicTo( $query );
-
-        var_dump( $query->getSqlQuery() );
         return $query;
     }
 
     private function addLogicTo( Doctrine_Query &$query )
     {
         $poi = $query->getRootAlias();
+
+        // exclude the Duplicates in the PoiReference
+//        $query->leftJoin("{$poi}.PoiReference pr ON pr.duplicate_poi_id = {$poi}.id");
+//        $query->andWhere( "pr.master_poi_id IS NULL" );
+
+        // Filter select to Minimum required
+//        $query->select( "{$poi}.*");
+        //$query->select( "{$poi}.id, {$poi}.poi_name, {$poi}.latitude, {$poi}.longitude, COUNT(*) as dupes");
         
         // Exclude those lat/long in GeoWhitelist
-        //$query->andWhere( "CONCAT( {$poi}.latitude, ',', {$poi}.longitude ) NOT IN ( SELECT CONCAT( g2.latitude, ',', g2.longitude ) FROM GeoWhiteList g2)" );
+        //$query->andWhere( " CONCAT( {$poi}.latitude, ',', {$poi}.longitude ) IN ( SELECT CONCAT( latitude, ',', longitude ) FROM GeoWhiteList )" );
+        $query->andWhere( "CONCAT( {$poi}.latitude, ',', {$poi}.longitude ) NOT IN ( SELECT CONCAT( w.latitude, ',', w.longitude ) FROM GeoWhiteList w)");
+        $query->andWhere( "{$poi}.id NOT IN ( SELECT pr.duplicate_poi_id FROM PoiReference pr)" );
 
+        $query->addSelect( 'COUNT(*) as dupes, id, poi_name, latitude, longitude' );
         // Not null lat / long
         $query->andWhere( "{$poi}.latitude IS NOT NULL" );
         $query->andWhere( "{$poi}.longitude IS NOT NULL" );
 
-        // exclude the Duplicates in the PoiReference
-        $query->leftJoin("{$poi}.PoiReference pr ON pr.duplicate_poi_id = {$poi}.id");
-        $query->andWhere( "pr.master_poi_id IS NULL" );
-
-        // Filter select to Minimum required
-//        $query->select( "{$poi}.id, {$poi}.poi_name, {$poi}.latitude, {$poi}.longitude");
-//        $query->addSelect( 'COUNT(*) as dupes ');
-
         // Group by Poi_name, Latitude, longitude
-        $query->groupBy( "{$poi}.poi_name, {$poi}.latitude, {$poi}.longitude" );
+        $query->groupBy( " {$poi}.poi_name, {$poi}.latitude, {$poi}.longitude" );
         $query->having( 'COUNT(*) > 1 ' );
     }
 }

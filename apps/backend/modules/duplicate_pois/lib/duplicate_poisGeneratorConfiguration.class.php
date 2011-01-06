@@ -10,5 +10,9 @@
  */
 class duplicate_poisGeneratorConfiguration extends BaseDuplicate_poisGeneratorConfiguration
 {
-
+    // Limit the  Number of displayed group to 1
+    public function getPagerMaxPerPage()
+    {
+        return 1;
+    }
 }

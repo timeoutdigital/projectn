@@ -16,9 +16,11 @@ generator:
       fields:
         vendor_poi_id: { label: Vendor POI ID }
       list:
-        display: [ poi_name, longitude, latitude, city ]
+        display: [ poi_name ]
         object_actions:
           _edit: ~
+        actions: {}
+        batch_actions: {}
       filter:
         class: PoiBackendDuplicateFormFilter
         display:
@@ -29,6 +31,7 @@ generator:
           - latitude
           - longitude
           
-      form:    ~
+      form:
+        actions: { _list: ~ }
       edit:    ~
       new:     ~

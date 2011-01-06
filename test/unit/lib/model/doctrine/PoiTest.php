@@ -596,6 +596,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $masterPoi1['DuplicatePois'][] = $duplicatePoi2;
        $masterPoi1->save();
 
+       print_r($duplicatePoi1->toArray());
+
        $this->assertEquals( 2, Doctrine::getTable( 'PoiReference' )->count() );
        $this->assertEquals( 2, $masterPoi1['DuplicatePois']->count() );
        $this->assertEquals( 0, $masterPoi2['DuplicatePois']->count() );
