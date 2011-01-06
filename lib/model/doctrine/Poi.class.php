@@ -80,13 +80,8 @@ class Poi extends BasePoi
    */
   public function isMaster()
   {
-      $this->refresh( true ); // Deep Refresh for Database changes
-      if( $this['DuplicatePois']->count() > 0 )
-      {
-          return true;
-      }
-
-      return false;
+      // Refresh reset Unsaved data causing data loss.. hence we query database directly
+      return ( Doctrine::getTable( 'PoiReference' )->findByMasterPoiId( $this['id'])->count() > 0  ) ? true : false;
   }
 
   /**
@@ -95,13 +90,8 @@ class Poi extends BasePoi
    */
   public function isDuplicate()
   {
-      $this->refresh( true ); // Deep Refresh for Database changes
-      if( $this['MasterPoi']->count() > 0 )
-      {
-          return true;
-      }
-
-      return false;
+      // Refresh reset Unsaved data causing data loss.. hence we query database directly
+      return ( Doctrine::getTable( 'PoiReference' )->findByDuplicatePoiId( $this['id'])->count() > 0  ) ? true : false;
   }
 
   public function setMinimumAccuracy( $acc )
