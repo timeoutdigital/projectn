@@ -80,6 +80,7 @@ class Poi extends BasePoi
    */
   public function isMaster()
   {
+      $this->refresh( true ); // Deep Refresh for Database changes
       if( $this['DuplicatePois']->count() > 0 )
       {
           return true;
@@ -94,6 +95,7 @@ class Poi extends BasePoi
    */
   public function isDuplicate()
   {
+      $this->refresh( true ); // Deep Refresh for Database changes
       if( $this['MasterPoi']->count() > 0 )
       {
           return true;
@@ -479,7 +481,7 @@ class Poi extends BasePoi
    * Check for DuplicatePois and MasterPoi, Ensure that all of Vendors same as This Poi.
    */
   public function checkNonVendorRelatedReference()
-  {
+  {      
       foreach( $this['DuplicatePois'] as $duplicatePoi )
       {
           if( $duplicatePoi['vendor_id'] !== $this['vendor_id'] )
