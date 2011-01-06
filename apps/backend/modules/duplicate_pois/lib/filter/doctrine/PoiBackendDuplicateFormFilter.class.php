@@ -20,16 +20,18 @@ class PoiBackendDuplicateFormFilter extends BasePoiFormFilter
     }
 
     /* This will help us with app */
-    public function  buildQuery(array $values) {
+    public function  buildQuery(array $values) 
+    {
 
-        // makesure that Vendor ID is allways applied
-        // because group sql query will consume huge amount of memory and processing power
-
-        if( $values['vendor_id'] == null ) // == bcz 0 should not be there too
+        // Due to large number of Pois that we have, it's necessary to limit per vendor base.
+        // This line Force NY as default vendor.
+        $filters = sfContext::getInstance()->getUser()->getAttribute( 'duplicate_pois.filters', array(), 'admin_module' );
+        if( !isset($filters['vendor_id']) || $filters['vendor_id'] == null )
         {
-            $values['vendor_id'] = 1;
+            $filters['vendor_id'] = 1;
+            sfContext::getInstance()->getUser()->setAttribute( 'duplicate_pois.filters', $filters, 'admin_module' );
         }
-
+        
         $query = parent::buildQuery($values);
         $this->addLogicTo( $query );
         return $query;
