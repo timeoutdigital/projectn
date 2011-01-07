@@ -73,15 +73,11 @@ class importExportedItems
 
     private function importExportedXml( $xmlData, $model, Vendor $vendor )
     {
-        $xmlNodes = array();
-        
         foreach( $xmlData as $node )
         {
-            isset( $xmlNodes["{$model} {$vendor['city']}"] ) ? $xmlNodes["{$model} {$vendor['city']}"]++ : $xmlNodes["{$model} {$vendor['city']}"] = 0;
-            //var_dump( "{$model} {$vendor['city']}" );
-            //Doctrine::getTable( 'ExportedItem' )->saveRecord( $node, $model, $vendor['id'] );
+            // Call saveRecord, logic for saving / udpating is handled inside saveRecord() #860
+            Doctrine::getTable( 'ExportedItem' )->saveRecord( $node, $model, $vendor['id'] );
         }
-        print_r( $xmlNodes );
     }
 
     private function fileName2City( $fileName )
