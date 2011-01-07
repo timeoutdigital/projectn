@@ -38,8 +38,32 @@ class importExportedItemsTask extends sfBaseTask
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
-        
+        if( isset( $options['date'] ) && is_string( $options['date'] ) )
+        {
+            $fullDateExportPath = $options['exportdir'] . '/export_' . $options['date'];
+            if( !is_dir( $fullDateExportPath ) )
+            {
+                throw new Exception( 'Specific date export dir not found ('.$fullDateExportPath.')' );
+            }
 
+            // invoke import of export
+            $this->import1DayExport( $fullDateExportPath );
+            return; // The End
+        }
+
+        // Import using Directory Iterator
+        $exportDirs = DirectoryIteratorN::iterate( $options['exportdir'], DirectoryIteratorN::DIR_FOLDERS,'','export_' );
+        if( !is_array( $exportDirs ) || empty( $exportDirs ) )
+        {
+            throw new Exception( 'No Export DIR found in given Export path ( '.$options['exportdir'].')' );
+        }
+
+        print_r($exportDirs);
+    }
+
+    private function import1DayExport( $exportDayFullPath )
+    {
+        var_dump('Wow, you are here :D');
     }
 
 }
