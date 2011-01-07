@@ -25,6 +25,7 @@ class importExportedItemsTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData('data/fixtures');
     }
 
     /**
@@ -38,13 +39,13 @@ class importExportedItemsTest extends PHPUnit_Framework_TestCase
 
     public function testImportExportedItems()
     {
-//        $this->assertEquals( 0, Doctrine::getTable( 'ExportedItem' )->count() );
-//        $this->assertEquals( 0, Doctrine::getTable( 'ExportedItemHistory' )->count() );
-//
-//        $export_date_path = TO_TEST_DATA_PATH . '/import_exported/export_20110106';
-//
-//        $importExported = new importExportedItems( $export_date_path );
-        //$importExported->import();
+        $this->assertEquals( 0, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 0, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+
+        $export_date_path = TO_TEST_DATA_PATH . '/import_exported/export_20110105';
+
+        $importExported = new importExportedItems( $export_date_path );
+        $importExported->import();
         
     }
 }
