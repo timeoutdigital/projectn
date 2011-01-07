@@ -66,7 +66,8 @@ class importExportedItemsTask extends sfBaseTask
 
     private function import1DayExport( $exportDayFullPath )
     {
-        var_dump($exportDayFullPath);
+        $importExported = new importExportedItems( $exportDayFullPath );
+        $importExported->import();
     }
 
 }

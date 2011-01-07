@@ -21,6 +21,8 @@ class importExportedItems
      */
     private $modelsFolderPath;
 
+    private $exceptionCityName = array( 'beijing_zh', 'istanbul_en', 'shanghai_zh', 'shanghai_en' );
+
     /**
      * Folder path to Date based export folder, where Poi, event and Movie folders exists
      * @param string $modelsFolderPath
@@ -89,7 +91,11 @@ class importExportedItems
 
         // remove XML and remove _
         $fileName = explode( '.', $fileName, 2 );
-        return trim( str_replace('_',' ', $fileName[0] ) );
+        $cityName = trim($fileName[0]);
+        // Some city name should be made exception to removing _ ( like beijing_zh )
+        return ( in_array( $cityName, $this->exceptionCityName ) ) ?
+                $cityName :
+                str_replace('_',' ', $cityName );
     }
 }
 
