@@ -52,18 +52,21 @@ class importExportedItemsTask extends sfBaseTask
         }
 
         // Import using Directory Iterator
-        $exportDirs = DirectoryIteratorN::iterate( $options['exportdir'], DirectoryIteratorN::DIR_FOLDERS,'','export_' );
+        $exportDirs = DirectoryIteratorN::iterate( $options['exportdir'], DirectoryIteratorN::DIR_FOLDERS,'','export_' , true);
         if( !is_array( $exportDirs ) || empty( $exportDirs ) )
         {
             throw new Exception( 'No Export DIR found in given Export path ( '.$options['exportdir'].')' );
         }
 
-        print_r($exportDirs);
+        foreach($exportDirs as $exportDateDir)
+        {
+            $this->import1DayExport( $exportDateDir );
+        }
     }
 
     private function import1DayExport( $exportDayFullPath )
     {
-        var_dump('Wow, you are here :D');
+        var_dump($exportDayFullPath);
     }
 
 }
