@@ -68,12 +68,14 @@ class importExportedItems
                 }
 
                 // Import Exported Data
-                $this->importExportedXml( simplexml_load_file( $cityFileFullPath ), $modelDir, $vendor );
+                $xmlDATA = simplexml_load_file( $cityFileFullPath );
+                $this->importExportedXml( $xmlDATA, $modelDir, $vendor );
+                unset( $xmlDATA );
             }
         }
     }
 
-    private function importExportedXml( $xmlData, $model, Vendor $vendor )
+    private function importExportedXml( &$xmlData, $model, Vendor $vendor )
     {
         foreach( $xmlData as $node )
         {

@@ -9,7 +9,7 @@ class ExportedItemTable extends Doctrine_Table
      * @param string $modelType
      * @param int $vendorID
      */
-    public function saveRecord( $xmlNode, $modelType, $vendorID )
+    public function saveRecord( &$xmlNode, $modelType, $vendorID )
     {
         // Pre-process
         $modelType = strtolower( $modelType );
