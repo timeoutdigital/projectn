@@ -47,6 +47,8 @@ class importExportedItems
 
         foreach( $modelDirList as $modelDir )
         {
+            echo ' - Importing Model: ' . $modelDir . PHP_EOL;
+            
             $modelDirFullPath = $this->modelsFolderPath . '/' . $modelDir;
 
             // Get all the XML fils in this Model
@@ -68,9 +70,11 @@ class importExportedItems
                 }
 
                 // Import Exported Data
+                echo "\tCITY:\t" . $vendor['city'] . PHP_EOL;
                 $xmlDATA = simplexml_load_file( $cityFileFullPath );
                 $this->importExportedXml( $xmlDATA, $modelDir, $vendor );
                 unset( $xmlDATA );
+                unset( $vendor );
             }
         }
     }

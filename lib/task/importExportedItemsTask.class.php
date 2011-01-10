@@ -60,6 +60,7 @@ class importExportedItemsTask extends sfBaseTask
 
         foreach($exportDirs as $exportDateDir)
         {
+            echo PHP_EOL . 'Importing DIR: ' . $exportDateDir . PHP_EOL;
             $this->import1DayExport( $exportDateDir );
         }
     }
