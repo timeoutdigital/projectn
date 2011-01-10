@@ -2,6 +2,7 @@
 
 class ExportedItemTable extends Doctrine_Table
 {
+    private static $uiCategoryCache;
 
     /**
      * Add or Update record to ExportedItemTable
@@ -120,10 +121,31 @@ class ExportedItemTable extends Doctrine_Table
             }
         }
 
-        $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : null;
-        $uiCategory = ( $categoryName !== null ) ?  Doctrine::getTable( 'UiCategory' )->findOneByName( $categoryName ) : false;
         
-        return ( $uiCategory === false ) ? null : $uiCategory['id'];
+        $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : null;
+        //$uiCategory = ( $categoryName !== null ) ?  Doctrine::getTable( 'UiCategory' )->findOneByName( $categoryName, Doctrine::HYDRATE_ARRAY ) : false;
+        
+        return $this->getUICategoryIdByName( $categoryName );//( !is_array($uiCategory) || empty($uiCategory) ) ? null : $uiCategory['id'];
+    }
+
+    private function getUICategoryIdByName( $categoryName )
+    {
+        // Fill Static Cache when null
+        if( self::$uiCategoryCache === null )
+        {
+            self::$uiCategoryCache = Doctrine::getTable( 'UiCategory' )->findAll( Doctrine_Core::HYDRATE_ARRAY );
+        }
+
+        foreach( self::$uiCategoryCache as $cat )
+        {
+            if( $cat['name'] == $categoryName )
+            {
+                return $cat['id'];
+            }
+        }
+        
+        return null;
+
     }
 
     /**
