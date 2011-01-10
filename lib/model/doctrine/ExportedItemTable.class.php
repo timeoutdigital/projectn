@@ -33,6 +33,9 @@ class ExportedItemTable extends Doctrine_Table
 
         try
         {
+            // Get PDO object from Doctrine connection
+            $pdoConn = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+
             // Find the Existing Record
             $query = $this->createQuery( 'e' )
                     ->leftJoin( 'e.ExportedItemHistory h' )
@@ -46,38 +49,48 @@ class ExportedItemTable extends Doctrine_Table
 
              if( !is_array( $record ) || empty( $record ) ) // add this as new Record
              {
-                 $record = new ExportedItem;
-                 $record['record_id'] = $recordID;
-                 $record['model'] = $modelType;
-                 $record['vendor_id'] = $vendorID;
-                 $record['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
 
-                 // add History Record
-                 $recordHistory = new ExportedItemHistory;
-                 $recordHistory['field'] = 'ui_category_id';
-                 $recordHistory['value'] = $ui_category_id;
-                 $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
-                 $record['ExportedItemHistory'][] = $recordHistory;
-
-                 // save and Free
-                 $record->save();
-                 $record->free(true);
-
-             } else { // Update any Modification changes
-
-                 if( $record['ExportedItemHistory'][0]['value'] != $ui_category_id)
+                 $query = $pdoConn->prepare( 'INSERT into `exported_item`(record_id, model, vendor_id, created_at) VALUES(?,?,?,?)' );
+                 $status = $query->execute( array(
+                     $recordID,
+                     $modelType,
+                     $vendorID,
+                     date('Y-m-d H:i:s', $modifiedDate )
+                 ));
+                  
+                 if( $status !== true )
                  {
-                     $recordHistory = new ExportedItemHistory;
-                     $recordHistory['field'] = 'ui_category_id';
-                     $recordHistory['value'] = $ui_category_id;
-                     $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
-                     $recordHistory['exported_item_id'] = $record['id'];
-
-                     // save History
-                     $recordHistory->save();
-                     $recordHistory->free(true);
-                     
+                     throw new ExportedItemTableException( "Failed to Insert New Exported Item Record." );
                  }
+
+                 $query = $pdoConn->prepare( 'INSERT INTO `exported_item_history` ( exported_item_id, field, value, created_at) VALUES( ?, ?, ?, ?)' );
+                 $status = $query->execute( array(
+                     $pdoConn->lastInsertId(), 
+                     'ui_category_id',
+                     $ui_category_id,
+                     date('Y-m-d H:i:s', $modifiedDate )
+                 ));
+
+                 if( $status !== true )
+                 {
+                     throw new ExportedItemTableException( "Failed to Insert New Exported Item History Record." );
+                 }
+
+             } elseif( $record['ExportedItemHistory'][0]['value'] != $ui_category_id ) { // Update any Modification changes
+
+                $query = $pdoConn->prepare( 'INSERT INTO `exported_item_history` ( exported_item_id, field, value, created_at) VALUES( ?, ?, ?, ?)' );
+                $status = $query->execute( array(
+                    $record['id'],
+                    'ui_category_id',
+                    $ui_category_id,
+                    date('Y-m-d H:i:s', $modifiedDate )
+                ));
+
+                if( $status !== true )
+                {
+                 throw new ExportedItemTableException( "Failed to Insert New Exported Item History Record." );
+                }
+
              }
 
         } catch ( Exception $e ) {
