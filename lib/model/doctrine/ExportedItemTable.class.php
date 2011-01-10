@@ -37,16 +37,25 @@ class ExportedItemTable extends Doctrine_Table
             $pdoConn = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
             // Find the Existing Record
-            $query = $this->createQuery( 'e' )
+            /*$query = $this->createQuery( 'e' )
                     ->leftJoin( 'e.ExportedItemHistory h' )
                     ->select( 'e.id, e.record_id, h.field, h.value' )
                     ->where( 'e.model = ? ', $modelType )
                     ->andWhere( 'e.record_id = ? ', $recordID )
                     ->andWhere( 'h.field = ? ', "ui_category_id" )
-                    ->orderBy( 'h.created_at DESC' );
-                    // adding Limit cause SubQuery?
-             $record = $query->fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY ); //fetchOne();//fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY );
+                    ->orderBy( 'h.created_at DESC' );*/
 
+            $sql = 'SELECT e.id, e.record_id, h.value, h.field FROM exported_item e INNER JOIN exported_item_history h on h.exported_item_id = e.id ';
+            $sql .= 'WHERE e.model = ? AND e.record_id = ? AND h.field = "ui_category_id" ';
+            $sql .= 'ORDER BY h.created_at DESC LIMIT 1';
+
+            $query = $pdoConn->prepare( $sql );
+            $status = $query->execute( array(
+                $modelType,
+                $recordID
+            ));
+            $record = ( $status === true ) ? $query->fetch() : null;
+            
              if( !is_array( $record ) || empty( $record ) ) // add this as new Record
              {
 
@@ -76,7 +85,7 @@ class ExportedItemTable extends Doctrine_Table
                      throw new ExportedItemTableException( "Failed to Insert New Exported Item History Record." );
                  }
 
-             } elseif( $record['ExportedItemHistory'][0]['value'] != $ui_category_id ) { // Update any Modification changes
+             } elseif( $record['value'] != $ui_category_id ) { // Update any Modification changes
 
                 $query = $pdoConn->prepare( 'INSERT INTO `exported_item_history` ( exported_item_id, field, value, created_at) VALUES( ?, ?, ?, ?)' );
                 $status = $query->execute( array(
