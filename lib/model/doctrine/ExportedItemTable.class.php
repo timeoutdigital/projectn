@@ -41,9 +41,9 @@ class ExportedItemTable extends Doctrine_Table
                     ->andWhere( 'h.field = ? ', "ui_category_id" )
                     ->orderBy( 'h.created_at DESC' );
                     // adding Limit cause SubQuery?
-             $record = $query->fetchOne();//fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY );
+             $record = $query->fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY ); //fetchOne();//fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY );
 
-             if( $record === false ) // add this as new Record
+             if( !is_array( $record ) || empty( $record ) ) // add this as new Record
              {
                  $record = new ExportedItem;
                  $record['record_id'] = $recordID;
@@ -58,19 +58,26 @@ class ExportedItemTable extends Doctrine_Table
                  $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
                  $record['ExportedItemHistory'][] = $recordHistory;
 
+                 // save and Free
+                 $record->save();
+                 $record->free(true);
+
              } else { // Update any Modification changes
 
-                 if( $record['ExportedItemHistory'][0]->value != $ui_category_id)
+                 if( $record['ExportedItemHistory'][0]['value'] != $ui_category_id)
                  {
                      $recordHistory = new ExportedItemHistory;
                      $recordHistory['field'] = 'ui_category_id';
                      $recordHistory['value'] = $ui_category_id;
                      $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
-                     $record['ExportedItemHistory'][] = $recordHistory;
+                     $recordHistory['exported_item_id'] = $record['id'];
+
+                     // save History
+                     $recordHistory->save();
+                     $recordHistory->free(true);
+                     
                  }
              }
-
-            $record->save();
 
         } catch ( Exception $e ) {
             // @todo: process Exception
