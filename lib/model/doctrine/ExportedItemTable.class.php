@@ -172,7 +172,7 @@ class ExportedItemTable extends Doctrine_Table
      * @param boolean $invoiceableOnly
      * @return mixed
      */
-    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $ui_category_id = null, $invoiceableOnly = true )
+    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $ui_category_id = null, $invoiceableOnly = true, $hhydrateMode = Doctrine_Core::HYDRATE_RECORD )
     {
         $startDateTime = strtotime( $startDate );
         $endDateTime = strtotime( $endDate );
@@ -213,9 +213,10 @@ class ExportedItemTable extends Doctrine_Table
             $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
         } else {
             $q->andWhere( 'DATE(e.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
+            $q->orderBy( 'h.created_at DESC');
         }
         
-        return $q->execute();
+        return $q->execute( array(), $hhydrateMode );
     }
     
 }

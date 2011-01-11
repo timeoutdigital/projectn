@@ -32,9 +32,47 @@ class invoice_uiActions extends sfActions
       $invoiceable = ($request->getParameter( 'invoiceable' ) == 'true') ? true : false;
 
       // Get from Database
-      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, 'poi', null, $invoiceable );
+      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, 'poi', null, $invoiceable, Doctrine_Core::HYDRATE_ARRAY );
 
-     return $this->renderText( 'found: ' .$results->count() . print_r($results->toArray(), true ) );
+     return $this->renderText( 'found: ' .count($results) . print_r($this->getOrganizedResult($results, $dateFrom, $dateTo), true ) );
      
+  }
+
+  private function getOrganizedResult( $results, $dateFrom, $dateTo )
+  {
+      if( !is_array( $results ) || empty ($results) )
+          return null;
+
+      $data = array();
+
+      // Create Date Range of Array
+      $currentDate = date('Y-m-d', strtotime( $dateFrom ) );
+      while( 1 )
+      {
+          $data[ $currentDate ] = array();
+
+          $currentDate = date( 'Y-m-d', strtotime( '+1 day', strtotime( $currentDate ) ) );
+
+          if( strtotime($currentDate) > strtotime( $dateTo ) )
+              break;
+      }
+
+      foreach( $results as $record )
+      {
+          // Create Array when not exist to hold the count of each category occurreces
+          $date = substr($record['created_at'],0,10);
+          
+          $history = array_pop( $record['ExportedItemHistory'] );
+          $category_id = $history['value'];
+          if( !isset( $data[ $date ][ $category_id ] ) )
+          {
+              $data[ $date ][ $category_id ] = 0;
+          }
+
+          // Incease the Count
+          $data[ $date ][ $category_id ]++;
+      }
+
+      return empty( $data ) ? null : $data;
   }
 }

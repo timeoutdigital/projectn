@@ -40,10 +40,6 @@ class filterOptionForm extends BaseForm
         // Invoiceable
         $this->setWidget( 'invoiceable', new sfWidgetFormInputCheckbox( array( 'label' => 'Invoiceables' ) ) );
 
-        // Generate Button
-        
-        
-
         $this->widgetSchema->setFormFormatterName( 'list' );
     }
 

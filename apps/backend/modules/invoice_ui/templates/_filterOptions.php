@@ -1,8 +1,10 @@
 <div>
+    <ul>
     <?php
         echo $date;
     ?>
-    <input type="submit" name="generate" id="btn_generate" value="Generate" onclick="generateReport(); return false;" />
+        <li><input type="submit" name="generate" id="btn_generate" value="Generate" onclick="generateReport(); return false;" /></li>
+    </ul>
 </div>
 <script type="text/javascript">/* <![CDATA[ */
 function generateReport()
