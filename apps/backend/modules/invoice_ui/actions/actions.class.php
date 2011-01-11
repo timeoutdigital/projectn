@@ -26,17 +26,24 @@ class invoice_uiActions extends sfActions
 
   public function executeGenerateReport(sfWebRequest $request)
   {
-      $this->dateFrom = $dateFrom = sprintf('%s/%s/%s', $request->getParameter( 'from_year' ), $request->getParameter( 'from_month' ), $request->getParameter( 'from_day' ) );
-      $this->dateTo = $dateTo = sprintf('%s/%s/%s', $request->getParameter( 'to_year' ), $request->getParameter( 'to_month' ), $request->getParameter( 'to_day' ) );
-      $this->model = $model = $request->getParameter( 'model' );
+      $this->dateFrom = sprintf('%s/%s/%s', $request->getParameter( 'from_year' ), $request->getParameter( 'from_month' ), $request->getParameter( 'from_day' ) );
+      $this->dateTo  = sprintf('%s/%s/%s', $request->getParameter( 'to_year' ), $request->getParameter( 'to_month' ), $request->getParameter( 'to_day' ) );
+      $this->model  = $request->getParameter( 'model' );
 
       $vendor_ID = $request->getParameter( 'vendor' );      
       $this->vendor = Doctrine::getTable( 'Vendor' )->find( $vendor_ID, Doctrine_Core::HYDRATE_ARRAY );
-      $invoiceable = false;
+      $this->invoiceable = ($request->getParameter( 'invoiceable' ) == 'true') ? true:false;
+
+      $invoiceableCategory = array();
+      if( $this->invoiceable )
+      {
+          $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
+          $invoiceableCategory = array_keys( $invoiceableYaml[ $this->model ] );
+      }
 
       // Get from Database
-      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, $model, null, $invoiceable, Doctrine_Core::HYDRATE_ARRAY );
-      $this->data = $this->getOrganizedResult($results, $dateFrom, $dateTo);
+      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $this->dateFrom, $this->dateTo, $vendor_ID, $this->model, $invoiceableCategory, null, $this->invoiceable, Doctrine_Core::HYDRATE_ARRAY );
+      $this->data = $this->getOrganizedResult($results, $this->dateFrom, $this->dateTo);
       
       // UI categories
       $cats = Doctrine::getTable( 'UiCategory')->findAll( Doctrine_Core::HYDRATE_ARRAY );
