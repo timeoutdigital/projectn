@@ -28,9 +28,9 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
                
               // Map Columns
 
-              //map the venodor first so that we can reference to $poi['Vendor'] rather than $this->vendor in order to not use the
-              //guise later (if we use $this->vendor, than apply guise and then assign it to $poi['Vendor'], the assignmement seems
-              //to always reload the vendor again, meaning we would loos the guise. but we still need it on presave on the model
+              //map the vendor first so that we can reference to $poi['Vendor'] rather than $this->vendor in order to not use the
+              //guise later (if we use $this->vendor, then apply guise and then assign it to $poi['Vendor'], the assignmement seems
+              //to always reload the vendor again, meaning we would loose the guise. but we still need it on presave on the model
               $poi['Vendor'] = clone $this->vendor;
 
               //this call is probably not necessary as the assignement above seems to require a fresh lazy lode of the vendor anyway
