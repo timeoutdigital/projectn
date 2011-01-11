@@ -177,12 +177,10 @@ class ExportedItemTable extends Doctrine_Table
         $startDateTime = strtotime( $startDate );
         $endDateTime = strtotime( $endDate );
 
-
         $q = $this->createQuery( 'e' )
                 ->innerJoin( 'e.ExportedItemHistory h')
                 ->where( 'e.vendor_id=?', $vendorID )
                 ->andWhere( 'h.field= ?', "ui_category_id" )
-                ->andWhere( 'DATE(h.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  )
                 ->andWhere( 'e.model = ? ', $modelType );
 
         // Makesure to select the Last/Latest Category ID
@@ -196,6 +194,9 @@ class ExportedItemTable extends Doctrine_Table
         
         if( $invoiceableOnly )
         {
+            // Select the Date range from History
+            $q->andWhere( 'DATE(h.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
+
             $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
             $invoiceableCategoryIDs = array_keys( $invoiceableYaml['invoiceable'] );
 
@@ -210,6 +211,8 @@ class ExportedItemTable extends Doctrine_Table
             $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
             $inValues = implode('","', $invoiceableCategoryIDs );
             $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
+        } else {
+            $q->andWhere( 'DATE(e.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
         }
         
         return $q->execute();
