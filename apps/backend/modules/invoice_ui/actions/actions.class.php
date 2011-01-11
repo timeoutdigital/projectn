@@ -33,9 +33,15 @@ class invoice_uiActions extends sfActions
 
       // Get from Database
       $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, 'poi', null, $invoiceable, Doctrine_Core::HYDRATE_ARRAY );
+      $this->data = $this->getOrganizedResult($results, $dateFrom, $dateTo);
+      
+      // UI categories
+      $cats = Doctrine::getTable( 'UiCategory')->findAll( Doctrine_Core::HYDRATE_ARRAY );
+      $this->uicategories = $cats;
+  }
 
-     return $this->renderText( 'found: ' .count($results) . print_r($this->getOrganizedResult($results, $dateFrom, $dateTo), true ) );
-     
+  private function generateTableData( $results )
+  {
   }
 
   private function getOrganizedResult( $results, $dateFrom, $dateTo )
