@@ -27,17 +27,36 @@ class GuisableListenerTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
       ProjectN_Test_Unit_Factory::createDatabases();
-      Doctrine::loadData( 'data/fixtures' );
+      $this->vendorObject = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'inernational_dial_code' => '+1' ) );
+      ProjectN_Test_Unit_Factory::createGuise( $this->vendorObject, 'Shenzhen', array( 'inernational_dial_code' => '+755' ) );
   }
 
   protected function tearDown()
   {
+      $this->vendorObject->stopUsingGuise();
       ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-
-  public function testFindByVendorId()
+  /**
+   * @see Guise and GuisableBehaviour class (the listener should prevent save)
+   */
+  public function testIfSavePreventedInGuisableMode()
   {
+      $this->setExpectedException( 'GuiseException' );
 
+      $this->vendorObject->useGuise( 'Shenzhen' );
+      $this->vendorObject['city'] = 'test';
+      $this->vendorObject->save();
+  }
+
+  /**
+   * @see Guise and GuisableBehaviour class (the listener should prevent delete)
+   */
+  public function testIfDeletePreventedInGuisableMode()
+  {
+      $this->setExpectedException( 'GuiseException' );
+
+      $this->vendorObject->useGuise( 'Shenzhen' );
+      $this->vendorObject->delete();
   }
 }

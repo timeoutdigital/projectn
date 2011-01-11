@@ -45,32 +45,6 @@ class Guisable extends Doctrine_Template
     }
 
     /**
-     * Change the guise of a Doctrine_Record if a guise is found for the content
-     * of the field passed to the function
-     *
-     * @param string $field
-     * @return boolean
-     */
-    public function useGuiseByFieldContent( $field )
-    {
-        $invoker = $this->getInvoker();
-
-        if ( ! isset( $invoker[ $field ] )  )
-        {
-            return false;
-        }
-
-        $guise = $invoker[ $field ];
-
-        if ( ! $this->guiseExists( $guise ) )
-        {
-            return false;
-        }
-
-        return $this->useGuise( $guise );
-    }
-
-    /**
      * Returns if a guise is in use
      *
      * @return boolean

@@ -24,7 +24,6 @@ class GuiseTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
       ProjectN_Test_Unit_Factory::createDatabases();
-      Doctrine::loadData( 'data/fixtures' );
   }
 
   protected function tearDown()
@@ -95,48 +94,20 @@ class GuiseTest extends PHPUnit_Framework_TestCase
      $this->assertTrue( isset( $guiseColumnDefinition[ 'length' ] ) && $guiseColumnDefinition[ 'length' ] == '20', 'something is wrong with the guise column definition' );
   }
 
-  public function testTimestampableOption()
-  {
-      $guise = $this->createAGuise();
-
-      $this->assertEquals( date( 'Y-m-d' ), date( 'Y-m-d', strtotime( $guise['created_at'] ) ) );
-      $this->assertEquals( date( 'Y-m-d' ), date( 'Y-m-d', strtotime( $guise['updated_at'] ) ) );
-  }
-
   public function testGetGuise()
   {
-      $this->createAGuise();
-      $vendorTable = Doctrine::getTable( 'Vendor' );
-      $vendor = $vendorTable->findOneById( 1 );
+      $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'Hong Kong' ) );
+      ProjectN_Test_Unit_Factory::createGuise( $vendor, 'Shenzhen', array( 'city' => 'guised hong kong' ) );
 
-      $guise = new Guise();    
+      $vendorTable = Doctrine::getTable( 'Vendor' );
+
+      $guise = new Guise();
       $guise->initialize( $vendorTable );
 
-      $this->assertEquals( $vendor['city'], 'ny' );
+      $this->assertEquals( $vendor['city'], 'Hong Kong' );
 
       $guisedVendor = $guise->getGuise( $vendor, 'Shenzhen' );
 
-      $this->assertEquals( $guisedVendor['city'], 'hong kong' );
+      $this->assertEquals( $guisedVendor['city'], 'guised hong kong' );
   }
-
-  private function createAGuise()
-  {
-      ProjectN_Test_Unit_Factory::add('Vendor');
-
-      $guise = new VendorGuise();
-      $guise['city'] = 'hong kong';
-      $guise['language'] = 'en-HK';
-      $guise['time_zone'] = 'Asia/Hong_Kong';
-      $guise['inernational_dial_code'] = '+755';
-      $guise['airport_code'] = 'HKG';
-      $guise['country_code'] = 'hk';
-      $guise['country_code_long'] = 'HKG';
-      $guise['geo_boundries'] = '22.153247833252;113.837738037109;22.5597801208496;114.434761047363';
-      $guise['id'] = 1;
-      $guise['guise'] = 'Shenzhen';
-      $guise->save();
-
-      return $guise;
-  }
-
 }
