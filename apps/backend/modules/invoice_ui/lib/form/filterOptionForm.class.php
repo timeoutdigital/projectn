@@ -38,7 +38,7 @@ class filterOptionForm extends BaseForm
         $this->setWidget( 'vendor', new sfWidgetFormSelect( array( 'label' => 'Vendor', 'choices' => array() ) ) );
         
         // Invoiceable
-        $this->setWidget( 'invoiceable', new sfWidgetFormInputCheckbox( array( 'label' => 'Invoiceables' ) ) );
+        // $this->setWidget( 'invoiceable', new sfWidgetFormInputCheckbox( array( 'label' => 'Invoiceables' ) ) );
 
         $this->widgetSchema->setFormFormatterName( 'list' );
     }
