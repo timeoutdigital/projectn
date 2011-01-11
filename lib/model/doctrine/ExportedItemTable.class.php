@@ -168,11 +168,12 @@ class ExportedItemTable extends Doctrine_Table
      * @param string $endDate
      * @param int $vendorID
      * @param string $modelType
+     * @param array $invoiceableCategory
      * @param int $ui_category_id
      * @param boolean $invoiceableOnly
      * @return mixed
      */
-    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $ui_category_id = null, $invoiceableOnly = true, $hhydrateMode = Doctrine_Core::HYDRATE_RECORD )
+    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $invoiceableCategory, $ui_category_id = null, $invoiceableOnly = true, $hhydrateMode = Doctrine_Core::HYDRATE_RECORD )
     {
         $startDateTime = strtotime( $startDate );
         $endDateTime = strtotime( $endDate );
@@ -195,24 +196,21 @@ class ExportedItemTable extends Doctrine_Table
         if( $invoiceableOnly )
         {
             // Select the Date range from History
-            $q->andWhere( 'DATE(h.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
-
-            $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
-            $invoiceableCategoryIDs = array_keys( $invoiceableYaml['invoiceable'] );
+            $q->andWhere( 'DATE(h.created_at) >= ? AND DATE(h.created_at) <= ?', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
 
             // Check given Category is Invoiceable
             if( $ui_category_id && is_numeric( $ui_category_id ) && $ui_category_id > 0 &&
-                !in_array( $ui_category_id, $invoiceableCategoryIDs) )
+                !in_array( $ui_category_id, $invoiceableCategory) )
             {
                 return null;
             }
 
-            $q->andWhereIn( 'h.value' , $invoiceableCategoryIDs );
+            $q->andWhereIn( 'h.value' , $invoiceableCategory );
             $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
-            $inValues = implode('","', $invoiceableCategoryIDs );
+            $inValues = implode('","', $invoiceableCategory );
             $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
         } else {
-            $q->andWhere( 'DATE(e.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
+            $q->andWhere( 'DATE(e.created_at) >= ? AND DATE(e.created_at) <= ?', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
             $q->orderBy( 'h.created_at DESC');
         }
         
