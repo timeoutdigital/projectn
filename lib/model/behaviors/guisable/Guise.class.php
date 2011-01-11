@@ -35,8 +35,7 @@ class Guise extends Doctrine_Record_Generator
                                 'pluginTable'    => false,
                                 'children'       => array(),
                                 'cascadeDelete'  => true,
-                                'appLevelDelete' => false,
-                                'timestampable'  => true );
+                                'appLevelDelete' => false);
 
 
     /**
@@ -47,17 +46,6 @@ class Guise extends Doctrine_Record_Generator
     public function __construct(array $options = array())
     {
        $this->_options = Doctrine_Lib::arrayDeepMerge($this->_options, $options);
-    }
-
-    public function  setUp()
-    {
-        parent::setUp();
-
-        if ( $this->_options['timestampable'] )
-        {
-            $timestampable1 = new Doctrine_Template_Timestampable();
-            $this->actAs($timestampable1);  
-        }
     }
 
     public function buildRelation()
