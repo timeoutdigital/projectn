@@ -1,5 +1,10 @@
 <div>
-    <ul>
+    <ul class="models clearfix">
+        <li><a href="#" onclick="switchModel( this ); return false;" class="model_switch current">Poi</a></li>
+        <li><a href="#" onclick="switchModel( this ); return false;" class="model_switch">Event</a></li>
+        <li><a href="#" onclick="switchModel( this ); return false;" class="model_switch">Movie</a></li>
+    </ul>
+    <ul class="filter clearfix">
     <?php
         echo $date;
     ?>
@@ -19,6 +24,7 @@ function generateReport()
 
     $vendor = jQuery('#vendor').val();
     $invoiceable = jQuery('#invoiceable').attr( 'checked' );
+    $model = jQuery('#model').val();
 
     $container = jQuery('#generated_results');
     $container.html('generating report...');
@@ -31,8 +37,21 @@ function generateReport()
         'to_month': $to_month,
         'to_year': $to_year,
         'vendor': $vendor,
-        'invoiceable': $invoiceable
+        'invoiceable': $invoiceable,
+        'model': $model
     } );
     
 }
+
+function switchModel( button )
+{
+    jQuery('a.model_switch').each( function(){
+        jQuery(this).removeClass('current');
+    });
+
+    jQuery(button).addClass( 'current' );
+    jQuery('#model').val( jQuery(button).text().toLowerCase() );
+    generateReport();
+}
+
 /* ]]> */</script>

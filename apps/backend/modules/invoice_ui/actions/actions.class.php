@@ -26,13 +26,16 @@ class invoice_uiActions extends sfActions
 
   public function executeGenerateReport(sfWebRequest $request)
   {
-      $dateFrom = sprintf('%s/%s/%s', $request->getParameter( 'from_year' ), $request->getParameter( 'from_month' ), $request->getParameter( 'from_day' ) );
-      $dateTo = sprintf('%s/%s/%s', $request->getParameter( 'to_year' ), $request->getParameter( 'to_month' ), $request->getParameter( 'to_day' ) );
-      $vendor_ID = $request->getParameter( 'vendor' );
-      $invoiceable = ($request->getParameter( 'invoiceable' ) == 'true') ? true : false;
+      $this->dateFrom = $dateFrom = sprintf('%s/%s/%s', $request->getParameter( 'from_year' ), $request->getParameter( 'from_month' ), $request->getParameter( 'from_day' ) );
+      $this->dateTo = $dateTo = sprintf('%s/%s/%s', $request->getParameter( 'to_year' ), $request->getParameter( 'to_month' ), $request->getParameter( 'to_day' ) );
+      $this->model = $model = $request->getParameter( 'model' );
+
+      $vendor_ID = $request->getParameter( 'vendor' );      
+      $this->vendor = Doctrine::getTable( 'Vendor' )->find( $vendor_ID, Doctrine_Core::HYDRATE_ARRAY );
+      $invoiceable = false;
 
       // Get from Database
-      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, 'poi', null, $invoiceable, Doctrine_Core::HYDRATE_ARRAY );
+      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, $model, null, $invoiceable, Doctrine_Core::HYDRATE_ARRAY );
       $this->data = $this->getOrganizedResult($results, $dateFrom, $dateTo);
       
       // UI categories
@@ -46,7 +49,7 @@ class invoice_uiActions extends sfActions
 
   private function getOrganizedResult( $results, $dateFrom, $dateTo )
   {
-      if( !is_array( $results ) || empty ($results) )
+      if( !is_array( $results ) )
           return null;
 
       $data = array();
