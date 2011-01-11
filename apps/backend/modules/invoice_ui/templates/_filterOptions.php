@@ -1,12 +1,6 @@
 <div>
     <?php
         echo $date;
-
-        $vendorList = Doctrine::getTable('Vendor')->findAll( 'KeyValue' );
-        asort( $vendorList );
-
-        $v = new sfWidgetFormSelect( array( 'choices' => $vendorList ) );
-        echo $v->render( 'vendor');
     ?>
     <input type="submit" name="generate" id="btn_generate" value="Generate" onclick="generateReport(); return false;" />
 </div>
@@ -22,6 +16,7 @@ function generateReport()
     $to_year = jQuery('#date_to_year').val();
 
     $vendor = jQuery('#vendor').val();
+    $invoiceable = jQuery('#invoiceable').attr( 'checked' );
 
     $container = jQuery('#generated_results');
     $container.html('generating report...');
@@ -33,7 +28,8 @@ function generateReport()
         'to_day': $to_day,
         'to_month': $to_month,
         'to_year': $to_year,
-        'vendor': $vendor
+        'vendor': $vendor,
+        'invoiceable': $invoiceable
     } );
     
 }

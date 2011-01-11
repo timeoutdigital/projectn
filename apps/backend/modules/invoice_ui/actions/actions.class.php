@@ -17,20 +17,24 @@ class invoice_uiActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->date = new dateRangeSelectForm();
+      $vendorList = Doctrine::getTable('Vendor')->findAll( 'KeyValue' );
+      asort( $vendorList );
+        
+    $this->date = new filterOptionForm();
+    $this->date->setVendorChoices( $vendorList );
   }
 
   public function executeGenerateReport(sfWebRequest $request)
   {
-      $dateFrom = sprintf('?/?/?', $request->getParameter( 'from_day' ), $request->getParameter( 'from_month' ), $request->getParameter( 'from_year' ) );
-      $dateTo = sprintf('?/?/?', $request->getParameter( 'to_day' ), $request->getParameter( 'to_month' ), $request->getParameter( 'to_year' ) );
+      $dateFrom = sprintf('%s/%s/%s', $request->getParameter( 'from_year' ), $request->getParameter( 'from_month' ), $request->getParameter( 'from_day' ) );
+      $dateTo = sprintf('%s/%s/%s', $request->getParameter( 'to_year' ), $request->getParameter( 'to_month' ), $request->getParameter( 'to_day' ) );
       $vendor_ID = $request->getParameter( 'vendor' );
-
+      $invoiceable = ($request->getParameter( 'invoiceable' ) == 'true') ? true : false;
 
       // Get from Database
-      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, 'poi' );
+      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $dateFrom, $dateTo, $vendor_ID, 'poi', null, $invoiceable );
 
-     return $this->renderText( 'found: ' . $results->count() );
+     return $this->renderText( 'found: ' .$results->count() . print_r($results->toArray(), true ) );
      
   }
 }

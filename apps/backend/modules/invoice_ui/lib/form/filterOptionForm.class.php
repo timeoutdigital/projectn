@@ -12,18 +12,19 @@
  *
  */
 
-class dateRangeSelectForm extends BaseForm
+class filterOptionForm extends BaseForm
 {
 
     public function configure()
     {
-        $jsCallback = array( 'onChange' => 'generateReport();' );
+        //$jsCallback = array( 'onChange' => 'generateReport();' );
 
+        // Add Date Range selection
         $dateWidgetFrom = new sfWidgetFormDate( array(
             'format' => '%day%/%month%/%year%',
             'can_be_empty' => false,
             'years' => array( '2010' => '2010', '2011' => '2011' ),
-        ), $jsCallback );
+        ) );
 
         $dateWidgetTo = clone $dateWidgetFrom;
 
@@ -31,9 +32,24 @@ class dateRangeSelectForm extends BaseForm
             'date'    => new sfWidgetFormDateRange( array( 'from_date' => $dateWidgetFrom, 'to_date' => $dateWidgetTo ) )
         ));
 
-        $this->setDefault( 'date', array( 'from' => '-2 weeks', 'to' => 'today' ) );
+        $this->setDefault( 'date', array( 'from' => 'last month', 'to' => 'today' ) );
+
+        // Vendor
+        $this->setWidget( 'vendor', new sfWidgetFormSelect( array( 'label' => 'Vendor', 'choices' => array() ) ) );
+        
+        // Invoiceable
+        $this->setWidget( 'invoiceable', new sfWidgetFormInputCheckbox( array( 'label' => 'Invoiceables' ) ) );
+
+        // Generate Button
+        
+        
 
         $this->widgetSchema->setFormFormatterName( 'list' );
+    }
+
+    public function setVendorChoices( array $vendorList)
+    {
+        $this->getWidget( 'vendor' )->setOption( 'choices', $vendorList );
     }
     
 }
