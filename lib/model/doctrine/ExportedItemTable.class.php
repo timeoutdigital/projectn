@@ -28,7 +28,7 @@ class ExportedItemTable extends Doctrine_Table
         $modifiedDate = strtotime( (string)$xmlNode['modified'] );
 
         // Get UI category ID, No UI category = 0 ID
-        $ui_category_id = $this->getHighestValueUICategoryID( $xmlNode, $modelType );
+        $ui_category_id = ( $modelType == 'movie' ) ? 1 : $this->getUiCategoryIdUsingVendorCategory( $xmlNode, $modelType );
         if( $ui_category_id == null )
         {
             $ui_category_id = 0; // When no UI category found,set id as 0
@@ -103,29 +103,16 @@ class ExportedItemTable extends Doctrine_Table
         }
     }
 
+
     /**
      * Pick UI Category with highest business value.
-     * @param SimpleXMLElement $xmlNode
-     * @return string of highest UI Category or false on failure.
+     * @param array $uiCateegoriesArray
+     * @return mixed
      */
-    private function getHighestValueUICategoryID( $xmlNode, $modelType )
+    private function getHighestValueUICategoryID( $uiCateegoriesArray )
     {
-        // Movie model should only have FILM category
-        if( $modelType == 'movie' )
-        {
-            return $this->getUICategoryIdByName( 'Film' );
-        }
-
-        // Check for UI category CACHE or Load UI category
-        if( self::$uiCategoryCache == null )
-        {
-            $this->loadUICategoryAndVendorCategory();
-        }
-
-        // Extract the Vendor category and tidy up chars etc..
-        $propertyUICategory = $this->vendorCategory2UICategory( $xmlNode->xpath( './/vendor-category' ), $modelType );
         
-        if( empty( $propertyUICategory ) )
+        if( !is_array( $uiCateegoriesArray ) ||  empty( $uiCateegoriesArray ) )
         {
             return null;
         }
@@ -137,7 +124,7 @@ class ExportedItemTable extends Doctrine_Table
         $priority = array( 'Eating & Drinking', 'Film', 'Art', 'Around Town', 'Nightlife', 'Music', 'Stage' );
 
         // Loopthrough each UI category to find the BEST one
-        foreach( $propertyUICategory as $category )
+        foreach( $uiCateegoriesArray as $category )
         {
             $uiCatName = (string)$category;
 
@@ -153,9 +140,21 @@ class ExportedItemTable extends Doctrine_Table
             }
         }
 
+        // Get ARRAY_INDEX's Value (Ui category Name)
         $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : null;
-        
-        return $this->getUICategoryIdByName( $categoryName );
+
+        if($categoryName == null ) return null;
+
+        // look up for the UI Category ID and retuern
+        foreach( self::$uiCategoryCache as $cat )
+        {
+            if( $cat['name'] == $categoryName )
+            {
+                return $cat['id'];
+            }
+        }
+
+        return null; // nothing found? return null
     }
 
     /**
@@ -163,17 +162,21 @@ class ExportedItemTable extends Doctrine_Table
      * @param array $categoryList
      * @return mixed
      */
-    private function vendorCategory2UICategory( $categoryList, $modelType )
+    private function getUiCategoryIdUsingVendorCategory( SimpleXMLElement &$xmlNode, $modelType )
     {
-        if( !is_array($categoryList) || empty($categoryList) )
-        {
-            return null;
-        }
+        // Load UI categories when cache is null
+        if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory();
+        
+        // Extract the vendor categories from XML node
+        $vendorCategories = $xmlNode->xpath( './/vendor-category' );
 
         // Use linking category based on Model.
         $linkingCategory = ( $modelType == 'poi' ) ? self::$poiUiCategoryMap : self::$eventUiCategoryMap;
+
+        // loopthrough each vendor categories and match related UI categories,
+        // then use getHighestValueUICategoryID() to get the Best UI category
         $uiCategoryArray = array();
-        foreach( $categoryList as $cat )
+        foreach( $vendorCategories as $cat )
         {
             // Clean the category name for Whitespaces
             $catName = str_replace( PHP_EOL, ' ', html_entity_decode( stringTransform::mb_trim( (string) $cat ) ) );
@@ -187,29 +190,33 @@ class ExportedItemTable extends Doctrine_Table
 
         }
 
-        return array_unique( $uiCategoryArray );
+        return $this->getHighestValueUICategoryID( array_unique( $uiCategoryArray ) );
     }
 
-    private function getUICategoryIdByName( $categoryName )
+    /**
+     * Get the best value UI category ID using UI Category in the Feed
+     * @param SimpleXMLElement $xmlNode
+     * @return mixed
+     */
+    private function getUiCategoryIdInFeed( SimpleXMLElement &$xmlNode )
     {
-        // Fill Static Cache when null
-        if( self::$uiCategoryCache === null )
-        {
-            $this->loadUICategoryAndVendorCategory();
-        }
-
-        foreach( self::$uiCategoryCache as $cat )
-        {
-            if( $cat['name'] == $categoryName )
-            {
-                return $cat['id'];
-            }
-        }
+        // Load UI categories when cache is null
+        if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory();
         
-        return null;
+        $uiCategories = array_unique( $xmlNode->xpath( './/property[@key="UI_CATEGORY"]' ) );
 
+        $uiCategoryNames = array();
+        foreach( $uiCategories as $cat )
+        {
+            $uiCategoryNames[] = (string)$cat;
+        }
+
+        return $this->getHighestValueUICategoryID( $uiCategoryNames );
     }
 
+    /**
+     * Load UI category and related vendor categories into static cache
+     */
     private function loadUICategoryAndVendorCategory()
     {
         self::$uiCategoryCache = array();
