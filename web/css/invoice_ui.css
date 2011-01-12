@@ -62,6 +62,18 @@
     color: #333;
 }
 
+.models input{
+    margin: .5em;
+}
+.models label{
+    padding: 0 2em 0 0;
+}
+li.mode{
+    background-color: #545454;
+    color: #fff;
+    margin-right: 2em;
+}
+
 .filter{
     font-size: 110%;
 }
@@ -82,6 +94,15 @@
 }
 .filter li:last-child{
     border: 0;
+}
+
+ul.hide{
+    display: none;
+}
+
+/* table highlight */
+tr.highlight td, tr.highlight th{
+    background-color: #fdf5ce;
 }
 
 
