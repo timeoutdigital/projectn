@@ -162,59 +162,42 @@ class ExportedItemTable extends Doctrine_Table
 
     }
 
+
     /**
-     * Fetch Exported Item and Exported Item History by Date range, vendor, Model[poi,event,movie] and [ ui_category_id & invoiceableOnly ]
+     * Get Items First exported within given date range per vendor and Model
      * @param string $startDate
      * @param string $endDate
      * @param int $vendorID
-     * @param string $modelType
-     * @param array $invoiceableCategory
-     * @param int $ui_category_id
-     * @param boolean $invoiceableOnly
+     * @param string $model
      * @return mixed
      */
-    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $invoiceableCategory, $ui_category_id = null, $invoiceableOnly = true, $hhydrateMode = Doctrine_Core::HYDRATE_RECORD )
+    public function getItemsFirstExportedIn( $startDate, $endDate, $vendorID, $model )
     {
-        $startDateTime = strtotime( $startDate );
-        $endDateTime = strtotime( $endDate );
+        // Best to have time in Unix format
+        $startDateStamp= strtotime( $startDate );
+        $endDateStamp = strtotime( $endDate );
 
-        $q = $this->createQuery( 'e' )
-                ->innerJoin( 'e.ExportedItemHistory h')
-                ->where( 'e.vendor_id=?', $vendorID )
-                ->andWhere( 'h.field= ?', "ui_category_id" )
-                ->andWhere( 'e.model = ? ', $modelType );
+        // Get PDO from Doctrine for Direct DB query (Doctrine Takes Longer time and Memory)
+        $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
-        // Makesure to select the Last/Latest Category ID
-        if( isset( $ui_category_id ) && is_numeric( $ui_category_id ) && $ui_category_id > 0 )
-        {
-            $q->andWhere( 'h.value = ?', $ui_category_id );
-            $q->groupBy( 'e.id' );
-            $q->orderBy( 'h.created_at DESC');
-            //$q->andWhere( 'h.id = ( SELECT MAX(eh.id) FROM ExportedItemHistory eh WHERE eh.field= ? AND ( DATE(eh.created_at) BETWEEN ? AND ?) AND eh.exported_item_id = e.id)', array( "ui_category_id", date('Y-m-d', $startDateTime), date('Y-m-d', $endDateTime)) );
-        }
-        
-        if( $invoiceableOnly )
-        {
-            // Select the Date range from History
-            $q->andWhere( 'DATE(h.created_at) >= ? AND DATE(h.created_at) <= ?', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
+        $sql = 'SELECT e.*, h.field, h.value FROM exported_item e LEFT JOIN exported_item_history h ON e.id = h.exported_item_id ';
+        $sql .= 'WHERE ';
+        $sql .= 'e.vendor_id = ? ';
+        $sql .= 'AND e.model = ? ';
+        $sql .= 'AND h.field = ? ';
+        $sql .= 'AND ( DATE(e.created_at) >= ? AND DATE(e.created_at) <= ? ) ';
+        $sql .= ' ORDER BY h.created_at DESC ';
 
-            // Check given Category is Invoiceable
-            if( $ui_category_id && is_numeric( $ui_category_id ) && $ui_category_id > 0 &&
-                !in_array( $ui_category_id, $invoiceableCategory) )
-            {
-                return null;
-            }
+        $query = $pdoDB->prepare( $sql );
+        $status = $query->execute( array(
+            $vendorID,
+            $model,
+            'ui_category_id',
+            date('Y-m-d', $startDateStamp ),
+            date('Y-m-d', $endDateStamp )
+        ));
 
-            $q->andWhereIn( 'h.value' , $invoiceableCategory );
-            $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
-            $inValues = implode('","', $invoiceableCategory );
-            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
-        } else {
-            $q->andWhere( 'DATE(e.created_at) >= ? AND DATE(e.created_at) <= ?', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
-            $q->orderBy( 'h.created_at DESC');
-        }
-        
-        return $q->execute( array(), $hhydrateMode );
+        return ($status) ? $query->fetchAll() : null;
     }
     
 }
