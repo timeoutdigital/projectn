@@ -22,6 +22,7 @@ class invoice_uiActions extends sfActions
         
     $this->date = new filterOptionForm();
     $this->date->setVendorChoices( $vendorList );
+    
   }
 
   public function executeGenerateReport(sfWebRequest $request)
@@ -50,10 +51,39 @@ class invoice_uiActions extends sfActions
       $this->uicategories = $cats;
   }
 
-  private function generateTableData( $results )
+  public function executeGenerateMonthlyReport(sfWebRequest $request)
   {
-  }
+      // Get params
+      $this->model  = $request->getParameter( 'model' );
+      $month = $request->getParameter( 'month' );
+      $year = $request->getParameter( 'year' );
+      $this->invoiceable = ($request->getParameter( 'invoiceable' ) == 'true') ? true:false;
+      
+      // UI categories
+      $cats = Doctrine::getTable( 'UiCategory')->findAll( Doctrine_Core::HYDRATE_ARRAY );
+      $this->uicategories = $cats;
 
+      $invoiceableCategory = array();
+      if( $this->invoiceable )
+      {
+          $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
+          $invoiceableCategory = array_keys( $invoiceableYaml[ $this->model ] );
+      }
+
+      // Generate Date range based on Month / Year range
+      $this->dateRange = $this->getFromToDateBy( $month, $year );
+
+      // Query Database for Each vendor
+      $this->vendorList = Doctrine::getTable('Vendor')->findAll( 'KeyValue' );
+      $this->vendorResults = array();
+      foreach( $this->vendorList as $key => $city )
+      {
+          $results = Doctrine::getTable( 'ExportedItem' )->searchBy(  $this->dateRange['from'], $this->dateRange['to'], $key, $this->model, $invoiceableCategory );//Doctrine::getTable( 'ExportedItem' )->fetchBy( $this->dateRange['from'], $this->dateRange['to'], $key, $this->model, $invoiceableCategory, null, $this->invoiceable, Doctrine_Core::HYDRATE_ARRAY );
+          $this->vendorResults[ $key ] = $this->getVendorSpecificReport($results);
+          unset( $results );
+      }
+   }
+  
   private function getOrganizedResult( $results, $dateFrom, $dateTo )
   {
       if( !is_array( $results ) )
@@ -90,5 +120,48 @@ class invoice_uiActions extends sfActions
       }
 
       return empty( $data ) ? null : $data;
+  }
+
+  private function getVendorSpecificReport( $results )
+  {
+      $data = array();
+//      foreach( $results as $record )
+//      {
+//          $history = array_pop( $record['ExportedItemHistory'] );
+//          $category_id = $history['value'];
+//          if( !isset( $data[$category_id] ) )
+//              $data[$category_id] = 0;
+//
+//          $data[$category_id]++;
+//      }
+      foreach( $results as $record )
+      {
+          $category_id = $record['value'];
+          if( !isset( $data[$category_id] ) )
+              $data[$category_id] = 0;
+
+          $data[$category_id]++;
+      }
+
+      return $data;
+  }
+
+  private function getFromToDateBy( $formMonth, $year)
+  {
+      $date = array();
+      if( $formMonth == 12 )
+      {
+          $date['to'] = date('Y/m/16', strtotime( "16 January $year") );
+          $year--;
+          $date['from'] = date('Y/m/17', strtotime( "17 December $year") );
+      }
+      else
+      {
+          $date['from'] = date( 'Y/m/17', strtotime( "$year/$formMonth/17" ));
+          $formMonth++;
+          $date['to'] = date( 'Y/m/16', strtotime( "$year/$formMonth/16" ));
+      }
+
+      return $date;
   }
 }
