@@ -33,6 +33,7 @@
             <?php foreach( $uicategories as $cat ): ?>
             <th><?php echo $cat['name'];?></th>
             <?php endforeach; ?>
+            <th>SUM()</th>
         </tr>
     </thead>
 
@@ -40,7 +41,7 @@
         <?php foreach( $data as $date => $record ): ?>
         <tr>
             <th><?php echo date('d M Y', strtotime( $date ) ); ?></th>
-            <?php foreach( $uicategories as $cat ): ?>
+            <?php $sum = 0; foreach( $uicategories as $cat ): ?>
             <td><?php
             $uniqueThisDate = isset( $record[ $cat['id'] ] ) ? $record[ $cat['id'] ] : 0;
 
@@ -48,18 +49,28 @@
             $categoryTotal[$cat['id']]+= $uniqueThisDate;
 
             echo $uniqueThisDate;
+            $sum += $uniqueThisDate;
             ?></td>
             <?php endforeach; ?>
+            <th><?php echo $sum; ?></th>
         </tr>
         <?php endforeach; ?>
     </tbody>
 
     <tfoot>
         <tr>
-            <th>Total: </th>
+            <th>&nbsp;</th>
             <?php foreach( $uicategories as $cat ): ?>
-            <th><?php echo $categoryTotal[$cat['id']];?></th>
+            <th><?php echo $cat['name'];?></th>
             <?php endforeach; ?>
+            <th>SUM()</th>
+        </tr>
+        <tr>
+            <th>Total: </th>
+            <?php $sum = 0;foreach( $uicategories as $cat ): ?>
+            <th><?php echo $categoryTotal[$cat['id']]; $sum += $categoryTotal[$cat['id']]; ?></th>
+            <?php endforeach; ?>
+            <th><?php echo $sum; ?></th>
         </tr>
     </tfoot>
 </table>
