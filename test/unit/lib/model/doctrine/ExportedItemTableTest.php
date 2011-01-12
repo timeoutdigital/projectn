@@ -82,7 +82,27 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 2, $record['ExportedItemHistory'][0]->value );
     }
 
-    public function testFetchByWithoutInvoice()
+    /* Test for ->getItemsFirstExportedIn() */
+
+    public function testGetItemsFirstExportedInSpecificDay()
+    {
+        // Import 3 Days worth of Data to simulate History and Different Records on Different days
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+
+        // makesure that we have all the data in exportedItem and History added when category only changed
+        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 8, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+
+        // fetch first exported pois by Dates
+        $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-10', 1, 'poi' );
+        print_r($results);
+        $this->assertEquals( 3, count($results) );
+    }
+
+
+    public function __testFetchByWithoutInvoice()
     {
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
@@ -104,7 +124,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 1, $data[0]['ExportedItemHistory']->count() );
     }
 
-    public function testFetchByWithInvoice()
+    public function __testFetchByWithInvoice()
     {
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010

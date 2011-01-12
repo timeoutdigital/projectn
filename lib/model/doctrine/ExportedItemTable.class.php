@@ -180,13 +180,15 @@ class ExportedItemTable extends Doctrine_Table
         // Get PDO from Doctrine for Direct DB query (Doctrine Takes Longer time and Memory)
         $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
-        $sql = 'SELECT e.*, h.field, h.value FROM exported_item e LEFT JOIN exported_item_history h ON e.id = h.exported_item_id ';
+        $sql = 'SELECT e.*, h.field, h.value FROM exported_item e INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
         $sql .= 'WHERE ';
         $sql .= 'e.vendor_id = ? ';
         $sql .= 'AND e.model = ? ';
         $sql .= 'AND h.field = ? ';
         $sql .= 'AND ( DATE(e.created_at) >= ? AND DATE(e.created_at) <= ? ) ';
-        $sql .= ' ORDER BY h.created_at DESC ';
+        $sql .= 'AND DATE(h.created_at) = DATE(e.created_at)';
+//        $sql .= ' GROUP BY e.id';
+//        $sql .= ' ORDER BY h.id ASC ';
 
         $query = $pdoDB->prepare( $sql );
         $status = $query->execute( array(
