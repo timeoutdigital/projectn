@@ -21,6 +21,9 @@ class ExportedItemTable extends Doctrine_Table
         {
             throw new ExportedItemTableException( "Invalid modelType, Should only be poi/event/movie" );
         }
+
+        // Load UI categories when cache is null
+        if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory( $vendorID );
         
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
@@ -164,8 +167,6 @@ class ExportedItemTable extends Doctrine_Table
      */
     private function getUiCategoryIdUsingVendorCategory( SimpleXMLElement &$xmlNode, $modelType )
     {
-        // Load UI categories when cache is null
-        if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory();
         
         // Extract the vendor categories from XML node
         $vendorCategories = $xmlNode->xpath( './/vendor-category' );
@@ -199,10 +200,7 @@ class ExportedItemTable extends Doctrine_Table
      * @return mixed
      */
     private function getUiCategoryIdInFeed( SimpleXMLElement &$xmlNode )
-    {
-        // Load UI categories when cache is null
-        if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory();
-        
+    {        
         $uiCategories = array_unique( $xmlNode->xpath( './/property[@key="UI_CATEGORY"]' ) );
 
         $uiCategoryNames = array();
@@ -217,7 +215,7 @@ class ExportedItemTable extends Doctrine_Table
     /**
      * Load UI category and related vendor categories into static cache
      */
-    private function loadUICategoryAndVendorCategory()
+    private function loadUICategoryAndVendorCategory( $vendorID )
     {
         self::$uiCategoryCache = array();
         self::$poiUiCategoryMap = array();
@@ -227,7 +225,7 @@ class ExportedItemTable extends Doctrine_Table
         foreach( Doctrine::getTable('UiCategory')->findAll() as $map )
         {
             self::$uiCategoryCache[] = array( 'name' => $map['name'] , 'id' => $map['id'] );
-            foreach( $map['VendorPoiCategory'] as $m )   self::$poiUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
+            foreach( $map['VendorPoiCategory'] as $m ) self::$poiUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
             foreach( $map['VendorEventCategory'] as $m ) self::$eventUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
         }
         
