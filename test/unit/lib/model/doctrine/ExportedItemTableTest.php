@@ -24,6 +24,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     {
         ProjectN_Test_Unit_Factory::createDatabases();
         Doctrine::loadData('data/fixtures');
+        $this->setUpVendorCategoryUIMapping();
     }
 
     public function tearDown()
@@ -129,6 +130,33 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         foreach( $xmlNodes->entry as $xmlNode)
         {
             Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        }
+    }
+
+    /**
+     * This method will add Vendor Categories exactly same as UI category and Map them to UI category
+     * This mimic the Producer mapping action
+     */
+    private function setUpVendorCategoryUIMapping()
+    {
+        $uiCategories = Doctrine::getTable( 'UiCategory' )->findAll();
+
+        foreach( $uiCategories as $uiCat )
+        {
+            $poiCategory = new VendorPoiCategory;
+            $poiCategory['name'] = $uiCat['name'];
+            $poiCategory['vendor_id'] = 1;
+            $poiCategory->save();
+
+            $eventCategory = new VendorEventCategory;
+            $eventCategory['name'] = $uiCat['name'];
+            $eventCategory['vendor_id'] = 1;
+            $eventCategory->save();
+
+            $uiCat['VendorPoiCategory'][] = $poiCategory;
+            $uiCat['VendorEventCategory'][] = $eventCategory;
+            $uiCat->save();
+
         }
     }
 }
