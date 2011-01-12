@@ -35,15 +35,8 @@ class invoice_uiActions extends sfActions
       $this->vendor = Doctrine::getTable( 'Vendor' )->find( $vendor_ID, Doctrine_Core::HYDRATE_ARRAY );
       $this->invoiceable = ($request->getParameter( 'invoiceable' ) == 'true') ? true:false;
 
-      $invoiceableCategory = array();
-      if( $this->invoiceable )
-      {
-          $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
-          $invoiceableCategory = array_keys( $invoiceableYaml[ $this->model ] );
-      }
-
       // Get from Database
-      $results = Doctrine::getTable( 'ExportedItem' )->fetchBy( $this->dateFrom, $this->dateTo, $vendor_ID, $this->model, $invoiceableCategory, null, $this->invoiceable, Doctrine_Core::HYDRATE_ARRAY );
+      $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( $this->dateFrom, $this->dateTo, $vendor_ID, $this->model );
       $this->data = $this->getOrganizedResult($results, $this->dateFrom, $this->dateTo);
       
       // UI categories
@@ -63,13 +56,6 @@ class invoice_uiActions extends sfActions
       $cats = Doctrine::getTable( 'UiCategory')->findAll( Doctrine_Core::HYDRATE_ARRAY );
       $this->uicategories = $cats;
 
-      $invoiceableCategory = array();
-      if( $this->invoiceable )
-      {
-          $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
-          $invoiceableCategory = array_keys( $invoiceableYaml[ $this->model ] );
-      }
-
       // Generate Date range based on Month / Year range
       $this->dateRange = $this->getFromToDateBy( $month, $year );
 
@@ -78,7 +64,7 @@ class invoice_uiActions extends sfActions
       $this->vendorResults = array();
       foreach( $this->vendorList as $key => $city )
       {
-          $results = Doctrine::getTable( 'ExportedItem' )->searchBy(  $this->dateRange['from'], $this->dateRange['to'], $key, $this->model, $invoiceableCategory );//Doctrine::getTable( 'ExportedItem' )->fetchBy( $this->dateRange['from'], $this->dateRange['to'], $key, $this->model, $invoiceableCategory, null, $this->invoiceable, Doctrine_Core::HYDRATE_ARRAY );
+          $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn(  $this->dateRange['from'], $this->dateRange['to'], $key, $this->model );
           $this->vendorResults[ $key ] = $this->getVendorSpecificReport($results);
           unset( $results );
       }
@@ -108,8 +94,7 @@ class invoice_uiActions extends sfActions
           // Create Array when not exist to hold the count of each category occurreces
           $date = substr($record['created_at'],0,10);
           
-          $history = array_pop( $record['ExportedItemHistory'] );
-          $category_id = $history['value'];
+          $category_id = $record['value'];
           if( !isset( $data[ $date ][ $category_id ] ) )
           {
               $data[ $date ][ $category_id ] = 0;
