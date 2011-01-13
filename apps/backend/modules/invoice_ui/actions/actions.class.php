@@ -19,6 +19,8 @@ class invoice_uiActions extends sfActions
   {
       $vendorList = Doctrine::getTable('Vendor')->findAll( 'KeyValue' );
       asort( $vendorList );
+      // Remove unKnown from the List
+      unset($vendorList[17]);
         
     $this->date = new filterOptionForm();
     $this->date->setVendorChoices( $vendorList );
@@ -61,6 +63,7 @@ class invoice_uiActions extends sfActions
 
       // Query Database for Each vendor
       $this->vendorList = Doctrine::getTable('Vendor')->findAll( 'KeyValue' );
+      unset( $this->vendorList[17] ); // Remove Unknown from the List
       $this->vendorResults = array();
       foreach( $this->vendorList as $key => $city )
       {
