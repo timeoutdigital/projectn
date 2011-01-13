@@ -1,18 +1,20 @@
 <div>
     <ul class="models clearfix">
-        <li class="mode"><input type="checkbox" name="mode" id="mode" value="month" onchange="switchMode( this );" /><label for="mode">Daily Report</label></li>
         <li><a href="#" onclick="switchModel( this ); return false;" class="model_switch current">Poi</a></li>
         <li><a href="#" onclick="switchModel( this ); return false;" class="model_switch">Event</a></li>
         <li><a href="#" onclick="switchModel( this ); return false;" class="model_switch">Movie</a></li>
+        
+        <li class="mode"><a href="#" onclick="switchMode( 'daily_filter', this); return false;">Daily Report</a></li>
+        <li class="mode"><a href="#" onclick="switchMode( 'monthly_filter', this); return false;" class="current">Monthly Reports</a></li>
     </ul>
-    <ul class="filter clearfix" id="daily_filter">
+    <ul class="filter clearfix hide" id="daily_filter">
     <?php
         echo $date;
     ?>
         <li><input type="submit" name="generate" id="btn_generate" value="Generate" onclick="generateReport(); return false;" /></li>
     </ul>
 
-    <ul class="filter clearfix hide" id="monthly_filter">
+    <ul class="filter clearfix" id="monthly_filter">
         <li><label>Month Range
                 <select id="month">
                     <?php
@@ -57,9 +59,9 @@
 <script type="text/javascript">/* <![CDATA[ */
 function generateReport()
 {
-    if( jQuery('#mode').attr('checked') )
+    if( jQuery('#monthly_filter').hasClass( 'hide' ) == false )
     {
-        generateMonthlyReport()
+        generateMonthlyReport();
     } else{
         generateDailyReport();
     }
@@ -122,24 +124,23 @@ function switchModel( button )
     generateReport();
 }
 
-function switchMode( chkBox )
+function switchMode( show, link )
 {
+    $link = jQuery(link);
+
+    // prevent from re-generating same thing by clicking selected links
+    if( $link.hasClass( 'current' ) ) return false;
     
-    $checked = jQuery(chkBox).attr( 'checked' );
+    // remove current
+    jQuery('.mode a').each( function(){
+        jQuery( this ).removeClass( 'current' );
+    });
+    $link.addClass( 'current' );
+
+    jQuery( '#monthly_filter').addClass( 'hide' );
+    jQuery( '#daily_filter').addClass( 'hide' );
     
-    if($checked)
-    {
-        jQuery( 'label', jQuery( chkBox ).parent() ).text( 'Monthly Report' );
-        jQuery('#monthly_filter').removeClass( 'hide' );
-        jQuery('#daily_filter').addClass( 'hide' );
-    }
-    else
-    {
-        jQuery( 'label', jQuery( chkBox ).parent() ).text( 'Daily Report' );
-        jQuery('#monthly_filter').addClass( 'hide' );
-        jQuery('#daily_filter').removeClass( 'hide' );
-    }
-    
+    jQuery( '#'+show ).removeClass( 'hide' );
     generateReport();
 }
 
