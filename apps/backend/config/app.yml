@@ -96,7 +96,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: istanbul_en
-          type: [ poi ]
+          type: [ poi, event, movie ]
         -
           name: shanghai_en
           type: [ poi, event, movie ]
