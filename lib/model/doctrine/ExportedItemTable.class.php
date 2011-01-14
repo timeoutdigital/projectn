@@ -37,7 +37,9 @@ class ExportedItemTable extends Doctrine_Table
             $pdoConn = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
             // Find the Existing Record
-            $sql = 'SELECT e.id, e.record_id, h.value, h.field FROM exported_item e INNER JOIN exported_item_history h on h.exported_item_id = e.id ';
+            $sql  = 'SELECT e.id, e.record_id, h.value, h.field ';
+            $sql .= 'FROM exported_item e ';
+            $sql .= 'INNER JOIN exported_item_history h on h.exported_item_id = e.id ';
             $sql .= 'WHERE e.model = ? AND e.record_id = ? AND h.field = "ui_category_id" ';
             $sql .= 'ORDER BY h.created_at DESC LIMIT 1';
 
