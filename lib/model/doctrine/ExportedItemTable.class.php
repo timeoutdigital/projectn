@@ -28,9 +28,7 @@ class ExportedItemTable extends Doctrine_Table
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
 
-        if( strlen( $recordID ) != 33 ||
-                preg_match( '#[A-Z]{3}#', substr( $recordID, 0, 3 ) ) == 0 ||
-                !is_numeric( substr( $recordID, 3 ) ) )
+        if( !stringTransform::isValidExportRecordID( $recordID ) )
         {
             throw new ExportedItemTableException( "Invalid Record ID found in the Node" );
         }
