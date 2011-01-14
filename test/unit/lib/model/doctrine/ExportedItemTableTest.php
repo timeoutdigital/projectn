@@ -24,6 +24,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     {
         ProjectN_Test_Unit_Factory::createDatabases();
         Doctrine::loadData('data/fixtures');
+        $this->setUpVendorCategoryUIMapping();
     }
 
     public function tearDown()
@@ -191,63 +192,82 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 0, $record['ExportedItemHistory'][0]->value );
     }
 
-    public function testFetchByWithoutInvoice()
+    /* Test for ->getItemsFirstExportedIn() */
+    public function testGetItemsFirstExportedInSpecificDay()
     {
+        // Import 3 Days worth of Data to simulate History and Different Records on Different days
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
 
+        // makesure that we have all the data in exportedItem and History added when category only changed
         $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
         $this->assertEquals( 8, Doctrine::getTable( 'ExportedItemHistory' )->count() );
 
-        // Get all Data Without filtering Invoiceable and or by ui category ID
-        $data = Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-12-10', '2010-12-20', 1, 'poi', array(), null, false );
-        $this->assertEquals( 3, $data->count() );
-        $this->assertEquals( 2, $data[0]['ExportedItemHistory']->count() );
-        $this->assertEquals( 3, $data[1]['ExportedItemHistory']->count() );
-        $this->assertEquals( 3, $data[2]['ExportedItemHistory']->count() );
+        // fetch first exported pois by Dates
+        $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-10', 1, 'poi' );
+        $this->assertEquals( 3, count($results) );
 
-        // Filter by Ui category ID within DateRange
-        $data = Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-12-10', '2010-12-20', 1, 'poi', array(), 3, false );
-        $this->assertEquals( 1, $data->count() );
-        $this->assertEquals( 1, $data[0]['ExportedItemHistory']->count() );
+        $this->assertEquals( '2', $results[0]['value'], 'First category of this records is 2');
+        $this->assertEquals( '2', $results[1]['value'], 'First category of this records is 2');
+        $this->assertEquals( '1', $results[2]['value'], 'First category of this records is 1');
     }
 
-    public function testFetchByWithInvoice()
+    /**
+     * Since there is no invoiceable option, model should always return original category event though it's changed in this date range
+     */
+    public function testGetItemsFirstExportedInDateRange()
     {
+        // Import 3 Days worth of Data to simulate History and Different Records on Different days
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
 
+        // makesure that we have all the data in exportedItem and History added when category only changed
         $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
         $this->assertEquals( 8, Doctrine::getTable( 'ExportedItemHistory' )->count() );
 
-        // Filter by invoiceable, but no Category
-        $data = Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-12-10', '2010-12-20', 1, 'poi', array( '2'), null, true );
-        $this->assertEquals( 3, $data->count() );
-        $this->assertEquals( 1, $data[0]['ExportedItemHistory']->count() );
-        $this->assertEquals( 2, $data[1]['ExportedItemHistory']->count(), 'This is because this category was invoiceable, changed to something else in the middle before changing back to invoiceable again');
-        $this->assertEquals( 1, $data[2]['ExportedItemHistory']->count() );
+        // fetch first exported pois by Dates
+        $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-20', 1, 'poi' );
+        $this->assertEquals( 3, count($results) );
 
-        $data = Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-12-15', '2010-12-20', 1, 'poi', array( '2' ), null, true );
-        $this->assertEquals( 1, $data->count(), 'There should only be 1 Invoiceable Item');
-
-        // Filter by UI category ID and Invoiceable?
-        $data = Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-12-15', '2010-12-20', 1, 'poi', array( '2' ), 3, true ); // Not invoiceable CAT ID
-        $this->assertNull( $data );
-
-        $data = Doctrine::getTable( 'ExportedItem' )->fetchBy( '2010-12-10', '2010-12-20', 1, 'poi', array( '2' ), 2, true );
-        $this->assertEquals( 3, $data->count() );
-        $this->assertEquals( 1, $data[0]['ExportedItemHistory']->count() );
-        $this->assertEquals( 1, $data[1]['ExportedItemHistory']->count() );
-        $this->assertEquals( 1, $data[2]['ExportedItemHistory']->count() );
+        $this->assertEquals( '2', $results[0]['value'], 'First category of this records is 2');
+        $this->assertEquals( '2', $results[1]['value'], 'First category of this records is 2');
+        $this->assertEquals( '1', $results[2]['value'], 'First category of this records is 1');
     }
-
+    
     private function importXMLNodes( $xmlNodes )
     {
         foreach( $xmlNodes->entry as $xmlNode)
         {
             Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        }
+    }
+
+    /**
+     * This method will add Vendor Categories exactly same as UI category and Map them to UI category
+     * This mimic the Producer mapping action
+     */
+    private function setUpVendorCategoryUIMapping()
+    {
+        $uiCategories = Doctrine::getTable( 'UiCategory' )->findAll();
+
+        foreach( $uiCategories as $uiCat )
+        {
+            $poiCategory = new VendorPoiCategory;
+            $poiCategory['name'] = $uiCat['name'];
+            $poiCategory['vendor_id'] = 1;
+            $poiCategory->save();
+
+            $eventCategory = new VendorEventCategory;
+            $eventCategory['name'] = $uiCat['name'];
+            $eventCategory['vendor_id'] = 1;
+            $eventCategory->save();
+
+            $uiCat['VendorPoiCategory'][] = $poiCategory;
+            $uiCat['VendorEventCategory'][] = $eventCategory;
+            $uiCat->save();
+
         }
     }
 }

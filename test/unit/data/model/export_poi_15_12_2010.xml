@@ -27,7 +27,7 @@
         <country>CHN</country>
       </address>
       <content>
-        <vendor-category><![CDATA[北京 | 吃喝 | 北京最佳餐厅100 | 食事饮踪 | 新品新菜]]></vendor-category>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
         <short-description><![CDATA[即日起推出简单点心新选择，来自香港的顶级大厨将结合传统元素与广东新式烹饪技法，为各个点心种类带来新创...]]></short-description>
         <description><![CDATA[即日起推出简单点心新选择，来自香港的顶级大厨将结合传统元素与广东新式烹饪技法，为各个点心种类带来新创品种。新增点心推车让您的用餐体验更加简单愉悦。]]></description>
         <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
@@ -61,7 +61,7 @@
         <country>CHN</country>
       </address>
       <content>
-        <vendor-category><![CDATA[北京 | 吃喝 | 北京最佳餐厅100 | 食事饮踪 | 特色自助]]></vendor-category>
+        <vendor-category><![CDATA[Film]]></vendor-category>
         <short-description><![CDATA[即日起每周五推出由主厨左宝龙带来的精选料理，菜式全部采用最新鲜的食材制成，4道菜式中的每道菜品都将佐以...]]></short-description>
         <description><![CDATA[即日起每周五推出由主厨左宝龙带来的精选料理，菜式全部采用最新鲜的食材制成，4道菜式中的每道菜品都将佐以一杯葡萄牙本地红酒，套餐人民币338元。]]></description>
         <property key="UI_CATEGORY"><![CDATA[Film]]></property>
@@ -95,7 +95,7 @@
         <country>CHN</country>
       </address>
       <content>
-        <vendor-category><![CDATA[北京 | 影视 | 院线指南]]></vendor-category>
+        <vendor-category><![CDATA[Music]]></vendor-category>
         <property key="UI_CATEGORY"><![CDATA[Music]]></property>
       </content>
     </version>

@@ -13,16 +13,12 @@
         </tr>
     </thead>
     <tr>
-        <th>Vendor:</th>
-        <td><?php echo ucfirst( $vendor['city'] );?></td>
-    </tr>
-    <tr>
         <th>Model:</th>
         <td><?php echo ucfirst( $model ); ?></td>
     </tr>
     <tr>
         <th>Date Range:</th>
-        <td><?php echo date('d/m/Y', strtotime( $dateFrom ) );?><br /><?php echo date('d/m/Y', strtotime( $dateTo ) );?></td>
+        <td><?php echo date('d/m/Y', strtotime( $dateRange['from'] ) );?><br /><?php echo date('d/m/Y', strtotime( $dateRange['to'] ) );?></td>
     </tr>
 </table>
 
@@ -38,12 +34,12 @@
     </thead>
 
     <tbody>
-        <?php foreach( $data as $date => $record ): ?>
+        <?php asort($vendorList); foreach( $vendorList as $key => $city ): ?>
         <tr>
-            <th><?php echo date('d M Y', strtotime( $date ) ); ?></th>
+            <th><?php echo ucfirst( $city ); ?></th>
             <?php $sum = 0; foreach( $uicategories as $cat ): ?>
             <td><?php
-            $uniqueThisDate = isset( $record[ $cat['id'] ] ) ? $record[ $cat['id'] ] : 0;
+            $uniqueThisDate = isset( $vendorResults[ $key ][ $cat['id'] ] ) ? $vendorResults[ $key ][ $cat['id'] ] : 0;
 
             if( !isset( $categoryTotal[$cat['id']]) ) $categoryTotal[$cat['id']] = 0;
             $categoryTotal[$cat['id']]+= $uniqueThisDate;
@@ -67,7 +63,7 @@
         </tr>
         <tr>
             <th>Total: </th>
-            <?php $sum = 0;foreach( $uicategories as $cat ): ?>
+            <?php $sum = 0; foreach( $uicategories as $cat ): ?>
             <th><?php echo $categoryTotal[$cat['id']]; $sum += $categoryTotal[$cat['id']]; ?></th>
             <?php endforeach; ?>
             <th><?php echo $sum; ?></th>

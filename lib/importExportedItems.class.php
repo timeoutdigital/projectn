@@ -47,7 +47,7 @@ class importExportedItems
 
         foreach( $modelDirList as $modelDir )
         {
-            echo ' - Importing Model: ' . $modelDir . PHP_EOL;
+            echo ' - '.date('d/m/Y H:i:s').': Importing Model: ' . $modelDir . PHP_EOL;
             
             $modelDirFullPath = $this->modelsFolderPath . '/' . $modelDir;
 
@@ -55,7 +55,8 @@ class importExportedItems
             $modelExportedCities = DirectoryIteratorN::iterate( $modelDirFullPath, DirectoryIteratorN::DIR_FILES, 'xml' );
             if( !is_array( $modelExportedCities ) || empty($modelExportedCities) )
             {
-                throw new ImportExportedItemsException( "Exported City file not found for Model {$modelDir} in {$modelDirFullPath}" );
+                echo "ERROR: Exported City file not found for Model {$modelDir} in {$modelDirFullPath}" . PHP_EOL;
+                continue;
             }
             
             // Import each of these City files into Exporteditems
@@ -98,6 +99,10 @@ class importExportedItems
         // remove XML and remove _
         $fileName = explode( '.', $fileName, 2 );
         $cityName = trim($fileName[0]);
+
+        // Make exception for Delhi
+        $cityName = ( $cityName == 'dehli') ? 'delhi' : $cityName;
+        
         // Some city name should be made exception to removing _ ( like beijing_zh )
         return ( in_array( $cityName, $this->exceptionCityName ) ) ?
                 $cityName :

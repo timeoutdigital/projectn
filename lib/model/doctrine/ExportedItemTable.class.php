@@ -2,7 +2,10 @@
 
 class ExportedItemTable extends Doctrine_Table
 {
+    // Cache UI category and related vendor poi/event category
     private static $uiCategoryCache;
+    private static $poiUiCategoryMap;
+    private static $eventUiCategoryMap;
 
     /**
      * Add or Update record to ExportedItemTable
@@ -18,6 +21,9 @@ class ExportedItemTable extends Doctrine_Table
         {
             throw new ExportedItemTableException( "Invalid modelType, Should only be poi/event/movie" );
         }
+
+        // Load UI categories when cache is null
+        if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory( $vendorID );
         
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
@@ -25,7 +31,7 @@ class ExportedItemTable extends Doctrine_Table
         $modifiedDate = strtotime( (string)$xmlNode['modified'] );
 
         // Get UI category ID, No UI category = 0 ID
-        $ui_category_id = $this->getHighestValueUICategoryID( $xmlNode );
+        $ui_category_id = ( $modelType == 'movie' ) ? 1 : $this->getUiCategoryIdUsingVendorCategory( $xmlNode, $modelType );
         if( $ui_category_id == null )
         {
             $ui_category_id = 0; // When no UI category found,set id as 0
@@ -102,26 +108,28 @@ class ExportedItemTable extends Doctrine_Table
         }
     }
 
+
     /**
      * Pick UI Category with highest business value.
-     * @param SimpleXMLElement $xmlNode
-     * @return string of highest UI Category or false on failure.
+     * @param array $uiCateegoriesArray
+     * @return mixed
      */
-    private function getHighestValueUICategoryID( $xmlNode )
+    private function getHighestValueUICategoryID( $uiCateegoriesArray )
     {
-        // Extract UI category from xmlNode and Get only the Unique Category
-        $propertyUICategory = array_unique( $xmlNode->xpath( './/property[@key="UI_CATEGORY"]' ) );
-
-        if( empty( $propertyUICategory ) )
+        
+        if( !is_array( $uiCateegoriesArray ) ||  empty( $uiCateegoriesArray ) )
         {
             return null;
         }
 
         // For each Unique UI category, Find the Best (Money value) category for this Record
         $highestCategory = 99999;
+
+        // This is the Best to Not so best Order
         $priority = array( 'Eating & Drinking', 'Film', 'Art', 'Around Town', 'Nightlife', 'Music', 'Stage' );
 
-        foreach( $propertyUICategory as $category )
+        // Loopthrough each UI category to find the BEST one
+        foreach( $uiCateegoriesArray as $category )
         {
             $uiCatName = (string)$category;
 
@@ -137,21 +145,12 @@ class ExportedItemTable extends Doctrine_Table
             }
         }
 
-        
+        // Get ARRAY_INDEX's Value (Ui category Name)
         $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : null;
-        //$uiCategory = ( $categoryName !== null ) ?  Doctrine::getTable( 'UiCategory' )->findOneByName( $categoryName, Doctrine::HYDRATE_ARRAY ) : false;
-        
-        return $this->getUICategoryIdByName( $categoryName );//( !is_array($uiCategory) || empty($uiCategory) ) ? null : $uiCategory['id'];
-    }
 
-    private function getUICategoryIdByName( $categoryName )
-    {
-        // Fill Static Cache when null
-        if( self::$uiCategoryCache === null )
-        {
-            self::$uiCategoryCache = Doctrine::getTable( 'UiCategory' )->findAll( Doctrine_Core::HYDRATE_ARRAY );
-        }
+        if($categoryName == null ) return null;
 
+        // look up for the UI Category ID and retuern
         foreach( self::$uiCategoryCache as $cat )
         {
             if( $cat['name'] == $categoryName )
@@ -159,64 +158,123 @@ class ExportedItemTable extends Doctrine_Table
                 return $cat['id'];
             }
         }
-        
-        return null;
 
+        return null; // nothing found? return null
     }
 
     /**
-     * Fetch Exported Item and Exported Item History by Date range, vendor, Model[poi,event,movie] and [ ui_category_id & invoiceableOnly ]
+     * Tidy up category names and return clean list of vendor categories
+     * @param array $categoryList
+     * @return mixed
+     */
+    private function getUiCategoryIdUsingVendorCategory( SimpleXMLElement &$xmlNode, $modelType )
+    {
+        
+        // Extract the vendor categories from XML node
+        $vendorCategories = $xmlNode->xpath( './/vendor-category' );
+
+        // Use linking category based on Model.
+        $linkingCategory = ( $modelType == 'poi' ) ? self::$poiUiCategoryMap : self::$eventUiCategoryMap;
+
+        // loopthrough each vendor categories and match related UI categories,
+        // then use getHighestValueUICategoryID() to get the Best UI category
+        $uiCategoryArray = array();
+        foreach( $vendorCategories as $cat )
+        {
+            // Clean the category name for Whitespaces
+            $catName = str_replace( PHP_EOL, ' ', html_entity_decode( stringTransform::mb_trim( (string) $cat ) ) );
+            
+             // Check that we have the category in the mapping array.
+            if( in_array( $catName, array_keys( $linkingCategory ) ) )
+            {
+                // Add found UI category to list, This than will be filtered for Unique and returned as array of String ui category names
+                $uiCategoryArray[] =  $linkingCategory[ $catName ];
+            }
+
+        }
+
+        return $this->getHighestValueUICategoryID( array_unique( $uiCategoryArray ) );
+    }
+
+    /**
+     * Get the best value UI category ID using UI Category in the Feed
+     * @param SimpleXMLElement $xmlNode
+     * @return mixed
+     */
+    private function getUiCategoryIdInFeed( SimpleXMLElement &$xmlNode )
+    {        
+        $uiCategories = array_unique( $xmlNode->xpath( './/property[@key="UI_CATEGORY"]' ) );
+
+        $uiCategoryNames = array();
+        foreach( $uiCategories as $cat )
+        {
+            $uiCategoryNames[] = (string)$cat;
+        }
+
+        return $this->getHighestValueUICategoryID( $uiCategoryNames );
+    }
+
+    /**
+     * Load UI category and related vendor categories into static cache
+     */
+    private function loadUICategoryAndVendorCategory( $vendorID )
+    {
+        self::$uiCategoryCache = array();
+        self::$poiUiCategoryMap = array();
+        self::$eventUiCategoryMap = array();
+
+        // Get mapping data from external database (usually prod).
+        foreach( Doctrine::getTable('UiCategory')->findAll() as $map )
+        {
+            self::$uiCategoryCache[] = array( 'name' => $map['name'] , 'id' => $map['id'] );
+            foreach( $map['VendorPoiCategory'] as $m ) self::$poiUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
+            foreach( $map['VendorEventCategory'] as $m ) self::$eventUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
+        }
+        
+        if( empty( self::$uiCategoryCache ) )
+        {
+            throw new ExportedItemException( 'Could not get category mappings from database, please specify a live data source.' );
+        }
+    }
+
+
+    /**
+     * Get Items First exported within given date range per vendor and Model
      * @param string $startDate
      * @param string $endDate
      * @param int $vendorID
-     * @param string $modelType
-     * @param array $invoiceableCategory
-     * @param int $ui_category_id
-     * @param boolean $invoiceableOnly
+     * @param string $model
      * @return mixed
      */
-    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $invoiceableCategory, $ui_category_id = null, $invoiceableOnly = true, $hhydrateMode = Doctrine_Core::HYDRATE_RECORD )
+    public function getItemsFirstExportedIn( $startDate, $endDate, $vendorID, $model )
     {
-        $startDateTime = strtotime( $startDate );
-        $endDateTime = strtotime( $endDate );
+        // Best to have time in Unix format
+        $startDateStamp= strtotime( $startDate );
+        $endDateStamp = strtotime( $endDate );
 
-        $q = $this->createQuery( 'e' )
-                ->innerJoin( 'e.ExportedItemHistory h')
-                ->where( 'e.vendor_id=?', $vendorID )
-                ->andWhere( 'h.field= ?', "ui_category_id" )
-                ->andWhere( 'e.model = ? ', $modelType );
+        // Get PDO from Doctrine for Direct DB query (Doctrine Takes Longer time and Memory)
+        $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
-        // Makesure to select the Last/Latest Category ID
-        if( isset( $ui_category_id ) && is_numeric( $ui_category_id ) && $ui_category_id > 0 )
-        {
-            $q->andWhere( 'h.value = ?', $ui_category_id );
-            $q->groupBy( 'e.id' );
-            $q->orderBy( 'h.created_at DESC');
-            //$q->andWhere( 'h.id = ( SELECT MAX(eh.id) FROM ExportedItemHistory eh WHERE eh.field= ? AND ( DATE(eh.created_at) BETWEEN ? AND ?) AND eh.exported_item_id = e.id)', array( "ui_category_id", date('Y-m-d', $startDateTime), date('Y-m-d', $endDateTime)) );
-        }
-        
-        if( $invoiceableOnly )
-        {
-            // Select the Date range from History
-            $q->andWhere( 'DATE(h.created_at) >= ? AND DATE(h.created_at) <= ?', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
+        $sql = 'SELECT e.*, h.field, h.value FROM exported_item e INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
+        $sql .= 'WHERE ';
+        $sql .= 'e.vendor_id = ? ';
+        $sql .= 'AND e.model = ? ';
+        $sql .= 'AND h.field = ? ';
+        $sql .= 'AND ( DATE(e.created_at) >= ? AND DATE(e.created_at) <= ? ) ';
+        $sql .= 'AND DATE(h.created_at) = DATE(e.created_at)';
+//        $sql .= ' GROUP BY e.id';
+//        $sql .= ' ORDER BY h.id ASC ';
 
-            // Check given Category is Invoiceable
-            if( $ui_category_id && is_numeric( $ui_category_id ) && $ui_category_id > 0 &&
-                !in_array( $ui_category_id, $invoiceableCategory) )
-            {
-                return null;
-            }
+        $query = $pdoDB->prepare( $sql );
+        $status = $query->execute( array(
+            $vendorID,
+            $model,
+            'ui_category_id',
+            date('Y-m-d', $startDateStamp ),
+            date('Y-m-d', $endDateStamp )
+        ));
 
-            $q->andWhereIn( 'h.value' , $invoiceableCategory );
-            $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
-            $inValues = implode('","', $invoiceableCategory );
-            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
-        } else {
-            $q->andWhere( 'DATE(e.created_at) >= ? AND DATE(e.created_at) <= ?', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  );
-            $q->orderBy( 'h.created_at DESC');
-        }
-        
-        return $q->execute( array(), $hhydrateMode );
+        return ($status) ? $query->fetchAll() : null;
     }
     
 }

@@ -29,7 +29,7 @@
         <country>NLD</country>
       </address>
       <content>
-        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Nightout]]></vendor-category>
         <property key="UI_CATEGORY"><![CDATA[Nightout]]></property>
       </content>
     </version>
@@ -64,7 +64,7 @@
         <country>NLD</country>
       </address>
       <content>
-        <vendor-category><![CDATA[Restaurants]]></vendor-category>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
         <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
       </content>
     </version>
@@ -97,7 +97,7 @@
         <country>NLD</country>
       </address>
       <content>
-        <vendor-category><![CDATA[Pubs & Bars]]></vendor-category>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
         <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
       </content>
     </version>
@@ -130,7 +130,7 @@
         <country>NLD</country>
       </address>
       <content>
-        <vendor-category><![CDATA[Pubs & Bars]]></vendor-category>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
         <description><![CDATA[A busy, casual bar doubling as a venue for theatre and music. Bands and DJs embrace the urban, jazzy and funky sides of sound.]]></description>
         <openingtimes><![CDATA[Open daily from 20.00]]></openingtimes>
         <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
@@ -165,7 +165,7 @@
         <country>NLD</country>
       </address>
       <content>
-        <vendor-category><![CDATA[Pubs & Bars]]></vendor-category>
+        <vendor-category><![CDATA[Around Town]]></vendor-category>
         <description><![CDATA[A quirky club-cum-bar cumtheatre. Expect an alternative crowd mixed with hip ‘media’ folk.]]></description>
         <openingtimes><![CDATA[Open daily, times vary.]]></openingtimes>
         <property key="UI_CATEGORY"><![CDATA[Non existent UI Category]]></property>
@@ -199,7 +199,8 @@
         <country>NLD</country>
       </address>
       <content>
-        <vendor-category><![CDATA[Auditorium]]></vendor-category>
+        <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+        <vendor-category><![CDATA[Film]]></vendor-category>
         <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
         <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
         <property key="UI_CATEGORY"><![CDATA[Film]]></property>
