@@ -27,6 +27,14 @@ class ExportedItemTable extends Doctrine_Table
         
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
+
+        if( strlen( $recordID ) != 33 ||
+                preg_match( '#[A-Z]{3}#', substr( $recordID, 0, 3 ) ) == 0 ||
+                !is_numeric( substr( $recordID, 3 ) ) )
+        {
+            throw new ExportedItemTableException( "Invalid Record ID found in the Node" );
+        }
+
         $recordID = intval( substr( $recordID , 3 ) ); // strip Airport code and 0's at front
         $modifiedDate = strtotime( (string)$xmlNode['modified'] );
 
@@ -254,6 +262,8 @@ class ExportedItemTable extends Doctrine_Table
 
         // Get PDO from Doctrine for Direct DB query (Doctrine Takes Longer time and Memory)
         $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+
+
 
         $sql = 'SELECT e.*, h.field, h.value FROM exported_item e INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
         $sql .= 'WHERE ';

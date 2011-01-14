@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vendor-pois vendor="timeout" modified="2010-12-19T08:14:41">
-  <entry vpid="TSN00000000000000000000000001" lang="zh" modified="2010-12-20T08:14:41">
+  <entry vpid="TSN000000000000000000000000000001" lang="zh" modified="2010-12-20T08:14:41">
     <geo-position>
       <longitude>116.46164890</longitude>
       <latitude>39.94843670</latitude>
@@ -34,7 +34,7 @@
       </content>
     </version>
   </entry>
-  <entry vpid="TSN00000000000000000000000002" lang="zh" modified="2010-12-20T08:14:41">
+  <entry vpid="TSN000000000000000000000000000002" lang="zh" modified="2010-12-20T08:14:41">
     <geo-position>
       <longitude>116.41896100</longitude>
       <latitude>39.91501400</latitude>
@@ -68,7 +68,7 @@
       </content>
     </version>
   </entry>
- <entry vpid="TSN00000000000000000000000003" lang="zh" modified="2010-12-20T08:14:41">
+ <entry vpid="TSN000000000000000000000000000003" lang="zh" modified="2010-12-20T08:14:41">
     <geo-position>
       <longitude>116.41429100</longitude>
       <latitude>39.92547400</latitude>
