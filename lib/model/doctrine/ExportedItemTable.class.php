@@ -27,7 +27,6 @@ class ExportedItemTable extends Doctrine_Table
         
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
-
         if( !stringTransform::isValidExportRecordID( $recordID ) )
         {
             throw new ExportedItemTableException( "Invalid Record ID found in the Node" );
@@ -35,6 +34,12 @@ class ExportedItemTable extends Doctrine_Table
 
         $recordID = intval( substr( $recordID , 3 ) ); // strip Airport code and 0's at front
         $modifiedDate = strtotime( (string)$xmlNode['modified'] );
+
+        // validate Time, Should be bigger than 2010 April as this is the date First exported
+        if( $modifiedDate < strtotime('01 Apr 2010' ) || strlen((string)$xmlNode['modified']) < 6 )
+        {
+            throw new ExportedItemTableException( "Invalid exported date found in the Node : ". date('d M Y', $modifiedDate) );
+        }
 
         // Get UI category ID, No UI category = 0 ID
         $ui_category_id = ( $modelType == 'movie' ) ? 1 : $this->getUiCategoryIdUsingVendorCategory( $xmlNode, $modelType );
