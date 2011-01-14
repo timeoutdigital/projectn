@@ -31,7 +31,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
-    public function testsSaveRecordImportFirst2Only()
+    public function testsSaveRecord_TwoNodesWithSameIdButDifferentData()
     {
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
@@ -51,6 +51,45 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( '2' , $modifiedRecord['value'], "Last vaue should 2 for Eating & Drinking");
     }
 
+    public function testSaveRecordThatValuesAreStoredCorrectly()
+    {
+        // Load POI XML
+        $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
+        $xmlNode = $xmlExportPoi->entry[1];
+
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+
+        $exportedItem = Doctrine::getTable( 'ExportedItem' )->find(1);
+        $this->assertEquals( '75552' , $exportedItem['record_id'], "Value missmatch");
+        $this->assertEquals( 'poi' , $exportedItem['model'], "Value missmatch");
+        $this->assertEquals( '1' , $exportedItem['vendor_id'], "Value missmatch");
+        $this->assertEquals( '2010-12-14 08:23:00' , $exportedItem['created_at'], "Value missmatch");
+
+        $exportedItemHistory = Doctrine::getTable( 'ExportedItemHistory' )->find(1);
+        $this->assertEquals( '1' , $exportedItemHistory['exported_item_id'], "Value missmatch");
+        $this->assertEquals( 'ui_category_id' , $exportedItemHistory['field'], "Value missmatch");
+        $this->assertEquals( '2' , $exportedItemHistory['value'], "Value missmatch");
+        $this->assertEquals( '2010-12-14 08:23:00' , $exportedItemHistory['created_at'], "Value missmatch");
+    }
+
+    public function testsSaveRecord_TwoNodesWithSameIdSameData()
+    {
+        // Load POI XML
+        $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample2.xml' );
+        $xmlNode = $xmlExportPoi->entry[0];
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 1 record added to Database");
+        $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "Each record should have 1 minimum History");
+
+        $xmlNode = $xmlExportPoi->entry[1];
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItem' )->count(), "Since this is repeating, there should only have 1 record");
+        $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "UI category did not change, there should still be only 1 history record");
+
+        $modifiedRecord = Doctrine::getTable( 'ExportedItemHistory' )->find(1);
+        $this->assertEquals( '0' , $modifiedRecord['value'], "Last vaue should 0 as Nightout don't exists");
+    }
+
     public function testsSaveRecordImportAll()
     {
         // Load POI XML
@@ -65,6 +104,67 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 5 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 4 record added to Database");
         $this->assertEquals( 6 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "UI category changed 1 for 5 records, Hence there should be 6 history");
     }
+
+    public function testSaveRecordInvalidModelException()
+    {
+        // Load POI XML
+        $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
+
+        $this->setExpectedException( 'ExportedItemTableException' );
+
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[0], 'InvalidModel', 1 );
+    }
+
+    public function testSaveRecordInvalidIdException()
+    {
+        //see exported_event_sample2.xml for invalid input
+
+        // Load POI XML
+        $xmlExportEvent = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_event_sample2.xml' );
+
+        $this->setExpectedException( 'ExportedItemTableException' );
+
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[0], 'event', 1 );
+    }
+    
+    public function testSaveRecordInvalidDateException1()
+    {
+        //see exported_event_sample2.xml for invalid input
+
+        // Load POI XML
+        $xmlExportEvent = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_event_sample2.xml' );
+
+        $this->setExpectedException( 'ExportedItemTableException' );
+
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[1], 'event', 1 );
+    }
+
+    public function testSaveRecordInvalidDateException2()
+    {
+        //see exported_event_sample2.xml for invalid input
+
+        // Load POI XML
+        $xmlExportEvent = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_event_sample2.xml' );
+
+        $this->setExpectedException( 'ExportedItemTableException' );
+
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[2], 'event', 1 );
+    }
+
+    public function testSaveRecordWithDifferentModelTypes()
+    {
+        // Load POI XML
+        $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_event_sample.xml' );
+
+        foreach( $xmlExportPoi->event as $xmlNode)
+        {
+            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'event', 1 );
+        }
+
+        // assert
+        $this->assertEquals( 2 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 2 record added to Database");
+        $this->assertEquals( 2 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "here should be 2 history record added to Database");
+    }
     
     
     public function testsSaveRecordGetHighestValueUICategoryID()
@@ -72,14 +172,23 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
 
-        foreach( $xmlExportPoi->entry as $xmlNode)
-        {
-            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
-        }
-
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[5], 'poi', 1 );
+        
         // get the LAST one to make sure that GetHighestValueUICategoryID() selected Eating and Drinking UI category
-        $record = Doctrine::getTable( 'ExportedItem' )->find( 5 );
+        $record = Doctrine::getTable( 'ExportedItem' )->find( 1 );
         $this->assertEquals( 2, $record['ExportedItemHistory'][0]->value );
+    }
+
+    public function testsSaveRecord0ValueIfUICategoryNotFound()
+    {
+        // Load POI XML
+        $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
+
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[4], 'poi', 1 );
+
+        // try to find non existent ui category
+        $record = Doctrine::getTable( 'ExportedItem' )->find( 1 );
+        $this->assertEquals( 0, $record['ExportedItemHistory'][0]->value );
     }
 
     public function testFetchByWithoutInvoice()
