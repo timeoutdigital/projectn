@@ -70,7 +70,7 @@ class GuisableBehaviourTest extends PHPUnit_Framework_TestCase
 
   public function testGetCurrentGuiseInUse()
   {
-      $this->assertFalse( $this->vendorObject->getCurrentGuiseInUse() );
+      $this->assertNull( $this->vendorObject->getCurrentGuiseInUse() );
       $this->vendorObject->useGuise( 'Shenzhen' );
       $this->assertEquals( 'Shenzhen', $this->vendorObject->getCurrentGuiseInUse() );
   }

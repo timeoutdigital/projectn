@@ -18,9 +18,9 @@ class Guisable extends Doctrine_Template
     /**
      * Current guise
      * 
-     * @var mixed
+     * @var Object
      */
-    private $_currentGuise = false;
+    private $_currentGuise = null;
 
 
 
@@ -51,7 +51,7 @@ class Guisable extends Doctrine_Template
      */
     public function isInGuise()
     {
-        return ( $this->_currentGuise === false ) ? false : true;
+        return ( $this->_currentGuise === null ) ? false : true;
     }
 
     /**
@@ -72,7 +72,7 @@ class Guisable extends Doctrine_Template
         if ( $this->isInGuise() )
         {
             $this->getInvoker()->refresh();
-            $this->_currentGuise = false;
+            $this->_currentGuise = null;
         }
     }
 
