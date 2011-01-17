@@ -235,6 +235,20 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-15', 1, 'poi' );
         $this->assertEquals( 4, count($results), 'Should include Both days Pois');
+
+        // assert the records & category for the Right
+        // record_id 1 latest category is E&D (2)
+        $this->assertEquals( 1, $results[0]['record_id'] );
+        $this->assertEquals( 2, $results[0]['value'] );
+        // record_id 2 latest category is Film (1)
+        $this->assertEquals( 2, $results[1]['record_id'] );
+        $this->assertEquals( 1, $results[1]['value'] );
+        // record_id 3 latest category is NO CAT (0)
+        $this->assertEquals( 3, $results[2]['record_id'] );
+        $this->assertEquals( 0, $results[2]['value'] );
+        // record_id 5 latest category is NO CAT (0)
+        $this->assertEquals( 5, $results[3]['record_id'] );
+        $this->assertEquals( 0, $results[3]['value'] );
     }
 
     public function testGetItemsFirstExportedDateRangeForInclude0Cat15To20DateRange()
