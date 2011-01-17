@@ -273,6 +273,38 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 0, $results[2]['value'] );
     }
 
+    public function testGetItemsFirstExportedDateRangeAll()
+    {
+        // Import 3 Days worth of Data to simulate History and Different Records on Different days
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+
+        $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-20', 1, 'poi' );
+        $this->assertEquals( 5, count($results), 'should be all the records');
+
+        // assert their categories to be latest
+        // Record_id 1 latest category in this date range should be 3
+        $this->assertEquals( 1, $results[0]['record_id'] );
+        $this->assertEquals( 3, $results[0]['value'] );
+
+        // Record_id 2 latest category in this date range should be 2
+        $this->assertEquals( 2, $results[1]['record_id'] );
+        $this->assertEquals( 2, $results[1]['value'] );
+
+        // Record_id 3 latest category in this date range should be 2
+        $this->assertEquals( 3, $results[2]['record_id'] );
+        $this->assertEquals( 2, $results[2]['value'] );
+
+        // Record_id 5 latest category in this date range should be 1
+        $this->assertEquals( 5, $results[3]['record_id'] );
+        $this->assertEquals( 1, $results[3]['value'] );
+
+        // Record_id 4 latest category in this date range should be 0
+        $this->assertEquals( 4, $results[4]['record_id'] );
+        $this->assertEquals( 0, $results[4]['value'] );
+    }
+
     
 
     /**
