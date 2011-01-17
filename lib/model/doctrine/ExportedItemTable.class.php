@@ -266,26 +266,65 @@ class ExportedItemTable extends Doctrine_Table
         // Get PDO from Doctrine for Direct DB query (Doctrine Takes Longer time and Memory)
         $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
-
-
-        $sql = 'SELECT e.*, h.field, h.value FROM exported_item e INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
+        $sql = 'SELECT e.*, h.created_at, h.field,h.value ';
+        $sql .= 'FROM exported_item e ';
+        $sql .= 'INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
         $sql .= 'WHERE ';
         $sql .= 'e.vendor_id = ? ';
         $sql .= 'AND e.model = ? ';
         $sql .= 'AND h.field = ? ';
-        $sql .= 'AND ( DATE(e.created_at) >= ? AND DATE(e.created_at) <= ? ) ';
-        $sql .= 'AND DATE(h.created_at) = DATE(e.created_at)';
-//        $sql .= ' GROUP BY e.id';
-//        $sql .= ' ORDER BY h.id ASC ';
+        $sql .= 'AND DATE(e.created_at) <= ? ';
+        $sql .= 'AND e.id NOT IN ( ';
+            $sql .= 'SELECT ee.id FROM exported_item ee INNER JOIN exported_item_history eh on eh.exported_item_id = ee.id ';
+            $sql .= 'WHERE ';
+            $sql .= 'ee.vendor_id = ? ';
+            $sql .= 'AND ee.model = ? ';
+            $sql .= 'AND eh.field = ? ';
+            $sql .= 'AND DATE(ee.created_at) < ? ';
+            $sql .= 'AND eh.value > 0 AND eh.created_at < ?';
+        $sql .= ' )';
+        $sql .= 'AND ( DATE(h.created_at) >=  ? AND DATE(h.created_at) <= ? )';
+        $sql .= 'AND ( DATE(e.created_at) >= ?  OR ( h.value > 0 AND e.created_at < ?) )';
+        $sql .= ' GROUP BY e.id';
+        $sql .= ' ORDER BY e.id';
 
         $query = $pdoDB->prepare( $sql );
+
+        
         $status = $query->execute( array(
             $vendorID,
             $model,
             'ui_category_id',
+            date('Y-m-d', $endDateStamp ),
+                $vendorID,
+                $model,
+                'ui_category_id',
+                date('Y-m-d', $startDateStamp ),
+                date('Y-m-d', $startDateStamp ),
             date('Y-m-d', $startDateStamp ),
-            date('Y-m-d', $endDateStamp )
+            date('Y-m-d', $endDateStamp ),
+            date('Y-m-d', $startDateStamp ),
+            date('Y-m-d', $startDateStamp ),
         ));
+
+//        $sql = 'SELECT e.*, h.field, h.value FROM exported_item e INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
+//        $sql .= 'WHERE ';
+//        $sql .= 'e.vendor_id = ? ';
+//        $sql .= 'AND e.model = ? ';
+//        $sql .= 'AND h.field = ? ';
+//        $sql .= 'AND ( DATE(e.created_at) >= ? AND DATE(e.created_at) <= ? ) ';
+//        $sql .= 'AND DATE(h.created_at) = DATE(e.created_at)';
+//        $sql .= ' GROUP BY e.id';
+//        $sql .= ' ORDER BY h.id ASC ';
+
+        
+//        $status = $query->execute( array(
+//            $vendorID,
+//            $model,
+//            'ui_category_id',
+//            date('Y-m-d', $startDateStamp ),
+//            date('Y-m-d', $endDateStamp )
+//        ));
 
         return ($status) ? $query->fetchAll() : null;
     }

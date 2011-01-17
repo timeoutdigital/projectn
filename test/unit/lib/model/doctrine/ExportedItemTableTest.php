@@ -201,17 +201,54 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
 
         // makesure that we have all the data in exportedItem and History added when category only changed
-        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
-        $this->assertEquals( 8, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+        $this->assertEquals( 5, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 11, Doctrine::getTable( 'ExportedItemHistory' )->count() );
 
         // fetch first exported pois by Dates
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-10', 1, 'poi' );
-        $this->assertEquals( 3, count($results) );
+        $this->assertEquals( 3, count($results), 'Should only Return All 3, Because, the Poi is created this date but cat 0 is exceptional for that date');
 
-        $this->assertEquals( '2', $results[0]['value'], 'First category of this records is 2');
-        $this->assertEquals( '2', $results[1]['value'], 'First category of this records is 2');
-        $this->assertEquals( '1', $results[2]['value'], 'First category of this records is 1');
+        $this->assertEquals( '2', $results[0]['value'], 'Last category (in this date range) of this records is 2');
+        $this->assertEquals( '0', $results[1]['value'], 'Last category (in this date range) of this records is 0');
+        $this->assertEquals( '1', $results[2]['value'], 'Last category (in this date range) of this records is 1');
+
     }
+
+    public function testGetItemsFirstExportedLastDayOfImport()
+    {
+        // Import 3 Days worth of Data to simulate History and Different Records on Different days
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+
+        $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-20','2010-12-20', 1, 'poi' );
+        $this->assertEquals( 1 , count($results), 'Only 1 New poi Inserted in this Date, other should only show on other dates or their date range' );
+        $this->assertEquals( '0', $results[0]['value'], 'Last category (in this date range) of this records is 0');
+    }
+
+    public function testGetItemsFirstExportedDateRangeForInclude0Cat10To15DateRange()
+    {
+        // Import 3 Days worth of Data to simulate History and Different Records on Different days
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+
+        $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-15', 1, 'poi' );
+        $this->assertEquals( 4, count($results), 'Should include Both days Pois');
+    }
+
+    public function testGetItemsFirstExportedDateRangeForInclude0Cat15To20DateRange()
+    {
+        // Import 3 Days worth of Data to simulate History and Different Records on Different days
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+
+        $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-15','2010-12-20', 1, 'poi' );
+        $this->assertEquals( 3, count($results), 'Should include Both days Pois');
+    }
+
+    
 
     /**
      * Since there is no invoiceable option, model should always return original category event though it's changed in this date range
