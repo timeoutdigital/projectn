@@ -260,6 +260,17 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-15','2010-12-20', 1, 'poi' );
         $this->assertEquals( 3, count($results), 'Should include Both days Pois');
+
+        // assert categories and record ID's
+        // Record_id 2 latest category in this date range should be 2
+        $this->assertEquals( 2, $results[0]['record_id'] );
+        $this->assertEquals( 2, $results[0]['value'] );
+        // Record_id 5 latest category in this date range should be 1
+        $this->assertEquals( 5, $results[1]['record_id'] );
+        $this->assertEquals( 1, $results[1]['value'] );
+        // Record_id 4 latest category in this date range should be 0
+        $this->assertEquals( 4, $results[2]['record_id'] );
+        $this->assertEquals( 0, $results[2]['value'] );
     }
 
     
