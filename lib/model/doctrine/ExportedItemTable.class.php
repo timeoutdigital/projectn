@@ -266,6 +266,13 @@ class ExportedItemTable extends Doctrine_Table
         // Get PDO from Doctrine for Direct DB query (Doctrine Takes Longer time and Memory)
         $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
+        /**
+         * Rules for this Query:
+         * 1: We should always select those Records First exported in given date range regarless of what category
+         * 2: We shoud Include the record that was exported BEFORE the given Date range BUT did not have a valid category at before this the start date BUT do have a valid category within this date range (matching change history)
+         * 3: to make it easier for the MySql, we filter by vendor and model type.
+         * 4: When we have more than one category HISTORY for a record, we choose the Latest within the date range (by grouping)
+         */
         $sql = 'SELECT e.*, h.created_at, h.field,h.value ';
         $sql .= 'FROM exported_item e ';
         $sql .= 'INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
@@ -273,23 +280,25 @@ class ExportedItemTable extends Doctrine_Table
         $sql .= 'e.vendor_id = ? ';
         $sql .= 'AND e.model = ? ';
         $sql .= 'AND h.field = ? ';
-        $sql .= 'AND DATE(e.created_at) <= ? ';
+        $sql .= 'AND DATE(e.created_at) <= ? '; // we select everything before end date but make exception to those had category before start date by NOT IN bellow
         $sql .= 'AND e.id NOT IN ( ';
+            // This Subquery will select All those records identified as exported before this date range and had a lica category.
+            // those records will be ignored in this query.
             $sql .= 'SELECT ee.id FROM exported_item ee INNER JOIN exported_item_history eh on eh.exported_item_id = ee.id ';
             $sql .= 'WHERE ';
             $sql .= 'ee.vendor_id = ? ';
             $sql .= 'AND ee.model = ? ';
             $sql .= 'AND eh.field = ? ';
-            $sql .= 'AND DATE(ee.created_at) < ? ';
-            $sql .= 'AND eh.value > 0 AND eh.created_at < ?';
+            $sql .= 'AND DATE(ee.created_at) < ? '; // should be created before the date range
+            $sql .= 'AND eh.value > 0 AND eh.created_at < ?'; // and should have a valid category that dated before the date range too..
         $sql .= ' )';
         $sql .= 'AND ( DATE(h.created_at) >=  ? AND DATE(h.created_at) <= ? )';
+        // this select those created within date range OR select thos created before and have a valid category now
         $sql .= 'AND ( DATE(e.created_at) >= ?  OR ( h.value > 0 AND e.created_at < ?) )';
-        $sql .= ' GROUP BY e.id';
+        $sql .= ' GROUP BY e.id'; // 1 item should be returned only Once...
         $sql .= ' ORDER BY e.id';
 
         $query = $pdoDB->prepare( $sql );
-
         
         $status = $query->execute( array(
             $vendorID,
@@ -306,26 +315,7 @@ class ExportedItemTable extends Doctrine_Table
             date('Y-m-d', $startDateStamp ),
             date('Y-m-d', $startDateStamp ),
         ));
-
-//        $sql = 'SELECT e.*, h.field, h.value FROM exported_item e INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
-//        $sql .= 'WHERE ';
-//        $sql .= 'e.vendor_id = ? ';
-//        $sql .= 'AND e.model = ? ';
-//        $sql .= 'AND h.field = ? ';
-//        $sql .= 'AND ( DATE(e.created_at) >= ? AND DATE(e.created_at) <= ? ) ';
-//        $sql .= 'AND DATE(h.created_at) = DATE(e.created_at)';
-//        $sql .= ' GROUP BY e.id';
-//        $sql .= ' ORDER BY h.id ASC ';
-
         
-//        $status = $query->execute( array(
-//            $vendorID,
-//            $model,
-//            'ui_category_id',
-//            date('Y-m-d', $startDateStamp ),
-//            date('Y-m-d', $endDateStamp )
-//        ));
-
         return ($status) ? $query->fetchAll() : null;
     }
     
