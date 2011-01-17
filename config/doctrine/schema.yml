@@ -359,7 +359,9 @@ Vendor:
   actAs:
     Timestampable: ~
     Guisable:
-      actAs:
+      #need to manually add timestampable behavior to Guisable
+      #Doctrine doesn't copy behaviors into each other
+      actAs: 
         Timestampable: ~
   columns:
     city:                       {type: string(50), notnull: true}

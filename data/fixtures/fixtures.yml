@@ -544,7 +544,9 @@ VendorGuise:
     country_code:             'hk'
     country_code_long:        'HKG'
     geo_boundries:            '22.153247833252;113.837738037109;22.5597801208496;114.434761047363'
+    #vendor id
     id:                       23
+    #guise key
     guise:                    'Macau'
   vg2:
     city:                     hong kong
@@ -555,7 +557,9 @@ VendorGuise:
     country_code:             'hk'
     country_code_long:        'HKG'
     geo_boundries:            '22.153247833252;113.837738037109;22.5597801208496;114.434761047363'
+    #vendor id
     id:                       23
+    #guise key
     guise:                    'Shenzhen'
 
 
