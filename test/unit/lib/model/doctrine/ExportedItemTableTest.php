@@ -222,8 +222,9 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
 
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-20','2010-12-20', 1, 'poi' );
-        $this->assertEquals( 1 , count($results), 'Only 1 New poi Inserted in this Date, other should only show on other dates or their date range' );
-        $this->assertEquals( '0', $results[0]['value'], 'Last category (in this date range) of this records is 0');
+        $this->assertEquals( 2 , count($results), '1 New exported last day plus the one that expored before and did not have a valid cat until last day' );
+        $this->assertEquals( 1, $results[0]['value'], 'category of old records that had a valid category in this date is 1');
+        $this->assertEquals( 0, $results[1]['value'], 'Last category (in this date range) of this records is 0');
     }
 
     public function testGetItemsFirstExportedDateRangeForInclude0Cat10To15DateRange()
