@@ -25,18 +25,21 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
 
               if( !$poi )
                   $poi = new Poi();
-               
+
               // Map Columns
 
-              //map the vendor first so that we can reference to $poi['Vendor'] rather than $this->vendor in order to not use the
-              //guise later (if we use $this->vendor, then apply guise and then assign it to $poi['Vendor'], the assignmement seems
-              //to always reload the vendor again, meaning we would loose the guise. but we still need it on presave on the model
+              //clone the vendor object because an unset() later will remove it
+              //the cloning also seems to reload the vendor object so we need to
+              //call useGuise on the clone
               $poi['Vendor'] = clone $this->vendor;
 
-              //this call is probably not necessary as the assignement above seems to require a fresh lazy lode of the vendor anyway
+              //this call is probably not necessary because cloning the vendor
+              //object seems to reset it. But we want to be extra sure.
               $poi['Vendor']->stopUsingGuise();
 
-              //yes we could use useGuiseIfExists() instead here, but since its only 2 options lets deal with them here rather than
+              //yes we could use useGuiseIfExists() instead here, but since its
+              //only in Hong Kong with 2 options (macau and shenzen)
+              //lets deal with them here rather than
               //search for it every time in the db
               if ( in_array( (string) $venueElement->district, array( 'Macau', 'Shenzhen' ) ) )
               {
