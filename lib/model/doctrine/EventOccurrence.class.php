@@ -18,11 +18,6 @@ class EventOccurrence extends BaseEventOccurrence
   public function preSave( $event )
   {
     $this->cleanEmptyString();
-     if( $this['booking_url'] != '')
-     {
-        $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
-     }
-
   }
 
   public function cleanEmptyString()
