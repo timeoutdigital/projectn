@@ -86,7 +86,7 @@ class bucharestVenueMapperTest extends PHPUnit_Framework_TestCase
   public function testBucharestLatLongSwap()
   {
       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
-      $poi = Doctrine::getTable( 'Poi' )->findOneByvendorIdAndVendorPoiId( $this->vendor['id'],'1036435');
+      $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'],'1036435');
       $this->assertEquals( '1036435', $poi['vendor_poi_id']);
       $this->assertEquals( 'Hot Shots City Bar', $poi['poi_name']);
 
