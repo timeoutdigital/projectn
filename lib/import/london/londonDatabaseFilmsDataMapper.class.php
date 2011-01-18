@@ -71,7 +71,7 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       $movie['writer'] = $data[ 'screenwriter' ];
       $movie['cast'] = $data[ 'cast' ];
       $movie['age_rating'] = $data[ 'age_rating' ];
-      $movie['release_date'] = $data[ 'release_date' ];
+      $movie['release_date'] = ( trim( $data[ 'release_date' ] ) != '0000-00-00') ? $data[ 'release_date' ] : null; //London API return release date 0000-00-00 causing Doctrine validation error
       $movie['duration'] = ( $data[ 'runtime' ] != 0 ) ? $data[ 'runtime' ] : NULL;
       //$movie['country'] = ;
       //$movie['language'] = ;
