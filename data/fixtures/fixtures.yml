@@ -543,7 +543,7 @@ VendorGuise:
     airport_code:             'HKG'
     country_code:             'hk'
     country_code_long:        'HKG'
-    geo_boundries:            '22.153247833252;113.837738037109;22.5597801208496;114.434761047363'
+    geo_boundries:            '22.10945211352773;113.5283622843867;22.21845981050677;113.6003410009162'
     #vendor id
     id:                       23
     #guise key
@@ -556,7 +556,7 @@ VendorGuise:
     airport_code:             'HKG'
     country_code:             'hk'
     country_code_long:        'HKG'
-    geo_boundries:            '22.153247833252;113.837738037109;22.5597801208496;114.434761047363'
+    geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
     #vendor id
     id:                       23
     #guise key
