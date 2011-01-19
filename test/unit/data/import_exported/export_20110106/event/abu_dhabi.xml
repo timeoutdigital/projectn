@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2011-01-06T07:52:01">
+  <event id="AUH000000000000000000000000168152" modified="2011-01-06T07:52:01">
+    <name><![CDATA[Chilosophy]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Chilosophy]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Sure, it may sound like a club night lazily shoe-horned around a cool-sounding name, but this laid-back party has carved itself out a properly credible niche]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/nightlife/events/856-chilosophy]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="AUH000000000000000000000000068293">
+        <occurrence>
+          <time>
+            <start_date>2011-01-06</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="AUH000000000000000000000000105065" modified="2011-01-06T07:52:01">
+    <name><![CDATA[All Day Sports]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[All Day Sports]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[Sports round-up]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/nightlife/events/1977-all-day-sports]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="AUH000000000000000000000000068411">
+        <occurrence>
+          <time>
+            <start_date>2011-01-08</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="AUH000000000000000000000000167743" modified="2011-01-06T07:52:01">
+    <name><![CDATA[Carnival]]></name>
+    <category>clubbing-nightlife</category>
+    <version lang="en">
+      <name><![CDATA[Carnival]]></name>
+      <vendor-category><![CDATA[Nightlife]]></vendor-category>
+      <description><![CDATA[As one of the city’s suavest, most stylish bars, good value drinking isn’t really expected at Left Bank]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/nightlife/events/7201-carnival]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+    </version>
+    <showtimes>
+      <place place-id="AUH000000000000000000000000069341">
+        <occurrence>
+          <time>
+            <start_date>2011-01-12</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="AUH000000000000000000000000168517" modified="2011-01-06T07:52:01">
+    <name><![CDATA[Personal training at Hiltonia]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Personal training at Hiltonia]]></name>
+      <vendor-category><![CDATA[Body & Mind]]></vendor-category>
+      <description><![CDATA[After a long and hot summer, it is time to get back in shape for the cooler months! Holly and Margaret, the new fitness pro's will be available for personal training and consultation within the gym. Personal Training starts from Dhs195 for members for an hour and Dhs230 for non-members]]></description>
+      <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/bodyandmind/events/8545-personal-training-at-hiltonia]]></property>
+      <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+    </version>
+    <showtimes>
+      <place place-id="AUH000000000000000000000000069598">
+        <occurrence>
+          <time>
+            <start_date>2011-01-06</start_date>
+            <utc_offset>+04:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>
