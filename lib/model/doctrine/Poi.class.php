@@ -612,7 +612,7 @@ class Poi extends BasePoi
   public function applyFeedGeoCodesIfValid( $lat = "", $long = "" )
   {
         if( is_numeric( $lat ) && is_numeric( $long )  && 
-                intval( $lat ) != 0 && intval( $long ) != 0)
+                floatval( $lat ) != 0 && floatval( $long ) != 0)
         {
             // validate for Boundary
             if( !$this['Vendor']->isWithinBoundaries( $lat, $long ) )
