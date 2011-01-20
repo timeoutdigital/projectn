@@ -114,7 +114,6 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
 
                 $geoPosition = 'geo-position';
-                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
                 // $poi['review_date'] = '';
                 $poi['local_language'] = $lang;
@@ -168,7 +167,14 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                     }
                 }
 
+                // #881 Catch Geocode out of vendor boundary error
+                try{
+                    $poi->applyFeedGeoCodesIfValid( (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
+                } catch ( Exception $exception ) {
+                    $this->notifyImporterOfFailure( $exception, $poi );
+                }
 
+                
                $this->notifyImporter( $poi );
 
            }

@@ -18,15 +18,6 @@ class kualaLumpurVenuesMapper extends kualaLumpurBaseMapper
           $poi['city']                = 'Kuala Lumpur';
           $poi['country']             = 'MYS';
 
-          // NOTE. The element is erroneously called 'longlat' but data is provided as 'lat,long'
-          $latlong  = (string) $venue->location->longlat;
-
-          if( !empty( $latlong ) )
-          {
-            $latlong = explode( ',', $latlong );
-            $poi->applyFeedGeoCodesIfValid( $latlong[0], $latlong[1] ) ;
-          }
-          
           $poi[ 'geocode_look_up' ]   = stringTransform::concatNonBlankStrings( ", ", array(
                                             (string) $venue->location->lot,
                                             (string) $venue->location->street,
@@ -54,6 +45,22 @@ class kualaLumpurVenuesMapper extends kualaLumpurBaseMapper
           {
             $this->notifyImporterOfFailure( $exception );
           }
+
+          // NOTE. The element is erroneously called 'longlat' but data is provided as 'lat,long'
+          $latlong  = (string) $venue->location->longlat;
+
+          if( !empty( $latlong ) )
+          {
+              // #881 Catch Geocode out of vendor boundary error
+              try{
+                  $latlong = explode( ',', $latlong );
+                  $poi->applyFeedGeoCodesIfValid( $latlong[0], $latlong[1] ) ;
+              } catch ( Exception $exception ) {
+                  $this->notifyImporterOfFailure( $exception, $poi );
+              }
+          }
+          
+            
 
           $this->notifyImporter( $poi );
 

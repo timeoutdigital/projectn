@@ -47,7 +47,12 @@ class singaporePoiMapper extends singaporeBaseMapper
             $address = $venueElement->addresses->address_slot;
             if ( $address )
             {
-                $poi->applyFeedGeoCodesIfValid( (string) $address->mm_lat, (string) $address->mm_lon );
+                // #881 Catch Geocode out of vendor boundary error
+                try{
+                    $poi->applyFeedGeoCodesIfValid( (string) $address->mm_lat, (string) $address->mm_lon );
+                } catch ( Exception $exception ) {
+                    $this->notifyImporterOfFailure( $exception, $poi );
+                }
 
                 $poi[ 'public_transport_links' ]     = $this->extractPublicTransportLinks( $address );
                 $poi[ 'phone' ]                      = (string) $address->phone; // Phone number will be Formated on pre-save

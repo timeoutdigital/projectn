@@ -30,9 +30,6 @@ class australiaVenuesMapper extends australiaBaseMapper
       $poi['Vendor']            = $this->vendor;
       $poi['vendor_poi_id']     = $vendor_poi_id;
 
-      /* Melbourne geocodes are corrected! */
-      $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
-
       $poi['poi_name']          = (string) $venue->Name;
       $poi['street']            = (string) $venue->Address;
       $poi['city']              = ucfirst( (string) $this->vendor['city'] );
@@ -63,6 +60,13 @@ class australiaVenuesMapper extends australiaBaseMapper
       else if ( (string) $venue->Recommended == 'Critics Choice')
         $poi['CriticsChoiceProperty'] = true;
 
+      // #881 Catch Geocode out of vendor boundary error
+      try{
+          $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
+      } catch ( Exception $exception ) {
+          $this->notifyImporterOfFailure( $exception, $poi );
+      }
+      
       $this->notifyImporter( $poi );
     }
   }

@@ -35,9 +35,6 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
             $poi['country']                       = "ESP";
             $poi['additional_address_details']    = $this->clean( (string) $venueElement->additional_address_details );
             $poi['zips']                          = $this->clean( (string) $venueElement->postcode );
-
-            $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->lat ), $this->clean( (string) $venueElement->long ) );
-
             $poi['email']                         = $this->clean( (string) $venueElement->email );
             $poi['url']                           = $this->clean( (string) $venueElement->url );
             $poi['phone']                         = $this->clean( (string) $venueElement->phone );
@@ -83,6 +80,13 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
                 $phoneFixer = new phoneNumberFixer( $poi['phone2'] );
                 $phoneFixer->removeNonNumeric();
                 $poi['phone2'] = $phoneFixer->getPhoneNumber();
+            }
+
+            // #881 Catch Geocode out of vendor boundary error
+            try{
+                $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->lat ), $this->clean( (string) $venueElement->long ) );
+            } catch ( Exception $exception ) {
+                $this->notifyImporterOfFailure( $exception, $poi );
             }
 
             $this->notifyImporter( $poi );

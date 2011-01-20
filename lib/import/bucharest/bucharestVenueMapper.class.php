@@ -40,9 +40,7 @@ class bucharestVenueMapper extends bucharestBaseMapper
             $poi['Vendor']                        = clone $this->vendor;
 
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['street'], $poi['zips'], $poi['city'] ) );
-            //lat long inversed, told the vendor to sort it out
-            $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
-
+            
             // Bucharest sending us Geocode is wrong way around for some of the venues
             // and right way in some, hence we decided to use the new vendor method isWithinBoundaries() to
             // verify that this geocode is within boundaries or swap lat/long
@@ -60,6 +58,14 @@ class bucharestVenueMapper extends bucharestBaseMapper
             if( isset( $venueElement->categories->category ) )
             {
                 $this->addVendorCategories( $poi, $venueElement );
+            }
+
+            // #881 Catch Geocode out of vendor boundary error
+            try{
+                //lat long inversed, told the vendor to sort it out
+                $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
+            } catch ( Exception $exception ) {
+                $this->notifyImporterOfFailure( $exception, $poi );
             }
 
             $this->notifyImporter( $poi );

@@ -71,9 +71,6 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['country']                       = $this->vendor['country_code_long'];
             $poi['additional_address_details']    = (string) $venueElement->additional_address_details;
             $poi['zips']                          = (string) $venueElement->postcode;
-
-            $poi->applyFeedGeoCodesIfValid( (string) $venueElement->lat, (string) $venueElement->long );
-
             $poi['email']                         = (string) $venueElement->email;
             $poi['url']                           = (string) $venueElement->url;
             $poi['phone']                         = trim( (string) $venueElement->phone, " ." );
@@ -113,7 +110,14 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             // #837 Format Telephone Numbers before saving
             $poi['phone'] = $this->getFormattedAndFixedPhone( $poi['phone'] );
             $poi['phone2'] = $this->getFormattedAndFixedPhone( $poi['phone2'] );
-            
+
+            // #881 Catch Geocode out of vendor boundary error
+            try{
+                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->lat, (string) $venueElement->long );
+            } catch ( Exception $exception ) {
+                $this->notifyImporterOfFailure( $exception, $poi );
+            }
+
             $this->notifyImporter( $poi );
         }
         catch( Exception $exception )

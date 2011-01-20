@@ -119,7 +119,13 @@ abstract class LondonAPIBaseMapper extends DataMapper
    */
   protected function mapCommonPoiMappings(Poi $poi, SimpleXMLElement $xml )
   {
-    $poi->applyFeedGeoCodesIfValid( (string) $xml->lat, (string) $xml->lng );
+    // #881 Catch Geocode out of vendor boundary error
+    try{
+        $poi->applyFeedGeoCodesIfValid( (string) $xml->lat, (string) $xml->lng );
+    } catch ( Exception $exception ) {
+        $this->notifyImporterOfFailure( $exception, $poi );
+    }
+    
 
     $poi->lookupAndApplyGeocodes(); //Needed for Derive City Below
 
