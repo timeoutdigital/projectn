@@ -48,7 +48,7 @@ class LondonAPIBaseMapperTest extends PHPUnit_Framework_TestCase
   {
     $mock = new MockLondonAPIBaseMapper($this->vendor , array() );
     $poi = new Poi();
-    $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl><lat>0.5</lat><lng>0.5</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
+    $xml = simplexml_load_string( '<xml><url>http://www.google.com</url><webUrl>http://www.timeout.com</webUrl><lat>51</lat><lng>-0.35</lng><postcode>E84QY</postcode></xml>' ); //need these nasty lat lng tags until we mock reverseGeocoder
     $mock->map( $poi, $xml );
 
     $this->assertEquals( 'http://www.google.com', $poi['url'] );
