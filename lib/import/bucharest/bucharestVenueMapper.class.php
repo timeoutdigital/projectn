@@ -60,13 +60,7 @@ class bucharestVenueMapper extends bucharestBaseMapper
                 $this->addVendorCategories( $poi, $venueElement );
             }
 
-            // #881 Catch Geocode out of vendor boundary error
-            try{
-                //lat long inversed, told the vendor to sort it out
-                $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
-            } catch ( Exception $exception ) {
-                $this->notifyImporterOfFailure( $exception, $poi );
-            }
+            $this->applyFeedGeoCodesHelper( $poi, $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
 
             $this->notifyImporter( $poi );
         }

@@ -51,13 +51,8 @@ class kualaLumpurVenuesMapper extends kualaLumpurBaseMapper
 
           if( !empty( $latlong ) )
           {
-              // #881 Catch Geocode out of vendor boundary error
-              try{
-                  $latlong = explode( ',', $latlong );
-                  $poi->applyFeedGeoCodesIfValid( $latlong[0], $latlong[1] ) ;
-              } catch ( Exception $exception ) {
-                  $this->notifyImporterOfFailure( $exception, $poi );
-              }
+              $latlong = explode( ',', $latlong );
+              $this->applyFeedGeoCodesHelper( $poi, $latlong[0], $latlong[1] );
           }
           
             

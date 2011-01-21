@@ -82,12 +82,7 @@ class barcelonaVenuesMapper extends barcelonaBaseMapper
                 $poi['phone2'] = $phoneFixer->getPhoneNumber();
             }
 
-            // #881 Catch Geocode out of vendor boundary error
-            try{
-                $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->lat ), $this->clean( (string) $venueElement->long ) );
-            } catch ( Exception $exception ) {
-                $this->notifyImporterOfFailure( $exception, $poi );
-            }
+            $this->applyFeedGeoCodesHelper( $poi, $this->clean( (string) $venueElement->lat ), $this->clean( (string) $venueElement->long ) );
 
             $this->notifyImporter( $poi );
         }

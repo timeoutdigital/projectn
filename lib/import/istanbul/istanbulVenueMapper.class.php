@@ -103,14 +103,10 @@ class istanbulVenueMapper extends istanbulBaseMapper
                 $this->addImageHelper( $poi, (string) $media ); //#753 addImageHelper capture Exception and notify, this don't break the Import process
             }
 
-            // #881 Catch Geocode out of vendor boundary error
-            try{
-                // Use Feed lat / Long
-                // ISTANBUL Sending Lat/Long wrongway around... Swap lat long and it's Good as of 22 Sep 2010
-                $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
-            } catch ( Exception $exception ) {
-                $this->notifyImporterOfFailure( $exception, $poi );
-            }
+            // Use Feed lat / Long
+            // ISTANBUL Sending Lat/Long wrongway around... Swap lat long and it's Good as of 22 Sep 2010
+            $this->applyFeedGeoCodesHelper( $poi, $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
+            
 
             $this->notifyImporter( $poi );
         }

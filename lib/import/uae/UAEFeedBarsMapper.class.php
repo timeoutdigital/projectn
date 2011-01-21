@@ -74,16 +74,8 @@ class UAEFeedBarsMapper extends UAEFeedBaseMapper
                  */
                 $this->addVendorCategory( $poi, $xmlNode );
 
+                $this->applyFeedGeoCodesHelper( $poi, (string) $xmlNode->{'latitude'},  (string) $xmlNode->{'longitude'} );
                 
-                // #881 Catch Geocode out of vendor boundary error
-                try{
-                    /* Add Latitude and Longitude if Valid
-                     * New Feed (as of 07 Sep 10 )from Dubai have latitude and longitude
-                     */
-                    $poi->applyFeedGeoCodesIfValid( (string) $xmlNode->{'latitude'},  (string) $xmlNode->{'longitude'} );
-                } catch ( Exception $exception ) {
-                    $this->notifyImporterOfFailure( $exception, $poi );
-                }
                 // Save POI
                 $this->notifyImporter( $poi );
                 

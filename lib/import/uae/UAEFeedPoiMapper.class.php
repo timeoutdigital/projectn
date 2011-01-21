@@ -52,13 +52,7 @@ class UAEFeedPoiMapper extends UAEFeedBaseMapper
                 // Category
                 $poi->addVendorCategory( (string) $xmlNode->{'mobile-section'}['value'], $this->vendor_id );
 
-                // #881 Catch Geocode out of vendor boundary error
-                try{
-                    // apply Feed Geocode
-                    $poi->applyFeedGeoCodesIfValid( (string) $xmlNode->coordinates->{'latitude'}, (string) $xmlNode->coordinates->{'longitude'} );
-                } catch ( Exception $exception ) {
-                    $this->notifyImporterOfFailure( $exception, $poi );
-                }
+                $this->applyFeedGeoCodesHelper( $poi, (string) $xmlNode->coordinates->{'latitude'}, (string) $xmlNode->coordinates->{'longitude'} );
 
                 $this->notifyImporter( $poi );
                 

@@ -47,13 +47,6 @@ class singaporePoiMapper extends singaporeBaseMapper
             $address = $venueElement->addresses->address_slot;
             if ( $address )
             {
-                // #881 Catch Geocode out of vendor boundary error
-                try{
-                    $poi->applyFeedGeoCodesIfValid( (string) $address->mm_lat, (string) $address->mm_lon );
-                } catch ( Exception $exception ) {
-                    $this->notifyImporterOfFailure( $exception, $poi );
-                }
-
                 $poi[ 'public_transport_links' ]     = $this->extractPublicTransportLinks( $address );
                 $poi[ 'phone' ]                      = (string) $address->phone; // Phone number will be Formated on pre-save
                 $poi[ 'additional_address_details' ] = (string) $address->location;
@@ -61,9 +54,11 @@ class singaporePoiMapper extends singaporeBaseMapper
                 $poi[ 'street' ]                     = trim( (string) $address->address, ", " );
                 $poi[ 'city' ]                       = $this->vendor['city'];
 
+                $this->applyFeedGeoCodesHelper( $poi, (string) $address->mm_lat, (string) $address->mm_lon );
+                
                 $poi->setgeocoderLookUpString( $this->extractGeoEncodeLookupString( $poi ) );
             }
-            //$poi->applyFeedGeoCodesIfValid( (string) address->mm_lat, (string) $address->mm_lon );
+            
             //@todo test the rest of this function
             $poi->setCriticsChoiceProperty( (trim( strtolower( (string) $venueElement->critic_choice ) ) == 'y') ? true : false );
             $poi->setTimeoutLinkProperty( (string) $venueElement->link );

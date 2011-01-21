@@ -123,15 +123,8 @@ abstract class LondonAPIBaseMapper extends DataMapper
     // required by the applyFeedGeoCodesIfValid
     $poi['Vendor']            = clone $this->vendor;
 
-    // #881 Catch Geocode out of vendor boundary error
-    try{ 
-        $poi->applyFeedGeoCodesIfValid( (string) $xml->lat, (string) $xml->lng );
-    } catch ( Exception $exception ) {
-        $this->notifyImporterOfFailure( $exception, $poi );
-    }
-
+    $this->applyFeedGeoCodesHelper( $poi,  (string) $xml->lat, (string) $xml->lng );
     
-
     $poi->lookupAndApplyGeocodes(); //Needed for Derive City Below
 
     $poi['zips']              = (string) $xml->postcode;

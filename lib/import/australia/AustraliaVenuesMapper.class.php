@@ -60,12 +60,7 @@ class australiaVenuesMapper extends australiaBaseMapper
       else if ( (string) $venue->Recommended == 'Critics Choice')
         $poi['CriticsChoiceProperty'] = true;
 
-      // #881 Catch Geocode out of vendor boundary error
-      try{
-          $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
-      } catch ( Exception $exception ) {
-          $this->notifyImporterOfFailure( $exception, $poi );
-      }
+      $this->applyFeedGeoCodesHelper( $poi, (float) $venue->Latitude, (float) $venue->Longitude );
       
       $this->notifyImporter( $poi );
     }

@@ -70,12 +70,7 @@ class BeirutFeedVenueMapper extends BeirutFeedBaseMapper
                 
                 $this->addVendorCategory( $poi, $xmlNode );
 
-                // #881 Catch Geocode out of vendor boundary error
-                try{
-                    $poi->applyFeedGeoCodesIfValid( $this->clean( (string)$xmlNode->lat ), $this->clean( (string)$xmlNode->long ) );
-                } catch ( Exception $exception ) {
-                    $this->notifyImporterOfFailure( $exception, $poi );
-                }
+                $this->applyFeedGeoCodesHelper( $poi, $this->clean( (string)$xmlNode->lat ), $this->clean( (string)$xmlNode->long ) );
 
                 $this->notifyImporter( $poi );
 

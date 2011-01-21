@@ -111,12 +111,7 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['phone'] = $this->getFormattedAndFixedPhone( $poi['phone'] );
             $poi['phone2'] = $this->getFormattedAndFixedPhone( $poi['phone2'] );
 
-            // #881 Catch Geocode out of vendor boundary error
-            try{
-                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->lat, (string) $venueElement->long );
-            } catch ( Exception $exception ) {
-                $this->notifyImporterOfFailure( $exception, $poi );
-            }
+            $this->applyFeedGeoCodesHelper( $poi,  (string) $venueElement->lat, (string) $venueElement->long );
 
             $this->notifyImporter( $poi );
         }

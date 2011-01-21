@@ -78,13 +78,7 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               $mapCodeSplit                         = explode( ',', $mapCode);
               if( is_array( $mapCodeSplit) && count( $mapCodeSplit ) == 2 )
               {
-                  // #881 Catch Geocode out of vendor boundary error
-                  try{
-                      $poi->applyFeedGeoCodesIfValid( $mapCodeSplit[0], $mapCodeSplit[1] );
-                  } catch ( Exception $exception ) {
-                      $this->notifyImporterOfFailure( $exception, $poi );
-                  }
-                  
+                  $this->applyFeedGeoCodesHelper( $poi, $mapCodeSplit[0], $mapCodeSplit[1] );
               }
               
                 

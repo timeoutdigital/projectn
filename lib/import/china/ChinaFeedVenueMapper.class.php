@@ -63,13 +63,7 @@ class ChinaFeedVenueMapper extends ChinaFeedBaseMapper
                     $poi->setTimeoutLinkProperty( (string) $xmlNode->timeout_url );
                 }
 
-                // #881 Catch Geocode out of vendor boundary error
-                try{
-                    // use Feed Geocode (we have to reverse lat/long because china provide it the wrong way around)
-                    $poi->applyFeedGeoCodesIfValid( (string)$xmlNode->long, (string)$xmlNode->lat );
-                } catch ( Exception $exception ) {
-                    $this->notifyImporterOfFailure( $exception, $poi );
-                }
+                $this->applyFeedGeoCodesHelper( $poi, (string)$xmlNode->long, (string)$xmlNode->lat );
                 
                 $this->notifyImporter( $poi );
 
