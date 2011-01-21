@@ -76,10 +76,7 @@ class bucharestMovieMapper extends bucharestBaseMapper
                 {
                     foreach( $xmlNode->medias->media as $media )
                     {
-                        if( trim( (string)$media->url ) != '' )
-                        {
-                            $movie->addMediaByUrl( $this->clean( (string)$media->url ) );
-                        }
+                        $this->addImageHelper( $movie, $this->clean( (string)$media->url ) );
                     }
                 }
 

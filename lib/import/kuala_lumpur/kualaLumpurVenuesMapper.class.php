@@ -47,14 +47,8 @@ class kualaLumpurVenuesMapper extends kualaLumpurBaseMapper
 
           $poi->addVendorCategory( $category, $this->vendor['id'] );
 
-          try {
-            $poi->addMediaByUrl( (string) $venue->medias->big_image );
-          }
-          catch( Exception $exception )
-          {
-            $this->notifyImporterOfFailure( $exception );
-          }
-
+          $this->addImageHelper( $poi, (string) $venue->medias->big_image );
+          
           $this->notifyImporter( $poi );
 
         }
