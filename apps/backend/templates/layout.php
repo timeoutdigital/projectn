@@ -11,12 +11,7 @@
   <body>
     <div id="container">
       <div id="header">
-        <h1>
-          <a href="<?php echo url_for('@homepage') ?>">
-            <img id="logo" src="/images/logo.gif" alt="Timeout Project N Admin" />
-          </a>
-          </span>Project N Admin</span>
-        </h1>
+          <a href="<?php echo url_for('@homepage') ?>"><img id="logo" src="/images/logo.gif" alt="Timeout Project N Admin" /></a><span>Project N</span>
       </div>
 
       <div id="menu">
@@ -76,7 +71,7 @@
                    Stats 
                 </li>
                 <li>
-                    <?php echo link_to('Dashboard', 'exportstats/index') ?>
+                    <?php echo link_to('Dashboard', 'dashboard/index') ?>
                 </li>
                 <li>
                     <?php echo link_to('Import Stats', 'importstats/index') ?>
@@ -93,6 +88,7 @@
         <?php echo $sf_content ?>
       </div>
       <div id="footer"></div>
+      <div class="clear"></div>
     </div>
   </body>
 </html>
