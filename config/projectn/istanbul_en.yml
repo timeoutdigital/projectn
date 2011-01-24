@@ -7,4 +7,22 @@ import:
         type: poi
         curl:
           classname: Curl
-          src: www.timeoutistanbul.com/content/n_xml/venues_en.xml
+          src: http://www.timeoutistanbul.com/content/n_xml/venues_en.xml
+
+  event:
+    class:
+      name: istanbulEventMapper
+      params:
+        type: event
+        curl:
+          classname: Curl
+          src: http://www.timeoutistanbul.com/content/n_xml/events_en.xml
+
+  movie:
+    class:
+      name: istanbulMovieMapper
+      params:
+        type: movie
+        curl:
+          classname: Curl
+          src: http://www.timeoutistanbul.com/content/n_xml/movies_en.xml
