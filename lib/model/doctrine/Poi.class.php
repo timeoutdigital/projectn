@@ -159,6 +159,9 @@ class Poi extends BasePoi
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
         }
+
+    // Null review date when empty string found
+    $this['review_date'] = ( trim( $this['review_date'] ) == '' ) ? null : $this['review_date'];
   }
 
   /**

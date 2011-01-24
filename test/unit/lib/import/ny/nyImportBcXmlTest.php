@@ -49,6 +49,7 @@ class nyImportBcXmlTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
 

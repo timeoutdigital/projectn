@@ -656,6 +656,24 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( 2, $masterPoiVendor1['DuplicatePois']->count() );
        $this->setExpectedException( 'Exception' );
        $masterPoiVendor1->save();
+
+   }
+   public function testCleanStringNullifyEmptyReviewDateValidDate()
+   {
+       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+       $poi['review_date'] = '2010-11-11';
+       $poi->save();
+
+       $this->assertEquals( '2010-11-11' , $poi['review_date']);
+   }
+
+   public function testCleanStringNullifyEmptyReviewDateInvalidDate()
+   {
+       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+       $poi['review_date'] = ' ';
+       $poi->save();
+
+       $this->assertEquals( null , $poi['review_date']);
    }
 }
 
