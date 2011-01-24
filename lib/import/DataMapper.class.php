@@ -42,12 +42,12 @@ abstract class DataMapper
 
   protected function notifyImporter( Doctrine_Record $record )
   {
-    $this->importer->onRecordMapped( $record );
+    ImportLogger::saveRecordComputeChangesAndLog( $record );
   }
 
   protected function notifyImporterOfFailure( Exception $exception , Doctrine_Record $record = NULL, $message='' )
   {
-    $this->importer->onRecordMappingException( $exception ,$record, $message );
+    ImportLogger::getInstance()->addError( $exception ,$record, $message );
   }
 
     /**
