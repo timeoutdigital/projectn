@@ -1,5 +1,4 @@
 <script type="text/javascript" src="/js/dygraph-combined.js"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/global.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/default.css" />
 
 <?php foreach( $graphData as $cityName => $cityData ){ ?>

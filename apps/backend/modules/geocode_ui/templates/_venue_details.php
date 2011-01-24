@@ -70,7 +70,7 @@
         <label for="t_venue_details_longitude">R-GeoCode</label>
     </td>
     <td>
-        <textarea readonly = "readonly" id="venue_details_reverse_geocode" style="width:150px"></textarea>
+        <textarea readonly = "readonly" id="venue_details_reverse_geocode"></textarea>
     </td>
   </tr>
 
