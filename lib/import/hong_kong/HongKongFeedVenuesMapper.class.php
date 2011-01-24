@@ -27,12 +27,31 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
                   $poi = new Poi();
 
               // Map Columns
+
+              //clone the vendor object because an unset() later will remove it
+              //the cloning also seems to reload the vendor object so we need to
+              //call useGuise on the clone
+              $poi['Vendor'] = clone $this->vendor;
+
+              //this call is probably not necessary because cloning the vendor
+              //object seems to reset it. But we want to be extra sure.
+              $poi['Vendor']->stopUsingGuise();
+
+              //yes we could use useGuiseIfExists() instead here, but since its
+              //only in Hong Kong with 2 options (macau and shenzen)
+              //lets deal with them here rather than
+              //search for it every time in the db
+              if ( in_array( (string) $venueElement->district, array( 'Macau', 'Shenzhen' ) ) )
+              {
+                  $poi['Vendor']->useGuise( (string) $venueElement->district );
+              }
+
               $poi['vendor_poi_id']                 = (string) $vendor_venue_id;
               $poi['poi_name']                      = (string) $venueElement->name;
               $poi['street']                        = (string) $venueElement->street;
-              $poi['city']                          = ucwords( $this->vendor['city'] ); // HK feed's Cityname == District Name, we could use our Database Cityname
+              $poi['city']                          = ucwords( $poi['Vendor']['city'] ); // HK feed's Cityname == District Name, we could use our Database Cityname
               $poi['district']                      = (string) $venueElement->district;
-              $poi['country']                       = $this->vendor['country_code_long'];
+              $poi['country']                       = $poi['Vendor']['country_code_long'];
 
               $poi['phone']                         = (string) $venueElement->phone;
               $poi['url']                           = (string) $venueElement->url;
@@ -41,14 +60,13 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               $poi['openingtimes']                  = (string) $venueElement->opening_times;
               $poi['rating']                        = $this->roundNumberOrReturnNull( (string) $venueElement->rating );
               $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['street'], $poi['city'] ) );
-              $poi['Vendor']                        = clone $this->vendor;
 
               // Categories
               if( isset( $venueElement->categories->category ) )
               {
                   $categories = array();
                   foreach( $venueElement->categories->category as $category ) stringTransform::mb_trim($categories[] = (string) $category); // TRIM as addVendorCategory Don't Trim!
-                  $poi->addVendorCategory( $categories, $this->vendor->id );
+                  $poi->addVendorCategory( $categories, $poi['Vendor']['id'] );
               }
               // Extract and Apply Lat/Long
               $mapCode                              = (string) $venueElement->mapcode;

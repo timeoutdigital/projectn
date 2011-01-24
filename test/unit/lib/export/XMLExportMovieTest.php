@@ -190,6 +190,7 @@ class XMLExportMovieTest extends PHPUnit_Framework_TestCase
    */
   protected function tearDown()
   {
+      ExportLogger::getInstance()->end();
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
