@@ -91,14 +91,6 @@ class ImportLogger extends BaseLogger
     private static $instance;
 
 
-    /**
-     * Constructor (protected)
-     */
-    protected function  __construct()
-    {
-        $this->_unknownVendor = Doctrine::getTable("Vendor")->findOneByCity( 'unknown' );
-        parent::__construct();
-    }
 
     /**
      * unsetSingleton()
@@ -138,7 +130,7 @@ class ImportLogger extends BaseLogger
     {
         try {
             if( !$this->_vendorObj ) $this->setVendorUnknown();
-            
+
             $currentCity = $this->_vendorObj['city'];
 
             if( array_key_exists( $currentCity, $this->_importLoggers ) )
@@ -207,6 +199,11 @@ class ImportLogger extends BaseLogger
      */
     public function setVendorUnknown()
     {
+        if ( $this->_unknownVendor === NULL )
+        {
+            $this->_unknownVendor = Doctrine::getTable("Vendor")->findOneByCity( 'unknown' );
+        }
+
         $this->_vendorObj = $this->_unknownVendor;
         return $this;
     }
