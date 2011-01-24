@@ -63,10 +63,10 @@
                    Errors 
                 </li>
                 <li>
-                    <?php echo link_to('Import', 'importErrors/index') ?>
+                    <?php echo link_to('Import', '@log_import_error') ?>
                 </li>
                 <li>
-                    <?php echo link_to('Export', 'exportErrors/index') ?>
+                    <?php echo link_to('Export', '@log_export_error') ?>
                 </li>
             </ul>
           </li>
