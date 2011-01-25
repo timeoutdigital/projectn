@@ -85,31 +85,23 @@ class londonDatabaseFilmsDataMapper extends DataMapper
       
       foreach( $genres as $genre )
       {
-        if( empty( $genre ) )
-        {
-          continue;
-        }
-         
-        $movieGenre =  Doctrine::getTable('MovieGenre' )->findOneByGenre( $genre );
-        if( !$movieGenre )
-        {
-          $movieGenre = new MovieGenre();
-          $movieGenre [ 'genre' ] = $genre;
-        }
-       
-        $movie[ 'MovieGenres' ][] = $movieGenre;
+          if( empty( $genre ) )
+          {
+            continue;
+          }
+          $movieGenre =  Doctrine::getTable('MovieGenre' )->findOneByGenre( $genre );
+          if( !$movieGenre )
+          {
+            $movieGenre = new MovieGenre();
+            $movieGenre [ 'genre' ] = $genre;
+          }
 
-        if( isset( $data['image_id'] ) && is_numeric( $data['image_id'] ) && $data['image_id'] != 0 )
-        {
-            try
-            {
-                $movie->addMediaByUrl( 'http://www.toimg.net/managed/images/' . $data[ 'image_id' ] . '/i.jpg' );
-            }
-            catch( Exception $e )
-            {
-                $this->notifyImporterOfFailure( $e, $movie, "Failed to add media for object. Data: " . (string) $data );
-            }
-        }
+          $movie[ 'MovieGenres' ][] = $movieGenre;
+      }
+
+      if( isset( $data['image_id'] ) && is_numeric( $data['image_id'] ) && $data['image_id'] != 0 )
+      {
+          $movie->addMediaByUrl( 'http://www.toimg.net/managed/images/' . $data[ 'image_id' ] . '/i.jpg' );
       }
 
       $this->notifyImporter( $movie );
