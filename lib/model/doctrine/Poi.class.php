@@ -435,7 +435,6 @@ class Poi extends BasePoi
      $this->cleanStreetField();
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
-     $this->setDefaultLongLatNull();
   }
 
   /**
@@ -608,33 +607,19 @@ class Poi extends BasePoi
   }
 
   /**
-   * Sets the longitude and latitude of the object to null if it matches a default coordinate
-   * - Loads default coordinates from app.yml
-   */
-  public function setDefaultLongLatNull()
-  {
-    $pairs = sfConfig::get( 'app_poi_default_coordinates', array() );
-
-    foreach ( $pairs as $coordinate )
-    {
-        if ( isset( $coordinate[ 'long' ] ) && isset( $coordinate[ 'lat' ] ) )
-        {
-            if ( (float) $this['longitude'] == (float) $coordinate['long'] && (float) $this['latitude'] == (float) $coordinate['lat'] )
-            {
-                $this['longitude'] = null;
-                $this['latitude'] = null;
-            }
-        }
-    }
-  }
-
-  /**
    * Function to be used by importers, this ensures that feed lat/longs are valid before attaching them to a POI.
    */
   public function applyFeedGeoCodesIfValid( $lat = "", $long = "" )
   {
-        if( is_numeric( $lat ) && is_numeric( $long ) )
+        if( is_numeric( $lat ) && is_numeric( $long )  && 
+                floatval( $lat ) != 0 && floatval( $long ) != 0)
         {
+            // validate for Boundary
+            if( !$this['Vendor']->isWithinBoundaries( $lat, $long ) )
+            {
+                throw new PoiException( "Geocode provided in the feed ouside vendor boundaries. City: {$this['Vendor']['city']}, Vendor poi id: {$this['vendor_poi_id']}, Latitude: {$lat} & longitude: {$long}" );
+            }
+
             $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
             $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
 
@@ -653,3 +638,5 @@ class Poi extends BasePoi
   }
 
 }
+
+class PoiException extends Exception{};

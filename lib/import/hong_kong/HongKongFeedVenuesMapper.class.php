@@ -68,18 +68,20 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
                   foreach( $venueElement->categories->category as $category ) stringTransform::mb_trim($categories[] = (string) $category); // TRIM as addVendorCategory Don't Trim!
                   $poi->addVendorCategory( $categories, $poi['Vendor']['id'] );
               }
+              
+              // #837 Any poi that have ( will be ignored as this may refer to another area code!
+              $poi['phone'] = ($this->_isValidPhoneNumber( $poi[ 'phone' ] ) ) ? $poi['phone'] : null;
+              $poi['phone2'] = ($this->_isValidPhoneNumber( $poi[ 'phone2' ] ) ) ? $poi['phone2'] : null;
+
               // Extract and Apply Lat/Long
               $mapCode                              = (string) $venueElement->mapcode;
               $mapCodeSplit                         = explode( ',', $mapCode);
               if( is_array( $mapCodeSplit) && count( $mapCodeSplit ) == 2 )
               {
-                  $poi->applyFeedGeoCodesIfValid( $mapCodeSplit[0], $mapCodeSplit[1] );
+                  $this->applyFeedGeoCodesHelper( $poi, $mapCodeSplit[0], $mapCodeSplit[1] );
               }
-
-              // #837 Any poi that have ( will be ignored as this may refer to another area code!
-              $poi['phone'] = ($this->_isValidPhoneNumber( $poi[ 'phone' ] ) ) ? $poi['phone'] : null;
-              $poi['phone2'] = ($this->_isValidPhoneNumber( $poi[ 'phone2' ] ) ) ? $poi['phone2'] : null;
               
+                
               // Done and Save
               $this->notifyImporter( $poi );
 

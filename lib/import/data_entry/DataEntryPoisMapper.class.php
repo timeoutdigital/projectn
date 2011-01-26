@@ -114,7 +114,6 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
 
                 $geoPosition = 'geo-position';
-                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
                 // $poi['review_date'] = '';
                 $poi['local_language'] = $lang;
@@ -168,7 +167,9 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                     }
                 }
 
+                $this->applyFeedGeoCodesHelper( $poi, (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
+                
                $this->notifyImporter( $poi );
 
            }
