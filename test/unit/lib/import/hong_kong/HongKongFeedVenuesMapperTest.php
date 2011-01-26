@@ -49,12 +49,12 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
     ProjectN_Test_Unit_Factory::destroyDatabases();
   }
 
-  public function testMapMovies()
+  public function testMapPlaces()
   {
       $pois = Doctrine::getTable('Poi')->findAll();
 
       // Check IMPORTED COUNT
-      $this->assertEquals( 4, $pois->count(), 'Since the Geocode Structure chaged, we have 4 Pois in feed' );
+      $this->assertEquals( 6, $pois->count(), 'Since the Geocode Structure chaged, we have 4 Pois in feed' );
 
       $poi = $pois[0];
 
@@ -194,23 +194,41 @@ class HongKongFeedVenuesMapperTest extends PHPUnit_Framework_TestCase
 
   public function testGeocodeChaneAndudpatedFeed()
   {
-      $poi = Doctrine::getTable( 'Poi' )->find( 4 );
+      $poi = Doctrine::getTable( 'Poi' )->find( 6 );
       $this->assertEquals( 23, $poi['vendor_poi_id']);
       $this->assertEquals( '8 Happiness', $poi['poi_name']);
       $this->assertEquals( '22.27825523', $poi['latitude'] );
       $this->assertEquals( '114.182689', $poi['longitude'] );
   }
 
-  public function testExcludingAreCodedPhoneNumber()
+  public function testExcludingAraCodedPhoneNumber()
   {
       // Test Invaid Number
-      $poi = Doctrine::getTable( 'Poi' )->find( 4 );
+      $poi = Doctrine::getTable( 'Poi' )->find( 6 );
       $this->assertEquals( null , $poi['phone']);
       $this->assertEquals( null , $poi['phone2']);
 
       //Test a valid number to be sure
       $poi = Doctrine::getTable( 'Poi' )->find( 3 );
       $this->assertEquals( '+852 8 266 8880' , $poi['phone']);
+      $this->assertEquals( null , $poi['phone2']);
+  }
+
+  public function testGuisableAreaCode()
+  {
+      $poi = Doctrine::getTable( 'Poi' )->find( 3 );
+      $this->assertEquals( 'Cheung Chau' , $poi['district']);
+      $this->assertEquals( '+852 8 266 8880' , $poi['phone']);
+      $this->assertEquals( null , $poi['phone2']);
+
+      $poi = Doctrine::getTable( 'Poi' )->find( 4 );
+      $this->assertEquals( 'Macau' , $poi['district']);
+      $this->assertEquals( '+853 8 266 8880' , $poi['phone']);
+      $this->assertEquals( null , $poi['phone2']);
+
+      $poi = Doctrine::getTable( 'Poi' )->find( 5 );
+      $this->assertEquals( 'Shenzhen' , $poi['district']);
+      $this->assertEquals( '+755 8 266 8880' , $poi['phone']);
       $this->assertEquals( null , $poi['phone2']);
   }
   
