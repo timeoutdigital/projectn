@@ -100,7 +100,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
 
                                // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
 
-                                $poi->addMediaByUrl( (string) $media );
+                                $this->addImageHelper( $poi, (string) $media );
                             }
                             catch ( Exception $exception )
                             {

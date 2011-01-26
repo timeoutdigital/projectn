@@ -95,22 +95,14 @@ class londonDatabaseFilmsDataMapper extends DataMapper
             $movieGenre = new MovieGenre();
             $movieGenre [ 'genre' ] = $genre;
           }
-
           $movie[ 'MovieGenres' ][] = $movieGenre;
       }
 
       if( isset( $data['image_id'] ) && is_numeric( $data['image_id'] ) && $data['image_id'] != 0 )
       {
-          try
-          {
-              $movie->addMediaByUrl( 'http://www.toimg.net/managed/images/' . $data[ 'image_id' ] . '/i.jpg' );
-          }
-          catch( Exception $e )
-          {
-              $this->notifyImporterOfFailure( $e, $movie, "Failed to add media for object. Data: " . (string) $data );
-          }
+          $this->addImageHelper( $movie, 'http://www.toimg.net/managed/images/' . $data[ 'image_id' ] . '/i.jpg' );
       }
-
+      
       $this->notifyImporter( $movie );
     }
   }
