@@ -31,7 +31,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
 
-    ProjectN_Test_Unit_Factory::createDatabases();
+    ProjectN_Test_Unit_Factory::createDatabases(  );
 
     $this->object = ProjectN_Test_Unit_Factory::get( 'poi' );
     $this->object[ 'VendorPoiCategory' ] = new Doctrine_Collection( Doctrine::getTable( 'Poi' ) );
@@ -103,17 +103,62 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], '45 Some Street' );
   }
 
+  public function testApplyFeedGeoCodesIfValidEmptyValues()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['latitude'] = null;
+      $poi['longitude'] = null;
+
+      $poi->applyFeedGeoCodesIfValid( '', '');
+      $this->assertEquals( null, $poi['latitude']);
+      $this->assertEquals( null, $poi['longitude']);
+
+      $poi->applyFeedGeoCodesIfValid( '0', '0');
+      $this->assertEquals( null, $poi['latitude']);
+      $this->assertEquals( null, $poi['longitude']);
+  }
+
+  public function testApplyFeedGeoCodesIfValidException()
+  {
+      $vendor = Doctrine::getTable( 'Vendor' )->find(1);
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // get lat long
+      $latLongSet = explode( ';', $vendor['geo_boundries'] );
+
+      $this->setExpectedException( 'PoiException' );
+      // Apply a Geocode that is outside vendor boundaries, it should throw exception
+      $poi->applyFeedGeoCodesIfValid( ($latLongSet[2] + 1 ),'-2.4975618975'); // add 1 to high latitude, makes it out of boundary
+      
+  }
+
+  public function testApplyFeedGeoCodesIfValidValidGeoCode()
+  {
+      $vendor = Doctrine::getTable( 'Vendor' )->find(1);
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // get lat long
+      $latLongSet = explode( ';', $vendor['geo_boundries'] );
+
+      // Apply a Geocode that is outside vendor boundaries, it should throw exception
+      $poi->applyFeedGeoCodesIfValid( ($latLongSet[0] + 0.5 ), ($latLongSet[1] + 0.5) ) ; // Use the minimum lat/long
+
+  }
+
   public function testApplyFeedGeoCodesIfValid()
   {
+      $vendor = Doctrine::getTable( 'Vendor' )->find(1);
+      $latLongSet = explode( ';', $vendor['geo_boundries'] );
+
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
 
       $this->assertLessThan(1, $poi['PoiMeta']->count());
 
-      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975');
+      $poi->applyFeedGeoCodesIfValid( $latLongSet[0], $latLongSet[1]);
 
       $poi->save();
 
-      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975'); // Same LONG / LAT Should Meta Should not be added
+      $poi->applyFeedGeoCodesIfValid($latLongSet[0], $latLongSet[1]); // Same LONG / LAT Should Meta Should not be added
 
       $this->assertEquals(1, $poi['PoiMeta']->count());
 
@@ -121,7 +166,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals('Feed', $poi['PoiMeta'][0]['value']);
 
-      $poi->applyFeedGeoCodesIfValid('15.1789464','-2.4975618975');
+      $poi->applyFeedGeoCodesIfValid($latLongSet[0] + 0.5, $latLongSet[1]);
 
       $poi->save();
 
@@ -290,37 +335,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj->save();
 
       $this->assertTrue($poiObj['longitude'] === null , "Test that there is no 0 in the longitude");
-  }
-
-  // Removed test as w no longer throws exception in baseclass...
-  /**
-   * Test the long/lat is either valid or null
-   */
-  public function testDefaultLongLatIsSetToNull()
-  {
-      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
-      $poiObj->save();
-
-      $poiObj['longitude'] = '151.207114';
-      $poiObj['latitude'] = '-33.867139';
-
-      $poiObj->save();
-
-      $this->assertTrue( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude and latitude for Sydney is set to null' );
-
-      $poiObj['longitude'] = '151.20711400';
-      $poiObj['latitude'] = '-33.867138';
-      $poiObj->save();
-
-      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude but not latitude for Sydney are preserved' );
-
-      $poiObj['longitude'] = '151.20711200';
-      $poiObj['latitude'] = '-33.867138';
-      $poiObj->save();
-     // sydney1: { long: '151.207114', lat: '-33.867139' }
-      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Non default longitude and latitude for Sydney are preserved' );
   }
 
   /**
@@ -579,6 +593,157 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->object->save();
 
     $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorPoiCategory' ][0]['name'] );
+   }
+
+   public function testDuplicatePois()
+   {
+       $masterPoi1 = Doctrine::getTable( 'Poi' )->find(1);
+       $masterPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $duplicatePoi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $duplicatePoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+
+       $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
+       $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+
+       // Add duplicate POI to Master 1
+       $masterPoi1['DuplicatePois'][] = $duplicatePoi1;
+       $masterPoi1['DuplicatePois'][] = $duplicatePoi2;
+       $masterPoi1->save();
+
+       $masterPoi1->refresh( true );
+       $masterPoi2->refresh( true );
+       $duplicatePoi1->refresh( true );
+       $duplicatePoi2->refresh( true );
+
+       $this->assertEquals( 2, Doctrine::getTable( 'PoiReference' )->count() );
+       $this->assertEquals( 2, $masterPoi1['DuplicatePois']->count() );
+       $this->assertEquals( 0, $masterPoi2['DuplicatePois']->count() );
+       $this->assertEquals( 1, $duplicatePoi1['MasterPoi']->count() );
+       $this->assertEquals( 1, $duplicatePoi2['MasterPoi']->count() );
+   }
+
+   public function testDuplicatePoisUniqueDuplicatePoi()
+   {
+       $masterPoi1 = Doctrine::getTable( 'Poi' )->find(1);
+       $masterPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $duplicatePoi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+
+       $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
+       $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+
+       // Add Duplicate 1 to Master 1
+       $masterPoi1['DuplicatePois'][] = $duplicatePoi1;
+       $masterPoi1->save();
+       $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+
+       $this->setExpectedException( 'Exception' );
+       $masterPoi2['DuplicatePois'][] = $duplicatePoi1;
+       $masterPoi2->save();
+
+   }
+
+   public function testIsDuplicate()
+   {
+       $masterPoi = Doctrine::getTable( 'Poi' )->find(1);
+       $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $masterPoi['DuplicatePois'][] = $duplicatePoi;
+       $masterPoi->save();
+
+       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+       $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+
+       $this->assertTrue( $duplicatePoi->isDuplicate() );
+       $this->assertFalse( $duplicatePoi->isMaster() );
+       
+       $this->assertFalse( $masterPoi->isDuplicate() );
+       $this->assertTrue( $masterPoi->isMaster() );
+       
+   }
+
+   public function testPreSaveThrowExceptionWhenDiffVendorPoiReferenced()
+   {
+       $masterPoiVendor1 = Doctrine::getTable( 'Poi' )->find(1);
+       $duplicatePoiVendor1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 1 ) );
+       $duplicatePoiVendor2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 2 ) );
+       $masterPoiVendor1['DuplicatePois'][] = $duplicatePoiVendor1;
+       $masterPoiVendor1['DuplicatePois'][] = $duplicatePoiVendor2;
+       $this->assertEquals( 2, $masterPoiVendor1['DuplicatePois']->count() );
+       $this->setExpectedException( 'Exception' );
+       $masterPoiVendor1->save();
+
+   }
+   public function testCleanStringNullifyEmptyReviewDateValidDate()
+   {
+       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+       $poi['review_date'] = '2010-11-11';
+       $poi->save();
+
+       $this->assertEquals( '2010-11-11' , $poi['review_date']);
+   }
+
+   public function testCleanStringNullifyEmptyReviewDateInvalidDate()
+   {
+       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+       $poi['review_date'] = ' ';
+       $poi->save();
+
+       $this->assertEquals( null , $poi['review_date']);
+   }
+
+   /**
+    * Doctrine version < 1.2.3 have bug with self referencing table This test is to proof that Doctrine upgrade should have fixed it
+    * this will fail in Older version of Doctrine and pass from V1.2.3
+    */
+   public function testDoctrineBugSelfReference()
+   {
+
+       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
+       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
+       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
+
+       $poi1 = Doctrine::getTable( 'Poi' )->findOneByPoiName( 'poi 1' );
+       $poi2 = Doctrine::getTable( 'Poi' )->findOneByPoiName( 'poi 2' );
+       $poi3 = Doctrine::getTable( 'Poi' )->findOneByPoiName( 'poi 3' );
+
+       // Link POI 1 -> POI 2
+       $poi1['DuplicatePois'][0] = $poi2;
+       $poi1->save();
+
+       $poi1->refresh();
+       $poi1->refreshRelated();
+
+       // proof that POI 1 is related to POI 2
+       $this->assertEquals( 1, $poi1['DuplicatePois']->count() );
+       $this->assertEquals( $poi2['id'], $poi1['DuplicatePois'][0]['id'] );
+
+       // Link POI1 -> POI3, but also link POI1 -> POI2 again to simulate FORM processing
+       $poi1['DuplicatePois'][0] = $poi2;
+       $poi1['DuplicatePois'][1] = $poi3;
+       $poi1->save();
+
+       // Refresh to get Latest changes pulled from database (like reference updates)
+       $poi1->refresh();
+       $poi1->refreshRelated();
+       $poi2->refresh();
+       $poi2->refreshRelated();
+       $poi3->refresh();
+       $poi3->refreshRelated();
+
+       // proof that each POI 2 and 3 duplicate of POI 1 and POI 1 is the master poi of Poi 2 & 3
+       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
+       $this->assertEquals( $poi2['id'], $poi1['DuplicatePois'][0]['id'] );
+       $this->assertEquals( $poi3['id'], $poi1['DuplicatePois'][1]['id'] );
+       // Reverse lookup
+       $this->assertEquals( $poi1['id'], $poi2['MasterPoi'][0]['id'] );
+       $this->assertEquals( $poi1['id'], $poi3['MasterPoi'][0]['id'] );
+
+       // Assert reference table for Records
+       $referenceTable = Doctrine::getTable( 'PoiReference' )->findAll( Doctrine_Core::HYDRATE_ARRAY );
+       $this->assertEquals( 2, count($referenceTable) );
+       $this->assertEquals( $poi1['id'], $referenceTable[0]['master_poi_id']);
+       $this->assertEquals( $poi1['id'], $referenceTable[1]['master_poi_id']);
+       $this->assertEquals( $poi2['id'], $referenceTable[0]['duplicate_poi_id']);
+       $this->assertEquals( $poi3['id'], $referenceTable[1]['duplicate_poi_id']);
    }
 }
 

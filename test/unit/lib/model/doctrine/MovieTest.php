@@ -211,5 +211,31 @@ class MovieTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 'The Wolfman', $movie[ 'name' ] );
   }
+
+  public function testEmptyStringInReleaseDateInvalidValue()
+  {
+      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+      $movie['release_date'] = '';
+      $movie->save();
+      $this->assertEquals( null, $movie['release_date']);
+
+  }
+
+  public function testEmptyStringInReleaseDateValidValue()
+  {
+      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+      $movie['release_date'] = '2010-11-12';
+      $movie->save();
+      $this->assertEquals( '2010-11-12', $movie['release_date']);
+  }
+
+  public function testEmptyStringInReleaseDateValidValueButInvailidDate()
+  {
+      $movie = ProjectN_Test_Unit_Factory::get( 'Movie' );
+      $movie['release_date'] = '2010-11';
+
+      $this->setExpectedException( 'Doctrine_Validator_Exception');
+      $movie->save();
+  }
 }
 ?>

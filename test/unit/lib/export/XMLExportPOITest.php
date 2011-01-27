@@ -869,6 +869,32 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
       $contact = array_shift( $contact );
       $this->assertEquals( 'lowercase district', (string) $contact->district );
     }
+
+    public function testAvoidExportingDuplicate()
+    {
+        $this->assertEquals( 5, Doctrine::getTable( 'Poi' )->findByVendorId(2)->count() );
+        $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+        
+        $this->runImportAndExport();
+        $entries = $this->xml->xpath( '/vendor-pois/entry' );
+        $this->assertEquals(3, count($entries), "Should only be 3 Exported as 2 don't have street" );
+
+        // add duplicate ship
+        $poi1 = Doctrine::getTable( 'Poi' )->find(1);
+        $poi5 = Doctrine::getTable( 'Poi' )->find(5);
+        $poi1['DuplicatePois'][] = $poi5;
+        $poi1->save();
+        $this->assertEquals( 5, Doctrine::getTable( 'Poi' )->findByVendorId(2)->count() );
+        $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+        
+        // Run export again and we only teo should be exported as 5th one marked as Duplicate of 1
+        $this->runImportAndExport();
+        $entries = $this->xml->xpath( '/vendor-pois/entry' );
+        $this->assertEquals( 2, count($entries), "Should only be 2 as one marked as duplicate" );
+        $this->assertNotEquals( $poi5['id'], (string)$entries[0]['vpid']);
+        $this->assertNotEquals( $poi5['id'], (string)$entries[1]['vpid']);
+        
+    }
 }
 /**
  * Purpose of this mockup class to Make "testMediaTags" test pass..

@@ -74,11 +74,8 @@ class UAEFeedBarsMapper extends UAEFeedBaseMapper
                  */
                 $this->addVendorCategory( $poi, $xmlNode );
 
-                /* Add Latitude and Longitude if Valid
-                 * New Feed (as of 07 Sep 10 )from Dubai have latitude and longitude
-                 */
-                $poi->applyFeedGeoCodesIfValid( (string) $xmlNode->{'latitude'},  (string) $xmlNode->{'longitude'} );
-
+                $this->applyFeedGeoCodesHelper( $poi, (string) $xmlNode->{'latitude'},  (string) $xmlNode->{'longitude'} );
+                
                 // Save POI
                 $this->notifyImporter( $poi );
                 

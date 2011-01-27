@@ -375,9 +375,6 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
         $poi[ 'zips' ]                   = $item[ 'SLLVenue' ][ 'postcode' ];
         $poi[ 'country' ]                = 'GBR';
         $poi[ 'local_language' ]         = $this->vendor[ 'language' ];//'en-GB';
-
-        $poi->applyFeedGeoCodesIfValid( $item[ 'SLLVenue' ][ 'latitude' ], $item[ 'SLLVenue' ][ 'longitude' ] );
-
         $poi[ 'email' ]                  = $item[ 'SLLVenue' ][ 'email' ];
         $poi[ 'url' ]                    = $item[ 'SLLVenue' ][ 'url' ];
         $poi[ 'phone' ]                  = $item[ 'SLLVenue' ][ 'phone' ];
@@ -408,6 +405,8 @@ class LondonDatabaseEventsAndVenuesMapper extends DataMapper
             $poi->addVendorCategory( $this->categories, $this->vendor['id'] );
         }
 
+        $this->applyFeedGeoCodesHelper( $poi, $item[ 'SLLVenue' ][ 'latitude' ], $item[ 'SLLVenue' ][ 'longitude' ] );
+        
         $this->notifyImporter( $poi );
         
     } catch (Exception $exc) {
