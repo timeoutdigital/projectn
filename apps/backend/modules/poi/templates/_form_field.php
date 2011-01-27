@@ -1,3 +1,4 @@
+<?php use_helper('jQuery'); ?>
 <?php if ($field->isPartial()): ?>
   <?php include_partial('poi/'.$name, array('form' => $form, 'attributes' => $attributes instanceof sfOutputEscaper ? $attributes->getRawValue() : $attributes)) ?>
 <?php elseif ($field->isComponent()): ?>

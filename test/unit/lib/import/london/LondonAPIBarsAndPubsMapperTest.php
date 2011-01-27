@@ -26,7 +26,7 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-    Doctrine::loadData( 'data/fixtures/fixtures.yml' );
+    Doctrine::loadData('data/fixtures');
     
     $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity( 'london' );
   }
@@ -67,8 +67,8 @@ class LondonAPIBarsAndPubsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertFalse( empty( $poi[ 'street' ] ),            'street should not be empty: '        . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'city' ] ),              'city should not be empty: '          . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'country' ] ),           'city should not be empty: '          . $poi[ 'url' ] );
-    $this->assertFalse( empty( $poi[ 'longitude' ] ),         'longitude should not be empty: '     . $poi[ 'url' ] );
-    $this->assertFalse( empty( $poi[ 'latitude' ] ),          'latitude should not be empty: '      . $poi[ 'url' ] );
+    $this->assertFalse( empty( $poi[ 'longitude' ] ),         'longitude should not be empty: '     . $poi[ 'longitude' ] );
+    $this->assertFalse( empty( $poi[ 'latitude' ] ),          'latitude should not be empty: '      . $poi[ 'latitude' ] );
     $this->assertFalse( empty( $poi[ 'poi_name' ] ),          'poi_name should not be empty: '      . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'url' ] ),               'url should not be empty: '           . $poi[ 'url' ] );
     $this->assertFalse( empty( $poi[ 'phone' ] ),             'phone should not be empty: '         . $poi[ 'url' ] );

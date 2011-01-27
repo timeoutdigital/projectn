@@ -17,11 +17,24 @@ class EventOccurrence extends BaseEventOccurrence
   */
   public function preSave( $event )
   {
+    $this->cleanEmptyString();
+  }
 
-     if( $this['booking_url'] != '')
-     {
-        $this['booking_url'] = stringTransform::formatUrl($this['booking_url']);
-     }
+  public function cleanEmptyString()
+  {
+      // define Field type to check for empty string values
+      $nullable_types = array( 'date', 'time', 'string' );
 
+      // #874 loop through each field and make empty string value as null..
+      // Doctrine v1.2.3 throws validation error when empty string found for date/time
+      foreach( Doctrine::getTable( get_class( $this ) )->getColumns() as $column_name => $column_info )
+      {
+          if( in_array( $column_info['type'], $nullable_types ) && 
+                  $column_info['notnull'] === false &&
+                  stringTransform::mb_trim( $this[$column_name] ) == '' )
+          {
+              $this[ $column_name ] = null;
+          }
+      }
   }
 }

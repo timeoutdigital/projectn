@@ -99,7 +99,7 @@ class DataEntryEventsMapper extends DataEntryBaseMapper
                               // $imageFileName = array_pop( $urlArray );
                               // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/event/%s', $imageFileName );
 
-                                $event->addMediaByUrl( (string) $media  ) ;
+                                $this->addImageHelper( $event , (string) $media );
                             }
                             catch ( Exception $exception )
                             {

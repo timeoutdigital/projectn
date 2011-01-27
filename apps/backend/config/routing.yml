@@ -16,6 +16,15 @@ log_import_error:
     column:               id
     with_wildcard_routes: true
 
+poi_duplicate_pois:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Poi
+    module:               duplicate_pois
+    prefix_path:          /duplicate_pois
+    column:               id
+    with_wildcard_routes: true
+
 geo_white_list:
   class: sfDoctrineRouteCollection
   options:

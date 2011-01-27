@@ -21,14 +21,10 @@ class kualaLumpurVenuesMapperTest extends PHPUnit_Framework_TestCase
   protected function setUp()
   {
     ProjectN_Test_Unit_Factory::createDatabases();
-
+    Doctrine::loadData('data/fixtures');
     $importer = new Importer();
 
-    $this->vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array(
-      'city'=>'kuala lumpur',
-      'language'=>'en',
-      'inernational_dial_code' => '+60',
-      ) );
+    $this->vendor = Doctrine::getTable( 'Vendor' )->findOneByCity('kuala lumpur');
 
     $this->xml = simplexml_load_file( TO_TEST_DATA_PATH . '/kualalumpur/kuala_lumpur_venues.xml' );
     $importer->addDataMapper( new kualaLumpurVenuesMapper( $this->vendor, $this->_getParams( 'kuala_lumpur_venues.xml' ) ) );

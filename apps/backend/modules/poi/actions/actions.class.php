@@ -80,6 +80,89 @@ class poiActions extends autoPoiActions
     $this->setTemplate('new');
   }
 
+  public function executeAjaxGetRelatedPoi(sfWebRequest $request)
+  {
+      $vendor = $request->getParameter( 'vendor' );
+      $keyword = $request->getParameter( 'q' );
+
+      $returnMsg = array();
+      
+      if( !is_numeric($vendor) || $vendor <= 0 || stringTransform::mb_trim( $keyword ) == '' )
+      {
+          $returnMsg[0] = 'Invalid Vendor or Keyword';
+      }
+
+      // Do search and Return Results
+      $searchResults = Doctrine::getTable( 'Poi' )->searchAllNonDuplicateAndNonMasterPoisBy( $vendor, $keyword, Doctrine_Core::HYDRATE_ARRAY );
+      
+      if( !is_array($searchResults) || count( $searchResults ) <= 0 )
+      {
+          $returnMsg[0] = 'No poi found';
+      }
+      else
+      {
+          foreach( $searchResults as $poiArray )
+          {
+              $returnMsg[ $poiArray['id'] ] = $poiArray['poi_name'];
+          }
+      }
+
+      return $this->renderText(json_encode( $returnMsg ));
+  }
+
+  public function executeAjaxPoiList( sfWebRequest $request )
+  {
+      $result['status'] = 'success'; // success otherwise stated
+      $result['pois'] = array();
+      // get Pois
+      $poiID = $request->getParameter( 'current_poi_id' );
+      switch ($request->getParameter( 'get_type' ) )
+      {
+          case 'master':
+              
+              $masterPOI = Doctrine::getTable( 'Poi' )->getMasterOf( $poiID, Doctrine_Core::HYDRATE_ARRAY );
+              if( !is_array( $masterPOI ) || count( $masterPOI ) <= 0 )
+              {
+                  $result['status'] = 'error';
+                  $result['message'] = 'No Master poi found for POI ID: ' . $poiID;
+                  break;
+              }
+
+              $result['pois'][] = $this->ajaxPoiToJsonArray( $masterPOI );
+              break;
+
+          case 'duplicate':
+              
+              $pois = Doctrine::getTable( 'Poi' )->getDuplicatesOf( $poiID, Doctrine_Core::HYDRATE_ARRAY );
+              if( !is_array( $pois ) || count( $pois ) <= 0 )
+              {
+                  $result['status'] = 'error';
+                  $result['message'] = 'No Duplicate pois found';
+                  break;
+              }
+
+              foreach( $pois as $poi )
+                  $result['pois'][] = $this->ajaxPoiToJsonArray( $poi );
+              
+              break;
+
+          default:
+              $result['status'] = 'error';
+              $result['message'] = 'Invalid type requested!';
+              break;
+      }
+      return $this->renderText( json_encode( $result ) );
+  }
+
+  private function ajaxPoiToJsonArray( &$poi )
+  {
+      return array(
+              'name' => $poi['poi_name'],
+              'id' => $poi['id']
+              );
+  }
+  
+
   /*** symfony generated start taken from cache/backend/dev/modules/autoPoi/actions/actions.class.php ***/
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
@@ -148,4 +231,6 @@ class poiActions extends autoPoiActions
     }
   }
   /*** symfony generated end ***/
+
+  
 }

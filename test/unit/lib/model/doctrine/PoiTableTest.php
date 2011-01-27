@@ -200,6 +200,84 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'moscow', $poi['Vendor']['city'] );
   }
 
+  public function testIsDuplicate()
+  {
+      $this->assertEquals( 0, Doctrine::getTable('Poi')->count() );
+      $this->assertEquals( 0, Doctrine::getTable('PoiReference')->count() );
+
+      $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi['MasterPoi'][] = $masterPoi;
+      $duplicatePoi->save();
+
+      $this->assertEquals( 2, Doctrine::getTable('Poi')->count() );
+      $this->assertEquals( 1, Doctrine::getTable('PoiReference')->count() );
+
+      $this->assertTrue( Doctrine::getTable('Poi')->isDuplicate( $duplicatePoi['id'] ) );
+      $this->assertFalse( Doctrine::getTable('Poi')->isDuplicate( $masterPoi['id'] ) );
+  }
+
+  public function testGetMasterOf()
+  {
+      $this->assertEquals( 0, Doctrine::getTable('Poi')->count() );
+      $this->assertEquals( 0, Doctrine::getTable('PoiReference')->count() );
+
+      $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi['MasterPoi'][] = $masterPoi;
+      $duplicatePoi->save();
+
+      $poi = Doctrine::getTable( 'Poi' )->getMasterOf( $duplicatePoi['id'] );
+      $this->assertEquals( $masterPoi['id'], $poi['id']);
+      $this->assertFalse( Doctrine::getTable( 'Poi' )->getMasterOf( $masterPoi['id'] ) );
+  }
+
+  public function testGetDuplicatesOf()
+  {
+      $this->assertEquals( 0, Doctrine::getTable('Poi')->count() );
+      $this->assertEquals( 0, Doctrine::getTable('PoiReference')->count() );
+
+      $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi['MasterPoi'][] = $masterPoi;
+      $duplicatePoi->save();
+      $duplicatePoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $duplicatePoi2['MasterPoi'][] = $masterPoi;
+      $duplicatePoi2->save();
+
+      $poi = Doctrine::getTable( 'Poi' )->getDuplicatesOf( $masterPoi['id'], Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertTrue( is_array( $poi ) );
+      $this->assertEquals( 2, count( $poi  ) );
+      $this->assertEquals( $duplicatePoi['id'], $poi[0]['id']);
+      $this->assertEquals( $duplicatePoi2['id'], $poi[1]['id']);
+  }
+
+  public function testSearchAllNonDuplicateAndNonMasterPoisBy()
+  {
+      $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'test name 1' ) );
+      $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'test name 2'  ) );
+      $normalPoiVendor1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'test name 3' ) );
+      $normalPoiVendor2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 2, 'poi_name' => 'test name 4' ) );
+      $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
+      $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+
+      // add Duplicate
+      $masterPoi['DuplicatePois'][] = $duplicatePoi;
+      $masterPoi->save();
+      $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+
+      // Get as Array
+      $pois = Doctrine::getTable( 'Poi' )->searchAllNonDuplicateAndNonMasterPoisBy( 1, 't', Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertTrue( is_array( $pois ) );
+      $this->assertEquals( 1, count($pois) );
+      $this->assertEquals( $normalPoiVendor1['id'], $pois[0]['id'] );
+
+      // Test the other vendor
+      $pois = Doctrine::getTable( 'Poi' )->searchAllNonDuplicateAndNonMasterPoisBy( 2, 't', Doctrine_Core::HYDRATE_ARRAY );
+      $this->assertEquals( 1, count($pois) );
+      $this->assertEquals( $normalPoiVendor2['id'], $pois[0]['id'] );
+  }
+
   private function addPoi( $vendorPoiId, $name, $vendor )
   {
     $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
@@ -208,6 +286,54 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
     $poi[ 'Vendor' ]        = $vendor;
     $poi->save();
     return $poi;
+  }
+
+  public function testAddWherePoiIsNotDuplicate_FindAllDuplicateLatLongsAndApplyWhitelist()
+  {      
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+
+      $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $this->assertEquals( 0, count($pois), 'There is no duplicate yet! it should bring nothing back' );
+
+      // add duplicate geocode
+      // 1 == 4
+      $poi1['latitude'] = $poi4['latitude'];
+      $poi1['longitude'] = $poi4['longitude'];
+      $poi1->save();
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $this->assertEquals( 1, count($pois), 'Should have 1 Duplicate' );
+
+      // add the ID4 as Duplicate of Poi 1
+      $poi1['DuplicatePois'][] = $poi4;
+      $poi1->save();
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $this->assertEquals( 0, count($pois), 'Should bring nothing back, as 4th one identified as duplicate of POI 1' );
+  }
+
+  public function testAddWherePoiIsNotDuplicate_FindAllValidByVendorId()
+  {
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
+      
+      $validPois = Doctrine::getTable( 'Poi' )->findAllValidByVendorId( 1 );
+      $this->assertEquals( 4, $validPois->count(), 'There is no Duplicate Yet, it should bring back 4 POIs' );
+
+      // Mark poi 3 as Poi 1's Duplicate
+      $poi1['DuplicatePois'][] = $poi3;
+      $poi1->save();
+      
+      $validPois = Doctrine::getTable( 'Poi' )->findAllValidByVendorId( 1 );
+      $this->assertEquals( 3, $validPois->count(), 'Only 3, One marked as duplicate POI' );
+      $this->assertNotEquals( $poi3['id'], $validPois[0]['id'], 'POI ID3 should be excluded in the LIST' );
+      $this->assertNotEquals( $poi3['id'], $validPois[1]['id'], 'POI ID3 should be excluded in the LIST' );
+      $this->assertNotEquals( $poi3['id'], $validPois[2]['id'], 'POI ID3 should be excluded in the LIST' );
   }
 
 }

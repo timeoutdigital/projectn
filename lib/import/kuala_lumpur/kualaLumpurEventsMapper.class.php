@@ -29,14 +29,7 @@ class kualaLumpurEventsMapper extends kualaLumpurBaseMapper
           ),
           $this->vendor );
 
-          try {
-            $record->addMediaByUrl( (string) $event->medias->big_image );
-          }
-          catch( Exception $exception )
-          {
-            $this->notifyImporterOfFailure($exception);
-          }
-
+          $this->addImageHelper( $record , (string) $event->medias->big_image );
 
           $occurrence = $this->dataMapperHelper->getEventOccurrenceRecord( $record, $eventId );
 
