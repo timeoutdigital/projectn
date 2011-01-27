@@ -269,7 +269,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
             'latitude' => $latLongArray[0] + 0.1,
             'longitude' => $latLongArray[1] + 0.1,
         ) );
-        $poi['VendorPoiCategory']->delete();
+        $poi['VendorPoiCategory'] = new Doctrine_Collection( 'VendorPoiCategory' );
         $poi['VendorPoiCategory'][] = $vpc_restaurant;
         $poi->save();
 
@@ -280,9 +280,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
             'short_description' => 'short description',
             'latitude' => $latLongArray[0] + 0.2,
             'longitude' => $latLongArray[1] + 0.1,
-
         ) );
-        $poi['VendorPoiCategory']->delete();
+        $poi['VendorPoiCategory'] = new Doctrine_Collection( 'VendorPoiCategory' );
         $poi['VendorPoiCategory'][] = $vpc_restaurant;
         $poi->save();
 
@@ -295,7 +294,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
             'longitude' => $latLongArray[1] + 0.1,
 
         ) );
-        $poi['VendorPoiCategory']->delete();
+        $poi['VendorPoiCategory'] = new Doctrine_Collection( 'VendorPoiCategory' );
         $poi['VendorPoiCategory'][] = $vpc_restaurant;
         $poi->save();
 
@@ -308,7 +307,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
             'longitude' => $latLongArray[1] + 0.1,
 
         ) );
-        $poi['VendorPoiCategory']->delete();
+        $poi['VendorPoiCategory'] = new Doctrine_Collection( 'VendorPoiCategory' );
         $poi['VendorPoiCategory'][] = $vpc_music;
         $poi->save();
         
