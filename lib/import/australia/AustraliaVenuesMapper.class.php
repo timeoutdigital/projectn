@@ -21,7 +21,7 @@ class australiaVenuesMapper extends australiaBaseMapper
         try{
               // get Existing POI or create NEW
               $vendor_poi_id = (string) $venue->VenueID;
-              $poi = Doctrine::getTable( 'Poi' )->findOneByvendorIdAndVendorPoiId( $this->vendor['id'], $vendor_poi_id );
+              $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $vendor_poi_id );
               if( $poi === false )
               {
                   $poi = new Poi();
