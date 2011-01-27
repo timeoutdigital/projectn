@@ -242,57 +242,73 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $ui_music =  new UiCategory;
         $ui_music['name'] = 'Music';
         $ui_music->save();
-        
+
+        $vendor = Doctrine::getTable( 'Vendor' )->find(1);
+
         // add vendor poi category and link it to eating and drinking ui category
         $vpc_restaurant = new VendorPoiCategory;
         $vpc_restaurant['name'] = 'Restaurant';
-        $vpc_restaurant['vendor_id'] = 1;
+        $vpc_restaurant['vendor_id'] = $vendor['id'];
         $vpc_restaurant['UiCategory'][] = $ui_eating;
         $vpc_restaurant->save();
 
         // add one that link to other UI category.. not eating & drinking
         $vpc_music = new VendorPoiCategory;
         $vpc_music['name'] = 'Jazz';
-        $vpc_music['vendor_id'] = 1;
+        $vpc_music['vendor_id'] = $vendor['id'];
         $vpc_music['UiCategory'][] = $ui_music;
         $vpc_music->save();
 
+        $latLongArray = explode(';', $vendor['geo_boundries']); // required as Unit factory generate random! which DOES repeat
+        
         // POI without Description or short description
         $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
-            'poi_name' => 'Test Empty description and short desc',
+            'poi_name' => 'poi1',
             'description' => null,
             'short_description' => null,
+            'latitude' => $latLongArray[0] + 0.1,
+            'longitude' => $latLongArray[1] + 0.1,
         ) );
+        $poi['VendorPoiCategory']->delete();
         $poi['VendorPoiCategory'][] = $vpc_restaurant;
         $poi->save();
 
         // POI with short description
         $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
-            'poi_name' => 'Test Empty description but have short desc',
+            'poi_name' => 'poi2',
             'description' => null,
             'short_description' => 'short description',
+            'latitude' => $latLongArray[0] + 0.2,
+            'longitude' => $latLongArray[1] + 0.1,
 
         ) );
+        $poi['VendorPoiCategory']->delete();
         $poi['VendorPoiCategory'][] = $vpc_restaurant;
         $poi->save();
 
         // POI with description
         $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
-            'poi_name' => 'Test Empty description but have short desc',
+            'poi_name' => 'poi3',
             'description' => 'have description',
             'short_description' => null,
+            'latitude' => $latLongArray[0] + 0.3,
+            'longitude' => $latLongArray[1] + 0.1,
 
         ) );
+        $poi['VendorPoiCategory']->delete();
         $poi['VendorPoiCategory'][] = $vpc_restaurant;
         $poi->save();
 
         // POI no description or description but link to non Eating and Drinking UI category
         $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
-            'poi_name' => 'Test Empty description but have short desc',
+            'poi_name' => 'poi4',
             'description' => 'have description',
             'short_description' => null,
+            'latitude' => $latLongArray[0] + 0.4,
+            'longitude' => $latLongArray[1] + 0.1,
 
         ) );
+        $poi['VendorPoiCategory']->delete();
         $poi['VendorPoiCategory'][] = $vpc_music;
         $poi->save();
         
@@ -815,10 +831,13 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     }
     
-    private function runImportAndExport()
+    private function runImportAndExport( $vendor = null)
     {
+      // set default vendor as per previous test
+      $vendor = ($vendor === null ) ? $this->vendor2 : $vendor;
+        
       $this->destination = dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
-      $this->export = new XMLExportPOI( $this->vendor2, $this->destination );
+      $this->export = new XMLExportPOI( $vendor, $this->destination );
       $this->export->setS3cmdClassName( 's3cmdTestMediaTags' );
 
       $this->export->run();
@@ -957,6 +976,25 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->assertNotEquals( $poi5['id'], (string)$entries[0]['vpid']);
         $this->assertNotEquals( $poi5['id'], (string)$entries[1]['vpid']);
         
+    }
+
+    public function testExportFilteringForEatingDrinkingWithNoDescription()
+    {
+        $this->runImportAndExport( Doctrine::getTable( 'vendor')->find(1) ); // Do export for vendor 1
+        $xml= simplexml_load_file( $this->destination );
+
+        $this->assertEquals( 9 , Doctrine::getTable( 'Poi')->findAll()->count() );
+        $this->assertEquals( 3, count($xml), 'Only 3 POIs should be exported');
+        
+        // assert POIs exported
+        $this->assertEquals( 'poi2', (string)$xml->entry[0]->name );
+        $this->assertEquals( 'Eating & Drinking', (string)$xml->entry[0]->version->content->property[0] );
+
+        $this->assertEquals( 'poi3', (string)$xml->entry[1]->name );
+        $this->assertEquals( 'Eating & Drinking', (string)$xml->entry[1]->version->content->property[0] );
+        
+        $this->assertEquals( 'poi4', (string)$xml->entry[2]->name );
+        $this->assertEquals( 'Music', (string)$xml->entry[2]->version->content->property[0] );
     }
 }
 /**
