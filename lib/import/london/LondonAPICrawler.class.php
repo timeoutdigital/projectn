@@ -160,9 +160,10 @@ class LondonAPICrawler
             $this->doMapping( $xml );
             if( !$this->inLimit( ++$numResultsMapped ) ) return;
           }
-      } else { // Throw Error
-          trigger_error( "LondonAPICrawler::crawlApi() callApiSearch() returned empty xml document. offset: {$offset}, total results: {$numResults}" , E_USER_WARNING );
-      } // fix #751
+      } else { 
+          // fix #751
+          $this->mapper->onException( new Exception( 'LondonAPICrawler::crawlApi()'), "LondonAPICrawler::crawlApi() callApiSearch() returned empty xml document. offset: {$offset}, total results: {$numResults}" );
+      } 
     }
   }
 
