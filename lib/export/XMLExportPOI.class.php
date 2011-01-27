@@ -150,6 +150,15 @@ class XMLExportPOI extends XMLExport
       }
 
       // Check each POI's 
+      $poiUICategories = $this->getPoiUiCategories( $poi );
+      if( $this->validation == true &&
+              in_array( 'Eating & Drinking', $poiUICategories ) && 
+              stringTransform::mb_trim( $poi['description'] ) == '' &&
+              stringTransform::mb_trim( $poi['short_description'] ) == '' )
+      {
+          ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty description and short description linking to Eating & Drinking UI category', 'Poi', $poi[ 'id' ] );
+          continue;
+      }
 
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );
