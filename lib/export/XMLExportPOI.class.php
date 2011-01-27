@@ -149,6 +149,8 @@ class XMLExportPOI extends XMLExport
           }
       }
 
+      // Check each POI's 
+
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );
       $langArray = explode('-',$this->vendor['language']);
@@ -297,6 +299,31 @@ class XMLExportPOI extends XMLExport
     }
 //    ExportLogger::getInstance()->showErrors();
     return $domDocument;
+  }
+
+  /**
+   * Go through vendor poi category and get mapped UI categories... Onmly return UNIQUE ui categories
+   * @param Poi $poi
+   * @return array
+   */
+  private function getPoiUiCategories( Poi $poi )
+  {
+      $foundUICategories = array();
+      foreach( $poi['VendorPoiCategory'] as $vendorCat )
+      {
+          foreach( $vendorCat['UiCategory'] as $uiCat )
+          {
+            if( isset( $uiCat['name'] ) )
+            {
+                if( !in_array( (string) $uiCat['name'], $foundUICategories ) )
+                {
+                    $foundUICategories[] = (string) $uiCat['name'];
+                }
+            }
+          }
+      }
+
+      return $foundUICategories;
   }
 
   private function getPoiCategories( &$poi )
