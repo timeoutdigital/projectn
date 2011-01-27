@@ -282,7 +282,7 @@ class ExportedItemTable extends Doctrine_Table
         $sql .= 'AND h.field = ? ';
         $sql .= 'AND DATE(e.created_at) <= ? '; // we select everything before end date but make exception to those had category before start date by NOT IN bellow
         $sql .= 'AND e.id NOT IN ( ';
-            // This Subquery will select All those records identified as exported before this date range and had a lica category.
+            // This Subquery will select All those records identified as exported before this date range and had a valid category.
             // those records will be ignored in this query.
             $sql .= 'SELECT ee.id FROM exported_item ee INNER JOIN exported_item_history eh on eh.exported_item_id = ee.id ';
             $sql .= 'WHERE ';
@@ -293,7 +293,7 @@ class ExportedItemTable extends Doctrine_Table
             $sql .= 'AND eh.value > 0 AND eh.created_at < ?'; // and should have a valid category that dated before the date range too..
         $sql .= ' )';
         $sql .= 'AND ( DATE(h.created_at) >=  ? AND DATE(h.created_at) <= ? )';
-        // this select those created within date range OR select thos created before and have a valid category now
+        // this select those created within date range OR select those created before and have a valid category now
         $sql .= 'AND ( DATE(e.created_at) >= ?  OR ( h.value > 0 AND e.created_at < ?) )';
         $sql .= ' GROUP BY e.id'; // 1 item should be returned only Once...
         $sql .= ' ORDER BY e.id';
