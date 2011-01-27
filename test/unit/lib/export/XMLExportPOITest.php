@@ -234,7 +234,70 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $poi->link('VendorPoiCategory', array( 1, 2 ) );
         $poi->save();
 
+        // #899 adding more poi to test exports
+        $ui_eating = new UiCategory;
+        $ui_eating['name'] = 'Eating & Drinking';
+        $ui_eating->save();
+        
+        $ui_music =  new UiCategory;
+        $ui_music['name'] = 'Music';
+        $ui_music->save();
+        
+        // add vendor poi category and link it to eating and drinking ui category
+        $vpc_restaurant = new VendorPoiCategory;
+        $vpc_restaurant['name'] = 'Restaurant';
+        $vpc_restaurant['vendor_id'] = 1;
+        $vpc_restaurant['UiCategory'][] = $ui_eating;
+        $vpc_restaurant->save();
+
+        // add one that link to other UI category.. not eating & drinking
+        $vpc_music = new VendorPoiCategory;
+        $vpc_music['name'] = 'Jazz';
+        $vpc_music['vendor_id'] = 1;
+        $vpc_music['UiCategory'][] = $ui_music;
+        $vpc_music->save();
+
+        // POI without Description or short description
+        $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
+            'poi_name' => 'Test Empty description and short desc',
+            'description' => null,
+            'short_description' => null,
+        ) );
+        $poi['VendorPoiCategory'][] = $vpc_restaurant;
+        $poi->save();
+
+        // POI with short description
+        $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
+            'poi_name' => 'Test Empty description but have short desc',
+            'description' => null,
+            'short_description' => 'short description',
+
+        ) );
+        $poi['VendorPoiCategory'][] = $vpc_restaurant;
+        $poi->save();
+
+        // POI with description
+        $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
+            'poi_name' => 'Test Empty description but have short desc',
+            'description' => 'have description',
+            'short_description' => null,
+
+        ) );
+        $poi['VendorPoiCategory'][] = $vpc_restaurant;
+        $poi->save();
+
+        // POI no description or description but link to non Eating and Drinking UI category
+        $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array(
+            'poi_name' => 'Test Empty description but have short desc',
+            'description' => 'have description',
+            'short_description' => null,
+
+        ) );
+        $poi['VendorPoiCategory'][] = $vpc_music;
+        $poi->save();
+        
         $this->runImportAndExport();
+        
       }
       catch(PDOException $e)
       {
