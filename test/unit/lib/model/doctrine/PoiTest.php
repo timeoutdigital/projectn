@@ -103,17 +103,62 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( $poi[ 'street' ], '45 Some Street' );
   }
 
+  public function testApplyFeedGeoCodesIfValidEmptyValues()
+  {
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+      $poi['latitude'] = null;
+      $poi['longitude'] = null;
+
+      $poi->applyFeedGeoCodesIfValid( '', '');
+      $this->assertEquals( null, $poi['latitude']);
+      $this->assertEquals( null, $poi['longitude']);
+
+      $poi->applyFeedGeoCodesIfValid( '0', '0');
+      $this->assertEquals( null, $poi['latitude']);
+      $this->assertEquals( null, $poi['longitude']);
+  }
+
+  public function testApplyFeedGeoCodesIfValidException()
+  {
+      $vendor = Doctrine::getTable( 'Vendor' )->find(1);
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // get lat long
+      $latLongSet = explode( ';', $vendor['geo_boundries'] );
+
+      $this->setExpectedException( 'PoiException' );
+      // Apply a Geocode that is outside vendor boundaries, it should throw exception
+      $poi->applyFeedGeoCodesIfValid( ($latLongSet[2] + 1 ),'-2.4975618975'); // add 1 to high latitude, makes it out of boundary
+      
+  }
+
+  public function testApplyFeedGeoCodesIfValidValidGeoCode()
+  {
+      $vendor = Doctrine::getTable( 'Vendor' )->find(1);
+      $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+      // get lat long
+      $latLongSet = explode( ';', $vendor['geo_boundries'] );
+
+      // Apply a Geocode that is outside vendor boundaries, it should throw exception
+      $poi->applyFeedGeoCodesIfValid( ($latLongSet[0] + 0.5 ), ($latLongSet[1] + 0.5) ) ; // Use the minimum lat/long
+
+  }
+
   public function testApplyFeedGeoCodesIfValid()
   {
+      $vendor = Doctrine::getTable( 'Vendor' )->find(1);
+      $latLongSet = explode( ';', $vendor['geo_boundries'] );
+
       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
 
       $this->assertLessThan(1, $poi['PoiMeta']->count());
 
-      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975');
+      $poi->applyFeedGeoCodesIfValid( $latLongSet[0], $latLongSet[1]);
 
       $poi->save();
 
-      $poi->applyFeedGeoCodesIfValid('1','-2.4975618975'); // Same LONG / LAT Should Meta Should not be added
+      $poi->applyFeedGeoCodesIfValid($latLongSet[0], $latLongSet[1]); // Same LONG / LAT Should Meta Should not be added
 
       $this->assertEquals(1, $poi['PoiMeta']->count());
 
@@ -121,7 +166,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       $this->assertEquals('Feed', $poi['PoiMeta'][0]['value']);
 
-      $poi->applyFeedGeoCodesIfValid('15.1789464','-2.4975618975');
+      $poi->applyFeedGeoCodesIfValid($latLongSet[0] + 0.5, $latLongSet[1]);
 
       $poi->save();
 
@@ -290,37 +335,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
       $poiObj->save();
 
       $this->assertTrue($poiObj['longitude'] === null , "Test that there is no 0 in the longitude");
-  }
-
-  // Removed test as w no longer throws exception in baseclass...
-  /**
-   * Test the long/lat is either valid or null
-   */
-  public function testDefaultLongLatIsSetToNull()
-  {
-      $poiObj = $this->createPoiWithLongitudeLatitude( 0.0, 0.0 );
-      $poiObj['geocode_look_up'] = "Time out, Tottenham Court Road London";
-      $poiObj['geocoderr'] = new MockgeocoderForPoiTest();
-      $poiObj->save();
-
-      $poiObj['longitude'] = '151.207114';
-      $poiObj['latitude'] = '-33.867139';
-
-      $poiObj->save();
-
-      $this->assertTrue( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude and latitude for Sydney is set to null' );
-
-      $poiObj['longitude'] = '151.20711400';
-      $poiObj['latitude'] = '-33.867138';
-      $poiObj->save();
-
-      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Default longitude but not latitude for Sydney are preserved' );
-
-      $poiObj['longitude'] = '151.20711200';
-      $poiObj['latitude'] = '-33.867138';
-      $poiObj->save();
-     // sydney1: { long: '151.207114', lat: '-33.867139' }
-      $this->assertFalse( ( $poiObj['latitude'] == null ) && ( $poiObj['longitude'] == null ), 'Non default longitude and latitude for Sydney are preserved' );
   }
 
   /**

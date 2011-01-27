@@ -18,52 +18,57 @@ class australiaVenuesMapper extends australiaBaseMapper
   {
     foreach( $this->feed->venue as $venue )
     {
-      // get Existing POI or create NEW
-      $vendor_poi_id = (string) $venue->VenueID;
-      $poi = Doctrine::getTable( 'Poi' )->findOneByVendorIdAndVendorPoiId( $this->vendor['id'], $vendor_poi_id );
-      if( $poi === false )
-      {
-          $poi = new Poi();
-      }
+        try{
+              // get Existing POI or create NEW
+              $vendor_poi_id = (string) $venue->VenueID;
+              $poi = Doctrine::getTable( 'Poi' )->findOneByvendorIdAndVendorPoiId( $this->vendor['id'], $vendor_poi_id );
+              if( $poi === false )
+              {
+                  $poi = new Poi();
+              }
 
-      // Map Data
-      $poi['Vendor']            = $this->vendor;
-      $poi['vendor_poi_id']     = $vendor_poi_id;
+              // Map Data
+              $poi['Vendor']            = $this->vendor;
+              $poi['vendor_poi_id']     = $vendor_poi_id;
 
-      /* Melbourne geocodes are corrected! */
-      $poi->applyFeedGeoCodesIfValid( (float) $venue->Latitude, (float) $venue->Longitude );
+              $poi['poi_name']          = (string) $venue->Name;
+              $poi['street']            = (string) $venue->Address;
+              $poi['city']              = ucfirst( (string) $this->vendor['city'] );
+              $poi['zips']              = (string) $venue->PostCode;
+              $poi['country']           = (string) 'AUS';
+              $poi['geocode_look_up']   = (string) $this->extractGeocodeLookUp( $venue );
+              $poi['description']       = (string) $venue->Description;
+              $poi['phone']             = (string) $venue->Phone;
+              $poi['url']               = (string) $venue->Website;
+              $poi['price_information'] = (string) stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo, '$' );
+              $poi['openingtimes']      = (string) $venue->OpenTimes;
+              $poi['star_rating']       = $this->extractRating( $venue );
+              $poi['review_date']       = (string) $this->extractDate( (string) $venue->DateUpdated );
 
-      $poi['poi_name']          = (string) $venue->Name;
-      $poi['street']            = (string) $venue->Address;
-      $poi['city']              = ucfirst( (string) $this->vendor['city'] );
-      $poi['zips']              = (string) $venue->PostCode;
-      $poi['country']           = (string) 'AUS';
-      $poi['geocode_look_up']   = (string) $this->extractGeocodeLookUp( $venue );
-      $poi['description']       = (string) $venue->Description;
-      $poi['phone']             = (string) $venue->Phone;
-      $poi['url']               = (string) $venue->Website;
-      $poi['price_information'] = (string) stringTransform::formatPriceRange( (int) $venue->PriceFrom, (int) $venue->PriceTo, '$' );
-      $poi['openingtimes']      = (string) $venue->OpenTimes;
-      $poi['star_rating']       = $this->extractRating( $venue );
-      $poi['review_date']       = (string) $this->extractDate( (string) $venue->DateUpdated );
+              //#753 addImageHelper capture Exception and notify, this don't break the Import process
+              $this->addImageHelper( $poi, (string) $venue->ImagePath );
 
-      //#753 addImageHelper capture Exception and notify, this don't break the Import process
-      $this->addImageHelper( $poi, (string) $venue->ImagePath );
-      
-      $cats = $this->extractVendorCategories( $venue );
-      if( count( $cats ) )
-      {
-        $poi->addVendorCategory( $cats, $this->vendor['id'] );
-      }
+              $this->applyFeedGeoCodesHelper( $poi, (float) $venue->Latitude, (float) $venue->Longitude );
 
-      $poi['TimeoutLinkProperty'] = (string) $venue->TimeoutURL;
+              $cats = $this->extractVendorCategories( $venue );
+              if( count( $cats ) )
+              {
+                $poi->addVendorCategory( $cats, $this->vendor['id'] );
+              }
 
-      if ( (string) $venue->Recommended == 'Recommended')
-        $poi['RecommendedProperty'] = true;
-      else if ( (string) $venue->Recommended == 'Critics Choice')
-        $poi['CriticsChoiceProperty'] = true;
+              $poi['TimeoutLinkProperty'] = (string) $venue->TimeoutURL;
 
-      $this->notifyImporter( $poi );
+              if ( (string) $venue->Recommended == 'Recommended')
+                $poi['RecommendedProperty'] = true;
+              else if ( (string) $venue->Recommended == 'Critics Choice')
+                $poi['CriticsChoiceProperty'] = true;
+
+              $this->notifyImporter( $poi );
+        }
+        catch ( Exception $exception )
+        {
+            $this->notifyImporterOfFailure( $exception, $poi );
+        }
     }
   }
 
