@@ -81,28 +81,6 @@ class RussiaFeedBaseMapper extends DataMapper
         return mb_eregi_replace('&quot;|&amp;', '', $string);
     }
 
-    /**
-     * helper function to add images
-     *
-     * @param Doctrine_Record $storeObject
-     * @param SimpleXMLElement | String $url
-     */
-    protected function addImageHelper( Doctrine_Record $storeObject, $url )
-    {
-        if ( (string) $url != '' )
-        {
-            try
-            {
-                $storeObject->addMediaByUrl( (string) $url );
-                return true;
-            }
-            catch( Exception $e )
-            {
-                $this->notifyImporterOfFailure( $e );
-            }
-        }
-    }
-
     private function _validateConstructorParams( $vendor, $params )
     {
         if( !( $vendor instanceof Vendor ) || !isset( $vendor[ 'id' ] ) )

@@ -106,7 +106,7 @@ class DataEntryMoviesMapper extends DataEntryBaseMapper
 
                            // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/movie/%s', $imageFileName );
 
-                            $movie->addMediaByUrl( (string) $media  );
+                            $this->addImageHelper( $movie, (string) $media );
                         }
                         catch ( Exception $exception )
                         {

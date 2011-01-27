@@ -66,6 +66,27 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
     $importer->run();
     $this->assertEquals( array( 'one', 'two', 'three', 'four' ), $dataMapper->calls );
   }
+
+  public function testApplyFeedGeoCodesHelperExceptionExpetcted()
+  {
+      $dataMapper = new UnitTestDataMapper();
+      $this->setExpectedException( 'Exception' );
+      $dataMapper->testApplyFeedGeoCodesHelper( null, 0, 0);
+  }
+  public function testApplyFeedGeoCodesHelperWrongRecordType()
+  {
+      $dataMapper = new UnitTestDataMapper();
+      $this->setExpectedException( 'Exception' );
+      $dataMapper->testApplyFeedGeoCodesHelper( new Event, 0, 0);
+  }
+
+  public function testApplyFeedGeoCodesHelperValid()
+  {
+      $poi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+      
+      $dataMapper = new UnitTestDataMapper();
+      $dataMapper->testApplyFeedGeoCodesHelper( $poi, null, 0 ); // null is invalid but when you cast it as (float) it will become 0
+  }
 }
 
 class UnitTestDataMapper extends DataMapper
@@ -85,6 +106,11 @@ class UnitTestDataMapper extends DataMapper
   public function mapMovies()
   {
     $this->notifyImporter( new Poi() );
+  }
+
+  public function  testApplyFeedGeoCodesHelper(Poi $record, $latitude, $longitude)
+  {
+      $this->applyFeedGeoCodesHelper($record, $latitude, $longitude);
   }
 }
 

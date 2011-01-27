@@ -116,27 +116,6 @@ class barcelonaBaseMapper extends DataMapper
         return stringTransform::concatNonBlankStrings( ", ", $publicTransportArray );
     }
 
-    /**
-     * helper function to add images
-     *
-     * @param Doctrine_Record $storeObject
-     * @param SimpleXMLElement | String $url
-     */
-    protected function addImageHelper( Doctrine_Record $storeObject, $url )
-    {
-        if ( (string) $url != '' )
-        {
-            try
-            {
-                $storeObject->addMediaByUrl( (string) $url );
-                return true;
-            }
-            catch( Exception $e )
-            {
-                $this->notifyImporterOfFailure( $e );
-            }
-        }
-    }
 }
 
 class BarcelonaBaseMapperException extends Exception{}
