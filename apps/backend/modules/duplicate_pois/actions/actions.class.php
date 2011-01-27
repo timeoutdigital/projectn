@@ -38,6 +38,9 @@ class duplicate_poisActions extends autoDuplicate_poisActions
             $this->forward('duplicate_pois', 'index');
         }
 
+        // refresh related on master_poi to load it's existing duplicates and etc.. This solves the Doctrine Self referencing bug
+        $master_poi->refreshRelated();
+        
         foreach( $poiIDs as $id)
         {
             if( $id == $masterPoiID[0] )
@@ -50,15 +53,19 @@ class duplicate_poisActions extends autoDuplicate_poisActions
                 continue;
             }
 
-            // Doctrine have issue with saving nested self referencing tables
-            if( Doctrine::getTable( 'PoiReference' )->findByMasterPoiIdAndDuplicatePoiId( $master_poi['id'], $poi['id'] )->count() <= 0 )
-            {
-                $p = new PoiReference;
-                $p['master_poi_id'] = $master_poi['id'];
-                $p['duplicate_poi_id'] = $poi['id'];
-                $p->save();
-            }
+            // Add as duplicate
+            $master_poi['DuplicatePois'][] = $poi;
 
+        }
+
+        try{
+            
+            $master_poi->save();
+
+        } catch ( Exception $e ) {
+
+            $this->getUser()->setFlash('error', $e->getMessage() );
+            $this->redirect('duplicate_pois/index');
         }
         
         $this->getUser()->setFlash('notice', 'Duplicate Pois updated');
