@@ -39,7 +39,7 @@ class ExportedItemTable extends Doctrine_Table
                     ->where( 'e.model = ? ', $modelType )
                     ->andWhere( 'e.record_id = ? ', $recordID )
                     ->andWhere( 'h.field = ? ', "ui_category_id" )
-                    ->orderBy( 'h.created_at DESC' );
+                    ->orderBy( 'h.created_at DESC' ); //makes it easier for us to fetch the latest modification history later
                     // adding Limit cause SubQuery?
              $record = $query->fetchOne();//fetchOne( array(), Doctrine_Core::HYDRATE_ARRAY );
 
@@ -58,7 +58,7 @@ class ExportedItemTable extends Doctrine_Table
                  $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
                  $record['ExportedItemHistory'][] = $recordHistory;
 
-             } else { // Update any Modification changes
+             } else { // Add new modification history
 
                  if( $record['ExportedItemHistory'][0]->value != $ui_category_id)
                  {
@@ -166,7 +166,13 @@ class ExportedItemTable extends Doctrine_Table
             $q->andWhereIn( 'h.value' , $invoiceableCategoryIDs );
             $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
             $inValues = implode('","', $invoiceableCategoryIDs );
-            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
+            $q->andWhere( 'e.id NOT IN ( SELECT ee.id 
+                                         FROM ExportedItem ee
+                                         INNER JOIN ee.ExportedItemHistory hh
+                                         WHERE ee.model = ?
+                                         AND hh.field= ?
+                                         AND DATE(hh.created_at) < ?
+                                         AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
         }
         
         return $q->execute();
