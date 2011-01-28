@@ -10,7 +10,7 @@
         }
     ?>
     <h1><?php echo ucfirst( $cityName ) . " Export Stats."; ?></h1>
-    <div id="<?php echo $cityName; ?>" style="width:95%; height:350px;"></div>
+    <div id="<?php echo $cityName; ?>" style="width:95%; height:300px;"></div>
     <script type="text/javascript">
       new Dygraph(
         document.getElementById("<?php echo $cityName; ?>"),
