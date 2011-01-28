@@ -16,8 +16,11 @@ class exportstatsActions extends sfActions
         $endDate    = time();
 
         $this->graphData = array();
-
-        foreach( Doctrine::getTable('Vendor')->findAll() as $vendor )
+        
+        $a2zVendors = Doctrine::getTable( 'Vendor' )->createQuery( 'v' )
+                ->orderBy( 'v.city ASC' )
+                ->execute( array(), Doctrine::HYDRATE_ARRAY );
+        foreach( $a2zVendors as $vendor )
         {
             $this->graphData[ $vendor['city'] ] = array();
             
