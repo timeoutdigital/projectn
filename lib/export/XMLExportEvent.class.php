@@ -91,13 +91,11 @@ class XMLExportEvent extends XMLExport
     {
 
       //Check to see if this event has a corresponding poi
-      if(!in_array( $this->generateUID( $event['EventOccurrence'][0]['poi_id'] ), $this->poiIdsArray))
+      if( !$this->eventHappensAtExportPoi( $event ) && $this->validation == true  )
       {
-          if( $this->validation == true )
-          {
-            ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
-            continue;
-          }
+
+        ExportLogger::getInstance()->addError( 'no corresponding Poi found', 'Event', $event[ 'id' ] );
+        continue;
 
       }
 
@@ -283,16 +281,33 @@ class XMLExportEvent extends XMLExport
 
   /**
    * Check whether POIs that this event happens at is in Export POI xml.
+   * Taking Event as reference and will update occurrence when poi's master found
    */
-  private function eventHappensAtExportPoi( Event $event )
+  private function eventHappensAtExportPoi( &$event )
   {
-      foreach( $event['EventOccurrence'] as $occurrence )
+      $foundValidOccurrence =  false;
+      foreach( $event['EventOccurrence'] as $key => $occurrence )
       {
         $uid = $this->generateUID($occurrence['poi_id']);
-        if( in_array( $uid, $this->poiIdsArray ) )
-          return true;
+        if( !in_array( $uid, $this->poiIdsArray ) )
+        {
+            // Check for POI's Master and Map to Master
+            $masterPoi = Doctrine::getTable( 'Poi' )->getMasterOf( $occurrence['poi_id'], Doctrine_Core::HYDRATE_ARRAY );
+            if( $masterPoi && in_array( $this->generateUID( $masterPoi['id'] ), $this->poiIdsArray ) )
+            {
+
+                $event['EventOccurrence'][ $key ]['poi_id'] = $masterPoi['id'];
+                $foundValidOccurrence = true;
+            }
+
+            continue; // check next
+        }
+
+        $foundValidOccurrence = true;
+
       }
-      return false;
+      
+      return $foundValidOccurrence;
   }
 
   private function addEventCategories( &$event )

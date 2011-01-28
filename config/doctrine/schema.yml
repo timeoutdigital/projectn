@@ -43,6 +43,7 @@ Poi:
     Vendor:                     {local: vendor_id, foreign: id}
     PoiCategory:                {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
     VendorPoiCategory:          {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
+    MasterPoi:                  {class: Poi, local: duplicate_poi_id, foreign: master_poi_id, refClass: PoiReference, foreignAlias: DuplicatePois, onDelete: CASCADE }
   indexes:
     vendor_poi_id_index:        {fields: [vendor_poi_id]}
 
@@ -641,3 +642,9 @@ GeoWhiteList:
   indexes:
     lat_index:                  {fields: [latitude]}
     long_index:                 {fields: [longitude]}
+
+PoiReference:
+  connection: project_n
+  columns:
+    master_poi_id:              {type: integer, primary: true}
+    duplicate_poi_id:           {type: integer, primary: true, unique: true}

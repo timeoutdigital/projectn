@@ -39,6 +39,7 @@ class PoiTable extends Doctrine_Table
              ->groupBy('myString')
              ->having('count( myString ) > 1');
 
+         $q = $this->addWherePoiIsNotDuplicate( $q );
          return $q->execute( array(), Doctrine_Core::HYDRATE_ARRAY );
     }
 
@@ -54,10 +55,18 @@ class PoiTable extends Doctrine_Table
 
       $query = $this->addWhereLongitudeLatitudeNotNull( $query );
       $query = $this->addWhereNotMarkedAsDuplicate( $query );
+      $query = $this->addWherePoiIsNotDuplicate( $query, 'poi' );
 
       return $query->execute();
     }
-    
+
+    private function addWherePoiIsNotDuplicate(  Doctrine_Query $query, $alias = 'p' )
+    {
+        $query->leftJoin("{$alias}.PoiReference d ON d.duplicate_poi_id = {$alias}.id");
+        $query->addWhere( 'd.duplicate_poi_id IS NULL' );
+        return $query;
+
+    }
     private function addWhereNotMarkedAsDuplicate( Doctrine_Query $query )
     {
       $query
@@ -124,4 +133,81 @@ class PoiTable extends Doctrine_Table
 
         return $query->execute();
     }
+
+    /**
+     * Check for Duplicate POI by poi_id
+     * @param int $poiID
+     * @return boolean
+     */
+    public function isDuplicate( $poiID )
+    {
+        if( !$poiID || !is_numeric( $poiID ) || $poiID <= 0 )
+        {
+            throw new PoiTableException( 'Invalid $poiID in parameter' );
+        }
+
+        $poiReference = Doctrine::getTable( 'PoiReference' )->findOneBy( 'duplicate_poi_id', $poiID );
+
+        if( $poiReference === false )
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Get the Master of given POI ID or return null
+     * @param int $poiID
+     * @param int $hydrationMode
+     * @return mixed
+     */
+    public function getMasterOf( $poiID, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+    {
+        if( !$poiID || !is_numeric( $poiID ) || $poiID <= 0 )
+        {
+            throw new PoiTableException( 'Invalid $poiID in parameter' );
+        }
+
+        $q = $this->createQuery( 'p' )
+                ->innerJoin( 'p.PoiReference r ON r.master_poi_id = p.id')
+                ->where( 'r.duplicate_poi_id = ?', $poiID );
+
+        return $q->fetchOne( array(), $hydrationMode );
+    }
+
+    /**
+     * Get the Duplicate Pois of Given Master POI ID
+     * @param int $poiID
+     * @param int $hydrationMode
+     * @return mixed
+     */
+    public function getDuplicatesOf( $poiID, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+    {
+        if( !$poiID || !is_numeric( $poiID ) || $poiID <= 0 )
+        {
+            throw new PoiTableException( 'Invalid $poiID in parameter' );
+        }
+
+        $q = $this->createQuery( 'p' )
+                ->innerJoin( 'p.PoiReference r ON r.duplicate_poi_id = p.id')
+                ->where( 'r.master_poi_id = ?', $poiID );
+
+        return $q->execute( array(), $hydrationMode );
+    }
+
+    public function searchAllNonDuplicateAndNonMasterPoisBy( $vendorID, $searchKeyword, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = $this->createQuery( 'p' )
+                ->select( 'p.id, p.poi_name')
+                ->where( 'p.vendor_id = ? ', $vendorID )
+                ->andWhere( 'p.id NOT IN (select master_poi_id FROM poi_reference UNION select duplicate_poi_id FROM poi_reference )' )
+                //->andWhere( 'r.master_poi_id IS NULL AND r.duplicate_poi_id IS NULL ')
+                ->andWhere( ' ( p.poi_name LIKE ? OR p.id LIKE ? )', array( $searchKeyword . '%', $searchKeyword . '%' ) );
+        
+        return $q->execute( array(), $hydrationMode );
+    }
 }
+
+
+class PoiTableException extends Exception{}

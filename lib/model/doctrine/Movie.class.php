@@ -58,6 +58,9 @@ class Movie extends BaseMovie
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
         }
+
+    // Null release_date when empty string found
+    $this['release_date'] = ( trim( $this['release_date'] ) == '' ) ? null : $this['release_date'];
   }
 
   /**

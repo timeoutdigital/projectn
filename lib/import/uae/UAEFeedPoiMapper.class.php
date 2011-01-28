@@ -41,8 +41,7 @@ class UAEFeedPoiMapper extends UAEFeedBaseMapper
                 // $poi['public_transport_links']          = (string) $xmlNode->{'travel'};
                 $poi['description']                     = (string) $xmlNode->{'description'};
 
-                // apply Feed Geocode
-                $poi->applyFeedGeoCodesIfValid( (string) $xmlNode->coordinates->{'latitude'}, (string) $xmlNode->coordinates->{'longitude'} );
+                
 
                 // Set geocode lookup string
                 $poi->setgeocoderLookUpString( stringTransform::concatNonBlankStrings( ', ', array( $poi['street'], $poi['city'], 'United Arab Emirates') ) );
@@ -52,6 +51,8 @@ class UAEFeedPoiMapper extends UAEFeedBaseMapper
 
                 // Category
                 $poi->addVendorCategory( (string) $xmlNode->{'mobile-section'}['value'], $this->vendor_id );
+
+                $this->applyFeedGeoCodesHelper( $poi, (string) $xmlNode->coordinates->{'latitude'}, (string) $xmlNode->coordinates->{'longitude'} );
 
                 $this->notifyImporter( $poi );
                 
