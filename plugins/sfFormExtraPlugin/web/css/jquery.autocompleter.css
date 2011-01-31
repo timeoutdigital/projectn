@@ -1,9 +1,11 @@
 .ac_results {
 	padding: 0px;
-	border: 1px solid black;
+	border: 1px solid #888;
 	background-color: white;
 	overflow: hidden;
 	z-index: 99999;
+    -webkit-box-shadow: 0 0 5px 1px #aaa;
+    -moz-box-shadow: 0 0 5px 1px #aaa;
 }
 
 .ac_results ul {
@@ -43,6 +45,6 @@
 }
 
 .ac_over {
-	background-color: #0A246A;
+	background-color: #69BAE9;
 	color: white;
 }
