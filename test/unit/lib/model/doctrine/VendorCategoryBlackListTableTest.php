@@ -54,4 +54,25 @@ class VendorCategoryBlackListTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 2, count( $nameArray ) );
         $this->assertEquals( 'Other', $nameArray[0] );
     }
+
+    public function testCleanBlackListedCategory_VendorPoiCategory1Valid()
+    {
+        $category = new VendorPoiCategory;
+        $category['name'] = 'Other | Music';
+        $category['vendor_id'] = 1;
+
+        $cleanCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $category );
+        $this->assertNotNull( $cleanCategory );
+        $this->assertEquals( 'Music' , $cleanCategory['name'], 'other should have been removed');
+    }
+
+    public function testCleanBlackListedCategory_VendorPoiCategory0Valid()
+    {
+        $category = new VendorPoiCategory;
+        $category['name'] = 'Other | Test';
+        $category['vendor_id'] = 1;
+
+        $cleanCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $category );
+        $this->assertFalse( $cleanCategory );
+    }
 }
