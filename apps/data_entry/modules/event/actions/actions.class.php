@@ -119,7 +119,7 @@ class eventActions extends autoEventActions
     $this->getResponse()->setContentType('application/json');
 
     $q = Doctrine_Query::create()
-                ->select( 'id, poi_name name' )
+                ->select( 'id, poi_name name, street' )
                 ->from('Poi p')
                 ->where( 'vendor_id = ?', $this->user->getCurrentVendorId() )
                 ->andWhere( '( poi_name LIKE ? OR vendor_poi_id LIKE ? )', array( '%' . $request->getParameter('q') . '%', $request->getParameter('q') . '%' ) );
@@ -130,7 +130,7 @@ class eventActions extends autoEventActions
     $pois = array();
     foreach ( $result as $poi )
     {
-        $pois[ $poi['id'] ] = $poi['name'];
+        $pois[ $poi['id'] ] = $poi['name'] . ', ' . $poi['street'];
     }
 
     return $this->renderText(json_encode($pois));

@@ -49,6 +49,7 @@ generator:
           - created_at
           - updated_at
       form:
+        class: MovieBackendForm
         actions: { _list: ~, _save: ~ }
         display:
           Editable:

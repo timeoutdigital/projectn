@@ -74,6 +74,26 @@ class Poi extends BasePoi
       }
   }
 
+  /**
+   * Check is this Poi Master of duplicate pois
+   * @return boolean
+   */
+  public function isMaster()
+  {
+      // Refresh reset Unsaved data causing data loss.. hence we query database directly
+      return ( Doctrine::getTable( 'PoiReference' )->findByMasterPoiId( $this['id'])->count() > 0  ) ? true : false;
+  }
+
+  /**
+   * Check this for being Duplicate of another Poi
+   * @return boolean
+   */
+  public function isDuplicate()
+  {
+      // Refresh reset Unsaved data causing data loss.. hence we query database directly
+      return ( Doctrine::getTable( 'PoiReference' )->findByDuplicatePoiId( $this['id'])->count() > 0  ) ? true : false;
+  }
+
   public function setMinimumAccuracy( $acc )
   {
       if( is_numeric( $acc ) )
@@ -139,6 +159,9 @@ class Poi extends BasePoi
             // Refs #538 - Nullify all Empty string that can be Null in database Schema
             if( $field_info['notnull'] === false && stringTransform::mb_trim( $this[ $field ] ) == '' ) $this[ $field ] = null;
         }
+
+    // Null review date when empty string found
+    $this['review_date'] = ( trim( $this['review_date'] ) == '' ) ? null : $this['review_date'];
   }
 
   /**
@@ -435,7 +458,7 @@ class Poi extends BasePoi
      $this->cleanStreetField();
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
-     $this->setDefaultLongLatNull();
+     $this->checkNonVendorRelatedReference();
   }
 
   /**
@@ -444,6 +467,24 @@ class Poi extends BasePoi
   public function preSave( $event )
   {
     $this->applyFixes();
+  }
+
+  /**
+   * Check for DuplicatePois and MasterPoi, Ensure that all of Vendors same as This Poi.
+   */
+  public function checkNonVendorRelatedReference()
+  {      
+      foreach( $this['DuplicatePois'] as $duplicatePoi )
+      {
+          if( $duplicatePoi['vendor_id'] !== $this['vendor_id'] )
+          {
+              throw new Exception( 'Invalid Poi Reference, Different vendor Poi cannot be referenced as Master / Duplicate' );
+          }
+      }
+      if( $this['MasterPoi']->count() > 0 && $this['MasterPoi'][0]['vendor_id'] !== $this['vendor_id'] )
+      {
+          throw new Exception( 'Invalid Poi Reference, Different vendor Poi cannot be referenced as Master / Duplicate' );
+      }
   }
 
   private function cleanStreetField()
@@ -608,33 +649,19 @@ class Poi extends BasePoi
   }
 
   /**
-   * Sets the longitude and latitude of the object to null if it matches a default coordinate
-   * - Loads default coordinates from app.yml
-   */
-  public function setDefaultLongLatNull()
-  {
-    $pairs = sfConfig::get( 'app_poi_default_coordinates', array() );
-
-    foreach ( $pairs as $coordinate )
-    {
-        if ( isset( $coordinate[ 'long' ] ) && isset( $coordinate[ 'lat' ] ) )
-        {
-            if ( (float) $this['longitude'] == (float) $coordinate['long'] && (float) $this['latitude'] == (float) $coordinate['lat'] )
-            {
-                $this['longitude'] = null;
-                $this['latitude'] = null;
-            }
-        }
-    }
-  }
-
-  /**
    * Function to be used by importers, this ensures that feed lat/longs are valid before attaching them to a POI.
    */
   public function applyFeedGeoCodesIfValid( $lat = "", $long = "" )
   {
-        if( is_numeric( $lat ) && is_numeric( $long ) )
+        if( is_numeric( $lat ) && is_numeric( $long )  && 
+                floatval( $lat ) != 0 && floatval( $long ) != 0)
         {
+            // validate for Boundary
+            if( !$this['Vendor']->isWithinBoundaries( $lat, $long ) )
+            {
+                throw new PoiException( "Geocode provided in the feed ouside vendor boundaries. City: {$this['Vendor']['city']}, Vendor poi id: {$this['vendor_poi_id']}, Latitude: {$lat} & longitude: {$long}" );
+            }
+
             $longitudeLength = (int) $this->getColumnDefinition( 'longitude', 'length' ) + 1;//add 1 for decimal
             $latitudeLength  = (int) $this->getColumnDefinition( 'latitude', 'length' ) + 1;//add 1 for decimal
 
@@ -653,3 +680,5 @@ class Poi extends BasePoi
   }
 
 }
+
+class PoiException extends Exception{};

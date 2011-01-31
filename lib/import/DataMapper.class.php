@@ -82,5 +82,26 @@ abstract class DataMapper
   {
     return stringTransform::mb_trim( $string );
   }
+
+  /**
+   * Apply Feed geocode to Record if valid, or catch exception and call notifyImportFailure()
+   * @param Poi $record
+   * @param float $latitude
+   * @param float $longitude
+   */
+  protected function applyFeedGeoCodesHelper( Poi $record, $latitude, $longitude )
+  {
+      // #881 Catch Geocode out of vendor boundary error
+      try{
+
+          $record->applyFeedGeoCodesIfValid( (float) $latitude, (float) $longitude );
+
+      } catch ( Exception $exception ) {
+
+          $this->notifyImporterOfFailure( $exception, $record );
+
+      }
+  }
+
 }
 ?>

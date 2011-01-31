@@ -652,6 +652,24 @@ class EventTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $this->object[ 'VendorEventCategory' ][ 'Neighborhood & pubs' ]->exists() );
    }
 
+   public function testclanStringNulltifyEmptyReviewDateValid()
+   {
+       $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+       $event['review_date'] = '2010-12-31';
+       $event->save();
+
+       $this->assertEquals( '2010-12-31' , $event['review_date']);
+   }
+
+   public function testclanStringNulltifyEmptyReviewDateInvalid()
+   {
+       $event = ProjectN_Test_Unit_Factory::get( 'Event' );
+       $event['review_date'] = '      ';
+       $event->save();
+
+       $this->assertEquals( null , $event['review_date']);
+   }
+
 }
 
 ?>

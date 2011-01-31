@@ -4,6 +4,8 @@ log/*
 lib/model/doctrine/base/*
 lib/filter/doctrine/base/*
 lib/form/doctrine/base/*
+lib/filter/doctrine/VendorGuiseFormFilter.class.php
+lib/form/doctrine/VendorGuiseForm.class.php
 log/*
 nbproject/
 import/*

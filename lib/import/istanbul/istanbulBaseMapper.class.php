@@ -119,28 +119,6 @@ class istanbulBaseMapper extends DataMapper
     }
 
     /**
-     * helper function to add images
-     *
-     * @param Doctrine_Record $storeObject
-     * @param SimpleXMLElement | String $url
-     */
-    protected function addImageHelper( Doctrine_Record $storeObject, $url )
-    {
-        if ( (string) $url != '' )
-        {
-            try
-            {
-                $storeObject->addMediaByUrl( (string) $url );
-                return true;
-            }
-            catch( Exception $e )
-            {
-                $this->notifyImporterOfFailure( $e );
-            }
-        }
-    }
-
-    /**
      * Validate Params passed to Constructor
      * @param Vendor $vendor
      * @param array $params

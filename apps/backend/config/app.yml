@@ -29,9 +29,6 @@ all:
           name: ny
           type: [ poi, event, movie ]
         -
-          name: chicago
-          type: [ poi-bc, poi-ed, poi, event_1, event_2, movie ]
-        -
           name: lisbon
           type: [ poi, event, movie ]
         -
@@ -96,7 +93,7 @@ all:
           type: [ poi, event, movie ]
         -
           name: istanbul_en
-          type: [ poi ]
+          type: [ poi, event, movie ]
         -
           name: shanghai_en
           type: [ poi, event, movie ]
@@ -124,6 +121,9 @@ all:
         -
           name: krasnoyarsk
           type: [ poi, event ]
+        -
+          name: chicago
+          type: [ poi-bc, poi-ed, poi, event_1, event_2, movie ]
           
   export:
     cities:
