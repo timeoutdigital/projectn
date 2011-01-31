@@ -10,10 +10,12 @@
   </head>
   <body class="data-entry">
 
-    <div id="user-info">
-      <p><?php echo $sf_user->getUsername() ?>: <?php echo $sf_user->getCurrentVendorCity() ?></p>
-      <p class="logout"><?php echo link_to('Logout', 'sf_guard_signout') ?></p>
-    </div>
+    <?php if ($sf_user->isAuthenticated()): ?>
+        <div id="user-info">
+          <p><?php echo $sf_user->getUsername() ?>: <?php echo $sf_user->getCurrentVendorCity() ?></p>
+          <p class="logout"><?php echo link_to('Logout', 'sf_guard_signout') ?></p>
+        </div>
+    <?php endif; ?>
     
     <div id="container">
       <div id="header">
