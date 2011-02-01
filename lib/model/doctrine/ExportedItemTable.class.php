@@ -9,7 +9,7 @@ class ExportedItemTable extends Doctrine_Table
      * @param string $modelType
      * @param int $vendorID
      */
-    public function saveRecord( $xmlNode, $modelType, $vendorID )
+    public function saveRecord( $xmlNode, $modelType, $vendorID, $modifiedTimeStamp )
     {
         // Pre-process
         $modelType = strtolower( $modelType );
@@ -17,11 +17,15 @@ class ExportedItemTable extends Doctrine_Table
         {
             throw new ExportedItemTableException( "Invalid modelType, Should only be poi/event/movie" );
         }
+
+        if( $modifiedTimeStamp == null || trim($modifiedTimeStamp) == '' )
+        {
+            throw new ExportedItemTableException( 'Invalid $modifiedTimeStamp in the parameter' );
+        }
         
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
         $recordID = intval( substr( $recordID , 3 ) ); // strip Airport code and 0's at front
-        $modifiedDate = strtotime( (string)$xmlNode['modified'] );
 
         // Get UI category ID, No UI category = 0 ID
         $ui_category_id = $this->getHighestValueUICategoryID( $xmlNode );
@@ -49,13 +53,13 @@ class ExportedItemTable extends Doctrine_Table
                  $record['record_id'] = $recordID;
                  $record['model'] = $modelType;
                  $record['vendor_id'] = $vendorID;
-                 $record['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
+                 $record['created_at'] = date('Y-m-d H:i:s', $modifiedTimeStamp );
 
                  // add History Record
                  $recordHistory = new ExportedItemHistory;
                  $recordHistory['field'] = 'ui_category_id';
                  $recordHistory['value'] = $ui_category_id;
-                 $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
+                 $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedTimeStamp );
                  $record['ExportedItemHistory'][] = $recordHistory;
 
              } else { // Update any Modification changes
@@ -65,7 +69,7 @@ class ExportedItemTable extends Doctrine_Table
                      $recordHistory = new ExportedItemHistory;
                      $recordHistory['field'] = 'ui_category_id';
                      $recordHistory['value'] = $ui_category_id;
-                     $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedDate );
+                     $recordHistory['created_at'] = date('Y-m-d H:i:s', $modifiedTimeStamp );
                      $record['ExportedItemHistory'][] = $recordHistory;
                  }
              }
