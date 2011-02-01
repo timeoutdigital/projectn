@@ -49,41 +49,33 @@ class VendorCategoryBlackListTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 3, Doctrine::getTable( 'VendorCategoryBlackList' )->count() );
 
         $nameArray = Doctrine::getTable( 'VendorCategoryBlackList' )->getCategoryNameInArrayBy( 1 ); // get names by Vendor ID
-        print_r( $nameArray);
         $this->assertTrue( is_array( $nameArray ) );
         $this->assertEquals( 2, count( $nameArray ) );
         $this->assertEquals( 'Other', $nameArray[0] );
     }
-
-    public function testCleanBlackListedCategory_VendorPoiCategory1Valid()
+    
+    public function testFilterByCategoryBlackList()
     {
-        $category = new VendorPoiCategory;
-        $category['name'] = 'Other | Music';
-        $category['vendor_id'] = 1;
+        $invaidCategories = array( 'Test', 'Other' );
+        $filteredCategories = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $invaidCategories );
+        $this->assertEquals( 0, count( $filteredCategories ) );
 
-        $cleanCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $category );
-        $this->assertNotNull( $cleanCategory );
-        $this->assertEquals( 'Music' , $cleanCategory['name'], 'other should have been removed');
+        $oneValidCategory= array( 'Music', 'Other' );
+        $filteredCategories = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $oneValidCategory );
+        $this->assertEquals( 1, count( $filteredCategories ) );
+        $this->assertEquals( 'Music', $filteredCategories[0] );
+
+        $bothValidCategories= array( 'Music', 'Around Town' );
+        $filteredCategories = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $bothValidCategories );
+        $this->assertEquals( 2, count( $filteredCategories ) );
+        $this->assertEquals( 'Music', $filteredCategories[0] );
+        $this->assertEquals( 'Around Town', $filteredCategories[1] );
     }
 
-    public function testCleanBlackListedCategory_VendorPoiCategory0Valid()
+    public function testFilterByCategoryBlackListDifferentVendor()
     {
-        $category = new VendorPoiCategory;
-        $category['name'] = 'Other | Test';
-        $category['vendor_id'] = 1;
-
-        $cleanCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $category );
-        $this->assertFalse( $cleanCategory );
-    }
-
-    public function testCleanBlackListedCategory_VendorEventCategoryValid()
-    {
-         $category = new VendorEventCategory;
-        $category['name'] = 'Other | Music';
-        $category['vendor_id'] = 1;
-
-        $cleanCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $category );
-        $this->assertNotNull( $cleanCategory );
-        $this->assertEquals( 'Music' , $cleanCategory['name'], 'other should have been removed');
+        $invaidCategories = array( 'Test', 'Other' );
+        $filteredCategories = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 2, $invaidCategories );
+        $this->assertEquals( 2, count( $filteredCategories ), "as this vendor don't have any black list yet, both should be returned" );
     }
 }

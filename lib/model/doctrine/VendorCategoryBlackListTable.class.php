@@ -29,34 +29,36 @@ class VendorCategoryBlackListTable extends Doctrine_Table
     }
 
     /**
-     * Pass in Vendor Poi or Vendor Event category to clean blacklisted category names
-     * @param Doctrine_Record $category
-     * @return Doctrine_Record
+     * Filter given category names array for black listed vendor category.
+     * @param int $vendor_id
+     * @param array $nameArray
+     * @return array
      */
-    public function cleanBlackListedCategory( Doctrine_Record $category )
+    public function filterByCategoryBlackList( $vendor_id, $nameArray )
     {
-        $vendor_id = $category['vendor_id'];
+        if( !is_array( $nameArray ) || empty($nameArray) )
+        {
+            return array();
+        }
 
+        // Get categories black lisetd for this vendor to match
         $blackListedCategories = $this->getCategoryNameInArrayBy( $vendor_id );
-        
-        if( !is_array( $blackListedCategories ) || empty( $blackListedCategories ) )
-          return $category;
-
-        $categoryExploded = explode( '|', $category['name'] );
-        $filteredCategories = array();
-        foreach( $categoryExploded as $catName )
+        if( !is_array($blackListedCategories) || empty($blackListedCategories) )
         {
-            if( !in_array( stringTransform::mb_trim( $catName ), $blackListedCategories ) )
-                  $filteredCategories[] = stringTransform::mb_trim( $catName );
-        }
-        
-        if( empty($filteredCategories) )
-        {
-            return false;
+            return $nameArray;
         }
 
-        $category['name'] = stringTransform::concatNonBlankStrings( ' | ' , $filteredCategories );
+        // match and remove blacklisted category from the nameArray
+        foreach( $nameArray as $key=>$category )
+        {
+            if( in_array( $category, $blackListedCategories) )
+            {
+                unset($nameArray[$key]); // delete this category from the List
+            }
+        }
 
-        return $category;
+        return $nameArray;
+        
     }
+
 }
