@@ -13,10 +13,7 @@ class exportstatsActions extends sfActions
     public function executeIndex( sfWebRequest $request)
     {
         $this->form = new ExportStatsDateRangeSelectionForm;
-
-        $this->a2zVendors = Doctrine::getTable( 'Vendor' )->createQuery( 'v' )
-                ->orderBy( 'v.city ASC' )
-                ->execute( array(), Doctrine::HYDRATE_ARRAY );
+        $this->a2zVendors = Doctrine::getTable( 'Vendor' )->findAllVendorsInAlphabeticalOrder();
     }
 
     public function  executeGraph( sfWebRequest $request )
