@@ -6,7 +6,7 @@ html{
 body {
     margin: 0 auto !important;
     margin-bottom: 100px !important;
-    padding: 30px 0 30px 30px;
+    padding: 30px 0 80px 30px;
     width: 1150px;
     background: white;
     -webkit-box-shadow: 0 0 5px 1px #aaa;
@@ -17,9 +17,11 @@ a {
     color: #0C196E;
 }
 
-a:hover {
-    color: #545454;
+a:hover,
+#menu a:hover {
+    color: #E61515;
 }
+
 
 hr {
     border: none;
@@ -37,6 +39,30 @@ h1,
     font-weight: normal;
     margin-bottom: 5px;
     margin-top: 30px;
+}
+
+#user-info {
+    margin-left: -30px;
+    margin-top: -30px;
+    margin-bottom: 20px;
+    padding: 10px 30px;
+    border-bottom: 1px dotted #ddd;
+    background-color: #EBF0EF;
+}
+
+#user-info .logout{
+    float: right;
+}
+
+#user-info,
+#user-info .logout a{
+    color: #777;
+    text-decoration: none;
+}
+
+#user-info p {
+    display: inline-block;
+    margin:0;
 }
 
 #logo {
@@ -96,11 +122,6 @@ h1,
 #menu a {
     padding:2px;
     color: #545454;
-}
-
-#menu a:hover {
-    color: #000;
-    background-color: #FFFFFF;
 }
 
 #sf_admin_container fieldset h2
@@ -393,6 +414,7 @@ table{
 #sf_admin_container .sf_admin_form fieldset select,
 #sf_admin_venue_details td select,
 #sf_admin_bar td select,
+#sf_admin_container .sf_admin_form fieldset input.ac_input,
 #sf_admin_container .sf_admin_form fieldset input[type=text],
 #sf_admin_venue_details td input[type=text],
 #sf_admin_bar td input[type=text]{
@@ -448,6 +470,10 @@ table{
     padding: 0;
 }
 
+#footer{
+    clear: both;
+}
+
 /*FORM*/
 
 #sf_admin_container .sf_admin_form fieldset{
@@ -463,6 +489,7 @@ table{
 #sf_admin_container .sf_admin_form fieldset label{
     text-align: right;
     padding-right: 3px;
+    color: #333;
 }
 
 #sf_admin_container .sf_admin_form fieldset .help br{
@@ -481,4 +508,22 @@ table{
 
 #sf_admin_container #sf_admin_content tr.even{
     background: #f3f3f3;
+}
+
+#sf_admin_container .sf_admin_form_row .content{
+    position: relative;
+    padding-left: 8.5em;
+}
+
+#sf_admin_container input{
+    margin-top: -2px;
+}
+
+#sf_admin_container input, #sf_admin_container textarea{
+    padding: 0 3px;
+    border: 1px solid #aaa;
+}
+
+#sf_admin_container input[type=file]{
+    border: none;
 }
