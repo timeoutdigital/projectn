@@ -71,7 +71,7 @@ class ChinaFeedMovieMapper extends ChinaFeedBaseMapper{
                 {
                     foreach( $xmlNode->medias->media as $media)
                     {
-                        $movie->addMediaByUrl( stringTransform::mb_trim( (string) $media->url ) ); // Given in feed
+                        $this->addImageHelper( $movie, stringTransform::mb_trim( (string) $media->url ) );
                     }
                 }
 

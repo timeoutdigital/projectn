@@ -84,10 +84,6 @@ class istanbulVenueMapper extends istanbulBaseMapper
             $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = clone $this->vendor;
 
-            // Use Feed lat / Long
-            // ISTANBUL Sending Lat/Long wrongway around... Swap lat long and it's Good as of 22 Sep 2010
-            $poi->applyFeedGeoCodesIfValid( $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
-
             // Categories
             $cats = $this->extractCategories( $venueElement );
 
@@ -106,6 +102,12 @@ class istanbulVenueMapper extends istanbulBaseMapper
             {
                 $this->addImageHelper( $poi, (string) $media ); //#753 addImageHelper capture Exception and notify, this don't break the Import process
             }
+
+            // Use Feed lat / Long
+            // ISTANBUL Sending Lat/Long wrongway around... Swap lat long and it's Good as of 22 Sep 2010
+            $this->applyFeedGeoCodesHelper( $poi, $this->clean( (string) $venueElement->long ), $this->clean( (string) $venueElement->lat ) );
+            
+
             $this->notifyImporter( $poi );
         }
         catch( Exception $exception )

@@ -100,7 +100,7 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
 
                                // $mediaURL = sprintf( 'http://www.timeout.com/projectn/uploads/media/poi/%s', $imageFileName );
 
-                                $poi->addMediaByUrl( (string) $media );
+                                $this->addImageHelper( $poi, (string) $media );
                             }
                             catch ( Exception $exception )
                             {
@@ -114,7 +114,6 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                 $poi[ 'poi_name' ] = (string) $venueElement->name;
 
                 $geoPosition = 'geo-position';
-                $poi->applyFeedGeoCodesIfValid( (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
                 // $poi['review_date'] = '';
                 $poi['local_language'] = $lang;
@@ -168,7 +167,9 @@ class DataEntryPoisMapper extends DataEntryBaseMapper
                     }
                 }
 
+                $this->applyFeedGeoCodesHelper( $poi, (string) $venueElement->{$geoPosition}->latitude, (string) $venueElement->{$geoPosition}->longitude );
 
+                
                $this->notifyImporter( $poi );
 
            }

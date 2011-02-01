@@ -534,6 +534,35 @@ Vendor:
     country_code_long:        'AUS'
     geo_boundries:            '-43.74980833333333;112.91105;-9.212524999999999;153.6392833333333'
 
+VendorGuise:
+  vg1:
+    city:                     hong kong
+    language:                 en-HK
+    time_zone:                Asia/Hong_Kong
+    inernational_dial_code:   '+853'
+    airport_code:             'HKG'
+    country_code:             'hk'
+    country_code_long:        'HKG'
+    geo_boundries:            '22.10945211352773;113.5283622843867;22.21845981050677;113.6003410009162'
+    #vendor id
+    id:                       23
+    #guise key
+    guise:                    'Macau'
+  vg2:
+    city:                     hong kong
+    language:                 en-HK
+    time_zone:                Asia/Hong_Kong
+    inernational_dial_code:   '+755'
+    airport_code:             'HKG'
+    country_code:             'hk'
+    country_code_long:        'HKG'
+    geo_boundries:            '15.7754144668579;73.43018090273149;53.5608673095703;134.773941040039'
+    #vendor id
+    id:                       23
+    #guise key
+    guise:                    'Shenzhen'
+
+
 EventCategory:
   c1:
     name:                movies

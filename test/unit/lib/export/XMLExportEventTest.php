@@ -487,6 +487,34 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
   }
 
+  public function testMapDuplicatePoiOccurrenceToMasterPoi()
+  {
+      $this->assertEquals( 0, Doctrine::getTable( 'Poi' )->count() );
+      $this->assertEquals( 0, Doctrine::getTable( 'Event' )->count() );
+
+      $this->populateDbWithLondonData();
+      $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
+      $this->assertEquals( 2, Doctrine::getTable( 'Event' )->count() );
+      
+      $this->exportPoisAndEvents();
+      $exportedPoiXML = simplexml_load_file( $this->poiXmlLocation );
+      $exportedEventXML = simplexml_load_file( $this->destination );
+      $this->assertEquals(2, count( $exportedPoiXML->entry ) );
+      $this->assertEquals(2, count( $exportedEventXML->event ) );
+
+      // mark poi 1 Duplicate of POI 2
+      $poi1 = Doctrine::getTable('Poi')->find(1);
+      $poi2 = Doctrine::getTable('Poi')->find(2);
+      $poi2['DuplicatePois'][] = $poi1;
+      $poi2->save();
+      $this->exportPoisAndEvents();
+      $exportedPoiXML = simplexml_load_file( $this->poiXmlLocation );
+      $exportedEventXML = simplexml_load_file( $this->destination );
+      $this->assertEquals(1, count( $exportedPoiXML->entry ), 'Only 1 poi should have been exported as one marked as duplicate' );
+      $this->assertEquals(2, count( $exportedEventXML->event ), 'However, both Events should have been exported' );
+
+  }
+
     /**
      * get today's date
      */

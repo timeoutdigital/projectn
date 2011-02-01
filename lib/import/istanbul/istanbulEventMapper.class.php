@@ -75,7 +75,7 @@ class istanbulEventMapper extends istanbulBaseMapper
                   // Some Events Don't Have Occcurrences
                   if( !$xmlOccurrence )
                   {
-                    $this->notifyImporterOfFailure( new Exception( 'No Occurences in Feed for Vendor Event ID: ' . $vendorEventId . ' in Barcelona.' ) );
+                    $this->notifyImporterOfFailure( new Exception( 'No Occurences in Feed for Vendor Event ID: ' . $vendorEventId . ' in Istanbul.' ) );
                     break;
                   }
 
@@ -83,7 +83,7 @@ class istanbulEventMapper extends istanbulBaseMapper
                   $poi = Doctrine::getTable( 'Poi' )->findOneByVendorPoiIdAndVendorId( $this->clean( (string) $xmlOccurrence->venue ),  $this->vendor[ 'id' ] );
                   if( !$poi )
                   {
-                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $this->clean( (string) $xmlOccurrence->venue ) . ' for Vendor Event ID ' . $vendorEventId . ' in Barcelona.' ) );
+                    $this->notifyImporterOfFailure( new Exception( 'Could not find a Poi with id: ' . $this->clean( (string) $xmlOccurrence->venue ) . ' for Vendor Event ID ' . $vendorEventId . ' in Istanbul.' ) );
                     continue;
                   }
 

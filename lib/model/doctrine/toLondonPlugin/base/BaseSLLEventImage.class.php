@@ -24,7 +24,7 @@ Doctrine_Manager::getInstance()->bindComponent('SLLEventImage', 'searchlight_lon
  * @package    sf_sandbox
  * @subpackage model
  * @author     Your name here
- * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
+ * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseSLLEventImage extends sfDoctrineRecord
 {

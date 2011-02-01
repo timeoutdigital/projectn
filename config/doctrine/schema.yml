@@ -43,6 +43,7 @@ Poi:
     Vendor:                     {local: vendor_id, foreign: id}
     PoiCategory:                {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
     VendorPoiCategory:          {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
+    MasterPoi:                  {class: Poi, local: duplicate_poi_id, foreign: master_poi_id, refClass: PoiReference, foreignAlias: DuplicatePois, onDelete: CASCADE }
   indexes:
     vendor_poi_id_index:        {fields: [vendor_poi_id]}
 
@@ -358,6 +359,11 @@ Vendor:
   connection: project_n
   actAs:
     Timestampable: ~
+    Guisable:
+      #need to manually add timestampable behavior to Guisable
+      #Doctrine doesn't copy behaviors into each other
+      actAs: 
+        Timestampable: ~
   columns:
     city:                       {type: string(50), notnull: true}
     language:                   {type: string(10), notnull: true} # @todo should be ISO 3166-2 (i.e. two char code GB)
@@ -667,3 +673,9 @@ ExportedItemHistory:
   indexes:
     eim_field_index:            {fields: [field]}
     eim_exported_item_id_index: {fields: [exported_item_id]}
+
+PoiReference:
+  connection: project_n
+  columns:
+    master_poi_id:              {type: integer, primary: true}
+    duplicate_poi_id:           {type: integer, primary: true, unique: true}
