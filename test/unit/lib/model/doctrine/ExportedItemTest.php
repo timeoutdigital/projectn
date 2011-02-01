@@ -37,6 +37,7 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         $this->importXMLNodes( $xmlExportPoi );
         
         $this->assertEquals( 5, Doctrine::getTable( 'ExportedItem' )->count( ) );
+        //there are six nodes, but two IDs are same, hence five resulting records
 
         // Test Invoiceable
         $exportedItem = Doctrine::getTable( 'ExportedItem' )->find(1);
