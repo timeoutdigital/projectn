@@ -208,8 +208,18 @@ class Event extends BaseEvent
 
     if( !is_array($name) )
         $name = array( $name );
-
+    // require HTML cleaning before storing into Database
     $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
+
+    // #909 Pass categories as array to Filter black listed categories
+    // insted of cleaning html_entity_decode each category, I used Implode -> clean -> explode to filter black listed categories
+    $filteredNames = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( $vendorId, explode(' | ', $name) );
+
+    if( !is_array( $filteredNames ) || empty($filteredNames) )
+        return false;
+
+    // implode again to continue with existing check and adding to database
+    $name = stringTransform::concatNonBlankStrings( ' | ', $filteredNames );
 
     //#645 if the category is Film save it as Art
     if( strtolower( $name ) == 'film' )

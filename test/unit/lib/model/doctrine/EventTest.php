@@ -670,6 +670,40 @@ class EventTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( null , $event['review_date']);
    }
 
+   public function testAddVendorCategory_BlackListedCategory()
+   {
+       // add Black list
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Agenda'));
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Sábado'));
+
+       // Test that MockEvent can add vendor category
+       $mockEvent = new MockEvent;
+       $mockEvent['vendor_id'] = 1; // required for category
+       $mockEvent->mockAddVendorCategory( 'Music' );
+       $this->assertEquals( 1, $mockEvent['VendorEventCategory']->count() );
+
+       // add 1 with Valid | Invalid name
+       $mockEvent->mockAddVendorCategory( array( 'Theatre', 'Sábado') );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+       $this->assertEquals( 'Theatre', $mockEvent['VendorEventCategory']['Theatre']['name'] );
+       $this->assertEquals( 1, $mockEvent['VendorEventCategory']['Theatre']['vendor_id'], 'Match vendor ID to see this is not the Default doctrine fall back category when Key set to "name"' );
+       
+
+       // add Invalid and it should not be added
+       $mockEvent->mockAddVendorCategory( array('Sábado') );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+
+       // add 1 valid | invalid, but the valid already exists!
+       $mockEvent->mockAddVendorCategory( 'Agenda | Music' );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+   }
+
 }
 
+class MockEvent extends event
+{
+    public function  mockAddVendorCategory($name, $vendorId = null) {
+        parent::addVendorCategory($name, $vendorId);
+    }
+}
 ?>
