@@ -95,7 +95,9 @@ class ExportedItemTable extends Doctrine_Table
 
         // For each Unique UI category, Find the Best (Money value) category for this Record
         $highestCategory = 99999;
-        $priority = array( 'Eating & Drinking', 'Film', 'Art', 'Around Town', 'Nightlife', 'Music', 'Stage' );
+
+        // get category priority from config/app.yaml
+        $priority = sfConfig::get( 'app_ui_category_priority' );
 
         foreach( $propertyUICategory as $category )
         {
@@ -113,7 +115,7 @@ class ExportedItemTable extends Doctrine_Table
             }
         }
 
-        $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : null;
+        $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $highestCategory ] : null;
         $uiCategory = ( $categoryName !== null ) ?  Doctrine::getTable( 'UiCategory' )->findOneByName( $categoryName ) : false;
         
         return ( $uiCategory === false ) ? null : $uiCategory['id'];
