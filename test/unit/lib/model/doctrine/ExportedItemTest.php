@@ -34,7 +34,7 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
     {
         // Import Sample Data
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
-        $this->importXMLNodes( $xmlExportPoi );
+        $this->importXMLNodes( $xmlExportPoi, strtotime( '2010-12-14T08:23:00') );
         
         $this->assertEquals( 5, Doctrine::getTable( 'ExportedItem' )->count( ) );
         //there are six nodes, but two IDs are same, hence five resulting records
@@ -181,11 +181,12 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         return simplexml_load_string( $xmlString );
     }
 
-    private function importXMLNodes( $xmlNodes )
+    private function importXMLNodes( $xmlNodes, $stamp = null)
     {
+        $stamp = ($stamp === null ) ? time() : $stamp;
         foreach( $xmlNodes->entry as $xmlNode)
         {
-            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1, $stamp);
         }
     }
 
