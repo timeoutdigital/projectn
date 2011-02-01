@@ -401,7 +401,18 @@ class Poi extends BasePoi
     if( !is_array($name) )
         $name = array( $name );
 
+    // require HTML cleaning before storing into Database
     $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
+
+    // #909 Pass categories as array to Filter black listed categories
+    // insted of cleaning html_entity_decode each category, I used Implode -> clean -> explode to filter black listed categories
+    $filteredNames = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( $vendorId, explode(' | ', $name) );
+
+    if( !is_array( $filteredNames ) || empty($filteredNames) )
+        return false;
+
+    // implode again to continue with existing check and adding to database
+    $name = stringTransform::concatNonBlankStrings( ' | ', $filteredNames );
 
     if( stringTransform::mb_trim($name) == '' )
         return false;
@@ -423,16 +434,8 @@ class Poi extends BasePoi
       $vendorPoiCategoryObj[ 'name' ] = $name;
       $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
     }
-
-    // #909 Filter Blacklisted category
-    $filteredCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $vendorPoiCategoryObj );
     
-    if( $filteredCategory === false )
-    {
-        return;
-    }
-
-    $this[ 'VendorPoiCategory' ][] = $filteredCategory;
+    $this[ 'VendorPoiCategory' ][] = $vendorPoiCategoryObj;
     
   }
 
