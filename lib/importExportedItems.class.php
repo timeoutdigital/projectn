@@ -82,10 +82,19 @@ class importExportedItems
 
     private function importExportedXml( &$xmlData, $model, Vendor $vendor )
     {
+        // Extract Modified time from ROOT element
+        $modifiedString = (string)$xmlData['modified'];
+        if( trim( $modifiedString ) == '' )
+        {
+            throw new ImportExportedItemsException('No modified date fround on the Document');
+        }
+        
+        // Format to Unix time stamp
+        $modifiedStamp = strtotime( $modifiedString );
         foreach( $xmlData as $node )
         {
             // Call saveRecord, logic for saving / udpating is handled inside saveRecord() #860
-            Doctrine::getTable( 'ExportedItem' )->saveRecord( $node, $model, $vendor['id'] );
+            Doctrine::getTable( 'ExportedItem' )->saveRecord( $node, $model, $vendor['id'], $modifiedStamp );
         }
     }
 
