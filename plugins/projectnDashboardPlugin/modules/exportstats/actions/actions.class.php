@@ -49,18 +49,17 @@ class exportstatsActions extends sfActions
         
         // Init empty graph.
         $this->graphData = array();
-        for( $timestamp=strtotime($startDate)+86400; $timestamp<=strtotime($endDate); $timestamp+=86400 )
+        for( $timestamp=strtotime($startDate); $timestamp<=strtotime($endDate); $timestamp+=86400 )
         {
             $this->graphData[ date( 'Y-m-d', $timestamp ) ] = array( 'Poi' => 0, 'Event' => 0, 'Movie' => 0 );
         }
-
-        // Get the Logs for given Date range
-        $logs = Doctrine::getTable('LogExport') ->createQuery('l')
-                ->leftJoin('l.LogExportCount c ON l.id = c.log_export_id')
-                ->where('DATE( l.created_at ) >= ? AND DATE( l.created_at ) <= ?', array( $startDate, $endDate ) )
-                ->andWhere( 'l.vendor_id = ? ', $this->vendor['id'] )
-                ->execute( array(), Doctrine::HYDRATE_ARRAY );
-
+        
+        // getLogExportWithCountRecords() uses between on dates, hence it require to adjust dates 1-+ to get data for given date range
+        $search_start_date = date('Y-m-d', strtotime( '-1 day', strtotime( $startDate )));
+        $search_end_date = date('Y-m-d', strtotime( '+1 day', strtotime( $endDate ) ) );
+        
+        $logs = Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecords( $this->vendor['id'],  $search_start_date, $search_end_date, Doctrine_Core::HYDRATE_ARRAY );
+        
         // Convert to graph format
         foreach( $logs as $log )
         {
