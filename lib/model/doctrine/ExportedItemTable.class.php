@@ -13,7 +13,7 @@ class ExportedItemTable extends Doctrine_Table
      * @param string $modelType
      * @param int $vendorID
      */
-    public function saveRecord( &$xmlNode, $modelType, $vendorID )
+    public function saveRecord( $xmlNode, $modelType, $vendorID, $modifiedTimeStamp )
     {
         // Pre-process
         $modelType = strtolower( $modelType );
@@ -21,11 +21,15 @@ class ExportedItemTable extends Doctrine_Table
         {
             throw new ExportedItemTableException( "Invalid modelType, Should only be poi/event/movie" );
         }
+
+        if( $modifiedTimeStamp == null || trim($modifiedTimeStamp) == '' )
+        {
+            throw new ExportedItemTableException( 'Invalid $modifiedTimeStamp in the parameter' );
+        }
         
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
         $recordID = intval( substr( $recordID , 3 ) ); // strip Airport code and 0's at front
-        $modifiedDate = strtotime( (string)$xmlNode['modified'] );
 
         // Get UI category ID, No UI category = 0 ID
         $ui_category_id = ( $modelType == 'movie' ) ? 1 : $this->getUiCategoryIdUsingVendorCategory( $xmlNode, $modelType );
@@ -59,7 +63,7 @@ class ExportedItemTable extends Doctrine_Table
                      $recordID,
                      $modelType,
                      $vendorID,
-                     date('Y-m-d H:i:s', $modifiedDate )
+                     date('Y-m-d H:i:s', $modifiedTimeStamp )
                  ));
                   
                  if( $status !== true )
@@ -72,7 +76,7 @@ class ExportedItemTable extends Doctrine_Table
                      $pdoConn->lastInsertId(), 
                      'ui_category_id',
                      $ui_category_id,
-                     date('Y-m-d H:i:s', $modifiedDate )
+                     date('Y-m-d H:i:s', $modifiedTimeStamp )
                  ));
 
                  if( $status !== true )
@@ -87,7 +91,7 @@ class ExportedItemTable extends Doctrine_Table
                     $record['id'],
                     'ui_category_id',
                     $ui_category_id,
-                    date('Y-m-d H:i:s', $modifiedDate )
+                    date('Y-m-d H:i:s', $modifiedTimeStamp )
                 ));
 
                 if( $status !== true )
@@ -109,10 +113,10 @@ class ExportedItemTable extends Doctrine_Table
      * @param array $uiCateegoriesArray
      * @return mixed
      */
-    private function getHighestValueUICategoryID( $uiCateegoriesArray )
+    private function getHighestValueUICategoryID( $uiCategoriesArray )
     {
         
-        if( !is_array( $uiCateegoriesArray ) ||  empty( $uiCateegoriesArray ) )
+        if( !is_array( $uiCategoriesArray ) ||  empty( $uiCategoriesArray ) )
         {
             return null;
         }
@@ -120,11 +124,11 @@ class ExportedItemTable extends Doctrine_Table
         // For each Unique UI category, Find the Best (Money value) category for this Record
         $highestCategory = 99999;
 
-        // This is the Best to Not so best Order
-        $priority = array( 'Eating & Drinking', 'Film', 'Art', 'Around Town', 'Nightlife', 'Music', 'Stage' );
-
+        // get category priority from config/app.yaml
+        $priority = sfConfig::get( 'app_ui_category_priority' );
+        
         // Loopthrough each UI category to find the BEST one
-        foreach( $uiCateegoriesArray as $category )
+        foreach( $uiCategoriesArray as $category )
         {
             $uiCatName = (string)$category;
 
@@ -141,7 +145,7 @@ class ExportedItemTable extends Doctrine_Table
         }
 
         // Get ARRAY_INDEX's Value (Ui category Name)
-        $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $priorityValue ] : null;
+        $categoryName = ( array_key_exists( $highestCategory, $priority ) ) ? $priority[ $highestCategory ] : null;
 
         if($categoryName == null ) return null;
 
@@ -166,7 +170,7 @@ class ExportedItemTable extends Doctrine_Table
     {
         // Load UI categories when cache is null
         if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory();
-        
+
         // Extract the vendor categories from XML node
         $vendorCategories = $xmlNode->xpath( './/vendor-category' );
 
@@ -284,7 +288,13 @@ class ExportedItemTable extends Doctrine_Table
             $q->andWhereIn( 'h.value' , $invoiceableCategoryIDs );
             $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
             $inValues = implode('","', $invoiceableCategoryIDs );
-            $q->andWhere( 'e.id NOT IN ( SELECT ee.id FROM ExportedItem ee INNER JOIN ee.ExportedItemHistory hh WHERE ee.model = ? AND hh.field= ? AND DATE(hh.created_at) < ? AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
+            $q->andWhere( 'e.id NOT IN ( SELECT ee.id 
+                                         FROM ExportedItem ee
+                                         INNER JOIN ee.ExportedItemHistory hh
+                                         WHERE ee.model = ?
+                                         AND hh.field= ?
+                                         AND DATE(hh.created_at) < ?
+                                         AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
         }
         
         return $q->execute();

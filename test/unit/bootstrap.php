@@ -162,6 +162,33 @@ class ProjectN_Test_Unit_Factory
 
     return $record;
   }
+
+  /**
+   * creates a guise for a gusable object. based on a passed object
+   *
+   * @param object $object guisable object (of type model with actas guise in schema)
+   * @param string $guiseName the name of the guise
+   * @param array $guisedFields array with key/pair values for the to be guised fields
+   * @return object
+   */
+  static public function createGuise( $object, $guiseName, $guisedFields )
+  {
+      $className = get_class( $object ) . 'Guise';
+      $guiseObject = new $className;
+
+      foreach ( $object as $field => $value )
+      {
+          if ( array_key_exists( $field, $guisedFields ) )
+              $guiseObject[ $field ] = $guisedFields[ $field ];
+          else
+              $guiseObject[ $field ] = $value;
+      }
+
+      $guiseObject[ 'guise' ] = $guiseName;
+      $guiseObject->save();
+
+      return $guiseObject;
+  }
 }
 
 class LogExportErrorFixture

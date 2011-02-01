@@ -42,14 +42,8 @@ class kualaLumpurMoviesMapper extends kualaLumpurBaseMapper
             //$movie['rating']            = (string);
             $movie['utf_offset']        = (string) $this->vendor->getUtcOffset();
 
-            try {
-                $movie->addMediaByUrl( (string) $film->medias->big_image );
-            }
-            catch( Exception $exception )
-            {
-                $this->notifyImporterOfFailure($exception);
-            }
-
+            $this->addImageHelper( $movie, (string) $film->medias->big_image );
+            
             $this->notifyImporter( $movie );
         }
         catch( Exception $exception )
