@@ -426,17 +426,14 @@ class Poi extends BasePoi
 
     // #909 Filter Blacklisted category
     $filteredCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $vendorPoiCategoryObj );
-    if( $filteredCategory === false ) return; // When black listed category removed and no other categories found; cleanBlackListedCategory() will return false;
+    
+    if( $filteredCategory === false )
+    {
+        return;
+    }
 
-    // This is a possible fix to ticket #400
-//    $pc = new LinkingVendorPoiCategory();
-//    $pc['vendor_poi_category_id'] = $vendorPoiCategoryObj['id'];
-//    $pc['poi_id'] = $this['id'];
-//    $pc->save();
-//    // need to $vendorPoiCategoryObj save and remove line below,
-      // need to edit LisbonFeedListingsMapper, remove poi save.
-
-    $this[ 'VendorPoiCategory' ][] = $vendorPoiCategoryObj;
+    $this[ 'VendorPoiCategory' ][] = $filteredCategory;
+    
   }
 
 

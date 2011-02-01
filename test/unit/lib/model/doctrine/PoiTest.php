@@ -756,19 +756,20 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $mockPoi = new MockPoi;
        $mockPoi['vendor_id'] = 1; // required for category
        $mockPoi->mockAddVendorCategory( 'Music' );
-       $this->assertEquals( 1, $mockPoi['VendorPoiCategory']);
+       $this->assertEquals( 1, $mockPoi['VendorPoiCategory']->count() );
 
-       
-//
-//
-//       // add new Poi and test that category removed or filtered
-//       $poi = ProjectN_Test_Unit_Factory::add('Poi', array( 'poi_name' => 'blacklist test' ) );
-//       $poi['VendorPoiCategory']->delete();
-//       $poi->save();
-//       $this->assertEquals( 0, $poi['VendorPoiCategory']->count() );
+       // add 1 with Valid | Invalid name
+       $mockPoi->mockAddVendorCategory( array( 'Theatre', 'Sábado') );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
+       $this->assertEquals( 'Theatre', $mockPoi['VendorPoiCategory'][1]['name'] );
 
-       // add a category with black listed names
-       
+       // add Invalid and it should not be added
+       $mockPoi->mockAddVendorCategory( array('Sábado') );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
+
+       // add 1 valid | invalid, but the valid already exists!
+       $mockPoi->mockAddVendorCategory( 'Agenda | Music' );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
    }
 }
 
