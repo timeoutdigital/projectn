@@ -13,8 +13,8 @@
     <?php if ($sf_user->isAuthenticated()): ?>
         <div id="user-info">
           <div style="font-family:georgia; font-style: italic; margin-bottom: 1em; border-bottom: 1px dotted #ccc; padding-bottom: 10px;">
-            Here there, we've tidied up the design of these forms in hopes of making entering data here a bit more pleasant.<br/>
-            If you find any problems, please email <a href="clarencelee@timeout.com">clarencelee@timeout.com</a>
+            Hi there, we've tidied up the design of these forms in hopes of making entering data here a bit more pleasant.<br/>
+            If you find any problems, please email <a href="mailto:clarencelee@timeout.com">clarencelee@timeout.com</a>
           </div>
           <p><?php echo $sf_user->getUsername() ?>: <?php echo $sf_user->getCurrentVendorCity() ?></p>
           <p class="logout"><?php echo link_to('Logout', 'sf_guard_signout') ?></p>
