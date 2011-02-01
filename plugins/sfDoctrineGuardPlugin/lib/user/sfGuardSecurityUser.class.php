@@ -237,7 +237,6 @@ class sfGuardSecurityUser extends sfBasicSecurityUser
    */
   public function getUsername()
   {
-      var_dump( $this->getGuardUser() );
     return $this->getGuardUser()->getUsername();
   }
 
