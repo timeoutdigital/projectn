@@ -424,6 +424,10 @@ class Poi extends BasePoi
       $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
     }
 
+    // #909 Filter Blacklisted category
+    $filteredCategory = Doctrine::getTable( 'VendorCategoryBlackList' )->cleanBlackListedCategory( $vendorPoiCategoryObj );
+    if( $filteredCategory === false ) return; // When black listed category removed and no other categories found; cleanBlackListedCategory() will return false;
+
     // This is a possible fix to ticket #400
 //    $pc = new LinkingVendorPoiCategory();
 //    $pc['vendor_poi_category_id'] = $vendorPoiCategoryObj['id'];

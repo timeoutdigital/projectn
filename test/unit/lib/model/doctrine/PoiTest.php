@@ -745,6 +745,31 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( $poi2['id'], $referenceTable[0]['duplicate_poi_id']);
        $this->assertEquals( $poi3['id'], $referenceTable[1]['duplicate_poi_id']);
    }
+
+   public function testAddVendorCategory_BlackListedCategory()
+   {
+       // add Black list
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Agenda'));
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Sábado'));
+
+       // Test that MOCK Poi can add vendor category
+       $mockPoi = new MockPoi;
+       $mockPoi['vendor_id'] = 1; // required for category
+       $mockPoi->mockAddVendorCategory( 'Music' );
+       $this->assertEquals( 1, $mockPoi['VendorPoiCategory']);
+
+       
+//
+//
+//       // add new Poi and test that category removed or filtered
+//       $poi = ProjectN_Test_Unit_Factory::add('Poi', array( 'poi_name' => 'blacklist test' ) );
+//       $poi['VendorPoiCategory']->delete();
+//       $poi->save();
+//       $this->assertEquals( 0, $poi['VendorPoiCategory']->count() );
+
+       // add a category with black listed names
+       
+   }
 }
 
 class MockgeocoderForPoiTest extends geocoder
@@ -818,5 +843,13 @@ class MockgeocoderForPoiTestReturnNulllatLong extends MockgeocoderForPoiTest
     public function getLatitude()
     {
         return null;
+    }
+}
+
+class MockPoi extends Poi{
+
+    // Make add vendor category public,
+    public function  mockAddVendorCategory($name, $vendorId = null) {
+        parent::addVendorCategory($name, $vendorId);
     }
 }
