@@ -90,6 +90,8 @@ class HongKongFeedVenuesMapper extends HongKongFeedBaseMapper
               $this->notifyImporterOfFailure($exception, isset($poi) ? $poi : null );
           }
 
+          $poi->free();
+
           unset($poi, $categories, $vendor_venue_id);
           
       } // END FOREACH
