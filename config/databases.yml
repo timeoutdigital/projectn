@@ -23,13 +23,15 @@ dev:
       dsn:                mysql://root:outtime99@localhost/searchlight_london
       attributes:
         use_native_enum:  true
+      profiler: false
+
   project_n:
     class:                sfDoctrineDatabase
     param:
       dsn:                mysql://root:outtime99@localhost/project_n
       attributes:
         use_native_enum:  true
-
+      profiler: false
 
 test :
   searchlight_london:
