@@ -127,30 +127,6 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[0], 'event', 1, strtotime( '2010-12-14T08:23:00' ) );
     }
-    
-    public function testSaveRecordInvalidDateException1()
-    {
-        //see exported_event_sample2.xml for invalid input
-
-        // Load POI XML
-        $xmlExportEvent = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_event_sample2.xml' );
-
-        $this->setExpectedException( 'ExportedItemTableException' );
-
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[1], 'event', 1, strtotime( '2010-12-14T08:23:00' ) );
-    }
-
-    public function testSaveRecordInvalidDateException2()
-    {
-        //see exported_event_sample2.xml for invalid input
-
-        // Load POI XML
-        $xmlExportEvent = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_event_sample2.xml' );
-
-        $this->setExpectedException( 'ExportedItemTableException' );
-
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[2], 'event', 1, strtotime( '2010-12-14T08:23:00' ) );
-    }
 
     public function testSaveRecordWithDifferentModelTypes()
     {
