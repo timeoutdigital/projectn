@@ -60,7 +60,7 @@ class ExportedItem extends BaseExportedItem
         return true;
     }
 
-    public function getUICategoryID()
+    public function getCurrentUICategoryID()
     {
         $recordHistory = Doctrine::getTable( 'ExportedItemHistory' )->createQuery( 'h' )
                 ->where( 'field = ?', "ui_category_id" )
@@ -81,7 +81,7 @@ class ExportedItem extends BaseExportedItem
     /**
      * Get the Invoiceable UICategoryID, First Invoiceable category is the Invoiceable Category.
      */
-    public function getInvoiceableUICategoryID()
+    public function getInvoicedUICategoryID()
     {
         $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
         $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);

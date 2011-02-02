@@ -153,7 +153,7 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         
     }
 
-    public function testGetInvoiceableUICategoryID()
+    public function testGetInvoicedUICategoryID()
     {
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
         $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
@@ -162,10 +162,10 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 5, Doctrine::getTable( 'ExportedItemHistory' )->count() );
 
         $item = Doctrine::getTable( 'ExportedItem' )->find(1);
-        $this->assertEquals( 2, $item->getInvoiceableUICategoryID() );
+        $this->assertEquals( 2, $item->getInvoicedUICategoryID() );
 
         $item = Doctrine::getTable( 'ExportedItem' )->find(3);
-        $this->assertNull( $item->getInvoiceableUICategoryID() );
+        $this->assertNull( $item->getInvoicedUICategoryID() );
     }
     
     private function generateXMLNodes( $arrayCategory )
