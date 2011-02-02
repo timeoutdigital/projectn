@@ -806,6 +806,16 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( $poi1['id'], $poi3['MasterPoi'][0]['id'] );
    }
 
+   // #911 test addVendorCategory() only adds Unqiue category when given as array
+   public function testUniqueCategory()
+   {
+       $categories = array( 'Other', 'Music', 'Other' );
+       $poi = new MockPoi;
+       $poi->addVendorCategory( $categories, 1 );
+       $this->assertEquals( 1, $poi['VendorPoiCategory']->count() );
+       $this->assertEquals( 'Other | Music', $poi['VendorPoiCategory'][0]['name'] );
+   }
+
 }
 
 class MockgeocoderForPoiTest extends geocoder
