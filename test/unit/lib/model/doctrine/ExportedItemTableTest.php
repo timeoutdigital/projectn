@@ -102,8 +102,8 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         }
 
         // assert
-        $this->assertEquals( 5 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 4 record added to Database");
-        $this->assertEquals( 6 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "UI category changed 1 for 5 records, Hence there should be 6 history");
+        $this->assertEquals( 6 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 6 record added to Database");
+        $this->assertEquals( 7 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "UI category changed 1 for 6 records, Hence there should be 7 history");
     }
 
     public function testSaveRecordInvalidModelException()
@@ -161,7 +161,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[4], 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[6], 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
 
         // try to find non existent ui category
         $record = Doctrine::getTable( 'ExportedItem' )->find( 1 );
