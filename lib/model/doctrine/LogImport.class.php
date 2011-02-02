@@ -12,7 +12,7 @@
  */
 class LogImport extends BaseLogImport
 {
-    public function getCountFor( $model, $operations = array('received','insert','existing','failed','delete') )
+    public function getCountFor( $model, $operations = array('updated','insert','existing','failed','delete') )
     {
         $count = 0;
         
@@ -26,5 +26,10 @@ class LogImport extends BaseLogImport
     public function getDate()
     {
         return substr( $this['created_at'], 0, 10 );
+    }
+
+    public function getName()
+    {
+        return $this['created_at'] . ' / ' . $this['Vendor']['name'] . ' (' . $this['status'] . ')';
     }
 }

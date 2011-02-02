@@ -58,9 +58,20 @@ class importExportedItemsTask extends sfBaseTask
             throw new Exception( 'No Export DIR found in given Export path ( '.$options['exportdir'].')' );
         }
 
+        // This PDO object needed to delete records for importing days, this will prevent the repeating information being stored in db
+        $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+        
         foreach($exportDirs as $exportDateDir)
         {
-            echo PHP_EOL . 'Importing DIR: ' . $exportDateDir . PHP_EOL;
+            // Remove any existing records for this date
+            $q = $pdoDB->prepare( 'DELETE FROM exported_item_history WHERE DATE(created_at) = ?' );
+            $q->execute( array( date('Y/m/d', $this->getTimeInFolderName( $exportDateDir ) ) ) );
+
+            $q = $pdoDB->prepare( 'DELETE FROM exported_item WHERE DATE(created_at) = ?' );
+            $q->execute( array( date('Y/m/d', $this->getTimeInFolderName( $exportDateDir ) ) ) );
+
+            // import
+            echo PHP_EOL . date('d/m/Y H:i:s').': Importing DIR: ' . $exportDateDir . PHP_EOL;
             $this->import1DayExport( $exportDateDir );
         }
     }
@@ -71,4 +82,12 @@ class importExportedItemsTask extends sfBaseTask
         $importExported->import();
     }
 
+    private function getTimeInFolderName( $dirName )
+    {
+        return mktime( 0,0,0,
+                substr( $dirName, -4, 2 ),
+                substr( $dirName, -2, 2 ),
+                substr( $dirName, -8, 4 )
+                );
+    }
 }

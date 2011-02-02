@@ -20,7 +20,7 @@ class ExportedItem extends BaseExportedItem
 
         // Read UICategory YAMl to identify the Invoiceable Category
         $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
-        $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);
+        $invoiceableCategoryIDs = array_keys( $invoiceableCategories[ $this['model'] ] );
         
         // get the Current UI category ID
         $dateRangeInvoiceableCategories = Doctrine::getTable( 'ExportedItemHistory' )->createQuery( 'h' )
@@ -84,7 +84,7 @@ class ExportedItem extends BaseExportedItem
     public function getInvoicedUICategoryID()
     {
         $invoiceableCategories = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
-        $invoiceableCategoryIDs = array_keys( $invoiceableCategories['invoiceable']);
+        $invoiceableCategoryIDs = array_keys( $invoiceableCategories[ $this['model'] ]);
         
         $q = Doctrine::getTable( 'ExportedItemHistory' )->createQuery( 'h' )
                 ->where( 'field = ?', "ui_category_id" )

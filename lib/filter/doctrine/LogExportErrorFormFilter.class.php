@@ -12,5 +12,9 @@ class LogExportErrorFormFilter extends BaseLogExportErrorFormFilter
 {
   public function configure()
   {
+    if (isset($this->widgetSchema['log_export_id']))
+    {
+        $this->widgetSchema['log_export_id']->setOption( 'order_by', array('id', 'desc')  );
+    }
   }
 }

@@ -1,5 +1,24 @@
 # UI Category
-invoiceable:
+poi:
   2:
     name: 'Eating & Drinking'
-    
+
+event:
+  1:
+    name: 'Film'
+  2:
+    name: 'Eating & Drinking'
+  3:
+    name: 'Around Town'
+  4:
+    name: 'Music'
+  5:
+    name: 'Stage'
+  6:
+    name: 'Nightlife'
+  7:
+    name: 'Art'
+
+movie:
+  1:
+    name: 'Film'

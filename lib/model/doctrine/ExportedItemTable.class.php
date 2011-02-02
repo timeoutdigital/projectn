@@ -26,10 +26,21 @@ class ExportedItemTable extends Doctrine_Table
         {
             throw new ExportedItemTableException( 'Invalid $modifiedTimeStamp in the parameter' );
         }
-        
+
         // Get ID from xmlNode, Poi have attribue "vpid" for id and Event & Move had attribue "id" for their unique ID
         $recordID = ( $modelType == 'poi' ) ? (string)$xmlNode['vpid'] : (string)$xmlNode['id'];
+        if( !stringTransform::isValidExportRecordID( $recordID ) )
+        {
+            throw new ExportedItemTableException( "Invalid Record ID found in the Node" );
+        }
+
         $recordID = intval( substr( $recordID , 3 ) ); // strip Airport code and 0's at front
+
+        // validate Time, Should be bigger than 2010 April as this is the date First exported
+        if( $modifiedTimeStamp < strtotime('01 Apr 2010' ) )
+        {
+            throw new ExportedItemTableException( "Invalid exported date found in the Node : ". date('d M Y', $modifiedDate) );
+        }
 
         // Get UI category ID, No UI category = 0 ID
         $ui_category_id = ( $modelType == 'movie' ) ? 1 : $this->getUiCategoryIdUsingVendorCategory( $xmlNode, $modelType );
@@ -44,7 +55,9 @@ class ExportedItemTable extends Doctrine_Table
             $pdoConn = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
             // Find the Existing Record
-            $sql = 'SELECT e.id, e.record_id, h.value, h.field FROM exported_item e INNER JOIN exported_item_history h on h.exported_item_id = e.id ';
+            $sql  = 'SELECT e.id, e.record_id, h.value, h.field ';
+            $sql .= 'FROM exported_item e ';
+            $sql .= 'INNER JOIN exported_item_history h on h.exported_item_id = e.id ';
             $sql .= 'WHERE e.model = ? AND e.record_id = ? AND h.field = "ui_category_id" ';
             $sql .= 'ORDER BY h.created_at DESC LIMIT 1';
 
@@ -168,6 +181,7 @@ class ExportedItemTable extends Doctrine_Table
      */
     private function getUiCategoryIdUsingVendorCategory( SimpleXMLElement &$xmlNode, $modelType )
     {
+
         // Load UI categories when cache is null
         if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory();
 
@@ -203,10 +217,7 @@ class ExportedItemTable extends Doctrine_Table
      * @return mixed
      */
     private function getUiCategoryIdInFeed( SimpleXMLElement &$xmlNode )
-    {
-        // Load UI categories when cache is null
-        if( self::$uiCategoryCache === null ) $this->loadUICategoryAndVendorCategory();
-        
+    {        
         $uiCategories = array_unique( $xmlNode->xpath( './/property[@key="UI_CATEGORY"]' ) );
 
         $uiCategoryNames = array();
@@ -221,7 +232,7 @@ class ExportedItemTable extends Doctrine_Table
     /**
      * Load UI category and related vendor categories into static cache
      */
-    private function loadUICategoryAndVendorCategory()
+    private function loadUICategoryAndVendorCategory( $vendorID )
     {
         self::$uiCategoryCache = array();
         self::$poiUiCategoryMap = array();
@@ -231,7 +242,7 @@ class ExportedItemTable extends Doctrine_Table
         foreach( Doctrine::getTable('UiCategory')->findAll() as $map )
         {
             self::$uiCategoryCache[] = array( 'name' => $map['name'] , 'id' => $map['id'] );
-            foreach( $map['VendorPoiCategory'] as $m )   self::$poiUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
+            foreach( $map['VendorPoiCategory'] as $m ) self::$poiUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
             foreach( $map['VendorEventCategory'] as $m ) self::$eventUiCategoryMap[ html_entity_decode( $m['name'] ) ] = $map['name'];
         }
         
@@ -241,63 +252,75 @@ class ExportedItemTable extends Doctrine_Table
         }
     }
 
+
     /**
-     * Fetch Exported Item and Exported Item History by Date range, vendor, Model[poi,event,movie] and [ ui_category_id & invoiceableOnly ]
+     * Get Items First exported within given date range per vendor and Model
      * @param string $startDate
      * @param string $endDate
      * @param int $vendorID
-     * @param string $modelType
-     * @param int $ui_category_id
-     * @param boolean $invoiceableOnly
+     * @param string $model
      * @return mixed
      */
-    public function fetchBy( $startDate, $endDate, $vendorID, $modelType, $ui_category_id = null, $invoiceableOnly = true )
+    public function getItemsFirstExportedIn( $startDate, $endDate, $vendorID, $model )
     {
-        $startDateTime = strtotime( $startDate );
-        $endDateTime = strtotime( $endDate );
+        // Best to have time in Unix format
+        $startDateStamp= strtotime( $startDate );
+        $endDateStamp = strtotime( $endDate );
 
+        // Get PDO from Doctrine for Direct DB query (Doctrine Takes Longer time and Memory)
+        $pdoDB = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
-        $q = $this->createQuery( 'e' )
-                ->innerJoin( 'e.ExportedItemHistory h')
-                ->where( 'e.vendor_id=?', $vendorID )
-                ->andWhere( 'h.field= ?', "ui_category_id" )
-                ->andWhere( 'DATE(h.created_at) BETWEEN ? AND ? ', array( date('Y-m-d', $startDateTime ), date('Y-m-d', $endDateTime ) )  )
-                ->andWhere( 'e.model = ? ', $modelType );
+        /**
+         * Rules for this Query:
+         * 1: We should always select those Records First exported in given date range regarless of what category
+         * 2: We shoud Include the record that was exported BEFORE the given Date range BUT did not have a valid category at before this the start date BUT do have a valid category within this date range (matching change history)
+         * 3: to make it easier for the MySql, we filter by vendor and model type.
+         * 4: When we have more than one category HISTORY for a record, we choose the Latest within the date range (by grouping)
+         */
+        $sql = 'SELECT e.*, h.created_at, h.field,h.value ';
+        $sql .= 'FROM exported_item e ';
+        $sql .= 'INNER JOIN exported_item_history h ON e.id = h.exported_item_id ';
+        $sql .= 'WHERE ';
+        $sql .= 'e.vendor_id = ? ';
+        $sql .= 'AND e.model = ? ';
+        $sql .= 'AND h.field = ? ';
+        $sql .= 'AND DATE(e.created_at) <= ? '; // we select everything before end date but make exception to those had category before start date by NOT IN bellow
+        $sql .= 'AND e.id NOT IN ( ';
+            // This Subquery will select All those records identified as exported before this date range and had a valid category.
+            // those records will be ignored in this query.
+            $sql .= 'SELECT ee.id FROM exported_item ee INNER JOIN exported_item_history eh on eh.exported_item_id = ee.id ';
+            $sql .= 'WHERE ';
+            $sql .= 'ee.vendor_id = ? ';
+            $sql .= 'AND ee.model = ? ';
+            $sql .= 'AND eh.field = ? ';
+            $sql .= 'AND DATE(ee.created_at) < ? '; // should be created before the date range
+            $sql .= 'AND eh.value > 0 AND eh.created_at < ?'; // and should have a valid category that dated before the date range too..
+        $sql .= ' )';
+        $sql .= 'AND ( DATE(h.created_at) >=  ? AND DATE(h.created_at) <= ? )';
+        // this select those created within date range OR select those created before and have a valid category now
+        $sql .= 'AND ( DATE(e.created_at) >= ?  OR ( h.value > 0 AND e.created_at < ?) )';
+        $sql .= ' GROUP BY e.id'; // 1 item should be returned only Once...
+        $sql .= ' ORDER BY e.id';
 
-        // Makesure to select the Last/Latest Category ID
-        if( isset( $ui_category_id ) && is_numeric( $ui_category_id ) && $ui_category_id > 0 )
-        {
-            $q->andWhere( 'h.value = ?', $ui_category_id );
-            $q->groupBy( 'e.id' );
-            $q->orderBy( 'h.created_at DESC');
-            //$q->andWhere( 'h.id = ( SELECT MAX(eh.id) FROM ExportedItemHistory eh WHERE eh.field= ? AND ( DATE(eh.created_at) BETWEEN ? AND ?) AND eh.exported_item_id = e.id)', array( "ui_category_id", date('Y-m-d', $startDateTime), date('Y-m-d', $endDateTime)) );
-        }
+        $query = $pdoDB->prepare( $sql );
         
-        if( $invoiceableOnly )
-        {
-            $invoiceableYaml = sfYaml::load( file_get_contents( sfConfig::get( 'sf_config_dir' ) . '/invoiceableCategory.yml' ) );
-            $invoiceableCategoryIDs = array_keys( $invoiceableYaml['invoiceable'] );
-
-            // Check given Category is Invoiceable
-            if( $ui_category_id && is_numeric( $ui_category_id ) && $ui_category_id > 0 &&
-                !in_array( $ui_category_id, $invoiceableCategoryIDs) )
-            {
-                return null;
-            }
-
-            $q->andWhereIn( 'h.value' , $invoiceableCategoryIDs );
-            $whereValueArray = array( $modelType, "ui_category_id", date( 'Y-m-d', $startDateTime )  );
-            $inValues = implode('","', $invoiceableCategoryIDs );
-            $q->andWhere( 'e.id NOT IN ( SELECT ee.id 
-                                         FROM ExportedItem ee
-                                         INNER JOIN ee.ExportedItemHistory hh
-                                         WHERE ee.model = ?
-                                         AND hh.field= ?
-                                         AND DATE(hh.created_at) < ?
-                                         AND hh.value IN ( "'.$inValues.'" ) )', $whereValueArray );
-        }
+        $status = $query->execute( array(
+            $vendorID,
+            $model,
+            'ui_category_id',
+            date('Y-m-d', $endDateStamp ),
+                $vendorID,
+                $model,
+                'ui_category_id',
+                date('Y-m-d', $startDateStamp ),
+                date('Y-m-d', $startDateStamp ),
+            date('Y-m-d', $startDateStamp ),
+            date('Y-m-d', $endDateStamp ),
+            date('Y-m-d', $startDateStamp ),
+            date('Y-m-d', $startDateStamp ),
+        ));
         
-        return $q->execute();
+        return ($status) ? $query->fetchAll() : null;
     }
     
 }
