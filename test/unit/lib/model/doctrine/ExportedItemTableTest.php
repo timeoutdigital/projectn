@@ -58,7 +58,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
         $xmlNode = $xmlExportPoi->entry[1];
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
 
         $exportedItem = Doctrine::getTable( 'ExportedItem' )->find(1);
         $this->assertEquals( '75552' , $exportedItem['record_id'], "Value missmatch");
@@ -78,12 +78,12 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample2.xml' );
         $xmlNode = $xmlExportPoi->entry[0];
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
         $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItem' )->count(), "There should be 1 record added to Database");
         $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "Each record should have 1 minimum History");
 
         $xmlNode = $xmlExportPoi->entry[1];
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
         $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItem' )->count(), "Since this is repeating, there should only have 1 record");
         $this->assertEquals( 1 , Doctrine::getTable( 'ExportedItemHistory' )->count(), "UI category did not change, there should still be only 1 history record");
 
@@ -113,7 +113,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException( 'ExportedItemTableException' );
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[0], 'InvalidModel', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[0], 'InvalidModel', 1, strtotime( '2010-12-14T08:23:00' ) );
     }
 
     public function testSaveRecordInvalidIdException()
@@ -125,7 +125,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException( 'ExportedItemTableException' );
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[0], 'event', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[0], 'event', 1, strtotime( '2010-12-14T08:23:00' ) );
     }
     
     public function testSaveRecordInvalidDateException1()
@@ -137,7 +137,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException( 'ExportedItemTableException' );
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[1], 'event', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[1], 'event', 1, strtotime( '2010-12-14T08:23:00' ) );
     }
 
     public function testSaveRecordInvalidDateException2()
@@ -149,7 +149,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException( 'ExportedItemTableException' );
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[2], 'event', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportEvent->event[2], 'event', 1, strtotime( '2010-12-14T08:23:00' ) );
     }
 
     public function testSaveRecordWithDifferentModelTypes()
@@ -159,7 +159,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
 
         foreach( $xmlExportPoi->event as $xmlNode)
         {
-            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
+            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'event', 1, strtotime( '2010-12-14T08:23:00' ) );
         }
 
         // assert
@@ -173,7 +173,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[5], 'poi', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[5], 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
         
         // get the LAST one to make sure that GetHighestValueUICategoryID() selected Eating and Drinking UI category
         $record = Doctrine::getTable( 'ExportedItem' )->find( 1 );
@@ -185,7 +185,7 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
         // Load POI XML
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
 
-        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[4], 'poi', 1 );
+        Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlExportPoi->entry[4], 'poi', 1, strtotime( '2010-12-14T08:23:00' ) );
 
         // try to find non existent ui category
         $record = Doctrine::getTable( 'ExportedItem' )->find( 1 );
@@ -196,9 +196,9 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     public function testGetItemsFirstExportedInSpecificDay()
     {
         // Import 3 Days worth of Data to simulate History and Different Records on Different days
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml'), strtotime( '2010-12-10' ) ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml'), strtotime( '2010-12-15' ) ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml'), strtotime( '2010-12-20' ) ); // Import POI for Date 20/12/2010
 
         // makesure that we have all the data in exportedItem and History added when category only changed
         $this->assertEquals( 5, Doctrine::getTable( 'ExportedItem' )->count() );
@@ -217,9 +217,9 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     public function testGetItemsFirstExportedLastDayOfImport()
     {
 
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml'), strtotime( '2010-12-10' ) ); // Import POI for Date 10/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml'), strtotime( '2010-12-15' ) ); // Import POI for Date 15/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml'), strtotime( '2010-12-20' ) ); // Import POI for Date 20/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml'), strtotime( '2010-12-10' ), strtotime( '2010-12-10' ) ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml'), strtotime( '2010-12-15' ), strtotime( '2010-12-15' ) ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml'), strtotime( '2010-12-20' ), strtotime( '2010-12-20' ) ); // Import POI for Date 20/12/2010
 
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-20','2010-12-20', 1, 'poi' );
         $this->assertEquals( 2 , count($results), '1 New exported last day plus the one that expored before and did not have a valid cat until last day' );
@@ -230,9 +230,9 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     public function testGetItemsFirstExportedDateRangeForInclude0Cat10To15DateRange()
     {
         // Import 3 Days worth of Data to simulate History and Different Records on Different days
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml'), strtotime( '2010-12-10' ) ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml'), strtotime( '2010-12-15' ) ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml'), strtotime( '2010-12-20' ) ); // Import POI for Date 20/12/2010
 
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-15', 1, 'poi' );
         $this->assertEquals( 4, count($results), 'Should include Both days Pois');
@@ -255,9 +255,9 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     public function testGetItemsFirstExportedDateRangeForInclude0Cat15To20DateRange()
     {
         // Import 3 Days worth of Data to simulate History and Different Records on Different days
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml'), strtotime( '2010-12-10' ) ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml'), strtotime( '2010-12-15' ) ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml'), strtotime( '2010-12-20' ) ); // Import POI for Date 20/12/2010
 
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-15','2010-12-20', 1, 'poi' );
         $this->assertEquals( 3, count($results), 'Should include Both days Pois');
@@ -277,9 +277,9 @@ class ExportedItemTableTest extends PHPUnit_Framework_TestCase
     public function testGetItemsFirstExportedDateRangeAll()
     {
         // Import 3 Days worth of Data to simulate History and Different Records on Different days
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml') ); // Import POI for Date 20/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml'), strtotime( '2010-12-10' ) ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml'), strtotime( '2010-12-15' ) ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_20_12_2010.xml'), strtotime( '2010-12-20' ) ); // Import POI for Date 20/12/2010
 
         $results = Doctrine::getTable( 'ExportedItem' )->getItemsFirstExportedIn( '2010-12-10','2010-12-20', 1, 'poi' );
         $this->assertEquals( 5, count($results), 'should be all the records');

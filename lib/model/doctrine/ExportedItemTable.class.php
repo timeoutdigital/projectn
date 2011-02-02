@@ -232,7 +232,7 @@ class ExportedItemTable extends Doctrine_Table
     /**
      * Load UI category and related vendor categories into static cache
      */
-    private function loadUICategoryAndVendorCategory( $vendorID )
+    private function loadUICategoryAndVendorCategory( )
     {
         self::$uiCategoryCache = array();
         self::$poiUiCategoryMap = array();
