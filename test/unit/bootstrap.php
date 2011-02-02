@@ -198,7 +198,9 @@ class VendorCategoryBlackListFixture
   {
     $defaults =array(
                     'name' => 'Other',
-                    'vendor_id' => 1
+                    'vendor_id' => 1,
+                    'match_left' => false,
+                    'match_right' => false
                     );
 
     if( is_array( $data ) )

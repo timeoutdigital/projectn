@@ -30,6 +30,10 @@ class VendorCategoryBlackListTableTest extends PHPUnit_Framework_TestCase
         // add Test Black list categories
         ProjectN_Test_Unit_Factory::add( 'vendorcategoryblacklist', array( 'name' => 'Other' ) );
         ProjectN_Test_Unit_Factory::add( 'vendorcategoryblacklist', array( 'name' => 'Test' ) );
+
+        ProjectN_Test_Unit_Factory::add( 'vendorcategoryblacklist', array( 'name' => 'Sunday', 'match_left' => false, 'match_right' => true ) ); // example of Sunday 17 etc... anything starts with sunday will be removed
+        ProjectN_Test_Unit_Factory::add( 'vendorcategoryblacklist', array( 'name' => 'March', 'match_left' => true, 'match_right' => true ) ); // remove when this string Found in Category name
+        ProjectN_Test_Unit_Factory::add( 'vendorcategoryblacklist', array( 'name' => '2010', 'match_left' => true, 'match_right' => false) ); // anything ends with 2010 will be removed
     }
 
     /**
@@ -43,14 +47,14 @@ class VendorCategoryBlackListTableTest extends PHPUnit_Framework_TestCase
 
     public function testGetCategoryNameInArrayBy()
     {
-        $this->assertEquals( 2, Doctrine::getTable( 'VendorCategoryBlackList' )->count() );
+        $this->assertEquals( 5, Doctrine::getTable( 'VendorCategoryBlackList' )->count() );
         // add another for Different vendor
         ProjectN_Test_Unit_Factory::add( 'vendorcategoryblacklist', array( 'name' => 'Different vendor', 'vendor_id' => 2 ) );
-        $this->assertEquals( 3, Doctrine::getTable( 'VendorCategoryBlackList' )->count() );
+        $this->assertEquals( 6, Doctrine::getTable( 'VendorCategoryBlackList' )->count() );
 
         $nameArray = Doctrine::getTable( 'VendorCategoryBlackList' )->getCategoryNameInArrayBy( 1 ); // get names by Vendor ID
         $this->assertTrue( is_array( $nameArray ) );
-        $this->assertEquals( 2, count( $nameArray ) );
+        $this->assertEquals( 5, count( $nameArray ) );
         $this->assertEquals( 'Other', $nameArray[0] );
     }
     
@@ -78,4 +82,66 @@ class VendorCategoryBlackListTableTest extends PHPUnit_Framework_TestCase
         $filteredCategories = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 2, $invaidCategories );
         $this->assertEquals( 2, count( $filteredCategories ), "as this vendor don't have any black list yet, both should be returned" );
     }
+
+    // NEW filter by categoryBlackList
+    public function testFilterByCategoryBlackListEqualTo( )
+    {
+        $validCategories = array( 'Other Music', 'Test Category' );
+        $invalidCategories = array( 'Test', 'Other' );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $validCategories );
+        $this->assertEquals( 2, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $invalidCategories );
+        $this->assertEquals( 0, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, array_merge( $validCategories, $invalidCategories ) );
+        $this->assertEquals( 2, count( $results) );
+    }
+
+    public function testFilterByCategoryBlackListWildLeftAndRightMatch( )
+    {
+        $validCategories = array( 'Other Music', 'Test Category' );
+        $invalidCategories = array( '20th march 2010', 'marching', 'something match and soemthing', '1march2 category' );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $validCategories );
+        $this->assertEquals( 2, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $invalidCategories );
+        $this->assertEquals( 0, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, array_merge( $validCategories, $invalidCategories ) );
+        $this->assertEquals( 2, count( $results) );
+    }
+
+    public function testFilterByCategoryBlackListWildLeftMatch( )
+    {
+        $validCategories = array( 'Other Music', 'Test Category', '2010 April', 'Month 2010 Year' );
+        $invalidCategories = array( 'April 2010', '2010', 'Two space 2010' );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $validCategories );
+        $this->assertEquals( 4, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $invalidCategories );
+        $this->assertEquals( 0, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, array_merge( $validCategories, $invalidCategories ) );
+        $this->assertEquals( 4, count( $results) );
+    }
+
+    public function testFilterByCategoryBlackListWildRightMatch( )
+    {
+        $validCategories = array( '17th Sunday', 'Seomthing Sunday', 'Other Sundays' );
+        $invalidCategories = array( 'Sunday 17th 2010', 'Sunday');
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $validCategories );
+        $this->assertEquals( 3, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $invalidCategories );
+        $this->assertEquals( 0, count( $results) );
+
+        $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, array_merge( $validCategories, $invalidCategories ) );
+        $this->assertEquals( 3, count( $results) );
+    }
+
 }
