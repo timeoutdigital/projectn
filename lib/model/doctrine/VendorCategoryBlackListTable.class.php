@@ -41,24 +41,40 @@ class VendorCategoryBlackListTable extends Doctrine_Table
             return array();
         }
 
-        // Get categories black lisetd for this vendor to match
-        $blackListedCategories = $this->getCategoryNameInArrayBy( $vendor_id );
-        if( !is_array($blackListedCategories) || empty($blackListedCategories) )
-        {
-            return $nameArray;
-        }
+        /* Logic: For each Category in this array, seprate Database Query will be executed to match
+         * using producers match settings and when a match found, it will be removed from the list as
+         * it listed in black list category...
+         */
 
-        // match and remove blacklisted category from the nameArray
-        foreach( $nameArray as $key=>$category )
+        $validCategoryNames = array(); // Store only the valid categories that Did not match the black list and match pattern
+        foreach( $nameArray as $category_name )
         {
-            if( in_array( $category, $blackListedCategories) )
+            // Trim before query
+            $category_name = stringTransform::mb_trim( $category_name );
+
+            $foundInBlackList = $this->createQuery( 'b' )
+                    ->where( 'b.vendor_id = ? ', $vendor_id )
+                    ->andWhere( '( ( b.match_left = false AND b.match_right = false AND b.name = ? ) 
+                                    OR (b.match_left = true AND b.match_right = true AND ? LIKE CONCAT("%",b.name,"%"))
+                                    OR (b.match_left = true AND b.match_right = false AND ? LIKE CONCAT("%",b.name))
+                                    OR (b.match_left = false AND b.match_right = true AND ? LIKE CONCAT(b.name,"%"))
+                                    OR ( b.name = ?) )' ,
+                            array(
+                            $category_name,
+                            $category_name,
+                            $category_name,
+                            $category_name
+                        ) )
+                    ->fetchArray();
+
+            // If nto Found in the database, Add it to valid category
+            if( is_array( $foundInBlackList ) && empty( $foundInBlackList ) )
             {
-                unset($nameArray[$key]); // delete this category from the List
+                $validCategoryNames[] = $category_name;
             }
         }
 
-        return $nameArray;
-        
+        return $validCategoryNames;
     }
 
 }

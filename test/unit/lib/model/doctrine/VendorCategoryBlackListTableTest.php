@@ -102,7 +102,7 @@ class VendorCategoryBlackListTableTest extends PHPUnit_Framework_TestCase
     public function testFilterByCategoryBlackListWildLeftAndRightMatch( )
     {
         $validCategories = array( 'Other Music', 'Test Category' );
-        $invalidCategories = array( '20th march 2010', 'marching', 'something match and soemthing', '1march2 category' );
+        $invalidCategories = array( '20th march 2010', 'marching', 'something march and soemthing', '1march2 category' );
 
         $results = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( 1, $validCategories );
         $this->assertEquals( 2, count( $results) );
