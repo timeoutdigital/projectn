@@ -1,7 +1,6 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
-
-<div class="filter" style="float:right;">
+<div class="hiddenFilter" style="float:right;" id="hidden_filter">
   <?php if ($form->hasGlobalErrors()): ?>
     <?php echo $form->renderGlobalErrors() ?>
   <?php endif; ?>

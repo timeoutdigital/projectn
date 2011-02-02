@@ -269,7 +269,7 @@ class LogImportErrorFixture
             'model' => 'Poi',
             'exception_class' => 'Exception',
             'trace' => 'no trace details',
-            'message' => null,
+            'message' => 'test message',
             'log' => 'test error log',
             'serialized_object' => null,
             'resolved' => 0,

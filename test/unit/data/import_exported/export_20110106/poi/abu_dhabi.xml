@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-pois vendor="timeout" modified="2011-01-06T07:51:42">
+  <entry vpid="AUH000000000000000000000000063058" lang="en" modified="2011-01-06T07:51:42">
+    <geo-position>
+      <longitude>54.49126400</longitude>
+      <latitude>24.40961000</latitude>
+    </geo-position>
+    <name><![CDATA[Sho Cho]]></name>
+    <category><![CDATA[dance-night-club]]></category>
+    <address>
+      <street><![CDATA[Between the Bridges]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Bain Al Jessrain]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 558 1117</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Sho Cho]]></name>
+      <address>
+        <street><![CDATA[Between the Bridges]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Bain Al Jessrain]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Nightclub]]></vendor-category>
+        <description><![CDATA[Trendy furnishings and splashes of neon set the scene at this stylish outdoor bar]]></description>
+        <openingtimes><![CDATA[Open daily 6pm-11.45pm]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/bars/reviews/6471-sho-cho]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063060" lang="en" modified="2011-01-06T07:51:42">
+    <geo-position>
+      <longitude>54.49126400</longitude>
+      <latitude>24.40971000</latitude>
+    </geo-position>
+    <name><![CDATA[Left Bank]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Between the Bridges]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Bain Al Jessrain]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 558 1680</phone>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Left Bank]]></name>
+      <address>
+        <street><![CDATA[Between the Bridges]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Bain Al Jessrain]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars]]></vendor-category>
+        <description><![CDATA[Left Bank’s interior feels like it could belong to a spaceship in a 60s sci-fi flick]]></description>
+        <openingtimes><![CDATA[Open Sun-Thu 5pm-1am; Fri-Sat noon-1am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/bars/reviews/6467-left-bank]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063067" lang="en" modified="2011-01-06T07:51:42">
+    <geo-position>
+      <longitude>54.38447200</longitude>
+      <latitude>24.49757400</latitude>
+    </geo-position>
+    <name><![CDATA[Trader Vic's]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Tourist Club Area]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Tourist Club Area]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 697 9000</phone>
+      <email><![CDATA[tradervics.beach@rotana.com]]></email>
+      <url>http://www.tradervics.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Trader Vic's]]></name>
+      <address>
+        <street><![CDATA[Tourist Club Area]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Tourist Club Area]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars]]></vendor-category>
+        <description><![CDATA[Popular cocktail bar is guaranteed to be busy]]></description>
+        <openingtimes><![CDATA[Open daily 12.30pm-3pm, 7pm-midnight]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/bars/reviews/4836-trader-vics]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063068" lang="en" modified="2011-01-06T07:51:42">
+    <geo-position>
+      <longitude>55.74852400</longitude>
+      <latitude>24.21826900</latitude>
+    </geo-position>
+    <name><![CDATA[Trader  Vic's]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Zayed Bin Sultan Street]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Ain]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 3 754 5111</phone>
+      <email><![CDATA[alain.tradervics@rotana.com]]></email>
+      <url>http://www.tradervics.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Trader  Vic's]]></name>
+      <address>
+        <street><![CDATA[Zayed Bin Sultan Street]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Ain]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars]]></vendor-category>
+        <description><![CDATA[The only outlet of its kind in Al Ain. A Cuban band plays some toe-tapping Spanish-Latin music]]></description>
+        <openingtimes><![CDATA[Open daily 12.30pm-1am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/bars/reviews/4835-trader-vics]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AUH000000000000000000000000063071" lang="en" modified="2011-01-06T07:51:42">
+    <geo-position>
+      <longitude>54.36525300</longitude>
+      <latitude>24.49846800</latitude>
+    </geo-position>
+    <name><![CDATA[Tambayan]]></name>
+    <category><![CDATA[bar-pub]]></category>
+    <address>
+      <street><![CDATA[Corniche Road]]></street>
+      <city><![CDATA[Abu Dhabi]]></city>
+      <district><![CDATA[Al Markaziyah]]></district>
+      <country>ARE</country>
+    </address>
+    <contact>
+      <phone>+971 2 679 4777</phone>
+      <email><![CDATA[aphsales@emirates.net.ae]]></email>
+      <url>http://www.alainpalacehotel.com</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Tambayan]]></name>
+      <address>
+        <street><![CDATA[Corniche Road]]></street>
+        <city><![CDATA[Abu Dhabi]]></city>
+        <district><![CDATA[Al Markaziyah]]></district>
+        <country>ARE</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Bars]]></vendor-category>
+        <description><![CDATA[Bizarre small bar which is decked out in a car theme. If you look up at the ceiling, there are bits of car bonnets and all sorts. Middle of the road trio sing]]></description>
+        <openingtimes><![CDATA[Open daily noon-2am]]></openingtimes>
+        <property key="Timeout_link"><![CDATA[http://www.timeoutabudhabi.com/bars/reviews/4832-tambayan]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Nightlife]]></property>
+      </content>
+    </version>
+  </entry>
+</vendor-pois>
