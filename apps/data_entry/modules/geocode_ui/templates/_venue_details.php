@@ -49,10 +49,10 @@
 
   <tr class="sf_admin_form_row sf_admin_text sf_admin_filter_field_name">
     <td>
-        <label for="t_venue_details_address3">Street Name</label>
+        <label for="t_venue_details_address3">Additional Address Details</label>
     </td>
     <td>
-        <input id="t_venue_details_address3"  readonly="true" value="" />
+        <textarea id="t_venue_details_address3" readonly="true"></textarea>
     </td>
   </tr>
 
