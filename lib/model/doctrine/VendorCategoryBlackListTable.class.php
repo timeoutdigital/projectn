@@ -63,6 +63,7 @@ class VendorCategoryBlackListTable extends Doctrine_Table
                             $category_name,
                             $category_name,
                             $category_name,
+                            $category_name,
                             $category_name
                         ) )
                     ->fetchArray();
