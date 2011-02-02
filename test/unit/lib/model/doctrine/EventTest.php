@@ -343,8 +343,8 @@ class EventTest extends PHPUnit_Framework_TestCase
       $categoryTable = Doctrine::getTable( 'VendorEventCategory' )->findAll();
 
       $this->assertEquals('empty 1' , $categoryTable[0]['name']);
-      $this->assertEquals('empty2  | empty 3' , $categoryTable[1]['name']);
-      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[2]['name']);
+      $this->assertEquals('empty2 | empty 3' , $categoryTable[1]['name']);
+      $this->assertEquals('empty 4 | empty 5' , $categoryTable[2]['name']);
 
       // Object Exception!
       try{
@@ -696,6 +696,17 @@ class EventTest extends PHPUnit_Framework_TestCase
        // add 1 valid | invalid, but the valid already exists!
        $mockEvent->mockAddVendorCategory( 'Agenda | Music' );
        $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+   }
+
+   // #911 test addVendorCategory() only adds Unqiue category when given as array
+   public function testUniqueCategory()
+   {
+       $categories = array( 'Other', 'Music', 'Other' );
+       $event = new Event;
+       $event->addVendorCategory( $categories, 1 );
+       $this->assertEquals( 1, $event['VendorEventCategory']->count() );
+       $this->assertEquals( 'Other | Music', $event['VendorEventCategory']['Other | Music']['name'] );
+       $this->assertEquals( 1, $event['VendorEventCategory']['Other | Music']['vendor_id'] );
    }
 
 }

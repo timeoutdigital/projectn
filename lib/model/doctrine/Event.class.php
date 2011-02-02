@@ -209,7 +209,7 @@ class Event extends BaseEvent
     if( !is_array($name) )
         $name = array( $name );
     // require HTML cleaning before storing into Database
-    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', array_unique( $name ) ) );
 
     // #909 Pass categories as array to Filter black listed categories
     // insted of cleaning html_entity_decode each category, I used Implode -> clean -> explode to filter black listed categories
