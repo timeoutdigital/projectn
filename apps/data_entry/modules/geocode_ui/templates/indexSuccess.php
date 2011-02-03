@@ -7,10 +7,10 @@
 
   <div id="sf_admin_header">
     <?php include_partial('geocode_ui/list_header', array('pager' => $pager)) ?>
+    <?php include_partial('geocode_ui/filters', array('form' => $filters, 'configuration' => $configuration)) ?>
   </div>
 
-  <div id="sf_admin_content" style="clear:both; overflow:auto;">
-    <?php include_partial('geocode_ui/filters', array('form' => $filters, 'configuration' => $configuration)) ?>
+  <div id="sf_admin_content">
     <form action="<?php echo url_for('geocode_ui_collection', array('action' => 'batch')) ?>" method="post">
     <?php include_partial('geocode_ui/list', array('pager' => $pager, 'sort' => $sort, 'helper' => $helper)) ?>
     <ul class="sf_admin_actions">

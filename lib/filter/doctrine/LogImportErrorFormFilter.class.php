@@ -12,5 +12,9 @@ class LogImportErrorFormFilter extends BaseLogImportErrorFormFilter
 {
   public function configure()
   {
+    if (isset($this->widgetSchema['log_import_id']))
+    {
+        $this->widgetSchema['log_import_id']->setOption( 'order_by', array('id', 'desc')  );
+    }
   }
 }

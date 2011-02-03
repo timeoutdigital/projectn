@@ -7,7 +7,7 @@
 
   <div id="sf_admin_header">
     <?php include_partial('geocode_ui/list_header', array('pager' => $pager)) ?>
-     <?php include_partial('geocode_ui/filters', array('form' => $filters, 'configuration' => $configuration)) ?>
+    <?php include_partial('geocode_ui/filters', array('form' => $filters, 'configuration' => $configuration)) ?>
   </div>
 
   <div id="sf_admin_content">

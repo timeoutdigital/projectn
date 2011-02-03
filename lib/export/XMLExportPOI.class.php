@@ -149,6 +149,17 @@ class XMLExportPOI extends XMLExport
           }
       }
 
+      // Check each POI's 
+      $poiUICategories = $this->getPoiUiCategories( $poi );
+      if( $this->validation == true &&
+              in_array( 'Eating & Drinking', $poiUICategories ) && 
+              stringTransform::mb_trim( $poi['description'] ) == '' &&
+              stringTransform::mb_trim( $poi['short_description'] ) == '' )
+      {
+          ExportLogger::getInstance()->addError( 'Skip Export for Pois because of empty description and short description linking to Eating & Drinking UI category', 'Poi', $poi[ 'id' ] );
+          continue;
+      }
+
       $entryElement = $this->appendRequiredElement( $rootElement, 'entry' );
       $entryElement->setAttribute( 'vpid', $this->generateUID( $poi['id'] ) );
       $langArray = explode('-',$this->vendor['language']);
@@ -281,22 +292,42 @@ class XMLExportPOI extends XMLExport
       }
 
       // UI Category Exports.
-      $avoidDuplicateUiCategories = array();
-      foreach( $poi['VendorPoiCategory'] as $vendorCat )
-        foreach( $vendorCat['UiCategory'] as $uiCat )
-           if( isset( $uiCat['name'] ) )
-            if( !in_array( (string) $uiCat['name'], $avoidDuplicateUiCategories ) )
-            {
-                $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', (string) $uiCat['name'], XMLExport::USE_CDATA );
-                $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
-                $avoidDuplicateUiCategories[] = (string) $uiCat['name'];
-            }
+      foreach( $poiUICategories as $uiCat )
+      {
+          $propertyElement = $this->appendNonRequiredElement( $contentElement, 'property', $uiCat, XMLExport::USE_CDATA );
+          $propertyElement->setAttribute( 'key', 'UI_CATEGORY' );
+      }
 
       ExportLogger::getInstance()->addExport( 'Poi', $poi['id'] );
 
     }
 //    ExportLogger::getInstance()->showErrors();
     return $domDocument;
+  }
+
+  /**
+   * Go through vendor poi category and get mapped UI categories... Onmly return UNIQUE ui categories
+   * @param Poi $poi
+   * @return array
+   */
+  private function getPoiUiCategories( Poi $poi )
+  {
+      $foundUICategories = array();
+      foreach( $poi['VendorPoiCategory'] as $vendorCat )
+      {
+          foreach( $vendorCat['UiCategory'] as $uiCat )
+          {
+            if( isset( $uiCat['name'] ) )
+            {
+                if( !in_array( (string) $uiCat['name'], $foundUICategories ) )
+                {
+                    $foundUICategories[] = (string) $uiCat['name'];
+                }
+            }
+          }
+      }
+
+      return $foundUICategories;
   }
 
   private function getPoiCategories( &$poi )

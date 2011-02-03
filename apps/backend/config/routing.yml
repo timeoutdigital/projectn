@@ -1,3 +1,21 @@
+log_export_error:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                LogExportError
+    module:               log_export_error
+    prefix_path:          /log_export_error
+    column:               id
+    with_wildcard_routes: true
+
+log_import_error:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                LogImportError
+    module:               log_import_error
+    prefix_path:          /log_import_error
+    column:               id
+    with_wildcard_routes: true
+
 poi_duplicate_pois:
   class: sfDoctrineRouteCollection
   options:

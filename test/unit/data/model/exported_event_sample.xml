@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2011-01-14T08:58:21">
+  <event id="AMS000000000000000000000000171747" modified="2011-01-14T08:58:21">
+    <name><![CDATA[Electronica: Darkstar]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Electronica: Darkstar]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Dubstep is the starting point for the music of British collective Darkstar, but it is not exclusively aimed at the dance floor. The successful single ‘Aidy’s Girl is a Computer’ preceded the emotionally charged synth-pop on their debut album North. Singer James Buttery plays an important role on the new album with his haunting vocals forming the backbone of many songs.]]></description>
+      <price><![CDATA[€ 16]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="AMS000000000000000000000000075553">
+        <occurrence>
+          <time>
+            <start_date>2011-01-14</start_date>
+            <event_time>21:30:00</event_time>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="AMS000000000000000000000000171748" modified="2011-01-14T08:58:21">
+    <name><![CDATA[Jazz: Denis Colin]]></name>
+    <category>concerts</category>
+    <version lang="en">
+      <name><![CDATA[Jazz: Denis Colin]]></name>
+      <vendor-category><![CDATA[Rock & pop Music]]></vendor-category>
+      <description><![CDATA[Denis Colin is an inventive soloist on the bass clarinet, whose collaborations include work with Archie Shepp and Alan Silva. His band La Société des Arpenteurs (The Society of Surveyors) explores musical territories beyond jazz, incorporating funk influences as well as Eastern and African musical traditions.]]></description>
+      <price><![CDATA[€ 15]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Music]]></property>
+    </version>
+    <showtimes>
+      <place place-id="AMS000000000000000000000000075553">
+        <occurrence>
+          <time>
+            <start_date>2011-01-15</start_date>
+            <event_time>20:30:00</event_time>
+            <utc_offset>+01:00</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

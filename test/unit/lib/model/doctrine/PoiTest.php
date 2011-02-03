@@ -697,13 +697,9 @@ class PoiTest extends PHPUnit_Framework_TestCase
    public function testDoctrineBugSelfReference()
    {
 
-       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
-       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
-       ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
-
-       $poi1 = Doctrine::getTable( 'Poi' )->findOneByPoiName( 'poi 1' );
-       $poi2 = Doctrine::getTable( 'Poi' )->findOneByPoiName( 'poi 2' );
-       $poi3 = Doctrine::getTable( 'Poi' )->findOneByPoiName( 'poi 3' );
+       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
+       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
+       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
 
        // Link POI 1 -> POI 2
        $poi1['DuplicatePois'][0] = $poi2;
@@ -745,6 +741,46 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( $poi2['id'], $referenceTable[0]['duplicate_poi_id']);
        $this->assertEquals( $poi3['id'], $referenceTable[1]['duplicate_poi_id']);
    }
+
+
+   public function testDoctrineBugSelfReferenceUpdateMaster()
+   {
+       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
+       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
+       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
+
+       $poi1['DuplicatePois'][0] = $poi2;
+       $poi1['DuplicatePois'][1] = $poi3;
+       $poi1->save();
+       $poi1['poi_name'] = 'updated master poi name';
+       $poi1->save();
+       
+       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
+   }
+
+   public function testDoctrineBugSelfReferenceUpdateDuplicate()
+   {
+       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
+       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
+       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
+
+       $poi1['DuplicatePois'][0] = $poi2;
+       $poi1['DuplicatePois'][1] = $poi3;
+
+       $poi1->save();
+
+       $poi2['poi_name'] = 'updated duplicate poi name';
+       $poi2->save();
+
+       // proof that each POI 2 and 3 duplicate of POI 1 and POI 1 is the master poi of Poi 2 & 3
+       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
+       $this->assertEquals( $poi2['id'], $poi1['DuplicatePois'][0]['id'] );
+       $this->assertEquals( $poi3['id'], $poi1['DuplicatePois'][1]['id'] );
+       // Reverse lookup
+       $this->assertEquals( $poi1['id'], $poi2['MasterPoi'][0]['id'] );
+       $this->assertEquals( $poi1['id'], $poi3['MasterPoi'][0]['id'] );
+   }
+
 }
 
 class MockgeocoderForPoiTest extends geocoder
