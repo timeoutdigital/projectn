@@ -611,4 +611,19 @@ class stringTransform
   {
       return mb_ereg_replace( "\n+", "\n", $string );
   }
+
+  /**
+   * Validate Exported Record ID
+   * @param string $recordID
+   * @return boolean
+   */
+  static public function isValidExportRecordID( $recordID )
+  {
+      if( preg_match( '#^[A-Z]{3}[0-9]{30}$#', $recordID ) == 0 )
+      {
+          return false;
+      }
+
+      return true;
+  }
 }

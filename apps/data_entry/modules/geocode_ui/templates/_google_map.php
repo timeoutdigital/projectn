@@ -1,4 +1,4 @@
-<div id="google-map" style="width:700px; height:400px;float:left;margin-right:15px"></div>
+<div id="google-map" style="width:645px; height:400px;float:left;"></div>
 <script language="JavaScript" type="text/javascript">
 //<![CDATA[
     var map ;

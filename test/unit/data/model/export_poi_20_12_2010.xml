@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-pois vendor="timeout" modified="2010-12-20T08:14:41">
+  <entry vpid="TSN000000000000000000000000000001" lang="zh" modified="2010-12-20T08:14:41">
+    <vendor-category><![CDATA[Around Town]]></vendor-category>
+    <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
+  </entry>
+  <entry vpid="TSN000000000000000000000000000002" lang="zh" modified="2010-12-20T08:14:41">
+    <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+    <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+ </entry>
+ <entry vpid="TSN000000000000000000000000000003" lang="zh" modified="2010-12-20T08:14:41">
+    <vendor-category><![CDATA[Eating & Drinking]]></vendor-category>
+    <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
+  </entry>
+  <entry vpid="TSN000000000000000000000000000004" lang="zh" modified="2010-12-20T08:14:41">
+    <vendor-category><![CDATA[NO CAT]]></vendor-category>
+    <property key="UI_CATEGORY"><![CDATA[NO CAT]]></property>
+  </entry>
+  <entry vpid="TSN000000000000000000000000000005" lang="zh" modified="2010-12-20T08:14:41">
+    <vendor-category><![CDATA[Film]]></vendor-category>
+    <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+  </entry>
+</vendor-pois>

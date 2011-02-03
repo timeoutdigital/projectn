@@ -12,4 +12,8 @@
  */
 class LogExport extends BaseLogExport
 {
+   public function getName()
+   {
+        return $this['created_at'] . ' / ' . $this['Vendor']['name'] . ' (' . $this['status'] . ')';
+   }
 }
