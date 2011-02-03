@@ -643,6 +643,37 @@ GeoWhiteList:
     lat_index:                  {fields: [latitude]}
     long_index:                 {fields: [longitude]}
 
+ExportedItem:
+  connection: project_n
+  actAs:
+    Timestampable:
+      updated:
+        disabled: true
+  columns:
+    model:                      {type: enum, notnull: true, values: [poi, event, movie] }
+    vendor_id:                  {type: integer,    notnull: true}
+    record_id:                  {type: integer,    notnull: true}
+  indexes:
+    ei_model_index:             {fields: [model]}
+    ei_vendor_id_index:         {fields: [vendor_id]}
+    ei_record_id_index:         {fields: [record_id]}
+
+ExportedItemHistory:
+  connection: project_n
+  actAs:
+    Timestampable:
+      updated:
+        disabled: true
+  columns:
+    exported_item_id:           {type: integer, notnull: true}
+    field:                      {type: string(100), notnull: true}
+    value:                      {type: string(65535), notnull: false}
+  relations:
+    ExportedItem:               {local: exported_item_id, foreign: id}
+  indexes:
+    eim_field_index:            {fields: [field]}
+    eim_exported_item_id_index: {fields: [exported_item_id]}
+
 PoiReference:
   connection: project_n
   columns:

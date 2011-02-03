@@ -54,6 +54,20 @@ class stringTransformTest extends PHPUnit_Framework_TestCase {
   protected function setUp() {
   }
 
+  public function testIsValidRecordID()
+  {
+      $this->assertFalse( stringTransform::isValidExportRecordID( 'ABC' ));
+      $this->assertFalse( stringTransform::isValidExportRecordID( '18725' ));
+      $this->assertFalse( stringTransform::isValidExportRecordID( '' ));
+      $this->assertFalse( stringTransform::isValidExportRecordID( null ));
+      $this->assertFalse( stringTransform::isValidExportRecordID( 'ABCC00000000000000000000000000123' ));
+      $this->assertFalse( stringTransform::isValidExportRecordID( 'AB0000000000000000000000000000123' ));
+      $this->assertFalse( stringTransform::isValidExportRecordID( 'ABC00000000000000000000000B000123' ));
+
+      // vaid
+      $this->assertTrue( stringTransform::isValidExportRecordID( 'ABC000000000000000000000000000123' ));
+  }
+
   public function testByteToHumanReadable()
   {
       // valid test

@@ -1,6 +1,5 @@
 <?php use_helper('jQuery'); ?>
 <script type="text/javascript" src="/js/dygraph-combined.js"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/global.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="/sfDoctrinePlugin/css/default.css" />
 
 <ul>
@@ -38,6 +37,7 @@
             alert( 'Please wait while loading last request...' );
             return;
         }
+
         // Clear existing
         for( var i in vendorIDs )
             jQuery( '#graph_container_' + vendorIDs[i] ).html( 'waiting...' );

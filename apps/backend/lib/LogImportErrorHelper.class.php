@@ -8,21 +8,33 @@ class LogImportErrorHelper
     const MSG_INVALID_REQUEST       = 'Import Error ID Not Numeric';
     const MSG_NO_MATCHING_DB_RECORD = 'No Matching Database Record Found';
 
+    /**
+     * Returns an array with the merged record as well as the values before 
+     * the merge
+     *
+     * @param sfActions $action
+     * @param sfRequest $request
+     * @return array
+     */
     public static function getMergedObject( &$action, &$request )
     {
-        if( is_numeric( $importErrorId = $request->getGetParameter( 'import_error_id' ) ) || is_numeric( $importErrorId = $request->getPostParameter( 'poi[import_error_id]' ) ) )
+        //@todo this if is not very nice, improvable??
+        if( is_numeric( $importErrorId = $request->getGetParameter( 'import_error_id' ) ) ||
+            is_numeric( $importErrorId = $request->getPostParameter( 'poi[import_error_id]' ) ) ||
+            is_numeric( $importErrorId = $request->getPostParameter( 'event[import_error_id]' ) ) ||
+            is_numeric( $importErrorId = $request->getPostParameter( 'movie[import_error_id]' ) ) )
         {
-            $logImportRecord = Doctrine::getTable( 'LogImportError' )->findOneById( $importErrorId );
+            $logImportErrorRecord = self::getLogImportErrorRecordByErrorId( $importErrorId );
 
-            if( is_object( $logImportRecord ) && $logImportRecord instanceof LogImportError && isset( $logImportRecord[ 'serialized_object' ] ) )
+            if( is_object( $logImportErrorRecord ) && $logImportErrorRecord instanceof LogImportError && isset( $logImportErrorRecord[ 'serialized_object' ] ) )
             {
-                $serializedObj = unserialize( $logImportRecord[ 'serialized_object' ] );
+                $serializedObj = unserialize( $logImportErrorRecord[ 'serialized_object' ] );
 
                 if( is_object( $serializedObj ) && $serializedObj instanceof Doctrine_Record )
                 {
                     $vendorReferenceColumn = 'vendor_' . strtolower( get_class( $serializedObj ) ) . '_id';
 
-                    if( isset( $serializedObj[ $vendorReferenceColumn ] ) && is_numeric( $serializedObj[ $vendorReferenceColumn ] ) &&
+                    if( isset( $serializedObj[ $vendorReferenceColumn ] ) && !empty( $serializedObj[ $vendorReferenceColumn ] ) &&
                         isset( $serializedObj[ 'vendor_id' ] ) && is_numeric( $serializedObj[ 'vendor_id' ] ) )
                     {
                         $record = Doctrine::getTable( get_class( $serializedObj ) )
@@ -68,18 +80,35 @@ class LogImportErrorHelper
         return array( 'record' => isset( $mergedRecord ) ? $mergedRecord : null, 'previousValues' => isset( $valuesBeforeMerge ) ? $valuesBeforeMerge : array() );
     }
 
-    public static function getErrorObject( $importErrorId )
+    /**
+     * Returns the unserialized Error Object By Log Import Error ID
+     * 
+     * @param integer $importErrorId
+     * @return Doctrine_Record 
+     */
+    public static function getErrorObjectByImportErrorId( $importErrorId )
     {
-        if ( is_numeric( $importErrorId ) )
+        $logImportErrorRecord = self::getLogImportErrorRecordByErrorId( $importErrorId );
+        
+        if ( $logImportErrorRecord !== false )
         {
-            $logImportRecord = Doctrine::getTable( 'LogImportError' )->findOneById( $importErrorId );
-
-            if( is_object( $logImportRecord ) && $logImportRecord instanceof LogImportError && isset( $logImportRecord[ 'serialized_object' ] ) )
-            {
-                return unserialize( $logImportRecord[ 'serialized_object' ] );
-            }
+            return $logImportErrorRecord[ 'errorObject' ];
         }
         return false;
     }
 
+    /**
+     * Returns the Log Import Error Record by ID
+     * 
+     * @param integer $importErrorId
+     * @return Doctrine_Record 
+     */
+    public static function getLogImportErrorRecordByErrorId( $importErrorId )
+    {
+        if ( is_numeric( $importErrorId ) )
+        {
+            return Doctrine::getTable( 'LogImportError' )->findOneById( $importErrorId );
+        }
+        return false;
+    }
 }

@@ -466,7 +466,8 @@ class Poi extends BasePoi
   */
   public function preSave( $event )
   {
-    $this->applyFixes();
+      $this->refreshRelated( 'MasterPoi' );
+      $this->applyFixes();
   }
 
   /**
