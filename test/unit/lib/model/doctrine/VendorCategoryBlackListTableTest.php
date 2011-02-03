@@ -45,19 +45,6 @@ class VendorCategoryBlackListTableTest extends PHPUnit_Framework_TestCase
         ProjectN_Test_Unit_Factory::destroyDatabases();
     }
 
-    public function testGetCategoryNameInArrayBy()
-    {
-        $this->assertEquals( 5, Doctrine::getTable( 'VendorCategoryBlackList' )->count() );
-        // add another for Different vendor
-        ProjectN_Test_Unit_Factory::add( 'vendorcategoryblacklist', array( 'name' => 'Different vendor', 'vendor_id' => 2 ) );
-        $this->assertEquals( 6, Doctrine::getTable( 'VendorCategoryBlackList' )->count() );
-
-        $nameArray = Doctrine::getTable( 'VendorCategoryBlackList' )->getCategoryNameInArrayBy( 1 ); // get names by Vendor ID
-        $this->assertTrue( is_array( $nameArray ) );
-        $this->assertEquals( 5, count( $nameArray ) );
-        $this->assertEquals( 'Other', $nameArray[0] );
-    }
-    
     public function testFilterByCategoryBlackList()
     {
         $invaidCategories = array( 'Test', 'Other' );
