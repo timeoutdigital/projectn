@@ -184,10 +184,10 @@ class fixVendorCategoriesTask extends sfBaseTask
       
       foreach( $vendorModelRecords as $record )
       {
+          $this->logSection( $model, 'Processing Record: ' . $record['id'] );
+          
           foreach( $record[$vendorModelCategory] as $vendorCategory )
-          {
-              $this->logSection( $model, 'Processing Record: ' . $record['id'] );
-              
+          {              
               // split them into single category as BlackList takes array of categories
               $categoryArray = explode('|', $vendorCategory['name'] );
               $cleanCategories = $tblBlackList->filterByCategoryBlackList( $vendor['id'], $categoryArray );
