@@ -110,7 +110,8 @@ class ProjectN_Test_Unit_Factory
       'logexport'           => 'LogExportFixture',
       'logexportcount'      => 'LogExportCountFixture',
       'uicategory'          => 'UiCategoryFixture',
-      'logexporterror'      => 'LogExportErrorFixture'
+      'logexporterror'      => 'LogExportErrorFixture',
+       'vendorcategoryblacklist' => 'VendorCategoryBlackListFixture',
     );
 
     $model = strtolower( $model );
@@ -188,6 +189,36 @@ class ProjectN_Test_Unit_Factory
       $guiseObject->save();
 
       return $guiseObject;
+  }
+}
+
+class VendorCategoryBlackListFixture
+{
+  static public function create( $data=null, $autoCreateRelatedObjects=true )
+  {
+    $defaults =array(
+                    'name' => 'Other',
+                    'vendor_id' => 1,
+                    'match_left' => false,
+                    'match_right' => false
+                    );
+
+    if( is_array( $data ) )
+    {
+        $defaults = array_merge( $defaults, $data );
+    }
+    if( $autoCreateRelatedObjects )
+    {
+        if( Doctrine::getTable( 'Vendor' )->count() < 1  )
+        {
+            ProjectN_Test_Unit_Factory::add( 'Vendor' );
+        }
+    }
+
+    $blackList = new VendorCategoryBlackList();
+    $blackList->fromArray( $defaults );
+
+    return $blackList;
   }
 }
 

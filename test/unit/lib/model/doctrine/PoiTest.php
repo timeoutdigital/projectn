@@ -303,8 +303,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       // Bootstrap adding a default 'test name' category as First
       $this->assertEquals('empty 1' , $categoryTable[1]['name']);
-      $this->assertEquals('empty2  | empty 3' , $categoryTable[2]['name']);
-      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[3]['name']);
+      $this->assertEquals('empty2 | empty 3' , $categoryTable[2]['name']);
+      $this->assertEquals('empty 4 | empty 5' , $categoryTable[3]['name']);
 
       // Object Exception!
       try{
@@ -742,6 +742,31 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( $poi3['id'], $referenceTable[1]['duplicate_poi_id']);
    }
 
+   public function testAddVendorCategory_BlackListedCategory()
+   {
+       // add Black list
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Agenda'));
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Sábado'));
+
+       // Test that MOCK Poi can add vendor category
+       $mockPoi = new MockPoi;
+       $mockPoi['vendor_id'] = 1; // required for category
+       $mockPoi->mockAddVendorCategory( 'Music' );
+       $this->assertEquals( 1, $mockPoi['VendorPoiCategory']->count() );
+
+       // add 1 with Valid | Invalid name
+       $mockPoi->mockAddVendorCategory( array( 'Theatre', 'Sábado') );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
+       $this->assertEquals( 'Theatre', $mockPoi['VendorPoiCategory'][1]['name'] );
+
+       // add Invalid and it should not be added
+       $mockPoi->mockAddVendorCategory( array('Sábado') );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
+
+       // add 1 valid | invalid, but the valid already exists!
+       $mockPoi->mockAddVendorCategory( 'Agenda | Music' );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
+   }
 
    public function testDoctrineBugSelfReferenceUpdateMaster()
    {
@@ -779,6 +804,16 @@ class PoiTest extends PHPUnit_Framework_TestCase
        // Reverse lookup
        $this->assertEquals( $poi1['id'], $poi2['MasterPoi'][0]['id'] );
        $this->assertEquals( $poi1['id'], $poi3['MasterPoi'][0]['id'] );
+   }
+
+   // #911 test addVendorCategory() only adds Unqiue category when given as array
+   public function testUniqueCategory()
+   {
+       $categories = array( 'Other', 'Music', 'Other' );
+       $poi = new MockPoi;
+       $poi->addVendorCategory( $categories, 1 );
+       $this->assertEquals( 1, $poi['VendorPoiCategory']->count() );
+       $this->assertEquals( 'Other | Music', $poi['VendorPoiCategory'][0]['name'] );
    }
 
 }
@@ -854,5 +889,13 @@ class MockgeocoderForPoiTestReturnNulllatLong extends MockgeocoderForPoiTest
     public function getLatitude()
     {
         return null;
+    }
+}
+
+class MockPoi extends Poi{
+
+    // Make add vendor category public,
+    public function  mockAddVendorCategory($name, $vendorId = null) {
+        parent::addVendorCategory($name, $vendorId);
     }
 }

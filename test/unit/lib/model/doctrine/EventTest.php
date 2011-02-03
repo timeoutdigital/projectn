@@ -343,8 +343,8 @@ class EventTest extends PHPUnit_Framework_TestCase
       $categoryTable = Doctrine::getTable( 'VendorEventCategory' )->findAll();
 
       $this->assertEquals('empty 1' , $categoryTable[0]['name']);
-      $this->assertEquals('empty2  | empty 3' , $categoryTable[1]['name']);
-      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[2]['name']);
+      $this->assertEquals('empty2 | empty 3' , $categoryTable[1]['name']);
+      $this->assertEquals('empty 4 | empty 5' , $categoryTable[2]['name']);
 
       // Object Exception!
       try{
@@ -670,6 +670,51 @@ class EventTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( null , $event['review_date']);
    }
 
+   public function testAddVendorCategory_BlackListedCategory()
+   {
+       // add Black list
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Agenda'));
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Sábado'));
+
+       // Test that MockEvent can add vendor category
+       $mockEvent = new MockEvent;
+       $mockEvent['vendor_id'] = 1; // required for category
+       $mockEvent->mockAddVendorCategory( 'Music' );
+       $this->assertEquals( 1, $mockEvent['VendorEventCategory']->count() );
+
+       // add 1 with Valid | Invalid name
+       $mockEvent->mockAddVendorCategory( array( 'Theatre', 'Sábado') );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+       $this->assertEquals( 'Theatre', $mockEvent['VendorEventCategory']['Theatre']['name'] );
+       $this->assertEquals( 1, $mockEvent['VendorEventCategory']['Theatre']['vendor_id'], 'Match vendor ID to see this is not the Default doctrine fall back category when Key set to "name"' );
+       
+
+       // add Invalid and it should not be added
+       $mockEvent->mockAddVendorCategory( array('Sábado') );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+
+       // add 1 valid | invalid, but the valid already exists!
+       $mockEvent->mockAddVendorCategory( 'Agenda | Music' );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+   }
+
+   // #911 test addVendorCategory() only adds Unqiue category when given as array
+   public function testUniqueCategory()
+   {
+       $categories = array( 'Other', 'Music', 'Other' );
+       $event = new Event;
+       $event->addVendorCategory( $categories, 1 );
+       $this->assertEquals( 1, $event['VendorEventCategory']->count() );
+       $this->assertEquals( 'Other | Music', $event['VendorEventCategory']['Other | Music']['name'] );
+       $this->assertEquals( 1, $event['VendorEventCategory']['Other | Music']['vendor_id'] );
+   }
+
 }
 
+class MockEvent extends event
+{
+    public function  mockAddVendorCategory($name, $vendorId = null) {
+        parent::addVendorCategory($name, $vendorId);
+    }
+}
 ?>
