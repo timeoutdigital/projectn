@@ -14,7 +14,8 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display: [ _vendor, name, match_left, match_right ]
       filter:  ~
       form:    ~
       edit:    ~
