@@ -31,7 +31,7 @@ class ExportStatsDateRangeSelectionForm extends BaseForm
         'date'    => new sfWidgetFormDateRange( array( 'from_date' => $dateWidgetFrom, 'to_date' => $dateWidgetTo ) )
     ));
 
-    $this->setDefault( 'date', array( 'from' => '-1 month', 'to' => 'today' ) );
+    $this->setDefault( 'date', array( 'from' => '-3 month', 'to' => 'today' ) );
 
     $this->widgetSchema->setFormFormatterName( 'list' );
   }
