@@ -51,8 +51,8 @@ class exportstatsActions extends sfActions
             $this->graphData[ date( 'Y-m-d', $timestamp ) ] = array( 'Poi' => 0, 'Event' => 0, 'Movie' => 0 );
         }
         
-        // get logs by date / vendor
-        $logs = Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecords( $this->vendor['id'],  $startDate, $endDate, Doctrine_Core::HYDRATE_ARRAY );
+        // get logs by date / vendor :: End date need to adjusted by +1 for between to match with DATE+TIME
+        $logs = Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecords( $this->vendor['id'],  $startDate, date('Y-m-d', ( strtotime($endDate) + 86400) ), Doctrine_Core::HYDRATE_ARRAY );
         
         // Convert to graph format
         foreach( $logs as $log )
