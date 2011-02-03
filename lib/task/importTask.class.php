@@ -70,9 +70,12 @@ class importTask extends sfBaseTask
 
     $this->config = sfYaml::load( $this->options['configFolder'] . DIRECTORY_SEPARATOR . str_replace( ' ', '_', $this->options['city'] ) . '.yml' );
     //Connect to the database.
+    
     $databaseManager = new sfDatabaseManager($this->configuration);
+
     Doctrine_Manager::getInstance()->setAttribute( Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL );
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
+    $connection->setAttribute(Doctrine_Core::ATTR_AUTO_FREE_QUERY_OBJECTS, true );
 
     $importer = new Importer();
 

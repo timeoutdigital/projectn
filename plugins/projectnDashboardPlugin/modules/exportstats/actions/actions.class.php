@@ -12,37 +12,58 @@ class exportstatsActions extends sfActions
 {
     public function executeIndex( sfWebRequest $request)
     {
-        $startDate  = strtotime("-120 days");
-        $endDate    = time();
+        $this->form = new ExportStatsDateRangeSelectionForm;
+        $this->a2zVendors = Doctrine::getTable( 'Vendor' )->findAllVendorsInAlphabeticalOrder( Doctrine_Core::HYDRATE_ARRAY );
+    }
 
-        $this->graphData = array();
+    public function  executeGraph( sfWebRequest $request )
+    {
+        $startDate  = date( 'Y-m-d', strtotime("-1 month") );
+        $endDate    = date( 'Y-m-d' );
 
-        foreach( Doctrine::getTable('Vendor')->findAll() as $vendor )
+        // Extract dates from request and generate UNIX time stamp
+        if( is_numeric( $request->getPostParameter('date_from_month') ) )
         {
-            $this->graphData[ $vendor['city'] ] = array();
-            
-            for( $timestamp=$startDate+86400; $timestamp<=$endDate; $timestamp+=86400 )
-            {
-                $this->graphData[ $vendor['city'] ][ date( 'Y-m-d', $timestamp ) ] = array( 'Poi' => 0, 'Event' => 0, 'Movie' => 0 );
-            }
+            // generate as yyyy/mm/dd HH:ii:ss
+            $startDate = $request->getPostParameter('date_from_year') . '-' .
+                    $request->getPostParameter('date_from_month') . '-' .
+                    $request->getPostParameter('date_from_day') ;
         }
 
-        $logs = Doctrine::getTable('LogExport')
-            ->createQuery('l')
-                ->leftJoin('l.Vendor v ON l.vendor_id = v.id')
-                ->leftJoin('l.LogExportCount c ON l.id = c.log_export_id')
-            ->where('UNIX_TIMESTAMP( l.created_at ) BETWEEN ? AND ?', array( $startDate, $endDate ) )
-            ->execute( array(), Doctrine::HYDRATE_ARRAY );
+        if( is_numeric( $request->getPostParameter('date_to_month') ) )
+        {
+            $endDate =  $request->getPostParameter('date_to_year') . '-' .
+                    $request->getPostParameter('date_to_month') . '-' .
+                    $request->getPostParameter('date_to_day');
+        }
 
+        $this->vendor = Doctrine::getTable( 'Vendor' )->find( $request->getPostParameter( 'vendor_id' ) );
+
+        if( $this->vendor === false )
+        {
+            throw new Exception( 'Invalid vendor ID' );
+        }
+        
+        // Init empty graph.
+        $this->graphData = array();
+        for( $timestamp=strtotime($startDate); $timestamp<=strtotime($endDate); $timestamp+=86400 )
+        {
+            $this->graphData[ date( 'Y-m-d', $timestamp ) ] = array( 'Poi' => 0, 'Event' => 0, 'Movie' => 0 );
+        }
+        
+        // get logs by date / vendor
+        $logs = Doctrine::getTable( 'LogExport' )->getLogExportWithCountRecords( $this->vendor['id'],  $startDate, $endDate, Doctrine_Core::HYDRATE_ARRAY );
+        
+        // Convert to graph format
         foreach( $logs as $log )
         {
             $logDate    = date( 'Y-m-d', strtotime( $log['created_at'] ) );
-            $logVendor  = $log['Vendor']['city'];
             
             foreach( $log['LogExportCount'] as $logCount )
             {
-                $this->graphData[ $logVendor ][ $logDate ][ $logCount['model'] ] = $logCount['count'];
+                $this->graphData[ $logDate ][ $logCount['model'] ] = $logCount['count'];
             }
         }
+
     }
 }

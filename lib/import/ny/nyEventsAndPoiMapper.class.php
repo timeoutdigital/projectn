@@ -117,128 +117,134 @@ class nyEventsAndPoiMapper extends nyFeedBaseMapper
      */
     public function insertPoi( SimpleXMLElement $poi )
     {
-        $poiObj = $this->getPoi($poi);
+        try{
+            $poiObj = $this->getPoi($poi);
 
 
-        $poiObj[ 'vendor_poi_id' ] = (string)  $poi['id'];
-        $poiObj[ 'poi_name' ] = (string) $poi->identifier;
-        $poiObj[ 'street' ] = (string) $poi->street;
-        $poiObj[ 'city' ] = (string) $poi->town;
-        $poiObj[ 'country' ] = 'USA';
-        $poiObj[ 'local_language' ] = substr( $this->vendor[ 'language' ], 0, 2 );
-        $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
-        $poiObj[ 'url' ] = stringTransform::formatUrl((string) $poi->website);
-        $poiObj[ 'vendor_id' ] = $this->vendor->getId();
+            $poiObj[ 'vendor_poi_id' ] = (string)  $poi['id'];
+            $poiObj[ 'poi_name' ] = (string) $poi->identifier;
+            $poiObj[ 'street' ] = (string) $poi->street;
+            $poiObj[ 'city' ] = (string) $poi->town;
+            $poiObj[ 'country' ] = 'USA';
+            $poiObj[ 'local_language' ] = substr( $this->vendor[ 'language' ], 0, 2 );
+            $poiObj[ 'additional_address_details' ] = (string) $poi->cross_street;
+            $poiObj[ 'url' ] = stringTransform::formatUrl((string) $poi->website);
+            $poiObj[ 'vendor_id' ] = $this->vendor->getId();
 
-        //Form and set phone number
-        $countryCodeString = (string) $poi->telephone->country_code;
-        $areaCodeString = (string) $poi->telephone->area_code;
-        $poiObj[ 'phone' ]  = $areaCodeString. (string) $poi->telephone->number;
-
-
-        //Full address String
-        $name = (string) $poi->identifier;
-        $street = (string) $poi->street;
-        $town = (string) $poi->town;
-        $country = (string) $poi->country_symbol;
-        $state = (string) $poi->state;
-        $suburb = (string) $poi->suburb;
-        $district = (string) $poi->district;
-
-        $addressString = "$name, $street, $district, $suburb, $town, $country, $state";
-
-        //Set geocoding address string
-        $poiObj->setgeocoderLookUpString($addressString);
+            //Form and set phone number
+            $countryCodeString = (string) $poi->telephone->country_code;
+            $areaCodeString = (string) $poi->telephone->area_code;
+            $poiObj[ 'phone' ]  = $areaCodeString. (string) $poi->telephone->number;
 
 
-        //deal with the "text-system" nodes
-        if ( isset( $poi->{'text_system'}->text ) )
-        {
-            foreach( $poi->{'text_system'}->text as $text )
+            //Full address String
+            $name = (string) $poi->identifier;
+            $street = (string) $poi->street;
+            $town = (string) $poi->town;
+            $country = (string) $poi->country_symbol;
+            $state = (string) $poi->state;
+            $suburb = (string) $poi->suburb;
+            $district = (string) $poi->district;
+
+            $addressString = "$name, $street, $district, $suburb, $town, $country, $state";
+
+            //Set geocoding address string
+            $poiObj->setgeocoderLookUpString($addressString);
+
+
+            //deal with the "text-system" nodes
+            if ( isset( $poi->{'text_system'}->text ) )
             {
-                switch( $text->{'text_type'} )
+                foreach( $poi->{'text_system'}->text as $text )
                 {
-                    case 'Venue Blurb':
-                        $poiObj[ 'description' ] = (string) $text->content;
-                        break;
-                    case 'Approach Descriptions':
-                        $poiObj[ 'public_transport_links' ] = (string) $text->content;
-                        break;
-                    case 'Web Keywords':
-                        $poiObj[ 'keywords' ] = (string) $text->content;
-                        break;
+                    switch( $text->{'text_type'} )
+                    {
+                        case 'Venue Blurb':
+                            $poiObj[ 'description' ] = (string) $text->content;
+                            break;
+                        case 'Approach Descriptions':
+                            $poiObj[ 'public_transport_links' ] = (string) $text->content;
+                            break;
+                        case 'Web Keywords':
+                            $poiObj[ 'keywords' ] = (string) $text->content;
+                            break;
+                    }
                 }
             }
-        }
 
-        // I deleted a $poiObj->save from here, not sure why there are 2 - pj 4-jun-10
+            // I deleted a $poiObj->save from here, not sure why there are 2 - pj 4-jun-10
 
-        //Loop throught the prices node
-        if ( isset( $poi->prices ) )
-        {
-            foreach( $poi->prices->children() as $priceId )
+            //Loop throught the prices node
+            if ( isset( $poi->prices ) )
             {
-                foreach( $priceId->children() as $price )
+                foreach( $poi->prices->children() as $priceId )
                 {
-                    if ( $price->getName() == 'general_remark')
+                    foreach( $priceId->children() as $price )
                     {
-                        $poiObj->addProperty( 'price_general_remark', (string) $price );
+                        if ( $price->getName() == 'general_remark')
+                        {
+                            $poiObj->addProperty( 'price_general_remark', (string) $price );
+                        }
+                        else
+                        {
+                            $priceInfoString =  ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
+                            $priceInfoString .= ( (string) $price->currency != '' ) ? (string) $price->currency . ' ' : '';
+                            $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
+                            $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
+
+                            $poiObj->addProperty( 'price', trim( $priceInfoString ) );
+                        }
                     }
-                    else
-                    {
-                        $priceInfoString =  ( (string) $price->price_type != '' ) ? (string) $price->price_type . ' ' : '';
-                        $priceInfoString .= ( (string) $price->currency != '' ) ? (string) $price->currency . ' ' : '';
-                        $priceInfoString .= ( (string) $price->value != '0.00' ) ? (string) $price->value . ' ' : '';
-                        $priceInfoString .= ( (string) $price->value_to != '0.00' ) ? '-' . (string) $price->value_to . ' ' : '';
-
-                        $poiObj->addProperty( 'price', trim( $priceInfoString ) );
-                    }
-                }
-            }//end foreach
-        }//end if
+                }//end foreach
+            }//end if
 
 
-        $categoryArray = array();
+            $categoryArray = array();
 
-        //Loop throught the attributes node
-        if ( isset( $poi->attributes ) )
-        {
-            foreach ( $poi->attributes->children() as $attribute )
+            //Loop throught the attributes node
+            if ( isset( $poi->attributes ) )
             {
-                $attributeNameString = (string) $attribute->name;
-                $attributeValueString = (string) trim( $attribute->value );
-
-                if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
+                foreach ( $poi->attributes->children() as $attribute )
                 {
-                    $categoryString = substr( $attributeNameString, 12 );
+                    $attributeNameString = (string) $attribute->name;
+                    $attributeValueString = (string) trim( $attribute->value );
 
-                    if ( ! in_array( $categoryString, $categoryArray) )
+                    if ( 'Venue type: ' == substr( $attributeNameString, 0, 12 ) && 12 < strlen( $attributeNameString ) )
                     {
-                        $categoryArray[] = $categoryString;
+                        $categoryString = substr( $attributeNameString, 12 );
+
+                        if ( ! in_array( $categoryString, $categoryArray) )
+                        {
+                            $categoryArray[] = $categoryString;
+                        }
                     }
+
+                    if( $attribute->name == "Critics_choice" )
+                    {
+                        $critics_choice_value = (string) strtolower( $attribute->value );
+
+                        // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
+                        if( $critics_choice_value == "yes" ) $attributeValueString = "y";
+                        if( $critics_choice_value == "no" ) $attributeValueString = "n";
+                    }
+
+                    $poiObj->addProperty( $attributeNameString, $attributeValueString );
                 }
-
-                if( $attribute->name == "Critics_choice" )
-                {
-                    $critics_choice_value = (string) strtolower( $attribute->value );
-
-                    // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
-                    if( $critics_choice_value == "yes" ) $attributeValueString = "y";
-                    if( $critics_choice_value == "no" ) $attributeValueString = "n";
-                }
-
-                $poiObj->addProperty( $attributeNameString, $attributeValueString );
             }
+            foreach ($categoryArray as $category)
+            {
+                $poiObj->addVendorCategory( trim ( $category ), $this->vendor->getId()  );
+            }
+
+            $this->notifyImporter( $poiObj );
+
+            //Kill the object
+            $poiObj->free();
         }
-        foreach ($categoryArray as $category)
+        catch( Exception $exception )
         {
-            $poiObj->addVendorCategory( trim ( $category ), $this->vendor->getId()  );
+            $this->notifyImporterOfFailure( $exception, $poiObj );
         }
-
-        ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
-
-        //Kill the object
-        $poiObj->free();
     }
 
 
@@ -252,118 +258,124 @@ class nyEventsAndPoiMapper extends nyFeedBaseMapper
     public function insertEvent( $event )
     {
 
-        $eventObj = $this->getEvent( $event );
+        try{
+            $eventObj = $this->getEvent( $event );
 
-        //Set the Events required values
-        $eventObj[ 'vendor_id' ] = $this->vendor->getId();
-        $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
-        $eventObj[ 'name' ] = (string) $event->identifier;
-        $eventObj[ 'description' ] = (string) $event->description;
+            //Set the Events required values
+            $eventObj[ 'vendor_id' ] = $this->vendor->getId();
+            $eventObj[ 'vendor_event_id' ] = (string) $event['id'];
+            $eventObj[ 'name' ] = (string) $event->identifier;
+            $eventObj[ 'description' ] = (string) $event->description;
 
-        /*
-       * Category_combi is a node in the xml that contains all the categories which is then used for mapping.
-       * in NY's case we must not add any event's or their occurances for <b>Film or Art-house &amp; indie cinema</b>
-        */
-        $categoryArray = array();
-        if ( isset( $event->category_combi ) )
-        {
-            $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
-        }
-
-        foreach( $categoryArray as $category )
-        {
-            $eventObj->addVendorCategory($category, $this->vendor['id']);
-        }
-
-        //deal with the "text-system" nodes
-        if ( isset( $event->{'text_system'}->text ) )
-        {
-            foreach( $event->{'text_system'}->text as $text )
+            /*
+           * Category_combi is a node in the xml that contains all the categories which is then used for mapping.
+           * in NY's case we must not add any event's or their occurances for <b>Film or Art-house &amp; indie cinema</b>
+            */
+            $categoryArray = array();
+            if ( isset( $event->category_combi ) )
             {
-                switch( $text->{'text_type'} )
+                $categoryArray = $this->_concatVendorEventCategories( $event->category_combi, true );
+            }
+
+            foreach( $categoryArray as $category )
+            {
+                $eventObj->addVendorCategory($category, $this->vendor['id']);
+            }
+
+            //deal with the "text-system" nodes
+            if ( isset( $event->{'text_system'}->text ) )
+            {
+                foreach( $event->{'text_system'}->text as $text )
                 {
-                    case 'Prices':
-                        $eventObj[ 'price' ] = (string) $text->content;
-                        break;
-                    case 'Contact Blurb':
-                        $url = $this->_extractContactBlurbUrl( (string) $text->content );
-                        if ( $url != '' ) $eventObj->url = $url;
+                    switch( $text->{'text_type'} )
+                    {
+                        case 'Prices':
+                            $eventObj[ 'price' ] = (string) $text->content;
+                            break;
+                        case 'Contact Blurb':
+                            $url = $this->_extractContactBlurbUrl( (string) $text->content );
+                            if ( $url != '' ) $eventObj->url = $url;
 
-                        $email = $this->_extractContactBlurbEmail( (string) $text->content );
-                        if ( $email != ''  )
-                        {
-                            $eventObj->addProperty( 'email', $email );
-                        }
+                            $email = $this->_extractContactBlurbEmail( (string) $text->content );
+                            if ( $email != ''  )
+                            {
+                                $eventObj->addProperty( 'email', $email );
+                            }
 
-                        $phone = $this->_extractContactBlurbPhone( (string) $text->content );
-                        if ( $phone != '' )
-                        {
-                            $eventObj->addProperty( 'phone', $phone );
-                        }
+                            $phone = $this->_extractContactBlurbPhone( (string) $text->content );
+                            if ( $phone != '' )
+                            {
+                                $eventObj->addProperty( 'phone', $phone );
+                            }
 
-                        // add property with email, phone, url and stuff
-                        break;
-                    case 'Show End Date':
-                        $eventObj->addProperty( 'show_end_date', (string) $text->content );
-                        break;
-                    case 'Legend':
-                        $eventObj->addProperty( 'legend', (string) $text->content );
-                        break;
-                    case 'Chill Out End Note':
-                        $eventObj->addProperty( 'chill_out_end_note', (string) $text->content );
-                        break;
-                    /* New NY FTP feed don't have Venue Blurb anymore, this line is commented out to prevent
-                     * the #316 error being happening again if NY decided to put back "venue blurb"
-                     */
-                    // case 'Venue Blurb':
-                        // $eventObj->addProperty( 'venue_blurb', (string) $text->content );
-                        break;
-                    case 'Approach Descriptions':
-                        $eventObj->addProperty( 'approach_description', (string) $text->content );
-                        break;
-                    case 'Web Keywords':
-                        $eventObj->addProperty( 'web_keywords', (string) $text->content );
-                        break;
+                            // add property with email, phone, url and stuff
+                            break;
+                        case 'Show End Date':
+                            $eventObj->addProperty( 'show_end_date', (string) $text->content );
+                            break;
+                        case 'Legend':
+                            $eventObj->addProperty( 'legend', (string) $text->content );
+                            break;
+                        case 'Chill Out End Note':
+                            $eventObj->addProperty( 'chill_out_end_note', (string) $text->content );
+                            break;
+                        /* New NY FTP feed don't have Venue Blurb anymore, this line is commented out to prevent
+                         * the #316 error being happening again if NY decided to put back "venue blurb"
+                         */
+                        // case 'Venue Blurb':
+                            // $eventObj->addProperty( 'venue_blurb', (string) $text->content );
+                            break;
+                        case 'Approach Descriptions':
+                            $eventObj->addProperty( 'approach_description', (string) $text->content );
+                            break;
+                        case 'Web Keywords':
+                            $eventObj->addProperty( 'web_keywords', (string) $text->content );
+                            break;
+                    }
+                }
+            }//end if
+
+            //deal with attributes node
+            $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
+
+            // #747 - Throwing Warning when "attribute" node not found in XML Feed
+            if( isset( $event->attributes ) )
+            {
+                foreach( $event->attributes->children() as $attribute )
+                {
+                    if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
+                    {
+                        $critics_choice_value = (string) strtolower( $attribute->value );
+
+                        // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
+                        if( $critics_choice_value == "yes" ) $critics_choice_value = "y";
+                        if( $critics_choice_value == "no" ) $critics_choice_value = "n";
+
+                        $eventObj->addProperty( "Critics_choice", $critics_choice_value );
+                    }
                 }
             }
-        }//end if
 
-        //deal with attributes node
-        $includeAttributesArray = array( 'Critic\'s Picks', 'Recommended or notable' );
+            $occurrences = $this->getEventOccurences( $event->{'date'}, $eventObj  );
 
-        // #747 - Throwing Warning when "attribute" node not found in XML Feed
-        if( isset( $event->attributes ) )
-        {
-            foreach( $event->attributes->children() as $attribute )
+            foreach ($occurrences as $occurrence)
             {
-                if ( is_object( $attribute->name ) && is_object( $attribute->value ) && in_array( (string) $attribute->name, $includeAttributesArray ) )
+                $eventObj[ 'EventOccurrence' ][] = $occurrence;
+
+                //The Poi gets its categories from the event if it doesn't have any
+                if( count( $occurrence['Poi']['VendorPoiCategory']) == 0)
                 {
-                    $critics_choice_value = (string) strtolower( $attribute->value );
-
-                    // Chicago and New York seem to like to send us 'Yes' instead of 'y' every now and then.
-                    if( $critics_choice_value == "yes" ) $critics_choice_value = "y";
-                    if( $critics_choice_value == "no" ) $critics_choice_value = "n";
-
-                    $eventObj->addProperty( "Critics_choice", $critics_choice_value );
+                    $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
                 }
+
             }
+
+            $this->notifyImporter( $eventObj );
         }
-
-        $occurrences = $this->getEventOccurences( $event->{'date'}, $eventObj  );
-
-        foreach ($occurrences as $occurrence)
+        catch( Exception $exception )
         {
-            $eventObj[ 'EventOccurrence' ][] = $occurrence;
-
-            //The Poi gets its categories from the event if it doesn't have any
-            if( count( $occurrence['Poi']['VendorPoiCategory']) == 0)
-            {
-                $this->addEventCategoriesToPoi( $eventObj, $occurrence['Poi'] );
-            }
-
+            $this->notifyImporterOfFailure( $exception, $poiObj );
         }
-
-        ImportLogger::saveRecordComputeChangesAndLog( $eventObj );
     }
 
 

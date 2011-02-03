@@ -44,7 +44,7 @@ class PoiForm extends BasePoiForm
 
     if ( isset( $values[ 'import_error_id' ] ) && is_numeric( $values[ 'import_error_id' ] ) )
     {
-        $feedRecord = LogImportErrorHelper::getErrorObject( $values[ 'import_error_id' ] );
+        $feedRecord = LogImportErrorHelper::getErrorObjectByImportErrorId( $values[ 'import_error_id' ] );
 
         if ( $feedRecord !== false )
         {

@@ -9,7 +9,7 @@ import:
           classname: Curl
           src: http://www.timeout.ru/london/places_msk.xml
         split:
-          chunk: 3
+          chunk: 4
           index: 1
         phone:
           areacode: 495
@@ -23,7 +23,7 @@ import:
           classname: Curl
           src: http://www.timeout.ru/london/places_msk.xml
         split:
-          chunk: 3
+          chunk: 4
           index: 2
         phone:
           areacode: 495
@@ -37,8 +37,22 @@ import:
           classname: Curl
           src: http://www.timeout.ru/london/places_msk.xml
         split:
-          chunk: 3
+          chunk: 4
           index: 3
+        phone:
+          areacode: 495
+
+  moscow_poi_4:
+    class:
+      name: RussiaFeedPlacesMapper
+      params:
+        type: poi
+        curl:
+          classname: Curl
+          src: http://www.timeout.ru/london/places_msk.xml
+        split:
+          chunk: 4
+          index: 4
         phone:
           areacode: 495
 

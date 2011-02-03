@@ -11,42 +11,75 @@
   <body>
     <div id="container">
       <div id="header">
-        <h1>
-          <a href="<?php echo url_for('@homepage') ?>">
-            <img id="logo" src="/images/logo.gif" alt="Timeout Project N Admin" />
-          </a>
-          Project N Admin
-        </h1>
+          <a href="<?php echo url_for('@homepage') ?>"><img id="logo" src="/images/logo.gif" alt="Timeout Project N Admin" /></a><span>Project N</span>
       </div>
 
       <div id="menu">
         <ul>
           <li>
-            <?php echo link_to('Poi', '@poi') ?> /
+              <ul>
+                  <li>
+                    <?php echo link_to('POI', '@poi') ?> 
+                  </li>
+                  <li>
+                    <?php echo link_to('Vendor POI categories', '@vendor_poi_category') ?>
+                  </li>
+                  <li>
+                    <?php echo link_to('Geocode white list', 'geo_white_list') ?>
+                  </li>
+                  <li>
+                    <?php echo link_to('Geocode UI', '@geocode_ui') ?>
+                  </li>
+              </ul>
           </li>
           <li>
-            <?php echo link_to('Event', '@event') ?> /
+              <ul>
+                  <li>
+                    <?php echo link_to('Event', '@event') ?>
+                  </li>
+                  <li>
+                    <?php echo link_to('Vendor event categories', '@vendor_event_category') ?>
+                  </li>
+              </ul>
           </li>
           <li>
-            <?php echo link_to('Movie', '@movie') ?> /
+              <ul>
+                  <li>
+                    <?php echo link_to('Movie', '@movie') ?>
+                  </li>
+              </ul>
           </li>
           <li>
-            <?php echo link_to('Vendor', '@vendor') ?> /
+            <?php echo link_to('Vendor', '@vendor') ?>
           </li>
           <li>
-            <?php echo link_to('Vendor Poi Categories', '@vendor_poi_category') ?> /
+            <ul>
+                <li>
+                   Errors 
+                </li>
+                <li>
+                    <?php echo link_to('Import', '@log_import_error') ?>
+                </li>
+                <li>
+                    <?php echo link_to('Export', '@log_export_error') ?>
+                </li>
+            </ul>
           </li>
           <li>
-            <?php echo link_to('Vendor Event Categories', '@vendor_event_category') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Geocode White List', 'geo_white_list') ?>
-          </li>
-          <li>
-            <?php echo link_to('Geocode UI', '@geocode_ui') ?> /
-          </li>
-          <li>
-            <?php echo link_to('Export Stats', 'exportstats/index') ?>
+            <ul>
+                <li>
+                   Stats 
+                </li>
+                <li>
+                    <?php echo link_to('Dashboard', 'dashboard/index') ?>
+                </li>
+                <li>
+                    <?php echo link_to('Import Stats', 'importstats/index') ?>
+                </li>
+                <li>
+                    <?php echo link_to('Export Stats', 'exportstats/index') ?>
+                </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -55,6 +88,7 @@
         <?php echo $sf_content ?>
       </div>
       <div id="footer"></div>
+      <div class="clear"></div>
     </div>
   </body>
 </html>
