@@ -12,4 +12,47 @@
  */
 class LogImportError extends BaseLogImportError
 {
+   /**
+    * $fixableErrors
+    * @var array
+    */
+   private $fixableErrors = array( 'Poi', 'Event', 'Movie' );
+
+   /**
+    * Retrieves and unserializes the error object
+    *
+    * @return Doctrine_Record
+    */
+   public function getErrorObject()
+   {
+       if( $this[ 'serialized_object' ] !== NULL )
+       {
+           return @unserialize( $this[ 'serialized_object' ] );
+       }
+       return false;
+   }
+
+   /**
+    * Find out if a record (in the serialized object field) is actually fixable
+    * or not
+    *
+    * @return boolean
+    */
+   public function getIsFixable()
+   {
+       $errorObject = $this->getErrorObject();
+
+       if ( $errorObject instanceof Doctrine_Record )
+       {
+           $vendorReferenceColumn = 'vendor_' . strtolower( get_class( $errorObject ) ) . '_id';
+
+           if ( isset( $errorObject[ $vendorReferenceColumn ] ) && !empty( $errorObject[ $vendorReferenceColumn ] ) &&
+                isset( $errorObject[ 'vendor_id' ] ) && is_numeric( $errorObject[ 'vendor_id' ] ) &&
+                in_array( get_class($errorObject), $this->fixableErrors ) )
+           {
+               return true;
+           }
+        }
+        return false;
+   }
 }

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-events vendor="timeout" modified="2011-01-06T07:43:19">
+  <event id="PNQ000000000000000000000000171064" modified="2011-01-06T07:43:19">
+    <name><![CDATA[Sudarshan Theatre Festival]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Sudarshan Theatre Festival]]></name>
+      <vendor-category><![CDATA[Theatre Performances]]></vendor-category>
+      <description><![CDATA[Theatre groups from Pune, Mumbai and Bengaluru will perform plays including Poornavirana, Ilham, and A Guy Thing at this five-day festival.]]></description>
+      <price><![CDATA[Rs.50]]></price>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000054872">
+        <occurrence>
+          <time>
+            <start_date>2011-01-26</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-27</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-28</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-29</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-30</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000171062" modified="2011-01-06T07:43:19">
+    <name><![CDATA[Kathak, Odissi, Bharatanatyam]]></name>
+    <category>other</category>
+    <version lang="en">
+      <name><![CDATA[Kathak, Odissi, Bharatanatyam]]></name>
+      <vendor-category><![CDATA[Dance Show]]></vendor-category>
+      <description><![CDATA[Kathak dancer Uma Dogra, will team up with Odissi dancer Daksha Mashruwala and Bharatanatyam dancer Vaibhav Arekar in an 8o-minute performance titled Ektatva that will explore the theme of a human being’s search for unity with nature.]]></description>
+      <price><![CDATA[Rs.100]]></price>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2011-01-27</start_date>
+            <event_time>19:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000171063" modified="2011-01-06T07:43:19">
+    <name><![CDATA[Malkha and Crafts Exhibition]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Malkha and Crafts Exhibition]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[There will be an exhibition at the Tilak Smarak Mandir of the malkha, a pure cotton handwoven fabric, and a clothing line by Italian weaver, Altra Qualita. Qualita uses the Malkha fabric in many of their creations. Also on display will be handcrafted jewellery by the nomadic Lambani tribe of Bijapur in Karnataka. A section of the exhibition will contain creations made from recycled materials by young adults and women.]]></description>
+      <price><![CDATA[Free]]></price>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057070">
+        <occurrence>
+          <time>
+            <start_date>2011-01-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+  <event id="PNQ000000000000000000000000171065" modified="2011-01-06T07:43:19">
+    <name><![CDATA[Buddha-The Harmony Within]]></name>
+    <category>arts-museums</category>
+    <version lang="en">
+      <name><![CDATA[Buddha-The Harmony Within]]></name>
+      <vendor-category><![CDATA[Art exhibitions]]></vendor-category>
+      <description><![CDATA[Amoul V Nanal, explores what spiritual masters like Buddha, thought of when they sat with their eyes closed in deep meditation.]]></description>
+      <property key="UI_CATEGORY"><![CDATA[Art]]></property>
+    </version>
+    <showtimes>
+      <place place-id="PNQ000000000000000000000000057072">
+        <occurrence>
+          <time>
+            <start_date>2011-01-06</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-07</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-08</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-09</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-10</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-11</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-12</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-13</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-14</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+        <occurrence>
+          <time>
+            <start_date>2011-01-15</start_date>
+            <event_time>11:00:00</event_time>
+            <utc_offset>+05:30</utc_offset>
+          </time>
+        </occurrence>
+      </place>
+    </showtimes>
+  </event>
+</vendor-events>

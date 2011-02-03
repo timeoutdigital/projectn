@@ -103,6 +103,7 @@ class geocode_uiActions extends autoGeocode_uiActions
             $result [ 'name' ] = $venue[ 'poi_name' ];
             $result [ 'address1' ] = !is_null( $venue[ 'house_no' ] ) ? $venue[ 'house_no' ] : '';
             $result [ 'address2' ] = $venue[ 'street' ];
+            $result [ 'address3' ] = $venue[ 'additional_address_details' ];
             $result [ 'latitude' ] = $venue[ 'latitude' ];
 	    $result [ 'longitude' ] = $venue[ 'longitude' ];
             $result [ 'geocode_accuracy' ] = ( $geocodeAccuracy ) ? $geocodeAccuracy['value'] : 0;//$venue[ 'geocode_accuracy' ];

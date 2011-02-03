@@ -232,7 +232,7 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 0, count( $recordInfo['previousValues'] ) );
     }
 
-    public function testGetErrorObjectSuccess()
+    public function testGetErrorObjectByImportErrorIdSuccess()
     {
         $feedRecord = ProjectN_Test_Unit_Factory::get( 'Poi' );
 
@@ -241,11 +241,11 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
 
         $logImportError = $this->_addImportError( $feedRecord, 'Poi With A Different Vendor ID' );
 
-        $errorObject = LogImportErrorHelper::getErrorObject( $logImportError['id'] );
+        $errorObject = LogImportErrorHelper::getErrorObjectByImportErrorId( $logImportError['id'] );
         $this->assertTrue( $errorObject instanceof Poi, 'failed to successfully get error object' );
     }
 
-    public function testGetErrorObjectFailure()
+    public function testGetErrorObjectByImportErrorIdFailure()
     {
         $feedRecord = ProjectN_Test_Unit_Factory::get( 'Poi' );
 
@@ -254,11 +254,30 @@ class LogImportErrorHelperTest extends PHPUnit_Framework_TestCase
 
         $logImportError = $this->_addImportError( $feedRecord, 'Poi With A Different Vendor ID' );
 
-        $errorObject = LogImportErrorHelper::getErrorObject( 123 );
+        $errorObject = LogImportErrorHelper::getErrorObjectByImportErrorId( 123 );
         $this->assertFalse( $errorObject, 'returned error object for invalid error' );
 
-        $errorObject = LogImportErrorHelper::getErrorObject( 'abc' );
+        $errorObject = LogImportErrorHelper::getErrorObjectByImportErrorId( 'abc' );
         $this->assertFalse( $errorObject, 'returned error object for invalid error' );
+    }
+
+    public function testGetLogImportErrorRecordByErrorIdSuccess()
+    {
+        $feedRecord = ProjectN_Test_Unit_Factory::get( 'Poi' );
+
+        $unknownVendor = Doctrine::getTable( "Vendor" )->findOneByCity( "unknown" );
+        $feedRecord['vendor_id'] = $unknownVendor['id'];
+
+        $logImportError = $this->_addImportError( $feedRecord, 'Poi With A Different Vendor ID' );
+
+        $errorRecord = LogImportErrorHelper::getLogImportErrorRecordByErrorId( $logImportError['id'] );
+        $this->assertTrue( $errorRecord instanceof LogImportError, 'failed to successfully get LogImportError' );
+    }
+
+    public function testGetLogImportErrorRecordByErrorIdFailure()
+    {
+        $errorRecord = LogImportErrorHelper::getLogImportErrorRecordByErrorId( 12345678 );
+        $this->assertFalse( $errorRecord instanceof LogImportError, 'Did not return false' );
     }
 }
 
