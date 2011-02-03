@@ -43,9 +43,7 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapFunctionsNotifyImporter()
   {
-    $importer = $this->getMock( 'Importer', array( 'onRecordMapped' ) );
-    $importer->expects( $this->exactly( 4 ) )
-             ->method( 'onRecordMapped' );
+    $importer = new Importer;
 
     $this->object = new UnitTestDataMapper( );
     $this->object->setImporter( $importer );
@@ -61,10 +59,7 @@ class DataMapperTest extends PHPUnit_Framework_TestCase
    */
   public function testMapFunctionsOrder()
   {
-    $importer = $this->getMock( 'Importer', array( 'onRecordMapped' ) );
-    $importer->expects( $this->exactly( 4 ) )
-             ->method( 'onRecordMapped' );
-
+    $importer = new Importer;
     $dataMapper = new UnitTestOrderDataMapper();
     $importer->addDataMapper($dataMapper);
 

@@ -200,8 +200,7 @@ class ChicagoFeedPoiMapper extends ChicagoFeedBaseMapper
 
             }  catch ( Exception $exception)
             {
-                $this->notifyImporterOfFailure( new Exception( 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' .$poiNode['id'] ) );
-                echo 'ChicagoFeedPoiMapper:: Poi Exception: ' . $exception->getMessage() . ' | Vendor Poi ID: ' . $poiNode['id'] . '::' . $exception->getTraceAsString() . PHP_EOL;
+                $this->notifyImporterOfFailure( $exception, $poi );
             }
         } // end foreach
     }
