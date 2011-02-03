@@ -60,22 +60,6 @@ class Importer
   }
 
   /**
-   * 
-   * Listens to DataMapper notifications
-   * 
-   * @param RecordData $recordData
-   */
-  public function onRecordMapped( Doctrine_Record $record )
-  {
-     ImportLogger::saveRecordComputeChangesAndLog( $record );
-  }
-
-  public function onRecordMappingException( Exception $exception, Doctrine_Record $record = NULL, $message = '' )
-  {
-      ImportLogger::getInstance()->addError( $exception, $record, $message );
-  }
-
-  /**
    * @param RecordData $data
    * @returns Doctrine_Record
    */
