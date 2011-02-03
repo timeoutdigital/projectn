@@ -1,6 +1,6 @@
 <?php
 
-class fixDuplicateCategoriesTask extends sfBaseTask
+class fixVendorCategoriesTask extends sfBaseTask
 {
   protected function configure()
   {
@@ -8,25 +8,53 @@ class fixDuplicateCategoriesTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n')
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
+      new sfCommandOption('city', null, sfCommandOption::PARAMETER_REQUIRED, 'Vendor City name', null),
+      new sfCommandOption('model', null, sfCommandOption::PARAMETER_REQUIRED, 'Model poi / event', null),
+      new sfCommandOption('fix', null, sfCommandOption::PARAMETER_REQUIRED, 'Clean options [duplicate-unused, unused or blacklist-duplicate-unused]', null),
     ));
 
     $this->namespace        = 'projectn';
-    $this->name             = 'fix-duplicate-categories';
-    $this->briefDescription = 'Merge duplicate categories';
-    $this->detailedDescription = <<<EOF
-The [fix-duplicate-categories|INFO] fixes duplicate categories by merging duplicate categories then removing unused categories.
-Call it with:
-
-  [php symfony fix-duplicate-categories|INFO]
-EOF;
+    $this->name             = 'fix-vendor-categories';
+    $this->briefDescription = 'Delete duplicate and un-used categories and remove black listed categories';
   }
 
   protected function execute( $arguments = array(), $options = array() )
   {
+      // validate parameters
+      if( !isset($options['city']) || empty($options['city']) )
+      {
+          throw new Exception( 'No city name provided, use --city="city name"' );
+      }
+      if( $options['model'] == null )
+      {
+          throw new Exception( 'Model required, use --model="poi OR event"' );
+
+      } else if( !in_array(strtolower( $options['model'] ), array( 'poi', 'event')  ) )
+      {
+          throw new Exception( 'Invalid model found, use --model="poi OR event"' );
+      }
+      if( $options['fix'] == null )
+      {
+          throw new Exception( 'fix required, use --fix="unused OR duplicate-unused OR blacklist-duplicate-unused"' );
+
+      }else if( !in_array( strtolower( $options['fix'] ), array( 'duplicate-unused', 'unused', 'blacklist-duplicate-unused' ) ) )
+      {
+          throw new Exception( 'Invalid fix option, use --fix="unused OR duplicate-unused OR blacklist-duplicate-unused"' );
+      }
+
     // Configure Database.
     $databaseManager = new sfDatabaseManager( $this->configuration );
     $connection = $databaseManager->getDatabase( $options['connection'] ? $options['connection'] : null )->getConnection();
+
+    // get vendor By city name
+    $vendor =  Doctrine::getTable( 'Vendor' )->findOneByCity( $options['city'] );
+    if( $vendor === false )
+    {
+        throw new Exception('Invalid City name, No vendor details found using ' . $options['city'] );
+    }
+
+
 
     $this->_deleteUnusedPoiCategories();
     $this->_deleteUnusedEventCategories();
