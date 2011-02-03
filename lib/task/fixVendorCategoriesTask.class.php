@@ -54,23 +54,36 @@ class fixVendorCategoriesTask extends sfBaseTask
         throw new Exception('Invalid City name, No vendor details found using ' . $options['city'] );
     }
 
+    $model = strtolower( trim( $options['model'] ) );
+    switch( $options['fix'] )
+    {
+        case 'unused':
+            ( $model == 'poi' ) ? $this->_deleteUnusedPoiCategories( $vendor ) : $this->_deleteUnusedEventCategories( $vendor );
+            break;
+        
+        case 'duplicate-unused': // You cannot remove duplicates and leave them as 
+            // Before Mapping Duplicates to one and un-linking other, we should remove un-used categories
+            // and again after to clean newly generated un-used categories
+            ( $model == 'poi' ) ? $this->_deleteUnusedPoiCategories( $vendor ) : $this->_deleteUnusedEventCategories( $vendor );
+            ( $model == 'poi' ) ? $this->_mergeDuplicatePoiCategories( $vendor ) : $this->_mergeDuplicateEventCategories( $vendor );
+            ( $model == 'poi' ) ? $this->_deleteUnusedPoiCategories( $vendor ) : $this->_deleteUnusedEventCategories( $vendor );
+            break;
 
-
-    $this->_deleteUnusedPoiCategories();
-    $this->_deleteUnusedEventCategories();
-
-    $this->_mergeDuplicatePoiCategories();
-    $this->_mergeDuplicateEventCategories();
-
-    $this->_deleteUnusedPoiCategories();
-    $this->_deleteUnusedEventCategories();
+        case 'blacklist-duplicate-unused':
+            ( $model == 'poi' ) ? $this->_deleteUnusedPoiCategories( $vendor ) : $this->_deleteUnusedEventCategories( $vendor );
+            $this->_cleanBlackListedCategories( $vendor, $model );
+            ( $model == 'poi' ) ? $this->_mergeDuplicatePoiCategories( $vendor ) : $this->_mergeDuplicateEventCategories( $vendor );
+            ( $model == 'poi' ) ? $this->_deleteUnusedPoiCategories( $vendor ) : $this->_deleteUnusedEventCategories( $vendor );
+            break;
+    }
   }
 
-  private function _mergeDuplicatePoiCategories()
+  private function _mergeDuplicatePoiCategories( Vendor $vendor )
   {
     $duplicatePoiCategoriesArray = Doctrine::getTable( 'VendorPoiCategory' )
         ->createQuery()
         ->select('GROUP_CONCAT( id ) as dupeIds')
+        ->where('vendor_id = ? ', $vendor['id'] )
         ->groupBy('name, vendor_id')
         ->having('count(*) > 1')
         ->execute( array(), Doctrine::HYDRATE_ARRAY );
@@ -89,11 +102,12 @@ class fixVendorCategoriesTask extends sfBaseTask
     }
   }
 
-  private function _mergeDuplicateEventCategories()
+  private function _mergeDuplicateEventCategories( Vendor $vendor )
   {
     $duplicateEventCategoriesArray = Doctrine::getTable( 'VendorEventCategory' )
         ->createQuery()
         ->select('GROUP_CONCAT( id ) as dupeIds')
+        ->where('vendor_id = ? ', $vendor['id'] )
         ->groupBy('name, vendor_id')
         ->having('count(*) > 1')
         ->execute( array(), Doctrine::HYDRATE_ARRAY );
@@ -112,10 +126,11 @@ class fixVendorCategoriesTask extends sfBaseTask
     }
   }
 
-  private function _deleteUnusedPoiCategories()
+  private function _deleteUnusedPoiCategories( Vendor $vendor )
   {
     $unusedPoiCategories = Doctrine::getTable( 'VendorPoiCategory' )->createQuery('vpc')
         ->where('vpc.id NOT IN ( SELECT lvpc.vendor_poi_category_id FROM LinkingVendorPoiCategory lvpc )')
+        ->andWhere('vpc.vendor_id = ? ', $vendor['id'] )
         ->execute();
 
     foreach( $unusedPoiCategories as $poiCategory )
@@ -134,10 +149,11 @@ class fixVendorCategoriesTask extends sfBaseTask
     }
   }
   
-  private function _deleteUnusedEventCategories()
+  private function _deleteUnusedEventCategories( Vendor $vendor )
   {
     $unusedEventCategories = Doctrine::getTable( 'VendorEventCategory' )->createQuery('vec')
         ->where('vec.id NOT IN ( SELECT lvpc.vendor_event_category_id FROM LinkingVendorEventCategory lvpc )')
+        ->andWhere('vec.vendor_id = ? ', $vendor['id'] )
         ->execute();
 
     foreach( $unusedEventCategories as $eventCategory )
@@ -154,5 +170,43 @@ class fixVendorCategoriesTask extends sfBaseTask
 
         $eventCategory->delete();
     }
+  }
+
+  private function _cleanBlackListedCategories( Vendor $vendor, $model )
+  {
+      // This require to get All vendor related categories and filter for black listed categories
+      $vendorModelRecords = Doctrine::getTable( ucfirst( $model ) )->findByVendorId( $vendor['id'] );
+
+      if( $vendorModelRecords === false ) return;
+
+      $vendorModelCategory = "Vendor".ucfirst( $model)."Category";
+      $tblBlackList = Doctrine::getTable( 'VendorCategoryBlackList' );
+      
+      foreach( $vendorModelRecords as $record )
+      {
+          foreach( $record[$vendorModelCategory] as $vendorCategory )
+          {
+              $this->logSection( $model, 'Processing Record: ' . $record['id'] );
+              
+              // split them into single category as BlackList takes array of categories
+              $categoryArray = explode('|', $vendorCategory['name'] );
+              $cleanCategories = $tblBlackList->filterByCategoryBlackList( $vendor['id'], $categoryArray );
+
+              // ublink when Nothing found
+              if( is_array( $cleanCategories ) && empty( $cleanCategories ) )
+              {
+                  $this->logSection( $model, 'Removing Category ID : ' . $vendorCategory['id'] );
+                  $record->unlink( $vendorModelCategory, $vendorCategory['id'] );
+
+              }elseif( is_array( $cleanCategories ) )
+              {
+                  $vendorCategory['name'] = stringTransform::concatNonBlankStrings(' | ', $cleanCategories );
+              }
+
+          }
+          $this->logSection( $model, 'Updating Record: ' . $record['id'] );
+          // save record to Update changes
+          $record->save(); // any exception throws will STOP the process as this is crusial to just Log and ignore!
+      }
   }
 }
