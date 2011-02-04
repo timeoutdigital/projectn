@@ -322,9 +322,9 @@ class Event extends BaseEvent
 
     foreach ( $this[ 'EventOccurrence' ] as $occurrence )
     {
-        $date = $occurrence[ 'start_date' ];
-        $poiId = $occurrence[ 'poi_id' ];
-        $startTime = $occurrence[ 'start_time' ];
+        $date = $occurrence[ 'start_date' ] != null ? trim($occurrence[ 'start_date' ]) : '';
+        $poiId = $occurrence[ 'poi_id' ] != null ? trim( $occurrence[ 'poi_id' ] ) : '' ;
+        $startTime = $occurrence[ 'start_time' ] != null ? trim($occurrence[ 'start_time' ]) : '';
 
         //if two occurrences have the same date, startTime and poiId we should only use one of them
         //using a combination of those as a key in an array will provide unique occurrences
