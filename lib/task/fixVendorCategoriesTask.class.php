@@ -200,7 +200,9 @@ class fixVendorCategoriesTask extends sfBaseTask
 
               }elseif( is_array( $cleanCategories ) )
               {
-                  $vendorCategory['name'] = stringTransform::concatNonBlankStrings(' | ', $cleanCategories );
+                  // there were some categorids that duplicated it self like (Theatre | Theatre),
+                  // array_uniqe ensure that duplicated categories in one record separated by |
+                  $vendorCategory['name'] = stringTransform::concatNonBlankStrings(' | ', array_unique( $cleanCategories ) );
               }
 
           }
