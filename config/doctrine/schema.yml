@@ -498,6 +498,55 @@ LogExportError:
     model_index:                {fields: [model]}
 
 
+
+
+
+LogTask:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    vendor_id:                  {type: integer, notnull: false}
+    name:                       {type: string(50), notnull: true}
+    execution_start:            {type: datetime, notnull: true}
+    execution_end:              {type: datetime, notnull: false}
+    status:                     {type: enum, values: [success, notice, warning, error], notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+    LogTaskParam:               {class: LogTaskParam, refClass: LinkingLogTaskParam, local: log_task_id, foreign: log_task_param_id }
+  indexes:
+    name_index:                 {fields: [name]}
+    execution_start_index:      {fields: [execution_start]}
+    status_index:               {fields: [status]}
+
+LinkingLogTaskParam:
+  connection: project_n
+  columns:
+     log_task_param_id:         {type: integer, notnull: true}
+     log_task_id:               {type: integer, notnull: true}
+
+LogTaskParam:
+  connection: project_n
+  columns:
+    name:                       {type: string(50), notnull: true}
+    value:                      {type: string(255), notnull: true}
+  relations:
+    LogTask:                    {class: LogTask, refClass: LinkingLogTaskParam, local: log_task_param_id, foreign: log_task_id }
+  indexes:
+    name_index:                 {fields: [name]}
+    value_index:                {fields: [value]}
+
+LogTaskMessage:
+  connection: project_n
+  columns:
+    task_id:                    {type: integer, notnull: false}
+    message:                    {type: string(65535), notnull: false}
+  relations:
+    LogTask:                    {local: task_id, foreign: id, foreignType: many, foreignAlias: LogTaskMessage}
+
+
+
+
 #Master Media table, extended by PoiMedia, EventMedia and MovieMedia
 Media:
   connection: project_n
