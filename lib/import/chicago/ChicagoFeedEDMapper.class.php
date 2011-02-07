@@ -129,7 +129,7 @@ class ChicagoFeedEDMapper extends ChicagoFeedBaseMapper
                 
             } catch (Exception $exception)
             {
-                $this->notifyImporterOfFailure( new Exception('ChicagoFeedEDMapper::mapED Failed to import POI/BC: ' . (string) $xmlNode->ID . ' | Exception message: ' . $exception->getMessage() ) );
+                $this->notifyImporterOfFailure( $exception, $poi );
             }
         }
     }

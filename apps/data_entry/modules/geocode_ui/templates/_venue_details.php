@@ -49,6 +49,15 @@
 
   <tr class="sf_admin_form_row sf_admin_text sf_admin_filter_field_name">
     <td>
+        <label for="t_venue_details_address3">Additional Address Details</label>
+    </td>
+    <td>
+        <textarea id="t_venue_details_address3" readonly="true"></textarea>
+    </td>
+  </tr>
+
+  <tr class="sf_admin_form_row sf_admin_text sf_admin_filter_field_name">
+    <td>
         <label for="t_venue_details_latitude">Latitude</label>
     </td>
     <td>
@@ -103,6 +112,7 @@ function getVenueDetails( venueId )
       $('#venue_details_city').val( venue.city );
       $('#t_venue_details_address1').val( venue.address1 );
       $('#t_venue_details_address2').val( venue.address2 );
+      $('#t_venue_details_address3').val( venue.address3 );
       $('#t_venue_details_latitude').val( venue.latitude );
       $('#t_venue_details_longitude').val( venue.longitude );
       $('#venue_details_reverse_geocode').text( '' );
@@ -116,6 +126,7 @@ function getVenueDetails( venueId )
       var infoText = '<strong>'+ venue.name +'</strong> <br />' ;
           infoText += venue.address1 + ' ' ;
           infoText += venue.address2 + ' ';
+          infoText += venue.address3 + ' ';
           infoText += venue.city ;
 
      if ( !venue.latitude && !venue.longitude )
