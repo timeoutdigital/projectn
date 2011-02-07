@@ -401,7 +401,18 @@ class Poi extends BasePoi
     if( !is_array($name) )
         $name = array( $name );
 
-    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
+    // require HTML cleaning before storing into Database
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', array_unique( $name ) ) );
+
+    // #909 Pass categories as array to Filter black listed categories
+    // insted of cleaning html_entity_decode each category, I used Implode -> clean -> explode to filter black listed categories
+    $filteredNames = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( $vendorId, explode(' | ', $name) );
+
+    if( !is_array( $filteredNames ) || empty($filteredNames) )
+        return false;
+
+    // implode again to continue with existing check and adding to database
+    $name = stringTransform::concatNonBlankStrings( ' | ', $filteredNames );
 
     if( stringTransform::mb_trim($name) == '' )
         return false;
@@ -423,16 +434,9 @@ class Poi extends BasePoi
       $vendorPoiCategoryObj[ 'name' ] = $name;
       $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
     }
-
-    // This is a possible fix to ticket #400
-//    $pc = new LinkingVendorPoiCategory();
-//    $pc['vendor_poi_category_id'] = $vendorPoiCategoryObj['id'];
-//    $pc['poi_id'] = $this['id'];
-//    $pc->save();
-//    // need to $vendorPoiCategoryObj save and remove line below,
-      // need to edit LisbonFeedListingsMapper, remove poi save.
-
+    
     $this[ 'VendorPoiCategory' ][] = $vendorPoiCategoryObj;
+    
   }
 
 

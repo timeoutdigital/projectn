@@ -728,3 +728,16 @@ PoiReference:
   columns:
     master_poi_id:              {type: integer, primary: true}
     duplicate_poi_id:           {type: integer, primary: true, unique: true}
+
+VendorCategoryBlackList:
+  connection: project_n
+  columns:
+    vendor_id:                  {type: integer, notnull: true}
+    name:                       {type: string(200), notnull: true}
+    match_left:                 {type: boolean,    notnull: true, default: false}
+    match_right:                {type: boolean,    notnull: true, default: false}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+  indexes:
+    vendor_id_index:            {fields: [vendor_id]}
+    name_index:                 {fields: [name]}

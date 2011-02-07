@@ -130,8 +130,7 @@ class ChicagoFeedEventMapper extends ChicagoFeedBaseMapper
 
             }  catch ( Exception $exception)
             {
-                echo 'Event Exception: ' . $exception->getMessage() . ' | Vendor Event ID: ' . (string)$eventNode['id'] . PHP_EOL;
-                $this->notifyImporterOfFailure( new Exception( 'Event Exception: ' . $exception->getMessage() . ' | Vendor Event ID: ' . (string)$eventNode['id'] ) );
+                $this->notifyImporterOfFailure( $exception, $event );
             }
         } // for loop
     }
