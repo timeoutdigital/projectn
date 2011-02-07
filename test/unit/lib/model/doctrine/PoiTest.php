@@ -816,6 +816,55 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( 'Other | Music', $poi['VendorPoiCategory'][0]['name'] );
    }
 
+   // #900 - Option for producer to Hide record from the
+   public function testGetUnsolvable()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertFalse( $poi->getUnsolvable() );
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+
+       $poi->setUnsolvable( true, 'Testing' );
+       $poi->save();
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
+       $this->assertTrue( $poi->getUnsolvable() );
+   }
+
+   public function testGetUnsolvable_DuplicatedMetaNotAdded()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertFalse( $poi->getUnsolvable() );
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+
+       $poi->setUnsolvable( true, 'Testing' );
+       $poi->save();
+       $this->assertEquals( 'Testing' , $poi->getUnsolvableReason() );
+       $this->assertTrue( $poi->getUnsolvable() );
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
+
+       $poi->setUnsolvable( true, 'New Comment' );
+       $poi->save();
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
+       $this->assertTrue( $poi->getUnsolvable() );
+       $this->assertEquals( 'New Comment' , $poi->getUnsolvableReason(), 'comment should be updated' );
+   }
+
+   public function testGetUnsolvable_RemoveMetaWhenFalse()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertFalse( $poi->getUnsolvable() );
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+
+       $poi->setUnsolvable( true, 'Testing' );
+       $poi->save();
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
+       $this->assertTrue( $poi->getUnsolvable() );
+
+       $poi->setUnsolvable( false );
+       $poi->save();
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+       $this->assertFalse( $poi->getUnsolvable() );
+   }
+   
 }
 
 class MockgeocoderForPoiTest extends geocoder
