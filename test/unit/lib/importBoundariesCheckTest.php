@@ -12,7 +12,7 @@ require_once dirname(__FILE__).'/../bootstrap.php';
  * @author Rajeevan Kumarathasan <rajeevankumarathasan@timeout.com>
  * @copyright Timeout Communications Ltd
  *
- * @version 1.0.1
+ * @version 1.0.0
  *
  *
  */
