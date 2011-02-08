@@ -93,25 +93,14 @@ class fixVendorCategoriesTask extends sfBaseTask
 
   private function _mergeDuplicateEventCategories( Vendor $vendor )
   {
-    $duplicateEventCategoriesArray = Doctrine::getTable( 'VendorEventCategory' )
-        ->createQuery()
-        ->select('GROUP_CONCAT( id ) as dupeIds')
-        ->where('vendor_id = ? ', $vendor['id'] )
-        ->groupBy('name, vendor_id')
-        ->having('count(*) > 1')
-        ->execute( array(), Doctrine::HYDRATE_ARRAY );
+    $duplicateEventCategoriesArray = Doctrine::getTable( 'VendorEventCategory' )->findConcatDuplicateCategoryIdBy( $vendor['id'], Doctrine::HYDRATE_ARRAY );
 
     if( $duplicateEventCategoriesArray === false ) return;
 
     foreach( $duplicateEventCategoriesArray as $duplicateCategory )
     {
         $dupeIds = explode( ',', $duplicateCategory['dupeIds'] );
-
-        Doctrine_Query::create()
-            ->update( 'LinkingVendorEventCategory' )
-            ->set( 'vendor_event_category_id', '?', $dupeIds[0] )
-            ->where( 'vendor_event_category_id IN ('.implode( ',', $dupeIds ).')' )
-            ->execute();
+        Doctrine::getTable( 'LinkingVendorEventCategory' )->mapCategoriesTo( $dupeIds[0], $dupeIds );
     }
   }
 

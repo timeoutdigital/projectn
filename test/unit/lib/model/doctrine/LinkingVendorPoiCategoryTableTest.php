@@ -16,7 +16,7 @@ require_once dirname(__FILE__).'/../../../bootstrap.php';
  *
  */
 
-class LinkingVendorPoiCategoryTest extends PHPUnit_Framework_TestCase
+class LinkingVendorPoiCategoryTableTest extends PHPUnit_Framework_TestCase
 {
     /**
     * Sets up the fixture, for example, opens a network connection.
