@@ -20,9 +20,29 @@ class MovieForm extends BaseMovieForm
     $this->widgetSchema[ 'import_error_id' ] = new sfWidgetFormInputHidden();
     $this->validatorSchema[ 'import_error_id' ] = new sfValidatorPass();
 
+    $this->embedForm('UnsolvableForm', new UnsolvableForm( $this->getObject() ) );
+
     $this->widgetSchema[ 'movie_genres_list' ] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'method' => 'getGenre', 'order_by' => array( 'genre', 'asc' ) ));
   }
 
+   public function  doSave($con = null) {
+        parent::doSave($con);
+
+        // Save Unsolvale
+        // Catch the Unsolvable Postback and Update Model Meta
+        $unsolvable = $this->taintedValues['UnsolvableForm'];
+        if( isset( $unsolvable['unsolvable']) && $unsolvable['unsolvable'] == 'on')
+        {
+            $this->getObject()->setUnsolvable( true, $unsolvable['reason']);
+
+        } else if( $this->getObject()->getUnsolvable() ){
+
+            $this->getObject()->setUnsolvable( false );
+        }
+
+        $this->getObject()->save();
+    }
+    
   protected function doUpdateObject( $values = null )
   {
     parent::doUpdateObject( $values );
