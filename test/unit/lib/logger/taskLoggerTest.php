@@ -46,7 +46,7 @@ EOF;
   public function testTaskLoggerEmptyLog()
   {
       $outputArray = explode( PHP_EOL, shell_exec( './symfony projectn-mock:testTaskLogger' ) );
-      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerEmptyLog.txt' ) );
+      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerEmptyLog.log' ) );
 
       $this->assertRegExp( $this->_logStartLineRegex, $outputArray[0], 'start string missmatch' );
       $this->assertRegExp( $this->_logEndLineRegex, $outputArray[2], 'end string missmatch' );
@@ -58,7 +58,7 @@ EOF;
   public function testTaskLoggerSuccess()
   {
       $outputArray = explode( PHP_EOL, shell_exec( './symfony projectn-mock:testTaskLogger --type=success' ) );
-      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerSuccess.txt' ) );
+      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerSuccess.log' ) );
 
       $this->assertRegExp( $this->_logStartLineRegex, $outputArray[0], 'start string missmatch' );
       $this->assertRegExp( $this->_logEndLineRegex, $outputArray[7], 'end string missmatch' );
@@ -73,7 +73,7 @@ EOF;
   public function testTaskLoggerErrorNotice()
   {
       $outputArray = explode( PHP_EOL, shell_exec( './symfony projectn-mock:testTaskLogger --type=error-notice 2> /dev/null' ) );
-      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerErrorNotice.txt' ) );
+      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerErrorNotice.log' ) );
 
       $this->assertRegExp( $this->_logStartLineRegex, $outputArray[0], 'start string missmatch' );
       $this->assertRegExp( $this->_logEndLineRegex, $outputArray[4], 'end string missmatch' );
@@ -87,7 +87,7 @@ EOF;
   public function testTaskLoggerErrorWarning()
   {
       $outputArray = explode( PHP_EOL, shell_exec( './symfony projectn-mock:testTaskLogger --type=error-warning 2> /dev/null' ) );
-      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerErrorWarning.txt' ) );
+      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerErrorWarning.log' ) );
 
       $this->assertRegExp( $this->_logStartLineRegex, $outputArray[0], 'start string missmatch' );
       $this->assertRegExp( $this->_logEndLineRegex, $outputArray[4], 'end string missmatch' );
@@ -101,7 +101,7 @@ EOF;
   public function testTaskLoggerErrorError()
   {
       $outputArray = explode( PHP_EOL, shell_exec( './symfony projectn-mock:testTaskLogger --type=error-error 2> /dev/null' ) );
-      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerErrorError.txt' ) );
+      $testDataArray = explode( PHP_EOL, file_get_contents( TO_TEST_DATA_PATH . '/logger/taskLogger_testTaskLoggerErrorError.log' ) );
 
       $this->assertRegExp( $this->_logStartLineRegex, $outputArray[0], 'start string missmatch' );
 
