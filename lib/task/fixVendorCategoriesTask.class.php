@@ -87,12 +87,7 @@ class fixVendorCategoriesTask extends sfBaseTask
     foreach( $duplicatePoiCategoriesArray as $duplicateCategory )
     {
         $dupeIds = explode( ',', $duplicateCategory['dupeIds'] );
-
-        Doctrine_Query::create()
-            ->update( 'LinkingVendorPoiCategory' )
-            ->set( 'vendor_poi_category_id', '?', $dupeIds[0] )
-            ->where( 'vendor_poi_category_id IN ('.implode( ',', $dupeIds ).')' )
-            ->execute();
+        Doctrine::getTable( 'LinkingVendorPoiCategory' )->mapCategoriesTo( $dupeIds[0], $dupeIds );
     }
   }
 
