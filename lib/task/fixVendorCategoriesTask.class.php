@@ -80,13 +80,7 @@ class fixVendorCategoriesTask extends sfBaseTask
 
   private function _mergeDuplicatePoiCategories( Vendor $vendor )
   {
-    $duplicatePoiCategoriesArray = Doctrine::getTable( 'VendorPoiCategory' )
-        ->createQuery()
-        ->select('GROUP_CONCAT( id ) as dupeIds')
-        ->where('vendor_id = ? ', $vendor['id'] )
-        ->groupBy('name, vendor_id')
-        ->having('count(*) > 1')
-        ->execute( array(), Doctrine::HYDRATE_ARRAY );
+    $duplicatePoiCategoriesArray = Doctrine::getTable( 'VendorPoiCategory' )->findConcatDuplicateCategoryIdBy( $vendor['id'], Doctrine::HYDRATE_ARRAY );
 
     if( $duplicatePoiCategoriesArray === false ) return;
     
