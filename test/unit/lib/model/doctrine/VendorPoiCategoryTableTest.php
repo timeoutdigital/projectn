@@ -62,4 +62,19 @@ class VendorPoiCategoryTableTest extends PHPUnit_Framework_TestCase
                 $duplicates[0]['dupeIds'] );
         
     }
+
+    public function testFindUnusedCategoriesBy()
+    {
+        // at this point we have No Poi's and All those categoris int he Table should be returned as un-used
+        $this->assertEquals(7, Doctrine::getTable('VendorPoiCategory')->count());
+        $this->assertEquals( 7, Doctrine::getTable('VendorPoiCategory')->findUnusedCategoriesBy( 1 )->count() );
+    }
+
+    public function testFindUnusedCategoriesByMapOneToRecordAndTest()
+    {
+        // at this point we have No Poi's and All those categoris int he Table should be returned as un-used
+        $poi = ProjectN_Test_Unit_Factory::add( 'Poi' );
+        $this->assertEquals(7, Doctrine::getTable('VendorPoiCategory')->count());
+        $this->assertEquals( 6, Doctrine::getTable('VendorPoiCategory')->findUnusedCategoriesBy( 1 )->count(), '1 less than whats in the Table as 1 mapped to a record' );
+    }
 }

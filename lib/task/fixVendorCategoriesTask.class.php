@@ -106,10 +106,7 @@ class fixVendorCategoriesTask extends sfBaseTask
 
   private function _deleteUnusedPoiCategories( Vendor $vendor )
   {
-    $unusedPoiCategories = Doctrine::getTable( 'VendorPoiCategory' )->createQuery('vpc')
-        ->where('vpc.id NOT IN ( SELECT lvpc.vendor_poi_category_id FROM LinkingVendorPoiCategory lvpc )')
-        ->andWhere('vpc.vendor_id = ? ', $vendor['id'] )
-        ->execute();
+    $unusedPoiCategories = Doctrine::getTable( 'VendorPoiCategory' )->findUnusedCategoriesBy( $vendor['id'] );
 
     foreach( $unusedPoiCategories as $poiCategory )
     {
