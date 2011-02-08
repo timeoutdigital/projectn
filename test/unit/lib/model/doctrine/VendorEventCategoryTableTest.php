@@ -60,4 +60,43 @@ class VendorEventCategoryTableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( stringTransform::concatNonBlankStrings(',', array($category_1['id'], $category_2['id'], $category_3['id'])),
                 $duplicates[0]['dupeIds'] );
     }
+
+    public function testFindUnusedCategoriesBy()
+    {
+        // Empty existing
+        Doctrine::getTable( 'VendorEventCategory' )->findAll()->delete();
+        
+        // add Empty Categories
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Sports' ) );
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Events' ) );
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Film' ) );
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Dance' ) );
+
+        $this->assertEquals( 4 , Doctrine::getTable( 'VendorEventCategory')->count() );
+        $this->assertEquals( 4, Doctrine::getTable( 'VendorEventCategory')->findUnusedCategoriesBy(1)->count() );
+        
+    }
+
+    public function testFindUnusedCategoriesByWithOneRecord()
+    {
+        // Empty existing
+        Doctrine::getTable( 'VendorEventCategory' )->findAll()->delete();
+
+        // add Empty Categories
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Sports' ) );
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Events' ) );
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Film' ) );
+        ProjectN_Test_Unit_Factory::add( 'VendorEventCategory', array( 'name' => 'Dance' ) );
+
+        $this->assertEquals( 4 , Doctrine::getTable( 'VendorEventCategory')->count() );
+
+        $event = ProjectN_Test_Unit_Factory::add( 'event' );
+
+        // Map 1 category to event and get unused again
+        $event['VendorEventCategory'][] = Doctrine::getTable('VendorEventCategory')->findOneByVendorId(1);
+        $event->save();
+        
+        $this->assertEquals( 3, Doctrine::getTable( 'VendorEventCategory')->findUnusedCategoriesBy(1)->count() );
+
+    }
 }

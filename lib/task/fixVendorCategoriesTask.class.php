@@ -126,10 +126,7 @@ class fixVendorCategoriesTask extends sfBaseTask
   
   private function _deleteUnusedEventCategories( Vendor $vendor )
   {
-    $unusedEventCategories = Doctrine::getTable( 'VendorEventCategory' )->createQuery('vec')
-        ->where('vec.id NOT IN ( SELECT lvpc.vendor_event_category_id FROM LinkingVendorEventCategory lvpc )')
-        ->andWhere('vec.vendor_id = ? ', $vendor['id'] )
-        ->execute();
+    $unusedEventCategories = Doctrine::getTable( 'VendorEventCategory' )->findUnusedCategoriesBy( $vendor['id'] );
 
     foreach( $unusedEventCategories as $eventCategory )
     {
