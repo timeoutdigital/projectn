@@ -47,4 +47,63 @@ class PoiReferenceTableTest extends PHPUnit_Framework_TestCase
         Doctrine::getTable( 'PoiReference' )->removeRelationShip( 3 );
         $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count(), '1 of those relationship should have been removed' );
     }
+
+    public function testRelatePois()
+    {
+        $master_poi = ProjectN_Test_Unit_Factory::add('poi');
+        $duplicate_poi = ProjectN_Test_Unit_Factory::add('poi');
+        
+        $this->assertEquals( false, $master_poi->isDuplicate() );
+        $this->assertEquals( false, $master_poi->isMaster() );
+
+        $this->assertEquals( false, $duplicate_poi->isDuplicate() );
+        $this->assertEquals( false, $duplicate_poi->isMaster() );
+
+        Doctrine::getTable( 'PoiReference' )->relatePois( $master_poi['id'], $duplicate_poi['id']);
+        $this->assertEquals( false, $master_poi->isDuplicate() );
+        $this->assertEquals( true, $master_poi->isMaster() );
+        $this->assertEquals( true, $duplicate_poi->isDuplicate() );
+        $this->assertEquals( false, $duplicate_poi->isMaster() );
+        
+    }
+
+    public function testRelatePoisDuplicateAsMaster()
+    {
+        $master_poi = ProjectN_Test_Unit_Factory::add('poi');
+        $duplicate_poi1 = ProjectN_Test_Unit_Factory::add('poi');
+        $duplicate_poi2 = ProjectN_Test_Unit_Factory::add('poi');
+
+        Doctrine::getTable( 'PoiReference' )->relatePois( $master_poi['id'], $duplicate_poi1['id']);
+        $this->assertEquals( 1, Doctrine::getTable('PoiReference')->count());
+
+        // When you try adding Duplicate Poi as Master, it should throw Exception
+        $this->setExpectedException( 'PoiReferenceTableException');
+        Doctrine::getTable( 'PoiReference' )->relatePois( $duplicate_poi1['id'], $duplicate_poi2['id']);
+    }
+
+    public function testRelatePoisMasterAsDuplicate()
+    {
+        $master_poi1 = ProjectN_Test_Unit_Factory::add('poi');
+        $master_poi2= ProjectN_Test_Unit_Factory::add('poi');
+        $duplicate_poi = ProjectN_Test_Unit_Factory::add('poi');
+
+        Doctrine::getTable( 'PoiReference' )->relatePois( $master_poi1['id'], $duplicate_poi['id']);
+        $this->assertEquals( 1, Doctrine::getTable('PoiReference')->count());
+
+        // Master Poi of cannot be added as duplicate POI
+        $this->setExpectedException( 'PoiReferenceTableException');
+        Doctrine::getTable( 'PoiReference' )->relatePois( $master_poi2['id'], $master_poi1['id']);
+    }
+
+    public function testRelatePoisAsDuplicateTwice()
+    {
+        $master_poi1 = ProjectN_Test_Unit_Factory::add('poi');
+        $master_poi2 = ProjectN_Test_Unit_Factory::add('poi');
+        $duplicate_poi = ProjectN_Test_Unit_Factory::add('poi');
+
+        Doctrine::getTable( 'PoiReference' )->relatePois( $master_poi1['id'], $duplicate_poi['id'] );
+
+        $this->setExpectedException( 'PoiReferenceTableException' );
+        Doctrine::getTable( 'PoiReference' )->relatePois( $master_poi2['id'], $duplicate_poi['id'] );
+    }
 }
