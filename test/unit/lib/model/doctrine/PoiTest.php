@@ -621,44 +621,6 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
    }
 
-   public function testDoctrineBugSelfReferenceUpdateMaster()
-   {
-       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
-       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
-       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
-
-       $poi1['DuplicatePois'][0] = $poi2;
-       $poi1['DuplicatePois'][1] = $poi3;
-       $poi1->save();
-       $poi1['poi_name'] = 'updated master poi name';
-       $poi1->save();
-       
-       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
-   }
-
-   public function testDoctrineBugSelfReferenceUpdateDuplicate()
-   {
-       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
-       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
-       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
-
-       $poi1['DuplicatePois'][0] = $poi2;
-       $poi1['DuplicatePois'][1] = $poi3;
-
-       $poi1->save();
-
-       $poi2['poi_name'] = 'updated duplicate poi name';
-       $poi2->save();
-
-       // proof that each POI 2 and 3 duplicate of POI 1 and POI 1 is the master poi of Poi 2 & 3
-       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
-       $this->assertEquals( $poi2['id'], $poi1['DuplicatePois'][0]['id'] );
-       $this->assertEquals( $poi3['id'], $poi1['DuplicatePois'][1]['id'] );
-       // Reverse lookup
-       $this->assertEquals( $poi1['id'], $poi2['MasterPoi'][0]['id'] );
-       $this->assertEquals( $poi1['id'], $poi3['MasterPoi'][0]['id'] );
-   }
-
    // #911 test addVendorCategory() only adds Unqiue category when given as array
    public function testUniqueCategory()
    {
@@ -669,7 +631,55 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( 'Other | Music', $poi['VendorPoiCategory'][0]['name'] );
    }
 
-   
+   // Duplicate POI's tests
+   public function testSetMasterPoi()
+   {
+       $master_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+
+       $this->assertEquals( false, $master_poi->isMaster() );
+       $this->assertEquals( false, $duplicate_poi->isDuplicate() );
+
+       $duplicate_poi->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi->save();
+
+       $this->assertEquals( true, $master_poi->isMaster() );
+       $this->assertEquals( true, $duplicate_poi->isDuplicate() );
+
+   }
+
+   public function testGetMasterPoi()
+   {
+       $master_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+
+       $this->assertEquals( false, $master_poi->isMaster() );
+       $this->assertEquals( false, $duplicate_poi->isDuplicate() );
+
+       $duplicate_poi->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi->save();
+
+       $duplicates_master = $duplicate_poi->getMasterPoi();
+       $this->assertEquals( $master_poi['id'], $duplicates_master['id'] );
+   }
+
+   public function testGetDuplicatePois()
+   {
+       $master_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi1 = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi2 = ProjectN_Test_Unit_Factory::add( 'poi' );
+
+
+       $duplicate_poi1->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi1->save();
+       $duplicate_poi2->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi2->save();
+
+       $duplicate_pois = $master_poi->getDuplicatePois( Doctrine_Core::HYDRATE_ARRAY );
+       $this->assertEquals(true, is_array($duplicate_pois) );
+       $this->assertEquals($duplicate_poi1['id'], $duplicate_pois[0]['id'] );
+       $this->assertEquals($duplicate_poi2['id'], $duplicate_pois[1]['id'] );
+   }
 
 }
 
