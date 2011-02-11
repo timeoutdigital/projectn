@@ -106,4 +106,22 @@ class PoiReferenceTableTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException( 'PoiReferenceTableException' );
         Doctrine::getTable( 'PoiReference' )->relatePois( $master_poi2['id'], $duplicate_poi['id'] );
     }
+
+    public function testRemoveDuplicateReferences()
+    {
+        $master_poi = ProjectN_Test_Unit_Factory::add('poi');
+        $duplicate_poi1 = ProjectN_Test_Unit_Factory::add('poi');
+        $duplicate_poi2 = ProjectN_Test_Unit_Factory::add('poi');
+
+        $duplicate_poi1->setMasterPoi( $master_poi['id']);
+        $duplicate_poi1->save();
+        $duplicate_poi2->setMasterPoi( $master_poi['id']);
+        $duplicate_poi2->save();
+
+        $this->assertEquals( 2, $master_poi->getDuplicatePois()->count() );
+        $this->assertEquals( true, $master_poi->isMaster() );
+        Doctrine::getTable( 'PoiReference' )->removeDuplicateReferences( $master_poi['id'] );
+        $this->assertEquals( false, $master_poi->getDuplicatePois(), 'this should not return anything as there is nothing to fetch' );
+        $this->assertEquals( false, $master_poi->isMaster() );
+    }
 }

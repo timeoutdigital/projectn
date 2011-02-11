@@ -20,6 +20,20 @@ class PoiReferenceTable extends Doctrine_Table
                 ->execute();
     }
 
+    public function removeDuplicateReferences( $master_poi_id )
+    {
+        if( !is_numeric($master_poi_id) || intval( $master_poi_id ) <= 0 )
+        {
+            throw new PoiReferenceTableException( 'Invalid paramer value $master_poi_id' );
+        }
+
+        // delete existing if found
+        $this->createQuery()
+                ->delete()
+                ->where( 'master_poi_id = ? ', $master_poi_id )
+                ->execute();
+    }
+
     /**
      * Create relationship between two POI id's
      * @param int $master_poi_id
