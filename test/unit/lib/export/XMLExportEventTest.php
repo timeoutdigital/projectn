@@ -460,7 +460,8 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals( 2, $placesForEvent2->length );
     $this->assertEquals( 1, $placesForEvent2->item(0)->getElementsByTagName( 'occurrence' )->length );
-    $this->assertEquals( 3, $placesForEvent2->item(1)->getElementsByTagName( 'occurrence' )->length );
+    // #916 - updated as Dupicate occurrences prevented from exporting
+    $this->assertEquals( 1, $placesForEvent2->item(1)->getElementsByTagName( 'occurrence' )->length );
   }
 
     /**
@@ -505,13 +506,50 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       // mark poi 1 Duplicate of POI 2
       $poi1 = Doctrine::getTable('Poi')->find(1);
       $poi2 = Doctrine::getTable('Poi')->find(2);
-      $poi2['DuplicatePois'][] = $poi1;
-      $poi2->save();
+      $poi1->setMasterPoi($poi2['id']);
+      $poi1->save();
+      
       $this->exportPoisAndEvents();
       $exportedPoiXML = simplexml_load_file( $this->poiXmlLocation );
       $exportedEventXML = simplexml_load_file( $this->destination );
       $this->assertEquals(1, count( $exportedPoiXML->entry ), 'Only 1 poi should have been exported as one marked as duplicate' );
       $this->assertEquals(2, count( $exportedEventXML->event ), 'However, both Events should have been exported' );
+
+  }
+
+  // #916 - Avoid exporting duplicate pois
+  public function testAvoidDuplicateOccurrences()
+  {
+       $this->populateDbWithLondonData();
+       $event = Doctrine::getTable( 'Event' )->find( 1 );
+       $this->assertEquals( 1, $event['EventOccurrence']->count() );
+       // valid event
+       $occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+       $occurrence['start_date'] = date('Y-m-d', strtotime( '+1 week' ) );
+       $occurrence['start_time'] = '15:30';
+       $event['EventOccurrence'][] = $occurrence;
+       $event->save();
+
+       // duplicate event, Event model prevent adding duplicate,
+       // we have to skip normal process and add occurrence directy for this test
+       $duplicate_occurrence = ProjectN_Test_Unit_Factory::get( 'EventOccurrence' );
+       $duplicate_occurrence['start_date'] = $occurrence['start_date'];
+       $duplicate_occurrence['start_time'] = $occurrence['start_time'];
+       $duplicate_occurrence['event_id'] = $event['id'];
+       $duplicate_occurrence->save();       
+
+       $event->refresh(true); // reload everything
+       $this->assertEquals( 3, $event['EventOccurrence']->count() );
+
+       // EXPORT
+       $this->exportPoisAndEvents();
+       $exportedEventXML = simplexml_load_file( $this->destination );
+
+       $eventXML = $exportedEventXML->event[0];
+       $this->assertEquals( $event['id'], intval( substr($eventXML['id'], 10 ) ) );
+
+       $this->assertEquals( 2, count($eventXML->showtimes->place[0]->occurrence), 'out of three, two should be exported as valid, 1 should have been supressed as duplicate occurrence' );
+       $this->assertEquals( $occurrence['start_date'], (string) $eventXML->showtimes->place[0]->occurrence[1]->time->start_date );
 
   }
 
