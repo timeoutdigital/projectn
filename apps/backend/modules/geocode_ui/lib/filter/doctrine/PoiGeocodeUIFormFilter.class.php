@@ -21,6 +21,7 @@ class PoiGeocodeUIFormFilter extends BasePoiFormFilter
       //$this->setVendorWidget();
 
       $this->setWidget( 'hide_unsolvable', new sfWidgetFormInputCheckbox( ) );
+      $this->setValidator( 'hide_unsolvable', new sfValidatorPass() );
       parent::configure();
 
     }
