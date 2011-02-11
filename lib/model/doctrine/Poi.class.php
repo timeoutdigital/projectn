@@ -545,6 +545,14 @@ class Poi extends BasePoi
       return Doctrine::getTable( 'Poi' )->getDuplicatesOf( $this['id'], $hydrationMode );
   }
 
+  /**
+   * This method will Delete all existing references to this POI as mster
+   */
+  public function removeDuplicatePois()
+  {
+      Doctrine::getTable( 'PoiReference' )->removeDuplicateReferences( $this['id'] );
+  }
+
 
   private function cleanStreetField()
   {
