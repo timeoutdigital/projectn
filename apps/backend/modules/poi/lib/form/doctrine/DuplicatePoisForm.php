@@ -59,7 +59,7 @@ class DuplicatePoisForm extends BaseFormDoctrine
         }
 
         // Delete All Existing Duplicate POIS and Add New once
-        $this->poi['DuplicatePois']->delete();
+        $this->poi->removeDuplicatePois();
         
         // Add only what we have on Postback
         $newDuplicatePoisID = $this->getValue( 'duplicate_pois' );
@@ -79,9 +79,8 @@ class DuplicatePoisForm extends BaseFormDoctrine
                 continue;
             }
 
-            $this->poi['DuplicatePois'][] = $poi;
+            $poi->setMasterPoi( $this->poi['id'] );
+            $poi->save();
         }
-        
-        $this->poi->save();
     }
 }
