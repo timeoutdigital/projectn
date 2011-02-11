@@ -171,7 +171,7 @@ class PoiTable extends Doctrine_Table
         }
 
         $q = $this->createQuery( 'p' )
-                ->where( 'p.id IN ( SELECT pr.master_poi_id FROM PoiReference pr WHERE pr.duplicate_poi_id = ?  limit 1)', $poiID );
+                ->where( 'p.id IN ( SELECT pr.master_poi_id FROM PoiReference pr WHERE pr.duplicate_poi_id = ?)', $poiID );
 
         return $q->fetchOne( array(), $hydrationMode );
     }

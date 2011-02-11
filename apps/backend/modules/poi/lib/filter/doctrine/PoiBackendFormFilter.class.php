@@ -47,16 +47,16 @@ class PoiBackendFormFilter extends BasePoiFormFilter
         {
             case 'master':
 
-                $query->andWhere( "$poi.id IN ( SELECT master_poi_id FROM PoiReference )" );
+                $query->andWhere( "$poi.id IN ( SELECT pr.master_poi_id FROM PoiReference pr)" );
                 break;
             case 'duplicate':
                 
-                $query->andWhere( "$poi.id IN ( SELECT duplicate_poi_id FROM PoiReference )" );
+                $query->andWhere( "$poi.id IN ( SELECT pr.duplicate_poi_id FROM PoiReference pr)" );
 
                 break;
             case 'non-duplicate':
 
-                $query->andWhere( "$poi.id NOT IN ( SELECT duplicate_poi_id FROM PoiReference )" );
+                $query->andWhere( "$poi.id NOT IN ( SELECT pr.duplicate_poi_id FROM PoiReference pr)" );
 
                 break;
         }
