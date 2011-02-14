@@ -87,7 +87,7 @@ class importExportedItems
         if( trim( $modifiedString ) == '' )
         {
             echo 'ERROR: No modified date fround on the Document' . PHP_EOL;
-            continue;;
+            return;
         }
         
         // Format to Unix time stamp
