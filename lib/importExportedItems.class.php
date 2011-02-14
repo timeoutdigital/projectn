@@ -86,7 +86,8 @@ class importExportedItems
         $modifiedString = (string)$xmlData['modified'];
         if( trim( $modifiedString ) == '' )
         {
-            throw new ImportExportedItemsException('No modified date fround on the Document');
+            echo 'ERROR: No modified date fround on the Document' . PHP_EOL;
+            continue;;
         }
         
         // Format to Unix time stamp
