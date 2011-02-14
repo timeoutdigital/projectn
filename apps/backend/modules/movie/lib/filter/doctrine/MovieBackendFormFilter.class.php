@@ -13,6 +13,8 @@ class MovieBackendFormFilter extends BaseMovieFormFilter
 
         $this->setWidget( 'hide_unsolvable', new sfWidgetFormInputCheckbox( ) );
         $this->setValidator( 'hide_unsolvable', new sfValidatorPass());
+
+        $this->widgetSchema[ 'movie_genres_list' ] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MovieGenre', 'method' => 'getGenre', 'order_by' => array( 'genre', 'asc' ) ));
     }
 
     public function addHideUnsolvableColumnQuery( Doctrine_Query $query, $field, $value )
