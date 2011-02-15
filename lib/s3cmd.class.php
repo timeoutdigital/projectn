@@ -30,7 +30,7 @@ class s3cmd
         $vendorCity   = strtolower( $vendorCity );
         $recordClass  = strtolower( $recordClass );
 
-        $imageList    = trim( shell_exec( "{$this->s3cmd} ls s3://projectn/{$vendorCity}/{$recordClass}/media/ | cut exitd'/' -f7" ) );
+        $imageList    = trim( shell_exec( "{$this->s3cmd} ls s3://projectn/{$vendorCity}/{$recordClass}/media/ | cut -d'/' -f7" ) );
 
         return (array) explode( "\n", $imageList );
     }
