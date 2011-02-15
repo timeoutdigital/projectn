@@ -1,3 +1,4 @@
 >> START:    testTaskLogger 2011-07-02 16:00:48
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
 >> Params:   type=, env=prod, connection=project_n, application=backend
 >> END:      testTaskLogger   2011-07-02 16:00:48
