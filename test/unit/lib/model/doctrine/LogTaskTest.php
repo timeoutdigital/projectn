@@ -71,6 +71,7 @@ class LogTaskTest extends PHPUnit_Framework_TestCase
 
     $poi = Doctrine::getTable('LogTask')->findOneById( $this->object['id'] );
 
+    //make sure we only dont get duplicates (still have 2 records)
     $this->assertEquals(2, count($poi['LogTaskParam']) );
   }
 
