@@ -13,7 +13,8 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        UnsolvableForm: { label: 'Unsolvable Movie?' }
       list:
         display: [=name, imdb_id]
         object_actions:
@@ -24,6 +25,7 @@ generator:
         class: MovieBackendFormFilter
         display:
           - id
+          - hide_unsolvable
           - vendor_id
           - vendor_movie_id
           - name
@@ -73,6 +75,7 @@ generator:
             - utf_offset
             - imdb_id
             - movie_genres_list
+            - UnsolvableForm
           Info:
             - id
             - vendor_id

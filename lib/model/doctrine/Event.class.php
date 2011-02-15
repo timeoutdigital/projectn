@@ -359,4 +359,71 @@ class Event extends BaseEvent
       self::$vendorCategories = null;
   }
 
+  public function setUnsolvable( $is_unsolvable, $comment = null )
+  {
+      if( !is_bool($is_unsolvable) )
+      {
+          throw new EventException('Invalid parameter value');
+      }
+
+      // Get if any exists as this should not be duplicated
+      // Whe this field record exists means this is marked as skipped by producer
+      $existing_meta = null;
+      foreach( $this['EventMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              $existing_meta = $meta;
+              break;
+          }
+      }
+
+      if( $existing_meta == null )
+      {
+          $existing_meta = new EventMeta();
+          $existing_meta['lookup'] = 'unsolvable';
+      }
+
+      if($is_unsolvable )
+      {
+
+          $existing_meta['value'] = $comment;
+          $this['EventMeta'][] = $existing_meta;
+
+      }else{
+
+          $this->unlink( 'EventMeta', $existing_meta['id'] );
+          $existing_meta->delete();
+          unset($existing_meta);
+      }
+  }
+
+  public function getUnsolvable()
+  {
+      foreach( $this['EventMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+  public function getUnsolvableReason()
+  {
+      foreach( $this['EventMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              return $meta['value'];
+          }
+      }
+
+      return null;
+  }
+
 }
+
+class EventException extends Exception{}

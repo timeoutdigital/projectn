@@ -817,6 +817,32 @@ class EventTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( 1, $event['EventOccurrence']->count(), 'Duplicate should not be added and the count should remains 1' );
 
    }
+   
+   public function testGetUnsolvableTrue()
+   {
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event->setUnsolvable( true, 'Testing' );
+       $event->save();
+       $this->assertEquals( 1, $event['EventMeta']->count() );
+       $this->assertEquals( true, $event->getUnsolvable() );
+       $this->assertEquals( 'Testing', $event->getUnsolvableReason() );
+   }
+
+   public function testGetUnsolvableFalseAfterAdded()
+   {
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event->setUnsolvable( true, 'Testing' );
+       $event->save();
+       $this->assertEquals( 1, $event['EventMeta']->count() );
+       $this->assertEquals( true, $event->getUnsolvable() );
+       $this->assertEquals( 'Testing', $event->getUnsolvableReason() );
+
+       $event->setUnsolvable( false );
+       $event->save();
+       $this->assertEquals( 0, $event['EventMeta']->count() );
+       $this->assertEquals( false, $event->getUnsolvable() );
+       $this->assertEquals( null, $event->getUnsolvableReason() );
+   }
 
 }
 
