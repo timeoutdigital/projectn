@@ -30,7 +30,7 @@ class s3cmd
         $vendorCity   = strtolower( $vendorCity );
         $recordClass  = strtolower( $recordClass );
 
-        $imageList    = trim( shell_exec( "{$this->s3cmd} ls s3://projectn/{$vendorCity}/{$recordClass}/media/ | cut -d'/' -f7" ) );
+        $imageList    = trim( shell_exec( "{$this->s3cmd} ls s3://projectn/{$vendorCity}/{$recordClass}/media/ | cut exitd'/' -f7" ) );
 
         return (array) explode( "\n", $imageList );
     }
@@ -64,6 +64,36 @@ class s3cmd
         }
 
         return (array) $result;
+    }
+
+    /**
+     * This will query s3 for export files and return anything
+     * have the prefix "exports_" file name as Array KEY and the MD5 of that file as value
+     * @return array
+     */
+    public function getListOfExportArchives()
+    {
+        $exports = trim(shell_exec( "{$this->s3cmd} ls --list-md5 s3://timeout-projectn-backups/export/ | grep 'exports_' | awk -F' ' '{print $4, \"~\", $5}'") );
+        $exports_array = explode( "\n", $exports );
+        
+        $return_list = array(); // This will store [filename] => MD5_SUM
+        foreach( $exports_array as $export )
+        {
+            $split = explode( '~', $export );
+
+            if( count($split) != 2 ) continue; // Only continue IF WE have two set of data
+            
+            $filename = trim( str_replace( 's3://timeout-projectn-backups/export/', '', $split[1] ) );
+
+            if( strlen($filename) !=  20 ) continue; // Careful on File names, It shouls ALWAYS be 20 CHAR long
+
+            $md5 = trim($split[0]);
+
+            $return_list[ $filename ] = $md5; // add to the return list
+        }
+
+        return $return_list;
+
     }
 }
 
