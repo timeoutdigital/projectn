@@ -293,7 +293,7 @@ EOF;
     public function testMultipleParamsError()
     {
         $this->setExpectedException( 'logFileParserException' );
-        $this->logFileParser->processFile( TO_TEST_DATA_PATH . '/log_parser/testTaskLoggerMultipleParams.log' );
+        $this->logFileParser->processFile( TO_TEST_DATA_PATH . '/log_parser/testTaskLoggerMultipleParameters.log' );
         $this->assertEquals( 0, Doctrine::getTable('LogTask')->count() );
     }
     
