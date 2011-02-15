@@ -39,10 +39,10 @@ EOF;
     
     foreach( DirectoryIteratorN::iterate( sfConfig::get( 'projectn_export' ), DirectoryIteratorN::DIR_FILES, 'tgz', 'exports_', false) as $file )
     {
-        // Only need to go through files older than a week
-        if( $this->_extractTimeStamp( $file ) >= strtotime( '-1 week' ) )
+        // Only need to go through files older than 6 week
+        if( $this->_extractTimeStamp( $file ) >= strtotime( '-6 week' ) )
         {
-            break; // END of task
+            continue; // ensure that we don't delete any tiles that fall within 6 week.
         }
 
         // check this file exists in Amazon S3 or Echo a message
