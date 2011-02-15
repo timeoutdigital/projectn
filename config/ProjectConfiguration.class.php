@@ -18,6 +18,8 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('projectnDashboardPlugin');
 
     sfConfig::set( 'projectn_xslt_dir', sfConfig::get( 'sf_data_dir' ) . '/xslt' );
+    sfConfig::set( 'projectn_export', sfConfig::get( 'sf_root_dir' ) . '/export' );
+    
   }
 
   static public function registerHTMLPurifier()
