@@ -29,6 +29,9 @@ class PoiBackendFormFilter extends BasePoiFormFilter
         
         $this->setValidator( 'filter_by', new sfValidatorString(array('required' => false)) );
         
+        $this->setWidget( 'hide_unsolvable', new sfWidgetFormInputCheckbox( array() ) );
+        $this->setValidator( 'hide_unsolvable', new sfValidatorPass());
+
         parent::configure();
     }
 
@@ -63,6 +66,14 @@ class PoiBackendFormFilter extends BasePoiFormFilter
         return $query;
     }
 
+    public function addHideUnsolvableColumnQuery( Doctrine_Query $query, $field, $value )
+    {
+        $poi = $query->getRootAlias();
+
+        $query->andWhere( "$poi.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = ?)", 'unsolvable' );
+        return $query;
+    }
+
     /**
      * This function will help adding dynamic column that can be filtered
      * @return array
@@ -72,6 +83,7 @@ class PoiBackendFormFilter extends BasePoiFormFilter
         // Add a Custom dynamic field call "reference"
         $fields = parent::getFields();
         $fields['filter_by'] = 'custom';
+        $fields['hide_unsolvable'] = 'custom';
         return $fields;
     }
 } 
