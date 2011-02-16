@@ -34,7 +34,7 @@ class Poi extends BasePoi
    * THis variable is created to 
    * @var int
    */
-  private $master_poi_id = null;
+  private $master_poi = null;
 
 
   public function getDuplicate()
@@ -84,14 +84,14 @@ class Poi extends BasePoi
    * Set this POI's Master poi. Use "false" to remove relastionship
    * @param int $poi_id
    */
-  public function setMasterPoi( $poi_id )
+  public function setMasterPoi( Poi $poi )
   {
-      if( !is_numeric( $poi_id ) && (!is_bool( $poi_id ) && $poi_id !== false) )
+      if( $poi !== false && !$poi )
       {
           throw new PoiException( 'Invalid paramer $poi_id. Should be valid POI ID or FALSE to remove existing relationship' );
       }
 
-      $this->master_poi_id = $poi_id;
+      $this->master_poi = $poi;
   }
   /**
    * Check is this Poi Master of duplicate pois
@@ -507,17 +507,17 @@ class Poi extends BasePoi
    */
   private function saveMasterPoi()
   {
-      if( $this->master_poi_id === null ) return; // No need to take any action.
+      if( $this->master_poi === null ) return; // No need to take any action.
 
       // Delete existing relationship When false given
-      if( $this->master_poi_id === false )
+      if( $this->master_poi === false )
       {
-          Doctrine::getTable( 'PoiReference' )->remobeRelationShip( $this['id'] );
+          Doctrine::getTable( 'PoiReference' )->removeRelationShip( $this['id'] );
       }
       else
       {
           // add new relationship
-          Doctrine::getTable( 'PoiReference' )->relatePois( $this->master_poi_id, $this['id'] );
+          Doctrine::getTable( 'PoiReference' )->relatePois( $this->master_poi['id'], $this['id'] );
       }
   }
 

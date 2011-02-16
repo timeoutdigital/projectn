@@ -207,7 +207,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
 
       $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
       $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
-      $duplicatePoi->setMasterPoi( $masterPoi['id'] );
+      $duplicatePoi->setMasterPoi( $masterPoi );
       $duplicatePoi->save();
 
       $this->assertEquals( 2, Doctrine::getTable('Poi')->count() );
@@ -224,7 +224,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
 
       $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
       $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
-      $duplicatePoi->setMasterPoi($masterPoi['id']);
+      $duplicatePoi->setMasterPoi($masterPoi );
       $duplicatePoi->save();
 
       $poi = Doctrine::getTable( 'Poi' )->getMasterOf( $duplicatePoi['id'] );
@@ -239,10 +239,10 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
 
       $masterPoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
       $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
-      $duplicatePoi->setMasterPoi($masterPoi['id']);
+      $duplicatePoi->setMasterPoi($masterPoi);
       $duplicatePoi->save();
       $duplicatePoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
-      $duplicatePoi2->setMasterPoi($masterPoi['id']);
+      $duplicatePoi2->setMasterPoi($masterPoi );
       $duplicatePoi2->save();
 
       $poi = Doctrine::getTable( 'Poi' )->getDuplicatesOf( $masterPoi['id'], Doctrine_Core::HYDRATE_ARRAY );
@@ -262,7 +262,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
 
       // add Duplicate
-      $duplicatePoi->setMasterPoi($masterPoi['id']);
+      $duplicatePoi->setMasterPoi($masterPoi);
       $duplicatePoi->save();
       $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
 
@@ -308,7 +308,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 1, count($pois), 'Should have 1 Duplicate' );
 
       // add the ID4 as Duplicate of Poi 1
-      $poi4->setMasterPoi($poi1['id']);
+      $poi4->setMasterPoi($poi1);
       $poi4->save();
       $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
       $this->assertEquals( 0, count($pois), 'Should bring nothing back, as 4th one identified as duplicate of POI 1' );
@@ -326,7 +326,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertEquals( 4, $validPois->count(), 'There is no Duplicate Yet, it should bring back 4 POIs' );
 
       // Mark poi 3 as Poi 1's Duplicate
-      $poi3->SetMasterPoi($poi1['id']);
+      $poi3->setMasterPoi($poi1);
       $poi3->save();
       
       $validPois = Doctrine::getTable( 'Poi' )->findAllValidByVendorId( 1 );

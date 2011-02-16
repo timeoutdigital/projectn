@@ -640,7 +640,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( false, $master_poi->isMaster() );
        $this->assertEquals( false, $duplicate_poi->isDuplicate() );
 
-       $duplicate_poi->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi->setMasterPoi( $master_poi );
        $duplicate_poi->save();
 
        $this->assertEquals( true, $master_poi->isMaster() );
@@ -656,7 +656,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( false, $master_poi->isMaster() );
        $this->assertEquals( false, $duplicate_poi->isDuplicate() );
 
-       $duplicate_poi->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi->setMasterPoi( $master_poi );
        $duplicate_poi->save();
 
        $duplicates_master = $duplicate_poi->getMasterPoi();
@@ -670,9 +670,9 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $duplicate_poi2 = ProjectN_Test_Unit_Factory::add( 'poi' );
 
 
-       $duplicate_poi1->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi1->setMasterPoi( $master_poi );
        $duplicate_poi1->save();
-       $duplicate_poi2->setMasterPoi( $master_poi['id'] );
+       $duplicate_poi2->setMasterPoi( $master_poi );
        $duplicate_poi2->save();
 
        $duplicate_pois = $master_poi->getDuplicatePois( Doctrine_Core::HYDRATE_ARRAY );

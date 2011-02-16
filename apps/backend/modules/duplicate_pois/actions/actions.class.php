@@ -52,7 +52,7 @@ class duplicate_poisActions extends autoDuplicate_poisActions
 
             try{
                 // Add as duplicate
-                $poi->setMasterPoi( $master_poi['id'] );
+                $poi->setMasterPoi( $master_poi );
                 $poi->save();
             } catch ( Exception $e ){
                 $this->getUser()->setFlash('error', $e->getMessage() );

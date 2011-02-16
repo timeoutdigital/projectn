@@ -79,7 +79,7 @@ class DuplicatePoisForm extends BaseFormDoctrine
                 continue;
             }
 
-            $poi->setMasterPoi( $this->poi['id'] );
+            $poi->setMasterPoi( $this->poi );
             $poi->save();
         }
     }

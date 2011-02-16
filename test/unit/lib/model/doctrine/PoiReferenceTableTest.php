@@ -113,9 +113,9 @@ class PoiReferenceTableTest extends PHPUnit_Framework_TestCase
         $duplicate_poi1 = ProjectN_Test_Unit_Factory::add('poi');
         $duplicate_poi2 = ProjectN_Test_Unit_Factory::add('poi');
 
-        $duplicate_poi1->setMasterPoi( $master_poi['id']);
+        $duplicate_poi1->setMasterPoi( $master_poi );
         $duplicate_poi1->save();
-        $duplicate_poi2->setMasterPoi( $master_poi['id']);
+        $duplicate_poi2->setMasterPoi( $master_poi );
         $duplicate_poi2->save();
 
         $this->assertEquals( 2, $master_poi->getDuplicatePois()->count() );
