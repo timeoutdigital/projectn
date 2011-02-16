@@ -23,8 +23,8 @@ generator:
         object_actions: []
 
       filter:
-         class: PoiDataEntryFormFilter
-         display: [ _vendor_id, poi_name, latitude, longitude, _list_filter ]
+         class: PoiGeocodeUIFormFilter
+         display: [ hide_unsolvable, _vendor_id, poi_name, latitude, longitude, _list_filter ]
       form:    ~
       edit:    ~
       new:     ~

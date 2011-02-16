@@ -63,23 +63,26 @@ class DuplicatePoisForm extends BaseFormDoctrine
         
         // Add only what we have on Postback
         $newDuplicatePoisID = $this->getValue( 'duplicate_pois' );
-        foreach( $newDuplicatePoisID as $duplicatePoi )
+        if( is_array($newDuplicatePoisID) )
         {
-            $poi = Doctrine::getTable( 'Poi' )->findOneById( $duplicatePoi );
-            if( $poi === false )
+            foreach( $newDuplicatePoisID as $duplicatePoi )
             {
-                // Throw Error?
-                continue;
-            }
+                $poi = Doctrine::getTable( 'Poi' )->findOneById( $duplicatePoi );
+                if( $poi === false )
+                {
+                    // Throw Error?
+                    continue;
+                }
 
-            if( $poi->isDuplicate() || $poi->isMaster() || $poi['id'] == $this->poi['id'])
-            {
-                // throw error, as you cannot add another master or duplicate as duplicate
-                // or it self!
-                continue;
-            }
+                if( $poi->isDuplicate() || $poi->isMaster() || $poi['id'] == $this->poi['id'])
+                {
+                    // throw error, as you cannot add another master or duplicate as duplicate
+                    // or it self!
+                    continue;
+                }
 
-            $this->poi['DuplicatePois'][] = $poi;
+                $this->poi['DuplicatePois'][] = $poi;
+            }
         }
         
         $this->poi->save();

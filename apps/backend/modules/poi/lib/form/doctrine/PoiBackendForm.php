@@ -18,13 +18,32 @@ class PoiBackendForm extends PoiForm
     {
         $this->embedForm( 'DuplicatePoisForm',  new DuplicatePoisForm( $this->getObject() ) );
         $this->validatorSchema[ 'DuplicatePoisForm' ] =  new sfValidatorPass( ); // Stop validating
+
+        $this->embedForm( 'UnsolvableForm', new UnsolvableForm( $this->getObject() ) );
         
         parent::configure();
     }
 
+    public function  doSave($con = null) {
+
+        parent::doSave($con); // Save the Parent Model
+        
+        // Catch the Unsolvable Postback and Update Model Meta
+        $unsolvable = $this->taintedValues['UnsolvableForm'];
+        if( isset( $unsolvable['unsolvable']) && $unsolvable['unsolvable'] == 'on')
+        {
+            $this->getObject()->setUnsolvable( true, $unsolvable['reason']);
+            
+        } else if( $this->getObject()->getUnsolvable() ){
+
+            $this->getObject()->setUnsolvable( false );
+        }
+        
+        $this->getObject()->save();
+    }
+    
     public function saveEmbeddedForms($con = null, $forms = null)
     {
-        //unset( $forms['DuplicatePoisForm'] );
         if (null === $con)
         {
             $con = $this->getConnection();
@@ -40,6 +59,7 @@ class PoiBackendForm extends PoiForm
             if ($form instanceof sfFormObject)
             {
                 unset($form[self::$CSRFFieldName]);
+                if( isset($this->taintedValues[$key]))
                 $form->bindAndSave($this->taintedValues[$key], $this->taintedFiles, $con);
                 $form->saveEmbeddedForms($con);
             }
@@ -49,14 +69,4 @@ class PoiBackendForm extends PoiForm
             }
         }
     }
-
-//    public function save($con = null) {
-//
-//        $poi = parent::save($con);
-//
-//
-//        $values = $this->getValues();
-//
-//        print_r( $values ); die( 'SAVE()' );
-//    }
 }
