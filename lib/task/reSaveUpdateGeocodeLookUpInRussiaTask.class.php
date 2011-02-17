@@ -58,6 +58,10 @@ EOF;
             $this->logSection( 'Save', 'Updating Poi: ' . $poi['id'] );
             // Update geocode lookup string
             $poi['geocode_look_up'] = stringTransform::concatNonBlankStrings(', ', array( $poi['city'], $poi['house_no'], $poi['street'], $poi['zips'] ) );
+
+            // Set geocoder as Default is google
+            $poi->setgeocoderr( new yandexGeocoder() );
+            
             $poi->save(); // This should Trigger Geocode Look up
 
         } catch ( Exception $e ){
