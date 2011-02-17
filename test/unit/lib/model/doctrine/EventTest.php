@@ -709,6 +709,115 @@ class EventTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( 1, $event['VendorEventCategory']['Other | Music']['vendor_id'] );
    }
 
+   //#916 Duplicate Event occurrences
+   public function testRemoveMultipleOccurrencesWithStartTime()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event['EventOccurrence']->delete();
+       $event->save();
+
+       $this->assertEquals( 0, $event['EventOccurrence']->count() );
+
+       // add an event occurrence
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 1;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = '10:30';
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'There should be 1 saved as There is no duplicate added yet!' );
+
+       // add a Duplicate event occurrences and validate RemoveMultipleOccurrences working
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 2;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = '10:30';
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'Duplicate should not be added and the count should remains 1' );
+       
+   }
+
+   //#916 Duplicate Event occurrences
+   public function testRemoveMultipleOccurrencesWithoutStartTime()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event['EventOccurrence']->delete();
+       $event->save();
+
+       $this->assertEquals( 0, $event['EventOccurrence']->count() );
+
+       // add an event occurrence
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 1;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'There should be 1 saved as There is no duplicate added yet!' );
+
+       // add a Duplicate event occurrences and validate RemoveMultipleOccurrences working
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 2;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'Duplicate should not be added and the count should remains 1' );
+
+   }
+
+   //#916 Duplicate Event occurrences
+   public function testRemoveMultipleOccurrencesSpaceInDate()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event['EventOccurrence']->delete();
+       $event->save();
+
+       $this->assertEquals( 0, $event['EventOccurrence']->count() );
+
+       // add an event occurrence
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 1;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'There should be 1 saved as There is no duplicate added yet!' );
+
+       // add a Duplicate event occurrences and validate RemoveMultipleOccurrences working
+       // this time, we introduce SPACE in date.. removeMultipleOccurrences() should remove space
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 2;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20 ';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'Duplicate should not be added and the count should remains 1' );
+
+   }
+   
    public function testGetUnsolvableTrue()
    {
        $event = ProjectN_Test_Unit_Factory::add( 'event' );
