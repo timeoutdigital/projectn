@@ -60,7 +60,9 @@ EOF;
             $poi['geocode_look_up'] = stringTransform::concatNonBlankStrings(', ', array( $poi['city'], $poi['house_no'], $poi['street'], $poi['zips'] ) );
 
             // Set geocoder as Default is google
-            $poi->setgeocoderr( new yandexGeocoder() );
+            $geocoder = new yandexGeocoder();
+            $geocoder->setApiKey( sfConfig::get('app_yandex_api_key') );
+            $poi->setgeocoderr( $geocoder );
             
             $poi->save(); // This should Trigger Geocode Look up
 
