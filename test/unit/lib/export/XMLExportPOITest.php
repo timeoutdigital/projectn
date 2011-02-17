@@ -963,7 +963,7 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         // add duplicate ship
         $poi1 = Doctrine::getTable( 'Poi' )->find(1);
         $poi5 = Doctrine::getTable( 'Poi' )->find(5);
-        $poi1['DuplicatePois'][] = $poi5;
+        $poi5->setMaster( $poi1 );
         $poi1->save();
         $this->assertEquals( 5, Doctrine::getTable( 'Poi' )->findByVendorId(2)->count() );
         $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
