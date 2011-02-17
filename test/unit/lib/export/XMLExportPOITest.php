@@ -995,6 +995,45 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'poi4', (string)$xml->entry[2]->name );
         $this->assertEquals( 'Music', (string)$xml->entry[2]->version->content->property[0] );
     }
+
+    public function testExportHongkongGuisable()
+    {
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData( 'data/fixtures' );
+
+        $vendorHongKong = Doctrine::getTable( 'Vendor' )->findOneByCity( 'hong kong' );
+
+        $poiHongkong = ProjectN_Test_Unit_Factory::get( 'poi', array( 'vendor_id'   => $vendorHongKong['id'],
+                                                                      'poi_name' => 'IFC Mall',
+                                                                      'district' => 'Central',
+                                                                      'latitude' => '22.28529547',
+                                                                      'longitude' => '114.15946873' ) );
+        $poiHongkong->save();
+        $poiShenzhen = ProjectN_Test_Unit_Factory::get( 'poi', array( 'vendor_id'   => $vendorHongKong['id'],
+                                                                      'poi_name' => 'babyface',
+                                                                      'district' => 'Shenzhen',
+                                                                      'latitude' => '23.11138172',
+                                                                      'longitude' => '113.26142599' ) );
+        $poiShenzhen->save();
+        $poiMacau = ProjectN_Test_Unit_Factory::get( 'poi', array(    'vendor_id'   => $vendorHongKong['id'],
+                                                                      'poi_name' => 'IIUM, Auditorium',
+                                                                      'district' => 'Macau',
+                                                                      'latitude' => '22.18868336',
+                                                                      'longitude' => '113.55275795' ) );
+        $poiMacau->save();
+
+        $XMLExportDestination =  dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+        $this->export = new XMLExportPOI( $vendorHongKong, $XMLExportDestination );
+        $this->export->run();
+        $this->xml = simplexml_load_file( $XMLExportDestination );
+        $numEntries = $this->xml->xpath( '//entry' );
+
+        $this->assertEquals( 3, count($numEntries) );
+
+        //cleanup
+        @unlink( $XMLExportDestination );
+    }
 }
 /**
  * Purpose of this mockup class to Make "testMediaTags" test pass..
