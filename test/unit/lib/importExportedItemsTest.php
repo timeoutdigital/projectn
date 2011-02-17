@@ -84,6 +84,7 @@ class importExportedItemsTest extends PHPUnit_Framework_TestCase
 
         // Check for imported differences
         $this->assertEquals( 27, Doctrine::getTable( 'ExportedItem' )->count(), 'Should be 27 as There is only 9 New Items are added in second day. original 18 + 9 = 27');
-        $this->assertEquals( 30, Doctrine::getTable( 'ExportedItemHistory' )->count(), 'Should be 30; original 18 + 9 New items + 3 Changing Category records = 30');
+        $this->assertEquals( 27, Doctrine::getTable( 'ExportedItemHistory' )->count(), 'There is no change happening when Vendor-category used insted on Ui category!');
+        //$this->assertEquals( 30, Doctrine::getTable( 'ExportedItemHistory' )->count(), 'Should be 30; original 18 + 9 New items + 3 Changing Category records = 30');
     }
 }

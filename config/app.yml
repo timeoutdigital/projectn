@@ -1,6 +1,16 @@
 all:
   google_api_key : ABQIAAAAmYqAbSR2FhObG6Z6FL8nKhRU_WMEl20ocrt2ynGk4s1dqZjnGhSJ99yXGf0aEBbrPNUwBX1jiAA1gg
   yandex_api_key : ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==
+  # Should be ordered: Most Important - least important, this will be used by Invoice tasks to pick the value category for Models
+  ui_category:
+    priority:
+      - 'Eating & Drinking'
+      - 'Film'
+      - 'Art'
+      - 'Around Town'
+      - 'Nightlife'
+      - 'Music'
+      - 'Stage'
   poi:
     default_coordinates:
       sydney1: { long: '151.207114', lat: '-33.867139' }
