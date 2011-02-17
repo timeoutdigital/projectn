@@ -214,6 +214,7 @@ class XMLExportEvent extends XMLExport
       $showtimeElement = $this->appendRequiredElement($eventElement, 'showtimes');
 
       $currentPoiId = null;
+      $avoidDuplicateOccurrences = array(); //#916 - Avoid exporting duplicate Occurrences by matching exported occurrences
       foreach( $event['EventOccurrence'] as $eventOccurrence )
       {
         if( !$this->poiXmlExportHasPoiRelatedTo( $eventOccurrence )  )
@@ -224,6 +225,15 @@ class XMLExportEvent extends XMLExport
                 continue;
             }
         }
+        // #916 - Nokia reported that we were sending duplicate event occurrences (combination of POI, Date & Time )
+        // to prevent this, created this unique ID for each occurrences in this event and store it when exported to check on next
+        $event_occurrence_unique_id = stringTransform::concatNonBlankStrings( '-', array( $eventOccurrence['poi_id'], $eventOccurrence['start_date'], $eventOccurrence['start_time'] ) );
+        if( in_array( $event_occurrence_unique_id, $avoidDuplicateOccurrences ) )
+        {
+            ExportLogger::getInstance()->addError( 'Skipping duplicate event occurrence. Event:  ' . $event[ 'id' ]. ' EventOccurrence:  ' . $eventOccurrence[ 'id' ] );
+            continue;
+        }
+
 
         if ( $currentPoiId != $eventOccurrence[ 'poi_id' ] )
         {
@@ -262,6 +272,9 @@ class XMLExportEvent extends XMLExport
         }
 
         $this->appendRequiredElement($timeElement, 'utc_offset', $eventOccurrence['utc_offset']);
+        
+        // #916 add this vent occurrences as exported, it will be checked again next occurrences
+        $avoidDuplicateOccurrences[] = $event_occurrence_unique_id;
         //$eventOccurrence->free();
         //$place->free();
       }

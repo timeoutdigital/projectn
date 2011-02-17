@@ -62,5 +62,7 @@ class PoiBackendDuplicateFormFilter extends BasePoiFormFilter
         // Group by Poi_name, Latitude, longitude
         $query->groupBy( " {$poi}.poi_name, {$poi}.latitude, {$poi}.longitude" );
         $query->having( 'COUNT(*) > 1 ' );
+        
+        return $query;
     }
 }
