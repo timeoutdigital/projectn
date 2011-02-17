@@ -61,7 +61,7 @@ EOF;
 
             // Set geocoder as Default is google
             $geocoder = new yandexGeocoder();
-            $geocoder->setApiKey( sfConfig::get('app_yandex_api_key') );
+            $geocoder->setApiKey( 'ABIbCUwBAAAAQ2mQUwIA1oFXn_CffhQeYwZpC0CqL97RDwgAAAAAAAAAAAAu2D1hnUJ_hl3vURvlovEOBDueTQ==' );
             $poi->setgeocoderr( $geocoder );
             
             $poi->save(); // This should Trigger Geocode Look up
