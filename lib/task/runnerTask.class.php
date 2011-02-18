@@ -408,8 +408,15 @@ class runnerTask extends sfBaseTask
             // build command args
             $commandArgs .= " --{$key}='{$value}'";
         }
+
+        // namespace override
+        $namespace = 'projectn'; // Default name space for tasks
+        if( isset( $taskParams['namespace'] ) && trim($taskParams['namespace']) != '' )
+        {
+            $namespace = trim($taskParams['namespace']);
+        }
         
-        return $this->symfonyPath . '/./symfony projectn:' . $taskParams['taskName'] . $commandArgs;
+        return $this->symfonyPath . '/./symfony '.$namespace.':' . $taskParams['taskName'] . $commandArgs;
     }
 
 }
