@@ -16,7 +16,8 @@ class runnerTask extends sfBaseTask
           new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
           new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
           new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
-          new sfCommandOption('city', null, sfCommandOption::PARAMETER_OPTIONAL, 'The city to import',null)
+          new sfCommandOption('city', null, sfCommandOption::PARAMETER_OPTIONAL, 'The city to import',null),
+          new sfCommandOption('task', null, sfCommandOption::PARAMETER_OPTIONAL, 'Run import / export, use --task=import or --task=export',null),
         ));
 
         $this->namespace        = 'projectn';
@@ -35,7 +36,7 @@ class runnerTask extends sfBaseTask
         $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
         $this->taskOptions = $options;
 
-        $order = sfConfig::get( 'app_runner_order' );
+        $order = isset($options['task']) && is_string( $options['task'] ) ? array($options['task']) : sfConfig::get( 'app_runner_order' );
 
         foreach ( $order as $taskType )
         {
@@ -61,7 +62,7 @@ class runnerTask extends sfBaseTask
         	   break;
 
         	default:
-        	   throw new Exception( 'Invalid type specified in app_runner_order config' );
+        	   throw new Exception( 'Invalid task type specified "'.$taskType.'", check app_runner_order config or use --task=import/export to override defaults' );
         	break;
         }
     }
