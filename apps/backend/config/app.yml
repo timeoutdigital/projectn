@@ -10,13 +10,13 @@
 #       type: [ poi, event, etc ]
 #       postProcessing:
 #         task:
-#           className: someName
+#           taskName: someName
 #           params:
 #             param1: value_for_param1
 #             param2: 'Value for 2'
 #   postProcessing:
 #     task:
-#       className: someName
+#       taskName: someName
 #       params:
 #         param1: value_for_param1
 #         param2: 'Value for 2'
@@ -29,14 +29,14 @@
 #       exportForNokia: true
 #       postProcessing:
 #         task:
-#           className: someName
+#           taskName: someName
 #           params:
 #             param1: value_for_param1
 #             param2: 'Value for 2'
 #
 #   postProcessing:
 #     task:
-#       className: someName
+#       taskName: someName
 #       params:
 #         param1: value_for_param1
 #         param2: 'Value for 2'
@@ -332,7 +332,12 @@ all:
           type: [ poi, event ]
           language: ru
           exportForNokia: true
-
+    postProcessing:
+      task:
+        taskName: testing
+        params:
+          city: london
+          task: import
 prod:
   #matches url: http://projectn.live/
   google_api_key : ABQIAAAA_FL2s5FUf4LMO_mUYDXUABSveoBGowI7nqh6kHEuOnD_thDOzhQRISkLudF55CGQjHRYPqfn429wzw

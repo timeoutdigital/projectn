@@ -35,12 +35,20 @@ class runnerTask extends sfBaseTask
         $this->logRootDir = sfConfig::get( 'sf_log_dir' );
         $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
         $this->taskOptions = $options;
-
+        
         $order = isset($options['task']) && is_string( $options['task'] ) ? array($options['task']) : sfConfig::get( 'app_runner_order' );
-
+        
         foreach ( $order as $taskType )
         {
             $this->runTaskByType( $taskType , $options[ 'city' ] );
+
+            // global post processing
+            $postProcessing = sfConfig::get( 'app_'. strtolower($taskType) . '_postProcessing', null );
+
+            if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+            {
+                $this->executePostProcessing( $taskType, $postProcessing );
+            }
         }
 
     }
@@ -99,6 +107,14 @@ class runnerTask extends sfBaseTask
                 $logCommand  = $logPath . '/' . strtr( $importCity[ 'name' ], ' ', '_' ) . '.log';
 
                 $this->executeCommand( $taskCommand, $logCommand );
+
+                // import post processsing, city specific
+                $postProcessing = sfConfig::get( 'app_import_postProcessing', null );
+                
+                if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+                {
+                    $this->executePostProcessing( 'import' , $postProcessing , $importCity[ 'name' ] );
+                }
             }
 
         }
@@ -222,6 +238,14 @@ class runnerTask extends sfBaseTask
                    $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '_prepareExportXMLsForDataEntry.log';
                    $this->executeCommand( $taskCommand, $logCommand );
                 }
+
+                // export post processsing, city specific
+                $postProcessing = sfConfig::get( 'app_export_postProcessing', null );
+
+                if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+                {
+                    $this->executePostProcessing( 'export' , $postProcessing , $exportCity[ 'name' ] );
+                }
             }
 
         }
@@ -342,6 +366,41 @@ class runnerTask extends sfBaseTask
         echo  $cmd.PHP_EOL.PHP_EOL;
         $cmdOutput = shell_exec( $cmd . ' 2>&1' );
         file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
+    }
+
+    
+    protected function executePostProcessing( $taskType, $postProcessingTasks, $city = null )
+    {
+        var_dump($taskType, $postProcessingTasks, $city );
+        echo ' - - - - -  - - - -  - - - - -  - - - -' . PHP_EOL;
+    }
+
+    /**
+     * generate command line args
+     * @param string $taskType
+     * @param string $taskName
+     * @param array $options
+     * @return string
+     */
+    private function _generateCommandArgs( $taskType, $taskName, $options )
+    {
+        $defaults = array(
+            'env' => $options['env'],
+            'application' => $options['application']
+        );
+
+        $options = array_merge( $defaults, $options );
+        $commandArgs = ' ';
+        foreach( $options as $key => $value )
+        {
+            // don't pass empty values
+            if( trim($value) == '' || !is_string($key) ) continue;
+
+            // build command args
+            $commandArgs .= " --{$key}='{$value}'";
+        }
+        
+        return $this->symfonyPath . '/./symfony projectn:' . $taskType . $commandArgs;
     }
 
 }
