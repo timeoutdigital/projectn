@@ -212,6 +212,13 @@ all:
           type: [ poi, event ]
           language: ru
           exportForNokia: true
+          postProcessing:
+            task:
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'saint petersburg'
+                override: 'true'
         -
           name: almaty
           type: [ poi, event ]
