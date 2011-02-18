@@ -107,14 +107,14 @@ class runnerTask extends sfBaseTask
                 $logCommand  = $logPath . '/' . strtr( $importCity[ 'name' ], ' ', '_' ) . '.log';
 
                 $this->executeCommand( $taskCommand, $logCommand );
+            }
 
-                // import post processsing, city specific
-                $postProcessing = sfConfig::get( 'app_import_postProcessing', null );
-                
-                if( is_array( $postProcessing ) && !empty( $postProcessing ) )
-                {
-                    $this->executePostProcessing( 'import' , $postProcessing , $importCity[ 'name' ] );
-                }
+            // import post processsing, city specific
+            $postProcessing = isset($importCity['postProcessing']) ? $importCity['postProcessing'] : null ;
+            
+            if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+            {
+                $this->executePostProcessing( 'import' , $postProcessing );
             }
 
         }
@@ -238,14 +238,14 @@ class runnerTask extends sfBaseTask
                    $logCommand  = $logPath . '/' . strtr( $exportCity[ 'name' ], ' ', '_' ) . '_prepareExportXMLsForDataEntry.log';
                    $this->executeCommand( $taskCommand, $logCommand );
                 }
+            }
 
-                // export post processsing, city specific
-                $postProcessing = sfConfig::get( 'app_export_postProcessing', null );
+            // export post processsing, city specific
+            $postProcessing = isset($exportCity['postProcessing']) ? $exportCity['postProcessing'] : null;
 
-                if( is_array( $postProcessing ) && !empty( $postProcessing ) )
-                {
-                    $this->executePostProcessing( 'export' , $postProcessing , $exportCity[ 'name' ] );
-                }
+            if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+            {
+                $this->executePostProcessing( 'export' , $postProcessing );
             }
 
         }
@@ -369,10 +369,14 @@ class runnerTask extends sfBaseTask
     }
 
     
-    protected function executePostProcessing( $taskType, $postProcessingTasks, $city = null )
+    protected function executePostProcessing( $taskType, $postProcessingTasks )
     {
-        var_dump($taskType, $postProcessingTasks, $city );
-        echo ' - - - - -  - - - -  - - - - -  - - - -' . PHP_EOL;
+        $logFile = $this->logRootDir . '/post_processing/';
+        foreach( $postProcessingTasks as $task )
+        {
+            $this->executeCommand( $this->_generateCommandArgs( $task )
+                    , $logFile . $task['taskName']. '.log' );
+        }
     }
 
     /**
@@ -382,16 +386,21 @@ class runnerTask extends sfBaseTask
      * @param array $options
      * @return string
      */
-    private function _generateCommandArgs( $taskType, $taskName, $options )
+    private function _generateCommandArgs( $taskParams )
     {
         $defaults = array(
-            'env' => $options['env'],
-            'application' => $options['application']
+            'env' => $this->taskOptions['env'],
+            'application' => $this->taskOptions['application']
         );
 
-        $options = array_merge( $defaults, $options );
+        // merge configs
+        if( isset($taskParams['params']) && is_array($taskParams['params']) )
+        {
+            $defaults = array_merge( $defaults, $taskParams['params'] );
+        }
+        
         $commandArgs = ' ';
-        foreach( $options as $key => $value )
+        foreach( $defaults as $key => $value )
         {
             // don't pass empty values
             if( trim($value) == '' || !is_string($key) ) continue;
@@ -400,7 +409,7 @@ class runnerTask extends sfBaseTask
             $commandArgs .= " --{$key}='{$value}'";
         }
         
-        return $this->symfonyPath . '/./symfony projectn:' . $taskType . $commandArgs;
+        return $this->symfonyPath . '/./symfony projectn:' . $taskParams['taskName'] . $commandArgs;
     }
 
 }
