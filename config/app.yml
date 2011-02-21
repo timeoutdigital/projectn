@@ -49,7 +49,7 @@ test:
       dns:  sqlite:/tmp/beijing.db:
       user: projectn
       password: outtime99
-    projectn_export: <?php echo sfConfig::get('sf_root_dir');?>/test/unit/data
+    projectn_export: <?php echo sfConfig::get('sf_root_dir');?>/test/unit/data/export
 
 test-functional:
     beijing:
