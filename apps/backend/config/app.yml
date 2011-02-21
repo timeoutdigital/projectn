@@ -227,17 +227,18 @@ all:
                 source: 'moscow'
                 dest: 'saint petersburg'
                 override: 'true'
-            -
-              taskName: test
-              params:
-                source: 'moscow'
-                dest: 'saint petersburg'
-                override: 'true'
         -
           name: almaty
           type: [ poi, event ]
           language: ru
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'almaty'
+                override: 'true'
         -
           name: barcelona
           type: [ poi, event, movie ]
@@ -258,16 +259,37 @@ all:
           type: [ poi, event ]
           language: en-GB
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'mumbai'
+                dest: 'delhi'
+                override: 'true'
         -
           name: bangalore
           type: [ poi, event ]
           language: en-GB
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'mumbai'
+                dest: 'bangalore'
+                override: 'true'
         -
           name: pune
           type: [ poi, event ]
           language: en-GB
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'mumbai'
+                dest: 'pune'
+                override: 'true'
         -
           name: beijing
           type: [ poi, event, movie ]
@@ -314,15 +336,22 @@ all:
           language: en-GB
           exportForNokia: true
         -
-          name: shanghai_zh
-          type: [ poi, event ]
-          language: zh-Hans
-          exportForNokia: true
-        -
           name: beijing_zh
           type: [ poi, event, movie ]
           language: zh-Hans
           exportForNokia: true
+        -
+          name: shanghai_zh
+          type: [ poi, event ]
+          language: zh-Hans
+          exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'beijing_zh'
+                dest: 'shanghai_zh'
+                override: 'true'
         -
           name: melbourne
           type: [ poi, event, movie ]
@@ -348,11 +377,28 @@ all:
           type: [ poi, event ]
           language: ru
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'omsk'
+                override: 'true'
         -
           name: krasnoyarsk
           type: [ poi, event ]
           language: ru
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'krasnoyarsk'
+                override: 'true'
+                
+     # Export post processing tasks
+    postProcessing: ~
 prod:
   #matches url: http://projectn.live/
   google_api_key : ABQIAAAA_FL2s5FUf4LMO_mUYDXUABSveoBGowI7nqh6kHEuOnD_thDOzhQRISkLudF55CGQjHRYPqfn429wzw

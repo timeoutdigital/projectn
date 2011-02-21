@@ -44,7 +44,7 @@ class runnerTask extends sfBaseTask
 
             // global post processing
             $postProcessing = sfConfig::get( 'app_'. strtolower($taskType) . '_postProcessing', null );
-
+            
             if( is_array( $postProcessing ) && !empty( $postProcessing ) )
             {
                 $this->executePostProcessing( $taskType, $postProcessing );
