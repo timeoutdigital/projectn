@@ -85,9 +85,12 @@ class RussiaFeedPlacesMapper extends RussiaFeedBaseMapper
             $poi['star_rating']                   = $this->roundNumberOrReturnNull( (string) $venueElement->star_rating );
             $poi['rating']                        = $this->roundNumberOrReturnNull( (string) $venueElement->rating );
             $poi['provider']                      = (string) $venueElement->provider;
-            $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['house_no'], $poi['street'], $poi['zips'], $poi['city'] ) );
             $poi['Vendor']                        = clone $this->vendor;
 
+            // geocode lookup string
+            // #919 - yandex seems to work better with City name at front!!!!
+            $poi['geocode_look_up']               = stringTransform::concatNonBlankStrings(', ', array( $poi['city'], $poi['house_no'], $poi['street'], $poi['zips'] ) );
+            
             // Categories
             $categories = array();
             foreach( $venueElement->categories->category as $category ) $categories[] = (string) $category;

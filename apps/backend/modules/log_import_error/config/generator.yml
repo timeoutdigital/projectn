@@ -13,7 +13,8 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        created_at: { date_format: dd/MM/yy }
       list:
         actions: {}
         object_actions: {}
@@ -26,7 +27,6 @@ generator:
           - model
           - exception_class
           - message
-          - log
           - log_import
           - _error_actions
       filter:
