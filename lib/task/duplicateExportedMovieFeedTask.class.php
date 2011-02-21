@@ -62,7 +62,7 @@ EOF;
         }
 
         // vaidate export dir and movies
-        $exportMovieDir = sfConfig::get('projectn_export') . '/' . $options['directory'] . '/movie';
+        $exportMovieDir = sfConfig::get('app_projectn_export') . '/' . $options['directory'] . '/movie';
         if( !is_dir( $exportMovieDir ) )
         {
             throw new DuplicateExportedMovieFeedTaskException( 'Invalid movie Directory specified "'.$options['directory'].'". Movies directory not found: "'.$exportMovieDir.'"' );
