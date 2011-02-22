@@ -16,6 +16,7 @@ generator:
       fields:
         created_at: { date_format: dd/MM/yy }
       list:
+        sort:   [created_at, desc]
         actions: {}
         object_actions: {}
         #object_actions:
