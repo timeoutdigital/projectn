@@ -35,9 +35,10 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
     {
         // Import Sample Data
         $xmlExportPoi = simplexml_load_file( TO_TEST_DATA_PATH . '/model/exported_poi_sample.xml' );
-        $this->importXMLNodes( $xmlExportPoi );
+        $this->importXMLNodes( $xmlExportPoi, strtotime( '2010-12-14T08:23:00') );
         
-        $this->assertEquals( 5, Doctrine::getTable( 'ExportedItem' )->count( ) );
+        $this->assertEquals( 6, Doctrine::getTable( 'ExportedItem' )->count( ) );
+        //there are six nodes, but two IDs are same, hence five resulting records
 
         // Test Invoiceable
         $exportedItem = Doctrine::getTable( 'ExportedItem' )->find(1);
@@ -80,15 +81,15 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         // Run import again and change the 1 category to Invoiceable Eating and Drinking and 2 to not invoiceable Music
         $this->importXMLNodes( $this->generateXMLNodes( array( 2=> 'Music', 1 => 'Eating & Drinking' ) ) );
         $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(1);
-        $this->assertEquals(2, $exporedItem->getUICategoryID());
+        $this->assertEquals(2, $exporedItem->getCurrentUICategoryID());
         $this->assertEquals(2, $exporedItem['ExportedItemHistory']->count() );
 
         $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(2);
-        $this->assertEquals(4, $exporedItem->getUICategoryID());
+        $this->assertEquals(4, $exporedItem->getCurrentUICategoryID());
         $this->assertEquals(2, $exporedItem['ExportedItemHistory']->count() );
 
         $exporedItem = Doctrine::getTable( 'ExportedItem' )->find(3);
-        $this->assertEquals(7, $exporedItem->getUICategoryID());
+        $this->assertEquals(7, $exporedItem->getCurrentUICategoryID());
         $this->assertEquals(1, $exporedItem['ExportedItemHistory']->count() );
 
 
@@ -152,19 +153,19 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         
     }
 
-    public function testGetInvoiceableUICategoryID()
+    public function testGetInvoicedUICategoryID()
     {
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml') ); // Import POI for Date 10/12/2010
-        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml') ); // Import POI for Date 15/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_10_12_2010.xml'), strtotime( '2010-12-10' ) ); // Import POI for Date 10/12/2010
+        $this->importXMLNodes( simplexml_load_file( TO_TEST_DATA_PATH . '/model/export_poi_15_12_2010.xml'), strtotime( '2010-12-15' ) ); // Import POI for Date 15/12/2010
 
-        $this->assertEquals( 3, Doctrine::getTable( 'ExportedItem' )->count() );
-        $this->assertEquals( 5, Doctrine::getTable( 'ExportedItemHistory' )->count() );
+        $this->assertEquals( 4, Doctrine::getTable( 'ExportedItem' )->count() );
+        $this->assertEquals( 6, Doctrine::getTable( 'ExportedItemHistory' )->count() );
 
         $item = Doctrine::getTable( 'ExportedItem' )->find(1);
-        $this->assertEquals( 2, $item->getInvoiceableUICategoryID() );
+        $this->assertEquals( 2, $item->getInvoicedUICategoryID() );
 
         $item = Doctrine::getTable( 'ExportedItem' )->find(3);
-        $this->assertNull( $item->getInvoiceableUICategoryID() );
+        $this->assertNull( $item->getInvoicedUICategoryID() );
     }
     
     private function generateXMLNodes( $arrayCategory )
@@ -172,7 +173,7 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         $xmlString = '<vendor-pois vendor="timeout">';
         foreach( $arrayCategory as $poiID => $categoryName )
         {
-            $xmlString .= '<entry vpid="ABC000000'.$poiID.'" modified="'. date('Y-m-d H:i:s') .'">';
+            $xmlString .= '<entry vpid="ABC00000000000000000000000000000'.$poiID.'" modified="'. date('Y-m-d H:i:s') .'">';
             $xmlString .= '<vendor-category><![CDATA['.$categoryName.']]></vendor-category>';
             $xmlString .= '<property key="UI_CATEGORY"><![CDATA['.$categoryName.']]></property>';
             $xmlString .= '</entry>';
@@ -182,11 +183,12 @@ class ExportedItemTest extends PHPUnit_Framework_TestCase
         return simplexml_load_string( $xmlString );
     }
 
-    private function importXMLNodes( $xmlNodes )
+    private function importXMLNodes( $xmlNodes, $stamp = null)
     {
+        $stamp = ($stamp === null ) ? time() : $stamp;
         foreach( $xmlNodes->entry as $xmlNode)
         {
-            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1 );
+            Doctrine::getTable( 'ExportedItem' )->saveRecord( $xmlNode, 'poi', 1, $stamp);
         }
     }
 
