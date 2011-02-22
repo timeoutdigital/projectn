@@ -1,0 +1,2 @@
+DELETE FROM log_import_error
+WHERE DATE(created_at) > CURRENT_DATE - INTERVAL 1 MONTH;
