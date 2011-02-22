@@ -39,7 +39,7 @@ class PoiTable extends Doctrine_Table
              ->groupBy('myString')
              ->having('count( myString ) > 1');
 
-         $q = $this->addWherePoiIsNotDuplicate( $q );
+         $q = $this->addWherePoiIsNotDuplicate( $q, $vendorId );
          return $q->execute( array(), Doctrine_Core::HYDRATE_ARRAY );
     }
 
@@ -55,15 +55,16 @@ class PoiTable extends Doctrine_Table
 
       $query = $this->addWhereLongitudeLatitudeNotNull( $query );
       $query = $this->addWhereNotMarkedAsDuplicate( $query );
-      $query = $this->addWherePoiIsNotDuplicate( $query, 'poi' );
+      $query = $this->addWherePoiIsNotDuplicate( $query, $vendorId, 'poi' );
 
       return $query->execute();
     }
 
-    private function addWherePoiIsNotDuplicate(  Doctrine_Query $query, $alias = 'p' )
+    private function addWherePoiIsNotDuplicate(  Doctrine_Query $query, $vendorID, $alias = 'p')
     {
-        $query->leftJoin("{$alias}.PoiReference d ON d.duplicate_poi_id = {$alias}.id");
-        $query->addWhere( 'd.duplicate_poi_id IS NULL' );
+        $query->andWhere( "{$alias}.id NOT IN (SELECT pr.duplicate_poi_id FROM PoiReference pr) " );
+        //$query->leftJoin("{$alias}.PoiReference d ON d.duplicate_poi_id = {$alias}.id");
+        //$query->addWhere( 'd.duplicate_poi_id IS NULL' );
         return $query;
 
     }
@@ -170,8 +171,7 @@ class PoiTable extends Doctrine_Table
         }
 
         $q = $this->createQuery( 'p' )
-                ->innerJoin( 'p.PoiReference r ON r.master_poi_id = p.id')
-                ->where( 'r.duplicate_poi_id = ?', $poiID );
+                ->where( 'p.id IN ( SELECT pr.master_poi_id FROM PoiReference pr WHERE pr.duplicate_poi_id = ?)', $poiID );
 
         return $q->fetchOne( array(), $hydrationMode );
     }
@@ -189,9 +189,9 @@ class PoiTable extends Doctrine_Table
             throw new PoiTableException( 'Invalid $poiID in parameter' );
         }
 
+
         $q = $this->createQuery( 'p' )
-                ->innerJoin( 'p.PoiReference r ON r.duplicate_poi_id = p.id')
-                ->where( 'r.master_poi_id = ?', $poiID );
+                ->where( 'p.id IN ( SELECT pr.duplicate_poi_id FROM PoiReference pr WHERE pr.master_poi_id = ? )', $poiID );
 
         return $q->execute( array(), $hydrationMode );
     }
@@ -202,7 +202,6 @@ class PoiTable extends Doctrine_Table
                 ->select( 'p.id, p.poi_name')
                 ->where( 'p.vendor_id = ? ', $vendorID )
                 ->andWhere( 'p.id NOT IN (select master_poi_id FROM poi_reference UNION select duplicate_poi_id FROM poi_reference )' )
-                //->andWhere( 'r.master_poi_id IS NULL AND r.duplicate_poi_id IS NULL ')
                 ->andWhere( ' ( p.poi_name LIKE ? OR p.id LIKE ? )', array( $searchKeyword . '%', $searchKeyword . '%' ) );
         
         return $q->execute( array(), $hydrationMode );

@@ -29,6 +29,9 @@ class PoiBackendFormFilter extends BasePoiFormFilter
         
         $this->setValidator( 'filter_by', new sfValidatorString(array('required' => false)) );
         
+        $this->setWidget( 'hide_unsolvable', new sfWidgetFormInputCheckbox( array() ) );
+        $this->setValidator( 'hide_unsolvable', new sfValidatorPass());
+
         parent::configure();
     }
 
@@ -46,22 +49,28 @@ class PoiBackendFormFilter extends BasePoiFormFilter
         switch( strtolower( $value ) )
         {
             case 'master':
-                
-                $query->innerJoin( "$poi.PoiReference pr ON pr.master_poi_id = $poi.id " );
-                
+
+                $query->andWhere( "$poi.id IN ( SELECT pr.master_poi_id FROM PoiReference pr)" );
                 break;
             case 'duplicate':
                 
-                $query->innerJoin( "$poi.PoiReference pr ON pr.duplicate_poi_id = $poi.id " );
+                $query->andWhere( "$poi.id IN ( SELECT pr.duplicate_poi_id FROM PoiReference pr)" );
 
                 break;
             case 'non-duplicate':
 
-                $query->leftJoin( "$poi.PoiReference pr ON pr.duplicate_poi_id = $poi.id " );
-                $query->andWhere( 'pr.master_poi_id IS NULL' );
+                $query->andWhere( "$poi.id NOT IN ( SELECT pr.duplicate_poi_id FROM PoiReference pr)" );
 
                 break;
         }
+        return $query;
+    }
+
+    public function addHideUnsolvableColumnQuery( Doctrine_Query $query, $field, $value )
+    {
+        $poi = $query->getRootAlias();
+
+        $query->andWhere( "$poi.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = ?)", 'unsolvable' );
         return $query;
     }
 
@@ -74,6 +83,7 @@ class PoiBackendFormFilter extends BasePoiFormFilter
         // Add a Custom dynamic field call "reference"
         $fields = parent::getFields();
         $fields['filter_by'] = 'custom';
+        $fields['hide_unsolvable'] = 'custom';
         return $fields;
     }
 } 

@@ -7,7 +7,7 @@
  * @subpackage geocode_ui *
  * @version    SVN: $Id: sfDoctrineFormFilterTemplate.php 11675 2008-09-19 15:21:38Z fabien $
  */
-class PoiDataEntryFormFilter extends BasePoiFormFilter
+class PoiGeocodeUIFormFilter extends BasePoiFormFilter
 {
     private $user;
 
@@ -20,6 +20,8 @@ class PoiDataEntryFormFilter extends BasePoiFormFilter
       $this->validatorSchema['list'] = new  sfValidatorPass(array ('required' => false));
       //$this->setVendorWidget();
 
+      $this->setWidget( 'hide_unsolvable', new sfWidgetFormInputCheckbox( ) );
+      $this->setValidator( 'hide_unsolvable', new sfValidatorPass() );
       parent::configure();
 
     }
@@ -116,6 +118,14 @@ class PoiDataEntryFormFilter extends BasePoiFormFilter
         return $query;
     }
 
+    public function addHideUnsolvableColumnQuery( Doctrine_Query $query, $field, $value )
+    {
+        $poi = $query->getRootAlias();
+
+        $query->andWhere( "$poi.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = ?)", 'unsolvable' );
+        return $query;
+    }
+
     /**
      * adding the list to the fields list
      *
@@ -125,6 +135,7 @@ class PoiDataEntryFormFilter extends BasePoiFormFilter
     {
         $fields = parent::getFields();
         $fields['list'] = 'custom';
+        $fields['hide_unsolvable'] = 'custom';
         return $fields;
     }
 

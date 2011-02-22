@@ -14,7 +14,7 @@ class sqlRunnerTask extends sfBaseTask
     ));
 
     $this->namespace        = 'projectn';
-    $this->name             = 'SQL Runner';
+    $this->name             = 'sql-runner';
     $this->briefDescription = 'executes a raw sql file with pdo';
     $this->detailedDescription = '';
   }

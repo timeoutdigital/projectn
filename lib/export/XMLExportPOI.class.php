@@ -71,6 +71,22 @@ class XMLExportPOI extends XMLExport
     //entry
     foreach( $data as $poi )
     {
+      //start guise
+      /**
+       * option 1, not nice due to hardcode. other option would be guisable
+       * option for the task and use useGuiseIfExists() rather than ifing out
+       * macau and shenzen
+       */
+      if( $this->vendor->isInGuise() )
+      {
+          $this->vendor->stopUsingGuise();
+      }
+      if ( $this->vendor->city == 'hong kong' && in_array( $poi['district'], array( 'Macau', 'Shenzhen' ) ) )
+      {
+          $this->vendor->useGuise( $poi['district'] );
+      }
+      // end guise
+
       //Skip Export for Pois with lat/long outside vendor boundaries.
       // #840 Old checking Moved into vendor and replaced with vendor->isWithinBoundaries();
       if( $this->validation == true && !$this->vendor->isWithinBoundaries( $poi['latitude'], $poi['longitude'] ) )

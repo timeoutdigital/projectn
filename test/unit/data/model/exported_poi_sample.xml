@@ -165,10 +165,10 @@
         <country>NLD</country>
       </address>
       <content>
-        <vendor-category><![CDATA[Non existent UI Category]]></vendor-category>
+        <vendor-category><![CDATA[Around Town]]></vendor-category>
         <description><![CDATA[A quirky club-cum-bar cumtheatre. Expect an alternative crowd mixed with hip ‘media’ folk.]]></description>
         <openingtimes><![CDATA[Open daily, times vary.]]></openingtimes>
-        <property key="UI_CATEGORY"><![CDATA[Non existent UI Category]]></property>
+        <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
       </content>
     </version>
   </entry>
@@ -204,6 +204,41 @@
         <property key="UI_CATEGORY"><![CDATA[Around Town]]></property>
         <property key="UI_CATEGORY"><![CDATA[Eating & Drinking]]></property>
         <property key="UI_CATEGORY"><![CDATA[Film]]></property>
+      </content>
+    </version>
+  </entry>
+  <entry vpid="AMS000000000000000000000000075599" lang="en" modified="2010-12-14T08:23:00">
+    <geo-position>
+      <longitude>4.89707320</longitude>
+      <latitude>52.35666120</latitude>
+    </geo-position>
+    <name><![CDATA[Category Test]]></name>
+    <category><![CDATA[restaurant]]></category>
+    <address>
+      <street><![CDATA[Eerste Sweelinckstraat]]></street>
+      <houseno><![CDATA[10]]></houseno>
+      <zip><![CDATA[1073 CM]]></zip>
+      <city><![CDATA[Amsterdam]]></city>
+      <country>NLD</country>
+    </address>
+    <contact>
+      <phone>+31 2 0675 9669</phone>
+      <fax>+31 2 0670 8913</fax>
+      <email><![CDATA[communicatie@badcuyp.nl]]></email>
+      <url>http://www.badcuyp.nl</url>
+    </contact>
+    <version lang="en">
+      <name><![CDATA[Badcuyp]]></name>
+      <address>
+        <street><![CDATA[Eerste Sweelinckstraat]]></street>
+        <houseno><![CDATA[10]]></houseno>
+        <zip><![CDATA[1073 CM]]></zip>
+        <city><![CDATA[Amsterdam]]></city>
+        <country>NLD</country>
+      </address>
+      <content>
+        <vendor-category><![CDATA[Invaid Category]]></vendor-category>
+        <property key="UI_CATEGORY"><![CDATA[Invaid Category]]></property>
       </content>
     </version>
   </entry>
