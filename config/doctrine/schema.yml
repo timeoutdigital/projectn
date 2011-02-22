@@ -499,6 +499,27 @@ LogExportError:
     record_id_index:            {fields: [record_id]}
     model_index:                {fields: [model]}
 
+LogApplication:
+  connection: project_n
+  actAs:
+    Timestampable:              ~
+  columns:
+    vendor_id:                  {type: integer, notnull: false}
+    type:                       {type: string(50), notnull: true}
+    command:                    {type: string(1024), notnull: true}
+    execution_start:            {type: datetime, notnull: true}
+    execution_end:              {type: datetime, notnull: false}
+    model:                      {type: string(50), notnull: false}
+    message:                    {type: string(65535), notnull: false}
+    status:                     {type: enum, values: [success, notice, warning, error], notnull: true}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+  indexes:
+    type_index:                 {fields: [type]}
+    execution_start:            {fields: [execution_start]}
+    model:                      {fields: [model]}
+    status:                     {fields: [status]}
+
 
 
 
