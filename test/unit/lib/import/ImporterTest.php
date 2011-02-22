@@ -75,23 +75,6 @@ class ImporterTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($dataSource, $returnedImportData);
   }
 
-  /**
-   * test DataMappers as run
-   */
-  public function testDataMappersAreRun()
-  {
-    
-    $importer = $this->getMock('Importer', array('onRecordMapped'));
-    
-    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
-    $importer->addDataMapper( new UnitTestImporterDataMapper( $importer ) );
-    
-    $importer->expects( $this->exactly( 2 ) )
-             ->method( 'onRecordMapped' );
-    
-    $importer->run();
-  }
-
 
   /**
    * test mapped data is saved

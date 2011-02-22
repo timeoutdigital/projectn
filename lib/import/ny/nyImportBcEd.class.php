@@ -190,9 +190,7 @@ class nyImportBcEd extends nyFeedBaseMapper{
            }
 
 
-            ImportLogger::saveRecordComputeChangesAndLog( $poiObj );
-
-
+            $this->notifyImporter( $poiObj );
            //Return Poi for testing
            return $poiObj;
 
@@ -201,16 +199,16 @@ class nyImportBcEd extends nyFeedBaseMapper{
         catch(Doctrine_Validator_Exception $error)
         {
            $log =  "Error processing Poi: \n Vendor = ". $this->vendvendororObj['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           ImportLogger::getInstance()->addError($error, $poiObj, $log);
+           $this->notifyImporterOfFailure( $error, $poiObj, $log );
 
-            return $poiObj;
+           return $poiObj;
         }
 
         catch(Exception $e)
         {
            $log =  "Error processing Poi: \n Vendor = ". $this->vendor['city']." \n type = B/C \n vendor_poi_id = ".(string) (string) $poi->{'ID'}. " \n";
-           ImportLogger::getInstance()->addError($e, $poiObj, $log);
-
+           $this->notifyImporterOfFailure( $e, $poiObj, $log );
+           
            return $poiObj;
         }
     }

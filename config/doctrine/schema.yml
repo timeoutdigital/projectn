@@ -43,7 +43,9 @@ Poi:
     Vendor:                     {local: vendor_id, foreign: id}
     PoiCategory:                {class: PoiCategory, refClass: LinkingPoiCategory, local: poi_id, foreign: poi_category_id }
     VendorPoiCategory:          {class: VendorPoiCategory, refClass: LinkingVendorPoiCategory, local: poi_id, foreign: vendor_poi_category_id }
-    MasterPoi:                  {class: Poi, local: duplicate_poi_id, foreign: master_poi_id, refClass: PoiReference, foreignAlias: DuplicatePois, onDelete: CASCADE }
+    #MasterPoi:                  {class: Poi, local: duplicate_poi_id, foreign: master_poi_id, refClass: PoiReference, foreignAlias: DuplicatePois, onDelete: CASCADE }
+    # #923 This relationship is is commented out as Doctrine has bug with self referencing, upon saving a record, it break the reference
+    # and refer to it's self...
   indexes:
     vendor_poi_id_index:        {fields: [vendor_poi_id]}
 
@@ -700,3 +702,16 @@ PoiReference:
   columns:
     master_poi_id:              {type: integer, primary: true}
     duplicate_poi_id:           {type: integer, primary: true, unique: true}
+
+VendorCategoryBlackList:
+  connection: project_n
+  columns:
+    vendor_id:                  {type: integer, notnull: true}
+    name:                       {type: string(200), notnull: true}
+    match_left:                 {type: boolean,    notnull: true, default: false}
+    match_right:                {type: boolean,    notnull: true, default: false}
+  relations:
+    Vendor:                     {local: vendor_id, foreign: id}
+  indexes:
+    vendor_id_index:            {fields: [vendor_id]}
+    name_index:                 {fields: [name]}

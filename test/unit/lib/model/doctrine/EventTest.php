@@ -343,8 +343,8 @@ class EventTest extends PHPUnit_Framework_TestCase
       $categoryTable = Doctrine::getTable( 'VendorEventCategory' )->findAll();
 
       $this->assertEquals('empty 1' , $categoryTable[0]['name']);
-      $this->assertEquals('empty2  | empty 3' , $categoryTable[1]['name']);
-      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[2]['name']);
+      $this->assertEquals('empty2 | empty 3' , $categoryTable[1]['name']);
+      $this->assertEquals('empty 4 | empty 5' , $categoryTable[2]['name']);
 
       // Object Exception!
       try{
@@ -670,6 +670,186 @@ class EventTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( null , $event['review_date']);
    }
 
+   public function testAddVendorCategory_BlackListedCategory()
+   {
+       // add Black list
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Agenda'));
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Sábado'));
+
+       // Test that MockEvent can add vendor category
+       $mockEvent = new MockEvent;
+       $mockEvent['vendor_id'] = 1; // required for category
+       $mockEvent->mockAddVendorCategory( 'Music' );
+       $this->assertEquals( 1, $mockEvent['VendorEventCategory']->count() );
+
+       // add 1 with Valid | Invalid name
+       $mockEvent->mockAddVendorCategory( array( 'Theatre', 'Sábado') );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+       $this->assertEquals( 'Theatre', $mockEvent['VendorEventCategory']['Theatre']['name'] );
+       $this->assertEquals( 1, $mockEvent['VendorEventCategory']['Theatre']['vendor_id'], 'Match vendor ID to see this is not the Default doctrine fall back category when Key set to "name"' );
+       
+
+       // add Invalid and it should not be added
+       $mockEvent->mockAddVendorCategory( array('Sábado') );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+
+       // add 1 valid | invalid, but the valid already exists!
+       $mockEvent->mockAddVendorCategory( 'Agenda | Music' );
+       $this->assertEquals( 2, $mockEvent['VendorEventCategory']->count() );
+   }
+
+   // #911 test addVendorCategory() only adds Unqiue category when given as array
+   public function testUniqueCategory()
+   {
+       $categories = array( 'Other', 'Music', 'Other' );
+       $event = new Event;
+       $event->addVendorCategory( $categories, 1 );
+       $this->assertEquals( 1, $event['VendorEventCategory']->count() );
+       $this->assertEquals( 'Other | Music', $event['VendorEventCategory']['Other | Music']['name'] );
+       $this->assertEquals( 1, $event['VendorEventCategory']['Other | Music']['vendor_id'] );
+   }
+
+   //#916 Duplicate Event occurrences
+   public function testRemoveMultipleOccurrencesWithStartTime()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event['EventOccurrence']->delete();
+       $event->save();
+
+       $this->assertEquals( 0, $event['EventOccurrence']->count() );
+
+       // add an event occurrence
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 1;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = '10:30';
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'There should be 1 saved as There is no duplicate added yet!' );
+
+       // add a Duplicate event occurrences and validate RemoveMultipleOccurrences working
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 2;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = '10:30';
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'Duplicate should not be added and the count should remains 1' );
+       
+   }
+
+   //#916 Duplicate Event occurrences
+   public function testRemoveMultipleOccurrencesWithoutStartTime()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event['EventOccurrence']->delete();
+       $event->save();
+
+       $this->assertEquals( 0, $event['EventOccurrence']->count() );
+
+       // add an event occurrence
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 1;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'There should be 1 saved as There is no duplicate added yet!' );
+
+       // add a Duplicate event occurrences and validate RemoveMultipleOccurrences working
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 2;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'Duplicate should not be added and the count should remains 1' );
+
+   }
+
+   //#916 Duplicate Event occurrences
+   public function testRemoveMultipleOccurrencesSpaceInDate()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event['EventOccurrence']->delete();
+       $event->save();
+
+       $this->assertEquals( 0, $event['EventOccurrence']->count() );
+
+       // add an event occurrence
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 1;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'There should be 1 saved as There is no duplicate added yet!' );
+
+       // add a Duplicate event occurrences and validate RemoveMultipleOccurrences working
+       // this time, we introduce SPACE in date.. removeMultipleOccurrences() should remove space
+       $eo = new EventOccurrence;
+       $eo['vendor_event_occurrence_id'] = 2;
+       $eo['utc_offset'] = $poi['Vendor']->getUtcOffset();
+       $eo['poi_id'] = $poi['id'];
+       $eo['start_date'] = '2011-01-20 ';
+       $eo['start_time'] = null;
+       $event['EventOccurrence'][] = $eo;
+       $event->save();
+
+       $this->assertEquals( 1, $event['EventOccurrence']->count(), 'Duplicate should not be added and the count should remains 1' );
+
+   }
+   
+   public function testGetUnsolvableTrue()
+   {
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event->setUnsolvable( true, 'Testing' );
+       $event->save();
+       $this->assertEquals( 1, $event['EventMeta']->count() );
+       $this->assertEquals( true, $event->getUnsolvable() );
+       $this->assertEquals( 'Testing', $event->getUnsolvableReason() );
+   }
+
+   public function testGetUnsolvableFalseAfterAdded()
+   {
+       $event = ProjectN_Test_Unit_Factory::add( 'event' );
+       $event->setUnsolvable( true, 'Testing' );
+       $event->save();
+       $this->assertEquals( 1, $event['EventMeta']->count() );
+       $this->assertEquals( true, $event->getUnsolvable() );
+       $this->assertEquals( 'Testing', $event->getUnsolvableReason() );
+
+       $event->setUnsolvable( false );
+       $event->save();
+       $this->assertEquals( 0, $event['EventMeta']->count() );
+       $this->assertEquals( false, $event->getUnsolvable() );
+       $this->assertEquals( null, $event->getUnsolvableReason() );
+   }
+
 }
 
+class MockEvent extends event
+{
+    public function  mockAddVendorCategory($name, $vendorId = null) {
+        parent::addVendorCategory($name, $vendorId);
+    }
+}
 ?>

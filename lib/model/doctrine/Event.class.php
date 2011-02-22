@@ -208,8 +208,18 @@ class Event extends BaseEvent
 
     if( !is_array($name) )
         $name = array( $name );
+    // require HTML cleaning before storing into Database
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', array_unique( $name ) ) );
 
-    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
+    // #909 Pass categories as array to Filter black listed categories
+    // insted of cleaning html_entity_decode each category, I used Implode -> clean -> explode to filter black listed categories
+    $filteredNames = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( $vendorId, explode(' | ', $name) );
+
+    if( !is_array( $filteredNames ) || empty($filteredNames) )
+        return false;
+
+    // implode again to continue with existing check and adding to database
+    $name = stringTransform::concatNonBlankStrings( ' | ', $filteredNames );
 
     //#645 if the category is Film save it as Art
     if( strtolower( $name ) == 'film' )
@@ -312,9 +322,9 @@ class Event extends BaseEvent
 
     foreach ( $this[ 'EventOccurrence' ] as $occurrence )
     {
-        $date = $occurrence[ 'start_date' ];
-        $poiId = $occurrence[ 'poi_id' ];
-        $startTime = $occurrence[ 'start_time' ];
+        $date = $occurrence[ 'start_date' ] != null ? trim($occurrence[ 'start_date' ]) : '';
+        $poiId = $occurrence[ 'poi_id' ] != null ? trim( $occurrence[ 'poi_id' ] ) : '' ;
+        $startTime = $occurrence[ 'start_time' ] != null ? trim($occurrence[ 'start_time' ]) : '';
 
         //if two occurrences have the same date, startTime and poiId we should only use one of them
         //using a combination of those as a key in an array will provide unique occurrences
@@ -349,4 +359,71 @@ class Event extends BaseEvent
       self::$vendorCategories = null;
   }
 
+  public function setUnsolvable( $is_unsolvable, $comment = null )
+  {
+      if( !is_bool($is_unsolvable) )
+      {
+          throw new EventException('Invalid parameter value');
+      }
+
+      // Get if any exists as this should not be duplicated
+      // Whe this field record exists means this is marked as skipped by producer
+      $existing_meta = null;
+      foreach( $this['EventMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              $existing_meta = $meta;
+              break;
+          }
+      }
+
+      if( $existing_meta == null )
+      {
+          $existing_meta = new EventMeta();
+          $existing_meta['lookup'] = 'unsolvable';
+      }
+
+      if($is_unsolvable )
+      {
+
+          $existing_meta['value'] = $comment;
+          $this['EventMeta'][] = $existing_meta;
+
+      }else{
+
+          $this->unlink( 'EventMeta', $existing_meta['id'] );
+          $existing_meta->delete();
+          unset($existing_meta);
+      }
+  }
+
+  public function getUnsolvable()
+  {
+      foreach( $this['EventMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+  public function getUnsolvableReason()
+  {
+      foreach( $this['EventMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              return $meta['value'];
+          }
+      }
+
+      return null;
+  }
+
 }
+
+class EventException extends Exception{}

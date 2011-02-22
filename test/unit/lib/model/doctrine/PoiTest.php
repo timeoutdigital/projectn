@@ -303,8 +303,8 @@ class PoiTest extends PHPUnit_Framework_TestCase
 
       // Bootstrap adding a default 'test name' category as First
       $this->assertEquals('empty 1' , $categoryTable[1]['name']);
-      $this->assertEquals('empty2  | empty 3' , $categoryTable[2]['name']);
-      $this->assertEquals('empty 4 |  empty 5' , $categoryTable[3]['name']);
+      $this->assertEquals('empty2 | empty 3' , $categoryTable[2]['name']);
+      $this->assertEquals('empty 4 | empty 5' , $categoryTable[3]['name']);
 
       // Object Exception!
       try{
@@ -595,192 +595,141 @@ class PoiTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Neighborhood & pubs', $this->object[ 'VendorPoiCategory' ][0]['name'] );
    }
 
-   public function testDuplicatePois()
+   public function testAddVendorCategory_BlackListedCategory()
    {
-       $masterPoi1 = Doctrine::getTable( 'Poi' )->find(1);
-       $masterPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
-       $duplicatePoi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
-       $duplicatePoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       // add Black list
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Agenda'));
+       ProjectN_Test_Unit_Factory::add('VendorCategoryBlackList', array('name' => 'Sábado'));
 
-       $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
-       $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+       // Test that MOCK Poi can add vendor category
+       $mockPoi = new MockPoi;
+       $mockPoi['vendor_id'] = 1; // required for category
+       $mockPoi->mockAddVendorCategory( 'Music' );
+       $this->assertEquals( 1, $mockPoi['VendorPoiCategory']->count() );
 
-       // Add duplicate POI to Master 1
-       $masterPoi1['DuplicatePois'][] = $duplicatePoi1;
-       $masterPoi1['DuplicatePois'][] = $duplicatePoi2;
-       $masterPoi1->save();
+       // add 1 with Valid | Invalid name
+       $mockPoi->mockAddVendorCategory( array( 'Theatre', 'Sábado') );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
+       $this->assertEquals( 'Theatre', $mockPoi['VendorPoiCategory'][1]['name'] );
 
-       $masterPoi1->refresh( true );
-       $masterPoi2->refresh( true );
-       $duplicatePoi1->refresh( true );
-       $duplicatePoi2->refresh( true );
+       // add Invalid and it should not be added
+       $mockPoi->mockAddVendorCategory( array('Sábado') );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
 
-       $this->assertEquals( 2, Doctrine::getTable( 'PoiReference' )->count() );
-       $this->assertEquals( 2, $masterPoi1['DuplicatePois']->count() );
-       $this->assertEquals( 0, $masterPoi2['DuplicatePois']->count() );
-       $this->assertEquals( 1, $duplicatePoi1['MasterPoi']->count() );
-       $this->assertEquals( 1, $duplicatePoi2['MasterPoi']->count() );
+       // add 1 valid | invalid, but the valid already exists!
+       $mockPoi->mockAddVendorCategory( 'Agenda | Music' );
+       $this->assertEquals( 2, $mockPoi['VendorPoiCategory']->count() );
    }
 
-   public function testDuplicatePoisUniqueDuplicatePoi()
+   // #911 test addVendorCategory() only adds Unqiue category when given as array
+   public function testUniqueCategory()
    {
-       $masterPoi1 = Doctrine::getTable( 'Poi' )->find(1);
-       $masterPoi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
-       $duplicatePoi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
+       $categories = array( 'Other', 'Music', 'Other' );
+       $poi = new MockPoi;
+       $poi->addVendorCategory( $categories, 1 );
+       $this->assertEquals( 1, $poi['VendorPoiCategory']->count() );
+       $this->assertEquals( 'Other | Music', $poi['VendorPoiCategory'][0]['name'] );
+   }
 
-       $this->assertEquals( 3, Doctrine::getTable( 'Poi' )->count() );
-       $this->assertEquals( 0, Doctrine::getTable( 'PoiReference' )->count() );
+   // Duplicate POI's tests
+   public function testSetMasterPoi()
+   {
+       $master_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
 
-       // Add Duplicate 1 to Master 1
-       $masterPoi1['DuplicatePois'][] = $duplicatePoi1;
-       $masterPoi1->save();
-       $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+       $this->assertEquals( false, $master_poi->isMaster() );
+       $this->assertEquals( false, $duplicate_poi->isDuplicate() );
 
-       $this->setExpectedException( 'Exception' );
-       $masterPoi2['DuplicatePois'][] = $duplicatePoi1;
-       $masterPoi2->save();
+       $duplicate_poi->setMasterPoi( $master_poi );
+       $duplicate_poi->save();
+
+       $this->assertEquals( true, $master_poi->isMaster() );
+       $this->assertEquals( true, $duplicate_poi->isDuplicate() );
 
    }
 
-   public function testIsDuplicate()
+   public function testGetMasterPoi()
    {
-       $masterPoi = Doctrine::getTable( 'Poi' )->find(1);
-       $duplicatePoi = ProjectN_Test_Unit_Factory::add( 'Poi' );
-       $masterPoi['DuplicatePois'][] = $duplicatePoi;
-       $masterPoi->save();
+       $master_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
 
-       $this->assertEquals( 2, Doctrine::getTable( 'Poi' )->count() );
-       $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
+       $this->assertEquals( false, $master_poi->isMaster() );
+       $this->assertEquals( false, $duplicate_poi->isDuplicate() );
 
-       $this->assertTrue( $duplicatePoi->isDuplicate() );
-       $this->assertFalse( $duplicatePoi->isMaster() );
-       
-       $this->assertFalse( $masterPoi->isDuplicate() );
-       $this->assertTrue( $masterPoi->isMaster() );
-       
+       $duplicate_poi->setMasterPoi( $master_poi );
+       $duplicate_poi->save();
+
+       $duplicates_master = $duplicate_poi->getMasterPoi();
+       $this->assertEquals( $master_poi['id'], $duplicates_master['id'] );
    }
 
-   public function testPreSaveThrowExceptionWhenDiffVendorPoiReferenced()
+   public function testGetDuplicatePois()
    {
-       $masterPoiVendor1 = Doctrine::getTable( 'Poi' )->find(1);
-       $duplicatePoiVendor1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 1 ) );
-       $duplicatePoiVendor2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'vendor_id' => 2 ) );
-       $masterPoiVendor1['DuplicatePois'][] = $duplicatePoiVendor1;
-       $masterPoiVendor1['DuplicatePois'][] = $duplicatePoiVendor2;
-       $this->assertEquals( 2, $masterPoiVendor1['DuplicatePois']->count() );
-       $this->setExpectedException( 'Exception' );
-       $masterPoiVendor1->save();
+       $master_poi = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi1 = ProjectN_Test_Unit_Factory::add( 'poi' );
+       $duplicate_poi2 = ProjectN_Test_Unit_Factory::add( 'poi' );
 
+
+       $duplicate_poi1->setMasterPoi( $master_poi );
+       $duplicate_poi1->save();
+       $duplicate_poi2->setMasterPoi( $master_poi );
+       $duplicate_poi2->save();
+
+       $duplicate_pois = $master_poi->getDuplicatePois( Doctrine_Core::HYDRATE_ARRAY );
+       $this->assertEquals(true, is_array($duplicate_pois) );
+       $this->assertEquals($duplicate_poi1['id'], $duplicate_pois[0]['id'] );
+       $this->assertEquals($duplicate_poi2['id'], $duplicate_pois[1]['id'] );
    }
-   public function testCleanStringNullifyEmptyReviewDateValidDate()
+
+   // #900 - Option for producer to Hide record from the
+   public function testGetUnsolvable()
    {
-       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-       $poi['review_date'] = '2010-11-11';
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertFalse( $poi->getUnsolvable() );
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+
+       $poi->setUnsolvable( true, 'Testing' );
        $poi->save();
-
-       $this->assertEquals( '2010-11-11' , $poi['review_date']);
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
+       $this->assertTrue( $poi->getUnsolvable() );
    }
 
-   public function testCleanStringNullifyEmptyReviewDateInvalidDate()
+   public function testGetUnsolvable_DuplicatedMetaNotAdded()
    {
-       $poi = ProjectN_Test_Unit_Factory::get( 'Poi' );
-       $poi['review_date'] = ' ';
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertFalse( $poi->getUnsolvable() );
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+
+       $poi->setUnsolvable( true, 'Testing' );
        $poi->save();
+       $this->assertEquals( 'Testing' , $poi->getUnsolvableReason() );
+       $this->assertTrue( $poi->getUnsolvable() );
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
 
-       $this->assertEquals( null , $poi['review_date']);
+       $poi->setUnsolvable( true, 'New Comment' );
+       $poi->save();
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
+       $this->assertTrue( $poi->getUnsolvable() );
+       $this->assertEquals( 'New Comment' , $poi->getUnsolvableReason(), 'comment should be updated' );
    }
 
-   /**
-    * Doctrine version < 1.2.3 have bug with self referencing table This test is to proof that Doctrine upgrade should have fixed it
-    * this will fail in Older version of Doctrine and pass from V1.2.3
-    */
-   public function testDoctrineBugSelfReference()
+   public function testGetUnsolvable_RemoveMetaWhenFalse()
    {
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertFalse( $poi->getUnsolvable() );
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
 
-       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
-       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
-       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
+       $poi->setUnsolvable( true, 'Testing' );
+       $poi->save();
+       $this->assertEquals( 1 , $poi['PoiMeta']->count() );
+       $this->assertTrue( $poi->getUnsolvable() );
 
-       // Link POI 1 -> POI 2
-       $poi1['DuplicatePois'][0] = $poi2;
-       $poi1->save();
-
-       $poi1->refresh();
-       $poi1->refreshRelated();
-
-       // proof that POI 1 is related to POI 2
-       $this->assertEquals( 1, $poi1['DuplicatePois']->count() );
-       $this->assertEquals( $poi2['id'], $poi1['DuplicatePois'][0]['id'] );
-
-       // Link POI1 -> POI3, but also link POI1 -> POI2 again to simulate FORM processing
-       $poi1['DuplicatePois'][0] = $poi2;
-       $poi1['DuplicatePois'][1] = $poi3;
-       $poi1->save();
-
-       // Refresh to get Latest changes pulled from database (like reference updates)
-       $poi1->refresh();
-       $poi1->refreshRelated();
-       $poi2->refresh();
-       $poi2->refreshRelated();
-       $poi3->refresh();
-       $poi3->refreshRelated();
-
-       // proof that each POI 2 and 3 duplicate of POI 1 and POI 1 is the master poi of Poi 2 & 3
-       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
-       $this->assertEquals( $poi2['id'], $poi1['DuplicatePois'][0]['id'] );
-       $this->assertEquals( $poi3['id'], $poi1['DuplicatePois'][1]['id'] );
-       // Reverse lookup
-       $this->assertEquals( $poi1['id'], $poi2['MasterPoi'][0]['id'] );
-       $this->assertEquals( $poi1['id'], $poi3['MasterPoi'][0]['id'] );
-
-       // Assert reference table for Records
-       $referenceTable = Doctrine::getTable( 'PoiReference' )->findAll( Doctrine_Core::HYDRATE_ARRAY );
-       $this->assertEquals( 2, count($referenceTable) );
-       $this->assertEquals( $poi1['id'], $referenceTable[0]['master_poi_id']);
-       $this->assertEquals( $poi1['id'], $referenceTable[1]['master_poi_id']);
-       $this->assertEquals( $poi2['id'], $referenceTable[0]['duplicate_poi_id']);
-       $this->assertEquals( $poi3['id'], $referenceTable[1]['duplicate_poi_id']);
+       $poi->setUnsolvable( false );
+       $poi->save();
+       $this->assertEquals( 0 , $poi['PoiMeta']->count() );
+       $this->assertFalse( $poi->getUnsolvable() );
    }
-
-
-   public function testDoctrineBugSelfReferenceUpdateMaster()
-   {
-       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
-       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
-       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
-
-       $poi1['DuplicatePois'][0] = $poi2;
-       $poi1['DuplicatePois'][1] = $poi3;
-       $poi1->save();
-       $poi1['poi_name'] = 'updated master poi name';
-       $poi1->save();
-       
-       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
-   }
-
-   public function testDoctrineBugSelfReferenceUpdateDuplicate()
-   {
-       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1') );
-       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2') );
-       $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3') );
-
-       $poi1['DuplicatePois'][0] = $poi2;
-       $poi1['DuplicatePois'][1] = $poi3;
-
-       $poi1->save();
-
-       $poi2['poi_name'] = 'updated duplicate poi name';
-       $poi2->save();
-
-       // proof that each POI 2 and 3 duplicate of POI 1 and POI 1 is the master poi of Poi 2 & 3
-       $this->assertEquals( 2, $poi1['DuplicatePois']->count() );
-       $this->assertEquals( $poi2['id'], $poi1['DuplicatePois'][0]['id'] );
-       $this->assertEquals( $poi3['id'], $poi1['DuplicatePois'][1]['id'] );
-       // Reverse lookup
-       $this->assertEquals( $poi1['id'], $poi2['MasterPoi'][0]['id'] );
-       $this->assertEquals( $poi1['id'], $poi3['MasterPoi'][0]['id'] );
-   }
-
+   
 }
 
 class MockgeocoderForPoiTest extends geocoder
@@ -854,5 +803,13 @@ class MockgeocoderForPoiTestReturnNulllatLong extends MockgeocoderForPoiTest
     public function getLatitude()
     {
         return null;
+    }
+}
+
+class MockPoi extends Poi{
+
+    // Make add vendor category public,
+    public function  mockAddVendorCategory($name, $vendorId = null) {
+        parent::addVendorCategory($name, $vendorId);
     }
 }

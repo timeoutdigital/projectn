@@ -30,6 +30,12 @@ class Poi extends BasePoi
    */
   private $minimumAccuracy = 8;
 
+  /**
+   * THis variable is created to 
+   * @var int
+   */
+  private $master_poi = null;
+
 
   public function getDuplicate()
   {     
@@ -74,6 +80,19 @@ class Poi extends BasePoi
       }
   }
 
+  /**
+   * Set this POI's Master poi. Use "false" to remove relastionship
+   * @param int $poi_id
+   */
+  public function setMasterPoi( Poi $poi )
+  {
+      if( $poi !== false && !$poi )
+      {
+          throw new PoiException( 'Invalid paramer $poi_id. Should be valid POI ID or FALSE to remove existing relationship' );
+      }
+
+      $this->master_poi = $poi;
+  }
   /**
    * Check is this Poi Master of duplicate pois
    * @return boolean
@@ -401,7 +420,18 @@ class Poi extends BasePoi
     if( !is_array($name) )
         $name = array( $name );
 
-    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', $name) );
+    // require HTML cleaning before storing into Database
+    $name = html_entity_decode( stringTransform::concatNonBlankStrings(' | ', array_unique( $name ) ) );
+
+    // #909 Pass categories as array to Filter black listed categories
+    // insted of cleaning html_entity_decode each category, I used Implode -> clean -> explode to filter black listed categories
+    $filteredNames = Doctrine::getTable( 'VendorCategoryBlackList' )->filterByCategoryBlackList( $vendorId, explode(' | ', $name) );
+
+    if( !is_array( $filteredNames ) || empty($filteredNames) )
+        return false;
+
+    // implode again to continue with existing check and adding to database
+    $name = stringTransform::concatNonBlankStrings( ' | ', $filteredNames );
 
     if( stringTransform::mb_trim($name) == '' )
         return false;
@@ -423,16 +453,9 @@ class Poi extends BasePoi
       $vendorPoiCategoryObj[ 'name' ] = $name;
       $vendorPoiCategoryObj[ 'vendor_id' ] = $vendorId;
     }
-
-    // This is a possible fix to ticket #400
-//    $pc = new LinkingVendorPoiCategory();
-//    $pc['vendor_poi_category_id'] = $vendorPoiCategoryObj['id'];
-//    $pc['poi_id'] = $this['id'];
-//    $pc->save();
-//    // need to $vendorPoiCategoryObj save and remove line below,
-      // need to edit LisbonFeedListingsMapper, remove poi save.
-
+    
     $this[ 'VendorPoiCategory' ][] = $vendorPoiCategoryObj;
+    
   }
 
 
@@ -458,7 +481,6 @@ class Poi extends BasePoi
      $this->cleanStreetField();
      $this->applyOverrides();
      $this->lookupAndApplyGeocodes();
-     $this->checkNonVendorRelatedReference();
   }
 
   /**
@@ -466,27 +488,71 @@ class Poi extends BasePoi
   */
   public function preSave( $event )
   {
-      $this->refreshRelated( 'MasterPoi' );
       $this->applyFixes();
   }
 
   /**
-   * Check for DuplicatePois and MasterPoi, Ensure that all of Vendors same as This Poi.
+   * postSave: specailly created to manage the relationship between
+   * Poi and PoiReference
+   * @param <type> $event 
    */
-  public function checkNonVendorRelatedReference()
-  {      
-      foreach( $this['DuplicatePois'] as $duplicatePoi )
+  public function  postSave($event) {
+        parent::postSave($event);
+        $this->saveMasterPoi();
+
+  }
+
+  /**
+   * Save logic for Master Poi, this will be executed on PostSave
+   */
+  private function saveMasterPoi()
+  {
+      if( $this->master_poi === null ) return; // No need to take any action.
+
+      // Delete existing relationship When false given
+      if( $this->master_poi === false )
       {
-          if( $duplicatePoi['vendor_id'] !== $this['vendor_id'] )
-          {
-              throw new Exception( 'Invalid Poi Reference, Different vendor Poi cannot be referenced as Master / Duplicate' );
-          }
+          Doctrine::getTable( 'PoiReference' )->removeRelationShip( $this['id'] );
       }
-      if( $this['MasterPoi']->count() > 0 && $this['MasterPoi'][0]['vendor_id'] !== $this['vendor_id'] )
+      else
       {
-          throw new Exception( 'Invalid Poi Reference, Different vendor Poi cannot be referenced as Master / Duplicate' );
+          // add new relationship
+          Doctrine::getTable( 'PoiReference' )->relatePois( $this->master_poi['id'], $this['id'] );
       }
   }
+
+  /**
+   * Get this poi's master POI 
+   * @param Doctrine_Core_Hydrate $hydrationMode
+   * @return mixed
+   */
+  public function getMasterPoi( $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+  {
+      if( !$this->isDuplicate() ) return null;
+
+      return Doctrine::getTable( 'Poi' )->getMasterOf( $this['id'], $hydrationMode );
+  }
+  
+  /**
+   * Get this poi's Duplicate poi's
+   * @param Doctrine_Core_Hydrate $hydrationMode
+   * @return mixed
+   */
+  public function getDuplicatePois( $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+  {
+      if( !$this->isMaster() ) return null;
+
+      return Doctrine::getTable( 'Poi' )->getDuplicatesOf( $this['id'], $hydrationMode );
+  }
+
+  /**
+   * This method will Delete all existing references to this POI as mster
+   */
+  public function removeDuplicatePois()
+  {
+      Doctrine::getTable( 'PoiReference' )->removeDuplicateReferences( $this['id'] );
+  }
+
 
   private function cleanStreetField()
   {
@@ -678,6 +744,71 @@ class Poi extends BasePoi
             $this['latitude']                      = $lat;
             $this['longitude']                     = $long;
         }
+  }
+
+  public function setUnsolvable( $is_unsolvable, $comment = null )
+  {
+      if( !is_bool($is_unsolvable) )
+      {
+          throw new PoiException('Invalid parameter value');
+      }
+
+      // Get if any exists as this should not be duplicated
+      // Whe this field record exists means this is marked as skipped by producer
+      $existing_meta = null;
+      foreach( $this['PoiMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              $existing_meta = $meta;
+              break;
+          }
+      }
+
+      if( $existing_meta == null )
+      {
+          $existing_meta = new PoiMeta();
+          $existing_meta['lookup'] = 'unsolvable';
+      }
+
+      if($is_unsolvable )
+      {
+          
+          $existing_meta['value'] = $comment;
+          $this['PoiMeta'][] = $existing_meta;
+
+      }else{
+          
+          $this->unlink( 'PoiMeta', $existing_meta['id'] );
+          $existing_meta->delete();
+          unset($existing_meta);
+      }
+  }
+
+  public function getUnsolvable()
+  {
+      foreach( $this['PoiMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+  public function getUnsolvableReason()
+  {
+      foreach( $this['PoiMeta'] as $meta )
+      {
+          if( $meta['lookup'] == 'unsolvable' )
+          {
+              return $meta['value'];
+          }
+      }
+
+      return null;
   }
 
 }

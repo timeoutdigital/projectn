@@ -39,6 +39,7 @@ class yandexGeocoder extends geocoder
    */
   static private $accuracyMap = array(
                              'exact'  => self::ACCURACY_PREMISE,
+                             'number' => self::ACCURACY_ADDRESS,
                              'street' => self::ACCURACY_STREET,
                              'near'   => self::ACCURACY_COUNTRY,
                            );

@@ -237,5 +237,28 @@ class MovieTest extends PHPUnit_Framework_TestCase
       $this->setExpectedException( 'Doctrine_Validator_Exception');
       $movie->save();
   }
+
+  public function testGetUnsolvable()
+  {
+      $movie = ProjectN_Test_Unit_Factory::add('movie');
+      $this->assertEquals( 0, $movie['MovieMeta']->count() );
+
+      $movie->setUnsolvable( true, 'IMDB cannot be found for this movie');
+      $movie->save();
+      $this->assertEquals( 1, $movie['MovieMeta']->count() );
+      $this->assertEquals( true, $movie->getUnsolvable() );
+      $this->assertEquals( 'IMDB cannot be found for this movie', $movie->getUnsolvableReason() );
+  }
+
+  public function testGetUnsolvableFase()
+  {
+      $movie = ProjectN_Test_Unit_Factory::add('movie');
+      $this->assertEquals( 0, $movie['MovieMeta']->count() );
+
+      $movie->setUnsolvable( false, 'IMDB cannot be found for this movie');
+      $movie->save();
+      $this->assertEquals( 0, $movie['MovieMeta']->count() );
+      $this->assertEquals( false, $movie->getUnsolvable() );
+  }
 }
 ?>

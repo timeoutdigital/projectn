@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vendor-events vendor="timeout" modified="2011-01-14T08:58:21">
-  <event id="AMS000000000000000000000000171747" modified="2011-01-14T08:58:21">
+  <event id="AMS000000000000000000000000171771" modified="2011-01-14T08:58:21">
     <name><![CDATA[Electronica: Darkstar]]></name>
     <category>concerts</category>
     <version lang="en">
@@ -11,7 +11,7 @@
       <property key="UI_CATEGORY"><![CDATA[Music]]></property>
     </version>
     <showtimes>
-      <place place-id="AMS000000000000000000000000075553">
+      <place place-id="AMS000000000000000000000000075533">
         <occurrence>
           <time>
             <start_date>2011-01-14</start_date>
@@ -22,7 +22,7 @@
       </place>
     </showtimes>
   </event>
-  <event id="AMS000000000000000000000000171748" modified="2011-01-14T08:58:21">
+  <event id="AMS000000000000000000000000171789" modified="2011-01-14T08:58:21">
     <name><![CDATA[Jazz: Denis Colin]]></name>
     <category>concerts</category>
     <version lang="en">
@@ -33,7 +33,7 @@
       <property key="UI_CATEGORY"><![CDATA[Music]]></property>
     </version>
     <showtimes>
-      <place place-id="AMS000000000000000000000000075553">
+      <place place-id="AMS000000000000000000000000075533">
         <occurrence>
           <time>
             <start_date>2011-01-15</start_date>
