@@ -25,13 +25,12 @@ generator:
         display:
           - created_at
           - model
-          - exception_class
           - message
           - log_import
           - _error_actions
       filter:
         display:
-          - log_import_id
+          #- log_import_id #don't enable it kills the screen
           - model
           - exception_class
           - trace
