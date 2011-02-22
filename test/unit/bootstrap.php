@@ -111,7 +111,8 @@ class ProjectN_Test_Unit_Factory
       'logexportcount'      => 'LogExportCountFixture',
       'uicategory'          => 'UiCategoryFixture',
       'logexporterror'      => 'LogExportErrorFixture',
-       'vendorcategoryblacklist' => 'VendorCategoryBlackListFixture',
+      'vendorcategoryblacklist' => 'VendorCategoryBlackListFixture',
+      'logtask'             => 'LogTaskFixture',
     );
 
     $model = strtolower( $model );
@@ -406,6 +407,28 @@ class LogImportFixture
         $logImport->fromArray($default );
         
         return $logImport;
+
+    }
+}
+class LogTaskFixture
+{
+    static public function create( $data=null, $autoCreateRelatedObjects=true )
+    {
+        $logTask = new LogTask();
+
+        $default = array(
+            'name' => 'test log task name',
+            'status' => 'parsing',
+            'execution_start' => '2011 20:00:00',
+        );
+
+        if( is_array( $data ) )
+        {
+            $default = array_merge( $default, $data );
+        }
+        $logTask->fromArray($default );
+
+        return $logTask;
 
     }
 }

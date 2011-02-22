@@ -1,0 +1,10 @@
+>> START:    testTaskLogger 2011-07-02 16:01:54
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line
+ log
+  message
+>> END:      testTaskLogger   2011-07-02 16:01:54

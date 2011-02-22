@@ -24,9 +24,8 @@ class testTaskLoggerTask extends sfBaseTask
 
   protected function execute($arguments = array(), $options = array())
   {
+    taskLogger::start( $this, __FILE__, $options );
 
-    taskLogger::start( $this, $options );
-    
     switch( $options['type'] )
     {
         case 'success':
@@ -42,7 +41,23 @@ class testTaskLoggerTask extends sfBaseTask
         case 'error-error':
             trigger_error('triggered error', E_USER_ERROR );
             break;
-
+        case 'mixed':
+            taskLogger::log( $this, 'single line log message' );
+            trigger_error('triggered error', E_USER_WARNING );
+            taskLogger::log( $this, 'single line log message' );
+            taskLogger::log( $this, 'single line log message' );
+            taskLogger::log( $this, 'single line log message' );
+            for ( $i=0; $i < 20; $i++ )
+            {
+                taskLogger::log( $this, 'single line log message' );
+                taskLogger::log( $this, 'multi line\nlog\n message' );
+            }
+            trigger_error('triggered error', E_USER_NOTICE );
+            taskLogger::log( $this, 'multi line\nlog\n message' );
+            taskLogger::log( $this, 'single line log message' );
+            taskLogger::log( $this, 'multi line\nlog\n message' );
+            taskLogger::log( $this, 'multi line\nlog\n message' );
+            break;
         default:
             // just empty start/end outputed
     }
