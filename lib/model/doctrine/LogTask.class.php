@@ -12,4 +12,36 @@
  */
 class LogTask extends BaseLogTask
 {
+
+    public function addParam( $lookup, $value )
+    {
+        if( $this->exists() )
+        {
+          foreach( $this['LogTaskParam'] as $param )
+          {
+            $lookupIsSame = ( $lookup == $param[ 'name' ] );
+            $valueIsSame  = ( $value  == $param[ 'value' ]  );
+
+            if( $lookupIsSame && $valueIsSame )
+            {
+              return;
+            }
+          }
+        }
+
+        $existingParam = Doctrine::getTable( 'LogTaskParam' )->findOneByNameAndValue( $lookup, $value );
+
+        if ( $existingParam === false )
+        {
+            $param = new LogTaskParam();
+            $param[ 'name' ] = (string) $lookup;
+            $param[ 'value' ] = (string) $value;
+        }
+        else
+        {
+            $param = $existingParam;
+        }
+
+        $this[ 'LogTaskParam' ][] = $param;
+      }
 }

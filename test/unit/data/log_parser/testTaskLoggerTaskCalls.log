@@ -1,0 +1,273 @@
+>> START:    testTaskLogger 2011-11-02 17:08:02
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=, env=prod, connection=project_n, application=backend
+>> END:      testTaskLogger   2011-11-02 17:08:02
+>> START:    testTaskLogger 2011-11-02 17:08:14
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:08:14
+>> START:    testTaskLogger 2011-11-02 17:08:17
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:08:17
+>> START:    testTaskLogger 2011-11-02 17:08:20
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:08:20
+>> START:    testTaskLogger 2011-11-02 17:08:28
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error, env=prod, connection=project_n, application=backend
+>> END:      testTaskLogger   2011-11-02 17:08:28
+>> START:    testTaskLogger 2011-11-02 17:08:32
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error-error, env=prod, connection=project_n, application=backend
+
+Fatal error: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 42
+>> START:    testTaskLogger 2011-11-02 17:08:34
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error-error, env=prod, connection=project_n, application=backend
+
+Fatal error: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 42
+>> START:    testTaskLogger 2011-11-02 17:08:39
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:08:39
+>> START:    testTaskLogger 2011-11-02 17:08:40
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:08:40
+>> START:    testTaskLogger 2011-11-02 17:08:46
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error-notice, env=prod, connection=project_n, application=backend
+
+Notice: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 36
+>> END:      testTaskLogger   2011-11-02 17:08:46
+>> START:    testTaskLogger 2011-11-02 17:08:53
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error-warning, env=prod, connection=project_n, application=backend
+
+Warning: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 39
+>> END:      testTaskLogger   2011-11-02 17:08:53
+>> START:    testTaskLogger 2011-11-02 17:08:59
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:08:59
+>> START:    testTaskLogger 2011-11-02 17:09:04
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error-warning, env=prod, connection=project_n, application=backend
+
+Warning: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 39
+>> END:      testTaskLogger   2011-11-02 17:09:04
+>> START:    testTaskLogger 2011-11-02 17:09:06
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:09:06
+>> START:    testTaskLogger 2011-11-02 17:09:07
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:09:07
+>> START:    testTaskLogger 2011-11-02 17:09:07
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:09:07
+>> START:    testTaskLogger 2011-11-02 17:09:18
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error-error, env=prod, connection=project_n, application=backend
+
+Fatal error: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 42
+>> START:    testTaskLogger 2011-11-02 17:09:20
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:09:20
+>> START:    testTaskLogger 2011-11-02 17:09:24
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=, env=prod, connection=project_n, application=backend
+>> END:      testTaskLogger   2011-11-02 17:09:24
+>> START:    testTaskLogger 2011-11-02 17:09:26
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=, env=prod, connection=project_n, application=backend
+>> END:      testTaskLogger   2011-11-02 17:09:26
+>> START:    testTaskLogger 2011-11-02 17:09:34
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=mixed, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+
+Warning: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 47
+>> Message:  single line log message
+>> Message:  single line log message
+>> Message:  single line log message
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+
+Notice: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 55
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:09:34
+>> START:    testTaskLogger 2011-11-02 17:09:39
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=success, env=prod, connection=project_n, application=backend
+>> Message:  single line log message
+>> Message:  
+ multi line 
+ log        
+  message   
+>> END:      testTaskLogger   2011-11-02 17:09:39

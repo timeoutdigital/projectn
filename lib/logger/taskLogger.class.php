@@ -28,12 +28,15 @@ class taskLogger
 
   /**
    * Start task log
-   * 
-   * @param sfBaseTask $obj 
+   *
+   * @param sfBaseTask $obj
+   * @param string $file
+   * @param array $taskOptions
    */
-  public static function start( $obj, $taskOptions )
+  public static function start( $obj, $file, $taskOptions = array() )
   {
       $obj->logSection( 'START:    ' . $obj->getName(), date( 'Y-d-m H:i:s' ) );
+      $obj->logSection( 'File:    ' , $file );
 
       $paramString = '';
 

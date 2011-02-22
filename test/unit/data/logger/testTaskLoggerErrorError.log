@@ -1,0 +1,5 @@
+>> START:    testTaskLogger 2011-07-02 16:13:56
+>> File:     /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php
+>> Params:   type=error-error, env=prod, conn...n=project_n, application=backend
+
+Fatal error: triggered error in /absolute/path/projectn/lib/task/mock/testTaskLoggerTask.class.php on line 42
