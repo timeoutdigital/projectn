@@ -22,6 +22,7 @@ generator:
         display:
           - created_at
           - model
+          - record_id
           - log
           - log_export
       filter:
