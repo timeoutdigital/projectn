@@ -27,7 +27,7 @@ generator:
           - log_export
       filter:
         display:
-          - log_export_id
+          #- log_export_id #don't enable it kills the screen
           - model
           - record_id
           - log
