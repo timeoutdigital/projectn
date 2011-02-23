@@ -118,7 +118,7 @@ class XMLExportPOI extends XMLExport
       {
           if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
           {
-              if( $this->validation == true )
+              if( $this->validation == true && !$poi->isWhitelistedGeocode() ) //#935 Whitelist Exception
               {
                 ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
                 continue 2;

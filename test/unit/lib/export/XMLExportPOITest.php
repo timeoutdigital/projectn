@@ -1034,6 +1034,44 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         //cleanup
         @unlink( $XMLExportDestination );
     }
+
+    public function testExportPoitsMarkedWhitelistedGeocodeDuplicateNotExporting()
+    {
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData( 'data/fixtures' );
+        
+        $vendor = Doctrine::getTable( 'vendor')->find(1);
+        $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI', 'vendor_id' => $vendor['id'] ) );
+        $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI', 'vendor_id' => $vendor['id'], 'latitude' => $poi1['latitude'], 'longitude' => $poi1['longitude'] ) );
+        
+        // Export without marking and assert to have those two not exported
+        $this->runImportAndExport( $vendor ); // Do export for vendor 1
+        $xml= simplexml_load_file( $this->destination );
+
+        $this->assertEquals( 0, count($xml));
+    }
+
+    public function testExportPoitsMarkedWhitelistedGeocodeDuplicateMarkedAnd1Exported()
+    {
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData( 'data/fixtures' );
+
+        $vendor = Doctrine::getTable( 'vendor')->find(1);
+        $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI 1', 'vendor_id' => $vendor['id'] ) );
+        $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI 2', 'vendor_id' => $vendor['id'], 'latitude' => $poi1['latitude'], 'longitude' => $poi1['longitude'] ) );
+        $poi1->setWhitelistGeocode( true );
+        $poi1->save();
+        
+        // Export without marking and assert to have those two not exported
+        $this->runImportAndExport( $vendor ); // Do export for vendor 1
+        $xml= simplexml_load_file( $this->destination );
+
+        $this->assertEquals( 1, count($xml));
+        $this->assertEquals( 'Duplicate POI 1', (string)$xml->entry[0]->name );
+
+    }
 }
 /**
  * Purpose of this mockup class to Make "testMediaTags" test pass..
