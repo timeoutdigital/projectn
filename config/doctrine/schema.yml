@@ -677,17 +677,6 @@ GeneratedExportStats:
     ui_category_index:          {fields: [ui_category]}
     ui_category_id_index:       {fields: [ui_category_id]}
 
-
-GeoWhiteList:
-  connection: project_n
-  columns:
-    latitude:                   {type: decimal(11), scale: 8, notnull: true}
-    longitude:                  {type: decimal(11), scale: 8, notnull: true}
-    comment:                    {type: string(65535), notnull: true}
-  indexes:
-    lat_index:                  {fields: [latitude]}
-    long_index:                 {fields: [longitude]}
-
 ExportedItem:
   connection: project_n
   actAs:
