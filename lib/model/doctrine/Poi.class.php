@@ -824,32 +824,25 @@ class Poi extends BasePoi
       
       // get existing
       $meta = null;
-      $offset = null; // Help to remove from the current LIST
-      foreach( $this['PoiMeta'] as $index => $poiMeta )
+      foreach( $this['PoiMeta'] as $poiMeta )
       {
           if( $poiMeta->lookup == 'geocodeWhitelist' )
           {
-              $offset = $index;
               $meta = $poiMeta;
               break;
           }
       }
-
-      // no need to take any action when not adding and non-existing
-      if( !$isWhitelisted && $meta == null ) return;
       
       // check for existing or creat new
       if( $meta == null && $isWhitelisted )
       {
           $meta = new PoiMeta;
           $meta['lookup'] = 'geocodeWhitelist';
-          $meta['value'] = 'yes';
           $this['PoiMeta'][] = $meta;
           
-      } else {
-          $meta->delete();
-          if( $offset !== null ) $this['PoiMeta']->remove( $offset );
       }
+
+      $meta['value'] = ($isWhitelisted) ? 'yes' : 'no' ;
   }
 
   /**
@@ -860,7 +853,7 @@ class Poi extends BasePoi
   {
       foreach( $this['PoiMeta'] as $index => $poiMeta )
       {
-          if( $poiMeta->lookup == 'geocodeWhitelist' )
+          if( $poiMeta->lookup == 'geocodeWhitelist' && $poiMeta->value == 'yes')
           {
               return true;
           }
