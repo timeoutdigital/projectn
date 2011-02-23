@@ -35,7 +35,6 @@ class PoiTable extends Doctrine_Table
              ->select('p.latitude, p.longitude, CONCAT( latitude, ", ", longitude ) as myString')
              ->where('p.vendor_id = ?', $vendorId )
              ->addWhere('p.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
-             ->addWhere('CONCAT( p.latitude, ", ", p.longitude ) NOT IN ( SELECT CONCAT( g.latitude, ", ", g.longitude ) FROM GeoWhiteList g )')
              ->groupBy('myString')
              ->having('count( myString ) > 1');
 
@@ -54,7 +53,6 @@ class PoiTable extends Doctrine_Table
       $query->addWhere( 'poi.vendor_id = ?', $vendorId  );
 
       $query = $this->addWhereLongitudeLatitudeNotNull( $query );
-      $query = $this->addWhereNotMarkedAsDuplicate( $query );
       $query = $this->addWherePoiIsNotDuplicate( $query, $vendorId, 'poi' );
 
       return $query->execute();
@@ -67,13 +65,6 @@ class PoiTable extends Doctrine_Table
         //$query->addWhere( 'd.duplicate_poi_id IS NULL' );
         return $query;
 
-    }
-    private function addWhereNotMarkedAsDuplicate( Doctrine_Query $query )
-    {
-      $query
-        ->addWhere('poi.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
-        ;
-      return $query;
     }
 
     private function addWhereLongitudeLatitudeNotNull( Doctrine_Query $query )
