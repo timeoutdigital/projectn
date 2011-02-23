@@ -16,6 +16,7 @@ generator:
       fields:
         created_at: { date_format: dd/MM/yy }
       list:
+        sort:   [created_at, desc]
         actions: {}
         object_actions: {}
         batch_actions: {}
@@ -27,7 +28,7 @@ generator:
           - log_export
       filter:
         display:
-          - log_export_id
+          #- log_export_id #don't enable it kills the screen
           - model
           - record_id
           - log

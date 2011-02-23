@@ -64,6 +64,7 @@ generator:
       form:
         class: PoiBackendForm
         actions: { _list: ~, _save: ~ }
+      edit:
         display:
           Editable:
             - DuplicatePoisForm
@@ -94,7 +95,7 @@ generator:
             - poi_category_list
             - vendor_poi_category_list
             - UnsolvableForm
-          Info: 
+          Info:
             - vendor_poi_id
             - review_date
             - local_language
@@ -104,5 +105,43 @@ generator:
             - vendor_id
             #- vendor_category
             - geocode_look_up
-      edit:    ~
-      new:     ~
+      new:
+        display:
+          Editable:
+            - poi_name
+            - house_no
+            - street
+            - city
+            - district
+            - country
+            - additional_address_details
+            - zips
+            - longitude
+            - latitude
+            - email
+            - url
+            - phone
+            - phone2
+            - fax
+            - keywords
+            - short_description
+            - description
+            - public_transport_links
+            - price_information
+            - openingtimes
+            - star_rating
+            - rating
+            - provider
+            - poi_category_list
+            - vendor_poi_category_list
+            - UnsolvableForm
+          Info:
+            - vendor_poi_id
+            - review_date
+            - local_language
+            - id
+            - created_at
+            - updated_at
+            - vendor_id
+            #- vendor_category
+            - geocode_look_up
