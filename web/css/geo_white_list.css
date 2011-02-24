@@ -13,3 +13,4 @@ tr.alt td{
 .save-button{ text-align: right; border-top: 1px solid #ccc;}
 .save-button input{ font-size: 120% !important; padding: 5px !important;}
 .export_th{width: 100px;}
+.geo_white_list_table #wait{ display: none; }
