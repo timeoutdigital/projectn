@@ -834,7 +834,7 @@ class Poi extends BasePoi
       }
       
       // check for existing or creat new
-      if( $meta == null && $isWhitelisted )
+      if( $meta == null )
       {
           $meta = new PoiMeta;
           $meta['lookup'] = 'geocodeWhitelist';
