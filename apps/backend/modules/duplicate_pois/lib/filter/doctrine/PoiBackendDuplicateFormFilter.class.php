@@ -41,17 +41,6 @@ class PoiBackendDuplicateFormFilter extends BasePoiFormFilter
     {
         $poi = $query->getRootAlias();
 
-        // exclude the Duplicates in the PoiReference
-//        $query->leftJoin("{$poi}.PoiReference pr ON pr.duplicate_poi_id = {$poi}.id");
-//        $query->andWhere( "pr.master_poi_id IS NULL" );
-
-        // Filter select to Minimum required
-//        $query->select( "{$poi}.*");
-        //$query->select( "{$poi}.id, {$poi}.poi_name, {$poi}.latitude, {$poi}.longitude, COUNT(*) as dupes");
-        
-        // Exclude those lat/long in GeoWhitelist
-        //$query->andWhere( " CONCAT( {$poi}.latitude, ',', {$poi}.longitude ) IN ( SELECT CONCAT( latitude, ',', longitude ) FROM GeoWhiteList )" );
-        $query->andWhere( "CONCAT( {$poi}.latitude, ',', {$poi}.longitude ) NOT IN ( SELECT CONCAT( w.latitude, ',', w.longitude ) FROM GeoWhiteList w)");
         $query->andWhere( "{$poi}.id NOT IN ( SELECT pr.duplicate_poi_id FROM PoiReference pr)" );
 
         $query->addSelect( 'COUNT(*) as dupes, id, poi_name, latitude, longitude' );
