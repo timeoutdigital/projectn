@@ -28,7 +28,7 @@ class PoiTable extends Doctrine_Table
       return 'vendor_poi_id';
     }
 
-    public function findAllDuplicateLatLongsAndApplyWhitelist( $vendorId )
+    public function findAllDuplicateLatLongs( $vendorId )
     {
          $q = $this->createQuery()
              ->from('Poi p')

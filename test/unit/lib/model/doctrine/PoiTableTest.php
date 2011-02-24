@@ -212,7 +212,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
     return $poi;
   }
 
-  public function testAddWherePoiIsNotDuplicate_FindAllDuplicateLatLongsAndApplyWhitelist()
+  public function testAddWherePoiIsNotDuplicate_FindAllDuplicateLatLongs()
   {      
       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
@@ -220,7 +220,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi' );
 
       $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
-      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongs( 1 );
       $this->assertEquals( 0, count($pois), 'There is no duplicate yet! it should bring nothing back' );
 
       // add duplicate geocode
@@ -228,13 +228,13 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $poi1['latitude'] = $poi4['latitude'];
       $poi1['longitude'] = $poi4['longitude'];
       $poi1->save();
-      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongs( 1 );
       $this->assertEquals( 1, count($pois), 'Should have 1 Duplicate' );
 
       // add the ID4 as Duplicate of Poi 1
       $poi4->setMasterPoi($poi1);
       $poi4->save();
-      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongs( 1 );
       $this->assertEquals( 0, count($pois), 'Should bring nothing back, as 4th one identified as duplicate of POI 1' );
   }
 

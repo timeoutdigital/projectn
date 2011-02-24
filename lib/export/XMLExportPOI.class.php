@@ -56,7 +56,7 @@ class XMLExportPOI extends XMLExport
     try {
         // Dont Do Dupe Lat Long Lookup for Russian Cities
         $duplicateLatLongs = ( $this->vendor['language'] != 'ru' ) ?
-            Doctrine::getTable('Poi')->findAllDuplicateLatLongsAndApplyWhitelist( $this->vendor['id'] )
+            Doctrine::getTable('Poi')->findAllDuplicateLatLongs( $this->vendor['id'] )
         : array();
     }
     
