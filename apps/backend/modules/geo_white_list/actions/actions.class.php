@@ -13,4 +13,21 @@ require_once dirname(__FILE__).'/../lib/geo_white_listGeneratorHelper.class.php'
  */
 class geo_white_listActions extends autoGeo_white_listActions
 {
+
+    public function executeWhitelist( sfWebRequest $request )
+    {
+        $latitude = $request->getParameter('lat');
+        $longitude = $request->getParameter('long');
+
+        if( $latitude == null || trim( $latitude ) == '' || $longitude == null || trim( $longitude ) == '' )
+        {
+            $this->getUser()->setFlash('error', 'Missing latitude / longitude');
+            $this->redirect( '@poi_geo_white_list' );
+            exit();
+        }
+
+        // Find all poi's with latitude and longitudes
+        $this->pois = Doctrine::getTable('Poi')->findByLatitudeAndLongitude( $latitude, $longitude );
+
+    }
 }

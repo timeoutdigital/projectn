@@ -14,8 +14,15 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list:    ~
-      filter:  ~
+      list:
+        display: [ id, poi_name, latitude, longitude]
+        object_actions:
+          _edit: ~
+        actions: {}
+        batch_actions: {}
+      filter:
+        class: geoWhiteListFilter
+        display: [vendor_id, poi_name, street, latitude, longitude ]
       form:    ~
       edit:    ~
       new:     ~

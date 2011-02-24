@@ -1,0 +1,5 @@
+all:
+  javascripts:
+   - http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
+
+  stylesheets:    [ geo_white_list.css ]

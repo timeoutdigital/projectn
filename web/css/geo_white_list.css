@@ -1,0 +1,15 @@
+tr.alt td{
+    background-color: #e7eef6;
+}
+
+.geo_white_list_table{ width:95%; }
+.geo_white_list_table thead th{
+    text-align: left;
+    background-color: #1c94c4;
+    color: white;
+}
+.geo_white_list_table td,
+.geo_white_list_table th{ padding-left: 5px !important; }
+.save-button{ text-align: right; border-top: 1px solid #ccc;}
+.save-button input{ font-size: 120% !important; padding: 5px !important;}
+.export_th{width: 100px;}
