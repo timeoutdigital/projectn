@@ -197,6 +197,49 @@ class PoiTable extends Doctrine_Table
         
         return $q->execute( array(), $hydrationMode );
     }
+
+    /**
+     * Get all those Poi's that Don't have have Meta Mark and found to be
+     * duplicate Geocode with another Poi that may have Meta
+     * @param int $vendorId
+     * @param Doctrine_Core::HYDRATE_RECORD $hydrationMode
+     * @return mixed
+     */
+    public function findAllDuplicateLatLongPoisNotWhitelistedBy( $vendorId, $hydrationMode = Doctrine_Core::HYDRATE_RECORD )
+    {
+        $q = $this->createQuery( 'p' )
+                ->select( 'CONCAT( p.latitude, ",", p.longitude )' )
+                ->where( 'p.vendor_id = ? ', $vendorId )
+                ->andWhere('p.latitude is not null ')
+                ->andWhere('p.longitude is not null ')
+                ->andWhere( 'p.id NOT IN (select duplicate_poi_id from poi_reference) ' );
+
+        $duplicateLatLong = $q->execute( array(), Doctrine_Core::HYDRATE_ARRAY );
+
+        if( !is_array( $duplicateLatLong ) || empty($duplicateLatLong ) )
+        {
+            return false;
+        }
+
+        // Build array of Duplicates
+        $duplicates = array();
+        foreach ( $duplicateLatLong as $record )
+        {
+            $duplicates[] = $record['CONCAT'];
+        }
+
+        $q = $this->createQuery( 'p' )
+                ->select( 'p.*' )
+                ->leftJoin( 'p.PoiMeta m WITH m.lookup = ?', "geocodeWhitelist" )
+                ->where( 'p.vendor_id = ?', $vendorId )
+                ->andWhere( 'p.latitude IS NOT NULL')
+                ->andWhere( 'p.longitude IS NOT NULL')
+                ->andWhere( 'm.id IS NULL ' )
+                ->andWhere( 'p.id NOT IN (select duplicate_poi_id from poi_reference) ' )
+                ->andWhereIn( 'CONCAT( p.latitude, ",", p.longitude )', $duplicates );
+
+        return $q->execute( array(), $hydrationMode );
+    }
 }
 
 

@@ -260,5 +260,90 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertNotEquals( $poi3['id'], $validPois[2]['id'], 'POI ID3 should be excluded in the LIST' );
   }
 
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByWithoutReference()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 4 , $pois->count(), 'should return All 4' );
+  }
+
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByWithReference()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      // Add Duplicate / master
+      $poi1->setMasterPoi( $poi2 );
+      $poi1->save();
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 3 , $pois->count(), 'only 3 should be there as POI1 is added as duplicate of POI2' );
+      $this->assertEquals( 'poi 2', $pois[0]['poi_name'] );
+  }
+
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByHideMetaMarked()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      $poi1->setWhitelistGeocode( true );
+      $poi1->save();
+      $poi2->setWhitelistGeocode( false );
+      $poi2->save();
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 2 , $pois->count(), 'POI 1 and POI 2 is marked as processed by producer, this should not be listed here' );
+      $this->assertEquals( 'poi 3', $pois[0]['poi_name'] );
+  }
+
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByHideMetaMarkedAndPoiReferenceDuplicates()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      // reference
+      $poi4->setMasterPoi( $poi1 );
+      $poi4->save();
+      
+      // Meta
+      $poi1->setWhitelistGeocode( true );
+      $poi1->save();
+      $poi2->setWhitelistGeocode( false );
+      $poi2->save();
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 1 , $pois->count(), 'only the POI 3 should be returned' );
+      $this->assertEquals( 'poi 3', $pois[0]['poi_name'] );
+  }
 }
 ?>
