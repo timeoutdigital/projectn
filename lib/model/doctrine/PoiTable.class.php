@@ -34,7 +34,6 @@ class PoiTable extends Doctrine_Table
              ->from('Poi p')
              ->select('p.latitude, p.longitude, CONCAT( latitude, ", ", longitude ) as myString')
              ->where('p.vendor_id = ?', $vendorId )
-             ->addWhere('p.id NOT IN ( SELECT pm.record_id FROM PoiMeta pm WHERE pm.lookup = "Duplicate" )')
              ->groupBy('myString')
              ->having('count( myString ) > 1');
 
