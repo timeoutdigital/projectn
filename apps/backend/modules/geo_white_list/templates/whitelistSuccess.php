@@ -5,6 +5,8 @@
 
             <thead>
                 <tr>
+                    <th title="Marked as master poi">M</th>
+                    <th title="Already marked?">E</th>
                     <th>Poi Name</th>
                     <th>Street</th>
                     <th>City</th>
@@ -14,7 +16,7 @@
 
             <tfoot>
                 <tr>
-                    <td colspan="4" class="save-button">
+                    <td colspan="6" class="save-button">
                         <span id="wait">Saving... Please wait... <img src="/images/loading-small.gif" alt="Ajax processing"/></span>
                         <input type="button" value="Update Whitelist" onclick="doSubmit();" /></td>
                 </tr>
@@ -26,6 +28,8 @@
                     $alt = ($alt == '' ) ? 'alt' : '';
                     ?>
                 <tr class="<?php echo $alt;?>">
+                    <td><?php echo ($poi->isMaster()) ? '✓' : '-';?></td>
+                    <td><?php echo ($poi->getWhitelistGeocode() !== null ) ? '✓' : '-';?></td>
                     <td><?php echo link_to($poi['poi_name'], 'poi_edit', $poi) ?></td>
                     <td><?php echo $poi['street'];?></td>
                     <td><?php echo $poi['city'];?></td>
@@ -41,6 +45,10 @@
             </tbody>
 
         </table>
+  <div>
+      <strong>M</strong> <small>Poi marked as Master Poi</small> | 
+      <strong>E</strong> <small>Poi Meta exists?</small>
+  </div>
 </div>
 <script type="text/javascript">
     function doSubmit()
@@ -64,7 +72,7 @@
                 success: function( data ){
                     if( data.status != 'success' )
                     {
-                        var poi_name = $( 'td:first-child a', $(element).parent( ).parent() ).text();
+                        var poi_name = $( 'a:first-child', $(element).parent( ).parent() ).text();
                         alert( 'Failed to save poi: ' + poi_name + "\nError: " + data.message );
                         do_continue = false;
                     }
