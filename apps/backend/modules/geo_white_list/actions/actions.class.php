@@ -16,10 +16,10 @@ class geo_white_listActions extends autoGeo_white_listActions
 
     public function executeWhitelist( sfWebRequest $request )
     {
-        $latitude = $request->getParameter('lat');
-        $longitude = $request->getParameter('long');
+        $this->latitude = $request->getParameter('lat');
+        $this->longitude = $request->getParameter('long');
 
-        if( $latitude == null || trim( $latitude ) == '' || $longitude == null || trim( $longitude ) == '' )
+        if( $this->latitude == null || trim( $this->latitude ) == '' || $this->longitude == null || trim( $this->longitude ) == '' )
         {
             $this->getUser()->setFlash('error', 'Missing latitude / longitude');
             $this->redirect( '@poi_geo_white_list' );
@@ -27,7 +27,14 @@ class geo_white_listActions extends autoGeo_white_listActions
         }
 
         // Find all poi's with latitude and longitudes
-        $this->pois = Doctrine::getTable('Poi')->findByLatitudeAndLongitude( $latitude, $longitude );
+        $this->pois = Doctrine::getTable('Poi')->findByLatitudeAndLongitude( $this->latitude, $this->longitude );
+
+        if( $this->pois === false || $this->pois->count() <= 1 ) // minimum of two required!
+        {
+            $this->getUser()->setFlash('error', 'No Duplicate Pois found on this geocode coordinates');
+            $this->redirect( '@poi_geo_white_list' );
+            exit();
+        }
 
     }
 

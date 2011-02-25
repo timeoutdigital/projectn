@@ -1,6 +1,6 @@
 <div id="sf_admin_container">
   <h1>Duplicate Lat/Long Poi</h1>
-
+    <div class="geo_page">
         <table class="geo_white_list_table">
 
             <thead>
@@ -45,10 +45,18 @@
             </tbody>
 
         </table>
-  <div>
-      <strong>M</strong> <small>Poi marked as Master Poi</small> | 
-      <strong>E</strong> <small>Poi Meta exists?</small>
+
+        <div>
+            <strong>M</strong> <small>Poi marked as Master Poi</small> |
+            <strong>E</strong> <small>Poi Meta exists?</small>
+        </div>
+        
+    </div>
+
+  <div id="google-map">
+      loading map...
   </div>
+  
 </div>
 <script type="text/javascript">
     function doSubmit()
@@ -97,4 +105,23 @@
         $('.save-button input').show();
         $('#wait').hide();
     }
+    function initialize() {
+        var myLatlng = new google.maps.LatLng( <?php echo $latitude; ?>, <?php echo $longitude; ?>);
+        var myOptions = {
+          zoom: 16,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById("google-map"), myOptions);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title:"Duplicate geocode coordinates"
+        });
+    }
+
+    $(document).ready(function() {
+        initialize();
+    });
 </script>

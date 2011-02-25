@@ -2,7 +2,7 @@ tr.alt td{
     background-color: #e7eef6;
 }
 
-.geo_white_list_table{ width:95%; }
+.geo_white_list_table{ width:100%; }
 .geo_white_list_table thead th{
     text-align: left;
     background-color: #1c94c4;
@@ -14,3 +14,11 @@ tr.alt td{
 .save-button input{ font-size: 120% !important; padding: 5px !important;}
 .export_th{width: 100px;}
 .geo_white_list_table #wait{ display: none; }
+#google-map{
+    width: 35%;
+    height: 300px;
+}
+.geo_page{ 
+    float: right;
+    width: 65%;
+}
