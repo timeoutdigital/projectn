@@ -322,6 +322,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
+      $vendor = new Vendor();
+      $vendor->stopUsingGuise();
       ProjectN_Test_Unit_Factory::destroyDatabases();
 
     }
