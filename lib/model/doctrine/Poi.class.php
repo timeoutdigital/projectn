@@ -823,15 +823,7 @@ class Poi extends BasePoi
       }
       
       // get existing
-      $meta = null;
-      foreach( $this['PoiMeta'] as $poiMeta )
-      {
-          if( $poiMeta->lookup == 'geocodeWhitelist' )
-          {
-              $meta = $poiMeta;
-              break;
-          }
-      }
+      $meta = $this->getWhitelistGeocode();
       
       // check for existing or creat new
       if( $meta == null )
@@ -845,20 +837,32 @@ class Poi extends BasePoi
       $meta['value'] = ($isWhitelisted) ? 'yes' : 'no' ;
   }
 
+  public function getWhitelistGeocode()
+  {
+      foreach( $this['PoiMeta'] as $poiMeta )
+      {
+          if( $poiMeta->lookup == 'geocodeWhitelist' )
+          {
+              return $poiMeta;
+          }
+      }
+
+      return null;
+  }
+
   /**
    * Check this poi's marked as geocode Whitelisted
    * @return boolean
    */
   public function isWhitelistedGeocode()
   {
-      foreach( $this['PoiMeta'] as $index => $poiMeta )
+      $poiMeta = $this->getWhitelistGeocode();
+     
+      if( $poiMeta !== null && $poiMeta->value == 'yes')
       {
-          if( $poiMeta->lookup == 'geocodeWhitelist' && $poiMeta->value == 'yes')
-          {
-              return true;
-          }
+          return true;
       }
-
+      
       return false;
   }
 
