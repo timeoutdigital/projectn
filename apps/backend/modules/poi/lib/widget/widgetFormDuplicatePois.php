@@ -27,7 +27,8 @@ class widgetFormDuplicatePois extends sfWidgetForm
     {
          if( isset( $this->poi ) && $this->poi->isDuplicate() )
          {
-             return sprintf( 'This poi is duplicate of poi: <a href="%s" title="Edit: %s"><strong>%s</strong></a>', sfContext::getInstance()->getRequest()->getScriptName() . "/poi/{$this->poi['MasterPoi'][0]['id']}/edit", $this->poi['MasterPoi'][0]['poi_name'], $this->poi['MasterPoi'][0]['poi_name'] );
+             $poiMaster = $this->poi->getMasterPoi();
+             return sprintf( 'This poi is duplicate of poi: <a href="%s" title="Edit: %s"><strong>%s</strong></a>', sfContext::getInstance()->getRequest()->getScriptName() . "/poi/{$poiMaster['id']}/edit", $poiMaster['poi_name'], $poiMaster['poi_name'] );
          }
          
         $name.='[]'; // Change name into Array
@@ -54,13 +55,17 @@ class widgetFormDuplicatePois extends sfWidgetForm
 
         if( isset( $this->poi ) )
         {
-            foreach( $this->poi['DuplicatePois'] as $dupePoi )
+            $duplicatPois = $this->poi->getDuplicatePois();
+                if( $duplicatPois != null )
             {
-                printf( '<span>' );
-                printf( '<a href="#" title="Remove as duplicate" class="remove" onclick="removeAsDuplicate( this ); return false;"> Remove </a> &nbsp;' );
-                printf( '<input type="hidden" name="%s" value="%s" />', $name, $dupePoi['id'] );
-                printf( '<strong><a href="%s" title="Edit this poi">%s</a></string>', sfContext::getInstance()->getRequest()->getScriptName() . "/poi/{$dupePoi['id']}/edit", $dupePoi['poi_name'] );
-                printf( '</span>' );
+                foreach( $duplicatPois as $dupePoi )
+                {
+                    printf( '<span>' );
+                    printf( '<a href="#" title="Remove as duplicate" class="remove" onclick="removeAsDuplicate( this ); return false;"> Remove </a> &nbsp;' );
+                    printf( '<input type="hidden" name="%s" value="%s" />', $name, $dupePoi['id'] );
+                    printf( '<strong><a href="%s" title="Edit this poi">%s</a></string>', sfContext::getInstance()->getRequest()->getScriptName() . "/poi/{$dupePoi['id']}/edit", $dupePoi['poi_name'] );
+                    printf( '</span>' );
+                }
             }
         }
 
