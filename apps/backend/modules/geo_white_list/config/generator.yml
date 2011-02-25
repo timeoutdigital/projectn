@@ -13,7 +13,8 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        showmarked: { label: 'Filter'}
       list:
         display: [ id, poi_name, latitude, longitude]
         object_actions:
@@ -22,7 +23,7 @@ generator:
         batch_actions: {}
       filter:
         class: geoWhiteListFilter
-        display: [vendor_id, poi_name, street, latitude, longitude ]
+        display: [vendor_id, showmarked, poi_name, street, latitude, longitude ]
       form:    ~
       edit:    ~
       new:     ~
