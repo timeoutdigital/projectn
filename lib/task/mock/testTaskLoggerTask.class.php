@@ -1,5 +1,4 @@
 <?php
-
 class testTaskLoggerTask extends sfBaseTask
 {
 
@@ -20,6 +19,7 @@ class testTaskLoggerTask extends sfBaseTask
     $this->name             = 'testTaskLogger';
     $this->briefDescription = 'Test runs for the taskLogger';
     $this->detailedDescription = '';
+    $this->_disableXdebug(); // disable xdebug
   }
 
   protected function execute($arguments = array(), $options = array())
@@ -64,6 +64,13 @@ class testTaskLoggerTask extends sfBaseTask
 
     taskLogger::end( $this );
 
+  }
+
+  private function _disableXdebug()
+  {
+      xdebug_disable();
+    //#929 - xdebug is enabled by default in our Dev server 1, this cause this task to fail...
+    //This will / should only for this task and not the whole test as CI server depends on xdebug data
   }
 
 }
