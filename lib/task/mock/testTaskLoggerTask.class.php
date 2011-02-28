@@ -68,9 +68,12 @@ class testTaskLoggerTask extends sfBaseTask
 
   private function _disableXdebug()
   {
-      xdebug_disable();
-    //#929 - xdebug is enabled by default in our Dev server 1, this cause this task to fail...
-    //This will / should only for this task and not the whole test as CI server depends on xdebug data
+      //#929 - xdebug is enabled by default in our Dev server 1, this cause this task to fail...
+      //This will / should only for this task and not the whole test as CI server depends on xdebug data
+      if(function_exists( 'xdebug_disable' ) )
+      {
+          xdebug_disable();
+      }
   }
 
 }
