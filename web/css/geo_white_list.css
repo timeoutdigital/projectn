@@ -22,3 +22,7 @@ tr.alt td{
     float: right;
     width: 65%;
 }
+
+.back-to-list{ float: left; margin-left: 1em;}
+.back-to-list a, .back-to-list a:visited { text-decoration: none; color: #333;}
+.back-to-list a:hover{ color: #eb8f00;}

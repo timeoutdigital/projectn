@@ -1,3 +1,18 @@
+<?php
+function get_latest_geocode_source( $poi )
+{
+    $lastSource = 'Unknown';
+    foreach( $poi['PoiMeta'] as $meta )
+    {
+        if( $meta['lookup'] == 'Geo_Source' )
+        {
+            $lastSource = $meta['value'];
+        }
+    }
+
+    return $lastSource;
+}
+?>
 <div id="sf_admin_container">
   <h1>Duplicate Lat/Long Poi</h1>
     <div class="geo_page">
@@ -7,6 +22,7 @@
                 <tr>
                     <th title="Marked as master poi">M</th>
                     <th title="Already marked?">E</th>
+                    <th title="Geocode Source">G</th>
                     <th>Poi Name</th>
                     <th>Street</th>
                     <th>City</th>
@@ -16,7 +32,8 @@
 
             <tfoot>
                 <tr>
-                    <td colspan="6" class="save-button">
+                    <td colspan="7" class="save-button">
+                        <span class="back-to-list"><?php echo link_to1('&larr; Back to geo white list', '@poi_geo_white_list' );?></span>
                         <span id="wait">Saving... Please wait... <img src="/images/loading-small.gif" alt="Ajax processing"/></span>
                         <input type="button" value="Update Whitelist" onclick="doSubmit();" /></td>
                 </tr>
@@ -26,10 +43,12 @@
                 <?php $alt = 'alt';
                     foreach( $pois as $poi ):
                     $alt = ($alt == '' ) ? 'alt' : '';
+                    $geoSource = get_latest_geocode_source( $poi );
                     ?>
                 <tr class="<?php echo $alt;?>">
                     <td><?php echo ($poi->isMaster()) ? '✓' : '-';?></td>
                     <td><?php echo ($poi->getWhitelistGeocode() !== null ) ? '✓' : '-';?></td>
+                    <td title="<?php echo $geoSource?>"><?php echo substr($geoSource, 0,1 );?></td>
                     <td><?php echo link_to($poi['poi_name'], 'poi_edit', $poi) ?></td>
                     <td><?php echo $poi['street'];?></td>
                     <td><?php echo $poi['city'];?></td>
@@ -48,7 +67,8 @@
 
         <div>
             <strong>M</strong> <small>Poi marked as Master Poi</small> |
-            <strong>E</strong> <small>Poi Meta exists?</small>
+            <strong>E</strong> <small>Poi Meta exists?</small> |
+            <strong>G</strong> <small>Geocode Source</small>
         </div>
         
     </div>
