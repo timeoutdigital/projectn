@@ -2,7 +2,7 @@
 
 class nokiaValidationTask extends sfBaseTask
 {
-    const NOKIA_VALIDATOR_UPLOAD_URL = "http://ics-master.msudev.noklab.net/self-validation/upload/";
+    const NOKIA_VALIDATOR_UPLOAD_URL = "http://ics-master.msudev.noklab.net/self-validation/validate/";
 
     protected function configure()
     {
@@ -64,7 +64,7 @@ EOF;
         if( !is_readable( $inputFile ) )
             throw new Exception( "Cannot Open File For Upload." );
 
-        $cmd = "curl -N -F 'mptest=@$inputFile;type=text/xml' -# '". self::NOKIA_VALIDATOR_UPLOAD_URL . strtolower( $type ) ."' -o $outputFile";
+        $cmd = "curl -N -F 'file=@$inputFile;type=text/xml' -# '". self::NOKIA_VALIDATOR_UPLOAD_URL . strtolower( $type ) ."' -o $outputFile";
         $resp = shell_exec( $cmd );
 
         // -- Write Digest --
