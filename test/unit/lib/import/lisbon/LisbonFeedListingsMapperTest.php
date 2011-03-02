@@ -296,7 +296,7 @@ class LisbonFeedListingsMapperTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 3, $poi833Categories->count() );
 
     $this->assertEquals( $poi833Categories[0]['name'], 'test name' );//autocreated by bootstrap
-    $this->assertEquals($poi833Categories[1]['name'], 'Museus | Museus' );
+    $this->assertEquals($poi833Categories[1]['name'], 'Museus' );
     $this->assertEquals( $poi833Categories[2]['name'], 'Category | SubCategory' );
   }
 

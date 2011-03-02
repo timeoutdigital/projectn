@@ -17,17 +17,20 @@ require_once dirname(__FILE__).'/../../../bootstrap.php';
  *
  */
 
-class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
+class fixVendorCategoriesTaskTest extends PHPUnit_Framework_TestCase
 {
     protected $options;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->task = new fixDuplicateCategoriesTask( new sfEventDispatcher, new sfFormatter );
+        $this->task = new fixVendorCategoriesTask( new sfEventDispatcher, new sfFormatter );
 
         $this->options['connection'] = 'project_n';
         $this->options['env'] = 'test';
+        $this->options['city'] = 'ny';
+        $this->options['model'] = 'poi';
+        $this->options['fix'] = 'duplicate-unused';
 
         ProjectN_Test_Unit_Factory::createDatabases();
         
@@ -49,8 +52,8 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
     protected function populateDatabase()
     {
         // Vendors
-        $this->vendor1 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
-        $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor' );
+        $this->vendor1 = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'ny' ) );
+        $this->vendor2 = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'city' => 'london' ) );
 
         // Ui Categories
         $this->uiCat = new UiCategory;
@@ -96,7 +99,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
 
     public function testDryRun()
     {
-        $output = $this->runTask();
+        $output = $this->runTask( 'poi' );
 
         $vpc = Doctrine::getTable('VendorPoiCategory')->findAll();
 
@@ -105,6 +108,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'test name',   $vpc[0]['name'] );
         $this->assertEquals( 1,             Doctrine::getTable('LinkingVendorPoiCategoryUiCategory')->findAll()->count() );
 
+        $output = $this->runTask( 'event' );
         $vec = Doctrine::getTable('VendorEventCategory')->findAll();
 
         $this->assertEquals( 1,             count( $vec ) );
@@ -115,7 +119,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
     
     public function testRemoveUnusedPoiCategory()
     {
-        $output = $this->runTask();
+        $output = $this->runTask( 'poi' );
 
         $vpc = new VendorPoiCategory;
         $vpc['name'] = 'test name';
@@ -132,7 +136,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'test name',   $vpc[1]['name'] );
         $this->assertEquals( 2,             Doctrine::getTable('LinkingVendorPoiCategoryUiCategory')->findAll()->count() );
 
-        $output = $this->runTask();
+        $output = $this->runTask( 'poi' );
 
         $vpc = Doctrine::getTable('VendorPoiCategory')->findAll();
 
@@ -144,7 +148,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveDuplicatePoiCategory()
     {
-        $output = $this->runTask();
+        $output = $this->runTask( 'poi' );
 
         $vpc = new VendorPoiCategory;
         $vpc['name'] = 'test name';
@@ -163,7 +167,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'test name',   $vpc[1]['name'] );
         $this->assertEquals( 2,             Doctrine::getTable('LinkingVendorPoiCategoryUiCategory')->findAll()->count() );
 
-        $output = $this->runTask();
+        $output = $this->runTask( 'poi' );
 
         $vpc = Doctrine::getTable('VendorPoiCategory')->findAll();
 
@@ -175,7 +179,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveUnusedEventCategory()
     {
-        $output = $this->runTask();
+        $output = $this->runTask( 'event' );
 
         $vec = new VendorEventCategory;
         $vec['name'] = 'something';
@@ -192,7 +196,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'something',   $vec[1]['name'] );
         $this->assertEquals( 2,             Doctrine::getTable('LinkingVendorEventCategoryUiCategory')->findAll()->count() );
 
-        $output = $this->runTask();
+        $output = $this->runTask( 'event' );
 
         $vec = Doctrine::getTable('VendorEventCategory')->findAll();
 
@@ -204,7 +208,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveDuplicateEventCategory()
     {
-        $output = $this->runTask();
+        $output = $this->runTask( 'event' );
 
         $vec = new VendorEventCategory;
         $vec['name'] = 'something';
@@ -221,7 +225,7 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 'something',   $vec[1]['name'] );
         $this->assertEquals( 2,             Doctrine::getTable('LinkingVendorEventCategoryUiCategory')->findAll()->count() );
 
-        $output = $this->runTask();
+        $output = $this->runTask( 'event' );
 
         $vec = Doctrine::getTable('VendorEventCategory')->findAll();
 
@@ -231,8 +235,9 @@ class fixDuplicateCategoriesTaskTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 1,             Doctrine::getTable('LinkingVendorEventCategoryUiCategory')->findAll()->count() );
     }
 
-    protected function runTask()
+    protected function runTask( $model )
     {
+        $this->options['model'] = $model;
         foreach( $this->options as $k => $v ) $options[] = "--$k=$v";
 
         ob_start();

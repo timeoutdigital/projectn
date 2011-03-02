@@ -62,7 +62,15 @@ class sqlRunnerTaskTest extends PHPUnit_Framework_TestCase
     {
         foreach( $this->options as $k => $v ) $options[] = "--$k=$v";
         ob_start();
-        $this->task->runFromCLI( new sfCommandManager, $options );
+        try{
+
+            $this->task->runFromCLI( new sfCommandManager, $options );
+
+        } catch( Exception $e ) {
+            ob_get_clean();
+            throw $e;
+        }
+        
         return ob_get_clean();
     }
 
