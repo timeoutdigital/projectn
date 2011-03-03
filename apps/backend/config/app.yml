@@ -72,7 +72,7 @@ all:
 #.......................................................................
     onUpdateFindById: false
   runner:
-    order: [ import, export ]
+    tasks: [ import, export ]
   import:
     cities:
         -

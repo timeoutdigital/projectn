@@ -36,9 +36,9 @@ class runnerTask extends sfBaseTask
         $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
         $this->taskOptions = $options;
         
-        $order = isset($options['task']) && is_string( $options['task'] ) ? array($options['task']) : sfConfig::get( 'app_runner_order' );
+        $tasks = isset($options['task']) && is_string( $options['task'] ) ? array($options['task']) : sfConfig::get( 'app_runner_tasks' );
         
-        foreach ( $order as $taskType )
+        foreach ( $tasks as $taskType )
         {
             $this->runTaskByType( $taskType , $options[ 'city' ] );
 
@@ -70,7 +70,7 @@ class runnerTask extends sfBaseTask
         	   break;
 
         	default:
-        	   throw new Exception( 'Invalid task type specified "'.$taskType.'", check app_runner_order config or use --task=import/export to override defaults' );
+        	   throw new Exception( 'Invalid task type specified "'.$taskType.'", check app_runner_tasks config or use --task=import/export to override defaults' );
         	break;
         }
     }
@@ -396,11 +396,11 @@ class runnerTask extends sfBaseTask
         // merge configs
         if( isset($taskParams['params']) && is_array($taskParams['params']) )
         {
-            $defaults = array_merge( $defaults, $taskParams['params'] );
+            $config = array_merge( $defaults, $taskParams['params'] );
         }
         
         $commandArgs = ' ';
-        foreach( $defaults as $key => $value )
+        foreach( $config as $key => $value )
         {
             // don't pass empty values
             if( trim($value) == '' || !is_string($key) ) continue;
