@@ -13,4 +13,64 @@ require_once dirname(__FILE__).'/../lib/geo_white_listGeneratorHelper.class.php'
  */
 class geo_white_listActions extends autoGeo_white_listActions
 {
+
+    public function executeWhitelist( sfWebRequest $request )
+    {
+        $this->latitude = $request->getParameter('lat');
+        $this->longitude = $request->getParameter('long');
+
+        if( $this->latitude == null || trim( $this->latitude ) == '' || $this->longitude == null || trim( $this->longitude ) == '' )
+        {
+            $this->getUser()->setFlash('error', 'Missing latitude / longitude');
+            $this->redirect( '@poi_geo_white_list' );
+            exit();
+        }
+
+        // Find all poi's with latitude and longitudes
+        $this->pois = Doctrine::getTable('Poi')->findByLatitudeAndLongitude( $this->latitude, $this->longitude );
+
+        if( $this->pois === false || $this->pois->count() <= 1 ) // minimum of two required!
+        {
+            $this->getUser()->setFlash('error', 'No Duplicate Pois found on this geocode coordinates');
+            $this->redirect( '@poi_geo_white_list' );
+            exit();
+        }
+
+    }
+
+    public function executeUpdate_whitelist( sfWebRequest $request )
+    {
+        $poi_id = trim( $request->getPostParameter( 'poi' ) );
+        $meta = strtolower( $request->getPostParameter( 'meta' ) );
+
+        $error_message = '';
+        // validate
+        if( !is_numeric( $poi_id ) || $poi_id <= 0 )
+        {
+            $error_message .= 'Invalid POI ID :' . $poi_id . "\n";
+        }
+
+        if( $meta != 'yes' && $meta != 'no' )
+        {
+            $error_message .= 'Invalid meta value :' . $meta;
+        }
+
+        if( !empty( $error_message ) )
+        {
+            return $this->renderText( json_encode( array('status' => 'failed', 'message' => $error_message ) ) );
+            exit();
+        }
+
+        // Get the POI
+        $poi =  Doctrine::getTable( 'Poi' )->find( $poi_id );
+        if( $poi === false )
+        {
+            return $this->renderText( json_encode( array('status' => 'failed', 'message' => 'No poi found with ID: ' . $poi_id ) ) );
+        }
+
+        // update Poi META
+        $poi->setWhitelistGeocode( ($meta == 'yes' ) ? true : false );
+        $poi->save();
+        return $this->renderText( json_encode( array('status' => 'success', 'message' => 'Poi Meta updated' ) ) );
+    }
 }

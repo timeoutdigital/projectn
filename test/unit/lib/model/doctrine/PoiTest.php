@@ -685,6 +685,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    public function testGetUnsolvable()
    {
        $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $poi['PoiMeta']->delete(); // Ensure that no Meta is added prior to Test
        $this->assertFalse( $poi->getUnsolvable() );
        $this->assertEquals( 0 , $poi['PoiMeta']->count() );
 
@@ -697,6 +698,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    public function testGetUnsolvable_DuplicatedMetaNotAdded()
    {
        $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $poi['PoiMeta']->delete(); // Ensure that no Meta is added prior to Test
        $this->assertFalse( $poi->getUnsolvable() );
        $this->assertEquals( 0 , $poi['PoiMeta']->count() );
 
@@ -716,6 +718,7 @@ class PoiTest extends PHPUnit_Framework_TestCase
    public function testGetUnsolvable_RemoveMetaWhenFalse()
    {
        $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $poi['PoiMeta']->delete(); // Ensure that no Meta is added prior to Test
        $this->assertFalse( $poi->getUnsolvable() );
        $this->assertEquals( 0 , $poi['PoiMeta']->count() );
 
@@ -729,7 +732,35 @@ class PoiTest extends PHPUnit_Framework_TestCase
        $this->assertEquals( 0 , $poi['PoiMeta']->count() );
        $this->assertFalse( $poi->getUnsolvable() );
    }
-   
+
+   public function testWhitelistGeocodeTrue()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertEquals( false, $poi->isWhitelistedGeocode() );
+
+       // Whitelist this geocode
+       $poi->setWhitelistGeocode( true );
+       $poi->save();
+
+       $this->assertEquals( true, $poi->isWhitelistedGeocode() );
+   }
+
+   public function testWhitelistGeocodeFalse()
+   {
+       $poi = ProjectN_Test_Unit_Factory::add('poi');
+       $this->assertEquals( false, $poi->isWhitelistedGeocode() );
+
+       // Whitelist this geocode
+       $poi->setWhitelistGeocode( true );
+       $poi->save();
+
+       $this->assertEquals( true, $poi->isWhitelistedGeocode() );
+
+       $poi->setWhitelistGeocode( false ); // should remove
+       $poi->save();
+
+       $this->assertEquals( false, $poi->isWhitelistedGeocode() );
+   }
 }
 
 class MockgeocoderForPoiTest extends geocoder

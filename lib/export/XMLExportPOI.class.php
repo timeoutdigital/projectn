@@ -56,7 +56,7 @@ class XMLExportPOI extends XMLExport
     try {
         // Dont Do Dupe Lat Long Lookup for Russian Cities
         $duplicateLatLongs = ( $this->vendor['language'] != 'ru' ) ?
-            Doctrine::getTable('Poi')->findAllDuplicateLatLongsAndApplyWhitelist( $this->vendor['id'] )
+            Doctrine::getTable('Poi')->findAllDuplicateLatLongs( $this->vendor['id'] )
         : array();
     }
     
@@ -71,6 +71,22 @@ class XMLExportPOI extends XMLExport
     //entry
     foreach( $data as $poi )
     {
+      //start guise
+      /**
+       * option 1, not nice due to hardcode. other option would be guisable
+       * option for the task and use useGuiseIfExists() rather than ifing out
+       * macau and shenzen
+       */
+      if( $this->vendor->isInGuise() )
+      {
+          $this->vendor->stopUsingGuise();
+      }
+      if ( $this->vendor->city == 'hong kong' && in_array( $poi['district'], array( 'Macau', 'Shenzhen' ) ) )
+      {
+          $this->vendor->useGuise( $poi['district'] );
+      }
+      // end guise
+
       //Skip Export for Pois with lat/long outside vendor boundaries.
       // #840 Old checking Moved into vendor and replaced with vendor->isWithinBoundaries();
       if( $this->validation == true && !$this->vendor->isWithinBoundaries( $poi['latitude'], $poi['longitude'] ) )
@@ -102,7 +118,7 @@ class XMLExportPOI extends XMLExport
       {
           if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
           {
-              if( $this->validation == true )
+              if( $this->validation == true && !$poi->isWhitelistedGeocode() ) //#935 Whitelist Exception
               {
                 ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
                 continue 2;

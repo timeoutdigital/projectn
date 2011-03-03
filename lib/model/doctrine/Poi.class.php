@@ -811,6 +811,61 @@ class Poi extends BasePoi
       return null;
   }
 
+  /**
+   * Set / Unset Poi's latitude and longitude as Whitelisted by passing True or False
+   * @param boolean $isWhitelisted
+   */
+  public function setWhitelistGeocode( $isWhitelisted )
+  {
+      if( !is_bool( $isWhitelisted ) )
+      {
+          throw new PoiException( 'Invalid $isWhitelisted value. It should be typeof boolean' );
+      }
+      
+      // get existing
+      $meta = $this->getWhitelistGeocode();
+      
+      // check for existing or creat new
+      if( $meta == null )
+      {
+          $meta = new PoiMeta;
+          $meta['lookup'] = 'geocodeWhitelist';
+          $this['PoiMeta'][] = $meta;
+          
+      }
+
+      $meta['value'] = ($isWhitelisted) ? 'yes' : 'no' ;
+  }
+
+  public function getWhitelistGeocode()
+  {
+      foreach( $this['PoiMeta'] as $poiMeta )
+      {
+          if( $poiMeta->lookup == 'geocodeWhitelist' )
+          {
+              return $poiMeta;
+          }
+      }
+
+      return null;
+  }
+
+  /**
+   * Check this poi's marked as geocode Whitelisted
+   * @return boolean
+   */
+  public function isWhitelistedGeocode()
+  {
+      $poiMeta = $this->getWhitelistGeocode();
+     
+      if( $poiMeta !== null && $poiMeta->value == 'yes')
+      {
+          return true;
+      }
+      
+      return false;
+  }
+
 }
 
 class PoiException extends Exception{};

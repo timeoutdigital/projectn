@@ -322,6 +322,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
+      $vendor = new Vendor();
+      $vendor->stopUsingGuise();
       ProjectN_Test_Unit_Factory::destroyDatabases();
 
     }
@@ -963,8 +965,8 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         // add duplicate ship
         $poi1 = Doctrine::getTable( 'Poi' )->find(1);
         $poi5 = Doctrine::getTable( 'Poi' )->find(5);
-        $poi1['DuplicatePois'][] = $poi5;
-        $poi1->save();
+        $poi5->setMasterPoi( $poi1 );
+        $poi5->save();
         $this->assertEquals( 5, Doctrine::getTable( 'Poi' )->findByVendorId(2)->count() );
         $this->assertEquals( 1, Doctrine::getTable( 'PoiReference' )->count() );
         
@@ -994,6 +996,83 @@ class XMLExportPOITest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals( 'poi4', (string)$xml->entry[2]->name );
         $this->assertEquals( 'Music', (string)$xml->entry[2]->version->content->property[0] );
+    }
+
+    public function testExportHongkongGuisable()
+    {
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData( 'data/fixtures' );
+
+        $vendorHongKong = Doctrine::getTable( 'Vendor' )->findOneByCity( 'hong kong' );
+
+        $poiHongkong = ProjectN_Test_Unit_Factory::get( 'poi', array( 'vendor_id'   => $vendorHongKong['id'],
+                                                                      'poi_name' => 'IFC Mall',
+                                                                      'district' => 'Central',
+                                                                      'latitude' => '22.28529547',
+                                                                      'longitude' => '114.15946873' ) );
+        $poiHongkong->save();
+        $poiShenzhen = ProjectN_Test_Unit_Factory::get( 'poi', array( 'vendor_id'   => $vendorHongKong['id'],
+                                                                      'poi_name' => 'babyface',
+                                                                      'district' => 'Shenzhen',
+                                                                      'latitude' => '23.11138172',
+                                                                      'longitude' => '113.26142599' ) );
+        $poiShenzhen->save();
+        $poiMacau = ProjectN_Test_Unit_Factory::get( 'poi', array(    'vendor_id'   => $vendorHongKong['id'],
+                                                                      'poi_name' => 'IIUM, Auditorium',
+                                                                      'district' => 'Macau',
+                                                                      'latitude' => '22.18868336',
+                                                                      'longitude' => '113.55275795' ) );
+        $poiMacau->save();
+
+        $XMLExportDestination =  dirname( __FILE__ ) . '/../../export/poi/poitest.xml';
+        $this->export = new XMLExportPOI( $vendorHongKong, $XMLExportDestination );
+        $this->export->run();
+        $this->xml = simplexml_load_file( $XMLExportDestination );
+        $numEntries = $this->xml->xpath( '//entry' );
+
+        $this->assertEquals( 3, count($numEntries) );
+
+        //cleanup
+        @unlink( $XMLExportDestination );
+    }
+
+    public function testExportPoitsMarkedWhitelistedGeocodeDuplicateNotExporting()
+    {
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData( 'data/fixtures' );
+        
+        $vendor = Doctrine::getTable( 'vendor')->find(1);
+        $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI', 'vendor_id' => $vendor['id'] ) );
+        $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI', 'vendor_id' => $vendor['id'], 'latitude' => $poi1['latitude'], 'longitude' => $poi1['longitude'] ) );
+        
+        // Export without marking and assert to have those two not exported
+        $this->runImportAndExport( $vendor ); // Do export for vendor 1
+        $xml= simplexml_load_file( $this->destination );
+
+        $this->assertEquals( 0, count($xml));
+    }
+
+    public function testExportPoitsMarkedWhitelistedGeocodeDuplicateMarkedAnd1Exported()
+    {
+        ProjectN_Test_Unit_Factory::destroyDatabases();
+        ProjectN_Test_Unit_Factory::createDatabases();
+        Doctrine::loadData( 'data/fixtures' );
+
+        $vendor = Doctrine::getTable( 'vendor')->find(1);
+        $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI 1', 'vendor_id' => $vendor['id'] ) );
+        $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'Duplicate POI 2', 'vendor_id' => $vendor['id'], 'latitude' => $poi1['latitude'], 'longitude' => $poi1['longitude'] ) );
+        $poi1->setWhitelistGeocode( true );
+        $poi1->save();
+        
+        // Export without marking and assert to have those two not exported
+        $this->runImportAndExport( $vendor ); // Do export for vendor 1
+        $xml= simplexml_load_file( $this->destination );
+
+        $this->assertEquals( 1, count($xml));
+        $this->assertEquals( 'Duplicate POI 1', (string)$xml->entry[0]->name );
+
     }
 }
 /**

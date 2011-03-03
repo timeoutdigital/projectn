@@ -506,7 +506,7 @@ class XMLExportEventTest extends PHPUnit_Framework_TestCase
       // mark poi 1 Duplicate of POI 2
       $poi1 = Doctrine::getTable('Poi')->find(1);
       $poi2 = Doctrine::getTable('Poi')->find(2);
-      $poi1->setMasterPoi($poi2['id']);
+      $poi1->setMasterPoi($poi2);
       $poi1->save();
       
       $this->exportPoisAndEvents();
