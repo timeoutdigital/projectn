@@ -6,7 +6,7 @@ class duplicateExportedMovieFeedTask extends sfBaseTask
   {
       
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
       new sfCommandOption('source', null, sfCommandOption::PARAMETER_REQUIRED, 'source vendor City name (Copy from) --source=moscow', null),
