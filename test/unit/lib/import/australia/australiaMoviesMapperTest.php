@@ -51,7 +51,7 @@ class australiaMoviesMapperTest extends PHPUnit_Framework_TestCase
   public function testMapping()
   {
 
-    $this->assertEquals( 1,
+    $this->assertEquals( 5,
                          Doctrine::getTable( 'Movie' )->count(),
                         'Database should have same number of Movies as feed after import'
                          );
