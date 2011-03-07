@@ -56,7 +56,7 @@ class XMLExportPOI extends XMLExport
     try {
         // Dont Do Dupe Lat Long Lookup for Russian Cities
         $duplicateLatLongs = ( $this->vendor['language'] != 'ru' ) ?
-            Doctrine::getTable('Poi')->findAllDuplicateLatLongsAndApplyWhitelist( $this->vendor['id'] )
+            Doctrine::getTable('Poi')->findAllDuplicateLatLongs( $this->vendor['id'] )
         : array();
     }
     
@@ -118,7 +118,7 @@ class XMLExportPOI extends XMLExport
       {
           if( $poi['latitude'] == $dupe['latitude'] && $poi['longitude'] == $dupe['longitude'] )
           {
-              if( $this->validation == true )
+              if( $this->validation == true && !$poi->isWhitelistedGeocode() ) //#935 Whitelist Exception
               {
                 ExportLogger::getInstance()->addError( 'Skip Export for Pois with Dupe Lat/Longs', 'Poi', $poi[ 'id' ] );
                 continue 2;

@@ -47,7 +47,6 @@ class processDuplicatePois extends sfBaseTask
                 ->select( 'p.poi_name, p.latitude, p.longitude, count(*) as dupes' )
                 ->where( 'r.master_poi_id IS NULL ' )
                 ->andWhere( 'p.vendor_id = ?', $vendorID )
-                ->andWhere( 'CONCAT(p.latitude, ",", p.longitude ) NOT IN ( SELECT CONCAT(w.latitude, ",", w.longitude) FROM GeoWhiteList w)' )
                 ->groupBy( 'p.latitude, p.longitude, p.poi_name' )
                 ->having( 'dupes > 1 ');
         var_dump( $q->getSqlQuery() );

@@ -1,6 +1,59 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/11-App
 
+########## Example Import & Export / Post processing ##############
+#
+# import:
+#   cities:
+#     -
+#       name: city name
+#       type: [ poi, event, etc ]
+#       postProcessing:
+#         -
+#           taskName: someName
+#           namespace: projectn           # Default one is projectn, can be adjusted to any other namespace
+#           params:
+#             param1: value_for_param1
+#             param2: 'Value for 2'
+#   postProcessing:
+#     -
+#       taskName: someName
+#       namespace: projectn
+#       params:
+#         param1: value_for_param1
+#         param2: 'Value for 2'
+#     -
+#       taskName: cc
+#       namespace: symfony
+#       params: ~
+# export
+#   cities:
+#     -
+#       name: city name
+#       type: [ poi, event, etc ]
+#       language: en-US
+#       exportForNokia: true
+#       postProcessing:
+#         -
+#           taskName: someName
+#           namespace: projectn
+#           params:
+#             param1: value_for_param1
+#             param2: 'Value for 2'
+#
+#   postProcessing:
+#     -
+#       taskName: someName
+#       namespace: projectn
+#       params:
+#         param1: value_for_param1
+#         param2: 'Value for 2'
+####################################################################
+# Postprocessing can ve applied Globally ( Root element with cities in import / export)
+# and can be applied to each individual cities. Global once will be executed ocne all the
+# import or export finished and city once executed once city import or export finished.
+##################### END ##########################################
+
 # default values
 all:
   #matches url: http://projectn.local/
@@ -19,7 +72,7 @@ all:
 #.......................................................................
     onUpdateFindById: false
   runner:
-    order: [ import, export ]
+    tasks: [ import, export ]
   import:
     cities:
         -
@@ -167,11 +220,25 @@ all:
           type: [ poi, event ]
           language: ru
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'saint petersburg'
+                override: 'true'
         -
           name: almaty
           type: [ poi, event ]
           language: ru
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'almaty'
+                override: 'true'
         -
           name: barcelona
           type: [ poi, event, movie ]
@@ -192,16 +259,37 @@ all:
           type: [ poi, event ]
           language: en-GB
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'mumbai'
+                dest: 'delhi'
+                override: 'true'
         -
           name: bangalore
           type: [ poi, event ]
           language: en-GB
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'mumbai'
+                dest: 'bangalore'
+                override: 'true'
         -
           name: pune
           type: [ poi, event ]
           language: en-GB
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'mumbai'
+                dest: 'pune'
+                override: 'true'
         -
           name: beijing
           type: [ poi, event, movie ]
@@ -248,15 +336,22 @@ all:
           language: en-GB
           exportForNokia: true
         -
-          name: shanghai_zh
-          type: [ poi, event ]
-          language: zh-Hans
-          exportForNokia: true
-        -
           name: beijing_zh
           type: [ poi, event, movie ]
           language: zh-Hans
           exportForNokia: true
+        -
+          name: shanghai_zh
+          type: [ poi, event ]
+          language: zh-Hans
+          exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'beijing_zh'
+                dest: 'shanghai_zh'
+                override: 'true'
         -
           name: melbourne
           type: [ poi, event, movie ]
@@ -282,12 +377,28 @@ all:
           type: [ poi, event ]
           language: ru
           exportForNokia: true
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'omsk'
+                override: 'true'
         -
           name: krasnoyarsk
           type: [ poi, event ]
           language: ru
           exportForNokia: true
-
+          postProcessing:
+            -
+              taskName: duplicateExportedMovieFeed
+              params:
+                source: 'moscow'
+                dest: 'krasnoyarsk'
+                override: 'true'
+                
+     # Export post processing tasks
+    postProcessing: ~
 prod:
   #matches url: http://projectn.live/
   google_api_key : ABQIAAAA_FL2s5FUf4LMO_mUYDXUABSveoBGowI7nqh6kHEuOnD_thDOzhQRISkLudF55CGQjHRYPqfn429wzw

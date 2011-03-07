@@ -16,7 +16,8 @@ class runnerTask extends sfBaseTask
           new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
           new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'project_n'),
           new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
-          new sfCommandOption('city', null, sfCommandOption::PARAMETER_OPTIONAL, 'The city to import',null)
+          new sfCommandOption('city', null, sfCommandOption::PARAMETER_OPTIONAL, 'The city to import',null),
+          new sfCommandOption('task', null, sfCommandOption::PARAMETER_OPTIONAL, 'Run import / export, use --task=import or --task=export',null),
         ));
 
         $this->namespace        = 'projectn';
@@ -34,12 +35,20 @@ class runnerTask extends sfBaseTask
         $this->logRootDir = sfConfig::get( 'sf_log_dir' );
         $this->exportRootDir = sfConfig::get( 'sf_root_dir' ) . '/export';
         $this->taskOptions = $options;
-
-        $order = sfConfig::get( 'app_runner_order' );
-
-        foreach ( $order as $taskType )
+        
+        $tasks = isset($options['task']) && is_string( $options['task'] ) ? array($options['task']) : sfConfig::get( 'app_runner_tasks' );
+        
+        foreach ( $tasks as $taskType )
         {
             $this->runTaskByType( $taskType , $options[ 'city' ] );
+
+            // global post processing
+            $postProcessing = sfConfig::get( 'app_'. strtolower($taskType) . '_postProcessing', null );
+            
+            if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+            {
+                $this->executePostProcessing( $taskType, $postProcessing );
+            }
         }
 
     }
@@ -61,7 +70,7 @@ class runnerTask extends sfBaseTask
         	   break;
 
         	default:
-        	   throw new Exception( 'Invalid type specified in app_runner_order config' );
+        	   throw new Exception( 'Invalid task type specified "'.$taskType.'", check app_runner_tasks config or use --task=import/export to override defaults' );
         	break;
         }
     }
@@ -98,6 +107,14 @@ class runnerTask extends sfBaseTask
                 $logCommand  = $logPath . '/' . strtr( $importCity[ 'name' ], ' ', '_' ) . '.log';
 
                 $this->executeCommand( $taskCommand, $logCommand );
+            }
+
+            // import post processsing, city specific
+            $postProcessing = isset($importCity['postProcessing']) ? $importCity['postProcessing'] : null ;
+            
+            if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+            {
+                $this->executePostProcessing( 'import' , $postProcessing );
             }
 
         }
@@ -223,6 +240,14 @@ class runnerTask extends sfBaseTask
                 }
             }
 
+            // export post processsing, city specific
+            $postProcessing = isset($exportCity['postProcessing']) ? $exportCity['postProcessing'] : null;
+
+            if( is_array( $postProcessing ) && !empty( $postProcessing ) )
+            {
+                $this->executePostProcessing( 'export' , $postProcessing );
+            }
+
         }
 
         $this->logSection( 'Runner' ,'tar archive for export backup' );
@@ -341,6 +366,57 @@ class runnerTask extends sfBaseTask
         echo  $cmd.PHP_EOL.PHP_EOL;
         $cmdOutput = shell_exec( $cmd . ' 2>&1' );
         file_put_contents( $logfile, $cmdOutput, FILE_APPEND );
+    }
+
+    
+    protected function executePostProcessing( $taskType, $postProcessingTasks )
+    {
+        $logFile = $this->logRootDir . '/post_processing/';
+        foreach( $postProcessingTasks as $task )
+        {
+            $this->executeCommand( $this->_generateCommandArgs( $task )
+                    , $logFile . $task['taskName']. '.log' );
+        }
+    }
+
+    /**
+     * generate command line args
+     * @param string $taskType
+     * @param string $taskName
+     * @param array $options
+     * @return string
+     */
+    private function _generateCommandArgs( $taskParams )
+    {
+        $defaults = array(
+            'env' => $this->taskOptions['env'],
+            'application' => $this->taskOptions['application']
+        );
+
+        // merge configs
+        if( isset($taskParams['params']) && is_array($taskParams['params']) )
+        {
+            $config = array_merge( $defaults, $taskParams['params'] );
+        }
+        
+        $commandArgs = ' ';
+        foreach( $config as $key => $value )
+        {
+            // don't pass empty values
+            if( trim($value) == '' || !is_string($key) ) continue;
+
+            // build command args
+            $commandArgs .= " --{$key}='{$value}'";
+        }
+
+        // namespace override
+        $namespace = 'projectn'; // Default name space for tasks
+        if( isset( $taskParams['namespace'] ) && trim($taskParams['namespace']) != '' )
+        {
+            $namespace = trim($taskParams['namespace']);
+        }
+        
+        return $this->symfonyPath . '/./symfony '.$namespace.':' . $taskParams['taskName'] . $commandArgs;
     }
 
 }

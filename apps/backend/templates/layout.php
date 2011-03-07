@@ -25,10 +25,13 @@
                     <?php echo link_to('Vendor POI categories', '@vendor_poi_category') ?>
                   </li>
                   <li>
-                    <?php echo link_to('Geocode white list', 'geo_white_list') ?>
+                    <?php echo link_to('Geocode white list', 'poi_geo_white_list') ?>
                   </li>
                   <li>
                     <?php echo link_to('Geocode UI', '@geocode_ui') ?>
+                  </li>
+                  <li>
+                    <?php echo link_to('Duplicates', '@poi_duplicate_pois') ?>
                   </li>
               </ul>
           </li>

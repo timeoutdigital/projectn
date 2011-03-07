@@ -1,3 +1,12 @@
+poi_geo_white_list:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Poi
+    module:               geo_white_list
+    prefix_path:          /geo_white_list
+    column:               id
+    with_wildcard_routes: true
+
 vendor_category_black_list:
   class: sfDoctrineRouteCollection
   options:
@@ -33,16 +42,7 @@ poi_duplicate_pois:
     prefix_path:          /duplicate_pois
     column:               id
     with_wildcard_routes: true
-
-geo_white_list:
-  class: sfDoctrineRouteCollection
-  options:
-    model:                GeoWhiteList
-    module:               geo_white_list
-    prefix_path:          /geo_white_list
-    column:               id
-    with_wildcard_routes: true
-
+    
 event:
   class: sfDoctrineRouteCollection
   options:

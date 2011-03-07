@@ -41,11 +41,16 @@ all:
       dns: "mysql:host=80.250.104.16;dbname=searchlight"
       user: projectn
       password: outtime99
+      
+  projectn_export: <?php echo sfConfig::get('sf_root_dir');?>/export
+  
 test:
     beijing:
       dns:  sqlite:/tmp/beijing.db:
       user: projectn
       password: outtime99
+    projectn_export: <?php echo sfConfig::get('sf_root_dir');?>/test/unit/data/export
+
 test-functional:
     beijing:
       dns:  sqlite:/tmp/beijing.db:

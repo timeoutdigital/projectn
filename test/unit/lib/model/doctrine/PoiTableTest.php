@@ -43,82 +43,6 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * 
-   */
-  public function testFindAllDuplicateLatLongsAndApplyWhitelist_TestingDuplicates()
-  {
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '0;10;0;10' ) );
-
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '1' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '1' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '2', 'longitude' => '2' ) );
-    $this->assertEquals( 3, Doctrine::getTable('Poi')->findAll()->count() );
-    
-    $this->assertEquals( 1, count( $this->object->findAllDuplicateLatLongsAndApplyWhitelist( $vendor->id ) ) );
-  }
-
-  /**
-   *
-   */
-  public function testFindAllDuplicateLatLongsAndApplyWhitelist_TestingMetaDuplicates()
-  {
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '0;10;0;10' ) );
-
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '1' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '2', 'longitude' => '2' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '2', 'longitude' => '2' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '2' ) );
-    $poi = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '1' ) );
-    $this->assertEquals( 5, Doctrine::getTable('Poi')->findAll()->count() );
-
-    // Before marking a poi as duplicate (via meta). we should get 2 duplicates returned
-    $this->assertEquals( 2, count( $this->object->findAllDuplicateLatLongsAndApplyWhitelist( $vendor->id ) ) );
-
-    $pm = new PoiMeta;
-    $pm['lookup'] = 'Duplicate';
-    $pm['value']  = 'Duplicate';
-
-    $poi['PoiMeta'][] = $pm;
-    $poi->save();
-
-    $this->assertEquals( 1, Doctrine::getTable('PoiMeta')->findAll()->count() );
-
-    // After marking a poi as duplicate (via meta). we should get 1 duplicates returned
-    $this->assertEquals( 1, count( $this->object->findAllDuplicateLatLongsAndApplyWhitelist( $vendor->id ) ) );
-
-  }
-
-  /**
-   *
-   */
-  public function testFindAllDuplicateLatLongsAndApplyWhitelist_TestingGeoWhiteList()
-  {
-    $vendor = ProjectN_Test_Unit_Factory::add( 'Vendor', array( 'geo_boundries' => '0;10;0;10' ) );
-
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '1' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '2', 'longitude' => '2' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '2', 'longitude' => '2' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '2' ) );
-    ProjectN_Test_Unit_Factory::add( 'Poi', array( 'latitude' => '1', 'longitude' => '1' ) );
-    $this->assertEquals( 5, Doctrine::getTable('Poi')->findAll()->count() );
-
-    // Before adding geocode to white list we should get 2 Duplicated Lat / Long (1,1 & 2,2 )
-    $this->assertEquals( 2, count( $this->object->findAllDuplicateLatLongsAndApplyWhitelist( $vendor->id ) ) );
-
-    // Add GeoWhiteList for Geocode 1,1.
-    $wl = new GeoWhiteList;
-    $wl['latitude'] = '1';
-    $wl['longitude']  = '1';
-    $wl['comment']  = 'Testing white listing Geocode 1,1';
-    $wl->save();
-
-    $this->assertEquals( 1, Doctrine::getTable('GeoWhiteList')->findAll()->count() );
-
-    // After White listing geocode 1,1, duplicated Lat/Long should only return 1 Lat/Long as Duplicated (2,2)
-    $this->assertEquals( 1, count( $this->object->findAllDuplicateLatLongsAndApplyWhitelist( $vendor->id ) ) );
-  }
-
-  /**
    * test getVendorUidFieldName() returns the right string
    */
   public function testGetVendorUidFieldName()
@@ -288,7 +212,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
     return $poi;
   }
 
-  public function testAddWherePoiIsNotDuplicate_FindAllDuplicateLatLongsAndApplyWhitelist()
+  public function testAddWherePoiIsNotDuplicate_FindAllDuplicateLatLongs()
   {      
       $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi' );
       $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi' );
@@ -296,7 +220,7 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi' );
 
       $this->assertEquals( 4, Doctrine::getTable( 'Poi' )->count() );
-      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongs( 1 );
       $this->assertEquals( 0, count($pois), 'There is no duplicate yet! it should bring nothing back' );
 
       // add duplicate geocode
@@ -304,13 +228,13 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $poi1['latitude'] = $poi4['latitude'];
       $poi1['longitude'] = $poi4['longitude'];
       $poi1->save();
-      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongs( 1 );
       $this->assertEquals( 1, count($pois), 'Should have 1 Duplicate' );
 
       // add the ID4 as Duplicate of Poi 1
       $poi4->setMasterPoi($poi1);
       $poi4->save();
-      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongsAndApplyWhitelist( 1 );
+      $pois = Doctrine::getTable( 'Poi' )->findAllDuplicateLatLongs( 1 );
       $this->assertEquals( 0, count($pois), 'Should bring nothing back, as 4th one identified as duplicate of POI 1' );
   }
 
@@ -336,5 +260,90 @@ class PoiTableTest extends PHPUnit_Framework_TestCase
       $this->assertNotEquals( $poi3['id'], $validPois[2]['id'], 'POI ID3 should be excluded in the LIST' );
   }
 
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByWithoutReference()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 4 , $pois->count(), 'should return All 4' );
+  }
+
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByWithReference()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      // Add Duplicate / master
+      $poi1->setMasterPoi( $poi2 );
+      $poi1->save();
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 3 , $pois->count(), 'only 3 should be there as POI1 is added as duplicate of POI2' );
+      $this->assertEquals( 'poi 2', $pois[0]['poi_name'] );
+  }
+
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByHideMetaMarked()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      $poi1->setWhitelistGeocode( true );
+      $poi1->save();
+      $poi2->setWhitelistGeocode( false );
+      $poi2->save();
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 2 , $pois->count(), 'POI 1 and POI 2 is marked as processed by producer, this should not be listed here' );
+      $this->assertEquals( 'poi 3', $pois[0]['poi_name'] );
+  }
+
+  public function testFindAllDuplicateLatLongPoisNotWhitelistedByHideMetaMarkedAndPoiReferenceDuplicates()
+  {
+      $vendor = ProjectN_Test_Unit_Factory::add( 'vendor' );
+      $vendorBoundary = $vendor[ 'geo_boundries' ];
+      $vendorBoundaryArray = explode( ';', $vendorBoundary); // [0] => lower-lat, [1] => lower-Long, [2] => upper-lat, [3] => upper-long
+
+      // all poi's are duplicate
+      $poi1 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 1', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi2 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 2', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi3 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 3', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+      $poi4 = ProjectN_Test_Unit_Factory::add( 'Poi', array( 'poi_name' => 'poi 4', 'latitude' => ( $vendorBoundaryArray[0] + 0.5 ), 'longitude' => ( $vendorBoundaryArray[1] + 0.5 ) ) );
+
+      // reference
+      $poi4->setMasterPoi( $poi1 );
+      $poi4->save();
+      
+      // Meta
+      $poi1->setWhitelistGeocode( true );
+      $poi1->save();
+      $poi2->setWhitelistGeocode( false );
+      $poi2->save();
+
+      $pois = Doctrine::getTable('Poi')->findAllDuplicateLatLongPoisNotWhitelistedBy( $vendor['id'] );
+      $this->assertEquals( 1 , $pois->count(), 'only the POI 3 should be returned' );
+      $this->assertEquals( 'poi 3', $pois[0]['poi_name'] );
+  }
 }
 ?>
