@@ -1,1 +1,0 @@
-TRUNCATE TABLE generated_export_stats;

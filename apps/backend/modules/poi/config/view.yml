@@ -1,5 +1,0 @@
-editSuccess:
-  javascripts:
-    - plugins/jquery.autocomplete-1.0.2.js
-  stylesheets:
-    - duplicate_poi.css

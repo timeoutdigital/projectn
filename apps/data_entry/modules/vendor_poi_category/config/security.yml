@@ -1,4 +1,0 @@
-all:
-    is_secure: on
-    credentials: vendor_poi_category
-

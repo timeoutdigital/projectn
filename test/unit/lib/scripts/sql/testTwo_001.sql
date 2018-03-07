@@ -1,1 +1,0 @@
-INSERT INTO movie_genre ( genre, created_at, updated_at ) VALUES ( 'test genre 1', now(), now() );
