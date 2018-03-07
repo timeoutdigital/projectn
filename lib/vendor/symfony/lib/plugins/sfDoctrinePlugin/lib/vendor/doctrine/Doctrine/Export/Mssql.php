@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 7660 2010-06-08 18:30:22Z jwage $
+ *  $Id: Mssql.php 6345 2009-09-11 20:14:24Z dcousineau $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information, see
- * <http://www.doctrine-project.org>.
+ * <http://www.phpdoctrine.org>.
  */
 
 /**
@@ -28,9 +28,9 @@
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author      Frank M. Kromann <frank@kromann.info> (PEAR MDB2 Mssql driver)
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link        www.doctrine-project.org
+ * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 7660 $
+ * @version     $Revision: 6345 $
  */
 class Doctrine_Export_Mssql extends Doctrine_Export
 {
@@ -191,21 +191,23 @@ class Doctrine_Export_Mssql extends Doctrine_Export
             }
         }
 
-        if ($check) {
+        if( $check ) {
             return true;
         }
 
 
         $query = '';
-        $postQueries = ''; //SQL Server uses a stored procedure to rename objects
+        $post_queries = ''; //SQL Server uses a stored procedure to rename objects
 
-        if ( ! empty($changes['name'])) {
-            $changeName = $this->conn->quoteIdentifier($changes['name'], true);
+        //NAME (TABLE)
+        if( !empty($changes['name']) )
+        {
+            $change_name = $this->conn->quoteIdentifier($changes['name'], true);
 
-            $postQueries .= sprintf(
+            $post_queries .= sprintf(
                 "EXECUTE sp_RENAME '%s', '%s';",
                 $this->conn->quoteIdentifier($name),
-                $changeName
+                $change_name
             );
         }
 
@@ -229,7 +231,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
             $dropped = array();
             foreach ($changes['remove'] as $fieldName => $field) {
                 
-                $fieldName = $this->conn->quoteIdentifier($fieldName, true);
+                $field_name = $this->conn->quoteIdentifier($fieldName, true);
                 $dropped[] = $fieldName;
             }
 
@@ -253,6 +255,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
 
             $altered = array();
             foreach ($changes['change'] as $fieldName => $field) {
+                
                 if (isset($rename[$fieldName])) {
                     $oldFieldName = $rename[$fieldName];
                     unset($rename[$fieldName]);
@@ -261,31 +264,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
                 }
                 $oldFieldName = $this->conn->quoteIdentifier($oldFieldName, true);
 
-                $declaration = $this->getDeclaration($fieldName, $field['definition']);
-
-                if (preg_match('/(CONSTRAINT\s+([^\s]*)\s+DEFAULT\s+([^\s]*)\s*)|(DEFAULT\s+([^\s]*)\s*)/', $declaration, $matches)) {
-                    // Remove the default constraint declaration from the statement
-                    $altered[] = str_replace($matches[0], '', $declaration);
-
-                    if (count($matches) === 6) {
-                        // No constraint name provided. Try to make sure it's unique
-                        $defaultName = 'DF__' . $name . '__' . $fieldName . '__' . mt_rand();
-                        $defaultValue = $matches[5];
-                    } else {
-                        $defaultName = $matches[2];
-                        $defaultValue = $matches[3];
-                    }
-
-                    $postQueries .= sprintf(
-                        ' ALTER TABLE %s ADD CONSTRAINT %s DEFAULT (%s) FOR %s',
-                        $name,
-                        $defaultName,
-                        $defaultValue,
-                        $fieldName
-                    );
-                } else {
-                    $altered[] = $declaration;
-                }
+                $altered[] = $this->getDeclaration($fieldName, $field['definition']);
             }
 
             $query .= implode(sprintf(
@@ -301,7 +280,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
                 $field = $changes['rename'][$renamedField];
                 $renamedField = $this->conn->quoteIdentifier($renamedField);
 
-                $postQueries .= sprintf(
+                $post_queries .= sprintf(
                     "EXECUTE sp_RENAME '%s.%s', '%s', 'COLUMN';",
                     $this->conn->quoteIdentifier($name),
                     $renamedField,
@@ -310,22 +289,24 @@ class Doctrine_Export_Mssql extends Doctrine_Export
             }
         }
 
-        if ( ! $query && ! $postQueries) {
+        if ( !$query && !$post_queries) {
             return false;
         }
 
         $name = $this->conn->quoteIdentifier($name, true);
 
-        $finalQuery = '';
-        if ($query) {
-            $finalQuery .= 'ALTER TABLE ' . $name . ' ' . trim($query) . ';';
+        $final_query = '';
+        if( $query )
+        {
+            $final_query .= 'ALTER TABLE ' . $name . ' ' . trim($query) . ';';
+    }
+
+        if( $post_queries )
+        {
+            $final_query .= $post_queries;
         }
 
-        if ($postQueries) {
-            $finalQuery .= $postQueries;
-        }
-
-        return $this->conn->exec($finalQuery);
+        return $this->conn->exec($final_query);
     }
 
     /**
@@ -414,19 +395,22 @@ class Doctrine_Export_Mssql extends Doctrine_Export
             throw new Doctrine_Export_Exception('no fields specified for table ' . $name);
         }
 
-        // Use field declaration of primary if the primary option not set
-        if ( ! isset($options['primary'])) {
-            foreach ($fields as $fieldName => $fieldData) {
-                if (isset($fieldData['primary']) && $fieldData['primary']) {
-                    $options['primary'][$fieldName] = $fieldName;
-                }
+        if( !isset($options['primary']) ) //Use field declaration of primary if the primary option not set
+        {
+            foreach( $fields as $field_name => $field_data )
+            {
+                if( isset($field_data['primary']) && $field_data['primary'] )
+                    $options['primary'][$field_name] = $field_name;
             }
         }
 
-        if (isset($options['primary'])) {
-            foreach ($options['primary'] as $fieldName) {
-                if (isset($fields[$fieldName])) {
-                    $fields[$fieldName]['notnull'] = true; //Silently forcing NOT NULL as MSSQL will kill a query that has a nullable PK
+        if( isset($options['primary']) )
+        {
+            foreach( $options['primary'] as $field_name )
+            {
+                if( isset($fields[$field_name]) )
+                {
+                    $fields[$field_name]['notnull'] = true; //Silently forcing NOT NULL as MSSQL will kill a query that has a nullable PK
                 }
             }
         }
@@ -459,6 +443,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
         }
         
         if (isset($options['foreignKeys'])) {
+
             foreach ((array) $options['foreignKeys'] as $k => $definition) {
                 if (is_array($definition)) {
                     $sql[] = $this->createForeignKeySql($name, $definition);
@@ -483,42 +468,5 @@ class Doctrine_Export_Mssql extends Doctrine_Export
             (isset($definition['notnull']) && $definition['notnull']) || 
             (isset($definition['primary']) && $definition['primary'])
         ) ? ' NOT NULL' : ' NULL';
-    }
-
-    /**
-     * @see Doctrine_Export::getDefaultFieldDeclaration
-     *
-     * @param array $field      field definition array
-     * @return string           DBMS specific SQL code portion needed to set a default value
-     */
-    public function getDefaultFieldDeclaration($field)
-    {
-        $default = '';
-
-        if (array_key_exists('default', $field)) {
-            if ($field['default'] === '') {
-                $field['default'] = empty($field['notnull'])
-                    ? null : $this->valid_default_values[$field['type']];
-
-                if ($field['default'] === '' &&
-                   ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_EMPTY_TO_NULL)) {
-                    $field['default'] = null;
-                }
-            }
-
-            if ($field['type'] === 'boolean') {
-                $field['default'] = $this->conn->convertBooleans($field['default']);
-            }
-
-            if (array_key_exists('defaultConstraintName', $field)) {
-                $default .= ' CONSTRAINT ' . $field['defaultConstraintName'];
-            }
-
-            $default .= ' DEFAULT ' . (is_null($field['default'])
-                ? 'NULL'
-                : $this->conn->quote($field['default'], $field['type']));
-        }
-        
-        return $default;
     }
 }

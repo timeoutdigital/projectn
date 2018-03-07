@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information, see
- * <http://www.doctrine-project.org>.
+ * <http://www.phpdoctrine.org>.
  */
 
 /**
@@ -27,7 +27,7 @@
  * @subpackage  Pager
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @version     $Revision$
- * @link        www.doctrine-project.org
+ * @link        www.phpdoctrine.org
  * @since       0.9
  */
 class Doctrine_Pager
@@ -366,7 +366,7 @@ class Doctrine_Pager
      * @param $page       current page
      * @return void
      */
-    protected function _setPage($page)
+    private function _setPage($page)
     {
         $page = intval($page);
         $this->_page = ($page <= 0) ? 1 : $page;

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 7675 2010-06-09 16:48:13Z jwage $
+ *  $Id: Mssql.php 6484 2009-10-12 17:40:41Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information, see
- * <http://www.doctrine-project.org>.
+ * <http://www.phpdoctrine.org>.
  */
 
 /**
@@ -27,8 +27,8 @@
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author      Frank M. Kromann <frank@kromann.info> (PEAR MDB2 Mssql driver)
  * @author      David Coallier <davidc@php.net> (PEAR MDB2 Mssql driver)
- * @version     $Revision: 7675 $
- * @link        www.doctrine-project.org
+ * @version     $Revision: 6484 $
+ * @link        www.phpdoctrine.org
  * @since       1.0
  */
 class Doctrine_Import_Mssql extends Doctrine_Import
@@ -189,7 +189,7 @@ class Doctrine_Import_Mssql extends Doctrine_Import
     public function listTableTriggers($table)
     {
         $table = $this->conn->quote($table, 'text');
-        $query = "SELECT name FROM sysobjects WHERE xtype = 'TR' AND object_name(parent_obj) = " . $this->conn->quoteIdentifier($table, true);
+        $query = "SELECT name FROM sysobjects WHERE xtype = 'TR' AND object_name(parent_obj) = " . $table;
 
         $result = $this->conn->fetchColumn($query);
 
@@ -206,7 +206,7 @@ class Doctrine_Import_Mssql extends Doctrine_Import
     {
         $keyName = 'INDEX_NAME';
         $pkName = 'PK_NAME';
-        if ($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) && ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE)) {
+        if ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE) {
             if ($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) == CASE_LOWER) {
                 $keyName = strtolower($keyName);
                 $pkName  = strtolower($pkName);
@@ -216,10 +216,10 @@ class Doctrine_Import_Mssql extends Doctrine_Import
             }
         }
         $table = $this->conn->quote($table, 'text');
-        $query = 'EXEC sp_statistics @table_name = ' . $this->conn->quoteIdentifier($table, true);
+        $query = 'EXEC sp_statistics @table_name = ' . $table;
         $indexes = $this->conn->fetchColumn($query, $keyName);
 
-        $query = 'EXEC sp_pkeys @table_name = ' . $this->conn->quoteIdentifier($table, true);
+        $query = 'EXEC sp_pkeys @table_name = ' . $table;
         $pkAll = $this->conn->fetchColumn($query, $pkName);
 
         $result = array();

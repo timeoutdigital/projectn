@@ -1,21 +1,20 @@
-all: ~
+
 
 
 prod:
-  searchlight_london:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                mysql://projectn:outtime99@192.9.215.250/searchlight_london
-      attributes:
-        use_native_enum:  true
-      profiler: false
   project_n:
     class:                sfDoctrineDatabase
     param:
       dsn:                mysql://root:outtime99@localhost/project_n
       attributes:
         use_native_enum:  true
-      profiler: false
+
+  searchlight_london:
+    class:                sfDoctrineDatabase
+    param:
+      dsn:                mysql://projectn:outtime99@80.250.104.16/searchlight_london
+      attributes:
+        use_native_enum:  true
 
 dev:
   searchlight_london:
@@ -24,49 +23,27 @@ dev:
       dsn:                mysql://root:outtime99@localhost/searchlight_london
       attributes:
         use_native_enum:  true
-      profiler: false
-  project_n:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                mysql://root:outtime99@localhost/project_n
-      attributes:
-        use_native_enum:  true
-      profiler: false
+    
 
-test :
-  searchlight_london:
-    class:                sfDoctrineDatabase
-    param:
-      dsn:                sqlite::memory:
-      attributes:
-        use_native_enum:  true
-        validate:         all
-      profiler: false
+test:
   project_n:
     class:                sfDoctrineDatabase
     param:
       dsn:                sqlite::memory:
       attributes:
         use_native_enum:  true
-        validate:         all
-      profiler: false
 
-
-test-functional :
   searchlight_london:
     class:                sfDoctrineDatabase
     param:
-      dsn:                sqlite:%SF_DATA_DIR%/searchlight_london.db:
+      dsn:                sqlite::memory:
       attributes:
         use_native_enum:  true
-        validate:         all
-      profiler: false
 
+all:
   project_n:
     class:                sfDoctrineDatabase
     param:
-      dsn:               sqlite:%SF_DATA_DIR%/project_n.db:
+      dsn:                mysql://root:outtime99@localhost/project_n;unix_socket=/var/run/mysqld/mysqld.sock
       attributes:
         use_native_enum:  true
-        validate:         all
-      profiler: false

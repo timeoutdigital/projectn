@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 7660 2010-06-08 18:30:22Z jwage $
+ *  $Id: Mssql.php 6759 2009-11-18 17:24:27Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information, see
- * <http://www.doctrine-project.org>.
+ * <http://www.phpdoctrine.org>.
  */
 
 /**
@@ -27,8 +27,8 @@
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author      Frank M. Kromann <frank@kromann.info> (PEAR MDB2 Mssql driver)
  * @author      David Coallier <davidc@php.net> (PEAR MDB2 Mssql driver)
- * @version     $Revision: 7660 $
- * @link        www.doctrine-project.org
+ * @version     $Revision: 6759 $
+ * @link        www.phpdoctrine.org
  * @since       1.0
  */
 class Doctrine_DataDict_Mssql extends Doctrine_DataDict
@@ -77,7 +77,7 @@ class Doctrine_DataDict_Mssql extends Doctrine_DataDict
                 $fixed  = ((isset($field['fixed']) && $field['fixed']) || $field['type'] == 'char') ? true : false;
 
                 return $fixed ? ($length ? 'CHAR('.$length.')' : 'CHAR('.$this->conn->varchar_max_length.')')
-                    : (($length && $length <= $this->conn->varchar_max_length) ? 'VARCHAR('.$length.')' : 'TEXT');
+                    : ($length ? 'VARCHAR('.$length.')' : 'TEXT');
             case 'clob':
                 if ( ! empty($field['length'])) {
                     $length = $field['length'];
@@ -245,16 +245,9 @@ class Doctrine_DataDict_Mssql extends Doctrine_DataDict
                 $field['default'] = empty($field['notnull']) ? null : 0;
             }
 
-            $value = (is_null($field['default'])
+            $default = ' DEFAULT ' . (is_null($field['default'])
                 ? 'NULL'
                 : $this->conn->quote($field['default']));
-
-            // Name the constraint if a name has been supplied
-            if (array_key_exists('defaultConstraintName', $field)) {
-                $default .= ' CONSTRAINT ' . $field['defaultConstraintName'];
-            }
-
-            $default .= ' DEFAULT ' . $value;
         }
 
 
@@ -263,11 +256,11 @@ class Doctrine_DataDict_Mssql extends Doctrine_DataDict
         // MSSQL does not support the UNSIGNED keyword
         $unsigned = '';
         $comment  = (isset($field['comment']) && $field['comment']) 
-            ? " COMMENT " . $this->conn->quote($field['comment'], 'text') : '';
+            ? " COMMENT '" . $field['comment'] . "'" : '';
 
         $name = $this->conn->quoteIdentifier($name, true);
 
-        return $name . ' ' . $this->getNativeDeclaration($field) . $unsigned
+        return $name . ' ' . $this->getNativeDeclaration($field) . $unsigned 
             . $default . $notnull . $autoinc . $comment;
     }
 }

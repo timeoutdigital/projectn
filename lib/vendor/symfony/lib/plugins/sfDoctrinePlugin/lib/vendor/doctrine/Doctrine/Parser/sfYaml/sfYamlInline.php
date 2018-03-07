@@ -38,30 +38,15 @@ class sfYamlInline
       return '';
     }
 
-    if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2)
-    {
-      $mbEncoding = mb_internal_encoding();
-      mb_internal_encoding('ASCII');
-    }
-
     switch ($value[0])
     {
       case '[':
-        $result = self::parseSequence($value);
-        break;
+        return self::parseSequence($value);
       case '{':
-        $result = self::parseMapping($value);
-        break;
+        return self::parseMapping($value);
       default:
-        $result = self::parseScalar($value);
+        return self::parseScalar($value);
     }
-
-    if (isset($mbEncoding))
-    {
-      mb_internal_encoding($mbEncoding);
-    }
-
-    return $result;
   }
 
   /**
@@ -104,7 +89,7 @@ class sfYamlInline
         return is_infinite($value) ? str_ireplace('INF', '.Inf', strval($value)) : (is_string($value) ? "'$value'" : $value);
       case false !== strpos($value, "\n") || false !== strpos($value, "\r"):
         return sprintf('"%s"', str_replace(array('"', "\n", "\r"), array('\\"', '\n', '\r'), $value));
-      case preg_match('/[ \s \' " \: \{ \} \[ \] , & \* \# \?] | \A[ - ? | < > = ! % @ ` ]/x', $value):
+      case preg_match('/[ \s \' " \: \{ \} \[ \] , & \* \#] | \A[ - ? | < > = ! % @ ]/x', $value):
         return sprintf("'%s'", str_replace('\'', '\'\'', $value));
       case '' == $value:
         return "''";
@@ -214,7 +199,7 @@ class sfYamlInline
    */
   static protected function parseQuotedScalar($scalar, &$i)
   {
-    if (!preg_match('/'.self::REGEX_QUOTED_STRING.'/Au', substr($scalar, $i), $match))
+    if (!preg_match('/'.self::REGEX_QUOTED_STRING.'/A', substr($scalar, $i), $match))
     {
       throw new InvalidArgumentException(sprintf('Malformed inline YAML string (%s).', substr($scalar, $i)));
     }

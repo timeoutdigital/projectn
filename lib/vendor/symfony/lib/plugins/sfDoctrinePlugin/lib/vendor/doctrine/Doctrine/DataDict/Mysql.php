@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mysql.php 7635 2010-06-08 13:56:17Z jwage $
+ *  $Id: Mysql.php 6805 2009-11-24 21:14:51Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information, see
- * <http://www.doctrine-project.org>.
+ * <http://www.phpdoctrine.org>.
  */
 
 /**
@@ -25,8 +25,8 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
- * @version     $Revision: 7635 $
- * @link        www.doctrine-project.org
+ * @version     $Revision: 6805 $
+ * @link        www.phpdoctrine.org
  * @since       1.0
  */
 class Doctrine_DataDict_Mysql extends Doctrine_DataDict
@@ -163,6 +163,8 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                     $field['length'] = isset($field['length']) && $field['length'] ? $field['length']:255;
                 }
             case 'varchar':
+            case 'array':
+            case 'object':
             case 'string':
             case 'gzip':
                 if ( ! isset($field['length'])) {
@@ -178,8 +180,6 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
 
                 return $fixed ? ($length ? 'CHAR(' . $length . ')' : 'CHAR(255)')
                     : ($length ? 'VARCHAR(' . $length . ')' : 'TEXT');
-            case 'array':
-            case 'object':
             case 'clob':
                 if ( ! empty($field['length'])) {
                     $length = $field['length'];
@@ -504,7 +504,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
         $notnull  = (isset($field['notnull'])  && $field['notnull'])  ? ' NOT NULL' : '';
         $unsigned = (isset($field['unsigned']) && $field['unsigned']) ? ' UNSIGNED' : '';
         $comment  = (isset($field['comment']) && $field['comment']) 
-            ? " COMMENT " . $this->conn->quote($field['comment'], 'text') : '';
+            ? " COMMENT '" . $field['comment'] . "'" : '';
 
         $name = $this->conn->quoteIdentifier($name, true);
 
